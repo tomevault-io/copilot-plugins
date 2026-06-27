@@ -1,136 +1,148 @@
-## seed-conventions
+## session-state
 
-> Generate CLAUDE.md and CONVENTIONS.md for a brand-new project through a brief interview, and create the specs/ directory with evolved bigpowers structure (product/, tech-architecture/, verifications/, epics/archive/). Entry point for greenfield projects. Use when starting a new project from scratch, when user asks to set up AI agent conventions, or when there is no CLAUDE.md yet.
+> Track implementation decisions and progress in specs/state.yaml to prevent context rot. Use at the start of a session to load context, and whenever a significant decision is made or a milestone is reached.
 
 
 
-# Seed Conventions
-> **HARD GATE** — Before any new code lands, confirm the project conventions are understood. Ask: 'What does a good commit message look like in this project?'
+# Session State
+> **HARD GATE** — **HARD GATE** — Session state must be synchronized with git state. If state.yaml conflicts with the working tree, halt and ask for clarification. Do NOT assume state is correct.
 
-Bootstrap a new project with the AI agent conventions it needs. Run this once at the start of a greenfield project.
 
-## What this creates
+Track the current state of implementation, including decisions made, pending tasks, and open questions, to ensure continuity across session boundaries and prevent "context rot."
 
-- `CLAUDE.md` — Claude Code session config (project-specific)
-- `CONVENTIONS.md` — shared rules for all AI agents
-- `specs/` — the specs directory where all planning output will live
-- `AGENTS.md` — for OpenCode and other agents (optional)
-- `GEMINI.md` — for Gemini CLI (optional)
+## Goal
 
-## Interview
+Maintain a single source of truth for the *current* session in `specs/state.yaml`. This complements long-term docs in `specs/tech-architecture/` and delivery detail in `specs/epics/` + `specs/release-plan.yaml`.
 
-Ask the user these questions (one at a time, wait for each answer):
+Legacy markdown (`specs/archive/STATE.md`, `RELEASE-PLAN.md`) is **not** SoT when YAML exists — use `specs/state.yaml` only.
 
-1. **Project name and one-sentence description** — "What is this project? One sentence."
-2. **Stack** — "What language, framework, and runtime? (e.g. TypeScript / Next.js / Node 22)"
-2b. **Stack profile (optional)** — Offer: `swift`, `typescript-vue`, `node-service`, or none. If chosen, merge the matching fragment from `profiles/<name>.md` into generated `CONVENTIONS.md`.
-3. **Commands** — "What commands do you use for: run, test, build, lint?"
-4. **Architecture** — "Key modules and relationships in 1–2 sentences."
-5. **Conventions** — "Any naming, file organization, or patterns all agents must follow?"
-6. **Never-do list** — "What are the hard stops? Things an agent must never touch?"
-7. **Defensive code categories** — "Which apply? (Rate limit / Retry / Circuit breaker / Timeout / Graceful degradation)"
+## Handoff block (cold start)
 
-## Generate files
+When ending a session or before a context-heavy spawn, update `handoff` in `state.yaml`:
 
-After the interview, generate each file using the templates in [REFERENCE.md](REFERENCE.md):
-- `CLAUDE.md`, `GEMINI.md`, `AGENTS.md` — from the agent-config template
-- `opencode.json` — from the opencode template
-- `CONVENTIONS.md` — bigpowers standard template + project defensive code categories
+```yaml
+handoff:
+  last_step_completed: "e02s01 verify-work passed"
+  open_decisions:
+    - "Use folder mode for e07 (>5 stories)"
+  required_reading:
+    - CONVENTIONS.md
+    - specs/epics/e02-verification/epic.yaml
+  next_skill: develop-tdd
+```
 
-### `specs/` directory
+## Strategic compaction
 
+| Trigger | Action |
+|---------|--------|
+| Phase transition (Plan → Build → Verify) | Compact handoff; archive verbose decisions to ADR |
+| Context > 70% estimated | Run terse-mode for status only; move detail to specs/ |
+| Before `dispatch-agents` wave | `state.yaml` only channel between spawns |
+
+## Workflow
+
+### 1. Initialize (Session Start)
+
+If `specs/state.yaml` does not exist, or if starting a new major phase:
+
+- [ ] Read `specs/release-plan.yaml` and `specs/product/SCOPE_LATEST.yaml`.
+- [ ] Get git metadata: `git branch --show-current` and `git rev-parse --short HEAD`.
+- [ ] Create `specs/state.yaml` with active flow, git, handoff, and epic cycle if in build.
+
+### 2. Load (Context Refresh)
+
+When starting a new session or after a significant context flush:
+
+- [ ] Read `specs/state.yaml` to understand where the previous agent left off.
+- [ ] Read `specs/execution-status.yaml` for story progress (do not infer from release-plan).
+- [ ] Verify git matches `state.yaml` `git.branch` / `git.hash`.
+
+### 3. Update (Decision Point/Milestone)
+
+Whenever a significant decision is made or a milestone is reached:
+
+- [ ] Patch via `bash scripts/bp-yaml-set.sh specs/state.yaml git.hash <hash>` (or edit directly).
+- [ ] Update `handoff.open_decisions` with rationale.
+- [ ] Update `epic_cycle` when advancing `ship-epic` steps.
+- [ ] Record open questions under `handoff.open_decisions` or an ADR.
+
+→ verify: `bash scripts/validate-specs-yaml.sh`
+
+## Universal checkpoint pattern
+
+Every multi-step flow (>3 steps) in bigpowers uses a cycle counter in `state.yaml`:
+
+| Flow | Cycle key | Step field | Phases/Steps |
+|------|-----------|------------|-------------|
+| build-epic | `epic_cycle` | `current_step` | 8 (survey → release) |
+| fix-bug | `bug_cycle` | `current_step` | 5 (investigate → release) |
+| orchestrate-project | `project_cycle` | `current_phase` | 6 (discover → release) |
+
+**Checkpoint:** After each step/phase completes, increment the counter in `state.yaml` and update `handoff.next_skill`.
+
+**Resume:** On session start, read the current step/phase from the cycle key — continue from there, not from step 1.
+
+**Completed steps:** Track completed steps in `completed_steps` (comma-separated string) for audit trail.
+
+## Strategic compaction
+
+Print the current session state: `cat specs/state.yaml`, then display `active_flow` and `handoff.next_skill` for quick reference.
+
+### reset-state (absorbed)
+
+Clear ephemeral session state. Set `active_epic_id`, `active_story_id`, and `epic_cycle.current_step` to `null` in `specs/state.yaml`. Use when ending a phase or starting a new project context.
+
+### compact-state (absorbed)
+
+Archive verbose decisions before a context transition. Move all entries from `handoff.open_decisions` to their appropriate location:
+
+- **System-wide decisions** → `specs/adr/NNNN-slug.md` (global Architectural Decision Records)
+- **Epic-scoped decisions** → `specs/epics/<active_epic_id>-<slug>/adr/NNNN-slug.md` (epic-local ADRs, archived with epic)
+
+After archiving, reset `handoff.open_decisions` to an empty list.
+
+## File Format: specs/state.yaml
+
+```yaml
+active_flow: build_epic       # planning | build_epic | fix_bug
+active_epic_id: e02
+active_story_id: e02s01       # required when epic mode: folder
+active_bug_id: null           # BUG-2026-06-01T143022 when fix_bug
+release:
+  target_version: null         # NOT tracked manually — semantic-release decides at merge
+  last_tag: v2.28.0            # mirror of `gh release view`, reference only
+  last_publish: null
+epic_cycle:
+  current_step: develop-tdd
+  next_skill: develop-tdd
+  completed_steps: [kickoff-branch]
+bug_cycle:
+  current_step: null
+  completed_steps: []
+git:
+  branch: feat/e02-verify
+  hash: abc1234
+handoff:
+  last_step_completed: null
+  open_decisions: []
+  next_skill: survey-context
+```
+
+## Tracking commit ratio
+
+After `release-branch` lands, compute fix-to-feature ratio via:
 ```bash
-mkdir -p specs/product specs/product/snapshots specs/epics/archive
-mkdir -p specs/tech-architecture specs/adr specs/verifications specs/bugs
-touch specs/product/SCOPE_LATEST.yaml specs/product/VISION_LATEST.yaml specs/product/GLOSSARY_LATEST.yaml
-touch specs/release-plan.yaml specs/execution-status.yaml specs/planning-status.yaml specs/state.yaml
-touch specs/tech-architecture/tech-stack.md specs/tech-architecture/security.md
-touch specs/tech-architecture/test.md specs/tech-architecture/design.md
-touch specs/tech-architecture/REFACTOR_LATEST.md specs/tech-architecture/IMPACT_LATEST.md
-touch specs/bugs/registry.yaml
-echo "# Specs\n\nAll planning documents for this project." > specs/README.md
+FEAT_COUNT=$(git log main --oneline --grep="^feat" | wc -l | tr -d ' ')
+FIX_COUNT=$(git log main --oneline --grep="^fix" | wc -l | tr -d ' ')
+FIX_PCT=$((FIX_COUNT * 100 / (FEAT_COUNT + FIX_COUNT)))
 ```
+Update `specs/state.yaml` `metrics.commit_ratio` with counts. If `fix_pct > 30%`, emit: `"High fix rate (N%) — deploy + smoke-test recommended"`.
 
-**Note:** `specs/state.yaml.lock` is NOT pre-created — acquired/released dynamically.
+## Anti-Patterns
 
-`specs/state.yaml` carries a top-level `workflow_mode` key (`team-pr` | `solo-git`, default `team-pr`). This is the **canonical integrate-mode signal** for all skills — set it once here and skills such as `release-branch` read it from this file instead of sniffing profile files.
-
-## Verify
-
-- [ ] CLAUDE.md exists and is populated
-- [ ] CONVENTIONS.md exists and includes specs/ output convention
-- [ ] specs/product/ exists with SCOPE_LATEST.yaml, VISION_LATEST.yaml, GLOSSARY_LATEST.yaml
-- [ ] specs/tech-architecture/ exists with tech-stack.md, security.md, test.md, design.md
-- [ ] specs/verifications/ exists
-- [ ] specs/epics/archive/ exists
-- [ ] specs/bugs/registry.yaml exists
-- [ ] Confirm with user: "Does CLAUDE.md accurately describe your project?"
-
----
-
-# Seed Conventions — Reference Templates
-
-## Agent config template (CLAUDE.md / GEMINI.md / AGENTS.md)
-
-All three files use the same structure — only the header differs:
-- `CLAUDE.md` → `# [Project Name] — Claude Code`
-- `GEMINI.md` → `# [Project Name] — Gemini CLI`
-- `AGENTS.md` → `# [Project Name] — OpenCode`
-
-```markdown
-# [Project Name] — [Agent]
-
-Read CONVENTIONS.md before any GitHub or git operation.
-
-## Project
-[One sentence description]
-Stack: [language, framework, runtime]
-
-## Commands
-| Action | Command |
-|--------|---------|
-| Run    | `[cmd]` |
-| Test   | `[cmd]` |
-| Build  | `[cmd]` |
-| Lint   | `[cmd]` |
-
-## Architecture
-[1–2 sentences. Key modules and their relationships.]
-
-## Conventions
-- [convention 1]
-- [convention 2]
-
-## Never
-- [hard stop 1]
-- [hard stop 2]
-
-## Agent Rules
-- **Workflow Mandate:** You MUST use the bigpowers skills (e.g. `plan-work`, `develop-tdd`, `orchestrate-project`) to perform tasks. DO NOT write code directly in response to a user prompt like "build this feature".
-- Read specs/ before writing code.
-- All planning and specifications MUST be written to `specs/` (`product/SCOPE_LATEST.yaml`, `release-plan.yaml`, `epics/`) before any code is generated.
-- Write the minimum code that solves the stated problem. Nothing extra.
-- Never refactor, rename, or reorganize code outside the task scope.
-- Run tests after every change. Show evidence before declaring done.
-- One clarifying question beats a wrong assumption baked into 200 lines.
-```
-
-## opencode.json template
-
-```json
-{
-  "$schema": "https://opencode.ai/config.json",
-  "instructions": [".cursor/rules/*.mdc"]
-}
-```
-
-## CONVENTIONS.md
-
-Use the standard bigpowers CONVENTIONS.md as the base. Fill in the project-specific defensive code categories from the interview answers.
-
-## Stack profile fragments
-
-If the user selected a stack profile, merge the matching `profiles/<name>.md` fragment into the generated `CONVENTIONS.md` under a `## Stack Conventions` section. Profiles supply language-specific commands, architecture patterns, and never-do additions.
+- **Duplicate Plan**: Don't copy `release-plan.yaml` or epic shards into `state.yaml`.
+- **Stale State**: Forgetting to update `state.yaml` after a major refactor or decision.
+- **Status in release-plan**: Story/epic status lives only in `execution-status.yaml`.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
