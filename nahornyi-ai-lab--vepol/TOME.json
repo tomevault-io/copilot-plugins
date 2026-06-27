@@ -1,0 +1,44 @@
+{
+  "name": "vepol",
+  "owner": "nahornyi-ai-lab",
+  "repo": "vepol",
+  "description": "Your second inner voice. A proactive local AI partner that plans your day, runs routines, and leaves an auditable markdown trail.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nahornyi-ai-lab/vepol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T22:51:04Z"
+}
