@@ -4,7 +4,7 @@
   "repo": "github-actions.nvim",
   "description": "A Neovim plugin for managing GitHub Actions workflows directly from Neovim",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/skanehira/github-actions.nvim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T17:47:10Z"
+  "distributed_at": "2026-06-27T04:12:17Z"
 }
