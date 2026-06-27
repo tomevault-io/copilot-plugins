@@ -1,0 +1,9 @@
+{
+  "name": "sentiuminc--holler",
+  "displayName": "holler",
+  "description": "Open-source American english TTS model. 6 voices and a high performance inference library for Apple Silicon.",
+  "version": "1.0.0",
+  "author": "sentiuminc",
+  "homepage": "https://github.com/sentiuminc/holler",
+  "skills": []
+}
