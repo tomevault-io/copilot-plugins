@@ -1,0 +1,9 @@
+{
+  "name": "nv-tlabs--omni-dreams",
+  "displayName": "omni-dreams",
+  "description": "NVIDIA OmniDreams is a world model that generates photorealistic video for autonomous-driving simulation in real time.",
+  "version": "1.0.0",
+  "author": "nv-tlabs",
+  "homepage": "https://github.com/nv-tlabs/omni-dreams",
+  "skills": []
+}
