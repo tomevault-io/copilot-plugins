@@ -1,0 +1,9 @@
+{
+  "name": "exadev--agent-comms",
+  "displayName": "agent-comms",
+  "description": "Cross-harness communication mesh for LLM agents. Rooms, DMs, presence, and visibility.",
+  "version": "1.0.0",
+  "author": "ExaDev",
+  "homepage": "https://github.com/ExaDev/agent-comms",
+  "skills": []
+}
