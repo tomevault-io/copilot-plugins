@@ -1,0 +1,9 @@
+{
+  "name": "hidumou--xsh-info-card",
+  "displayName": "xsh-info-card",
+  "description": "SupSub \u91d1\u878d\u4fe1\u606f\u5361\u7247\u751f\u4ea7\u6d41\u6c34\u7ebf \u00b7 JSON \u2192 Jinja2 \u2192 PNG",
+  "version": "1.0.0",
+  "author": "hidumou",
+  "homepage": "https://github.com/hidumou/xsh-info-card",
+  "skills": []
+}
