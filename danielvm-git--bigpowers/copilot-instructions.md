@@ -1,92 +1,81 @@
-## audit-plan
+## build-epic
 
-> Evaluate an incoming project plan against bigpowers principles and conventions, surface gaps, and produce a READY/NOT READY verdict before engagement begins. Use when a new project arrives, when adapting a foreign plan, or before running seed-conventions on an unfamiliar codebase.
+> Eight-step epic build cycle — reads state.yaml, execution-status.yaml, and one epic capsule; updates status via bp-yaml-set or direct edit. Resume mode runs one step per invocation. Use instead of ad-hoc execute-plan for release work.
 
 
 
-# Audit Plan
+# Build Epic
 
-> **HARD GATE** — Do NOT start build skills (kickoff-branch, develop-tdd) until audit-plan returns a READY verdict. A plan missing test commands, scope boundaries, or success criteria will produce drift and rework downstream.
+Scope: one story. Called by orchestrate-project Phase 4. Not a replacement for orchestrate-project.
 
-Assess an incoming project plan for alignment with bigpowers principles, identify what's missing, and produce a structured readiness report before any skill execution begins.
+Orchestrates the **build** flow for a single epic: survey → plan tasks → kickoff → TDD → verify → audit → commit → release.
 
-## Three lenses
+> **HARD GATE** — Set `specs/state.yaml` `active_flow: build_epic` and `active_epic: eNN` before starting.
+>
+> **HARD GATE** — Not on `main`/`master` before step 3 (kickoff-branch).
 
-### 1. Principles alignment
-- Are stories vertical slices (not horizontal layers)?
-- Is scope bounded — explicit in_scope + out_of_scope?
-- Are success criteria defined (how do we know we're done)?
-- Are HARD GATE candidates identifiable (critical decision points)?
-- Is there a domain language / ubiquitous terminology?
+## Eight steps (`epic_cycle` in state.yaml)
 
-### 2. Conventions completeness
-- Does `CLAUDE.md` or `AGENTS.md` exist?
-- Does `CONVENTIONS.md` exist?
-- Is the `specs/` directory layout in place?
-- Are commit conventions documented (Conventional Commits)?
-- Is the git workflow mode identified (`solo-git` | `team-pr`)?
-
-### 3. Bigpowers pre-flight (must all be answered before build)
-| Question | Why |
-|----------|-----|
-| What is the **test command**? | `develop-tdd` verify steps require it |
-| What is the **build command**? | `verify-work` mechanical gate |
-| What is the **lint command**? | `audit-code` lint gate |
-| What is the **typecheck command**? | `verify-work` typecheck gate |
-| What **CI platform** is in use? | `wire-ci` configuration |
-| **Solo or team**? | `release-branch` integration mode |
-| Primary **language + framework**? | model routing + conventions |
-| **Greenfield or existing** codebase? | determines whether to run `seed-conventions` or `migrate-spec` first |
+| Step | Skill / action |
+|------|----------------|
+| 1 | `survey-context` — confirm epic + story |
+| 2 | `plan-work` — flesh out story `tasks[]` in `specs/epics/eNN-slug/epic.yaml` |
+| 3 | `kickoff-branch` — feature branch + clean baseline |
+| 4 | `develop-tdd` — red-green per task |
+| 5 | `verify-work` — UAT + mechanical gates |
+| 6 | `audit-code` — **non-optional gate** (pass/fail; fail → loop back to step 4) |
+| 7 | `commit-message` — Conventional Commits draft |
+| 8 | `release-branch` — PR or solo land (supports `--squash-state`) |
 
 ## Process
 
-1. **Ingest the plan** — accept a file path, pasted PRD text, or existing `specs/` artifacts. Read `CLAUDE.md` and `CONVENTIONS.md` if present.
+1. Read `specs/state.yaml`, `specs/execution-status.yaml`, `specs/release-plan.yaml`, active `specs/epics/eNN-slug/epic.yaml`.
+2. **Assess Impact (Step 2):** Before writing tasks, run `assess-impact --lightweight` on the proposed change. If the risk score exceeds 7, gate — require a `grill-me` session. Write the impact report to `specs/IMPACT-<epic>-<story>.md`. For net-new code with no existing dependents, skip.
+3. **BCP Tracking (Step 2):** After `plan-work` completes, read the `bcps:` count (Business Complexity Points story size) from the epic capsule and carry it into `state.yaml` as `epic_cycle.story_bcps = N`.
+3. If `epic_cycle.step` missing, set to `1`.
+4. Run **only the current step** (resume mode) unless user asked for full auto-run.
+5. After step verify passes, increment `epic_cycle.step` in `state.yaml` (or `bash scripts/bp-yaml-set.sh` if available).
+6. On story complete, set `execution-status.yaml` story key to `done`; run `bash scripts/sync-status-from-epics.sh`.
 
-2. **Score each lens** — for every item above, mark:
-   - ✅ Present and adequate
-   - ⚠️ Present but incomplete — note what's missing
-   - ❌ Absent
+### Step 6 — audit-code gate (non-optional)
 
-3. **Close gaps conversationally** — for each ❌ or ⚠️, ask one question at a time. Record each answer before moving to the next.
+After step 5 (verify-work) completes successfully, step 6 runs `audit-code` automatically in `--gate` mode:
 
-4. **Write `specs/PLAN-AUDIT.md`**:
+1. **Run audit:** Invoke `audit-code --gate` on the complete diff for this story.
+2. **Pass (exit 0):** All checklist sections pass → advance to step 7 (commit-message). Record `epic_cycle.audit_result: pass` in `state.yaml`.
+3. **Fail (exit 1):** One or more checklist sections fail → **reset `epic_cycle.current_step` to `4`** (develop-tdd) and add the failing section IDs to `completed_steps` as `"1,2,3,4,5,6(fail: ...)"`. Record `epic_cycle.audit_result: fail` in `state.yaml`. Do NOT advance past step 6 until audit passes.
+4. **Audit artifact:** Full audit report saved to `specs/verifications/AUDIT-<epic>-<story>.md` regardless of pass/fail, for reviewer traceability.
+5. **Enforce F.I.R.S.T:** After audit-code passes, run `enforce-first --quick` on new/modified tests. Append F.I.R.S.T violations (if any) to the audit report. Failing F.I.R.S.T criteria trigger the same loop-back to step 4.
 
-```markdown
-# Plan Audit — <project>
-**Date:** YYYY-MM-DD · **Verdict:** READY | NOT READY
+## --fast mode
 
-## Principles Alignment
-| Check | Status | Note |
-| Vertical slices | ✅ | 4 stories, each shippable |
-| Scope bounded | ⚠️ | in_scope present; out_of_scope missing |
+Coalesces read-and-report steps to reduce token overhead. Activate with `build-epic --fast`.
 
-## Conventions Completeness
-| Check | Status | Note |
+| Normal | --fast | Change |
+|--------|--------|--------|
+| Step 1 (survey-context) | 1+2 together | survey + plan in one invocation |
+| Step 2 (plan-work) | (absorbed into 1) | — |
+| Step 3 (kickoff-branch) | Step 2 | unchanged, sequential |
+| Step 4 (develop-tdd) | Step 3 | unchanged, sequential |
+| Step 5 (verify-work) | Step 4 | unchanged, sequential |
+| Step 6 (audit-code) | 5+6 together | audit + commit-message in one invocation |
+| Step 7 (commit-message) | (absorbed into 6) | — |
+| Step 8 (release-branch) | Step 7 | unchanged, sequential |
 
-## Pre-flight Answers
-| Command | Value |
-| test | `npm test` |
-| build | `npm run build` |
+**Total invocations:** 8 → 6 per story.
 
-## Open Gaps
-- [ ] Add out_of_scope to scope definition (run scope-work)
-- [ ] Create CLAUDE.md (run seed-conventions)
+**Rules:**
+- Steps 3/4/5/8 (kickoff, develop, verify, release) still run sequentially — they require user interaction or branch state.
+- `--fast` does NOT skip any checklist items; it only coalesces steps that are pure read-and-report.
+- Record `epic_cycle.fast_mode: true` in `state.yaml` when this flag is active.
 
-## Verdict
-READY — proceed with survey-context
-NOT READY — N gaps remain; close before proceeding
-```
+## Handoff
 
-5. **Recommend next skill**:
-   - READY → `survey-context`
-   - Needs bootstrapping → `seed-conventions`
-   - Needs spec elaboration → `elaborate-spec`
-   - Has foreign spec format → `migrate-spec`
-   - Plan assumptions need challenging → `grill-me`
+Write `handoff.next_skill` and `handoff.context` in `state.yaml` when pausing mid-epic.
 
 ## Verify
 
-→ verify: `test -f specs/PLAN-AUDIT.md && grep -q 'Verdict' specs/PLAN-AUDIT.md && echo OK || echo FAIL`
+→ verify: `grep -q 'active_flow: build_epic' specs/state.yaml && test -f specs/epics/*/epic.yaml`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
