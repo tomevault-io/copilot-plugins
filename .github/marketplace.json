@@ -120739,6 +120739,11 @@
       "description": "CodeGraff: a faster, lightweight coding agent for focused terminal development"
     },
     {
+      "name": "seebom-labs--bomhort",
+      "source": "./seebom-labs--bomhort",
+      "description": "About standalone, Kubernetes-native Software Bill of Materials (SBOM) visualization and governance platform"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -155922,6 +155927,11 @@
       "name": "antonillos--makevn",
       "source": "./antonillos--makevn",
       "description": "Terminal-first workflows for Java Maven repositories."
+    },
+    {
+      "name": "archeryue--octopus",
+      "source": "./archeryue--octopus",
+      "description": "Octopus is a personal agent platform"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
