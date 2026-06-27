@@ -1,0 +1,9 @@
+{
+  "name": "karancode--kiro-action",
+  "displayName": "kiro-action",
+  "description": "GitHub Action for Kiro",
+  "version": "1.0.0",
+  "author": "karancode",
+  "homepage": "https://github.com/karancode/kiro-action",
+  "skills": []
+}
