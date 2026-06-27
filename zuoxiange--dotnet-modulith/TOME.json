@@ -1,0 +1,44 @@
+{
+  "name": "dotnet-modulith",
+  "owner": "ZUOXIANGE",
+  "repo": "dotnet-modulith",
+  "description": "\u57fa\u4e8e ASP.NET Core 10 \u7684\u6a21\u5757\u5316\u5355\u4f53\u793a\u4f8b\u9879\u76ee\uff0c\u501f\u9274 Spring Modulith \u8bbe\u8ba1\u7406\u5ff5\uff0c\u7ed3\u5408 DDD\u3001\u4e8b\u4ef6\u9a71\u52a8\u3001CQRS \u4e0e\u53ef\u89c2\u6d4b\u6027\uff0c\u6f14\u793a\u4e00\u4e2a\u53ef\u6f14\u8fdb\u5230\u5fae\u670d\u52a1\u7684\u5de5\u7a0b\u5b9e\u8df5",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZUOXIANGE/dotnet-modulith",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T03:01:55Z"
+}
