@@ -1,0 +1,9 @@
+{
+  "name": "routevn--route-engine",
+  "displayName": "route-engine",
+  "description": "A lightweight Visual Novel engine built in JavaScript for creating interactive narrative games with branching storylines",
+  "version": "1.0.0",
+  "author": "RouteVN",
+  "homepage": "https://github.com/RouteVN/route-engine",
+  "skills": []
+}
