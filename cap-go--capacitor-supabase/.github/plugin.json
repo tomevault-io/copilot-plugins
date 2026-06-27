@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-supabase",
+  "displayName": "capacitor-supabase",
+  "description": "Native Supabase authentication, JWT access, and basic database helpers for Capacitor.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-supabase",
+  "skills": []
+}
