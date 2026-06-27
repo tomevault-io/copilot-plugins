@@ -1,0 +1,44 @@
+{
+  "name": "logic-lens",
+  "owner": "hyhmrright",
+  "repo": "logic-lens",
+  "description": "Logic-first AI code review via semi-formal execution tracing (Premises \u2192 Trace \u2192 Divergence \u2192 Trigger \u2192 Remedy). Catches behavioral bugs, type-contract breaches & async hazards that linters miss. Six skills \u00b7 Claude Code \u00b7 Codex CLI \u00b7 Gemini CLI.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hyhmrright/logic-lens",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T22:36:58Z"
+}
