@@ -1,0 +1,9 @@
+{
+  "name": "oomkapwn--enquire-mcp",
+  "displayName": "enquire-mcp",
+  "description": "The most advanced Obsidian MCP \u2014 long-term memory for AI agents. Hybrid retrieval (BM25 + ML + BGE rerank, RRF-fused), HNSW live-update, agentic RAG (HyDE + sub-question), Obsidian Bases, PDFs+OCR. Fo",
+  "version": "1.0.0",
+  "author": "oomkapwn",
+  "homepage": "https://github.com/oomkapwn/enquire-mcp",
+  "skills": []
+}
