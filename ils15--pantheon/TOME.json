@@ -1,0 +1,69 @@
+{
+  "name": "pantheon",
+  "owner": "ils15",
+  "repo": "pantheon",
+  "description": "GitHub Copilot agents and instructions for reuse across projects",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fastapi-async-patterns",
+      "path": "skills/fastapi-async-patterns",
+      "github_url": "https://github.com/ils15/pantheon/tree/main/skills/fastapi-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-review-checklist",
+      "path": "skills/code-review-checklist",
+      "github_url": "https://github.com/ils15/pantheon/tree/main/skills/code-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "fastapi-async-patterns",
+      "path": "platform/claude/.claude/skills/fastapi-async-patterns",
+      "github_url": "https://github.com/ils15/pantheon/tree/main/platform/claude/.claude/skills/fastapi-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "database-optimization",
+      "path": "skills/database-optimization",
+      "github_url": "https://github.com/ils15/pantheon/tree/main/skills/database-optimization",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ils15/pantheon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T00:30:24Z"
+}
