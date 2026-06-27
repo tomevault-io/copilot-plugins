@@ -1,0 +1,9 @@
+{
+  "name": "dotdev262--winhome",
+  "displayName": "WinHome",
+  "description": "A declarative, idempotent Infrastructure-as-Code tool for setting up Windows Dev Environments. Built with C# and .NET 10.",
+  "version": "1.0.0",
+  "author": "DotDev262",
+  "homepage": "https://github.com/DotDev262/WinHome",
+  "skills": []
+}
