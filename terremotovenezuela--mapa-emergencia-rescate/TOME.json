@@ -4,7 +4,7 @@
   "repo": "mapa-emergencia-rescate",
   "description": "Mapa de emergencia y rescate: reportes ciudadanos en tiempo real para coordinar ayuda humanitaria (Next.js + Leaflet + Upstash Redis)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/terremotovenezuela/mapa-emergencia-rescate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T21:30:51Z"
+  "distributed_at": "2026-06-27T21:31:20Z"
 }
