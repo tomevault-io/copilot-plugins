@@ -1,104 +1,86 @@
-## elaborate-spec
+## enforce-first
 
-> Refine a rough idea into a clear, detailed specification through dialogue. Does not produce code. Use when user has a vague idea, wants to think through a feature before planning, or needs to turn \"I want X\" into a concrete spec.
+> Apply the F.I.R.S.T test quality rubric (Fast, Independent, Repeatable, Self-Validating, Timely) to a test suite or individual tests. Use when develop-tdd is writing tests, when test quality needs to be checked, or when user mentions F.I.R.S.T or \"test quality\".
 
 
 
-# Elaborate Spec
+# Enforce FIRST
+> **HARD GATE** — **HARD GATE** — Before shipping, ALL enforcement checks must pass: lint, typecheck, tests, coverage gates. Do NOT disable or skip checks to get to green.
 
-Turn a rough idea into a clear specification through focused dialogue. No code is written during this skill — the output is shared understanding and a refined problem statement.
 
-> **HARD GATE** — Do NOT proceed with planning or implementation until the problem space is clearly understood. Success criteria, actors, and scope must be explicit before drafting a plan.
+Apply the F.I.R.S.T rubric (Uncle Bob, Clean Code Chapter 9) to evaluate and improve tests.
 
-## Process
+This skill is typically invoked internally by `develop-tdd` during the test-writing phase. It can also be run standalone on an existing test suite.
 
-### 1. Listen first
+## Modes
 
-Let the user describe their idea in their own words. Do not interrupt or redirect. Take notes on:
-- The core problem they're trying to solve
-- Who is affected (actors)
-- What success looks like to them
-- Any constraints they've already identified
+- Default: full F.I.R.S.T audit (all 5 criteria)
+- --quick: Check F (Fast), I (Independent), and S (Self-Validating) only. Used by build-epic step 6 as a mechanical gate after audit-code. Skips R (Repeatable) and T (Timely) which require contextual judgment.
 
-### 2. Ask clarifying questions
+## The F.I.R.S.T Rubric
 
-Ask one question at a time. Work through these areas:
+### F — Fast
 
-**Problem clarity**
-- What is the current behavior (or lack of behavior) that prompted this?
-- Who experiences this problem? How often?
-- What's the cost of not solving it?
+Tests must run quickly. Slow tests don't get run. They don't get trusted.
 
-**Solution boundaries**
-- What is explicitly IN scope?
-- What is explicitly OUT of scope?
-- Are there existing solutions (internal or external) this replaces or integrates with?
+- [ ] No real network calls (use fakes/stubs for external I/O)
+- [ ] No real database (use in-memory or transaction-rollback strategies)
+- [ ] No `sleep` or arbitrary timeouts in test code
+- [ ] The full suite runs in under 30 seconds (target; adjust to project size)
 
-**Success criteria**
-- How will you know this is done?
-- What does the happy path look like end-to-end?
-- What are the key failure modes to handle?
+**Fix:** Replace slow I/O with named fake classes. Never inline anonymous stubs.
 
-**Constraints**
-- Any performance requirements?
-- Any compatibility constraints (existing APIs, data formats)?
-- Any non-negotiable implementation decisions already made?
+### I — Independent
 
-### 2.5. Multiple Interpretations (HARD GATE)
+Tests must not depend on each other. Running in any order must produce the same result.
 
-> **HARD GATE** — If the request admits ≥2 valid interpretations, do NOT guess. You must list them and ask the user to choose before proceeding. Proceeding with unresolved ambiguity is a failure of integrity.
+- [ ] No shared mutable state between tests
+- [ ] Each test sets up its own data and tears it down
+- [ ] No test assumes another test ran first
+- [ ] Tests can be run individually (e.g. `npm test -- mytest.test.ts`) and pass
 
-Present the options clearly:
-> "I see two ways to read this:
-> 1. [Interpretation A] — my recommendation because [reason]
-> 2. [Interpretation B]
-> Which is closer to what you mean?"
+**Fix:** Move setup into `beforeEach`. Use factory functions to build test data.
 
-### 3. Surface hidden assumptions
+### R — Repeatable
 
-Once the user has answered the main questions, probe for assumptions:
-- "You mentioned X — does that mean Y is also true?"
-- "What happens when Z fails?"
-- "Is this for internal users, external users, or both?"
+Tests must pass consistently in any environment.
 
-### 4. Synthesize and confirm
+- [ ] No dependency on machine-specific paths, ports, or environment variables (unless explicitly injected)
+- [ ] No dependency on current time without mocking the clock
+- [ ] No flakiness — a test that sometimes fails is worse than no test
+- [ ] Tests pass on CI the same way they pass locally
 
-Summarize your understanding in 3–5 bullet points aligned with [countable-story-format.md](file:///Users/danielvm/Developer/bigpowers/countable-story-format.md):
-- The problem (feeds into §1 Business narrative)
-- The solution and main flow (feeds into §5)
-- The key constraints and alternative flows (feeds into §6)
-- The success criteria (feeds into §17 Gherkin)
-- What's out of scope (feeds into §18)
+**Fix:** Inject time, randomness, and environment as parameters. Pin seeds for anything random.
 
-Ask: "Is this an accurate summary? Anything missing or wrong?"
+### S — Self-Validating
 
-### 5. Write specs/planning-context.yaml
+Tests must report pass or fail automatically. No human inspection required.
 
-After the user confirms the summary in step 4, persist the key decisions:
+- [ ] Tests use assertions (`expect`, `assert`, etc.) — not just `console.log`
+- [ ] Failure messages are descriptive enough to diagnose without reading the test body
+- [ ] No tests that "pass" by default when the feature is broken
 
-```yaml
-# specs/planning-context.yaml — written by elaborate-spec; consumed by scope-work and slice-tasks
-feature_name: "<from step 1>"
-problem_statement: "<one paragraph>"
-constraints:
-  - "<constraint 1>"
-out_of_scope:
-  - "<excluded item 1>"
-key_decisions:
-  - decision: "<what was decided>"
-    rationale: "<why>"
-```
+**Fix:** Add assertion messages. Use matchers that describe the expected behavior.
 
-If `specs/planning-context.yaml` already exists, ask: `"Planning context from a prior session exists. Update it? [Y/n]"`. Overwrite on Y; leave unchanged on N.
+### T — Timely
 
-### 6. Suggest next skill
+Tests must be written at the right time — before or immediately with the code they test.
 
-Once the spec is clear, recommend the next step:
-- If domain model needs work → `model-domain`
-- If ready to plan → `plan-release` (creates epic capsules with `epic.yaml` + story `.md` + `-tasks.yaml`) then `plan-work` per story
-- If a spike is needed first → `spike-prototype`
-- If architecture decisions are needed → `deepen-architecture` or `grill-me`
-- If the plan depends on a specific library or API → `grill-me` in docs mode
+- [ ] Tests are written in the same commit as the code (or the commit before, if TDD)
+- [ ] No "I'll add tests later" patterns
+- [ ] Bug fixes include a regression test that would have caught the bug
+
+**Fix:** Run `develop-tdd` — it enforces the timely principle by design.
+
+## Applying the rubric
+
+For each failing criterion:
+1. Identify which tests violate it
+2. Describe the fix
+3. Apply the fix
+4. Re-run the suite to confirm it still passes
+
+Report: "F.I.R.S.T audit complete. X criteria passed, Y fixed."
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
