@@ -1,0 +1,9 @@
+{
+  "name": "openclaw--crawlbar",
+  "displayName": "crawlbar",
+  "description": "Menu bar control plane for local-first crawl apps",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/crawlbar",
+  "skills": []
+}
