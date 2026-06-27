@@ -1,0 +1,9 @@
+{
+  "name": "devaraj-07--nexus-ai",
+  "displayName": "Nexus-AI",
+  "description": "Nexus AI is an AI-powered monitoring tool for CI/CD pipelines. It watches your builds in real time, detects failures instantly, and uses AI to explain what went wrong and how to fix it \u2014 turning confu",
+  "version": "1.0.0",
+  "author": "DEVARAJ-07",
+  "homepage": "https://github.com/DEVARAJ-07/Nexus-AI",
+  "skills": []
+}
