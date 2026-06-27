@@ -215109,6 +215109,16 @@
       "description": "\u5f00\u53d1\u5de5\u5177\u7bb1"
     },
     {
+      "name": "menfre01--waveloom",
+      "source": "./menfre01--waveloom",
+      "description": "\u4e3a DeepSeek \u524d\u7f00\u7f13\u5b58\u5b9a\u5236\u7684\u7ec8\u7aef Code Agent\uff08\u7eaf Go\uff09\uff0c\u7f13\u5b58\u547d\u4e2d\u7387 95-99%\uff0c\u8f93\u5165\u6210\u672c\u964d\u81f3 1/50\u3002A terminal coding agent optimized for DeepSeek prefix caching \u2014 95-99% cache hit, 1/50th the cost."
+    },
+    {
+      "name": "menfre01--waveloom",
+      "source": "./menfre01--waveloom",
+      "description": "\u4e3a DeepSeek \u524d\u7f00\u7f13\u5b58\u5b9a\u5236\u7684\u7ec8\u7aef Code Agent\uff08\u7eaf Go\uff09\uff0c\u7f13\u5b58\u547d\u4e2d\u7387 95-99%\uff0c\u8f93\u5165\u6210\u672c\u964d\u81f3 1/50\u3002A terminal coding agent optimized for DeepSeek prefix caching \u2014 95-99% cache hit, 1/50th the cost."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -232437,6 +232447,31 @@
       "name": "wzj998--fluencer-predict-track",
       "source": "./wzj998--fluencer-predict-track",
       "description": "\u6295\u8d44\u5927V\u5408\u8ba2\u672c\uff1a\u8ffd\u8e2a\u6295\u8d44\u5927V\u5386\u53f2\u9884\u6d4b\uff0c\u5e76\u7528\u516c\u5f00\u6570\u636e\u9a8c\u8bc1\u51c6\u786e\u6027"
+    },
+    {
+      "name": "r5rana--agentware",
+      "source": "./r5rana--agentware",
+      "description": "Self learning AI agentic framework with loops and persistent memory that you own. Open-source & free."
+    },
+    {
+      "name": "haoj322-ops--https-github-com-xxhuberrr-mineradio",
+      "source": "./haoj322-ops--https-github-com-xxhuberrr-mineradio",
+      "description": "https-github.com-XxHuberrr-Mineradio"
+    },
+    {
+      "name": "r5rana--agentware",
+      "source": "./r5rana--agentware",
+      "description": "Self learning AI agentic framework with loops and persistent memory that you own. Open-source & free."
+    },
+    {
+      "name": "r5rana--agentware",
+      "source": "./r5rana--agentware",
+      "description": "Self learning AI agentic framework with loops and persistent memory that you own. Open-source & free."
+    },
+    {
+      "name": "mewamew--huaizi-de-cows",
+      "source": "./mewamew--huaizi-de-cows",
+      "description": "\u82b1\u5b50\u7684\u5976\u725b\u5173"
     },
     {
       "name": "cheerhuan--save-your-token",
