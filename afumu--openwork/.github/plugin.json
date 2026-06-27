@@ -1,0 +1,9 @@
+{
+  "name": "afumu--openwork",
+  "displayName": "openwork",
+  "description": "Browser-based agent platform with a user workspace, admin console, product gateway, and per-user runtime isolation.",
+  "version": "1.0.0",
+  "author": "afumu",
+  "homepage": "https://github.com/afumu/openwork",
+  "skills": []
+}
