@@ -1,0 +1,9 @@
+{
+  "name": "anamkwon--agent-skill-router",
+  "displayName": "agent-skill-router",
+  "description": "Cross-agent skill router that organizes large local skill libraries into category routers and loads leaf skills on demand.",
+  "version": "1.0.0",
+  "author": "AnamKwon",
+  "homepage": "https://github.com/AnamKwon/agent-skill-router",
+  "skills": []
+}
