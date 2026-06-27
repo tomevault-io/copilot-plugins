@@ -1,0 +1,44 @@
+{
+  "name": "tech-writer-skills",
+  "owner": "TeiNam",
+  "repo": "tech-writer-skills",
+  "description": "IT \uae30\uc220 \ubb38\uc11c\ub97c \uc815\ud655\ud558\uace0 \uba85\ud655\ud558\uace0 \uc2e4\ud589 \uac00\ub2a5\ud558\uac8c \uc791\uc131\u00b7\uc724\ubb38\ud574\uc8fc\ub294 Claude \uc2a4\ud0ac. \ub178\ud2b8\u00b7\uc694\uc810\uc5d0\uc11c \ubb38\uc11c\ub97c \uc0c8\ub85c \uc791\uc131\ud558\uac70\ub098(write), \uae30\uc874 \ucd08\uc548\uc744 \ub2e4\ub4ec\ub294\ub2e4(polish). \ud55c\uad6d\uc5b4\u00b7\uc601\uc5b4 \uc591\ubc29\ud5a5.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TeiNam/tech-writer-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T03:02:24Z"
+}
