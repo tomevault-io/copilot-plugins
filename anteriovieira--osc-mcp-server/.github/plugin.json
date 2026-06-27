@@ -1,0 +1,9 @@
+{
+  "name": "anteriovieira--osc-mcp-server",
+  "displayName": "osc-mcp-server",
+  "description": "MCP server for controlling digital mixers (Behringer X32, Midas M32, etc.) via OSC",
+  "version": "1.0.0",
+  "author": "anteriovieira",
+  "homepage": "https://github.com/anteriovieira/osc-mcp-server",
+  "skills": []
+}
