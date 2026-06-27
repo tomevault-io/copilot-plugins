@@ -1,0 +1,44 @@
+{
+  "name": "advanced-imessage-ts",
+  "owner": "photon-hq",
+  "repo": "advanced-imessage-ts",
+  "description": "TypeScript SDK for the Apple level iMessage API via Photon's Spectrum gRPC gateway.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/photon-hq/advanced-imessage-ts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T18:31:41Z"
+}
