@@ -4,7 +4,7 @@
   "repo": "fastcampus-harness-engineering-course",
   "description": "Fastcampus \uc628\ub77c\uc778 \uac15\uc758 - Harness Engineering",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HyunjunJeon/fastcampus-harness-engineering-course",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:52:30Z"
+  "distributed_at": "2026-06-27T22:58:44Z"
 }
