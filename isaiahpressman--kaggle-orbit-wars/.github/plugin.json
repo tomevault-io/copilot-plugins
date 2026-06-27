@@ -1,0 +1,9 @@
+{
+  "name": "isaiahpressman--kaggle-orbit-wars",
+  "displayName": "kaggle-orbit-wars",
+  "description": "An RL library for the Kaggle 2026 Orbit Wars competition",
+  "version": "1.0.0",
+  "author": "IsaiahPressman",
+  "homepage": "https://github.com/IsaiahPressman/kaggle-orbit-wars",
+  "skills": []
+}
