@@ -1,0 +1,9 @@
+{
+  "name": "youmind-openlab--abti",
+  "displayName": "abti",
+  "description": "ABTI (AI-Based Type Indicator) \u2014 AI personality test based on your chat memories. 28 types. Paste a prompt, get roasted. \ud83c\udfad",
+  "version": "1.0.0",
+  "author": "YouMind-OpenLab",
+  "homepage": "https://github.com/YouMind-OpenLab/abti",
+  "skills": []
+}
