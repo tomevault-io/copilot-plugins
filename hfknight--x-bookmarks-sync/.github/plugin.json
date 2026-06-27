@@ -1,0 +1,9 @@
+{
+  "name": "hfknight--x-bookmarks-sync",
+  "displayName": "x-bookmarks-sync",
+  "description": "Sync your X (Twitter) bookmarks directly into your Obsidian vault as clean, structured Markdown notes. No API key. No OAuth.",
+  "version": "1.0.0",
+  "author": "hfknight",
+  "homepage": "https://github.com/hfknight/x-bookmarks-sync",
+  "skills": []
+}
