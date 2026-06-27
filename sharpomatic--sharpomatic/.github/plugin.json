@@ -1,0 +1,9 @@
+{
+  "name": "sharpomatic--sharpomatic",
+  "displayName": "SharpOMatic",
+  "description": "Build AI workflows with deep .NET integration.",
+  "version": "1.0.0",
+  "author": "sharpomatic",
+  "homepage": "https://github.com/sharpomatic/SharpOMatic",
+  "skills": []
+}
