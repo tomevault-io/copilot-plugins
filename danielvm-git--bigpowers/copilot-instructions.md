@@ -1,162 +1,55 @@
-## verify-work
+## visual-dashboard
 
-> Multi-phase UAT gate — cold-start smoke, build, typecheck, lint, tests, step-by-step manual verification, gaps-closure loop. Use after execute-plan or develop-tdd, before audit-code.
+> Start a browser-based dashboard that visualizes architecture, implementation plans, and project status. Persists artifacts in .bigpowers/dashboard/. Reads specs/state.yaml, release-plan.yaml, epics, and planning-status via HTTP API or opencode panel.
 
 
 
-# Verify Work
+# Visual Dashboard
+> **HARD GATE** — **HARD GATE** — Dashboards are read-only. Do NOT use visualization to make decisions without consulting the source data. 'The chart looks better' is not a decision.
 
-> **HARD GATE** — No story is "done" until manual UAT for the active story is confirmed with evidence.
->
-> **HARD GATE** — Do NOT run on `main` or `master`. Use the feature branch from `kickoff-branch`.
 
-Review answers "is the code good?"; Verify answers "does the built thing do what was promised?"
+Browser-based visual companion for bigpowers. Visualizes architecture, plans, and status.
 
-## Modes
+## HTTP cockpit (YAML SoT)
 
-- Default: full UAT plus gaps loop
-- --smoke: Cold-start only plus one happy-path flow. Use for hotfixes.
-- --cli: CLI tool verification — replaces cold-start with binary smoke checklist. Use for CLI tools with no server process.
-
-## Process
-
-> **Timing:** `bash scripts/bp-timing.sh start verify-work` at invocation; `bash scripts/bp-timing.sh end verify-work` before handoff.
-
-0. **Branch check** — must not be `main`/`master`.
-
-1. Read active story tasks from `specs/epics/<capsule>/eNNsYY-tasks.yaml` and story spec from `specs/epics/<capsule>/eNNsYY-<slug>.md` (countable-story-format, Gherkin in §17).
-1a. **Pre-UAT verify validation** — for each task's `verify:` command, run it and detect pattern mismatches before UAT begins. If a grep/awk/jq command fails, check whether the pattern is wrong vs. a genuine failure:
-    ```bash
-    # For a failing grep -q 'PATTERN' FILE, check what is actually in FILE
-    grep 'PATTERN' FILE || grep -n '' FILE | head -20   # show nearest lines
-    ```
-    Report: `"Pattern 'X' not found. Nearest match: 'Y' at line N"` and ask `"Update verify command? [Y/n]"`. Fix before proceeding — a mismatched verify command produces false failures during UAT.
-2. **Cold-start smoke** (if app): stop server, clear caches, boot from scratch.
-3. **AGENTS.md preflight** — before running default checks, call `bash scripts/bp-read-agents.sh` to detect project-specific commands. If `BP_PREFLIGHT` is set, run it instead of the default mechanical gates (or in addition to them if the project requires both). Output: `"Using preflight from AGENTS.md: <cmd>"`. Fall back to `CLAUDE.md` commands if AGENTS.md is absent.
-4. Mechanical gates: build → typecheck → lint → tests (from `CLAUDE.md` or AGENTS.md).
-5. **Step-by-step UAT** — one user-observable action at a time.
-6. **Gaps loop** — failures → log → `plan-work` → re-verify.
-
-## Verify sub-operations
-
-### Cold-Start Smoke (absorbed)
-
-For applications, verify correctness from a clean state:
-
-- Stop the running server (if any)
-- Clear any caches (browser, application caches, compiled artifacts)
-- Boot the application from scratch
-- Verify that no stale artifacts or configuration are affecting the behavior
-
-This catches environment-specific bugs and ensures the build is reproducible.
-
-### Gaps Loop (absorbed)
-
-After UAT, identify and close any gaps between promised behavior and actual behavior:
-
-- Capture what was promised in the epic task description
-- Document what actually happened (expected vs actual)
-- If behavior doesn't match the promises, log the gap
-- Loop back to `plan-work` or `develop-tdd` to fix the gap
-- Re-verify until all gaps are closed (gaps count = 0)
-
-## UAT dialogue
-
-- Pass: user confirms per step.
-- Fail: capture expected vs actual; do not mark done in `execution-status.yaml`.
-
-## Persist verification evidence
-
-After UAT passes, write structured evidence to `specs/verifications/eNNsYY-verify.yaml`:
-
-```yaml
-story_id: e01s01
-verified_at: "2026-06-11T14:30:00Z"
-verifier: verify-work
-phases:
-  smoke:
-    passed: true
-  build:
-    passed: true
-    command: "npm run build"
-  typecheck:
-    passed: true
-  lint:
-    passed: true
-  tests:
-    passed: true
-    coverage: "94.2%"
-  manual:
-    steps:
-      - step: "Open /login"
-        expected: "Login form renders"
-        actual: "Login form rendered correctly"
-        passed: true
-  gaps:
-    closed: true
-```
-
-> **HARD GATE** — Verification evidence MUST be persisted before marking the story done. No evidence = not verified.
-
-## --cli mode
-
-For CLI tools where cold-start smoke (stop server / clear caches) does not apply. Auto-detected when the project has no server process (no `listen()`, no `server.js`, no blocking `main()`); or explicitly activated with `--cli`.
-
-**Auto-detect binary name:**
-```bash
-# Cargo.toml
-BINARY=$(grep '^name' Cargo.toml | head -1 | awk -F'"' '{print $2}')
-# package.json
-BINARY=$(node -e "console.log(require('./package.json').bin && Object.keys(require('./package.json').bin)[0] || '')" 2>/dev/null)
-# Makefile
-BINARY=$(grep '^BIN\s*=' Makefile 2>/dev/null | awk '{print $3}')
-```
-
-**CLI verification checklist (replaces cold-start smoke):**
-
-1. `--help` smoke: `$BINARY --help` → assert output contains "Usage"
-2. `--version` check: `$BINARY --version` → assert version matches manifest (Cargo.toml / package.json)
-3. Happy-path: run documented example command from README.md → assert non-empty output
-4. Edge case: `$BINARY --invalid-flag` → assert exit code ≠ 0 and error message printed
-
-No "stop server" or "clear caches" steps are executed in `--cli` mode. Steps 3–6 of the default process (mechanical gates, UAT, gaps loop) still run unchanged.
-
-## Verify
-
-→ verify: `test -f specs/verifications/<story_id>-verify.yaml && echo "Evidence persisted"`
-
-See [REFERENCE.md](REFERENCE.md) for cold-start and gaps template.
-
-## Handoff
-
-Gate: READY -> next: audit-code
-Writes: state.yaml handoff.next_skill = audit-code
-
----
-
-# Verify Work — Reference
-
-## Cold-start smoke
+Start the server:
 
 ```bash
-# Example — adapt to project CLAUDE.md
-pkill -f "<dev-server>" 2>/dev/null || true
-rm -rf .next/cache node_modules/.cache 2>/dev/null || true
-<run command> &
-sleep 3 && curl -sf http://localhost:<port>/health || echo "BOOT FAIL"
+bash visual-dashboard/scripts/start-server.sh
 ```
 
-## Gaps template
+Endpoints:
 
-```markdown
-## Gaps (verify-work)
+| Route | Purpose |
+|-------|---------|
+| `GET /api/status?projectDir=<abs>` | JSON: `state`, `release`, `epics[]`, `planning_status`, `active_epic` |
+| `GET /cockpit.html?projectDir=<abs>` | Read-only PM view (planning left, epics right) |
+| `GET /` | Agent-pushed HTML screens (legacy, unchanged) |
 
-| Step | Expected | Actual | Status |
-|------|----------|--------|--------|
-| 1 | ... | ... | FAIL |
+Example:
+
+```bash
+curl -s "http://127.0.0.1:PORT/api/status?projectDir=$PWD" | jq .release.version
 ```
 
-Feed gaps to `plan-work` as new steps with verify commands, then re-run verify-work.
+Implementation: `visual-dashboard/scripts/read-specs-status.cjs` + `server.cjs`.
+
+## Opencode Progress Panel
+
+Projects using bigpowers in opencode can read `specs/state.yaml`, `specs/release-plan.yaml`, and active `specs/epics/*.yaml` directly (no checkbox `### WS1` markdown).
+
+Required YAML keys:
+
+- **state.yaml** — `active_flow`, `active_epic_id`, `git`, `handoff`, `epic_cycle`
+- **release-plan.yaml** — `release.version`, `epics[]` with `id`, `title`, `wsjf`, `file`
+- **execution-status.yaml** — `development_status` map (story/epic → `done` | `pending`)
+- **planning-status.yaml** — discover workflows and `status: done|pending`
+
+## Agent screens (optional)
+
+Push HTML to the dashboard session dir for rich diagrams. See `start-server.sh` for `CONTENT_DIR`.
+
+→ verify: `test -f visual-dashboard/scripts/read-specs-status.cjs && test -f visual-dashboard/scripts/cockpit.html`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
