@@ -1,0 +1,9 @@
+{
+  "name": "revanthpobala--skill-atlas",
+  "displayName": "skill-atlas",
+  "description": "A standalone, server less workbench to visualize, validate, and safely edit AI agent instruction graphs.",
+  "version": "1.0.0",
+  "author": "revanthpobala",
+  "homepage": "https://github.com/revanthpobala/skill-atlas",
+  "skills": []
+}
