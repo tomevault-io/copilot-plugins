@@ -1,0 +1,9 @@
+{
+  "name": "maples7--vibechard",
+  "displayName": "VibeChard",
+  "description": "Per-task isolated worktrees for parallel Apple development with AI agents. Run multiple Claude / Codex / Copilot / Cursor sessions on the same Xcode project without build.db locks, DerivedData thrash,",
+  "version": "1.0.0",
+  "author": "Maples7",
+  "homepage": "https://github.com/Maples7/VibeChard",
+  "skills": []
+}
