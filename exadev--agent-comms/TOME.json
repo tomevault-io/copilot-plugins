@@ -4,7 +4,7 @@
   "repo": "agent-comms",
   "description": "Cross-harness communication mesh for LLM agents. Rooms, DMs, presence, and visibility.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ExaDev/agent-comms",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:47:47Z"
+  "distributed_at": "2026-06-27T22:52:01Z"
 }
