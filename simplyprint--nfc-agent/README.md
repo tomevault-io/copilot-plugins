@@ -7,11 +7,11 @@ Local NFC read + write API for Windows, Linux and Mac.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SimplyPrint/nfc-agent](https://github.com/SimplyPrint/nfc-agent).
+Original source: `AGENTS.md` in [SimplyPrint/nfc-agent](https://github.com/SimplyPrint/nfc-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
