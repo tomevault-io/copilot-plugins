@@ -1,97 +1,109 @@
-## hook-commits
+## inspect-quality
 
-> Set up pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing.
-
-
-
-# Hook Commits
-> **HARD GATE** — **HARD GATE** — Pre-commit and commit-msg hooks must run before any commit lands. Skipping hooks (`--no-verify`) is forbidden unless explicitly authorized for a specific commit and documented.
+> Interactive QA session where user reports bugs or issues conversationally, and the agent logs them to specs/bugs/registry.yaml with a structured audit schema. Explores the codebase in the background for context and domain language. Use when user wants to report bugs, do QA, or mentions \"QA session\".
 
 
-## What This Sets Up
 
-- **Husky** pre-commit hook
-- **lint-staged** running Prettier on all staged files
-- **Prettier** config (if missing)
-- **typecheck** and **test** scripts in the pre-commit hook
+# Inspect Quality
+> **HARD GATE** — **HARD GATE** — Quality metrics (coverage, lint, cyclomatic complexity, security scans) must be monitored. If a metric degrades, surface it as a blocker. Do NOT accept regressions.
 
-## Steps
 
-### 1. Detect package manager
+Run an interactive QA session. The user describes problems they're encountering. You clarify, explore the codebase for context, and log each issue to `specs/bugs/registry.yaml` with a structured, durable format.
 
-Check for `package-lock.json` (npm), `pnpm-lock.yaml` (pnpm), `yarn.lock` (yarn), `bun.lockb` (bun). Use whichever is present. Default to npm if unclear.
+## For each issue the user raises
 
-### 2. Install dependencies
+### 1. Listen and lightly clarify
 
-Install as devDependencies:
+Let the user describe the problem in their own words. Ask **at most 2–3 short clarifying questions** focused on:
 
+- What they expected vs what actually happened
+- Steps to reproduce (if not obvious)
+- Whether it's consistent or intermittent
+
+Do NOT over-interview. If the description is clear enough to log, move on.
+
+### 2. Explore the codebase in the background
+
+Kick off an Agent (subagent_type=Explore) to understand the relevant area. The goal is NOT to find a fix — it's to:
+
+- Learn the domain language used in that area (check `specs/UBIQUITOUS_LANGUAGE.md` if present)
+- Understand what the feature is supposed to do
+- Identify the user-facing behavior boundary
+
+### 3. Assess scope: single issue or breakdown?
+
+Break down when:
+
+- The fix spans multiple independent areas
+- There are clearly separable concerns that could be worked on in parallel
+- The user describes something with multiple distinct failure modes
+
+Keep as a single issue when:
+
+- It's one behavior that's wrong in one place
+- The symptoms are all caused by the same root behavior
+
+### 4. Log to specs/bugs/registry.yaml
+
+Append the issue to `specs/bugs/registry.yaml`. Create the `specs/bugs/` directory if it doesn't exist.
+
+#### registry.yaml format
+
+The file maintains a Markdown table with the following columns (derived from structured audit practice):
+
+| Field | Description |
+|-------|-------------|
+| `bug_id` | `BUG-YYYY-MM-DDTHHMMSS` |
+| `date` | `YYYY-MM-DD` |
+| `severity` | `critical` / `high` / `medium` / `low` |
+| `priority` | `p0` / `p1` / `p2` / `p3` |
+| `scope` | kebab-case area (e.g. `auth`, `checkout`) |
+| `what_happened` | actual behavior (user-facing terms) |
+| `what_expected` | expected behavior |
+| `steps_to_reproduce` | numbered steps |
+| `root_cause` | one-line hypothesis |
+| `files_changed` | filled in after fix |
+| `approach` | filled in after fix |
+| `risk_level` | `low` / `medium` / `high` |
+| `new_tests` | count (filled in after fix) |
+| `type_check` | `pass` / `fail` (filled in after fix) |
+| `lint` | `pass` / `fail` (filled in after fix) |
+| `commit_type` | `fix` / `fix!` / `feat` (filled in after fix) |
+| `release_type` | `patch` / `minor` / `major` (filled in after fix) |
+| `commit_message` | Conventional Commits message (filled in after fix) |
+| `follow_ups` | semicolon-separated follow-up items |
+| `file` | path to detailed `specs/bugs/BUG-*.md` (filled in by investigate-bug) |
+| `status` | `open` / `in-progress` / `fixed` / `wont-fix` |
+
+When a bug is fixed (via `validate-fix`), update the relevant row with the resolution fields.
+
+#### Issue body (for context below the table)
+
+For each bug, also append a detail section:
+
+```markdown
+### BUG-YYYY-MM-DDTHHMMSS: [short title]
+
+**What happened:** [actual behavior, plain language]
+**What I expected:** [expected behavior]
+**Steps to reproduce:**
+1. [Step 1]
+2. [Step 2]
+
+**Additional context:** [domain-language observations, no file paths]
 ```
-husky lint-staged prettier
-```
 
-### 3. Initialize Husky
+#### Rules for all entries
 
-```bash
-npx husky init
-```
+- **bug_id** uses full timestamp: `BUG-YYYY-MM-DDTHHMMSS` — matches the individual bug file name in `specs/bugs/`
+- **No file paths or line numbers** — these go stale
+- **Use the project's domain language** (check `specs/UBIQUITOUS_LANGUAGE.md` if it exists)
+- **Describe behaviors, not code** — "the sync service fails to apply the patch" not "applyPatch() throws"
+- **Reproduction steps are mandatory** — if you can't determine them, ask the user
 
-This creates `.husky/` dir and adds `prepare: "husky"` to package.json.
+### 5. Continue the session
 
-### 4. Create `.husky/pre-commit`
-
-Write this file (no shebang needed for Husky v9+):
-
-```
-npx lint-staged
-npm run typecheck
-npm run test
-```
-
-**Adapt**: Replace `npm` with detected package manager. If repo has no `typecheck` or `test` script in package.json, omit those lines and tell the user.
-
-### 5. Create `.lintstagedrc`
-
-```json
-{
-  "*": "prettier --ignore-unknown --write"
-}
-```
-
-### 6. Create `.prettierrc` (if missing)
-
-Only create if no Prettier config exists. Use these defaults:
-
-```json
-{
-  "useTabs": false,
-  "tabWidth": 2,
-  "printWidth": 80,
-  "singleQuote": false,
-  "trailingComma": "es5",
-  "semi": true,
-  "arrowParens": "always"
-}
-```
-
-### 7. Verify
-
-- [ ] `.husky/pre-commit` exists and is executable
-- [ ] `.lintstagedrc` exists
-- [ ] `prepare` script in package.json is `"husky"`
-- [ ] `prettier` config exists
-- [ ] Run `npx lint-staged` to verify it works
-
-### 8. Commit
-
-Stage all changed/created files and commit with message: `chore: add pre-commit hooks (husky + lint-staged + prettier)`
-
-This will run through the new pre-commit hooks — a good smoke test that everything works.
-
-## Notes
-
-- Husky v9+ doesn't need shebangs in hook files
-- `prettier --ignore-unknown` skips files Prettier can't parse (images, etc.)
-- The pre-commit runs lint-staged first (fast, staged-only), then full typecheck and tests
+After logging, ask: "Next issue, or are we done?" Keep going until the user says done. Each issue is independent — don't batch them.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
