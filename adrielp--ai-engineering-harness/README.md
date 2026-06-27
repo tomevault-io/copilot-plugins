@@ -7,11 +7,11 @@ Provides a harness for various different AI agent for harness context engineerin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [adrielp/ai-engineering-harness](https://github.com/adrielp/ai-engineering-harness).
+Original source: `AGENTS.md` in [adrielp/ai-engineering-harness](https://github.com/adrielp/ai-engineering-harness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -39,7 +39,7 @@ Original source: `CLAUDE.md` in [adrielp/ai-engineering-harness](https://github.
 - [research_codebase](https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/research_codebase)
 - [validate_plan](https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/validate_plan)
 
-From [adrielp/ai-engineering-harness](https://github.com/adrielp/ai-engineering-harness) — a repo with 12+ stars on GitHub.
+From [adrielp/ai-engineering-harness](https://github.com/adrielp/ai-engineering-harness) — a repo with 0+ stars on GitHub.
 
 ---
 
