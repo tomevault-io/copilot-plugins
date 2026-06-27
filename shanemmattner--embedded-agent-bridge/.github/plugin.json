@@ -1,0 +1,9 @@
+{
+  "name": "shanemmattner--embedded-agent-bridge",
+  "displayName": "embedded-agent-bridge",
+  "description": "AI agent bridge for embedded debugging - serial, GDB, OpenOCD, JTAG integration",
+  "version": "1.0.0",
+  "author": "shanemmattner",
+  "homepage": "https://github.com/shanemmattner/embedded-agent-bridge",
+  "skills": []
+}
