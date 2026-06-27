@@ -1,0 +1,9 @@
+{
+  "name": "rasatpetabit--masterplan",
+  "displayName": "masterplan",
+  "description": "Brainstorm \u2192 plan \u2192 execute development workflow plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "rasatpetabit",
+  "homepage": "https://github.com/rasatpetabit/masterplan",
+  "skills": []
+}
