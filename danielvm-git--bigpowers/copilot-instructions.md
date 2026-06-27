@@ -1,61 +1,94 @@
-## bigpowers
+## assess-impact
 
-> > **Auto-generated** by `sync-skills.sh` from `CLAUDE.md`. Edit CLAUDE.md, not this file.
+> Analyze the blast radius of a proposed change before any code is written. Maps dependents, affected stories, and test coverage. Produces specs/IMPACT.md. Use before plan-work on any non-trivial change, when touching a shared module, or when the user asks \"what does this break?\".
 
-# bigpowers — Gemini CLI
 
-> **Auto-generated** by `sync-skills.sh` from `CLAUDE.md`. Edit CLAUDE.md, not this file.
 
-Read CONVENTIONS.md before any GitHub or git operation.
+# Assess Impact
 
-## Project
+> **HARD GATE** — Run this skill before `plan-work` whenever a change touches an existing module, symbol, or file used by more than one caller. Skip only for net-new code with no existing dependents.
 
-bigpowers — 58 agent skills for spec-driven, test-first software development by solo developers.
-Stack: Markdown / Bash (documentation-based; skills integrate with Claude Code, Cursor, Gemini CLI)
+Find the blast radius of the proposed change before a single line is written.
 
-## Commands
+## Modes
 
-| Action  | Command |
-|---------|---------|
-| Install | `npx bigpowers` or `npm install -g bigpowers` |
-| Run     | `bash scripts/sync-skills.sh` |
-| Test    | N/A (documentation project) |
-| Build   | `bash scripts/install.sh` (from source) |
-| Lint    | `bash scripts/sync-skills.sh` (validates SKILL.md syntax) |
+- Default: full impact analysis (dependents + affected stories + test coverage mapping)
+- --lightweight: Fast fan-in/fan-out only (<10s). Maps callers and imports without test coverage mapping. Used by build-epic step 2 as a pre-plan gate. Risk score > 7 triggers a mandatory grill-me session before proceeding.
 
-## Architecture
+## Process
 
-Collection of 58 verb-noun skills, each with a SKILL.md source file and supporting documentation. Includes Verify phase and profiles/. The sync-skills.sh script auto-generates artifacts for Cursor (.cursor/rules) and Gemini CLI (.gemini/extensions/bigpowers/) from SKILL.md sources. All planning and spec output goes to specs/ at the project root.
+### 1. Identify the target
 
-## Conventions
+Name the symbol, module, or file being changed. If the user hasn't specified, ask one question: "What exactly are you changing?"
 
-- Skill directories use verb-noun naming (two words, kebab-case)
-- Every skill has a single SKILL.md file as its source of truth
-- All planning/spec output goes to specs/ at project root
-- Artifacts in .cursor/rules and .gemini/ are auto-generated; edit SKILL.md, not artifacts
-- Run sync-skills.sh after any SKILL.md changes to regenerate artifacts
+### 2. Find dependents
 
-## Never
+```
+grep -rn "[symbol-name]" . --include="*.ts" | grep -v node_modules
+git log --oneline -10 -- [file-path]
+```
 
-- Never edit .cursor/rules or .gemini/extensions/ directly — these are generated files
-- Never create a skill without a SKILL.md file and proper verb-noun naming
-- Never push changes without running sync-skills.sh first
+→ verify: `grep -rn "[target]" . | wc -l`
 
-## Token Management
+### 3. Map to release plan stories
 
-- **Auto-Terse**: When a session exceeds 20 turns or the context window feels "heavy" (latency increasing), you MUST switch to `terse-mode` to save tokens.
-- **Context Compaction**: Every 10 turns, summarize the current session state and implementation decisions into a short, high-density note.
-- **Minimal Output**: Prefer text-only output for simple status; use `web_fetch` or `run_shell_command` only for evidence.
+Read `specs/release-plan.yaml + epic capsule directories` (if it exists). For each dependent found in Step 2, identify which story owns that module. List stories that will be affected by the change.
 
-## Agent Rules
+→ verify: `grep -c "Story" specs/release-plan.yaml + epic capsule directories 2>/dev/null || echo "no release plan"`
 
-- **Workflow Mandate:** You MUST use the bigpowers skills (e.g., `plan-work`, `develop-tdd`, `craft-skill`) to perform tasks. DO NOT write code directly in response to a user prompt like "build this feature".
-- Read specs/ and CONVENTIONS.md before writing code.
-- Write the minimum code that solves the stated problem. Nothing extra.
-- Never refactor, rename, or reorganize code outside the task scope.
-- Run tests after every change. Show evidence before declaring done.
-- One clarifying question beats a wrong assumption baked into 200 lines.
-- All written output (plans, specs, investigations) goes in specs/.
+### 4. List test coverage
+
+Find tests that exercise the target:
+
+```
+grep -rn "[symbol-name]" . --include="*.test.*" --include="*.spec.*"
+```
+
+→ verify: `grep -rn "[target]" . --include="*.test.*" | wc -l`
+
+### 5. Classify risk
+
+| Level | Condition |
+|-------|-----------|
+| Low   | ≤ 2 callers, all covered by tests |
+| Medium | 3–10 callers, partial test coverage |
+| High  | > 10 callers, or shared API/interface, or no tests |
+
+### 6. Write specs/IMPACT.md
+
+```
+## Target
+[symbol or file being changed]
+
+## Dependents ([count])
+- [file]: [caller or usage]
+
+## Affected Stories
+- Story [X.Y]: [title]
+
+## Test Coverage
+- [test file]: covers [scenario]
+- Gap: [untested behavior]
+
+## Risk: Low / Medium / High
+[One-sentence rationale]
+
+## Recommended action
+[Proceed / Add tests first / Discuss design]
+```
+
+→ verify: `grep "Risk:" specs/IMPACT.md`
+
+Suggest `plan-work` once risk is understood and any test gaps are noted.
+
+## Risk score gating
+
+In `--lightweight` mode (used by build-epic step 2), assign a numeric risk score (1–10):
+- Fan-in (how many callers): 0–4 points
+- Fan-out (how many dependencies the module itself uses): 0–3 points  
+- Recent churn (git log --oneline -5 count): 0–3 points
+
+**Risk score > 7**: Gate — require a `grill-me` session before proceeding to implementation. Document the grill-me result in the impact report at `specs/IMPACT-<epic>-<story>.md`.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
