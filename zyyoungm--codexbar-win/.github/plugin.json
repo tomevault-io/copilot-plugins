@@ -1,0 +1,9 @@
+{
+  "name": "zyyoungm--codexbar-win",
+  "displayName": "Codexbar-win",
+  "description": "A Windows-native tray utility for switching Codex OpenAI accounts and compatible providers without splitting the shared ~/.codex session history.",
+  "version": "1.0.0",
+  "author": "ZyyoungM",
+  "homepage": "https://github.com/ZyyoungM/Codexbar-win",
+  "skills": []
+}
