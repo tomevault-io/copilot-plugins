@@ -1,0 +1,9 @@
+{
+  "name": "xesco--pivine",
+  "displayName": "pivine",
+  "description": "Install Chromium + Widevine for Netflix and other DRM streaming on Ubuntu for Raspberry Pi",
+  "version": "1.0.0",
+  "author": "xesco",
+  "homepage": "https://github.com/xesco/pivine",
+  "skills": []
+}
