@@ -4,7 +4,7 @@
   "repo": "DovePaw",
   "description": "Personal AI agent orchestration runtime for Claude Code: build, schedule, and run private TypeScript agents with A2A, launchd, and an Electron UI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PixelPaw-Labs/DovePaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:49:39Z"
+  "distributed_at": "2026-06-27T22:52:58Z"
 }
