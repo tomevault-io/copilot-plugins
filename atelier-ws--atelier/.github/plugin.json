@@ -1,0 +1,9 @@
+{
+  "name": "atelier-ws--atelier",
+  "displayName": "atelier",
+  "description": "Runtime for coding agents. Models are getting smarter, but a model is only as capable as the environment supporting it. Atelier is that environment.",
+  "version": "1.0.0",
+  "author": "atelier-ws",
+  "homepage": "https://github.com/atelier-ws/atelier",
+  "skills": []
+}
