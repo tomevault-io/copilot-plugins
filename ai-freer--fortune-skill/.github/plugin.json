@@ -1,0 +1,9 @@
+{
+  "name": "ai-freer--fortune-skill",
+  "displayName": "fortune-skill",
+  "description": "Chinese traditional fortune-telling AI skill (BaZi \u516b\u5b57 + Zi Wei Dou Shu \u7d2b\u5fae\u6597\u6570) for Claude Code, Codex, Cursor, Trae and any agent platform. PolyForm Noncommercial.",
+  "version": "1.0.0",
+  "author": "ai-freer",
+  "homepage": "https://github.com/ai-freer/fortune-skill",
+  "skills": []
+}
