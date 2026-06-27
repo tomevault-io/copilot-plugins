@@ -1,0 +1,9 @@
+{
+  "name": "zoom--arlo",
+  "displayName": "arlo",
+  "description": "Arlo is an open-source Zoom Apps reference using RTMS for real-time transcription. No bots required. Includes AI summaries, action items, and 5 industry verticals: Notes, Healthcare, Legal, Sales & Su",
+  "version": "1.0.0",
+  "author": "zoom",
+  "homepage": "https://github.com/zoom/arlo",
+  "skills": []
+}
