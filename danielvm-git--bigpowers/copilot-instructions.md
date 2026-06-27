@@ -1,231 +1,173 @@
-## model-domain
+## orchestrate-project
 
-> Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates specs/tech-architecture/tech-stack.md and specs/adr/ inline as decisions crystallise. Use when user wants to stress-test a plan against their project's domain language and documented decisions.
+> Meta-skill that enforces the 6-phase core loop (discover → elaborate → plan → build → verify → release) with hard gates. Use to coordinate multi-phase projects with guaranteed quality checkpoints. One-time command for the entire project lifecycle.
 
 
 
-# Model Domain
+# Orchestrate
+> **HARD GATE** — **HARD GATE** — Do NOT invoke orchestrate-project unless you have a clear multi-phase workflow. Single-skill tasks should use dedicated skills instead. Orchestrate is for complex, multi-stage work that requires coordination across phases.
 
-**Distinct from `define-language` and `deepen-architecture`:** Use this skill to stress-test a plan through a grilling interview that resolves domain model decisions and captures invariants. Use `define-language` to produce a canonical glossary of terms. Use `deepen-architecture` to find module-level refactoring opportunities in code.
 
-Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
+The orchestrate skill coordinates projects through a prescriptive 6-phase core loop with hard gates, ensuring consistent quality and preventing scope creep.
 
-> **HARD GATE** — Capture invariants (what MUST always be true) and state machines (what transitions are legal) for core entities. If these are fuzzy, design will fail.
+## Quick Start
 
-Ask the questions one at a time, waiting for feedback on each question before continuing.
+```bash
+# Start a new project (initializes specs/ YAML cockpit and begins discover phase)
+claude /orchestrate --mode standard
 
-If a question can be answered by exploring the codebase, explore the codebase instead.
+# Or resume an existing project at the current phase
+claude /orchestrate --mode standard --resume
 
-## Domain awareness
-
-During codebase exploration, also look for existing documentation:
-
-### File structure
-
-Most repos have a single context:
-
-```
-/
-├── specs/
-│   ├── CONTEXT.md
-│   └── adr/
-│       ├── 0001-event-sourced-orders.md
-│       └── 0002-postgres-for-write-model.md
-└── src/
+# For low-risk scenarios (hotfixes, refactors on well-tested code)
+claude /orchestrate --mode fast-track
 ```
 
-If a `specs/tech-architecture/tech-stack.md` exists, the repo has multiple contexts. The map points to where each one lives:
+## The 6-Phase Core Loop
 
+1. **DISCOVER** (3-6 hours): Understand problem. Deliverables: `requirements/VISION_LATEST.yaml`, `requirements/SCOPE_LATEST.yaml`, `plans/TECH_STACK_LATEST.md`.
+2. **ELABORATE** (3-6 hours): Research solutions. Deliverables: Prior art in scope YAML, ADRs in `specs/adr/`.
+3. **PLAN** (2-4 hours): Write verifiable plan. Deliverables: `release-plan.yaml`, `epics/eNN-*.yaml` with `verify:` per task.
+4. **BUILD** (1-8 hours): Execute plan. Runs build-epic once per story in WSJF order. Deliverables: Code; update `execution-status.yaml`.
+5. **VERIFY** (1-3 hours): Validate success criteria. Deliverables: UAT evidence, `specs/EVALS-*.md` if used.
+6. **RELEASE** (30 min - 2 hours): Ship to production. Deliverables: Release tag (vX.Y.Z), `state.yaml` `release.last_tag`.
+
+### Checkpoint / resume
+
+Track progress via `specs/state.yaml` `project_cycle`:
+- `project_cycle.current_phase`: current phase (1–6)
+- `project_cycle.completed_phases`: completed phase numbers
+- `handoff.next_skill`: skill for the current phase
+- On resume, read `project_cycle.current_phase` and continue from there
+
+See [REFERENCE.md](REFERENCE.md) for detailed phase specifications and gate types.
+
+## How Orchestrate Works
+
+1. **Maintains state.yaml** — Tracks current phase, `active_epic`, `active_flow`, decisions, risks.
+2. **Spawns appropriate skills** — Routes by `model:` frontmatter. Decisions pass only via `specs/state.yaml` `handoff` between spawns.
+3. **Methodology lenses** — If `specs/tech-architecture/test.md` or ADRs exist, apply at phase gates.
+4. **Enforces gates** — Hard stops if success criteria not met.
+5. **The Gatekeeper** — Between stories in BUILD: read `specs/execution-status.yaml`; previous story must be `done` before starting the next; use `build-epic` for the 8-step epic cycle.
+6. **Pauses for confirmation** — After each phase, asks "Ready to proceed?".
+7. **Snapshots** — `bash scripts/bp-yaml-snapshot.sh` before major release cuts.
+
+## Orchestration Modes
+
+- **Standard**: Enforce all gates. Use for new features and major refactors.
+- **Fast-Track**: Skip negotiable gates. Use for hotfixes and minor improvements.
+- **Ad-Hoc**: Warnings only. Use for prototyping and spikes (non-production).
+
+See [REFERENCE.md](REFERENCE.md) for full mode behaviors.
+
+## Verification
+
+All phases complete with artifacts:
+```bash
+verify: test -f specs/state.yaml && test -f specs/release-plan.yaml && test -f specs/product/SCOPE_LATEST.yaml && ls specs/epics/*.yaml 1>/dev/null && echo "✅ All phases complete"
 ```
-/
-├── specs/
-│   ├── CONTEXT-MAP.md
-│   └── adr/                          ← system-wide decisions
-└── src/
-    ├── ordering/
-    │   └── specs/
-    │       ├── CONTEXT.md
-    │       └── adr/                  ← context-specific decisions
-    └── billing/
-        └── specs/
-            ├── CONTEXT.md
-            └── adr/
-```
-
-Create files lazily — only when you have something to write. If no `specs/tech-architecture/tech-stack.md` exists, create it when the first term is resolved. If no `specs/adr/` exists, create it when the first ADR is needed.
-
-## During the session
-
-### Challenge against the glossary
-
-When the user uses a term that conflicts with the existing language in `specs/tech-architecture/tech-stack.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"
-
-### Sharpen fuzzy language
-
-When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account' — do you mean the Customer or the User? Those are different things."
-
-### Discuss concrete scenarios
-
-When domain relationships are being discussed, stress-test them with specific scenarios. Invent scenarios that probe edge cases and force the user to be precise about the boundaries between concepts.
-
-### Cross-reference with code
-
-When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible — which is right?"
-
-### Update specs/tech-architecture/tech-stack.md inline
-
-When a term is resolved, update `specs/tech-architecture/tech-stack.md` right there. Don't batch these up — capture them as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
-
-Don't couple `specs/tech-architecture/tech-stack.md` to implementation details. Only include terms that are meaningful to domain experts.
-
-### Offer ADRs sparingly
-
-Only offer to create an ADR when all three are true:
-
-1. **Hard to reverse** — the cost of changing your mind later is meaningful
-2. **Surprising without context** — a future reader will wonder "why did they do it this way?"
-3. **The result of a real trade-off** — there were genuine alternatives and you picked one for specific reasons
-
-If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).
-
-## Concurrency safety audit
-
-When the plan touches shared state, async, or multi-threaded code:
-
-- [ ] List every **shared mutable** location (globals, singletons, module-level caches).
-- [ ] For each: who reads, who writes, synchronization mechanism (lock, actor, immutable copy).
-- [ ] Flag **race risks** (check-then-act, non-atomic read-modify-write) with severity.
-- [ ] Record findings in `specs/tech-architecture/tech-stack.md` under `## Concurrency` or in an ADR if architectural.
 
 ---
 
-# ADR Format
+# Orchestrate Reference: Phases, Modes, and Workflows
 
-ADRs live in `docs/adr/` and use sequential numbering: `0001-slug.md`, `0002-slug.md`, etc.
+Detailed documentation for the `orchestrate-project` meta-skill.
 
-Create the `docs/adr/` directory lazily — only when the first ADR is needed.
+## The 6-Phase Core Loop
 
-## Template
+### PHASE 1: DISCOVER
+- **Goal**: Understand the problem completely and map existing context.
+- **Deliverables**: `requirements/VISION_LATEST.yaml`, `requirements/SCOPE_LATEST.yaml`, `plans/TECH_STACK_LATEST.md`.
+- **Skills**: `survey-context`, `elaborate-spec`, `grill-me`.
+- **Gate**: Confirm ("Is the problem clear?").
 
-```md
-# {Short title of the decision}
+### PHASE 2: ELABORATE
+- **Goal**: Research solutions and lock architectural design.
+- **Deliverables**: Prior art in scope YAML, ADRs in `specs/adr/`.
+- **Skills**: `grill-me`, `model-domain`, `define-language`, `deepen-architecture`, `design-interface`.
+- **Gate**: Quality ≥94% (via `request-review`) + Confirm ("Are decisions locked?").
 
-{1-3 sentences: what's the context, what did we decide, and why.}
-```
+### PHASE 3: PLAN
+- **Goal**: Write a verifiable implementation plan with success criteria.
+- **Deliverables**: `release-plan.yaml`, `epics/eNN-*.yaml` with `verify:` per task.
+- **Skills**: `scope-work`, `slice-tasks`, `define-success`, `plan-work`.
+- **Gate**: Quality (request-review ≥94%) + slopcheck [SUS]/[SLOP].
 
-That's it. An ADR can be a single paragraph. The value is in recording *that* a decision was made and *why* — not in filling out sections.
+### PHASE 4: BUILD
+- **Goal**: Execute the plan story-by-story using the 8-step `build-epic` cycle with TDD and vertical slices.
+- **Deliverables**: Code; `execution-status.yaml` updated per story; `specs/metrics/cycle-times.yaml` row per story.
+- **Skills**: `build-epic` (conductor) → per-story: `survey-context`, `plan-work`, `kickoff-branch`, `develop-tdd`, `verify-work`, `audit-code`, `commit-message`, `release-branch`.
+- **BCP tracking**: `plan-release` sizes each story in Business Complexity Points (BCP) before the build queue; `plan-work` confirms and writes the size to `state.yaml` as `epic_cycle.story_bcps`. See `docs/references/bcp.md` for the canonical sizing method.
+- **Timestamps**: `survey-context` stamps `metrics.story_start`; `release-branch` stamps `metrics.story_end` and writes BCP/hr to `specs/metrics/cycle-times.yaml`.
+- **next_skill**: Each critical-path skill writes `handoff.next_skill` to `state.yaml`. Agents resume by reading `state.yaml` — no guessing.
+- **Dashboard**: `npm run dashboard` (TUI) or `npm run dashboard:web` (browser, port 7742) shows live pipeline, epic queue, BCP metrics, and cycle-time ledger.
+- **Gate**: Integration tests PASS; all 8 build-epic steps completed per story.
 
-## Optional sections
+### PHASE 5: VERIFY
+- **Goal**: Validate success criteria and ensure production readiness.
+- **Deliverables**: UAT evidence, eval results.
+- **Skills**: `run-evals`, `verify-work`, `audit-code`, `request-review` (optional).
+- **Gate**: Verification Script confirmed; `verify-work` not on `main`/`master`.
 
-Only include these when they add genuine value. Most ADRs won't need them.
-
-- **Status** frontmatter (`proposed | accepted | deprecated | superseded by ADR-NNNN`) — useful when decisions are revisited
-- **Considered Options** — only when the rejected alternatives are worth remembering
-- **Consequences** — only when non-obvious downstream effects need to be called out
-
-## Numbering
-
-Scan `docs/adr/` for the highest existing number and increment by one.
-
-## When to offer an ADR
-
-All three of these must be true:
-
-1. **Hard to reverse** — the cost of changing your mind later is meaningful
-2. **Surprising without context** — a future reader will look at the code and wonder "why on earth did they do it this way?"
-3. **The result of a real trade-off** — there were genuine alternatives and you picked one for specific reasons
-
-If a decision is easy to reverse, skip it — you'll just reverse it. If it's not surprising, nobody will wonder why. If there was no real alternative, there's nothing to record beyond "we did the obvious thing."
-
-### What qualifies
-
-- **Architectural shape.** "We're using a monorepo." "The write model is event-sourced, the read model is projected into Postgres."
-- **Integration patterns between contexts.** "Ordering and Billing communicate via domain events, not synchronous HTTP."
-- **Technology choices that carry lock-in.** Database, message bus, auth provider, deployment target. Not every library — just the ones that would take a quarter to swap out.
-- **Boundary and scope decisions.** "Customer data is owned by the Customer context; other contexts reference it by ID only." The explicit no-s are as valuable as the yes-s.
-- **Deliberate deviations from the obvious path.** "We're using manual SQL instead of an ORM because X." Anything where a reasonable reader would assume the opposite. These stop the next engineer from "fixing" something that was deliberate.
-- **Constraints not visible in the code.** "We can't use AWS because of compliance requirements." "Response times must be under 200ms because of the partner API contract."
-- **Rejected alternatives when the rejection is non-obvious.** If you considered GraphQL and picked REST for subtle reasons, record it — otherwise someone will suggest GraphQL again in six months.
+### PHASE 6: RELEASE (Integrate)
+- **Goal**: Ship to `main` with full traceability.
+- **Deliverables**: Release tag (vX.Y.Z), release notes via semantic-release.
+- **Skills**: `commit-message`, `release-branch`.
+- **Git arc**:
+  1. Plan on `main` (Discover / Plan)
+  2. `kickoff-branch` → worktree + feature branch + clean baseline
+  3. Build / Verify / Review on feature branch
+  4. Integrate: **solo-local** (`scripts/land-branch.sh`) or **team-pr** (`gh pr create` → squash merge)
+  5. Cleanup worktree; **end on `main`** in primary repo root
+- **Gate**: Safety ("About to land on main. Confirm?").
 
 ---
 
-# CONTEXT.md Format
+## Orchestration Modes
 
-## Structure
+### Mode 1: Standard (Enforce All Gates)
+**Use Case**: New features, major refactors, architectural changes.
+**Behavior**:
+- All Confirm gates require explicit user approval.
+- All Quality gates are hard stops if threshold is not met.
+- No shortcuts or phase skipping.
 
-```md
-# {Context Name}
+### Mode 2: Fast-Track (Skip Negotiable Gates)
+**Use Case**: Hotfixes, minor improvements, refactors on well-tested code.
+**Behavior**:
+- Skip Discover if `requirements/SCOPE_LATEST.yaml` exists.
+- Skip Elaborate if design decisions are already locked.
+- Skip Verify if coverage ≥95% + all tests PASS.
+- Soft gates auto-approve if baseline conditions are met.
 
-{One or two sentence description of what this context is and why it exists.}
+### Mode 3: Ad-Hoc (Legacy, Warnings Only)
+**Use Case**: Exploration, prototyping, spikes (NOT for production).
+**Behavior**:
+- Gates emit warnings but do not block execution.
+- User can manually skip any phase.
+- No enforced quality thresholds.
 
-## Language
+---
 
-**Order**:
-A customer's request to purchase one or more items.
-_Avoid_: Purchase, transaction
+## Gate & Checkpoint Types
+*See `docs/references/gates.md` and `docs/references/checkpoints.md` for full specs.*
 
-**Invoice**:
-A request for payment sent to a customer after delivery.
-_Avoid_: Bill, payment request
+- **Confirm**: Requires human "yes/no" decision.
+- **Quality**: Automated threshold check (e.g., coverage, audit score).
+- **Safety**: Destructive actions require risk acknowledgment.
+- **Transition**: Mandatory artifact presence check.
+- **slopcheck**: Identification of [SUS] (Suspicious) or [SLOP] (High-risk) packages.
 
-**Customer**:
-A person or organization that places orders.
-_Avoid_: Client, buyer, account
+---
 
-## Relationships
+## Error Recovery & State
+Orchestrate maintains `specs/state.yaml` to track:
+- **Current flow / epic**: `active_flow`, `active_epic_id`, `epic_cycle`.
+- **Handoff**: `last_step_completed`, `open_decisions`, `required_reading`, `next_skill`.
+- **Git**: `branch`, `hash` for session continuity.
+- **Progress**: Story status lives in `execution-status.yaml` only.
 
-- An **Order** produces one or more **Invoices**
-- An **Invoice** belongs to exactly one **Customer**
-
-## Example dialogue
-
-> **Dev:** "When a **Customer** places an **Order**, do we create the **Invoice** immediately?"
-> **Domain expert:** "No — an **Invoice** is only generated once a **Fulfillment** is confirmed."
-
-## Flagged ambiguities
-
-- "account" was used to mean both **Customer** and **User** — resolved: these are distinct concepts.
-```
-
-## Rules
-
-- **Be opinionated.** When multiple words exist for the same concept, pick the best one and list the others as aliases to avoid.
-- **Flag conflicts explicitly.** If a term is used ambiguously, call it out in "Flagged ambiguities" with a clear resolution.
-- **Keep definitions tight.** One sentence max. Define what it IS, not what it does.
-- **Show relationships.** Use bold term names and express cardinality where obvious.
-- **Only include terms specific to this project's context.** General programming concepts (timeouts, error types, utility patterns) don't belong even if the project uses them extensively. Before adding a term, ask: is this a concept unique to this context, or a general programming concept? Only the former belongs.
-- **Group terms under subheadings** when natural clusters emerge. If all terms belong to a single cohesive area, a flat list is fine.
-- **Write an example dialogue.** A conversation between a dev and a domain expert that demonstrates how the terms interact naturally and clarifies boundaries between related concepts.
-
-## Single vs multi-context repos
-
-**Single context (most repos):** One `CONTEXT.md` at the repo root.
-
-**Multiple contexts:** A `CONTEXT-MAP.md` at the repo root lists the contexts, where they live, and how they relate to each other:
-
-```md
-# Context Map
-
-## Contexts
-
-- [Ordering](./src/ordering/CONTEXT.md) — receives and tracks customer orders
-- [Billing](./src/billing/CONTEXT.md) — generates invoices and processes payments
-- [Fulfillment](./src/fulfillment/CONTEXT.md) — manages warehouse picking and shipping
-
-## Relationships
-
-- **Ordering → Fulfillment**: Ordering emits `OrderPlaced` events; Fulfillment consumes them to start picking
-- **Fulfillment → Billing**: Fulfillment emits `ShipmentDispatched` events; Billing consumes them to generate invoices
-- **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`
-```
-
-The skill infers which structure applies:
-
-- If `CONTEXT-MAP.md` exists, read it to find contexts
-- If only a root `CONTEXT.md` exists, single context
-- If neither exists, create a root `CONTEXT.md` lazily when the first term is resolved
-
-When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.
+In the event of a crash or exit, run `claude /orchestrate --resume` to pick up exactly where the session left off.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
