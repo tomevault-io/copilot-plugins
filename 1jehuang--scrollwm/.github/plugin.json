@@ -1,0 +1,9 @@
+{
+  "name": "1jehuang--scrollwm",
+  "displayName": "scrollwm",
+  "description": "Scrolling window manager for macOS (PaperWM-style strip, Accessibility-only, teleport navigation)",
+  "version": "1.0.0",
+  "author": "1jehuang",
+  "homepage": "https://github.com/1jehuang/scrollwm",
+  "skills": []
+}
