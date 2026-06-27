@@ -4,7 +4,7 @@
   "repo": "graphlens",
   "description": "Polyglot code-analysis framework \u2014 parses Python, TypeScript, Go, Rust & PHP into a shared graph IR (tree-sitter + type-aware resolvers: ty, tsc, gopls, rust-analyzer). Call/dependency graphs, cross-language boundaries, Neo4j export & MCP server.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Neko1313/graphlens",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T18:33:16Z"
+  "distributed_at": "2026-06-27T18:38:33Z"
 }
