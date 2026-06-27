@@ -1,0 +1,9 @@
+{
+  "name": "irahardianto--pathfinder",
+  "displayName": "pathfinder",
+  "description": "The Headless IDE \u2014 an MCP server that gives AI coding agents AST-aware semantic code intelligence and LSP navigation.",
+  "version": "1.0.0",
+  "author": "irahardianto",
+  "homepage": "https://github.com/irahardianto/pathfinder",
+  "skills": []
+}
