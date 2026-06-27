@@ -1,0 +1,9 @@
+{
+  "name": "arzisxam--apfs-excavate",
+  "displayName": "apfs-excavate",
+  "description": "CLI tool for extracting files from damaged, corrupted, or encrypted APFS disk images. Written in C11, macOS-first (Linux supported). Handles encryption, deleted file recovery, orphan reconstruction, a",
+  "version": "1.0.0",
+  "author": "arzisxam",
+  "homepage": "https://github.com/arzisxam/apfs-excavate",
+  "skills": []
+}
