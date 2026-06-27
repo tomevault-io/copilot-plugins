@@ -1,0 +1,9 @@
+{
+  "name": "datazoode--polars-statistics",
+  "displayName": "polars-statistics",
+  "description": "High-performance statistical testing and regression for Polars DataFrames, powered by Rust.",
+  "version": "1.0.0",
+  "author": "DataZooDE",
+  "homepage": "https://github.com/DataZooDE/polars-statistics",
+  "skills": []
+}
