@@ -1,0 +1,44 @@
+{
+  "name": "agentic-dart",
+  "owner": "Juwon1405",
+  "repo": "agentic-dart",
+  "description": "Agentic-DART \u2014 autonomous detection & response agent. Architecture-first, not prompt-first. Starts as agentic DFIR; designed to expand toward agentic SOC and beyond.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Juwon1405/agentic-dart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T23:05:17Z"
+}
