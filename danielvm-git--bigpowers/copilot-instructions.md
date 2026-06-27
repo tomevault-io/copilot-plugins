@@ -1,185 +1,102 @@
-## validate-contracts
+## validate-fix
 
-> \"Assert data shape consistency across system boundaries — live API responses against JSON Schema, key-set comparison across layers, data shape validation for migrations and exports. Catches silent data corruption before deploy.\
+> Prove a fix works before declaring done — re-run the failing test, run the full suite, typecheck, lint, and harden against recurrence. Use after implementing a bug fix, when user says \"is this fixed?\", or before closing an investigation.
 
 
 
-# Validate Contracts
+# Validate Fix
+> **HARD GATE** — **HARD GATE** — Fix must not regress. Run full test suite and manual UAT before declaring success. A fix that passes tests but breaks something else is a failure.
 
-> **HARD GATE** — Do NOT deploy or migrate data without running `validate-contracts` first. Silent data divergence between system boundaries causes the hardest-to-debug production bugs.
->
-> **HARD GATE** — Contract files MUST be version-controlled alongside code. Outdated contracts are worse than no contracts. If a contract hasn't been reviewed in 30 days, flag it as stale.
 
-Validate that data structures stay in sync across system boundaries — front-end vs
-back-end, API responses vs expected schemas, config files vs code assumptions,
-migration output vs target shape.
+Prove the fix works. "I think it works" is not evidence. Run the suite, show the output, then harden against recurrence.
 
-## Contract types
+## Checklist
 
-Three modes of validation:
-
-| Mode | What it catches | When to use |
-|------|----------------|-------------|
-| **Schema** | API response shape mismatches (missing field, wrong type) | Before every deploy, after API changes |
-| **Key-set** | Missing/unexpected keys across two data sources | Translation files, configs, enum definitions |
-| **Shape** | Column type or format violations in data files | After migrations, before consuming exports |
-
-## Contract file convention
-
-All contract files live in `specs/contracts/` and use YAML:
-
-```
-specs/contracts/
-├── users.schema.yaml        # API response schema
-├── i18n-keys.yaml           # Key-set comparison
-├── migration-output.yaml    # Data shape contract
-└── README.md                # Local conventions
-```
-
-### 1. API Response Contracts (`--schema`)
-
-Define expected API response shapes and validate live endpoints against them:
-
-```yaml
-# specs/contracts/users.schema.yaml
-endpoint: /api/users
-method: GET
-schema:
-  type: object
-  required: [id, name, email]
-  properties:
-    id: { type: number }
-    name: { type: string }
-    email: { type: string, format: email }
-```
-
-Usage:
+### 1. Re-run the originally failing test
 
 ```bash
-validate-contracts --schema specs/contracts/users.schema.yaml --url https://api.example.com/users
-# → PASS: /api/users matches expected schema (3/3 fields, types ok)
-# → FAIL: /api/users — field 'email' has type null (expected string)
+# Run the specific test that captured the bug
+<test command for the failing test>
 ```
 
-### 2. Key-Set Contracts (`--key-set`)
+- [ ] Previously failing test now passes
 
-Assert that two data sources share a consistent set of keys:
-
-```yaml
-# specs/contracts/i18n-keys.yaml
-sources:
-  reference: src/frontend/locales/en.json
-  target: src/backend/messages/en.json
-mode: subset      # all target keys must exist in reference
-```
-
-Usage:
+### 2. Run the full test suite
 
 ```bash
-validate-contracts --key-set specs/contracts/i18n-keys.yaml
-# → missing: 2 keys in reference not found in target: ['settings.privacy', 'help.faq']
-# → added: 1 key in target not in reference: ['deprecated.field']
-# → exit 1 (divergence)
+# Run all tests — no filtering
+<full test command from CLAUDE.md>
 ```
 
-### 3. Data Shape Contracts (`--shape`)
+- [ ] All tests pass (zero regressions)
 
-Validate that a data file matches expected column types and constraints:
-
-```yaml
-# specs/contracts/migration-output.yaml
-file: data/users-export.json
-format: json
-fields:
-  - name: user_id
-    type: number
-    required: true
-  - name: full_name
-    type: string
-    required: true
-  - name: created_at
-    type: string
-    format: date-time
-    required: false
-```
-
-Usage:
+### 3. Type check
 
 ```bash
-validate-contracts --shape specs/contracts/migration-output.yaml
-# → PASS: 3/3 fields validated, 5000 rows OK
-# → WARN: field 'full_name' has 12 null values (0.24%)
-# → FAIL: field 'user_id' has 3 rows with type string (expected number)
+<typecheck command>
 ```
 
-## Process
+- [ ] No type errors introduced
 
-### 1. Define contract
-
-Create a YAML file in `specs/contracts/` following the schema for the mode.
-
-### 2. Run validation
+### 4. Lint
 
 ```bash
-bash scripts/validate-contracts.sh <contract-file>
+<lint command>
 ```
 
-The runner auto-detects the contract type from the file content (presence of `schema:`,
-`sources:`, or `file:` + `fields:` keys).
+- [ ] No lint violations introduced
 
-### 3. Read the report
+### 5. Harden against recurrence
 
-Output is JSON Lines (one event per line) plus a human-readable summary:
+For every bug fixed, add at least one prevention layer:
 
-```
-{"event":"pass","check":"users.schema","detail":"3/3 fields match types"}
-{"event":"warn","check":"users.schema","detail":"field 'avatar' has format: uri (unexpected)"}
-{"event":"fail","check":"i18n-keys","detail":"missing: 2 keys in target"}
-```
+| Mechanism | When to use |
+|-----------|-------------|
+| Type guard | Input could be the wrong shape |
+| Schema validation (Zod, Pydantic, etc.) | External data crossing a boundary |
+| Invariant assertion | Internal state that must always hold |
+| Lint rule | Pattern that's easy to repeat by mistake |
+| Environment check at startup | Missing config causes silent failure |
 
-Final summary:
+- [ ] At least one hardening mechanism added
+- [ ] Hardening mechanism is tested
 
-```
-=== Validate Contracts Summary ===
-Schema: 3/3 pass | Key-set: 1/1 fail | Shape: 2/2 pass
-FAILED: 1 contract has divergence
-```
+### 6. Update the bug file and registry.yaml
 
-### 4. Fix divergence
+Find the most recent `specs/bugs/BUG-*.md` file and append the resolution:
 
-- **Missing keys** → add to target source
-- **Type mismatches** → update schema or fix producer
-- **Shape violations** → fix migration or consumer
+```markdown
+## Resolution
 
-### 5. Re-validate
-
-```bash
-bash scripts/validate-contracts.sh <contract-file>
-# → All pass → ready to deploy
+**Fixed:** [date]
+**Root cause confirmed:** [one sentence]
+**Fix applied:** [what was changed]
+**Hardening added:** [type guard / schema / assertion / lint rule]
+**Evidence:** all tests pass (`<verify command>`)
+**Commit:** `fix(<scope>): <description>`
 ```
 
-## Integration
+Also update the corresponding row in `specs/bugs/registry.yaml`: set `status` to `fixed`, fill in `files_changed`, `approach`, `risk_level`, `commit_message`, and any other resolution fields.
 
-- **Pre-deploy gate:** The `deploy` skill runs `validate-contracts` before smoke-test.
-- **CI pipeline:** JSON Lines output is CI-friendly; pipe to `jq` for assertions.
-- **Pre-migration:** Run `validate-contracts --shape` before consuming migration output.
+- [ ] specs/bugs/BUG-*.md updated with resolution
+- [ ] specs/bugs/registry.yaml row updated with resolution fields
 
-## Configuration
+### 7. Behavioral Proof (HARD GATE)
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `CONTRACTS_DIR` | `specs/contracts/` | Directory containing contract YAML files |
-| `VALIDATE_ALL` | `false` | If true, run all contracts in the directory |
-| `STRICT_MODE` | `false` | Treat warnings as failures |
-| `OUTPUT_FORMAT` | `text` | `text` or `json` |
+Mechanical verification (tests passing) is only half the fix. You must prove **behavioral correctness**.
 
-## Verification
+- [ ] Manually demonstrate the fixed behavior (e.g., via `run_shell_command` or `web_fetch`)
+- [ ] Compare the output/state against the "Expected Behavior" in the bug file
+- [ ] Show the user evidence of the behavior, not just the test logs
 
-→ verify: `test -f validate-contracts/SKILL.md && grep -q 'name: validate-contracts' validate-contracts/SKILL.md && echo OK`
-→ verify: `grep -qi 'specs/contracts\|JSON Schema\|key.set\|data.shape' validate-contracts/SKILL.md && echo OK`
-→ verify: `grep -ci 'divergence\|missing key\|type mismatch\|diff\|conforms\|column' validate-contracts/SKILL.md | awk '{if($1>=3) print "OK"; else print "FAIL"}'`
-→ verify: `grep -ci 'JSON Lines\|machine.parse\|CI\|deploy.*gate\|pre.deploy' validate-contracts/SKILL.md | awk '{if($1>=2) print "OK"; else print "FAIL"}'`
-→ verify: `grep -q 'validate-contracts' SKILL-INDEX.md && echo OK`
+## Rules
+
+- **Loop until behavioral correctness is verified**: if any checklist item fails, or if the behavior is still incorrect despite passing tests, return to step 1 and run all checks again from the top — do not declare done until every item is green and the behavior is proven correct in a single run.
+- **Never use `@ts-ignore`, `as any`, or `// eslint-disable`** to "fix" a bug — these suppress the symptom without fixing the root cause
+- **Never mark the task done if any test is still failing**
+- **The verify command from specs/bugs/BUG-*.md or the active epic task `verify` field must pass**
+
+Suggest next skill: `audit-code` → `commit-message`.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
