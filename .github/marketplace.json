@@ -149364,6 +149364,11 @@
       "description": "A local-first, git-native task board that lives in your repo as Markdown. Tasks, epics and releases as .md files \u2014 no cloud, no account. VS Code extension or native desktop app."
     },
     {
+      "name": "veridise--audithub-mcp",
+      "source": "./veridise--audithub-mcp",
+      "description": "MCP server for AuditHub"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -171587,6 +171592,11 @@
       "name": "danielvm-git--bigpowers",
       "source": "./danielvm-git--bigpowers",
       "description": "59 agent skills for high-integrity, spec-driven, test-first software development by solo developers.  bigpowers provides a prescriptive, vertical-slice methodology for building software with AI agents"
+    },
+    {
+      "name": "aipmandy--andysoul",
+      "source": "./aipmandy--andysoul",
+      "description": "Andy's Soul - AI Agent \u6838\u5fc3\u64cd\u4f5c\u6307\u4ee4 | Universal core directives for AI agents (Claude, Codex, Cursor) - Cognitive axioms + Musk's methodology + Karpathy's principles"
     },
     {
       "name": "lightninglabs--lnget",
@@ -354092,6 +354102,11 @@
       "name": "imkdw--remove-bg-and-resizer",
       "source": "./imkdw--remove-bg-and-resizer",
       "description": "remove-bg-and-resizer"
+    },
+    {
+      "name": "luandro--capy-cli",
+      "source": "./luandro--capy-cli",
+      "description": "capy-cli"
     }
   ]
 }
