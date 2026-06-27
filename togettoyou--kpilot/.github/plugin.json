@@ -1,0 +1,9 @@
+{
+  "name": "togettoyou--kpilot",
+  "displayName": "kpilot",
+  "description": "KPilot: Unified control plane for multi-cluster Kubernetes management, GPU compute scheduling, and model serving.",
+  "version": "1.0.0",
+  "author": "togettoyou",
+  "homepage": "https://github.com/togettoyou/kpilot",
+  "skills": []
+}
