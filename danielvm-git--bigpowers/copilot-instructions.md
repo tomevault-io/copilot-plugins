@@ -1,74 +1,73 @@
-## respond-review
+## run-benchmark
 
-> Act on a reviewer agent's feedback systematically — categorize findings, apply fixes, verify tests still pass. Use after request-review returns a report, or when user wants to work through code review findings.
-
-
-
-# Respond Review
-> **HARD GATE** — **HARD GATE** — Every reviewer comment must be addressed (fix, disagree + document reason, or ask clarification). Do NOT ignore feedback and merge.
+> Run skill quality benchmarks from specs/benchmarks/ definitions and write pass@k reports. Use before and after evolve-skill to prove quality changes are improvements, not regressions.
 
 
-Work through reviewer findings systematically. Don't apply changes blindly — categorize first, then decide, then fix, then verify.
+
+# Run Benchmark
+
+> **HARD GATE** — Do NOT use benchmark scores to declare a skill "good" or "bad" in isolation. Benchmarks measure relative quality vs. a baseline — they catch regressions, they do not certify correctness.
+
+Reads benchmark definitions from `specs/benchmarks/`, executes each scenario's grader, and writes a structured `pass@k` report that `evolve-skill` consumes.
+
+## Usage
+
+```bash
+# Benchmark a single skill
+run-benchmark <skill-name>
+
+# Benchmark all skills with definitions
+run-benchmark --all
+
+# Pin current results as baseline
+run-benchmark <skill-name> --baseline
+```
 
 ## Process
 
-### 1. Read the full review report
+1. **Locate definition** — Read `specs/benchmarks/<skill>.yaml`. If absent, report: `"No benchmark definition found for <skill>. Create specs/benchmarks/<skill>.yaml first."` and stop.
 
-Read every finding before acting on any of them. Get the full picture first.
+2. **Run each scenario** — For each scenario in `scenarios[]`:
+   - **Code grader:** Run `grader.command` in repo root via `bash -c`. Exit 0 → PASS. Non-zero → FAIL. Timeout: 15 seconds.
+   - **Rubric grader:** Present each criterion to the agent as a yes/no question about the scenario output. ≥ 80% yes → PASS, else FAIL.
 
-### 2. Categorize findings
+3. **Calculate pass@k** — `pass@k = sum(weight of PASS scenarios) / sum(all weights)`. Round to 2 decimal places.
 
-For each finding, assign a category:
+4. **Write report** to `specs/benchmarks/reports/BENCHMARK-<skill>-<YYYY-MM-DD>.yaml`:
 
-| Category | Meaning | Action |
-|----------|---------|--------|
-| **must-fix** | Correctness bug, security issue, test failure, CONVENTIONS.md violation | Fix before proceeding |
-| **should-fix** | Code quality issue, naming, clarity — worth fixing but not blocking | Fix if time allows |
-| **consider** | Architectural suggestion, alternative approach — may or may not apply | Discuss with user |
-
-Create a numbered list of all findings with their categories.
-
-### 3. Confirm with user (for consider-category items)
-
-For each "consider" item, briefly describe the trade-off and ask: "Apply, skip, or discuss?"
-
-### 4. Apply must-fix items first
-
-Fix every must-fix item. For each one:
-- Describe what you're changing and why
-- Make the change
-- Run the verify command if one exists for this area
-
-### 5. Apply should-fix items
-
-Apply should-fix items. If any are large enough to warrant their own commit, note them separately.
-
-### 6. Run the full suite
-
-After all changes are applied:
-
-```bash
-<full test command>
-<typecheck command>
-<lint command>
+```yaml
+skill: survey-context
+run_date: "2026-06-22"
+pass_at_k: 0.83
+total_scenarios: 3
+passed: 2
+failed: 1
+scenarios:
+  - id: s01
+    name: "detects active epic from state.yaml"
+    result: PASS
+    weight: 1.0
+  - id: s02
+    name: "reads release-plan.yaml and reports next epic"
+    result: PASS
+    weight: 1.0
+  - id: s03
+    name: "handles missing state.yaml gracefully"
+    result: FAIL
+    weight: 0.5
+    failure_note: "crashed instead of suggesting state.yaml creation"
 ```
 
-- [ ] All tests pass
-- [ ] No type errors
-- [ ] No lint violations
+5. **Baseline mode** (`--baseline`) — Copy the report to `specs/benchmarks/reports/BASELINE-<skill>.yaml`. This is the reference point for regression checks in `evolve-skill`.
 
-### 7. Report
+6. **Compare to baseline** — If a `BASELINE-<skill>.yaml` exists, compare `pass_at_k`. Report:
+   - `IMPROVED: 0.67 → 0.83`
+   - `REGRESSION: 0.83 → 0.67 — do NOT ship this change`
+   - `STABLE: 0.83 = 0.83`
 
-Summarize what was applied and what was skipped:
+## Verify
 
-```
-Applied (must-fix): #1, #2, #3
-Applied (should-fix): #4
-Skipped (consider): #5 — agreed with user to defer
-All tests pass.
-```
-
-Suggest next skill: `commit-message`.
+→ verify: `test -f run-benchmark/SKILL.md && grep -q 'pass_at_k\|pass.at.k' run-benchmark/SKILL.md && echo OK || echo FAIL`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
