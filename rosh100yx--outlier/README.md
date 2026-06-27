@@ -7,11 +7,11 @@ outlier is an open-source, local-first policy engine and governance framework de
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rosh100yx/outlier](https://github.com/rosh100yx/outlier).
+Original source: `AGENTS.md` in [rosh100yx/outlier](https://github.com/rosh100yx/outlier).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
