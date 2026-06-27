@@ -1,0 +1,9 @@
+{
+  "name": "alanfokco--agentscope-go",
+  "displayName": "agentscope-go",
+  "description": "AgentScope Golang: Agent-Oriented Programming for Building LLM Applications",
+  "version": "1.0.0",
+  "author": "AlanFokCo",
+  "homepage": "https://github.com/AlanFokCo/agentscope-go",
+  "skills": []
+}
