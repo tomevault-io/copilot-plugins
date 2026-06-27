@@ -1,0 +1,9 @@
+{
+  "name": "terremotovenezuela--mapa-emergencia-rescate",
+  "displayName": "mapa-emergencia-rescate",
+  "description": "Mapa de emergencia y rescate: reportes ciudadanos en tiempo real para coordinar ayuda humanitaria (Next.js + Leaflet + Upstash Redis)",
+  "version": "1.0.0",
+  "author": "terremotovenezuela",
+  "homepage": "https://github.com/terremotovenezuela/mapa-emergencia-rescate",
+  "skills": []
+}
