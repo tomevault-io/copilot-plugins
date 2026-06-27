@@ -1,0 +1,9 @@
+{
+  "name": "twigley--terrology",
+  "displayName": "terrology",
+  "description": "Generate 3D-printable terrain maps from OpenStreetMap + elevation data",
+  "version": "1.0.0",
+  "author": "twigley",
+  "homepage": "https://github.com/twigley/terrology",
+  "skills": []
+}
