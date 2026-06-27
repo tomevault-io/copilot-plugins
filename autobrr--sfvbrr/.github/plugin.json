@@ -1,0 +1,9 @@
+{
+  "name": "autobrr--sfvbrr",
+  "displayName": "sfvbrr",
+  "description": "sfvbrr is a Golang tool to validate scene releases",
+  "version": "1.0.0",
+  "author": "autobrr",
+  "homepage": "https://github.com/autobrr/sfvbrr",
+  "skills": []
+}
