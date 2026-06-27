@@ -4,7 +4,7 @@
   "repo": "socai",
   "description": "\u4e13\u4e3a\u5c0f\u7ea2\u4e66\u4f18\u5316\u7684Web Use Agent: \u8c03\u7814\u3001\u5185\u5bb9\u63d0\u53d6\u3001agent\u5206\u6790",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/socai-io/socai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T21:31:47Z"
+  "distributed_at": "2026-06-27T21:32:18Z"
 }
