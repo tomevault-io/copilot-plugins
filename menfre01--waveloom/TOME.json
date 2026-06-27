@@ -4,7 +4,7 @@
   "repo": "waveloom",
   "description": "\u4e3a DeepSeek \u524d\u7f00\u7f13\u5b58\u5b9a\u5236\u7684\u7ec8\u7aef Code Agent\uff08\u7eaf Go\uff09\uff0c\u7f13\u5b58\u547d\u4e2d\u7387 95-99%\uff0c\u8f93\u5165\u6210\u672c\u964d\u81f3 1/50\u3002A terminal coding agent optimized for DeepSeek prefix caching \u2014 95-99% cache hit, 1/50th the cost.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Menfre01/waveloom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T10:30:24Z"
+  "distributed_at": "2026-06-27T10:30:52Z"
 }
