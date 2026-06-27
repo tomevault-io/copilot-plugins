@@ -7,11 +7,11 @@ The contract layer between AI agents and the work they execute.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [false-systems/sykli](https://github.com/false-systems/sykli).
+Original source: `AGENTS.md` in [false-systems/sykli](https://github.com/false-systems/sykli).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
