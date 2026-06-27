@@ -13779,6 +13779,11 @@
       "description": "The fastest, lightest, and easiest-to-integrate AI gateway on the market. Fully open-sourced."
     },
     {
+      "name": "agent37-platform--minions",
+      "source": "./agent37-platform--minions",
+      "description": "Mission Control for your Hermes agents"
+    },
+    {
       "name": "yfedoseev--pdf-oxide",
       "source": "./yfedoseev--pdf-oxide",
       "description": "The fastest PDF library for Python and Rust. Text extraction, image extraction, markdown conversion, PDF creation & editing. 0.8ms mean, 5\u00d7 faster than industry leaders, 100% pass rate on 3,830 PDFs. "
@@ -44807,6 +44812,16 @@
       "name": "vanviegen--aberdeen",
       "source": "./vanviegen--aberdeen",
       "description": "aberdeen"
+    },
+    {
+      "name": "qnmlgbd250--weather-none",
+      "source": "./qnmlgbd250--weather-none",
+      "description": "\u57fa\u4e8e\u5f69\u4e91\u5929\u6c14Api\u7684\u5b89\u5353\u5929\u6c14APP\u5e94\u7528\u7a0b\u5e8f\uff0c\u65e0\u5e7f\u544a\uff0c\u754c\u9762\u7b80\u6d01\u6613\u7528"
+    },
+    {
+      "name": "qnmlgbd250--weather-none",
+      "source": "./qnmlgbd250--weather-none",
+      "description": "\u57fa\u4e8e\u5f69\u4e91\u5929\u6c14Api\u7684\u5b89\u5353\u5929\u6c14APP\u5e94\u7528\u7a0b\u5e8f\uff0c\u65e0\u5e7f\u544a\uff0c\u754c\u9762\u7b80\u6d01\u6613\u7528"
     },
     {
       "name": "aws-samples--sample-kolya-br-proxy",
@@ -184312,6 +184327,11 @@
       "name": "stuinfla--cognitum-learn",
       "source": "./stuinfla--cognitum-learn",
       "description": "Learn-RV \u2014 Become a genius using Cognitum One See or RuVector.   Pure-Rust CLI that turns videos into queryable knowledge bases stored in RuVector RVF format. BGE-large embeddings, hybrid HNSW+BM25 re"
+    },
+    {
+      "name": "comfygit-ai--comfygit-manager",
+      "source": "./comfygit-ai--comfygit-manager",
+      "description": "ComfyUI extension providing the ComfyGit Manager UI for versioning and orchestrating environments."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -355202,6 +355222,226 @@
       "name": "jspark91--passive-income",
       "source": "./jspark91--passive-income",
       "description": "PASSIVE-INCOME"
+    },
+    {
+      "name": "saheb20004--v0-clone",
+      "source": "./saheb20004--v0-clone",
+      "description": "Trying to replicate functionalities of V0 and do some customization from my side"
+    },
+    {
+      "name": "fullpokerface--trading-log-app",
+      "source": "./fullpokerface--trading-log-app",
+      "description": "trading-log-app"
+    },
+    {
+      "name": "udeme01--tggc",
+      "source": "./udeme01--tggc",
+      "description": "in the spirit, by the spirit."
+    },
+    {
+      "name": "djlucasruiz--cotillon-cienfuegos",
+      "source": "./djlucasruiz--cotillon-cienfuegos",
+      "description": "cotillon_cienfuegos"
+    },
+    {
+      "name": "piggaycheng--pickle",
+      "source": "./piggaycheng--pickle",
+      "description": "pickle"
+    },
+    {
+      "name": "abi412003-hub--arogyadhamaweb",
+      "source": "./abi412003-hub--arogyadhamaweb",
+      "description": "AYUSH HMS"
+    },
+    {
+      "name": "dannystuart--cogniate-website",
+      "source": "./dannystuart--cogniate-website",
+      "description": "Cogniate landing page"
+    },
+    {
+      "name": "enrico-laboratory--music-projects-website",
+      "source": "./enrico-laboratory--music-projects-website",
+      "description": "music-projects-website"
+    },
+    {
+      "name": "guilheeeeeeerme--portalrelatorios",
+      "source": "./guilheeeeeeerme--portalrelatorios",
+      "description": "portalrelatorios"
+    },
+    {
+      "name": "yavallejo--running-training",
+      "source": "./yavallejo--running-training",
+      "description": "Vibe Coding Example"
+    },
+    {
+      "name": "harooniqbal1998--tracker",
+      "source": "./harooniqbal1998--tracker",
+      "description": "Tracker is a notebook style habit tracker app that I've been vibing with"
+    },
+    {
+      "name": "al4danim--tick-tui",
+      "source": "./al4danim--tick-tui",
+      "description": "tick-tui"
+    },
+    {
+      "name": "emeraldpotato333-spec--haus-creator-os",
+      "source": "./emeraldpotato333-spec--haus-creator-os",
+      "description": "FOR TRACKING INFLUENCERS"
+    },
+    {
+      "name": "horsehihing3--penocean-main",
+      "source": "./horsehihing3--penocean-main",
+      "description": "penocean-main"
+    },
+    {
+      "name": "ignivoxsubscripition-star--paylio-admin",
+      "source": "./ignivoxsubscripition-star--paylio-admin",
+      "description": "Paylio-Admin"
+    },
+    {
+      "name": "mitsuki-0526--sakumon",
+      "source": "./mitsuki-0526--sakumon",
+      "description": "\u4e2d\u5b66\u6821\u6559\u54e1\u5411\u3051\u306e\u4f5c\u554f\u652f\u63f4\u30c7\u30b9\u30af\u30c8\u30c3\u30d7\u30a2\u30d7\u30ea"
+    },
+    {
+      "name": "filippobosco--swapa-dashboard",
+      "source": "./filippobosco--swapa-dashboard",
+      "description": "swapa_dashboard"
+    },
+    {
+      "name": "liyuan4ly--liyuan4ly-site",
+      "source": "./liyuan4ly--liyuan4ly-site",
+      "description": "Personal website built with Astro."
+    },
+    {
+      "name": "t0928052371--clinic-hr-system",
+      "source": "./t0928052371--clinic-hr-system",
+      "description": "clinic-hr-system"
+    },
+    {
+      "name": "nakamura-0709--private-isu-observability",
+      "source": "./nakamura-0709--private-isu-observability",
+      "description": "private-isu-observability"
+    },
+    {
+      "name": "jleifeld--opencode-leifeld-profile",
+      "source": "./jleifeld--opencode-leifeld-profile",
+      "description": "opencode-leifeld-profile"
+    },
+    {
+      "name": "pikachuprogrammer01--xiangxi-style-tourism",
+      "source": "./pikachuprogrammer01--xiangxi-style-tourism",
+      "description": "xiangxi-style-tourism"
+    },
+    {
+      "name": "iqbalhabib--ih-mathematics",
+      "source": "./iqbalhabib--ih-mathematics",
+      "description": "IH-Mathematics"
+    },
+    {
+      "name": "0xntpower--customproxmoxwebui",
+      "source": "./0xntpower--customproxmoxwebui",
+      "description": "CustomProxmoxWebUI"
+    },
+    {
+      "name": "yangin--ai-skills",
+      "source": "./yangin--ai-skills",
+      "description": "skills for me"
+    },
+    {
+      "name": "wzwwhh--digitalkanbanplatform",
+      "source": "./wzwwhh--digitalkanbanplatform",
+      "description": "\u770b\u677f\u5e73\u53f0"
+    },
+    {
+      "name": "jindoeyoung--portfolio-app",
+      "source": "./jindoeyoung--portfolio-app",
+      "description": "portFolio_app"
+    },
+    {
+      "name": "mtawhid7--garment-service",
+      "source": "./mtawhid7--garment-service",
+      "description": "A clean FastAPI backend for parametric sewing pattern generation and physics-based garment simulation."
+    },
+    {
+      "name": "stoney1209--cosmeticshop",
+      "source": "./stoney1209--cosmeticshop",
+      "description": "CosmeticShop"
+    },
+    {
+      "name": "topaihub--zig-release",
+      "source": "./topaihub--zig-release",
+      "description": "zig-release"
+    },
+    {
+      "name": "topaihub--zig-release",
+      "source": "./topaihub--zig-release",
+      "description": "zig-release"
+    },
+    {
+      "name": "carter-livefront--cartershades-dot-com",
+      "source": "./carter-livefront--cartershades-dot-com",
+      "description": "Personal website"
+    },
+    {
+      "name": "lfarizav--hdd-gsd2-hybrid-framework",
+      "source": "./lfarizav--hdd-gsd2-hybrid-framework",
+      "description": "hdd-gsd2-hybrid-framework"
+    },
+    {
+      "name": "dfarrell07--ovnk-workspace",
+      "source": "./dfarrell07--ovnk-workspace",
+      "description": "ovnk-workspace"
+    },
+    {
+      "name": "adsgrind--adsgrind-the-app-growth",
+      "source": "./adsgrind--adsgrind-the-app-growth",
+      "description": "Adsgrind_The_App_Growth"
+    },
+    {
+      "name": "patrickhilmoe--shoppinglist",
+      "source": "./patrickhilmoe--shoppinglist",
+      "description": "shoppinglist"
+    },
+    {
+      "name": "durgesh-kodan--nextjs-blog",
+      "source": "./durgesh-kodan--nextjs-blog",
+      "description": "Nextjs-Blog"
+    },
+    {
+      "name": "dungeon2567--hibit-ecs",
+      "source": "./dungeon2567--hibit-ecs",
+      "description": "hibit_ecs"
+    },
+    {
+      "name": "johanbroersma--board-voting-app",
+      "source": "./johanbroersma--board-voting-app",
+      "description": "Browser-based voting application for board elections"
+    },
+    {
+      "name": "mr-hu9595--ledger-system",
+      "source": "./mr-hu9595--ledger-system",
+      "description": "Construction site material/equipment inventory ledger system"
+    },
+    {
+      "name": "lfarizav--hdd-gsd2-hybrid-framework",
+      "source": "./lfarizav--hdd-gsd2-hybrid-framework",
+      "description": "hdd-gsd2-hybrid-framework"
+    },
+    {
+      "name": "the-big-mini--ytlite",
+      "source": "./the-big-mini--ytlite",
+      "description": "A flexible enhancer for YouTube on iOS"
+    },
+    {
+      "name": "durgesh-kodan--nextjs-blog",
+      "source": "./durgesh-kodan--nextjs-blog",
+      "description": "Nextjs-Blog"
+    },
+    {
+      "name": "jwl93--pycmdb",
+      "source": "./jwl93--pycmdb",
+      "description": "publish and manage online"
     }
   ]
 }
