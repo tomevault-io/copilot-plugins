@@ -1,0 +1,44 @@
+{
+  "name": "coding-posture",
+  "owner": "alexei-led",
+  "repo": "coding-posture",
+  "description": "A single SKILL.md skill giving coding agents task-aware working modes (debug, fix, review, migrate, \u2026) \u2014 works with Hermes, Claude Code, Codex, Cursor, and Pi",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alexei-led/coding-posture",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T03:04:16Z"
+}
