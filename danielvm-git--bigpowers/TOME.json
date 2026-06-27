@@ -4,7 +4,7 @@
   "repo": "bigpowers",
   "description": "59 agent skills for high-integrity, spec-driven, test-first software development by solo developers.  bigpowers provides a prescriptive, vertical-slice methodology for building software with AI agents (Claude Code, Gemini CLI, Cursor). It bridges the gap between raw LLM capabilities and professional engineering standards.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danielvm-git/bigpowers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T00:47:24Z"
+  "distributed_at": "2026-06-27T00:48:15Z"
 }
