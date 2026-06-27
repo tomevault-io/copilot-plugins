@@ -1,0 +1,9 @@
+{
+  "name": "grinev--boardown",
+  "displayName": "boardown",
+  "description": "A local-first, git-native task board that lives in your repo as Markdown. Tasks, epics and releases as .md files \u2014 no cloud, no account. VS Code extension or native desktop app.",
+  "version": "1.0.0",
+  "author": "grinev",
+  "homepage": "https://github.com/grinev/boardown",
+  "skills": []
+}
