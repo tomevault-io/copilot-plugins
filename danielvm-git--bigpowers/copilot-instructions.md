@@ -1,68 +1,154 @@
-## compose-workflow
+## craft-skill
 
-> Chain multiple bigpowers skills into a custom workflow recipe saved in specs/. Use when a project repeats a non-standard skill sequence, or user wants a documented playbook beyond orchestrate-project modes.
+> Create new bigpowers skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill for the bigpowers lifecycle.
 
 
 
-# Compose Workflow
-> **HARD GATE** — **HARD GATE** — Workflows are orchestration, not automation. Do NOT create workflows for tasks that should be single skills. Workflow complexity must be justified.
+# Craft Skill
 
+> **HARD GATE** — Do NOT name a skill without a two-word verb-noun pair. Do NOT merge a new skill without running `sync-skills.sh` — the generated `.cursor/rules/` and `.gemini/` artifacts must match the source SKILL.md.
 
 ## Process
 
-1. Interview: goal, phases, which skills, gates between steps.
-2. Write `specs/workflows/<name>.yaml`:
-   - `name`, `command`, `description`, `skills[]`, `verify`
-   - Optional: `args` for skill-specific arguments
-3. Register in state.yaml Active Decisions.
-4. Optional: reference from `orchestrate-project` Ad-Hoc mode.
+1. **Gather requirements** — ask user about:
+   - What task/domain does the skill cover?
+   - What specific use cases should it handle?
+   - Does it need executable scripts or just instructions?
+   - Any reference materials to include?
+   - What specs/ output does it produce (if any)?
 
-> **Prefer the YAML recipe format** over the legacy `specs/WORKFLOW-<name>.md` markdown format.
-> YAML recipes are command-mappable, machine-readable, and listed in the Standard Recipe Library.
+2. **Verify Principles** — Ensure the skill aligns with [PRINCIPLES.md](../docs/PRINCIPLES.md):
+   - Is it atomic (verb-noun)?
+   - Is it "deep" (simple interface, complex internal logic)?
+   - Does it include Hard Gates?
+   - Is it verifiable with a `.feature` file?
 
-## Standard Recipe Library
+3. **Draft the skill** — create:
+   - SKILL.md with concise instructions (see [REFERENCE.md](REFERENCE.md) for template)
+   - Additional reference files if content exceeds 100 lines
+   - Utility scripts if deterministic operations needed
 
-Pre-built recipes in `specs/workflows/` map agentic stack commands to skill chains.
-Reference them in AGENTS.md so `/command` directly invokes the matching recipe.
+   **Auto-skill from library README:** When user provides a library README or API docs URL, extract: triggers, HARD GATEs, verify commands, specs/ output — draft SKILL.md without inventing APIs not in the source.
 
-| Command | Workflow | Skill chain |
-|---------|----------|-------------|
-| `/check-stack` | check-stack | survey-context → assess-impact → setup-environment |
-| `/ship` | ship | audit-code → commit-message → release-branch |
-| `/tdd` | tdd | develop-tdd → enforce-first |
-| `/code-review` | code-review | audit-code → request-review → respond-review |
-| `/security` | security | audit-code → request-review |
-| `/plan` | plan | survey-context → research-first → plan-work |
-| `/build-fix` | build-fix | investigate-bug → diagnose-root → develop-tdd → validate-fix |
-| `/e2e` | e2e | smoke-test → verify-work |
+4. Add `model:` frontmatter (`haiku` | `sonnet` | `opus`) per [model-profiles.md](../docs/references/model-profiles.md).
 
-Add to `AGENTS.md`:
-```
-/check-stack = compose-workflow check-stack
-/ship        = compose-workflow ship
-```
+> **STREAM CONTINUITY** — When writing file content, output in continuous chunks of ~200 lines. Do not pause. Continue immediately until complete. If you need time, emit a placeholder comment rather than going silent.
 
-## Verify
+5. **Review with user** — present draft and ask:
+   - Does this cover your use cases?
+   - Anything missing or unclear?
+   - Should any section be more/less detailed?
 
-→ verify: `ls specs/workflows/*.yaml 2>/dev/null | wc -l | awk '{if($1>=8) print "OK: " $1 " recipes"; else print "FAIL"}'`
+## Naming Rules
 
-See [REFERENCE.md](REFERENCE.md) for template.
+Every skill name must be a **two-word verb-noun pair**. See [REFERENCE.md](REFERENCE.md) for full rules, examples, and documented exceptions.
+
+## specs/ Output
+
+If the skill produces written output, it goes in `specs/` at the project root. Document the output file path in the skill body and in CONVENTIONS.md's output files table.
+
+## Review Checklist
+
+After drafting, verify:
+
+- [ ] Name is a two-word verb-noun pair (or follows grill-me exception)
+- [ ] Description includes triggers ("Use when...")
+- [ ] SKILL.md under 100 lines
+- [ ] No time-sensitive info
+- [ ] Consistent terminology with CONVENTIONS.md
+- [ ] specs/ output documented if applicable
+- [ ] `sync-skills.sh` run to propagate to Cursor/Gemini
 
 ---
 
-# Workflow template
+# Craft Skill — Reference
 
-```markdown
-# WORKFLOW: <name>
+## Naming Rules (full)
 
-**Trigger:** Use when ...
+Every skill name must be a **two-word verb-noun pair**:
+- First word: a verb (survey, model, define, develop, audit…)
+- Second word: a noun from PMBOK 6 / Agile vocabulary (context, domain, language, tdd, code…)
+- Pronounceable in any language, searchable, no noise words, no encodings
+- Exception precedent: `grill-me` — kept for recognizability
 
-| Step | Skill | Output | verify |
-|------|-------|--------|--------|
-| 1 | survey-context | state.yaml handoff | ... |
-| 2 | research-first | Prior Art in SCOPE_LATEST.yaml | ... |
-| 3 | plan-work | epics/eNN-*.yaml tasks | ... |
+Good: `survey-context`, `audit-code`, `validate-fix`
+Bad: `context-surveyor`, `code-auditing-skill`, `fix-validator`
+
+Any new naming exception requires an entry in CONVENTIONS.md before the skill is published.
+
+## Skill Structure
+
 ```
+skill-name/
+├── SKILL.md           # Main instructions (required)
+├── REFERENCE.md       # Detailed docs (if needed)
+├── EXAMPLES.md        # Usage examples (if needed)
+└── scripts/           # Utility scripts (if needed)
+    └── helper.sh
+```
+
+## SKILL.md Template
+
+```md
+---
+name: skill-name
+description: Brief description of capability. Use when [specific triggers].
+---
+
+# Skill Name
+
+## Quick start
+
+[Minimal working example]
+
+## Workflows
+
+[Step-by-step processes with checklists for complex tasks]
+
+## Advanced features
+
+[Link to separate files: See [REFERENCE.md](REFERENCE.md)]
+```
+
+## Description Requirements
+
+The description is **the only thing your agent sees** when deciding which skill to load.
+
+**Format**:
+- Max 1024 chars
+- Write in third person
+- First sentence: what it does
+- Second sentence: "Use when [specific triggers]"
+
+**Good example**:
+```
+Investigate a bug by exploring the codebase to find root cause, then write a TDD-based fix plan to specs/bugs/BUG-*.md. Use when user reports a bug, wants to investigate a problem, or mentions "triage".
+```
+
+## When to Add Scripts
+
+Add utility scripts when:
+- Operation is deterministic (validation, formatting)
+- Same code would be generated repeatedly
+- Errors need explicit handling
+
+## When to Split Files
+
+Split into separate files when:
+- SKILL.md exceeds 100 lines
+- Content has distinct domains
+- Advanced features are rarely needed
+
+## sync-skills.sh Propagation
+
+After adding a new skill directory with SKILL.md, run `scripts/sync-skills.sh` from the bigpowers repo root. This automatically generates:
+- `.cursor/rules/<name>.mdc` — for Cursor
+- `.gemini/extensions/bigpowers/skills/<name>/SKILL.md` — Agent Skill
+- `.gemini/extensions/bigpowers/commands/<name>.toml` — Slash Command
+- `.gemini/extensions/bigpowers/commands/prompts/<name>.md` — Command Prompt
+- Updated `gemini-extension.json`
+
+verify: `bash scripts/sync-skills.sh 2>&1 | grep "skills synced"`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
