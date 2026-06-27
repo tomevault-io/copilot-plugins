@@ -1,0 +1,9 @@
+{
+  "name": "agenticsorg--oia-model",
+  "displayName": "OIA-Model",
+  "description": "An interactive review and implementation workspace for the Open Intelligence Architecture \u2014 a nine-layer reference architecture for enterprise intelligent systems.",
+  "version": "1.0.0",
+  "author": "agenticsorg",
+  "homepage": "https://github.com/agenticsorg/OIA-Model",
+  "skills": []
+}
