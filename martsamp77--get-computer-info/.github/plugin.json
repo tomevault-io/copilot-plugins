@@ -1,0 +1,9 @@
+{
+  "name": "martsamp77--get-computer-info",
+  "displayName": "get-computer-info",
+  "description": "Retrieves information about computers (linux, mac, PC) and produces output ready for consumption by AI for context",
+  "version": "1.0.0",
+  "author": "martsamp77",
+  "homepage": "https://github.com/martsamp77/get-computer-info",
+  "skills": []
+}
