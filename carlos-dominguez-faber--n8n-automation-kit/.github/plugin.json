@@ -1,0 +1,9 @@
+{
+  "name": "carlos-dominguez-faber--n8n-automation-kit",
+  "displayName": "n8n-automation-kit",
+  "description": "Kit completo para conectar Claude Code con n8n: MCPs, skills especializadas, subagente workflow-architect y templates listos para usar.",
+  "version": "1.0.0",
+  "author": "Carlos-Dominguez-faber",
+  "homepage": "https://github.com/Carlos-Dominguez-faber/n8n-automation-kit",
+  "skills": []
+}
