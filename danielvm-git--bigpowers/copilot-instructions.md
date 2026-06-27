@@ -1,49 +1,58 @@
-## evolve-skill
+## execute-plan
 
-> Benchmark-gated skill evolution — consume bigpowers-benchmark report, propose plan-work change, edit skill via craft-skill, re-run benchmark, record ADR. Use when a skill underperforms on benchmark or stocktake finds systemic gap.
+> Batch-execute tasks from the active epic capsule sequentially, with a human checkpoint after each step. Use when user has an approved plan and wants step-by-step oversight.
 
 
 
-# Evolve Skill
+# Execute Plan
 
-> **HARD GATE** — No skill change ships without benchmark score ≥ pre-change baseline. Learning is measured and versioned — never implicit.
+Execute tasks from the **active epic** (`specs/epics/eNN-slug/epic.yaml` story `tasks[]`) one at a time, showing evidence after each step before proceeding.
 
-## Loop
+> **HARD GATE** — Do NOT proceed if on `main` or `master`. Run `kickoff-branch` first.
+>
+> **HARD GATE** — Active epic must exist with runnable `verify` on each task. If missing, run `plan-release` then `plan-work` or `build-epic`.
 
-1. **Establish baseline** — Run `run-benchmark <skill> --baseline`. If no definition exists at `specs/benchmarks/<skill>.yaml`, create one following `specs/benchmarks/SCHEMA.md` first. Save report path in `state.yaml`. If `specs/benchmarks/reports/BASELINE-<skill>.yaml` already exists, skip this step.
+## Process
 
-2. **Identify gap** — Read the baseline report (`specs/benchmarks/reports/BASELINE-<skill>.yaml`). Find scenarios with `result: FAIL` or low `pass_at_k`. This is the measurable gap.
+### 1. Read the plan
 
-3. **`plan-work`** — Write a minimal change proposal targeting the failing scenarios. Include verify commands.
+Read `specs/state.yaml` (`active_epic`, `active_story`) and the matching `specs/epics/*/epic.yaml`. Parse `depends-on` in task descriptions for execution waves.
 
-4. **Edit** via `craft-skill` / direct SKILL.md edit; run `bash scripts/sync-skills.sh`.
+> **CONTEXT ISOLATION** — Spawn each skill with a **fresh context window**. Pass decisions only through `specs/state.yaml` `handoff` — never rely on prior chat history.
 
-5. **Re-run benchmark** — `run-benchmark <skill>`. Compare new `pass_at_k` against baseline.
-   - **IMPROVED or STABLE** → advance to step 6.
-   - **REGRESSION** (`new pass_at_k < baseline`) → revert the change and loop back to step 3.
+Confirm with the user: step count, skip/reorder, stop-after step.
 
-6. **Record decision** — Write `specs/adr/NNNN-evolve-<skill>.md` with before/after `pass_at_k` scores. Update `session-state`.
+### 2. Execute step by step
 
-## Verify
+For each task in the active story:
 
-→ verify: `grep -c 'run-benchmark\|pass_at_k\|BASELINE-' evolve-skill/SKILL.md | awk '{if($1>=2) print "OK"; else print "FAIL"}'`
+**a. Announce** — task `desc` and `verify` command.
 
-See [REFERENCE.md](REFERENCE.md) for ADR template.
+**b. Execute** — code or `delegate-task` / `dispatch-agents` for waves.
 
----
+**c. Run verify** — must be green before advancing.
 
-# Evolve Skill — ADR snippet
+**d. Log** — non-obvious decisions in `specs/state.yaml` under `decisions[]` or `handoff` block.
 
-```markdown
-## ADR-XXXX: Evolve &lt;skill-name&gt;
+**e. Checkpoint** — ask to proceed unless autonomous mode requested.
 
-**Status:** Accepted
-**Benchmark:** before X% / after Y%
-**Change:** one-sentence summary
-**Evidence:** path/to/benchmark-report.md
-```
+**f. Story UAT** — after last task, run manual verification script from story notes or `verify-work`.
 
-Benchmark repo: `/Users/danielvm/Developer/bigpowers-benchmark/`
+On verify failure: fix and re-run; never advance on red.
+
+Update `specs/execution-status.yaml` when a story/epic completes (`bash scripts/sync-status-from-epics.sh` or direct edit).
+
+### 3. Blockers
+
+Report blocker; ask skip/adapt/stop; update epic capsule if plan changes.
+
+### 4. Final report
+
+Suggest: `verify-work` → `run-evals` → `audit-code` → `simulate-agents` → `commit-message` → `release-branch`
+
+## Rules
+
+- **Loop until behavioral correctness is verified**: if a verify command passes but the observed behavior is still wrong, return to step 1 and run the execution cycle again.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
