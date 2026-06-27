@@ -4,7 +4,7 @@
   "repo": "agent-skill-router",
   "description": "Cross-agent skill router that organizes large local skill libraries into category routers and loads leaf skills on demand.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AnamKwon/agent-skill-router",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T14:31:41Z"
+  "distributed_at": "2026-06-27T14:32:12Z"
 }
