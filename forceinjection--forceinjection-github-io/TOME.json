@@ -4,7 +4,7 @@
   "repo": "forceinjection.github.io",
   "description": "Github pages for Force Injection",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ForceInjection/forceinjection.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:58:14Z"
+  "distributed_at": "2026-06-27T23:08:42Z"
 }
