@@ -1,0 +1,44 @@
+{
+  "name": "Nexus-AI",
+  "owner": "DEVARAJ-07",
+  "repo": "Nexus-AI",
+  "description": "Nexus AI is an AI-powered monitoring tool for CI/CD pipelines. It watches your builds in real time, detects failures instantly, and uses AI to explain what went wrong and how to fix it \u2014 turning confusing error logs into clear, actionable answers so developers can resolve issues faster without manual operations.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DEVARAJ-07/Nexus-AI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T14:30:27Z"
+}
