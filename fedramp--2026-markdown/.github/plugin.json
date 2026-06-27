@@ -1,0 +1,9 @@
+{
+  "name": "fedramp--2026-markdown",
+  "displayName": "2026-markdown",
+  "description": "Raw markdown content from FR Consolidated Rules for 2026 - best for LLMs and AI services!",
+  "version": "1.0.0",
+  "author": "FedRAMP",
+  "homepage": "https://github.com/FedRAMP/2026-markdown",
+  "skills": []
+}
