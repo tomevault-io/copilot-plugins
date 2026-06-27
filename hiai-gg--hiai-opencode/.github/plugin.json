@@ -1,0 +1,9 @@
+{
+  "name": "hiai-gg--hiai-opencode",
+  "displayName": "hiai-opencode",
+  "description": "14-agent OpenCode plugin (9 visible + 5 hidden) with MCP integrations, browser automation, 150+ design systems, LSP defaults, and Postgres tooling.",
+  "version": "1.0.0",
+  "author": "HiAi-gg",
+  "homepage": "https://github.com/HiAi-gg/hiai-opencode",
+  "skills": []
+}
