@@ -7,11 +7,11 @@ Personal AI agent orchestration runtime for Claude Code: build, schedule, and ru
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [PixelPaw-Labs/DovePaw](https://github.com/PixelPaw-Labs/DovePaw).
+Original source: `CLAUDE.md` in [PixelPaw-Labs/DovePaw](https://github.com/PixelPaw-Labs/DovePaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
