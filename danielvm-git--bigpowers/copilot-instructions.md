@@ -1,173 +1,163 @@
-## orchestrate-project
+## organize-workspace
 
-> Meta-skill that enforces the 6-phase core loop (discover → elaborate → plan → build → verify → release) with hard gates. Use to coordinate multi-phase projects with guaranteed quality checkpoints. One-time command for the entire project lifecycle.
-
-
-
-# Orchestrate
-> **HARD GATE** — **HARD GATE** — Do NOT invoke orchestrate-project unless you have a clear multi-phase workflow. Single-skill tasks should use dedicated skills instead. Orchestrate is for complex, multi-stage work that requires coordination across phases.
+> Scans the active workspace for disposable artifacts—logs, caches, stale build output, and stray draft markdown—and proposes consolidation of scattered assets. Produces a reviewable list, asks for explicit confirmation before any delete or move, and optionally revises .gitignore. Use when the user says \"clean my room\", \"organize workspace\", \"workspace cleanup\", \"remove temp files\", \"organize assets\", \"gitignore\", or wants a safe tidy pass.
 
 
-The orchestrate skill coordinates projects through a prescriptive 6-phase core loop with hard gates, ensuring consistent quality and preventing scope creep.
 
-## Quick Start
+# Organize Workspace
+> **HARD GATE** — **HARD GATE** — Workspace structure must reflect domain structure. If the codebase feels disorganized, flag it. Disorganization != 'just a style thing;' it is a signal of domain misalignment.
 
-```bash
-# Start a new project (initializes specs/ YAML cockpit and begins discover phase)
-claude /orchestrate --mode standard
 
-# Or resume an existing project at the current phase
-claude /orchestrate --mode standard --resume
+## Principles
 
-# For low-risk scenarios (hotfixes, refactors on well-tested code)
-claude /orchestrate --mode fast-track
+- **Read-only first**: inventory and size (`du`, `ls -la`) before any change.
+- **Never delete or move** without a numbered list and **explicit user approval** (item-level or "approve all").
+- **Prefer `fd` / `ripgrep` / `find`** in that order; avoid blind `rm -rf` on vague globs.
+- **Do not** touch `.git/`, `node_modules/`, `venv/`, `.env*`, or SSH keys; flag them only if the user asked about them.
+- Confirm prompts in the **user's language** if they are not writing in English.
+
+## 1. Establish scope
+
+- Default: **current project root** (where the user is working) or the path they name.
+- Record OS (macOS vs Linux) for ignore patterns (e.g. `.DS_Store`).
+
+## 2. Classify candidates (scan)
+
+Group findings under these **buckets**:
+
+| Bucket | Examples | Typical action |
+|--------|----------|----------------|
+| **Logs & temp** | `*.log`, `logs/`, `tmp/`, `temp/`, `*.pid` | Delete after confirm |
+| **Build / cache** | `dist/`, `build/`, `.next/`, `coverage/`, `.turbo/` | Delete if rebuildable |
+| **Package caches** | root `.cache/`, `__pycache__/` | Offer delete |
+| **Stray drafts** | root-level `*.md` named `draft`, `scratch`, `temp` | User picks: delete, move to `specs/`, or keep |
+| **Duplicate / dump dirs** | `old/`, `backup/`, `copy/`, `*_backup` | List + ask |
+
+Use quick size hints: `du -sh` per top-level dir; sort large items first.
+
+## 3. Assets & data (organize, not only delete)
+
+If the user wants **organization**:
+
+1. Propose a **single convention**, e.g.:
+   - `assets/` — images, fonts, static media
+   - `data/` — JSON, CSV, fixtures, samples
+   - `specs/` — all planning and domain documents
+2. For each cluster of loose files, suggest **one target path** and a short rationale.
+3. Use **git-aware moves** when in a repo: `git mv` if tracked; otherwise `mv` and report.
+4. Never move secrets or production DB dumps into `docs/` or public `assets/`.
+
+## 4. Present the plan
+
+Output a table or numbered list:
+
+- Path
+- Kind (log / build / draft / asset / other)
+- Approx size
+- Proposed action: **delete** | **move to …** | **keep**
+
+Ask: *"Delete items 1–3? Move 4–5? Skip 6?"*
+
+## 5. Execute after approval
+
+- Deletes: on macOS, prefer a Trash-capable tool (e.g. `trash` from Homebrew) if installed; else `rm` with paths echoed back.
+- Moves: create dirs with `mkdir -p` first; one batch at a time.
+- **Verify**: re-run listing on affected parents; if anything failed, report stderr.
+
+## 6. Post-cleanup and `.gitignore` revision
+
+Do this when the repo is under Git and the cleanup surfaced **untracked** noise:
+
+1. **Inventory ignore sources**: root `.gitignore`, `.git/info/exclude`, any subpackage `.gitignore` files.
+2. **Map findings to rules**: for each deleted or recurring artifact class, check whether a pattern already exists; note gaps.
+3. **Propose a patch**: list only **concrete** changes — `+` add / `-` remove / `~` reword — with one-line why.
+4. **User must approve** the exact diff before editing the file.
+5. **Verify**: run `git check-ignore -v <path>` on 2–3 representative paths.
+
+See [REFERENCE.md](REFERENCE.md) for shell patterns, `.gitignore` mechanics, and safety checks.
+
+---
+
+# clean-my-room — reference patterns
+
+Optional commands for the agent. Adapt paths; **dry-run** before bulk delete.
+
+## Discover large top-level entries
+
+```sh
+du -sh ./* .[!.]* 2>/dev/null | sort -hr | head -30
 ```
 
-## The 6-Phase Core Loop
+## Find common logs (respect `.gitignore` when using fd)
 
-1. **DISCOVER** (3-6 hours): Understand problem. Deliverables: `requirements/VISION_LATEST.yaml`, `requirements/SCOPE_LATEST.yaml`, `plans/TECH_STACK_LATEST.md`.
-2. **ELABORATE** (3-6 hours): Research solutions. Deliverables: Prior art in scope YAML, ADRs in `specs/adr/`.
-3. **PLAN** (2-4 hours): Write verifiable plan. Deliverables: `release-plan.yaml`, `epics/eNN-*.yaml` with `verify:` per task.
-4. **BUILD** (1-8 hours): Execute plan. Runs build-epic once per story in WSJF order. Deliverables: Code; update `execution-status.yaml`.
-5. **VERIFY** (1-3 hours): Validate success criteria. Deliverables: UAT evidence, `specs/EVALS-*.md` if used.
-6. **RELEASE** (30 min - 2 hours): Ship to production. Deliverables: Release tag (vX.Y.Z), `state.yaml` `release.last_tag`.
-
-### Checkpoint / resume
-
-Track progress via `specs/state.yaml` `project_cycle`:
-- `project_cycle.current_phase`: current phase (1–6)
-- `project_cycle.completed_phases`: completed phase numbers
-- `handoff.next_skill`: skill for the current phase
-- On resume, read `project_cycle.current_phase` and continue from there
-
-See [REFERENCE.md](REFERENCE.md) for detailed phase specifications and gate types.
-
-## How Orchestrate Works
-
-1. **Maintains state.yaml** — Tracks current phase, `active_epic`, `active_flow`, decisions, risks.
-2. **Spawns appropriate skills** — Routes by `model:` frontmatter. Decisions pass only via `specs/state.yaml` `handoff` between spawns.
-3. **Methodology lenses** — If `specs/tech-architecture/test.md` or ADRs exist, apply at phase gates.
-4. **Enforces gates** — Hard stops if success criteria not met.
-5. **The Gatekeeper** — Between stories in BUILD: read `specs/execution-status.yaml`; previous story must be `done` before starting the next; use `build-epic` for the 8-step epic cycle.
-6. **Pauses for confirmation** — After each phase, asks "Ready to proceed?".
-7. **Snapshots** — `bash scripts/bp-yaml-snapshot.sh` before major release cuts.
-
-## Orchestration Modes
-
-- **Standard**: Enforce all gates. Use for new features and major refactors.
-- **Fast-Track**: Skip negotiable gates. Use for hotfixes and minor improvements.
-- **Ad-Hoc**: Warnings only. Use for prototyping and spikes (non-production).
-
-See [REFERENCE.md](REFERENCE.md) for full mode behaviors.
-
-## Verification
-
-All phases complete with artifacts:
-```bash
-verify: test -f specs/state.yaml && test -f specs/release-plan.yaml && test -f specs/product/SCOPE_LATEST.yaml && ls specs/epics/*.yaml 1>/dev/null && echo "✅ All phases complete"
+```sh
+fd -t f '\.log$' . 2>/dev/null
+fd 'npm-debug' . 2>/dev/null
 ```
 
----
+## Find build-like dirs (review list before `rm -rf`)
 
-# Orchestrate Reference: Phases, Modes, and Workflows
+```sh
+fd -t d '^(dist|build|out|target|\.next|coverage)$' . --max-depth 3 2>/dev/null
+```
 
-Detailed documentation for the `orchestrate-project` meta-skill.
+## Stray markdown at repo root (heuristic)
 
-## The 6-Phase Core Loop
+```sh
+ls -1 ./*.md 2>/dev/null
+fd -t f '^(draft|scratch|untitled|TODO|notes)' . --max-depth 1 2>/dev/null
+```
 
-### PHASE 1: DISCOVER
-- **Goal**: Understand the problem completely and map existing context.
-- **Deliverables**: `requirements/VISION_LATEST.yaml`, `requirements/SCOPE_LATEST.yaml`, `plans/TECH_STACK_LATEST.md`.
-- **Skills**: `survey-context`, `elaborate-spec`, `grill-me`.
-- **Gate**: Confirm ("Is the problem clear?").
+## Git-safe moves
 
-### PHASE 2: ELABORATE
-- **Goal**: Research solutions and lock architectural design.
-- **Deliverables**: Prior art in scope YAML, ADRs in `specs/adr/`.
-- **Skills**: `grill-me`, `model-domain`, `define-language`, `deepen-architecture`, `design-interface`.
-- **Gate**: Quality ≥94% (via `request-review`) + Confirm ("Are decisions locked?").
+```sh
+git status -sb
+git check-ignore -v <path>   # was ignored?
+# Tracked: git mv old new
+# Untracked: mkdir -p … && mv old new
+```
 
-### PHASE 3: PLAN
-- **Goal**: Write a verifiable implementation plan with success criteria.
-- **Deliverables**: `release-plan.yaml`, `epics/eNN-*.yaml` with `verify:` per task.
-- **Skills**: `scope-work`, `slice-tasks`, `define-success`, `plan-work`.
-- **Gate**: Quality (request-review ≥94%) + slopcheck [SUS]/[SLOP].
+## `.gitignore` revision (after cleanup)
 
-### PHASE 4: BUILD
-- **Goal**: Execute the plan story-by-story using the 8-step `build-epic` cycle with TDD and vertical slices.
-- **Deliverables**: Code; `execution-status.yaml` updated per story; `specs/metrics/cycle-times.yaml` row per story.
-- **Skills**: `build-epic` (conductor) → per-story: `survey-context`, `plan-work`, `kickoff-branch`, `develop-tdd`, `verify-work`, `audit-code`, `commit-message`, `release-branch`.
-- **BCP tracking**: `plan-release` sizes each story in Business Complexity Points (BCP) before the build queue; `plan-work` confirms and writes the size to `state.yaml` as `epic_cycle.story_bcps`. See `docs/references/bcp.md` for the canonical sizing method.
-- **Timestamps**: `survey-context` stamps `metrics.story_start`; `release-branch` stamps `metrics.story_end` and writes BCP/hr to `specs/metrics/cycle-times.yaml`.
-- **next_skill**: Each critical-path skill writes `handoff.next_skill` to `state.yaml`. Agents resume by reading `state.yaml` — no guessing.
-- **Dashboard**: `npm run dashboard` (TUI) or `npm run dashboard:web` (browser, port 7742) shows live pipeline, epic queue, BCP metrics, and cycle-time ledger.
-- **Gate**: Integration tests PASS; all 8 build-epic steps completed per story.
+**Goal:** stop regenerated junk from polluting `git status`, without hiding real source.
 
-### PHASE 5: VERIFY
-- **Goal**: Validate success criteria and ensure production readiness.
-- **Deliverables**: UAT evidence, eval results.
-- **Skills**: `run-evals`, `verify-work`, `audit-code`, `request-review` (optional).
-- **Gate**: Verification Script confirmed; `verify-work` not on `main`/`master`.
+1. **Read** root `.gitignore` and, in monorepos, `apps/*/.gitignore` / `packages/*/.gitignore` as needed. Check **`.git/info/exclude`** for machine-only rules that should *not* be committed (keep personal noise there; don’t copy into shared `.gitignore` unless the team agrees).
+2. **Per-path checks** (last match wins; shows which file defined the rule):
 
-### PHASE 6: RELEASE (Integrate)
-- **Goal**: Ship to `main` with full traceability.
-- **Deliverables**: Release tag (vX.Y.Z), release notes via semantic-release.
-- **Skills**: `commit-message`, `release-branch`.
-- **Git arc**:
-  1. Plan on `main` (Discover / Plan)
-  2. `kickoff-branch` → worktree + feature branch + clean baseline
-  3. Build / Verify / Review on feature branch
-  4. Integrate: **solo-local** (`scripts/land-branch.sh`) or **team-pr** (`gh pr create` → squash merge)
-  5. Cleanup worktree; **end on `main`** in primary repo root
-- **Gate**: Safety ("About to land on main. Confirm?").
+   ```sh
+   git check-ignore -v path/to/artifact
+   git status -u --ignored    # optional: see ignored names (noisy)
+   ```
 
----
+3. **Pattern style**
+   - Leading `/` = relative to the `.gitignore`’s directory (e.g. `/dist/` = only that folder at that level, not all nested `dist` unless intended).
+   - `**` for deep trees, e.g. `**/*.log`, when noise appears at many depths.
+   - **Negation** (`!`) is tricky: later rules, parent dirs, and `git add -f` interact—prefer narrow positive ignores over `!` unless you already use negation in that file.
+4. **Do not** add rules that would ignore: application source, small JSON/YAML config the repo tracks, or `!important` assets. When unsure, run `git check-ignore -v` on a *known good* file that must stay tracked.
+5. **Tracked but should be ignored** (user already committed `build/` once): this skill does not silently fix history; flag `git rm -r --cached <path>` + `.gitignore` as a **separate** explicit step the user must approve.
+6. **Global excludes** (optional heads-up for “why is this still ignored?”):
 
-## Orchestration Modes
+   ```sh
+   git config --get core.excludesfile
+   ```
 
-### Mode 1: Standard (Enforce All Gates)
-**Use Case**: New features, major refactors, architectural changes.
-**Behavior**:
-- All Confirm gates require explicit user approval.
-- All Quality gates are hard stops if threshold is not met.
-- No shortcuts or phase skipping.
+## Safety: never pass through these in automated deletes
 
-### Mode 2: Fast-Track (Skip Negotiable Gates)
-**Use Case**: Hotfixes, minor improvements, refactors on well-tested code.
-**Behavior**:
-- Skip Discover if `requirements/SCOPE_LATEST.yaml` exists.
-- Skip Elaborate if design decisions are already locked.
-- Skip Verify if coverage ≥95% + all tests PASS.
-- Soft gates auto-approve if baseline conditions are met.
+- `.git/`, `.svn/`, `.hg/`
+- `node_modules/`, `vendor/`, `venv/`, `.venv/`, `__pypackages__/`
+- Files matching `.env`, `.env.*` (except `.env.example` if intentional)
+- `~/.ssh`, `id_rsa*`, `*.pem` inside project trees
 
-### Mode 3: Ad-Hoc (Legacy, Warnings Only)
-**Use Case**: Exploration, prototyping, spikes (NOT for production).
-**Behavior**:
-- Gates emit warnings but do not block execution.
-- User can manually skip any phase.
-- No enforced quality thresholds.
+## Post-deploy / server-ish extras (name buckets to stack)
 
----
+- Docker: dangling images/volumes (only if user asked for Docker cleanup; requires `docker` context).
+- CI: `*.log` under `build/`, artifact dirs from previous runs.
+- K8s: local `*.kube`, tmp kubeconfigs—list only; do not delete without confirmation.
 
-## Gate & Checkpoint Types
-*See `docs/references/gates.md` and `docs/references/checkpoints.md` for full specs.*
+## Inspiration
 
-- **Confirm**: Requires human "yes/no" decision.
-- **Quality**: Automated threshold check (e.g., coverage, audit score).
-- **Safety**: Destructive actions require risk acknowledgment.
-- **Transition**: Mandatory artifact presence check.
-- **slopcheck**: Identification of [SUS] (Suspicious) or [SLOP] (High-risk) packages.
-
----
-
-## Error Recovery & State
-Orchestrate maintains `specs/state.yaml` to track:
-- **Current flow / epic**: `active_flow`, `active_epic_id`, `epic_cycle`.
-- **Handoff**: `last_step_completed`, `open_decisions`, `required_reading`, `next_skill`.
-- **Git**: `branch`, `hash` for session continuity.
-- **Progress**: Story status lives in `execution-status.yaml` only.
-
-In the event of a crash or exit, run `claude /orchestrate --resume` to pick up exactly where the session left off.
+- Same **inventory → plan → confirm → act** flow as [post-deploy environment cleanup](https://mcpmarket.com/tools/skills/post-deploy-environment-cleanup) style workflows.
+- [Agent template public](https://github.com/matsuni-kk/agent_template_public): honor **Flow** (draft) vs **Stock** (stable); do not “clean” user drafts from Flow without explicit approval.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
