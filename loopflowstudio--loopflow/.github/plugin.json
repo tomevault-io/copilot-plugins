@@ -1,0 +1,9 @@
+{
+  "name": "loopflowstudio--loopflow",
+  "displayName": "loopflow",
+  "description": "Arrange LLMs to code in harmony.",
+  "version": "1.0.0",
+  "author": "loopflowstudio",
+  "homepage": "https://github.com/loopflowstudio/loopflow",
+  "skills": []
+}
