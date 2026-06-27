@@ -7,14 +7,14 @@ ExFig — fast design-to-code CLI for Figma & Penpot with parallel exports, batc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [DesignPipe/exfig](https://github.com/DesignPipe/exfig).
+Original source: `CLAUDE.md` in [DesignPipe/exfig](https://github.com/DesignPipe/exfig).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [DesignPipe/exfig](https://github.com/DesignPipe/exfig) — a repo with 9+ stars on GitHub.
