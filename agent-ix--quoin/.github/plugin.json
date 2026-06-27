@@ -1,0 +1,9 @@
+{
+  "name": "agent-ix--quoin",
+  "displayName": "quoin",
+  "description": "Spec-driven development for Claude Code \u2014 author validated, ISO/IEC/IEEE 29148-aligned specs, then plan and build against them.",
+  "version": "1.0.0",
+  "author": "agent-ix",
+  "homepage": "https://github.com/agent-ix/quoin",
+  "skills": []
+}
