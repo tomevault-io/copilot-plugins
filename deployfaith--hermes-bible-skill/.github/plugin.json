@@ -1,0 +1,9 @@
+{
+  "name": "deployfaith--hermes-bible-skill",
+  "displayName": "hermes-bible-skill",
+  "description": "Community knowledge base skill for Hermes Agent \u2014 169 pages of docs, 25+ real-world flows, hidden features, SOUL.md patterns",
+  "version": "1.0.0",
+  "author": "DeployFaith",
+  "homepage": "https://github.com/DeployFaith/hermes-bible-skill",
+  "skills": []
+}
