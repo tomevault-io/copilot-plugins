@@ -1,0 +1,9 @@
+{
+  "name": "sepahead--pid-rs",
+  "displayName": "pid-rs",
+  "description": "Partial Information Decomposition and continuous mutual-information (KSG / I\u02e2\u02e3) estimators in safe Rust",
+  "version": "1.0.0",
+  "author": "sepahead",
+  "homepage": "https://github.com/sepahead/pid-rs",
+  "skills": []
+}
