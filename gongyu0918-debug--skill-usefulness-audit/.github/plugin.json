@@ -1,0 +1,9 @@
+{
+  "name": "gongyu0918-debug--skill-usefulness-audit",
+  "displayName": "skill-usefulness-audit",
+  "description": "Manual-triggered skill that scores installed agent skills by usage, overlap, and ablation impact.",
+  "version": "1.0.0",
+  "author": "gongyu0918-debug",
+  "homepage": "https://github.com/gongyu0918-debug/skill-usefulness-audit",
+  "skills": []
+}
