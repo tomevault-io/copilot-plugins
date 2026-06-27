@@ -1,0 +1,44 @@
+{
+  "name": "Exam-prompt",
+  "owner": "pinakdhabu",
+  "repo": "Exam-prompt",
+  "description": "20 AI skills for 10/10 exam answers at any university worldwide. Works with ChatGPT, Claude, Gemini, Cursor, Copilot, Codex.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pinakdhabu/Exam-prompt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T00:36:32Z"
+}
