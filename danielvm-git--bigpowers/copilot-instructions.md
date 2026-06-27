@@ -1,98 +1,70 @@
-## spike-prototype
+## stocktake-skills
 
-> Throw-away prototype for unknown problem spaces. Output is learning notes in specs/archive/spikes/SPIKE-<name>.md, not production code. Use when the domain or technology is unexplored, when estimates are impossible without experimentation, or when user says \"spike\", \"prototype\", or \"proof of concept\".
-
-
-
-# Spike Prototype
-> **HARD GATE** — **HARD GATE** — Spikes are time-boxed experiments, not shipping code. Results must be throwaway or clearly isolated. Do NOT merge a spike without a plan to integrate it or replace it with a proper implementation.
+> Sequential subagent batch audit of the bigpowers skill catalog — Quick Scan (changed only) or Full (all skills). Use during sustain phase, before a major release, or when catalog drift is suspected.
 
 
-A spike is a time-boxed experiment to answer a specific question. The code is thrown away. The learning is kept in `specs/archive/spikes/SPIKE-<name>.md`.
 
-**The spike produces learning, not code to ship.** If you find yourself cleaning up spike code for production, stop — run `plan-work` and `develop-tdd` instead with the insights you gained.
+# Stocktake Skills
+> **HARD GATE** — **HARD GATE** — Skill inventory must be current. Missing HARD GATEs, stale descriptions, or broken verify commands are defects, not cosmetic. Fix them in `evolve-skill`.
 
-## When to spike
 
-- The technology is unfamiliar (new library, API, infrastructure)
-- The approach is uncertain (multiple solutions exist; none has been tried)
-- Estimates are impossible without seeing how the thing actually behaves
-- A key assumption needs to be validated before committing to a design
+Audit SKILL.md catalog for drift, stale triggers, missing HARD GATEs, and INDEX mismatches.
+
+## Modes
+
+| Mode | Scope |
+|------|-------|
+| **Quick Scan** | Skills changed since last tag or in current diff |
+| **Full** | All skills per SKILL-INDEX.md + catalog audit |
+| **--verify** | Run `bash scripts/run-skill-verify.sh` and append health results to the stocktake report |
 
 ## Process
 
-### 1. Define the question
+1. Run `bash scripts/audit-catalog.sh` to verify pi/skills ↔ source SKILL.md sync. Mismatch is a critical finding.
+2. Run mode; for each skill check: exists, verb-noun, &lt;300 lines total, HARD GATE present, INDEX row matches.
+3. Write `specs/STOCKTAKE-<date>.md` with findings table (skill, issue, severity).
+4. **Effectiveness report (--full mode only):** Read `specs/state.yaml` `metrics.skill_timings` and report:
+   - Top 5 most-used skills (by calls, total_seconds)
+   - Skills with zero calls (potential dead weight)
+   - Skills with high average time (candidates for `evolve-skill`)
+5. Critical findings → `plan-work` story; cosmetic → `evolve-skill` candidate.
+6. **--verify mode:** Run `bash scripts/run-skill-verify.sh` and append a `## Verify Health` section to the stocktake report: `"N/68 PASS, M FAIL, K SKIP"`. FAIL skills are critical findings and go straight to `plan-work`.
 
-Before writing a single line, state the question the spike must answer:
+### Skill timing data (`metrics.skill_timings`)
 
-> "Can we [specific thing] using [specific approach] within [constraint]?"
+In `--full` mode, read `specs/state.yaml` `metrics.skill_timings` for per-skill usage stats:
 
-Examples:
-- "Can we stream large files from S3 to the client without buffering in memory?"
-- "Does the Stripe webhook SDK handle signature verification correctly in our edge runtime?"
-- "Can we achieve < 100ms p99 response time for the search endpoint with a naive Postgres full-text search?"
+```yaml
+metrics:
+  skill_timings:
+    survey-context:
+      calls: 12
+      total_seconds: 180
+      avg_seconds: 15.0
+    develop-tdd:
+      calls: 30
+      total_seconds: 5400
+      avg_seconds: 180.0
+```
 
-A spike with no question is just unplanned coding. Refuse to start if the question isn't clear.
+Timing data is populated by `scripts/bp-timing.sh start|end <skill>` calls within critical-path skills.
 
-### 2. Set a timebox
+## Verify
 
-Agree on a timebox with the user: 30 minutes, 1 hour, 2 hours. When time is up, stop — even if the question isn't fully answered. Partial learning is still learning.
+→ verify: `test -f specs/STOCKTAKE-*.md && echo OK || echo MISSING`
 
-### 3. Experiment
+See [REFERENCE.md](REFERENCE.md) for checklist.
 
-Write the simplest code that could answer the question. Ignore:
-- Error handling
-- Test coverage
-- Code quality
-- Production concerns
+---
 
-Focus entirely on answering the question.
+# Stocktake checklist
 
-### 4. Write specs/archive/spikes/SPIKE-<name>.md
-
-Save the learning to `specs/archive/spikes/SPIKE-<name>.md`. Create the `specs/` directory if it doesn't exist.
-
-<spike-template>
-
-# Spike: [name]
-
-## Question
-
-[The specific question this spike was answering]
-
-## Result
-
-[Answered / Partially answered / Not answered]
-
-## Findings
-
-[What you learned — concrete observations, not opinions]
-
-## Evidence
-
-[Code snippet, benchmark result, API response, or screenshot that proves the finding]
-
-## Implications for the plan
-
-[How this changes the approach, the design, or the estimate]
-
-## What was NOT explored
-
-[Known gaps — things the spike didn't validate]
-
-## Recommendation
-
-[Should we proceed with this approach? If yes, what does plan-work need to account for?]
-
-</spike-template>
-
-### 5. Delete the spike code
-
-After writing the findings, delete or discard the spike code. It is not meant to ship.
-
-### 6. Feed back into plan-work
-
-The spike findings are the input to `plan-work`. Call `plan-work` next, informed by `specs/archive/spikes/SPIKE-<name>.md`.
+- [ ] SKILL.md exists at repo root `&lt;name&gt;/SKILL.md`
+- [ ] Listed in SKILL-INDEX.md with correct phase
+- [ ] `description` includes "Use when..."
+- [ ] At least one HARD GATE callout
+- [ ] specs/ output documented if applicable
+- [ ] No edit to `.cursor/rules/` or `.gemini/` (generated only)
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
