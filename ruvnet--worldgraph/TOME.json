@@ -4,7 +4,7 @@
   "repo": "worldgraph",
   "description": "Privacy-aware environmental digital twin for ambient/RF sensing in Rust \u2014 a typed, provenance-tracked graph of rooms, sensors, people & beliefs, geospatially grounded with predictive occupancy (OccWorld). ADR-139.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ruvnet/worldgraph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T06:32:45Z"
+  "distributed_at": "2026-06-27T06:33:12Z"
 }
