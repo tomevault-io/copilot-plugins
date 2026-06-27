@@ -4,7 +4,7 @@
   "repo": "portFolio_app",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jindoeyoung/portFolio_app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:41:12Z"
+  "distributed_at": "2026-06-27T23:42:47Z"
 }
