@@ -4,7 +4,7 @@
   "repo": "one",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wanweiwei07/one",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T01:14:51Z"
+  "distributed_at": "2026-06-27T01:18:36Z"
 }
