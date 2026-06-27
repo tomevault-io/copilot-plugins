@@ -1,0 +1,9 @@
+{
+  "name": "lfnovo--quiz-me",
+  "displayName": "quiz-me",
+  "description": "A simple library to extract questions from any content / prompt for studying and learning purposes",
+  "version": "1.0.0",
+  "author": "lfnovo",
+  "homepage": "https://github.com/lfnovo/quiz-me",
+  "skills": []
+}
