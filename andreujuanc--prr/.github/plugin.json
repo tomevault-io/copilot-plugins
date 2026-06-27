@@ -1,0 +1,9 @@
+{
+  "name": "andreujuanc--prr",
+  "displayName": "prr",
+  "description": "AI-powered pull request reviewer in your terminal. Review diffs, navigate findings, comment, and submit, all without leaving the CLI",
+  "version": "1.0.0",
+  "author": "andreujuanc",
+  "homepage": "https://github.com/andreujuanc/prr",
+  "skills": []
+}
