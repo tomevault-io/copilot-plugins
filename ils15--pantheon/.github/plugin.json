@@ -1,0 +1,26 @@
+{
+  "name": "ils15--pantheon",
+  "displayName": "pantheon",
+  "description": "GitHub Copilot agents and instructions for reuse across projects",
+  "version": "1.0.0",
+  "author": "ils15",
+  "homepage": "https://github.com/ils15/pantheon",
+  "skills": [
+    {
+      "name": "fastapi-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "fastapi-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "database-optimization",
+      "description": ""
+    }
+  ]
+}
