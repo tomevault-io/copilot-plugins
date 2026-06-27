@@ -1,0 +1,9 @@
+{
+  "name": "optiqor--optiqor-cli",
+  "displayName": "optiqor-cli",
+  "description": "Kubernetes cost analysis for every PR. Detect waste, propose fixes, prove savings",
+  "version": "1.0.0",
+  "author": "optiqor",
+  "homepage": "https://github.com/optiqor/optiqor-cli",
+  "skills": []
+}
