@@ -1,0 +1,44 @@
+{
+  "name": "terraform-aws-n8n",
+  "owner": "n8n-io",
+  "repo": "terraform-aws-n8n",
+  "description": "Production-grade n8n Enterprise on AWS \u2014 multi-main EKS, RDS Postgres, ElastiCache Redis, S3, and ALB in one terraform apply.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/n8n-io/terraform-aws-n8n",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T22:57:16Z"
+}
