@@ -1,0 +1,9 @@
+{
+  "name": "tropeai--trope-cua",
+  "displayName": "trope-cua",
+  "description": "Background computer use for desktop agents on Windows and macOS",
+  "version": "1.0.0",
+  "author": "tropeai",
+  "homepage": "https://github.com/tropeai/trope-cua",
+  "skills": []
+}
