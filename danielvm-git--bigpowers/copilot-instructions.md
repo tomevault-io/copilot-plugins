@@ -1,61 +1,68 @@
-## bigpowers
+## compose-workflow
 
-> > **Auto-generated** by `sync-skills.sh` from `CLAUDE.md`. Edit CLAUDE.md, not this file.
+> Chain multiple bigpowers skills into a custom workflow recipe saved in specs/. Use when a project repeats a non-standard skill sequence, or user wants a documented playbook beyond orchestrate-project modes.
 
-# bigpowers — Gemini CLI
 
-> **Auto-generated** by `sync-skills.sh` from `CLAUDE.md`. Edit CLAUDE.md, not this file.
 
-Read CONVENTIONS.md before any GitHub or git operation.
+# Compose Workflow
+> **HARD GATE** — **HARD GATE** — Workflows are orchestration, not automation. Do NOT create workflows for tasks that should be single skills. Workflow complexity must be justified.
 
-## Project
 
-bigpowers — 58 agent skills for spec-driven, test-first software development by solo developers.
-Stack: Markdown / Bash (documentation-based; skills integrate with Claude Code, Cursor, Gemini CLI)
+## Process
 
-## Commands
+1. Interview: goal, phases, which skills, gates between steps.
+2. Write `specs/workflows/<name>.yaml`:
+   - `name`, `command`, `description`, `skills[]`, `verify`
+   - Optional: `args` for skill-specific arguments
+3. Register in state.yaml Active Decisions.
+4. Optional: reference from `orchestrate-project` Ad-Hoc mode.
 
-| Action  | Command |
-|---------|---------|
-| Install | `npx bigpowers` or `npm install -g bigpowers` |
-| Run     | `bash scripts/sync-skills.sh` |
-| Test    | N/A (documentation project) |
-| Build   | `bash scripts/install.sh` (from source) |
-| Lint    | `bash scripts/sync-skills.sh` (validates SKILL.md syntax) |
+> **Prefer the YAML recipe format** over the legacy `specs/WORKFLOW-<name>.md` markdown format.
+> YAML recipes are command-mappable, machine-readable, and listed in the Standard Recipe Library.
 
-## Architecture
+## Standard Recipe Library
 
-Collection of 58 verb-noun skills, each with a SKILL.md source file and supporting documentation. Includes Verify phase and profiles/. The sync-skills.sh script auto-generates artifacts for Cursor (.cursor/rules) and Gemini CLI (.gemini/extensions/bigpowers/) from SKILL.md sources. All planning and spec output goes to specs/ at the project root.
+Pre-built recipes in `specs/workflows/` map agentic stack commands to skill chains.
+Reference them in AGENTS.md so `/command` directly invokes the matching recipe.
 
-## Conventions
+| Command | Workflow | Skill chain |
+|---------|----------|-------------|
+| `/check-stack` | check-stack | survey-context → assess-impact → setup-environment |
+| `/ship` | ship | audit-code → commit-message → release-branch |
+| `/tdd` | tdd | develop-tdd → enforce-first |
+| `/code-review` | code-review | audit-code → request-review → respond-review |
+| `/security` | security | audit-code → request-review |
+| `/plan` | plan | survey-context → research-first → plan-work |
+| `/build-fix` | build-fix | investigate-bug → diagnose-root → develop-tdd → validate-fix |
+| `/e2e` | e2e | smoke-test → verify-work |
 
-- Skill directories use verb-noun naming (two words, kebab-case)
-- Every skill has a single SKILL.md file as its source of truth
-- All planning/spec output goes to specs/ at project root
-- Artifacts in .cursor/rules and .gemini/ are auto-generated; edit SKILL.md, not artifacts
-- Run sync-skills.sh after any SKILL.md changes to regenerate artifacts
+Add to `AGENTS.md`:
+```
+/check-stack = compose-workflow check-stack
+/ship        = compose-workflow ship
+```
 
-## Never
+## Verify
 
-- Never edit .cursor/rules or .gemini/extensions/ directly — these are generated files
-- Never create a skill without a SKILL.md file and proper verb-noun naming
-- Never push changes without running sync-skills.sh first
+→ verify: `ls specs/workflows/*.yaml 2>/dev/null | wc -l | awk '{if($1>=8) print "OK: " $1 " recipes"; else print "FAIL"}'`
 
-## Token Management
+See [REFERENCE.md](REFERENCE.md) for template.
 
-- **Auto-Terse**: When a session exceeds 20 turns or the context window feels "heavy" (latency increasing), you MUST switch to `terse-mode` to save tokens.
-- **Context Compaction**: Every 10 turns, summarize the current session state and implementation decisions into a short, high-density note.
-- **Minimal Output**: Prefer text-only output for simple status; use `web_fetch` or `run_shell_command` only for evidence.
+---
 
-## Agent Rules
+# Workflow template
 
-- **Workflow Mandate:** You MUST use the bigpowers skills (e.g., `plan-work`, `develop-tdd`, `craft-skill`) to perform tasks. DO NOT write code directly in response to a user prompt like "build this feature".
-- Read specs/ and CONVENTIONS.md before writing code.
-- Write the minimum code that solves the stated problem. Nothing extra.
-- Never refactor, rename, or reorganize code outside the task scope.
-- Run tests after every change. Show evidence before declaring done.
-- One clarifying question beats a wrong assumption baked into 200 lines.
-- All written output (plans, specs, investigations) goes in specs/.
+```markdown
+# WORKFLOW: <name>
+
+**Trigger:** Use when ...
+
+| Step | Skill | Output | verify |
+|------|-------|--------|--------|
+| 1 | survey-context | state.yaml handoff | ... |
+| 2 | research-first | Prior Art in SCOPE_LATEST.yaml | ... |
+| 3 | plan-work | epics/eNN-*.yaml tasks | ... |
+```
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
