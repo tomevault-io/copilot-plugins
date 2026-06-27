@@ -4,7 +4,7 @@
   "repo": "advanced-imessage-ts",
   "description": "TypeScript SDK for the Apple level iMessage API via Photon's Spectrum gRPC gateway.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/photon-hq/advanced-imessage-ts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T18:31:41Z"
+  "distributed_at": "2026-06-27T18:39:44Z"
 }
