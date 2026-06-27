@@ -1,24 +1,74 @@
-## reset-baseline
+## respond-review
 
-> Restore the project to a known clean state between agent runs or experiments. Use between benchmark runs, after a failed spike, or when user wants a clean working tree.
+> Act on a reviewer agent's feedback systematically — categorize findings, apply fixes, verify tests still pass. Use after request-review returns a report, or when user wants to work through code review findings.
 
 
 
-# Reset Baseline
+# Respond Review
+> **HARD GATE** — **HARD GATE** — Every reviewer comment must be addressed (fix, disagree + document reason, or ask clarification). Do NOT ignore feedback and merge.
 
-> **HARD GATE** — Confirm with user before any destructive git operation. Never `reset --hard` without explicit approval.
+
+Work through reviewer findings systematically. Don't apply changes blindly — categorize first, then decide, then fix, then verify.
 
 ## Process
 
-1. `git status` — list uncommitted and untracked files.
-2. Ask: stash, discard, or keep each category.
-3. Safe defaults: `git stash push -u -m "reset-baseline"` for WIP; never force-push.
-4. Re-run `setup-environment` after reset.
-5. Run test baseline from `kickoff-branch` verify command.
+### 1. Read the full review report
 
-## Verify
+Read every finding before acting on any of them. Get the full picture first.
 
-→ verify: `git status --short | wc -l | awk '{if($1==0) print "OK"; else print "DIRTY:" $1}'
+### 2. Categorize findings
+
+For each finding, assign a category:
+
+| Category | Meaning | Action |
+|----------|---------|--------|
+| **must-fix** | Correctness bug, security issue, test failure, CONVENTIONS.md violation | Fix before proceeding |
+| **should-fix** | Code quality issue, naming, clarity — worth fixing but not blocking | Fix if time allows |
+| **consider** | Architectural suggestion, alternative approach — may or may not apply | Discuss with user |
+
+Create a numbered list of all findings with their categories.
+
+### 3. Confirm with user (for consider-category items)
+
+For each "consider" item, briefly describe the trade-off and ask: "Apply, skip, or discuss?"
+
+### 4. Apply must-fix items first
+
+Fix every must-fix item. For each one:
+- Describe what you're changing and why
+- Make the change
+- Run the verify command if one exists for this area
+
+### 5. Apply should-fix items
+
+Apply should-fix items. If any are large enough to warrant their own commit, note them separately.
+
+### 6. Run the full suite
+
+After all changes are applied:
+
+```bash
+<full test command>
+<typecheck command>
+<lint command>
+```
+
+- [ ] All tests pass
+- [ ] No type errors
+- [ ] No lint violations
+
+### 7. Report
+
+Summarize what was applied and what was skipped:
+
+```
+Applied (must-fix): #1, #2, #3
+Applied (should-fix): #4
+Skipped (consider): #5 — agreed with user to defer
+All tests pass.
+```
+
+Suggest next skill: `commit-message`.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
