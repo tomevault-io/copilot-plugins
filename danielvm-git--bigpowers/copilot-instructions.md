@@ -1,99 +1,41 @@
-## grill-me
+## grill-with-docs
 
-> Interactive assumption-surfacing Q&A that stress-tests a plan through relentless questioning until every decision is resolved. Use when user wants to challenge a plan, validate decisions from conversation/context, or mentions \"grill me\". For doc-grounded variant, use grill-with-docs.
+> Doc-grounded variant of grill-me — stress-tests plan assumptions by fetching and citing real library or API documentation. Every challenge must cite a real URL. Use when the plan depends on a specific library or external API.
 
 
 
-# Grill Me
+# Grill With Docs
 
-> **Use this vs grill-with-docs:** `grill-me` surfaces assumptions from the conversation and context alone — no documentation fetching. Use `grill-with-docs` (the doc-grounded variant) when the plan relies on a specific library or external API and every challenge must cite a real doc URL.
+> **Use this vs grill-me:** `grill-with-docs` is the doc-grounded variant of `grill-me`. Use it when the plan relies on external libraries or APIs and every challenge must be grounded in and cite a real documentation URL. Use `grill-me` for context-only assumption surfacing without fetching docs.
 
-Two modes. Default is **Design**. Switch to **Docs** by saying "grill me with docs" or when the plan relies on a specific library or external API.
+> **HARD GATE** — Every challenge must cite a real documentation URL. No hallucinated APIs.
 
-> **HARD GATE** — Do NOT accept a design until every hard decision has been stress-tested. "Seems right" is not a decision. Grilling must identify and resolve tensions before build begins.
+## Process
 
-## Design mode (default)
+1. Read the plan or design under test (`specs/release-plan.yaml + epic shards`, INTERFACE-OPTIONS.md, etc.).
+2. List assumptions that depend on external libraries or APIs.
+3. For each assumption: fetch or quote official docs; challenge with "docs say X, plan says Y."
+4. Resolve or update the plan inline; unresolved items block `plan-work`.
 
-Interview relentlessly about every aspect of this plan until reaching shared understanding. Walk each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer. Ask one question at a time.
+## Docs mode rules
 
-If a question can be answered by exploring the codebase, explore it instead.
+- Cite URL + quoted snippet (method name, parameter, version).
+- If docs contradict the plan, plan loses until updated.
+- Prefer official docs over blog posts.
 
-## Docs mode
+## Verify
 
-Ground every challenge in real documentation — no assumption about a library's behavior goes unchecked. See [REFERENCE.md](REFERENCE.md) for the full process.
+→ verify: dialogue log contains at least one `https://` doc URL per challenged assumption
 
-Short form:
-1. List every external library, third-party API, and framework behavior relied upon.
-2. Fetch the actual docs for each (`WebFetch` the official API reference).
-3. Challenge each plan assumption against the real docs: correct method signature? right version? deprecated?
-4. Report confirmed ✓, corrected ✗ (with the real behavior), and uncertain → `spike-prototype`.
-5. Update the plan for each confirmed discrepancy.
+See [REFERENCE.md](REFERENCE.md) for question templates.
 
 ---
 
-# Docs Mode — Full Process
+# Grill With Docs — Question templates
 
-Triggered by "grill me with docs" or when a plan depends on a specific library or external API.
-
-**Why this matters:** AI agents hallucinate API methods, argument orders, and behaviors. Every assumption about an external dependency must be validated against the actual docs before code is written.
-
-## Step 1 — Identify the dependencies
-
-From the plan or conversation, list:
-- Every external library being used
-- Every third-party API being called
-- Every framework behavior being relied upon
-
-Ask: "Which of these are you most confident about? Which are you less sure of?"
-
-## Step 2 — Fetch the relevant docs
-
-For each dependency, fetch the actual documentation:
-
-```
-WebFetch the official docs for [library/API]
-```
-
-Prioritize:
-- The API reference for the specific method being used
-- The changelog for the version in use (breaking changes)
-- Migration guides if upgrading from a previous version
-- Known gotchas / FAQ sections
-
-## Step 3 — Challenge each assumption
-
-For every assumption in the plan, find the corresponding doc section and ask:
-
-- "Does the real API actually work this way? Show me the doc."
-- "Is this method available in the version you're using?"
-- "Does this argument order match the actual signature?"
-- "Are there rate limits, quotas, or timeout behaviors that affect this design?"
-- "Is this marked as deprecated in the current version?"
-
-Ask one question at a time. For each challenge, cite the specific URL and section.
-
-## Step 4 — Surface hallucinations
-
-When an assumption doesn't match the docs:
-
-> "Your plan uses `library.doThing(a, b)` but the [docs](URL) show the signature is `doThing(config: {a, b})` with a config object. This will fail at runtime."
-
-Document each discrepancy clearly.
-
-## Step 5 — Update the plan
-
-For each confirmed discrepancy, recommend a concrete fix:
-- Correct method signature
-- Correct argument order
-- Alternative approach that matches what the library actually supports
-- Whether a spike (`spike-prototype`) is needed to validate a remaining uncertainty
-
-## Step 6 — Sign off
-
-When all major assumptions have been validated against docs, report:
-- Which assumptions were confirmed ✓
-- Which were corrected ✗ + what the correct approach is
-- Which remain uncertain → recommend `spike-prototype`
+- "Docs at [URL] show signature `foo(bar?: Baz)`. Your plan calls `foo(bar, baz)` — which is correct?"
+- "The changelog at [URL] deprecates X in v3. Your plan still uses X — migrate or pin version?"
+- "Error handling in [URL] throws `NetworkError`. Your plan catches `Error` only — is that sufficient?"
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
