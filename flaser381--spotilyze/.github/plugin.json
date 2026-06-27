@@ -1,0 +1,9 @@
+{
+  "name": "flaser381--spotilyze",
+  "displayName": "spotilyze",
+  "description": "See what your music says about you. A private, local-first analyzer for your Spotify listening history. Patterns, life-phases, and an optional AI personality read.",
+  "version": "1.0.0",
+  "author": "flaser381",
+  "homepage": "https://github.com/flaser381/spotilyze",
+  "skills": []
+}
