@@ -1,0 +1,9 @@
+{
+  "name": "phantomyard--phantombot",
+  "displayName": "phantombot",
+  "description": "AI Assistant That Uses Your Favorite Harness",
+  "version": "1.0.0",
+  "author": "phantomyard",
+  "homepage": "https://github.com/phantomyard/phantombot",
+  "skills": []
+}
