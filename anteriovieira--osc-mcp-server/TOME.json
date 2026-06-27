@@ -1,0 +1,44 @@
+{
+  "name": "osc-mcp-server",
+  "owner": "anteriovieira",
+  "repo": "osc-mcp-server",
+  "description": "MCP server for controlling digital mixers (Behringer X32, Midas M32, etc.) via OSC",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/anteriovieira/osc-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T01:17:12Z"
+}
