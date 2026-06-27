@@ -1,0 +1,9 @@
+{
+  "name": "simplyprint--nfc-agent",
+  "displayName": "nfc-agent",
+  "description": "Local NFC read + write API for Windows, Linux and Mac.",
+  "version": "1.0.0",
+  "author": "SimplyPrint",
+  "homepage": "https://github.com/SimplyPrint/nfc-agent",
+  "skills": []
+}
