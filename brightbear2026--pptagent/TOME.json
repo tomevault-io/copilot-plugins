@@ -1,0 +1,44 @@
+{
+  "name": "PPTagent",
+  "owner": "brightbear2026",
+  "repo": "PPTagent",
+  "description": "\u4e13\u4e1a\u7ea7PPT\u751f\u6210Agent \u2014 6\u5c42\u6d41\u6c34\u7ebf\u67b6\u6784\uff0c\u591a\u683c\u5f0f\u8f93\u5165\uff0c4\u6b21\u4eba\u5de5\u5ba1\u6838\uff0c\u591a\u56fd\u4ea7LLM\u534f\u540c(GLM-4/DeepSeek-R1/Qwen-Max)\uff0c\u771f\u5b9e\u6570\u636e\u9a71\u52a8\u56fe\u8868\uff0c\u751f\u6210\u54a8\u8be2\u516c\u53f8\u7ea7\u6f14\u793a\u6587\u7a3f\u3002React+FastAPI\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/brightbear2026/PPTagent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T16:46:40Z"
+}
