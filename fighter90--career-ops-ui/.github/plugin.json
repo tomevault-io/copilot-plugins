@@ -1,0 +1,9 @@
+{
+  "name": "fighter90--career-ops-ui",
+  "displayName": "career-ops-ui",
+  "description": "Clean, docs-style web UI for the career-ops AI job-search pipeline. Search ATS adapters (Greenhouse/Ashby/Lever) + regional portals (hh.ru/Habr Career), evaluate JDs, track applications \u2014 all from the",
+  "version": "1.0.0",
+  "author": "Fighter90",
+  "homepage": "https://github.com/Fighter90/career-ops-ui",
+  "skills": []
+}
