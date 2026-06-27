@@ -1,0 +1,9 @@
+{
+  "name": "replikativ--dvergr",
+  "displayName": "dvergr",
+  "description": "FRP-based LLM agent framework with git-like memory model.",
+  "version": "1.0.0",
+  "author": "replikativ",
+  "homepage": "https://github.com/replikativ/dvergr",
+  "skills": []
+}
