@@ -1,0 +1,9 @@
+{
+  "name": "patlux--pi-chatgpt-limit",
+  "displayName": "pi-chatgpt-limit",
+  "description": "Pi extension that shows ChatGPT Codex subscription usage in the footer",
+  "version": "1.0.0",
+  "author": "patlux",
+  "homepage": "https://github.com/patlux/pi-chatgpt-limit",
+  "skills": []
+}
