@@ -1,0 +1,9 @@
+{
+  "name": "borealbytes--my-farm-advisor-skills",
+  "displayName": "my-farm-advisor-skills",
+  "description": "Domain-specific skills for the My Farm Advisor agent ecosystem",
+  "version": "1.0.0",
+  "author": "borealBytes",
+  "homepage": "https://github.com/borealBytes/my-farm-advisor-skills",
+  "skills": []
+}
