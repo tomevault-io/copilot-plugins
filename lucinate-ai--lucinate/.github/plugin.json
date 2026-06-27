@@ -1,0 +1,9 @@
+{
+  "name": "lucinate-ai--lucinate",
+  "displayName": "lucinate",
+  "description": "Terminal-native chat client for OpenClaw, Hermes, Ollama and OpenAI-compatible providers. A pure, beautiful terminal chat experience - connect to the gateway, pick an agent, and chat with streaming re",
+  "version": "1.0.0",
+  "author": "lucinate-ai",
+  "homepage": "https://github.com/lucinate-ai/lucinate",
+  "skills": []
+}
