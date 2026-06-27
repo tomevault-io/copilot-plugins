@@ -1,0 +1,9 @@
+{
+  "name": "burtherman--homebridge-mitsubishi-comfort",
+  "displayName": "homebridge-mitsubishi-comfort",
+  "description": "Homebridge plugin for the Mitsubishi Comfort app",
+  "version": "1.0.0",
+  "author": "burtherman",
+  "homepage": "https://github.com/burtherman/homebridge-mitsubishi-comfort",
+  "skills": []
+}
