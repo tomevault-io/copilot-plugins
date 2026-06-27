@@ -1,0 +1,9 @@
+{
+  "name": "ramsbaby--jarvis",
+  "displayName": "jarvis",
+  "description": "Self-healing AI operations platform \u2014 Discord bot + RAG + Insight Layer + 99 automation scripts. Runs 24/7, fixes itself, gets smarter. Zero API charges.",
+  "version": "1.0.0",
+  "author": "Ramsbaby",
+  "homepage": "https://github.com/Ramsbaby/jarvis",
+  "skills": []
+}
