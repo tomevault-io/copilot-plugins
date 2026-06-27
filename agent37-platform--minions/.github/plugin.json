@@ -1,0 +1,9 @@
+{
+  "name": "agent37-platform--minions",
+  "displayName": "minions",
+  "description": "Mission Control for your Hermes agents",
+  "version": "1.0.0",
+  "author": "agent37-platform",
+  "homepage": "https://github.com/agent37-platform/minions",
+  "skills": []
+}
