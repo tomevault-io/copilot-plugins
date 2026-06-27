@@ -1,102 +1,162 @@
-## validate-fix
+## verify-work
 
-> Prove a fix works before declaring done — re-run the failing test, run the full suite, typecheck, lint, and harden against recurrence. Use after implementing a bug fix, when user says \"is this fixed?\", or before closing an investigation.
-
-
-
-# Validate Fix
-> **HARD GATE** — **HARD GATE** — Fix must not regress. Run full test suite and manual UAT before declaring success. A fix that passes tests but breaks something else is a failure.
+> Multi-phase UAT gate — cold-start smoke, build, typecheck, lint, tests, step-by-step manual verification, gaps-closure loop. Use after execute-plan or develop-tdd, before audit-code.
 
 
-Prove the fix works. "I think it works" is not evidence. Run the suite, show the output, then harden against recurrence.
 
-## Checklist
+# Verify Work
 
-### 1. Re-run the originally failing test
+> **HARD GATE** — No story is "done" until manual UAT for the active story is confirmed with evidence.
+>
+> **HARD GATE** — Do NOT run on `main` or `master`. Use the feature branch from `kickoff-branch`.
 
-```bash
-# Run the specific test that captured the bug
-<test command for the failing test>
+Review answers "is the code good?"; Verify answers "does the built thing do what was promised?"
+
+## Modes
+
+- Default: full UAT plus gaps loop
+- --smoke: Cold-start only plus one happy-path flow. Use for hotfixes.
+- --cli: CLI tool verification — replaces cold-start with binary smoke checklist. Use for CLI tools with no server process.
+
+## Process
+
+> **Timing:** `bash scripts/bp-timing.sh start verify-work` at invocation; `bash scripts/bp-timing.sh end verify-work` before handoff.
+
+0. **Branch check** — must not be `main`/`master`.
+
+1. Read active story tasks from `specs/epics/<capsule>/eNNsYY-tasks.yaml` and story spec from `specs/epics/<capsule>/eNNsYY-<slug>.md` (countable-story-format, Gherkin in §17).
+1a. **Pre-UAT verify validation** — for each task's `verify:` command, run it and detect pattern mismatches before UAT begins. If a grep/awk/jq command fails, check whether the pattern is wrong vs. a genuine failure:
+    ```bash
+    # For a failing grep -q 'PATTERN' FILE, check what is actually in FILE
+    grep 'PATTERN' FILE || grep -n '' FILE | head -20   # show nearest lines
+    ```
+    Report: `"Pattern 'X' not found. Nearest match: 'Y' at line N"` and ask `"Update verify command? [Y/n]"`. Fix before proceeding — a mismatched verify command produces false failures during UAT.
+2. **Cold-start smoke** (if app): stop server, clear caches, boot from scratch.
+3. **AGENTS.md preflight** — before running default checks, call `bash scripts/bp-read-agents.sh` to detect project-specific commands. If `BP_PREFLIGHT` is set, run it instead of the default mechanical gates (or in addition to them if the project requires both). Output: `"Using preflight from AGENTS.md: <cmd>"`. Fall back to `CLAUDE.md` commands if AGENTS.md is absent.
+4. Mechanical gates: build → typecheck → lint → tests (from `CLAUDE.md` or AGENTS.md).
+5. **Step-by-step UAT** — one user-observable action at a time.
+6. **Gaps loop** — failures → log → `plan-work` → re-verify.
+
+## Verify sub-operations
+
+### Cold-Start Smoke (absorbed)
+
+For applications, verify correctness from a clean state:
+
+- Stop the running server (if any)
+- Clear any caches (browser, application caches, compiled artifacts)
+- Boot the application from scratch
+- Verify that no stale artifacts or configuration are affecting the behavior
+
+This catches environment-specific bugs and ensures the build is reproducible.
+
+### Gaps Loop (absorbed)
+
+After UAT, identify and close any gaps between promised behavior and actual behavior:
+
+- Capture what was promised in the epic task description
+- Document what actually happened (expected vs actual)
+- If behavior doesn't match the promises, log the gap
+- Loop back to `plan-work` or `develop-tdd` to fix the gap
+- Re-verify until all gaps are closed (gaps count = 0)
+
+## UAT dialogue
+
+- Pass: user confirms per step.
+- Fail: capture expected vs actual; do not mark done in `execution-status.yaml`.
+
+## Persist verification evidence
+
+After UAT passes, write structured evidence to `specs/verifications/eNNsYY-verify.yaml`:
+
+```yaml
+story_id: e01s01
+verified_at: "2026-06-11T14:30:00Z"
+verifier: verify-work
+phases:
+  smoke:
+    passed: true
+  build:
+    passed: true
+    command: "npm run build"
+  typecheck:
+    passed: true
+  lint:
+    passed: true
+  tests:
+    passed: true
+    coverage: "94.2%"
+  manual:
+    steps:
+      - step: "Open /login"
+        expected: "Login form renders"
+        actual: "Login form rendered correctly"
+        passed: true
+  gaps:
+    closed: true
 ```
 
-- [ ] Previously failing test now passes
+> **HARD GATE** — Verification evidence MUST be persisted before marking the story done. No evidence = not verified.
 
-### 2. Run the full test suite
+## --cli mode
 
+For CLI tools where cold-start smoke (stop server / clear caches) does not apply. Auto-detected when the project has no server process (no `listen()`, no `server.js`, no blocking `main()`); or explicitly activated with `--cli`.
+
+**Auto-detect binary name:**
 ```bash
-# Run all tests — no filtering
-<full test command from CLAUDE.md>
+# Cargo.toml
+BINARY=$(grep '^name' Cargo.toml | head -1 | awk -F'"' '{print $2}')
+# package.json
+BINARY=$(node -e "console.log(require('./package.json').bin && Object.keys(require('./package.json').bin)[0] || '')" 2>/dev/null)
+# Makefile
+BINARY=$(grep '^BIN\s*=' Makefile 2>/dev/null | awk '{print $3}')
 ```
 
-- [ ] All tests pass (zero regressions)
+**CLI verification checklist (replaces cold-start smoke):**
 
-### 3. Type check
+1. `--help` smoke: `$BINARY --help` → assert output contains "Usage"
+2. `--version` check: `$BINARY --version` → assert version matches manifest (Cargo.toml / package.json)
+3. Happy-path: run documented example command from README.md → assert non-empty output
+4. Edge case: `$BINARY --invalid-flag` → assert exit code ≠ 0 and error message printed
+
+No "stop server" or "clear caches" steps are executed in `--cli` mode. Steps 3–6 of the default process (mechanical gates, UAT, gaps loop) still run unchanged.
+
+## Verify
+
+→ verify: `test -f specs/verifications/<story_id>-verify.yaml && echo "Evidence persisted"`
+
+See [REFERENCE.md](REFERENCE.md) for cold-start and gaps template.
+
+## Handoff
+
+Gate: READY -> next: audit-code
+Writes: state.yaml handoff.next_skill = audit-code
+
+---
+
+# Verify Work — Reference
+
+## Cold-start smoke
 
 ```bash
-<typecheck command>
+# Example — adapt to project CLAUDE.md
+pkill -f "<dev-server>" 2>/dev/null || true
+rm -rf .next/cache node_modules/.cache 2>/dev/null || true
+<run command> &
+sleep 3 && curl -sf http://localhost:<port>/health || echo "BOOT FAIL"
 ```
 
-- [ ] No type errors introduced
-
-### 4. Lint
-
-```bash
-<lint command>
-```
-
-- [ ] No lint violations introduced
-
-### 5. Harden against recurrence
-
-For every bug fixed, add at least one prevention layer:
-
-| Mechanism | When to use |
-|-----------|-------------|
-| Type guard | Input could be the wrong shape |
-| Schema validation (Zod, Pydantic, etc.) | External data crossing a boundary |
-| Invariant assertion | Internal state that must always hold |
-| Lint rule | Pattern that's easy to repeat by mistake |
-| Environment check at startup | Missing config causes silent failure |
-
-- [ ] At least one hardening mechanism added
-- [ ] Hardening mechanism is tested
-
-### 6. Update the bug file and registry.yaml
-
-Find the most recent `specs/bugs/BUG-*.md` file and append the resolution:
+## Gaps template
 
 ```markdown
-## Resolution
+## Gaps (verify-work)
 
-**Fixed:** [date]
-**Root cause confirmed:** [one sentence]
-**Fix applied:** [what was changed]
-**Hardening added:** [type guard / schema / assertion / lint rule]
-**Evidence:** all tests pass (`<verify command>`)
-**Commit:** `fix(<scope>): <description>`
+| Step | Expected | Actual | Status |
+|------|----------|--------|--------|
+| 1 | ... | ... | FAIL |
 ```
 
-Also update the corresponding row in `specs/bugs/registry.yaml`: set `status` to `fixed`, fill in `files_changed`, `approach`, `risk_level`, `commit_message`, and any other resolution fields.
-
-- [ ] specs/bugs/BUG-*.md updated with resolution
-- [ ] specs/bugs/registry.yaml row updated with resolution fields
-
-### 7. Behavioral Proof (HARD GATE)
-
-Mechanical verification (tests passing) is only half the fix. You must prove **behavioral correctness**.
-
-- [ ] Manually demonstrate the fixed behavior (e.g., via `run_shell_command` or `web_fetch`)
-- [ ] Compare the output/state against the "Expected Behavior" in the bug file
-- [ ] Show the user evidence of the behavior, not just the test logs
-
-## Rules
-
-- **Loop until behavioral correctness is verified**: if any checklist item fails, or if the behavior is still incorrect despite passing tests, return to step 1 and run all checks again from the top — do not declare done until every item is green and the behavior is proven correct in a single run.
-- **Never use `@ts-ignore`, `as any`, or `// eslint-disable`** to "fix" a bug — these suppress the symptom without fixing the root cause
-- **Never mark the task done if any test is still failing**
-- **The verify command from specs/bugs/BUG-*.md or the active epic task `verify` field must pass**
-
-Suggest next skill: `audit-code` → `commit-message`.
+Feed gaps to `plan-work` as new steps with verify commands, then re-run verify-work.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
