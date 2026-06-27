@@ -1,121 +1,128 @@
-## investigate-bug
+## kickoff-branch
 
-> Investigate a bug or issue by exploring the codebase to find root cause, then write a TDD-based fix plan to specs/bugs/BUG-*.md. Use when user reports a bug, wants to investigate a problem, mentions \"triage\", or wants to plan a fix.
+> Create a git worktree and feature branch, then verify a clean test baseline before any code is written. Use when starting a new feature or task, when user wants to work in isolation from main, or mentions \"start a branch\" or \"new worktree\".
 
 
 
-# Investigate Bug
+# Kickoff Branch
 
-**Boundary**: End-to-end bug entry point — history check → RCA (via `diagnose-root`) → fix approach → TDD plan → bug file. Delegates the 4-phase RCA to `diagnose-root`; does not re-implement it.
+> **HARD GATE** — Direct work on `main` or `master` is PROHIBITED. Every task MUST start with this skill to create a feature branch or worktree.
+>
+> **HARD GATE** — Do NOT proceed with development until a clean test baseline is verified. If the current base branch is failing tests, stop and fix the baseline before creating a new worktree.
 
-Investigate a reported problem, find its root cause, and write a TDD fix plan to `specs/bugs/BUG-*.md`. This is a mostly hands-off workflow — minimize questions to the user.
+Create an isolated working environment before touching any code. A clean baseline proves tests pass before you start — so any failure you see later was caused by your changes, not pre-existing issues.
 
 ## Process
 
-### 0. Read previous bug history
+### 1. Confirm task name
 
-Before starting diagnosis:
+Ask if not already known: "What's the name of this feature or task?" Use it as the branch name slug (kebab-case, max 40 chars).
 
-1. Read `specs/bugs/registry.yaml` (if it exists) — check for prior bugs in the same `scope` or with similar symptoms.
-2. If a relevant prior bug is found, read the corresponding `specs/bugs/BUG-*.md` file to understand previous root cause analysis and fix approach.
-3. Note in your investigation whether this is a recurrence, a related issue, or novel.
+### 2. Anchor on default branch (main or master)
 
-### 1. Capture the problem
+> **HARD GATE** — Kickoff MUST start from an updated, clean default branch in the **primary** repository root (not a linked worktree).
 
-Get a brief description of the issue from the user. If they haven't provided one, ask ONE question: "What's the problem you're seeing?"
+```bash
+# Detect default branch
+DEFAULT=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo main)
 
-Do NOT ask follow-up questions yet. Start investigating immediately.
+git checkout "$DEFAULT"
+git pull --ff-only origin "$DEFAULT"   # skip if no remote
+git status                             # working tree MUST be clean
+git log --oneline -5
+```
 
-### 2. Explore and diagnose (4-phase RCA)
+**Spec-only pre-kickoff** — before enforcing the clean-tree gate, check whether dirty files are spec artifacts:
 
-Run the 4-phase root-cause analysis via the `diagnose-root` skill (Reproduce → Isolate → Hypothesize → Verify). That skill is the canonical RCA engine — do not re-implement the phases here.
+```bash
+DIRTY=$(git status --porcelain | awk '{print $2}')
+NON_SPEC=$(echo "$DIRTY" | grep -v '^specs/' || true)
 
-Also look at:
-- Recent changes to affected files (`git log --oneline <file>`)
-- Existing tests (what's tested, what's missing)
-- Similar patterns elsewhere in the codebase that work correctly
+if [ -z "$DIRTY" ]; then
+  : # clean — proceed
+elif [ -z "$NON_SPEC" ]; then
+  # spec-only dirty tree — offer auto-commit
+  echo "Dirty spec artifacts: $(echo $DIRTY | tr '\n' ' ')"
+  read -p "Commit spec artifacts before kickoff? [Y/n]: " CONFIRM
+  CONFIRM=${CONFIRM:-Y}
+  if [[ "$CONFIRM" =~ ^[Yy] ]]; then
+    git add specs/
+    git commit -m "chore(state): checkpoint before kickoff"
+  fi
+else
+  echo "Dirty tree: $NON_SPEC (not a spec artifact). Stash or commit before proceeding."
+  exit 1
+fi
+```
 
-> **HARD GATE** — Do NOT proceed to Step 3 (Fix Approach) until `diagnose-root` Phase 4 produces a verified root cause. "It probably is X" is not verified.
+- **Spec artifacts** match `specs/` — state.yaml, epics YAMLs, execution-status.yaml, etc.
+- **Non-spec dirty files** (src/, scripts/, SKILL.md, …) still enforce the full clean-tree gate.
+- If not on `$DEFAULT` after checkout, stop and fix before continuing.
 
-### 3. Identify the fix approach
+### 3. Pre-flight & Conflict Resolution
 
-Based on your investigation, determine:
+Before creating the worktree, verify the target environment is clean:
 
-- The minimal change needed to fix the root cause
-- Which modules/interfaces are affected
-- What behaviors need to be verified via tests
-- Whether this is a regression, missing feature, or design flaw
-- Risk level: Low / Medium / High
+```bash
+# 1. Check for existing directory
+ls -d ../<task-slug> 2>/dev/null
 
-### 4. Design TDD fix plan
+# 2. Check for existing branch
+git branch --list <task-slug>
 
-Create a concrete, ordered list of RED-GREEN cycles. Each cycle is one vertical slice:
+# 3. Check for "ghost" worktrees (metadata exists but directory is gone)
+git worktree list | grep "<task-slug>"
+```
 
-- **RED**: Describe a specific test that captures the broken/missing behavior
-- **GREEN**: Describe the minimal code change to make that test pass
+**Handling Conflicts:**
+- **Directory exists:** If `../<task-slug>` already exists, ask the user if they want to use it or delete it.
+- **Branch exists:** If the branch exists but no worktree is attached, ask to use the existing branch (`git worktree add ../<task-slug> <task-slug>`) or delete it.
+- **Ghost worktree:** If `git worktree list` shows the path but the directory is missing, run `git worktree prune` to clear the stale metadata.
 
-Rules:
-- Tests verify behavior through public interfaces, not implementation details
-- One test at a time, vertical slices (NOT all tests first, then all code)
-- Each test should survive internal refactors
-- Include a final refactor step if needed
-- **Durability**: Only suggest fixes that would survive radical codebase changes. Tests assert on observable outcomes (API responses, UI state, user-visible effects), not internal state.
+### 4. Create worktree + branch
 
-### 5. Write the bug file
+```bash
+# From the main repo root (not another worktree)
+git worktree add ../<task-slug> -b <task-slug>
+cd ../<task-slug>
+```
 
-Save the investigation and fix plan to `specs/bugs/BUG-NNN-slug.md`. Create the `specs/bugs/` directory if it doesn't exist.
+If the user prefers a branch without a worktree:
+```bash
+git checkout -b <task-slug>
+```
 
-After writing, append a row to `specs/bugs/registry.yaml` with: bug_id (same timestamp), date, severity, priority, scope, summary, and file path. Create `specs/bugs/registry.yaml` if it doesn't exist.
+### 4. Verify clean baseline
 
-<diagnosis-template>
+Run the full test suite and confirm it passes before writing any code:
 
-# BUG-YYYY-MM-DDTHHMMSS: [short title]
+```bash
+# Use the project's test command from CLAUDE.md or package.json
+npm test    # or: pytest, go test ./..., cargo test, etc.
+```
 
-## Problem
+- [ ] All tests pass
+- [ ] No type errors (`npm run typecheck` or equivalent)
+- [ ] No lint errors (`npm run lint` or equivalent)
 
-A clear description of the bug or issue, including:
-- What happens (actual behavior)
-- What should happen (expected behavior)
-- How to reproduce (if applicable)
+If the baseline is broken, **stop and tell the user**. Do not proceed with development on a broken baseline.
 
-## Root Cause Analysis
+### 5. Confirm readiness
 
-Describe what you found during investigation:
-- The code path involved
-- Why the current code fails
-- Any contributing factors
-- Risk level: Low / Medium / High
+Report the baseline result:
+```
+✓ Baseline clean: 42 tests passed, 0 failed
+Branch: <task-slug>
+Worktree: ../<task-slug>
+Ready to develop.
+```
 
-Do NOT include specific file paths, line numbers, or implementation details that couple to current code layout. Describe modules, behaviors, and contracts instead.
+Suggest next skill: `develop-tdd` to start the TDD loop, or `execute-plan` if `specs/release-plan.yaml + epic capsule directories` already exists.
 
-## TDD Fix Plan
+## Handoff
 
-A numbered list of RED-GREEN cycles:
-
-1. **RED**: Write a test that [describes expected behavior]
-   **GREEN**: [Minimal change to make it pass]
-   **verify**: [runnable command]
-
-2. **RED**: Write a test that [describes next behavior]
-   **GREEN**: [Minimal change to make it pass]
-   **verify**: [runnable command]
-
-**REFACTOR**: [Any cleanup needed after all tests pass]
-
-## Acceptance Criteria
-
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] All new tests pass
-- [ ] Existing tests still pass
-
-## Resolution
-
-<!-- filled in by validate-fix -->
-
-</diagnosis-template>
-
-After writing the bug file, print a one-line summary of the root cause and suggest running `kickoff-branch` next to create a fix branch.
+Gate: READY -> next: develop-tdd
+Writes: state.yaml handoff.next_skill = develop-tdd
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
