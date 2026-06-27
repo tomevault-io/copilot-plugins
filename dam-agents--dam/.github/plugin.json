@@ -1,0 +1,9 @@
+{
+  "name": "dam-agents--dam",
+  "displayName": "dam",
+  "description": "Run your own background coding agents on Kubernetes - isolated pods, injected credentials, scheduled triggers, Slack-native.",
+  "version": "1.0.0",
+  "author": "dam-agents",
+  "homepage": "https://github.com/dam-agents/dam",
+  "skills": []
+}
