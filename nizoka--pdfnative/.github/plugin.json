@@ -1,0 +1,9 @@
+{
+  "name": "nizoka--pdfnative",
+  "displayName": "pdfnative",
+  "description": "Zero-dependency native PDF engine in pure TypeScript. Create, parse, sign, and modify ISO 32000-1 documents. Supports PDF/A, PDF/UA, BiDi, and complex font shaping.",
+  "version": "1.0.0",
+  "author": "Nizoka",
+  "homepage": "https://github.com/Nizoka/pdfnative",
+  "skills": []
+}
