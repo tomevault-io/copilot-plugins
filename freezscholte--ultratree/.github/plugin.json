@@ -1,0 +1,9 @@
+{
+  "name": "freezscholte--ultratree",
+  "displayName": "UltraTree",
+  "description": "Ultra-fast PowerShell disk space analyzer with duplicate detection, cleanup suggestions, and beautiful HTML reports",
+  "version": "1.0.0",
+  "author": "freezscholte",
+  "homepage": "https://github.com/freezscholte/UltraTree",
+  "skills": []
+}
