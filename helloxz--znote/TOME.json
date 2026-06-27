@@ -1,0 +1,44 @@
+{
+  "name": "znote",
+  "owner": "helloxz",
+  "repo": "znote",
+  "description": "ZNote\u662f\u4e00\u6b3e\u5c0f\u800c\u7f8e\u7684\u7eaf\u7b14\u8bb0\u5e94\u7528\uff0c\u539f\u751f\u652f\u6301 Markdown \u6240\u89c1\u5373\u6240\u5f97\uff0c\u4e00\u5904\u90e8\u7f72\uff0c\u968f\u5904\u53ef\u7528\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/helloxz/znote",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-27T03:05:11Z"
+}
