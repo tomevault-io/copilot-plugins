@@ -1,0 +1,9 @@
+{
+  "name": "rimagination--instsci",
+  "displayName": "instsci",
+  "description": "InstSci: academic paper retrieval with Open Access fallback and browser-backed institutional access for AI agents and CLI workflows.",
+  "version": "1.0.0",
+  "author": "Rimagination",
+  "homepage": "https://github.com/Rimagination/instsci",
+  "skills": []
+}
