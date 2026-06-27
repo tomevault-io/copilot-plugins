@@ -1,0 +1,9 @@
+{
+  "name": "fi-153--apfel-home-assistant",
+  "displayName": "apfel-home-assistant",
+  "description": "Homebrew wrapper that runs apfel as a Home Assistant conversation backend",
+  "version": "1.0.0",
+  "author": "FI-153",
+  "homepage": "https://github.com/FI-153/apfel-home-assistant",
+  "skills": []
+}
