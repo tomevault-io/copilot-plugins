@@ -1,0 +1,9 @@
+{
+  "name": "alexandre-schaffner--revv",
+  "displayName": "revv",
+  "description": "**Revv** is an AI-powered code review desktop application. It's a Tauri v2 desktop app with a SvelteKit frontend and a local Bun/Elysia API server that syncs GitHub pull requests and enables AI-assist",
+  "version": "1.0.0",
+  "author": "alexandre-schaffner",
+  "homepage": "https://github.com/alexandre-schaffner/revv",
+  "skills": []
+}
