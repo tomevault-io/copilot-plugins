@@ -4,7 +4,7 @@
   "repo": "dam",
   "description": "Run your own background coding agents on Kubernetes - isolated pods, injected credentials, scheduled triggers, Slack-native.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dam-agents/dam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T22:50:36Z"
+  "distributed_at": "2026-06-27T22:54:54Z"
 }
