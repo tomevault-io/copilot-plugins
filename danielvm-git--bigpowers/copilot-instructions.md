@@ -1,73 +1,60 @@
-## run-benchmark
+## run-evals
 
-> Run skill quality benchmarks from specs/benchmarks/ definitions and write pass@k reports. Use before and after evolve-skill to prove quality changes are improvements, not regressions.
+> Eval-Driven Development — define capability and regression evals before building; code graders use verify commands, model graders use explicit rubrics; log pass@k. Use before develop-tdd on new features, or when measuring agent capability over runs.
 
 
 
-# Run Benchmark
+# Run Evals
 
-> **HARD GATE** — Do NOT use benchmark scores to declare a skill "good" or "bad" in isolation. Benchmarks measure relative quality vs. a baseline — they catch regressions, they do not certify correctness.
-
-Reads benchmark definitions from `specs/benchmarks/`, executes each scenario's grader, and writes a structured `pass@k` report that `evolve-skill` consumes.
-
-## Usage
-
-```bash
-# Benchmark a single skill
-run-benchmark <skill-name>
-
-# Benchmark all skills with definitions
-run-benchmark --all
-
-# Pin current results as baseline
-run-benchmark <skill-name> --baseline
-```
+> **HARD GATE** — Define evals before implementation. Code graders = runnable `verify:` commands; model graders = explicit rubric with pass/fail criteria.
 
 ## Process
 
-1. **Locate definition** — Read `specs/benchmarks/<skill>.yaml`. If absent, report: `"No benchmark definition found for <skill>. Create specs/benchmarks/<skill>.yaml first."` and stop.
+1. Name the capability under test (one sentence).
+2. Write `specs/EVALS-<feature>.md` with:
+   - **Capability evals** (does it do the job?)
+   - **Regression evals** (did we break anything?)
+3. Assign grader type per eval: `code` (shell verify) or `model` (rubric).
+4. Run evals; log results table with pass@k (e.g. 3/3 runs).
+5. Block BUILD phase until capability evals pass at agreed k.
 
-2. **Run each scenario** — For each scenario in `scenarios[]`:
-   - **Code grader:** Run `grader.command` in repo root via `bash -c`. Exit 0 → PASS. Non-zero → FAIL. Timeout: 15 seconds.
-   - **Rubric grader:** Present each criterion to the agent as a yes/no question about the scenario output. ≥ 80% yes → PASS, else FAIL.
+## Artefact
 
-3. **Calculate pass@k** — `pass@k = sum(weight of PASS scenarios) / sum(all weights)`. Round to 2 decimal places.
-
-4. **Write report** to `specs/benchmarks/reports/BENCHMARK-<skill>-<YYYY-MM-DD>.yaml`:
-
-```yaml
-skill: survey-context
-run_date: "2026-06-22"
-pass_at_k: 0.83
-total_scenarios: 3
-passed: 2
-failed: 1
-scenarios:
-  - id: s01
-    name: "detects active epic from state.yaml"
-    result: PASS
-    weight: 1.0
-  - id: s02
-    name: "reads release-plan.yaml and reports next epic"
-    result: PASS
-    weight: 1.0
-  - id: s03
-    name: "handles missing state.yaml gracefully"
-    result: FAIL
-    weight: 0.5
-    failure_note: "crashed instead of suggesting state.yaml creation"
-```
-
-5. **Baseline mode** (`--baseline`) — Copy the report to `specs/benchmarks/reports/BASELINE-<skill>.yaml`. This is the reference point for regression checks in `evolve-skill`.
-
-6. **Compare to baseline** — If a `BASELINE-<skill>.yaml` exists, compare `pass_at_k`. Report:
-   - `IMPROVED: 0.67 → 0.83`
-   - `REGRESSION: 0.83 → 0.67 — do NOT ship this change`
-   - `STABLE: 0.83 = 0.83`
+`specs/verifications/eNNsYY-eval-report.md` — see [REFERENCE.md](REFERENCE.md) for template. Eval reports are stored alongside verification evidence in `specs/verifications/`, keyed by story ID for traceability.
 
 ## Verify
 
-→ verify: `test -f run-benchmark/SKILL.md && grep -q 'pass_at_k\|pass.at.k' run-benchmark/SKILL.md && echo OK || echo FAIL`
+→ verify: `find specs/verifications -name "*-eval-report.md" | wc -l | awk '{if($1>0) print "OK: "$1" eval reports"; else print "MISSING"}'`
+
+---
+
+# Run Evals — Reference
+
+## EVALS template
+
+```markdown
+# EVALS: <feature>
+
+## Capability
+| ID | Eval | Grader | verify / rubric |
+|----|------|--------|-----------------|
+| C1 | ... | code | `verify: npm test -- <file>` |
+| C2 | ... | model | Rubric: [ ] criterion A [ ] criterion B |
+
+## Regression
+| ID | Eval | Grader | verify / rubric |
+|----|------|--------|-----------------|
+| R1 | Full suite passes | code | `verify: npm test` |
+
+## Results
+| Run | C1 | C2 | R1 | pass@k |
+|-----|----|----|-----|--------|
+| 1 | PASS | PASS | PASS | 3/3 |
+```
+
+## pass@k
+
+Run capability evals k times (default k=3). Ship when all k pass or document known flake in `specs/state.yaml` `handoff.open_decisions`.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
