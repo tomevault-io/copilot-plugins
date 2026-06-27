@@ -1,0 +1,9 @@
+{
+  "name": "event-catalog--agents",
+  "displayName": "agents",
+  "description": "AI Agents designed to help manage and update EventCatalog for users",
+  "version": "1.0.0",
+  "author": "event-catalog",
+  "homepage": "https://github.com/event-catalog/agents",
+  "skills": []
+}
