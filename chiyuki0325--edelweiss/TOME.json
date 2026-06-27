@@ -4,7 +4,7 @@
   "repo": "Edelweiss",
   "description": "\u2744\ufe0f Lightweight IM-interface agentic group chatbot (fork of Cahciua)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chiyuki0325/Edelweiss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T23:03:18Z"
+  "distributed_at": "2026-06-27T23:14:35Z"
 }
