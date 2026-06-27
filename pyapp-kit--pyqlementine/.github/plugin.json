@@ -1,0 +1,9 @@
+{
+  "name": "pyapp-kit--pyqlementine",
+  "displayName": "PyQlementine",
+  "description": "PyQt6/PySide6 Bindings for Qlementine",
+  "version": "1.0.0",
+  "author": "pyapp-kit",
+  "homepage": "https://github.com/pyapp-kit/PyQlementine",
+  "skills": []
+}
