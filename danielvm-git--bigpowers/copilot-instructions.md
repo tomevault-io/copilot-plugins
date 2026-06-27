@@ -1,109 +1,121 @@
-## inspect-quality
+## investigate-bug
 
-> Interactive QA session where user reports bugs or issues conversationally, and the agent logs them to specs/bugs/registry.yaml with a structured audit schema. Explores the codebase in the background for context and domain language. Use when user wants to report bugs, do QA, or mentions \"QA session\".
-
-
-
-# Inspect Quality
-> **HARD GATE** — **HARD GATE** — Quality metrics (coverage, lint, cyclomatic complexity, security scans) must be monitored. If a metric degrades, surface it as a blocker. Do NOT accept regressions.
+> Investigate a bug or issue by exploring the codebase to find root cause, then write a TDD-based fix plan to specs/bugs/BUG-*.md. Use when user reports a bug, wants to investigate a problem, mentions \"triage\", or wants to plan a fix.
 
 
-Run an interactive QA session. The user describes problems they're encountering. You clarify, explore the codebase for context, and log each issue to `specs/bugs/registry.yaml` with a structured, durable format.
 
-## For each issue the user raises
+# Investigate Bug
 
-### 1. Listen and lightly clarify
+**Boundary**: End-to-end bug entry point — history check → RCA (via `diagnose-root`) → fix approach → TDD plan → bug file. Delegates the 4-phase RCA to `diagnose-root`; does not re-implement it.
 
-Let the user describe the problem in their own words. Ask **at most 2–3 short clarifying questions** focused on:
+Investigate a reported problem, find its root cause, and write a TDD fix plan to `specs/bugs/BUG-*.md`. This is a mostly hands-off workflow — minimize questions to the user.
 
-- What they expected vs what actually happened
-- Steps to reproduce (if not obvious)
-- Whether it's consistent or intermittent
+## Process
 
-Do NOT over-interview. If the description is clear enough to log, move on.
+### 0. Read previous bug history
 
-### 2. Explore the codebase in the background
+Before starting diagnosis:
 
-Kick off an Agent (subagent_type=Explore) to understand the relevant area. The goal is NOT to find a fix — it's to:
+1. Read `specs/bugs/registry.yaml` (if it exists) — check for prior bugs in the same `scope` or with similar symptoms.
+2. If a relevant prior bug is found, read the corresponding `specs/bugs/BUG-*.md` file to understand previous root cause analysis and fix approach.
+3. Note in your investigation whether this is a recurrence, a related issue, or novel.
 
-- Learn the domain language used in that area (check `specs/UBIQUITOUS_LANGUAGE.md` if present)
-- Understand what the feature is supposed to do
-- Identify the user-facing behavior boundary
+### 1. Capture the problem
 
-### 3. Assess scope: single issue or breakdown?
+Get a brief description of the issue from the user. If they haven't provided one, ask ONE question: "What's the problem you're seeing?"
 
-Break down when:
+Do NOT ask follow-up questions yet. Start investigating immediately.
 
-- The fix spans multiple independent areas
-- There are clearly separable concerns that could be worked on in parallel
-- The user describes something with multiple distinct failure modes
+### 2. Explore and diagnose (4-phase RCA)
 
-Keep as a single issue when:
+Run the 4-phase root-cause analysis via the `diagnose-root` skill (Reproduce → Isolate → Hypothesize → Verify). That skill is the canonical RCA engine — do not re-implement the phases here.
 
-- It's one behavior that's wrong in one place
-- The symptoms are all caused by the same root behavior
+Also look at:
+- Recent changes to affected files (`git log --oneline <file>`)
+- Existing tests (what's tested, what's missing)
+- Similar patterns elsewhere in the codebase that work correctly
 
-### 4. Log to specs/bugs/registry.yaml
+> **HARD GATE** — Do NOT proceed to Step 3 (Fix Approach) until `diagnose-root` Phase 4 produces a verified root cause. "It probably is X" is not verified.
 
-Append the issue to `specs/bugs/registry.yaml`. Create the `specs/bugs/` directory if it doesn't exist.
+### 3. Identify the fix approach
 
-#### registry.yaml format
+Based on your investigation, determine:
 
-The file maintains a Markdown table with the following columns (derived from structured audit practice):
+- The minimal change needed to fix the root cause
+- Which modules/interfaces are affected
+- What behaviors need to be verified via tests
+- Whether this is a regression, missing feature, or design flaw
+- Risk level: Low / Medium / High
 
-| Field | Description |
-|-------|-------------|
-| `bug_id` | `BUG-YYYY-MM-DDTHHMMSS` |
-| `date` | `YYYY-MM-DD` |
-| `severity` | `critical` / `high` / `medium` / `low` |
-| `priority` | `p0` / `p1` / `p2` / `p3` |
-| `scope` | kebab-case area (e.g. `auth`, `checkout`) |
-| `what_happened` | actual behavior (user-facing terms) |
-| `what_expected` | expected behavior |
-| `steps_to_reproduce` | numbered steps |
-| `root_cause` | one-line hypothesis |
-| `files_changed` | filled in after fix |
-| `approach` | filled in after fix |
-| `risk_level` | `low` / `medium` / `high` |
-| `new_tests` | count (filled in after fix) |
-| `type_check` | `pass` / `fail` (filled in after fix) |
-| `lint` | `pass` / `fail` (filled in after fix) |
-| `commit_type` | `fix` / `fix!` / `feat` (filled in after fix) |
-| `release_type` | `patch` / `minor` / `major` (filled in after fix) |
-| `commit_message` | Conventional Commits message (filled in after fix) |
-| `follow_ups` | semicolon-separated follow-up items |
-| `file` | path to detailed `specs/bugs/BUG-*.md` (filled in by investigate-bug) |
-| `status` | `open` / `in-progress` / `fixed` / `wont-fix` |
+### 4. Design TDD fix plan
 
-When a bug is fixed (via `validate-fix`), update the relevant row with the resolution fields.
+Create a concrete, ordered list of RED-GREEN cycles. Each cycle is one vertical slice:
 
-#### Issue body (for context below the table)
+- **RED**: Describe a specific test that captures the broken/missing behavior
+- **GREEN**: Describe the minimal code change to make that test pass
 
-For each bug, also append a detail section:
+Rules:
+- Tests verify behavior through public interfaces, not implementation details
+- One test at a time, vertical slices (NOT all tests first, then all code)
+- Each test should survive internal refactors
+- Include a final refactor step if needed
+- **Durability**: Only suggest fixes that would survive radical codebase changes. Tests assert on observable outcomes (API responses, UI state, user-visible effects), not internal state.
 
-```markdown
-### BUG-YYYY-MM-DDTHHMMSS: [short title]
+### 5. Write the bug file
 
-**What happened:** [actual behavior, plain language]
-**What I expected:** [expected behavior]
-**Steps to reproduce:**
-1. [Step 1]
-2. [Step 2]
+Save the investigation and fix plan to `specs/bugs/BUG-NNN-slug.md`. Create the `specs/bugs/` directory if it doesn't exist.
 
-**Additional context:** [domain-language observations, no file paths]
-```
+After writing, append a row to `specs/bugs/registry.yaml` with: bug_id (same timestamp), date, severity, priority, scope, summary, and file path. Create `specs/bugs/registry.yaml` if it doesn't exist.
 
-#### Rules for all entries
+<diagnosis-template>
 
-- **bug_id** uses full timestamp: `BUG-YYYY-MM-DDTHHMMSS` — matches the individual bug file name in `specs/bugs/`
-- **No file paths or line numbers** — these go stale
-- **Use the project's domain language** (check `specs/UBIQUITOUS_LANGUAGE.md` if it exists)
-- **Describe behaviors, not code** — "the sync service fails to apply the patch" not "applyPatch() throws"
-- **Reproduction steps are mandatory** — if you can't determine them, ask the user
+# BUG-YYYY-MM-DDTHHMMSS: [short title]
 
-### 5. Continue the session
+## Problem
 
-After logging, ask: "Next issue, or are we done?" Keep going until the user says done. Each issue is independent — don't batch them.
+A clear description of the bug or issue, including:
+- What happens (actual behavior)
+- What should happen (expected behavior)
+- How to reproduce (if applicable)
+
+## Root Cause Analysis
+
+Describe what you found during investigation:
+- The code path involved
+- Why the current code fails
+- Any contributing factors
+- Risk level: Low / Medium / High
+
+Do NOT include specific file paths, line numbers, or implementation details that couple to current code layout. Describe modules, behaviors, and contracts instead.
+
+## TDD Fix Plan
+
+A numbered list of RED-GREEN cycles:
+
+1. **RED**: Write a test that [describes expected behavior]
+   **GREEN**: [Minimal change to make it pass]
+   **verify**: [runnable command]
+
+2. **RED**: Write a test that [describes next behavior]
+   **GREEN**: [Minimal change to make it pass]
+   **verify**: [runnable command]
+
+**REFACTOR**: [Any cleanup needed after all tests pass]
+
+## Acceptance Criteria
+
+- [ ] Criterion 1
+- [ ] Criterion 2
+- [ ] All new tests pass
+- [ ] Existing tests still pass
+
+## Resolution
+
+<!-- filled in by validate-fix -->
+
+</diagnosis-template>
+
+After writing the bug file, print a one-line summary of the root cause and suggest running `kickoff-branch` next to create a fix branch.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
