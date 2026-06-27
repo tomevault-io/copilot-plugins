@@ -1,0 +1,9 @@
+{
+  "name": "calebliu--econ-paper-workflow",
+  "displayName": "econ-paper-workflow",
+  "description": "9-phase workflow for empirical economics papers (UK MSc / PhD / journal). Validated on two real papers in a single working day each. Pure public data + R + Pandoc.",
+  "version": "1.0.0",
+  "author": "CalebLiu",
+  "homepage": "https://github.com/CalebLiu/econ-paper-workflow",
+  "skills": []
+}
