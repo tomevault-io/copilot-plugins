@@ -1,0 +1,9 @@
+{
+  "name": "joelhooks--pi-bellwether",
+  "displayName": "pi-bellwether",
+  "description": "Bellwether \ud83d\udc0f\ud83d\udd14 \u2014 Pi package for managing Herdr agents, panes, and runtime sessions from Pi",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/pi-bellwether",
+  "skills": []
+}
