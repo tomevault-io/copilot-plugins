@@ -215129,6 +215129,11 @@
       "description": "\u4e3a DeepSeek \u524d\u7f00\u7f13\u5b58\u5b9a\u5236\u7684\u7ec8\u7aef Code Agent\uff08\u7eaf Go\uff09\uff0c\u7f13\u5b58\u547d\u4e2d\u7387 95-99%\uff0c\u8f93\u5165\u6210\u672c\u964d\u81f3 1/50\u3002A terminal coding agent optimized for DeepSeek prefix caching \u2014 95-99% cache hit, 1/50th the cost."
     },
     {
+      "name": "devaraj-07--nexus-ai",
+      "source": "./devaraj-07--nexus-ai",
+      "description": "Nexus AI is an AI-powered monitoring tool for CI/CD pipelines. It watches your builds in real time, detects failures instantly, and uses AI to explain what went wrong and how to fix it \u2014 turning confu"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -232502,6 +232507,26 @@
       "name": "mercurievv--scalasemantic",
       "source": "./mercurievv--scalasemantic",
       "description": "MCP server for deep semantic analysis of Scala via SemanticDB \u2014 exact find-usages, class hierarchies, implicit resolution & call paths for AI coding agents like Claude Code. Beyond grep and standard L"
+    },
+    {
+      "name": "rosh100yx--outlier",
+      "source": "./rosh100yx--outlier",
+      "description": "outlier is an open-source, local-first policy engine and governance framework designed to measure the true cost and risk of AI code generation. Enforce Zero-Trust and protect Human Mastery."
+    },
+    {
+      "name": "anamkwon--agent-skill-router",
+      "source": "./anamkwon--agent-skill-router",
+      "description": "Cross-agent skill router that organizes large local skill libraries into category routers and loads leaf skills on demand."
+    },
+    {
+      "name": "anamkwon--agent-skill-router",
+      "source": "./anamkwon--agent-skill-router",
+      "description": "Cross-agent skill router that organizes large local skill libraries into category routers and loads leaf skills on demand."
+    },
+    {
+      "name": "rosh100yx--outlier",
+      "source": "./rosh100yx--outlier",
+      "description": "outlier is an open-source, local-first policy engine and governance framework designed to measure the true cost and risk of AI code generation. Enforce Zero-Trust and protect Human Mastery."
     },
     {
       "name": "cheerhuan--save-your-token",
