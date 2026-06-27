@@ -1,0 +1,9 @@
+{
+  "name": "openziti--agora",
+  "displayName": "agora",
+  "description": "Zero trust network for governed agent-to-agent communication - discovery, engagement contracts, session governance, and auditable collaboration across organizational boundaries. Built on OpenZiti. A2A",
+  "version": "1.0.0",
+  "author": "openziti",
+  "homepage": "https://github.com/openziti/agora",
+  "skills": []
+}
