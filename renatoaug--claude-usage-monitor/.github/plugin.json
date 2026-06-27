@@ -1,0 +1,9 @@
+{
+  "name": "renatoaug--claude-usage-monitor",
+  "displayName": "claude-usage-monitor",
+  "description": "A cute pixel-art desktop pet for macOS that tracks your Claude Code usage \u2014 mirroring the official Settings \u2192 Usage panel (current session + weekly limits) with animations",
+  "version": "1.0.0",
+  "author": "renatoaug",
+  "homepage": "https://github.com/renatoaug/claude-usage-monitor",
+  "skills": []
+}
