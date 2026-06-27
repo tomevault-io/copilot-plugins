@@ -1,0 +1,9 @@
+{
+  "name": "juwon1405--agentic-dart",
+  "displayName": "agentic-dart",
+  "description": "Agentic-DART \u2014 autonomous detection & response agent. Architecture-first, not prompt-first. Starts as agentic DFIR; designed to expand toward agentic SOC and beyond.",
+  "version": "1.0.0",
+  "author": "Juwon1405",
+  "homepage": "https://github.com/Juwon1405/agentic-dart",
+  "skills": []
+}
