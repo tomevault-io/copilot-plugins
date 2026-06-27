@@ -1,0 +1,9 @@
+{
+  "name": "hyhmrright--logic-lens",
+  "displayName": "logic-lens",
+  "description": "Logic-first AI code review via semi-formal execution tracing (Premises \u2192 Trace \u2192 Divergence \u2192 Trigger \u2192 Remedy). Catches behavioral bugs, type-contract breaches & async hazards that linters miss. Six ",
+  "version": "1.0.0",
+  "author": "hyhmrright",
+  "homepage": "https://github.com/hyhmrright/logic-lens",
+  "skills": []
+}
