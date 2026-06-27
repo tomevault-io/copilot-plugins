@@ -1,0 +1,9 @@
+{
+  "name": "mtawhid7--garment-service",
+  "displayName": "garment-service",
+  "description": "A clean FastAPI backend for parametric sewing pattern generation and physics-based garment simulation.",
+  "version": "1.0.0",
+  "author": "MTawhid7",
+  "homepage": "https://github.com/MTawhid7/garment-service",
+  "skills": []
+}
