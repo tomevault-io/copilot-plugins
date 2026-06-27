@@ -4,7 +4,7 @@
   "repo": "atelier",
   "description": "Runtime for coding agents. Models are getting smarter, but a model is only as capable as the environment supporting it. Atelier is that environment.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atelier-ws/atelier",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T23:04:17Z"
+  "distributed_at": "2026-06-27T23:15:34Z"
 }
