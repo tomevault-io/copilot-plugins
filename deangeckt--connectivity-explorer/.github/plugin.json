@@ -1,0 +1,9 @@
+{
+  "name": "deangeckt--connectivity-explorer",
+  "displayName": "connectivity_explorer",
+  "description": "open-source 3D viewer for cortical neuron connectivity",
+  "version": "1.0.0",
+  "author": "deangeckt",
+  "homepage": "https://github.com/deangeckt/connectivity_explorer",
+  "skills": []
+}
