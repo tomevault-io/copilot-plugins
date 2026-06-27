@@ -1,58 +1,58 @@
-## execute-plan
+## fix-bug
 
-> Batch-execute tasks from the active epic capsule sequentially, with a human checkpoint after each step. Use when user has an approved plan and wants step-by-step oversight.
+> Bug fix orchestrator — active_flow fix_bug; reads specs/bugs/BUG-*.md; chains investigate-bug, develop-tdd, validate-fix. Use when user reports a defect.
 
 
 
-# Execute Plan
+# Fix Bug
 
-Execute tasks from the **active epic** (`specs/epics/eNN-slug/epic.yaml` story `tasks[]`) one at a time, showing evidence after each step before proceeding.
+**Boundary**: Orchestrator flow — chains `investigate-bug` (entry point + RCA via `diagnose-root`) → `develop-tdd` → `validate-fix`. Does not implement RCA or write bug files directly.
 
-> **HARD GATE** — Do NOT proceed if on `main` or `master`. Run `kickoff-branch` first.
->
-> **HARD GATE** — Active epic must exist with runnable `verify` on each task. If missing, run `plan-release` then `plan-work` or `build-epic`.
+Orchestrates **fix_bug** flow without mixing epic build state.
+
+> **HARD GATE** — Set `specs/state.yaml` `active_flow: fix_bug` and `bug_cycle.current_step: 1` before starting.
+
+## Five steps (`bug_cycle` in state.yaml)
+
+| Step | Skill / action |
+|------|----------------|
+| 1 | `investigate-bug` — create BUG-*.md with RCA |
+| 2 | `diagnose-root` — 4-phase root cause analysis |
+| 3 | `develop-tdd` — red-green against bug file verify steps |
+| 4 | `validate-fix` — re-run failing test, full suite, lint |
+| 5 | `release-branch` — PR or solo land the fix |
+
+### Checkpoint / resume
+
+Track progress via `specs/state.yaml` `bug_cycle`:
+- `bug_cycle.current_step`: current step (1–5)
+- `bug_cycle.completed_steps`: completed step numbers
+- `handoff.next_skill`: skill for the current step
+- On resume, read `bug_cycle.current_step` and continue from there
 
 ## Process
 
-### 1. Read the plan
+1. **Step 1 — investigate-bug:** If no `specs/bugs/BUG-*.md`, run `investigate-bug` first — it handles history check, RCA (via `diagnose-root`), fix approach, and writes the bug file. Increment `bug_cycle.current_step` to 2 on completion.
+2. **Step 2 — diagnose-root:** Run 4-phase RCA (reproduce → isolate → hypothesize → verify). Record findings in the bug file. Increment to step 3.
+3. **Step 3 — develop-tdd:** `develop-tdd` against the bug file's verify steps. Increment to step 4 on all-green.
+4. **Step 4 — validate-fix:** `validate-fix` — re-run failing test, full suite, typecheck, lint. Increment to step 5.
+5. **Step 5 — release-branch:** Land the fix via `release-branch`. Clear `bug_cycle` and `active_flow` when done.
 
-Read `specs/state.yaml` (`active_epic`, `active_story`) and the matching `specs/epics/*/epic.yaml`. Parse `depends-on` in task descriptions for execution waves.
+## Bug file SoT
 
-> **CONTEXT ISOLATION** — Spawn each skill with a **fresh context window**. Pass decisions only through `specs/state.yaml` `handoff` — never rely on prior chat history.
+One markdown file per bug with frontmatter:
 
-Confirm with the user: step count, skip/reorder, stop-after step.
+```yaml
+bug_id: BUG-001
+status: open
+severity: high
+scope: api
+title: Short title
+```
 
-### 2. Execute step by step
+## Verify
 
-For each task in the active story:
-
-**a. Announce** — task `desc` and `verify` command.
-
-**b. Execute** — code or `delegate-task` / `dispatch-agents` for waves.
-
-**c. Run verify** — must be green before advancing.
-
-**d. Log** — non-obvious decisions in `specs/state.yaml` under `decisions[]` or `handoff` block.
-
-**e. Checkpoint** — ask to proceed unless autonomous mode requested.
-
-**f. Story UAT** — after last task, run manual verification script from story notes or `verify-work`.
-
-On verify failure: fix and re-run; never advance on red.
-
-Update `specs/execution-status.yaml` when a story/epic completes (`bash scripts/sync-status-from-epics.sh` or direct edit).
-
-### 3. Blockers
-
-Report blocker; ask skip/adapt/stop; update epic capsule if plan changes.
-
-### 4. Final report
-
-Suggest: `verify-work` → `run-evals` → `audit-code` → `simulate-agents` → `commit-message` → `release-branch`
-
-## Rules
-
-- **Loop until behavioral correctness is verified**: if a verify command passes but the observed behavior is still wrong, return to step 1 and run the execution cycle again.
+→ verify: `test -d specs/bugs && bash scripts/sync-bugs-registry.sh`
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
