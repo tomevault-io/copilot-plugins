@@ -1,0 +1,9 @@
+{
+  "name": "pilc80--claudex",
+  "displayName": "claudex",
+  "description": "Use ChatGPT/Codex OAuth in Claude Code without an API key",
+  "version": "1.0.0",
+  "author": "pilc80",
+  "homepage": "https://github.com/pilc80/claudex",
+  "skills": []
+}
