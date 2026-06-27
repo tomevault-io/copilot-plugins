@@ -1,0 +1,9 @@
+{
+  "name": "deadronos--nanogpt-provider-vscode-extension",
+  "displayName": "nanogpt-provider-vscode-extension",
+  "description": "nanogpt-provider-vscode-extension",
+  "version": "1.0.0",
+  "author": "deadronos",
+  "homepage": "https://github.com/deadronos/nanogpt-provider-vscode-extension",
+  "skills": []
+}
