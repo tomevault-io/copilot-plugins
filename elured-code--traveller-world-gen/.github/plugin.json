@@ -1,0 +1,9 @@
+{
+  "name": "elured-code--traveller-world-gen",
+  "displayName": "traveller-world-gen",
+  "description": "Generate detailed Traveller star systems using the Core Rulebook 2022 and World Builder's Handbook rules.",
+  "version": "1.0.0",
+  "author": "Elured-code",
+  "homepage": "https://github.com/Elured-code/traveller-world-gen",
+  "skills": []
+}
