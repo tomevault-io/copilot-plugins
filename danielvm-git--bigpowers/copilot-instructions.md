@@ -1,83 +1,66 @@
-## define-language
+## define-success
 
-> Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to specs/UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions \"domain model\" or \"DDD\".
+> Convert an imperative task statement into explicit \"step → verify: <cmd>\" pairs before implementation begins. Use before plan-work when success criteria are unclear, when a task lacks verifiable checkpoints, or when user says \"how will we know this is done?\".
 
 
 
-# Define Language
+# Define Success
 
-Extract and formalize domain terminology from the current conversation into a consistent glossary, saved to `specs/UBIQUITOUS_LANGUAGE.md`.
+Transform "do X" into "step → verify: <cmd>" pairs. This is the pre-flight check before `plan-work` or `develop-tdd` — it makes success observable and removes ambiguity about when you're done.
 
-**Distinct from `model-domain` and `deepen-architecture`:** Use this skill to produce a canonical glossary of terms (words and definitions). Use `model-domain` to stress-test a plan through an interview that resolves domain model decisions. Use `deepen-architecture` to find module-level refactoring opportunities in the codebase.
+> **HARD GATE** — Success criteria must be testable and user-observable. "Code should be fast" is not testable. "Pageload latency < 2s" is testable.
 
-> **HARD GATE** — Ubiquitous language is NOT optional. Every term in the domain that could be misunderstood must be glossed. Ambiguity = rework.
+## Why this matters
+
+"Implement user authentication" is not a plan. It has no checkpoints, no evidence requirement, and no way to know if you're done. The Karpathy principle: every step must be independently verifiable with a runnable command. If you can't verify it, you can't prove it works.
 
 ## Process
 
-1. **Scan the conversation** for domain-relevant nouns, verbs, and concepts
-2. **Identify problems**:
-   - Same word used for different concepts (ambiguity)
-   - Different words used for the same concept (synonyms)
-   - Vague or overloaded terms
-3. **Propose a canonical glossary** with opinionated term choices
-4. **Write to `specs/UBIQUITOUS_LANGUAGE.md`** in the working directory using the format below
-5. **Output a summary** inline in the conversation
+### 1. Read the task statement
 
-## Output Format
+Take the task as stated (from conversation, or from `specs/epics/ (see slice-tasks)`, or from `specs/product/SCOPE_LATEST.yaml`).
 
-Write a `specs/UBIQUITOUS_LANGUAGE.md` file with this structure:
+### 2. Break into observable outcomes
 
-```md
-# Ubiquitous Language
+For each thing the task requires, identify:
+- The smallest unit of observable behavior that proves something works
+- The command that proves it
 
-## Order lifecycle
+Work at the level of behaviors (what the system does) not implementation steps (how you'll write the code).
 
-| Term        | Definition                                              | Aliases to avoid      |
-| ----------- | ------------------------------------------------------- | --------------------- |
-| **Order**   | A customer's request to purchase one or more items      | Purchase, transaction |
-| **Invoice** | A request for payment sent to a customer after delivery | Bill, payment request |
+### 3. Write the pairs
 
-## People
-
-| Term         | Definition                                  | Aliases to avoid       |
-| ------------ | ------------------------------------------- | ---------------------- |
-| **Customer** | A person or organization that places orders | Client, buyer, account |
-| **User**     | An authentication identity in the system    | Login, account         |
-
-## Relationships
-
-- An **Invoice** belongs to exactly one **Customer**
-- An **Order** produces one or more **Invoices**
-
-## Example dialogue
-
-> **Dev:** "When a **Customer** places an **Order**, do we create the **Invoice** immediately?"
-> **Domain expert:** "No — an **Invoice** is only generated once a **Fulfillment** is confirmed."
-
-## Flagged ambiguities
-
-- "account" was used to mean both **Customer** and **User** — these are distinct concepts.
+Format each pair as:
+```
+N. [What must be true] → verify: <runnable command>
 ```
 
-## Rules
+Examples:
 
-- **Be opinionated.** When multiple words exist for the same concept, pick the best one and list the others as aliases to avoid.
-- **Flag conflicts explicitly.** If a term is used ambiguously, call it out in "Flagged ambiguities" with a clear recommendation.
-- **Only include terms relevant for domain experts.** Skip names of modules or classes unless they have domain meaning.
-- **Keep definitions tight.** One sentence max. Define what it IS, not what it does.
-- **Show relationships.** Use bold term names and express cardinality where obvious.
-- **Group terms into multiple tables** when natural clusters emerge. One table is fine if terms are cohesive.
-- **Write an example dialogue.** 3–5 exchanges between a dev and domain expert showing terms used precisely.
+```
+Task: "Add user registration to the API"
 
-## Re-running
+1. POST /users accepts {email, name} and returns {id, email, name} → verify: curl -s -X POST http://localhost:3000/users -H 'Content-Type: application/json' -d '{"email":"test@test.com","name":"Test"}' | jq .id
+2. Duplicate email is rejected with 409 → verify: npm test -- user-registration.test.ts
+3. Missing email is rejected with 400 and descriptive error → verify: npm test -- user-validation.test.ts
+4. Password is hashed (never stored in plaintext) → verify: npm test -- user-security.test.ts
+5. All existing tests still pass → verify: npm test
+```
 
-When invoked again in the same conversation:
+### 4. Challenge completeness
 
-1. Read the existing `specs/UBIQUITOUS_LANGUAGE.md`
-2. Incorporate any new terms from subsequent discussion
-3. Update definitions if understanding has evolved
-4. Re-flag any new ambiguities
-5. Rewrite the example dialogue to incorporate new terms
+Ask yourself:
+- Is there any behavior the task requires that isn't covered by a verify step?
+- Is every verify step runnable right now without additional setup?
+- Does the final step verify the whole thing end-to-end?
+
+Add any missing pairs.
+
+### 5. Output
+
+Present the pairs to the user and ask: "Does this capture everything the task requires? Anything missing?"
+
+Once confirmed, these pairs become the skeleton for `plan-work`'s steps. Pass them along when calling `plan-work`.
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
