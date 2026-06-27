@@ -1,26 +1,104 @@
-## edit-document
+## elaborate-spec
 
-> Edit and improve documents by restructuring sections, improving clarity, and tightening prose. Use when user wants to edit, revise, restructure, or improve any document — including specs/ files, articles, READMEs, or technical writing.
+> Refine a rough idea into a clear, detailed specification through dialogue. Does not produce code. Use when user has a vague idea, wants to think through a feature before planning, or needs to turn \"I want X\" into a concrete spec.
 
 
 
-# Edit Document
+# Elaborate Spec
 
-**Distinct from `write-document`:** Use this skill when the document already exists and needs restructuring, clarity, or prose improvements. Use `write-document` to create a document from scratch.
+Turn a rough idea into a clear specification through focused dialogue. No code is written during this skill — the output is shared understanding and a refined problem statement.
 
-> **HARD GATE** — Document edits must preserve intent and accuracy. Do NOT remove or contradict existing content without understanding why it was written. Check git history for context.
+> **HARD GATE** — Do NOT proceed with planning or implementation until the problem space is clearly understood. Success criteria, actors, and scope must be explicit before drafting a plan.
 
 ## Process
 
-1. First, divide the document into sections based on its headings. Think about the main points made in each section.
+### 1. Listen first
 
-Consider that information is a directed acyclic graph, and that pieces of information can depend on other pieces of information. Make sure that the order of the sections and their contents respects these dependencies.
+Let the user describe their idea in their own words. Do not interrupt or redirect. Take notes on:
+- The core problem they're trying to solve
+- Who is affected (actors)
+- What success looks like to them
+- Any constraints they've already identified
 
-Confirm the sections with the user.
+### 2. Ask clarifying questions
 
-2. For each section:
+Ask one question at a time. Work through these areas:
 
-2a. Rewrite the section to improve clarity, coherence, and flow. Use maximum 240 characters per paragraph.
+**Problem clarity**
+- What is the current behavior (or lack of behavior) that prompted this?
+- Who experiences this problem? How often?
+- What's the cost of not solving it?
+
+**Solution boundaries**
+- What is explicitly IN scope?
+- What is explicitly OUT of scope?
+- Are there existing solutions (internal or external) this replaces or integrates with?
+
+**Success criteria**
+- How will you know this is done?
+- What does the happy path look like end-to-end?
+- What are the key failure modes to handle?
+
+**Constraints**
+- Any performance requirements?
+- Any compatibility constraints (existing APIs, data formats)?
+- Any non-negotiable implementation decisions already made?
+
+### 2.5. Multiple Interpretations (HARD GATE)
+
+> **HARD GATE** — If the request admits ≥2 valid interpretations, do NOT guess. You must list them and ask the user to choose before proceeding. Proceeding with unresolved ambiguity is a failure of integrity.
+
+Present the options clearly:
+> "I see two ways to read this:
+> 1. [Interpretation A] — my recommendation because [reason]
+> 2. [Interpretation B]
+> Which is closer to what you mean?"
+
+### 3. Surface hidden assumptions
+
+Once the user has answered the main questions, probe for assumptions:
+- "You mentioned X — does that mean Y is also true?"
+- "What happens when Z fails?"
+- "Is this for internal users, external users, or both?"
+
+### 4. Synthesize and confirm
+
+Summarize your understanding in 3–5 bullet points aligned with [countable-story-format.md](file:///Users/danielvm/Developer/bigpowers/countable-story-format.md):
+- The problem (feeds into §1 Business narrative)
+- The solution and main flow (feeds into §5)
+- The key constraints and alternative flows (feeds into §6)
+- The success criteria (feeds into §17 Gherkin)
+- What's out of scope (feeds into §18)
+
+Ask: "Is this an accurate summary? Anything missing or wrong?"
+
+### 5. Write specs/planning-context.yaml
+
+After the user confirms the summary in step 4, persist the key decisions:
+
+```yaml
+# specs/planning-context.yaml — written by elaborate-spec; consumed by scope-work and slice-tasks
+feature_name: "<from step 1>"
+problem_statement: "<one paragraph>"
+constraints:
+  - "<constraint 1>"
+out_of_scope:
+  - "<excluded item 1>"
+key_decisions:
+  - decision: "<what was decided>"
+    rationale: "<why>"
+```
+
+If `specs/planning-context.yaml` already exists, ask: `"Planning context from a prior session exists. Update it? [Y/n]"`. Overwrite on Y; leave unchanged on N.
+
+### 6. Suggest next skill
+
+Once the spec is clear, recommend the next step:
+- If domain model needs work → `model-domain`
+- If ready to plan → `plan-release` (creates epic capsules with `epic.yaml` + story `.md` + `-tasks.yaml`) then `plan-work` per story
+- If a spike is needed first → `spike-prototype`
+- If architecture decisions are needed → `deepen-architecture` or `grill-me`
+- If the plan depends on a specific library or API → `grill-me` in docs mode
 
 ---
 > Source: [danielvm-git/bigpowers](https://github.com/danielvm-git/bigpowers) — distributed by [TomeVault](https://tomevault.io).
