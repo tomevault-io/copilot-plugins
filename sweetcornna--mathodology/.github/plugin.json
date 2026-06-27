@@ -1,0 +1,9 @@
+{
+  "name": "sweetcornna--mathodology",
+  "displayName": "mathodology",
+  "description": "\u4e13\u4e3a\u6570\u5b66\u5efa\u6a21\u7ade\u8d5b\u8bbe\u8ba1\u7684\u6570\u6a21 Agent Skills\uff1aMCM/ICM \u7f8e\u8d5b\u3001CUMCM \u56fd\u8d5b\u3001\u534e\u6570\u676f\u3001M3\u3001HiMCM \u7b49\uff0c\u9762\u5411 Claude Code \u4e0e Codex \u7684\u83b7\u5956\u7ea7\u5efa\u6a21\u5de5\u4f5c\u6d41\u3002Math modeling contest skills for Claude Code & Codex.",
+  "version": "1.0.0",
+  "author": "sweetcornna",
+  "homepage": "https://github.com/sweetcornna/mathodology",
+  "skills": []
+}
