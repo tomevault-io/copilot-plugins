@@ -1,0 +1,9 @@
+{
+  "name": "stratasync--stratasync",
+  "displayName": "stratasync",
+  "description": "Sync that works offline.",
+  "version": "1.0.0",
+  "author": "stratasync",
+  "homepage": "https://github.com/stratasync/stratasync",
+  "skills": []
+}
