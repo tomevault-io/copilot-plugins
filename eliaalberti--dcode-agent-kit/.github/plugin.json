@@ -1,0 +1,9 @@
+{
+  "name": "eliaalberti--dcode-agent-kit",
+  "displayName": "dcode-agent-kit",
+  "description": "A Claude Code skill that scaffolds ready-to-run LangChain Deep Agents and dcode CLI agents into any project.",
+  "version": "1.0.0",
+  "author": "EliaAlberti",
+  "homepage": "https://github.com/EliaAlberti/dcode-agent-kit",
+  "skills": []
+}
