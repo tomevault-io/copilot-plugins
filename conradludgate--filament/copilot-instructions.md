@@ -1,70 +1,121 @@
-## paxos
+## universal-sync
 
-> Multi-Paxos consensus library with signed proposals. TLA+ specification in `spec/MultiPaxos.tla`.
+> Code quality standards for the Filament project - a federated sync engine using MLS, Paxos, iroh, and CRDTs.
 
+# Filament Code Standards
 
-# Paxos Crate Rules
+Code quality standards for the Filament project - a federated sync engine using MLS, Paxos, iroh, and CRDTs.
 
-Multi-Paxos consensus library with signed proposals. TLA+ specification in `spec/MultiPaxos.tla`.
+## Architecture
 
-## Architecture: Pure Core + Async Runtime
-
-State machines are pure (no I/O, no async):
-- `AcceptorCore` - pure acceptor state transitions
-- `ProposerCore` - pure proposer phase tracking
-
-Async runtime wraps the pure cores:
-- `AcceptorHandler` / `run_acceptor` - network I/O for acceptors
-- `Proposer` / `QuorumTracker` - network I/O for proposers
-
-This separation enables model checking with Stateright using the same logic.
-
-## Safety Invariants
-
-These MUST be maintained (verified by TLA+ spec):
-
-1. **Agreement**: At most one value learned per round
-2. **Quorum**: Strict majority required: `n/2 + 1` acceptors
-3. **Proposal ordering**: `(round, attempt, node_id)` lexicographic comparison
-4. **Promise integrity**: An acceptor's promise is always >= any accepted proposal
-5. **Strict Prepare-before-Accept**: No leader optimization - each Accept requires a prior Prepare for that exact proposal
-
-## No Leadership Optimization
-
-This implementation does **not** use Multi-Paxos leader optimization. Every round requires:
-1. Phase 1 (Prepare) - proposer gets promises from a quorum
-2. Phase 2 (Accept) - proposer sends Accept only for the promised proposal
-
-Accept is rejected unless the exact proposal was previously promised. This prevents a "leader" from sending Accept for new rounds without first running Prepare.
-
-## AcceptorStateStore Requirements
-
-Implementations of `AcceptorStateStore` MUST:
-
-1. **Atomicity**: `promise()` and `accept()` must be atomic per-round
-2. **Persistence before returning**: Persist state BEFORE returning success (use fsync)
-3. **Reject if not promised**: Accept only succeeds if `current_promised == proposal`
-4. **Reject dominated accepts**: Reject if a higher proposal was already accepted
-5. **Crash recovery**: Reload state before accepting new requests after restart
-
-```rust
-// Accept requires exact promise match
-let not_promised = current_promised.is_none_or(|p| *p != proposal);
-let dominated = current_accepted.proposal > proposal;
-if not_promised || dominated { reject }
+```
+filament-warp/    - Core Paxos consensus library (generic traits)
+filament-core/    - Shared types (GroupProposal, Handshake, utilities)
+filament-weave/   - Client/device library (Group, GroupLearner, actors)
+filament-spool/   - Server/federation library (GroupAcceptor, registry)
+filament-testing/  - Integration tests
+filament-editor/   - Tauri desktop editor application
 ```
 
-## Quorum Tracking
+## Error Handling
 
-Use `QuorumTracker` to detect when quorum is reached. Quorum = `n/2 + 1`.
+Use `error-stack` for all errors. Define ONE unit-struct marker error type per domain:
 
-## Proposal Keys
+```rust
+#[derive(Debug, Default)]
+pub struct GroupError;
 
-Proposals are compared by `ProposalKey<P>` which orders by `(round, attempt, node_id)`. Never compare proposals directly - use `.key()`.
+impl std::fmt::Display for GroupError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("group operation failed")
+    }
+}
+
+impl std::error::Error for GroupError {}
+```
+
+Return `Result<T, Report<E>>` — never `Result<T, String>` (except at FFI/Tauri boundaries).
+
+### Converting errors between domains
+
+Use `.change_context(TargetError)` to convert. This preserves the full error chain:
+
+```rust
+// GOOD: inner error preserved in the Report chain
+let data = foo().change_context(GroupError)?;
+
+// BAD: inner error lost or stringified
+let data = foo().map_err(|e| Report::new(GroupError).attach(format!("{e:?}")))?;
+```
+
+### Adding context
+
+- `.attach("static context")` for simple string context
+- `.attach_lazy(|| format!("dynamic: {x}"))` for formatted context (avoids allocation on success)
+- `.attach(OperationContext::CREATING_GROUP)` for structured context types from `filament-core/error.rs`
+
+```rust
+// GOOD: lazy formatting
+result.change_context(GroupError).attach_lazy(|| format!("member {id} not found"))?;
+
+// BAD: eager formatting (allocates even on success)
+result.change_context(GroupError).attach(format!("member {id} not found"))?;
+```
+
+### Don't
+
+- Create enum error types with `String` fields — use unit structs + `.attach()`
+- Use `thiserror` — use `error-stack` marker types instead
+- Use `Result<T, String>` in library/internal code — only at Tauri command boundaries
+- Write `.map_err(|e| Report::new(E).attach(format!("{e:?}")))` — use `.change_context(E)` instead
+- Write `.map_err(|e| ConnectorError::Variant(e.to_string()))` — use `.change_context(ConnectorError)` instead
+
+## Validation Pattern
+
+Validation functions return `Validated` marker type (defined in `paxos/traits.rs`):
+
+```rust
+fn validate(&self, proposal: &Self::Proposal) -> Result<Validated, Report<ValidationError>> {
+    // perform checks...
+    Ok(Validated::assert_valid())
+}
+```
+
+This proves validation occurred at compile time.
+
+## Code Style
+
+### Generics
+Keep MLS config generics (`C: MlsConfig`, `CS: CipherSuiteProvider`) - required for testing. Use type aliases to reduce verbosity.
+
+### Async
+Use native async-fn-in-trait (no `#[async_trait]` macro).
+
+### Documentation
+- All public types/functions MUST have doc comments
+- Include `# Errors` for fallible functions
+- Include `# Example` for complex APIs
+
+### Shared Utilities
+Put cross-crate utilities in `filament-core` (e.g., `load_secret_key` in `util.rs`).
 
 ## Testing
 
-Use Stateright for model checking Paxos invariants against the TLA+ spec.
+- Use turmoil for deterministic network simulation tests
+- Test naming: `proposal_with_invalid_signature_is_rejected`
+
+## Linting
+
+The codebase uses `#![warn(clippy::pedantic)]`. Maintain this.
+
+## What NOT to Do
+
+1. Don't add features beyond what's asked
+2. Don't refactor unrelated code
+3. Don't add "just in case" error handling - trust internal invariants
+4. Don't create abstractions for one-time use - wait for the third instance
+5. Don't use `unwrap()` in library code
+6. Don't expose internal types in public API
 
 ---
 > Source: [conradludgate/filament](https://github.com/conradludgate/filament) — distributed by [TomeVault](https://tomevault.io).
