@@ -1,0 +1,9 @@
+{
+  "name": "southpawin--sirvir",
+  "displayName": "sirvir",
+  "description": "Sirvir \u2014 model fleet manager & intelligence engine for Hermes Agent. Autonomous model lifecycle manager: local serving, benchmarking, auto-scaling, API fallback, HuggingFace scanning, creator tracking",
+  "version": "1.0.0",
+  "author": "SouthpawIN",
+  "homepage": "https://github.com/SouthpawIN/sirvir",
+  "skills": []
+}
