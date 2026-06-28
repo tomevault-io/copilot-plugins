@@ -111479,6 +111479,11 @@
       "description": "opera-browser-cli"
     },
     {
+      "name": "amirhosssein0--k8s-operator-lab",
+      "source": "./amirhosssein0--k8s-operator-lab",
+      "description": "Production-style Kubernetes Operator with Kubebuilder & Go \u2014 custom CRD, reconciliation loop, OwnerReference"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -127342,6 +127347,11 @@
       "name": "replikativ--spindel",
       "source": "./replikativ--spindel",
       "description": "Cross-platform FRP runtime with a git-like memory model."
+    },
+    {
+      "name": "nubbymong--claude-command-center",
+      "source": "./nubbymong--claude-command-center",
+      "description": "Mission control for Claude Code: run many sessions in parallel with multi-account isolation, transcript viewer, cost tracking, and memory dashboards. Windows + macOS (Apple Silicon)."
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -149592,6 +149602,11 @@
       "name": "tam1012--synthnews",
       "source": "./tam1012--synthnews",
       "description": "SynthNews l\u00e0 h\u1ec7 th\u1ed1ng \u0111\u1ecdc tin c\u00e1 nh\u00e2n d\u1ea1ng full-stack monorepo. \u1ee8ng d\u1ee5ng l\u1ea5y b\u00e0i t\u1eeb RSS, Web, Reddit v\u00e0 VOZ, l\u01b0u v\u00e0o PostgreSQL, d\u00f9ng AI \u0111\u1ec3 t\u00f3m t\u1eaft ti\u1ebfng Vi\u1ec7t, r\u1ed3i hi\u1ec3n th\u1ecb trong giao di\u1ec7n \u0111\u1ecdc nhanh c"
+    },
+    {
+      "name": "ralksta--immich-folio",
+      "source": "./ralksta--immich-folio",
+      "description": "A self-hosted photography portfolio powered by Immich. Turns your Immich albums into a beautiful, public-facing gallery."
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -216024,6 +216039,31 @@
       "description": "genesis-workbench"
     },
     {
+      "name": "agricidaniel--youtuber",
+      "source": "./agricidaniel--youtuber",
+      "description": "A source-cited YouTube brain: creator growth & strategy, the developer API, and paid advertising. Unofficial; not affiliated with YouTube/Google."
+    },
+    {
+      "name": "agricidaniel--youtuber",
+      "source": "./agricidaniel--youtuber",
+      "description": "A source-cited YouTube brain: creator growth & strategy, the developer API, and paid advertising. Unofficial; not affiliated with YouTube/Google."
+    },
+    {
+      "name": "agricidaniel--youtuber",
+      "source": "./agricidaniel--youtuber",
+      "description": "A source-cited YouTube brain: creator growth & strategy, the developer API, and paid advertising. Unofficial; not affiliated with YouTube/Google."
+    },
+    {
+      "name": "wenbinyugroup--gebt",
+      "source": "./wenbinyugroup--gebt",
+      "description": "GEBT: Geometrically Exact Beam Theory"
+    },
+    {
+      "name": "mfrostbutter--ageniusdesk-ce",
+      "source": "./mfrostbutter--ageniusdesk-ce",
+      "description": "The command center for n8n automation operators: multi-instance management, real-time error tracking, AI-assisted debugging, a Code Lab, and one-click container deployment. Self-hosted, source-availab"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -233702,6 +233742,16 @@
       "name": "leeeboo--datalayer-studio",
       "source": "./leeeboo--datalayer-studio",
       "description": "DataLayer Studio"
+    },
+    {
+      "name": "limsangjin12--app-templates",
+      "source": "./limsangjin12--app-templates",
+      "description": "\uc571 \uac1c\ubc1c \ubaa8\ub178\ub808\ud3ec \ud15c\ud50c\ub9bf"
+    },
+    {
+      "name": "limsangjin12--app-templates",
+      "source": "./limsangjin12--app-templates",
+      "description": "\uc571 \uac1c\ubc1c \ubaa8\ub178\ub808\ud3ec \ud15c\ud50c\ub9bf"
     },
     {
       "name": "cheerhuan--save-your-token",
