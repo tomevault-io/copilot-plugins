@@ -1,0 +1,9 @@
+{
+  "name": "yangsal--ashares-data-collect",
+  "displayName": "ashares_data_collect",
+  "description": "\u81ea\u52a8\u5316 A \u80a1\u91d1\u878d\u6570\u636e\u91c7\u96c6\u5e73\u53f0\uff1a\u884c\u60c5/\u8d22\u52a1/Tick\uff0cDAG \u7f16\u6392 + \u5b9a\u65f6\u8c03\u5ea6 + \u67e5\u6f0f\u8865\u7f3a\u3002  Automated A-share market-data platform: K-line, financials & tick via QMT/xtquant \u2014 DAG pipelines, scheduling, gap-filling, PostgreSQL + Parquet",
+  "version": "1.0.0",
+  "author": "YangSal",
+  "homepage": "https://github.com/YangSal/ashares_data_collect",
+  "skills": []
+}
