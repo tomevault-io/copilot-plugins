@@ -1,0 +1,9 @@
+{
+  "name": "jackpriceburns--decomp-academy-fe",
+  "displayName": "decomp-academy-fe",
+  "description": "Interactive course for learning to decompile GameCube PowerPC assembly into byte-matching C, graded live by the real Metrowerks CodeWarrior GC/2.0 compiler.",
+  "version": "1.0.0",
+  "author": "JackPriceBurns",
+  "homepage": "https://github.com/JackPriceBurns/decomp-academy-fe",
+  "skills": []
+}
