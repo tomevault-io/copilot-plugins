@@ -1,0 +1,14 @@
+{
+  "name": "bbvch-ai--aihub-core",
+  "displayName": "aihub-core",
+  "description": "The open-source AI infrastructure stack for Swiss enterprises.",
+  "version": "1.0.0",
+  "author": "bbvch-ai",
+  "homepage": "https://github.com/bbvch-ai/aihub-core",
+  "skills": [
+    {
+      "name": "docker-dev",
+      "description": ""
+    }
+  ]
+}
