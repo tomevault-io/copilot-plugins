@@ -1,0 +1,9 @@
+{
+  "name": "gentslava--home-assistant-harmonyos-next",
+  "displayName": "Home-Assistant-HarmonyOS-Next",
+  "description": "Home Assistant client for Huawei Watch (Watch 4/5/Ultimate, HarmonyOS ArkTS). Works via phone companion on Android using Wear Engine P2P; supports core HA entities.",
+  "version": "1.0.0",
+  "author": "gentslava",
+  "homepage": "https://github.com/gentslava/Home-Assistant-HarmonyOS-Next",
+  "skills": []
+}
