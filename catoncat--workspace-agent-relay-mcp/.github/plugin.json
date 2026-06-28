@@ -1,0 +1,9 @@
+{
+  "name": "catoncat--workspace-agent-relay-mcp",
+  "displayName": "workspace-agent-relay-mcp",
+  "description": "Local relay MCP and dashboard for ChatGPT Workspace Agent trigger callbacks \u2014 plan, progress, tool-call traces, and results streamed live to your machine.",
+  "version": "1.0.0",
+  "author": "catoncat",
+  "homepage": "https://github.com/catoncat/workspace-agent-relay-mcp",
+  "skills": []
+}
