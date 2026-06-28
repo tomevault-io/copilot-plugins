@@ -1,0 +1,9 @@
+{
+  "name": "liorshaya--claude-desktop-rtl",
+  "displayName": "claude-desktop-rtl",
+  "description": "Smooth right-to-left (Hebrew/Arabic/Persian) for Claude Desktop & claude.ai | prose, tables & math - on macOS and Windows.",
+  "version": "1.0.0",
+  "author": "liorshaya",
+  "homepage": "https://github.com/liorshaya/claude-desktop-rtl",
+  "skills": []
+}
