@@ -1,0 +1,44 @@
+{
+  "name": "easyqueue",
+  "owner": "sousadiego11",
+  "repo": "easyqueue",
+  "description": "EasyQueue is a desktop application for inspecting, publishing, and managing messages across multiple message brokers from a single interface. Browse queues, view messages with a clean JSON viewer, publish payloads, and simplify debugging workflows for RabbitMQ, Amazon SQS, and more.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sousadiego11/easyqueue",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T02:33:12Z"
+}
