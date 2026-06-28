@@ -4,7 +4,7 @@
   "repo": "copy-thief",
   "description": "Skill do Claude para escrever copy de alta conversao (landing pages, advertoriais, VSL) para trafego frio de Meta e Google Ads, em PT-BR.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thalesholleben/copy-thief",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T16:32:48Z"
+  "distributed_at": "2026-06-28T16:33:16Z"
 }
