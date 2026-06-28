@@ -1,0 +1,9 @@
+{
+  "name": "partment--opencode-openai-compact",
+  "displayName": "opencode-openai-compact",
+  "description": "Use OpenAI Responses API native compaction in OpenCode",
+  "version": "1.0.0",
+  "author": "partment",
+  "homepage": "https://github.com/partment/opencode-openai-compact",
+  "skills": []
+}
