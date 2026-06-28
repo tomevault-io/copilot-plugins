@@ -1,0 +1,44 @@
+{
+  "name": "memoryops-ai",
+  "owner": "patibandlavenkatamanideep",
+  "repo": "memoryops-ai",
+  "description": "Enterprise-shaped memory governance layer for AI assistants: typed capture, policy evaluation, hybrid retrieval, deletion guarantees, tenant isolation, provenance, and audit.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/patibandlavenkatamanideep/memoryops-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T08:33:16Z"
+}
