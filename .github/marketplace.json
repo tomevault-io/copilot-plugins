@@ -215779,6 +215779,91 @@
       "description": "\u2744\ufe0f Lightweight IM-interface agentic group chatbot (fork of Cahciua)"
     },
     {
+      "name": "kinncj--heimdall",
+      "source": "./kinncj--heimdall",
+      "description": "Heimdall is a lightweight, cross-platform hardware monitoring system with a real-time terminal dashboard."
+    },
+    {
+      "name": "kinncj--heimdall",
+      "source": "./kinncj--heimdall",
+      "description": "Heimdall is a lightweight, cross-platform hardware monitoring system with a real-time terminal dashboard."
+    },
+    {
+      "name": "kinncj--heimdall",
+      "source": "./kinncj--heimdall",
+      "description": "Heimdall is a lightweight, cross-platform hardware monitoring system with a real-time terminal dashboard."
+    },
+    {
+      "name": "hutao-fmtech--obsidian-knowledge-system",
+      "source": "./hutao-fmtech--obsidian-knowledge-system",
+      "description": "\u4e2a\u4eba\u77e5\u8bc6\u7ba1\u7406\u7cfb\u7edf"
+    },
+    {
+      "name": "kinncj--heimdall",
+      "source": "./kinncj--heimdall",
+      "description": "Heimdall is a lightweight, cross-platform hardware monitoring system with a real-time terminal dashboard."
+    },
+    {
+      "name": "dmitryisaenko--larafoundry",
+      "source": "./dmitryisaenko--larafoundry",
+      "description": "larafoundry"
+    },
+    {
+      "name": "dmitryisaenko--larafoundry",
+      "source": "./dmitryisaenko--larafoundry",
+      "description": "larafoundry"
+    },
+    {
+      "name": "cloudcannon--jetstream-astro-template",
+      "source": "./cloudcannon--jetstream-astro-template",
+      "description": "A polished Astro template built on the Component Starter, designed to showcase CloudCannon\u2019s key features and editing capabilities."
+    },
+    {
+      "name": "swyxio--wtf2025",
+      "source": "./swyxio--wtf2025",
+      "description": "wtf"
+    },
+    {
+      "name": "hutao-fmtech--obsidian-knowledge-system",
+      "source": "./hutao-fmtech--obsidian-knowledge-system",
+      "description": "\u4e2a\u4eba\u77e5\u8bc6\u7ba1\u7406\u7cfb\u7edf"
+    },
+    {
+      "name": "hutao-fmtech--obsidian-knowledge-system",
+      "source": "./hutao-fmtech--obsidian-knowledge-system",
+      "description": "\u4e2a\u4eba\u77e5\u8bc6\u7ba1\u7406\u7cfb\u7edf"
+    },
+    {
+      "name": "aureliolo--synthorg",
+      "source": "./aureliolo--synthorg",
+      "description": "SynthOrg - Framework for building synthetic organizations with autonomous AI agents"
+    },
+    {
+      "name": "sukitly--agentic-docs-templates",
+      "source": "./sukitly--agentic-docs-templates",
+      "description": "A language-agnostic, framework-agnostic repository template for document-driven AI coding agent development."
+    },
+    {
+      "name": "payrequest--copana",
+      "source": "./payrequest--copana",
+      "description": "personal AI assistant that works inside Claude Code."
+    },
+    {
+      "name": "aureliolo--synthorg",
+      "source": "./aureliolo--synthorg",
+      "description": "SynthOrg - Framework for building synthetic organizations with autonomous AI agents"
+    },
+    {
+      "name": "hwdemtv--zenclean",
+      "source": "./hwdemtv--zenclean",
+      "description": "Windows C\u76d8\u6e05\u7406\u5de5\u5177 - \u878d\u5408AI\u667a\u80fd\u7684\u6df1\u5ea6\u6e05\u7406\u4e0e\u7cfb\u7edf\u4f18\u5316\u5de5\u5177\uff0c\u652f\u6301\u5fae\u4fe1/QQ/Docker\u65e0\u635f\u642c\u5bb6\uff0c72\u5c0f\u65f6\u53cd\u6094\u671f"
+    },
+    {
+      "name": "fenre--splunk-monitoring-use-cases",
+      "source": "./fenre--splunk-monitoring-use-cases",
+      "description": "splunk-monitoring-use-cases"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -233382,6 +233467,16 @@
       "name": "carlos-dominguez-faber--n8n-automation-kit",
       "source": "./carlos-dominguez-faber--n8n-automation-kit",
       "description": "Kit completo para conectar Claude Code con n8n: MCPs, skills especializadas, subagente workflow-architect y templates listos para usar."
+    },
+    {
+      "name": "jimmyxiao2009--project-apotheosis",
+      "source": "./jimmyxiao2009--project-apotheosis",
+      "description": "Porting modern WebKit/WebCore to Windows 10 Mobile (ARM32, UWP) \u2014 a JIT-accelerated, GPU-composited browser engine for Windows Phone. \u73b0\u4ee3 WebKit \u6d4f\u89c8\u5668\u5f15\u64ce\u79fb\u690d\u5230 Windows 10 Mobile\u3002"
+    },
+    {
+      "name": "jimmyxiao2009--project-apotheosis",
+      "source": "./jimmyxiao2009--project-apotheosis",
+      "description": "Porting modern WebKit/WebCore to Windows 10 Mobile (ARM32, UWP) \u2014 a JIT-accelerated, GPU-composited browser engine for Windows Phone. \u73b0\u4ee3 WebKit \u6d4f\u89c8\u5668\u5f15\u64ce\u79fb\u690d\u5230 Windows 10 Mobile\u3002"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -355442,6 +355537,11 @@
       "name": "jwl93--pycmdb",
       "source": "./jwl93--pycmdb",
       "description": "publish and manage online"
+    },
+    {
+      "name": "thongkezune--bear-qr",
+      "source": "./thongkezune--bear-qr",
+      "description": "bear-qr"
     }
   ]
 }
