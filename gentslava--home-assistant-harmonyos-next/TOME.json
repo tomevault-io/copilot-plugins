@@ -4,7 +4,7 @@
   "repo": "Home-Assistant-HarmonyOS-Next",
   "description": "Home Assistant client for Huawei Watch (Watch 4/5/Ultimate, HarmonyOS ArkTS). Works via phone companion on Android using Wear Engine P2P; supports core HA entities.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gentslava/Home-Assistant-HarmonyOS-Next",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T16:30:23Z"
+  "distributed_at": "2026-06-28T16:30:52Z"
 }
