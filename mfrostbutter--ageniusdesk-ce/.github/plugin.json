@@ -1,0 +1,9 @@
+{
+  "name": "mfrostbutter--ageniusdesk-ce",
+  "displayName": "ageniusdesk-ce",
+  "description": "The command center for n8n automation operators: multi-instance management, real-time error tracking, AI-assisted debugging, a Code Lab, and one-click container deployment. Self-hosted, source-availab",
+  "version": "1.0.0",
+  "author": "Mfrostbutter",
+  "homepage": "https://github.com/Mfrostbutter/ageniusdesk-ce",
+  "skills": []
+}
