@@ -1,0 +1,9 @@
+{
+  "name": "eaftan--safere",
+  "displayName": "safere",
+  "description": "A safe linear-time regular expression matching library for Java, based on RE2",
+  "version": "1.0.0",
+  "author": "eaftan",
+  "homepage": "https://github.com/eaftan/safere",
+  "skills": []
+}
