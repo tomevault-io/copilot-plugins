@@ -1,0 +1,9 @@
+{
+  "name": "keithligh--cinematic-3d-battle-engine",
+  "displayName": "cinematic-3d-battle-engine",
+  "description": "A self-playing 3D battle-documentary engine: render any historical or fictional battle on real-scale satellite and elevation terrain. The engine is battle-agnostic; fork the data layer (data.js + flag",
+  "version": "1.0.0",
+  "author": "keithligh",
+  "homepage": "https://github.com/keithligh/cinematic-3d-battle-engine",
+  "skills": []
+}
