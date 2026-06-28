@@ -4,7 +4,7 @@
   "repo": "smart_octopus",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CortexReach/smart_octopus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T04:31:47Z"
+  "distributed_at": "2026-06-28T04:33:40Z"
 }
