@@ -4,7 +4,7 @@
   "repo": "itasca-mcp",
   "description": "MCP server connecting AI agents to ITASCA engines (PFC, FLAC, 3DEC, MPoint, MassFlow) \u2014 run numerical simulations through natural conversation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yusong652/itasca-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T03:30:24Z"
+  "distributed_at": "2026-06-28T03:30:52Z"
 }
