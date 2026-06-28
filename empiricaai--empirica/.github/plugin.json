@@ -1,0 +1,9 @@
+{
+  "name": "empiricaai--empirica",
+  "displayName": "empirica",
+  "description": "  Make AI agents and AI workflows measurably reliable. Epistemic measurement, Noetic RAG, Sentinel gating, and grounded calibration for Claude Code  and beyond",
+  "version": "1.0.0",
+  "author": "EmpiricaAI",
+  "homepage": "https://github.com/EmpiricaAI/empirica",
+  "skills": []
+}
