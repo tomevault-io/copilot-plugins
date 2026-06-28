@@ -1,0 +1,9 @@
+{
+  "name": "jonhardwick-spec--specmem",
+  "displayName": "specmem",
+  "description": "SpecMem - TRUE Semantic Memory for Claude Code - Runs locally - Remembers your code base - Per-project isolation, semantic search, team coordination. https://justcalljon.pro",
+  "version": "1.0.0",
+  "author": "jonhardwick-spec",
+  "homepage": "https://github.com/jonhardwick-spec/specmem",
+  "skills": []
+}
