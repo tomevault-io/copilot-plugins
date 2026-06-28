@@ -1,0 +1,9 @@
+{
+  "name": "fockus--skill-memory-bank",
+  "displayName": "skill-memory-bank",
+  "description": "Universal long-term project memory for AI coding agents \u2014 Claude Code, Cursor, Windsurf, Cline + 4 more. TDD rules, code graph, spec-driven dev, cross-session recall.",
+  "version": "1.0.0",
+  "author": "fockus",
+  "homepage": "https://github.com/fockus/skill-memory-bank",
+  "skills": []
+}
