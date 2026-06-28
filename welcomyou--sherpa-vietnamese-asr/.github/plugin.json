@@ -1,0 +1,9 @@
+{
+  "name": "welcomyou--sherpa-vietnamese-asr",
+  "displayName": "sherpa-vietnamese-asr",
+  "description": "ASR (vietnamese), Speaker diarization run offline on CPU.",
+  "version": "1.0.0",
+  "author": "welcomyou",
+  "homepage": "https://github.com/welcomyou/sherpa-vietnamese-asr",
+  "skills": []
+}
