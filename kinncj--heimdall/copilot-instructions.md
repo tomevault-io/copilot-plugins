@@ -1,15 +1,27 @@
-## impl-files
+## pipeline-gate
 
-> Implementation file guard — reminds the agent to verify pipeline state before editing app/ or tests/
+> MAPLE pipeline gate — enforces orchestrator-first workflow before any implementation work
 
 
-You are editing implementation files. Before making any changes, verify the MAPLE pipeline is active:
+## Session Start Protocol (mandatory)
+
+Before responding to any implementation request, run this check:
 
 ```bash
-python3 -c "import json; s=json.load(open('.claude/state/maple.json')); print(s.get('stage',''), s.get('status',''))" 2>/dev/null || echo "no pipeline"
+python3 -c "import json; s=json.load(open('.claude/state/maple.json')); print(s.get('status',''))" 2>/dev/null || echo "none"
 ```
 
-If status is not `RUNNING` or `PAUSED`, stop and start the pipeline first via `/pipeline-runner <name>`. Do not write to these files outside a pipeline stage.
+- **`RUNNING` or `PAUSED`** — pipeline is active, continue within it.
+- **anything else** — no pipeline active. Do NOT write to `app/` or `tests/`. Route through `/pipeline-runner` first:
+
+```
+/pipeline-runner implement-stories   — implement existing approved stories
+/pipeline-runner new-ui-feature      — full UI pipeline with design gates
+/pipeline-runner api-endpoint        — API feature pipeline
+/pipeline-runner bugfix              — reproduce → fix → validate
+```
+
+Writing to `app/` or `tests/` outside a running pipeline is a hard violation. The pre-commit hook will block the commit.
 
 ---
 > Source: [kinncj/Heimdall](https://github.com/kinncj/Heimdall) — distributed by [TomeVault](https://tomevault.io).
