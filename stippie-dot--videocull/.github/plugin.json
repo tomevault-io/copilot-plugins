@@ -1,0 +1,9 @@
+{
+  "name": "stippie-dot--videocull",
+  "displayName": "VideoCull",
+  "description": "Scan a folder, skim thumbnails, keep or delete with a keypress. Built for large local video libraries.",
+  "version": "1.0.0",
+  "author": "stippie-dot",
+  "homepage": "https://github.com/stippie-dot/VideoCull",
+  "skills": []
+}
