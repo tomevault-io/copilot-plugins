@@ -1,0 +1,9 @@
+{
+  "name": "bastani-inc--atomic",
+  "displayName": "atomic",
+  "description": "Reliable loops for software engineering with Pi extensions, custom models, MCP, sub-agents, artifacts, review gates, and mid-run steering.",
+  "version": "1.0.0",
+  "author": "bastani-inc",
+  "homepage": "https://github.com/bastani-inc/atomic",
+  "skills": []
+}
