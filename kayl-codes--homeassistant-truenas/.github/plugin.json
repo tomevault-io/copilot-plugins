@@ -1,0 +1,9 @@
+{
+  "name": "kayl-codes--homeassistant-truenas",
+  "displayName": "homeassistant-truenas",
+  "description": "TrueNAS integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "kayl-codes",
+  "homepage": "https://github.com/kayl-codes/homeassistant-truenas",
+  "skills": []
+}
