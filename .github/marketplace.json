@@ -234009,6 +234009,16 @@
       "description": "ez access to ai [ persian ]"
     },
     {
+      "name": "autable--autable",
+      "source": "./autable--autable",
+      "description": "autable"
+    },
+    {
+      "name": "liorshaya--claude-desktop-rtl",
+      "source": "./liorshaya--claude-desktop-rtl",
+      "description": "Smooth right-to-left (Hebrew/Arabic/Persian) for Claude Desktop & claude.ai | prose, tables & math - on macOS and Windows."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
