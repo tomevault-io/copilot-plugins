@@ -1,0 +1,9 @@
+{
+  "name": "whtis--sagex",
+  "displayName": "sagex",
+  "description": "\u672c\u5730\u4f18\u5148\u7684\u5b89\u5353\u5e94\u7528\uff1a\u76d1\u542c\u5fae\u4fe1\u901a\u77e5\u3001\u6309\u7fa4\u804a/\u4e2a\u4eba\u5f52\u7c7b\uff0c\u5e76\u7528\u4efb\u610f OpenAI \u517c\u5bb9\u5927\u6a21\u578b\u751f\u6210\u804a\u5929\u6458\u8981\u3002",
+  "version": "1.0.0",
+  "author": "whtis",
+  "homepage": "https://github.com/whtis/sagex",
+  "skills": []
+}
