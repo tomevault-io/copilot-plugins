@@ -1,0 +1,44 @@
+{
+  "name": "brinjal-fresh-store",
+  "owner": "manojgupta06536-prog",
+  "repo": "brinjal-fresh-store",
+  "description": "Exported from Caffeine project: Brinjal Fresh Store",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/manojgupta06536-prog/brinjal-fresh-store",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T02:38:55Z"
+}
