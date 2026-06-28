@@ -4,7 +4,7 @@
   "repo": "app-templates",
   "description": "\uc571 \uac1c\ubc1c \ubaa8\ub178\ub808\ud3ec \ud15c\ud50c\ub9bf",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/limsangjin12/app-templates",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T10:33:15Z"
+  "distributed_at": "2026-06-28T10:35:08Z"
 }
