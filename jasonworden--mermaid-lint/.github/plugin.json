@@ -1,0 +1,9 @@
+{
+  "name": "jasonworden--mermaid-lint",
+  "displayName": "mermaid-lint",
+  "description": "Validate Mermaid diagrams in Markdown! Catch real syntax errors using the official parser, built for CI.",
+  "version": "1.0.0",
+  "author": "jasonworden",
+  "homepage": "https://github.com/jasonworden/mermaid-lint",
+  "skills": []
+}
