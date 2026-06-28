@@ -1,0 +1,9 @@
+{
+  "name": "experientiallabs--world-model-harness",
+  "displayName": "world-model-harness",
+  "description": "World-model-as-a-harness for simulating AI agent environments",
+  "version": "1.0.0",
+  "author": "experientiallabs",
+  "homepage": "https://github.com/experientiallabs/world-model-harness",
+  "skills": []
+}
