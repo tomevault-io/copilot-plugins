@@ -4,7 +4,7 @@
   "repo": "FinAI-Research-Workflow",
   "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, US equities, macro, FRED, OpenAlex, ArXiv, NBER). ~30 econometric methods, 17 AI skills.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/csmar432/FinAI-Research-Workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T20:30:51Z"
+  "distributed_at": "2026-06-28T20:31:51Z"
 }
