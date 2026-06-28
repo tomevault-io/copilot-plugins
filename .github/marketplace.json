@@ -34289,6 +34289,16 @@
       "description": "A set of accessible and composable components for building audio interfaces in your React apps. Built on top of shadcn/ui, it's designed for you to copy, paste, and own."
     },
     {
+      "name": "sharkui-inc--shark-ui",
+      "source": "./sharkui-inc--shark-ui",
+      "description": "Beautifully designed components built with Ark UI and Tailwind."
+    },
+    {
+      "name": "sharkui-inc--shark-ui",
+      "source": "./sharkui-inc--shark-ui",
+      "description": "Beautifully designed components built with Ark UI and Tailwind."
+    },
+    {
       "name": "openresearch1--openresearch",
       "source": "./openresearch1--openresearch",
       "description": "openresearch"
@@ -184572,6 +184582,11 @@
       "name": "gentslava--home-assistant-harmonyos-next",
       "source": "./gentslava--home-assistant-harmonyos-next",
       "description": "Home Assistant client for Huawei Watch (Watch 4/5/Ultimate, HarmonyOS ArkTS). Works via phone companion on Android using Wear Engine P2P; supports core HA entities."
+    },
+    {
+      "name": "unicity-sphere--sphere",
+      "source": "./unicity-sphere--sphere",
+      "description": "A Web3 wallet and agent platform for the Unicity network - dual-layer crypto wallet, DMs, group chat, and marketplace."
     },
     {
       "name": "yschimke--compose-ai-tools",
