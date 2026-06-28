@@ -1,0 +1,9 @@
+{
+  "name": "ilgizar-valiullin--mcp-web-hound",
+  "displayName": "mcp-web-hound",
+  "description": "Unified MCP search server with 8 providers, caching, reranking, and rate limits",
+  "version": "1.0.0",
+  "author": "ilgizar-valiullin",
+  "homepage": "https://github.com/ilgizar-valiullin/mcp-web-hound",
+  "skills": []
+}
