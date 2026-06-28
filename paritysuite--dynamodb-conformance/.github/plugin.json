@@ -1,0 +1,9 @@
+{
+  "name": "paritysuite--dynamodb-conformance",
+  "displayName": "dynamodb-conformance",
+  "description": "Independent conformance suite for DynamoDB-compatible endpoints. 817 tests validated against real DynamoDB.",
+  "version": "1.0.0",
+  "author": "paritysuite",
+  "homepage": "https://github.com/paritysuite/dynamodb-conformance",
+  "skills": []
+}
