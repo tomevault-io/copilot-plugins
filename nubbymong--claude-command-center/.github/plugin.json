@@ -1,0 +1,9 @@
+{
+  "name": "nubbymong--claude-command-center",
+  "displayName": "claude-command-center",
+  "description": "Mission control for Claude Code: run many sessions in parallel with multi-account isolation, transcript viewer, cost tracking, and memory dashboards. Windows + macOS (Apple Silicon).",
+  "version": "1.0.0",
+  "author": "nubbymong",
+  "homepage": "https://github.com/nubbymong/claude-command-center",
+  "skills": []
+}
