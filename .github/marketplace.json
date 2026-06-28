@@ -85084,6 +85084,11 @@
       "description": "Homeassistant MCP server with readonly functions"
     },
     {
+      "name": "braviaprime--bravia-com",
+      "source": "./braviaprime--bravia-com",
+      "description": "Personal portfolio showcasing my skills, experience, and academic professional background."
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -171857,6 +171862,11 @@
       "name": "enriqueneyra--aether",
       "source": "./enriqueneyra--aether",
       "description": "All-in-one home air quality monitor measuring Temp, Humidity, CO2, VOCs, Particulate Matter, and NOx. Powered by ESP32-C3 running esphome, and built with Home Assistant integration"
+    },
+    {
+      "name": "catoncat--workspace-agent-relay-mcp",
+      "source": "./catoncat--workspace-agent-relay-mcp",
+      "description": "Local relay MCP and dashboard for ChatGPT Workspace Agent trigger callbacks \u2014 plan, progress, tool-call traces, and results streamed live to your machine."
     },
     {
       "name": "lightninglabs--lnget",
