@@ -45419,6 +45419,21 @@
       "description": "sotaku"
     },
     {
+      "name": "yusong652--itasca-mcp",
+      "source": "./yusong652--itasca-mcp",
+      "description": "MCP server connecting AI agents to ITASCA engines (PFC, FLAC, 3DEC, MPoint, MassFlow) \u2014 run numerical simulations through natural conversation"
+    },
+    {
+      "name": "yusong652--itasca-mcp",
+      "source": "./yusong652--itasca-mcp",
+      "description": "MCP server connecting AI agents to ITASCA engines (PFC, FLAC, 3DEC, MPoint, MassFlow) \u2014 run numerical simulations through natural conversation"
+    },
+    {
+      "name": "yusong652--itasca-mcp",
+      "source": "./yusong652--itasca-mcp",
+      "description": "MCP server connecting AI agents to ITASCA engines (PFC, FLAC, 3DEC, MPoint, MassFlow) \u2014 run numerical simulations through natural conversation"
+    },
+    {
       "name": "butttons--dora",
       "source": "./butttons--dora",
       "description": "CLI built for AI agents to help navigate codebases better. An alternative to grep/find/glob"
@@ -124104,6 +124119,11 @@
       "description": "A technical knowledge base for learning AI Agents, Claude Code internals, databases, Redis, and frontend engineering through system-level notes and source-code analysis."
     },
     {
+      "name": "botirkhaltaev--sift",
+      "source": "./botirkhaltaev--sift",
+      "description": "Indexed regex search over a codebase"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -144317,6 +144337,11 @@
       "name": "oomkapwn--enquire-mcp",
       "source": "./oomkapwn--enquire-mcp",
       "description": "The most advanced Obsidian MCP \u2014 long-term memory for AI agents. Hybrid retrieval (BM25 + ML + BGE rerank, RRF-fused), HNSW live-update, agentic RAG (HyDE + sub-question), Obsidian Bases, PDFs+OCR. Fo"
+    },
+    {
+      "name": "paritysuite--dynamodb-conformance",
+      "source": "./paritysuite--dynamodb-conformance",
+      "description": "Independent conformance suite for DynamoDB-compatible endpoints. 817 tests validated against real DynamoDB."
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -184332,6 +184357,16 @@
       "name": "comfygit-ai--comfygit-manager",
       "source": "./comfygit-ai--comfygit-manager",
       "description": "ComfyUI extension providing the ComfyGit Manager UI for versioning and orchestrating environments."
+    },
+    {
+      "name": "experientiallabs--world-model-harness",
+      "source": "./experientiallabs--world-model-harness",
+      "description": "World-model-as-a-harness for simulating AI agent environments"
+    },
+    {
+      "name": "experientiallabs--world-model-harness",
+      "source": "./experientiallabs--world-model-harness",
+      "description": "World-model-as-a-harness for simulating AI agent environments"
     },
     {
       "name": "yschimke--compose-ai-tools",
