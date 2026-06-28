@@ -1,0 +1,9 @@
+{
+  "name": "atypical-consulting--koine",
+  "displayName": "Koine",
+  "description": "A domain-specific language for Domain-Driven Design: write a bounded context's ubiquitous language once in .koi files and the compiler emits idiomatic, self-contained C# (and TypeScript) \u2014 value objec",
+  "version": "1.0.0",
+  "author": "Atypical-Consulting",
+  "homepage": "https://github.com/Atypical-Consulting/Koine",
+  "skills": []
+}
