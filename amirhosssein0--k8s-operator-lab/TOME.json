@@ -1,0 +1,44 @@
+{
+  "name": "k8s-operator-lab",
+  "owner": "amirhosssein0",
+  "repo": "k8s-operator-lab",
+  "description": "Production-style Kubernetes Operator with Kubebuilder & Go \u2014 custom CRD, reconciliation loop, OwnerReference",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/amirhosssein0/k8s-operator-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T10:30:23Z"
+}
