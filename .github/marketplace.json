@@ -163199,6 +163199,11 @@
       "description": "FFXIV Dalamud plugin - Another ffxiv mechanics simulator"
     },
     {
+      "name": "stippie-dot--videocull",
+      "source": "./stippie-dot--videocull",
+      "description": "Scan a folder, skim thumbnails, keep or delete with a keypress. Built for large local video libraries."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -215899,6 +215904,11 @@
       "description": "splunk-monitoring-use-cases"
     },
     {
+      "name": "abdelkareemkobo--seo-otter",
+      "source": "./abdelkareemkobo--seo-otter",
+      "description": "seo otter is an SEO to give you some help to optimize your content based on markdown for sites like astor, quarto"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -233537,6 +233547,26 @@
       "name": "atypical-consulting--koine",
       "source": "./atypical-consulting--koine",
       "description": "A domain-specific language for Domain-Driven Design: write a bounded context's ubiquitous language once in .koi files and the compiler emits idiomatic, self-contained C# (and TypeScript) \u2014 value objec"
+    },
+    {
+      "name": "pmady--gpu-mcp-server",
+      "source": "./pmady--gpu-mcp-server",
+      "description": "MCP server for NVIDIA GPU metrics give AI agents real-time access to GPU utilization, memory, temperature, and power"
+    },
+    {
+      "name": "cortexreach--smart-octopus",
+      "source": "./cortexreach--smart-octopus",
+      "description": "smart_octopus"
+    },
+    {
+      "name": "jackpriceburns--decomp-academy-fe",
+      "source": "./jackpriceburns--decomp-academy-fe",
+      "description": "Interactive course for learning to decompile GameCube PowerPC assembly into byte-matching C, graded live by the real Metrowerks CodeWarrior GC/2.0 compiler."
+    },
+    {
+      "name": "cortexreach--smart-octopus",
+      "source": "./cortexreach--smart-octopus",
+      "description": "smart_octopus"
     },
     {
       "name": "cheerhuan--save-your-token",
