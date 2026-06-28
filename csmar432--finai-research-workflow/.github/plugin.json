@@ -1,0 +1,9 @@
+{
+  "name": "csmar432--finai-research-workflow",
+  "displayName": "FinAI-Research-Workflow",
+  "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, ",
+  "version": "1.0.0",
+  "author": "csmar432",
+  "homepage": "https://github.com/csmar432/FinAI-Research-Workflow",
+  "skills": []
+}
