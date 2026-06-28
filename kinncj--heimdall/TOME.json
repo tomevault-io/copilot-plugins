@@ -4,7 +4,7 @@
   "repo": "Heimdall",
   "description": "Heimdall is a lightweight, cross-platform hardware monitoring system with a real-time terminal dashboard.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kinncj/Heimdall",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T00:30:52Z"
+  "distributed_at": "2026-06-28T00:31:50Z"
 }
