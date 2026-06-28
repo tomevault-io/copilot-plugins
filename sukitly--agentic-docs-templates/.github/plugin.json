@@ -1,0 +1,9 @@
+{
+  "name": "sukitly--agentic-docs-templates",
+  "displayName": "agentic-docs-templates",
+  "description": "A language-agnostic, framework-agnostic repository template for document-driven AI coding agent development.",
+  "version": "1.0.0",
+  "author": "Sukitly",
+  "homepage": "https://github.com/Sukitly/agentic-docs-templates",
+  "skills": []
+}
