@@ -1,0 +1,9 @@
+{
+  "name": "amirhosssein0--k8s-operator-lab",
+  "displayName": "k8s-operator-lab",
+  "description": "Production-style Kubernetes Operator with Kubebuilder & Go \u2014 custom CRD, reconciliation loop, OwnerReference",
+  "version": "1.0.0",
+  "author": "amirhosssein0",
+  "homepage": "https://github.com/amirhosssein0/k8s-operator-lab",
+  "skills": []
+}
