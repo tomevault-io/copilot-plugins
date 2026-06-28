@@ -1,0 +1,44 @@
+{
+  "name": "Neon",
+  "owner": "DeterMination-Wind",
+  "repo": "Neon",
+  "description": "A bundled Mindustry client toolkit (16-in-1): Neon unified settings with UpdateScheme, WhoUsesThisBuilding, and PatchViewer. / Mindustry \u5ba2\u6237\u7aef\u8f85\u52a9\u6a21\u7ec4\u5341\u516d\u5408\u4e00\uff0c\u7edf\u4e00 Neon \u8bbe\u7f6e\u5165\u53e3\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DeterMination-Wind/Neon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T12:30:22Z"
+}
