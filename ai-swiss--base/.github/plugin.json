@@ -1,0 +1,9 @@
+{
+  "name": "ai-swiss--base",
+  "displayName": "base",
+  "description": "Build your assistants with your structured expertise: a local-first, vendor-neutral framework for human-AI collaboration, in files you own.",
+  "version": "1.0.0",
+  "author": "ai-swiss",
+  "homepage": "https://github.com/ai-swiss/base",
+  "skills": []
+}
