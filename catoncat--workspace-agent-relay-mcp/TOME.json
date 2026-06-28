@@ -1,0 +1,44 @@
+{
+  "name": "workspace-agent-relay-mcp",
+  "owner": "catoncat",
+  "repo": "workspace-agent-relay-mcp",
+  "description": "Local relay MCP and dashboard for ChatGPT Workspace Agent trigger callbacks \u2014 plan, progress, tool-call traces, and results streamed live to your machine.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/catoncat/workspace-agent-relay-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T07:30:24Z"
+}
