@@ -131104,6 +131104,11 @@
       "description": "Open-Source Agentic AI Cybersecurity Platform"
     },
     {
+      "name": "jonhardwick-spec--specmem",
+      "source": "./jonhardwick-spec--specmem",
+      "description": "SpecMem - TRUE Semantic Memory for Claude Code - Runs locally - Remembers your code base - Per-project isolation, semantic search, team coordination. https://justcalljon.pro"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -184479,6 +184484,11 @@
       "description": "Stave is a risk reasoning engine that performs static analysis of cloud infrastructure configuration snapshots against system invariants via CEL predicates. It exports standardized facts (JSONL, SMT-L"
     },
     {
+      "name": "determination-wind--neon",
+      "source": "./determination-wind--neon",
+      "description": "A bundled Mindustry client toolkit (16-in-1): Neon unified settings with UpdateScheme, WhoUsesThisBuilding, and PatchViewer. / Mindustry \u5ba2\u6237\u7aef\u8f85\u52a9\u6a21\u7ec4\u5341\u516d\u5408\u4e00\uff0c\u7edf\u4e00 Neon \u8bbe\u7f6e\u5165\u53e3\u3002"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -216064,6 +216074,21 @@
       "description": "The command center for n8n automation operators: multi-instance management, real-time error tracking, AI-assisted debugging, a Code Lab, and one-click container deployment. Self-hosted, source-availab"
     },
     {
+      "name": "nomadoor--kura",
+      "source": "./nomadoor--kura",
+      "description": "Kura"
+    },
+    {
+      "name": "eliaalberti--dcode-agent-kit",
+      "source": "./eliaalberti--dcode-agent-kit",
+      "description": "A Claude Code skill that scaffolds ready-to-run LangChain Deep Agents and dcode CLI agents into any project."
+    },
+    {
+      "name": "arananet--cognition-md",
+      "source": "./arananet--cognition-md",
+      "description": "Cognitive contract spec for agentic memory. Grounded in neuroscience, not vendor docs. Defines how agents should encode, consolidate, retrieve, prune, and verify memories across strata."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -233754,6 +233779,16 @@
       "description": "\uc571 \uac1c\ubc1c \ubaa8\ub178\ub808\ud3ec \ud15c\ud50c\ub9bf"
     },
     {
+      "name": "jmandel--ehi-to-fhir",
+      "source": "./jmandel--ehi-to-fhir",
+      "description": "Reconstruct FHIR R4 from an Epic EHI export, scored against Epic's own FHIR API \u2014 with an interactive report."
+    },
+    {
+      "name": "ayushpramanik--mesh",
+      "source": "./ayushpramanik--mesh",
+      "description": "Git for agentic coding. Parallel workspaces, conflict prediction, and merge trains built for AI agents \u2014 not humans."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -237767,6 +237802,16 @@
       "name": "jasonworden--mermaid-lint",
       "source": "./jasonworden--mermaid-lint",
       "description": "Validate Mermaid diagrams in Markdown! Catch real syntax errors using the official parser, built for CI."
+    },
+    {
+      "name": "ijtihed--ps2-forge",
+      "source": "./ijtihed--ps2-forge",
+      "description": "ps2-forge"
+    },
+    {
+      "name": "icecranberry--galgame-with-comfyui",
+      "source": "./icecranberry--galgame-with-comfyui",
+      "description": "\u90bb\u820d.EXE\u2014\u2014\u7c7b\u8d85\u8f7b\u91cf\u7ea7\u9152\u9986+\u6df1\u5ea6\u63a5\u5165ComfyUI\uff0c\u505a\u5230\u89d2\u8272\u80fd\u81ea\u4e3b\u804a\u5929\u3001\u53d1\u670b\u53cb\u5708\u7684\u540c\u65f6\u80fd\u591f\u914d\u4e0a\u56fe\u7247\uff0c\u8ba9\u771f\u5b9e\u611f\u66f4\u8fdb\u4e00\u6b65\u3002\u8be6\u7ec6\u8bf4\u660e\u548c\u5b89\u88c5\u67e5\u770b\uff1ahttps://www.bilibili.com/video/BV1uH7q6vEQ9/"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
