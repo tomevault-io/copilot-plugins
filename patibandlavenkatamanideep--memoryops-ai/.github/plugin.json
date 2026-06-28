@@ -1,0 +1,9 @@
+{
+  "name": "patibandlavenkatamanideep--memoryops-ai",
+  "displayName": "memoryops-ai",
+  "description": "Enterprise-shaped memory governance layer for AI assistants: typed capture, policy evaluation, hybrid retrieval, deletion guarantees, tenant isolation, provenance, and audit.",
+  "version": "1.0.0",
+  "author": "patibandlavenkatamanideep",
+  "homepage": "https://github.com/patibandlavenkatamanideep/memoryops-ai",
+  "skills": []
+}
