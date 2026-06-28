@@ -4,7 +4,7 @@
   "repo": "obsidian-knowledge-system",
   "description": "\u4e2a\u4eba\u77e5\u8bc6\u7ba1\u7406\u7cfb\u7edf",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hutao-fmtech/obsidian-knowledge-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T00:32:17Z"
+  "distributed_at": "2026-06-28T00:36:15Z"
 }
