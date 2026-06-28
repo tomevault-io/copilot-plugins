@@ -1,0 +1,9 @@
+{
+  "name": "nicoechaniz--video-studio",
+  "displayName": "video-studio",
+  "description": "FastAPI video studio dashboard + ffmpeg render engine. Audio-first timeline, SRT subtitles, Grok Imagine b-roll, placa overlays.",
+  "version": "1.0.0",
+  "author": "nicoechaniz",
+  "homepage": "https://github.com/nicoechaniz/video-studio",
+  "skills": []
+}
