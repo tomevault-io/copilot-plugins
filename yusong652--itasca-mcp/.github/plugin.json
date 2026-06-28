@@ -1,0 +1,9 @@
+{
+  "name": "yusong652--itasca-mcp",
+  "displayName": "itasca-mcp",
+  "description": "MCP server connecting AI agents to ITASCA engines (PFC, FLAC, 3DEC, MPoint, MassFlow) \u2014 run numerical simulations through natural conversation",
+  "version": "1.0.0",
+  "author": "yusong652",
+  "homepage": "https://github.com/yusong652/itasca-mcp",
+  "skills": []
+}
