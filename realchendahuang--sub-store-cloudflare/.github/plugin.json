@@ -1,0 +1,9 @@
+{
+  "name": "realchendahuang--sub-store-cloudflare",
+  "displayName": "sub-store-cloudflare",
+  "description": "Cloudflare-native subscription aggregation and routing template manager powered by Workers, Static Assets, D1, and Worker Secrets.",
+  "version": "1.0.0",
+  "author": "realchendahuang",
+  "homepage": "https://github.com/realchendahuang/sub-store-cloudflare",
+  "skills": []
+}
