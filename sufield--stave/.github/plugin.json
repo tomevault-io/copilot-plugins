@@ -1,0 +1,9 @@
+{
+  "name": "sufield--stave",
+  "displayName": "stave",
+  "description": "Stave is a risk reasoning engine that performs static analysis of cloud infrastructure configuration snapshots against system invariants via CEL predicates. It exports standardized facts (JSONL, SMT-L",
+  "version": "1.0.0",
+  "author": "sufield",
+  "homepage": "https://github.com/sufield/stave",
+  "skills": []
+}
