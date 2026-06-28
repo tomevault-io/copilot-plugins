@@ -12059,6 +12059,11 @@
       "description": "CFP-Study"
     },
     {
+      "name": "kapishdima--remocn",
+      "source": "./kapishdima--remocn",
+      "description": "Production-ready animations, transitions, backgrounds, and scenes for Remotion. A shadcn registry that lets you `npx shadcn add` polished video components into any Remotion project. Built for solo bui"
+    },
+    {
       "name": "schpet--linear-cli",
       "source": "./schpet--linear-cli",
       "description": "linear without leaving the command line: list, start, and create PRs for linear issues. agent friendly. "
@@ -21062,11 +21067,6 @@
       "name": "skodaconnect--homeassistant-myskoda",
       "source": "./skodaconnect--homeassistant-myskoda",
       "description": "HomeAssistant integration for MySkoda."
-    },
-    {
-      "name": "kapishdima--remocn",
-      "source": "./kapishdima--remocn",
-      "description": "Production-ready animations, transitions, backgrounds, and scenes for Remotion. A shadcn registry that lets you `npx shadcn add` polished video components into any Remotion project. Built for solo bui"
     },
     {
       "name": "zolotukhin--zinc",
@@ -49777,6 +49777,11 @@
       "name": "zzquant--zzshare",
       "source": "./zzquant--zzshare",
       "description": "zzshare"
+    },
+    {
+      "name": "alexchan197611--ai-media-assistant",
+      "source": "./alexchan197611--ai-media-assistant",
+      "description": "AI-Powered Automate Self-Media Video Generation Tools\u200c"
     },
     {
       "name": "peteromallet--vibecomfy",
@@ -80774,6 +80779,11 @@
       "description": "REST API API Quran using go"
     },
     {
+      "name": "ftahirops--xtop",
+      "source": "./ftahirops--xtop",
+      "description": "xtop \u2014 modern replacement for top/htop with root-cause analysis and eBPF insights."
+    },
+    {
       "name": "erikveland--epstein-archive",
       "source": "./erikveland--epstein-archive",
       "description": "Epstein Files Archive - Document processing and analysis system for Epstein files with spice ratings, entity extraction, and advanced search capabilities"
@@ -94159,11 +94169,6 @@
       "description": "Salacia"
     },
     {
-      "name": "ftahirops--xtop",
-      "source": "./ftahirops--xtop",
-      "description": "xtop \u2014 modern replacement for top/htop with root-cause analysis and eBPF insights."
-    },
-    {
       "name": "andreneves97--brag-document",
       "source": "./andreneves97--brag-document",
       "description": "brag-document"
@@ -103567,6 +103572,11 @@
       "name": "akiojin--unity-mcp-server",
       "source": "./akiojin--unity-mcp-server",
       "description": "[DEPRECATED] Unity MCP server \u2014 successor: akiojin/unity-cli"
+    },
+    {
+      "name": "jonhoo--inpdf",
+      "source": "./jonhoo--inpdf",
+      "description": "inpdf"
     },
     {
       "name": "10xchengtu--mux0",
@@ -120869,6 +120879,11 @@
       "description": "Clean, docs-style web UI for the career-ops AI job-search pipeline. Search ATS adapters (Greenhouse/Ashby/Lever) + regional portals (hh.ru/Habr Career), evaluate JDs, track applications \u2014 all from the"
     },
     {
+      "name": "y5-snowies--nourish",
+      "source": "./y5-snowies--nourish",
+      "description": "Nourish OS. The modern way of using a computer."
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -131047,6 +131062,11 @@
       "name": "crafter-station--build4venezuela",
       "source": "./crafter-station--build4venezuela",
       "description": "build4venezuela"
+    },
+    {
+      "name": "openafw--openkai",
+      "source": "./openafw--openkai",
+      "description": "Open-Source Agentic AI Cybersecurity Platform"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -144344,6 +144364,16 @@
       "description": "Independent conformance suite for DynamoDB-compatible endpoints. 817 tests validated against real DynamoDB."
     },
     {
+      "name": "conradludgate--filament",
+      "source": "./conradludgate--filament",
+      "description": "A universal local-first sync platform for all documents, devices, and networks"
+    },
+    {
+      "name": "conradludgate--filament",
+      "source": "./conradludgate--filament",
+      "description": "A universal local-first sync platform for all documents, devices, and networks"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -144827,16 +144857,6 @@
       "name": "agentjido--jido-action",
       "source": "./agentjido--jido-action",
       "description": "jido_action"
-    },
-    {
-      "name": "conradludgate--filament",
-      "source": "./conradludgate--filament",
-      "description": "A universal local-first sync platform for all documents, devices, and networks"
-    },
-    {
-      "name": "conradludgate--filament",
-      "source": "./conradludgate--filament",
-      "description": "A universal local-first sync platform for all documents, devices, and networks"
     },
     {
       "name": "stuinfla--ask-ruvnet",
@@ -241037,6 +241057,11 @@
       "name": "david-hoze--bit",
       "source": "./david-hoze--bit",
       "description": "bit"
+    },
+    {
+      "name": "blueif16--transform-workflow-to-pi",
+      "source": "./blueif16--transform-workflow-to-pi",
+      "description": "transform-workflow-to-pi"
     },
     {
       "name": "constellos--claude-code",
@@ -355727,6 +355752,11 @@
       "name": "arayaphong--browser-bridge-mcp",
       "source": "./arayaphong--browser-bridge-mcp",
       "description": "browser-bridge-mcp"
+    },
+    {
+      "name": "evezart--evez-invariance-battery",
+      "source": "./evezart--evez-invariance-battery",
+      "description": "evez-invariance-battery"
     }
   ]
 }
