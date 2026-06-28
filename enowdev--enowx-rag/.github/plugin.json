@@ -1,0 +1,9 @@
+{
+  "name": "enowdev--enowx-rag",
+  "displayName": "enowx-rag",
+  "description": "RAG Skill and MCP for AI agents for codebase indexing and memory",
+  "version": "1.0.0",
+  "author": "enowdev",
+  "homepage": "https://github.com/enowdev/enowx-rag",
+  "skills": []
+}
