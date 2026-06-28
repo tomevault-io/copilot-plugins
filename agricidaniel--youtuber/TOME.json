@@ -4,7 +4,7 @@
   "repo": "youtuber",
   "description": "A source-cited YouTube brain: creator growth & strategy, the developer API, and paid advertising. Unofficial; not affiliated with YouTube/Google.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgriciDaniel/youtuber",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-28T10:32:18Z"
+  "distributed_at": "2026-06-28T10:33:43Z"
 }
