@@ -1,0 +1,9 @@
+{
+  "name": "mpieniak01--venom",
+  "displayName": "Venom",
+  "description": "Venom is an experimental, local-first AI system designed to orchestrate agents, memory and decision logic in a controlled, auditable way.",
+  "version": "1.0.0",
+  "author": "mpieniak01",
+  "homepage": "https://github.com/mpieniak01/Venom",
+  "skills": []
+}
