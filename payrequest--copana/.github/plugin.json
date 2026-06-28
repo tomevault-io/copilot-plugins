@@ -1,0 +1,9 @@
+{
+  "name": "payrequest--copana",
+  "displayName": "copana",
+  "description": "personal AI assistant that works inside Claude Code.",
+  "version": "1.0.0",
+  "author": "PayRequest",
+  "homepage": "https://github.com/PayRequest/copana",
+  "skills": []
+}
