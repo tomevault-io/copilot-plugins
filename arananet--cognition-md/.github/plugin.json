@@ -1,0 +1,9 @@
+{
+  "name": "arananet--cognition-md",
+  "displayName": "cognition.md",
+  "description": "Cognitive contract spec for agentic memory. Grounded in neuroscience, not vendor docs. Defines how agents should encode, consolidate, retrieve, prune, and verify memories across strata.",
+  "version": "1.0.0",
+  "author": "arananet",
+  "homepage": "https://github.com/arananet/cognition.md",
+  "skills": []
+}
