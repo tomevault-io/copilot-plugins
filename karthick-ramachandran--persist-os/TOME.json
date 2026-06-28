@@ -1,0 +1,44 @@
+{
+  "name": "persist-os",
+  "owner": "Karthick-Ramachandran",
+  "repo": "persist-os",
+  "description": "\ud83e\udde0 Local-first CLI that gives your repo durable, AI-ready memory \u2014 features, ADRs, modules, architecture, standards & tests \u2014 and a \ud83e\ude7a deterministic doctor that validates health, evidence & drift. Git tracks what changed; Persist OS tracks why.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Karthick-Ramachandran/persist-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T18:33:13Z"
+}
