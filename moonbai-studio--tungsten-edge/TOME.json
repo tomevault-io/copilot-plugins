@@ -1,0 +1,44 @@
+{
+  "name": "tungsten-edge",
+  "owner": "moonbai-studio",
+  "repo": "tungsten-edge",
+  "description": "A window-oriented bottom taskbar for macOS \u2014 a Dock replacement that organizes by window, not app. \u4ee5\u300c\u7a97\u53e3\u300d\u4e3a\u5355\u4f4d\u7684 macOS \u4efb\u52a1\u6761",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/moonbai-studio/tungsten-edge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T02:30:23Z"
+}
