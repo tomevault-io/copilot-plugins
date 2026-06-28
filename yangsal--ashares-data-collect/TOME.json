@@ -1,0 +1,44 @@
+{
+  "name": "ashares_data_collect",
+  "owner": "YangSal",
+  "repo": "ashares_data_collect",
+  "description": "\u81ea\u52a8\u5316 A \u80a1\u91d1\u878d\u6570\u636e\u91c7\u96c6\u5e73\u53f0\uff1a\u884c\u60c5/\u8d22\u52a1/Tick\uff0cDAG \u7f16\u6392 + \u5b9a\u65f6\u8c03\u5ea6 + \u67e5\u6f0f\u8865\u7f3a\u3002  Automated A-share market-data platform: K-line, financials & tick via QMT/xtquant \u2014 DAG pipelines, scheduling, gap-filling, PostgreSQL + Parquet",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YangSal/ashares_data_collect",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T06:31:29Z"
+}
