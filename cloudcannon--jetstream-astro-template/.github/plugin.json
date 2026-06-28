@@ -1,0 +1,9 @@
+{
+  "name": "cloudcannon--jetstream-astro-template",
+  "displayName": "jetstream-astro-template",
+  "description": "A polished Astro template built on the Component Starter, designed to showcase CloudCannon\u2019s key features and editing capabilities.",
+  "version": "1.0.0",
+  "author": "CloudCannon",
+  "homepage": "https://github.com/CloudCannon/jetstream-astro-template",
+  "skills": []
+}
