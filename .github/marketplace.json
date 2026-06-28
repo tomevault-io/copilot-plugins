@@ -216134,6 +216134,21 @@
       "description": "Cognitive contract spec for agentic memory. Grounded in neuroscience, not vendor docs. Defines how agents should encode, consolidate, retrieve, prune, and verify memories across strata."
     },
     {
+      "name": "enowdev--enowx-rag",
+      "source": "./enowdev--enowx-rag",
+      "description": "RAG Skill and MCP for AI agents for codebase indexing and memory"
+    },
+    {
+      "name": "enowdev--enowx-rag",
+      "source": "./enowdev--enowx-rag",
+      "description": "RAG Skill and MCP for AI agents for codebase indexing and memory"
+    },
+    {
+      "name": "peetzweg--commit-history",
+      "source": "./peetzweg--commit-history",
+      "description": "commit-history"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -233894,6 +233909,46 @@
       "description": "Jellyfin-Transcode-Downloader"
     },
     {
+      "name": "nexxeln--talktui",
+      "source": "./nexxeln--talktui",
+      "description": "presentations on the terminal"
+    },
+    {
+      "name": "momozi1996--momo-code",
+      "source": "./momozi1996--momo-code",
+      "description": "MOMO CODE \u2014 AI coding agent that evolves with you"
+    },
+    {
+      "name": "momozi1996--momo-code",
+      "source": "./momozi1996--momo-code",
+      "description": "MOMO CODE \u2014 AI coding agent that evolves with you"
+    },
+    {
+      "name": "karthick-ramachandran--persist-os",
+      "source": "./karthick-ramachandran--persist-os",
+      "description": "\ud83e\udde0 Local-first CLI that gives your repo durable, AI-ready memory \u2014 features, ADRs, modules, architecture, standards & tests \u2014 and a \ud83e\ude7a deterministic doctor that validates health, evidence & drift. Git t"
+    },
+    {
+      "name": "partment--opencode-openai-compact",
+      "source": "./partment--opencode-openai-compact",
+      "description": "Use OpenAI Responses API native compaction in OpenCode"
+    },
+    {
+      "name": "crafter-station--reporte-ve",
+      "source": "./crafter-station--reporte-ve",
+      "description": "reporte-ve"
+    },
+    {
+      "name": "karthick-ramachandran--persist-os",
+      "source": "./karthick-ramachandran--persist-os",
+      "description": "\ud83e\udde0 Local-first CLI that gives your repo durable, AI-ready memory \u2014 features, ADRs, modules, architecture, standards & tests \u2014 and a \ud83e\ude7a deterministic doctor that validates health, evidence & drift. Git t"
+    },
+    {
+      "name": "keithligh--cinematic-3d-battle-engine",
+      "source": "./keithligh--cinematic-3d-battle-engine",
+      "description": "A self-playing 3D battle-documentary engine: render any historical or fictional battle on real-scale satellite and elevation terrain. The engine is battle-agnostic; fork the data layer (data.js + flag"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -237917,6 +237972,11 @@
       "name": "icecranberry--galgame-with-comfyui",
       "source": "./icecranberry--galgame-with-comfyui",
       "description": "\u90bb\u820d.EXE\u2014\u2014\u7c7b\u8d85\u8f7b\u91cf\u7ea7\u9152\u9986+\u6df1\u5ea6\u63a5\u5165ComfyUI\uff0c\u505a\u5230\u89d2\u8272\u80fd\u81ea\u4e3b\u804a\u5929\u3001\u53d1\u670b\u53cb\u5708\u7684\u540c\u65f6\u80fd\u591f\u914d\u4e0a\u56fe\u7247\uff0c\u8ba9\u771f\u5b9e\u611f\u66f4\u8fdb\u4e00\u6b65\u3002\u8be6\u7ec6\u8bf4\u660e\u548c\u5b89\u88c5\u67e5\u770b\uff1ahttps://www.bilibili.com/video/BV1uH7q6vEQ9/"
+    },
+    {
+      "name": "whtis--sagex",
+      "source": "./whtis--sagex",
+      "description": "\u672c\u5730\u4f18\u5148\u7684\u5b89\u5353\u5e94\u7528\uff1a\u76d1\u542c\u5fae\u4fe1\u901a\u77e5\u3001\u6309\u7fa4\u804a/\u4e2a\u4eba\u5f52\u7c7b\uff0c\u5e76\u7528\u4efb\u610f OpenAI \u517c\u5bb9\u5927\u6a21\u578b\u751f\u6210\u804a\u5929\u6458\u8981\u3002"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
