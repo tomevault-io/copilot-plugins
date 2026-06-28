@@ -1,0 +1,9 @@
+{
+  "name": "jmandel--ehi-to-fhir",
+  "displayName": "ehi-to-fhir",
+  "description": "Reconstruct FHIR R4 from an Epic EHI export, scored against Epic's own FHIR API \u2014 with an interactive report.",
+  "version": "1.0.0",
+  "author": "jmandel",
+  "homepage": "https://github.com/jmandel/ehi-to-fhir",
+  "skills": []
+}
