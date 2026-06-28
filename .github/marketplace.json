@@ -163229,6 +163229,11 @@
       "description": "Scan a folder, skim thumbnails, keep or delete with a keypress. Built for large local video libraries."
     },
     {
+      "name": "waggylabs--yumekit",
+      "source": "./waggylabs--yumekit",
+      "description": "Web Component UI Kit"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -184412,6 +184417,26 @@
       "name": "eaftan--safere",
       "source": "./eaftan--safere",
       "description": "A safe linear-time regular expression matching library for Java, based on RE2"
+    },
+    {
+      "name": "ai-swiss--base",
+      "source": "./ai-swiss--base",
+      "description": "Build your assistants with your structured expertise: a local-first, vendor-neutral framework for human-AI collaboration, in files you own."
+    },
+    {
+      "name": "ai-swiss--base",
+      "source": "./ai-swiss--base",
+      "description": "Build your assistants with your structured expertise: a local-first, vendor-neutral framework for human-AI collaboration, in files you own."
+    },
+    {
+      "name": "ai-swiss--base",
+      "source": "./ai-swiss--base",
+      "description": "Build your assistants with your structured expertise: a local-first, vendor-neutral framework for human-AI collaboration, in files you own."
+    },
+    {
+      "name": "sufield--stave",
+      "source": "./sufield--stave",
+      "description": "Stave is a risk reasoning engine that performs static analysis of cloud infrastructure configuration snapshots against system invariants via CEL predicates. It exports standardized facts (JSONL, SMT-L"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -215959,6 +215984,21 @@
       "description": "Eve + Next.js PR reviewer council with product, code, QA subagents, GitHub triggers, and Slack notifications."
     },
     {
+      "name": "patibandlavenkatamanideep--memoryops-ai",
+      "source": "./patibandlavenkatamanideep--memoryops-ai",
+      "description": "Enterprise-shaped memory governance layer for AI assistants: typed capture, policy evaluation, hybrid retrieval, deletion guarantees, tenant isolation, provenance, and audit."
+    },
+    {
+      "name": "patibandlavenkatamanideep--memoryops-ai",
+      "source": "./patibandlavenkatamanideep--memoryops-ai",
+      "description": "Enterprise-shaped memory governance layer for AI assistants: typed capture, policy evaluation, hybrid retrieval, deletion guarantees, tenant isolation, provenance, and audit."
+    },
+    {
+      "name": "databricks-industry-solutions--genesis-workbench",
+      "source": "./databricks-industry-solutions--genesis-workbench",
+      "description": "genesis-workbench"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -233634,6 +233674,11 @@
       "description": "Recursive Coding Agents \u2014 AI Engineer World's Fair 2026 talk + website (SvelteKit, Cloudflare Workers)"
     },
     {
+      "name": "leeeboo--datalayer-studio",
+      "source": "./leeeboo--datalayer-studio",
+      "description": "DataLayer Studio"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -237642,6 +237687,11 @@
       "name": "sousadiego11--easyqueue",
       "source": "./sousadiego11--easyqueue",
       "description": "EasyQueue is a desktop application for inspecting, publishing, and managing messages across multiple message brokers from a single interface. Browse queues, view messages with a clean JSON viewer, pub"
+    },
+    {
+      "name": "jasonworden--mermaid-lint",
+      "source": "./jasonworden--mermaid-lint",
+      "description": "Validate Mermaid diagrams in Markdown! Catch real syntax errors using the official parser, built for CI."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
