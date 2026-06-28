@@ -1,0 +1,9 @@
+{
+  "name": "sousadiego11--easyqueue",
+  "displayName": "easyqueue",
+  "description": "EasyQueue is a desktop application for inspecting, publishing, and managing messages across multiple message brokers from a single interface. Browse queues, view messages with a clean JSON viewer, pub",
+  "version": "1.0.0",
+  "author": "sousadiego11",
+  "homepage": "https://github.com/sousadiego11/easyqueue",
+  "skills": []
+}
