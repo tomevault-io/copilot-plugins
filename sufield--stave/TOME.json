@@ -1,0 +1,44 @@
+{
+  "name": "stave",
+  "owner": "sufield",
+  "repo": "stave",
+  "description": "Stave is a risk reasoning engine that performs static analysis of cloud infrastructure configuration snapshots against system invariants via CEL predicates. It exports standardized facts (JSONL, SMT-LIB) for external reasoning engines from air-gapped snapshots without cloud credentials.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sufield/stave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T08:32:19Z"
+}
