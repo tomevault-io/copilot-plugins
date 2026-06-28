@@ -1,0 +1,9 @@
+{
+  "name": "ralksta--immich-folio",
+  "displayName": "immich-folio",
+  "description": "A self-hosted photography portfolio powered by Immich. Turns your Immich albums into a beautiful, public-facing gallery.",
+  "version": "1.0.0",
+  "author": "ralksta",
+  "homepage": "https://github.com/ralksta/immich-folio",
+  "skills": []
+}
