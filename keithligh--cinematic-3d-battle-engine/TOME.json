@@ -1,0 +1,44 @@
+{
+  "name": "cinematic-3d-battle-engine",
+  "owner": "keithligh",
+  "repo": "cinematic-3d-battle-engine",
+  "description": "A self-playing 3D battle-documentary engine: render any historical or fictional battle on real-scale satellite and elevation terrain. The engine is battle-agnostic; fork the data layer (data.js + flags.js).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/keithligh/cinematic-3d-battle-engine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T18:35:39Z"
+}
