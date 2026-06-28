@@ -233479,6 +233479,31 @@
       "description": "Porting modern WebKit/WebCore to Windows 10 Mobile (ARM32, UWP) \u2014 a JIT-accelerated, GPU-composited browser engine for Windows Phone. \u73b0\u4ee3 WebKit \u6d4f\u89c8\u5668\u5f15\u64ce\u79fb\u690d\u5230 Windows 10 Mobile\u3002"
     },
     {
+      "name": "moonbai-studio--tungsten-edge",
+      "source": "./moonbai-studio--tungsten-edge",
+      "description": "A window-oriented bottom taskbar for macOS \u2014 a Dock replacement that organizes by window, not app. \u4ee5\u300c\u7a97\u53e3\u300d\u4e3a\u5355\u4f4d\u7684 macOS \u4efb\u52a1\u6761"
+    },
+    {
+      "name": "daniel-king-8--coreops",
+      "source": "./daniel-king-8--coreops",
+      "description": "CoreOps"
+    },
+    {
+      "name": "yiiimini--mineradio-macos",
+      "source": "./yiiimini--mineradio-macos",
+      "description": "Mineradio-MacOS"
+    },
+    {
+      "name": "moonbai-studio--tungsten-edge",
+      "source": "./moonbai-studio--tungsten-edge",
+      "description": "A window-oriented bottom taskbar for macOS \u2014 a Dock replacement that organizes by window, not app. \u4ee5\u300c\u7a97\u53e3\u300d\u4e3a\u5355\u4f4d\u7684 macOS \u4efb\u52a1\u6761"
+    },
+    {
+      "name": "atypical-consulting--koine",
+      "source": "./atypical-consulting--koine",
+      "description": "A domain-specific language for Domain-Driven Design: write a bounded context's ubiquitous language once in .koi files and the compiler emits idiomatic, self-contained C# (and TypeScript) \u2014 value objec"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -237482,6 +237507,11 @@
       "name": "dnlbox--ai-protocol",
       "source": "./dnlbox--ai-protocol",
       "description": "Start with a concept, not a stack. A harness-agnostic protocol that scaffolds greenfield projects from a rigorous concept instead of a chain of prompts, so AI agents build from shared intent with self"
+    },
+    {
+      "name": "sousadiego11--easyqueue",
+      "source": "./sousadiego11--easyqueue",
+      "description": "EasyQueue is a desktop application for inspecting, publishing, and managing messages across multiple message brokers from a single interface. Browse queues, view messages with a clean JSON viewer, pub"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -355542,6 +355572,96 @@
       "name": "thongkezune--bear-qr",
       "source": "./thongkezune--bear-qr",
       "description": "bear-qr"
+    },
+    {
+      "name": "fahidsarker--dev-cache",
+      "source": "./fahidsarker--dev-cache",
+      "description": "dev-cache"
+    },
+    {
+      "name": "chimhedo--kanban-starter",
+      "source": "./chimhedo--kanban-starter",
+      "description": "kanban-starter"
+    },
+    {
+      "name": "krishnanayyappan--shelflife",
+      "source": "./krishnanayyappan--shelflife",
+      "description": "shelflife"
+    },
+    {
+      "name": "instagram-a11y--aipulse",
+      "source": "./instagram-a11y--aipulse",
+      "description": "aipulse"
+    },
+    {
+      "name": "yp8904-dot--yangpengwaimao-ai",
+      "source": "./yp8904-dot--yangpengwaimao-ai",
+      "description": "yangpengwaimao-ai"
+    },
+    {
+      "name": "thinhtp204--harness-engineering",
+      "source": "./thinhtp204--harness-engineering",
+      "description": "harness-engineering"
+    },
+    {
+      "name": "oiiaatjulia-hue--julia",
+      "source": "./oiiaatjulia-hue--julia",
+      "description": "Julia"
+    },
+    {
+      "name": "humanoids-2025--verbalization",
+      "source": "./humanoids-2025--verbalization",
+      "description": "verbalization"
+    },
+    {
+      "name": "aguperes--react-native-recurrly",
+      "source": "./aguperes--react-native-recurrly",
+      "description": "Subscription management React Native application"
+    },
+    {
+      "name": "stevehansen--wingetagent",
+      "source": "./stevehansen--wingetagent",
+      "description": "WingetAgent"
+    },
+    {
+      "name": "thecar0--next-todolist",
+      "source": "./thecar0--next-todolist",
+      "description": "next-todolist"
+    },
+    {
+      "name": "congthuat--arc-pengujar-smartcontract",
+      "source": "./congthuat--arc-pengujar-smartcontract",
+      "description": "Arc-PenguJar-SmartContract"
+    },
+    {
+      "name": "manojgupta06536-prog--brinjal-fresh-store",
+      "source": "./manojgupta06536-prog--brinjal-fresh-store",
+      "description": "Exported from Caffeine project: Brinjal Fresh Store"
+    },
+    {
+      "name": "xyzdavidd--fixnowcluj",
+      "source": "./xyzdavidd--fixnowcluj",
+      "description": "fixnowcluj"
+    },
+    {
+      "name": "thinhtp204--harness-engineering",
+      "source": "./thinhtp204--harness-engineering",
+      "description": "harness-engineering"
+    },
+    {
+      "name": "liuwanwan92--ct-element-cd1281bc",
+      "source": "./liuwanwan92--ct-element-cd1281bc",
+      "description": "ct-element-cd1281bc"
+    },
+    {
+      "name": "nicoechaniz--video-studio",
+      "source": "./nicoechaniz--video-studio",
+      "description": "FastAPI video studio dashboard + ffmpeg render engine. Audio-first timeline, SRT subtitles, Grok Imagine b-roll, placa overlays."
+    },
+    {
+      "name": "arayaphong--browser-bridge-mcp",
+      "source": "./arayaphong--browser-bridge-mcp",
+      "description": "browser-bridge-mcp"
     }
   ]
 }
