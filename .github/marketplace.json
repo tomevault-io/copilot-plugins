@@ -171984,6 +171984,11 @@
       "description": "Cloudflare-native subscription aggregation and routing template manager powered by Workers, Static Assets, D1, and Worker Secrets."
     },
     {
+      "name": "mpieniak01--venom",
+      "source": "./mpieniak01--venom",
+      "description": "Venom is an experimental, local-first AI system designed to orchestrate agents, memory and decision logic in a controlled, auditable way."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -233984,6 +233989,11 @@
       "description": "A self-playing 3D battle-documentary engine: render any historical or fictional battle on real-scale satellite and elevation terrain. The engine is battle-agnostic; fork the data layer (data.js + flag"
     },
     {
+      "name": "yazdanctx--ez-ai-access",
+      "source": "./yazdanctx--ez-ai-access",
+      "description": "ez access to ai [ persian ]"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -238012,6 +238022,36 @@
       "name": "whtis--sagex",
       "source": "./whtis--sagex",
       "description": "\u672c\u5730\u4f18\u5148\u7684\u5b89\u5353\u5e94\u7528\uff1a\u76d1\u542c\u5fae\u4fe1\u901a\u77e5\u3001\u6309\u7fa4\u804a/\u4e2a\u4eba\u5f52\u7c7b\uff0c\u5e76\u7528\u4efb\u610f OpenAI \u517c\u5bb9\u5927\u6a21\u578b\u751f\u6210\u804a\u5929\u6458\u8981\u3002"
+    },
+    {
+      "name": "csmar432--finai-research-workflow",
+      "source": "./csmar432--finai-research-workflow",
+      "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, "
+    },
+    {
+      "name": "csmar432--finai-research-workflow",
+      "source": "./csmar432--finai-research-workflow",
+      "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, "
+    },
+    {
+      "name": "csmar432--finai-research-workflow",
+      "source": "./csmar432--finai-research-workflow",
+      "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, "
+    },
+    {
+      "name": "csmar432--finai-research-workflow",
+      "source": "./csmar432--finai-research-workflow",
+      "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, "
+    },
+    {
+      "name": "csmar432--finai-research-workflow",
+      "source": "./csmar432--finai-research-workflow",
+      "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, "
+    },
+    {
+      "name": "csmar432--finai-research-workflow",
+      "source": "./csmar432--finai-research-workflow",
+      "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, "
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
