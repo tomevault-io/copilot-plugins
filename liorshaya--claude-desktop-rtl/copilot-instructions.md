@@ -1,0 +1,44 @@
+## claude-desktop-rtl
+
+> Smooth RTL (Hebrew/Arabic/Persian) for Claude Desktop (macOS) + claude.ai,
+
+# claude-rtl — project memory
+
+Smooth RTL (Hebrew/Arabic/Persian) for Claude Desktop (macOS) + claude.ai,
+from one pure engine. **Read `docs/ARCHITECTURE.md` before any non-trivial work — it is
+the single source of truth.** Section refs (§) point to it.
+
+## Hard rules (never violate)
+- `engine/` is PURE and DOM-free (no document/window). Must stay unit-testable.
+- CSS `unicode-bidi: plaintext` per leaf block is the PRIMARY base-direction mechanism
+  for prose. JS sets `dir` on a prose block only in tightly-scoped, content-derived cases —
+  never on a container, never because "it contains RTL". The sanctioned cases: `<table>`
+  (column flip), input boxes / JS-created islands, DECORATED blocks (`<ul>/<ol>/<li>`
+  markers, `<blockquote>` bar) via `resolvedDir` (the side the content actually renders to —
+  NOT `detectBlockDir`, which over-strips English openers and mis-places the bar), and — the
+  one heading/paragraph case — when CSS `plaintext` provably misfires on a Latin/marker
+  opener of a majority-RTL block (`plaintextOverrideDir`: first-strong LTR **and** majority
+  RTL → `dir="rtl"`; majority-English stays put, so §8.K holds). (§3.2, §8.K)
+- Direction-detection fallback is `null`, never a forced `'rtl'`. (§3.2)
+- NEVER inject U+200E/200F or any bidi control char — copy/paste & Ctrl-F must return
+  Claude's text byte-for-byte. (§3.6, §8.J)
+- Zero network, zero telemetry, zero stored data — anywhere.
+- NEVER modify `/Applications/Claude.app`. Patch a copy at `~/Applications/Claude-RTL.app`. (§7)
+- Ad-hoc re-sign MUST preserve entitlements (Cowork breaks otherwise). (§7)
+- RTL payload → renderer bundles only. Into the main entry put ONLY the
+  `force-ui-direction=ltr` switch (full payload in main → black screen). (§7, §9)
+
+## Conventions
+- Vanilla ES modules in engine/ and dom/. Tests: `node --test`.
+- Classify by code point (`codePointAt`), astral-safe.
+- Idempotent everywhere (patch, observer, islands); stamp processed nodes.
+- Small commits, one logical change each. One branch per phase.
+
+## Workflow
+- Phases P0–P6 live in `docs/ROADMAP.md` (not here). One phase per branch.
+- Propose a plan before writing code; I review the diff before merge.
+- P0 is tests-first: turn the §13 corpus into failing `node --test` cases, then green.
+
+---
+> Source: [liorshaya/claude-desktop-rtl](https://github.com/liorshaya/claude-desktop-rtl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-28 -->
