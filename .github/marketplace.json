@@ -233789,6 +233789,36 @@
       "description": "Git for agentic coding. Parallel workspaces, conflict prediction, and merge trains built for AI agents \u2014 not humans."
     },
     {
+      "name": "team-timo--timo-client",
+      "source": "./team-timo--timo-client",
+      "description": "A timebox-based to-do service that turns tasks into executable time blocks. \ud83d\udd52"
+    },
+    {
+      "name": "bitsycore--composedesktopnative",
+      "source": "./bitsycore--composedesktopnative",
+      "description": "ComposeDesktopNative"
+    },
+    {
+      "name": "southpawin--sirvir",
+      "source": "./southpawin--sirvir",
+      "description": "Sirvir \u2014 model fleet manager & intelligence engine for Hermes Agent. Autonomous model lifecycle manager: local serving, benchmarking, auto-scaling, API fallback, HuggingFace scanning, creator tracking"
+    },
+    {
+      "name": "zhouxiaoya12--ai-neigong",
+      "source": "./zhouxiaoya12--ai-neigong",
+      "description": "AI-neigong"
+    },
+    {
+      "name": "team-dongchimi--dongchimi-client",
+      "source": "./team-dongchimi--dongchimi-client",
+      "description": "[FE] \ub3d9\ub124 \ub9c8\ud2b8\uc758 \uce58\uba85\uc801\uc778 \uc18c\uc2dd\uc744 \ubbf8\ub9ac \ubc1b\uc544\ubcf4\ub294 \ubaa8\ubc14\uc77c \uc804\ub2e8 \uc11c\ube44\uc2a4"
+    },
+    {
+      "name": "kayl-codes--homeassistant-truenas",
+      "source": "./kayl-codes--homeassistant-truenas",
+      "description": "TrueNAS integration for Home Assistant"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
