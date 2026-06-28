@@ -1,0 +1,9 @@
+{
+  "name": "scottschindler--pr-review-agent",
+  "displayName": "pr-review-agent",
+  "description": "Eve + Next.js PR reviewer council with product, code, QA subagents, GitHub triggers, and Slack notifications.",
+  "version": "1.0.0",
+  "author": "scottschindler",
+  "homepage": "https://github.com/scottschindler/pr-review-agent",
+  "skills": []
+}
