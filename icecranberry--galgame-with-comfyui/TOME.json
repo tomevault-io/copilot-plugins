@@ -1,0 +1,44 @@
+{
+  "name": "galgame-with-comfyUI",
+  "owner": "icecranberry",
+  "repo": "galgame-with-comfyUI",
+  "description": "\u90bb\u820d.EXE\u2014\u2014\u7c7b\u8d85\u8f7b\u91cf\u7ea7\u9152\u9986+\u6df1\u5ea6\u63a5\u5165ComfyUI\uff0c\u505a\u5230\u89d2\u8272\u80fd\u81ea\u4e3b\u804a\u5929\u3001\u53d1\u670b\u53cb\u5708\u7684\u540c\u65f6\u80fd\u591f\u914d\u4e0a\u56fe\u7247\uff0c\u8ba9\u771f\u5b9e\u611f\u66f4\u8fdb\u4e00\u6b65\u3002\u8be6\u7ec6\u8bf4\u660e\u548c\u5b89\u88c5\u67e5\u770b\uff1ahttps://www.bilibili.com/video/BV1uH7q6vEQ9/",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/icecranberry/galgame-with-comfyUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T12:34:37Z"
+}
