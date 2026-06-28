@@ -1,0 +1,9 @@
+{
+  "name": "ovohao--auto-paper-collecter",
+  "displayName": "auto-paper-collecter",
+  "description": "\ud83d\udcda\ud83d\udd2d Your personal research radar \u2014 an LLM-powered tool that auto-aggregates the latest papers for your keywords across arXiv / Crossref / Semantic Scholar / GitHub / RSS.",
+  "version": "1.0.0",
+  "author": "OvOhao",
+  "homepage": "https://github.com/OvOhao/auto-paper-collecter",
+  "skills": []
+}
