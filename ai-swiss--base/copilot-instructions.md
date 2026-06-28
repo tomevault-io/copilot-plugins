@@ -1,8 +1,7 @@
-## base
+## assistant
 
-> <!-- Généré par `base build bootstrap --write`. Ne pas éditer à la main: le corps canonique est dans `tools/core/bootstrap.mjs`. -->
+> BASE: routeur d'agents et de process pour votre métier
 
-# Agents
 
 <!-- Généré par `base build bootstrap --write`. Ne pas éditer à la main: le corps canonique est dans `tools/core/bootstrap.mjs`. -->
 
@@ -26,12 +25,6 @@ Le routeur déterministe confirme ton choix et sert de repli (index absent, ou d
 Le routeur peut **s'abstenir** (`out_of_scope`, `ambiguous`, `needs_clarification`): pose alors la question qu'il propose, **ne devine pas**. Route d'abord, charge ensuite; aucun agent n'est l'agent par défaut.
 
 Si une abstention contient un **`fallback`** (un agent → process d'aide), charge ce fallback au lieu de laisser l'utilisateur sans suite: c'est l'accueil/orientation, pas une fausse réponse. S'il n'y a pas de fallback, pose la question proposée ou explique simplement la limite.
-
-## Catalogue des agents
-
-- **base-contributor** - The contributor workshop for the BASE framework itself: develop and maintain BASE source, applied to itself and kept deliberately minimal. → `.ai/agents/base-contributor/AGENT.md`
-- **concierge-base** - Accueillir, orienter, expliquer et dépanner l'usage de BASE, puis passer la main au bon process. Le point d'aide quand l'utilisateur ne sait pas quoi faire. → `.ai/agents/concierge-base/AGENT.md`
-- **createur-agent** - Expert en création d'assistants IA métier: concevoir, améliorer, diagnostiquer et entretenir des agents BASE. → `.ai/agents/createur-agent/AGENT.md`
 
 ---
 > Source: [ai-swiss/base](https://github.com/ai-swiss/base) — distributed by [TomeVault](https://tomevault.io).
