@@ -7,11 +7,11 @@ MOMO CODE — AI coding agent that evolves with you
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [momozi1996/momo-code](https://github.com/momozi1996/momo-code).
+Original source: `AGENTS.md` in [momozi1996/momo-code](https://github.com/momozi1996/momo-code).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
