@@ -1,0 +1,9 @@
+{
+  "name": "pmady--gpu-mcp-server",
+  "displayName": "gpu-mcp-server",
+  "description": "MCP server for NVIDIA GPU metrics give AI agents real-time access to GPU utilization, memory, temperature, and power",
+  "version": "1.0.0",
+  "author": "pmady",
+  "homepage": "https://github.com/pmady/gpu-mcp-server",
+  "skills": []
+}
