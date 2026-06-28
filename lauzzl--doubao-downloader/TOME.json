@@ -1,0 +1,44 @@
+{
+  "name": "doubao-downloader",
+  "owner": "LauZzL",
+  "repo": "doubao-downloader",
+  "description": "\u4e00\u952e\u6279\u91cf\u4e0b\u8f7d\u8c46\u5305AI\u65e0\u6c34\u5370\u56fe\u7247/\u89c6\u9891\u8d44\u6e90\u7684\u6d4f\u89c8\u5668\u6269\u5c55/\u6cb9\u7334\u811a\u672c\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LauZzL/doubao-downloader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-28T19:30:52Z"
+}
