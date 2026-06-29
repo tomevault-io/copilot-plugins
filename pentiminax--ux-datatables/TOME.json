@@ -3,8 +3,8 @@
   "owner": "pentiminax",
   "repo": "ux-datatables",
   "description": "UX DataTables is a Symfony bundle integrating the DataTables library in Symfony applications.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ux-datatables",
+      "path": "skills/ux-datatables/SKILL.md",
+      "github_url": "https://github.com/pentiminax/ux-datatables/tree/main/skills/ux-datatables/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/pentiminax/ux-datatables",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T15:20:22Z"
+  "distributed_at": "2026-06-29T22:32:11Z"
 }
