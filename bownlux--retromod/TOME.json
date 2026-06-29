@@ -1,0 +1,87 @@
+{
+  "name": "Retromod",
+  "owner": "Bownlux",
+  "repo": "Retromod",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Retromod",
+      "path": ".claude/skills/debug-crash/SKILL.md",
+      "github_url": "https://github.com/Bownlux/Retromod/tree/main/.claude/skills/debug-crash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Retromod",
+      "path": ".claude/skills/mapping-work/SKILL.md",
+      "github_url": "https://github.com/Bownlux/Retromod/tree/main/.claude/skills/mapping-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Retromod",
+      "path": ".claude/skills/add-polyfill/SKILL.md",
+      "github_url": "https://github.com/Bownlux/Retromod/tree/main/.claude/skills/add-polyfill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Retromod",
+      "path": ".claude/skills/build-and-deploy/SKILL.md",
+      "github_url": "https://github.com/Bownlux/Retromod/tree/main/.claude/skills/build-and-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Retromod",
+      "path": ".claude/skills/add-version-shim/SKILL.md",
+      "github_url": "https://github.com/Bownlux/Retromod/tree/main/.claude/skills/add-version-shim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Retromod",
+      "path": ".claude/skills/mod-loader-compat/SKILL.md",
+      "github_url": "https://github.com/Bownlux/Retromod/tree/main/.claude/skills/mod-loader-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Retromod",
+      "path": ".claude/skills/test-mod-transform/SKILL.md",
+      "github_url": "https://github.com/Bownlux/Retromod/tree/main/.claude/skills/test-mod-transform/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Bownlux/Retromod",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T22:42:16Z"
+}
