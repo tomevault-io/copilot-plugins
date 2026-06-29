@@ -2,7 +2,7 @@
   "name": "clawpal",
   "owner": "zhixianio",
   "repo": "clawpal",
-  "description": "ClawPal - Manage OpenClaw agents, models, and configs with a visual interface. Stop editing JSON by hand.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhixianio/clawpal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T11:35:36Z"
+  "distributed_at": "2026-06-29T19:41:42Z"
 }
