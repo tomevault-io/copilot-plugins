@@ -1,0 +1,44 @@
+{
+  "name": "agent-caption",
+  "owner": "ahkamboh",
+  "repo": "agent-caption",
+  "description": "Add captions to any video or song, in any language \u2014 100% on your device, no cloud. Hinglish-first. Free, open-source, and works with any AI agent.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ahkamboh/agent-caption",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T14:31:41Z"
+}
