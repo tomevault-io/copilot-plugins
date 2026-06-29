@@ -1,11 +1,45 @@
-## test-rule
+## obsidian-steward
 
-> - When setting up a new test that requires mocking the plugin, create the `createMockPlugin` function within that test file with the necessary mocked properties. Finds an example here: @src/services/UserDefinedCommandService.test.ts (0-40)
+> These commands run popular **terminal agent CLIs** from a Steward user-defined command.
 
-- When setting up a new test that requires mocking the plugin, create the `createMockPlugin` function within that test file with the necessary mocked properties. Finds an example here: @src/services/UserDefinedCommandService.test.ts (0-40)
-- When setting up a new test, write only 2 or 3 test cases to ensure it work before writing other cases.
-- Set up a mock that bypasses Typescript: @src/solutions/commands/agents/handlers/VaultList.test.ts:32-36
+These commands run popular **terminal agent CLIs** from a Steward user-defined command.
+
+#### Gemini ([Gemini CLI](https://github.com/google-gemini/gemini-cli))
+
+```yaml
+command_name: gemini
+description: Gemini CLI (Google).
+query_required: false
+steps:
+  - name: shell
+    query: >-
+      {{^from_user}}gemini{{/from_user}}{{#from_user}}gemini "{{from_user}}"{{/from_user}}
+```
+
+#### Claude ([Claude Code](https://docs.anthropic.com/en/docs/claude-code))
+
+```yaml
+command_name: claude
+description: Claude Code CLI (Anthropic).
+query_required: false
+steps:
+  - name: shell
+    query: >-
+      {{^from_user}}claude{{/from_user}}{{#from_user}}claude "{{from_user}}"{{/from_user}}
+```
+
+#### Hermes ([Hermes Agent](https://hermes-agent.nousresearch.com/))
+
+```yaml
+command_name: hermes
+description: Hermes Agent CLI (Nous Research).
+query_required: false
+steps:
+  - name: shell
+    query: >-
+      {{^from_user}}hermes{{/from_user}}{{#from_user}}hermes chat -q "{{from_user}}"{{/from_user}}
+```
 
 ---
 > Source: [googlicius/obsidian-steward](https://github.com/googlicius/obsidian-steward) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
