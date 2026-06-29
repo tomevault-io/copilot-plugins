@@ -3,8 +3,8 @@
   "owner": "DarkNoah",
   "repo": "aime-chat",
   "description": "A cross-platform AI desktop chat cowork app supporting 10+ LLM providers, RAG knowledge base, and MCP tools. Built with Electron + React + Mastra.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "aime-chat",
+      "path": "assets/market/skill/xlsx/SKILL.md",
+      "github_url": "https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aime-chat",
+      "path": "assets/market/skill/pptx/SKILL.md",
+      "github_url": "https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aime-chat",
+      "path": "assets/market/skill/skill-creator/SKILL.md",
+      "github_url": "https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aime-chat",
+      "path": "assets/market/skill/aime-chat-docs/SKILL.md",
+      "github_url": "https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/aime-chat-docs/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/DarkNoah/aime-chat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T18:44:06Z"
+  "distributed_at": "2026-06-29T18:30:26Z"
 }
