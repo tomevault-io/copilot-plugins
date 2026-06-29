@@ -1,0 +1,9 @@
+{
+  "name": "oak-invest--kiso",
+  "displayName": "kiso",
+  "description": "Kiso is a publishing engine that turns Open Knowledge Format (OKF) bundles into static websites for humans and AI agents.",
+  "version": "1.0.0",
+  "author": "oak-invest",
+  "homepage": "https://github.com/oak-invest/kiso",
+  "skills": []
+}
