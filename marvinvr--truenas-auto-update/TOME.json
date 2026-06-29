@@ -2,9 +2,9 @@
   "name": "truenas-auto-update",
   "owner": "marvinvr",
   "repo": "truenas-auto-update",
-  "description": "Automatically update your TrueNAS apps on a schedule.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marvinvr/truenas-auto-update",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T21:36:57Z"
+  "distributed_at": "2026-06-29T17:22:11Z"
 }
