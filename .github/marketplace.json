@@ -234604,6 +234604,16 @@
       "description": "a secret store for AI agents with one rule: the agent never sees the plaintext. get a secret once into the OS keychain, then inject it into commands forever. no get, cross-platform, MIT."
     },
     {
+      "name": "vercel-labs--openwiki",
+      "source": "./vercel-labs--openwiki",
+      "description": "openwiki"
+    },
+    {
+      "name": "caarlos0--ttop",
+      "source": "./caarlos0--ttop",
+      "description": "A tmux-aware process tree with top-style CPU/memory views"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -356932,6 +356942,11 @@
       "name": "degehub-indonesia--sellerlens",
       "source": "./degehub-indonesia--sellerlens",
       "description": "Marketplace financial analytics engine \u2014 DegeHub"
+    },
+    {
+      "name": "michaus10--simulador-de-inversiones",
+      "source": "./michaus10--simulador-de-inversiones",
+      "description": "simulador-de-inversiones"
     }
   ]
 }
