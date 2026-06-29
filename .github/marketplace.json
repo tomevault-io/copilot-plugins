@@ -28244,6 +28244,16 @@
       "description": "Convert a repository structure and its contents into a single text file, including the tree output and file contents in markdown code blocks. It may be useful to chat with LLM about your code."
     },
     {
+      "name": "xt42io--db-thing",
+      "source": "./xt42io--db-thing",
+      "description": "db-thing"
+    },
+    {
+      "name": "xt42io--db-thing",
+      "source": "./xt42io--db-thing",
+      "description": "db-thing"
+    },
+    {
       "name": "okx--onchainos-skills",
       "source": "./okx--onchainos-skills",
       "description": "Skills for AI agents to integrate with the OKX OnchainOS API \u2014 Wallet, token discovery, market data, DEX swap, and transaction broadcasting."
@@ -41234,6 +41244,11 @@
       "description": "Agentic-first Cursor Rules powered by MiniMax M3 - clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding"
     },
     {
+      "name": "connectrpc--connect-py",
+      "source": "./connectrpc--connect-py",
+      "description": "The Python implementation of Connect: Protobuf RPC that works."
+    },
+    {
       "name": "interfacex-co-jp--genshijin",
       "source": "./interfacex-co-jp--genshijin",
       "description": "genshijin \u539f\u59cb\u4eba \ud83d\uddff| Claude Code / Codex\u7b49AI\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8 \u5411\u3051\u8d85\u5727\u7e2e\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u30b9\u30ad\u30eb\u3002caveman \u306e\u65e5\u672c\u8a9e\u7248\u3092\u30d9\u30fc\u30b9\u306b\u3001\u65e5\u672c\u8a9e\u7279\u6709\u306e\u5197\u9577\u8868\u73fe\u306b\u6700\u9069\u5316\u3002"
@@ -43847,6 +43862,16 @@
       "name": "avabbbb--flovart",
       "source": "./avabbbb--flovart",
       "description": "Flovart \u81f4\u529b\u4e8e\u8865\u5145\u753b\u5e03\u81ea\u52a8\u5316\u9886\u57df\u7684\u7f3a\u5931\u3002\u5b83\u652f\u6301Claude Code\u3001Codex\u7b49\uff0c\u8ba9\u7528\u6237\u80fd\u591f\u4f7f\u7528\u81ea\u5df1\u7684\u7b2c\u4e09\u65b9 API Key\uff08\u5982 seedance\u3001banana2\u3001gpt-image-2\uff09\u6765\u7f16\u6392\u81ea\u5b9a\u4e49\u89c6\u89c9\u5de5\u4f5c\u6d41\uff0c\u540c\u65f6\u63d0\u4f9b\u4e00\u79cd\u9ad8\u7ea7\u7684\u3001\u7075\u611f\u6765\u81ealovart \u7684\u8bbe\u8ba1\u754c\u9762\uff0c\u65b9\u4fbf\u7528\u6237\u65e5\u5e38\u4f7f\u7528\u3002"
+    },
+    {
+      "name": "op0ai--wav0",
+      "source": "./op0ai--wav0",
+      "description": "AI-Native Studio for everything audio. Sound Design/Audio Editing/AI Producer/Fast Exports. Built for web, runs anywhere. "
+    },
+    {
+      "name": "op0ai--wav0",
+      "source": "./op0ai--wav0",
+      "description": "AI-Native Studio for everything audio. Sound Design/Audio Editing/AI Producer/Fast Exports. Built for web, runs anywhere. "
     },
     {
       "name": "everettjf--liney",
@@ -172302,6 +172327,16 @@
       "name": "lokesh-chimakurthi--rosetta-llm",
       "source": "./lokesh-chimakurthi--rosetta-llm",
       "description": "Multi-format LLM proxy \u2014 translates OpenAI Chat, OpenAI Responses & Anthropic Messages. Works as a Claude Code LLM gateway with full model picker support."
+    },
+    {
+      "name": "khanh21011999--codex-switch",
+      "source": "./khanh21011999--codex-switch",
+      "description": "codex-switch"
+    },
+    {
+      "name": "charl3x--glide-synth-cardputer-adv",
+      "source": "./charl3x--glide-synth-cardputer-adv",
+      "description": "GLIDE: a continuous-pitch slide synth with a generative sound engine, for the M5Stack Cardputer (original + ADV). Notes glide, sounds are yours. By CHARL3X."
     },
     {
       "name": "lightninglabs--lnget",
