@@ -1,0 +1,51 @@
+{
+  "name": "prosophor",
+  "owner": "Swair",
+  "repo": "prosophor",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "prosophor",
+      "path": "config/.prosophor/skills/md2paper/SKILL.md",
+      "github_url": "https://github.com/Swair/prosophor/tree/main/config/.prosophor/skills/md2paper/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Swair/prosophor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T21:02:33Z"
+}
