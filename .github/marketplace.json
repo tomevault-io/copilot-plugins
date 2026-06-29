@@ -234309,6 +234309,11 @@
       "description": "Kiso is a publishing engine that turns Open Knowledge Format (OKF) bundles into static websites for humans and AI agents."
     },
     {
+      "name": "jimparis--qr-font",
+      "source": "./jimparis--qr-font",
+      "description": "A QR code generator in a TrueType font: https://qr.jim.sh/"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -238367,6 +238372,11 @@
       "name": "csmar432--finai-research-workflow",
       "source": "./csmar432--finai-research-workflow",
       "description": "End-to-end AI research workflow for economics & finance: idea discovery, lit review, DID/IV/RD empirical design, paper drafting, LaTeX typesetting & adversarial review. 43 MCP data sources (A-shares, "
+    },
+    {
+      "name": "wailbentafat--netwatch",
+      "source": "./wailbentafat--netwatch",
+      "description": "Chrome DevTools Protocol as a CLI. Inspect live tabs, stream network traffic, read cookies and storage, evaluate JS all as clean NDJSON you can pipe anywhere."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -356527,6 +356537,106 @@
       "name": "evezart--evez-invariance-battery",
       "source": "./evezart--evez-invariance-battery",
       "description": "evez-invariance-battery"
+    },
+    {
+      "name": "bumbleb-foundation-usa--bumbleb-seyal-vagai",
+      "source": "./bumbleb-foundation-usa--bumbleb-seyal-vagai",
+      "description": "kalvi40-management-system"
+    },
+    {
+      "name": "leuliance--mekuannent-web",
+      "source": "./leuliance--mekuannent-web",
+      "description": "Mekuannent web marketing page"
+    },
+    {
+      "name": "jeroensikma--portfolio",
+      "source": "./jeroensikma--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "bhanuprakash056--learning-cms-notion",
+      "source": "./bhanuprakash056--learning-cms-notion",
+      "description": "learning-cms-notion"
+    },
+    {
+      "name": "jjrmrcly79--horacio-ramirez",
+      "source": "./jjrmrcly79--horacio-ramirez",
+      "description": "HORAcio_Ramirez"
+    },
+    {
+      "name": "mahdimonir--garden-of-english",
+      "source": "./mahdimonir--garden-of-english",
+      "description": "garden-of-english"
+    },
+    {
+      "name": "madstone-tech--ogou",
+      "source": "./madstone-tech--ogou",
+      "description": "ogou"
+    },
+    {
+      "name": "dhruvrana005--home-decor",
+      "source": "./dhruvrana005--home-decor",
+      "description": "Home-decor"
+    },
+    {
+      "name": "doublemcyber--longitudinal-memory-eval-harness",
+      "source": "./doublemcyber--longitudinal-memory-eval-harness",
+      "description": "longitudinal-memory-eval-harness"
+    },
+    {
+      "name": "cfardin--studynook-client",
+      "source": "./cfardin--studynook-client",
+      "description": "studynook-client"
+    },
+    {
+      "name": "melgarchan122--ecommerce-dashboard",
+      "source": "./melgarchan122--ecommerce-dashboard",
+      "description": "ecommerce-dashboard"
+    },
+    {
+      "name": "32oq--afreens-store",
+      "source": "./32oq--afreens-store",
+      "description": "afreens-store"
+    },
+    {
+      "name": "jeroensikma--portfolio",
+      "source": "./jeroensikma--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "sergiocouter--tubarao-metais",
+      "source": "./sergiocouter--tubarao-metais",
+      "description": "Site institucional da empresa Tubar\u00e3o Metais"
+    },
+    {
+      "name": "ravularamesh74--stylish-men-s-style-hub",
+      "source": "./ravularamesh74--stylish-men-s-style-hub",
+      "description": "stylish-men-s-style-hub"
+    },
+    {
+      "name": "bcforbd--cavepathy",
+      "source": "./bcforbd--cavepathy",
+      "description": "cavepathy"
+    },
+    {
+      "name": "charlotteyw--resume-match",
+      "source": "./charlotteyw--resume-match",
+      "description": "resume-match"
+    },
+    {
+      "name": "madstone-tech--ogou",
+      "source": "./madstone-tech--ogou",
+      "description": "ogou"
+    },
+    {
+      "name": "kimeyahguia--components-state-props",
+      "source": "./kimeyahguia--components-state-props",
+      "description": "components_state_props"
+    },
+    {
+      "name": "degehub-indonesia--sellerlens",
+      "source": "./degehub-indonesia--sellerlens",
+      "description": "Marketplace financial analytics engine \u2014 DegeHub"
     }
   ]
 }
