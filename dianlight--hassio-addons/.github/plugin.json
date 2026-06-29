@@ -1,0 +1,14 @@
+{
+  "name": "dianlight--hassio-addons",
+  "displayName": "hassio-addons",
+  "description": "hassio-addons",
+  "version": "1.0.0",
+  "author": "dianlight",
+  "homepage": "https://github.com/dianlight/hassio-addons",
+  "skills": [
+    {
+      "name": "hassio-addons",
+      "description": ""
+    }
+  ]
+}
