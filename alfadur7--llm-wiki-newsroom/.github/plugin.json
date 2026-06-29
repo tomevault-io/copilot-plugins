@@ -1,0 +1,9 @@
+{
+  "name": "alfadur7--llm-wiki-newsroom",
+  "displayName": "llm-wiki-newsroom",
+  "description": "An LLM-maintained knowledge wiki run by a multi-agent \"newsroom\" \u2014 local-first, API-key-free, a structured alternative to RAG.",
+  "version": "1.0.0",
+  "author": "alfadur7",
+  "homepage": "https://github.com/alfadur7/llm-wiki-newsroom",
+  "skills": []
+}
