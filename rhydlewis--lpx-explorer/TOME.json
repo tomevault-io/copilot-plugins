@@ -4,7 +4,7 @@
   "repo": "lpx-explorer",
   "description": "Read-only inspector for Logic Pro .logicx project bundles. Tauri 2 + React 19 + TS.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rhydlewis/lpx-explorer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T00:51:54Z"
+  "distributed_at": "2026-06-29T00:52:22Z"
 }
