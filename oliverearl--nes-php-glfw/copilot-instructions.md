@@ -2,9 +2,16 @@
 
 > This document provides guidelines for AI-assisted development of this NES (Nintendo Entertainment System) emulator written in PHP.
 
-# GitHub Copilot Development Guidelines for NES Emulator
+# Codex Development Guidelines for NES Emulator
 
 This document provides guidelines for AI-assisted development of this NES (Nintendo Entertainment System) emulator written in PHP.
+
+## Agent Document Source of Truth
+
+- `AGENTS.md` is the master agentic development document for this repository.
+- If another agentic development document disagrees with `AGENTS.md`, follow `AGENTS.md`.
+- Keep all other agentic development documents in sync with `AGENTS.md`, including `.cursorrules`, `CLAUDE.md`, `.github/copilot-instructions.md`, and `.junie/guidelines.md`.
+- When changing agent guidance, update `AGENTS.md` first, then update the corresponding Cursor, Claude, Copilot, Junie, and contributor-facing documentation in the same change.
 
 ## Project Overview
 
@@ -160,7 +167,7 @@ final class RamTest extends TestCase
     {
         $ram = new Ram(256);
         $ram->write(100, 0x42);
-        
+
         $this::assertSame(0x42, $ram->read(100));
     }
 }
@@ -188,21 +195,21 @@ final class SystemIntegrationTest extends IntegrationTestCase
     {
         [$cpu, , , , $ppu] = $this->createTestSystem();
         $renderer = new Renderer();
-        
+
         $cpu->reset();
-        
+
         $renderingData = false;
         $iterations = 0;
-        
+
         while ($renderingData === false && $iterations < 50000) {
             $cpuCycles = $cpu->run();
             $renderingData = $ppu->run($cpuCycles * 3);
             $iterations++;
         }
-        
+
         $this::assertNotFalse($renderingData);
         $frameBuffer = $renderer->render($renderingData);
-        $this::assertCount(256 * 256 * 4, $frameBuffer);
+        $this::assertCount(256 * 224 * 4, $frameBuffer);
     }
 }
 ```
@@ -216,7 +223,7 @@ final class SystemIntegrationTest extends IntegrationTestCase
 - Error conditions must be tested with appropriate `expectException()`
 
 **Current Coverage:**
-- 234 tests with 266,452+ assertions
+- 258 tests with 233,000+ assertions
 - Unit tests for all components
 - Integration tests for system interactions
 - ROM loading and parsing tests
@@ -296,9 +303,9 @@ final class SystemIntegrationTest extends IntegrationTestCase
 public function it_handles_specific_case(): void
 {
     $component = new Component();
-    
+
     $result = $component->doSomething();
-    
+
     $this::assertSame($expected, $result);
 }
 ```
@@ -309,14 +316,14 @@ public function it_handles_specific_case(): void
 public function it_integrates_components(): void
 {
     [$cpu, $bus, $ram] = $this->createTestSystem();
-    
+
     // Setup
     $ram->write(0x0200, 0x42);
-    
+
     // Execute
     $cpu->reset();
     $cycles = $cpu->run();
-    
+
     // Assert
     $this::assertGreaterThan(0, $cycles);
 }
@@ -354,6 +361,9 @@ vendor/bin/phpstan analyze
 # Format code
 vendor/bin/pint
 
+# Run headless benchmark
+composer benchmark -- path/to/homebrew-or-test-rom.nes
+
 # Run emulator with ROM
 php bin/start.php path/to/rom.nes
 ```
@@ -367,7 +377,7 @@ php bin/start.php path/to/rom.nes
 
 ## Notes
 
-- This emulator prioritizes accuracy over performance
+- This emulator prioritizes accuracy and correctness over raw speed
 - Cycle counting is critical for timing-sensitive games
 - Unofficial opcodes are supported for compatibility
 - The project uses PHP-GLFW for graphics via VISU framework
@@ -376,8 +386,8 @@ php bin/start.php path/to/rom.nes
 
 ---
 
-*Last updated: December 4, 2025*
+*Last updated: May 29, 2026*
 
 ---
 > Source: [oliverearl/nes-php-glfw](https://github.com/oliverearl/nes-php-glfw) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
