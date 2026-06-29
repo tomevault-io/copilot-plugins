@@ -185009,6 +185009,16 @@
       "description": "Native macOS menu bar attention layer for terminal AI agents."
     },
     {
+      "name": "ahmadawais--grepts",
+      "source": "./ahmadawais--grepts",
+      "description": "grepts is a a fast TypeScript grep, ripgrep reimagined for the Node.js ecosystem."
+    },
+    {
+      "name": "limlabs--ratatui-3d",
+      "source": "./limlabs--ratatui-3d",
+      "description": "3D software renderer for terminal UIs, built on ratatui"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -234504,6 +234514,36 @@
       "description": "QuietPages is a calm Astro theme for independent magazines, personal journals, and long-form editorial sites."
     },
     {
+      "name": "ike-li--claude-chat-mobile",
+      "source": "./ike-li--claude-chat-mobile",
+      "description": "Use your real local Claude CLI from your phone \u2014 same CLAUDE.md, MCP, skills & login. Self-hosted, locked by default."
+    },
+    {
+      "name": "ike-li--claude-chat-mobile",
+      "source": "./ike-li--claude-chat-mobile",
+      "description": "Use your real local Claude CLI from your phone \u2014 same CLAUDE.md, MCP, skills & login. Self-hosted, locked by default."
+    },
+    {
+      "name": "philbotar--openflow",
+      "source": "./philbotar--openflow",
+      "description": "An AI agent harness built for workflows."
+    },
+    {
+      "name": "mego1123--easy-class",
+      "source": "./mego1123--easy-class",
+      "description": "Easy-Class"
+    },
+    {
+      "name": "zeeklog--megick-studio",
+      "source": "./zeeklog--megick-studio",
+      "description": "Megick Studio is a creative image and video generation studio that supports various image models such as gpt-image-2, seedream, and Qwen, as well as various models like seedance and wan-2.7. It's an o"
+    },
+    {
+      "name": "nrhevu--roctop",
+      "source": "./nrhevu--roctop",
+      "description": "`roctop` is a small AMD ROCm GPU monitor. It shows GPU VRAM usage, utilization, temperature, and GPU processes in a refreshing terminal UI."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -238567,6 +238607,11 @@
       "name": "wailbentafat--netwatch",
       "source": "./wailbentafat--netwatch",
       "description": "Chrome DevTools Protocol as a CLI. Inspect live tabs, stream network traffic, read cookies and storage, evaluate JS all as clean NDJSON you can pipe anywhere."
+    },
+    {
+      "name": "yvonnehe772--applypilot",
+      "source": "./yvonnehe772--applypilot",
+      "description": "applypilot"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
