@@ -1,11 +1,11 @@
-## llama-cuda-gitlab-mirror
+## local-preview-port-11436
 
-> Sync and upload llama.cpp Ubuntu CUDA tarballs to GitLab correctly
+> Use only port 11435 for local preview and redeploys
 
 
-# llama.cpp Ubuntu CUDA Mirror
+# Local Preview Port
 
-Canonical rule: `docs/agent-guidelines/llama-cpp.md`.
+Canonical rule: `docs/agent-guidelines/local-preview.md`.
 
 Follow that file. Do not add duplicated rule text here; update the canonical
 guideline instead.
