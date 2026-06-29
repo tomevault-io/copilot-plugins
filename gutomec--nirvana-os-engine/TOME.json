@@ -4,7 +4,7 @@
   "repo": "nirvana-os-engine",
   "description": "Nirvana-OS \u2014 open-core engine for agentic work (squads, businesses, mind-clones creation). Runtime-agnostic: Claude Code, Codex, Gemini-CLI, Antigravity, Hermes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gutomec/nirvana-os-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T03:30:53Z"
+  "distributed_at": "2026-06-29T03:32:21Z"
 }
