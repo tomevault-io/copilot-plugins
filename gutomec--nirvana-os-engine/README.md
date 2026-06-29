@@ -7,11 +7,11 @@ Nirvana-OS — open-core engine for agentic work (squads, businesses, mind-clone
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gutomec/nirvana-os-engine](https://github.com/gutomec/nirvana-os-engine).
+Original source: `CLAUDE.md` in [gutomec/nirvana-os-engine](https://github.com/gutomec/nirvana-os-engine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
