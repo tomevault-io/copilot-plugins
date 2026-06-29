@@ -1,14 +1,15 @@
-## ai-app-oss-mirror
+## csglite
 
-> Mirror AI app releases to StarHub OSS with versioned artifacts
+> Use `AGENTS.md` as the primary project instruction file.
 
+# Copilot Instructions
 
-# AI App OSS Mirror
+Use `AGENTS.md` as the primary project instruction file.
 
-Canonical rule: `docs/agent-guidelines/ai-app-oss-mirror.md`.
-
-Follow that file. Do not add duplicated rule text here; update the canonical
-guideline instead.
+Full, tool-neutral rules live in `docs/agent-guidelines/`. Do not create a
+Copilot-only project rule unless the behavior is specific to Copilot. For
+shared rules, update the canonical guideline first and keep this adapter
+minimal.
 
 ---
 > Source: [OpenCSGs/csglite](https://github.com/OpenCSGs/csglite) — distributed by [TomeVault](https://tomevault.io).
