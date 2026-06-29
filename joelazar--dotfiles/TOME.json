@@ -1,0 +1,99 @@
+{
+  "name": "dotfiles",
+  "owner": "joelazar",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/uv/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/uv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/reddit/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/reddit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/github/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/exe-dev/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/exe-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/mermaid/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/mermaid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/simplify/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/web-search/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/listen-later/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/listen-later/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_agents/skills/session-analyzer/SKILL.md",
+      "github_url": "https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/session-analyzer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joelazar/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:38:32Z"
+}
