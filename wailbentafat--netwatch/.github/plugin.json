@@ -1,0 +1,9 @@
+{
+  "name": "wailbentafat--netwatch",
+  "displayName": "netwatch",
+  "description": "Chrome DevTools Protocol as a CLI. Inspect live tabs, stream network traffic, read cookies and storage, evaluate JS all as clean NDJSON you can pipe anywhere.",
+  "version": "1.0.0",
+  "author": "wailbentafat",
+  "homepage": "https://github.com/wailbentafat/netwatch",
+  "skills": []
+}
