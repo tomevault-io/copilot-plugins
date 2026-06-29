@@ -156489,6 +156489,11 @@
       "description": "A multi-agent Claude Code framework for running role-based agents across GTM, product, design, and ops \u2014 with plans, project substrate, and a reinforcement loop that compounds learning."
     },
     {
+      "name": "joserfjuniorllms--nietzschedb",
+      "source": "./joserfjuniorllms--nietzschedb",
+      "description": "NietzscheDB"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -234577,6 +234582,16 @@
       "name": "nrhevu--roctop",
       "source": "./nrhevu--roctop",
       "description": "`roctop` is a small AMD ROCm GPU monitor. It shows GPU VRAM usage, utilization, temperature, and GPU processes in a refreshing terminal UI."
+    },
+    {
+      "name": "js1lan--lanote",
+      "source": "./js1lan--lanote",
+      "description": "?? Mineradio ???? | ???+QQ??? | JS1Lan??"
+    },
+    {
+      "name": "royashbrook--hush",
+      "source": "./royashbrook--hush",
+      "description": "a secret store for AI agents with one rule: the agent never sees the plaintext. get a secret once into the OS keychain, then inject it into commands forever. no get, cross-platform, MIT."
     },
     {
       "name": "cheerhuan--save-your-token",
