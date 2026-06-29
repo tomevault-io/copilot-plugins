@@ -1,9 +1,9 @@
-## llama-cpp-version-lockstep
+## llama-cuda-gitlab-mirror
 
-> Keep llama.cpp versions aligned across converter, gguf-py hints, and installers
+> Sync and upload llama.cpp Ubuntu CUDA tarballs to GitLab correctly
 
 
-# llama.cpp Version Lockstep
+# llama.cpp Ubuntu CUDA Mirror
 
 Canonical rule: `docs/agent-guidelines/llama-cpp.md`.
 
