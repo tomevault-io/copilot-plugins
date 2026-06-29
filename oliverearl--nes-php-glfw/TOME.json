@@ -2,9 +2,9 @@
   "name": "nes-php-glfw",
   "owner": "oliverearl",
   "repo": "nes-php-glfw",
-  "description": "An NES emulator written in PHP 8.5 using the OpenGL GLFW extension.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oliverearl/nes-php-glfw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T00:45:05Z"
+  "distributed_at": "2026-06-29T17:14:14Z"
 }
