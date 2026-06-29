@@ -7,11 +7,11 @@ Kiso is a publishing engine that turns Open Knowledge Format (OKF) bundles into 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [oak-invest/kiso](https://github.com/oak-invest/kiso).
+Original source: `CLAUDE.md` in [oak-invest/kiso](https://github.com/oak-invest/kiso).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
