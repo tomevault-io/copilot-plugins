@@ -3,8 +3,8 @@
   "owner": "googlicius",
   "repo": "obsidian-steward",
   "description": "A vault-specific agent equipped with agentic capacity, fast search, flexible commands, vault management, and terminals to \"jump\" into other CLI agents, such as Claude, Gemini, etc.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "obsidian-steward",
+      "path": "skills/flashcard/SKILL.md",
+      "github_url": "https://github.com/googlicius/obsidian-steward/tree/main/skills/flashcard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-steward",
+      "path": "skills/guardrails/SKILL.md",
+      "github_url": "https://github.com/googlicius/obsidian-steward/tree/main/skills/guardrails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-steward",
+      "path": "standard-skills/edit/table/SKILL.md",
+      "github_url": "https://github.com/googlicius/obsidian-steward/tree/main/standard-skills/edit/table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-steward",
+      "path": "skills/user-defined-command/SKILL.md",
+      "github_url": "https://github.com/googlicius/obsidian-steward/tree/main/skills/user-defined-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-steward",
+      "path": "standard-skills/update-title/SKILL.md",
+      "github_url": "https://github.com/googlicius/obsidian-steward/tree/main/standard-skills/update-title/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-steward",
+      "path": "standard-skills/widget/stateful-widget/SKILL.md",
+      "github_url": "https://github.com/googlicius/obsidian-steward/tree/main/standard-skills/widget/stateful-widget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-steward",
+      "path": "standard-skills/widget/interactive-widget/SKILL.md",
+      "github_url": "https://github.com/googlicius/obsidian-steward/tree/main/standard-skills/widget/interactive-widget/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/googlicius/obsidian-steward",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T05:14:46Z"
+  "distributed_at": "2026-06-29T18:31:08Z"
 }
