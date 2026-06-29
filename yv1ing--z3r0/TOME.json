@@ -1,0 +1,93 @@
+{
+  "name": "Z3r0",
+  "owner": "yv1ing",
+  "repo": "Z3r0",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Z3r0",
+      "path": "sandbox/.agents/skills/jadx/SKILL.md",
+      "github_url": "https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/jadx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Z3r0",
+      "path": "sandbox/.agents/skills/nmap/SKILL.md",
+      "github_url": "https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/nmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Z3r0",
+      "path": "sandbox/.agents/skills/httpx/SKILL.md",
+      "github_url": "https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/httpx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Z3r0",
+      "path": "sandbox/.agents/skills/ghidra/SKILL.md",
+      "github_url": "https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/ghidra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Z3r0",
+      "path": "sandbox/.agents/skills/sqlmap/SKILL.md",
+      "github_url": "https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/sqlmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Z3r0",
+      "path": "sandbox/.agents/skills/sandbox-shell/SKILL.md",
+      "github_url": "https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/sandbox-shell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Z3r0",
+      "path": "sandbox/.agents/skills/observer-ward/SKILL.md",
+      "github_url": "https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/observer-ward/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Z3r0",
+      "path": "sandbox/.agents/skills/agent-browser-cli/SKILL.md",
+      "github_url": "https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/agent-browser-cli/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yv1ing/Z3r0",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:37:50Z"
+}
