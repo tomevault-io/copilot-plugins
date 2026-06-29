@@ -1,0 +1,44 @@
+{
+  "name": "fd2_re",
+  "owner": "wicanr2",
+  "repo": "fd2_re",
+  "description": "\u708e\u9f8d\u9a0e\u58eb\u57182 \u53cd\u7d44\u8b6f\u7814\u7a76",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wicanr2/fd2_re",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T12:31:59Z"
+}
