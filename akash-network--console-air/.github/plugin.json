@@ -1,0 +1,9 @@
+{
+  "name": "akash-network--console-air",
+  "displayName": "console-air",
+  "description": "Akash Console Air \u2014 self-custody, crypto-native fork of Akash Console",
+  "version": "1.0.0",
+  "author": "akash-network",
+  "homepage": "https://github.com/akash-network/console-air",
+  "skills": []
+}
