@@ -1,0 +1,123 @@
+{
+  "name": "cnllm",
+  "owner": "kanchengw",
+  "repo": "cnllm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cnllm",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": "skills/upgrade-stripe/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/skills/upgrade-stripe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": "skills/stripe-projects/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/skills/stripe-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": "skills/stripe-best-practices/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/skills/stripe-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".agents/skills/upgrade-stripe/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.agents/skills/upgrade-stripe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".agents/skills/stripe-projects/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.agents/skills/stripe-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".continue/skills/upgrade-stripe/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.continue/skills/upgrade-stripe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".codebuddy/skills/upgrade-stripe/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.codebuddy/skills/upgrade-stripe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".continue/skills/stripe-projects/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.continue/skills/stripe-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".codebuddy/skills/stripe-projects/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.codebuddy/skills/stripe-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".agents/skills/stripe-best-practices/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.agents/skills/stripe-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".continue/skills/stripe-best-practices/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.continue/skills/stripe-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cnllm",
+      "path": ".codebuddy/skills/stripe-best-practices/SKILL.md",
+      "github_url": "https://github.com/kanchengw/cnllm/tree/main/.codebuddy/skills/stripe-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kanchengw/cnllm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:50:52Z"
+}
