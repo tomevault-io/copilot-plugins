@@ -1,0 +1,63 @@
+{
+  "name": "just-laws",
+  "owner": "ImCa0",
+  "repo": "just-laws",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "just-laws",
+      "path": ".agents/skills/addlaws/SKILL.md",
+      "github_url": "https://github.com/ImCa0/just-laws/tree/main/.agents/skills/addlaws/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "just-laws",
+      "path": ".agents/skills/markitdown/SKILL.md",
+      "github_url": "https://github.com/ImCa0/just-laws/tree/main/.agents/skills/markitdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "just-laws",
+      "path": ".agents/skills/law-pipeline/SKILL.md",
+      "github_url": "https://github.com/ImCa0/just-laws/tree/main/.agents/skills/law-pipeline/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ImCa0/just-laws",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:35:37Z"
+}
