@@ -1,0 +1,14 @@
+{
+  "name": "kuizuo--blog",
+  "displayName": "blog",
+  "description": "blog",
+  "version": "1.0.0",
+  "author": "kuizuo",
+  "homepage": "https://github.com/kuizuo/blog",
+  "skills": [
+    {
+      "name": "blog",
+      "description": ""
+    }
+  ]
+}
