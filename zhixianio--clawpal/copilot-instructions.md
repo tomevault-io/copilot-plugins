@@ -120,4 +120,4 @@ cargo clippy               # Rust lint
 
 ---
 > Source: [zhixianio/clawpal](https://github.com/zhixianio/clawpal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
