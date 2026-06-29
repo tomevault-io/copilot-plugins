@@ -1,0 +1,9 @@
+{
+  "name": "gutomec--nirvana-os-engine",
+  "displayName": "nirvana-os-engine",
+  "description": "Nirvana-OS \u2014 open-core engine for agentic work (squads, businesses, mind-clones creation). Runtime-agnostic: Claude Code, Codex, Gemini-CLI, Antigravity, Hermes.",
+  "version": "1.0.0",
+  "author": "gutomec",
+  "homepage": "https://github.com/gutomec/nirvana-os-engine",
+  "skills": []
+}
