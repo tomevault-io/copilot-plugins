@@ -1,39 +1,20 @@
 ## matcher
 
-> Conventions for AI coding assistants (Codex, Cursor, Copilot) and humans alike.
+> This file guides Claude Code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-Conventions for AI coding assistants (Codex, Cursor, Copilot) and humans alike.
-Claude Code reads `CLAUDE.md`, which points here.
+This file guides Claude Code in this repository.
 
-## Languages
+**Project conventions:** @AGENTS.md
 
-rust
+## Coding standards (imported)
 
-## Where the rules live
+@.claude/rules/common/coding-style.md
+@.claude/rules/rust/coding-style.md
 
-Detailed standards are in `.claude/rules/`:
-
-- `common/`  — language-agnostic (coding style, testing, git, security)
-- `rust/`  — rust-specific standards
-
-How each tool loads them:
-
-- **Claude Code** — via `CLAUDE.md`'s `@import` lines (loaded into context; not
-  conditional on which file you're editing). Consult a language's other
-  `*.md` files when working in that language.
-- **Cursor** — the `paths:` frontmatter on each rule activates it by file glob.
-  This is a Cursor feature; Claude Code ignores `paths:`.
-
-## Project conventions
-
-<!-- Fill these in — write what an AI can't infer from the code: -->
-- **Tech stack:**
-- **Build / run:**
-- **Test:**       (coverage bar:    %)
-- **Directory layout:**
-- **Do NOT:**
+When editing a given language, also consult that language's
+`testing.md` / `patterns.md` / `security.md` under `.claude/rules/<lang>/`.
 
 ---
 > Source: [gocronx/matcher](https://github.com/gocronx/matcher) — distributed by [TomeVault](https://tomevault.io).
