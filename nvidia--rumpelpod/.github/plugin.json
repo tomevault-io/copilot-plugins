@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--rumpelpod",
+  "displayName": "rumpelpod",
+  "description": "Orchestrator for LLM coding agents in Docker and Kubernetes pods",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/rumpelpod",
+  "skills": []
+}
