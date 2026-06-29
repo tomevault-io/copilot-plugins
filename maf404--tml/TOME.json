@@ -2,9 +2,9 @@
   "name": "tml",
   "owner": "maf404",
   "repo": "tml",
-  "description": "TML is an open format that makes it easy for AI agents to discover and use public APIs. Write tool definitions in human-readable TML, compile to .min (one line per tool), and any LLM can read them",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "tml",
+      "path": "spec",
+      "github_url": "https://github.com/maf404/tml/tree/main/spec",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/maf404/tml",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T20:31:08Z"
+  "distributed_at": "2026-06-29T11:12:40Z"
 }
