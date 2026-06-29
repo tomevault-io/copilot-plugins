@@ -4,7 +4,7 @@
   "repo": "OTGW-firmware",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -173,5 +173,5 @@
   ],
   "source_url": "https://github.com/rvdbreemen/OTGW-firmware",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T18:36:22Z"
+  "distributed_at": "2026-06-29T22:32:50Z"
 }
