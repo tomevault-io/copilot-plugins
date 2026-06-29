@@ -1,0 +1,9 @@
+{
+  "name": "lokesh-chimakurthi--rosetta-llm",
+  "displayName": "rosetta-llm",
+  "description": "Multi-format LLM proxy \u2014 translates OpenAI Chat, OpenAI Responses & Anthropic Messages. Works as a Claude Code LLM gateway with full model picker support.",
+  "version": "1.0.0",
+  "author": "Lokesh-Chimakurthi",
+  "homepage": "https://github.com/Lokesh-Chimakurthi/rosetta-llm",
+  "skills": []
+}
