@@ -1,0 +1,9 @@
+{
+  "name": "ahpxex--open-dashboard",
+  "displayName": "open-dashboard",
+  "description": "A skill catalogue of 36 copy-ready admin UI shapes an AI agent installs and composes into a real back-office. Built on TanStack Start, Drizzle + better-auth, shadcn + Tailwind v4.",
+  "version": "1.0.0",
+  "author": "ahpxex",
+  "homepage": "https://github.com/ahpxex/open-dashboard",
+  "skills": []
+}
