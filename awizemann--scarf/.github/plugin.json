@@ -1,7 +1,7 @@
 {
   "name": "awizemann--scarf",
   "displayName": "scarf",
-  "description": "Native macOS GUI for the Hermes AI agent \u2014 multi-window, multi-server (local + remote over SSH). Chat, dashboard, sessions, memory, cron, MCP, and more.",
+  "description": "scarf",
   "version": "1.0.0",
   "author": "awizemann",
   "homepage": "https://github.com/awizemann/scarf",
