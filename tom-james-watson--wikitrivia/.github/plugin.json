@@ -1,0 +1,14 @@
+{
+  "name": "tom-james-watson--wikitrivia",
+  "displayName": "wikitrivia",
+  "description": "wikitrivia",
+  "version": "1.0.0",
+  "author": "tom-james-watson",
+  "homepage": "https://github.com/tom-james-watson/wikitrivia",
+  "skills": [
+    {
+      "name": "wikitrivia",
+      "description": ""
+    }
+  ]
+}
