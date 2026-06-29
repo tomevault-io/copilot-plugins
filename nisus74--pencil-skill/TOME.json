@@ -4,7 +4,7 @@
   "repo": "pencil-skill",
   "description": "AI coding skill plugin for pencil.dev (.pen) design files via the Pencil MCP server \u2014 works with Claude Code, Cursor, Codex, and Gemini CLI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nisus74/pencil-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T00:49:03Z"
+  "distributed_at": "2026-06-29T00:50:28Z"
 }
