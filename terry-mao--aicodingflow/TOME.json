@@ -1,0 +1,243 @@
+{
+  "name": "AICodingFlow",
+  "owner": "Terry-Mao",
+  "repo": "AICodingFlow",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/git-branch/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/git-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/create-issue/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/create-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/git-worktree/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/git-worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/write-tech-spec/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/write-tech-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/review-pr-local/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/review-pr-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/review-spec-local/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/review-spec-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/write-product-spec/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/write-product-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/diagnose-ci-failures/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/diagnose-ci-failures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/bootstrap-issue-config/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/bootstrap-issue-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".agents/skills/resolve-merge-conflicts/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.agents/skills/resolve-merge-conflicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/review-spec/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/review-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/product-wiki/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/product-wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/dedupe-issue/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/dedupe-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/update-dedupe/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/update-dedupe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/update-triage/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/update-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/review-pr-repo/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/review-pr-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/implement-specs/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/implement-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/implement-issue/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/implement-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/update-pr-review/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/update-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/create-tech-spec/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/create-tech-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/review-spec-repo/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/review-spec-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/product-docs-sync/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/product-docs-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/dedupe-issue-repo/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/dedupe-issue-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/triage-issue-repo/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/triage-issue-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/security-review-pr/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/security-review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/create-product-spec/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/create-product-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/security-review-spec/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/security-review-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/product-change-report/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/product-change-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AICodingFlow",
+      "path": ".github/skills/check-impl-against-spec/SKILL.md",
+      "github_url": "https://github.com/Terry-Mao/AICodingFlow/tree/main/.github/skills/check-impl-against-spec/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Terry-Mao/AICodingFlow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:39:07Z"
+}
