@@ -1,35 +1,87 @@
 ## shinnku-com
 
-> This monorepo hosts a Next.js frontend and a Rust backend.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines for Contributors
+# CLAUDE.md
 
-This monorepo hosts a Next.js frontend and a Rust backend.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Directory Overview
+## Project Overview
 
-- `frontend/` – Next.js 15 project written in TypeScript.
-- `backend/` – Rust web service using the Axum framework.
+Shinnku-com is a monorepo containing a galgame resource website with three main components:
 
-## Development Setup
+- **Frontend**: Next.js 15 app with TypeScript, Tailwind CSS, and MDX support
+- **Backend**: Rust web service using Axum framework with Redis integration
+- **AI**: Python-based AI service using Falcon ASGI with LangChain and ChromaDB
 
-- Use **pnpm** for managing frontend dependencies.
-- Use **Cargo** for the Rust backend.
+## Development Commands
 
-## Formatting and Linting
+### Frontend (in `frontend/` directory)
 
-- Format TypeScript/JavaScript and CSS using `pnpm run format`.
-- Build the frontend with `pnpm build`.
-- only if you change the backend, run the code below:
-- Format Rust code with `cargo fmt` and verify builds with `cargo check`.
-- Lint Rust code with `cargo clippy`.
+- **Dev server**: `pnpm run dev` (uses Turbopack)
+- **Build**: `pnpm run build`
+- **Lint**: `pnpm run lint` (ESLint with TypeScript)
+- **Format**: `pnpm run format` (Prettier)
 
-## Important Notes
+### Backend (in `backend/` directory)
 
-- `frontend/node_modules/` and `backend/target/` are intentionally ignored and should not be committed.
-- TypeScript/TSX files follow two‑space indentation as defined in `.editorconfig`.
-- Rust files use the default `rustfmt` style (four‑space indentation).
-- Update `README.md` if you change setup steps or add major features.
+- **Run server**: `cargo run -p server`
+- **Build**: `cargo build`
+- **Test**: `cargo test`
+- **Format**: `cargo fmt`
+- **Lint**: `cargo clippy` (uses strict Clippy rules from Cargo.toml)
+
+### AI Service (in root directory)
+
+- **Install dependencies**: `uv sync` or `pip install -r requirements.txt`
+- **Run AI service**: `python -m ai.serve` or `shinnku-ai-serve`
+- **Format**: `black ai/` and `isort ai/`
+- **Test**: `pytest` (with coverage via `pytest --cov=ai`)
+
+## Architecture Overview
+
+### Frontend Structure
+
+- **App Router**: Next.js 15 with app directory structure
+- **Internationalization**: Built-in routing for `zh-cn`, `zh-tw`, and `en-us` locales
+- **UI Components**: Radix UI primitives with Tailwind CSS styling
+- **Content**: MDX-based blog posts in `posts/` directory
+- **Key API Routes**: `/api/wiki`, `/api/aiintro`, `/api/image-proxy`
+
+### Backend Architecture
+
+- **Framework**: Axum web framework with Redis for caching
+- **Configuration**: TOML-based config in `backend/config.toml`
+- **Custom Fuse Search**: Fuzzy search implementation in `backend/fuse/` crate
+- **Workspace Structure**: Two crates - `server` (main API) and `fuse` (search library)
+- **Server runs on**: `127.0.0.1:2999`
+
+### AI Service
+
+- **Framework**: Falcon ASGI for HTTP API
+- **Vector Database**: ChromaDB with BAAI/bge-large-zh-v1.5 embeddings
+- **Endpoints**: `/intro` (game introductions), `/findname` (game search)
+
+## Code Conventions
+
+### TypeScript/Frontend
+
+- 2-space indentation
+- Absolute imports with `@/` path mapping
+- React 19 patterns with app directory structure
+
+### Rust/Backend
+
+- Strict Clippy configuration enforced (see `backend/Cargo.toml`)
+- 4-space indentation via rustfmt
+- `Result<T, AppError>` for error handling
+- Document public functions and avoid `unwrap()` in production
+
+### Python/AI
+
+- Black formatting (88 character line length)
+- Type hints required for all functions
+- async/await for I/O operations
 
 ---
 > Source: [shinnku-nikaidou/shinnku-com](https://github.com/shinnku-nikaidou/shinnku-com) — distributed by [TomeVault](https://tomevault.io).
