@@ -1,0 +1,14 @@
+{
+  "name": "dictation354--paper-fetch-skill",
+  "displayName": "paper-fetch-skill",
+  "description": "paper-fetch-skill",
+  "version": "1.0.0",
+  "author": "Dictation354",
+  "homepage": "https://github.com/Dictation354/paper-fetch-skill",
+  "skills": [
+    {
+      "name": "paper-fetch-skill",
+      "description": ""
+    }
+  ]
+}
