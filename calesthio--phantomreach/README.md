@@ -7,14 +7,14 @@ Free, open-source local business intelligence audits for marketers and agencies.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [calesthio/PhantomReach](https://github.com/calesthio/PhantomReach).
+Original source: `GEMINI.md` in [calesthio/PhantomReach](https://github.com/calesthio/PhantomReach).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [calesthio/PhantomReach](https://github.com/calesthio/PhantomReach) — a repo with 8+ stars on GitHub.
