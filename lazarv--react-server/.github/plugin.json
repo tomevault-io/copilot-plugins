@@ -1,0 +1,14 @@
+{
+  "name": "lazarv--react-server",
+  "displayName": "react-server",
+  "description": "react-server",
+  "version": "1.0.0",
+  "author": "lazarv",
+  "homepage": "https://github.com/lazarv/react-server",
+  "skills": [
+    {
+      "name": "react-server",
+      "description": ""
+    }
+  ]
+}
