@@ -1,0 +1,9 @@
+{
+  "name": "selimozten--elek",
+  "displayName": "elek",
+  "description": "Review-only AI code review for GitHub pull requests. Cross-check PRs with model-agnostic reviewers that can comment inline but cannot approve, merge, or close.",
+  "version": "1.0.0",
+  "author": "selimozten",
+  "homepage": "https://github.com/selimozten/elek",
+  "skills": []
+}
