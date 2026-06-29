@@ -1,0 +1,9 @@
+{
+  "name": "dg--mysql-dump",
+  "displayName": "MySQL-dump",
+  "description": "MySQL-dump",
+  "version": "1.0.0",
+  "author": "dg",
+  "homepage": "https://github.com/dg/MySQL-dump",
+  "skills": []
+}
