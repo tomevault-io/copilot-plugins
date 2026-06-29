@@ -1,0 +1,9 @@
+{
+  "name": "jimparis--qr-font",
+  "displayName": "qr-font",
+  "description": "A QR code generator in a TrueType font: https://qr.jim.sh/",
+  "version": "1.0.0",
+  "author": "jimparis",
+  "homepage": "https://github.com/jimparis/qr-font",
+  "skills": []
+}
