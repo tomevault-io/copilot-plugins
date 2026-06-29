@@ -1,0 +1,9 @@
+{
+  "name": "ahmadawais--grepts",
+  "displayName": "grepts",
+  "description": "grepts is a a fast TypeScript grep, ripgrep reimagined for the Node.js ecosystem.",
+  "version": "1.0.0",
+  "author": "ahmadawais",
+  "homepage": "https://github.com/ahmadawais/grepts",
+  "skills": []
+}
