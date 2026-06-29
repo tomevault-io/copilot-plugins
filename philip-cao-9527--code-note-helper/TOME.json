@@ -1,0 +1,123 @@
+{
+  "name": "code-note-helper",
+  "owner": "Philip-Cao-9527",
+  "repo": "code-note-helper",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-note-helper",
+      "path": ".agents/skills/web-search/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/.agents/skills/web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": ".agents/skills/knowledge-explainer/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/.agents/skills/knowledge-explainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": ".agents/skills/codenote-fix-prompt/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/.agents/skills/codenote-fix-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": ".agents/skills/codenote-skill-creator/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/.agents/skills/codenote-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": "vibe-coding-template/skills/web-search/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/vibe-coding-template/skills/web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": ".agents/skills/codenote-plan-mode-prompt/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/.agents/skills/codenote-plan-mode-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": "vibe-coding-template/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/vibe-coding-template/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": ".agents/skills/codenote-code-review-prompt/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/.agents/skills/codenote-code-review-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": "vibe-coding-template/skills/plan-mode-planner/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/vibe-coding-template/skills/plan-mode-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": "vibe-coding-template/skills/agents-md-creator/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/vibe-coding-template/skills/agents-md-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": "vibe-coding-template/skills/knowledge-explainer/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/vibe-coding-template/skills/knowledge-explainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": "vibe-coding-template/skills/project-skill-creator/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/vibe-coding-template/skills/project-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-note-helper",
+      "path": "vibe-coding-template/skills/project-prompt-creator/SKILL.md",
+      "github_url": "https://github.com/Philip-Cao-9527/code-note-helper/tree/main/vibe-coding-template/skills/project-prompt-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Philip-Cao-9527/code-note-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:41:21Z"
+}
