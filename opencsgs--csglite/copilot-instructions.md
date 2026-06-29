@@ -1,11 +1,10 @@
-## manual-local-release
+## model-source-routing
 
-> Publish releases from local builds instead of GitHub Actions
+> Canonical rule: `docs/agent-guidelines/model-source-routing.md`.
 
+# Model Source Routing
 
-# Manual Local Release
-
-Canonical rule: `docs/agent-guidelines/release-notes.md`.
+Canonical rule: `docs/agent-guidelines/model-source-routing.md`.
 
 Follow that file. Do not add duplicated rule text here; update the canonical
 guideline instead.
