@@ -1,0 +1,14 @@
+{
+  "name": "dcaribou--transfermarkt-datasets",
+  "displayName": "transfermarkt-datasets",
+  "description": "transfermarkt-datasets",
+  "version": "1.0.0",
+  "author": "dcaribou",
+  "homepage": "https://github.com/dcaribou/transfermarkt-datasets",
+  "skills": [
+    {
+      "name": "transfermarkt-datasets",
+      "description": ""
+    }
+  ]
+}
