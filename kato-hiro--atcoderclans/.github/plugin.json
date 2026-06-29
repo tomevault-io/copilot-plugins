@@ -1,0 +1,14 @@
+{
+  "name": "kato-hiro--atcoderclans",
+  "displayName": "AtCoderClans",
+  "description": "AtCoderClans",
+  "version": "1.0.0",
+  "author": "KATO-Hiro",
+  "homepage": "https://github.com/KATO-Hiro/AtCoderClans",
+  "skills": [
+    {
+      "name": "AtCoderClans",
+      "description": ""
+    }
+  ]
+}
