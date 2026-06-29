@@ -1,11 +1,11 @@
-## go-conventions
+## llama-cpp-version-lockstep
 
-> Go coding conventions for csghub-lite
+> Keep llama.cpp versions aligned across converter, gguf-py hints, and installers
 
 
-# Go Conventions
+# llama.cpp Version Lockstep
 
-Canonical rule: `docs/agent-guidelines/go-conventions.md`.
+Canonical rule: `docs/agent-guidelines/llama-cpp.md`.
 
 Follow that file. Do not add duplicated rule text here; update the canonical
 guideline instead.
