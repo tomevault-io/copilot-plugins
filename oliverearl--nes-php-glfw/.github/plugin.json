@@ -1,7 +1,7 @@
 {
   "name": "oliverearl--nes-php-glfw",
   "displayName": "nes-php-glfw",
-  "description": "An NES emulator written in PHP 8.5 using the OpenGL GLFW extension.",
+  "description": "nes-php-glfw",
   "version": "1.0.0",
   "author": "oliverearl",
   "homepage": "https://github.com/oliverearl/nes-php-glfw",
