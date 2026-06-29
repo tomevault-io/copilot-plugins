@@ -1,0 +1,90 @@
+## eslint-interactive
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# AGENTS.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+`eslint-interactive` is an interactive CLI tool that groups ESLint problems by rule and allows users to apply per-rule fixes (auto-fix, disable comments, convert to warnings, etc.). It solves the problem of overwhelming ESLint output when introducing ESLint to a large codebase.
+
+## Commands
+
+```bash
+# Build (TypeScript → dist/)
+pnpm run build
+
+# Development (build + run against example/)
+pnpm run dev
+
+# Unit tests
+pnpm run test
+
+# Run a single test file
+pnpm exec vitest src/fix/disable-per-line.test.ts
+
+# E2E tests (build first, then run e2e-test/)
+pnpm run e2e
+
+# All lint checks
+pnpm run lint
+
+# Individual lint checks
+pnpm run lint:tsc      # TypeScript type checking
+pnpm run lint:eslint   # ESLint
+pnpm run lint:prettier # Prettier
+
+# Auto-fix all fixable lint errors (for coding agents)
+pnpm run lint-fix
+```
+
+## Architecture
+
+### Scene-Based Flow
+
+The CLI uses a state machine with scenes in `src/scene/`:
+
+1. **lint** → lint files using ESLint
+2. **selectRuleIds** → user picks which rules to act on
+3. **selectAction** → user picks an action (fix, disable, warn, etc.)
+4. **checkResults** → shows diff, user confirms or goes back
+
+Each scene returns a `NextScene` object indicating the next state.
+
+### Core API (`src/core.ts`)
+
+The main programmatic API. Key responsibilities:
+
+- This is the wrapper for the `ESLint` class in `eslint` package, which provides an API for applying fixes per rule
+- Runs ESLint with a custom plugin (`src/plugin.ts`) that captures source code via a "source-code-snatcher" rule
+- Methods: `lint()`, `formatResultSummary()`, `formatResultDetails()`, `applyAutoFixes()`, `disablePerLine()`, `disablePerFile()`, `convertErrorToWarningPerFile()`, `applySuggestions()`, `makeFixableAndFix()`
+
+### Fix System (`src/fix/`)
+
+Low-level fix implementations, one file per action type. Each takes ESLint lint results and returns text edits. Uses ESLint's `Rule.RuleFixer` API internally.
+
+### Action Handlers (`src/action/`)
+
+Higher-level orchestration: call Core methods, handle user prompts. One file per action type, mirrors `src/fix/`.
+
+### Formatter (`src/formatter/`)
+
+- `format-by-rules.ts`: Main table output grouping problems by rule
+- `format-by-files.ts`: Output grouping by file
+- `take-rule-statistics.ts`: Extracts counts (total, fixable, suggestions) from lint results
+
+### ESLint Internals (`src/eslint/`)
+
+This code is forked from the internal ESLint API. Since the API required to implement eslint-interactive is not publicly exposed by ESLint, we are doing this.
+
+## Other
+
+- Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+  - `<type>` is one of: feat, fix, docs, refactor, test, chore, deps
+  - Example: `feat: implement some feature`
+
+---
+> Source: [mizdra/eslint-interactive](https://github.com/mizdra/eslint-interactive) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
