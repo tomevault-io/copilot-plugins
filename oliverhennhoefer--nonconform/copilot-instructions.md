@@ -1,0 +1,117 @@
+## nonconform
+
+> This project has reached `v1.0.0`. Backward compatibility is now a constraint
+
+# v1 Compatibility Policy
+
+This project has reached `v1.0.0`. Backward compatibility is now a constraint
+for documented public APIs and statistical validity claims.
+
+- Prefer additive public APIs over changing or removing existing public APIs.
+- Treat `nonconform.__all__` and public module `__all__` exports as compatibility
+  contracts.
+- Keep `nonconform._internal` private and out of user-facing docs/examples.
+- Breaking public API changes require a major-version plan, migration notes, and
+  explicit release documentation.
+- Statistical-core behavior changes require explicit before/after rationale and
+  validation evidence.
+
+# Decision Hierarchy
+
+1. Statistical correctness and validity claims.
+2. User intent and acceptance criteria.
+3. Architecture clarity and long-term design quality.
+4. Maintainability and readability.
+5. Performance.
+
+# Execution Defaults
+
+- Ask questions only for contradictions, missing critical requirements, or destructive/irreversible risk.
+- Enforce strict no-scope-creep: do only what is requested and directly necessary.
+- Assume declared dependencies are available; do not redesign around hypothetical missing dependencies.
+- Do not run `uv update` lightly; it can override intentionally pinned security patch versions in this repository.
+- Treat current CI trigger and test-run cadence as intentional; do not suggest changing it unless explicitly requested by the user.
+
+# Statistical-Core Change Guardrail
+
+Statistical-core means any logic that computes statistics or affects statistical validity/interpretation (for example p-values, FDR control, weighting, calibration, aggregation, or related quantities).
+
+- Do **not** change statistical-core behavior unless the user request explicitly asks for it or it is an unavoidable implication of the requested change.
+- Statistical-core behavior changes should be rare.
+- If such a change is needed, provide explicit before/after rationale in the final report.
+
+# Regression Policy
+
+- Target zero regressions by default.
+- Any intentional regression/tradeoff is allowed only when directly requested or logically required by the task.
+- Every intentional tradeoff must be called out explicitly with rationale.
+
+# Validation Policy
+
+No substantial task is complete without validation evidence.
+
+- Run `uv run pytest` when changes touch `nonconform/**` or `tests/**`.
+- Skip full `pytest` when changes are limited to:
+  - Markdown-only (`*.md`) files, or
+  - Python files outside `nonconform/**` and `tests/**` (e.g. `examples/**`).
+- Run `uv run ruff format .` for every task.
+- Run `uv run ruff check . --fix` for every task.
+- Run `uv run mkdocs build -f docs/mkdocs.yml` whenever documentation changes under `docs/**`.
+- Run narrower tests while iterating, then finish with full `pytest`.
+
+# Codebase Topology
+
+- `nonconform/`: public library code.
+- `nonconform/_internal/`: private internals, not user API.
+- `tests/unit/`, `tests/integration/`, `tests/e2e/`: layered validation.
+- `examples/`: user-facing executable usage.
+- `docs/` + `docs/source/`: canonical documentation.
+
+# API and Architecture Discipline
+
+- Keep boundaries explicit across detector interfacing, strategy, estimation, weighting, FDR, and metrics.
+- Avoid hidden coupling and dead abstractions.
+- Make API surface changes explicit and intentional.
+- Keep `_internal` out of user-facing docs/examples.
+
+# Documentation and Examples 
+
+- Behavioral/API changes require documentation updates.
+- User-facing changes require example updates.
+- Do not leave docs/examples stale relative to implementation.
+
+# Changelog Policy
+
+- Keep root `CHANGELOG.md` limited to release-relevant changes for package
+  users: public API, behavior, statistical claims, packaging/distribution,
+  dependencies/security, deprecations, and removals.
+- Do not add changelog entries for changes limited to docs, examples, tests,
+  CI, tooling, or repository maintenance unless they affect the released
+  package.
+- Follow Keep a Changelog categories, keep `[Unreleased]` first, avoid raw
+  git-log dumps, and use `Security` for vulnerability/security dependency fixes.
+
+# Definition of Done
+
+A task is done only when all are true:
+
+- Requested behavior is implemented end-to-end.
+- Validation completed with command-level evidence.
+- No unintended regressions detected.
+- Docs/examples/tests are aligned with the final behavior.
+- Scope remained constrained to the requested task.
+
+# Final Report Contract
+
+For substantial tasks, always include:
+
+- What changed.
+- Why this approach.
+- Validation performed (exact commands).
+- Intentional tradeoffs/regressions (if any).
+- Statistical-core change rationale in before/after form (required when applicable).
+- Residual risks or assumptions.
+
+---
+> Source: [OliverHennhoefer/nonconform](https://github.com/OliverHennhoefer/nonconform) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
