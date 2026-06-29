@@ -1,0 +1,147 @@
+{
+  "name": "ClawPhD",
+  "owner": "ZhihaoAIRobotic",
+  "repo": "ClawPhD",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/cron/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/pdf2md/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/pdf2md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/github/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/weather/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/page-gen/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/page-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/ai-review/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/ai-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/figure-ref/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/figure-ref/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/autofigure/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/autofigure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/diagram-gen/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/diagram-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/paper-scout/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/paper-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/research_lit/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/research_lit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/autoresearch/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/autoresearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/arxivterminal/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/arxivterminal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawPhD",
+      "path": "clawphd/skills/arxiv-doc-builder/SKILL.md",
+      "github_url": "https://github.com/ZhihaoAIRobotic/ClawPhD/tree/main/clawphd/skills/arxiv-doc-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ZhihaoAIRobotic/ClawPhD",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:44:12Z"
+}
