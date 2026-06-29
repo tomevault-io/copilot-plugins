@@ -7,11 +7,11 @@ Add captions to any video or song, in any language — 100% on your device, no c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ahkamboh/agent-caption](https://github.com/ahkamboh/agent-caption).
+Original source: `AGENTS.md` in [ahkamboh/agent-caption](https://github.com/ahkamboh/agent-caption).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
