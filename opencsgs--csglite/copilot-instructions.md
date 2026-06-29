@@ -1,11 +1,10 @@
-## python-compatibility
+## storage-temp-files
 
-> Python 3.9+ compatibility for Python code and dependencies
+> Canonical rule: `docs/agent-guidelines/storage.md`.
 
+# Storage And Temporary Files
 
-# Python Compatibility
-
-Canonical rule: `docs/agent-guidelines/python.md`.
+Canonical rule: `docs/agent-guidelines/storage.md`.
 
 Follow that file. Do not add duplicated rule text here; update the canonical
 guideline instead.
