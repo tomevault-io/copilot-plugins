@@ -78249,6 +78249,11 @@
       "description": "Command-line wallet and HTTP client for the Tempo blockchain, with built-in Machine Payments Protocol support."
     },
     {
+      "name": "khurrambhutto--noted",
+      "source": "./khurrambhutto--noted",
+      "description": "A minimal, distraction-free note-taking app "
+    },
+    {
       "name": "agents-squads--squads-cli",
       "source": "./agents-squads--squads-cli",
       "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents."
@@ -103659,6 +103664,11 @@
       "description": "inpdf"
     },
     {
+      "name": "theafh--ai-modules",
+      "source": "./theafh--ai-modules",
+      "description": "A collection of professional AI skills, packaged as Claude and Codex plugins and deployable globally across IDE vendors or per project."
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -111537,6 +111547,11 @@
       "name": "amirhosssein0--k8s-operator-lab",
       "source": "./amirhosssein0--k8s-operator-lab",
       "description": "Production-style Kubernetes Operator with Kubebuilder & Go \u2014 custom CRD, reconciliation loop, OwnerReference"
+    },
+    {
+      "name": "rimantasz--contextspy",
+      "source": "./rimantasz--contextspy",
+      "description": "Context profiler for LLMs and AI agents - used to introspect context contents and reduce token costs"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -124224,6 +124239,11 @@
       "description": "Indexed regex search over a codebase"
     },
     {
+      "name": "jeonbyeongmin--gh-orbit",
+      "source": "./jeonbyeongmin--gh-orbit",
+      "description": "A gh CLI extension for reviewing local git in the terminal \u2014 commit graph, diffs, branches, worktrees, and inline PR review/merge in one keyboard-driven TUI."
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -127407,6 +127427,11 @@
       "name": "nubbymong--claude-command-center",
       "source": "./nubbymong--claude-command-center",
       "description": "Mission control for Claude Code: run many sessions in parallel with multi-account isolation, transcript viewer, cost tracking, and memory dashboards. Windows + macOS (Apple Silicon)."
+    },
+    {
+      "name": "selimozten--elek",
+      "source": "./selimozten--elek",
+      "description": "Review-only AI code review for GitHub pull requests. Cross-check PRs with model-agnostic reviewers that can comment inline but cannot approve, merge, or close."
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -135444,6 +135469,11 @@
       "description": "Open-source American english TTS model. 6 voices and a high performance inference library for Apple Silicon."
     },
     {
+      "name": "steveseguin--b70-optimization-lab",
+      "source": "./steveseguin--b70-optimization-lab",
+      "description": "b70-optimization-lab"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -139852,6 +139882,16 @@
       "name": "systemforge05--teamcopilot",
       "source": "./systemforge05--teamcopilot",
       "description": "teamcopilot"
+    },
+    {
+      "name": "israel-dryer--bootstack",
+      "source": "./israel-dryer--bootstack",
+      "description": "End-to-end Python desktop framework. Declarative layout, reactive signals, semantic styling, 60+ widgets, and PyInstaller support out of the box."
+    },
+    {
+      "name": "ashaychangwani--imprint",
+      "source": "./ashaychangwani--imprint",
+      "description": "Record a browser workflow once, get a deterministic MCP tool your AI agent can call. Zero tokens at runtime. Postman for AI agents."
     },
     {
       "name": "vm--nila-code",
@@ -149689,6 +149729,26 @@
       "description": "A self-hosted photography portfolio powered by Immich. Turns your Immich albums into a beautiful, public-facing gallery."
     },
     {
+      "name": "pemiamos--geo-texture-system",
+      "source": "./pemiamos--geo-texture-system",
+      "description": "Geo-texture-system"
+    },
+    {
+      "name": "pemiamos--geo-texture-system",
+      "source": "./pemiamos--geo-texture-system",
+      "description": "Geo-texture-system"
+    },
+    {
+      "name": "benkapner--claude-code-basecamp",
+      "source": "./benkapner--claude-code-basecamp",
+      "description": "A meta-repository for Claude Code  users  that includes workspace setup (skills, commands, hooks) "
+    },
+    {
+      "name": "outsystems--outsystems-mcp",
+      "source": "./outsystems--outsystems-mcp",
+      "description": "Plugins for the OutSystems remote MCP."
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -156272,6 +156332,26 @@
       "name": "ilgizar-valiullin--mcp-web-hound",
       "source": "./ilgizar-valiullin--mcp-web-hound",
       "description": "Unified MCP search server with 8 providers, caching, reranking, and rate limits"
+    },
+    {
+      "name": "firatcand--roster",
+      "source": "./firatcand--roster",
+      "description": "A multi-agent Claude Code framework for running role-based agents across GTM, product, design, and ops \u2014 with plans, project substrate, and a reinforcement loop that compounds learning."
+    },
+    {
+      "name": "mohamedserhan--sts2-mod-manager",
+      "source": "./mohamedserhan--sts2-mod-manager",
+      "description": "A free, open-source mod manager for Slay the Spire 2 \u2014 install mods, manage profiles, and share modpacks with one click."
+    },
+    {
+      "name": "firatcand--roster",
+      "source": "./firatcand--roster",
+      "description": "A multi-agent Claude Code framework for running role-based agents across GTM, product, design, and ops \u2014 with plans, project substrate, and a reinforcement loop that compounds learning."
+    },
+    {
+      "name": "firatcand--roster",
+      "source": "./firatcand--roster",
+      "description": "A multi-agent Claude Code framework for running role-based agents across GTM, product, design, and ops \u2014 with plans, project substrate, and a reinforcement loop that compounds learning."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -163372,6 +163452,36 @@
       "name": "majiayu000--specrail",
       "source": "./majiayu000--specrail",
       "description": "Spec-first rails for agent-assisted repository workflows."
+    },
+    {
+      "name": "wajahat43--psxworth",
+      "source": "./wajahat43--psxworth",
+      "description": "PsxWorth is modern portfolio tracking app for PSX investors."
+    },
+    {
+      "name": "mindheadllc--mill-deterrent-pack",
+      "source": "./mindheadllc--mill-deterrent-pack",
+      "description": "Drop-in TOS and Privacy Policy clauses that make your company a harder target for serial-filing law firms (CIPA, ADA, BIPA, session-replay, pixel-tracking demand letters)."
+    },
+    {
+      "name": "jimjafar--the-librarian",
+      "source": "./jimjafar--the-librarian",
+      "description": "An agentic memory system implemented as an MCP server"
+    },
+    {
+      "name": "tientruongminh--rf-worldpose",
+      "source": "./tientruongminh--rf-worldpose",
+      "description": "RF-WorldPose production/research platform for WiFi CSI sensing with ESP32-S3, Helios GH200, MLOps, and edge/cloud inference"
+    },
+    {
+      "name": "jimjafar--the-librarian",
+      "source": "./jimjafar--the-librarian",
+      "description": "An agentic memory system implemented as an MCP server"
+    },
+    {
+      "name": "tientruongminh--rf-worldpose",
+      "source": "./tientruongminh--rf-worldpose",
+      "description": "RF-WorldPose production/research platform for WiFi CSI sensing with ESP32-S3, Helios GH200, MLOps, and edge/cloud inference"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -172022,6 +172132,41 @@
       "name": "mpieniak01--venom",
       "source": "./mpieniak01--venom",
       "description": "Venom is an experimental, local-first AI system designed to orchestrate agents, memory and decision logic in a controlled, auditable way."
+    },
+    {
+      "name": "aurora-nasa-1--cpplayer",
+      "source": "./aurora-nasa-1--cpplayer",
+      "description": "CPPlayer"
+    },
+    {
+      "name": "fewtarius--llama-ai",
+      "source": "./fewtarius--llama-ai",
+      "description": "A project repository for work on improving local LLMs on my personal AMD devices"
+    },
+    {
+      "name": "muneebhashone--auren-content",
+      "source": "./muneebhashone--auren-content",
+      "description": "Multi-LLM content strategy dashboard \u2014 research-grounded weekly social calendar for X, LinkedIn, and Reddit with personas, story bank, and performance feedback."
+    },
+    {
+      "name": "lmx0721--airclient",
+      "source": "./lmx0721--airclient",
+      "description": "AirClient is a free and open-source Minecraft hacked client built on the LiquidBounce legacy codebase."
+    },
+    {
+      "name": "akash-network--console-air",
+      "source": "./akash-network--console-air",
+      "description": "Akash Console Air \u2014 self-custody, crypto-native fork of Akash Console"
+    },
+    {
+      "name": "lmx0721--airclient",
+      "source": "./lmx0721--airclient",
+      "description": "AirClient is a free and open-source Minecraft hacked client built on the LiquidBounce legacy codebase."
+    },
+    {
+      "name": "lokesh-chimakurthi--rosetta-llm",
+      "source": "./lokesh-chimakurthi--rosetta-llm",
+      "description": "Multi-format LLM proxy \u2014 translates OpenAI Chat, OpenAI Responses & Anthropic Messages. Works as a Claude Code LLM gateway with full model picker support."
     },
     {
       "name": "lightninglabs--lnget",
@@ -184612,6 +184757,101 @@
       "name": "unicity-sphere--sphere",
       "source": "./unicity-sphere--sphere",
       "description": "A Web3 wallet and agent platform for the Unicity network - dual-layer crypto wallet, DMs, group chat, and marketplace."
+    },
+    {
+      "name": "nvidia--rumpelpod",
+      "source": "./nvidia--rumpelpod",
+      "description": "Orchestrator for LLM coding agents in Docker and Kubernetes pods"
+    },
+    {
+      "name": "nvidia--rumpelpod",
+      "source": "./nvidia--rumpelpod",
+      "description": "Orchestrator for LLM coding agents in Docker and Kubernetes pods"
+    },
+    {
+      "name": "k-arthur--opencode-harness",
+      "source": "./k-arthur--opencode-harness",
+      "description": "opencode-harness"
+    },
+    {
+      "name": "jeffreyon--trackam",
+      "source": "./jeffreyon--trackam",
+      "description": "Open source operator platform for logistics companies built on a shared trust layer for cross-operator custody transfer and verification."
+    },
+    {
+      "name": "k-arthur--opencode-harness",
+      "source": "./k-arthur--opencode-harness",
+      "description": "opencode-harness"
+    },
+    {
+      "name": "mart337i--odoo-skills",
+      "source": "./mart337i--odoo-skills",
+      "description": "Agent skills for Odoo addon development and OCA module migration"
+    },
+    {
+      "name": "k-arthur--opencode-harness",
+      "source": "./k-arthur--opencode-harness",
+      "description": "opencode-harness"
+    },
+    {
+      "name": "nisus74--pencil-skill",
+      "source": "./nisus74--pencil-skill",
+      "description": "AI coding skill plugin for pencil.dev (.pen) design files via the Pencil MCP server \u2014 works with Claude Code, Cursor, Codex, and Gemini CLI"
+    },
+    {
+      "name": "mart337i--odoo-skills",
+      "source": "./mart337i--odoo-skills",
+      "description": "Agent skills for Odoo addon development and OCA module migration"
+    },
+    {
+      "name": "fastestdevalive--vibe-station",
+      "source": "./fastestdevalive--vibe-station",
+      "description": "A hub for vibe-coding with all Agent CLIs in one place talking to each other and working towards same or different Goals"
+    },
+    {
+      "name": "nisus74--pencil-skill",
+      "source": "./nisus74--pencil-skill",
+      "description": "AI coding skill plugin for pencil.dev (.pen) design files via the Pencil MCP server \u2014 works with Claude Code, Cursor, Codex, and Gemini CLI"
+    },
+    {
+      "name": "happytonakai--paperagent",
+      "source": "./happytonakai--paperagent",
+      "description": "AI paper reading assistant"
+    },
+    {
+      "name": "happytonakai--paperagent",
+      "source": "./happytonakai--paperagent",
+      "description": "AI paper reading assistant"
+    },
+    {
+      "name": "rhydlewis--lpx-explorer",
+      "source": "./rhydlewis--lpx-explorer",
+      "description": "Read-only inspector for Logic Pro .logicx project bundles. Tauri 2 + React 19 + TS."
+    },
+    {
+      "name": "rhydlewis--lpx-explorer",
+      "source": "./rhydlewis--lpx-explorer",
+      "description": "Read-only inspector for Logic Pro .logicx project bundles. Tauri 2 + React 19 + TS."
+    },
+    {
+      "name": "miasin-labs--jfc",
+      "source": "./miasin-labs--jfc",
+      "description": "just freaking code"
+    },
+    {
+      "name": "wgt19861219--cardgameaxmol",
+      "source": "./wgt19861219--cardgameaxmol",
+      "description": "\u5361\u724c\u624b\u6e38 - Axmol\u5f15\u64ce\u5355\u673a\u7248\uff08\u539fcocos2d-x 2.x + PHP\u67b6\u6784\uff09"
+    },
+    {
+      "name": "miasin-labs--jfc",
+      "source": "./miasin-labs--jfc",
+      "description": "just freaking code"
+    },
+    {
+      "name": "woodchen-ink--komari-paper",
+      "source": "./woodchen-ink--komari-paper",
+      "description": "Editorial Paper theme for Komari Monitor \u2014 Fraunces serif + handwritten accents on warm paper"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -216229,6 +216469,16 @@
       "description": "commit-history"
     },
     {
+      "name": "suboss87--fdeops",
+      "source": "./suboss87--fdeops",
+      "description": "The discipline and methodology for Forward Deployed Engineers. 34 skills, deterministic CLI, self-writing engagement memory. Works with any AI coding tools."
+    },
+    {
+      "name": "jiemo9527--cfsdns",
+      "source": "./jiemo9527--cfsdns",
+      "description": "cfSdns"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -234042,6 +234292,21 @@
       "name": "liorshaya--claude-desktop-rtl",
       "source": "./liorshaya--claude-desktop-rtl",
       "description": "Smooth right-to-left (Hebrew/Arabic/Persian) for Claude Desktop & claude.ai | prose, tables & math - on macOS and Windows."
+    },
+    {
+      "name": "octember--stupify",
+      "source": "./octember--stupify",
+      "description": "anti-slop code reviewer"
+    },
+    {
+      "name": "oak-invest--kiso",
+      "source": "./oak-invest--kiso",
+      "description": "Kiso is a publishing engine that turns Open Knowledge Format (OKF) bundles into static websites for humans and AI agents."
+    },
+    {
+      "name": "oak-invest--kiso",
+      "source": "./oak-invest--kiso",
+      "description": "Kiso is a publishing engine that turns Open Knowledge Format (OKF) bundles into static websites for humans and AI agents."
     },
     {
       "name": "cheerhuan--save-your-token",
