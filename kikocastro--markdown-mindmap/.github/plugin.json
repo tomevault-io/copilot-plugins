@@ -1,0 +1,9 @@
+{
+  "name": "kikocastro--markdown-mindmap",
+  "displayName": "markdown-mindmap",
+  "description": "Obsidian plugin: configurable mind maps / leveled trees rendered live from your notes' frontmatter links. Each map is one mindmap code block.",
+  "version": "1.0.0",
+  "author": "kikocastro",
+  "homepage": "https://github.com/kikocastro/markdown-mindmap",
+  "skills": []
+}
