@@ -1,0 +1,153 @@
+{
+  "name": "token-free-openclaw",
+  "owner": "hyqibot",
+  "repo": "token-free-openclaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/docx/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/cron/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/news/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/news/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/himalaya/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/himalaya/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/guidance/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "fastapi/.agents/skills/fastapi/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/fastapi/.agents/skills/fastapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/exe_bundle/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/exe_bundle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/browser_cdp/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/browser_cdp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/file_reader/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/file_reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/channel_message/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/channel_message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/browser_visible/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/browser_visible/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/dingtalk_channel/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/dingtalk_channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/copaw_source_index/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/copaw_source_index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/native_window_control/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/native_window_control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "token-free-openclaw",
+      "path": "copaw/agents/skills/open_desktop_shortcuts/SKILL.md",
+      "github_url": "https://github.com/hyqibot/token-free-openclaw/tree/main/copaw/agents/skills/open_desktop_shortcuts/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hyqibot/token-free-openclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:47:38Z"
+}
