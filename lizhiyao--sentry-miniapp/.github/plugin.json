@@ -1,0 +1,14 @@
+{
+  "name": "lizhiyao--sentry-miniapp",
+  "displayName": "sentry-miniapp",
+  "description": "sentry-miniapp",
+  "version": "1.0.0",
+  "author": "lizhiyao",
+  "homepage": "https://github.com/lizhiyao/sentry-miniapp",
+  "skills": [
+    {
+      "name": "sentry-miniapp",
+      "description": ""
+    }
+  ]
+}
