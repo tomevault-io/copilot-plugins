@@ -1,0 +1,9 @@
+{
+  "name": "ike-li--claude-chat-mobile",
+  "displayName": "claude-chat-mobile",
+  "description": "Use your real local Claude CLI from your phone \u2014 same CLAUDE.md, MCP, skills & login. Self-hosted, locked by default.",
+  "version": "1.0.0",
+  "author": "Ike-li",
+  "homepage": "https://github.com/Ike-li/claude-chat-mobile",
+  "skills": []
+}
