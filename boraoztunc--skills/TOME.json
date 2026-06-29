@@ -1,0 +1,261 @@
+{
+  "name": "skills",
+  "owner": "boraoztunc",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "gsap/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/gsap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "waapi/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/waapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "three/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/three/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "ogilvy/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/ogilvy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "lottie/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/lottie/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "typegpu/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/typegpu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "animejs/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/animejs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "page-cro/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/page-cro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "tailwind/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/tailwind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "seo-audit/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/seo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "stop-slop/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/stop-slop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "impeccable/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "copywriting/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "hyperframes/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "copy-editing/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/copy-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "schema-markup/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/schema-markup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "css-animations/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/css-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "emil-design-eng/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/emil-design-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "hyperframes-cli/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/hyperframes-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "frontend-design/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "content-strategy/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/content-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "programmatic-seo/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/programmatic-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "hyperframes-media/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/hyperframes-media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "analytics-tracking/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/analytics-tracking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "contribute-catalog/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/contribute-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "adversarial-review/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/adversarial-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "hyperframes-registry/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/hyperframes-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "app-store-screenshots/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/app-store-screenshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "website-to-hyperframes/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/website-to-hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "competitor-alternatives/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/competitor-alternatives/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "remotion-to-hyperframes/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/remotion-to-hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "make-interfaces-feel-better/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/make-interfaces-feel-better/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "conductor-rewrite-performance/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/conductor-rewrite-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "linear-local-first-architecture/SKILL.md",
+      "github_url": "https://github.com/boraoztunc/skills/tree/main/linear-local-first-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/boraoztunc/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:48:40Z"
+}
