@@ -4,7 +4,7 @@
   "repo": "rf-worldpose",
   "description": "RF-WorldPose production/research platform for WiFi CSI sensing with ESP32-S3, Helios GH200, MLOps, and edge/cloud inference",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tientruongminh/rf-worldpose",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T00:42:22Z"
+  "distributed_at": "2026-06-29T00:44:45Z"
 }
