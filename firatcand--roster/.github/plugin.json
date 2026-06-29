@@ -1,0 +1,9 @@
+{
+  "name": "firatcand--roster",
+  "displayName": "roster",
+  "description": "A multi-agent Claude Code framework for running role-based agents across GTM, product, design, and ops \u2014 with plans, project substrate, and a reinforcement loop that compounds learning.",
+  "version": "1.0.0",
+  "author": "firatcand",
+  "homepage": "https://github.com/firatcand/roster",
+  "skills": []
+}
