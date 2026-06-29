@@ -1,0 +1,75 @@
+{
+  "name": "react-turnstile",
+  "owner": "marsidev",
+  "repo": "react-turnstile",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-turnstile",
+      "path": "packages/lib/skills/nextjs-ssr/SKILL.md",
+      "github_url": "https://github.com/marsidev/react-turnstile/tree/main/packages/lib/skills/nextjs-ssr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-turnstile",
+      "path": "packages/lib/skills/basic-setup/SKILL.md",
+      "github_url": "https://github.com/marsidev/react-turnstile/tree/main/packages/lib/skills/basic-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-turnstile",
+      "path": "packages/lib/skills/token-lifecycle/SKILL.md",
+      "github_url": "https://github.com/marsidev/react-turnstile/tree/main/packages/lib/skills/token-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-turnstile",
+      "path": "packages/lib/skills/multiple-widgets/SKILL.md",
+      "github_url": "https://github.com/marsidev/react-turnstile/tree/main/packages/lib/skills/multiple-widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-turnstile",
+      "path": "packages/lib/skills/widget-customization/SKILL.md",
+      "github_url": "https://github.com/marsidev/react-turnstile/tree/main/packages/lib/skills/widget-customization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marsidev/react-turnstile",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:34:50Z"
+}
