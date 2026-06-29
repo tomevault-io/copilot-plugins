@@ -16874,6 +16874,11 @@
       "description": "Unlock 650+ MCP servers tools in your favorite agentic framework."
     },
     {
+      "name": "orionstarai--easycode",
+      "source": "./orionstarai--easycode",
+      "description": "Easy Code (formerly DeepV Code) \u2014 A highly customizable AI coding assistant compatible with all major AI models. The perfect alternative to Claude Code and Codex, offering deep code analysis, intellig"
+    },
+    {
       "name": "elc0mpa--aws-doctor",
       "source": "./elc0mpa--aws-doctor",
       "description": "Powerful open-source CLI to audit security, costs, and best practices in AWS. \ud83e\ude7a \u2601\ufe0f"
@@ -44887,6 +44892,11 @@
       "name": "qnmlgbd250--weather-none",
       "source": "./qnmlgbd250--weather-none",
       "description": "\u57fa\u4e8e\u5f69\u4e91\u5929\u6c14Api\u7684\u5b89\u5353\u5929\u6c14APP\u5e94\u7528\u7a0b\u5e8f\uff0c\u65e0\u5e7f\u544a\uff0c\u754c\u9762\u7b80\u6d01\u6613\u7528"
+    },
+    {
+      "name": "ahpxex--open-dashboard",
+      "source": "./ahpxex--open-dashboard",
+      "description": "A skill catalogue of 36 copy-ready admin UI shapes an AI agent installs and composes into a real back-office. Built on TanStack Start, Drizzle + better-auth, shadcn + Tailwind v4."
     },
     {
       "name": "aws-samples--sample-kolya-br-proxy",
