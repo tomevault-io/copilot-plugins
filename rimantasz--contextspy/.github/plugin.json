@@ -1,0 +1,9 @@
+{
+  "name": "rimantasz--contextspy",
+  "displayName": "contextspy",
+  "description": "Context profiler for LLMs and AI agents - used to introspect context contents and reduce token costs",
+  "version": "1.0.0",
+  "author": "RimantasZ",
+  "homepage": "https://github.com/RimantasZ/contextspy",
+  "skills": []
+}
