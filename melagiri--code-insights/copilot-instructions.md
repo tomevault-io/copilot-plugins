@@ -1,178 +1,257 @@
 ## code-insights
 
-> > **Primary Claude Code workspace.** All sessions run from this repo root.
+> > Agent coordination, development ceremony, and code review processes. Linked from [CLAUDE.md](../CLAUDE.md).
 
-# CLAUDE.md — Code Insights
+# Multi-Agent Orchestration — Code Insights
 
-> **Primary Claude Code workspace.** All sessions run from this repo root.
-> See `docs/` for detailed documentation. This file is the quick reference.
-
----
-
-## Project Overview
-
-**Code Insights** is an open-source CLI tool and embedded dashboard for analyzing AI coding sessions. It parses session history from multiple AI coding tools (Claude Code, Cursor, Codex CLI, Copilot CLI, VS Code Copilot Chat), stores structured data in a local SQLite database, and provides both terminal analytics and a browser-based dashboard with LLM-powered insights.
-
-**Architecture:** Single-repo pnpm workspace monorepo with three packages: CLI, dashboard (Vite + React SPA), and server (Hono API).
-
-**Privacy model:** Fully local-first. No cloud accounts, no sign-ups, no data leaves the machine. SQLite database at `~/.code-insights/data.db`.
+> Agent coordination, development ceremony, and code review processes. Linked from [CLAUDE.md](../CLAUDE.md).
 
 ---
 
-## Development Philosophy (CRITICAL)
+## Agent Suite
 
-**No MVPs, no prototypes, no half-measures.** This product is LIVE with real users. Every feature ships as a full, complete implementation. We do not build "minimum viable" anything — we build the real thing, iterate based on feedback, and revert or update if it doesn't work out.
+| Agent | Model | Domain |
+|-------|-------|--------|
+| `engineer` | sonnet | Implementation across CLI, dashboard, and server — features, fixes, tests |
+| `technical-architect` | opus | Architecture, type alignment, SQLite schema, code review, LLD standards |
+| `ux-engineer` | opus | UX design (wireframes, flows, specs) and UI implementation (React/Tailwind/shadcn) |
+| `product-manager` | sonnet | Task tracking (GitHub Issues), sprint planning, ceremony coordination |
+| `journey-chronicler` | opus | Capture learning moments, breakthroughs, course corrections |
+| `devtools-cofounder` | opus | DevTools strategy, DX critique, competitive positioning (on-demand) |
+| `llm-expert` | opus | LLM integration review, prompt design, token optimization, model selection, cost analysis |
 
-This principle applies to planning, designing, AND implementation:
-- **Planning:** Don't scope down to "MVP facet set" vs "ideal set." Design the complete solution.
-- **Designing:** Don't propose phased rollouts with "ship phase 1, add phase 2 later." Design it right the first time.
-- **Implementing:** Don't cut corners with "we can add this later." Build it now or explicitly decide not to build it.
-
----
-
-## Configuration Hierarchy
-
-| Priority | Source | Scope |
-|----------|--------|-------|
-| 1 (Highest) | This project CLAUDE.md | Code Insights workflows, ceremony, agents |
-| 2 | Session Mode | Educational context, learning mode |
-| 3 | Global ~/.claude/CLAUDE.md | General best practices |
-
-**Key overrides from global config:**
-
-| Behavior | Global Default | Code Insights Override |
-|----------|---------------|----------------------|
-| Planning | Ask first | Sub-agents autonomous in their domain |
-| File Creation | Ask first | Agents create files autonomously in their domain |
-| Review Process | Single reviewer | Triple-layer (TA Insider + Outsider + Synthesis) |
-| PR Merges | Normal | **BLOCKED** — only founder merges |
+Agent definitions live in `.claude/agents/`.
 
 ---
 
-## Documentation Index
+## Orchestrator Role (Main Claude)
 
-| Document | Contents |
-|----------|----------|
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Repository structure, data flow, provider architecture, SQLite schema, type system, API routes, dashboard pages |
-| [docs/AGENTS.md](docs/AGENTS.md) | Agent suite, orchestrator role, development ceremony, team workflow, triple-layer code review, document ownership |
-| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Branch discipline, hookify rules, pre-action verification, version bump, configuration, dev notes |
-| [docs/PRODUCT.md](docs/PRODUCT.md) | Product description, features, source tools, insight categories, export, reflect/patterns |
-| [docs/VISION.md](docs/VISION.md) | Philosophy, core beliefs, phase history, non-goals |
-| [docs/ROADMAP.md](docs/ROADMAP.md) | Phase milestones, version table, upcoming work |
+**You CAN:**
+- Edit `CLAUDE.md` directly (you own it)
+- Delegate implementation to the appropriate agent
+- Run agents in parallel IF no dependencies exist
+- Make final decisions when agents disagree
+
+**You MUST NOT:**
+- Implement code directly when an agent should do it
+- Skip the ceremony steps
+- Merge PRs (only the founder does this)
+
+### Unresponsive Agent Protocol
+
+1. **Retry once** — attempt one more communication
+2. **Terminate if still unresponsive** — do not wait indefinitely
+3. **Re-spawn or take over** — either spawn a fresh agent or handle the task directly
+4. **Log the failure** — note which agent failed and at what step
+
+**Do NOT** spawn duplicate agents alongside a stale one. Terminate first, then replace.
+
+### Pre-Spawn Dependency Check (MANDATORY)
+
+Before parallelizing agents, verify:
+
+1. List each agent's **inputs** — What does it need?
+2. List each agent's **outputs** — What does it produce?
+3. Map **dependencies** — Does B need A's output?
+4. Decide: **Sequential or Parallel**
+
+**Safe to Parallelize:** Independent domains, read-only research, CLI bug fix + Dashboard UI fix (if no shared state)
+
+**Must Run Sequentially:** TA (type decision) -> Engineer (implement types), TA (schema decision) -> Engineer (implement), any change touching `types.ts`
 
 ---
 
-## Supported Source Tools
+## Development Ceremony (MANDATORY)
 
-| Source Tool | Provider ID | Provider Class | Data Format | Location |
-|-------------|-------------|---------------|-------------|----------|
-| Claude Code | `claude-code` | `ClaudeCodeProvider` | JSONL | `~/.claude/projects/**/*.jsonl` |
-| Cursor | `cursor` | `CursorProvider` | SQLite (state.vscdb) | Platform-specific |
-| Codex CLI | `codex-cli` | `CodexProvider` | JSONL (rollout files) | `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl` |
-| Copilot CLI | `copilot-cli` | `CopilotCliProvider` | JSONL (events) | `~/.copilot/session-state/{id}/events.jsonl` |
-| VS Code Copilot Chat | `copilot` | `CopilotProvider` | JSON | Platform-specific Copilot Chat storage |
+All feature work follows this 12-step ceremony:
 
----
+```
+Step 1:   Founder assigns task or identifies work
+Step 2:   Orchestrator identifies the right agent(s)
+Step 3:   Dev agent reviews context (source files, types, existing patterns)
+Step 4:   Dev agent clarifies with TA (if schema impact)
+Step 5:   TA reviews approach and gives approval
+Step 6:   Consensus checkpoint (TA + dev agent agree on approach)
+Step 7:   Dev agent: git prechecks + create feature branch
+Step 8:   Dev agent: implement, commit in logical chunks
+Step 9:   Dev agent: pre-PR verification (build, test, functional check, dep audit)
+Step 10:  Pre-review gates (evidence in PR description verified)
+Step 11:  Triple-layer code review (loops until 0 FIX NOW items)
+Step 12:  Founder merges PR
+```
 
-## Commands
+### Step-by-Step Ownership
+
+| Step | Owner | Gate Criteria |
+|------|-------|---------------|
+| 1-2 | Orchestrator | Correct agent identified |
+| 3 | Dev agent | Files reviewed, understanding confirmed |
+| 4 | Dev agent -> TA | Questions resolved, no assumptions |
+| 5 | TA | Explicit approval or changes requested |
+| 6 | TA + Dev agent | Both confirm ready to implement |
+| 7 | Dev agent | Clean repo, feature branch created |
+| 8 | Dev agent | Code implemented |
+| 9 | Dev agent | Build passes, tests pass, functional verification (screenshots, artifacts, curl) |
+| 10 | Orchestrator | PR description has verification evidence, dep audit (if applicable) |
+| 11 | TA + Outsider + LLM Expert (if applicable) | All FIX NOW items resolved (0 remaining) |
+| 12 | **Founder only** | PR merged to main |
+
+### When to Engage TA (Steps 4-5)
+
+**Required:** Adding/modifying SQLite columns or tables, changing type definitions in `types.ts`, modifying data contract, changing config format, adding new server API endpoints
+
+**Not required:** New command flags, parser improvements, terminal UI changes, dashboard component styling, LLM provider additions
+
+### When to Engage LLM Expert
+
+**Required:** Adding/modifying prompt templates (`server/src/llm/`), new LLM-powered features, changing model assignments or token budgets, SSE streaming or structured output schema changes, debugging inconsistent LLM output, cost optimization
+
+**Not required:** CLI commands without LLM, dashboard UI (unless LLM rendering logic), source tool providers, SQLite schema (unless for LLM results storage)
+
+**Proactive dispatch:** Auto-invoke `llm-expert` when conversation touches prompt design, token optimization, model selection, or when engineer writes new code in `server/src/llm/`.
+
+### CI Simulation Gate (Step 8 — BLOCKING)
 
 ```bash
-cd cli
-pnpm install          # Install dependencies
-pnpm dev              # Watch mode (tsc --watch)
-pnpm build            # Compile TypeScript to dist/
+pnpm build    # Must pass across the workspace
+```
 
-# After building, link for local testing:
-npm link
-code-insights                          # Sync + open dashboard (zero-config)
-code-insights init                     # Optional: customize settings
-code-insights sync                     # Sync sessions to SQLite
-code-insights sync --force             # Re-sync all sessions
-code-insights sync --dry-run           # Preview without changes
-code-insights sync -q                  # Quiet mode (for hook usage)
-code-insights sync --source cursor     # Sync only from a specific tool
-code-insights status                   # Show sync statistics
-code-insights open                     # Open dashboard in browser (no server start)
-code-insights dashboard                # Start server + open dashboard (auto-syncs first)
-code-insights dashboard --no-sync      # Start server + open dashboard without syncing
-code-insights install-hook             # Auto-sync + auto-analysis on session end
-code-insights install-hook --sync-only # Install sync hook only (no analysis)
-code-insights uninstall-hook           # Remove all Code Insights hooks
-code-insights config                   # Show current configuration
-code-insights config llm               # Configure LLM provider interactively
-code-insights reset --confirm          # Delete all local data
-code-insights reflect                  # Cross-session LLM synthesis
-code-insights reflect --week 2026-W11  # Synthesis for a specific ISO week
-code-insights reflect backfill         # Backfill facets for legacy sessions
-code-insights sync prune               # Soft-delete trivial sessions (≤2 messages)
-code-insights telemetry                # Show telemetry status
-code-insights telemetry disable        # Opt out of anonymous telemetry
-code-insights telemetry enable         # Opt back in
+**If ANY check fails:** Fix before creating PR. Never rely on CI.
 
-# Insights — session analysis
-code-insights insights <session_id>              # Analyze using configured LLM
-code-insights insights <session_id> --native     # Analyze using claude -p (no API key needed)
-code-insights insights --hook --native -q        # Hook mode (reads stdin, used by SessionEnd hook)
-code-insights insights check                     # Check for unanalyzed sessions (last 7 days)
+---
 
-# Stats — terminal analytics
-code-insights stats                    # Dashboard overview (last 7 days)
-code-insights stats cost               # Cost breakdown by project and model
-code-insights stats projects           # Per-project detail cards
-code-insights stats today              # Today's sessions with details
-code-insights stats models             # Model usage distribution
-code-insights stats patterns           # Cross-session patterns summary
+## Dynamic Team Workflow
 
-# Stats shared flags:
-#   --period 7d|30d|90d|all   Time range (default: 7d)
-#   --project <name>     Scope to a specific project
-#   --source <tool>      Filter by source tool
-#   --no-sync            Skip auto-sync before showing stats
+For non-trivial features, use `/start-feature` to spin up a coordinated agent team.
+
+| Command | Purpose | When to Use |
+|---------|---------|-------------|
+| `/start-feature <description>` | Creates worktree, team, and spawns PM to lead ceremony | 3+ files or architectural decisions |
+| `/start-review <PR#>` | Triple-layer code review (TA insider + outsider + synthesis) | After dev creates a PR |
+
+### Team Structure
+
+```
+/start-feature "add demo mode onboarding"
+    |
+    +-- Orchestrator: Creates worktree + team, spawns PM
+    +-- PM (team lead): Scopes feature, creates task graph, spawns agents
+    |     +-- TA: Reviews architecture alignment (skipped for internal changes)
+    |     +-- LLM Expert: Reviews prompt architecture (skipped if no LLM impact)
+    |     +-- Dev (engineer): Implements in worktree, creates PR
+    +-- /start-review (triggered by PM after PR created)
+          +-- TA (insider) + Outsider + LLM Expert (conditional) + Wild card (if needed)
+          +-- TA synthesis -> Consolidated fix list -> Dev implements fixes
+```
+
+### When to Use Teams vs Direct Delegation
+
+| Scenario | Approach |
+|----------|----------|
+| Multi-file feature, architectural decisions | `/start-feature` (full ceremony) |
+| Internal change, clear scope, <3 files | Direct `engineer` dispatch |
+| Bug fix with clear root cause | Direct `engineer` dispatch |
+| Code review for any PR | `/start-review` |
+
+### Worktree Naming
+
+```bash
+../code-insights-<feature-slug>/    # e.g., ../code-insights-add-demo-mode-onboarding/
 ```
 
 ---
 
-## Tech Stack
+## Triple-Layer Code Review (MANDATORY)
 
-- **Runtime**: Node.js (ES2022, ES Modules)
-- **CLI Framework**: Commander.js
-- **Database**: SQLite (better-sqlite3) — WAL mode, local at `~/.code-insights/data.db`, Schema V9
-- **Dashboard**: Vite + React 19 SPA
-- **Server**: Hono
-- **UI**: Tailwind CSS 4 + shadcn/ui (New York), Lucide icons
-- **Server State**: React Query (TanStack Query)
-- **Charts**: Recharts 3
-- **LLM**: OpenAI, Anthropic, Gemini, Ollama (multi-provider abstraction)
-- **Telemetry**: PostHog (opt-out model, enabled by default)
-- **Terminal UI**: Chalk (colors), Ora (spinners), Inquirer (prompts)
-- **Utilities**: date-fns
-- **Package Manager**: pnpm (workspace monorepo)
-- **npm Package**: `@code-insights/cli`
-- **Binary**: `code-insights`
+Reviews loop until all blocking issues are resolved. This is NOT a single-pass process.
+
+### Pre-Review Gates (Before Reviewers Launch)
+
+| Gate | Trigger | Required Evidence |
+|------|---------|-------------------|
+| **New Dependency Audit** | `package.json` changed | Research library's GitHub issues for known limitations; document in PR |
+| **Functional Verification** | All PRs | Build passes, tests pass; UI features: screenshot; output features: artifact proof |
+| **Visual Output Check** | PR produces images/PDFs/exports | Actual generated artifact attached to PR description |
+
+If any gate fails, the review is blocked — PR goes back to dev for the missing evidence.
+
+### Phase 1: Parallel Independent Reviews (No Cross-Contamination)
+
+| Role | Reviewer | Focus |
+|------|----------|-------|
+| **INSIDER** | `technical-architect` | Type alignment, schema contract, architecture patterns, dep audit review |
+| **DOMAIN SPECIALIST(S)** | 1-2 dynamic specialists via `code-review:code-review` | Domain-deep review + general engineering baseline (see `REVIEW-SPECIALISTS.md`) |
+| **LLM EXPERT** | `llm-expert` *(conditional)* | Prompt quality, token efficiency, model selection, output consistency |
+
+**Domain specialists** are selected dynamically based on PR content. See `docs/REVIEW-SPECIALISTS.md` for the full registry (SQL/Database, React/Frontend, Node/CLI, Parser/Provider) and selection algorithm.
+
+**LLM Expert invoked when PR touches:** `server/src/llm/`, LLM API calls, structured output schemas, SSE streaming, token budgets, or model selection logic.
+
+**All specialists include the Runtime Verification Rule:** when runtime behavior isn't self-evident from reading (escaping, encoding, regex, serialization, type coercion, async timing), flag as VERIFY AT RUNTIME instead of reasoning about correctness.
+
+**CRITICAL:** Phase 1 reviews run in parallel. No reviewer reads another's comments during initial review.
+
+### Phase 2: TA Synthesis
+
+TA reads all review comments, does 2nd pass, creates consolidated list:
+
+```markdown
+## TA Synthesis: [PR Title] — Round N
+**FIX NOW:** 1. [blocking issue and fix]
+**VERIFY AT RUNTIME:** 1. [item] - Required evidence: [what dev must run and paste]
+**NOT APPLICABLE:** 1. [comment] - Reason: [justification]
+**SUGGESTIONS:** 1. [non-blocking recommendation]
+**Final Verdict:** PASS (ready for merge) / CHANGES REQUIRED (Round N+1 needed)
+```
+
+**VERIFY AT RUNTIME items cannot be dismissed.** TA synthesis MUST NOT mark these as NOT APPLICABLE — they require runtime evidence from the dev.
+
+### Phase 3: Dev Implements Fixes + Post-Fix Re-Verification
+
+Dev receives consolidated list, implements fixes, then:
+1. Re-runs ALL functional verification commands from the original PR body
+2. Pastes updated verification output as a PR comment
+3. For VERIFY AT RUNTIME items, pastes the specific runtime output requested
+4. Fixes without re-verification evidence are not considered complete
+
+### Phase 4: Review Loop (Rounds 2+)
+
+If FIX NOW or VERIFY AT RUNTIME items exist after synthesis:
+1. Dev fixes, re-verifies, and pushes
+2. Targeted re-review: only reviewers whose areas had actionable items
+3. TA re-synthesizes
+4. Repeat until 0 FIX NOW and 0 VERIFY AT RUNTIME items, or max 4 rounds (then escalate to founder)
+
+**Round 2+ is targeted** — don't re-run all reviewers for a one-line fix.
+
+### CRITICAL: Agents NEVER Merge PRs
+
+```
+FORBIDDEN: gh pr merge (or any merge command)
+CORRECT: Report "PR #XX is ready for merge" and STOP
+```
+
+Enforced by hookify rule `block-pr-merge`. **Only the founder merges PRs.**
 
 ---
 
-## Key Patterns
+## Document Ownership & Delegation
 
-### Session Character Classification
-Sessions are classified into one of 7 types based on tool call patterns:
-- `deep_focus`, `bug_hunt`, `feature_build`, `exploration`, `refactor`, `learning`, `quick_task`
+Orchestrator MUST NOT directly edit documents it doesn't own. Always delegate.
 
-### Title Generation
-Multi-tier fallback: Claude summary -> user message (scored) -> character-based -> generic fallback.
+| Document Type | Owner Agent | Action |
+|---------------|------------|--------|
+| `CLAUDE.md` | **Orchestrator** | Direct edit allowed |
+| CLI code (`cli/src/`) | `engineer` | Delegate |
+| Dashboard code (`dashboard/src/`) | `engineer` | Delegate |
+| Server code (`server/src/`) | `engineer` | Delegate |
+| Type alignment decisions | `technical-architect` | Delegate |
+| Product docs (`docs/`) | `technical-architect` | Delegate |
+| Task tracking, sprints | `product-manager` | Delegate |
+| PR creation | Dev agent (whoever implemented) | Agent creates PR |
 
-### Friction & Pattern Taxonomy
-- **9 friction categories:** `wrong-approach`, `knowledge-gap`, `stale-assumptions`, `incomplete-requirements`, `context-loss`, `scope-creep`, `repeated-mistakes`, `documentation-gap`, `tooling-limitation`
-- **8 effective pattern categories:** `structured-planning`, `incremental-implementation`, `verification-workflow`, `systematic-debugging`, `self-correction`, `context-gathering`, `domain-expertise`, `effective-tooling`
-- **Attribution model:** Each friction point carries `attribution: 'user-actionable' | 'ai-capability' | 'environmental'`
-
-### Multi-Source Support
-The CLI and dashboard support sessions from multiple AI coding tools via the `sourceTool` field.
-
-**Supported sources:** `'claude-code'` (default), `'cursor'`, `'codex-cli'`, `'copilot-cli'`, `'copilot'`
-
-**Adding a new source tool:** See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the 6-step provider guide.
+**Why delegation matters:** Each agent has git hygiene rules — they commit AND push immediately. Orchestrator editing code directly bypasses these safeguards.
 
 ---
 > Source: [melagiri/code-insights](https://github.com/melagiri/code-insights) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
