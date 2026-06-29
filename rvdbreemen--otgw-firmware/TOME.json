@@ -1,0 +1,177 @@
+{
+  "name": "OTGW-firmware",
+  "owner": "rvdbreemen",
+  "repo": "OTGW-firmware",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OTGW-firmware",
+      "path": ".claude/skills/flash/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.claude/skills/flash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".claude/skills/update-docs/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.claude/skills/update-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".claude/skills/beta-prerelease/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.claude/skills/beta-prerelease/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/adr/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/adr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/docx/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/refactor/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/canvas-design/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/canvas-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/theme-factory/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/theme-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/internal-comms/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/internal-comms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/template-skill/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/template-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/doc-coauthoring/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/doc-coauthoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/algorithmic-art/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/algorithmic-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/brand-guidelines/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/brand-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OTGW-firmware",
+      "path": ".github/skills/web-artifacts-builder/SKILL.md",
+      "github_url": "https://github.com/rvdbreemen/OTGW-firmware/tree/main/.github/skills/web-artifacts-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rvdbreemen/OTGW-firmware",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:36:22Z"
+}
