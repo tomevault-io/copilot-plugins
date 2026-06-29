@@ -1,0 +1,99 @@
+{
+  "name": "Khaos-Brain",
+  "owner": "liuyingxuvka",
+  "repo": "Khaos-Brain",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/kb-dream-pass/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/kb-dream-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/kb-architect-pass/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/kb-architect-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/local-kb-retrieve/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/local-kb-retrieve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/khaos-brain-update/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/khaos-brain-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/khaos-brain-open-ui/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/khaos-brain-open-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/organization-review/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/organization-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/kb-sleep-maintenance/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/kb-sleep-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/kb-organization-contribute/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/kb-organization-contribute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khaos-Brain",
+      "path": ".agents/skills/kb-organization-maintenance/SKILL.md",
+      "github_url": "https://github.com/liuyingxuvka/Khaos-Brain/tree/main/.agents/skills/kb-organization-maintenance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/liuyingxuvka/Khaos-Brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:42:41Z"
+}
