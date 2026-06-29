@@ -1,0 +1,44 @@
+{
+  "name": "mill-deterrent-pack",
+  "owner": "mindheadllc",
+  "repo": "mill-deterrent-pack",
+  "description": "Drop-in TOS and Privacy Policy clauses that make your company a harder target for serial-filing law firms (CIPA, ADA, BIPA, session-replay, pixel-tracking demand letters).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mindheadllc/mill-deterrent-pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T00:40:24Z"
+}
