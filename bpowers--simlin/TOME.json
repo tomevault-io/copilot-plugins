@@ -1,0 +1,273 @@
+{
+  "name": "simlin",
+  "owner": "bpowers",
+  "repo": "simlin",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-adapt/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-adapt/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-audit/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-audit/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-polish/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-polish/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-bolder/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-bolder/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-harden/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-harden/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-onboard/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-onboard/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-delight/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-delight/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-animate/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-animate/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-clarify/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-clarify/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-distill/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-distill/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-quieter/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-quieter/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-extract/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-extract/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-critique/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-critique/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-colorize/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-colorize/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-optimize/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-optimize/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-normalize/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-normalize/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/address-feedback/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/address-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/address-feedback/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/address-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-frontend-design/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-frontend-design/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".claude/skills/i-teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.claude/skills/i-teach-impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simlin",
+      "path": ".agents/skills/i-teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/bpowers/simlin/tree/main/.agents/skills/i-teach-impeccable/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bpowers/simlin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T22:36:39Z"
+}
