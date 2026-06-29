@@ -1,0 +1,9 @@
+{
+  "name": "fewtarius--llama-ai",
+  "displayName": "llama-ai",
+  "description": "A project repository for work on improving local LLMs on my personal AMD devices",
+  "version": "1.0.0",
+  "author": "fewtarius",
+  "homepage": "https://github.com/fewtarius/llama-ai",
+  "skills": []
+}
