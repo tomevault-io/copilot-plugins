@@ -3,8 +3,8 @@
   "owner": "StChiotis",
   "repo": "Library-First-Engineering",
   "description": "The Enterprise Architecture Protocol for the Agentic Age. ",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,153 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-tdd/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-boot/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-boot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-scout/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-to-prd/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-to-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".claude/skills/lfe-compete/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.claude/skills/lfe-compete/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".claude/skills/lfe-session/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.claude/skills/lfe-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-hygiene/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-hygiene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-builder/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-diagnose/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-zoom-out/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-zoom-out/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-dep-audit/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-dep-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-inspector/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-inspector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-architect/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-to-issues/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-to-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-archivist/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-archivist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-perf-check/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-perf-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-whats-next/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-whats-next/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-plan-critique/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-plan-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-security-check/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-security-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-extract-domain/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-extract-domain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-mutation-verify/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-mutation-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-complexity-check/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-complexity-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Library-First-Engineering",
+      "path": ".agents/skills/lfe-improve-architecture/SKILL.md",
+      "github_url": "https://github.com/StChiotis/Library-First-Engineering/tree/main/.agents/skills/lfe-improve-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/StChiotis/Library-First-Engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T02:51:48Z"
+  "distributed_at": "2026-06-29T22:31:08Z"
 }
