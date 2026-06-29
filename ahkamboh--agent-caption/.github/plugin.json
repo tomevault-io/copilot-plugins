@@ -1,0 +1,9 @@
+{
+  "name": "ahkamboh--agent-caption",
+  "displayName": "agent-caption",
+  "description": "Add captions to any video or song, in any language \u2014 100% on your device, no cloud. Hinglish-first. Free, open-source, and works with any AI agent.",
+  "version": "1.0.0",
+  "author": "ahkamboh",
+  "homepage": "https://github.com/ahkamboh/agent-caption",
+  "skills": []
+}
