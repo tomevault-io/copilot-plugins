@@ -1,0 +1,63 @@
+{
+  "name": "tactus",
+  "owner": "Castor6",
+  "repo": "tactus",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tactus",
+      "path": ".agents/skills/design-style/SKILL.md",
+      "github_url": "https://github.com/Castor6/tactus/tree/main/.agents/skills/design-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tactus",
+      "path": ".claude/skills/design-style/SKILL.md",
+      "github_url": "https://github.com/Castor6/tactus/tree/main/.claude/skills/design-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tactus",
+      "path": "resources/tactus_skills/fetch-linuxdo-post/SKILL.md",
+      "github_url": "https://github.com/Castor6/tactus/tree/main/resources/tactus_skills/fetch-linuxdo-post/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Castor6/tactus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:34:24Z"
+}
