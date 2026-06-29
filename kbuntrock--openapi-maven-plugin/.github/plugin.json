@@ -1,0 +1,9 @@
+{
+  "name": "kbuntrock--openapi-maven-plugin",
+  "displayName": "openapi-maven-plugin",
+  "description": "openapi-maven-plugin",
+  "version": "1.0.0",
+  "author": "kbuntrock",
+  "homepage": "https://github.com/kbuntrock/openapi-maven-plugin",
+  "skills": []
+}
