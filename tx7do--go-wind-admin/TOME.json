@@ -1,0 +1,69 @@
+{
+  "name": "go-wind-admin",
+  "owner": "tx7do",
+  "repo": "go-wind-admin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "go-wind-admin",
+      "path": "backend/.qoder/skills/go-wind-admin-guide/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-admin/tree/main/backend/.qoder/skills/go-wind-admin-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-wind-admin",
+      "path": "frontend/admin/vue-vben/.qoder/skills/scaffold-dev-guide/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-admin/tree/main/frontend/admin/vue-vben/.qoder/skills/scaffold-dev-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-wind-admin",
+      "path": "frontend/admin/vue-element/.qoder/skills/gowind-admin-dev/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-admin/tree/main/frontend/admin/vue-element/.qoder/skills/gowind-admin-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-wind-admin",
+      "path": "frontend/admin/react/.qoder/skills/go-wind-admin-react-guide/SKILL.md",
+      "github_url": "https://github.com/tx7do/go-wind-admin/tree/main/frontend/admin/react/.qoder/skills/go-wind-admin-react-guide/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tx7do/go-wind-admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:40:33Z"
+}
