@@ -1,0 +1,189 @@
+{
+  "name": "TeachingDataScience",
+  "owner": "yogeshhk",
+  "repo": "TeachingDataScience",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/qa/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/to-prd/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/to-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/opencode/demo/.opencode/skills/pytest-patterns/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/opencode/demo/.opencode/skills/pytest-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/opencode/demo/.opencode/skills/refactor-patterns/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/opencode/demo/.opencode/skills/refactor-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/zoom-out/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/zoom-out/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/to-issues/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/to-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/domain-model/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/domain-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/edit-article/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/edit-article/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/github-triage/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/github-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/write-a-skill/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/write-a-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/obsidian-vault/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/obsidian-vault/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/security-review/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/setup-pre-commit/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/setup-pre-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/scaffold-exercises/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/scaffold-exercises/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/migrate-to-shoehorn/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/migrate-to-shoehorn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/design-an-interface/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/design-an-interface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/ubiquitous-language/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/ubiquitous-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/request-refactor-plan/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/request-refactor-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/git-guardrails-claude-code/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/git-guardrails-claude-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TeachingDataScience",
+      "path": "Code/claudecode/MattPocock/dot_claude/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/yogeshhk/TeachingDataScience/tree/main/Code/claudecode/MattPocock/dot_claude/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yogeshhk/TeachingDataScience",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:32:08Z"
+}
