@@ -1,0 +1,9 @@
+{
+  "name": "limlabs--ratatui-3d",
+  "displayName": "ratatui-3d",
+  "description": "3D software renderer for terminal UIs, built on ratatui",
+  "version": "1.0.0",
+  "author": "limlabs",
+  "homepage": "https://github.com/limlabs/ratatui-3d",
+  "skills": []
+}
