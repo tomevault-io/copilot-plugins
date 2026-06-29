@@ -7,11 +7,11 @@ The local-first Agent OS — your AI partner lives on your own machine. Drive th
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [avibe-bot/avibe](https://github.com/avibe-bot/avibe).
+Original source: `AGENTS.md` in [avibe-bot/avibe](https://github.com/avibe-bot/avibe).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
