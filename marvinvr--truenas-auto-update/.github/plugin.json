@@ -1,7 +1,7 @@
 {
   "name": "marvinvr--truenas-auto-update",
   "displayName": "truenas-auto-update",
-  "description": "Automatically update your TrueNAS apps on a schedule.",
+  "description": "truenas-auto-update",
   "version": "1.0.0",
   "author": "marvinvr",
   "homepage": "https://github.com/marvinvr/truenas-auto-update",
