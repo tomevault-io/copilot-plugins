@@ -1,0 +1,9 @@
+{
+  "name": "mart337i--odoo-skills",
+  "displayName": "odoo-skills",
+  "description": "Agent skills for Odoo addon development and OCA module migration",
+  "version": "1.0.0",
+  "author": "mart337i",
+  "homepage": "https://github.com/mart337i/odoo-skills",
+  "skills": []
+}
