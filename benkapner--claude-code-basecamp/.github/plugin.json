@@ -1,0 +1,9 @@
+{
+  "name": "benkapner--claude-code-basecamp",
+  "displayName": "claude-code-basecamp",
+  "description": "A meta-repository for Claude Code  users  that includes workspace setup (skills, commands, hooks) ",
+  "version": "1.0.0",
+  "author": "Benkapner",
+  "homepage": "https://github.com/Benkapner/claude-code-basecamp",
+  "skills": []
+}
