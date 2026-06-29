@@ -1,0 +1,9 @@
+{
+  "name": "pambrose--prometheus-proxy",
+  "displayName": "prometheus-proxy",
+  "description": "prometheus-proxy",
+  "version": "1.0.0",
+  "author": "pambrose",
+  "homepage": "https://github.com/pambrose/prometheus-proxy",
+  "skills": []
+}
