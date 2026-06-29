@@ -1,0 +1,93 @@
+{
+  "name": "kobato",
+  "owner": "syhily",
+  "repo": "kobato",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kobato",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/syhily/kobato/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kobato",
+      "path": ".agents/skills/privacy-logging/SKILL.md",
+      "github_url": "https://github.com/syhily/kobato/tree/main/.agents/skills/privacy-logging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kobato",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/syhily/kobato/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kobato",
+      "path": ".agents/skills/tailwind-design-system/SKILL.md",
+      "github_url": "https://github.com/syhily/kobato/tree/main/.agents/skills/tailwind-design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kobato",
+      "path": ".agents/skills/tailwind-best-practices/SKILL.md",
+      "github_url": "https://github.com/syhily/kobato/tree/main/.agents/skills/tailwind-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kobato",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/syhily/kobato/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kobato",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/syhily/kobato/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kobato",
+      "path": ".agents/skills/react-router-framework-mode/SKILL.md",
+      "github_url": "https://github.com/syhily/kobato/tree/main/.agents/skills/react-router-framework-mode/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/syhily/kobato",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:39:50Z"
+}
