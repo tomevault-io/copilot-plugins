@@ -1,0 +1,153 @@
+{
+  "name": "awesome-tech-weekly-zh",
+  "owner": "yeshan333",
+  "repo": "awesome-tech-weekly-zh",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/audit/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/polish/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/harden/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/delight/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/animate/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/distill/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/extract/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/critique/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/normalize/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-tech-weekly-zh",
+      "path": ".claude/skills/teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/yeshan333/awesome-tech-weekly-zh/tree/main/.claude/skills/teach-impeccable/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yeshan333/awesome-tech-weekly-zh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:45:06Z"
+}
