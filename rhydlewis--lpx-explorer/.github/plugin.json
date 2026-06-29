@@ -1,0 +1,9 @@
+{
+  "name": "rhydlewis--lpx-explorer",
+  "displayName": "lpx-explorer",
+  "description": "Read-only inspector for Logic Pro .logicx project bundles. Tauri 2 + React 19 + TS.",
+  "version": "1.0.0",
+  "author": "rhydlewis",
+  "homepage": "https://github.com/rhydlewis/lpx-explorer",
+  "skills": []
+}
