@@ -16339,6 +16339,11 @@
       "description": "The Rust brain for the White Noise app"
     },
     {
+      "name": "klr-pattern--fastapi-voyager",
+      "source": "./klr-pattern--fastapi-voyager",
+      "description": "Visualize your API endpoints and explore them interactively, also support Django ninja & Litestar"
+    },
+    {
       "name": "wintertc55--iter-streams",
       "source": "./wintertc55--iter-streams",
       "description": "A proposal for a new streams API"
@@ -29497,6 +29502,11 @@
       "name": "liangjfblue--huaxia-wisdom",
       "source": "./liangjfblue--huaxia-wisdom",
       "description": "huaxia-wisdom"
+    },
+    {
+      "name": "promptpasture--llama-ui",
+      "source": "./promptpasture--llama-ui",
+      "description": "A minimal interface for AI Companion that runs entirely in your browser."
     },
     {
       "name": "onesuper--tui-use",
@@ -114522,6 +114532,11 @@
       "name": "cr0hn--slowjson",
       "source": "./cr0hn--slowjson",
       "description": "slowjson"
+    },
+    {
+      "name": "oxbshw--agent-span",
+      "source": "./oxbshw--agent-span",
+      "description": "The Web Access Gateway for AI Agents \u2014 52 channels, 92 MCP tools, 9 SDKs, self-healing backends, async Rust"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -234612,6 +234627,11 @@
       "name": "caarlos0--ttop",
       "source": "./caarlos0--ttop",
       "description": "A tmux-aware process tree with top-style CPU/memory views"
+    },
+    {
+      "name": "maf404--tml",
+      "source": "./maf404--tml",
+      "description": "tml"
     },
     {
       "name": "cheerhuan--save-your-token",
