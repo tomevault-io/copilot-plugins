@@ -1,0 +1,14 @@
+{
+  "name": "shenshan123--agent-r2g",
+  "displayName": "agent-r2g",
+  "description": "agent-r2g",
+  "version": "1.0.0",
+  "author": "ShenShan123",
+  "homepage": "https://github.com/ShenShan123/agent-r2g",
+  "skills": [
+    {
+      "name": "agent-r2g",
+      "description": ""
+    }
+  ]
+}
