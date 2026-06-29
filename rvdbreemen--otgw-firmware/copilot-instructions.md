@@ -1,881 +1,541 @@
 ## otgw-firmware
 
-> These instructions adapt the repository's Claude guidance for Codex agents. They are project-specific rules for this firmware repository and sit above the generic Backlog.md CLI reference below.
+> This project uses OpenWolf for context management. Read and follow .wolf/OPENWOLF.md every session. Check .wolf/cerebrum.md before generating code. Check .wolf/anatomy.md before reading files.
 
-# OTGW-firmware: Codex Agent Instructions
+# OpenWolf
 
-These instructions adapt the repository's Claude guidance for Codex agents. They are project-specific rules for this firmware repository and sit above the generic Backlog.md CLI reference below.
+@.wolf/OPENWOLF.md
+
+This project uses OpenWolf for context management. Read and follow .wolf/OPENWOLF.md every session. Check .wolf/cerebrum.md before generating code. Check .wolf/anatomy.md before reading files.
+
+
+# OTGW-firmware: Claude Instructions
 
 ---
 
-## Task Management
+## Task Management (MANDATORY)
 
-Every meaningful code or documentation change should be backed by a Backlog task before implementation work starts. Use Backlog MCP tools as the primary interface for reading, creating, updating, and completing tasks.
+**Every piece of work must have a backlog task before any code is written. No exceptions.**
 
-Codex agents must not edit files in `backlog/tasks/` directly. Use Backlog MCP tools such as task view/search/create/edit when available. Use the Backlog CLI commands in the reference below only when the MCP tools are unavailable, missing required capability, or fail for the current operation.
+**Always use the `backlog` CLI for task operations on this project. Do NOT use the `mcp__backlog__*` MCP server.** The MCP server indexes only one worktree at a time and serves stale cached state across worktrees (verified 2026-05-05: MCP returned a pre-edit "In Progress" snapshot of TASK-514 long after the CLI marked it Done on disk in another tree). The "Backlog.md: always use the CLI" section near the bottom of this file is the canonical statement; this paragraph is a reminder so the rule is the first thing seen.
 
-Before marking a task `Done`, run through `docs/guides/pr-checklist.md`. A clean build is the minimum bar; the checklist covers hardware, browser, MQTT, and smoke-test expectations that compile checks do not cover.
+```bash
+# Before writing any code:
+backlog search "<topic>" --plain           # 1. Find existing task
+backlog task create "Title" -d "..." --ac "..."  # 2. Create if none
+backlog task edit <id> -s "In Progress" -a @claude  # 3. Start it
+backlog task edit <id> --plan "..."        # 4. Write plan, share with user, WAIT for approval
 
-After marking a task `Done`, commit the completed task changes and push the branch to its configured upstream. Keep commits narrow: stage only files that belong to the completed task and leave unrelated local changes untouched.
+# During implementation:
+backlog task edit <id> --check-ac 1        # Mark ACs done as you go
+backlog task edit <id> --append-notes "..."  # Log progress
 
-Known issue: `backlog task list` may return empty in this repository. Prefer Backlog MCP search/view; if falling back to CLI, prefer `backlog search "<topic>" --plain` or `backlog task <id> --plain`. Read task files directly only as a read-only fallback, never to modify them.
+# When done:
+backlog task edit <id> --final-summary "..." # PR description
+backlog task edit <id> -s Done
+```
+
+**CRITICAL: NEVER edit task files in `backlog/tasks/` directly. Always use the `backlog` CLI.**
+
+Two hooks enforce this contract — they fail closed, you don't have to remember:
+
+- `.claude/hooks/backlog-mcp-guard.py` — PreToolUse guard wired in `.claude/settings.json`. Blocks `Edit/Write/MultiEdit` on `backlog/tasks/*.md` (direct file edits are never allowed). Does NOT block `backlog` CLI invocations — CLI is the preferred interface.
+- `.githooks/commit-msg` — git hook that fails the commit if its message references `TASK-NNN` without a matching `backlog/tasks/task-NNN*.md` file in the index. Catches the failure mode where a code commit lands but its task record stays untracked. Install once per clone with `git config core.hooksPath .githooks`. Bypass with `git commit --no-verify` for emergencies (document why in the message).
+
+For the full CLI reference (all commands, AC management, DoD, multi-line input): read `docs/guides/backlog-cli.md`.
+
+Before marking a task `Done`, run through `docs/guides/pr-checklist.md`. "Builds clean" is the lowest bar; the checklist captures the hardware / browser / MQTT smoke tests that build-clean doesn't see.
+
+**Known bug:** `backlog task list` returns empty. Use `backlog task <id> --plain` or read `backlog/tasks/` directly.
+
+## Task pickup (MANDATORY)
+
+**When picking up any task from the backlog — whether newly created or already existing — the first action before any code, research, or file reading is:**
+
+```bash
+backlog task edit <id> -s "In Progress" -a @claude
+```
+
+This makes the task visible in the correct board column immediately. Skipping this step leaves the task in "To Do" while it is actually being worked on, which creates false visibility for the user and breaks board accuracy.
+
+## Auto-advance to next task (project policy)
+
+After completing a task (or reaching a blocking state with no self-verifiable ACs remaining), **immediately analyse the backlog and pick up the highest-priority actionable task** without waiting for the user to prompt. Apply the following selection order:
+
+1. Highest-priority task with all non-field-validation ACs unblocked (can be started and verified without hardware).
+2. If all open tasks are blocked on field validation or external input, report that state and idle.
+
+Exceptions — do NOT auto-advance:
+- User has explicitly asked you to stop or wait.
+- The next task requires a plan approval checkpoint (per KISS principle: share choices so user decides on complexity).
+- The next task is a cross-worktree master-plan task (requires the one-plan-then-two-agents protocol).
+
+---
+
+## MCP Servers
+
+Two MCP servers are wired into Claude Code for this project:
+
+- **`mcp__backlog__*`** — task management. Started locally by Claude Code itself (stdio).
+- **`mcp__discord-mcp__*`** — Discord I/O for `#dev-sat-mqtt` and the support channels. Runs as a long-lived Docker container (`saseq/discord-mcp`) on `http://localhost:8085/mcp`, pre-loaded with `DISCORD_TOKEN` from the Windows user environment. Most-used tools: `read_messages`, `send_message`, `get_server_info`, `read_private_messages`, `send_private_message`. There is no separate login tool — the container handshakes on its own at startup. For attachment contents (logs, screenshots), see `.claude/commands/backlog_discord.md` (Phase 1b) and `.claude/commands/check_otgw_issues.md` (Phase 1d).
+
+If Discord calls start failing with "Expected token to be set" or 401, the container session has drifted from the MCP client; `docker restart discord-mcp` plus an MCP reconnect (`/mcp` in Claude Code) brings it back. Full operational reference, restart procedure, channel discipline, and bot-side intent requirements: read `docs/guides/discord-mcp-server.md`.
 
 ---
 
 ## Design Principles
 
-- KISS: choose the simplest solution that works and explain tradeoffs when complexity is optional.
-- YAGNI: do not add behavior for hypothetical future needs.
-- Minimal change surface: keep changes small, focused, and justified by the task.
-- Comments describe the present system. Avoid defensive comments about hypothetical modes or future work; if the concern is real, create a Backlog task.
-- Fix the documentation before renaming identifiers when the identifier is still semantically correct and only the comment or docstring is stale.
+- **KISS**: Simplest solution that works. Share design choices so user decides on complexity.
+- **YAGNI**: No features for hypothetical future requirements.
+- **Minimal change surface**: Small, focused changes. Each change needs a concrete justification.
+- **Comments about the present only**: Avoid defensive comments about hypothetical future scenarios ("if mode X is ever added, revisit this"). They confuse future readers by implying a plan that doesn't exist. Write only about what is true now. If the future concern is real, it belongs in a backlog task, not a code comment.
+- **Fix the doc, not the identifier**: When an existing identifier's name is semantically correct but its documentation is wrong (stale docstring, mismatched comment, outdated reference), prefer fixing the documentation over renaming. A rename touching N call sites is rarely a net win when the name itself isn't the bug.
 
 ---
 
 ## Project Overview
 
-This repository contains ESP8266 and ESP32 firmware for the NodoShop OpenTherm Gateway, including Web UI, MQTT, REST API, TCP serial bridge, Home Assistant integration, OTGW32 support, and SAT-related work.
+ESP8266/ESP32 firmware for the NodoShop OpenTherm Gateway. Web UI, MQTT, REST API, TCP serial bridge, Home Assistant integration.
 
-- Platform: ESP8266 (NodeMCU/Wemos D1 mini, tight RAM budget) and ESP32/OTGW32.
-- Language: Arduino C/C++ in `.ino` files, built as a single translation unit.
-- Serial: reserved for the PIC after initialization. Never write to `Serial` after OTGW init.
-- Debug: use `DebugTln()`, `DebugTf()`, and related debug helpers. They go to Telnet port 23; do not use `Serial.print()`.
-- Branches (model changed 2026-06-20): `dev` is the DEFAULT line and carries the 2.0.0 ESP32-S3-only async + FreeRTOS firmware (epic TASK-865; ESP8266 dropped; former `feature-2.0.0-esp32s3-async`). `otgw-1.x.x` is the 1.5.x/1.6.x maintenance/LTS line (the former `dev`). `main` is ALWAYS the latest public release. Default to the current branch and port fixes between `dev` and `otgw-1.x.x` deliberately.
+- **Platform**: ESP8266 (NodeMCU/Wemos D1 mini), ~40KB usable RAM; ESP32-S3 (OTGW32)
+- **Language**: Arduino C/C++ (.ino files), single translation unit
+- **Serial**: Reserved exclusively for PIC — never write to `Serial` after init
+- **Debug**: `DebugTln()`, `DebugTf()` → Telnet port 23, never `Serial.print()`
+- **Branches** (model changed 2026-06-20): **`dev` is now the DEFAULT working line and carries the 2.0.0 ESP32-S3-only async + FreeRTOS firmware** (epic TASK-865, ADR-123/128; ESP8266 dropped). It is the former `feature-2.0.0-esp32s3-async` line, promoted to `dev`. **`otgw-1.x.x` is the 1.5.x/1.6.x maintenance/LTS line** (the former `dev`, renamed). **`main` is ALWAYS the latest public release** (currently 1.6.1) and is never auto-pushed. The old `feature-2.0.0-esp32s3-async`, `feature-2.0.0-esp32s3-only` and `feature-dev-2.0.0-otgw32-esp32-sat-support` branches are historical/folded-in, not active. Default to the branch you are on; port fixes between `dev` (2.0.0) and `otgw-1.x.x` (1.x) deliberately, not reflexively.
 
 ---
 
 ## Critical Coding Rules
 
-### PROGMEM strings
-
-Keep string literals in flash wherever practical:
+### PROGMEM — ALL string literals must stay in flash
 
 ```cpp
-DebugTln(F("Message"));
-DebugTf(PSTR("Value: %d\r\n"), value);
-snprintf_P(buf, size, PSTR("fmt: %s"), str);
+DebugTln(F("Message"));                        // F() macro
+DebugTf(PSTR("Value: %d\r\n"), value);         // PSTR() for printf
+snprintf_P(buf, size, PSTR("fmt: %s"), str);   // snprintf_P always
 ```
 
-Use `strcmp_P()` and `strcasecmp_P()` with `PSTR()` for flash-resident string comparisons. Use `memcmp_P()` for binary data; do not use `strncmp_P()` or `strstr_P()` on binary payloads.
+String comparisons: `strcmp_P()`, `strcasecmp_P()` with `PSTR()`.
+Binary data: `memcmp_P()` only — **never** `strncmp_P`/`strstr_P` on binary (causes Exception (2) crash).
 
-### JSON
+### No ArduinoJson — ever
 
-Do not add ArduinoJson. This firmware builds JSON manually with `snprintf_P()` / `sendJsonMapEntry()` and parses with `parseJsonKVLine()`.
+JSON built manually with `snprintf_P` / `sendJsonMapEntry`. Parsed with `parseJsonKVLine()`.
 
-### String usage
+### No String class in hot paths (ADR-004)
 
-Avoid Arduino `String` in hot paths, especially areas covered by ADR-004: SAT, MQTT, REST, OTGW-Core, and OTDirect. Prefer fixed buffers with `strlcpy()` and `snprintf_P()`. `String` is acceptable only in setup or one-off paths where the local pattern already allows it.
+Use `char[]` with `strlcpy`, `snprintf_P`. `String` only in setup/one-off contexts.
 
-### File serving
+### File serving — stream, never load into RAM
 
-Stream files instead of loading them into RAM. Files larger than roughly 2 KB should use `httpServer.streamFile()`. `index.html` is too large for `readString()` style handling.
+Files >2 KB: `httpServer.streamFile()`. `index.html` is ~11 KB — never `f.readString()`.
 
-### HTTP and WebSocket
+### HTTP/WS only — never add HTTPS/WSS
 
-Do not add HTTPS or WSS support in firmware. This project targets trusted LAN deployment; REST can sit behind an HTTPS reverse proxy, while WebSocket assumptions remain plain WS.
+Trusted LAN only. REST API works behind HTTPS reverse proxy, but WebSocket assumes plain WS.
 
-### ESP Platform Abstraction
+### ESP Platform Abstraction — no raw `#ifdef ESP8266`/`ESP32` outside the abstraction layer
 
-The 2.0.0 branch carries an explicit platform abstraction. **No `#if(def) ESP8266`, `#if(def) ESP32`, `#if(def) ARDUINO_ARCH_ESP*`, or `#if(def) BOARD_NODOSHOP_ESP*` may appear outside the allowlisted abstraction files.** The allowlist is: `src/OTGW-firmware/platform.h`, `platform_esp8266.h`, `platform_esp32.h`, `boards.h`, and the `OTGW-ModUpdateServer{.h,-esp32.h,-impl.h}` trio.
+The 2.0.0 branch carries an explicit platform abstraction so that
+application code is written against shims and capability flags, never
+against raw platform symbols. **No `#if(def) ESP8266`, `#if(def) ESP32`,
+`#if(def) ARDUINO_ARCH_ESP*`, or `#if(def) BOARD_NODOSHOP_ESP*` may appear
+outside the allowlisted abstraction files.**
 
-Application code must instead:
+Allowlisted files (the only place these conditionals belong):
 
-- Call `platformXxx()` shims from `platform_*.h` for any divergent API (heap, hostname, MAC, reset, NTP, LED, JSON tx, WiFi, BLE, ...). If the shim you need does not exist, **add it first** in both `platform_esp8266.h` and `platform_esp32.h` (use an inline no-op stub on the platform where the feature is absent), then call it unguarded from application code.
-- Gate optional features with `HAS_*` capability flags from `boards.h` (`HAS_PIC`, `HAS_DIRECT_OT`, `HAS_ETH_CAPABLE`, `HAS_OLED_CAPABLE`, `HAS_SAT_BLE`, `HAS_WEATHER_FORECAST`, etc.). If your feature has no flag yet, add one to `boards.h` first.
-- Never reference raw board macros (`BOARD_NODOSHOP_ESP32`, ...) outside `boards.h`. Those decide which `HAS_*` flags are set; the rest of the firmware sees only the `HAS_*` flags.
-- Never call `ESP.getXxx()` directly when a `platformXxx()` shim exists (`platformFreeHeap`, `platformMinFreeHeap`, `platformMaxFreeBlock`, `platformHeapFragmentation`, `platformRestart`, `platformChipId`, `platformFlashChip*`, ...). Bypassing the shim is a quieter form of the same leak.
+- `src/OTGW-firmware/platform.h` — dispatcher
+- `src/OTGW-firmware/platform_esp8266.h` — ESP8266 includes, shims, type aliases
+- `src/OTGW-firmware/platform_esp32.h` — ESP32 includes, shims, type aliases
+- `src/OTGW-firmware/boards.h` — pin maps and `HAS_*` capability flags
+- `src/OTGW-firmware/OTGW-ModUpdateServer{.h,-esp32.h,-impl.h}` — parallel mini-abstraction for the firmware update server
 
-When adding a feature that diverges per platform, write the shim or the `HAS_*` flag first, the application code second. Platform headers are the public API of the abstraction; `.ino` files are clients.
+**Vendored libraries under `src/libraries/**` are OUT OF SCOPE entirely.**
+They are independent upstreams that manage their own platform support and are
+NOT firmware application code. Do NOT pull them into the abstraction: never add
+`platformXxx()` shims into them and never strip their internal
+`#if defined(ESP8266)/(ESP32)`. Examples: `src/libraries/SimpleTelnet`,
+`src/libraries/OTGWSerial` (PIC serial driver). They are listed in
+`evaluate.py::ESP_ABSTRACTION_EXCLUDED_LIB_DIRS` and excluded from the
+abstraction scan. (Maintainer directive, 2026-05-30.)
 
-`evaluate.py::check_esp_abstraction_boundary()` enforces this with a baseline-ratchet: FAIL on any new violation above `ESP_ABSTRACTION_BASELINE`, WARN while any pre-existing violation remains. The current baseline, full leak inventory, and tiered remediation plan live in `docs/audits/2026-05-28-esp-abstraction-leak-audit.md` (TASK-739) and tasks TASK-740..746. Every remediation tier task must lower `ESP_ABSTRACTION_BASELINE` in `evaluate.py` as part of its Definition of Done.
+Application code MUST instead:
+
+1. **Call `platformXxx()` shims** from `platform_*.h` for any divergent API
+   (heap, hostname, MAC, reset, NTP, LED, JSON tx, WiFi, BLE, …). If a
+   shim does not exist yet for a divergence you need, *add the shim first*
+   in both `platform_esp8266.h` and `platform_esp32.h` — including an
+   inline no-op stub on the platform where the feature is absent — and
+   then call it unguarded from application code.
+2. **Gate optional features with `HAS_*` flags** from `boards.h`
+   (`HAS_PIC`, `HAS_DIRECT_OT`, `HAS_ETH_CAPABLE`, `HAS_OLED_CAPABLE`,
+   `HAS_SAT_BLE`, `HAS_WEATHER_FORECAST`, etc.). If your feature does not
+   yet have a flag, add one to `boards.h` first.
+3. **Never read raw board macros (`BOARD_NODOSHOP_ESP32`, …) outside
+   `boards.h`.** Those decide which `HAS_*` flags are set; the rest of
+   the firmware sees only the `HAS_*` flags.
+4. **Never call `ESP.getXxx()` directly** when a `platformXxx()` shim
+   already exists (`platformFreeHeap`, `platformMinFreeHeap`,
+   `platformMaxFreeBlock`, `platformHeapFragmentation`, `platformRestart`,
+   `platformChipId`, `platformFlashChip*`, etc.). Skipping the shim is a
+   quieter form of the same leak — it bypasses the platform's substitution
+   point.
+
+When adding a new feature that diverges per platform, the **first** thing
+to write is the shim or the `HAS_*` flag, not the application code that
+needs it. The platform headers are the public API of the abstraction; the
+.ino files are clients.
+
+`evaluate.py::check_esp_abstraction_boundary()` enforces this rule with a
+baseline-ratchet: it FAILs on any new violation above the recorded
+`ESP_ABSTRACTION_BASELINE` and WARNs while any pre-existing violation
+remains. The current baseline and remediation roadmap live in
+`docs/audits/2026-05-28-esp-abstraction-leak-audit.md` (TASK-739) and the
+tier tasks TASK-740..746. **Each tier task must lower
+`ESP_ABSTRACTION_BASELINE` in `evaluate.py` as part of its Definition of
+Done.**
 
 ### Architecture rules
 
-- PIC commands must go through `addOTWGcmdtoqueue()`. Do not write command bytes directly to the PIC serial path.
-- Timers should use `DECLARE_TIMER_SEC()` / `DECLARE_TIMER_MS()` plus `DUE()` from `safeTimers.h`.
-- `doBackgroundTasks()` can re-enter, including while `doAutoConfigure()` is reading files. Shared scratch state needs an explicit acquisition contract, such as the ADR-090 RAII or in-use flag pattern.
-- Prefer typed control flow with `enum class` or numeric IDs. Do not use string tokens as discriminators.
-- Frontend JavaScript must support current Chrome, Firefox, and Safari plus two versions. Check element existence, use `try/catch` around `JSON.parse`, verify `response.ok`, and attach `.catch()` to async flows.
-- Web UI assets live in `src/OTGW-firmware/data/` and ship as a LittleFS image. Use `python build.py`, not direct PlatformIO, when rebuilding firmware/filesystem artifacts.
-- The log container contract is `.ot-log-content { white-space: pre; }`; `\n` is the line separator. Prefer `textContent` over `innerHTML` for plain log text.
+- PIC commands: always `addOTWGcmdtoqueue()`, never direct serial write
+- Timers: `DECLARE_TIMER_SEC()` / `DECLARE_TIMER_MS()` + `DUE()` (see `safeTimers.h`)
+- `doBackgroundTasks()` can re-enter (called from inside `doAutoConfigure()`'s file-reading loop). Shared scratch state must declare an acquisition contract: see ADR-090 for the pattern (RAII or inUse-flag, both with fail-safe on contention)
+- Typed control flow: `enum class` or numeric IDs, never string tokens as discriminators
+- Frontend JS: Chrome/Firefox/Safari (latest + 2). Check element existence, try-catch JSON.parse, response.ok, .catch() on all async
+- Webui assets live in `src/OTGW-firmware/data/` (`index.html`, `index.js`, `components.css`, `ds-tokens.css`, `graph.js`, `sat.js`, `sat-slider.js`, `theme-toggle.js`, `echarts-theme.js`) and ship as a LittleFS image; use `python build.py` (not `--firmware`) to rebuild them
+- Log container contract: `.ot-log-content` has `white-space: pre` (components.css); `\n` is the line separator. Prefer `textContent` over `innerHTML` for plain text (skips HTML parser and per-line escape)
 
 ### Naming conventions
 
-- Variables and functions: camelCase, for example `settingHostname` and `startWiFi`.
-- Constants: upper snake case, for example `CMSG_SIZE`.
-- Persistent setting globals use the `setting` prefix when following existing legacy patterns.
+- Variables/functions: camelCase (`settingHostname`, `startWiFi`)
+- Constants: UPPER_CASE (`CMSG_SIZE`)
+- Global settings: `setting` prefix (`settingMqttBroker`)
 
 ---
 
-## Settings and State Architecture
+## Settings & State Architecture (ADR-051)
 
-Follow ADR-051:
-
-- `OTGWSettings settings` is persistent and serialized to LittleFS.
-- `OTGWState state` is transient and must not be persisted.
-- Settings/state use two-level subsections and Hungarian prefixes: `b` for bool, `s` for char arrays, `i` for integer, and `f` for float.
-- Access should look like `settings.mqtt.sBroker` and `state.otgw.bOnline`.
+- `OTGWSettings settings` — persistent, serialized to LittleFS
+- `OTGWState state` — transient, never persisted
+- Two-level sub-sections, Hungarian prefixes: `b`=bool, `s`=char[], `i`=int, `f`=float
+- Access: `settings.mqtt.sBroker`, `state.otgw.bOnline`
 
 ---
 
 ## REST API
 
-- `/api/v2/` is the current API surface.
-- Dispatch lives in `kV2Routes[]` in `restAPI.ino`.
-- Use `sendApiError(httpCode, F("message"))` for REST errors.
+- `/api/v2/` — current. Dispatch table `kV2Routes[]` in `restAPI.ino`.
+- Errors: `sendApiError(httpCode, F("message"))`
 
 ---
 
 ## ADR Guidelines
 
-ADRs live in `docs/adr/`. Read relevant ADRs before architecture, NFR, API contract, dependency, build tooling, or shared pattern changes.
+ADRs in `docs/adr/`. Read before changes to: architecture, NFRs, API contracts, new dependencies.
 
-Binding ADRs with automated gates:
+**Binding ADRs** (pattern-level, enforced by `evaluate.py` or tests — see ADR-080):
+- **ADR-004**: No `String` in hot paths (SAT*, MQTTstuff, restAPI, OTGW-Core, OTDirect)
+- **ADR-088**: MQTT status-burst windowing + post-burst cooldown (gated by `check_status_publishers_wrap_burst`, `check_status_burst_cooldown_bound`, `check_drip_consults_deferred` in evaluate.py)
+- **ADR-089**: Heap tier-machine contract (amends ADR-030; gated by `check_heap_tier_thresholds_ordered`, `check_heap_fragmentation_promotion`, `check_heap_tier_entry_counters` in evaluate.py)
+- **ADR-091**: Design-system class drift gate (gated by `check_design_system_drift` in evaluate.py; WARN for one release, TASK-480 promotes to FAIL)
 
-- ADR-004: no `String` in hot paths.
-- ADR-088: MQTT status-burst windowing and post-burst cooldown.
-- ADR-089: heap tier-machine contract.
+**Structural / architectural ADRs** (reviewed at PR, no automated gate — see ADR-080):
+- **ADR-044**: Single-point-of-instantiation for globals
+- **ADR-051**: Settings/State architecture (dual encapsulating structs, Hungarian prefix, two-level sections)
+- **ADR-056**: Protected admin endpoint security and secret-handling contract (HTTP Basic Auth + CSRF same-origin enforcement on admin routes; supersedes ADR-054)
+- **ADR-077**: Streaming MQTT HA discovery architecture
+- **ADR-078**: MQTT sub-command dispatch tables (replaces chained `strcasecmp_P` blocks)
+- **ADR-079**: Per-component type headers (`<Component>types.h` pattern, amendment to ADR-051)
+- **ADR-080**: Binding ADR rules must have a CI gate (meta-rule)
+- **ADR-081**: Types merge into `<Component>stuff.h` when both exist (amendment to ADR-079)
+- **ADR-090**: Re-entrancy guard pattern for shared scratch buffers (guideline-level per ADR-080: 2 instances in MQTTstuff.ino, RAII `MQTTAutoConfigSessionLock` preferred for new code)
 
-Structural and architectural ADRs reviewed during PR:
+Accepted ADRs are binding. To reverse: new ADR that supersedes old one.
 
-- ADR-044: single point of instantiation for globals.
-- ADR-051: settings/state architecture.
-- ADR-056: protected admin endpoint security and secret-handling contract.
-- ADR-077: streaming MQTT Home Assistant discovery architecture.
-- ADR-078: MQTT sub-command dispatch tables.
-- ADR-079: per-component type headers.
-- ADR-080: binding ADR rules must have a CI gate.
-- ADR-081: merge types into `<Component>stuff.h` when both exist.
-- ADR-090: re-entrancy guard pattern for shared scratch buffers.
+Format: Status / Context / Decision / Consequences / Related
 
-Accepted ADRs are binding. To reverse a decision, create a superseding ADR instead of editing the accepted ADR.
+Create an ADR when: architecture changes, new/replaced dependency, API contract change, build tooling change.
+Do NOT create for: refactors, bug fixes, minor features within existing patterns.
 
-Create an ADR for architecture changes, new or replaced dependencies, API contract changes, and build tooling changes. Do not create ADRs for ordinary refactors, bug fixes, or small features that fit existing patterns.
-
-New pattern-level ADRs must either reference their CI gate in `evaluate.py` or `tests/`, or explicitly mark themselves guideline-level in the status line.
-
-This project also uses adr-kit. Use the repository's adr-kit workflow when authoring ADRs, follow its coding/review instructions during ADR-sensitive work, and keep ADRs in `docs/adr/ADR-XXX-title.md`. Status moves from `Proposed` to `Accepted`; accepted ADRs are immutable except through superseding ADRs.
+Per **ADR-080**, a new pattern-level ADR MUST either reference its CI gate (in `evaluate.py` or `tests/`) or be explicitly labeled guideline-level in its Status line. No more "binding on paper, unchecked in practice".
 
 ---
 
-## Build and Verification Commands
+## Build Commands
 
-Use `build.py` rather than calling PlatformIO directly:
+Preferred wrapper (handles venv setup): `./build.sh` (macOS/Linux) or `build.bat` (Windows). Both invoke `build.py` underneath and build firmware + filesystem. Use a direct `python build.py` invocation only when the wrapper is unavailable.
 
 ```bash
-python build.py
-python build.py --firmware
-python build.py --clean
-python evaluate.py
-python evaluate.py --quick
+./build.sh                   # Preferred — firmware + filesystem (handles venv)
+python build.py              # Build firmware + filesystem, all three targets
+python build.py --target esp32-classic   # One target: esp8266 | esp32 | esp32-classic
+python build.py --firmware   # Firmware only (also the push-policy gate)
+python build.py --clean      # Clean build
+python evaluate.py           # Code quality check (PROGMEM, unsafe patterns)
+python evaluate.py --quick   # Fast check
 ```
 
-Run the smallest verification that proves the change, then broaden when the change touches shared behavior, build tooling, network services, or public APIs.
+Three fixed build targets (ADR-126 — no runtime hardware detection):
+
+| Target | Hardware | Asset name token |
+|---|---|---|
+| `esp8266` | OTGW Classic + Wemos D1 mini (PIC) | `esp8266` |
+| `esp32` | OTGW32 / OT-Thing PCB (OTDirect) | `esp32-otgw32` |
+| `esp32-classic` | OTGW Classic + LOLIN S3 Mini (PIC) | `esp32-classic` |
+
+Asset naming: `OTGW-firmware-<token>-<semver>+<githash>-flash.zip` (plus
+`.ino.bin`, `.littlefs.bin`, merged bins and `.elf`). Never run two builds
+concurrently in one worktree — shared `.pio/build/` corrupts (bug-034 class);
+wipe the affected `.pio/build/<env>` dir and rebuild solo to recover.
+
+---
+
+## Test automation (on-device / soak)
+
+End-to-end loop for firmware changes that need on-device validation (e.g. the
+heap-frag soak, TASK-934):
+
+- **Build (canonical):** `python build.py --target esp32` (or `./build.sh` /
+  `build.bat`) — builds firmware + filesystem and bootstraps its own venv, so it
+  is immune to the host Python version.
+- **Build (direct pio) gotcha:** `python -m platformio run -e esp32` fails if the
+  host Python is 3.14+ (the espressif32 platform requires 3.10–3.13: *"Python
+  version must be between 3.10 and 3.13"*). Invoke pio via its own penv instead:
+  `~/.platformio/penv/Scripts/python.exe -m platformio run -e esp32`
+  (firmware) and `... -e esp32 -t buildfs` (LittleFS).
+- **Fresh worktree:** run `git submodule update --init --recursive` before the
+  first build — git worktrees do NOT populate submodule working trees, so
+  `SimpleTelnet` (AsyncSimpleTelnet.h) and `OpenTherm` are missing otherwise and
+  the sketch fails with *"No such file or directory"*.
+- **Static gates:** `python evaluate.py` (full) / `--quick`. Exit 0 = pass, 1 =
+  FAIL, 2 = WARN>5. NOT run by build.py — run it separately. Gate unit tests:
+  `python tests/test_evaluate.py` (stdlib unittest, no pytest).
+- **Flash:** `flash_otgw.bat --board esp32` (auto-detects the S3 over USB
+  VID/PID 303A:1001; `--port COMx` to force). esptool-only — works on any Python.
+- **Load (fragmenting):** `python scripts/sat_boiler_emulator.py --host <ip>` for
+  synthetic OT traffic; combine with concurrent Web UI polling + MQTT discovery
+  republish to exercise heap pressure.
+- **Capture / soak:** `scripts/capture-mqtt-debug.bat -DeviceHost <ip> -BrokerHost
+  <ip> -DurationSeconds <N> -Topic "otgw-firmware/stats/#"` → one merged
+  transcript (telnet debug + MQTT stream + browser devtools + crashlog + HTTP
+  probes).
+- **Heap soak (TASK-934):** watch `otgw-firmware/stats/min_max_block`,
+  `/maxblock_lt2k…ge16k`, `/max_loop_gap_ms` and the gating counters
+  (`/drip_slowmode`, `/mqtt_drops`, `/ws_drops`, `/enter_*`). Telnet `z` zeroes the
+  watermark/histogram/counters for a fresh window (`min_free_heap` is the native
+  ESP32 allocator watermark and is not resettable). Press `z` from a healthy heap:
+  if reset mid-pressure, the tier-entry counters (`enter_*`) only resume counting
+  after the heap recovers to HEALTHY and re-enters the tier (they share
+  `getHeapHealth()`'s internal state, which the reset deliberately does not touch).
 
 ---
 
 ## Important Constraints
 
-- Never write to `Serial` after OTGW init; it is the PIC serial link.
-- Never flash PIC firmware over WiFi using OTmonitor; that can brick the PIC.
-- Never add HTTPS or WSS support.
-- Always use `addOTWGcmdtoqueue()` for OTGW/PIC commands.
-- Always validate buffer sizes before string operations.
-- Always call `feedWatchDog()` in long-running loops.
+- Never write to `Serial` after OTGW init (it's the PIC serial link)
+- Never flash PIC firmware over WiFi using OTmonitor (bricks the PIC)
+- Never add HTTPS/WSS
+- Always `addOTWGcmdtoqueue()` for OTGW commands
+- Always validate buffer sizes before string operations
+- Always `feedWatchDog()` in long-running loops
 
 ---
 
-## Project Navigation
+## Project Navigation: What to Read Before Touching Code
 
-Start with `docs/c4/c4-context.md` and `docs/c4/c4-component.md` when you do not already know the owning component.
-
-Read these before touching specific areas:
+**Always start with** `docs/c4/c4-context.md` (system overview) and `docs/c4/c4-component.md` (component index).
 
 | Scenario | Read before starting |
 |---|---|
-| MQTT publishing bug | `docs/c4/c4-component-integration-layer.md`, `docs/api/MQTT.md`, `docs/c4/c4-code-mqtt.md` |
-| OpenTherm message parsing | `docs/c4/c4-component-opentherm-core.md`, OpenTherm spec v4.2, `docs/c4/c4-code-otgw-core.md` |
-| Web UI bug | `docs/c4/c4-component-web-interface.md`, `docs/c4/c4-code-web-assets.md` |
-| New REST endpoint | `docs/c4/c4-component-integration-layer.md`, `docs/c4/c4-code-rest-api.md` |
-| New MQTT topic | `docs/api/MQTT.md`, `docs/c4/c4-code-mqtt.md`, relevant ADRs |
-| Settings/config change | `docs/c4/c4-component-configuration-state.md`, ADR-051, `docs/c4/c4-code-settings.md` |
-| Network/WiFi/OTA change | `docs/c4/c4-component-network.md`, `docs/c4/c4-code-network.md` |
-| SAT/BLE feature | `docs/c4/c4-component-smart-thermostat.md`, `other-projects/SAT-releases-thermo-nova/` |
-| ESP32 port/feature | `docs/c4/c4-container.md`, `other-projects/OT-Thing-OTGW32/`, relevant ADRs |
+| Bug in MQTT publishing | `c4-component-integration-layer.md` + `docs/api/MQTT.md` + `c4-code-mqtt.md` |
+| Bug in OT message parsing | `c4-component-opentherm-core.md` + OT spec v4.2 + `c4-code-otgw-core.md` |
+| Bug in web UI | `c4-component-web-interface.md` + `c4-code-web-assets.md` |
+| New REST endpoint | `c4-component-integration-layer.md` + `c4-code-rest-api.md` |
+| New MQTT topic | `docs/api/MQTT.md` + `c4-code-mqtt.md` + relevant ADRs |
+| Settings/config change | `c4-component-configuration-state.md` + ADR-051 + `c4-code-settings.md` |
+| Network/WiFi/OTA change | `c4-component-network.md` + `c4-code-network.md` |
+| SAT/BLE feature | `c4-component-smart-thermostat.md` + `other-projects/SAT-releases-thermo-nova/` |
+| ESP32 port/feature | `c4-container.md` + `other-projects/OT-Thing-OTGW32/` + relevant ADRs |
 | OpenTherm protocol/message IDs | `docs/opentherm specification/OpenTherm-Protocol-Specification-v4.2.md` |
-| MQTT/REST/WebSocket API change | `docs/api/MQTT.md`, `docs/api/WEBSOCKET_FLOW.md` |
-| Architecture change | `docs/c4/c4-context.md`, `docs/c4/c4-component.md`, relevant ADRs, and a new ADR if needed |
-| New dependency | Relevant ADRs, PROGMEM/RAM budget check, and a new ADR |
+| MQTT/REST/WebSocket API change | `docs/api/MQTT.md` + `docs/api/WEBSOCKET_FLOW.md` — breaking silently breaks HA integrations |
+| Architecture change | `c4-context.md` + `c4-component.md` + all relevant ADRs + create new ADR |
+| New dependency | Relevant ADRs + PROGMEM/RAM budget check + create ADR |
 
-C4 component files in `docs/c4/`:
+**C4 component files** (all in `docs/c4/`):
 
 | File | Covers |
 |---|---|
 | `c4-component-opentherm-core.md` | OT protocol, OTGW-Core, OTDirect, PIC serial |
-| `c4-component-integration-layer.md` | MQTT, REST API, WebSocket, Home Assistant auto-config |
+| `c4-component-integration-layer.md` | MQTT, REST API, WebSocket, HA auto-config |
 | `c4-component-web-interface.md` | Web UI, FSexplorer, file serving |
 | `c4-component-network.md` | WiFi, Ethernet, OTA, mDNS, NTP |
 | `c4-component-smart-thermostat.md` | SAT, BLE, simulation mode |
 | `c4-component-sensors-hardware.md` | Dallas, S0 pulse counter, OLED |
-| `c4-component-configuration-state.md` | Settings persistence, `OTGWSettings`, `OTGWState` |
+| `c4-component-configuration-state.md` | Settings persistence, OTGWSettings, OTGWState |
 
-Code-level C4 docs are also in `docs/c4/` and cover MQTT, network, OTDirect, OTGW-Core, REST API, SAT, sensors, settings, utilities, and web assets.
+**Code-level docs** (in `docs/c4/`, one per source area): `mqtt`, `network`, `otdirect`, `otgw-core`, `rest-api`, `sat`, `sensors`, `settings`, `utilities`, `web-assets`.
 
-Reference implementations in `other-projects/` are read-only references. Do not copy them verbatim:
+**Reference implementations** in `other-projects/` — read-only, never copy verbatim:
 
 | Directory | When to read |
 |---|---|
-| `other-projects/OT-Thing-OTGW32/` | ESP32 port, OTDirect, Ethernet, BLE |
-| `other-projects/SAT-releases-thermo-nova/` | SAT subsystem and BLE protocol |
-| `other-projects/otgw-6.6/` | PIC command set and response timing |
-| `other-projects/otmonitor-6.6/` | How a mature client drives the PIC |
+| `OT-Thing-OTGW32/` | ESP32 port, OTDirect, Ethernet, BLE |
+| `SAT-releases-thermo-nova/` | SAT subsystem, BLE protocol |
+| `otgw-6.6/` | PIC command set, response timing |
+| `otmonitor-6.6/` | How a well-tested client drives the PIC |
 
-If you cannot name the C4 component that owns the code you are about to change, stop and read `docs/c4/c4-context.md` first.
-
----
-
-<!-- BACKLOG.MD GUIDELINES START -->
-# Instructions for the usage of Backlog.md MCP / CLI Tooling
-
-## Backlog.md: Comprehensive Project Management Tool via MCP or CLI
-
-### Assistant Objective
-
-Efficiently manage all project tasks, status, and documentation using Backlog MCP tools when available, with the
-Backlog.md CLI as fallback, ensuring all project metadata remains fully synchronized and up-to-date.
-
-### Core Capabilities
-
-- ✅ **Task Management**: Create, edit, assign, prioritize, and track tasks with full metadata
-- ✅ **Search**: Fuzzy search across tasks, documents, and decisions with `backlog search`
-- ✅ **Acceptance Criteria**: Granular control with add/remove/check/uncheck by index
-- ✅ **Definition of Done checklists**: Per-task DoD items with add/remove/check/uncheck
-- ✅ **Board Visualization**: Terminal-based Kanban board (`backlog board`) and web UI (`backlog browser`)
-- ✅ **Git Integration**: Automatic tracking of task states across branches
-- ✅ **Dependencies**: Task relationships and subtask hierarchies
-- ✅ **Documentation & Decisions**: Structured docs and architectural decision records
-- ✅ **Export & Reporting**: Generate markdown reports and board snapshots
-- ✅ **AI-Optimized**: `--plain` flag provides clean text output for AI processing
-
-### Why This Matters to You (AI Agent)
-
-1. **Comprehensive system** - Full project management capabilities through CLI
-2. **MCP is the preferred interface** - Use Backlog MCP task tools first when they are available in the session
-3. **CLI is the fallback interface** - Use `backlog` commands only when MCP is unavailable or fails for the needed operation
-4. **Metadata stays synchronized** - MCP and CLI both preserve the complex relationships when used instead of direct file edits
-
-### Key Understanding
-
-- **Tasks** live in `backlog/tasks/` as `task-<id> - <title>.md` files
-- **You interact via Backlog MCP first**: view/search/create/edit tasks through the MCP tools when available
-- **Fallback to CLI only when needed**: `backlog task create`, `backlog task edit`, etc.
-- **Use `--plain` flag** for AI-friendly output when viewing/listing through the CLI fallback
-- **Never bypass MCP/CLI for writes** - They handle Git, metadata, file naming, and relationships
+**If you cannot name the C4 component that owns the code you are about to change, stop and read c4-context.md first.**
 
 ---
 
-# ⚠️ CRITICAL: NEVER EDIT TASK FILES DIRECTLY. Edit Only via MCP or CLI
+## Debugging User-Reported Issues
 
-**ALL task operations MUST use Backlog MCP tools first, or Backlog.md CLI commands as fallback**
+When investigating a user-reported bug, behavioural deviation, or "this should work" complaint, follow the reference precedence in this order:
 
-- ✅ **DO**: Use Backlog MCP task edit/create/view/search tools when available
-- ✅ **DO**: Use `backlog task edit` and other CLI commands when MCP is unavailable or fails
-- ✅ **DO**: Use MCP acceptance-criteria fields or `backlog task edit <id> --check-ac <index>` to mark acceptance criteria
-- ❌ **DON'T**: Edit markdown files directly
-- ❌ **DON'T**: Manually change checkboxes in files
-- ❌ **DON'T**: Add or modify text in task files without using MCP or CLI
+1. **Read the OpenTherm specification first.** `docs/opentherm specification/OpenTherm-Protocol-Specification-v4.2.md` is the ground truth. The spec defines what the protocol *says* should happen. Anchor every investigation here before opening implementation code, regardless of how confident you feel about the topic.
+2. **Then consult `other-projects/`.** Read `other-projects/README.md` and `other-projects/CLAUDE.md` before quoting any reference implementation. Those files document the precedence ladder inside that directory: Schelte Bron's projects (otgw, otmonitor, otgwmcu) for PIC and otmonitor protocol authority; the HA `opentherm_gw` component for user-perceived behaviour; `pyotgw` for the engine under HA; OT-Thing and SAT for alternative implementations.
+3. **Never modify code under `other-projects/`.** It is upstream reference, read-only by convention. The full rule and rationale live in `other-projects/CLAUDE.md`.
 
-**Why?** Direct file editing breaks metadata synchronization, Git tracking, and task relationships.
+**Spec wins on design decisions.** When the spec is explicit and unambiguous, our firmware matches the spec, even if a downstream client behaves differently.
 
----
+**HA component behaviour matters for understanding the report.** Most user complaints in practice are "this differs from what Home Assistant shows me", not "this differs from the OpenTherm spec". Match the report against the HA component to triage; match the design against the spec to decide.
 
-## 1. Source of Truth & File Structure
+**When spec-correct and HA-perceived behaviour conflict**, capture the trade-off as an ADR (`docs/adr/`). Do not silently align with one or the other; the next maintainer needs to know we made the call deliberately.
 
-### 📖 **UNDERSTANDING** (What you'll see when reading)
+## Git push policy
 
-- Markdown task files live under **`backlog/tasks/`** (drafts under **`backlog/drafts/`**)
-- Files are named: `task-<id> - <title>.md` (e.g., `task-42 - Add GraphQL resolver.md`)
-- Project documentation is in **`backlog/docs/`**
-- Project decisions are in **`backlog/decisions/`**
+The default Claude Code instruction is "do not push without explicit user permission". For this project, the maintainer (Robert) has granted standing permission to push to **`origin/dev`** (the 2.0.0 async default line) and **`origin/otgw-1.x.x`** (the 1.x maintenance line) when it is logical to do so. Logical means: a clean working state, recent commits that are self-contained, and no pending review checkpoints.
 
-### 🔧 **ACTING** (How to change things)
+Concrete rules that override the default "ask first":
 
-- **All task operations MUST use Backlog MCP first, with Backlog.md CLI as fallback**
-- This ensures metadata is correctly updated and the project stays in sync
-- **Always use `--plain` flag** when listing or viewing tasks through the CLI fallback for AI-friendly text output
+- **`origin/dev`** push: allowed once a task is committed locally AND the build verifies (`python build.py` returns exit 0 for the relevant ESP32 target — `dev` is 2.0.0 ESP32-S3, no esp8266 target here) AND the evaluator is green (`python evaluate.py --quick` shows no new failures). Mention the push in the user-facing summary. **Docs-only commits** (`*.md`, `docs/**`, `backlog/**`, `.claude/**`) may skip both gates — they cannot affect firmware compilation.
+- **`origin/otgw-1.x.x`** push: allowed under the same conditions as `origin/dev` (task committed locally, build green for the esp8266 target, evaluator green; docs-only commits skip both gates). This is the 1.5.x/1.6.x maintenance/LTS line (the former `dev`).
+- **`origin/main`** push: **`main` is ALWAYS the latest public release.** Never auto-pushed; every push requires explicit per-instance confirmation and is part of the release flow only.
+- **Force-push** to any branch: still requires explicit per-instance confirmation. Force-push to main is forbidden regardless.
+- **Sub-branches / other remote branches** (`feature-*`, `fix-*`, ad-hoc lanes): require explicit per-instance confirmation. Create a parallel lane only for genuine parallel work and delete it immediately after merging back (one-line policy, see Worktree layout).
 
----
+When in doubt about whether a push is "logical", err toward asking. The cost of one extra prompt is small; the cost of an unwanted force-push is large.
 
-## 2. Common Mistakes to Avoid
+## Versioning policy
 
-### ❌ **WRONG: Direct File Editing**
+Field-test users on Discord identify which build they are running by the prerelease tag in `_VERSION_PRERELEASE` (e.g. `alpha.6`, `beta.23`). Every commit that changes firmware behaviour must ship under its own prerelease tag so a tester can A/B two builds and report which one regressed. Implicit batching ("multiple fixes shipped under one tag") destroys that signal — so the policy is enforced mechanically.
 
-```markdown
-# DON'T DO THIS:
+**What requires a prerelease bump** — any staged path under:
 
-1. Open backlog/tasks/task-7 - Feature.md in editor
-2. Change "- [ ]" to "- [x]" manually
-3. Add notes or final summary directly to the file
-4. Save the file
-```
+- `src/OTGW-firmware/**` (the `.ino`/`.h`/`.cpp` sources and the LittleFS data assets), **except** `src/OTGW-firmware/version.h` itself;
+- `src/libraries/**` (vendored libs that link into the firmware).
 
-### ✅ **CORRECT: Using CLI Commands**
+**What does NOT require a bump** (commit can land with no version change):
+
+- `*.md`, `docs/**`, `backlog/**`, `.claude/**` — pure documentation / project metadata;
+- `scripts/**`, `bin/**`, `.githooks/**` — host-side tooling not flashed to the device;
+- top-level `.py` / `.sh` / `.bat` — build orchestration, not firmware.
+
+**How to bump.** From the project root:
 
 ```bash
-# DO THIS INSTEAD:
-backlog task edit 7 --check-ac 1  # Mark AC #1 as complete
-backlog task edit 7 --notes "Implementation complete"  # Add notes
-backlog task edit 7 --final-summary "PR-style summary"  # Add final summary
-backlog task edit 7 -s "In Progress" -a @agent-k  # Multiple commands: change status and assign the task when you start working on the task
+bin/bump-prerelease.sh        # bumps tag, syncs ALL version banners, stages everything it touched
+git commit -m "..."
 ```
 
----
+The bump script updates `version.h`, `data/version.hash`, **and every
+source-file version banner** (via `autoinc-semver.py --update-all`), then
+stages all of them itself. Do NOT hand-stage only `version.h` + `version.hash`
+— that leaves the ~43 banner updates uncommitted and the headers drift out of
+sync with the version file (observed: banners at alpha.165 while version.h was
+at alpha.170). The whole bump lands in one commit, banner churn included.
 
-## 3. Understanding Task Format (Read-Only Reference)
+The helper requires the current tag to match `^[a-zA-Z]+\.[0-9]+$` (so `alpha.6` → `alpha.7`, `beta.23` → `beta.24`). If you need to change the alpha/beta word itself, edit `version.h` by hand and let `scripts/autoinc-semver.py` handle the rest.
 
-⚠️ **FORMAT REFERENCE ONLY** - The following sections show what you'll SEE in task files.
-**Never edit these directly! Use CLI commands to make changes.**
+**Enforcement.** `.githooks/pre-commit` checks the staged diff. If any triggering path is staged but `_VERSION_PRERELEASE` is unchanged, the commit is rejected with a clear error. The hook is wired via `core.hooksPath = .githooks` (already set on this worktree).
 
-### Task Structure You'll See
-
-```markdown
----
-id: task-42
-title: Add GraphQL resolver
-status: To Do
-assignee: [@sara]
-labels: [backend, api]
----
-
-## Description
-
-Brief explanation of the task purpose.
-
-## Acceptance Criteria
-
-<!-- AC:BEGIN -->
-
-- [ ] #1 First criterion
-- [x] #2 Second criterion (completed)
-- [ ] #3 Third criterion
-
-<!-- AC:END -->
-
-## Definition of Done
-
-<!-- DOD:BEGIN -->
-
-- [ ] #1 Tests pass
-- [ ] #2 Docs updated
-
-<!-- DOD:END -->
-
-## Implementation Plan
-
-1. Research approach
-2. Implement solution
-
-## Implementation Notes
-
-Progress notes captured during implementation.
-
-## Final Summary
-
-PR-style summary of what was implemented.
-```
-
-### How to Modify Each Section
-
-| What You Want to Change | CLI Command to Use                                       |
-|-------------------------|----------------------------------------------------------|
-| Title                   | `backlog task edit 42 -t "New Title"`                    |
-| Status                  | `backlog task edit 42 -s "In Progress"`                  |
-| Assignee                | `backlog task edit 42 -a @sara`                          |
-| Labels                  | `backlog task edit 42 -l backend,api`                    |
-| Description             | `backlog task edit 42 -d "New description"`              |
-| Add AC                  | `backlog task edit 42 --ac "New criterion"`              |
-| Add DoD                 | `backlog task edit 42 --dod "Ship notes"`                |
-| Check AC #1             | `backlog task edit 42 --check-ac 1`                      |
-| Check DoD #1            | `backlog task edit 42 --check-dod 1`                     |
-| Uncheck AC #2           | `backlog task edit 42 --uncheck-ac 2`                    |
-| Uncheck DoD #2          | `backlog task edit 42 --uncheck-dod 2`                   |
-| Remove AC #3            | `backlog task edit 42 --remove-ac 3`                     |
-| Remove DoD #3           | `backlog task edit 42 --remove-dod 3`                    |
-| Add Plan                | `backlog task edit 42 --plan "1. Step one\n2. Step two"` |
-| Add Notes (replace)     | `backlog task edit 42 --notes "What I did"`              |
-| Append Notes            | `backlog task edit 42 --append-notes "Another note"` |
-| Add Final Summary       | `backlog task edit 42 --final-summary "PR-style summary"` |
-| Append Final Summary    | `backlog task edit 42 --append-final-summary "Another detail"` |
-| Clear Final Summary     | `backlog task edit 42 --clear-final-summary` |
-| Add Comment (new v1.46) | `backlog task edit 42 --comment "Review note" --comment-author "@claude"` |
-| Track modified file (new v1.45) | `backlog task edit 42 --modified-file src/OTGW-firmware/MQTTstuff.ino` |
-| Add label (incremental) | `backlog task edit 42 --add-label backend` |
-| Remove label            | `backlog task edit 42 --remove-label api` |
-| Set milestone           | `backlog task edit 42 -m "2.0.0"` |
-| Clear milestone         | `backlog task edit 42 --clear-milestone` |
-
----
-
-## 4. Defining Tasks
-
-### Creating New Tasks
-
-**Always use CLI to create tasks:**
+**Bypass for one commit.** Use sparingly — e.g. an emergency rollback, or a commit that only re-formats whitespace and genuinely does not need its own tag:
 
 ```bash
-# Example
-backlog task create "Task title" -d "Description" --ac "First criterion" --ac "Second criterion"
+OTGW_BUMP_HOOK_DISABLE=1 git commit -m "..."
 ```
 
-### Title (one liner)
+If you find yourself reaching for the bypass routinely, the rule is wrong, not the commit. Open a backlog task to revisit the policy.
 
-Use a clear brief title that summarizes the task.
+## Worktree layout
 
-### Description (The "why")
+Branch model changed 2026-06-20. The 2.0.0 async line was promoted to `dev` (it is now the default working line), the old 1.x `dev` was renamed `otgw-1.x.x`, and `main` is always the latest public release. The everyday state is a **single working tree on `dev`**; a second worktree is only needed when actively maintaining the 1.x line. **The paths below assume the Windows root `D:/Users/Robert/Documents/GitHub/RvdB/` (Mac-canonical equivalent: `~/Library/CloudStorage/OneDrive-Belastingdienst/Documenten/GitHub/...`).**
 
-Provide a concise summary of the task purpose and its goal. Explains the context without implementation details.
+| Worktree dir | Branch | Purpose |
+|---|---|---|
+| `.../GitHub/RvdB/OTGW-firmware` | `dev` | **DEFAULT working tree.** 2.0.0 ESP32-S3-only async + FreeRTOS line (epic TASK-865, ADR-123/128; ESP8266 dropped). |
+| (add on demand) | `otgw-1.x.x` | 1.5.x/1.6.x maintenance/LTS line (the former `dev`). Spin up a worktree only when patching 1.x. |
+| (release only) | `main` | ALWAYS the latest public release. Never a working tree; touched only during the release flow. |
 
-### Acceptance Criteria (The "what")
+The old `feature-2.0.0-esp32s3-async`, `feature-2.0.0-esp32s3-only` and `feature-dev-2.0.0-otgw32-esp32-sat-support` branches are historical (folded into `dev` / parked) and are not active work lines.
 
-**Understanding the Format:**
+**One line, no stray sub-branches (maintainer directive, 2026-06-19, still in force).** Single-lane work commits and pushes DIRECTLY on `dev`, NO sub-branch. Create a sub-branch/worktree ONLY for a genuine parallel lane, and DELETE it immediately after merging back: `git branch -d <sub>`, `git push origin --delete <sub>`, `git worktree remove <dir>`. Codified in `.claude/skills/implement-next-task/SKILL.md`.
 
-- Acceptance criteria appear as numbered checkboxes in the markdown files
-- Format: `- [ ] #1 Criterion text` (unchecked) or `- [x] #1 Criterion text` (checked)
+**Rule: don't cross lines inside one tree.** Work targeting `otgw-1.x.x` belongs in its own worktree. Never `git checkout otgw-1.x.x` inside the `dev` tree to do 1.x work: it defeats the split and risks losing in-flight changes.
 
-**Managing Acceptance Criteria via CLI:**
+**Windows gotcha:** `git worktree remove` can fail with "Function not implemented" (ENOSYS) when a worktree holds internal symlinks (venv `lib64`, toolchain). Remove junction-safe with `cmd //c rmdir /s /q "<path>"` then `git worktree prune`, never a blind recursive delete that may follow a junction's target.
 
-⚠️ **IMPORTANT: How AC Commands Work**
+Verify with `git worktree list`.
 
-- **Adding criteria (`--ac`)** accepts multiple flags: `--ac "First" --ac "Second"` ✅
-- **Checking/unchecking/removing** accept multiple flags too: `--check-ac 1 --check-ac 2` ✅
-- **Mixed operations** work in a single command: `--check-ac 1 --uncheck-ac 2 --remove-ac 3` ✅
+**Backlog.md: always use the CLI, never the MCP server.** The `backlog` MCP server (`mcp__backlog__task_*` tools) inherits the launching session's working directory and indexes only that single worktree. Tasks living in a sibling worktree are invisible to `mcp__backlog__task_search`, and `mcp__backlog__task_view` returns cached/stale content for cross-tree tasks (verified 2026-05-05: MCP kept returning the pre-edit "In Progress" snapshot of TASK-514 long after a CLI edit had marked it Done on disk in the 2.0.0 tree). Mixing CLI and MCP on the same task is fragile because MCP caches and does not reflect CLI-side writes without a server restart. **Use `backlog task ...` CLI for every read, edit, create, complete, and archive in this project.**
 
-```bash
-# Examples
+**CLI cross-tree behaviour.** The backlog now lives in the `dev` tree's `backlog/tasks/` — all 2.0.0 (TASK-865.x and friends) and legacy task files are here. If you spin up a second worktree for `otgw-1.x.x`, remember `backlog task edit` only writes to the worktree where the task file actually lives: if an edit returns `Task not found`, `find` for `task-<id>*` across both worktrees and run the edit from the worktree that holds the file.
 
-# Add new criteria (MULTIPLE values allowed)
-backlog task edit 42 --ac "User can login" --ac "Session persists"
+### One worktree per concurrent session — never share a working tree between two live sessions
 
-# Check specific criteria by index (MULTIPLE values supported)
-backlog task edit 42 --check-ac 1 --check-ac 2 --check-ac 3  # Check multiple ACs
-# Or check them individually if you prefer:
-backlog task edit 42 --check-ac 1    # Mark #1 as complete
-backlog task edit 42 --check-ac 2    # Mark #2 as complete
+Two Claude (or Codex / Gemini) sessions doing git operations in the **same** worktree share one git index and one set of working-tree files. This is fragile and was observed to fail (2026-05-29):
 
-# Mixed operations in single command
-backlog task edit 42 --check-ac 1 --uncheck-ac 2 --remove-ac 3
+- **Shared-index corruption.** Concurrent `git add`/commit from two sessions corrupts the index: `error: invalid object <hash> for '.claude-plugin/marketplace.json'` / `.gemini/settings.json`, then `error: Error building trees` — every commit is blocked. Recovery: `git reset` (mixed, no args) rebuilds the index from HEAD without touching commits or the working tree, then re-stage only your files and commit. A targeted `git reset -- <path>` only fixes one entry at a time (whack-a-mole when several are corrupt).
+- **`.pio` build collisions.** Two `python build.py` runs in the same tree clobber `.pio/build/`, producing a spurious ESP32 LTO link failure (`undefined reference to setup()/loop()`) **even though `build.py` exits 0** (it does not propagate the per-env PlatformIO failure). Recovery: `rm -rf .pio/build/esp32` and rebuild solo. A background agent that backgrounds its own build and then ends leaves an orphaned build that collides with the next one — have agents NOT build, and let the main thread build once after they finish.
+- **EOL churn is normal, not work.** On Windows every git touch flags `LF will be replaced by CRLF` on ~90 files that show as modified with zero content change. `git diff --ignore-cr-at-eol` reveals the real set; after committing real work, `git checkout -- .` restores the EOL-only files to leave a clean tree.
 
-# ❌ STILL WRONG - These formats don't work:
-# backlog task edit 42 --check-ac 1,2,3  # No comma-separated values
-# backlog task edit 42 --check-ac 1-3    # No ranges
-# backlog task edit 42 --check 1         # Wrong flag name
+**Prevention.** Give each concurrent session its OWN worktree (`git worktree add ../wt-<topic> <branch-or-HEAD>`), OR run parallel work as **background sub-agents inside ONE session** (they serialise git through the single main thread, and the convention here is that sub-agents implement + report but do NOT commit/bump/build — the main thread does that once after reviewing). Do not run two top-level sessions in the same tree expecting clean commits.
 
-# Multiple operations of same type
-backlog task edit 42 --uncheck-ac 1 --uncheck-ac 2  # Uncheck multiple ACs
-backlog task edit 42 --remove-ac 2 --remove-ac 4    # Remove multiple ACs (processed high-to-low)
-```
+### Cross-worktree work — ask first, then plan once, then parallelise
 
-### Definition of Done checklist (per-task)
+Whenever you take on a bug fix, feature change, or architectural decision, **explicitly ask yourself**: *does this also need to land on the other line?* For `dev` (2.0.0) ↔ `otgw-1.x.x` (1.x) the answer is **yes** when the change touches:
 
-Definition of Done items are a second checklist in each task. Defaults come from `definition_of_done` in `backlog/config.yml` (or Web UI Settings) and can be disabled per task.
+- Any file under `src/OTGW-firmware/` whose name is the same on both lines (most `.ino`, `.h`, `.cpp` and the LittleFS data assets) — even when the line numbers or filenames differ between branches (e.g. 1.x's `mqtt_configuratie.cpp` is `MQTTHaDiscovery.cpp` on 2.0.0), the architectural fix usually applies to both.
+- ADRs that codify a cross-cutting decision (MQTT topic shape, heap policy, discovery semantics, settings schema). The `dev` ADR and the `otgw-1.x.x` ADR have separate numbering, but the *decision* must be coherent across both.
+- Anything driven by a HA-side, broker-side or PIC-side contract (HA discovery regex, MQTT retained behaviour, OpenTherm message ID semantics) — those are platform-independent and the firmware-side fix must apply on both lines.
 
-**Managing Definition of Done via CLI:**
+The answer is usually **no** when the change is genuinely scoped to a feature that only exists on one line (SAT dashboard, ESP32-S3 board pinning, OTGW32 hardware bring-up, async/FreeRTOS → `dev`/2.0.0 only; 1.x-specific patch backports → `otgw-1.x.x` only). Note: with 1.x now in maintenance/LTS, most active work is `dev`-only and cross-line porting is the exception, not the default.
 
-```bash
-# Add DoD items (MULTIPLE values allowed)
-backlog task edit 42 --dod "Run tests" --dod "Update docs"
+**If both: one master plan, two tasks, two agents.**
 
-# Check/uncheck DoD items by index (MULTIPLE values supported)
-backlog task edit 42 --check-dod 1 --check-dod 2
-backlog task edit 42 --uncheck-dod 1
+1. **Write ONE master plan first**, before creating any task or spawning any agent. The plan covers *both* worktrees in a single document and must contain, for each change:
+   - The desired outcome in plain language (the "what" and "why").
+   - The exact file(s) and line number(s) on **both** branches — they often differ (dev refactor split files differently than 2.0.0). Read each branch's source to confirm; do not assume parity.
+   - Per-platform considerations explicitly called out for the 2.0.0 side (ESP8266 vs ESP32-S3 deadbands/thresholds, board-specific pin maps, conditional compilation flags `#if defined(ESP32)` etc.).
+   - The full AC list each per-worktree task will inherit (build commands per target, evaluator commands, field-validation gates, ADR-acceptance gates).
+   - Cross-tree dependencies and ordering — e.g. dev ADR-N must be Accepted before 2.0.0 ADR-M can be drafted; dev impl can be pushed before 2.0.0 impl is reviewed.
+   - The expected commit message prefix and the push gate per branch (`origin/dev` auto-push allowed under the dev worktree's policy; 2.0.0 feature branch push needs explicit confirmation).
 
-# Remove DoD items by index
-backlog task edit 42 --remove-dod 2
+2. **Share the master plan with the user for approval** before any task creation. The user's "go" on the master plan replaces the per-task plan-review gate that would otherwise apply individually.
 
-# Create without defaults
-backlog task create "Feature" --no-dod-defaults
-```
+3. **Then create two separate backlog tasks**, one per worktree. Use the convention `feat-2.0.0: port TASK-N — <title>` for the 2.0.0 sibling so cross-references stay legible. Each task carries its own AC list derived from the master plan; do not over-share ACs across tasks (each agent must be able to verify its own task in isolation).
 
-**Key Principles for Good ACs:**
+4. **Spawn two agents in parallel**, one per worktree. Each agent:
+   - Has its own self-contained prompt referencing the master plan (or restating its scope in full).
+   - Works exclusively in its own worktree and explicitly does not touch the other tree.
+   - Reports back independently with build/evaluator/commit/push receipts.
 
-- **Outcome-Oriented:** Focus on the result, not the method.
-- **Testable/Verifiable:** Each criterion should be objectively testable
-- **Clear and Concise:** Unambiguous language
-- **Complete:** Collectively cover the task scope
-- **User-Focused:** Frame from end-user or system behavior perspective
+5. **Verify both reports**, then report a consolidated summary to the user.
 
-Good Examples:
+Do **not** sequence (dev first, then 2.0.0 only after dev is fully done) unless there's a hard ordering dependency (e.g. 2.0.0 ADR cites a regex finding from the dev ADR — in that case dev ADR must be Accepted before the 2.0.0 ADR can be drafted, but the 2.0.0 *code* impl can still parallelise once both ADRs are Accepted).
 
-- "User can successfully log in with valid credentials"
-- "System processes 1000 requests per second without errors"
-- "CLI preserves literal newlines in description/plan/notes/final summary; `\\n` sequences are not auto‑converted"
+The benefit of writing the plan once is symmetry: agents see the same intent, the two ADRs cross-reference cleanly, the two commits land within minutes of each other, and the user reviews one design instead of two slightly-divergent designs.
 
-Bad Example (Implementation Step):
+## ADR Kit Rules
 
-- "Add a new function handleLogin() in auth.ts"
-- "Define expected behavior and document supported input patterns"
+This project uses [adr-kit](https://github.com/rvdbreemen/adr-kit) for Architecture Decision Records. The skill, the `adr-generator` subagent, and the path-specific instructions are loaded via the plugin.
 
-### Task Breakdown Strategy
+- Use `/adr-kit:adr` (or invoke the `adr-generator` subagent) when authoring a new ADR.
+- During coding work, follow the rules in the plugin's `instructions/adr.coding.md`.
+- During code review, apply the six named ADR checks in the plugin's `instructions/adr.review.md`.
+- An ADR cannot flip from `Proposed` to `Accepted` until it passes all four verification gates: Completeness, Evidence, Clarity, Consistency.
 
-1. Identify foundational components first
-2. Create tasks in dependency order (foundations before features)
-3. Ensure each task delivers value independently
-4. Avoid creating tasks that block each other
-
-### Task Requirements
-
-- Tasks must be **atomic** and **testable** or **verifiable**
-- Each task should represent a single unit of work for one PR
-- **Never** reference future tasks (only tasks with id < current task id)
-- Ensure tasks are **independent** and don't depend on future work
-
----
-
-## 5. Implementing Tasks
-
-### 5.1. First step when implementing a task
-
-The very first things you must do when you take over a task are:
-
-* set the task in progress
-* assign it to yourself
-
-```bash
-# Example
-backlog task edit 42 -s "In Progress" -a @{myself}
-```
-
-### 5.2. Review Task References and Documentation
-
-Before planning, check if the task has any attached `references` or `documentation`:
-- **References**: Related code files, GitHub issues, or URLs relevant to the implementation
-- **Documentation**: Design docs, API specs, or other materials for understanding context
-
-These are visible in the task view output. Review them to understand the full context before drafting your plan.
-
-### 5.3. Create an Implementation Plan (The "how")
-
-Previously created tasks contain the why and the what. Once you are familiar with that part you should think about a
-plan on **HOW** to tackle the task and all its acceptance criteria. This is your **Implementation Plan**.
-First do a quick check to see if all the tools that you are planning to use are available in the environment you are
-working in.
-When you are ready, write it down in the task so that you can refer to it later.
-
-```bash
-# Example
-backlog task edit 42 --plan "1. Research codebase for references\n2Research on internet for similar cases\n3. Implement\n4. Test"
-```
-
-## 5.4. Implementation
-
-Once you have a plan, you can start implementing the task. This is where you write code, run tests, and make sure
-everything works as expected. Follow the acceptance criteria one by one and MARK THEM AS COMPLETE as soon as you
-finish them.
-
-### 5.5 Implementation Notes (Progress log)
-
-Use Implementation Notes to log progress, decisions, and blockers as you work.
-Append notes progressively during implementation using `--append-notes`:
-
-```
-backlog task edit 42 --append-notes "Investigated root cause" --append-notes "Added tests for edge case"
-```
-
-```bash
-# Example
-backlog task edit 42 --notes "Initial implementation done; pending integration tests"
-```
-
-### 5.6 Final Summary (PR description)
-
-When you are done implementing a task you need to prepare a PR description for it.
-Because you cannot create PRs directly, write the PR as a clean summary in the Final Summary field.
-
-**Quality bar:** Write it like a reviewer will see it. A one‑liner is rarely enough unless the change is truly trivial.
-Include the key scope so someone can understand the impact without reading the whole diff.
-
-```bash
-# Example
-backlog task edit 42 --final-summary "Implemented pattern X because Reason Y; updated files Z and W; added tests"
-```
-
-**IMPORTANT**: Do NOT include an Implementation Plan when creating a task. The plan is added only after you start the
-implementation.
-
-- Creation phase: provide Title, Description, Acceptance Criteria, and optionally labels/priority/assignee.
-- When you begin work, switch to edit, set the task in progress and assign to yourself
-  `backlog task edit <id> -s "In Progress" -a "..."`.
-- Think about how you would solve the task and add the plan: `backlog task edit <id> --plan "..."`.
-- After updating the plan, share it with the user and ask for confirmation. Do not begin coding until the user approves the plan or explicitly tells you to skip the review.
-- Append Implementation Notes during implementation using `--append-notes` as progress is made.
-- Add Final Summary only after completing the work: `backlog task edit <id> --final-summary "..."` (replace) or append using `--append-final-summary`.
-
-## Phase discipline: What goes where
-
-- Creation: Title, Description, Acceptance Criteria, labels/priority/assignee.
-- Implementation: Implementation Plan (after moving to In Progress and assigning to yourself) + Implementation Notes (progress log, appended as you work).
-- Wrap-up: Final Summary (PR description), verify AC and Definition of Done checks.
-
-**IMPORTANT**: Only implement what's in the Acceptance Criteria. If you need to do more, either:
-
-1. Update the AC first: `backlog task edit 42 --ac "New requirement"`
-2. Or create a new follow up task: `backlog task create "Additional feature"`
-
----
-
-## 6. Typical Workflow
-
-```bash
-# 1. Identify work
-backlog task list -s "To Do" --plain
-
-# 2. Read task details
-backlog task 42 --plain
-
-# 3. Start work: assign yourself & change status
-backlog task edit 42 -s "In Progress" -a @myself
-
-# 4. Add implementation plan
-backlog task edit 42 --plan "1. Analyze\n2. Refactor\n3. Test"
-
-# 5. Share the plan with the user and wait for approval (do not write code yet)
-
-# 6. Work on the task (write code, test, etc.)
-
-# 7. Mark acceptance criteria as complete (supports multiple in one command)
-backlog task edit 42 --check-ac 1 --check-ac 2 --check-ac 3  # Check all at once
-# Or check them individually if preferred:
-# backlog task edit 42 --check-ac 1
-# backlog task edit 42 --check-ac 2
-# backlog task edit 42 --check-ac 3
-
-# 8. Add Final Summary (PR Description)
-backlog task edit 42 --final-summary "Refactored using strategy pattern, updated tests"
-
-# 9. Mark task as done
-backlog task edit 42 -s Done
-```
-
----
-
-## 7. Definition of Done (DoD)
-
-A task is **Done** only when **ALL** of the following are complete:
-
-### ✅ Via MCP or CLI Commands:
-
-1. **All acceptance criteria checked**: Use Backlog MCP `acceptanceCriteriaCheck` or CLI `backlog task edit <id> --check-ac <index>` for each
-2. **All Definition of Done items checked**: Use Backlog MCP `definitionOfDoneCheck` or CLI `backlog task edit <id> --check-dod <index>` for each
-3. **Final Summary added**: Use Backlog MCP `finalSummary` or CLI `backlog task edit <id> --final-summary "..."`
-4. **Status set to Done**: Use Backlog MCP `status: Done` or CLI `backlog task edit <id> -s Done`
-
-### ✅ Via Code/Testing:
-
-5. **Tests pass**: Run test suite and linting
-6. **Documentation updated**: Update relevant docs if needed
-7. **Code reviewed**: Self-review your changes
-8. **No regressions**: Performance, security checks pass
-
-⚠️ **NEVER mark a task as Done without completing ALL items above**
-
----
-
-## 8. Finding Tasks and Content with Search
-
-When users ask you to find tasks related to a topic, use Backlog MCP search first. If MCP is unavailable or fails, use the `backlog search` command with `--plain` flag:
-
-```bash
-# Search for tasks about authentication
-backlog search "auth" --plain
-
-# Search only in tasks (not docs/decisions)
-backlog search "login" --type task --plain
-
-# Search with filters
-backlog search "api" --status "In Progress" --plain
-backlog search "bug" --priority high --plain
-```
-
-**Key points:**
-- Uses fuzzy matching - finds "authentication" when searching "auth"
-- Searches task titles, descriptions, and content
-- Also searches documents and decisions unless filtered with `--type task`
-- Always use `--plain` flag for AI-readable output
-
----
-
-## 9. Quick Reference: DO vs DON'T
-
-### Viewing and Finding Tasks
-
-| Task         | ✅ DO                        | ❌ DON'T                         |
-|--------------|-----------------------------|---------------------------------|
-| View task    | MCP task view or `backlog task 42 --plain`   | Open and read .md file directly |
-| List tasks   | MCP task list/search or `backlog task list --plain` | Browse backlog/tasks folder     |
-| Check status | MCP task view or `backlog task 42 --plain`   | Look at file content            |
-| Find by topic| MCP task search or `backlog search "auth" --plain` | Manually grep through files |
-
-### Modifying Tasks
-
-| Task          | ✅ DO                                 | ❌ DON'T                           |
-|---------------|--------------------------------------|-----------------------------------|
-| Check AC      | MCP task edit or `backlog task edit 42 --check-ac 1`  | Change `- [ ]` to `- [x]` in file |
-| Add notes     | MCP task edit or `backlog task edit 42 --notes "..."` | Type notes into .md file          |
-| Add final summary | MCP task edit or `backlog task edit 42 --final-summary "..."` | Type summary into .md file |
-| Change status | MCP task edit or `backlog task edit 42 -s Done`       | Edit status in frontmatter        |
-| Add AC        | MCP task edit or `backlog task edit 42 --ac "New"`    | Add `- [ ] New` to file           |
-
----
-
-## 10. Fallback CLI Command Reference
-
-Use these commands when Backlog MCP tools are unavailable or fail for the current operation.
-
-### Task Creation
-
-| Action           | Command                                                                             |
-|------------------|-------------------------------------------------------------------------------------|
-| Create task      | `backlog task create "Title"`                                                       |
-| With description | `backlog task create "Title" -d "Description"`                                      |
-| With AC          | `backlog task create "Title" --ac "Criterion 1" --ac "Criterion 2"`                 |
-| With final summary | `backlog task create "Title" --final-summary "PR-style summary"`                 |
-| With references  | `backlog task create "Title" --ref src/api.ts --ref https://github.com/issue/123`   |
-| With documentation | `backlog task create "Title" --doc https://design-docs.example.com`               |
-| With all options | `backlog task create "Title" -d "Desc" -a @sara -s "To Do" -l auth --priority high --ref src/api.ts --doc docs/spec.md` |
-| With milestone   | `backlog task create "Title" -m "2.0.0"`                                            |
-| With modified files | `backlog task create "Title" --modified-file src/OTGW-firmware/MQTTstuff.ino`    |
-| Create draft     | `backlog task create "Title" --draft`                                               |
-| Create subtask   | `backlog task create "Title" -p 42`                                                 |
-
-### Task Modification
-
-| Action           | Command                                     |
-|------------------|---------------------------------------------|
-| Edit title       | `backlog task edit 42 -t "New Title"`       |
-| Edit description | `backlog task edit 42 -d "New description"` |
-| Change status    | `backlog task edit 42 -s "In Progress"`     |
-| Assign           | `backlog task edit 42 -a @sara`             |
-| Add labels       | `backlog task edit 42 -l backend,api`       |
-| Set priority     | `backlog task edit 42 --priority high`      |
-
-### Acceptance Criteria Management
-
-| Action              | Command                                                                     |
-|---------------------|-----------------------------------------------------------------------------|
-| Add AC              | `backlog task edit 42 --ac "New criterion" --ac "Another"`                  |
-| Remove AC #2        | `backlog task edit 42 --remove-ac 2`                                        |
-| Remove multiple ACs | `backlog task edit 42 --remove-ac 2 --remove-ac 4`                          |
-| Check AC #1         | `backlog task edit 42 --check-ac 1`                                         |
-| Check multiple ACs  | `backlog task edit 42 --check-ac 1 --check-ac 3`                            |
-| Uncheck AC #3       | `backlog task edit 42 --uncheck-ac 3`                                       |
-| Mixed operations    | `backlog task edit 42 --check-ac 1 --uncheck-ac 2 --remove-ac 3 --ac "New"` |
-
-### Task Content
-
-| Action           | Command                                                  |
-|------------------|----------------------------------------------------------|
-| Add plan         | `backlog task edit 42 --plan "1. Step one\n2. Step two"` |
-| Add notes        | `backlog task edit 42 --notes "Implementation details"`  |
-| Add final summary | `backlog task edit 42 --final-summary "PR-style summary"` |
-| Append final summary | `backlog task edit 42 --append-final-summary "More details"` |
-| Clear final summary | `backlog task edit 42 --clear-final-summary` |
-| Add dependencies | `backlog task edit 42 --dep task-1 --dep task-2`         |
-| Add references   | `backlog task edit 42 --ref src/api.ts --ref https://github.com/issue/123` |
-| Add documentation | `backlog task edit 42 --doc https://design-docs.example.com --doc docs/spec.md` |
-
-### Multi‑line Input (Description/Plan/Notes/Final Summary)
-
-The CLI preserves input literally. Shells do not convert `\n` inside normal quotes. Use one of the following to insert real newlines:
-
-- Bash/Zsh (ANSI‑C quoting):
-  - Description: `backlog task edit 42 --desc $'Line1\nLine2\n\nFinal'`
-  - Plan: `backlog task edit 42 --plan $'1. A\n2. B'`
-  - Notes: `backlog task edit 42 --notes $'Done A\nDoing B'`
-  - Append notes: `backlog task edit 42 --append-notes $'Progress update line 1\nLine 2'`
-  - Final summary: `backlog task edit 42 --final-summary $'Shipped A\nAdded B'`
-  - Append final summary: `backlog task edit 42 --append-final-summary $'Added X\nAdded Y'`
-- POSIX portable (printf):
-  - `backlog task edit 42 --notes "$(printf 'Line1\nLine2')"`
-- PowerShell (backtick n):
-  - `backlog task edit 42 --notes "Line1`nLine2"`
-
-Do not expect `"...\n..."` to become a newline. That passes the literal backslash + n to the CLI by design.
-
-Descriptions support literal newlines; shell examples may show escaped `\\n`, but enter a single `\n` to create a newline.
-
-### Implementation Notes Formatting
-
-- Keep implementation notes concise and time-ordered; focus on progress, decisions, and blockers.
-- Use short paragraphs or bullet lists instead of a single long line.
-- Use Markdown bullets (`-` for unordered, `1.` for ordered) for readability.
-- When using CLI flags like `--append-notes`, remember to include explicit
-  newlines. Example:
-
-  ```bash
-  backlog task edit 42 --append-notes $'- Added new API endpoint\n- Updated tests\n- TODO: monitor staging deploy'
-  ```
-
-### Final Summary Formatting
-
-- Treat the Final Summary as a PR description: lead with the outcome, then add key changes and tests.
-- Keep it clean and structured so it can be pasted directly into GitHub.
-- Prefer short paragraphs or bullet lists and avoid raw progress logs.
-- Aim to cover: **what changed**, **why**, **user impact**, **tests run**, and **risks/follow‑ups** when relevant.
-- Avoid single‑line summaries unless the change is truly tiny.
-
-**Example (good, not rigid):**
-```
-Added Final Summary support across CLI/MCP/Web/TUI to separate PR summaries from progress notes.
-
-Changes:
-- Added `finalSummary` to task types and markdown section parsing/serialization (ordered after notes).
-- CLI/MCP/Web/TUI now render and edit Final Summary; plain output includes it.
-
-Tests:
-- bun test src/test/final-summary.test.ts
-- bun test src/test/cli-final-summary.test.ts
-```
-
-### Task Operations
-
-| Action             | Command                                      |
-|--------------------|----------------------------------------------|
-| View task          | `backlog task 42 --plain`                    |
-| List tasks         | `backlog task list --plain`                  |
-| Search tasks       | `backlog search "topic" --plain`              |
-| Search with filter | `backlog search "api" --status "To Do" --plain` |
-| Filter by status   | `backlog task list -s "In Progress" --plain` |
-| Filter by assignee | `backlog task list -a @sara --plain`         |
-| Filter by milestone (new v1.40) | `backlog task list -m "2.0.0" --plain` |
-| Filter by priority (new v1.45) | `backlog task list --priority high --plain` |
-| Filter by parent   | `backlog task list -p 865 --plain`           |
-| Sort by priority   | `backlog task list --sort priority --plain`  |
-| Search by file (new v1.45) | `backlog search --modified-file MQTTstuff --plain` |
-| Search with limit  | `backlog search "heap" --limit 10 --plain`   |
-| Archive task       | `backlog task archive 42`                    |
-| Demote to draft    | `backlog task demote 42`                     |
-
----
-
-## Common Issues
-
-| Problem              | Solution                                                           |
-|----------------------|--------------------------------------------------------------------|
-| Task not found       | Check task ID with `backlog task list --plain`                     |
-| AC won't check       | Use correct index: `backlog task 42 --plain` to see AC numbers     |
-| Changes not saving   | Ensure you're using MCP/CLI, not editing files                     |
-| Metadata out of sync | Re-edit via CLI to fix: `backlog task edit 42 -s <current-status>` |
-
----
-
-## Remember: The Golden Rule
-
-**🎯 If you want to change ANYTHING in a task, use Backlog MCP task edit first or the `backlog task edit` CLI fallback.**
-**📖 Use MCP/CLI to read tasks, exceptionally READ task files directly, never WRITE to them.**
-
-Full help available: `backlog --help`
-
-<!-- BACKLOG.MD GUIDELINES END -->
+ADR files live at `docs/adr/ADR-XXX-title.md`. Status flow: `Proposed` to `Accepted`, then immutable. To reverse a decision, write a superseding ADR rather than editing the original.
 
 ---
 > Source: [rvdbreemen/OTGW-firmware](https://github.com/rvdbreemen/OTGW-firmware) — distributed by [TomeVault](https://tomevault.io).
