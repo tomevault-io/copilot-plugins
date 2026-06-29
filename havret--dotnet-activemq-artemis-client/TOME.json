@@ -1,0 +1,57 @@
+{
+  "name": "dotnet-activemq-artemis-client",
+  "owner": "Havret",
+  "repo": "dotnet-activemq-artemis-client",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotnet-activemq-artemis-client",
+      "path": ".claude/skills/unit-test-style/SKILL.md",
+      "github_url": "https://github.com/Havret/dotnet-activemq-artemis-client/tree/main/.claude/skills/unit-test-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-activemq-artemis-client",
+      "path": ".claude/skills/integration-test-style/SKILL.md",
+      "github_url": "https://github.com/Havret/dotnet-activemq-artemis-client/tree/main/.claude/skills/integration-test-style/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Havret/dotnet-activemq-artemis-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:55:35Z"
+}
