@@ -1,0 +1,9 @@
+{
+  "name": "oxbshw--agent-span",
+  "displayName": "Agent-Span",
+  "description": "The Web Access Gateway for AI Agents \u2014 52 channels, 92 MCP tools, 9 SDKs, self-healing backends, async Rust",
+  "version": "1.0.0",
+  "author": "oxbshw",
+  "homepage": "https://github.com/oxbshw/Agent-Span",
+  "skills": []
+}
