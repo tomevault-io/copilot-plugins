@@ -1,0 +1,14 @@
+{
+  "name": "ningzimu--codex-ppt-skill",
+  "displayName": "codex-ppt-skill",
+  "description": "codex-ppt-skill",
+  "version": "1.0.0",
+  "author": "ningzimu",
+  "homepage": "https://github.com/ningzimu/codex-ppt-skill",
+  "skills": [
+    {
+      "name": "codex-ppt-skill",
+      "description": ""
+    }
+  ]
+}
