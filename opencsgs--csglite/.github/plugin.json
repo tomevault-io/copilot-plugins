@@ -1,0 +1,9 @@
+{
+  "name": "opencsgs--csglite",
+  "displayName": "csglite",
+  "description": "CSGLite is a lightweight local LLM runner for the CSGHub platform. One command downloads, loads, and chats with models. It   ships a web UI, OpenAI-compatible API, llama.cpp inference, resumable downl",
+  "version": "1.0.0",
+  "author": "OpenCSGs",
+  "homepage": "https://github.com/OpenCSGs/csglite",
+  "skills": []
+}
