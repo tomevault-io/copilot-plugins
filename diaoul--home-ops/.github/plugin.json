@@ -1,0 +1,14 @@
+{
+  "name": "diaoul--home-ops",
+  "displayName": "home-ops",
+  "description": "home-ops",
+  "version": "1.0.0",
+  "author": "Diaoul",
+  "homepage": "https://github.com/Diaoul/home-ops",
+  "skills": [
+    {
+      "name": "home-ops",
+      "description": ""
+    }
+  ]
+}
