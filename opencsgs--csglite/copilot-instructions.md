@@ -1,11 +1,11 @@
-## network-proxy
+## platform-sensitive-files
 
-> Network proxy conventions for accessing GitHub (external) vs GitLab (internal)
+> Multi-platform requirements for Go and install script changes
 
 
-# Network & Proxy Conventions
+# Multi-Platform Support
 
-Canonical rule: `docs/agent-guidelines/network-and-secrets.md`.
+Canonical rule: `docs/agent-guidelines/cross-platform.md`.
 
 Follow that file. Do not add duplicated rule text here; update the canonical
 guideline instead.
