@@ -1,0 +1,9 @@
+{
+  "name": "firecow--gitlab-ci-local",
+  "displayName": "gitlab-ci-local",
+  "description": "gitlab-ci-local",
+  "version": "1.0.0",
+  "author": "firecow",
+  "homepage": "https://github.com/firecow/gitlab-ci-local",
+  "skills": []
+}
