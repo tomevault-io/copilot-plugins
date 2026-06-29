@@ -1,0 +1,22 @@
+{
+  "name": "zhiweio--resume-as-code",
+  "displayName": "resume-as-code",
+  "description": "Resume as Code: Your career, managed like a software project. \ud83d\ude80 Stop manual tailoring. Leverage LLM agents to transform a modular YAML \"Master Timeline\" into high-impact, STAR-aligned, JD-tailored res",
+  "version": "1.0.0",
+  "author": "zhiweio",
+  "homepage": "https://github.com/zhiweio/resume-as-code",
+  "skills": [
+    {
+      "name": "resume-as-code",
+      "description": ""
+    },
+    {
+      "name": "resume-as-code",
+      "description": ""
+    },
+    {
+      "name": "resume-as-code",
+      "description": ""
+    }
+  ]
+}
