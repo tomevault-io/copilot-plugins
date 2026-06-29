@@ -4,7 +4,7 @@
   "repo": "HardwareVisualizer",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/shm11C3/HardwareVisualizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T20:58:39Z"
+  "distributed_at": "2026-06-29T22:47:48Z"
 }
