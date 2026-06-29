@@ -1,0 +1,217 @@
+## teachingdatascience
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Purpose
+
+An open-source educational repository containing:
+- **LaTeX**: Beamer presentation slides and two-column cheatsheets for Data Science courses (Python, ML, DL, NLP, GenAI, RAG, Quantum Computing, etc.)
+- **Code**: Python scripts and Jupyter notebooks demonstrating the concepts covered in the slides
+
+## LaTeX Build System
+
+Compile a specific deck from the `LaTeX/` directory using MikTeX's `texify`:
+```bat
+cd LaTeX
+texify -cp Main_Seminar_AI_ClaudeCode_Presentation.tex
+```
+
+Compile all decks matching a pattern (Windows):
+```bat
+cd LaTeX
+for /r %i in (Main_Seminar_*Educators*.tex) do texify -cp %i
+```
+
+Compile everything:
+```bat
+cd LaTeX
+make_all.bat
+```
+
+## LaTeX Architecture
+
+### 4-level content hierarchy
+
+```
+Course (40hr)     Main_Course_*_{Presentation,CheatSheet}.tex
+                    └─ course_*_content.tex
+                         └─ \input{workshop_*_content}  (+ course-specific extras)
+
+Workshop (4-16hr) Main_Workshop_*_{Presentation,CheatSheet}.tex
+                    └─ workshop_*_content.tex
+                         └─ \input{seminar_*_content}  (seminar layer only)
+
+Seminar (1hr)     Main_Seminar_*_{Presentation,CheatSheet}.tex
+                    └─ seminar_*_content.tex
+                         └─ \input{<domain>_<topic>}  (raw topic files)
+```
+
+Every deliverable has two output forms sharing the same content file:
+- `Main_*_Presentation.tex` — Beamer slides (`\documentclass{beamer}`, uses `template_presentation.tex`)
+- `Main_*_CheatSheet.tex` — Two-column landscape notes (`\documentclass{article}`, uses `template_cheatsheet.tex`)
+
+CheatSheet column count convention: Seminars use `multicols{3}`; Workshops use `multicols{2}`.
+
+`\usepackage{beamerarticle}` in `template_cheatsheet.tex` makes Beamer `\begin{frame}` environments compile correctly in article mode — no frame stripping needed.
+
+### Naming conventions
+- Topic files: `<domain>_<topic>.tex` (e.g., `maths_linearalgebra_matrices.tex`)
+- Content aggregators: `<type>_<subject>_content.tex`
+- Driver files: `Main_[Course|Seminar|Workshop]_<Subject>_[Presentation|CheatSheet].tex`
+  - Seminar ≈ 1 hour, Workshop ≈ 1 day, Course ≈ 1 week/semester
+- Every Seminar and Workshop **must** have both a `_Presentation.tex` and a `_CheatSheet.tex` driver
+
+### Known issues
+- `seminar_latex4research_conent.tex` — filename typo (`conent` vs `content`); the file and all references would need renaming together
+- `workshop_python_content.tex` and `workshop_maths4ml_content.tex` still use raw files (not yet routed via seminar layer — deferred)
+- `seminar_quantum_content.tex` — orphaned; its former driver files (`Main_Seminar_Tech_Quantum_*`) were merged into `Main_Seminar_Tech_QuantumComputing_Overview_*`. Kept as reference; safe to delete.
+
+### Quantum Computing course (added May 2026)
+Full 4-level hierarchy for the course "Quantum Computing for Non-Physicists":
+- **Course**: `Main_Course_QuantumComputing_{Presentation,CheatSheet}.tex` → `course_quantumcomputing_content.tex`
+- **Workshops** (4): `Main_Workshop_QuantumComputing_{Foundations,Circuits,Algorithms,Advanced}_{Presentation,CheatSheet}.tex`
+- **Seminar**: `Main_Seminar_Tech_QuantumComputing_Overview_{Presentation,CheatSheet}.tex` (~2 hr overview + QML)
+- **Topic files** (14): all prefixed `quantum_` (e.g. `quantum_intro_motivation.tex`, `quantum_gates_circuits.tex`)
+- Existing files `quantum_basics_intro.tex`, `quantum_maths_intro.tex`, `quantum_machinelearning_intro.tex` pre-date the course and are referenced optionally (heavier math; commented-out in the new overview seminar)
+
+### Machine Learning course restructured (June 2026)
+Full 4-level hierarchy for the 40-hour ML course "Machine Learning for Graduate Students":
+- **Course**: `Main_Course_MachineLearning_{Presentation,CheatSheet}.tex` → `course_machinelearning_content.tex`
+- **Workshops** (6 × driver pairs):
+  - W1 Python for ML (8h): existing `workshop_python_content.tex`
+  - W2 Foundations (4h): `workshop_ml_foundations_content.tex`
+  - W3 Regression (4h): `workshop_ml_regression_content.tex`
+  - W4 Tree-Based & Ensemble (8h): `workshop_ml_treebased_content.tex`
+  - W5 Supervised II — KNN/SVM/NB (8h): `workshop_ml_supervisedII_content.tex`
+  - W6 Unsupervised & Deployment (8h): `workshop_ml_unsupervised_content.tex`
+  - Standalone all-ML workshop (W2–W6, no Python/demos): `Main_Workshop_MachineLearning_{Presentation,CheatSheet}.tex`
+- **Seminars** (10 × driver pairs): `seminar_ml_{intro,dataprep,regression,decisiontree,ensemble,knn,svm_nb,clustering,dimreduction,deployment}_content.tex`; drivers are `Main_Seminar_ML_{Intro,DataPrep,Regression,DecisionTree,Ensemble,KNN,SVM_NB,Clustering,DimReduction,Deployment}_{Presentation,CheatSheet}.tex`
+- **New demo/assign files**: `ml_course_demo_regression_housing.tex`, `ml_course_demo_svm_digits.tex`, `ml_course_assign_knn_wine.tex`, `ml_course_demo_clustering_customers.tex`, `ml_course_assign_pca_digits.tex`
+- **Upgrade status**: Seminar 1 (Intro) upgraded; track remaining 9 in `LaTeX/todo_ml_seminar_upgrade.md`
+- **Pending**: `course_machinelearning_content.tex` still needs the 5 new demo/assign files listed above added at the end
+
+### Adding a new topic
+1. Create `LaTeX/<domain>_<topic>.tex` with Beamer frames
+2. `\input{<domain>_<topic>}` inside the relevant `seminar_*_content.tex`
+3. Place supporting images in `LaTeX/images/` (5000+ images already there, mostly PDFs)
+
+### Frame boilerplate
+```latex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Slide Title}
+\begin{itemize}
+\item Point one
+\end{itemize}
+\end{frame}
+```
+
+For section dividers:
+```latex
+\begin{frame}[fragile]\frametitle{}
+\begin{center}
+{\Large Section Heading}
+\end{center}
+\end{frame}
+```
+
+## Code Directory
+
+Each subdirectory under `Code/` corresponds to a library or topic. No single build or test command — run scripts individually per subdirectory.
+
+### Environment setup (conda-based)
+Every major subdirectory has an `environment.yml`. The standard setup flow is:
+```bash
+conda env create -f Code/<subdir>/environment.yml
+conda activate <env-name>
+```
+Do not create `venv/` or `.venv/` folders — use conda environments only.
+
+### Key subdirectory map
+
+| Category | Directories |
+|----------|-------------|
+| GenAI / Agents | `langchain/`, `langgraph/`, `llamaindex/`, `crewai/`, `agents/`, `agno/`, `google-adk/` |
+| RAG Applications | `chatbot-faqs/`, `chatbot-multimodal/`, `omni-rag/`, `parsing/`, `graphrag/` |
+| LLM Fine-tuning | `fine-tuning/`, `ludwig/`, `gemma/` |
+| Document Parsing | `docling/`, `opendataloader/` |
+| Deep Learning | `keras/`, `dl_tf2/`, `pytorch/`, `deep_rl/` |
+| Classical ML | `ml/`, `math/`, `python/` |
+| NLP | `nlp/`, `dnlp/`, `spacy/` |
+| GNN | `pyg/` |
+| Indic Language | `mahamarathi/`, `sarvam/`, `orgpedia/` |
+| Research Refs | `txt2cad/`, `txt2sql/` (docs only, no runnable code) |
+
+### Code/.gitignore
+A repo-wide `Code/.gitignore` covers `__pycache__/`, `.ipynb_checkpoints/`, `.env`, `*.pyc`, model weights (`*.bin`, `*.pt`, `*.safetensors`).
+
+### Notable sub-projects with their own config
+- `Code/claudecode/` — has its own `CLAUDE.md`
+- `Code/langgraph/open_deep_research-langcahin-ai/` — has its own `CLAUDE.md` and `README.md`
+- `Code/crewai/researcher/` — uses `pyproject.toml` + `uv.lock` (modern uv workflow)
+
+### Security note
+`Code/google-adk/my_agent/.env` is gitignored but contains a real `GOOGLE_API_KEY` on disk — rotate it in Google Cloud Console.
+
+## Test Suite
+
+All Python-script directories have a `test_*.py` file runnable with `pytest` in the `genai` conda environment.
+
+### Running tests
+
+Run a single suite:
+```bash
+conda activate genai
+cd Code/<subdir>
+python -m pytest test_*.py -v
+```
+
+Run all suites together (from repo root):
+```bash
+conda run -n genai python -m pytest \
+  Code/graphrag/test_graphrag.py \
+  Code/parsing/test_parsing.py \
+  Code/agno/test_agno.py \
+  Code/google-adk/test_tools.py \
+  Code/chatbot-faqs/test_chatbot_faqs.py \
+  Code/chatbot-multimodal/test_models.py \
+  Code/omni-rag/test_omnirag.py \
+  -v
+```
+
+### Test files per directory
+
+| Directory | Test file | Tests | What's covered |
+|-----------|-----------|-------|----------------|
+| `chatbot-faqs/` | `test_chatbot_faqs.py` | 14 | CSV loading, similarity threshold, cosine similarity logic |
+| `chatbot-multimodal/` | `test_models.py` | 19 | Pydantic chunk models, DoclingParser device selection, null-safe heading join |
+| `omni-rag/` | `test_omnirag.py` | 9 | Context list-join fix, OmniIngestor structure (mocked), ragas/datasets imports |
+| `parsing/` | `test_parsing.py` | 12 | GroqResumeParser: empty-key validation, default model, mock API call |
+| `graphrag/` | `test_graphrag.py` | 9 | `distance()` boundary conditions, networkx/pandas integration |
+| `google-adk/` | `test_tools.py` | 10 | Tool functions (web_search, get_stock_price, etc.) with mocked yfinance |
+| `agno/` | `test_agno.py` | 7 | agno package imports, syntax validation of all .py files |
+
+### Test design notes
+- No real API calls — all LLM/embedding clients are mocked with `unittest.mock`.
+- No model downloads — `transformers` model-loading calls are patched at the function level.
+- The `google-adk` tests mock the `adk` package (not installed on all machines).
+- The omni-rag `TestOmniIngestorStructure` tests skip gracefully if a `datasets` circular import occurs when running in a combined pytest session (they pass in isolation).
+- `ragas` and `google-adk` packages were added to the `genai` env during the April 2026 upgrade pass.
+
+### Known environment notes
+- `ragas 0.4.3` upgraded `openai` from 1.x → 2.x — verify `langchain-openai` compatibility if issues arise.
+- A broken system-Python `faiss` install exists at `C:\Users\yoges\AppData\Roaming\Python\Python310\site-packages\faiss\` and conflicts if imported outside the conda env.
+- `opendataloader-pdf` and `langchain-opendataloader-pdf` are installed in the `genai` env (added May 2026). The library wraps a Java JAR — **Java 11+ must be on PATH** before any tutorial runs. Install via `conda install -n genai -c conda-forge openjdk=11`. Tutorial 09 (OCR) additionally requires the hybrid backend started in a separate terminal: `opendataloader-pdf-hybrid --port 5002 --force-ocr`.
+
+## Memory
+Do not store, write, or update any memory files in the global `~/.claude/projects/` directory unless the user explicitly confirms or allows it in the current conversation.
+
+## Git
+Do not run any git commands. The user manages all git operations externally.
+
+---
+> Source: [yogeshhk/TeachingDataScience](https://github.com/yogeshhk/TeachingDataScience) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
