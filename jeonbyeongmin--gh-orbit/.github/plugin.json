@@ -1,0 +1,9 @@
+{
+  "name": "jeonbyeongmin--gh-orbit",
+  "displayName": "gh-orbit",
+  "description": "A gh CLI extension for reviewing local git in the terminal \u2014 commit graph, diffs, branches, worktrees, and inline PR review/merge in one keyboard-driven TUI.",
+  "version": "1.0.0",
+  "author": "jeonbyeongmin",
+  "homepage": "https://github.com/jeonbyeongmin/gh-orbit",
+  "skills": []
+}
