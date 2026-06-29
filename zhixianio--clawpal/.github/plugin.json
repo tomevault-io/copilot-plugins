@@ -1,7 +1,7 @@
 {
   "name": "zhixianio--clawpal",
   "displayName": "clawpal",
-  "description": "ClawPal - Manage OpenClaw agents, models, and configs with a visual interface. Stop editing JSON by hand.",
+  "description": "clawpal",
   "version": "1.0.0",
   "author": "zhixianio",
   "homepage": "https://github.com/zhixianio/clawpal",
