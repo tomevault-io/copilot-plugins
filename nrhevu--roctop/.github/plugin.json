@@ -1,0 +1,9 @@
+{
+  "name": "nrhevu--roctop",
+  "displayName": "roctop",
+  "description": "`roctop` is a small AMD ROCm GPU monitor. It shows GPU VRAM usage, utilization, temperature, and GPU processes in a refreshing terminal UI.",
+  "version": "1.0.0",
+  "author": "nrhevu",
+  "homepage": "https://github.com/nrhevu/roctop",
+  "skills": []
+}
