@@ -1,0 +1,9 @@
+{
+  "name": "avibe-bot--avibe",
+  "displayName": "avibe",
+  "description": "The local-first Agent OS \u2014 your AI partner lives on your own machine. Drive the official Claude Code, Codex & OpenCode from your browser or any chat app.",
+  "version": "1.0.0",
+  "author": "avibe-bot",
+  "homepage": "https://github.com/avibe-bot/avibe",
+  "skills": []
+}
