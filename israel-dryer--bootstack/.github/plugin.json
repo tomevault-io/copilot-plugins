@@ -1,0 +1,9 @@
+{
+  "name": "israel-dryer--bootstack",
+  "displayName": "bootstack",
+  "description": "End-to-end Python desktop framework. Declarative layout, reactive signals, semantic styling, 60+ widgets, and PyInstaller support out of the box.",
+  "version": "1.0.0",
+  "author": "israel-dryer",
+  "homepage": "https://github.com/israel-dryer/bootstack",
+  "skills": []
+}
