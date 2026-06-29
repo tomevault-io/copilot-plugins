@@ -7,15 +7,22 @@ A cross-platform AI desktop chat cowork app supporting 10+ LLM providers, RAG kn
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [DarkNoah/aime-chat](https://github.com/DarkNoah/aime-chat).
+Original source: `AGENTS.md` in [DarkNoah/aime-chat](https://github.com/DarkNoah/aime-chat).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (4)
+
+- [aime-chat](https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/xlsx/SKILL.md)
+- [aime-chat](https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/pptx/SKILL.md)
+- [aime-chat](https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/skill-creator/SKILL.md)
+- [aime-chat](https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/aime-chat-docs/SKILL.md)
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/DarkNoah/aime-chat](https://github.com/DarkNoah/aime-chat)
 
