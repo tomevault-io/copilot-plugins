@@ -163599,6 +163599,16 @@
       "description": "Nirvana-OS \u2014 open-core engine for agentic work (squads, businesses, mind-clones creation). Runtime-agnostic: Claude Code, Codex, Gemini-CLI, Antigravity, Hermes."
     },
     {
+      "name": "roziscoding--jack",
+      "source": "./roziscoding--jack",
+      "description": "Share media libraries with friends through your *arr stack, peer-to-peer."
+    },
+    {
+      "name": "roziscoding--jack",
+      "source": "./roziscoding--jack",
+      "description": "Share media libraries with friends through your *arr stack, peer-to-peer."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -184972,6 +184982,21 @@
       "name": "leo-306--auto-chat",
       "source": "./leo-306--auto-chat",
       "description": "auto-chat turns ChatGPT/Gemini web workflows into CLI-driven, agent-friendly local tasks for image generation, image editing, and text generation."
+    },
+    {
+      "name": "tempoxyz--mpp-go",
+      "source": "./tempoxyz--mpp-go",
+      "description": "Go SDK for the Machine Payments Protocol"
+    },
+    {
+      "name": "aieatassam--android-network-tools",
+      "source": "./aieatassam--android-network-tools",
+      "description": "Android app with multiple network tools in one shell. Swiss army knife of networking. "
+    },
+    {
+      "name": "atiti--overwatchr",
+      "source": "./atiti--overwatchr",
+      "description": "Native macOS menu bar attention layer for terminal AI agents."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -216599,6 +216624,16 @@
       "description": "cfSdns"
     },
     {
+      "name": "magebyte-zero--spec-superflow",
+      "source": "./magebyte-zero--spec-superflow",
+      "description": "\u8fde\u901a\u9700\u6c42\u8bf4\u6e05\u695a\u548c\u4ee3\u7801\u5199\u5bf9\u8def\u7684 AI \u7f16\u7a0b\u5de5\u4f5c\u6d41\u63d2\u4ef6\u3002\u6574\u5408 OpenSpec \u89c4\u5212 + Superpowers \u7eaa\u5f8b\uff0c7 \u5e73\u53f0\u652f\u6301\uff0cSpec-first\uff0c\u5951\u7ea6\u9a71\u52a8\u3002"
+    },
+    {
+      "name": "codegraphtheory--heavy-coder",
+      "source": "./codegraphtheory--heavy-coder",
+      "description": "Hermes Agent profile for adaptive multi-agent coding teams with GitHub issue-to-PR automation, blind critique, synthesis, CI schemas, and fail-closed unattended merge policy."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -234432,6 +234467,31 @@
       "name": "jimparis--qr-font",
       "source": "./jimparis--qr-font",
       "description": "A QR code generator in a TrueType font: https://qr.jim.sh/"
+    },
+    {
+      "name": "mouse-lin--finesse-skill",
+      "source": "./mouse-lin--finesse-skill",
+      "description": "finesse-skill"
+    },
+    {
+      "name": "tjdrhs90--flutter-flame-harness",
+      "source": "./tjdrhs90--flutter-flame-harness",
+      "description": "Idea-to-store harness for Flutter/Flame games"
+    },
+    {
+      "name": "shwhenever--aegischat",
+      "source": "./shwhenever--aegischat",
+      "description": "AegisChat-Your exclusive all-in-one AI workspace."
+    },
+    {
+      "name": "mouse-lin--finesse-skill",
+      "source": "./mouse-lin--finesse-skill",
+      "description": "finesse-skill"
+    },
+    {
+      "name": "andreialba--quietpages",
+      "source": "./andreialba--quietpages",
+      "description": "QuietPages is a calm Astro theme for independent magazines, personal journals, and long-form editorial sites."
     },
     {
       "name": "cheerhuan--save-your-token",
