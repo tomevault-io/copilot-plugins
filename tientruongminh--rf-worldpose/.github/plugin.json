@@ -1,0 +1,9 @@
+{
+  "name": "tientruongminh--rf-worldpose",
+  "displayName": "rf-worldpose",
+  "description": "RF-WorldPose production/research platform for WiFi CSI sensing with ESP32-S3, Helios GH200, MLOps, and edge/cloud inference",
+  "version": "1.0.0",
+  "author": "tientruongminh",
+  "homepage": "https://github.com/tientruongminh/rf-worldpose",
+  "skills": []
+}
