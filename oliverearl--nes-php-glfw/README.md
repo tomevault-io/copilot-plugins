@@ -2,16 +2,14 @@
 
 > Tome by [oliverearl](https://github.com/oliverearl/nes-php-glfw) — distributed by [TomeVault](https://tomevault.io)
 
-An NES emulator written in PHP 8.5 using the OpenGL GLFW extension.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [oliverearl/nes-php-glfw](https://github.com/oliverearl/nes-php-glfw).
+Original source: `AGENTS.md` in [oliverearl/nes-php-glfw](https://github.com/oliverearl/nes-php-glfw).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
