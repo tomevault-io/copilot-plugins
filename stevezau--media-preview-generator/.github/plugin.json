@@ -1,0 +1,14 @@
+{
+  "name": "stevezau--media-preview-generator",
+  "displayName": "media_preview_generator",
+  "description": "media_preview_generator",
+  "version": "1.0.0",
+  "author": "stevezau",
+  "homepage": "https://github.com/stevezau/media_preview_generator",
+  "skills": [
+    {
+      "name": "media_preview_generator",
+      "description": ""
+    }
+  ]
+}
