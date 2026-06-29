@@ -1,0 +1,9 @@
+{
+  "name": "ashaychangwani--imprint",
+  "displayName": "imprint",
+  "description": "Record a browser workflow once, get a deterministic MCP tool your AI agent can call. Zero tokens at runtime. Postman for AI agents.",
+  "version": "1.0.0",
+  "author": "ashaychangwani",
+  "homepage": "https://github.com/ashaychangwani/imprint",
+  "skills": []
+}
