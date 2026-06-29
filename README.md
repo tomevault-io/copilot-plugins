@@ -12,4 +12,4 @@ Search, filter, and discover instruction files across every platform at [tomevau
 
 ---
 
-> Converted and distributed by [TomeVault](https://tomevault.io) — your instructions deserve a bigger audience.
+> Converted and distributed by [TomeVault](https://tomevault.io). Keep your agents behaving the way you taught them, on every model and tool.
