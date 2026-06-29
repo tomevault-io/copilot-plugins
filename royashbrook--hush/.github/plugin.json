@@ -1,0 +1,9 @@
+{
+  "name": "royashbrook--hush",
+  "displayName": "hush",
+  "description": "a secret store for AI agents with one rule: the agent never sees the plaintext. get a secret once into the OS keychain, then inject it into commands forever. no get, cross-platform, MIT.",
+  "version": "1.0.0",
+  "author": "royashbrook",
+  "homepage": "https://github.com/royashbrook/hush",
+  "skills": []
+}
