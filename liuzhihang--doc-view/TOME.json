@@ -1,0 +1,129 @@
+{
+  "name": "doc-view",
+  "owner": "liuzhihang",
+  "repo": "doc-view",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".codex/skills/doc-view-contract-design/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.codex/skills/doc-view-contract-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".codex/skills/doc-view-docs-maintenance/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.codex/skills/doc-view-docs-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".codex/skills/doc-view-java-maintenance/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.codex/skills/doc-view-java-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".codex/skills/doc-view-release-readiness/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.codex/skills/doc-view-release-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doc-view",
+      "path": ".agents/skills/speckit-agent-context-update/SKILL.md",
+      "github_url": "https://github.com/liuzhihang/doc-view/tree/main/.agents/skills/speckit-agent-context-update/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/liuzhihang/doc-view",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:40:04Z"
+}
