@@ -1,0 +1,9 @@
+{
+  "name": "orionstarai--easycode",
+  "displayName": "EasyCode",
+  "description": "Easy Code (formerly DeepV Code) \u2014 A highly customizable AI coding assistant compatible with all major AI models. The perfect alternative to Claude Code and Codex, offering deep code analysis, intellig",
+  "version": "1.0.0",
+  "author": "OrionStarAI",
+  "homepage": "https://github.com/OrionStarAI/EasyCode",
+  "skills": []
+}
