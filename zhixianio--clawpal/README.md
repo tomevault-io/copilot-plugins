@@ -2,8 +2,6 @@
 
 > Tome by [zhixianio](https://github.com/zhixianio/clawpal) — distributed by [TomeVault](https://tomevault.io)
 
-ClawPal - Manage OpenClaw agents, models, and configs with a visual interface. Stop editing JSON by hand.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
