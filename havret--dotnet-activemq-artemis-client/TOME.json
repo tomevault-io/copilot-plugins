@@ -4,7 +4,7 @@
   "repo": "dotnet-activemq-artemis-client",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/Havret/dotnet-activemq-artemis-client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T18:55:35Z"
+  "distributed_at": "2026-06-29T22:46:31Z"
 }
