@@ -1,4 +1,4 @@
-## viteplus
+## vue-paged-media
 
 > <!--VITE PLUS START-->
 
