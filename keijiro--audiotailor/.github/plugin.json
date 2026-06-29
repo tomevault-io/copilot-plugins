@@ -1,0 +1,9 @@
+{
+  "name": "keijiro--audiotailor",
+  "displayName": "AudioTailor",
+  "description": "Audio Tailor is a Unity Editor tool for processing audio clips.",
+  "version": "1.0.0",
+  "author": "keijiro",
+  "homepage": "https://github.com/keijiro/AudioTailor",
+  "skills": []
+}
