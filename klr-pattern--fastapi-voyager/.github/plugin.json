@@ -1,0 +1,9 @@
+{
+  "name": "klr-pattern--fastapi-voyager",
+  "displayName": "fastapi-voyager",
+  "description": "Visualize your API endpoints and explore them interactively, also support Django ninja & Litestar",
+  "version": "1.0.0",
+  "author": "KLR-Pattern",
+  "homepage": "https://github.com/KLR-Pattern/fastapi-voyager",
+  "skills": []
+}
