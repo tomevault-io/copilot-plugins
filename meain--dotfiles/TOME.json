@@ -1,0 +1,201 @@
+{
+  "name": "dotfiles",
+  "owner": "meain",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": ".claude/skills/whats-new/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/.claude/skills/whats-new/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/esql/skill.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/esql/skill.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/jira/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/jira/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/vault/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/vault/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/recall/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/michel/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/michel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/backlog/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/backlog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/firefox/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/firefox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/tmux-run/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/tmux-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/tufte-viz/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/tufte-viz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/retrospect/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/retrospect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/web-search/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/taskwarrior/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/taskwarrior/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/self-review/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/self-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/explain-flow/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/explain-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/quick-review/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/quick-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/double-check/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/double-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/save-research/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/save-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/create-commit/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/create-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/edit-in-emacs/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/edit-in-emacs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/copy-for-teams/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/copy-for-teams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/refactorability/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/refactorability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/.agents/skills/my-weekly-report/SKILL.md",
+      "github_url": "https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/my-weekly-report/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/meain/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:35:10Z"
+}
