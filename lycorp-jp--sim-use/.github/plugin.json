@@ -1,0 +1,9 @@
+{
+  "name": "lycorp-jp--sim-use",
+  "displayName": "sim-use",
+  "description": "Give your AI agent eyes and hands on iOS Simulator and Android emulator/devices.",
+  "version": "1.0.0",
+  "author": "lycorp-jp",
+  "homepage": "https://github.com/lycorp-jp/sim-use",
+  "skills": []
+}
