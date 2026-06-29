@@ -1,0 +1,14 @@
+{
+  "name": "xiwan--acp-bridge",
+  "displayName": "acp-bridge",
+  "description": "acp-bridge",
+  "version": "1.0.0",
+  "author": "xiwan",
+  "homepage": "https://github.com/xiwan/acp-bridge",
+  "skills": [
+    {
+      "name": "acp-bridge",
+      "description": ""
+    }
+  ]
+}
