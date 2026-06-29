@@ -1,0 +1,14 @@
+{
+  "name": "theafh--ai-modules",
+  "displayName": "ai-modules",
+  "description": "A collection of professional AI skills, packaged as Claude and Codex plugins and deployable globally across IDE vendors or per project.",
+  "version": "1.0.0",
+  "author": "theafh",
+  "homepage": "https://github.com/theafh/ai-modules",
+  "skills": [
+    {
+      "name": "ai-instruction-writing",
+      "description": ""
+    }
+  ]
+}
