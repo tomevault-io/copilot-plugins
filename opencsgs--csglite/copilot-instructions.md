@@ -1,10 +1,11 @@
-## storage-temp-files
+## user-scope-app-installs
 
-> Canonical rule: `docs/agent-guidelines/storage.md`.
+> Keep AI app installers within current user permissions by default
 
-# Storage And Temporary Files
 
-Canonical rule: `docs/agent-guidelines/storage.md`.
+# User-Scope App Installs
+
+Canonical rule: `docs/agent-guidelines/app-installs.md`.
 
 Follow that file. Do not add duplicated rule text here; update the canonical
 guideline instead.
