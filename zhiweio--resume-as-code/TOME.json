@@ -1,0 +1,63 @@
+{
+  "name": "resume-as-code",
+  "owner": "zhiweio",
+  "repo": "resume-as-code",
+  "description": "Resume as Code: Your career, managed like a software project. \ud83d\ude80 Stop manual tailoring. Leverage LLM agents to transform a modular YAML \"Master Timeline\" into high-impact, STAR-aligned, JD-tailored resumes in minutes. Powered by YAMLResume & AI.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "resume-as-code",
+      "path": "skills/resume-generation/SKILL.md",
+      "github_url": "https://github.com/zhiweio/resume-as-code/tree/main/skills/resume-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "resume-as-code",
+      "path": "skills/timeline-polishing/SKILL.md",
+      "github_url": "https://github.com/zhiweio/resume-as-code/tree/main/skills/timeline-polishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "resume-as-code",
+      "path": "skills/interview-preparation/SKILL.md",
+      "github_url": "https://github.com/zhiweio/resume-as-code/tree/main/skills/interview-preparation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhiweio/resume-as-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:30:27Z"
+}
