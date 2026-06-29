@@ -1,0 +1,51 @@
+{
+  "name": "ai-modules",
+  "owner": "theafh",
+  "repo": "ai-modules",
+  "description": "A collection of professional AI skills, packaged as Claude and Codex plugins and deployable globally across IDE vendors or per project.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-instruction-writing",
+      "path": "plugins/ai_dev/skills/ai_instruction_writing",
+      "github_url": "https://github.com/theafh/ai-modules/tree/main/plugins/ai_dev/skills/ai_instruction_writing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/theafh/ai-modules",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T00:30:20Z"
+}
