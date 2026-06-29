@@ -1,0 +1,9 @@
+{
+  "name": "philbotar--openflow",
+  "displayName": "OpenFlow",
+  "description": "An AI agent harness built for workflows.",
+  "version": "1.0.0",
+  "author": "philbotar",
+  "homepage": "https://github.com/philbotar/OpenFlow",
+  "skills": []
+}
