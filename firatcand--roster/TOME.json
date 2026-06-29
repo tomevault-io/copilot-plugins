@@ -4,7 +4,7 @@
   "repo": "roster",
   "description": "A multi-agent Claude Code framework for running role-based agents across GTM, product, design, and ops \u2014 with plans, project substrate, and a reinforcement loop that compounds learning.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/firatcand/roster",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T00:39:26Z"
+  "distributed_at": "2026-06-29T00:42:50Z"
 }
