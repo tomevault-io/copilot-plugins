@@ -1,35 +1,17 @@
 ## context-engineering
 
-> This repository implements a command-line task tracker in Python.
+> Read the shared project guidance before working on the repository.
 
-# Project guidance for AI coding agents
+# Claude Code instructions
 
-## Project purpose
-This repository implements a command-line task tracker in Python.
+Read the shared project guidance before working on the repository.
 
-## Working rules
-- Make the smallest change that satisfies the requested behavior.
-- Preserve existing public function names unless the task explicitly requires a breaking change.
-- Do not edit generated files under `dist/`.
-- Do not add production dependencies without explicit user approval.
+@AGENTS.md
 
-## Code style
-- Use Python 3.12.
-- Add type hints to new public functions.
-- Use `pathlib` for file-system paths.
-- Follow the style already used in nearby files.
-
-## Validation
-Before reporting completion:
-1. Run `python -m pytest`.
-2. Run `ruff check .`.
-3. Mention any command that could not be run.
-
-## Response format
-When reporting changes:
-- Summarize the change in one paragraph.
-- List the validation commands and their results.
-- Call out risks, limitations, and files that may need manual review.
+## Claude Code workflow
+- Explore the relevant files before editing.
+- Use plan mode for changes that touch more than two files.
+- Prefer focused tests first, then the full validation commands.
 
 ---
 > Source: [bonigarcia/context-engineering](https://github.com/bonigarcia/context-engineering) — distributed by [TomeVault](https://tomevault.io).
