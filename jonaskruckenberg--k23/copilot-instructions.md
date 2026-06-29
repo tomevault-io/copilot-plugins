@@ -1,0 +1,124 @@
+## k23
+
+> k23 is a research Rust microkernel that runs WebAssembly as its primary execution environment. RISC-V 64 is the current target; aarch64 and x86_64 are in progress. Built with BUCK2 (not Cargo workspaces). `no_std` throughout; custom allocator (talc), async runtime (`kasync`), panic/unwinding runtime.
+
+# AGENTS.md
+
+k23 is a research Rust microkernel that runs WebAssembly as its primary execution environment. RISC-V 64 is the current target; aarch64 and x86_64 are in progress. Built with BUCK2 (not Cargo workspaces). `no_std` throughout; custom allocator (talc), async runtime (`kasync`), panic/unwinding runtime.
+
+## Orientation
+
+New here? Read this section, then `manual/src/overview.md` for the full architecture.
+
+**Mental model.** Boot flows loader → kernel → WebAssembly guests. `sys/loader/` runs first (it's a UEFI application): it verifies the kernel image, maps it, sets up MMU state, and hands off to `sys/kernel/`, which brings up trap handling, memory, the `kasync` runtime (`sys/async/`), and ultimately runs WASM. Reusable, kernel-agnostic pieces live in `lib/` as standalone crates; `sys/` holds the parts that only make sense as *this* kernel. Before adding anything, ask "could this be a `lib/` crate?" first.
+
+**Where to start reading.**
+
+- `sys/loader/src/main.rs` — the first code that runs; boot, image verification, MMU setup, handoff.
+- `sys/kernel/src/main.rs` — kernel entry; wires up `arch/`, `mem/`, `wasm/`, tracing, and the shell.
+- `sys/async/src/lib.rs` — the `kasync` executor, `block_on`, and sync/time primitives.
+- `lib/` — look here before hand-rolling a data structure; `wavltree`, `range-tree`, `arrayvec`, `spin`, `sharded-slab`, `cpu-local`, `mem-core` already exist.
+- `manual/src/` — authoritative docs: `overview.md`, `startup.md`, `arch/` (memory layout, KASLR), `contributing/`.
+
+**How work gets done.**
+
+- **nix** provides the toolchain — always work inside `nix develop .#default`.
+- **`just`** is the entry point to everything (build, test, lint, run). Skim the `justfile`; `just preflight` is the one gate that mirrors CI.
+- **BUCK2** is the build system, not Cargo. Targets look like `//sys:k23-riscv64-qemu`. After adding/removing a crate, run `just rust-project` so rust-analyzer picks up the new graph.
+- **QEMU** runs the kernel — `just run //sys:k23-riscv64-qemu` boots it interactively; `just selftests` runs the `.wast` suite under it.
+- Multi-arch: the default lane is the host; prefix recipes with `platform=//platforms:riscv64` to target RISC-V. See `platforms/README.md`.
+
+**Conventions that bite** (details in the sections below): `no_std` everywhere; a mandatory per-file license header; hand-written error types (no `thiserror`); `#[expect(…, reason = "…")]` over `#[allow]`; every `unsafe` block needs a `// Safety:` line; prefer property/fuzz/loom tests over example-based ones. The eight **Critical invariants** are load-bearing — skim them before touching traps, page tables, MMIO, atomics, the allocator, or the async core.
+
+## Setup
+
+Develop inside the nix devshell: `nix develop .#default`.
+
+Toolchain is pinned in `rust-toolchain.toml` (nightly-2025-07-11). Don't bump it casually — nightly features (`allocator_api`, `asm_unwind`, `thread_local`, …) are load-bearing.
+
+## Build, test, lint
+
+`just preflight` is the single gate that mirrors CI.
+
+```sh
+just preflight                              # full local CI, host lane
+just platform=//platforms:riscv64 preflight # same gate, riscv64 lane
+just check                                  # quick compile-check
+just clippy / check-fmt / fmt               # lint, format
+just unittests / miri / loom [targets]      # host tests (miri = UB, loom = concurrency)
+just selftests                              # boot kernel under QEMU, run .wast tests
+just run //sys:k23-riscv64-qemu             # interactive kernel boot
+```
+
+`preflight` = `clippy` → `check-fmt` → `typos` → `check` → `unittests` → `miri` → `loom` → `selftests` → `buck2 audit` → `cargo-deny` → `reindeer-clean` → `check-license-headers`. Don't skip steps; license-header and reindeer checks fail PRs that pass locally otherwise.
+
+After adding/removing a crate, run `just rust-project` so rust-analyzer picks up the new BUCK graph.
+
+**Prefer tests that explore the input space** — `proptest`, fuzz targets, loom — over example-based tests. See `manual/src/contributing/adding-tests.md`.
+
+## Repo map
+
+| Path | What |
+|---|---|
+| `sys/kernel/` | Ties subsystems into a complete kernel: trap handling and glue that can't live elsewhere. Anything extractable belongs in `lib/` or `sys/async/`. |
+| `sys/loader/` | Verifies the kernel image, maps it, sets up MMU state, hands off. |
+| `sys/async/` | `kasync` — cooperative async runtime (executor, Park/Notify, time, sync primitives). |
+| `lib/` | First-party reusable crates (`riscv`, `trap`, `uart-16550`, `cpu-local`, `mem-core`, `wavltree`, `unwind`, `panic-unwind`, `spin`, `fdt`, …). New subsystems start here unless irreducibly kernel-internal. |
+| `build/` | Toolchain wiring, kernel-config DSL (`kcfg.bzl`), QEMU/loom/fuzz/bench harnesses. |
+| `platforms/` | Target constraints (`//platforms:riscv64`, `:aarch64`, `:x86_64`). |
+| `third-party/` | Vendored deps; `third-party/BUCK` is generated by `reindeer buckify` — don't hand-edit. |
+| `tests/` | Shared `.wast` fixtures. |
+| `manual/` | mdbook docs. Authoritative for layout and workflow. |
+
+## Code style
+
+- **Format:** `rustfmt.toml` — `group_imports = "StdExternalCrate"`, `imports_granularity = "Module"`. Run `just fmt`.
+- **Edition:** Rust 2024.
+- **License header (mandatory):** every first-party `.rs` file starts with the canonical license header (copyright `2023-Present`, a fixed range that never needs bumping). Enforced by `//build/license-header-linter` via `just check-license-headers`; `just fix-license-headers` prepends it to files missing one. Exclusions (vendored crates, build/VCS dirs) live in the linter's `EXCLUDED_*` lists.
+- **`no_std` everywhere.** No `std`. `extern crate alloc` for collections; on critical paths prefer stack / `arrayvec` over heap. The loader is a UEFI application — `uefi::helpers::init()` installs a firmware-backed global allocator, so `alloc` (`Vec`, `Box`) works there, but **only while boot services are live**: it's backed by UEFI's `AllocatePool`, which dies at `exit_boot_services` (`sys/loader/src/main.rs`). Anything that must outlive handoff goes through the frame allocator / `arrayvec`, not the heap.
+- **Reuse `lib/`** before hand-rolling a data structure — `wavltree`, `sharded-slab`, `range-tree`, `arrayvec`, `spin` exist.
+- **Errors:** every crate defines its own error type and hand-implements `Debug`, `Display`, `core::error::Error`. No `thiserror`. `anyhow::Result<T>` is acceptable inside the kernel where an error enum is infeasible.
+- **Logging:** `log` for early-boot code (loader, early kernel, crates used there); `tracing` for normal operation. Default to `log` when unsure.
+- **Docs:** every `pub` item has a doc comment. `# Errors` on public `fn`s returning `Result`; `# Panics` on those that can panic; `# Safety` on `pub unsafe fn`s (unsafe rule 2).
+- **Comments:** terse; explain non-obvious *why*, not *what*. Each comment stands on its own and describes the code as it is now — never reference removed behaviour ("used to…", "previously…"). Contributors aren't all osdev / RISC-V / compiler experts — explain low-level concepts and cite the spec section for hardware-derived constants.
+- **Lint suppression:** prefer `#[expect(lint, reason = "…")]` over `#[allow(lint, reason = "…")]`. `unfulfilled_lint_expectations` is in `DENY`, so an `expect` whose lint stops firing fails the build — forcing the suppression to be removed once the underlying issue is gone. `allow` rots silently. The `reason = "…"` field is mandatory (`clippy::allow_attributes_without_reason` is in `DENY`). Workspace lint policy lives in `build/toolchains/lints.bzl`.
+
+## Unsafe discipline
+
+1. **Every `unsafe { }` block carries a `// Safety:` comment** stating the invariant relied on. One terse line — accuracy over verbosity.
+2. **Every `unsafe fn` has a `# Safety` doc section** listing caller obligations.
+3. **A `Safety` comment relying on a critical invariant below cites it by number** — e.g. `// Safety: per invariant 4 (trap frame layout)`.
+4. Inside `unsafe fn`, wrap unsafe ops in explicit inner `unsafe { }` blocks (Rust 2024).
+5. Manual `Send` / `Sync` impls justify themselves against interior state (raw ptrs, `Cell`, MMIO).
+6. `slice::from_raw_parts`, `get_unchecked`, raw-ptr deref: only after explicit length/alignment validation. Never on user-controlled sizes without a bound check.
+
+## Critical invariants
+
+Breaking these is a soundness or security regression. SAFETY comments relying on one cite it by number.
+
+1. **MMIO is volatile.** Device registers go through `read_volatile` / `write_volatile` only (see `lib/uart-16550/`); plain field access into an MMIO region is UB. Config-then-go sequences need an explicit fence — the CPU doesn't order device accesses against normal memory.
+2. **Synchronization needs the right ordering.** RISC-V and aarch64 are weakly ordered; never lean on x86_64's strong model. `Relaxed` only for counters with no happens-before; synchronization needs `Acquire` / `Release` or stronger. Mixing MMIO with normal memory needs an explicit fence.
+3. **TLB invalidation after page-table edits is mandatory** — `sfence.vma` on RISC-V, the `tlbi` / `dsb` sequence on aarch64. Skipping it yields stale TLB entries and silent corruption.
+4. **Trap frame layout is load-bearing.** The asm register-save order in `sys/kernel/src/arch/` must match `TrapFrame` in `lib/trap/`; drift silently corrupts state. All caller-saved registers are saved before any Rust runs. Trap handlers may not allocate, panic, or take a lock the interrupted code might hold.
+5. **WASM sandbox boundaries.** Re-check guest memory bounds (`offset + len ≤ memory.len()`) after every `memory.grow()`. Host imports must never panic into JIT code — traps unwind cleanly, panics don't. Keep host and guest pointer provenance separate.
+6. **Async cancellation safety.** A future may be dropped at any `.await`. Don't hold a lock or half-built hardware transaction across an await point. `Drop` glue must run — never `mem::forget` away cleanup. Watch `select!` arms with lossy partial state.
+7. **Allocator deadlock avoidance.** `talc` lives in the higher-half direct map so heap growth never touches kernel page tables. Don't allocate while holding the allocator lock, and never allocate in a trap handler.
+8. **No panics on critical paths** — trap handlers, scheduler, async runtime core (`sys/async`: executor, Park/Notify, `block_on`), page-table/TLB ops, early boot before the allocator is up, loader crypto verification, hot WASM paths. Surface failures as `Result` / `Option`; prefer `debug_assert!` for invariant checks. `unwrap` / `expect` only on compile-time constants or provably non-empty structures. A panic bypassing the loader's integrity check is a kernel-integrity bypass.
+
+## Don't touch
+
+- `third-party/BUCK` — generated. Edit `third-party/Cargo.toml`, regenerate; `just reindeer-clean` fails on drift.
+- `buck-out/` — gitignored; don't edit, but useful to *read*: holds the BUCK2 prelude, intermediate build artifacts, and the unpacked source of third-party crates.
+- `lib/sharded-slab/`, `lib/wast/` — vendored; license-header-exempt; don't reformat.
+- `rust-toolchain.toml`, `flake.lock`, `Cargo.lock` — change deliberately only; touching them triggers full CI.
+
+## Further reading
+
+- `manual/src/overview.md` — architecture.
+- `manual/src/contributing/` — adding a crate / test / dependency.
+- `manual/src/arch/` — memory layout, KASLR, startup.
+- `platforms/README.md` — build matrix.
+
+---
+> Source: [JonasKruckenberg/k23](https://github.com/JonasKruckenberg/k23) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
