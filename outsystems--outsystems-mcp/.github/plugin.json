@@ -1,0 +1,9 @@
+{
+  "name": "outsystems--outsystems-mcp",
+  "displayName": "outsystems-mcp",
+  "description": "Plugins for the OutSystems remote MCP.",
+  "version": "1.0.0",
+  "author": "OutSystems",
+  "homepage": "https://github.com/OutSystems/outsystems-mcp",
+  "skills": []
+}
