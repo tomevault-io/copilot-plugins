@@ -1,0 +1,63 @@
+{
+  "name": "lnai",
+  "owner": "KrystianJonca",
+  "repo": "lnai",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lnai",
+      "path": ".ai/skills/add-tool-plugin/SKILL.md",
+      "github_url": "https://github.com/KrystianJonca/lnai/tree/main/.ai/skills/add-tool-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lnai",
+      "path": ".ai/skills/update-tool-plugin/SKILL.md",
+      "github_url": "https://github.com/KrystianJonca/lnai/tree/main/.ai/skills/update-tool-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lnai",
+      "path": "packages/core/src/__fixtures__/valid/full/.ai/skills/deploy/SKILL.md",
+      "github_url": "https://github.com/KrystianJonca/lnai/tree/main/packages/core/src/__fixtures__/valid/full/.ai/skills/deploy/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/KrystianJonca/lnai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T20:33:17Z"
+}
