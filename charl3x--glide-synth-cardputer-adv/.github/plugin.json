@@ -1,0 +1,9 @@
+{
+  "name": "charl3x--glide-synth-cardputer-adv",
+  "displayName": "GLIDE-Synth-Cardputer-ADV",
+  "description": "GLIDE: a continuous-pitch slide synth with a generative sound engine, for the M5Stack Cardputer (original + ADV). Notes glide, sounds are yours. By CHARL3X.",
+  "version": "1.0.0",
+  "author": "CHARL3X",
+  "homepage": "https://github.com/CHARL3X/GLIDE-Synth-Cardputer-ADV",
+  "skills": []
+}
