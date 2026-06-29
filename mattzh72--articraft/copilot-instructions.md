@@ -1,60 +1,114 @@
 ## articraft
 
-> `agent/` contains the generation runtime, provider adapters, prompt compiler/loader, tools, cost tracking, TUI helpers, and single-record orchestration. `storage/` owns the gitignored local `data/` layout, records, categories, `records_manifest.jsonl`, run caches, and materialization metadata. `sdk/` and `sdk/_core/` define the articulated-object SDK layers; `sdk/_docs/` and `sdk/_examples/` are agent-facing authoring assets. `viewer/api/` exposes the FastAPI surface, and `viewer/web/` is the React/TypeScript/Three.js viewer. `cli/` contains the `articraft` entry points. `tests/` mirrors the main packages with focused smoke/regression coverage.
+> This file provides guidance to Claude Code when working with this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-`agent/` contains the generation runtime, provider adapters, prompt compiler/loader, tools, cost tracking, TUI helpers, and single-record orchestration. `storage/` owns the gitignored local `data/` layout, records, categories, `records_manifest.jsonl`, run caches, and materialization metadata. `sdk/` and `sdk/_core/` define the articulated-object SDK layers; `sdk/_docs/` and `sdk/_examples/` are agent-facing authoring assets. `viewer/api/` exposes the FastAPI surface, and `viewer/web/` is the React/TypeScript/Three.js viewer. `cli/` contains the `articraft` entry points. `tests/` mirrors the main packages with focused smoke/regression coverage.
+This file provides guidance to Claude Code when working with this repository.
 
-## Build, Test, and Development Commands
-Use `uv run articraft ...` for product workflows, and `just` for local setup/check/viewer shortcuts. Run `just` to list available shortcuts.
+## What This Project Is
 
-- `uv sync --group dev` installs Python and development dependencies.
-- `just setup` bootstraps `.env`, syncs dependencies, installs viewer dependencies when `npm` exists, and initializes storage.
-- `uv build` creates the wheel and source distribution in `dist/`.
-- `uv run articraft init` creates the gitignored local `data/` tree and empty library manifest.
-- `uv run articraft status` shows local library status.
-- `uv run --group dev pytest -q` runs the full Python regression suite.
-- `just smoke-tests` runs the fast pre-push suite; `just test-all` runs the full Python suite.
-- `just format` runs `ruff format .`; `just lint` runs `ruff check .`.
-- `uv run articraft library check` validates local library format.
-- `uv run articraft env bootstrap` creates `.env` from `.env.example` without overwriting existing secrets.
+Articraft is a local-first harness for generating and inspecting articulated 3D objects from text prompts and reference images. The code repo owns the agent runtime, SDK, CLI, storage logic, viewer API, and React/Three.js viewer. Records live in a plain local data root, usually the gitignored `<repo-root>/data` or an external folder passed with `--data-dir` or `ARTICRAFT_DATA_DIR`.
 
-## Generation, Dataset, and Viewer Commands
-- External agent data generation must follow [`EXTERNAL_AGENT_DATA.md`](EXTERNAL_AGENT_DATA.md). If the user asks Codex, Claude Code, Cursor, or another external harness to generate Articraft data, use `uv run articraft external ...`; do not manually create records or use an alternate workflow.
-- `uv run articraft generate "prompt text"` writes a local library record.
-- `uv run articraft generate --model gemini-3-flash-preview --image reference.png "prompt text"` overrides model and adds a reference image.
-- `uv run articraft draft "prompt text"` creates a draft local record without running generation.
-- `uv run articraft draft --image reference.png "prompt text"` stores a reference image with the draft.
-- `uv run articraft rerun <record-id>` reruns generation for an existing record.
-- `uv run articraft compile <record-id>` recompiles one record into `<data-root>/cache/record_materialization/<id>/`.
-- `uv run articraft library list` lists records from `records_manifest.jsonl`.
-- `uv run articraft library rebuild-manifest` rebuilds `records_manifest.jsonl` from `records/`.
-- `uv run articraft library check --require-records` validates that manifest rows point at real records.
-- `just viewer` starts the built viewer flow; `just viewer-dev` starts uvicorn and Vite together.
-- `uv run uvicorn viewer.api.app:app --reload --host 127.0.0.1 --port 8765` starts only the API.
-- `npm --prefix viewer/web run dev`, `build`, `lint`, and `typecheck` run frontend-only workflows.
+If the user asks Claude Code to author Articraft data, follow [`EXTERNAL_AGENT_DATA.md`](EXTERNAL_AGENT_DATA.md). Use `uv run articraft external ...`; do not manually create record folders.
 
-## Coding Style & Naming Conventions
-Target Python 3.11+; `.python-version` pins 3.12 for local `uv` use and the project excludes Python 3.13. Keep 4-space indentation, `from __future__ import annotations`, explicit type hints, and small module-level helpers for CLI wiring. Python formatting and import checks are handled by Ruff (`line-length = 100`, target `py311`, rules `E`, `F`, `I`, ignoring `E501`). Use `snake_case` for functions/modules/variables and `PascalCase` for models/classes. For `viewer/web`, use strict TypeScript, ESLint, Tailwind CSS v4, shadcn/ui components, and the `@/` import alias.
+## Common Commands
 
-## Testing Guidelines
-Tests run under `pytest` with importlib mode and xdist auto/worksteal by default. Add coverage under the mirrored package path, name files `test_<feature>.py`, and prefer native pytest functions and fixtures with plain `assert` statements. Keep coverage focused on fast import, storage, CLI, viewer API, SDK, and integration smoke checks. For prompt regressions, prefer durable behavioral checks over brittle formatting or line-budget assertions; relax or remove stale prompt assertions in the same change that updates the intended prompt contract.
+```bash
+uv sync --group dev
+uv build
+uv run articraft init
+uv run articraft status
+uv run articraft library check --require-records
+uv run --group dev pytest -q
 
-## Commit & Pull Request Guidelines
-Recent commits use short, imperative subjects such as `Move prompt compiler under agent` and `Consolidate SDK around canonical core profiles`. Keep commit titles concise and scoped to one logical change. PRs should describe the affected surface (`agent`, `storage`, `sdk`, `viewer`, or `cli`), include the exact `uv`, `just`, and `npm` commands run, and attach screenshots only when API or viewer behavior changes.
+just setup
+just format
+just lint
+just smoke-tests
+just test-all
+```
 
-Canonical data lives in the configured data root, not the code repository. Keep `.env`, `.env.*`, local caches, generated URDFs, generated asset dirs, and `data/` out of code-repo commits.
+Generation and record workflows:
 
-## Configuration Tips
-Provider code loads `.env`. Set `OPENAI_API_KEYS` or `OPENAI_API_KEY`, `GEMINI_API_KEYS`, `ANTHROPIC_API_KEYS` or `ANTHROPIC_API_KEY`, `DASHSCOPE_API_KEYS` or `DASHSCOPE_API_KEY`, and `OPENROUTER_API_KEYS` or `OPENROUTER_API_KEY` as needed. `ARTICRAFT_MODEL` and `ARTICRAFT_THINKING_LEVEL` set default generation model and thinking level; without those values, `generate` defaults to `gpt-5.5-2026-04-23` with `--thinking-level high`. `ARTICRAFT_CODEX_MODEL` is required when using `--provider codex-cli` unless `--model` is passed explicitly. `ARTICRAFT_MAX_COST_USD` can set a default per-run budget. Provider inference works for known OpenAI, Gemini, Claude, Qwen/DashScope, DeepSeek, Codex CLI, and OpenRouter-style model IDs, otherwise pass `--provider`.
+```bash
+uv run articraft generate "prompt text"
+uv run articraft generate --model gemini-3-flash-preview --image reference.png "prompt text"
+uv run articraft draft "prompt text"
+uv run articraft draft --image reference.png "prompt text"
+uv run articraft rerun <record-id>
+uv run articraft fork <record-id> "edit prompt"
+uv run articraft compile <record-id>
+uv run articraft view <record-id>
+uv run articraft library list
+uv run articraft library rebuild-manifest
+uv run articraft library set-category <record-id> <category_slug>
+```
 
-## Paper Object Counts
-When editing the Articraft paper, distinguish raw generated records from the final curated object set. The final paper count includes only retained 4-5 star objects; lower-rated 1/2/3-star records may exist as bad examples or audit material but should not be counted as final objects. Use "over 10K" for the final curated object count unless the retained 4-5-star subset is recomputed and the paper is intentionally updated.
+Viewer/frontend workflows:
 
-## Agent Docs Contract
-The SDK docs under `sdk/_docs/` are part of the agent authoring contract in this repository. Keep them aligned with the intended agent behavior and baseline compile/tooling policy; do not document agent-facing workflows there that the harness is supposed to own automatically.
+```bash
+just viewer
+just viewer-dev
+uv run uvicorn viewer.api.app:app --reload --host 127.0.0.1 --port 8765
+npm --prefix viewer/web run dev
+npm --prefix viewer/web run build
+npm --prefix viewer/web run lint
+npm --prefix viewer/web run typecheck
+```
+
+## Architecture
+
+- `agent/` - Generation runtime, provider adapters, prompt compiler/loader, tools, cost tracking, and single-record orchestration.
+- `sdk/` - Generated object SDK and agent-facing docs/examples.
+- `storage/` - Local data layout, records, categories, `records_manifest.jsonl`, run caches, materialization metadata, and validation.
+- `viewer/api/` - FastAPI surface for browsing local records and serving materialized assets.
+- `viewer/web/` - React/TypeScript/Three.js viewer.
+- `cli/` - Top-level `articraft` command.
+- `tests/` - pytest tests mirroring package structure.
+
+## Data Flow
+
+1. Prompt/reference image enters `articraft generate`, `draft`, `fork`, `rerun`, or `external init`.
+2. The generation harness builds provider-specific requests, runs a multi-turn tool loop, and writes generated `model.py`.
+3. `agent/compiler.py` executes `model.py` and exports URDF/mesh artifacts.
+4. Canonical record data is persisted under `<data-root>/records/<record_id>/` with `record.json` and revision artifacts under `revisions/<revision_id>/`.
+5. `records_manifest.jsonl` stores searchable local-library summaries, one row per real record.
+6. Regenerable materialization outputs live under `<data-root>/cache/record_materialization/<record_id>/`.
+7. The viewer reads the manifest for browse/search and direct record files for inspection.
+
+## Storage Layout
+
+- `<data-root>/records/<record_id>/` - Canonical record directories.
+- `<data-root>/records_manifest.jsonl` - Canonical local library manifest.
+- `<data-root>/categories/` - Optional category metadata.
+- `<data-root>/cache/record_materialization/<record_id>/` - Derived URDF, compile reports, and viewer assets.
+- `<data-root>/cache/runs/<run_id>/` - Single-run metadata, staging, and results.
+- `<data-root>/system_prompts/` - Shared prompt snapshots.
+
+## Compile and Viewer Guidance
+
+- Use `uv run articraft compile <record-id>` for the one record you need to inspect.
+- `just viewer` builds `viewer/web` and serves it through FastAPI on `127.0.0.1:8765`.
+- `just viewer-dev` starts uvicorn plus the Vite dev server, with Vite on `:5173` proxying API requests to `:8765`.
+
+## Code Style
+
+- Python: target Python 3.11+; `.python-version` pins 3.12 locally and the project excludes Python 3.13. Use 4-space indentation, `from __future__ import annotations`, explicit type hints, and minimal imports.
+- Ruff is configured in `pyproject.toml`: line length 100, target `py311`, lint rules `E`, `F`, `I`, ignoring `E501`. Use `just format` and `just lint` or the underlying `uv run ruff ...` commands.
+- TypeScript/React: strict TypeScript, ESLint, Tailwind CSS v4 via Vite, shadcn/ui, and the `@/` alias for `viewer/web/src`.
+- Follow local patterns before adding new abstractions; keep changes scoped to the relevant surface.
+
+## Environment
+
+Provider keys go in `.env`:
+
+- `OPENAI_API_KEYS` or `OPENAI_API_KEY`
+- `GEMINI_API_KEYS`
+- `ANTHROPIC_API_KEYS` or `ANTHROPIC_API_KEY`
+- `OPENROUTER_API_KEYS` or `OPENROUTER_API_KEY`
+
+Optional defaults include `ARTICRAFT_MODEL`, `ARTICRAFT_THINKING_LEVEL`, `ARTICRAFT_MAX_COST_USD`, and `ARTICRAFT_DATA_DIR`.
 
 ---
 > Source: [mattzh72/articraft](https://github.com/mattzh72/articraft) — distributed by [TomeVault](https://tomevault.io).
