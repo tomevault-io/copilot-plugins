@@ -1,0 +1,14 @@
+{
+  "name": "hczhu--tickertick-api",
+  "displayName": "TickerTick-API",
+  "description": "TickerTick-API",
+  "version": "1.0.0",
+  "author": "hczhu",
+  "homepage": "https://github.com/hczhu/TickerTick-API",
+  "skills": [
+    {
+      "name": "TickerTick-API",
+      "description": ""
+    }
+  ]
+}
