@@ -4,7 +4,7 @@
   "repo": "AirClient",
   "description": "AirClient is a free and open-source Minecraft hacked client built on the LiquidBounce legacy codebase.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lmx0721/AirClient",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T00:45:15Z"
+  "distributed_at": "2026-06-29T00:46:39Z"
 }
