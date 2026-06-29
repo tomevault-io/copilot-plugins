@@ -1,0 +1,14 @@
+{
+  "name": "calops--nix",
+  "displayName": "nix",
+  "description": "nix",
+  "version": "1.0.0",
+  "author": "calops",
+  "homepage": "https://github.com/calops/nix",
+  "skills": [
+    {
+      "name": "nix",
+      "description": ""
+    }
+  ]
+}
