@@ -1,0 +1,14 @@
+{
+  "name": "poxenstudio--mybooks",
+  "displayName": "mybooks",
+  "description": "mybooks",
+  "version": "1.0.0",
+  "author": "PoxenStudio",
+  "homepage": "https://github.com/PoxenStudio/mybooks",
+  "skills": [
+    {
+      "name": "mybooks",
+      "description": ""
+    }
+  ]
+}
