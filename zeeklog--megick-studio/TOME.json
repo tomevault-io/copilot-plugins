@@ -1,0 +1,44 @@
+{
+  "name": "Megick-Studio",
+  "owner": "zeeklog",
+  "repo": "Megick-Studio",
+  "description": "Megick Studio is a creative image and video generation studio that supports various image models such as gpt-image-2, seedream, and Qwen, as well as various models like seedance and wan-2.7. It's an out-of-the-box AI image and video generation application that supports web, Mac OS, and Windows clients.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zeeklog/Megick-Studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T06:33:30Z"
+}
