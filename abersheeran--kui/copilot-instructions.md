@@ -1,11 +1,16 @@
 ## kui
 
-> - 以第一性原理质疑需求，防止我提出 X-Y 需求。
+> 所有代码修改都必须使用 codex mcp 调用 codex 进行。codex 完成任务后需要审查它的修改，找到其中的问题并让 codex 重新修改直到没有问题为止。
 
-## 思考方式
+## Codex
 
-- 以第一性原理质疑需求，防止我提出 X-Y 需求。
-- 以全局视角思考解决方案，而不是着眼于局部。
+所有代码修改都必须使用 codex mcp 调用 codex 进行。codex 完成任务后需要审查它的修改，找到其中的问题并让 codex 重新修改直到没有问题为止。
+
+## 代码审查规范
+
+以 Linus（Linux 创始人）的标准进行审查。
+
+@AGENTS.md
 
 ---
 > Source: [abersheeran/kui](https://github.com/abersheeran/kui) — distributed by [TomeVault](https://tomevault.io).
