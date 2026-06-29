@@ -64039,6 +64039,16 @@
       "description": "research-process-builder"
     },
     {
+      "name": "lycorp-jp--sim-use",
+      "source": "./lycorp-jp--sim-use",
+      "description": "Give your AI agent eyes and hands on iOS Simulator and Android emulator/devices."
+    },
+    {
+      "name": "lycorp-jp--sim-use",
+      "source": "./lycorp-jp--sim-use",
+      "description": "Give your AI agent eyes and hands on iOS Simulator and Android emulator/devices."
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
