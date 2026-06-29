@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "pentiminax",
   "homepage": "https://github.com/pentiminax/ux-datatables",
-  "skills": []
+  "skills": [
+    {
+      "name": "ux-datatables",
+      "description": ""
+    }
+  ]
 }
