@@ -1,0 +1,279 @@
+{
+  "name": "CS-Notes",
+  "owner": "huangruiteng",
+  "repo": "CS-Notes",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "CS-Notes",
+      "path": ".codex/skills/ai-hotspots/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.codex/skills/ai-hotspots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".codex/skills/markdown-toc/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.codex/skills/markdown-toc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/slack/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/slack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".codex/skills/github-gh-cli/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.codex/skills/github-gh-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/notion/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/notion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/github/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/ask-echo/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/ask-echo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/mcporter/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/mcporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/smart-ocr/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/smart-ocr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/skills-sh/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/skills-sh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".codex/skills/gourmet-organizer/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.codex/skills/gourmet-organizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".codex/skills/lark-cli-workflow/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.codex/skills/lark-cli-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/deepsearch/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/deepsearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/pdf-parser/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/pdf-parser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/web_search/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/web_search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/todo-adder/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/todo-adder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/search-web/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/search-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/todo-finder/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/todo-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/bluebubbles/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/bluebubbles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/link-reader/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/link-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/todo-updater/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/todo-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/markdown-toc/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/markdown-toc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/todo-manager/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/todo-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/veadk-skills/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/veadk-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/common-fetcher/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/common-fetcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".codex/skills/codex-thread-heartbeat/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.codex/skills/codex-thread-heartbeat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/image-generate/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/image-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/video-generate/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/video-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/openai-whisper/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/openai-whisper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".codex/skills/research-material-scout/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.codex/skills/research-material-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/veadk-go-skills/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/veadk-go-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/code-optimization/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/code-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/session-optimizer/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/session-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/gourmet-organizer/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/gourmet-organizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/workspace-netdrive/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/workspace-netdrive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/arxiv-paper-reader/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/arxiv-paper-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/playwright-scraper/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/playwright-scraper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/top-lean-ai-monitor/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/top-lean-ai-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CS-Notes",
+      "path": ".trae/openclaw-skills/priority-task-reader/SKILL.md",
+      "github_url": "https://github.com/huangruiteng/CS-Notes/tree/main/.trae/openclaw-skills/priority-task-reader/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/huangruiteng/CS-Notes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-29T18:42:46Z"
+}
