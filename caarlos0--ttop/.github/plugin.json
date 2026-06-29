@@ -1,0 +1,9 @@
+{
+  "name": "caarlos0--ttop",
+  "displayName": "ttop",
+  "description": "A tmux-aware process tree with top-style CPU/memory views",
+  "version": "1.0.0",
+  "author": "caarlos0",
+  "homepage": "https://github.com/caarlos0/ttop",
+  "skills": []
+}
