@@ -4,7 +4,7 @@
   "repo": "HASS-Data-Points",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/buggedcom/HASS-Data-Points",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T15:57:01Z"
+  "distributed_at": "2026-06-29T21:37:37Z"
 }
