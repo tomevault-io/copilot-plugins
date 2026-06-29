@@ -4,7 +4,7 @@
   "repo": "sim-use",
   "description": "Give your AI agent eyes and hands on iOS Simulator and Android emulator/devices.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lycorp-jp/sim-use",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T09:30:26Z"
+  "distributed_at": "2026-06-29T09:30:56Z"
 }
