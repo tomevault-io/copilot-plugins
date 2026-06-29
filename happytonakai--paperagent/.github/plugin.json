@@ -1,0 +1,9 @@
+{
+  "name": "happytonakai--paperagent",
+  "displayName": "PaperAgent",
+  "description": "AI paper reading assistant",
+  "version": "1.0.0",
+  "author": "happyTonakai",
+  "homepage": "https://github.com/happyTonakai/PaperAgent",
+  "skills": []
+}
