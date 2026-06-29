@@ -1,0 +1,30 @@
+# csglite
+
+> Tome by [OpenCSGs](https://github.com/OpenCSGs/csglite) — distributed by [TomeVault](https://tomevault.io)
+
+CSGLite is a lightweight local LLM runner for the CSGHub platform. One command downloads, loads, and chats with models. It   ships a web UI, OpenAI-compatible API, llama.cpp inference, resumable downloads, marketplace browsing, and one-click AI app and   coding-agent setup—all in a single cross-platform binary.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `.cursor/rules/*.mdc` in [OpenCSGs/csglite](https://github.com/OpenCSGs/csglite).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [OpenCSGs/csglite](https://github.com/OpenCSGs/csglite) — a repo with 31+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install OpenCSGs/csglite
+```
+Source: [github.com/OpenCSGs/csglite](https://github.com/OpenCSGs/csglite).
+
+<!-- genome:t-i-s -->
