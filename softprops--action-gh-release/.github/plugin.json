@@ -1,0 +1,9 @@
+{
+  "name": "softprops--action-gh-release",
+  "displayName": "action-gh-release",
+  "description": "action-gh-release",
+  "version": "1.0.0",
+  "author": "softprops",
+  "homepage": "https://github.com/softprops/action-gh-release",
+  "skills": []
+}
