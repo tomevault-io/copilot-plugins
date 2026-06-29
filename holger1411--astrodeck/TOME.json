@@ -3,8 +3,8 @@
   "owner": "holger1411",
   "repo": "astrodeck",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "astrodeck",
+      "path": ".claude/skills/qa/SKILL.md",
+      "github_url": "https://github.com/holger1411/astrodeck/tree/main/.claude/skills/qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "astrodeck",
+      "path": ".claude/skills/astro/SKILL.md",
+      "github_url": "https://github.com/holger1411/astrodeck/tree/main/.claude/skills/astro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "astrodeck",
+      "path": ".claude/skills/readme/SKILL.md",
+      "github_url": "https://github.com/holger1411/astrodeck/tree/main/.claude/skills/readme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "astrodeck",
+      "path": ".claude/skills/tailwind/SKILL.md",
+      "github_url": "https://github.com/holger1411/astrodeck/tree/main/.claude/skills/tailwind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "astrodeck",
+      "path": ".claude/skills/ui-design/SKILL.md",
+      "github_url": "https://github.com/holger1411/astrodeck/tree/main/.claude/skills/ui-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "astrodeck",
+      "path": ".claude/skills/content-seo/SKILL.md",
+      "github_url": "https://github.com/holger1411/astrodeck/tree/main/.claude/skills/content-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "astrodeck",
+      "path": ".claude/skills/accessibility/SKILL.md",
+      "github_url": "https://github.com/holger1411/astrodeck/tree/main/.claude/skills/accessibility/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/holger1411/astrodeck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T16:09:07Z"
+  "distributed_at": "2026-06-29T22:30:23Z"
 }
