@@ -7,11 +7,11 @@ Read-only inspector for Logic Pro .logicx project bundles. Tauri 2 + React 19 + 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rhydlewis/lpx-explorer](https://github.com/rhydlewis/lpx-explorer).
+Original source: `CLAUDE.md` in [rhydlewis/lpx-explorer](https://github.com/rhydlewis/lpx-explorer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
