@@ -4,7 +4,7 @@
   "repo": "csglite",
   "description": "CSGLite is a lightweight local LLM runner for the CSGHub platform. One command downloads, loads, and chats with models. It   ships a web UI, OpenAI-compatible API, llama.cpp inference, resumable downloads, marketplace browsing, and one-click AI app and   coding-agent setup\u2014all in a single cross-platform binary.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenCSGs/csglite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T03:31:55Z"
+  "distributed_at": "2026-06-29T03:33:15Z"
 }
