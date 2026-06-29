@@ -4,7 +4,7 @@
   "repo": "PaperAgent",
   "description": "AI paper reading assistant",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/happyTonakai/PaperAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T00:50:57Z"
+  "distributed_at": "2026-06-29T00:51:25Z"
 }
