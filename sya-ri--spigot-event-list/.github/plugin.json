@@ -1,0 +1,14 @@
+{
+  "name": "sya-ri--spigot-event-list",
+  "displayName": "spigot-event-list",
+  "description": "spigot-event-list",
+  "version": "1.0.0",
+  "author": "sya-ri",
+  "homepage": "https://github.com/sya-ri/spigot-event-list",
+  "skills": [
+    {
+      "name": "spigot-event-list",
+      "description": ""
+    }
+  ]
+}
