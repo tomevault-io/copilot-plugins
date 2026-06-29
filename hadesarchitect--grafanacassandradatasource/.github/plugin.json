@@ -1,0 +1,9 @@
+{
+  "name": "hadesarchitect--grafanacassandradatasource",
+  "displayName": "GrafanaCassandraDatasource",
+  "description": "GrafanaCassandraDatasource",
+  "version": "1.0.0",
+  "author": "HadesArchitect",
+  "homepage": "https://github.com/HadesArchitect/GrafanaCassandraDatasource",
+  "skills": []
+}
