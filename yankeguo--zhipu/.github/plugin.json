@@ -1,7 +1,7 @@
 {
   "name": "yankeguo--zhipu",
   "displayName": "zhipu",
-  "description": "A 3rd-Party Golang Client Library for Zhipu AI Platform",
+  "description": "zhipu",
   "version": "1.0.0",
   "author": "yankeguo",
   "homepage": "https://github.com/yankeguo/zhipu",
