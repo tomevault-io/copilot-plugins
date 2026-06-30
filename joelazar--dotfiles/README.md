@@ -27,7 +27,7 @@ Original source: `AGENTS.md` in [joelazar/dotfiles](https://github.com/joelazar/
 - [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/listen-later/SKILL.md)
 - [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/session-analyzer/SKILL.md)
 
-From [joelazar/dotfiles](https://github.com/joelazar/dotfiles) — a repo with 166+ stars on GitHub.
+From [joelazar/dotfiles](https://github.com/joelazar/dotfiles) — a repo with 0+ stars on GitHub.
 
 ---
 
