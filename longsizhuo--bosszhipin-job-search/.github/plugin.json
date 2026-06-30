@@ -1,0 +1,14 @@
+{
+  "name": "longsizhuo--bosszhipin-job-search",
+  "displayName": "BossZhiPin_Job_Search",
+  "description": "BossZhiPin_Job_Search",
+  "version": "1.0.0",
+  "author": "longsizhuo",
+  "homepage": "https://github.com/longsizhuo/BossZhiPin_Job_Search",
+  "skills": [
+    {
+      "name": "BossZhiPin_Job_Search",
+      "description": ""
+    }
+  ]
+}
