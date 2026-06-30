@@ -1,0 +1,9 @@
+{
+  "name": "epicserve--django-base-site",
+  "displayName": "django-base-site",
+  "description": "django-base-site",
+  "version": "1.0.0",
+  "author": "epicserve",
+  "homepage": "https://github.com/epicserve/django-base-site",
+  "skills": []
+}
