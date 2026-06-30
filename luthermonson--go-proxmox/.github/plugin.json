@@ -1,0 +1,9 @@
+{
+  "name": "luthermonson--go-proxmox",
+  "displayName": "go-proxmox",
+  "description": "go-proxmox",
+  "version": "1.0.0",
+  "author": "luthermonson",
+  "homepage": "https://github.com/luthermonson/go-proxmox",
+  "skills": []
+}
