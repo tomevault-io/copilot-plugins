@@ -2,7 +2,7 @@
   "name": "komari-theme-naive",
   "owner": "lyimoexiao",
   "repo": "komari-theme-naive",
-  "description": "\u57fa\u4e8e Vue 3 + Vite + UnoCSS + Naive UI \u7684 Komari \u4e3b\u9898",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lyimoexiao/komari-theme-naive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T00:41:59Z"
+  "distributed_at": "2026-06-30T10:58:59Z"
 }
