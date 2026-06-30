@@ -1,0 +1,258 @@
+## pterasoftware
+
+> Ptera Software is a fast, easy-to-use, and open-source package for analyzing flapping-wing flight using unsteady and steady vortex lattice methods.
+
+# Ptera Software Development Guidelines for Claude
+
+## Project Overview
+
+Ptera Software is a fast, easy-to-use, and open-source package for analyzing flapping-wing flight using unsteady and steady vortex lattice methods.
+
+### Key Features
+
+- **Multiple Simulation Methods**: Steady horseshoe VLM, steady ring VLM, and unsteady ring UVLM
+- **Customizable Aircraft Geometry**: Multi-wing aircraft with arbitrary wing cross sections and airfoils
+- **Time-Dependent Motion**: Custom prescribed flapping motions
+- **Formation Flight**: Multi-airplane simulations supported since v2.0.0
+- **High-Speed Computing**: JIT compilation via Numba for fast simulations
+- **Trim Analysis**: Automatic search for trim operating points
+- **Convergence Analysis**: Automatic search for converged parameters
+- **Aeroelasticity**: First-order structural wing deformation coupled to the UVLM via a torsional spring-mass-damper model (beta)
+- **Free Flight**: Six-degree-of-freedom flight dynamics from UVLM aerodynamics coupled to MuJoCo rigid-body dynamics (beta)
+- **Visualization Tools**: 3D mesh visualization and 2D plotting of results
+- **Save and Load**: JSON serialization of solved simulations without pickle security risks
+- **Extensive Testing**: Comprehensive unit and integration tests for reliability
+
+### Python Version Constraint
+
+Requires Python 3.11, but active development is done in 3.13
+
+### Key Runtime Dependencies
+
+- **NumPy/SciPy**: Core numerical computations
+- **Numba**: JIT compilation for performance-critical loops
+- **PyVista**: 3D mesh processing and visualization
+- **Matplotlib**: 2D plotting and analysis output
+
+## Architecture Overview
+
+### Relevant Directories, Packages, and Files
+
+- `.github/`: Directory with GitHub configuration files
+    - `ISSUE_TEMPLATE/`: Directory with issue templates
+        - `bug_report.md`
+        - `feature_request.md`
+    - `workflows/`: Directory with GitHub Actions workflows
+        - `ascii-only.yml`
+        - `black.yml`
+        - `codespell.yml`
+        - `docformatter.yml`
+        - `isort.yml`
+        - `label-sync.yml`
+        - `mypy.yml`
+        - `pre-commit-hooks.yml`
+        - `publish.yml`
+        - `tests.yml`
+    - `CODEOWNERS`
+    - `dependabot.yml`
+    - `FUNDING.yml`
+    - `labels.yml`
+    - `pull_request_template.md`
+- `.venv/`: Directory for the Python virtual environment, configured for the host machine's OS (not included in version control)
+- `.venv-wsl/`: Directory for the Python virtual environment configured for a WSL OS (not included in version control, may be missing if host machine doesn't use WSL for development)
+- `experimental/`: Directory with experimental scripts and prototypes (not included in version control)
+- `docs/`: Directory with documentation files
+    - `examples_expected_output/`: Example output files for verification
+    - `hero_graphics/`: Assets for the README hero graphic
+    - `private/`: Directory with documentation not included in this repository's version control (may be missing if the private repo hasn't been cloned and linked to this local repo)
+        - `katz_plotkin_12_2/`: A recreation of Chapter 12.2, which describes efficiently including the effects of symmetry and ground effect for vortex lattice methods, from the textbook "Low-Speed Aerodynamics" by Katz and Plotkin
+        - `katz_plotkin_13_12/`: A recreation of Chapter 13.12, which describes the UVLM, from the textbook "Low-Speed Aerodynamics" by Katz and Plotkin
+        - `katz_plotkin_d/`: A recreation of Appendix D, which includes example Fortran programs, from the textbook "Low-Speed Aerodynamics" by Katz and Plotkin
+        - `lambert_2015_2_3__2_4/`: A recreation of Sections 2.3 and 2.4 from Thomas Lambert's thesis "Modeling of aerodynamic forces in flapping flight with the unsteady vortex lattice method"
+    - `website/`: Directory with the source files for generating the documentation website
+    - `ANGLE_VECTORS_AND_TRANSFORMATIONS.md`: Conventions and definitions for angle vectors and transformations **READ BEFORE CONTRIBUTING ANY CODE, PARTICIPATING IN DISCUSSIONS REGARDING, OR PLANNING RELATED TO VECTOR-VALUED VARIABLES**
+    - `AXES_POINTS_AND_FRAMES.md`: Conventions and definitions for axis systems, points, and reference points: **READ BEFORE CONTRIBUTING ANY CODE, PARTICIPATING IN DISCUSSIONS REGARDING, OR PLANNING RELATED TO VECTOR-VALUED VARIABLES**
+    - `CLASSES_AND_IMMUTABILITY.md`: Description of class structure and attribute immutability.
+    - `CODE_STYLE.md`: Code style guidelines: **READ BEFORE CONTRIBUTING ANY CODE**
+    - `MUJOCO_CONVENTIONS.md`: Definitive interpretation of MuJoCo state variables and their mapping to Ptera Software's axes, points, frames, and transformations
+    - `RUNNING_TESTS_AND_TYPE_CHECKS.md`: Instructions for running tests and type checks **READ BEFORE RUNNING TESTS OR TYPE CHECKS LOCALLY**
+    - `STRONG_COUPLING.md`: Mathematical framework for the strongly coupled free-flight UVLM-MuJoCo solver: the fixed-point sub-iteration, Aitken relaxation, the weighting matrix, and the convergence tolerances
+    - `TYPE_HINT_AND_DOCSTRING_STYLE.md`: Guidelines for type hinting and docstring formatting: **READ BEFORE CONTRIBUTING ANY CODE OR WRITING ANY DOCSTRINGS**
+    - `WRITING_STYLE.md`: Guidelines for writing style in comments and documentation: **READ BEFORE WRITING ANY DOCUMENTATION, DOCSTRINGS, OR COMMENTS**
+- `examples/`: Directory with example scripts for users
+- `pterasoftware/`: Main package with modular solver architecture
+    - `geometry/`: Package with aircraft geometry classes
+        - `_airfoils/`: Directory containing data files with airfoil coordinates
+        - `_meshing.py`: Wing mesh generation
+        - `airfoil.py`: Airfoil class with coordinate generation
+        - `airplane.py`: Airplane class with coordinate transformations
+        - `wing.py`: Wing class with symmetry processing
+        - `wing_cross_section.py`: WingCrossSection class with validation
+    - `movements/`: Package with movement classes (definitions for time-dependent motion)
+        - `aeroelastic_airplane_movement.py`: AeroelasticAirplaneMovement class
+        - `aeroelastic_movement.py`: AeroelasticMovement class
+        - `aeroelastic_operating_point_movement.py`: AeroelasticOperatingPointMovement class
+        - `aeroelastic_wing_cross_section_movement.py`: AeroelasticWingCrossSectionMovement class
+        - `aeroelastic_wing_movement.py`: AeroelasticWingMovement class
+        - `airplane_movement.py`: AirplaneMovement class
+        - `free_flight_movement.py`: FreeFlightMovement class
+        - `free_flight_operating_point_movement.py`: FreeFlightOperatingPointMovement class
+        - `movement.py`: Movement class
+        - `operating_point_movement.py`: OperatingPointMovement class
+        - `wing_cross_section_movement.py`: WingCrossSectionMovement class
+        - `wing_movement.py`: WingMovement class
+    - `_aerodynamics_functions.py`: Induced velocity functions
+    - `_core.py`: Core classes for the movement and problem hierarchies
+    - `_coupled_unsteady_ring_vortex_lattice_method.py`: Coupled unsteady UVLM solver subclass with step-by-step geometry
+    - `_fixed_point_relaxation.py`: Pure fixed-point relaxation helpers (weighted norm, convergence test, Aitken relaxation factor) for the strong-coupling sub-iteration
+    - `_functions.py`: Shared utility functions
+    - `_logging.py`: Contains function for setting up logging
+    - `_mujoco_model.py`: Contains the MuJoCoModel class.
+    - `_oscillation.py`: Oscillation functions for movement classes
+    - `_panel.py`: Panel class for discretized mesh elements
+    - `_parameter_validation.py`: Input validation functions
+    - `_serialization.py`: JSON serialization and deserialization (save/load)
+    - `_transformations.py`: Coordinate transformations and rotations
+    - `aeroelastic_unsteady_ring_vortex_lattice_method.py`: Aeroelastic UVLM solver subclass with first-order structural deformation
+    - `convergence.py`: Convergence analysis tools
+    - `free_flight_unsteady_ring_vortex_lattice_method.py`: Free flight UVLM solver subclass with six-DOF MuJoCo coupling
+    - `operating_point.py`: OperatingPoint class
+    - `output.py`: Visualization and results processing
+    - `problems.py`: SteadyProblem and UnsteadyProblem classes
+    - `steady_horseshoe_vortex_lattice_method.py`: Steady horseshoe VLM solver
+    - `steady_ring_vortex_lattice_method.py`: Steady ring VLM solver
+    - `trim.py`: Trim analysis functionality
+    - `unsteady_ring_vortex_lattice_method.py`: Unsteady ring UVLM solver
+- `scripts/`: Directory with maintenance and tooling scripts
+    - `hero_generation/`: Scripts for creating and finalizing the README hero graphic
+        - `create_solve_and_save_hero.py`: Creates, solves, and saves the hero simulation
+        - `finalize_and_save_hero.py`: Renames preview hero graphics to their permanent names
+        - `load_and_visualize_hero.py`: Loads the saved hero simulation and generates preview graphics
+    - `analyze_webp.py`: Renders WebP frames to PNG files for inspection (backs the `analyze-webp` slash command)
+    - `check_ascii_only.py`: Pre-commit hook script that flags non-ASCII characters in text files
+    - `find_unused_fixtures.py`: Finds and optionally deletes unused fixtures and dead `setUp` attributes across the test suite (backs the `delete-unused-fixtures` slash command)
+    - `regenerate_example_outputs.py`: Runs all example scripts (or a single named example) and collects their outputs into `docs/examples_expected_output/`, re-rendering oversized WebP files at lower quality
+- `tests/`: Directory with unit and integration tests
+    - `integration/`: Integration tests for combined functionality
+        - `fixtures/`: Fixtures for integration tests
+            - `airplane_fixtures.py`
+            - `movement_fixtures.py`
+            - `operating_point_fixtures.py`
+            - `problem_fixtures.py`
+            - `solver_fixtures.py`
+        - `test_aeroelastic_unsteady_ring_vortex_lattice_method.py`
+        - `test_free_flight_unsteady_ring_vortex_lattice_method.py`
+        - `test_output.py`
+        - `test_serialization_output.py`
+        - `test_steady_convergence.py`
+        - `test_steady_horseshoe_vortex_lattice_method.py`
+        - `test_steady_horseshoe_vortex_lattice_method_surface_effect.py`
+        - `test_steady_ring_vortex_lattice_method.py`
+        - `test_steady_ring_vortex_lattice_method_surface_effect.py`
+        - `test_steady_trim.py`
+        - `test_unsteady_convergence.py`
+        - `test_unsteady_ring_vortex_lattice_method_multiple_wing_static_geometry.py`
+        - `test_unsteady_ring_vortex_lattice_method_multiple_wing_variable_geometry.py`
+        - `test_unsteady_ring_vortex_lattice_method_static_geometry.py`
+        - `test_unsteady_ring_vortex_lattice_method_surface_effect.py`
+        - `test_unsteady_ring_vortex_lattice_method_variable_geometry.py`
+        - `test_unsteady_ring_vortex_lattice_method_wake_truncation.py`
+    - `unit/`: Unit tests for individual classes and functions
+        - `fixtures/`: Fixtures for unit tests
+            - `aerodynamics_functions_fixtures.py`
+            - `aeroelastic_airplane_movement_fixtures.py`
+            - `aeroelastic_operating_point_movement_fixtures.py`
+            - `aeroelastic_wing_cross_section_movement_fixtures.py`
+            - `aeroelastic_wing_movement_fixtures.py`
+            - `airplane_movement_fixtures.py`
+            - `core_airplane_movement_fixtures.py`
+            - `core_movement_fixtures.py`
+            - `core_operating_point_movement_fixtures.py`
+            - `core_wing_cross_section_movement_fixtures.py`
+            - `core_wing_movement_fixtures.py`
+            - `free_flight_movement_fixtures.py`
+            - `free_flight_operating_point_movement_fixtures.py`
+            - `geometry_fixtures.py`
+            - `movement_fixtures.py`
+            - `mujoco_model_fixtures.py`
+            - `operating_point_fixtures.py`
+            - `operating_point_movement_fixtures.py`
+            - `oscillation_fixtures.py`
+            - `panel_fixtures.py`
+            - `parameter_validation_fixtures.py`
+            - `problem_fixtures.py`
+            - `serialization_fixtures.py`
+            - `solver_fixtures.py`
+            - `wing_cross_section_movement_fixtures.py`
+            - `wing_movement_fixtures.py`
+        - `test_aerodynamics_functions.py`
+        - `test_aeroelastic_airplane_movement.py`
+        - `test_aeroelastic_movement.py`
+        - `test_aeroelastic_operating_point_movement.py`
+        - `test_aeroelastic_unsteady_problem.py`
+        - `test_aeroelastic_unsteady_ring_vortex_lattice_method.py`
+        - `test_aeroelastic_wing_cross_section_movement.py`
+        - `test_aeroelastic_wing_movement.py`
+        - `test_airfoil.py`
+        - `test_airplane.py`
+        - `test_airplane_movement.py`
+        - `test_core.py`
+        - `test_core_airplane_movement.py`
+        - `test_core_movement.py`
+        - `test_core_operating_point_movement.py`
+        - `test_core_unsteady_problem.py`
+        - `test_core_wing_cross_section_movement.py`
+        - `test_core_wing_movement.py`
+        - `test_coupled_unsteady_problem.py`
+        - `test_coupled_unsteady_ring_vortex_lattice_method.py`
+        - `test_free_flight_movement.py`
+        - `test_free_flight_operating_point_movement.py`
+        - `test_free_flight_unsteady_problem.py`
+        - `test_free_flight_unsteady_ring_vortex_lattice_method.py`
+        - `test_functions.py`
+        - `test_logging.py`
+        - `test_movement.py`
+        - `test_mujoco_model.py`
+        - `test_operating_point.py`
+        - `test_operating_point_movement.py`
+        - `test_oscillation.py`
+        - `test_package_init.py`
+        - `test_panel.py`
+        - `test_parameter_validation.py`
+        - `test_problems.py`
+        - `test_serialization.py`
+        - `test_slots.py`
+        - `test_steady_horseshoe_vortex_lattice_method.py`
+        - `test_steady_ring_vortex_lattice_method.py`
+        - `test_transformations.py`
+        - `test_unsteady_ring_vortex_lattice_method.py`
+        - `test_wing.py`
+        - `test_wing_cross_section.py`
+        - `test_wing_cross_section_movement.py`
+        - `test_wing_movement.py`
+- `.codespell-ignore.txt`: File listing words to ignore in spell checking
+- `.gitignore`: Git ignore file
+- `.pre-commit-config.yaml`: Pre-commit configuration file
+- `.readthedocs.yaml`: Read the Docs build configuration
+- `codecov.yml`: Codecov configuration for test coverage reporting
+- `CONTRIBUTING.md`: Contribution guidelines for developers
+- `MANIFEST.in`: Manifest file for packaging
+- `mypy.ini`: MyPy configuration file
+- `pyproject.toml`: Project configuration file
+- `README.md`: Project overview and installation instructions for developers
+- `requirements.txt`: Full list of runtime dependencies with version constraints
+- `requirements_dev.txt`: Full list of development dependencies with version constraints
+- `requirements_min.txt`: Minimum-version runtime dependencies
+- `setup.cfg`: Setup configuration file
+
+## Common Mistakes
+
+- Forgetting to read RUNNING_TESTS_AND_TYPE_CHECKS.md before running tests and trying to use pytest (Ptera Software uses unittest)
+- Forgetting to read CODE_STYLE.md before contributing code
+- Forgetting to read TYPE_HINT_AND_DOCSTRING_STYLE.md before writing docstrings
+- Forgetting to read ANGLE_VECTORS_AND_TRANSFORMATIONS.md and AXES_POINTS_AND_FRAMES.md before working with vector-valued variables. If in doubt, before writing code, read both of these documents
+- Forgetting to read WRITING_STYLE.md before writing documentation, docstrings, or comments
+
+---
+> Source: [camUrban/PteraSoftware](https://github.com/camUrban/PteraSoftware) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
