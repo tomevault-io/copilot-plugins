@@ -1,0 +1,135 @@
+{
+  "name": "zedis",
+  "owner": "vicanso",
+  "repo": "zedis",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-test/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-async/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-async/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-event/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-event/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-global/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-global/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-entity/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-entity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-action/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-action/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-context/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-element/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-element/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/new-component/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/new-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-style-guide/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-style-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-focus-handle/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-focus-handle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/gpui-layout-and-style/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/gpui-layout-and-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/generate-component-story/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/generate-component-story/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/github-pull-request-description/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/github-pull-request-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zedis",
+      "path": ".claude/skills/generate-component-documentation/SKILL.md",
+      "github_url": "https://github.com/vicanso/zedis/tree/main/.claude/skills/generate-component-documentation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vicanso/zedis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-30T00:31:46Z"
+}
