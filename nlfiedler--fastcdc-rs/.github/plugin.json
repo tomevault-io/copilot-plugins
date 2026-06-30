@@ -1,0 +1,14 @@
+{
+  "name": "nlfiedler--fastcdc-rs",
+  "displayName": "fastcdc-rs",
+  "description": "fastcdc-rs",
+  "version": "1.0.0",
+  "author": "nlfiedler",
+  "homepage": "https://github.com/nlfiedler/fastcdc-rs",
+  "skills": [
+    {
+      "name": "fastcdc-rs",
+      "description": ""
+    }
+  ]
+}
