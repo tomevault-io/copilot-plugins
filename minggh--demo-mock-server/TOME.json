@@ -2,7 +2,7 @@
   "name": "demo-mock-server",
   "owner": "MingGH",
   "repo": "demo-mock-server",
-  "description": "\u4e00\u4e2a\u6280\u672f\u6f14\u793a\u5408\u96c6\uff0c\u7528\u53ef\u89c6\u5316\u548c\u4ea4\u4e92\u7684\u65b9\u5f0f\u89e3\u91ca\u7f16\u7a0b\u6982\u5ff5\u3001\u7b97\u6cd5\u539f\u7406\u548c\u751f\u6d3b\u4e2d\u7684\u6570\u5b66\u95ee\u9898\u3002",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MingGH/demo-mock-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T12:24:40Z"
+  "distributed_at": "2026-06-30T20:35:34Z"
 }
