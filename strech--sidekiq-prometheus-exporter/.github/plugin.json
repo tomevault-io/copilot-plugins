@@ -1,0 +1,9 @@
+{
+  "name": "strech--sidekiq-prometheus-exporter",
+  "displayName": "sidekiq-prometheus-exporter",
+  "description": "sidekiq-prometheus-exporter",
+  "version": "1.0.0",
+  "author": "Strech",
+  "homepage": "https://github.com/Strech/sidekiq-prometheus-exporter",
+  "skills": []
+}
