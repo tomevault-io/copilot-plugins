@@ -1,0 +1,14 @@
+{
+  "name": "konjoai--vectro",
+  "displayName": "vectro",
+  "description": "\u26a1 Vectro: Lightning-fast embedding quantization. Hit 12M+ vec/s throughput (4.85\u00d7 faster than FAISS C++) while drastically cutting memory footprint for vector databases and local AI research.",
+  "version": "1.0.0",
+  "author": "konjoai",
+  "homepage": "https://github.com/konjoai/vectro",
+  "skills": [
+    {
+      "name": "konjo-boot",
+      "description": ""
+    }
+  ]
+}
