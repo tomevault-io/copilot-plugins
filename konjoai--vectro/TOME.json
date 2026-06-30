@@ -1,0 +1,51 @@
+{
+  "name": "vectro",
+  "owner": "konjoai",
+  "repo": "vectro",
+  "description": "\u26a1 Vectro: Lightning-fast embedding quantization. Hit 12M+ vec/s throughput (4.85\u00d7 faster than FAISS C++) while drastically cutting memory footprint for vector databases and local AI research.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "konjo-boot",
+      "path": ".claude/skills/konjo-boot",
+      "github_url": "https://github.com/konjoai/vectro/tree/main/.claude/skills/konjo-boot",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/konjoai/vectro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-30T18:30:25Z"
+}
