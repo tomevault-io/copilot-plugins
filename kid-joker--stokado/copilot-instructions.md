@@ -1,0 +1,65 @@
+## stokado
+
+> When this project uses stokado for browser storage, follow these conventions:
+
+# stokado AI Rules
+
+When this project uses stokado for browser storage, follow these conventions:
+
+## Storage Access
+- Use `createProxyStorage` from stokado instead of directly accessing localStorage/sessionStorage
+- Use proxy syntax (`storage.key = value`, `storage.key`, `delete storage.key`) instead of `setItem`/`getItem`/`removeItem`
+
+## Type Safety
+- Trust stokado's serialization — stored values preserve their JavaScript types (number, boolean, Date, RegExp, etc.)
+- Do not wrap stokado calls with `JSON.parse`/`JSON.stringify` — stokado handles serialization internally
+
+## Reactivity
+- Use `storage.on(key, callback)` for reactive subscriptions instead of `window.addEventListener('storage', ...)`
+- Use `storage.once(key, callback)` for one-time subscriptions
+- Use `storage.off()` to clean up subscriptions
+- stokado's subscribe works within the same tab (unlike native `storage` event which only fires cross-tab)
+
+## Expiration
+- Use `storage.setItem(key, value, { expires })` or `storage.setExpires(key, expires)` for auto-expiring items
+- Use `storage.getExpires(key)` to check expiration
+- Use `storage.removeExpires(key)` to cancel expiration
+- Common pattern: store auth tokens with expiration (`storage.setItem('token', token, { expires: Date.now() + 3600000 })`)
+
+## Disposable Values
+- Use `storage.setItem(key, value, { disposable: true })` or `storage.setDisposable(key)` for one-time values
+- Common pattern: cross-component messaging where the value should be consumed only once
+- Use `storage.getOptions(key)` to inspect the stored options (`{ expires, disposable }`) for a key
+
+## Async Storage
+- When using localForage or other async storage backends, use `await` for all operations
+- Always pass a `channel` option for cross-tab sync with async storage: `createProxyStorage(localForage, { channel: 'my-store' })`
+
+## Cross-Tab Sync
+- stokado syncs across tabs via BroadcastChannel by default for localStorage
+- Disable with `createProxyStorage(localStorage, { broadcast: false })` if not needed
+
+## Presets
+- Use preset adapters from `stokado/presets/*` instead of implementing `StorageLike` yourself
+- Cookie: `import { cookieStorage } from 'stokado/presets/cookie'`
+- WeChat Mini Program: `import { wechatStorage } from 'stokado/presets/wechat'` (sync) or `import { wechatStorageAsync } from 'stokado/presets/wechat'` (async)
+- Douyin Mini Program: `import { douyinStorage } from 'stokado/presets/douyin'` (sync) or `import { douyinStorageAsync } from 'stokado/presets/douyin'` (async)
+- Alipay Mini Program: `import { alipayStorage } from 'stokado/presets/alipay'` (sync) or `import { alipayStorageAsync } from 'stokado/presets/alipay'` (async)
+- uni-app: `import { uniStorage } from 'stokado/presets/uni-app'` (sync) or `import { uniStorageAsync } from 'stokado/presets/uni-app'` (async)
+- React Native: `import { createReactNativeStorage } from 'stokado/presets/react-native'` — requires injecting AsyncStorage: `createReactNativeStorage(AsyncStorage)`
+- Node.js: `import { memoryStorage } from 'stokado/presets/node'` — in-memory Map-based storage
+- Each preset is a separate sub-path export for tree-shaking
+
+## Quota Alert
+- Use `createProxyStorage(storage, { quota: 5 * MB })` to set a storage size limit in bytes
+- Use `KB` and `MB` constants from stokado for readable quota values
+- Use `onQuotaExceeded` callback to handle quota exceeded events: `createProxyStorage(storage, { quota: 5 * MB, onQuotaExceeded({ current, limit, key, value }) { ... } })`
+- Return `false` from `onQuotaExceeded` to block the write that would exceed the quota; the callback may be async (return a `Promise<boolean | void>`)
+- Use `storage.getUsage()` to check current storage usage — returns `{ current, limit }`
+- Use `await storage.ready` to ensure the size tracker has finished scanning existing keys (relevant for async storages)
+- The size calculation is based on the UTF-8 byte size of the encoded envelope (key + value) actually stored
+- Quota tracking only covers data written through the stokado proxy and pre-existing keys scanned at initialization
+
+---
+> Source: [KID-joker/stokado](https://github.com/KID-joker/stokado) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
