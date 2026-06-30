@@ -1,0 +1,14 @@
+{
+  "name": "mozex--anthropic-laravel",
+  "displayName": "anthropic-laravel",
+  "description": "anthropic-laravel",
+  "version": "1.0.0",
+  "author": "mozex",
+  "homepage": "https://github.com/mozex/anthropic-laravel",
+  "skills": [
+    {
+      "name": "anthropic-laravel",
+      "description": ""
+    }
+  ]
+}
