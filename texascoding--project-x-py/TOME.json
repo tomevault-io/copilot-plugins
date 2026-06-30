@@ -2,9 +2,9 @@
   "name": "project-x-py",
   "owner": "TexasCoding",
   "repo": "project-x-py",
-  "description": "A high-performance Python SDK for the ProjectX Trading Platform Gateway API. This library enables developers to build sophisticated trading strategies and applications by providing comprehensive access to futures trading operations, historical market data, real-time streaming, technical analysis, and advanced market microstructure tools",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TexasCoding/project-x-py",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T08:52:45Z"
+  "distributed_at": "2026-06-30T19:20:07Z"
 }
