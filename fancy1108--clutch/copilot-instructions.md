@@ -1,0 +1,18 @@
+## base
+
+> Clutch 全局规则（指针）；完整铁律与命令见 CLAUDE.md
+
+
+# Clutch — Agent 入口
+
+**定位：** 本地 AI 多 Agent 编排与监督桌面应用（Tauri · React · FastAPI + LangGraph）。
+
+**命令：** 启动与校验见 [`CLAUDE.md`](../../CLAUDE.md) §核心命令（本文件不复制命令表）。
+
+**完整规则：** 铁律、Check-in/Check-out、Memory 六件套、日志字段规范 — 均以 [`CLAUDE.md`](../../CLAUDE.md) 为唯一权威。
+
+@CLAUDE.md
+
+---
+> Source: [fancy1108/Clutch](https://github.com/fancy1108/Clutch) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
