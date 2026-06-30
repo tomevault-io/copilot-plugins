@@ -1,0 +1,87 @@
+{
+  "name": "yet-another-statusline",
+  "owner": "tmck-code",
+  "repo": "yet-another-statusline",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "yet-another-statusline",
+      "path": "skills/init/SKILL.md",
+      "github_url": "https://github.com/tmck-code/yet-another-statusline/tree/main/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yet-another-statusline",
+      "path": "skills/uninstall/SKILL.md",
+      "github_url": "https://github.com/tmck-code/yet-another-statusline/tree/main/skills/uninstall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yet-another-statusline",
+      "path": ".claude/skills/yas-pr/SKILL.md",
+      "github_url": "https://github.com/tmck-code/yet-another-statusline/tree/main/.claude/skills/yas-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yet-another-statusline",
+      "path": ".claude/skills/tmck-code-statusline/SKILL.md",
+      "github_url": "https://github.com/tmck-code/yet-another-statusline/tree/main/.claude/skills/tmck-code-statusline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yet-another-statusline",
+      "path": "skills/config/SKILL.md",
+      "github_url": "https://github.com/tmck-code/yet-another-statusline/tree/main/skills/config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yet-another-statusline",
+      "path": ".claude/skills/yas-demo-text/SKILL.md",
+      "github_url": "https://github.com/tmck-code/yet-another-statusline/tree/main/.claude/skills/yas-demo-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yet-another-statusline",
+      "path": ".claude/skills/yas-pr-screenshots/SKILL.md",
+      "github_url": "https://github.com/tmck-code/yet-another-statusline/tree/main/.claude/skills/yas-pr-screenshots/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tmck-code/yet-another-statusline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-30T02:30:23Z"
+}
