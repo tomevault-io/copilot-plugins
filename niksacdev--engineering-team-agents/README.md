@@ -2,16 +2,14 @@
 
 > Source: [niksacdev/engineering-team-agents](https://github.com/niksacdev/engineering-team-agents) — distributed by [TomeVault](https://tomevault.io)
 
-These are agent templates that can be used by teams to adopt a developer agent workflow for their repos.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [niksacdev/engineering-team-agents](https://github.com/niksacdev/engineering-team-agents).
+Original source: `CLAUDE.md` in [niksacdev/engineering-team-agents](https://github.com/niksacdev/engineering-team-agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
