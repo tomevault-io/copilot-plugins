@@ -1,0 +1,9 @@
+{
+  "name": "zhisme--copy-with-context-nvim",
+  "displayName": "copy_with_context.nvim",
+  "description": "copy_with_context.nvim",
+  "version": "1.0.0",
+  "author": "zhisme",
+  "homepage": "https://github.com/zhisme/copy_with_context.nvim",
+  "skills": []
+}
