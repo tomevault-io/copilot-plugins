@@ -2,7 +2,7 @@
   "name": "komari-theme-emerald",
   "owner": "Tokinx",
   "repo": "komari-theme-emerald",
-  "description": "Komari Theme based on Vue 3 + Vite + Shadcn/UI + TailwindCSS-V4",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tokinx/komari-theme-emerald",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T05:45:55Z"
+  "distributed_at": "2026-06-30T20:38:39Z"
 }
