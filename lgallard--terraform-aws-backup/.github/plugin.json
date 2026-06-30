@@ -1,0 +1,9 @@
+{
+  "name": "lgallard--terraform-aws-backup",
+  "displayName": "terraform-aws-backup",
+  "description": "terraform-aws-backup",
+  "version": "1.0.0",
+  "author": "lgallard",
+  "homepage": "https://github.com/lgallard/terraform-aws-backup",
+  "skills": []
+}
