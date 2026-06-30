@@ -1,0 +1,214 @@
+## unboxed-loyalty-spark
+
+> Web3-powered loyalty platform built on Base Mainnet (Chain ID: 8453).
+
+# LoyalSpark — Onchain Loyalty Protocol
+
+## Project Overview
+Web3-powered loyalty platform built on Base Mainnet (Chain ID: 8453).
+Dual-mode: humans via Web UI (Privy-first + SIWE where needed), AI agents via REST API / MCP Server.
+
+## Tech Stack
+- Frontend: React 18, TypeScript, Vite 5, Tailwind CSS 3, shadcn/ui (Radix), Framer Motion, Sonner
+- Onchain: Wagmi v2, Viem, RainbowKit, Base Mainnet (chain id 8453); `ox` where low-level helpers fit
+- Auth & wallets: **Privy** (`@privy-io/react-auth`, `@privy-io/wagmi`) + **SIWE** (nonce + `siwe-verify`) for wallet-linked Supabase sessions
+- Farcaster: `@farcaster/auth-kit`, `miniapp-sdk`, `frame-sdk`, `@farcaster/miniapp-wagmi-connector`
+- Mobile: **Capacitor 8** (iOS/Android) alongside the web app
+- PWA: `vite-plugin-pwa`
+- Backend: Supabase (Deno Edge Functions, Postgres RLS, Realtime)
+- Agent server wallets: Coinbase CDP MPC via `agent-wallet` Edge Function
+- State: TanStack Query v5
+- Routing: React Router DOM v6
+- Forms: React Hook Form + Zod (`@hookform/resolvers`)
+- Data viz: Recharts (dashboards)
+- Agent surface: REST (`agent-api`) + MCP (`loyalty-mcp`)
+
+## Smart Contracts (Base Mainnet)
+- LoyaltyTokenFactory: 0x5F3DdBa12580CFdc6016258774cCc19C4250dA80
+- LoyalSparkERC20 (Implementation): 0xe6BA426C9c51281B929a17444De02c65815E27C3
+
+## Authentication
+- Humans: **Privy** first (email / SMS / OAuth / embedded + external wallets); Supabase session via `privy-auth` + client helpers in `src/lib/privyAuth.ts`
+- Wallet-only path: SIWE message + `siwe-nonce` / `siwe-verify` Edge Functions (still used for wagmi-connected wallet login)
+- Merchant / Customer headers: **Profile** is shown only when `useAuth().user` exists; order is **Theme → Profile (if signed in) → Wallet**. See `docs/development/PORTALS_AND_TEAM.md`.
+- Farcaster Mini App: detect FC context (`@farcaster/miniapp-sdk`) and avoid fighting Mini App lifecycle in auth UI
+- AI Agents: API keys with `lsk_` prefix, hashed in DB (unchanged server rules)
+
+## Project Structure
+src/
+  components/
+    ui/          # shadcn/ui only — do not put business logic here
+    agents/      # AI agent management UI
+    rewards/     # Rewards & vouchers
+    crm/         # CRM & analytics
+    marketing/   # Campaigns
+    automation/  # Marketing automation
+    tiers/       # Customer tiers
+    referral/    # Referral programs
+    roundup/     # DeFi investment (Aave/Compound) — FROZEN
+    marketplace/ # Token trading (DEX) — FROZEN
+    reviews/     # Customer reviews
+    onboarding/  # Welcome flows
+    merchant/    # Merchant shell & tabs (Team, Programs, dashboard, …)
+    team/          # Branches, employees, invite codes, AcceptMerchantInviteCard
+    admin/       # Platform administration
+  hooks/         # ALL Supabase queries must live here, never in components
+  config/        # Contract addresses & ABIs
+  contexts/      # Auth (Privy + SIWE + Farcaster miniapp)
+  integrations/supabase/  # DB client & generated types
+  pages/         # Route-level components only
+  lib/           # Shared utilities
+
+supabase/functions/
+  agent-api/              # REST API for AI agents
+  agent-api-key/          # API key issuance / rotation
+  agent-reports/          # Merchant reporting
+  agent-wallet/           # CDP MPC wallet + server-side mint
+  loyalty-mcp/            # MCP (JSON-RPC) for LLM tools
+  privy-auth/             # Privy → Supabase session bridge
+  siwe-nonce/             # SIWE nonce
+  siwe-verify/            # SIWE verify; nonce consumption via RPC consume_siwe_nonce
+  recipient-api/          # Holder/recipient REST + SIWE register (rwk_)
+  recipient-loyalty-mcp/  # MCP (JSON-RPC) for recipient agents (rwk_)
+  verify-payment/         # Premium / subscription USDC
+  verify-agent-plan-payment/
+  verify-voucher/
+  mpp-gateway/            # MPP pay-per-request → agent-api
+  x402-gateway/           # x402 USDC on Base → agent-api
+  check-premium-expiration/
+  check-program-expiration/
+  sync-mint-history/
+  process-automation/
+  customer-export/
+  get-token-holders/
+  resolve-recipient/
+  frame/                  # Farcaster frame
+  miniapp-webhook/        # Miniapp webhooks
+  tests/                  # Integration (optional env)
+
+## Frozen Modules (do not modify or extend)
+- src/components/marketplace/   — DEX trading, frozen
+- src/components/roundup/       — DeFi investment, frozen
+
+## Active Development Focus
+- Core loop: deploy token → mint → redeem voucher
+- AI Agent API and MCP server
+- Farcaster integration
+- x402 and MPP payment gateways
+
+## Coding Rules
+- TypeScript: `@/*` path alias; avoid `any` in new code; prefer explicit types even though legacy `tsconfig` is not full strict yet
+- All Supabase queries must be in /hooks, never directly in components
+- All env variables via import.meta.env, never hardcoded
+- Never expose Supabase service role key on the client
+- Use TanStack Query for all async data fetching
+- Use React Hook Form + Zod for all forms
+- Follow existing domain folder structure when creating new components
+- RLS must be enabled on every new Supabase table
+- Keep components under 200 lines — split if larger
+
+## LLM workflow
+
+Behavioral rules to reduce over-engineering and unclear edits. **Tradeoff:** bias toward caution over speed; for trivial one-liners, use judgment.
+
+### 1. Think before coding
+- State assumptions explicitly; if uncertain, ask rather than guess.
+- If multiple interpretations exist, present them — do not pick silently.
+- If a simpler approach exists, say so; push back when warranted.
+- If something is unclear, stop, name what is confusing, ask.
+
+### 2. Simplicity first
+- Minimum code that solves the problem; nothing speculative.
+- No features, abstractions, or “configurability” beyond the request.
+- No error handling for scenarios that cannot happen in this codebase path.
+- If a change balloons in size, simplify before shipping.
+
+### 3. Surgical changes
+- Touch only what you must; do not “improve” adjacent code, comments, or formatting.
+- Do not refactor unrelated areas; match existing style even if you would do it differently.
+- Unrelated dead code: mention in passing — do not delete unless asked.
+- Remove only orphans **your** diff created (unused imports/vars from your edit).
+- **Test:** every changed line should trace directly to the user’s request.
+
+### 4. Goal-driven execution
+- Turn work into verifiable outcomes (e.g. fix → repro test or concrete manual check → pass).
+- For multi-step work, use a short plan with a verify step per step.
+- Prefer explicit success criteria over vague “make it work”.
+
+## Agent Integration
+
+### REST API (22 authenticated routes + 1 public GET)
+Base URL: https://bzxmejzssxjazswgwqqs.supabase.co/functions/v1/agent-api
+
+**Public (no `x-api-key`):**
+- GET `/vouchers/status` — voucher status by `code` or `voucher_id`
+
+**Authenticated (`x-api-key: lsk_...` required):**
+
+GET:
+- /me               — free    — agent profile, plan, wallet
+- /programs         — $0.001  — list loyalty programs
+- /rewards          — $0.001  — rewards (param: token_address)
+- /balance          — $0.001  — balance & tier (params: token_address, wallet_address)
+- /customers        — $0.002  — customer list (param: token_address)
+- /vouchers         — $0.001  — vouchers list (param: token_address)
+- /analytics        — $0.005  — program analytics (param: token_address)
+- /offers           — $0.001  — P2P offers list
+- /tx-receipt       — free    — extract token_address from deploy tx (still requires API key)
+
+POST (scopes: program lifecycle accepts **mint** or **create_program**):
+- /programs         — $0.05  — calldata for token deploy
+- /register-program — $0.01  — register token in DB
+- /activate-program — $0.01  — activation calldata
+- /program-status   — $0.005 — update program status
+- /rewards          — $0.01  — scope: manage_rewards — create reward
+- /mint             — $0.01  — scope: mint — mint tokens
+- /earn             — $0.01  — scope: mint — cashback from purchase amount × rate
+- /transfer         — $0.005 — scope: mint — transfer tokens
+- /offers           — $0.01  — scope: trade — create P2P offer
+- /accept-offer     — $0.01  — scope: trade — accept offer
+- /cancel-offer     — $0.005 — scope: trade — cancel offer
+- /redeem-reward    — $0.01  — scope: read — exchange reward for voucher
+- /vouchers/use     — $0.005 — scope: manage_rewards — use voucher
+
+### MCP Server (27 tools)
+URL: https://bzxmejzssxjazswgwqqs.supabase.co/functions/v1/loyalty-mcp  
+Transport: Streamable HTTP (JSON-RPC 2.0) · Auth: `x-api-key` · **Tool list = each `mcpServer.tool("…")` in `loyalty-mcp/index.ts`** (includes reporting, exports, admin-only tools).  
+Compatible with: Claude Desktop, Cursor, VS Code, OpenServ, any MCP client.
+
+### MPP Gateway
+URL: https://bzxmejzssxjazswgwqqs.supabase.co/functions/v1/mpp-gateway
+Payment: pathUSD on Tempo or USDC
+Flow: request → 402 challenge → payment → retry with credential
+No API key needed — pay-per-request.
+
+### x402 Gateway
+URL: https://bzxmejzssxjazswgwqqs.supabase.co/functions/v1/x402-gateway
+Payment: USDC on Base (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913)
+Facilitator (Base mainnet): CDP `https://api.cdp.coinbase.com/platform/v2/x402` — JWT via `CDP_API_KEY_ID` + `CDP_API_KEY_SECRET` (`@coinbase/cdp-sdk/auth` generateJwt per /verify and /settle). Optional single-token `CDP_API_KEY`. Public `https://x402.org/facilitator` is Sepolia-only for v2 `exact`.
+
+## API Key Scopes
+- read            — read-only GET routes (plus redeem per server rules)
+- mint            — mint, transfer, earn; program deploy/register/activate when combined with flow
+- create_program  — optional narrow scope; program POSTs also accept **mint**
+- manage_rewards  — create rewards, use vouchers
+- trade           — P2P offers (create, accept, cancel)
+
+## Pricing Tiers (canonical: docs/business/MONETIZATION_AND_PRICING.md)
+- Free:       $0/mo,       200 calls,    1 agent,   1.25% mint fee, 1,000 tokens/mo
+- Pro:        $49 USDC/mo, 10,000 calls, 5 agents,  0.5% mint fee, unlimited tokens
+- Enterprise: $129 USDC/mo, unlimited,  unlimited, 0.25% mint fee, unlimited tokens
+Merchant SaaS (portal): Starter $39 / Growth $79 / Scale $149 — separate product line; paid via `verify-agent-plan-payment` with `product: "merchant"` (tables `merchant_plans`, `merchant_plan_subscriptions`).
+Subscription payment: onchain USDC on Base to `payment_settings.subscription_wallet_address`, auto-verified when BaseScan key is set.
+
+## Agent Rules
+- Always validate x-api-key on every protected endpoint
+- Only **GET /vouchers/status** is public — no API key
+- Agent scope must be checked before every write operation
+- Rate limiting is per-agent, tracked in DB
+- All agent activity must be logged to audit trail
+- Commission enforcement must happen at smart contract level too
+
+---
+> Source: [aspekt19/unboxed-loyalty-spark](https://github.com/aspekt19/unboxed-loyalty-spark) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
