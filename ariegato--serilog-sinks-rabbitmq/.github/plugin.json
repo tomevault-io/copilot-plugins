@@ -1,0 +1,9 @@
+{
+  "name": "ariegato--serilog-sinks-rabbitmq",
+  "displayName": "serilog-sinks-rabbitmq",
+  "description": "serilog-sinks-rabbitmq",
+  "version": "1.0.0",
+  "author": "ArieGato",
+  "homepage": "https://github.com/ArieGato/serilog-sinks-rabbitmq",
+  "skills": []
+}
