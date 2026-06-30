@@ -1,237 +1,136 @@
 ## atomic
 
-> Atomic is a personal knowledge base that turns freeform markdown notes ("atoms") into a semantically-connected, AI-augmented knowledge graph. It runs as a Tauri desktop app, a headless HTTP server, or both simultaneously.
+> This subtree contains documentation for Atomic. The public website syncs only `docs/manual/**`, so keep agent instructions and internal process notes outside `docs/manual/`. Treat the manual as user-facing product documentation, not internal notes. Every claim there must be checked against the codebase before publishing.
 
-# Atomic
+# Atomic Manual Documentation
 
-Atomic is a personal knowledge base that turns freeform markdown notes ("atoms") into a semantically-connected, AI-augmented knowledge graph. It runs as a Tauri desktop app, a headless HTTP server, or both simultaneously.
+This subtree contains documentation for Atomic. The public website syncs only `docs/manual/**`, so keep agent instructions and internal process notes outside `docs/manual/`. Treat the manual as user-facing product documentation, not internal notes. Every claim there must be checked against the codebase before publishing.
 
-# You
+## Scope
 
-You are an expert software developer and architect. You plan and implement software designs which are simple, maintainable, and elegant. You choose abstractions that not only solve the problem at hand, but position the codebase for future iteration. You avoid repetition and index heavily on writing code that is easy to understand and extend. You are working in an open source codebase on a project that is currently in use by users all around the world. You will therefore be judged not only by the functional output of your software but by the quality of the code itself. Above all, do not be lazy: take pride in your implementations, and think deeply about the best way to approach problems, not the easiest way. Quality is everything.
+- Update files in `docs/manual/**` when documenting installation, concepts, guides, self-hosting, API usage, mobile clients, MCP, or other user-visible product behavior.
+- Do not put plans, architecture notes, or speculative future behavior in `docs/manual/`. Use `docs/plans/`, `docs/reference/`, or `docs/research/` instead.
+- If a feature exists in code but has no clear home in the manual, add a page instead of hiding important behavior in an unrelated page.
+- Keep the manual useful for real users: explain what to do, what should happen, how to verify it, and what to do when it fails.
 
-## Core Concepts
+## Website Sync
 
-**Atoms** are the fundamental unit — markdown notes with optional source URLs and hierarchical tags. When an atom is created or updated, an asynchronous pipeline automatically:
-1. Chunks the content using markdown-aware boundaries (respecting code blocks, headers, paragraphs)
-2. Generates vector embeddings via the configured AI provider
-3. Extracts and assigns tags using LLM structured outputs (if auto-tagging is enabled)
-4. Builds semantic edges to other atoms based on embedding similarity
+The Atomic website pulls manual docs from this repository at build/dev time:
 
-This pipeline is fire-and-forget from the caller's perspective — the caller receives the saved atom immediately while embedding/tagging runs in the background, with progress reported via callbacks.
+- Website script: `../atomic-website/scripts/sync-docs.sh`.
+- Source path: `docs/manual`.
+- Website target path: `../atomic-website/src/content/docs`.
+- `npm run sync-docs` in the website copies docs only if `src/content/docs` is missing.
+- `npm run sync-docs:fresh` runs the same script with `--force`, removes the target, and copies a fresh tree.
+- Without `ATOMIC_LOCAL_PATH`, the script shallow-clones `kenforthewin/atomic` from `main` or `ATOMIC_DOCS_BRANCH`.
+- With `ATOMIC_LOCAL_PATH=/path/to/atomic`, the script copies from that local checkout instead of cloning.
 
-**Tags** form a hierarchical tree. Auto-extracted tags are organized under category parents (Topics, People, Locations, Organizations, Events). Tags serve as both organizational structure and scoping mechanism for wiki generation and chat conversations.
+Because the sync is a wholesale `cp -R docs/manual src/content/docs`, never put agent instructions, drafts, or non-public notes under `docs/manual/`.
 
-**Wiki articles** are LLM-synthesized summaries of all atoms under a given tag, with inline citations linking back to source atoms. They support incremental updates — when new atoms are tagged, only the new content is sent to the LLM to integrate into the existing article.
+## Source Of Truth
 
-**Chat** is an agentic RAG system. Conversations can be scoped to specific tags, and the agent has tools to search the knowledge base semantically during conversation. Responses stream back through the same callback system used by embeddings.
+Verify docs against implementation before editing:
 
-**Canvas** is a spatial visualization where atoms are positioned using d3-force simulation. Atoms sharing tags are linked, and a custom similarity force pulls semantically-related atoms together. Positions are persisted so the layout is stable across sessions.
+- Product architecture and domain behavior: `crates/atomic-core/src/lib.rs`, `crates/atomic-core/src/models.rs`, and focused modules such as `embedding.rs`, `search.rs`, `wiki/`, `agent.rs`, `canvas_level.rs`, `reports/`, `scheduler/`, and `ingest/`.
+- REST routes and request/response behavior: `crates/atomic-server/src/routes/mod.rs`, the individual files in `crates/atomic-server/src/routes/`, and the generated OpenAPI annotations in those files.
+- API explorer and OpenAPI URL: `GET /api/docs/openapi.json` and `/api/docs` from `crates/atomic-server/src/main.rs`.
+- Frontend command names, argument transforms, and event subscriptions: `src/lib/transport/command-map.ts`, `src/lib/transport/event-normalizer.ts`, `src/stores/`, and the relevant components in `src/components/`.
+- CLI flags and environment variables: `crates/atomic-server/src/config.rs`, `Dockerfile`, `server.dockerfile`, `docker-compose*.yml`, `package.json`, and `src-tauri/`.
+- AI provider settings and defaults: `crates/atomic-core/src/settings.rs` and `crates/atomic-core/src/providers/`.
+- MCP behavior: `crates/atomic-server/src/mcp/`, `crates/mcp-bridge/`, and the MCP integration UI under `src/components/settings/`.
+- Mobile behavior: `mobile/ios/`, `mobile/android/`, `capacitor.config.ts`, and any shared HTTP API expectations in `src/lib/transport/`.
 
-## Architecture: Core + Thin Wrappers
+## Documentation Workflow
 
-The central architectural principle is the separation of **business logic** from **transport**. All domain logic lives in `atomic-core`, a standalone Rust crate with no framework dependencies. Every client is a thin wrapper that adapts `atomic-core` to a specific transport mechanism.
+1. Inventory affected docs with `find docs/manual -type f | sort` and search for existing coverage with `rg "<feature-or-route>" docs/manual`.
+2. Trace the implemented behavior end to end. For user-facing features, follow UI/store/transport to server route to `atomic-core`. For API docs, start at `routes/mod.rs`, then inspect the route handler and request/response types.
+3. Compare docs to code and list mismatches before editing. Look for missing prerequisites, outdated command flags, undocumented settings, stale endpoint paths, incorrect defaults, missing events, and unsupported platforms.
+4. Edit for completeness, not word count. Prefer a concrete setup path, exact commands, expected result, troubleshooting, and cross-links over broad product claims.
+5. Add or update adjacent pages when needed. A feature spanning UI, REST, and background processing usually needs both a user guide and API/reference coverage.
+6. Re-run targeted checks. At minimum, run `rg` searches for renamed routes/settings and inspect links you changed. If code changed too, run the relevant `cargo check`, `npm`, or iOS command.
 
-```
-                    ┌─────────────────┐
-                    │   atomic-core   │
-                    │  (all logic)    │
-                    └────────┬────────┘
-              ┌──────────────┼──────────────┐
-              ▼              ▼              ▼
-    ┌─────────────┐  ┌──────────────┐  ┌───────────┐
-    │  src-tauri   │  │atomic-server │  │ mcp-bridge│
-    │ (Tauri IPC)  │  │(REST+WS+MCP)│  │(stdio→HTTP)│
-    └──────┬──────┘  └──────┬───────┘  └─────┬─────┘
-           │                │                 │
-    ┌──────▼──────┐  ┌──────▼───────┐        │
-    │   React UI   │  │  HTTP clients│  ┌─────▼──────┐
-    │(Tauri or HTTP)│  │ (iOS, etc.) │  │ MCP clients│
-    └─────────────┘  └──────────────┘  │(Claude,etc)│
-                                       └────────────┘
-```
+## Quality Bar
 
-### `atomic-core` — The Facade
+Good manual pages are specific, verifiable, and task-oriented:
 
-`AtomicCore` is a `Clone` wrapper around `Arc<Database>` that exposes every operation: CRUD, search, embedding, wiki generation, chat, clustering, tag compaction, and import. It is completely transport-agnostic.
+- Start with what the feature is for and when to use it.
+- State prerequisites: server running, token required, provider configured, database selected, platform limits, network access, or model availability.
+- Use exact commands and endpoint paths. Prefer copyable `curl`, `cargo`, `docker`, `npm`, or `xcodebuild` examples over prose.
+- Show request bodies and important response fields for API workflows.
+- Explain background behavior that affects user expectations, especially async embedding/tagging, WebSocket events, scheduled jobs, feed polling, and multi-database scope.
+- Include verification steps such as checking `/health`, `/api/docs`, `/api/embeddings/status`, token list output, or UI state.
+- Include failure modes when they are common: missing provider key, Ollama not running, stale token, duplicate source URL, empty-scope report runs, sqlite-vec issues, CORS/reverse proxy problems, or mobile server reachability.
+- Link related pages with site-relative manual links such as `/getting-started/ai-providers/`.
+- Keep descriptions accurate across desktop, headless server, web, and iOS. Do not imply a UI flow exists on every client unless code confirms it.
 
-The key design decision is **callback-based eventing**: operations that produce async events (embedding, chat) accept `Fn(EmbeddingEvent)` or `Fn(ChatEvent)` closures. The core doesn't know or care how events are delivered — it just calls the closure. This makes it usable from any Rust context without pulling in Tauri, actix, or any framework.
+Avoid:
 
-### `src-tauri` — Desktop Wrapper
+- Generic feature marketing without operational detail.
+- Future-tense promises or roadmap claims.
+- Copying route names from memory instead of checking `routes/mod.rs` and `command-map.ts`.
+- Documenting internal APIs as user-supported unless they are exposed through REST, MCP, CLI, or UI.
+- Overwriting website copy outside this repository. `docs/manual` is the source that syncs to the website.
 
-The Tauri app spawns `atomic-server` as a **sidecar process** and exposes a single IPC command (`get_local_server_config`) that returns the server's base URL and auth token. The frontend then connects to the sidecar over HTTP/WebSocket, exactly as it would to a standalone `atomic-server`. On exit, Tauri kills the sidecar.
+## Page Structure
 
-### `atomic-server` — Headless HTTP Wrapper
+Every manual markdown page should have frontmatter:
 
-The standalone server wraps `atomic-core` with a full REST API (~78 routes) plus a WebSocket endpoint and a Streamable HTTP MCP endpoint. The same thin-wrapper pattern applies: each route handler unpacks HTTP request params, calls `core.method()`, returns JSON.
-
-Events flow through `tokio::sync::broadcast` — route handlers send `ServerEvent` variants into the channel, and WebSocket clients receive them. The event bridge converts `atomic-core` callbacks into broadcast messages, mirroring how Tauri bridges them to `app_handle.emit()`.
-
-Authentication uses named, revocable API tokens stored as SHA-256 hashes. A default token is auto-created on first run. Managed via CLI subcommands or REST endpoints.
-
-### Frontend Transport Abstraction
-
-The React frontend defines a `Transport` interface with `invoke()` and `subscribe()` methods. Both Tauri and browser environments use `HttpTransport`, which maps command names to HTTP specs (method, path, body/query transforms) via a command map and receives events via WebSocket. In Tauri, the frontend first calls `get_local_server_config` via Tauri IPC to get the sidecar's URL and token, then uses `HttpTransport` for everything else.
-
-This means the React code is transport-unaware — it calls `transport.invoke('create_atom', args)` and `transport.subscribe('embedding-complete', handler)` regardless of environment.
-
-## AI Provider Abstraction
-
-AI capabilities are pluggable via trait-based providers:
-- `EmbeddingProvider` — batch embedding generation
-- `LlmProvider` — chat completions
-- `StreamingLlmProvider` — streaming completions with tool calling
-
-Two implementations exist: **OpenRouter** (cloud, default) and **Ollama** (local). Factory functions return `Arc<dyn Trait>` based on the configured provider type. Adding a new provider requires implementing the traits and adding a factory branch — no changes to embedding, wiki, chat, or any consumer code.
-
-Provider configuration is stored in the settings table (SQLite key-value pairs). OpenRouter uses separate model settings for embedding, tagging, wiki, and chat. Ollama auto-discovers available models from the running server.
-
-### `ios/` — Native iOS App
-
-A SwiftUI app that connects to `atomic-server` over HTTP. It's another thin client — no local database, no Rust bindings, just a REST API client. Focused on reading and writing atoms on the go.
-
-The project uses **XcodeGen** (`project.yml`) to generate the Xcode project, so `AtomicMobile.xcodeproj` is a build artifact — edit `project.yml` and Swift sources, not the `.xcodeproj` directly.
-
-Key files:
-- `ios/project.yml` — XcodeGen project definition (deployment target, build settings)
-- `ios/AtomicMobile/AtomicApp.swift` — Entry point, routes to setup or main view
-- `ios/AtomicMobile/APIClient.swift` — HTTP client for `atomic-server` REST API
-- `ios/AtomicMobile/AtomStore.swift` — Observable state management
-- `ios/AtomicMobile/Theme.swift` — Colors matching the shared design system
-- `ios/AtomicMobile/Models.swift` — Codable models matching server JSON shapes
-
-Development is fully headless (no Xcode GUI required). Uses `xcodebuild` + `xcrun simctl` from the terminal, with screen sharing to view the simulator.
-
-## Workspace Structure
-
-```
-Cargo.toml                  # Workspace root
-crates/atomic-core/         # All business logic (no framework deps)
-crates/atomic-server/       # Headless REST + WS + MCP server
-crates/mcp-bridge/          # stdio-to-HTTP MCP bridge (for Claude Desktop, etc.)
-src-tauri/                  # Tauri desktop app (sidecar launcher)
-src/                        # React frontend (TypeScript)
-ios/                        # Native iOS app (SwiftUI, HTTP client)
-mobile/ios/                 # Capacitor iOS wrapper around the React frontend
-mobile/android/             # Capacitor Android wrapper around the React frontend
-scripts/                    # Import, build, and database utilities
-databases/                  # Local data dir (registry.db + per-DB files)
+```md
+---
+title: Short Title
+description: One-sentence description of the user value or task.
+---
 ```
 
-## Tech Stack
+Use this structure when it fits:
 
-- **Core**: Rust, SQLite + sqlite-vec (vector search), rusqlite, tokio, reqwest
-- **Desktop**: Tauri v2
-- **Server**: actix-web, clap (CLI), tokio broadcast channels
-- **Frontend**: React 18, TypeScript, Vite 6, Tailwind CSS v4, Zustand 5
-- **iOS**: SwiftUI, Swift 6, XcodeGen, URLSession
-- **Editor**: CodeMirror 6 (markdown editing), react-markdown (rendering)
-- **Canvas**: d3-force (simulation), react-zoom-pan-pinch (interaction)
-- **Virtualization**: @tanstack/react-virtual
-- **AI**: OpenRouter or Ollama (pluggable), tiktoken for token counting
+- Overview: one short paragraph that defines the feature in user terms.
+- Prerequisites: bullets only when setup requirements matter.
+- Quick Start: shortest working path with commands or UI steps.
+- How It Works: implementation-backed explanation of the underlying behavior.
+- Configuration: settings, flags, environment variables, and defaults.
+- API or CLI Reference: exact methods, paths, bodies, status codes, and examples.
+- Troubleshooting: symptoms, likely causes, and fixes.
+- Related: links to adjacent manual pages.
 
-## Common Commands
+Do not force every page into this structure. Concept pages can be shorter, but they still need concrete examples and links to practical guides.
 
-```bash
-# Development
-npm run tauri dev             # Desktop app (frontend + Tauri)
-npm run dev                   # Frontend only
-cargo check                   # Check all workspace crates
-cargo test                    # Run all tests
-cargo check -p atomic-core    # Check specific crate
+## API Documentation Rules
 
-# Standalone server (--data-dir defaults to current directory)
-cargo run -p atomic-server -- serve --port 8080
-cargo run -p atomic-server -- --data-dir /path/to/data serve --port 8080
+- Keep `/api/overview.md` aligned with `crates/atomic-server/src/routes/mod.rs` and the OpenAPI annotations.
+- Use `Authorization: Bearer <token>` in examples unless the route is explicitly public, such as `/health`, setup claim/status, OAuth discovery, or docs.
+- Include the database-selection behavior when relevant. Routes that act on the active database may be affected by multi-database state or a `db` query parameter in transport/MCP flows.
+- Mention WebSocket side effects for actions that emit events. The public WebSocket endpoint is `/ws?token=<token>`, and frontend normalized events are listed in `src/lib/transport/event-normalizer.ts`.
+- Prefer generated OpenAPI as the detailed endpoint reference. Manual API pages should explain workflows, authentication, examples, and caveats that generated reference docs do not capture well.
 
-# Token management
-cargo run -p atomic-server -- token create --name "my-laptop"
-cargo run -p atomic-server -- token list
-cargo run -p atomic-server -- token revoke <token-id>
+## Known Coverage Gaps
 
-# iOS app (headless dev workflow)
-cd ios && xcodegen generate                      # Regenerate .xcodeproj from project.yml
-xcodebuild -project ios/AtomicMobile.xcodeproj \
-  -scheme AtomicMobile \
-  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
-xcrun simctl install booted <path-to-.app>       # Install on running simulator
-xcrun simctl launch booted com.atomic.mobile     # Launch app
-xcrun simctl terminate booted com.atomic.mobile  # Stop app before reinstall
-open -a Simulator                                # Show simulator window (view via screen sharing)
+The current manual is intentionally small and several implemented features need fuller coverage. When improving docs, prioritize these gaps:
 
-# Capacitor mobile (shared React frontend packaged as a webview)
-npm run dev:mobile:ios         # Build, install, launch iOS Capacitor app with Vite HMR
-npm run dev:mobile:android     # Build, install, launch Android Capacitor app with Vite HMR
-npm run build:mobile           # Production build for both platforms (cap sync ios + android)
-npm run cap:open:ios           # Open mobile/ios/App in Xcode
-npm run cap:open:android       # Open mobile/android in Android Studio
+- Reports primitive: CRUD endpoints, schedule + scope semantics, run-now behavior, finding atoms (`kind = 'report'`), citation rows, dashboard featured pointer, the curated template gallery, and migrating from the legacy daily-briefing routes.
+- Setup and first-run claiming flow for self-hosted/web instances.
+- Multi-database behavior: active vs default database, per-database settings caveats, export jobs, stats, and mobile/MCP implications.
+- Full API workflows beyond the overview: atoms, tags, search modes, wiki proposal/version lifecycle, chat streaming, canvas/graph/clustering, feeds, ingestion, imports, exports, logs, and embedding maintenance.
+- WebSocket events: embedding/tagging pipeline, chat streaming/tool events, ingestion/feed events, queue progress, atom lifecycle events (including report findings flowing through `AtomCreated`), `DashboardFeaturedChanged`, and lag handling.
+- AI providers: OpenRouter, Ollama, and OpenAI-compatible providers, including model defaults, embedding dimensions, context length, connection tests, and re-embedding implications.
+- Browser extension configuration and real installation/build steps from `extension/`.
+- MCP remote OAuth/discovery behavior, Streamable HTTP endpoint details, bridge environment variables, and multi-database `db` query use.
+- Docker and reverse proxy production details: bind address, `PUBLIC_URL`, storage backend, persistent volumes, WebSocket forwarding, and token bootstrapping.
+- Capacitor mobile setup and capabilities as actually implemented in `mobile/ios/` and `mobile/android/`.
 
-# Production
-npm run tauri build
-npm run release:patch         # Bump version and build
-```
+When adding any of these, verify the current behavior from code first. This list is a backlog, not a specification.
 
-## Database
+## Verification Checklist
 
-SQLite with sqlite-vec extension is the default. A parallel Postgres backend lives under `storage/postgres/` and implements the same storage traits — used when running against shared infrastructure. Everything below describes the SQLite layout; Postgres swaps file-per-DB for schema-per-DB but exposes the same API. Multi-database support with a registry/data split:
+Before finishing a documentation change:
 
-### File Layout
-
-When running via `atomic-server` from the repo root, databases live in `./databases/`:
-```
-databases/
-  registry.db          # Shared config: settings, API tokens, database metadata
-  default.db           # Default knowledge base
-  {uuid}.db            # Additional databases (created via API or multi-db)
-```
-
-When running the Tauri desktop app, the base directory is platform-specific:
-- macOS: `~/Library/Application Support/com.atomic.app/`
-- Linux: `~/.local/share/com.atomic.app/`
-
-### Registry vs Data Databases
-
-- **`registry.db`** holds cross-database state: settings (provider config, model selection), API tokens, and the `databases` table mapping UUIDs to names.
-- **Data databases** (`default.db`, `{uuid}.db`) each hold atoms, tags, chunks, embeddings, wiki articles, conversations, messages, semantic edges, and atom positions. Each data DB *also* has its own `settings` table (seeded by `migrate_settings` in `db.rs`) — this is where per-DB configuration lives.
-
-### Multi-DB Gotchas (read before adding per-DB state)
-
-Atomic can run with N data databases under a single process. `atomic-server`'s background loops (`main.rs`) fan out over every database returned by `manager.list_databases()` — feed polling, the scheduled-task runner, etc. Any code that reads or writes "per-database" state needs to actually be per-database. Two traps:
-
-1. **`AtomicCore::get_settings()` / `set_setting()` silently route to `registry.db` when a registry is attached** (see `lib.rs` — it checks `self.registry` first). That's correct for *global* config (provider, models, wiki prompt), but it means any helper that calls these methods from within a per-DB context is writing a single shared key, not a per-DB key. If you want per-DB settings, call `core.storage().get_all_settings_sync()` / `set_setting_sync()` directly to bypass the registry. The scheduler state helpers (`scheduler::state`) are the canonical example.
-
-2. **Background loops that iterate all DBs need per-(task, db) state and locks, or only one DB will ever make progress.** The scheduled-task runner holds a `(task_id, db_id)` keyed lock map and each task's `last_run` lives in its DB's settings table. Feed polling follows the same shape. If you add a new cross-DB background job, mirror that pattern — don't introduce a singleton timestamp or lock.
-
-Quick checklist when touching anything that runs per-DB:
-- Does this state need to be isolated between DBs? If yes, write via `core.storage()`, not `core.get_settings()` / `set_setting()`.
-- Does this lock/guard need to be per-DB? If yes, key it on `db_id`, not just `task_id` or a process-global `Mutex`.
-- If you're adding a scheduled or polling loop in `atomic-server::main`, iterate `manager.list_databases()` and resolve a fresh `core` per DB via `manager.get_core(&db_id)`.
-
-### Direct Access with sqlite3
-
-```bash
-# List all databases
-sqlite3 databases/registry.db "SELECT id, name, is_default FROM databases;"
-
-# Check atom/embedding status in a specific database
-sqlite3 databases/{uuid}.db "SELECT embedding_status, COUNT(*) FROM atoms GROUP BY embedding_status;"
-
-# Check settings (provider, models, etc.)
-sqlite3 databases/registry.db "SELECT key, value FROM settings;"
-```
-
-Key tables in data databases: `atoms`, `atom_chunks`, `atom_tags`, `tags`, `semantic_edges`, `vec_chunks` (sqlite-vec virtual table), `wiki_articles`, `conversations`, `chat_messages`.
-
-### Similarity
-
-Computed from sqlite-vec's Euclidean distance on normalized vectors: `similarity = 1.0 - (distance² / 2.0)`. Default thresholds: 0.5 for related atoms/semantic edges, 0.3 for semantic search and wiki chunk selection.
-
-## Design System
-
-Dark theme (Obsidian-inspired). Backgrounds: `#1e1e1e`/`#252525`/`#2d2d2d`. Accent: purple (`#7c3aed`). Three-panel layout: fixed-width left panel (tag tree, navigation), flexible main view (canvas/grid/list), overlay right drawer (editor, viewer, wiki, chat).
-
-Frontend state is managed by Zustand stores: `atoms`, `tags`, `ui`, `settings`, `wiki`, `chat`, `databases`. The `ui` store tracks selected tag filter, drawer state, view mode, and search query. View mode (canvas/grid/list) persists to localStorage.
+- `rg "<changed-route-or-setting>" crates src docs/manual` confirms names and paths are consistent.
+- New links point to existing manual pages or intentionally external URLs.
+- Commands include required flags such as `--data-dir`, `--bind`, `--storage`, `--database-url`, or token headers when applicable.
+- Examples do not expose real tokens, local private paths, or user data.
+- The page says whether behavior is desktop-only, server-only, iOS-only, or available across transports.
+- Any changed API statement matches `routes/mod.rs`, route handlers, and `command-map.ts`.
 
 ---
 > Source: [kenforthewin/atomic](https://github.com/kenforthewin/atomic) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
