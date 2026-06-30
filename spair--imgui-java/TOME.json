@@ -4,7 +4,7 @@
   "repo": "imgui-java",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SpaiR/imgui-java",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T17:28:22Z"
+  "distributed_at": "2026-06-30T03:22:02Z"
 }
