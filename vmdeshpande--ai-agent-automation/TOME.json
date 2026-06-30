@@ -1,0 +1,81 @@
+{
+  "name": "ai-agent-automation",
+  "owner": "vmDeshpande",
+  "repo": "ai-agent-automation",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-agent-automation",
+      "path": ".agents/skills/docker-expert/SKILL.md",
+      "github_url": "https://github.com/vmDeshpande/ai-agent-automation/tree/main/.agents/skills/docker-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-automation",
+      "path": ".agents/skills/core-web-vitals/SKILL.md",
+      "github_url": "https://github.com/vmDeshpande/ai-agent-automation/tree/main/.agents/skills/core-web-vitals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-automation",
+      "path": ".agents/skills/deploy-to-vercel/SKILL.md",
+      "github_url": "https://github.com/vmDeshpande/ai-agent-automation/tree/main/.agents/skills/deploy-to-vercel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-automation",
+      "path": ".agents/skills/wcag-audit-patterns/SKILL.md",
+      "github_url": "https://github.com/vmDeshpande/ai-agent-automation/tree/main/.agents/skills/wcag-audit-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-automation",
+      "path": ".agents/skills/github-actions-docs/SKILL.md",
+      "github_url": "https://github.com/vmDeshpande/ai-agent-automation/tree/main/.agents/skills/github-actions-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-automation",
+      "path": ".agents/skills/accessibility-compliance/SKILL.md",
+      "github_url": "https://github.com/vmDeshpande/ai-agent-automation/tree/main/.agents/skills/accessibility-compliance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vmDeshpande/ai-agent-automation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-30T02:38:29Z"
+}
