@@ -1,0 +1,44 @@
+{
+  "name": "PixelAlchemy",
+  "owner": "2606360985",
+  "repo": "PixelAlchemy",
+  "description": "A Unity-based falling-sand roguelike prototype inspired by Noita\u2019s pixel simulation and spell experimentation.\u4e00\u6b3e\u57fa\u4e8eUnity\u5f00\u53d1\u7684\u843d\u6c99\u7c7b\u8089\u9e3d\u539f\u578b\uff0c\u5176\u8bbe\u8ba1\u7075\u611f\u6e90\u81eaNoita\u7684\u50cf\u7d20\u6a21\u62df\u673a\u5236\u4e0e\u6cd5\u672f\u5b9e\u9a8c\u529f\u80fd\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/2606360985/PixelAlchemy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-30T16:34:41Z"
+}
