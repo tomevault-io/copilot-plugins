@@ -1,0 +1,9 @@
+{
+  "name": "appleboy--jenkins-action",
+  "displayName": "jenkins-action",
+  "description": "jenkins-action",
+  "version": "1.0.0",
+  "author": "appleboy",
+  "homepage": "https://github.com/appleboy/jenkins-action",
+  "skills": []
+}
