@@ -2,8 +2,6 @@
 
 > Tome by [Tokinx](https://github.com/Tokinx/komari-theme-emerald) — distributed by [TomeVault](https://tomevault.io)
 
-Komari Theme based on Vue 3 + Vite + Shadcn/UI + TailwindCSS-V4
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
