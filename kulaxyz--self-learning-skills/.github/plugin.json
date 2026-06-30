@@ -1,0 +1,9 @@
+{
+  "name": "kulaxyz--self-learning-skills",
+  "displayName": "self-learning-skills",
+  "description": "A self-improving skill for AI coding agents (Claude Code, Cursor, AGENTS.md): recognize a hard-won golden path in a session and harvest it into a reusable skill/rule for next time.",
+  "version": "1.0.0",
+  "author": "Kulaxyz",
+  "homepage": "https://github.com/Kulaxyz/self-learning-skills",
+  "skills": []
+}
