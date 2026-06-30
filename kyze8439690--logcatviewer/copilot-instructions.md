@@ -1,0 +1,116 @@
+## logcatviewer
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+LogcatViewer is an Android library module providing an in-app logcat viewer. It displays real-time Android system logs with filtering and export capabilities.
+
+## Build Commands
+
+This is a standard Android library module using Gradle Kotlin DSL:
+
+```bash
+# Build debug AAR
+./gradlew :logcatviewer:assembleDebug
+
+# Build release AAR
+./gradlew :logcatviewer:assembleRelease
+
+# Run lint checks
+./gradlew :logcatviewer:lint
+```
+
+**Note**: This module has no unit tests.
+
+## Architecture
+
+### Entry Point
+- **`LogcatFragment`** (`LogcatFragment.kt`): Hosted by the parent app's Activity. Entry method: `LogcatFragment.newInstance(excludeList)`.
+
+### Core Components
+
+| File | Purpose |
+|------|---------|
+| `LogcatFragment.kt` | Main UI fragment with toolbar, priority spinner, text filter input, and RecyclerView. Handles lifecycle (start/stop logcat reading). |
+| `LogItem.java` | Immutable data model parsing logcat lines using regex `([0-9]{2}-[0-9]{2}...)` pattern. |
+| `LogcatAdapter.kt` | `ListAdapter` with `DiffUtil` and dual filtering: priority level (V/D/I/W/E/F) + text search. |
+| `ExportLogFileUtils.kt` | Kotlin object exporting logs to external cache directory using `Dispatchers.IO`. |
+| `LogcatFileProvider.java` | `FileProvider` for sharing exported logs via `ACTION_SEND`. |
+
+### Key Features
+
+1. **Real-time Logcat Reading**: Background thread executes `ProcessBuilder("logcat", "-v", "threadtime")`, parses lines via `Scanner`.
+
+2. **Dual Filtering**:
+   - Priority filter via Spinner (V/D/I/W/E/F)
+   - Text filter via `EditText` with 300ms debounce using Kotlin Flow
+
+3. **Export**: Logs written to `externalCacheDir/yyyy-MM-dd HH:mm:ss.SSS.log`, shared via `FileProvider`.
+
+4. **Exclude Patterns**: Constructor accepts `List<Pattern>` to filter out matching log lines client-side.
+
+### UI Layouts
+
+- `logcat_viewer_fragment_logcat.xml`: Main fragment with Toolbar, Spinner, filter input, RecyclerView
+- `logcat_viewer_item_logcat.xml`: List item showing timestamp, PID/TID, tag, priority badge, content
+- `logcat_viewer_item_logcat_dropdown.xml`: Spinner dropdown items
+
+### AndroidManifest Components
+
+```xml
+<provider android:name="com.github.logviewer.LogcatFileProvider"
+          android:authorities="${applicationId}.logcat_fileprovider" />
+```
+
+## Integration Notes
+
+This is a **library module**, not a standalone app. Usage in parent project:
+
+```kotlin
+// Host the fragment in your own Activity
+supportFragmentManager.commit {
+    replace(R.id.container, LogcatFragment.newInstance())
+}
+
+// With exclude patterns
+val excludeRules = listOf(Pattern.compile(".*MotionEvent.*"))
+supportFragmentManager.commit {
+    replace(R.id.container, LogcatFragment.newInstance(excludeRules))
+}
+```
+
+## Build Configuration
+
+- `compileSdk = 36`, `minSdk = 23`
+- Java/Kotlin target: 21
+- ViewBinding enabled (DataBinding disabled)
+- Dependencies: AppCompat, Activity KTX, Material Design, Lifecycle Extensions
+
+## Resource Naming Conventions
+
+All resources must use the `logcat_` prefix to avoid conflicts with the host application:
+
+| Resource Type | Prefix | Example |
+|--------------|--------|---------|
+| Layout files | `logcat_viewer_` | `logcat_viewer_fragment_logcat.xml` |
+| Drawable | `logcat_` | `logcat_ic_baseline_search_24.xml` |
+| Colors | `logcat_` | `@color/logcat_fatal` |
+| Strings | `logcat_viewer_` | `@string/logcat_viewer_search_hint` |
+| Dimensions | `logcat_` | `@dimen/logcat_filter_padding_horizontal` |
+| Menus | `logcat_` | `logcat.xml` (menu file) |
+| IDs | `logcat_` | `@+id/logcat_filter_input` |
+
+**Rules:**
+1. Always add `logcat_` prefix to all new resources
+2. Layout files should use `logcat_viewer_` prefix for consistency
+3. String resources should use `logcat_viewer_` prefix for user-facing text
+4. Never use generic names like `fragment_logcat.xml` or `ic_search.xml`
+
+---
+> Source: [kyze8439690/logcatviewer](https://github.com/kyze8439690/logcatviewer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
