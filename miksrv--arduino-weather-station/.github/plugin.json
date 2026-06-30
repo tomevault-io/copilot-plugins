@@ -1,0 +1,9 @@
+{
+  "name": "miksrv--arduino-weather-station",
+  "displayName": "arduino-weather-station",
+  "description": "arduino-weather-station",
+  "version": "1.0.0",
+  "author": "miksrv",
+  "homepage": "https://github.com/miksrv/arduino-weather-station",
+  "skills": []
+}
