@@ -1,0 +1,18 @@
+{
+  "name": "lixpi--lixpi",
+  "displayName": "lixpi",
+  "description": "An innovative framework for building generative AI applications",
+  "version": "1.0.0",
+  "author": "Lixpi",
+  "homepage": "https://github.com/Lixpi/lixpi",
+  "skills": [
+    {
+      "name": "documentation-style",
+      "description": ""
+    },
+    {
+      "name": "terminal-via-pylance",
+      "description": ""
+    }
+  ]
+}
