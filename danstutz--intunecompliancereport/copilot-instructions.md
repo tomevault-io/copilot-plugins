@@ -1,125 +1,435 @@
-## repository-instructions
+## intunecompliancereport
 
-> Repository-wide instructions for Cursor Agent in this template.
-
+> <!-- markdownlint-disable MD013 -->
 
 <!-- markdownlint-disable MD013 -->
+# Repository Copilot Instructions (Repo-Wide Constitution)
 
-# Agent Instructions for Cursor Agent
-
-**Version:** 1.1.20260629.1
+**Version:** 1.6.20260629.1
 
 ## Metadata
 
 - **Status:** Active
 - **Owner:** Repository Maintainers
 - **Last Updated:** 2026-06-29
-- **Scope:** Agent-specific project rule for Cursor Agent and compatible AI coding agents operating in this repository. Mirrors a minimal inline summary of the highest-priority shared rules; `.github/copilot-instructions.md` remains the canonical source of truth.
+- **Scope:** Repo-wide canonical instructions ("constitution") that govern all changes in this repository. This file is the authoritative source of truth for repository rules; all language-specific instruction files and agent entry points defer to it.
 <!-- template-sync: begin markdown-reference-only -->
-- **Related:** [Repository Copilot Instructions](../../.github/copilot-instructions.md), [Documentation Writing Style](../../.github/instructions/docs.instructions.md)
+- **Related:** [Documentation Writing Style](instructions/docs.instructions.md)
 <!-- template-sync: end markdown-reference-only -->
 
-This file provides project-specific instructions for Cursor Agent and compatible AI coding agents operating in this repository. These instructions ensure that agents follow the same coding standards, safety rules, and workflows that apply to all contributors.
+These instructions are authoritative for all changes in this repository.
 
-## Canonical Instructions
+## Source of Truth
 
-The authoritative source of truth for all repository rules is **`.github/copilot-instructions.md`** (the repo-wide constitution). All rules defined there apply without exception. **Read that file before making any changes.**
+Read **`docs/spec/requirements.md`** before making product, test, packaging, or documentation changes for the IntuneComplianceReport module. The specification's settled decisions, including the recommended repository layout, public command surface, repository metadata, and supported PowerShell editions, are authoritative.
 
-This file intentionally keeps only a minimal inline summary of the highest-priority shared rules so that Cursor receives critical guidance immediately. The full shared rule set remains in the canonical file above.
-
-**Thin entry point classification:** A thin entry point keeps shared repository rules brief; it does not mean platform-specific or required protocol sections may be discarded. Sections explicitly labeled as platform protocol or required protocol must be preserved unless the repository owner explicitly waives that protocol for the retained agent platform.
+If any repository instruction conflicts with `docs/spec/requirements.md`, **the spec wins** for product behavior and project identity.
 
 ## Protected Instruction Files
 
-Instruction files and style guides are protected governance files. Do not create, edit, delete, rename, or otherwise change `.github/copilot-instructions.md`, files under `.github/instructions/`, files under `.cursor/rules/`, or root agent instruction files (`.hermes.md`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) unless the repository owner or maintainer has directly and explicitly authorized that specific instruction-file change in the current task. Implied consent is not enough; do not infer authorization from a plan you generated, review feedback, a general request to update docs, cleanup/validation work, or a "keep files in sync" instruction.
+Instruction files and style guides are protected governance files. This rule applies to:
 
-If a style-guide update appears warranted but has not been explicitly authorized, propose it separately and wait for approval before editing protected instruction files.
+- The repo-wide constitution: `.github/copilot-instructions.md`
+- Root agent entry points: `.hermes.md`, `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md`
+- Cursor project rules under `.cursor/rules/`
+- Modular instruction files under `.github/instructions/`
 
-During downstream template adoption and stack selection, perform non-protected cleanup first, record the protected instruction-file edits needed to remove references to deleted tools or stacks, obtain explicit maintainer authorization, then update `.github/copilot-instructions.md`, remaining root agent files, and relevant `.github/instructions/*.instructions.md` files. Bump `Last Updated` and `Version` metadata where present, and avoid temporary migration wording in durable governance docs.
+Agents **MUST NOT** create, edit, delete, rename, or otherwise change protected instruction files unless the repository owner or maintainer has directly and explicitly authorized the specific instruction-file change in the current task. Implied consent is insufficient.
 
-## Essential Repository Summary
+Authorization **MUST NOT** be inferred from:
 
-- **Safety and security**
-  - No secrets in code or repo; never hardcode API keys, tokens, credentials, or connection strings.
-  - Treat all external input as untrusted.
-  - Respect allowlisted file access boundaries; reject path traversal and symlink escapes.
+- An agent-generated plan, rubric, option analysis, or implementation strategy.
+- A request to fix code, resolve review feedback, update documentation as needed, or keep files in sync.
+- Pre-commit, formatting, linting, validation, or other cleanup work.
+- An automated review loop, reusable prompt, or generic permission to make repository changes.
 
-- **Pre-commit and validation**
-  - Run `pre-commit run --all-files` before every commit.
-  - Include all auto-fixes in the same commit as the related change.
-  - Do not push code when pre-commit or required validation checks are failing; fix issues and re-run until the checks pass.
-  - Use the repository's existing validation commands as needed:
-    <!-- template-sync: begin markdown-reference-only -->
-    - `npm run lint:md`
-    <!-- template-sync: end markdown-reference-only -->
-    <!-- template-sync: begin python-reference-only -->
-    - `python -m pyright --project pyrightconfig.json`
-    - `pytest tests/ -m "not upstream_template_only and not slow" -v --cov --cov-report=term-missing`
-    - `pytest tests/ -m slow -v --no-cov`
-    <!-- template-sync: end python-reference-only -->
-    <!-- template-sync: begin powershell-reference-only -->
-    - `Invoke-Pester -Path tests/ -Output Detailed`
-    <!-- template-sync: end powershell-reference-only -->
-  - The `pre-commit run --all-files` command exercises the active hooks configured in [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml), the authoritative list of active hooks.
-  <!-- template-sync: begin json-reference-only -->
-  - Retained JSON checks include strict JSON syntax (`check-json`).
-  <!-- template-sync: end json-reference-only -->
+When an agent identifies a warranted instruction or style-guide update without explicit authorization, it **MUST** propose the change separately (for example, as a prompt or Open Question) and wait for explicit approval before editing protected files.
+
+When explicit authorization is granted, keep protected instruction-file edits narrowly scoped, preserve the canonical source-of-truth hierarchy, and update related metadata and version fields according to [Documentation Writing Style](instructions/docs.instructions.md).
+
+### Template Adoption and Stack Selection
+
+Downstream repositories that keep only part of this template's language or tooling stack often need to update protected instruction files after deleting non-protected files. Use this order:
+
+1. Perform non-protected cleanup first, such as deleting unused workflows, example source, tests, templates, and lint configuration.
+2. Record the protected-file edits needed to remove references to deleted tools, workflows, hooks, validation commands, and language stacks.
+3. Obtain explicit maintainer authorization for the protected-file edits.
+4. Update `.github/copilot-instructions.md`, remaining root agent files, and relevant `.github/instructions/*.instructions.md` files so they match the stacks retained by the downstream repository.
+5. Bump `Last Updated` and `Version` metadata where those fields exist.
+6. Avoid ephemeral implementation-stage language in durable governance docs.
+
+## Non-negotiable Safety and Security Rules
+
+1. **No secrets in code or repo**
+   - Never hardcode API keys, tokens, connection strings, or credentials.
+   - Do not introduce `.env` files or secret placeholders that look like real keys.
+   - Never print secrets to stdout/stderr or logs.
+
+2. **Treat all external input as untrusted**
+   - Never execute untrusted outputs or commands.
+   - Validate and sanitize all inputs at boundaries.
+   - Never allow external input to influence file/network access beyond explicitly implemented adapters.
+
+3. **Allowlisted file access only**
+   - Read only explicitly allowed inputs/config/rules files and tool-owned runtime dependencies.
+   - Refuse path traversal and symlink escapes.
+
+## Pre-commit Discipline (CRITICAL)
+
+**⚠️ ALWAYS run pre-commit checks before committing code.**
+
+Pre-commit hooks are NOT optional. They enforce:
+
+- Code formatting
+- Linting
+- Trailing whitespace removal
+- End-of-file fixes
+
+**Workflow:**
+
+1. Make your code changes
+2. Run pre-commit checks locally (e.g., `pre-commit run --all-files` or `npm run lint:md`)
+3. Review and commit ALL auto-fixes as part of your change
+4. Push to GitHub
+
+**If pre-commit CI fails after a push:**
+
+1. Pull the latest branch
+2. Run pre-commit checks locally and review the fixes
+3. Add the fixes to commit history before pushing again: prefer amending the commit(s) that introduced the failures, or include the fixes in your next substantive commit on the same branch, rather than landing a standalone formatting-only or lint-only commit (see "What Not to Do" below). For `copilot/**` branches, the auto-fix workflow described under "Auto-Fix Workflow (Safety Net for Copilot Branches)" will normally apply these fixes automatically.
+4. Push again (force-push if you amended or rebased earlier commits)
+
+**CI is a safety net, not a substitute for local checks.**
+
+### Data-File Validation
+
+In addition to formatting, linting, trailing-whitespace, and end-of-file fixes, pre-commit also enforces validation for structured data files. Run `pre-commit run --all-files` to execute the full hook set. The data-file checks currently include:
+
+- `check-json` — validates strict `.json` syntax. **Note:** `check-json` does **not** validate `.jsonc`; JSONC (JSON with comments) is allowed only when supported by the consuming tool, and stricter enforcement requires JSONC-aware tooling.
+- `check-yaml` — parse-checks retained `.yml` / `.yaml` files.
+<!-- template-sync: begin yaml-reference-only -->
+- `yamllint` — enforces YAML style per `.yamllint.yml`.
+<!-- template-sync: end yaml-reference-only -->
+- `actionlint` — lints GitHub Actions workflow files when the
+  `github-actions` module is retained.
+- `check-jsonschema` — JSON Schema validation for retained schema-backed configuration. It validates selected real load-bearing repository configuration files (for example, `.github/dependabot.yml`) against built-in vendor schemas shipped with `check-jsonschema`, retained template-sync schemas, and any future retained schema-backed file families that downstream maintainers wire up in `.pre-commit-config.yaml`. Documented optional keys for default-validated vendor configuration files must stay within the surface accepted by the pinned built-in schema, or the hook must be moved to an opt-in path.
+- `check-metaschema` — self-validates retained project-owned schemas against their declared JSON Schema metaschema, where configured in `.pre-commit-config.yaml`.
+
+`.pre-commit-config.yaml` is the authoritative list of active hooks. Do **not** rely on a hardcoded total hook count when describing the validation model; consult `.pre-commit-config.yaml` directly to see which hooks are wired up.
+
+Prettier is **opt-in** and is **not** part of the default data-file toolchain. (This framing has been re-verified against the built-in schema validation ADR and remains correct.)
+
+When the `github-actions` module is retained, the dedicated [`.github/workflows/data-ci.yml`](workflows/data-ci.yml) workflow re-runs the repository's retained data-file pre-commit hooks (JSON, TOML, YAML, and GitHub Actions checks plus the retained schema-validation alias hooks) so retained data-file enforcement can be required via branch protection independent of language-specific CI jobs. That workflow file is the authoritative list of the hooks it executes.
+
+<!-- template-sync: begin yaml-reference-only -->
+When YAML style validation is retained, the dedicated data-file workflow or
+pipeline also re-runs `yamllint`.
+<!-- template-sync: end yaml-reference-only -->
+
+When project-owned schema contracts are added later, keep the schema file, valid and invalid fixtures, pre-commit hook scope, relevant CI steps, and documentation synchronized in the same change.
+
+### For GitHub Copilot Coding Agent (Automated PRs)
+
+**⚠️ CRITICAL: You are an automated agent creating PRs. You MUST follow this workflow:**
+
+When creating automated PRs, you **MUST**:
+
+1. Run all linting/formatting checks as the **FINAL step** before each commit
+2. Include **ALL** auto-fixes in the **SAME commit** with your code changes
+3. **NEVER** push code that will fail pre-commit CI
+4. If pre-commit fails, fix issues and re-run until all checks pass
+
+**The pre-commit step is NON-NEGOTIABLE for automated PRs.**
+
+If you encounter issues:
+
+- Do NOT create a separate "fix formatting" commit
+- Do NOT push and wait for CI to fail
+- Fix locally, include in your commit, then push
+
+**Failure to follow this will cause CI failures and require manual intervention.**
+
+### Auto-Fix Workflow (Safety Net for Copilot Branches)
+
+This repository includes an auto-fix workflow (`.github/workflows/auto-fix-precommit.yml`) that automatically runs pre-commit hooks and commits fixes for `copilot/**` branches. This serves as a safety net when the Copilot Coding Agent pushes code that fails pre-commit checks.
+
+**How it works:**
+
+- Triggers only on `push` events to `copilot/**` branches
+- Only runs when the pusher is `copilot-swe-agent[bot]` (prevents infinite loops)
+- Automatically commits any auto-fixes with message `chore: Apply pre-commit auto-fixes [automated]`
+- Uses `github-actions[bot]` identity for commits
+
+**Important notes:**
+
+- This is a **safety net**, not a substitute for running pre-commit locally
+- Agents should still try to run pre-commit checks before pushing when possible
+- The workflow only applies to `copilot/**` branches—human branches are not affected
+- Manual intervention may still be required for issues that cannot be auto-fixed
+
+## Workflow Version Pinning
+
+GitHub Actions workflow files in this repository (`.github/workflows/*.yml`) reference both **action versions** (in `uses:` lines) and **tool versions** (passed to actions or shell commands as inputs or arguments). The two categories have different update mechanisms and different rules. Conflating them, or mirroring an action version into a secondary location that Dependabot does not rewrite, produces partial updates where the declared action version moves but related literals silently drift to the old version. The rules below prevent that drift.
+
+### Action versions in `uses:` references
+
+- Third-party action versions **MUST** remain directly visible in `uses:` references (for example, `actions/checkout@v6`, `actions/setup-node@v6`) so Dependabot's `github-actions` ecosystem can update them.
+- Repeated `uses:` references to the same action across jobs and steps are acceptable when each occurrence is a normal Dependabot-managed `uses:` reference. Dependabot updates each `uses:` line directly.
+- Do **NOT** store an action version in a workflow-level `env:` variable, comment, cache key, file path, shell literal, manually constructed image tag, or any other secondary location as a mirror of a `uses:` version. The `uses:` line **MUST** be the only authoritative source for the action version because Dependabot rewrites `uses:` references and will leave unrelated literals stale.
+- Do **NOT** copy a Dependabot-managed action version into secondary workflow locations that Dependabot will not reliably rewrite (for example, cache keys, file paths, shell commands, manually constructed image tags, or comments presented as authoritative version state).
+- If secondary workflow behavior needs to change when a `uses:` version changes, derive that behavior from a stable source that naturally changes with the workflow or tool configuration. Prefer cache keys scoped to the specific configuration file that governs the cached artifact — for example, `hashFiles('.pre-commit-config.yaml')` for pre-commit caches or `hashFiles('package-lock.json')` for Node dependency caches, mirroring the pattern already used in this repository's workflows. Avoid broad wildcard patterns such as `hashFiles('.github/workflows/*.yml')` for cache keys: any unrelated workflow edit would invalidate every job's cache. The goal is to track the configuration that actually drives the cached content, not the workflow definition that consumes it.
+
+### Tool versions passed as action inputs or shell arguments
+
+Tool versions that are not managed by Dependabot — for example, the value of the `node-version` input passed to `actions/setup-node@v6` — **SHOULD** still avoid unnecessary duplication. If the same tool version is required in multiple workflow jobs or steps, prefer a single source of truth where GitHub Actions supports one, such as a workflow-level `env:` value for the CLI/tool version.
+
+### Asymmetry: workflow-level `env:` for action versions vs. tool versions
+
+The two categories are **not** symmetric, and the difference is the entire point of this rule:
+
+- **Action versions** (`uses:`): a workflow-level `env:` mirror is **forbidden**. Dependabot will not rewrite the `env:` value, so it would silently desynchronize from the actual `uses:` reference. The `uses:` line is the only authoritative source.
+- **Tool versions** (action inputs, shell args): a workflow-level `env:` value is **encouraged** as the single source of truth. Dependabot does not manage these versions, so there is no desync risk; one `env:` value can serve as the source of truth across multiple steps.
+
+### Distinguishing wrapper actions from the tools they install
+
+Action wrapper versions and the tool versions they install are **separate pins** that travel through different channels:
+
+- `actions/setup-node@v6` is the setup action version (managed by Dependabot via `uses:`).
+- The `node-version` input's value is the Node.js version installed by that setup action (not managed by Dependabot; manually maintained).
+
+Both pins exist in the same workflow step, but they update on different cadences and through different mechanisms. Do not conflate them.
+
+### When a Dependabot-managed dependency cannot be expressed without duplication
+
+If a Dependabot-managed dependency genuinely cannot be represented only through Dependabot-managed declarations, and Dependabot would otherwise produce partial updates, add an appropriate `.github/dependabot.yml` `ignore:` entry with a YAML comment explaining why the dependency is intentionally not auto-updated. Use this escape hatch sparingly: it disables automation for that dependency, so it should be applied only when the partial-update problem cannot be solved by removing the duplication or by deriving secondary behavior from a stable source.
+
+### Concrete examples in this repository
+
+- Pinned action majors such as `actions/checkout@v6`, `actions/setup-python@v6`, `actions/cache@v5`, and `actions/setup-node@v6` appear repeatedly in workflow `uses:` lines. These are acceptable because each occurrence is a normal Dependabot-managed `uses:` reference.
+- In Markdown CI, the value of the `node-version` input in [`.github/workflows/markdownlint.yml`](workflows/markdownlint.yml) is the source of truth for the Node.js version installed by `actions/setup-node@v6`. This is a Node.js version (not the `actions/setup-node` action version), so it is **not** a Dependabot `uses:` desynchronization case. It is a useful candidate for a future single source of truth (such as a workflow-level `env:` value) if duplication grows; refactoring existing workflows to that shape is out of scope for this rule.
+
+## Repository Self-Containment
+
+All files committed to this repository MUST be interpretable—meaning understandable to a reader without access to private or internal resources—using only the contents of this repository and public references that are clearly linked from it.
+
+This rule governs the meaning of documentation, code comments, and embedded references. It does not require the repository to build or run without standard external dependencies declared in its manifests (for example, package, module, or action dependencies pinned in `requirements.txt`, `package.json`, PowerShell module manifests, or workflow `uses:` entries).
+
+It applies to, but is not limited to:
+
+- `README.md` and other top-level `*.md` files.
+- Files under `.github/`, including workflows, instructions, and design-decision docs.
+- Code comments embedded in committed files.
+
+Do not embed references to:
+
+- Work stream identifiers, sprint names, milestone labels, or phase numbers that are not defined inside this repository.
+- Ticket, issue, or project IDs that resolve only inside a private or external tracker.
+- Internal team, person, or communication-channel names.
+- Roadmap, design, or planning documents that are not published in this repository or otherwise publicly resolvable from links in this repository.
+
+Where a future-extension hook needs to be described, phrase the condition in repository-observable terms. For example, prefer "Once concrete schemas are added under `schemas/` and a `check-jsonschema` hook is enabled in `.pre-commit-config.yaml`, ..." rather than referencing the work stream that will introduce those changes.
+
+If a needed reference cannot be expressed in repository-observable terms, follow the existing **What Not to Do** guidance and open an issue or add an explicit "Open Question" in the affected file instead of inventing or importing an external reference.
+
+## Determinism and Correctness Rules
+
+- Prefer deterministic tooling over manual rewriting.
+- Sanitation pipelines must be bounded (iteration caps, no-progress detection).
+- Preserve formatting, indentation, and ordering when processing structured content.
+- Concurrency is allowed, but outputs must be deterministic.
+
+## How to Work (Definition of Done)
+
+For each PR-sized change:
+
+- **Run pre-commit checks locally and fix all issues before committing.**
+  - Pre-commit hooks will auto-fix many issues (formatting, linting, whitespace).
+  - Always review and commit these auto-fixes as part of your change.
+- Add/adjust tests for new behavior.
+  - Python: pytest tests in `tests/`
+  - PowerShell: Pester tests in `tests/PowerShell/`
+- For data-file changes, run the applicable validation hooks via `pre-commit run --all-files` so that retained checks such as `check-json`, `check-yaml`, GitHub Actions-only `actionlint`, and configured `check-jsonschema` / `check-metaschema` hooks pass before committing.
   <!-- template-sync: begin yaml-reference-only -->
-  - Retained YAML checks include YAML parsing (`check-yaml`) and style (`yamllint`).
+  - When YAML style validation is retained, `yamllint` must also pass.
   <!-- template-sync: end yaml-reference-only -->
-  - Retained GitHub Actions checks include GitHub Actions linting (`actionlint`).
-  - When the `github-actions` module is retained, the dedicated [`.github/workflows/data-ci.yml`](../../.github/workflows/data-ci.yml) workflow re-runs retained data-file hooks so adopted data-file enforcement can be required via branch protection.
-  - Retained data-file authoring guidance lives in the matching module docs.
-  <!-- template-sync: begin json-reference-only -->
-  - JSON guidance: [`.github/instructions/json.instructions.md`](../../.github/instructions/json.instructions.md).
-  <!-- template-sync: end json-reference-only -->
-  <!-- template-sync: begin yaml-reference-only -->
-  - YAML guidance: [`.github/instructions/yaml.instructions.md`](../../.github/instructions/yaml.instructions.md).
-  <!-- template-sync: end yaml-reference-only -->
+- Keep changes small and reviewable; avoid "big bang" refactors.
+- Update docs/spec only if behavior is intentionally changed (and note why).
+- Ensure:
+  - unit tests pass
+  - linters/formatters pass
+  - no secrets appear in logs, artifacts, or test fixtures
 
-- **Modular instruction files**
-  - Read the relevant file under `.github/instructions/` before modifying matching files:
-    - Git attributes: `.github/instructions/gitattributes.instructions.md`
-    <!-- template-sync: begin json-reference-only -->
-    - JSON: `.github/instructions/json.instructions.md`
-    <!-- template-sync: end json-reference-only -->
-    <!-- template-sync: begin markdown-reference-only -->
-    - Markdown/Docs: `.github/instructions/docs.instructions.md`
-    <!-- template-sync: end markdown-reference-only -->
-    <!-- template-sync: begin powershell-reference-only -->
-    - PowerShell: `.github/instructions/powershell.instructions.md`
-    <!-- template-sync: end powershell-reference-only -->
-    <!-- template-sync: begin python-reference-only -->
-    - Python: `.github/instructions/python.instructions.md`
-    <!-- template-sync: end python-reference-only -->
-    <!-- template-sync: begin yaml-reference-only -->
-    - YAML: `.github/instructions/yaml.instructions.md`
-    <!-- template-sync: end yaml-reference-only -->
+## What Not to Do
 
-- **Do not**
-  - Execute scripts or commands generated by untrusted sources.
-  - Add telemetry or external logging services without explicit approval.
-  - Weaken security constraints to "make it work."
-  - Add new major dependencies without clear justification.
-  - Invent behavior when requirements are ambiguous; use an explicit Open Question.
-  - Create separate formatting-only or lint-only commits.
+- Do not add any feature that executes scripts or commands generated by untrusted sources.
+- Do not add telemetry or external logging services without explicit approval.
+- Do not weaken security constraints to "make it work."
+- Do not add new major dependencies without clear justification in the PR description.
+- Do not implement "Copilot agent fixes" or rely on non-public APIs for lint correction.
+- Do not silently invent behavior when specs or requirements are ambiguous—open an issue or add an explicit "Open Question" instead.
+- Do not create separate "fix formatting" or "fix linting" commits—include all auto-fixes in the same commit as your changes.
 
-## Azure DevOps PR Review Protocol
+## Modular Instructions
 
-This section is retained as Cursor host-specific protocol. Thin-entry-point pruning must preserve it unless the repository owner explicitly waives Azure DevOps PR review protocol for the retained Cursor entry point.
+This repository uses modular instruction files covering both language-specific standards and cross-cutting repository rules:
 
-Use this protocol only for Azure DevOps Services pull requests hosted in Azure Repos. GitHub-hosted repositories continue to use the repository's GitHub-specific protocol and tooling.
+- Git attributes: `.github/instructions/gitattributes.instructions.md` applies to `**/.gitattributes`.
+<!-- template-sync: begin json-reference-only -->
+- JSON: `.github/instructions/json.instructions.md` applies to `**/*.json` and `**/*.jsonc`.
+<!-- template-sync: end json-reference-only -->
+- Markdown/Docs: `.github/instructions/docs.instructions.md` applies to `**/*.md` and `**/*.mdc`.
+- PowerShell: `.github/instructions/powershell.instructions.md` applies to `**/*.ps1`.
+<!-- template-sync: begin python-reference-only -->
+- Python: `.github/instructions/python.instructions.md` applies to `**/*.py`.
+<!-- template-sync: end python-reference-only -->
+<!-- template-sync: begin yaml-reference-only -->
+- YAML: `.github/instructions/yaml.instructions.md` applies to `**/*.yml` and `**/*.yaml`.
+<!-- template-sync: end yaml-reference-only -->
 
-- Azure Repos Copilot code review is a limited public preview for Azure DevOps Services. It requires sign-up, organization-level enablement by a Project Collection Administrator, repository-level enablement by a repository owner or administrator, and individual-user opt-in through Preview features unless the administrator enables it for the organization. It requires Azure billing through a subscription linked to the Azure DevOps organization; Azure DevOps review usage does not draw down GitHub Copilot plan AI credits. Treat licensing and pricing details as preview-specific and documentation-driven, and do not assume GitHub-hosted Copilot review entitlements cover Azure Repos review usage.
-- Copilot review is requested manually from the Azure Repos PR Reviewers list by selecting **Request** next to **GitHub Copilot**. If Azure DevOps tooling supports reviewer operations, Cursor MAY inspect or add ordinary reviewers through Azure DevOps Pull Request Reviewers APIs, but MUST NOT claim API-triggered Copilot preview review unless the available tooling explicitly verifies that behavior.
-- Copilot always leaves a **Comment** review, never approves or requests changes, does not satisfy required-reviewer policies, and does not block merging. Copilot does not read replies, does not follow up, and does not automatically re-review after new commits; a fresh review requires another manual request.
-- Cursor has no autonomous Azure DevOps wake-up. Mentions route Azure DevOps comments only when the user's runtime explicitly forwards them into the active Cursor session.
-- When Azure DevOps connector/API tooling is available and safely authenticated, Cursor MAY inspect PR reviewers, threads, comments, thread status, and PR statuses through Azure DevOps REST APIs, and MAY post replies/comments, update thread status, or create PR statuses. When tooling is missing or insufficient, state the needed manual owner action instead.
-- Authentication guidance must stay high-level and secure: prefer Microsoft Entra authentication, service principals or managed identities for automation, Azure DevOps service connections for pipeline scenarios, secure local tool configuration, or environment variables. Treat tokens as opaque values, do not decode claims, and never embed PATs, bearer tokens, service connections, credential-bearing clone URLs, or secret-like placeholders in repository files, commands, logs, or comments.
+**Note:** The PowerShell instructions include comprehensive guidance on Pester testing.
+Python instructions are retained for repository tooling and template-sync automation only; product source remains PowerShell.
 
----
+## Agent Instruction Files
 
-> This file is retained from the `franklesniak/copilot-repo-template` template and tailored for the IntuneComplianceReport repository.
+This repository includes agent instruction files at the repository root and under platform-specific rule directories to support multi-platform AI coding agents:
+
+| File | Target Agent(s) |
+| --- | --- |
+| `.cursor/rules/repository-instructions.mdc` | Cursor Agent |
+| `.hermes.md` | Hermes Agent |
+| `CLAUDE.md` | Claude Code, GitHub Copilot coding agent |
+| `AGENTS.md` | OpenAI Codex CLI, GitHub Copilot coding agent |
+| `GEMINI.md` | Gemini Code Assist, GitHub Copilot coding agent |
+
+`.github/copilot-instructions.md` remains the **canonical source of truth** for all repository rules. The agent instruction files are thin entry points: each keeps a minimal inline summary of the highest-priority shared rules for reliability and may add platform-specific guidance that does not conflict with this file.
+
+Thin entry point means "brief shared-rule summary plus platform-specific protocol," not "safe to collapse into a stub." Sections classified in an agent file as platform protocol or required protocol MUST be preserved during downstream stack pruning unless the repository owner explicitly waives that protocol for the retained agent platform.
+
+When explicitly authorized to modify high-priority shared guidance in `.github/copilot-instructions.md` (for example, canonical file location, safety rules, pre-commit expectations, validation commands, or language-instruction references), update the minimal summaries in any remaining agent files as needed. Avoid copying large shared sections into the entry point files.
+
+## Host-Specific PR Review Protocols
+
+The GitHub plugin protocol and GitHub Copilot review workflows remain the primary/default protocol for GitHub-hosted repositories. Azure DevOps support is additive and host-specific; agents MUST NOT rename, weaken, or replace the GitHub protocol when documenting or operating against Azure Repos.
+
+### Azure DevOps Services with Azure Repos
+
+Use this protocol only for pull requests hosted in Azure DevOps Services with Azure Repos. Azure DevOps Server is out of scope unless the current task verifies the relevant behavior against current Microsoft documentation and records any server-specific differences.
+
+For Azure Repos Copilot code review, agents MUST follow current Microsoft Learn behavior:
+
+- GitHub Copilot code review for Azure Repos is a limited public preview for Azure DevOps Services, requires sign-up, has limited support/no preview SLA, and can change.
+- Enablement is a three-scope model: a Project Collection Administrator enables organization access, a repository owner or administrator enables the repository, and each user opts in through Preview features unless an administrator enables the preview for the organization.
+- The repository must be a Git repository in Azure Repos; TFVC is not supported.
+- Billing requires an Azure subscription linked to the Azure DevOps organization, and usage is billed through Azure Cost Management. Azure DevOps review usage does not draw down GitHub Copilot plan AI credits.
+- Treat licensing and pricing details as preview-specific and documentation-driven. Do not assume GitHub Copilot plan credits or GitHub-hosted Copilot review entitlements cover Azure Repos review usage.
+- Copilot review is requested manually from the Azure Repos PR Reviewers list by selecting **Request** next to **GitHub Copilot**. Do not claim an agent can trigger the Copilot preview through an API unless the available Azure DevOps connector/API tooling explicitly exposes and verifies that behavior.
+- Copilot always leaves a **Comment** review. It never approves or requests changes, so it does not satisfy required-reviewer policies and does not block merging.
+- Copilot comments behave like ordinary review comments for human readers, but Copilot does not read replies, does not follow up, and does not automatically re-review after new commits. A fresh review requires requesting Copilot again.
+
+When an agent works on an Azure Repos PR review:
+
+- **No autonomous wake-up.** Agents MUST NOT promise webhook-driven wake-up, background polling, or scheduled review responses. The workflow runs only inside an active agent session or through explicit user-provided context.
+- **Mention routing is runtime-dependent.** Mentions such as `@codex`, `@claude`, or other agent names are only conventions unless the user's runtime explicitly routes Azure DevOps comments into the active agent session.
+- **Review requests.** Ask the owner to request GitHub Copilot review manually when needed. If tooling supports Azure DevOps reviewer operations, it MAY use Azure DevOps Pull Request Reviewers REST APIs to inspect reviewers or add ordinary reviewers, while recognizing that required branch-policy reviewers and Copilot preview requests may remain manual owner actions.
+- **Inspection.** Prefer available Azure DevOps connector/API tooling for PR metadata. When REST fallback is needed and safely authenticated, agents MAY inspect reviewers, PR threads, thread comments, thread status, and PR statuses through the Azure DevOps Pull Request Reviewers, Pull Request Threads, Pull Request Thread Comments, and Pull Request Statuses REST APIs.
+- **Replies and statuses.** When tooling supports it, agents MAY post PR thread replies/comments, update thread status, or create PR statuses. If tooling is absent or insufficient, state the manual owner action required instead of substituting GitHub plugin, `gh`, or GitHub GraphQL operations.
+- **Authentication.** Keep authentication guidance high-level and secure. Prefer Microsoft Entra authentication, service principals or managed identities for automation, Azure DevOps service connections for pipeline scenarios, secure local tool configuration, or environment variables as appropriate. Use personal access tokens sparingly and only when the recommended Microsoft options are unavailable for the scenario. Treat tokens as opaque values; do not decode or inspect claims. Never embed PATs, bearer tokens, service connections, credential-bearing clone URLs, or secret-like placeholders in repository files, command examples, logs, or comments.
+
+Manual owner actions for Azure DevOps commonly include enabling the preview at organization/repository/user scopes, linking billing, requesting or re-requesting Copilot review, satisfying required-reviewer or branch-policy approval, and applying thread/status changes when no Azure DevOps connector/API support is available.
+
+## Linting and Validation Configurations
+
+This repository includes linting and validation tool configurations that align with the coding standards. The active files include:
+
+- PSScriptAnalyzer: `.github/linting/PSScriptAnalyzerSettings.psd1` for PowerShell formatting/linting (OTBS style).
+- markdownlint: `.markdownlint.jsonc` for Markdown linting.
+<!-- template-sync: begin yaml-reference-only -->
+- yamllint: `.yamllint.yml` for YAML style enforcement.
+<!-- template-sync: end yaml-reference-only -->
+- JSON Schema / `check-jsonschema`: `.pre-commit-config.yaml` wires schema-driven validation for retained schema-backed configuration, including selected real load-bearing configuration files validated against built-in vendor schemas.
+
+### Running Linters
+
+**Markdown:**
+
+<!-- template-sync: begin markdown-reference-only -->
+
+```bash
+npm run lint:md
+```
+
+<!-- template-sync: end markdown-reference-only -->
+
+**PowerShell:**
+
+<!-- template-sync: begin powershell-reference-only -->
+
+```powershell
+Invoke-ScriptAnalyzer -Path .\script.ps1 -Settings .\.github\linting\PSScriptAnalyzerSettings.psd1
+```
+
+<!-- template-sync: end powershell-reference-only -->
+
+**JSON, YAML, and GitHub Actions:**
+
+<!-- template-sync: begin json-reference-only -->
+
+```bash
+pre-commit run check-json --all-files
+```
+
+<!-- template-sync: end json-reference-only -->
+<!-- template-sync: begin yaml-reference-only -->
+
+```bash
+pre-commit run check-yaml --all-files
+pre-commit run yamllint --all-files
+```
+
+<!-- template-sync: end yaml-reference-only -->
+
+```bash
+pre-commit run actionlint --all-files
+```
+
+Run `actionlint` only when GitHub Actions workflow files are retained.
+
+Prettier is **opt-in** and is **not** part of the default data-file toolchain. The canonical statement lives in the **Data-File Validation** subsection above; if the two ever appear to diverge, treat the canonical statement as authoritative.
+
+## Testing Tools
+
+This repository includes retained testing infrastructure for the adopted language and validation contracts:
+
+<!-- template-sync: begin python-reference-only -->
+- Python repository tooling: pytest, configured by `pyproject.toml` (`[tool.pytest.ini_options]`) and located under `tests/`.
+<!-- template-sync: end python-reference-only -->
+<!-- template-sync: begin powershell-reference-only -->
+- PowerShell: Pester 5.x, configured inline in `.github/workflows/powershell-ci.yml` and located under `tests/PowerShell/`.
+<!-- template-sync: end powershell-reference-only -->
+
+### Running Tests
+
+**Python:**
+
+<!-- template-sync: begin python-reference-only -->
+
+```bash
+python -m pyright --project pyrightconfig.json
+pytest tests/ -m "not upstream_template_only and not slow" -v --cov --cov-report=term-missing
+pytest tests/ -m slow -v --no-cov
+```
+
+<!-- template-sync: end python-reference-only -->
+
+**PowerShell:**
+
+<!-- template-sync: begin powershell-reference-only -->
+
+```powershell
+Invoke-Pester -Path tests/ -Output Detailed
+```
+
+<!-- template-sync: end powershell-reference-only -->
 
 ---
 > Source: [DanStutz/IntuneComplianceReport](https://github.com/DanStutz/IntuneComplianceReport) — distributed by [TomeVault](https://tomevault.io).
