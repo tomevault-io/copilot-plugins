@@ -2,16 +2,14 @@
 
 > Sourced from [TexasCoding/project-x-py](https://github.com/TexasCoding/project-x-py) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-A high-performance Python SDK for the ProjectX Trading Platform Gateway API. This library enables developers to build sophisticated trading strategies and applications by providing comprehensive access to futures trading operations, historical market data, real-time streaming, technical analysis, and advanced market microstructure tools
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [TexasCoding/project-x-py](https://github.com/TexasCoding/project-x-py).
+Original source: `AGENTS.md` in [TexasCoding/project-x-py](https://github.com/TexasCoding/project-x-py).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
