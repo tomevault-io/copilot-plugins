@@ -1,496 +1,435 @@
 ## project-x-py
 
-> This file provides guidance to Cursor AI when working with code in this repository.
+> Use when:
 
-# ProjectX Python SDK - Cursor AI Rules
+# AI Agents for Development
 
-This file provides guidance to Cursor AI when working with code in this repository.
+The ProjectX Python SDK leverages specialized AI agents for development tasks. This guide explains how to work with these agents effectively for SDK development, maintenance, and enhancement.
 
-## 🚨 CRITICAL: Focused Development Rules
+## Agent Overview
 
-**MANDATORY**: This project follows strict development rules located in `.cursor/rules/`:
+The project uses multiple specialized AI agents, each optimized for specific development tasks:
 
-- **[TDD Core Rules](.cursor/rules/tdd_core.md)** - Test-Driven Development enforcement
-- **[Async Testing Rules](.cursor/rules/async_testing.md)** - Async-first testing patterns
-- **[Code Quality Rules](.cursor/rules/code_quality.md)** - Quality standards and validation
-- **[Development Workflow](.cursor/rules/development_workflow.md)** - Process enforcement
+- **python-developer**: Core SDK development and feature implementation
+- **code-standards-enforcer**: Code quality, standards compliance, and IDE diagnostics
+- **code-refactor**: Architecture improvements and code modernization
+- **code-documenter**: Documentation creation and maintenance
+- **code-debugger**: Issue diagnosis and troubleshooting
+- **code-reviewer**: Code review and quality assurance
 
-**READ THESE RULES FIRST** before making any code changes. All rules are MANDATORY and must be followed strictly.
+## Agent Selection Guidelines
 
-## Project Status: v3.2.0 - Enhanced Type Safety Release
+### When to Use Each Agent
 
-**IMPORTANT**: This project uses a fully asynchronous architecture. All APIs are async-only, optimized for high-performance futures trading.
+#### **python-developer**
+**Best for**: Core SDK development and feature implementation
 
-## Development Phase Guidelines
+Use when:
+- Implementing new trading components (OrderManager, PositionManager, etc.)
+- Creating financial indicators with Polars DataFrames
+- Building real-time data processing and WebSocket connections
+- Developing new TradingSuite features
+- Ensuring 100% async architecture compliance
+- Handling Decimal price precision requirements
 
-**IMPORTANT**: This project has reached stable production status. When making changes:
-
-1. **Maintain Backward Compatibility**: Keep existing APIs functional with deprecation warnings
-2. **Deprecation Policy**: Mark deprecated features with warnings, remove after 2 minor versions
-3. **Semantic Versioning**: Follow semver strictly (MAJOR.MINOR.PATCH)
-4. **Migration Paths**: Provide clear migration guides for breaking changes
-5. **Modern Patterns**: Use the latest Python patterns while maintaining compatibility
-6. **Gradual Refactoring**: Improve code quality without breaking existing interfaces
-7. **Async-First**: All new code must use async/await patterns
-
-## Non-Negotiable TDD Requirements
-
-**ALWAYS follow RED-GREEN-REFACTOR cycle:**
-1. 🔴 RED: Write failing test defining expected behavior
-2. 🟢 GREEN: Write minimal code to make test pass
-3. 🔄 REFACTOR: Improve code while keeping tests green
-
-**Tests are the specification. Code must conform to tests, not vice versa.**
-
-Example approach:
-- ✅ DO: Keep old method signatures with deprecation warnings
-- ✅ DO: Provide new improved APIs alongside old ones
-- ✅ DO: Add compatibility shims when necessary
-- ✅ DO: Document migration paths clearly
-- ❌ DON'T: Break existing APIs without major version bump
-- ❌ DON'T: Remove deprecated features without proper notice period
-
-### Deprecation Process
-1. Use the standardized `@deprecated` decorator from `project_x_py.utils.deprecation`
-2. Provide clear reason, version info, and replacement path
-3. Keep deprecated feature for at least 2 minor versions
-4. Remove only in major version releases (4.0.0, 5.0.0, etc.)
-
-Example:
-```python
-from project_x_py.utils.deprecation import deprecated, deprecated_class
-
-# For functions/methods
-@deprecated(
-    reason="Method renamed for clarity",
-    version="3.1.14",  # When deprecated
-    removal_version="4.0.0",  # When it will be removed
-    replacement="new_method()"  # What to use instead
-)
-def old_method(self):
-    return self.new_method()
-
-# For classes
-@deprecated_class(
-    reason="Integrated into TradingSuite",
-    version="3.1.14",
-    removal_version="4.0.0",
-    replacement="TradingSuite"
-)
-class OldManager:
-    pass
+Example scenarios:
+```
+"Implement a new technical indicator for options flow analysis"
+"Add WebSocket reconnection logic with exponential backoff"
+"Create async order placement methods with bracket order support"
+"Build a new risk management component with portfolio-level controls"
 ```
 
-The standardized deprecation utilities provide:
-- Consistent warning messages across the SDK
-- Automatic docstring updates with deprecation info
-- IDE support through the `deprecated` package
-- Metadata tracking for deprecation management
-- Support for functions, methods, classes, and parameters
+#### **code-standards-enforcer**
+**Best for**: Maintaining code quality and standards
 
-## Development Documentation
+**CRITICAL**: Always check IDE diagnostics first with `mcp__ide__getDiagnostics`
 
-### Important: Keep Project Clean - Use External Documentation
+Use when:
+- **Before committing any changes** (proactive quality control)
+- Preparing for pull requests
+- Release validation processes
+- Verifying 100% async architecture compliance
+- Checking TradingSuite patterns adherence
+- Ensuring Polars-only DataFrame usage
+- Validating deprecation compliance
+- Type safety verification with TypedDict/Protocol
 
-**DO NOT create project files for**:
-- Personal development notes
-- Temporary planning documents
-- Testing logs and results
-- Work-in-progress documentation
-- Meeting notes or discussions
+Workflow:
+1. **First**: Check `mcp__ide__getDiagnostics` for modified files
+2. **Fix** any IDE diagnostic errors/warnings
+3. **Then**: Run traditional linting tools (ruff, mypy)
+4. **Verify** with IDE diagnostics again after fixes
 
-**Instead, use**:
-- External documentation tools (Obsidian, Notion, etc.)
-- GitHub Issues for bug tracking
-- GitHub Discussions for architecture decisions
-- Pull Request descriptions for implementation details
+Example scenarios:
+```
+"Check code quality before committing new indicator implementation"
+"Validate async patterns in the new order management system"
+"Ensure type safety compliance across all modified files"
+"Verify deprecation warnings are properly implemented"
+```
 
-This keeps the project repository clean and focused on production code.
+#### **code-refactor**
+**Best for**: Architecture improvements and modernization
 
-## Development Commands
+Use when:
+- Migrating to TradingSuite patterns
+- Optimizing Polars DataFrame operations
+- Consolidating WebSocket handling
+- Modernizing async patterns and removing legacy sync code
+- Transitioning from monolithic to modular architectures
+- Optimizing event system performance
+- Implementing memory management improvements
 
-### Package Management (UV)
+Example scenarios:
+```
+"Refactor OrderManager to use EventBus for better decoupling"
+"Optimize DataFrame operations in indicators for better performance"
+"Migrate legacy synchronous code to modern async patterns"
+"Consolidate WebSocket connections for improved resource usage"
+```
+
+#### **code-documenter**
+**Best for**: Documentation creation and maintenance
+
+Use when:
+- Documenting new TradingSuite APIs and features
+- Writing indicator function documentation with usage examples
+- Explaining WebSocket events and data flow patterns
+- Creating migration guides for breaking changes
+- Maintaining README files and examples directory
+- Writing deprecation notices with clear upgrade paths
+- Updating docstrings with comprehensive type hints
+- Creating tutorial notebooks and interactive examples
+
+Example scenarios:
+```
+"Document the new risk management system with usage examples"
+"Create migration guide for v3 to v4 breaking changes"
+"Update API documentation for the enhanced order management system"
+"Write comprehensive examples for the new indicator framework"
+```
+
+#### **code-debugger**
+**Best for**: Issue diagnosis and troubleshooting
+
+Use when:
+- Investigating WebSocket disconnection issues
+- Diagnosing order lifecycle failures
+- Troubleshooting real-time data gaps
+- Resolving event system deadlocks
+- Fixing price precision errors
+- Identifying memory leaks and performance bottlenecks
+- Debugging AsyncIO-related issues
+- Tracing SignalR connection problems
+
+Example scenarios:
+```
+"Debug why orders aren't filling after placement"
+"Investigate WebSocket reconnection failures under load"
+"Trace event propagation issues in the real-time system"
+"Diagnose memory leaks in long-running data streams"
+```
+
+#### **code-reviewer**
+**Best for**: Code review and quality assurance
+
+Use when:
+- Reviewing async patterns and implementations
+- Checking real-time performance characteristics
+- Validating financial data integrity and precision
+- Ensuring API stability and backward compatibility
+- Conducting pre-release code reviews
+- Reviewing pull requests for quality and standards
+
+Example scenarios:
+```
+"Review the new bracket order implementation for correctness"
+"Check real-time data processing for performance issues"
+"Validate the new indicator calculations for accuracy"
+"Review API changes for backward compatibility"
+```
+
+## Agent Command Requirements
+
+### Essential Commands for All Agents
+
+**File Operations**:
+- `Read`, `Write`, `Edit`, `MultiEdit` for file manipulation
+- `Glob`, `Grep` for code searching and analysis
+- `LS` for directory exploration
+
+**Version Control**:
+- `git status`, `git diff`, `git add` for change management
+- `git log` for commit history analysis
+
+**Testing**:
+- `./test.sh [script]` - **Always use this for running tests and examples**
+- Never use `uv run python` directly - `test.sh` handles environment variables
+
+### Agent-Specific Commands
+
+#### **python-developer**
 ```bash
-uv add [package]              # Add a dependency
-uv add --dev [package]        # Add a development dependency
-uv sync                       # Install/sync dependencies
-uv run [command]              # Run command in virtual environment
+# Development commands
+uv add [package]              # Add new dependencies
+uv run pytest tests/         # Run test suite
+./test.sh examples/*.py       # Test example scripts
+uv run mypy src/             # Type checking
+
+# Example workflow
+./test.sh examples/01_basic_client_connection.py
+uv run pytest tests/test_new_feature.py -v
 ```
 
-### Testing
+#### **code-standards-enforcer**
 ```bash
-uv run pytest                # Run all tests
-uv run pytest tests/test_client.py  # Run specific test file
-uv run pytest -m "not slow"  # Run tests excluding slow ones
-uv run pytest --cov=project_x_py --cov-report=html  # Generate coverage report
-uv run pytest -k "async"     # Run only async tests
-```
+# CRITICAL: Always check IDE diagnostics first
+mcp__ide__getDiagnostics     # Check IDE errors/warnings
 
-### Async Testing Patterns
-```python
-# Test async methods with pytest-asyncio
-import pytest
-
-@pytest.mark.asyncio
-async def test_async_method():
-    async with ProjectX.from_env() as client:
-        await client.authenticate()
-        result = await client.get_bars("MNQ", days=1)
-        assert result is not None
-```
-
-### Code Quality
-```bash
+# Traditional linting (after IDE check)
 uv run ruff check .          # Lint code
-uv run ruff check . --fix    # Auto-fix linting issues
 uv run ruff format .         # Format code
 uv run mypy src/             # Type checking
+uv run pytest --cov         # Coverage analysis
+
+# Example workflow
+1. mcp__ide__getDiagnostics  # Always first
+2. Fix any IDE issues
+3. uv run ruff check . --fix
+4. uv run mypy src/
+5. mcp__ide__getDiagnostics  # Verify fixes
 ```
 
-### Building and Distribution
+#### **code-debugger**
 ```bash
-uv build                     # Build wheel and source distribution
-uv run python -m build       # Alternative build command
+# Debugging commands
+./test.sh --debug [script]   # Run with debug output
+grep -r "error\|exception" src/  # Search for error patterns
+uv run pytest -v -s --tb=long    # Verbose test output
+
+# Performance profiling
+uv run python -m cProfile script.py
 ```
 
-## Project Architecture
+## MCP Server Integration
 
-### Core Components (v3.0.2 - Multi-file Packages)
+### Essential MCP Servers for All Agents
 
-**ProjectX Client (`src/project_x_py/client/`)**
-- Main async API client for TopStepX ProjectX Gateway
-- Modular architecture with specialized modules:
-  - `auth.py`: Authentication and JWT token management
-  - `http.py`: Async HTTP client with retry logic
-  - `cache.py`: Intelligent caching for instruments
-  - `market_data.py`: Market data operations
-  - `trading.py`: Trading operations
-  - `rate_limiter.py`: Async rate limiting
-  - `base.py`: Base class combining all mixins
+**Core Development**:
+- `mcp__smithery-ai-filesystem` - File operations and management
+- `mcp__aakarsh-sasi-memory-bank-mcp` - Progress tracking and context
+- `mcp__mcp-obsidian` - Development planning and documentation
 
-**Specialized Managers (All Async)**
-- `OrderManager` (`order_manager/`): Comprehensive async order operations
-  - `core.py`: Main order operations
-  - `bracket_orders.py`: OCO and bracket order logic
-  - `position_orders.py`: Position-based order management
-  - `tracking.py`: Order state tracking
-  - `templates.py`: Order templates for common strategies
-- `PositionManager` (`position_manager/`): Async position tracking and risk management
-  - `core.py`: Position management core
-  - `risk.py`: Risk calculations and limits
-  - `analytics.py`: Performance analytics
-  - `monitoring.py`: Real-time position monitoring
-  - `tracking.py`: Position lifecycle tracking
-- `RiskManager` (`risk_manager/`): Integrated risk management
-  - `core.py`: Risk limits and validation
-  - `monitoring.py`: Real-time risk monitoring
-  - `analytics.py`: Risk metrics and reporting
-- `ProjectXRealtimeDataManager` (`realtime_data_manager/`): Async WebSocket data
-  - `core.py`: Main data manager
-  - `callbacks.py`: Event callback handling
-  - `data_processing.py`: OHLCV bar construction
-  - `memory_management.py`: Efficient data storage
-- `OrderBook` (`orderbook/`): Async Level 2 market depth
-  - `base.py`: Core orderbook functionality
-  - `analytics.py`: Market microstructure analysis
-  - `detection.py`: Iceberg and spoofing detection
-  - `profile.py`: Volume profile analysis
+### Agent-Specific MCP Servers
 
-**Technical Indicators (`src/project_x_py/indicators/`)**
-- TA-Lib compatible indicator library built on Polars
-- 58+ indicators including pattern recognition:
-  - **Momentum**: RSI, MACD, Stochastic, etc.
-  - **Overlap**: SMA, EMA, Bollinger Bands, etc.
-  - **Volatility**: ATR, Keltner Channels, etc.
-  - **Volume**: OBV, VWAP, Money Flow, etc.
-  - **Pattern Recognition** (NEW):
-    - Fair Value Gap (FVG): Price imbalance detection
-    - Order Block: Institutional order zone identification
-    - Waddah Attar Explosion: Volatility-based trend strength
-- All indicators work with Polars DataFrames for performance
+#### **python-developer**
+- `mcp__project-x-py_Docs` - Search existing documentation and patterns
+- `mcp__upstash-context-7-mcp` - Get library documentation for dependencies
+- `mcp__waldzellai-clear-thought` - Complex problem solving and architecture
+- `mcp__itseasy-21-mcp-knowledge-graph` - Map component relationships
 
-**Configuration System**
-- Environment variable based configuration
-- JSON config file support (`~/.config/projectx/config.json`)
-- ProjectXConfig dataclass for type safety
-- ConfigManager for centralized configuration handling
-
-**Event System**
-- Unified EventBus for cross-component communication
-- Type-safe event definitions
-- Async event handlers with priority support
-- Built-in event types for all trading events
-
-### Architecture Patterns
-
-**Async Factory Functions**: Use async `create_*` functions for component initialization:
+Example usage:
 ```python
-# Async factory pattern (v2.0.0+)
-async def setup_trading():
-    async with ProjectX.from_env() as client:
-        await client.authenticate()
+# Search for existing patterns
+await mcp__project_x_py_Docs__search_project_x_py_code(
+    query="async def place_bracket_order"
+)
 
-        # Create managers with async patterns
-        realtime_client = await create_realtime_client(
-            client.jwt_token,
-            str(client.account_id)
-        )
-
-        order_manager = create_order_manager(client, realtime_client)
-        position_manager = create_position_manager(client, realtime_client)
-
-        # Or use the all-in-one factory
-        suite = await create_trading_suite(
-            instrument="MNQ",
-            project_x=client,
-            jwt_token=client.jwt_token,
-            account_id=client.account_id
-        )
-
-        return suite
+# Track implementation progress
+await mcp__aakarsh_sasi_memory_bank_mcp__track_progress(
+    action="Implemented async bracket order system",
+    description="Added OCO support with automatic stop/target placement"
+)
 ```
 
-**Dependency Injection**: Managers receive their dependencies (ProjectX client, realtime client) rather than creating them.
+#### **code-standards-enforcer**
+- `mcp__ide__getDiagnostics` - **CRITICAL**: Check IDE diagnostics first
+- `mcp__project-x-py_Docs` - Verify code against documentation standards
 
-**Real-time Integration**: Single `ProjectXRealtimeClient` instance shared across managers for WebSocket connection efficiency.
-
-**Context Managers**: Always use async context managers for proper resource cleanup:
+Example workflow:
 ```python
-async with ProjectX.from_env() as client:
-    # Client automatically handles auth, cleanup
+# ALWAYS start with IDE diagnostics
+ide_issues = await mcp__ide__getDiagnostics()
+
+# Fix issues found by IDE
+if ide_issues:
+    # Fix each issue systematically
     pass
+
+# Then run traditional tools
+# uv run ruff check . --fix
+# uv run mypy src/
 ```
 
-### Data Flow
+#### **code-refactor**
+- `mcp__waldzellai-clear-thought` - Plan refactoring strategies
+- `mcp__itseasy-21-mcp-knowledge-graph` - Understand component dependencies
+- `mcp__aakarsh-sasi-memory-bank-mcp` - Log architectural decisions
 
-1. **Authentication**: ProjectX client authenticates and provides JWT tokens
-2. **Real-time Setup**: Create ProjectXRealtimeClient with JWT for WebSocket connections
-3. **Manager Initialization**: Pass clients to specialized managers via dependency injection
-4. **Data Processing**: Polars DataFrames used throughout for performance
-5. **Event Handling**: Real-time updates flow through WebSocket to respective managers
+#### **code-documenter**
+- `mcp__mcp-obsidian` - Create comprehensive documentation
+- `mcp__project-x-py_Docs` - Reference existing patterns
+- `mcp__tavily-mcp` - Research external API documentation
 
-## Important Technical Details
+#### **code-debugger**
+- `mcp__waldzellai-clear-thought` - Systematic issue analysis
+- `mcp__itseasy-21-mcp-knowledge-graph` - Trace data flow and dependencies
+- `mcp__ide__getDiagnostics` - Get real-time error diagnostics
 
-### Indicator Functions
-- All indicators follow TA-Lib naming conventions (uppercase function names allowed in `indicators/__init__.py`)
-- Use Polars pipe() method for chaining: `data.pipe(SMA, period=20).pipe(RSI, period=14)`
-- Indicators support both class instantiation and direct function calls
+## Multi-Agent Workflows
 
-### Price Precision
-- All price handling uses Decimal for precision
-- Automatic tick size alignment in OrderManager
-- Price formatting utilities in utils.py
+### Feature Development Workflow
 
-### Error Handling
-- Custom exception hierarchy in exceptions.py
-- All API errors wrapped in ProjectX-specific exceptions
-- Comprehensive error context and retry logic
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant PD as python-developer
+    participant CSE as code-standards-enforcer
+    participant CD as code-documenter
+    participant CR as code-reviewer
 
-### Testing Strategy
-- Pytest with async support and mocking
-- Test markers: unit, integration, slow, realtime
-- High test coverage required (configured in pyproject.toml)
-- Mock external API calls in unit tests
-
-## Environment Setup
-
-Required environment variables:
-- `PROJECT_X_API_KEY`: TopStepX API key
-- `PROJECT_X_USERNAME`: TopStepX username
-
-Optional configuration:
-- `PROJECTX_API_URL`: Custom API endpoint
-- `PROJECTX_TIMEOUT_SECONDS`: Request timeout
-- `PROJECTX_RETRY_ATTEMPTS`: Retry attempts
-
-## Performance Optimizations
-
-### Connection Pooling & Caching (client.py)
-- HTTP connection pooling with retry strategies for 50-70% fewer connection overhead
-- Instrument caching reduces repeated API calls by 80%
-- Preemptive JWT token refresh at 80% lifetime prevents authentication delays
-- Session-based requests with automatic retry on failures
-
-### Memory Management
-- **OrderBook**: Sliding windows with configurable limits (max 10K trades, 1K depth entries)
-- **RealtimeDataManager**: Automatic cleanup maintains 1K bars per timeframe
-- **Indicators**: LRU cache for repeated calculations (100 entry limit)
-- Periodic garbage collection after large data operations
-
-### Optimized DataFrame Operations
-- **Chained operations** reduce intermediate DataFrame creation by 30-40%
-- **Lazy evaluation** with Polars for better memory efficiency
-- **Efficient datetime parsing** with cached timezone objects
-- **Vectorized operations** in orderbook analysis
-
-### Performance Monitoring
-Use async built-in methods to monitor performance:
-```python
-# Client performance stats (async)
-async with ProjectX.from_env() as client:
-    await client.authenticate()
-
-    # Check performance metrics
-    stats = await client.get_performance_stats()
-    print(f"API calls: {stats['api_calls']}")
-    print(f"Cache hits: {stats['cache_hits']}")
-
-    # Health check
-    health = await client.get_health_status()
-
-    # Memory usage monitoring
-    orderbook_stats = await orderbook.get_memory_stats()
-    data_manager_stats = await data_manager.get_memory_stats()
+    Dev->>PD: Implement new feature
+    PD->>PD: Write code with tests
+    PD->>CSE: Check standards compliance
+    CSE->>CSE: Run IDE diagnostics
+    CSE->>CSE: Fix issues found
+    CSE->>CD: Create documentation
+    CD->>CD: Write docs and examples
+    CD->>CR: Review implementation
+    CR->>CR: Final quality check
+    CR->>Dev: Ready for commit
 ```
 
-### Expected Performance Improvements
-- **50-70% reduction in API calls** through intelligent caching
-- **30-40% faster indicator calculations** via chained operations
-- **60% less memory usage** through sliding windows and cleanup
-- **Sub-second response times** for cached operations
-- **95% reduction in polling** with real-time WebSocket feeds
+### Example Implementation
 
-### Memory Limits (Configurable)
-- `max_trades = 10000` (OrderBook trade history)
-- `max_depth_entries = 1000` (OrderBook depth per side)
-- `max_bars_per_timeframe = 1000` (Real-time data per timeframe)
-- `tick_buffer_size = 1000` (Tick data buffer)
-- `cache_max_size = 100` (Indicator cache entries)
+When implementing a new feature, use agents in sequence:
 
-## Recent Changes
-
-### v3.0.1 - Production Ready
-- **Performance Optimizations**: Enhanced connection pooling and caching
-- **Event Bus System**: Unified event handling across all components
-- **Risk Management**: Integrated risk manager with position limits and monitoring
-- **Order Tracking**: Comprehensive order lifecycle tracking and management
-- **Memory Management**: Optimized sliding windows and automatic cleanup
-- **Enhanced Models**: Improved data models with better type safety
-
-### v3.0.0 - Major Architecture Improvements
-- **Trading Suite**: Unified trading suite with all managers integrated
-- **Advanced Order Types**: OCO, bracket orders, and position-based orders
-- **Real-time Integration**: Seamless WebSocket data flow across all components
-- **Protocol-based Design**: Type-safe protocols for all major interfaces
-
-### v2.0.4 - Package Refactoring
-- Converted monolithic modules to multi-file packages
-- All core modules organized as packages with focused submodules
-- Improved code organization and maintainability
-
-### Trading Suite Usage
-```python
-# Complete trading suite with all managers
-from project_x_py import create_trading_suite
-
-async def main():
-    suite = await create_trading_suite(
-        instrument="MNQ",
-        timeframes=["1min", "5min"],
-        enable_orderbook=True,
-        enable_risk_management=True
-    )
-
-    # All managers are integrated and ready
-    await suite.start()
-
-    # Access individual managers
-    order = await suite.order_manager.place_market_order(
-        "MNQ", 1, "BUY"
-    )
-
-    position = suite.position_manager.get_position("MNQ")
-    bars = suite.data_manager.get_bars("MNQ", "1min")
+1. **python-developer**: Core implementation
+```
+"Implement a new volatility-adjusted position sizing algorithm that:
+- Uses ATR for volatility measurement
+- Integrates with the existing RiskManager
+- Supports both fixed and percentage-based risk models
+- Includes comprehensive async tests"
 ```
 
-### Key Async Examples
-```python
-# Basic usage
-async with ProjectX.from_env() as client:
-    await client.authenticate()
-    bars = await client.get_bars("MNQ", days=5)
-
-# Real-time data
-async def stream_data():
-    async with ProjectX.from_env() as client:
-        await client.authenticate()
-
-        realtime = await create_realtime_client(
-            client.jwt_token,
-            str(client.account_id)
-        )
-
-        data_manager = create_realtime_data_manager(
-            "MNQ", client, realtime
-        )
-
-        # Set up callbacks
-        data_manager.on_bar_received = handle_bar
-
-        # Start streaming
-        await realtime.connect()
-        await data_manager.start_realtime_feed()
+2. **code-standards-enforcer**: Quality validation
+```
+"Review the new position sizing implementation for:
+- Check IDE diagnostics for any errors
+- Async pattern compliance
+- Type safety with proper protocols
+- Code formatting and style
+- Test coverage requirements"
 ```
 
-## Code Style & Formatting Rules
+3. **code-documenter**: Documentation creation
+```
+"Document the new volatility-adjusted position sizing feature:
+- API reference with comprehensive docstrings
+- Usage examples with MNQ futures
+- Integration guide for existing strategies
+- Migration notes if any breaking changes"
+```
 
-### Type Hints
-- **ALWAYS** use modern Python 3.10+ union syntax: `int | None` instead of `Optional[int]`
-- **ALWAYS** use `X | Y` in isinstance calls instead of `(X, Y)` tuples
-- **ALWAYS** include comprehensive type hints for all method parameters and return values
-- **PREFER** `dict[str, Any]` over `Dict[str, Any]`
-- **ALWAYS** use proper async type hints: `Coroutine`, `AsyncIterator`, etc.
+4. **code-reviewer**: Final validation
+```
+"Perform final review of the position sizing feature:
+- Code quality and maintainability
+- Performance implications
+- API design consistency
+- Test coverage and quality"
+```
 
-### Error Handling
-- **ALWAYS** wrap ProjectX API calls in try-catch blocks
-- **ALWAYS** log errors with context: `self.logger.error(f"Error in {method_name}: {e}")`
-- **ALWAYS** return meaningful error responses instead of raising exceptions
-- **NEVER** let payload validation errors crash the application
+## Best Practices for Agent Usage
 
-### Data Processing
-- **PREFER** Polars over Pandas for all DataFrame operations
-- **NEVER** include Pandas fallbacks or compatibility code
-- **ALWAYS** validate DataFrame schemas before operations
-- **PREFER** vectorized operations over loops when possible
+### Agent Selection
 
-## Important Instruction Reminders
-- Do what has been asked; nothing more, nothing less
-- NEVER create files unless they're absolutely necessary for achieving your goal
-- ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
+1. **Be Specific**: Choose the most appropriate agent for the task
+2. **Use Proactively**: Don't wait for explicit requests - choose the right agent
+3. **Combine When Needed**: Use multiple agents for complex tasks
+4. **Parallel Execution**: Run independent tasks concurrently when possible
 
-## Performance & Memory Rules
+### Communication with Agents
 
-### Time Filtering
-- **ALWAYS** implement time window filtering for analysis methods
-- **ALWAYS** filter data BEFORE processing to reduce memory usage
-- **ALWAYS** provide `time_window_minutes` parameter for time-sensitive analysis
-- **PREFER** recent data over complete historical data for real-time analysis
+1. **Provide Context**: Include relevant project information
+2. **Be Specific**: Clear, detailed requirements
+3. **Reference Standards**: Mention SDK-specific patterns and requirements
+4. **Include Examples**: Show desired patterns or outcomes
 
-### Memory Management
-- **ALWAYS** implement data cleanup for old entries
-- **ALWAYS** use appropriate data types (int vs float vs str)
-- **NEVER** store unnecessary historical data indefinitely
-- **PREFER** lazy evaluation and streaming where possible
+### Quality Assurance
 
-## Testing & Validation Rules
+1. **IDE Diagnostics First**: Always check `mcp__ide__getDiagnostics` before traditional tools
+2. **Test Everything**: Use `./test.sh` for all testing
+3. **Validate Changes**: Ensure changes don't break existing functionality
+4. **Document Impact**: Track architectural decisions and changes
 
-### Async Test Methods
-- **ALWAYS** use `@pytest.mark.asyncio` for async test methods
-- **ALWAYS** use `async def test_*` for testing async functionality
-- **ALWAYS** include comprehensive test methods for new features
-- **ALWAYS** test both success and failure scenarios
-- **ALWAYS** validate prerequisites before running tests
-- **ALWAYS** return structured test results with `validation`, `performance_metrics`, and `recommendations`
-- **PREFER** internal test methods over external test files for component validation
-- **ALWAYS** use `aioresponses` for mocking async HTTP calls
+## Agent Coordination Patterns
 
-### Validation Patterns
-- **ALWAYS** implement `_validate_*_payload()` methods for API data
-- **ALWAYS** check for required fields before processing
-- **ALWAYS** validate enum values against expected ranges
-- **ALWAYS** provide clear error messages for validation failures
+### Sequential Pattern
+```
+python-developer  code-standards-enforcer  code-documenter  code-reviewer
+```
+Use for: New feature development
+
+### Parallel Pattern
+```
+python-developer + code-refactor (simultaneously)
+
+code-standards-enforcer
+
+code-documenter + code-reviewer (simultaneously)
+```
+Use for: Large refactoring projects
+
+### Iterative Pattern
+```
+python-developer  code-debugger  code-standards-enforcer
+
+code-documenter  code-reviewer
+```
+Use for: Complex bug fixes or performance optimizations
+
+## Common Agent Workflows
+
+### New Feature Development
+1. **python-developer**: Implement core functionality
+2. **code-standards-enforcer**: Validate standards and run diagnostics
+3. **code-documenter**: Create documentation and examples
+4. **code-reviewer**: Final quality review
+
+### Bug Investigation
+1. **code-debugger**: Diagnose and isolate issue
+2. **python-developer**: Implement fix
+3. **code-standards-enforcer**: Validate fix quality
+4. **code-reviewer**: Ensure fix doesn't introduce regressions
+
+### Architecture Improvement
+1. **code-refactor**: Plan and execute refactoring
+2. **code-standards-enforcer**: Ensure compliance with standards
+3. **code-documenter**: Update affected documentation
+4. **code-reviewer**: Validate architectural improvements
+
+## Integration with Development Tools
+
+### IDE Integration
+- Agents work with VS Code diagnostics via `mcp__ide__getDiagnostics`
+- Real-time error detection and fixing
+- Type checking integration with mypy
+
+### CI/CD Integration
+- Agents can be used in GitHub Actions workflows
+- Automated code quality checks
+- Documentation generation and validation
+
+### Project Management
+- Progress tracking via Memory Bank MCP
+- Architectural decision logging in Obsidian
+- Knowledge graph maintenance for component relationships
+
+By leveraging these AI agents effectively, you can maintain high code quality, comprehensive documentation, and robust architecture while developing the ProjectX Python SDK efficiently.
 
 ---
 > Source: [TexasCoding/project-x-py](https://github.com/TexasCoding/project-x-py) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
