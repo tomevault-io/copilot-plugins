@@ -1,0 +1,14 @@
+{
+  "name": "bezzad--downloader",
+  "displayName": "Downloader",
+  "description": "Downloader",
+  "version": "1.0.0",
+  "author": "bezzad",
+  "homepage": "https://github.com/bezzad/Downloader",
+  "skills": [
+    {
+      "name": "Downloader",
+      "description": ""
+    }
+  ]
+}
