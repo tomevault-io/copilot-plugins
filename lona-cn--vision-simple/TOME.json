@@ -2,7 +2,7 @@
   "name": "vision-simple",
   "owner": "lona-cn",
   "repo": "vision-simple",
-  "description": "a lightweight C++ cross-platform vision inference library,support  YOLOv10 YOLOv11 PaddleOCR EasyOCR ,using ONNXRuntime/TVM with multiple exectuion providers.QQ\u7fa4\uff1a364057904",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lona-cn/vision-simple",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T22:52:18Z"
+  "distributed_at": "2026-06-30T12:50:19Z"
 }
