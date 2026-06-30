@@ -1,0 +1,14 @@
+{
+  "name": "subsetpark--pantagruel",
+  "displayName": "pantagruel",
+  "description": "pantagruel",
+  "version": "1.0.0",
+  "author": "subsetpark",
+  "homepage": "https://github.com/subsetpark/pantagruel",
+  "skills": [
+    {
+      "name": "pantagruel",
+      "description": ""
+    }
+  ]
+}
