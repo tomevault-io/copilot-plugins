@@ -1,0 +1,9 @@
+{
+  "name": "matgla--renode-rp2040",
+  "displayName": "Renode_RP2040",
+  "description": "Renode_RP2040",
+  "version": "1.0.0",
+  "author": "matgla",
+  "homepage": "https://github.com/matgla/Renode_RP2040",
+  "skills": []
+}
