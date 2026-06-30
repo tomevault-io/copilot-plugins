@@ -1,0 +1,9 @@
+{
+  "name": "nolar--vpn-in-docker-compose",
+  "displayName": "vpn-in-docker-compose",
+  "description": "vpn-in-docker-compose",
+  "version": "1.0.0",
+  "author": "nolar",
+  "homepage": "https://github.com/nolar/vpn-in-docker-compose",
+  "skills": []
+}
