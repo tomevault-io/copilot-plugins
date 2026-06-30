@@ -2,8 +2,6 @@
 
 > Sourced from [MingGH/demo-mock-server](https://github.com/MingGH/demo-mock-server) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-一个技术演示合集，用可视化和交互的方式解释编程概念、算法原理和生活中的数学问题。
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
