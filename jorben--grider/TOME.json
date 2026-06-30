@@ -2,9 +2,9 @@
   "name": "grider",
   "owner": "jorben",
   "repo": "grider",
-  "description": "Grid Trading Assistant. \u7f51\u683c\u4ea4\u6613\u52a9\u624b",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jorben/grider",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T04:20:54Z"
+  "distributed_at": "2026-06-30T17:05:47Z"
 }
