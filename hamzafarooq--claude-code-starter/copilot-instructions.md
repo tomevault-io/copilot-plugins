@@ -1,68 +1,31 @@
 ## claude-code-starter
 
-> - Yousuf, student of Claude Code in Practice for PM course
+> This file is the assistant's persistent memory across the conversation. The
 
-# Claude Code in Practice — Course Repo
+# User context
 
-## Who I am
+This file is the assistant's persistent memory across the conversation. The
+system prompt loads it at the start of every turn. The `remember_fact` tool
+appends to the "Known facts" section.
 
-- Yousuf, student of Claude Code in Practice for PM course
-- Background: Solution Architect, Engineeing Practices Lead
-- I am following course materials for PMs learning Claude Code
-- I'm comfortable with APIs, backend and big picture thinking, not so deep on frontend
+## How to update this file (rules for the assistant)
 
-## What this repo is
+**Do:**
+- Persist user goals, constraints, and stated preferences
+- Persist competitors / products the user has already researched so we don't repeat ourselves
+- Update an existing fact rather than appending a contradictory one
+- Keep each fact atomic — one bullet, one claim, falsifiable
 
-Course materials for "Claude Code in Practice" (taught on Maven) — a course that teaches product managers to ship real things using Claude Code without relying on engineering.
+**Don't:**
+- Persist trivia ("user said hi"), small talk, or one-off observations
+- Persist anything private (emails, names, secrets) without explicit user confirmation
+- Re-state what's already here in different words
+- Persist guesses or inferences — only what the user has stated or what tools have confirmed
 
-- Current phase: Active (live cohorts running)
-- Audience: Product managers with no coding background
-- Maven course: https://maven.com/boring-bot/claude-code-in-practice
+## Known facts
 
-## Repo structure
-
-```
-/
-├── CLAUDE.md               ← you are here (root context for Claude)
-├── README.md               ← student-facing setup guide
-├── primer.md               ← course overview and navigation guide
-├── memory.md               ← persistent decisions and module status log
-├── .gitignore
-└── module-1/
-    ├── README.md           ← assignment guide for Module 1
-    ├── CLAUDE-template.md  ← starter CLAUDE.md template for students
-    ├── prd-generator/      ← live demo app built in class
-    └── .claude/
-        └── skills/
-            ├── prd-generator/SKILL.md
-            └── user-story-writer/SKILL.md
-```
-
-## Conventions
-
-- One folder per module: `module-1/`, `module-2/`, etc.
-- Each module has its own `README.md` (student assignment guide) and `CLAUDE-template.md`
-- Skills live in `module-N/.claude/skills/<name>/SKILL.md`
-- Apps built live in class get their own GitHub repos (linked from root README)
-- Version tags follow the pattern `v1.0`, `v2.0` per module completion
-- `course-modules/` is gitignored (slide decks and raw HTML exports)
-
-## How Claude should respond
-
-- Be concise — I don't need long explanations
-- When editing course content, match the tone of the existing files: plain English, instructional, PM-friendly
-- When I ask you to write something, write it directly
-- Flag anything that would confuse a non-technical student
-- If something is unclear, ask rather than assume
-
-## What I use Claude Code for in this repo
-
-- Draft and update module README files and assignment guides
-- Write and refine skill files (SKILL.md)
-- Maintain the root README (setup guide, module list, app table)
-- Update memory.md after key decisions or module completions
-- Tag releases and manage version history
+_(this section grows over the conversation)_
 
 ---
 > Source: [hamzafarooq/claude-code-starter](https://github.com/hamzafarooq/claude-code-starter) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
