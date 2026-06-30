@@ -1,0 +1,9 @@
+{
+  "name": "achetronic--kubernetes-mcp",
+  "displayName": "kubernetes-mcp",
+  "description": "kubernetes-mcp",
+  "version": "1.0.0",
+  "author": "achetronic",
+  "homepage": "https://github.com/achetronic/kubernetes-mcp",
+  "skills": []
+}
