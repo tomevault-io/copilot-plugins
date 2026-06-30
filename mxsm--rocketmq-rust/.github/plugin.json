@@ -1,0 +1,9 @@
+{
+  "name": "mxsm--rocketmq-rust",
+  "displayName": "rocketmq-rust",
+  "description": "rocketmq-rust",
+  "version": "1.0.0",
+  "author": "mxsm",
+  "homepage": "https://github.com/mxsm/rocketmq-rust",
+  "skills": []
+}
