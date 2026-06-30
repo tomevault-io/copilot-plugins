@@ -1,136 +1,90 @@
 ## komari-theme-emerald
 
-> Repo guide for `komari-theme-emerald`.
+> This document applies to `/src` only. Keep changes aligned with the current Vue 3 + Vite + reka-ui + Tailwind CSS v4 structure already used here. **There is no Naive UI in this project** — do not reintroduce it.
 
-# AGENTS.md
+# Source Tree Guide
 
-Repo guide for `komari-theme-emerald`.
+This document applies to `/src` only. Keep changes aligned with the current Vue 3 + Vite + reka-ui + Tailwind CSS v4 structure already used here. **There is no Naive UI in this project** — do not reintroduce it.
 
-## Snapshot
+## Core architecture
 
-- Generated: Wed May 27 2026, Asia/Shanghai
-- Branch: `master`
-- App: Vue 3 + Vite + reka-ui + Tailwind CSS v4 theme for Komari Monitor
-- Package manager: `bun` (>= 1.2)
-- Theme manifest: `komari-theme.json`
+- `main.ts` is bootstrap only. It creates the Vue app, installs Pinia and the router, loads global styles, sets `window.$message`, kicks off `setupIconify()`, and mounts `App.vue`. Do not move feature logic into bootstrap.
+- `App.vue` is the app shell. It owns global layout, mounts `<Toaster>` (vue-sonner) and `Provider`, runs startup lifecycle wiring (`initApp()` / `destroyInitManager()` from `@/utils/init`), and `KeepAlive`s `HomeView`.
+- `src/router/index.ts` defines exactly two lazy routes:
+  - `/` → `@/views/HomeView.vue`
+  - `/instance/:id` → `@/views/InstanceDetail.vue`
+- The router has **no guards** today. Do not add one unless there is a real need.
 
-## What this repo is
+## Authoring conventions
 
-- Builds a Komari theme, not a generic web app
-- Release artifact is a zip package Komari can import
-- Runtime app code lives under `src/`
-- Runtime static assets include `public/images/`
-- Release preview image is `docs/preview.png`
+- Use the Composition API with `<script setup lang="ts">`.
+- Prefer `@/` imports for source-local modules instead of long relative paths.
+- Keep files typed and repo-consistent with existing imports, computed state, and helper usage.
 
-## Root structure
+## UI library (`src/components/ui/`)
 
-- `src/` app source
-- `public/images/` runtime image contract, especially flags and logos
-- `.github/` CI workflow and issue templates
-- `docs/preview.png` release preview image
-- `komari-theme.json` theme manifest consumed by the zip build
-- `vite.config.ts` build, chunking, zip packaging
-- `package.json` root commands and pinned dependency versions
-- `bun.lock` resolved lockfile (managed by bun)
+`src/components/ui/` is the local shadcn-vue-style component library (alert, avatar, back-top, badge, button, card-x, empty, input, progress-thin, sonner, spinner, tabs, tooltip). Each component:
 
-## Root commands
+- Wraps a `reka-ui` primitive (or composes lower-level primitives) when applicable.
+- Declares variants with `class-variance-authority` and merges classes via `cn()` from `@/lib/utils` (which combines `clsx` + `tailwind-merge`).
+- Uses Tailwind utilities; design tokens are CSS variables defined in `@/styles/main.css` (OKLCH, with `.dark` overrides via `@custom-variant dark`).
 
-Run from repo root only.
+When you need a new piece of UI:
 
-```bash
-bun run dev
-bun run build
-bun run preview
-bun run lint
-```
+1. Compose existing primitives from `src/components/ui/` first.
+2. If a primitive is missing, add it following the same pattern (reka-ui + cva + `cn()`), not by pulling in another component library.
+3. Do not introduce per-component SCSS files or scoped styles for things Tailwind already covers.
 
-Notes:
+## Views
 
-- `bun run build` runs type check plus production build
-- `bun run lint` runs eslint with `--fix --cache`
-- There is no test suite in this repository
-- Do not invent `bun test` or Vitest commands here
+- Views orchestrate data already exposed by stores and utils.
+- `HomeView.vue` coordinates search, grouping, view-mode selection, scroll restore, and route navigation.
+- `InstanceDetail.vue` coordinates node detail presentation and chart tabs for a selected node.
+- Keep `HomeView` named with `defineOptions({ name: 'HomeView' })` so `App.vue`'s `KeepAlive :include="['HomeView']"` keeps working.
+- Heavy node and chart UI must stay lazily loaded with `defineAsyncComponent`, as already done for `NodeCard`, `NodeGeneralCards`, `NodeList`, `LoadChart`, and `PingChart`.
 
-## Build and release contract
+## Stores
 
-`bun run build` must preserve the Komari packaging flow defined in `vite.config.ts`.
+- Pinia stores are setup stores and are the source of truth for app state.
+- `@/stores/app` owns public settings, theme-derived config, login state, layout flags, formatting preferences, theme mode, and persisted UI state.
+- `@/stores/nodes` owns normalized node data, group derivation, WebSocket state, and node updates.
+- Components and views should read from stores, not recreate parallel state for the same domain.
+- When behavior depends on `publicSettings.theme_settings`, follow the existing defensive pattern in `@/stores/app`: `typeof` checks, guarded `JSON.parse`, valid-value filtering, and defaults. The settings schema lives in `komari-theme.json` (`configuration.data`).
 
-Expected output:
+## Utils
 
-- `dist/`
-- `komari-theme-emerald-build-<sha>.zip`
+- `src/utils` owns transport, formatting, lookups, and startup orchestration.
+- Keep API and RPC access in `@/utils/api` and `@/utils/rpc`.
+- Keep startup, transport selection, polling, reconnects, and WebSocket fallback in `@/utils/init`.
+- Keep formatting in helpers such as `@/utils/helper` and record shaping in `@/utils/recordHelper`.
+- Keep region, OS, and tag lookup logic in their dedicated helper modules (`regionHelper`, `osImageHelper`, `tagHelper`).
+- `@/utils/message` is the wrapper exposed as `window.$message`. It calls into `vue-sonner`'s `toast`.
+- Views and components must reuse these helpers instead of duplicating parsing, formatting, lookup, or transport code.
 
-Zip contents:
+## App globals
 
-- `dist/`
-- `komari-theme.json`
-- `preview.png`
+- Only one app global exists on `window`: `$message`. It is typed in `src/types/global.d.ts`. Keep that file in sync if you add/remove a global.
+- There is **no** `$dialog`, `$notification`, or `$loadingBar`. Do not assume Naive-UI-style provider APIs.
+- Theming: `Provider.vue` drives `useDark()` from `@vueuse/core` (storage key `vueuse-color-scheme`) and toggles `.dark` on `<html>`. Source of truth for the user-chosen mode is `useAppStore().themeMode` (`'auto' | 'light' | 'dark'`).
+- Build-time constants `__BUILD_VERSION__` and `__BUILD_GIT_HASH__` are also declared in `src/types/global.d.ts` and injected by `vite.config.ts`.
 
-Current source of packaged preview:
+## Icons
 
-- `docs/preview.png` on disk
-- renamed to `preview.png` inside the zip
+- All icons go through `@iconify/vue` (`<Icon icon="icon-park-outline:sun" />`). Sets are fetched on demand from the Iconify CDN — `@/utils/iconify`'s `setupIconify()` is a no-op kept as a future extension point. Do not preregister whole icon sets in client bundles.
+- Lucide icons are available via the `lucide:` prefix (e.g. `lucide:x`, `lucide:minus`). Do **not** add `lucide-vue-next` or any other icon-as-component package — the project deliberately routes everything through Iconify so there is a single icon pipeline.
 
-Do not change zip naming, manifest filename, or preview filename without updating the real build contract.
+## Styles
 
-## CI facts
+- Single global stylesheet: `@/styles/main.css`. It imports `tailwindcss` and `tw-animate-css`, declares the `dark` custom variant, and defines OKLCH design tokens for both modes. **No SCSS, no UnoCSS.**
+- Component-level styling should be Tailwind utilities composed with `cn()`, not scoped `<style>` blocks, unless there is a genuine reason (e.g. animations or selectors Tailwind cannot express cleanly).
 
-Source of truth: `.github/workflows/build-ci.yml`
+## Validation
 
-CI does only:
-
-1. `bun install --frozen-lockfile`
-2. `bun run build`
-
-CI does not run tests, because there is no test suite.
-
-## Where to look
-
-- Start at `package.json` for root commands
-- Check `vite.config.ts` for build behavior, global constants, and zip packaging
-- Check `komari-theme.json` for theme metadata and managed configuration schema
-- Check `src/` for app behavior
-- Check `public/images/` when code references image filenames directly
-- Check `.github/workflows/build-ci.yml` for CI expectations
-- Check `.github/ISSUE_TEMPLATE/` for issue intake shape
-
-Contributor density, useful for triage:
-
-- `src/components/` is a dense UI change area
-- `src/utils/` is a dense logic and helper area
-- `src/stores/` is central state, usually affected by cross-cutting changes
-
-## Conventions seen in this repo
-
-- Use `bun`, not pnpm/npm/yarn
-- Dependency versions are declared directly in `package.json`; add new ones with `bun add` / `bun add -d`
-- Keep root guidance focused on build, packaging, manifest, and repo structure
-- Preserve the `@` alias to `src` defined in `vite.config.ts`
-- Treat `komari-theme.json` as release input, not optional metadata
-- Treat `docs/preview.png` as release input, not just documentation art
-- Respect existing generated outputs and naming patterns, especially `komari-theme-emerald-build-<sha>.zip`
-- Root verification is lint plus build, not tests
-- UI is built on `reka-ui` + Tailwind CSS v4 (shadcn-vue style under `src/components/ui/`). Do **not** reintroduce Naive UI, UnoCSS, or SCSS — they have been removed.
-
-## Repo grounded anti-patterns
-
-- Do not rename `komari-theme.json`
-- Do not move or rename `docs/preview.png` casually
-- Do not rename files under `public/images/flags/` or `public/images/logo/` without checking code references in `src`
-- Do not change asset path conventions like `/images/flags/<code>.svg` or `/images/logo/...` blindly
-- Do not add generic framework advice here that belongs in `src/AGENTS.md`
-- Do not duplicate workflow specifics from `.github/AGENTS.md` or asset naming specifics from `public/images/AGENTS.md`
-
-## Child guides
-
-For local rules, defer to the nearest child guide:
-
-- `src/AGENTS.md` for app code, component, store, router, and utility changes
-- `.github/AGENTS.md` for workflow and issue template changes
-- `public/images/AGENTS.md` for runtime image asset naming and compatibility rules
-
-If a child guide exists, it overrides this root file for its subtree.
+- Validate source-tree changes with:
+  - `bun run lint`
+  - `bun run build`
+- There is no test suite. Do not invent one.
 
 ---
 > Source: [Tokinx/komari-theme-emerald](https://github.com/Tokinx/komari-theme-emerald) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
