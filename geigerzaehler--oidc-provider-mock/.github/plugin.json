@@ -1,7 +1,7 @@
 {
   "name": "geigerzaehler--oidc-provider-mock",
   "displayName": "oidc-provider-mock",
-  "description": "A mock OpenID Provider server to test and develop OpenID Connect authentication",
+  "description": "oidc-provider-mock",
   "version": "1.0.0",
   "author": "geigerzaehler",
   "homepage": "https://github.com/geigerzaehler/oidc-provider-mock",
