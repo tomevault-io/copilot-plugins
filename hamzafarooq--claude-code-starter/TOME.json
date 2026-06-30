@@ -3,8 +3,8 @@
   "owner": "hamzafarooq",
   "repo": "claude-code-starter",
   "description": "",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,351 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/brandkit/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/brandkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/voice-dna/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/voice-dna/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/md-to-pdf/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/md-to-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/soft-skill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/soft-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/boris-plan/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/boris-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/okr-writer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/okr-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/taste-skill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/taste-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/test-writer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/verify-work/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/verify-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/stitch-skill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/stitch-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/output-skill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/output-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/exec-summary/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/exec-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/email-writer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/email-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/prd-generator/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/prd-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/business-case/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/business-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/trend-spotter/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/trend-spotter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/seo-optimizer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/seo-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/linkedin-post/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/linkedin-post/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/market-sizing/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/market-sizing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/taste-skill-v1/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/taste-skill-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/redesign-skill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/redesign-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/beautiful-html/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/beautiful-html/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/gpt-tasteskill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/gpt-tasteskill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/sprint-planner/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/sprint-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/slides-builder/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/slides-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/brutalist-skill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/brutalist-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/proposal-writer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/proposal-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/karpathy-review/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/karpathy-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/skill-evaluator/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/skill-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/minimalist-skill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/minimalist-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/youtube-deepdive/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/youtube-deepdive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/claude-code-deck/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/claude-code-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/deploy-checklist/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/deploy-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/meeting-analyzer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/meeting-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/changelog-writer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/changelog-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/launch-checklist/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/launch-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/customer-persona/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/customer-persona/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/retro-facilitator/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/retro-facilitator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/user-story-writer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/user-story-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/youtube-researcher/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/youtube-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/content-repurposer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/content-repurposer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/stakeholder-update/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/stakeholder-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/newsletter-ideator/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/newsletter-ideator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/image-to-code-skill/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/image-to-code-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/feature-prioritizer/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/feature-prioritizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/competitor-research/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/competitor-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/dockerfile-generator/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/dockerfile-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/imagegen-frontend-web/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/imagegen-frontend-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": ".claude/skills/imagegen-frontend-mobile/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/.claude/skills/imagegen-frontend-mobile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": "demos/research-frontend/demo/skills/research/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/demos/research-frontend/demo/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": "demos/research-frontend/scaffold/skills/research/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/demos/research-frontend/scaffold/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": "demos/research-agent/.claude/skills/skill-evaluator/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/demos/research-agent/.claude/skills/skill-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": "demos/research-agent/.claude/skills/competitor-research/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/demos/research-agent/.claude/skills/competitor-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": "demos/competitor-research-agent/.claude/skills/skill-evaluator/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/demos/competitor-research-agent/.claude/skills/skill-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-starter",
+      "path": "demos/competitor-research-agent/.claude/skills/competitor-research/SKILL.md",
+      "github_url": "https://github.com/hamzafarooq/claude-code-starter/tree/main/demos/competitor-research-agent/.claude/skills/competitor-research/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/hamzafarooq/claude-code-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:00:15Z"
+  "distributed_at": "2026-06-30T16:08:37Z"
 }
