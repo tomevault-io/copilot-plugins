@@ -1,7 +1,7 @@
 {
   "name": "robertalv--convex-panel",
   "displayName": "convex-panel",
-  "description": "A React component for monitoring and debugging Convex applications",
+  "description": "convex-panel",
   "version": "1.0.0",
   "author": "robertalv",
   "homepage": "https://github.com/robertalv/convex-panel",
