@@ -2,9 +2,9 @@
   "name": "vibe-check-mcp-server",
   "owner": "PV-Bhat",
   "repo": "vibe-check-mcp-server",
-  "description": "Vibe Check is a tool that provides mentor-like feedback to AI Agents, preventing tunnel-vision, over-engineering and reasoning lock-in for complex and long-horizon agent workflows. KISS your over-eager AI Agents goodbye! Effective for: Coding, Ambiguous Tasks, High-Risk tasks",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PV-Bhat/vibe-check-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T08:27:06Z"
+  "distributed_at": "2026-06-30T01:28:40Z"
 }
