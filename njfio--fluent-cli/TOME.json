@@ -4,7 +4,7 @@
   "repo": "fluent_cli",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/njfio/fluent_cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T05:20:11Z"
+  "distributed_at": "2026-06-30T17:09:36Z"
 }
