@@ -1,0 +1,14 @@
+{
+  "name": "jcmais--node-libcurl",
+  "displayName": "node-libcurl",
+  "description": "node-libcurl",
+  "version": "1.0.0",
+  "author": "JCMais",
+  "homepage": "https://github.com/JCMais/node-libcurl",
+  "skills": [
+    {
+      "name": "node-libcurl",
+      "description": ""
+    }
+  ]
+}
