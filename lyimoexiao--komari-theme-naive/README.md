@@ -2,8 +2,6 @@
 
 > Source: [lyimoexiao/komari-theme-naive](https://github.com/lyimoexiao/komari-theme-naive) — distributed by [TomeVault](https://tomevault.io)
 
-基于 Vue 3 + Vite + UnoCSS + Naive UI 的 Komari 主题
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [lyimoexiao/komari-theme-naive](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [lyimoexiao/komari-theme-naive](https://github.com/lyimoexiao/komari-theme-naive) — a repo with 90+ stars on GitHub.
+From [lyimoexiao/komari-theme-naive](https://github.com/lyimoexiao/komari-theme-naive) — a repo with 149+ stars on GitHub.
 
 ---
 
