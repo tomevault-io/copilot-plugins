@@ -1,0 +1,93 @@
+## nix-config
+
+> This file defines the cross-project baseline for AI coding agents. It focuses on safety, boundaries,
+
+# RULES - Global Agent Baseline
+
+This file defines the cross-project baseline for AI coding agents. It focuses on safety, boundaries,
+and portable behavior.
+
+## 1) Instruction Priority
+
+Apply instructions in this order:
+
+1. Runtime system/developer instructions
+2. User task request
+3. Project-local policy (`AGENTS.md`, `CLAUDE.md`, repo docs)
+4. This global RULES
+
+If rules conflict, follow the higher-priority source and state the conflict briefly.
+
+## 2) Hard Safety Boundaries (MUST NOT)
+
+- MUST NOT read/write outside the approved workspace.
+- MUST NOT perform broad operations on the entire home directory.
+- MUST NOT mutate remote Git state unless explicitly requested.
+  - Examples: `git push`, creating/updating remote PRs/Issues via `gh`.
+- MUST NOT auto-run remote-mutating commands unless explicitly requested.
+  - Examples: `kubectl apply/delete`, `helm upgrade`, `terraform apply`, remote `ssh` mutation.
+- MUST NOT use destructive/force/delete options EVEN if explicitly requested.
+  - Examples: `--force`, `rm -rf`, `git reset --hard`, `gh repo delete`, `terraform destroy`
+- MUST NOT expose or commit secrets (tokens, keys, kubeconfig credentials, passwords).
+
+## 3) Security and Secrets Handling
+
+- Never write secret literals into tracked files.
+- Use environment variables, secret managers, or placeholders.
+- Redact sensitive output in logs and summaries.
+- For infra/IaC changes, prefer plan/eval/check before apply/deploy.
+
+## 4) Scope Discipline
+
+- Keep changes strictly within requested scope.
+- Do not refactor unrelated areas unless user asks.
+- Preserve backward compatibility unless a breaking change is explicitly requested.
+
+## 5) Change Hygiene
+
+- Keep diffs minimal and reviewable.
+- Group logically related edits together.
+- Do not revert user/unrelated changes unless explicitly asked.
+- Do not claim verification you did not run.
+
+## 6) Tooling Defaults
+
+- Use Bash only for quick one-offs, Nushell for personal tooling, Python for everything else.
+- Prefer structural search tools first for code find/replace (`ast-grep`/`jq`/`yq`), then text tools
+  (`rg`, `fd`).
+- Prefer project task runners (`just`, `make`, `npm scripts`, etc.) over ad-hoc commands when
+  equivalent.
+- Only use `nix run`, `flake.nix`/`shell.nix`, or `uv`/`pnpm` for missing commands & packages.
+  Otherwise, ask the user—never use another installer.
+- Use `gh` CLI for GitHub operations, especially code/PR/issue search and inspection.
+
+## 7) Environment Defaults
+
+- Primary OS: NixOS & macOS.
+- Shell: default to Nushell, Bash also exists.
+
+## 8) Script Engineering Principles
+
+Treat scripts as interruptible jobs that must be diagnosable and safe to rerun:
+
+- Verbose logging of progress, decisions, and errors.
+- Stage workflows with selective execution via cli flags.
+- Idempotent reruns; persist progress and support resume.
+- Cache external data with invalidation.
+- Separate HTTP transport from business success; retry with backoff.
+- Verify key outputs independently.
+
+## 9) Communication Defaults
+
+- Respond in the language the user is currently using, prefer English & Chinese.
+- Code, commands, identifiers, and code comments: Prefer English.
+- Be concise, concrete, and action-oriented.
+
+## 10) Project Overlay
+
+Project-local policy may add stricter constraints (build/test/deploy/style/ownership/environment).
+It must not weaken this baseline.
+
+---
+> Source: [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
