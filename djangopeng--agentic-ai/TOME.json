@@ -1,0 +1,75 @@
+{
+  "name": "agentic-ai",
+  "owner": "DjangoPeng",
+  "repo": "agentic-ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentic-ai",
+      "path": "xhs-auto-publisher/SKILL.md",
+      "github_url": "https://github.com/DjangoPeng/agentic-ai/tree/main/xhs-auto-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ai",
+      "path": "CRM-Assistant/skills/crm-assistant/SKILL.md",
+      "github_url": "https://github.com/DjangoPeng/agentic-ai/tree/main/CRM-Assistant/skills/crm-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ai",
+      "path": "openclaw-skills/examples/crypto-monitor/SKILL.md",
+      "github_url": "https://github.com/DjangoPeng/agentic-ai/tree/main/openclaw-skills/examples/crypto-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ai",
+      "path": "financial-automation/skills/financial-expense-automation/SKILL.md",
+      "github_url": "https://github.com/DjangoPeng/agentic-ai/tree/main/financial-automation/skills/financial-expense-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ai",
+      "path": "morning-newspaper/skills/morning-newspaper-assistant-skill/SKILL.md",
+      "github_url": "https://github.com/DjangoPeng/agentic-ai/tree/main/morning-newspaper/skills/morning-newspaper-assistant-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DjangoPeng/agentic-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-06-30T00:33:18Z"
+}
