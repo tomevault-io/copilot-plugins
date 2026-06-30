@@ -4,7 +4,7 @@
   "repo": "d2-checklist",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dcaslin/d2-checklist",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T07:04:06Z"
+  "distributed_at": "2026-06-30T20:58:07Z"
 }
