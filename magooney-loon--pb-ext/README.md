@@ -2,16 +2,14 @@
 
 > Sourced from [magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-pocketbase boilerplate
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext).
+Original source: `AGENTS.md` in [magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
