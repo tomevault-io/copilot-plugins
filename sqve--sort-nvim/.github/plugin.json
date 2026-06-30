@@ -1,0 +1,9 @@
+{
+  "name": "sqve--sort-nvim",
+  "displayName": "sort.nvim",
+  "description": "sort.nvim",
+  "version": "1.0.0",
+  "author": "sQVe",
+  "homepage": "https://github.com/sQVe/sort.nvim",
+  "skills": []
+}
