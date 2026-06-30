@@ -9,7 +9,7 @@ Vibe Check MCP is a lightweight oversight layer for AI agents. It exposes two to
 - **vibe_check** – prompts you with clarifying questions to prevent tunnel vision.
 - **vibe_learn** – optional logging of mistakes and successes for later review.
 
-The server supports Gemini, OpenAI, Anthropic, and OpenRouter LLMs. History is maintained across requests when a `sessionId` is provided.
+The server supports Gemini, OpenAI and OpenRouter LLMs. History is maintained across requests when a `sessionId` is provided.
 
 ## Setup
 
@@ -22,11 +22,7 @@ The server supports Gemini, OpenAI, Anthropic, and OpenRouter LLMs. History is m
    - `GEMINI_API_KEY`
    - `OPENAI_API_KEY`
    - `OPENROUTER_API_KEY`
-   - `ANTHROPIC_API_KEY` *(official Anthropic deployments)*
-   - `ANTHROPIC_AUTH_TOKEN` *(Anthropic-compatible proxies)*
-   - `ANTHROPIC_BASE_URL` *(optional; defaults to https://api.anthropic.com)*
-   - `ANTHROPIC_VERSION` *(optional; defaults to 2023-06-01)*
-   - `DEFAULT_LLM_PROVIDER` (gemini | openai | openrouter | anthropic)
+   - `DEFAULT_LLM_PROVIDER` (gemini | openai | openrouter)
    - `DEFAULT_MODEL` (e.g., gemini-2.5-pro)
 3. Start the server:
    ```bash
@@ -35,7 +31,7 @@ The server supports Gemini, OpenAI, Anthropic, and OpenRouter LLMs. History is m
 
 ## Testing
 
-Run unit tests with `npm test`. Example request generators are provided:
+Run unit tests with `npm test`. The built-in JSON-RPC compatibility layer mitigates missing `id` fields on `tools/call` requests so the stock SDK client and Windsurf can connect without any special tooling, but well-behaved clients should still supply their own identifiers. Example request generators are still provided if you prefer ready-made payloads for manual testing:
 
 - `alt-test-gemini.js`
 - `alt-test-openai.js`
@@ -53,4 +49,4 @@ Call `vibe_check` regularly with your goal, plan and current progress. Use `vibe
 
 ---
 > Source: [PV-Bhat/vibe-check-mcp-server](https://github.com/PV-Bhat/vibe-check-mcp-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
