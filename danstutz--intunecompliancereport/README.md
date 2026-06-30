@@ -7,14 +7,14 @@ PowerShell module that exports Microsoft Intune device compliance to a wide CSV 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [DanStutz/IntuneComplianceReport](https://github.com/DanStutz/IntuneComplianceReport).
+Original source: `GEMINI.md` in [DanStutz/IntuneComplianceReport](https://github.com/DanStutz/IntuneComplianceReport).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [DanStutz/IntuneComplianceReport](https://github.com/DanStutz/IntuneComplianceReport) — a repo with 8+ stars on GitHub.
