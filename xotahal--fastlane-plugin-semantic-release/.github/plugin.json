@@ -1,0 +1,9 @@
+{
+  "name": "xotahal--fastlane-plugin-semantic-release",
+  "displayName": "fastlane-plugin-semantic_release",
+  "description": "fastlane-plugin-semantic_release",
+  "version": "1.0.0",
+  "author": "xotahal",
+  "homepage": "https://github.com/xotahal/fastlane-plugin-semantic_release",
+  "skills": []
+}
