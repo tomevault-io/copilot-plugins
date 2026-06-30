@@ -1,135 +1,69 @@
 ## komari-theme-naive
 
-> Repo guide for `komari-theme-naive`.
+> This file guides changes under `.github/` for `komari-theme-naive`. Keep edits focused on the existing CI workflow and the issue templates. Do not add general source-code rules here.
 
 # AGENTS.md
 
-Repo guide for `komari-theme-naive`.
+## Scope
 
-## Snapshot
+This file guides changes under `.github/` for `komari-theme-naive`. Keep edits focused on the existing CI workflow and the issue templates. Do not add general source-code rules here.
 
-- Generated: Fri Apr 03 2026, Asia/Shanghai
-- Branch: `master`
-- Commit: `30e2df1`
-- App: Vue 3 + Vite + Naive UI theme for Komari Monitor
-- Package manager: `pnpm`
-- Theme manifest: `komari-theme.json`
+## CI workflow rules
 
-## What this repo is
+The repo currently has one workflow at `.github/workflows/build-ci.yml`.
 
-- Builds a Komari theme, not a generic web app
-- Release artifact is a zip package Komari can import
-- Runtime app code lives under `src/`
-- Runtime static assets include `public/images/`
-- Release preview image is `docs/preview.png`
+Keep these behaviors intact unless the repository requirements clearly change:
 
-## Root structure
+- Trigger on `push` to `master`
+- Trigger on `pull_request` targeting `master`
+- Run on `ubuntu-latest`
+- Install pnpm with version `10`
+- Set up Node.js `24`
+- Run `pnpm install`
+- Run `pnpm build`
+- Upload artifacts matching `komari-theme-naive-build*.zip`
 
-- `src/` app source
-- `public/images/` runtime image contract, especially flags and logos
-- `.github/` CI workflow and issue templates
-- `docs/preview.png` release preview image
-- `komari-theme.json` theme manifest consumed by the zip build
-- `vite.config.ts` build, chunking, zip packaging
-- `package.json` root commands
-- `pnpm-workspace.yaml` workspace and catalog config
+## CI editing expectations
 
-## Root commands
+Preserve the current artifact naming pattern exactly. Downstream usage and release downloads expect `komari-theme-naive-build*.zip`.
 
-Run from repo root only.
+Keep the workflow simple and repo-specific. Avoid adding matrix jobs, extra operating systems, extra package managers, release automation, or unrelated checks unless the repo actually needs them.
 
-```bash
-pnpm dev
-pnpm build
-pnpm preview
-pnpm lint
-```
+If CI changes are necessary, prefer the smallest possible update that still keeps the build reliable for this theme project.
 
-Notes:
+Do not invent extra test stages. This repo's current GitHub Actions flow is a build-only workflow.
 
-- `pnpm build` runs type check plus production build
-- `pnpm lint` runs oxlint and eslint with `--fix`
-- There is no test suite in this repository
-- Do not invent `pnpm test` or Vitest commands here
+## Issue template rules
 
-## Build and release contract
+Issue templates live in `.github/ISSUE_TEMPLATE/` and currently cover:
 
-`pnpm build` must preserve the Komari packaging flow defined in `vite.config.ts`.
+- `bug_report.yml`
+- `feature_request.yml`
+- `config_help.yml`
+- `config.yml`
 
-Expected output:
+When editing templates, keep them aligned with the theme's real support needs. The forms should help users report theme bugs, request theme improvements, and ask configuration questions that match actual Komari Theme Naive options and behavior.
 
-- `dist/`
-- `komari-theme-naive-build-<sha>.zip`
+Preserve fields that help diagnose theme-specific problems, such as:
 
-Zip contents:
+- theme mode or view mode
+- theme version
+- Komari version
+- current config or config examples
+- screenshots or console logs when relevant
 
-- `dist/`
-- `komari-theme.json`
-- `preview.png`
+Do not add fields that ask for unrelated infrastructure details or generic project metadata that won't help triage this theme.
 
-Current source of packaged preview:
+## Practical review standard
 
-- `docs/preview.png` on disk
-- renamed to `preview.png` inside the zip
+Before changing `.github/` files, check that:
 
-Do not change zip naming, manifest filename, or preview filename without updating the real build contract.
-
-## CI facts
-
-Source of truth: `.github/workflows/build-ci.yml`
-
-CI does only:
-
-1. `pnpm install`
-2. `pnpm build`
-
-CI does not run tests, because there is no test suite.
-
-## Where to look
-
-- Start at `package.json` for root commands
-- Check `vite.config.ts` for build behavior, global constants, and zip packaging
-- Check `komari-theme.json` for theme metadata and managed configuration schema
-- Check `src/` for app behavior
-- Check `public/images/` when code references image filenames directly
-- Check `.github/workflows/build-ci.yml` for CI expectations
-- Check `.github/ISSUE_TEMPLATE/` for issue intake shape
-
-Contributor density, useful for triage:
-
-- `src/components/` is a dense UI change area
-- `src/utils/` is a dense logic and helper area
-- `src/stores/` is central state, usually affected by cross-cutting changes
-
-## Conventions seen in this repo
-
-- Use `pnpm`, not npm or yarn
-- Keep root guidance focused on build, packaging, manifest, and repo structure
-- Preserve the `@` alias to `src` defined in `vite.config.ts`
-- Treat `komari-theme.json` as release input, not optional metadata
-- Treat `docs/preview.png` as release input, not just documentation art
-- Respect existing generated outputs and naming patterns, especially `komari-theme-naive-build-<sha>.zip`
-- Root verification is lint plus build, not tests
-
-## Repo grounded anti-patterns
-
-- Do not rename `komari-theme.json`
-- Do not move or rename `docs/preview.png` casually
-- Do not rename files under `public/images/flags/` or `public/images/logo/` without checking code references in `src`
-- Do not change asset path conventions like `/images/flags/<code>.svg` or `/images/logo/...` blindly
-- Do not add generic framework advice here that belongs in `src/AGENTS.md`
-- Do not duplicate workflow specifics from `.github/AGENTS.md` or asset naming specifics from `public/images/AGENTS.md`
-
-## Child guides
-
-For local rules, defer to the nearest child guide:
-
-- `src/AGENTS.md` for app code, component, store, router, and utility changes
-- `.github/AGENTS.md` for workflow and issue template changes
-- `public/images/AGENTS.md` for runtime image asset naming and compatibility rules
-
-If a child guide exists, it overrides this root file for its subtree.
+- CI still builds the theme with pnpm 10 and Node 24
+- workflow triggers still target `master` pushes and pull requests
+- artifact uploads still use `komari-theme-naive-build*.zip`
+- issue templates still reflect real configuration and reporting paths for this theme
+- no extra GitHub workflow complexity has been introduced without a concrete repo need
 
 ---
 > Source: [lyimoexiao/komari-theme-naive](https://github.com/lyimoexiao/komari-theme-naive) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
