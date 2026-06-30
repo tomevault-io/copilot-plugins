@@ -1,7 +1,7 @@
 {
   "name": "lona-cn--vision-simple",
   "displayName": "vision-simple",
-  "description": "a lightweight C++ cross-platform vision inference library,support  YOLOv10 YOLOv11 PaddleOCR EasyOCR ,using ONNXRuntime/TVM with multiple exectuion providers.QQ\u7fa4\uff1a364057904",
+  "description": "vision-simple",
   "version": "1.0.0",
   "author": "lona-cn",
   "homepage": "https://github.com/lona-cn/vision-simple",
