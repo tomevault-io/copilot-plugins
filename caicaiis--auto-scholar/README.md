@@ -2,8 +2,6 @@
 
 > Tome by [CAICAIIs](https://github.com/CAICAIIs/Auto-Scholar) — distributed by [TomeVault](https://tomevault.io)
 
-AI-powered literature review generator with human-in-the-loop workflow. Enter a research topic, approve papers, and get well-cited academic reviews in minutes.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
