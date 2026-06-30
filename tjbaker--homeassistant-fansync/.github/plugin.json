@@ -1,0 +1,9 @@
+{
+  "name": "tjbaker--homeassistant-fansync",
+  "displayName": "homeassistant-fansync",
+  "description": "FanSync Home Assistant Integration",
+  "version": "1.0.0",
+  "author": "tjbaker",
+  "homepage": "https://github.com/tjbaker/homeassistant-fansync",
+  "skills": []
+}
