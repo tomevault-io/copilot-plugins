@@ -1,119 +1,65 @@
 ## demo-mock-server
 
-> **demo-mock-server** — 交互式技术演示合集（数字直觉系列），用可视化和互动方式解释概率、统计、博弈论、心理学等概念。最初用于知乎技术问答的配套演示。
+> - **Java 17**。使用现代语言特性：`var`、`switch` 表达式、文本块。
 
-# AGENTS.md — AI Context for opencode
+# AI 编码规范 — numfeel-service
 
-## 项目概述
+## 语言与 JDK
 
-**demo-mock-server** — 交互式技术演示合集（数字直觉系列），用可视化和互动方式解释概率、统计、博弈论、心理学等概念。最初用于知乎技术问答的配套演示。
+- **Java 17**。使用现代语言特性：`var`、`switch` 表达式、文本块。
+- **DTO 必须使用 Java record**，不得使用普通类。请求/响应 record 放在 `controller.dto` 包下，每个字段必须写 Javadoc。
 
-- 前端：https://numfeel.996.ninja（~119 个 HTML 演示页）
-- 后端：https://numfeel-api.996.ninja
+## 反应式规范
 
-## 技术栈
+- 所有 I/O 必须非阻塞。返回值统一使用 **Reactor `Mono<T>` 和 `Flux<T>`**。
+- **绝对禁止在 Controller 或 Service 代码中调用 `.block()`**。`.block()` 只允许出现在 `@Test` 方法或一次性启动 Runner 中。
+- 阻塞 I/O（如 GeoIP2 文件读取、Jieba 词典加载、阻塞式 HTTP 客户端）**必须脱离事件循环**，使用 `Mono.fromCallable(() -> ...).subscribeOn(Schedulers.boundedElastic())` 或 `Mono.fromRunnable(() -> ...).subscribeOn(Schedulers.boundedElastic())`。
+- 当响应式链的构建逻辑必须在订阅时执行时（例如从缓存构建新桶），使用 `Mono.defer()`。
 
-| 层 | 技术 | 版本 |
-|---|---|---|
-| 语言 | Java | 17 |
-| 后端框架 | Eclipse Vert.x | 4.5.13 |
-| 构建 | Maven + shade-plugin (fat jar) | — |
-| 数据库 | MySQL 5.7+ (阿里云 RDS) | — |
-| 限流 | Caffeine 内存缓存 | 3.1.8 |
-| 日志 | SLF4J + Logback | — |
-| JSON | Jackson | 2.12.2 |
-| 前端 | 原生 HTML/CSS/JS + Chart.js 4.4.0 | — |
-| 部署 | Docker + K3s (单副本) | — |
-| CDN/DNS | Cloudflare 代理 | — |
-| 测试 | JUnit 5 + Vert.x JUnit5 + Playwright (E2E) | — |
+## 分层规范
 
-## 项目结构
+- **Controller 必须是薄层**：仅做入参校验、委托 Service、用 `ApiResponse` 包裹结果。不得包含业务逻辑。
+- **业务逻辑集中在 `@Service` 类中**。Service 统一使用构造器注入，禁止 `@Autowired` 字段注入。
+- **数据库查询**：聚合、计数、统计类查询优先使用 `DatabaseClient` 原生 SQL，禁止 `selectAll()` 全量加载后 Java stream 内存过滤。简单 CRUD 使用 `R2dbcEntityTemplate`。
 
-```
-├── pages/                  # 前端演示页面（~119个 HTML）
-├── components/             # 公共组件（header.js, header.css）
-├── data/
-│   └── demos.json          # 演示列表（首页唯一数据源，编辑此文件同步到 sitemap/README）
-├── src/main/java/com/example/demo_mock_server/
-│   ├── MainVerticle.java   # 入口，启动 HTTP (8080)
-│   ├── config/RouterConfig.java  # 路由注册（全部 API 路由）
-│   ├── handler/            # API 处理器（24个，实现 Handler<RoutingContext>）
-│   ├── service/            # 业务服务（17个，Caffeine 缓存）
-│   └── generator/          # 数据生成器
-├── src/test/java/          # 单元测试（19个测试类）
-├── sql/                    # 数据库建表语句（13个表）
-├── tests/e2e/              # Playwright 端到端测试
-├── scripts/sync.py         # demos.json → sitemap.xml / README.md 同步脚本
-├── Dockerfile              # ibm-semeru-runtimes:open-17-jre
-├── k3s-deployment-prod.yaml
-└── pom.xml
-```
+## API 响应格式
 
-## 编码规范
+- `ApiResponse.ok(data)` → `{"status":200,"data":<data>}`，HTTP 200。
+- `ApiResponse.error(status, message)` → `{"status":<status>,"message":"<msg>"}`，HTTP 状态码与 status 一致。
+- 不得自行构造 `ResponseEntity` + 自定义 JSON；统一使用 `ApiResponse`。
 
-- **Handler 模式：** 每个 API 端点一个 Handler 类，实现 `Handler<RoutingContext>`，通过 RouterConfig 注册
-- **Service 层：** Caffeine 内存缓存，不依赖外部缓存中间件
-- **IP 获取优先级：** `CF-Connecting-IP` > `X-Forwarded-For` > `X-Real-IP` > `remoteAddress`（因为走 Cloudflare 代理）
-- **前端页面：** 每个演示独立 HTML，公共组件通过 `../../components/` 引用
-- **数据驱动首页：** 新增/修改演示只改 `data/demos.json`，不要硬编码到 index.html
-- **缩进：** 2 空格，UTF-8，LF（参见 .editorconfig）
-- **测试：** JUnit 5 + Vert.x JUnit5 Extension + Mockito
+## 限流与缓存
 
-## 常用命令
+- **Bucket4j** 实现 IP 级别限流。规则统一在 `RateLimitWebFilter` 中定义，不得在 Controller 中内联限流逻辑。
+- **Caffeine** 作为本地缓存。必须设置 TTL，根据场景选择 `.expireAfterAccess()` 或 `.expireAfterWrite()`。
 
-```bash
-# 编译（本机无 JDK 17 则用 Docker）
-docker run --rm -v "$(pwd)":/app -w /app eclipse-temurin:17-jdk ./mvnw clean package
+## 线程
 
-# 运行测试
-./mvnw test
+- **禁止 `new Thread()`**。使用 `Executors.newSingleThreadExecutor()` 或 `Executors.newFixedThreadPool()`，并将 Executor 赋给 `static final` 字段。
+- 自定义 Executor 必须通过 `@PreDestroy` 或 shutdown hook 关闭。
 
-# E2E 测试
-./tests/e2e/run.sh              # 测生产
-./tests/e2e/run.sh --local      # 测本地
+## 日志
 
-# 同步 demos.json 到 sitemap.xml / README.md
-python3 scripts/sync.py
-```
+- 使用 **SLF4J**（`org.slf4j.Logger` / `org.slf4j.LoggerFactory`）。允许使用 Lombok `@Slf4j`。
+- **catch 块必须记录日志**，禁止空 catch。至少 warn 级别记录异常信息，使用 `log.warn("描述: {}", e.getMessage())` 模式，除非 debug/trace 级别否则不打印完整堆栈。
 
-## 部署
+## 测试
 
-- **前端：** Cloudflare Pages 直接托管 `pages/`、`components/`、`data/`、`images/` 等静态目录，推送 `main` 后自动同步部署
-- **后端：** GitHub Actions 构建 Docker 镜像 → 阿里云容器镜像仓库 → K3s 滚动更新（`Dockerfile` 只打包 fat jar，不含前端文件）
-- 密钥通过 K3s Secret 注入（MYSQL_HOST/PORT/DB/USER/PASSWORD）
-- 健康检查端点：`GET /chinese-names?n=1`（轻量，返回 200）
+- **JUnit 5**（`org.junit.jupiter.api`）+ **Mockito**（`org.mockito`）。
+- 测试类命名：`*Test.java`，位于 `src/test/java/`（不得命名为 `*Tests` 或 `Test*`）。
+- 测试反应式流使用 `StepVerifier`（`reactor-test`）。
+- 保持测试聚焦：mock 外部依赖，每个测试方法只验证一个行为。
 
-## 已知问题 / 待优化
+## Jackson
 
-- **P0:** 89 个 HTML 页面内联 CSS 严重重复
-- **P1:** Dockerfile 单阶段构建，基础镜像版本未锁定
-- **P1:** StatsProxyHandler 回调地狱，应改 `Future.all()`
-- **P1:** pom.xml 依赖偏旧（jackson-databind 2.12.2 有 CVE）
-- **P1:** CORS 配置 `*` 过于宽松
-- **P2:** 前端逻辑分离不一致（~20 页有 xxx-logic.js，~70 页仍内联）
+- Jackson 注解统一使用 **`tools.jackson`** 包（非 `com.fasterxml`）。
+- 导入示例：`import tools.jackson.databind.JsonNode;`、`import tools.jackson.annotation.JsonProperty;`。
 
-## 新选题方向
+## Javadoc
 
-用户提出：「用代码解释 XX 概念」系列 — 以可运行的代码片段直观展示技术/数学/算法概念，如：
-
-- 用代码解释递归 / 闭包 / Promise / 协程
-- 用代码解释布隆过滤器 / 一致性哈希 / Raft 共识
-- 用代码解释傅里叶变换 / 蒙特卡洛 / PageRank
-
-新增此类演示只需：在 `pages/` 下创建 HTML 页面，在 `data/demos.json` 中注册即可。
-
-## .kiro 遗留信息
-
-项目根目录 `.kiro/` 是前 AI 助手 kiro 的 LSP 配置目录：
-- `settings/lsp.json` — 语言服务器配置（Java/jdtls、Python/pyright、TypeScript、Go/gopls、Rust/rust-analyzer、Ruby/solargraph、C++/clangd）
-- `.kiro-context.md` — kiro 的项目上下文文件（本文件基于此更新）
-
-## Cloudflare DNS
-
-- Zone: 996.ninja (ID: `49c84b697b70c650cfff3d43becba6af`)
-- 管理脚本位于 `/root/control-ninja`
-- 只增 DNS 记录，不删不改现有记录，全部 proxied=true
+- **所有 public 方法**必须写 Javadoc，包含方法说明、参数和返回值描述。
+- 使用 `/** ... */` 风格。保持简洁但信息充分。
 
 ---
 > Source: [MingGH/demo-mock-server](https://github.com/MingGH/demo-mock-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
