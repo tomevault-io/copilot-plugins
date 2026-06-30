@@ -2,51 +2,11 @@
 
 > This project is managed with **Frame**. AI assistants should follow the rules below to keep documentation up to date.
 
-# Frame - Project Instructions
+# TaskFlow - Frame Project
 
 This project is managed with **Frame**. AI assistants should follow the rules below to keep documentation up to date.
 
-> **Note:** This file is named `AGENTS.md` to be AI-tool agnostic. A `CLAUDE.md` symlink is provided for Claude Code compatibility.
-
----
-
-## Core Working Principle
-
-**Only do what the user asks.** Do not go beyond the scope of the request.
-
-- Implement exactly what the user requested — nothing more, nothing less.
-- Do not change business logic, flow, or architecture unless the user explicitly asks for it.
-- If a user asks for a design change, only change the design. Do not refactor, restructure, or modify functionality alongside it.
-- If you have additional suggestions or improvements, **present them as suggestions** to the user. Never implement them without approval.
-- The user's request must be completed first. Additional ideas come after, as proposals.
-
-**Example:** If the user asks for a modal design change, only change the visual appearance. Do not add new IPC channels, modify event flows, or restructure code.
-
----
-
-## 🧭 Project Navigation
-
-**Read these files at the start of each session:**
-
-1. **STRUCTURE.json** - Module map, which file is where
-2. **PROJECT_NOTES.md** - Project vision, past decisions, session notes
-3. **tasks.json** - Pending tasks
-
-**Workflow:**
-1. Read these files to understand the project and capture context
-2. Identify relevant files based on the task
-3. Update STRUCTURE.json after making changes (if new modules/files are added)
-
-**Fast File Lookup:** When searching for files related to a feature or concept, run:
-```bash
-node scripts/find-module.js <keyword>
-```
-This searches STRUCTURE.json's intentIndex and returns the exact files you need. Use this **before** doing manual grep/glob searches. Examples:
-- `node scripts/find-module.js github` → finds githubManager.js + githubPanel.js
-- `node scripts/find-module.js terminal` → finds all terminal-related files
-- `node scripts/find-module.js --list` → lists all features and their files
-
-**Note:** This system doesn't prevent reading code - it just helps you know where to look.
+> **Note:** This is the **sample project** that ships with Frame. It's a fictional codebase used to demonstrate Frame's workflow on realistic content. None of this code runs. When you're ready, open your own project to start real work.
 
 ---
 
@@ -79,52 +39,82 @@ This searches STRUCTURE.json's intentIndex and returns the exact files you need.
 ```json
 {
   "id": "unique-id",
-  "title": "Short and clear title (max 60 characters)",
-  "description": "AI's detailed explanation - what will be done, how it will be done, which files will be affected",
-  "userRequest": "User's original request/prompt - copy exactly",
-  "acceptanceCriteria": "When is this task considered complete? List of concrete criteria",
-  "notes": "Important notes, decisions, alternatives that came up during discussion",
+  "title": "Short and clear title",
+  "description": "Detailed explanation",
   "status": "pending | in_progress | completed",
   "priority": "high | medium | low",
-  "category": "feature | fix | refactor | docs | test",
-  "context": "Session date and context",
+  "context": "Where/how this task originated",
   "createdAt": "ISO date",
   "updatedAt": "ISO date",
   "completedAt": "ISO date | null"
 }
 ```
 
-### Task Content Rules
-
-**title:** Short, action-oriented title
-- ✅ "Add tasks button to terminal toolbar"
-- ❌ "Tasks"
-
-**description:** AI's detailed technical explanation
-- What will be done (what)
-- How it will be done (how) - brief technical approach
-- Which files will be affected
-- Minimum 2-3 sentences
-
-**userRequest:** User's original words
-- Copy the user's prompt/request exactly
-- Important for preserving context
-- In "User said: ..." format
-
-**acceptanceCriteria:** Completion criteria
-- Concrete, testable items
-- "Task is complete when this happens" list
-
-**notes:** Discussion notes (optional)
-- Alternatives considered
-- Important decisions and their reasons
-- Dependencies marked as "we'll do this later"
-
 ### Task Status Updates
 
 - When starting work on a task: `status: "in_progress"`
 - When task is completed: `status: "completed"`, update `completedAt`
 - After commit: Check and update the status of related tasks
+
+---
+
+## Spec-Driven Development (.frame/specs/)
+
+Frame supports a structured `spec → plan → tasks → implement` workflow. When the user asks you to define, plan, or implement a feature, prefer this workflow over ad-hoc edits — it preserves intent and keeps `tasks.json` in sync.
+
+### File layout
+
+Each spec lives in its own folder:
+
+```
+.frame/specs/<slug>/
+  spec.md       — what we're building (Problem, Goal, Constraints, Success Criteria, Out of Scope)
+  plan.md       — how (Architecture, Files, Dependencies, Sequencing)
+  tasks.md      — flat bullet list, "- T01 · description"
+  status.json   — phase + metadata
+```
+
+`<slug>` is kebab-case, derived from the spec title.
+
+### Lifecycle phases
+
+`draft` → `specified` → `planned` → `tasks_generated` → `implementing` → `done`
+
+Frame auto-advances phase from filesystem state (file presence). After writing each artifact, update `status.json` so `phase`, `updated_at`, and `last_phase_at` reflect reality — Frame's watcher will reconcile if you forget.
+
+### Slash commands
+
+When the user types a Frame slash command, write **exactly one file** and then update `status.json`:
+
+- `/spec.new <description>` → write `spec.md` (sections: Problem, Goal, Constraints, Success Criteria, Out of Scope). Phase → `specified`.
+- `/spec.plan` → read `spec.md`, write `plan.md` (sections: Architecture, Files, Dependencies, Sequencing). Phase → `planned`.
+- `/spec.tasks` → read `spec.md` + `plan.md`, write `tasks.md` as a flat `- T01 · ...` bullet list (5–12 tasks, imperative voice). Phase → `tasks_generated`.
+
+After `/spec.tasks`, **do not** also write entries to `tasks.json` — Frame's watcher imports them automatically with `source: "spec:<slug>:T<n>"` markers.
+
+### tasks.json linkage
+
+Spec-generated tasks carry a `source` field. Treat them like any other task — start them, complete them, update status. User-set status is preserved across spec re-imports; only title/description sync from `tasks.md`.
+
+### When to suggest a spec (steer the conversation)
+
+Spec-driven is Frame's core way of working, so when a user describes meaningful new work **mid-conversation**, gently steer them toward a spec instead of silently diving into code. Suggest a spec only for **significant work** — don't make this a reflex on every message.
+
+**Suggest a spec for:**
+- A new **feature** or capability ("users should be able to …", "add a … system")
+- A change that will touch **multiple files / modules** or affect architecture
+- Anything that clearly benefits from a **plan and ordered tasks** before coding
+- Work the user describes vaguely/largely that would benefit from being scoped first
+
+**Do NOT suggest a spec for:**
+- Typos, one-line fixes, small tweaks, renames → just do it
+- Small, discrete tracked work → that's a task (`tasks.json`)
+- Questions, debugging, explanations, experiments
+- Anything the user explicitly says to "just do" / "do directly"
+
+Rough ladder: *trivial → just do it · small but worth tracking → task · sizable feature or multi-file change → spec.*
+
+Ask once, in plain language, before coding — e.g. *"This is a sizable feature. Want me to handle it as a spec? I'll draft `.frame/specs/<slug>/spec.md`, then we plan it and generate tasks."* If they agree, start the spec flow (`/spec.new` → `/spec.plan` → `/spec.tasks`). If they decline or say "just do it", proceed directly and **don't ask again for that same piece of work** in the session. Never force it — the spec is an offer, not a gate; the user's stated preference always wins.
 
 ---
 
@@ -197,48 +187,21 @@ No problem, continue. The user can also say what they consider important themsel
 - When a new file/folder is created
 - When a file/folder is deleted or moved
 - When module dependencies change
-- When an IPC channel is added or changed
 - When an important architectural pattern is discovered (architectureNotes)
 
 ### Format
 ```json
 {
   "modules": {
-    "main/tasksManager": {
-      "path": "src/main/tasksManager.js",
-      "purpose": "Task CRUD operations",
-      "exports": ["init", "loadTasks", "addTask"],
-      "depends": ["fs", "path", "shared/ipcChannels"]
+    "moduleName": {
+      "path": "src/module",
+      "purpose": "What this module does",
+      "depends": ["otherModule"]
     }
   },
-  "ipcChannels": {
-    "LOAD_TASKS": {
-      "direction": "renderer → main",
-      "handler": "main/tasksManager.js"
-    }
-  },
-  "architectureNotes": {
-    "circularDependencies": {
-      "issue": "Description",
-      "solution": "Solution"
-    }
-  }
+  "architectureNotes": {}
 }
 ```
-
-### Update Rules
-- Pre-commit hook updates automatically (before commit)
-- Manual: `npm run structure`
-- If you added a new IPC channel, check the ipcChannels section
-
----
-
-## QUICKSTART.md Rules
-
-### When to Update?
-- When installation steps change
-- When new requirements are added
-- When important commands change
 
 ---
 
@@ -251,9 +214,30 @@ No problem, continue. The user can also say what they consider important themsel
 
 ---
 
-*This file was automatically created by Frame.*
-*Creation date: 2026-01-24*
+## TaskFlow — Project Specifics
+
+Beyond the standard Frame rules above, here's what's specific to this codebase:
+
+**Stack:**
+- Backend: Node.js 20, Express 4
+- Database: PostgreSQL 16 (migrated from SQLite — see `.frame/specs/migrate-to-postgres/`)
+- Auth: Google OAuth via Passport.js
+- Frontend: React 18 + Vite
+
+**Conventions:**
+- Database access lives in `src/db/`; API handlers never touch SQL directly
+- React components stay under 150 lines; split into sub-folders when they grow
+- Commit messages: imperative mood, one-line summary + optional body
+
+**Specs in flight:**
+- `.frame/specs/add-google-oauth/` — shipped (read `outcome.md`)
+- `.frame/specs/migrate-to-postgres/` — implementing (4 of 8 tasks done)
+- `.frame/specs/email-notifications/` — planned, awaiting `/spec.tasks`
+
+---
+
+**Note:** This file is named `AGENTS.md` to be AI-tool agnostic. A `CLAUDE.md` symlink is provided for Claude Code compatibility, and a `GEMINI.md` for Gemini CLI.
 
 ---
 > Source: [kaanozhan/Frame](https://github.com/kaanozhan/Frame) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
