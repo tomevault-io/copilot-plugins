@@ -1,0 +1,14 @@
+{
+  "name": "tx7do--go-wind-cms",
+  "displayName": "go-wind-cms",
+  "description": "go-wind-cms",
+  "version": "1.0.0",
+  "author": "tx7do",
+  "homepage": "https://github.com/tx7do/go-wind-cms",
+  "skills": [
+    {
+      "name": "go-wind-cms",
+      "description": ""
+    }
+  ]
+}
