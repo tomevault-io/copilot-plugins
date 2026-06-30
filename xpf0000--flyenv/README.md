@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [xpf0000/FlyEnv](https://github.com/xpf0000/FlyEnv).
+Original source: `AGENTS.md` in [xpf0000/FlyEnv](https://github.com/xpf0000/FlyEnv).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [xpf0000/FlyEnv](https://github.com/xpf0000/FlyEnv) — a repo with 3023+ stars on GitHub.
+From [xpf0000/FlyEnv](https://github.com/xpf0000/FlyEnv) — a repo with 3022+ stars on GitHub.
 
 ---
 
