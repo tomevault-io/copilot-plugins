@@ -2,8 +2,6 @@
 
 > Sourced from [frkdrgt/ferox](https://github.com/frkdrgt/ferox) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-A blazing-fast PostgreSQL client built in Rust. No Electron. No JVM. No bloat.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
