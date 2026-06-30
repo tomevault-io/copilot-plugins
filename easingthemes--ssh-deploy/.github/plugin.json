@@ -1,0 +1,9 @@
+{
+  "name": "easingthemes--ssh-deploy",
+  "displayName": "ssh-deploy",
+  "description": "ssh-deploy",
+  "version": "1.0.0",
+  "author": "easingthemes",
+  "homepage": "https://github.com/easingthemes/ssh-deploy",
+  "skills": []
+}
