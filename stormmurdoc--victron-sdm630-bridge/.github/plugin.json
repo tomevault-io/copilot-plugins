@@ -1,0 +1,9 @@
+{
+  "name": "stormmurdoc--victron-sdm630-bridge",
+  "displayName": "victron_sdm630_bridge",
+  "description": "victron_sdm630_bridge",
+  "version": "1.0.0",
+  "author": "stormmurdoc",
+  "homepage": "https://github.com/stormmurdoc/victron_sdm630_bridge",
+  "skills": []
+}
