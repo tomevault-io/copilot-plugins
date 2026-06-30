@@ -2,16 +2,14 @@
 
 > Tome by [geigerzaehler](https://github.com/geigerzaehler/oidc-provider-mock) — distributed by [TomeVault](https://tomevault.io)
 
-A mock OpenID Provider server to test and develop OpenID Connect authentication
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [geigerzaehler/oidc-provider-mock](https://github.com/geigerzaehler/oidc-provider-mock).
+Original source: `AGENTS.md` in [geigerzaehler/oidc-provider-mock](https://github.com/geigerzaehler/oidc-provider-mock).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
