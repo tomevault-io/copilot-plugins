@@ -1,0 +1,9 @@
+{
+  "name": "jooho--nfs-provisioner-operator",
+  "displayName": "nfs-provisioner-operator",
+  "description": "nfs-provisioner-operator",
+  "version": "1.0.0",
+  "author": "Jooho",
+  "homepage": "https://github.com/Jooho/nfs-provisioner-operator",
+  "skills": []
+}
