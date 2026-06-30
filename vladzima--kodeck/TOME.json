@@ -2,9 +2,9 @@
   "name": "kodeck",
   "owner": "vladzima",
   "repo": "kodeck",
-  "description": "Open-source IDE for Claude Code. Multi-project workspace with chat, terminals, and git worktree management \u2014 all in your browser.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vladzima/kodeck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T12:57:29Z"
+  "distributed_at": "2026-06-30T01:27:11Z"
 }
