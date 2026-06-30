@@ -1,0 +1,9 @@
+{
+  "name": "olical--clojure-dap",
+  "displayName": "clojure-dap",
+  "description": "clojure-dap",
+  "version": "1.0.0",
+  "author": "Olical",
+  "homepage": "https://github.com/Olical/clojure-dap",
+  "skills": []
+}
