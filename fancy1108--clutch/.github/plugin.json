@@ -1,0 +1,9 @@
+{
+  "name": "fancy1108--clutch",
+  "displayName": "Clutch",
+  "description": "Local AI multi-agent orchestration desktop app (Tauri \u00b7 LangGraph)",
+  "version": "1.0.0",
+  "author": "fancy1108",
+  "homepage": "https://github.com/fancy1108/Clutch",
+  "skills": []
+}
