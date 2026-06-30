@@ -2,9 +2,9 @@
   "name": "dotai",
   "owner": "andrewhopper",
   "repo": "dotai",
-  "description": "Tired of scattered Cursor files and messy AI projects? .ai gives you streamlined governance with templates for the entire development lifecycle - from customer discovery to deployment",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andrewhopper/dotai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T11:11:24Z"
+  "distributed_at": "2026-06-30T01:13:23Z"
 }
