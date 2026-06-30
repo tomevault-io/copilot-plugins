@@ -1,0 +1,9 @@
+{
+  "name": "jkroepke--helm-secrets",
+  "displayName": "helm-secrets",
+  "description": "helm-secrets",
+  "version": "1.0.0",
+  "author": "jkroepke",
+  "homepage": "https://github.com/jkroepke/helm-secrets",
+  "skills": []
+}
