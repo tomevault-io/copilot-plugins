@@ -1,0 +1,9 @@
+{
+  "name": "damiansire--genai-fullstack-blueprint",
+  "displayName": "genai-fullstack-blueprint",
+  "description": "Production-ready full-stack blueprint for building multimodal GenAI apps with an Angular client and Node.js/Express AI Gateway.",
+  "version": "1.0.0",
+  "author": "damiansire",
+  "homepage": "https://github.com/damiansire/genai-fullstack-blueprint",
+  "skills": []
+}
