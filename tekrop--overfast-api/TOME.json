@@ -4,7 +4,7 @@
   "repo": "overfast-api",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TeKrop/overfast-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T08:44:39Z"
+  "distributed_at": "2026-06-30T22:50:58Z"
 }
