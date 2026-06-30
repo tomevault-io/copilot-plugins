@@ -1,82 +1,42 @@
 ## oidc-provider-mock
 
-> This file provides guidance to coding agents when working with code in this repository.
+> - `app` fixture: creates a Flask app, optionally configured via `@use_provider_config(...)` marker on the test
 
-# AGENTS.md
+# Test Structure
 
-This file provides guidance to coding agents when working with code in this repository.
+## Fixtures and configuration (conftest.py)
 
-## Tools
+- `app` fixture: creates a Flask app, optionally configured via `@use_provider_config(...)` marker on the test
+- `oidc_server` fixture: starts a real threaded HTTP server, yields its URL as a string
+- `client` fixture: Flask test client (from Flask, not oidc-specific) — no real HTTP, no browser
+- `page` fixture: Playwright browser page with 3s timeouts
+- `use_provider_config(...)`: decorator that sets `Config` fields on the test's app — mirrors `Config` dataclass fields exactly (`require_client_registration`, `require_nonce`, `issue_refresh_token`, `access_token_max_age`, `user_claims`)
+- `fake_client(issuer)`: creates an `OidcClient` with random ID/secret/redirect_uri, **not** registered with the server — works because `require_client_registration` defaults to `False`
+- `typeguard` import hook is installed globally for `oidc_provider_mock` — runtime type checking is always active in tests
 
-- `uv` for dependency and project management
-- `ruff` for linting and formatting
-- `pyright` for type checking
+## Test files
 
-## Development Guidelines
+| File | What it covers | Fixtures used |
+|---|---|---|
+| `auth_test.py` | Authorization code flow, claims (dynamic and preconfigured), nonce, access denied | `oidc_server` |
+| `scope_test.py` | Scope filtering: openid required for ID token, claims excluded without scope, scope capped to registration | `oidc_server` |
+| `token_test.py` | Token lifecycle: expiry, refresh rotation, revocation, unsupported grant type, expired token on userinfo | `oidc_server`, `client` |
+| `client_registration_test.py` | Client registration enforcement, wrong secret, auth method validation | `oidc_server` |
+| `auth_form_test.py` | Authorization form UI via Playwright; low-level form/query parameter validation via Flask test client | `oidc_server` + `page`, `client` |
+| `end_session_test.py` | `/oauth2/end_session` endpoint: redirect, state, UI confirmation | `client`, `oidc_server` + `page` |
+| `self_client_test.py` | Built-in OIDC client blueprint (`/oidc/login`) end-to-end via Playwright | `oidc_server` + `page` |
+| `flask_advanced_test.py` | Integration with a real Flask-OIDC relying party (`examples/flask_oidc_example.py`); token refresh and expiry via time-freezing | `oidc_server` + `page`, custom `relying_party` fixture |
+| `cli_test.py` | CLI smoke test: spawns `oidc-provider-mock` subprocess, polls discovery endpoint | subprocess only |
+| `misc_test.py` | CORS headers, userinfo auth errors, `test_consistent_kwargs` (asserts `Config`, `init_app`, `run_server_in_thread`, and `use_provider_config` have identical kwargs) | `client` |
 
-- Always use type hints for function parameters and return values
-- Never use `Any` type - prefer specific types or use union types when needed
-- Use modern idiomatic Python code targeting Python 3.10+
-- Follow existing code patterns and conventions in the codebase
+## Patterns
 
-## Architecture Overview
-
-This is a mock OpenID Connect (OIDC) provider server for testing authentication flows. The architecture consists of:
-
-### Core Components
-
-- `_app.py`: Main Flask application factory and OAuth2/OIDC protocol implementation using Authlib
-- `_server.py`: Threading utilities for running the server in background threads during tests
-- `_storage.py`: In-memory storage models for clients, users, tokens, and authorization codes
-- `_client.py`: Blueprint for OIDC client functionality and login flows
-- `_client_lib.py`: OIDC client library for making requests to providers
-- `__main__.py`: CLI interface using `click`
-
-### Key Features
-
-- **Dynamic client registration**: Clients can be registered at runtime or use "allow any" mode
-- **User management**: Users can be added via HTTP API with custom claims
-- **Token lifecycle**: Issues access tokens, ID tokens, and optionally refresh tokens
-- **Authorization flows**: Supports authorization code flow with PKCE
-- **Testing utilities**: Context managers for running server in tests
-
-### Templates
-
-HTML templates in `templates/` provide the authorization form UI:
-
-- **`authorization_form.html`**: Main login/authorization form
-- **`_base.html`**: Base template
-- **`error.html`**: Error display
-- **`index.html`**: Provider information page
-
-### Protocol Implementation
-
-- Uses **Authlib** for OAuth2/OIDC protocol compliance
-- **Flask** for HTTP server and routing
-- **Pydantic** for data validation
-- **JOSE/JWT** for token signing and verification
-- **RS256** algorithm for JWT signing
-
-### Test Structure
-
-- Tests use **pytest** with **Playwright** for browser automation
-- **Flask-OIDC** integration examples in `examples/`
-- **Typeguard** runtime type checking enabled in tests
-- Coverage reporting configured for HTML and terminal output
-
-### Configuration
-
-- All configuration via `Config` dataclass in `_app.py`
-- CLI options in `__main__.py` for common settings
-- Environment-based configuration for colors and logging
-
-### Documentation
-
-- Build with `sphinx` using the `shibuya` theme
-- Pages contained in `docs/`
-- API docs are automatically generated with `sphinx.ext.autodoc` in `docs/api.rst`
-- If asked, write concise user documentation in line with the existing docs
+- `fake_client(issuer)` in `conftest.py`: use when the test doesn't need a registered client
+- `OidcClient.register(oidc_server, ...)`: calls `POST /oauth2/clients` and returns a configured client — use when the test needs a specific redirect URI or scope
+- Browser tests use Playwright's `expect(...)` assertions; non-browser tests use `httpx` for real HTTP or Flask's `client` for in-process requests
+- `freeze_time` (freezegun) is used for token expiry tests
+- `faker` generates random values for subjects, URIs, passwords, etc. — tests are not deterministic by design
 
 ---
 > Source: [geigerzaehler/oidc-provider-mock](https://github.com/geigerzaehler/oidc-provider-mock) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
