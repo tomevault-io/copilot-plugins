@@ -1,0 +1,52 @@
+## warriorjs
+
+> A game that teaches JavaScript and TypeScript through interactive coding challenges. Players write code to control a warrior navigating through towers full of enemies.
+
+# WarriorJS
+
+A game that teaches JavaScript and TypeScript through interactive coding challenges. Players write code to control a warrior navigating through towers full of enemies.
+
+## Commands
+
+```bash
+pnpm install        # Install dependencies
+pnpm build          # Build all packages (Turborepo handles ordering)
+pnpm test           # Run all tests
+pnpm lint           # Check linting/formatting (Biome)
+pnpm lint:fix       # Auto-fix linting/formatting
+```
+
+Run a single package's tests: `npx vitest run apps/cli/`
+
+## Architecture
+
+pnpm monorepo with Turborepo. Code is organized into three top-level directories:
+
+- **`apps/`** — End-user applications
+  - **@warriorjs/cli** — CLI for offline play
+- **`libs/`** — Shared libraries
+  - **@warriorjs/core** — Game engine, level runner, player code loader
+  - **@warriorjs/abilities** — Warrior abilities (walk, attack, feel, etc.)
+  - **@warriorjs/units** — Game units/enemies
+  - **@warriorjs/effects** — Status effects system
+  - **@warriorjs/spatial** — Spatial/direction utilities (foundational, no deps)
+  - **@warriorjs/scoring** — Score calculation and grade letters
+- **`towers/`** — Built-in tower definitions
+  - **@warriorjs/tower-the-narrow-path** / **tower-the-powder-keep** — The Narrow Path and The Powder Keep
+
+Dependency flow: spatial → abilities → units → towers, spatial → core → scoring → cli.
+
+Each package compiles with `tsc` to `dist/`.
+
+## Conventions
+
+- **Biome** enforces formatting and linting — don't manually fix style, run `pnpm lint:fix`
+- **Lefthook** pre-commit hook auto-formats staged files
+- All imports use `.js` extensions (ES modules with NodeNext resolution)
+- Tests live next to source: `src/Foo.test.ts`
+- Coverage thresholds: 80% (lines, functions, branches, statements)
+- Conventional Commits with scope: `feat(cli): add language choice`, `fix(core): handle edge case`
+
+---
+> Source: [olistic/warriorjs](https://github.com/olistic/warriorjs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
