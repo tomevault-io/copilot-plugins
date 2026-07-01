@@ -1,0 +1,9 @@
+{
+  "name": "harness-base--harness-control",
+  "displayName": "harness-control",
+  "description": "harness-control",
+  "version": "1.0.0",
+  "author": "harness-base",
+  "homepage": "https://github.com/harness-base/harness-control",
+  "skills": []
+}
