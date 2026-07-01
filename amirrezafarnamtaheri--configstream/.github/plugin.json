@@ -1,0 +1,9 @@
+{
+  "name": "amirrezafarnamtaheri--configstream",
+  "displayName": "ConfigStream",
+  "description": "ConfigStream collects, deduplicates, tests, and ranks free VPN/proxy configs from hundreds of public sources, then publishes ready-to-use outputs on GitHub Pages. Scheduled runs (GitHub Actions) expor",
+  "version": "1.0.0",
+  "author": "AmirrezaFarnamTaheri",
+  "homepage": "https://github.com/AmirrezaFarnamTaheri/ConfigStream",
+  "skills": []
+}
