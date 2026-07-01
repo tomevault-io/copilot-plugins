@@ -1,0 +1,9 @@
+{
+  "name": "infracv--rf-detr-cpp",
+  "displayName": "rf-detr-cpp",
+  "description": "Production-ready C++/TensorRT inference engine for RF-DETR. Object detection and instance segmentation with FP32/FP16/INT8 support. Optimized for NVIDIA GPUs, Jetson (Orin, AGX Thor).",
+  "version": "1.0.0",
+  "author": "infracv",
+  "homepage": "https://github.com/infracv/rf-detr-cpp",
+  "skills": []
+}
