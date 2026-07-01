@@ -1,173 +1,221 @@
-## code-patterns
+## coding-standards
 
-> TFWR游戏脚本常见代码模式和算法
+> - **多行字符串注释** (`"""` 或 `'''`)
 
-# TFWR 常见代码模式
 
-## 网格遍历模式
+# TFWR 编码规范
 
-### 蛇形遍历（推荐 - 最省移动）
+## 注释规范
+
+### ❌ 禁止使用
+- **多行字符串注释** (`"""` 或 `'''`)
+- 所有形式的文档字符串 (docstrings)
+
+### ✅ 只允许使用
+- **单行注释** (`#`)
+- 函数说明、变量说明都用 `#` 注释
+
+### 示例
+
+#### ❌ 错误的注释方式
 ```python
-for y in range(get_world_size()):
-    for x in range(get_world_size()):
-        # 执行操作
-        harvest()
-        
-        # 向右移动（奇数行时）或向左移动（偶数行时）
-        if x < get_world_size() - 1:
-            if y % 2 == 0:
-                move(East)
-            else:
-                move(West)
-    
-    # 向上移动到下一行
-    if y < get_world_size() - 1:
-        move(North)
-```
+def my_function():
+    """
+    这是一个函数
+    它做某些事情
+    """
+    pass
 
-### 简单行列遍历
-```python
-# 遍历每一行
-for i in range(get_world_size()):
-    # 在这行执行操作
-    for j in range(get_world_size()):
-        harvest()
-        if j < get_world_size() - 1:
-            move(East)
-    
-    # 回到行首并移动到下一行
-    for j in range(get_world_size() - 1):
-        move(West)
-    if i < get_world_size() - 1:
-        move(North)
-```
-
-## 植物管理模式
-
-### 等待植物成熟
-```python
-while not can_harvest():
-    # 在等待时可以处理其他事务
+def another_function():
+    '''这也是错误的'''
     pass
 ```
 
-### 农场初始化
+#### ✅ 正确的注释方式
 ```python
-def setup_farm():
-    """初始化整个农场"""
-    for y in range(get_world_size()):
-        for x in range(get_world_size()):
-            # 翻土
-            if get_ground_type() != Grounds.Soil:
-                till()
-            
-            # 种植
-            plant(Entities.Carrot)
-            
-            # 移动到下一个位置
-            if x < get_world_size() - 1:
-                move(East)
-        
-        # 移动到下一行
-        if y < get_world_size() - 1:
-            move(North)
-            # 回到行首
-            for _ in range(get_world_size() - 1):
-                move(West)
+# 这是一个函数，它做某些事情
+def my_function():
+    # 函数内部注释
+    pass
+
+# 辅助函数：计算某个值
+def helper_function():
+    # 返回计算结果
+    return value
 ```
 
-### 批量收割
+## 代码风格
+
+### 函数定义
 ```python
-def harvest_all():
-    """收割整个农场"""
-    for y in range(get_world_size()):
-        for x in range(get_world_size()):
-            if can_harvest():
-                harvest()
-            
-            if x < get_world_size() - 1:
-                move(East)
-        
-        if y < get_world_size() - 1:
-            move(North)
-            for _ in range(get_world_size() - 1):
-                move(West)
+# 函数说明写在函数定义上方
+# 参数：x, y - 坐标
+# 返回：布尔值
+def should_plant(x, y):
+    # 函数内部逻辑
+    return x % 2 == 0
 ```
 
-## 物品管理
-
-### 使用特殊物品
+### 变量定义
 ```python
-# 使用水
-if num_items(Items.Water) > 0:
-    use_item(Items.Water)
-
-# 使用肥料（减少生长时间）
-if num_items(Items.Fertilizer) > 0:
-    use_item(Items.Fertilizer)
+# 配置参数
+THRESHOLD = 100  # 阈值
+world_size = get_world_size()  # 世界大小
 ```
 
-### 检查库存
+### 复杂逻辑
 ```python
-hay_count = num_items(Items.Hay)
-wood_count = num_items(Items.Wood)
+# 检查是否需要种植
+# 条件1: 位置满足要求
+# 条件2: 资源充足
+if condition1 and condition2:
+    # 执行种植
+    plant(Entities.Carrot)
+```
 
-if hay_count < 100:
-    # 收集更多干草
+## 禁止使用的功能
+
+### ❌ 未解锁或不支持的功能
+在代码中**永远不要使用**以下功能：
+
+1. **Lambda 函数**
+   ```python
+   # ❌ 错误
+   func = lambda x: x * 2
+   sorted_list = sorted(items, key=lambda x: x.value)
+   ```
+
+2. **多行字符串注释**
+   ```python
+   # ❌ 错误
+   """这是多行注释"""
+   '''这也是错误的'''
+   ```
+
+3. **生成器和yield**
+   ```python
+   # ❌ 错误
+   def my_generator():
+       yield value
+   
+   for item in my_generator():
+       pass
+   ```
+
+4. **类型转换函数**
+   ```python
+   # ❌ 错误 - int() 不支持
+   percentage = int(value * 100)
+   
+   # ✅ 正确 - 直接使用数学运算
+   percentage = value * 100
+   ```
+
+5. **其他未确认解锁的高级特性**
+   - 列表推导式（如果未解锁）
+   - 生成器表达式（如果未解锁）
+   - 装饰器（如果未解锁）
+   - with 语句（如果未解锁）
+   - try/except（如果未解锁）
+
+### ✅ 替代方案
+
+**替代 Lambda：使用普通函数**
+```python
+# ✅ 正确
+def multiply_by_two(x):
+    return x * 2
+
+func = multiply_by_two
+```
+
+**替代多行注释：使用多个单行注释**
+```python
+# ✅ 正确
+# 这是第一行说明
+# 这是第二行说明
+# 这是第三行说明
+```
+
+**替代 Yield：使用列表返回**
+```python
+# ❌ 错误
+def get_positions():
+    for x in range(10):
+        yield (x, x * 2)
+
+# ✅ 正确
+def get_positions():
+    result = []
+    for x in range(10):
+        result.append((x, x * 2))
+    return result
+```
+
+**替代 int()：直接计算**
+```python
+# ❌ 错误
+percentage = int(value * 100)
+
+# ✅ 正确 - 保留小数
+percentage = value * 100
+
+# ✅ 正确 - 使用整数除法
+count = total // divisor
+```
+
+## 记住
+- 永远使用 `#` 进行注释
+- 不要使用 `"""` 或 `'''`
+- 不要使用 `lambda`
+- 不要使用 `yield`
+- 不要使用 `int()`, `float()`, `bool()` 等类型转换（除非确认支持）
+- 禁止使用三元表达式：x = a if condition else b
+- 禁止使用 lambda 函数
+- 禁止使用字典的 .items(), .keys(), .values() 方法
+- 所有条件赋值都使用完整的 if-else 语句
+- 禁止quick_print中使用*
+- 只使用已确认解锁的功能
+- 保持代码清晰，注释简洁
+
+## 已确认支持的内置函数
+参考游戏中显示的函数列表：
+- `abs`, `len`, `max`, `min`, `str`
+- `dict`, `list`, `set`
+- `range`, `random`
+- 游戏特定函数（`harvest`, `plant`, `move` 等）
+
+## 字典使用限制
+
+### ❌ 不支持的字典方法
+```python
+# ❌ 错误 - items() 不支持
+for key, value in my_dict.items():
+    pass
+
+# ❌ 错误 - keys() 不支持
+for key in my_dict.keys():
+    pass
+
+# ❌ 错误 - values() 不支持
+for value in my_dict.values():
     pass
 ```
 
-## 特定作物优化
-
-### 南瓜（需要相邻成熟）
+### ✅ 正确的字典遍历方式
 ```python
-# 南瓜会与相邻的成熟南瓜合并
-# 收获数量 = 合并数量的立方
-# 策略：等待多个南瓜成熟后一起收割
+# ✅ 正确 - 直接遍历字典
+for key in my_dict:
+    value = my_dict[key]
+    # 使用 key 和 value
 ```
 
-### 仙人掌（需要排序收割）
-```python
-# 仙人掌有0-9的大小
-# 排序后的相邻仙人掌会递归收割
-# 收获数量 = 收割数量的平方
-# 策略：注意仙人掌的排序顺序
-```
 
-### 向日葵（花瓣最大时收割奖励）
-```python
-# 当花瓣最大且至少有10个向日葵时
-# 收获5倍能量奖励
-if get_entity_type() == Entities.Sunflower:
-    # 检查花瓣数
-    petals = measure()
-    if petals == max_petals:  # 需要知道最大花瓣数
-        harvest()
-```
-
-## 调试技巧
-
-### 性能测量
-```python
-start_time = get_time()
-start_ticks = get_tick_count()
-
-# 执行操作
-do_something()
-
-elapsed_time = get_time() - start_time
-elapsed_ticks = get_tick_count() - start_ticks
-
-print("Time:", elapsed_time, "Ticks:", elapsed_ticks)
-```
-
-### 位置调试
-```python
-x, y = get_pos_x(), get_pos_y()
-print("Position:", x, y)
-print("Entity:", get_entity_type())
-print("Ground:", get_ground_type())
-```
+## 运算符使用
+- ✅ 算术：`+`, `-`, `*`, `/`, `//`, `%`, `**`
+- ✅ 比较：`==`, `!=`, `<`, `>`, `<=`, `>=`
+- ✅ 逻辑：`and`, `or`, `not`
+- ✅ 赋值：`=`, `+=`, `-=`, `*=`, `/=`
 
 ---
 > Source: [nql1314/The-Farmer-Was-Replaced-AI-Code](https://github.com/nql1314/The-Farmer-Was-Replaced-AI-Code) — distributed by [TomeVault](https://tomevault.io).
