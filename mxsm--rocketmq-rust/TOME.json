@@ -4,7 +4,7 @@
   "repo": "rocketmq-rust",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mxsm/rocketmq-rust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T23:15:35Z"
+  "distributed_at": "2026-07-01T08:55:12Z"
 }
