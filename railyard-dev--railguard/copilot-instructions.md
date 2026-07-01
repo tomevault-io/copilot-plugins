@@ -52,4 +52,4 @@ All changes to Railguard policy require explicit human approval. You generate th
 
 ---
 > Source: [railyard-dev/railguard](https://github.com/railyard-dev/railguard) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
