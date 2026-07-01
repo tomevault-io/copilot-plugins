@@ -1,0 +1,9 @@
+{
+  "name": "roboburr--klonkt",
+  "displayName": "klonkt",
+  "description": "Klonkt \u2014 self-hosted music & blog platform with ActivityPub/fediverse. Solo or circles. Node + SQLite + htmx.",
+  "version": "1.0.0",
+  "author": "roboburr",
+  "homepage": "https://github.com/roboburr/klonkt",
+  "skills": []
+}
