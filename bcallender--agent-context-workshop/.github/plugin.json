@@ -1,0 +1,9 @@
+{
+  "name": "bcallender--agent-context-workshop",
+  "displayName": "agent-context-workshop",
+  "description": "A context layer for coding agents \u2014 build a code knowledge graph from a real codebase, then measure whether the agent actually uses it. AI Engineer World's Fair 2026 workshop.",
+  "version": "1.0.0",
+  "author": "bcallender",
+  "homepage": "https://github.com/bcallender/agent-context-workshop",
+  "skills": []
+}
