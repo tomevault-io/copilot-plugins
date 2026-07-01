@@ -1,0 +1,9 @@
+{
+  "name": "mahanaicoach--google-maps-scraper-kit",
+  "displayName": "google-maps-scraper-kit",
+  "description": "Run a free open-source Google Maps scraper locally and let Claude drive it on autopilot. Wraps gosom/google-maps-scraper (MIT).",
+  "version": "1.0.0",
+  "author": "Mahanaicoach",
+  "homepage": "https://github.com/Mahanaicoach/google-maps-scraper-kit",
+  "skills": []
+}
