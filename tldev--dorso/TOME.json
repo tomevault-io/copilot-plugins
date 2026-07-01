@@ -2,7 +2,7 @@
   "name": "dorso",
   "owner": "tldev",
   "repo": "dorso",
-  "description": "A macOS app that blurs your screen when you slouch.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tldev/dorso",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T08:45:52Z"
+  "distributed_at": "2026-07-01T06:44:00Z"
 }
