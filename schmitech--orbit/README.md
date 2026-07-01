@@ -2,8 +2,6 @@
 
 > Tome by [schmitech](https://github.com/schmitech/orbit) — distributed by [TomeVault](https://tomevault.io)
 
-A self-hosted AI infrastructure for private RAG and multi-model applications.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
