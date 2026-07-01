@@ -1,0 +1,44 @@
+{
+  "name": "home-assistant-blueprints",
+  "owner": "schoolboyqueue",
+  "repo": "home-assistant-blueprints",
+  "description": "Home Assistant Blueprints \u2014 pro-grade automation templates for real homes (Adaptive Comfort HVAC, Bathroom Light & Fan, Zooz Z-Wave dimming). Jinja2 + YAML. MIT.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/schoolboyqueue/home-assistant-blueprints",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-01T20:50:25Z"
+}
