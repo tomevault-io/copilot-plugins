@@ -1,0 +1,9 @@
+{
+  "name": "solvinglab--slcptac",
+  "displayName": "SLCPTAC",
+  "description": "Multi-Omics Analysis Toolkit for CPTAC Cancer Database",
+  "version": "1.0.0",
+  "author": "SolvingLab",
+  "homepage": "https://github.com/SolvingLab/SLCPTAC",
+  "skills": []
+}
