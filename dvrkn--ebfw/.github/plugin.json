@@ -1,0 +1,9 @@
+{
+  "name": "dvrkn--ebfw",
+  "displayName": "ebfw",
+  "description": "eBPF egress firewall for Kubernetes \u2014 see and enforce what every pod talks to (domains, HTTP paths, headers, IPs), attributed per pod, enforced in the kernel. No sidecar, no proxy, no TLS MITM.",
+  "version": "1.0.0",
+  "author": "dvrkn",
+  "homepage": "https://github.com/dvrkn/ebfw",
+  "skills": []
+}
