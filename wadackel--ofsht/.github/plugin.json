@@ -1,0 +1,9 @@
+{
+  "name": "wadackel--ofsht",
+  "displayName": "ofsht",
+  "description": "A command-line tool for managing Git worktrees with automation features.",
+  "version": "1.0.0",
+  "author": "wadackel",
+  "homepage": "https://github.com/wadackel/ofsht",
+  "skills": []
+}
