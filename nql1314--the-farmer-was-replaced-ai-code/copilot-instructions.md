@@ -1,184 +1,26 @@
-## optimization-tips
+## project-overview
 
-> TFWR性能优化技巧和高级策略
+> 这是一个"The Farmer Was Replaced"（TFWR）游戏的脚本项目。
 
-# TFWR 性能优化技巧
+# The Farmer Was Replaced 项目概述
 
-## Tick成本概览
+这是一个"The Farmer Was Replaced"（TFWR）游戏的脚本项目。
 
-### 0 Tick操作
-- `get_tick_count()` - 唯一不消耗tick的操作
+## 项目结构
+- [__builtins__.py](mdc:__builtins__.py) - 游戏API的Python类型定义文件
+- [main.py](mdc:main.py) - 主脚本文件，编写游戏自动化代码
+- [save.json](mdc:save.json) - 游戏存档数据
 
-### 1 Tick操作（查询/检查）
-- 所有 `can_*()` 函数
-- 所有 `get_*()` 函数
-- `num_items()`
-- `measure()`
+## 重要说明
+1. **这不是真正的Python** - 游戏使用类似Python的语法，但不是标准Python
+2. **类型定义仅供参考** - `__builtins__.py` 只是为了在编辑器中提供代码提示
+3. **不要修改 __builtins__.py** - 这个文件是游戏API的定义，不应该被修改
+4. **所有代码都写在 main.py** - 游戏脚本应该写在 `main.py` 中
 
-### 200 Tick操作（执行/移动）
-- `move()`, `swap()`
-- `harvest()`, `plant()`
-- `till()`, `use_item()`
-- `trade()`
-
-## 优化策略
-
-### 1. 移动优化（最重要）
-```python
-# ❌ 不好：重复往返
-for i in range(get_world_size()):
-    move(East)
-    harvest()
-    for j in range(i):
-        move(West)  # 浪费的移动
-
-# ✅ 好：蛇形路径
-for y in range(get_world_size()):
-    for x in range(get_world_size()):
-        harvest()
-        if x < get_world_size() - 1:
-            move(East if y % 2 == 0 else West)
-    if y < get_world_size() - 1:
-        move(North)
-```
-
-### 2. 缓存常量值
-```python
-# ❌ 不好：重复调用
-for i in range(get_world_size()):
-    for j in range(get_world_size()):
-        harvest()
-
-# ✅ 好：缓存结果
-size = get_world_size()
-for i in range(size):
-    for j in range(size):
-        harvest()
-```
-
-### 3. 条件检查顺序
-```python
-# ❌ 不好：可能执行昂贵的操作
-harvest()  # 失败时浪费200 ticks
-
-# ✅ 好：先检查再执行
-if can_harvest():  # 只需1 tick
-    harvest()      # 确保成功
-```
-
-### 4. 批处理操作
-```python
-# ✅ 在同一位置完成所有操作
-if get_ground_type() != Grounds.Soil:
-    till()
-plant(Entities.Carrot)
-# 使用肥料（如果需要）
-if need_fertilizer:
-    use_item(Items.Fertilizer)
-```
-
-### 5. 避免空循环
-```python
-# ❌ 不好：浪费tick等待
-while not can_harvest():
-    pass  # 每次循环都消耗tick
-
-# ✅ 好：在等待时做其他事
-while not can_harvest():
-    # 移动到其他位置处理其他植物
-    # 或者使用 do_a_flip() 快进时间
-    if unlocked(Unlocks.Flip):
-        do_a_flip()
-```
-
-## 高级技巧
-
-### 使用Power加速
-```python
-# Power会让无人机移动速度翻倍
-# 优先种植向日葵获取Power
-# 游戏会自动使用Power
-```
-
-### 并行处理（如果解锁Megafarm）
-```python
-# 使用多个无人机同时工作
-# 将农场分区处理
-drone_count = num_unlocked(Unlocks.Megafarm)
-```
-
-### 利用测量功能
-```python
-# measure() 可以获取植物的具体信息
-# 用于向日葵花瓣、仙人掌大小等
-value = measure()
-```
-
-### 交易优化
-```python
-# 批量交易比多次小额交易更高效
-# 累积足够的资源后一次性交易
-if num_items(Items.Hay) >= 1000:
-    trade(Items.Hay, 1000)
-```
-
-## 算法复杂度考虑
-
-### 农场大小影响
-- 1x1 农场：1个位置
-- 3x3 农场：9个位置
-- 10x10 农场：100个位置
-
-### 遍历成本
-蛇形遍历 N×N 农场的移动成本：
-- 移动次数：N² - 1
-- Tick成本：(N² - 1) × 200
-
-### 最小化遍历次数
-```python
-# 将多个任务合并到一次遍历中
-for y in range(size):
-    for x in range(size):
-        # 一次完成：检查、收割、翻土、种植
-        if can_harvest():
-            harvest()
-        if get_ground_type() != Grounds.Soil:
-            till()
-        plant(next_crop)
-        move_to_next_tile()
-```
-
-## 调试和性能分析
-
-### 测量脚本效率
-```python
-start = get_tick_count()
-
-# 你的代码
-run_farming_cycle()
-
-ticks_used = get_tick_count() - start
-print("Total ticks:", ticks_used)
-```
-
-### 比较不同策略
-```python
-# 使用get_tick_count()比较不同实现
-# 选择tick消耗最少的方案
-```
-
-### 目标设定
-- 早期：优化到 < 100,000 ticks
-- 中期：优化到 < 50,000 ticks  
-- 后期：优化到 < 10,000 ticks
-- 排行榜：尽可能最少
-
-## 记住
-1. **移动是最贵的** - 优化路径最重要
-2. **测量一切** - 使用 `get_tick_count()` 找出瓶颈
-3. **先检查后执行** - 避免失败的操作
-4. **缓存不变的值** - 减少重复查询
-5. **一次遍历多任务** - 最大化每次移动的价值
+## 游戏机制
+- 游戏使用"tick"计数来衡量操作效率
+- 每个操作都有tick成本（例如 move() 需要200 ticks）
+- 目标是优化脚本以最小化tick使用量
 
 ---
 > Source: [nql1314/The-Farmer-Was-Replaced-AI-Code](https://github.com/nql1314/The-Farmer-Was-Replaced-AI-Code) — distributed by [TomeVault](https://tomevault.io).
