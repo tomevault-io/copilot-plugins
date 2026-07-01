@@ -1,0 +1,9 @@
+{
+  "name": "tui-cs--clet",
+  "displayName": "clet",
+  "description": "CLIs for prompting with rich TUI, mouse/keyboard, typed inputs, consistent JSON output and exit codes.",
+  "version": "1.0.0",
+  "author": "tui-cs",
+  "homepage": "https://github.com/tui-cs/clet",
+  "skills": []
+}
