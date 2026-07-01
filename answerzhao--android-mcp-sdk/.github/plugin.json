@@ -1,7 +1,7 @@
 {
   "name": "answerzhao--android-mcp-sdk",
   "displayName": "android-mcp-sdk",
-  "description": "An SDK implementing the MCP with Binder for LLM-to-app communication on Android.",
+  "description": "android-mcp-sdk",
   "version": "1.0.0",
   "author": "AnswerZhao",
   "homepage": "https://github.com/AnswerZhao/android-mcp-sdk",
