@@ -1,0 +1,420 @@
+## adk-utils-go
+
+> Agent guidelines for working in the `adk-utils-go` repository.
+
+# AGENTS.md
+
+Agent guidelines for working in the `adk-utils-go` repository.
+
+> Companion docs in `.agents/`: [DECISIONS.md](./DECISIONS.md) (per-provider
+> design decisions and their rationale) and [TODOS.md](./TODOS.md) (deferred
+> work and open review questions). Read DECISIONS.md before changing the
+> `genai/*` adapters: several behaviours there are deliberate and load-bearing.
+
+## Project Overview
+
+A Go library providing utilities for Google's Agent Development Kit (ADK). This library extends ADK with additional backend implementations for topics like session management or memory services.
+
+**Module**: `github.com/achetronic/adk-utils-go` (see `go.mod`)  
+**Go Version**: 1.24.9+ (toolchain 1.25.5)  
+**ADK Version**: v1.4.0
+
+### Key Dependencies
+
+| Package                        | Purpose                                            |
+| ------------------------------ | -------------------------------------------------- |
+| `google.golang.org/adk`        | Google ADK core framework                          |
+| `google.golang.org/genai`      | Google GenAI types                                 |
+| `github.com/redis/go-redis/v9` | Redis client for session storage                   |
+| `github.com/lib/pq`            | PostgreSQL driver for memory storage               |
+| `charm.land/catwalk`           | Embedded model registry (564 models, 23 providers) |
+
+---
+
+## Commands
+
+### Build & Test
+
+```bash
+# Run all tests
+go test ./...
+
+# Run tests with verbose output
+go test -v ./...
+
+# Run tests for a specific package
+go test -v ./memory/postgres/...
+go test -v ./session/redis/...
+
+# Run with race detection
+go test -race ./...
+```
+
+### Module Management
+
+```bash
+# Download dependencies
+go mod download
+
+# Tidy dependencies
+go mod tidy
+
+# Verify dependencies
+go mod verify
+```
+
+---
+
+## Code Organization
+
+```
+adk-utils-go/
+├── genai/
+│   ├── openai/
+│   │   └── openai.go            # OpenAI/Ollama-compatible LLM adapter
+│   └── anthropic/
+│       └── anthropic.go         # Anthropic Claude LLM adapter
+├── session/
+│   └── redis/
+│       ├── session.go           # Redis-backed session.Service implementation
+│       └── session_test.go      # Session tests (requires Redis)
+├── memory/
+│   ├── memorytypes/
+│   │   └── types.go             # Shared types and interfaces (EntryWithID, ExtendedMemoryService)
+│   └── postgres/
+│       ├── memory.go            # PostgreSQL-backed memory.Service implementation
+│       ├── memory_test.go       # Memory service tests (requires PostgreSQL)
+│       ├── embedding.go         # OpenAI-compatible embedding model
+│       └── embedding_test.go    # Embedding tests (uses httptest mocks)
+├── artifact/
+│   └── filesystem/
+│       ├── artifact.go          # Filesystem-backed artifact.Service implementation
+│       └── artifact_test.go     # Artifact tests
+├── tools/
+│   └── memory/
+│       └── toolset.go           # Memory toolset for agent tools
+├── plugin/
+│   ├── contextguard/
+│   │   ├── contextguard.go                        # Public API: New(), Add(), PluginConfig(), BeforeModel/AfterModel callbacks
+│   │   ├── contextguard_unit_test.go               # 93 unit tests covering all functions + timing gap proofs
+│   │   ├── compaction_strategy_multiturn_test.go   # 91 multi-turn session simulations (4k/8k/200k/1M, kube/coding/debug/storm patterns, tool defs, inline data, ratios, loops)
+│   │   ├── compaction_strategy_singleshot_test.go  # Single-shot Compact() tests: kube-agent, mixed-debug, tool-storm, timing gap
+│   │   ├── model_registry.go                       # ModelRegistry interface (ContextWindow, DefaultMaxTokens)
+│   │   ├── model_registry_crush.go                 # CrushRegistry: catwalk embedded DB, 564 models, zero network
+│   │   ├── compaction_utils.go                     # Internal helpers: state, summarization, tokens (contents + system + tools + inline data), calibration, splitting, continuation, todos, truncation
+│   │   ├── compaction_strategy_threshold.go        # Token-threshold strategy (Crush-style full summary + hardening)
+│   │   └── compaction_strategy_sliding_window.go   # Sliding-window strategy (turn-count, with recent tail + retry)
+│   └── langfuse/
+│       ├── langfuse.go      # Setup() API, spanEnricher (callbacks), enrichingExporter, enrichedSpan, helpers
+│       ├── types.go         # Config struct with yaml/json tags, IsEnabled()
+│       └── context.go       # Context helpers: WithUserID, WithTags, WithTraceMetadata, etc.
+├── examples/
+│   ├── openai-client/main.go
+│   ├── anthropic-client/main.go
+│   ├── session-memory/main.go
+│   ├── long-term-memory/main.go
+│   ├── full-memory/main.go
+│   └── context-guard/main.go    # All 3 modes: CrushRegistry, WithMaxTokens, WithSlidingWindow
+├── go.mod
+└── go.sum
+```
+
+### Package Purposes
+
+| Package               | Description                                                                                                       |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `genai/common`        | Helpers shared by the LLM adapters so cross-provider wire rules are implemented once (e.g. `MarshalToolPayload`)  |
+| `genai/anthropic`     | Anthropic Claude `model.LLM` adapter (forwards `ToolConfig.FunctionCallingConfig.Mode` as `tool_choice`)          |
+| `genai/openai`        | OpenAI/Ollama-compatible `model.LLM` adapter (forwards `ToolConfig.FunctionCallingConfig.Mode` as `tool_choice`)  |
+| `session/redis`       | Redis-backed implementation of `session.Service`                                                                  |
+| `memory/memorytypes`  | Shared types (`EntryWithID`) and interfaces (`MemoryService`, `ExtendedMemoryService`)                            |
+| `memory/postgres`     | PostgreSQL+pgvector implementation of `memory.Service` and `ExtendedMemoryService`                                |
+| `artifact/filesystem` | Filesystem-backed `artifact.Service` implementation                                                               |
+| `tools/memory`        | ADK toolset providing `search_memory`, `save_to_memory`, `update_memory`, and `delete_memory` tools               |
+| `plugin/contextguard` | ADK plugin for context window management (threshold + sliding window strategies)                                  |
+| `plugin/langfuse`     | ADK plugin for Langfuse observability via OTLP/HTTP (LLM request/response enrichment, token usage, cost tracking) |
+
+---
+
+## Patterns & Conventions
+
+### Interface Implementation Pattern
+
+All service implementations follow this pattern:
+
+```go
+// Config struct for constructor
+type ServiceConfig struct {
+    // Required and optional fields
+}
+
+// Constructor returns concrete type
+func NewService(ctx context.Context, cfg ServiceConfig) (*Service, error) {
+    // Validate config, establish connections, init schema
+}
+
+// Interface compliance check at end of file
+var _ some.Interface = (*Service)(nil)
+```
+
+### Error Handling
+
+- Use `fmt.Errorf("context: %w", err)` for wrapping errors
+- Return early on errors
+- Continue processing loops (don't fail entire operation for single item failures)
+
+### Redis Key Naming
+
+```
+session:{appName}:{userID}:{sessionID}   # Session data (session-scoped state only)
+sessions:{appName}:{userID}              # Session index (SET)
+events:{appName}:{userID}:{sessionID}    # Event list (LIST)
+appstate:{appName}                       # App-wide state (HASH, shared across all users/sessions)
+userstate:{appName}:{userID}             # Per-user state (HASH, shared across all sessions for that user)
+```
+
+### PostgreSQL Schema
+
+The `memory_entries` table uses:
+
+- Composite unique constraint: `(app_name, user_id, session_id, event_id)`
+- Full-text search via `tsvector` on `content_text`
+- Vector similarity search via `pgvector` extension on `embedding` column (optional)
+
+### Embedding Model Interface
+
+```go
+type EmbeddingModel interface {
+    Embed(ctx context.Context, text string) ([]float32, error)
+    Dimension() int
+}
+```
+
+The `OpenAICompatibleEmbedding` implementation works with any OpenAI-compatible API (OpenAI, Ollama, vLLM, LocalAI, etc.).
+
+---
+
+## Testing
+
+### Unit Tests (No External Dependencies)
+
+- `embedding_test.go` - Uses `httptest` mock servers
+- `contextguard_test.go` - 93 unit tests with mock LLM, state, and registry (no network)
+- `compaction_stress_test.go` - 25 multi-turn session simulations with mock LLM (no network)
+
+### Integration Tests (Require External Services)
+
+- `memory_test.go` - Requires PostgreSQL at `localhost:5432`
+  - Default connection: `postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable`
+  - Tests clean up after themselves (delete `test_%` prefixed data)
+
+### Test Data Patterns
+
+- Test app names use `test_` prefix for isolation
+- Mock session helper: `createTestSession(id, appName, userID, messages)`
+- Mock event helper in tests implements `session.Events` interface
+
+---
+
+## Important Gotchas
+
+### Redis Session Service
+
+1. **TTL Management**: Default TTL is 24 hours. TTL is refreshed on session updates.
+2. **State Persistence**: State changes via `State().Set()` immediately persist to Redis.
+3. **Event Loading**: Events are loaded fresh from Redis on each `Events().All()` call.
+4. **Session ID Generation**: If not provided, uses `time.Now().UnixNano()`.
+5. **State Tiers**: State keys are routed to separate Redis stores based on prefix, matching the canonical ADK behaviour:
+   - `app:` keys → `appstate:{appName}` HASH (shared across all users and sessions)
+   - `user:` keys → `userstate:{appName}:{userID}` HASH (shared across all sessions for that user)
+   - `temp:` keys → discarded (never persisted)
+   - Unprefixed keys → stored in the session JSON (per-session)
+6. **State Tier Functions**: `extractStateDeltas` and `mergeStates` mirror `google.golang.org/adk/internal/sessionutils` (which is not importable from outside the ADK module).
+
+### PostgreSQL Memory Service
+
+1. **pgvector Extension**: Required for semantic search. Schema auto-creates the extension if embedding model is configured.
+2. **Dimension Auto-Detection**: If `EmbeddingModel.Dimension()` returns 0, the service probes the model on init.
+3. **Search Fallback**: Vector search → full-text search → recent entries.
+4. **Upsert Behavior**: `AddSession` uses `ON CONFLICT ... DO UPDATE`.
+
+### Memory Toolset
+
+1. **Tool Names**: `search_memory`, `save_to_memory`, `update_memory`, and `delete_memory`
+2. **Extended Tools**: `update_memory` and `delete_memory` are only available when the `MemoryService` also implements `memorytypes.ExtendedMemoryService` (e.g., `PostgresMemoryService`).
+3. **ID-Aware Search**: When extended service is available, `search_memory` returns entry IDs that can be used with `update_memory` and `delete_memory`.
+4. **User Scoping**: Tools automatically use `ctx.UserID()` for isolation.
+5. **DisableExtendedTools**: `ToolsetConfig.DisableExtendedTools` allows disabling `update_memory` and `delete_memory` even when the backend supports them.
+6. **Single Entry Session**: `save_to_memory` creates a minimal session wrapper around the content.
+
+### Go 1.24 Iterator Pattern
+
+This codebase uses Go 1.24's `iter.Seq` and `iter.Seq2` for iteration:
+
+```go
+// State iteration
+func (s *State) All() iter.Seq2[string, any]
+
+// Events iteration
+func (e *Events) All() iter.Seq[*session.Event]
+```
+
+---
+
+## Adding New Components
+
+### New Session Backend
+
+1. Create package under `session/{backend}/`
+2. Implement `session.Service` interface
+3. Implement `session.Session`, `session.State`, `session.Events` interfaces
+4. Add interface compliance check: `var _ session.Service = (*YourService)(nil)`
+
+### Shared Types (`memory/memorytypes`)
+
+To avoid import cycles between `memory/postgres` and `tools/memory`, shared types and interfaces live in `memory/memorytypes`:
+
+- `EntryWithID` — memory entry with database row ID
+- `MemoryService` — base interface (mirrors ADK's `memory.Service`)
+- `ExtendedMemoryService` — adds `SearchWithID`, `UpdateMemory`, `DeleteMemory`
+
+Both `memory/postgres` and `tools/memory` import this package; neither imports the other.
+
+### New Memory Backend
+
+1. Create package under `memory/{backend}/`
+2. Implement `memory.Service` interface (`AddSession`, `Search`)
+3. Optionally implement `memorytypes.ExtendedMemoryService` (`SearchWithID`, `UpdateMemory`, `DeleteMemory`) to enable update/delete tools
+4. Consider supporting the `EmbeddingModel` interface for semantic search
+
+### New Toolset
+
+1. Create package under `tools/{purpose}/`
+2. Implement `tool.Toolset` interface
+3. Use `functiontool.New()` to create tools from functions
+4. Define typed args/result structs with JSON tags
+
+---
+
+## ContextGuard Plugin
+
+The `plugin/contextguard` package provides an ADK plugin that prevents conversations from exceeding the LLM's context window. Uses Crush-style full-summary compaction with calibrated real token counts.
+
+### API
+
+```go
+guard := contextguard.New(registry)  // ModelRegistry or CrushRegistry
+guard.Add("assistant", llm)           // threshold (auto-detect from registry)
+guard.Add("agent2", llm, contextguard.WithMaxTokens(500_000))  // threshold (manual)
+guard.Add("agent3", llm, contextguard.WithSlidingWindow(30))   // sliding window
+cfg := guard.PluginConfig()           // runner.PluginConfig with BeforeModelCallback + AfterModelCallback
+```
+
+### Key Design
+
+- **Builder pattern**: `New()` + `Add()` + `PluginConfig()` — single-agent and multi-agent look identical
+- **Functional options**: `AgentOption` keeps common case zero-config, overrides via `WithMaxTokens`/`WithSlidingWindow`
+- **Per-agent strategies**: each agent gets its own strategy and summarizes with its own LLM
+- **Two callbacks**: `BeforeModelCallback` checks tokens and compacts; `AfterModelCallback` persists real token counts from the provider
+- **Calibrated heuristic**: bridges the timing gap between callbacks using a correction factor derived from real vs heuristic tokens of the previous call. Correction factor capped at 5.0x to prevent anomalous turns from distorting future estimates
+- **Full summary**: threshold strategy always summarizes the entire conversation (no recent tail). Post-compaction result is `[summary] + [continuation]` — always small and predictable
+- **Robust failure handling**: conversation truncated to 80% of context window before summarization (prevents summarizer overflow). If LLM summarization fails, falls back to mechanical summary instead of passing through the bloated request
+- **ADK limitation**: `launcher.Config.PluginConfig` is a single field — the plugin internally dispatches by `ctx.AgentName()`
+- **State keys**: all keys suffixed with `{agentName}` to prevent cross-agent contamination in shared sessions
+
+### State Keys
+
+| Key                                              | Set by                | Read by               | Purpose                               |
+| ------------------------------------------------ | --------------------- | --------------------- | ------------------------------------- |
+| `__context_guard_summary_{agent}`                | `BeforeModelCallback` | `BeforeModelCallback` | Running conversation summary          |
+| `__context_guard_summarized_at_{agent}`          | `BeforeModelCallback` | (diagnostic)          | Token count at last compaction        |
+| `__context_guard_real_tokens_{agent}`            | `AfterModelCallback`  | `BeforeModelCallback` | Real `PromptTokenCount` from provider |
+| `__context_guard_last_heuristic_{agent}`         | `BeforeModelCallback` | `BeforeModelCallback` | Heuristic estimate for calibration    |
+| `__context_guard_contents_at_compaction_{agent}` | Sliding window        | Sliding window        | Watermark for turn counting           |
+
+### File Naming Convention
+
+- `contextguard.go` — public API, `BeforeModelCallback`, `AfterModelCallback`
+- `contextguard_unit_test.go` — 93 unit tests (mocks, no ADK flow)
+- `model_registry*.go` — ModelRegistry interface and implementations
+- `compaction_strategy_threshold.go` — token-threshold strategy (full summary, calibrated tokens, hardened)
+- `compaction_strategy_sliding_window.go` — sliding-window strategy (turn-count based, with recent tail)
+- `compaction_utils.go` — shared helpers: state persistence, summarization, token estimation, continuation injection, todo loading, conversation truncation
+- `compaction_strategy_multiturn_test.go` — 25 multi-turn session simulations with `simulateSession()` framework (threshold only)
+- `compaction_strategy_singleshot_test.go` — single-shot `Compact()` tests for both strategies, timing gap proofs
+
+### CrushRegistry
+
+Built-in `ModelRegistry` using `charm.land/catwalk/pkg/embedded` — 564 models from 23 providers compiled into the binary. Zero network calls, no goroutines, no `Start()`/`Stop()` lifecycle. Defaults to 128k context / 4096 max tokens for unknown models.
+
+### Stress Tests
+
+25 multi-turn session simulations in `compaction_stress_test.go`. Run with:
+
+```bash
+go test -v ./plugin/contextguard/... -count=1 -run "TestStress"
+```
+
+Cover 200k and 8k context windows, token ratios 1.5x-4.0x, with/without UsageMetadata, tool bursts up to 750k chars, long-running sessions (40-100 turns), large system prompts, compaction loop detection. See [TODOS.md](./TODOS.md) for the complete test matrix.
+
+### Strategies
+
+| Strategy         | Trigger                                      | Compaction mode                        | Config                                   |
+| ---------------- | -------------------------------------------- | -------------------------------------- | ---------------------------------------- |
+| `threshold`      | calibrated tokens > (contextWindow - buffer) | Full summary (entire conversation)     | `WithMaxTokens(n)` or auto from registry |
+| `sliding_window` | turns since last compaction > maxTurns       | Split: summarize old, keep recent tail | `WithSlidingWindow(n)`                   |
+
+Buffer: fixed 20k for windows >=200k, 20% for smaller ones.
+
+### Compaction Flow (threshold)
+
+See [INVESTIGATION_RESULTS.md](./INVESTIGATION_RESULTS.md) for the full architecture diagram and timing analysis.
+
+```
+BeforeModelCallback:
+  tokenCount() → calibrated estimate (correction capped at 5.0x)
+  if < threshold → pass through
+  if ≥ threshold → truncate for summarizer → summarize (fallback on error) → [summary] + [continuation]
+
+AfterModelCallback:
+  persist PromptTokenCount for next step's calibration
+```
+
+---
+
+## LLM Adapters — tool_choice Mapping
+
+Both `genai/openai` and `genai/anthropic` translate `genai.GenerateContentConfig.ToolConfig.FunctionCallingConfig` into the provider-native `tool_choice` field during `applyGenerationConfig` / `buildMessageParams`. ADK propagates `ToolConfig` through `basic_processor.go` (`req.Config = clone(state.GenerateContentConfig)`), so the field arrives untouched at the adapter.
+
+Without this translation, callers setting `Mode: ANY` on an LLM agent see the setting silently dropped — the typical symptom being models like Kimi K2 or certain Claude variants producing plain-text replies that hand-format tool calls as prose, stranding agentic loops that require a native function call.
+
+### Shared mapping (identical semantics across providers)
+
+| genai `FunctionCallingConfig.Mode`   | OpenAI `tool_choice`     | Anthropic `tool_choice`     |
+| ------------------------------------ | ------------------------ | --------------------------- |
+| `ModeUnspecified` (zero value)       | unset                    | unset                       |
+| `ModeAuto`                           | `"auto"`                 | `{type: "auto"}`            |
+| `ModeNone`                           | `"none"`                 | `{type: "none"}`            |
+| `ModeAny`, no `AllowedFunctionNames` | `"required"`             | `{type: "any"}`             |
+| `ModeAny`, exactly one name          | named function choice    | `{type: "tool", name: <n>}` |
+| `ModeAny`, multiple names            | fallback to `"required"` | fallback to `{type: "any"}` |
+
+The multi-name fallback is a pragmatic choice: neither provider accepts a list of allowed names in `tool_choice`. Callers who need a multi-function allowlist should combine `ModeAny` with prompt-level instructions.
+
+### Tests
+
+Each adapter has a table-driven test (`openai_test.go` / `anthropic_test.go`) covering the seven relevant combinations (three modes, two branches of `AllowedFunctionNames`, two "leave it unset" paths). The Anthropic test asserts on the discriminated-union variant (`OfAuto` / `OfAny` / `OfTool` / `OfNone`) rather than the nested `Type` field because the SDK uses `shared/constant` single-value string types whose in-memory zero is `""` — the discriminator is injected during marshaling, and the variant pointer is what the marshaler keys off of.
+
+## LLM Adapters: empty tool payloads serialise to `{}`, never `null`
+
+A tool with no parameters (e.g. `exit_loop`) leaves `genai.FunctionCall.Args` nil, and a tool that returns nothing leaves `genai.FunctionResponse.Response` nil. `json.Marshal` of a nil Go map produces the literal `"null"`. On the wire, a tool call's `arguments` and a tool message's content are JSON-object strings; `"null"` is not an object, and strict server-side parsers on OpenAI-compatible backends reject it (Qwen's chat template on vLLM/llama.cpp raises a Jinja error). The official OpenAI endpoint and Anthropic both tolerate `"null"`, so this is _portability for strict OpenAI-compatible runtimes_, not an API requirement. The canonical empty payload is `{}`.
+
+Because this is a provider wire-schema rule, it lives in the adapters (consumers must not have to scrub their `genai.Content`):
+
+- `genai/openai` and `genai/anthropic` both route `FunctionCall.Args` and `FunctionResponse.Response` through `common.MarshalToolPayload` (in the `genai/common` package), which performs the `null`/empty → `{}` normalisation once for both providers, propagates a genuine marshal error, and never mutates the input. Keeping it in one place is what guarantees tool_use and tool_result stay symmetric and the two adapters stay interchangeable (D5).
+
+Coverage: `genai/common/payload_test.go` pins the helper's unit contract; each adapter's `tool_payload_test.go` pins the integration, including a canary that fails if a future change "fixes" the nil payload by mutating the shared input in place. Full rationale and the per-provider decision list are in [DECISIONS.md](./DECISIONS.md) (decision D1).
+
+---
+> Source: [achetronic/adk-utils-go](https://github.com/achetronic/adk-utils-go) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
