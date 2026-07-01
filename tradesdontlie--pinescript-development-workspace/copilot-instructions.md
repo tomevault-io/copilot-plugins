@@ -1,269 +1,111 @@
-## pine-error-prevention-automation
+## pinescript-rules-1
 
-> 1. **`pine_master.sh`** - Development, versioning, error detection, solutions
+> This document distills essential language facts and best‑practice rules directly from TradingView's official `pinescript.json` specification. Use it as a quick‑reference checklist when coding in Pine Script v5.
 
-# Pine Script Error Prevention Automation Rules
+# Pine Script Rules (Derived from pinescript.json)
 
-## Core Automation Workflow with Intelligent Script Usage
+This document distills essential language facts and best‑practice rules directly from TradingView's official `pinescript.json` specification. Use it as a quick‑reference checklist when coding in Pine Script v5.
 
-### 🎯 Primary Scripts (Only Two Needed)
-1. **`pine_master.sh`** - Development, versioning, error detection, solutions
-2. **`pine_tracker.sh`** - Feature tracking, failure logging, rollback documentation
+---
 
-### 📋 When to Use Scripts (Not Every Time!)
+## 1 Type Keywords & Forms
 
-#### Use `pine_master.sh develop` ONLY when:
-- Starting a NEW feature/modification
-- After SIGNIFICANT changes (not every edit)
-- Before taking a break/ending session
-- When you explicitly ask for versioning
+| Keyword | Meaning / Usage Rule |
+|---------|----------------------|
+| `int`, `float`, `bool`, `string`, `color` | Explicitly declare base types when clarity is needed or when initializing with `na`. |
+| `line`, `label`, `box`, `table`, `linefill`, `polyline`, `chart.point` | Declare object IDs returned by their respective `*.new()` functions. Always **series form**. |
+| `array<type>` or `type[]` | Declare an array holding elements of `type`. Example: `array<float> myFloats = array.new_float()` |
+| `simple` | Use in **exported library functions** to demand a *simple* (non‑series) argument, e.g. `emaRight(float src, simple int len) => ta.ema(src,len)` |
+| `series` | Implicit for most variables; rarely needs to be stated explicitly unless contrasting with `simple`. |
 
-#### Use `pine_master.sh fix` ONLY when:
-- Actual compilation error occurs
-- You report a specific problem
-- After multiple failed attempts
+**Rule 1.1** Prefer implicit typing unless compilation or readability demands explicit keywords.
 
-#### Use `pine_tracker.sh` ONLY when:
-- You explicitly mention a new feature to add
-- A feature attempt fails completely
-- Rolling back to previous version
-- Marking feature as complete
+**Rule 1.2** Do **not** mix type forms inside the same expression; both branches of a conditional must resolve to the same type & form.
 
-### 🚫 DON'T Run Scripts When:
-- Making minor edits or tweaks
-- In the middle of active coding flow
-- Just fixed a simple typo
-- You haven't asked for any tracking
+---
 
-### 💡 Intelligent Workflow Pattern
+## 2 Array Handling
 
-```mermaid
-flowchart TD
-    A[🎯 1. FEATURE REQUEST<br/>"Add weekly filter to FVG"] --> B[🧠 AI CHOOSES APPROACH<br/>• Track if helpful<br/>• Version if needed<br/>• Start coding]
-    B --> C[🔨 2. ACTIVE DEVELOPMENT<br/>AI uses full toolkit<br/>• edit_file, search_replace<br/>• codebase_search, grep_search<br/>• run_terminal_cmd if needed<br/>• Any available tool]
-    
-    C --> D{3. ERROR OCCURS?}
-    D -->|YES| E[🧠 AI SELECTS BEST SOLUTION<br/>• Pattern recognition<br/>• Tool combinations<br/>• Creative problem solving]
-    D -->|NO| F{4. MAJOR MILESTONE?}
-    
-    E --> G{Fixed?}
-    G -->|YES| C
-    G -->|NO| H[🔄 AI ADAPTS STRATEGY<br/>• Try different tools<br/>• Use scripts if helpful<br/>• Document learning]
-    
-    F -->|SUCCESS| I[🎯 AI CHOOSES COMPLETION<br/>• Track success if valuable<br/>• Document patterns<br/>• Version if appropriate]
-    F -->|FAILURE| H
-    F -->|CONTINUE| C
-    
-    I --> J[📦 SESSION END<br/>AI decides best wrap-up<br/>• Scripts if helpful<br/>• Direct action if better]
-    H --> J
-    
-    style A fill:#e3f2fd
-    style B fill:#e8f5e8
-    style C fill:#fff3e0
-    style E fill:#e8f5e8
-    style I fill:#e8f5e8
-    style J fill:#e8f5e8
-    style H fill:#e3f2fd
+1. **Creation**: Use the family of `array.new_<type>(size, initial_value)` functions. The `size` and `initial_value` arguments are optional.
+   ```pine
+   var array<float> buf = array.new_float(100, na)
+   ```
+2. **Indexing**: Arrays are **zero‑based** (`array.get(a,0)` is the first element).
+3. **Mutability**: Arrays are reference objects; changes through any reference affect the original.
+4. **Size Constants**: `size.auto | tiny | small | normal | large | huge` can be passed as the `size` argument.
+5. **Common Ops**:
+   • `array.push`, `array.pop`
+   • `array.shift`, `array.unshift`
+   • `array.sort`, `array.sum`, `array.slice`
+6. **Rule 2.1** Always check `array.size()` before reading to avoid runtime errors.
+
+---
+
+## 3 Assignment Operators
+
+| Operator | Purpose |
+|----------|---------|
+| `=`  | Initial declaration & assignment. |
+| `:=` | Re‑assignment to an already declared identifier. |
+| `+=`, `-=`, `*=`, `/=`, `%=` | Compound arithmetic updates; equivalent to `x = x op y`. |
+
+**Rule 3.1** Use `:=` *only* after variable declaration; never for first assignment.
+
+---
+
+## 4 Core Language Operators
+
+| Operator | Notes |
+|----------|-------|
+| `?:` (ternary) | Forms: `test ? a : b`. Chainable for *switch‑like* logic. Zero, `NaN`, ±`Infinity` evaluate as *false*. |
+| `[]` (series subscript) | Access historical values: `close[1]` is previous bar. `expr2` must be numeric; floats are floored. |
+| `+` `-` `*` `/` `%` | Numeric math (element‑wise when inputs are series). `+` also concatenates strings. |
+| `==` `!=` `>` `<` `>=` `<=` | Comparison; returns `bool` / `series<bool>`. |
+
+---
+
+## 5 Function Calls & Parameters
+
+1. **Required vs Optional**: Optional parameters have defaults defined in the spec; omit them rather than passing `na` unless function expects it.
+2. **Allowed Types**: Check `allowedTypeIDs` in the spec to ensure correct form (`series int`, `simple float`, etc.).
+3. **Rule 5.1** Supply arguments in the exact order shown in the official syntax.
+
+Example:
+```pine
+line.new(x1, y1, x2, y2, color=color.blue, width=2)
 ```
 
-**Key Phases:**
-1. 🎯 **Start**: Version + track ONCE at beginning
-2. 🔨 **Code**: Active development with NO script interruptions  
-3. 🔧 **Error**: Use scripts only when needed
-4. 🎯 **Milestone**: Track significant progress
-5. 📦 **End**: Final version at session end
+---
 
-### 🎯 Smart Decision Tree
+## 6 Object Lifecycle
 
-```mermaid
-flowchart TD
-    A[🤔 Got an Error?] --> B{New/Unknown Error?}
-    B -->|YES| C[🧠 AI AGENT CHOOSES BEST APPROACH<br/>• Query JSON patterns<br/>• Use any available tools<br/>• Apply optimal solution]
-    B -->|NO| D[⚡ AI AGENT APPLIES SOLUTION<br/>• Known fix from memory<br/>• Direct code edit<br/>• Whatever tool works best]
-    
-    C --> E{Fix Worked?}
-    D --> E
-    
-    E -->|YES| F[✅ Keep Coding<br/>AI continues with full toolkit]
-    E -->|NO| G[🔄 AI AGENT ADAPTS<br/>• Try different approach<br/>• Use alternative tools<br/>• Scripts as backup option]
-    
-    H[🚀 Making Progress?] --> I{What Type?}
-    I -->|Small Tweaks| J[💨 AI Codes Freely<br/>Full tool flexibility]
-    I -->|Major Feature Added| K[📊 Optional: Scripts for tracking]
-    I -->|Feature Complete| L[🎯 Optional: Scripts for documentation]
-    
-    F --> M[🔄 Continue Development<br/>AI uses best tools for the job]
-    G --> N[📝 AI Documents & Adapts<br/>Learn from experience]
-    J --> M
-    K --> M
-    L --> M
-    
-    style A fill:#fff3e0
-    style C fill:#e8f5e8
-    style D fill:#e8f5e8
-    style F fill:#e8f5e8
-    style G fill:#e3f2fd
-    style H fill:#f3e5f5
-    style K fill:#f0f8ff
-    style L fill:#f0f8ff
-```
+1. **Creation**: `line.new`, `label.new`, `box.new`, `table.new`, `linefill.new`, `polyline.new` return object IDs.
+2. **Deletion**: Use the corresponding `.delete(id)` method to avoid memory leaks on realtime bars.
+3. **Rule 6.1** Guard `.delete()` calls with `barstate.islastconfirmedhistory` when cleaning up batch objects.
 
-**🧠 AI Agent Flexibility Guidelines:**
-- 🛠️ **Tool Freedom** → Use any tool that solves the problem best
-- 🎯 **Intelligent Selection** → Choose optimal approach for each situation  
-- 📊 **Scripts as Enhancement** → Use when helpful, not mandatory
-- 🔄 **Adaptive Response** → Switch strategies as needed
-- 💡 **Creative Solutions** → Not limited to predefined workflows
+---
 
-### 📊 Script Usage Guidelines
+## 7 `na` Handling
 
-#### High-Value Script Usage:
-- **Beginning**: Version once, track feature
-- **Errors**: Search solutions, apply fixes
-- **Completion**: Document success/failure
-- **End**: Final version with summary
+- `na` is valid for **all** base types; for arrays use `na` or omit `initial_value`.
+- Use `nz(value, replacement)` when substituting `na` values safely.
 
-#### Avoid Script Overuse:
-- NOT after every code change
-- NOT for minor syntax fixes
-- NOT during rapid iterations
-- NOT when in coding flow
+---
 
-### 🔄 Error Handling Priority
+## 8 Best‑Practice Checklist (Quick‑Fire)
 
-1. **First Time Error**: 
-   - Run `pine_master.sh fix`
-   - Log to solutions if fixed
-   
-2. **Repeat Error**:
-   - Check local memory first
-   - Apply known solution
-   - No script needed
+- [ ] Script begins with `//@version=5` + `indicator()` or `strategy()`.
+- [ ] One statement per line; no backslash continuations.
+- [ ] Variables declared before use; correct `=` vs `:=`.
+- [ ] Array indices checked via `array.size()`.
+- [ ] All ternary branches return the same type & form.
+- [ ] Objects created on historical bars cleaned on `barstate.islastconfirmedhistory`.
+- [ ] No compilation warnings in the Pine editor.
 
-3. **Persistent Error**:
-   - Run `pine_tracker.sh fail`
-   - Consider rollback
-   - Document approach
+---
 
-### 💾 Database Update Strategy
-
-#### Update Immediately:
-- New error type discovered
-- Successful fix for complex issue
-- Feature completion/failure
-
-#### DON'T Update:
-- Every minor edit
-- Known issues already in DB
-- Simple typo fixes
-- Routine code changes
-
-### 🎮 Practical Example Flow
-
-```bash
-# You: "Add weekly timeframe filter to FVG"
-
-# 1. START (Scripts needed)
-./scripts/pine_tracker.sh add fvg "Weekly timeframe filter"
-./scripts/pine_master.sh develop working/fvg/fvg.pine minor
-
-# 2. CODING PHASE (No scripts)
-# - Write HTF logic
-# - Add filter conditions  
-# - Adjust calculations
-# - Test edge cases
-
-# 3. ERROR OCCURS (Script needed)
-# "Cannot use 'resolution' in request.security"
-./scripts/pine_master.sh fix working/fvg/fvg.pine
-# Found: Use 'timeframe.period' instead
-# Apply fix and continue...
-
-# 4. MORE CODING (No scripts)
-# - Implement fix
-# - Add more logic
-# - Refine feature
-
-# 5. COMPLETE (Scripts needed)
-./scripts/pine_tracker.sh complete fvg v0.2.0
-./scripts/pine_master.sh develop working/fvg/fvg.pine minor
-```
-
-### 🏁 Session Patterns
-
-#### Efficient Session:
-```
-Start → Track feature → Version once → Code code code → 
-Fix errors as needed → Code more → Complete → Final version
-(Only 4-5 script calls for entire feature)
-```
-
-#### Inefficient Session:
-```
-Start → Version → Code → Version → Fix → Version → 
-Code → Version → etc...
-(Too many script calls, disrupts flow)
-```
-
-### 🎯 Key Principles
-
-1. **AI Agent has full tool autonomy** - Use whatever works best
-2. **Scripts enhance, never constrain** - Guidelines, not rigid rules
-3. **Intelligent tool selection** - Choose optimal approach for each situation
-4. **Adaptive problem solving** - Switch strategies as needed
-5. **Maintain coding momentum** - Don't interrupt flow
-6. **Version at milestones** - When it adds value
-7. **Track failures** - When learning is valuable
-8. **Creative solutions encouraged** - Not limited to predefined workflows
-
-### 📝 Mental Model
-
-Think of scripts as:
-- **Checkpoints** in a video game (not every step)
-- **Milestones** on a journey (not every mile)
-- **Insurance** for your work (not paranoia)
-
-The goal is smooth, efficient development with intelligent safety nets, not constant interruption with script execution.
-
-## 🧠 AI Agent Tool Autonomy
-
-### Core Philosophy
-The workflows are **intelligent guidelines** that enhance AI agent capabilities, not rigid constraints. AI agents should:
-
-- **Use any available tool** that solves the problem efficiently
-- **Combine tools creatively** for optimal solutions  
-- **Switch strategies dynamically** based on context
-- **Prioritize effectiveness** over following specific tool patterns
-- **Leverage full toolkit** including but not limited to:
-  - `edit_file`, `search_replace` for code changes
-  - `codebase_search`, `grep_search` for finding patterns
-  - `run_terminal_cmd` for system operations
-  - `create_diagram` for visualization
-  - `web_search` for research
-  - Any other available tools as needed
-
-### When Scripts Are Helpful
-- **Complex tracking** across multiple files/sessions
-- **Batch operations** on many indicators
-- **Analytics generation** for insights
-- **Standardized logging** for team workflows
-
-### When Direct Tools Are Better  
-- **Single file changes** - Direct edit is faster
-- **Quick fixes** - No overhead needed
-- **Creative solutions** - Custom tool combinations
-- **User-specific requests** - Adapt to their preferred workflow
-
-### Flexibility Examples
-```bash
-# AI Agent might choose:
-• Direct file edit for simple version increment
-• Script for complex multi-file versioning
-• Hybrid approach: direct edit + JSON logging
-• Creative combination of multiple tools
-```
-
-The system **amplifies** AI agent intelligence, never **constrains** it.
+### Reference Links
+These rules are summarized from TradingView's official `pinescript.json` API description file (v5). For exhaustive details consult the in‑platform **Pine Script™ Reference Manual**. 
 
 ---
 > Source: [tradesdontlie/pinescript-development-workspace](https://github.com/tradesdontlie/pinescript-development-workspace) — distributed by [TomeVault](https://tomevault.io).
