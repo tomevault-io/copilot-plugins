@@ -1,0 +1,9 @@
+{
+  "name": "huangzhonglv--hep-workflow",
+  "displayName": "hep-workflow",
+  "description": "A skill-based agent workflow for high-energy physics phenomenology: from model proposal through symbolic calculation to numerical scans and publication-oriented exclusion plots.",
+  "version": "1.0.0",
+  "author": "huangzhonglv",
+  "homepage": "https://github.com/huangzhonglv/hep-workflow",
+  "skills": []
+}
