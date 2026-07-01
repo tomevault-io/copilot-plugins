@@ -1,0 +1,9 @@
+{
+  "name": "phuryn--burnstop",
+  "displayName": "burnstop",
+  "description": "A budget fuse for Claude Code: cap a session in tokens or dollars and halt runaway goals and loops. Auto-arms a $50 cap on goals.",
+  "version": "1.0.0",
+  "author": "phuryn",
+  "homepage": "https://github.com/phuryn/burnstop",
+  "skills": []
+}
