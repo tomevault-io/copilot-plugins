@@ -2,7 +2,7 @@
   "name": "Copiwaifu",
   "owner": "Panzer-Jack",
   "repo": "Copiwaifu",
-  "description": "Your Live2D AI Navigator for every coding mission. Synchronized with ClaudeCode, Copilot and Codex ..)",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Panzer-Jack/Copiwaifu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T13:57:38Z"
+  "distributed_at": "2026-07-01T02:47:14Z"
 }
