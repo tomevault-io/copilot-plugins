@@ -1,0 +1,9 @@
+{
+  "name": "catatsuy--notify-slack",
+  "displayName": "notify_slack",
+  "description": "notify_slack",
+  "version": "1.0.0",
+  "author": "catatsuy",
+  "homepage": "https://github.com/catatsuy/notify_slack",
+  "skills": []
+}
