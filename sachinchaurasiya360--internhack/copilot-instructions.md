@@ -2,7 +2,7 @@
 
 > InternHack is a full-stack internship/career platform for students with AI-powered tools, learning modules, and recruiter features.
 
-# InternHack, Claude Code Instructions
+# InternHack, Codex Instructions
 
 ## Project Overview
 InternHack is a full-stack internship/career platform for students with AI-powered tools, learning modules, and recruiter features.
@@ -13,7 +13,7 @@ InternHack is a full-stack internship/career platform for students with AI-power
 - **Migrations:** Must run from `server/src/database/`, that's where `prisma.config.ts` lives
 
 ## Repo Map
-**Always read `.claude/REPO_MAP.md` before any editing task.** It maps every module, route, model, and component.
+**Always read `.Codex/REPO_MAP.md` before any editing task.** It maps every module, route, model, and component.
 
 ## Stack
 - **Client:** React 18 + Vite 7 + TailwindCSS 4 + React Router 7 + Framer Motion + Zustand + React Query
@@ -116,4 +116,4 @@ Students can suggest repos via `POST /api/opensource/requests`. Admin reviews at
 
 ---
 > Source: [Sachinchaurasiya360/InternHack](https://github.com/Sachinchaurasiya360/InternHack) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
