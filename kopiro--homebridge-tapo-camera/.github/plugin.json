@@ -1,0 +1,9 @@
+{
+  "name": "kopiro--homebridge-tapo-camera",
+  "displayName": "homebridge-tapo-camera",
+  "description": "homebridge-tapo-camera",
+  "version": "1.0.0",
+  "author": "kopiro",
+  "homepage": "https://github.com/kopiro/homebridge-tapo-camera",
+  "skills": []
+}
