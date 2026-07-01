@@ -2,16 +2,14 @@
 
 > Sourced from [Luka12-dev/AurionOS](https://github.com/Luka12-dev/AurionOS) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-A custom 32-bit x86 operating system built from scratch in C and Assembly. Features a graphical window manager, TCP/IP stack, and custom filesystem. Developed solo in 14 days. by a 13-year-old
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Luka12-dev/AurionOS](https://github.com/Luka12-dev/AurionOS).
+Original source: `CLAUDE.md` in [Luka12-dev/AurionOS](https://github.com/Luka12-dev/AurionOS).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
