@@ -1,0 +1,9 @@
+{
+  "name": "karalang--kara",
+  "displayName": "kara",
+  "description": "The K\u0101ra programming language \u2014 compiled via  LLVM, with automatic parallelization and   WebAssembly support.",
+  "version": "1.0.0",
+  "author": "karalang",
+  "homepage": "https://github.com/karalang/kara",
+  "skills": []
+}
