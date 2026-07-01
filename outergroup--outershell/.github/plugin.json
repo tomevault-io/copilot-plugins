@@ -1,0 +1,9 @@
+{
+  "name": "outergroup--outershell",
+  "displayName": "outershell",
+  "description": "Servers and edge devices should have an \"outer\" graphical shell",
+  "version": "1.0.0",
+  "author": "outergroup",
+  "homepage": "https://github.com/outergroup/outershell",
+  "skills": []
+}
