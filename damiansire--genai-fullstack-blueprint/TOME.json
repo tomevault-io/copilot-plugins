@@ -4,7 +4,7 @@
   "repo": "genai-fullstack-blueprint",
   "description": "Production-ready full-stack blueprint for building multimodal GenAI apps with an Angular client and Node.js/Express AI Gateway.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/damiansire/genai-fullstack-blueprint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T20:32:03Z"
+  "distributed_at": "2026-07-01T21:12:56Z"
 }
