@@ -1,0 +1,9 @@
+{
+  "name": "thu-furoc--furoc-magicbot-z1",
+  "displayName": "FuRoC-MagicBot-Z1",
+  "description": "12-DOF quadruped robot with RL-based locomotion control",
+  "version": "1.0.0",
+  "author": "Thu-FuRoc",
+  "homepage": "https://github.com/Thu-FuRoc/FuRoC-MagicBot-Z1",
+  "skills": []
+}
