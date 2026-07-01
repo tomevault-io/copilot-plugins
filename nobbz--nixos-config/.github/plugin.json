@@ -1,0 +1,9 @@
+{
+  "name": "nobbz--nixos-config",
+  "displayName": "nixos-config",
+  "description": "nixos-config",
+  "version": "1.0.0",
+  "author": "NobbZ",
+  "homepage": "https://github.com/NobbZ/nixos-config",
+  "skills": []
+}
