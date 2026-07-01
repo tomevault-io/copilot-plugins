@@ -4,7 +4,7 @@
   "repo": "zvm",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tristanisham/zvm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T00:51:55Z"
+  "distributed_at": "2026-07-01T15:06:50Z"
 }
