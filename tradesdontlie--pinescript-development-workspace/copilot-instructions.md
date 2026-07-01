@@ -1,350 +1,225 @@
-## pinescript-rules-enhanced
-
-> *Enhanced with Pine Script v6 Extension analysis and [TradingView Pine Script v6 Reference](https://www.tradingview.com/pine-script-reference/v6/)*
-
-# Enhanced Pine Script v6 Rules 
-
-*Enhanced with Pine Script v6 Extension analysis and [TradingView Pine Script v6 Reference](https://www.tradingview.com/pine-script-reference/v6/)*
-
----
-
-## 🎯 Core Type System & Forms
-
-### **Rule 1.1: Type Keywords & Forms**
-
-| **Keyword** | **Meaning / Usage Rule** | **v6 Examples** |
-|-------------|--------------------------|-----------------|
-| `int`, `float`, `bool`, `string`, `color` | Explicitly declare base types when clarity needed or when initializing with `na` | `int myVar = na` |
-| `line`, `label`, `box`, `table`, `linefill`, `polyline`, `chart.point` | Declare object IDs returned by their respective `*.new()` functions. Always **series form** | `polyline pl = polyline.new()` |
-| `array<type>` or `type[]` | Declare an array holding elements of `type` | `array<float> arr = array.new_float()` |
-| `matrix<type>` | Declare a 2D matrix of elements | `matrix<float> mx = matrix.new<float>(3,3)` |
-| `map<keyType, valueType>` | Declare key-value map structure | `map<string, float> prices = map.new<string, float>()` |
-| `simple` | Use in **exported library functions** to demand a *simple* (non‑series) argument | `export emaRight(float src, simple int len) => ta.ema(src,len)` |
-| `series` | Implicit for most variables; rarely needs explicit statement unless contrasting with `simple` | `series float price = close` |
-
-**Rule 1.2:** Prefer implicit typing unless compilation or readability demands explicit keywords.
-
-**Rule 1.3:** Do **not** mix type forms inside the same expression; both branches of a conditional must resolve to the same type & form.
-
-```pine
-// ✅ Correct - same type forms
-result = condition ? 1 : 2
-
-// ❌ Error - mixing type forms  
-result = condition ? 1 : 1.0  // int vs float mismatch
-```
-
----
-
-## 🔢 Array, Matrix & Map Handling
-
-### **Rule 2.1: Array Operations (Enhanced for v6)**
-
-```pine
-// ✅ Array creation with explicit typing
-var array<float> buffer = array.new_float(100, na)
-var array<string> symbols = array.new_string(0, "DEFAULT")
-
-// ✅ v6 Feature: Negative indices for array access
-if array.size(prices) >= 2
-    lastPrice = array.get(prices, -1)      // Last element
-    secondLast = array.get(prices, -2)     // Second to last
-
-// ✅ Safe array access pattern
-safeArrayGet(arr, index) =>
-    if array.size(arr) > math.abs(index)
-        array.get(arr, index)
-    else
-        na
-```
-
-**Rule 2.2:** Arrays are **zero‑based** (`array.get(a,0)` is the first element).
-
-**Rule 2.3:** Arrays are reference objects; changes through any reference affect the original.
-
-**Rule 2.4:** **ALWAYS** check `array.size()` before reading to avoid runtime errors.
-
-### **Rule 2.5: Matrix Operations (v6)**
-
-```pine
-// Matrix creation and operations
-var matrix<float> priceMatrix = matrix.new<float>(rows=3, cols=3, initial_value=0.0)
-
-// Matrix access and modification
-matrix.set(priceMatrix, row=0, col=0, value=close)
-currentPrice = matrix.get(priceMatrix, row=0, col=0)
-
-// Matrix utility operations
-rows = matrix.rows(priceMatrix)
-cols = matrix.columns(priceMatrix)
-```
-
-### **Rule 2.6: Map Operations (v6)**
-
-```pine
-// Map creation and usage
-var map<string, float> symbolPrices = map.new<string, float>()
-
-// Map operations
-map.put(symbolPrices, "AAPL", 150.0)
-applePrice = map.get(symbolPrices, "AAPL")
-hasApple = map.contains(symbolPrices, "AAPL")
-```
-
----
-
-## 📝 Assignment Operators
-
-| **Operator** | **Purpose** | **v6 Usage** |
-|--------------|-------------|--------------|
-| `=`  | Initial declaration & assignment | `myVar = 10` |
-| `:=` | Re‑assignment to an already declared identifier | `myVar := 20` |
-| `+=`, `-=`, `*=`, `/=`, `%=` | Compound arithmetic updates; equivalent to `x = x op y` | `myVar += 5` |
-
-**Rule 3.1:** Use `:=` *only* after variable declaration; never for first assignment.
-
-```pine
-// ✅ Correct declaration pattern
-myVar = 0        // Initial declaration
-myVar := myVar + 1   // Reassignment
-
-// ❌ Error pattern  
-myVar := myVar + 1   // Error: 'myVar' not declared
-```
-
----
-
-## 🔧 Core Language Operators
-
-| **Operator** | **Notes** | **v6 Enhancements** |
-|--------------|-----------|---------------------|
-| `?:` (ternary) | Forms: `test ? a : b`. Chainable for *switch‑like* logic | Short-circuit evaluation improved |
-| `[]` (series subscript) | Access historical values: `close[1]` is previous bar | Consistent with array negative indexing |
-| `+` `-` `*` `/` `%` | Numeric math (element‑wise when inputs are series) | `+` also concatenates strings |
-| `==` `!=` `>` `<` `>=` `<=` | Comparison; returns `bool` / `series<bool>` | Boolean optimization in v6 |
-
-**Rule 4.1:** Zero, `NaN`, ±`Infinity` evaluate as *false* in boolean contexts.
-
-**Rule 4.2:** Use short-circuit evaluation for performance in v6:
-
-```pine
-// ✅ v6 optimized boolean evaluation
-if array.size(myArray) > 0 and array.first(myArray) > 0
-    // array.first() only evaluated if size > 0
-    process(array.first(myArray))
-```
-
----
-
-## 🎨 Function Calls & Parameters
-
-### **Rule 5.1:** Supply arguments in the exact order shown in the official syntax.
-
-```pine
-// ✅ Correct parameter order and types
-line.new(x1, y1, x2, y2, color=color.blue, width=2)
-
-// ✅ v6 Dynamic requests
-symbols = array.from("AAPL", "GOOGL", "MSFT")
-for symbol in symbols
-    price = request.security(symbol, "1D", close)  // Variable symbol in v6!
-```
-
-### **Rule 5.2:** Check `allowedTypeIDs` for correct form (`series int`, `simple float`, etc.).
-
-```pine
-// ✅ Library function with proper type forms
-export customTA(series float source, simple int length) =>
-    ta.sma(source, length)  // 'simple int' required for ta functions
-
-// ❌ Common error
-export wrongTA(series float source, series int length) =>
-    ta.sma(source, length)  // Error: ta.sma needs simple int for length
-```
-
-### **Rule 5.3:** Optional parameters have defaults; omit rather than passing `na` unless function expects it.
-
----
-
-## 🗂️ Object Lifecycle
-
-### **Rule 6.1:** Object Creation & Cleanup
-
-```pine
-// Objects requiring memory management:
-// line, label, box, table, linefill, polyline, chart.point
-
-// ✅ Proper object lifecycle
-if barstate.isconfirmed
-    myLine = line.new(bar_index-1, high, bar_index, high)
-    
-// ✅ Memory cleanup pattern
-var MAX_OBJECTS = 100
-var array<line> lines = array.new<line>()
-
-addLine() =>
-    if array.size(lines) >= MAX_OBJECTS
-        oldest = array.shift(lines)
-        line.delete(oldest)
-    newLine = line.new(...)
-    array.push(lines, newLine)
-```
-
-**Rule 6.2:** Guard `.delete()` calls with `barstate.islastconfirmedhistory` when cleaning up batch objects.
-
-```pine
-// ✅ Batch cleanup on last confirmed history bar
-if barstate.islastconfirmedhistory
-    for i = 0 to array.size(lineArray) - 1
-        line.delete(array.get(lineArray, i))
-    array.clear(lineArray)
-```
-
----
-
-## 🆕 Pine Script v6 Specific Features
-
-### **Rule V6.1: Dynamic Requests**
-
-```pine
-// ✅ v6 Feature: Variable symbols in security requests
-symbols = array.from("AAPL", "GOOGL", "MSFT")
-
-for symbol in symbols
-    price = request.security(symbol, "1D", close)
-    log.info("Price for " + symbol + ": " + str.tostring(price))
-```
-
-### **Rule V6.2: Enhanced Text Features**
-
-```pine
-// ✅ v6 Feature: Exact point sizes instead of size constants
-if barstate.islast
-    label.new(bar_index, high, "Bold Text", 
-              text_size = 16,  // Exact points instead of size.large
-              text_formatting = text.format_bold)
-    
-    // ✅ v6 Feature: Combined text formatting  
-    label.new(bar_index, low, "Bold & Italic", 
-              text_size = 18,
-              text_formatting = text.format_bold + text.format_italic)
-```
-
-### **Rule V6.3: Negative Array Indices**
-
-```pine
-// ✅ v6 Feature: Access array elements from the end
-if array.size(myArray) >= 2
-    lastValue = array.get(myArray, -1)      // Last element
-    secondLast = array.get(myArray, -2)     // Second to last
-    
-    if lastValue > secondLast
-        label.new(bar_index, high, "Upward trend")
-```
-
----
-
-## 🚨 Common Error Patterns & Solutions
-
-### **Rule E1: Series vs Simple Type Errors**
-
-```pine
-// ❌ Common Error
-ta.ema(close, series int length)  // Error: ta functions need simple int
-
-// ✅ Solution  
-ta.ema(close, simple int length)  // Use simple form for ta function parameters
-
-// ✅ Alternative when type is determined by input
-length = input.int(20, "Length")  // Returns simple int
-ema = ta.ema(close, length)       // Works correctly
-```
-
-### **Rule E2: Array Bounds Errors**
-
-```pine
-// ❌ Unsafe array access
-value = array.get(myArray, 5)  // May cause runtime error
-
-// ✅ Safe array access with bounds checking
-if array.size(myArray) > 5
-    value = array.get(myArray, 5)
-else
-    value = na
-
-// ✅ v6 Safe access with negative indices
-if array.size(myArray) > 0
-    lastValue = array.get(myArray, -1)  // Always safe for last element
-```
-
-### **Rule E3: Version Migration Errors**
-
-```pine
-// ❌ v4/v5 deprecated syntax
-study("My Study")                    // Use indicator() instead
-security(symbol, timeframe, src)     // Use request.security() instead
-text_size = size.large              // Use exact points in v6
-
-// ✅ v6 updated syntax
-indicator("My Indicator")
-request.security(symbol, timeframe, src)
-text_size = 16                      // Exact point values
-```
-
----
-
-## 🔍 `na` Handling
-
-**Rule 7.1:** `na` is valid for **all** base types; for arrays use `na` or omit `initial_value`.
-
-**Rule 7.2:** Use `nz(value, replacement)` when substituting `na` values safely.
-
-```pine
-// ✅ Proper na handling
-price = nz(request.security("AAPL", "1D", close), close)
-
-// ✅ Explicit typing when initializing with na  
-int myInt = na
-float myFloat = na
-```
-
----
-
-## ✅ Best‑Practice Checklist
-
-### **Before Code Submission:**
-- [ ] Script begins with `//@version=6` 
-- [ ] Correct script declaration: `indicator()`, `strategy()`, or `library()`
-- [ ] One statement per line; no backslash continuations
-- [ ] Variables declared before use; correct `=` vs `:=`
-- [ ] Array indices checked via `array.size()`
-- [ ] All ternary branches return the same type & form
-- [ ] Objects cleaned up on `barstate.islastconfirmedhistory`
-- [ ] No compilation warnings in the Pine editor
-
-### **v6 Specific Features:**
-- [ ] Dynamic symbols in `request.security()` where applicable
-- [ ] Exact point sizes for text (instead of size constants)
-- [ ] Text formatting combinations using `text.format_bold + text.format_italic`
-- [ ] Negative array indices for cleaner code (`array.get(arr, -1)`)
-- [ ] Short-circuit boolean evaluation for performance
-
-### **Performance Optimizations:**
-- [ ] Use `barstate` conditions for expensive operations
-- [ ] Implement object cleanup to prevent memory leaks
-- [ ] Pre-allocate arrays when size is known
-- [ ] Choose appropriate data structures (arrays, matrices, maps)
-
----
-
-## 📚 Reference Links
-
-- **Official Documentation:** [Pine Script v6 Reference](https://www.tradingview.com/pine-script-reference/v6/)
-- **Extension Source:** Pine Script v6 VSCode Extension analysis
-- **Type System:** Focus on `simple` vs `series` forms for library functions
-- **Object Management:** Always implement cleanup for drawing objects
-
-*These enhanced rules incorporate comprehensive Pine Script v6 features and best practices derived from both official documentation and extension analysis.* 
+## pinescript-syntax-rules
+
+> 1. **KEEP STATEMENTS ON A SINGLE LINE**: The most reliable approach is to keep each statement on a single line, even if it makes lines long.
+
+# Pine Script Syntax Rules
+
+## Avoiding "End of Line Without Line Continuation" Errors
+
+1. **KEEP STATEMENTS ON A SINGLE LINE**: The most reliable approach is to keep each statement on a single line, even if it makes lines long.
+
+2. **NO BACKSLASHES**: Unlike many other languages, Pine Script doesn't use backslashes `\` for line continuation.
+
+3. **FUNCTION CALLS**: When calling functions with multiple parameters, keep all parameters on the same line:
+   ```pine
+   line.new(bar_index, price1, bar_index+10, price2, color=color.blue, width=2)
+   ```
+
+4. **TERNARY OPERATORS**: Keep the entire ternary expression on a single line:
+   ```pine
+   bandColor = condition1 ? color.green : condition2 ? color.orange : color.red
+   ```
+
+5. **FUNCTION PARAMETERS**: When creating functions, put all parameters on the same line:
+   ```pine
+   myFunction(param1, param2, param3) => 
+       // Function body here
+   ```
+
+6. **OBJECT CREATION**: When creating objects (like lines, labels, boxes), put all parameters on a single line:
+   ```pine
+   box.new(x1, y1, x2, y2, bgcolor=color.blue, border_color=color.black, border_width=1)
+   ```
+
+7. **ARITHMETIC EXPRESSIONS**: Keep complex arithmetic expressions on a single line rather than splitting them:
+   ```pine
+   result = (price1 * weight1 + price2 * weight2) / (weight1 + weight2)
+   ```
+
+8. **ARRAY OPERATIONS**: Keep array operations on a single line:
+   ```pine
+   array.push(myArray, newValue)
+   ```
+
+9. **CONDITIONAL STATEMENTS**: For conditional statements, keep the condition on one line, and use proper indentation for the code block:
+   ```pine
+   if condition
+       statement1
+       statement2
+   ```
+
+## Variable Declaration and Scope
+
+1. **DECLARE VARIABLES BEFORE USE**: Always declare variables before using them, especially in functions.
+   ```pine
+   // Correct
+   myVar = 0
+   myVar := myVar + 1
+   
+   // Incorrect
+   myVar := myVar + 1  // Error: undeclared identifier
+   ```
+
+2. **USE CORRECT ASSIGNMENT OPERATORS**: Use `=` for initial assignment and `:=` for reassignment.
+   ```pine
+   // Initial assignment
+   myVar = 10
+   
+   // Reassignment
+   myVar := 20
+   ```
+
+3. **RESPECT VARIABLE SCOPE**: Variables declared in functions can't modify global variables unless using the `export` keyword.
+   ```pine
+   var global = 0
+   
+   myFunction() =>
+       local = 5  // Local variable
+       // Cannot modify global from function without export
+   ```
+
+## Function Definition and Usage
+
+1. **FUNCTION SYNTAX**: Use the `=>` operator for function declarations with proper indentation:
+   ```pine
+   myFunction(param1, param2) =>
+       result = param1 + param2
+       result
+   ```
+
+2. **CHECK FUNCTION PARAMETERS**: Verify the required parameters for built-in functions:
+   ```pine
+   // Correct
+   input.session("0930-1600", "Session")
+   
+   // Incorrect
+   input.time("0930", "Time")  // Wrong parameter type
+   ```
+
+3. **PROPER RETURN VALUES**: When a function returns multiple values, use array brackets for assignment:
+   ```pine
+   [value1, value2, value3] = myFunction()
+   ```
+
+4. **DEFAULT PARAMETER VALUES**: You can specify default values for function parameters:
+   ```pine
+   myFunction(param1, param2 = 10) =>
+       param1 + param2
+   ```
+
+## Type System
+
+1. **RESPECT TYPE CONSTRAINTS**: Always use the correct type when passing arguments to functions.
+   ```pine
+   // Correct
+   ta.change(close)  // close is series float
+   
+   // Incorrect
+   ta.change("string")  // Error: expected series float
+   ```
+
+2. **USE TYPE ANNOTATIONS**: When declaring arrays or complex variables, use type annotations:
+   ```pine
+   var array<float> myFloats = array.new_float(0)
+   var array<string> myStrings = array.new_string(0)
+   ```
+
+3. **TYPE CONSISTENCY**: In conditional statements, ensure both branches return the same type:
+   ```pine
+   // Correct
+   x = if close > open
+       close
+   else
+       open
+   
+   // Incorrect (will not compile)
+   y = if close > open
+       close
+   else
+       "open"
+   ```
+
+## Conditional Statements
+
+1. **IF STATEMENT SYNTAX**: Proper indentation is required for if statements:
+   ```pine
+   if condition
+       statement1
+       statement2
+   else if anotherCondition
+       statement3
+       statement4
+   else
+       statement5
+       statement6
+   ```
+
+2. **RETURNING VALUES FROM IF**: Use the assignment form to capture the result of if statements:
+   ```pine
+   result = if condition
+       valueIfTrue
+   else
+       valueIfFalse
+   ```
+
+3. **NESTED IF STATEMENTS**: You can nest if statements with proper indentation:
+   ```pine
+   if condition1
+       if condition2
+           statement1
+       else
+           statement2
+   else
+       statement3
+   ```
+
+## Version Declaration
+
+1. **ALWAYS SPECIFY VERSION**: Always include the version annotation at the top of your script:
+   ```pine
+   //@version=5
+   indicator("My Indicator")
+   ```
+
+2. **CORRECT VERSION PLACEMENT**: Place the version annotation at the beginning of your script for readability.
+
+## Session and Time Handling
+
+1. **USE PROPER TIME FUNCTIONS**: For session time inputs, use `input.session` instead of `input.time`:
+   ```pine
+   // Correct
+   sessionInput = input.session("0930-1600", "Trading Session")
+   
+   // Incorrect
+   timeInput = input.time("0930", "Time")  // May expect different format
+   ```
+
+2. **SESSION CHECKING**: Use built-in session functions for checking session state:
+   ```pine
+   // Correct
+   inSession = session.ismarket
+   
+   // Alternative method using time
+   startTime = timestamp(year, month, day, 9, 30)
+   endTime = timestamp(year, month, day, 16, 0)
+   inSession = time >= startTime and time <= endTime
+   ```
+
+## Comments and Documentation
+
+1. **USE APPROPRIATE COMMENTS**: Use `//` for single-line comments and `/* */` for multi-line comments:
+   ```pine
+   // This is a single-line comment
+   
+   /*
+   This is a
+   multi-line comment
+   */
+   ```
+
+2. **DOCUMENT YOUR CODE**: Add comments to explain complex logic, especially when creating libraries or indicators others might use.
+
+Following these rules will help you create Pine Script code that is both syntactically correct and easier to maintain. 
 
 ---
 > Source: [tradesdontlie/pinescript-development-workspace](https://github.com/tradesdontlie/pinescript-development-workspace) — distributed by [TomeVault](https://tomevault.io).
