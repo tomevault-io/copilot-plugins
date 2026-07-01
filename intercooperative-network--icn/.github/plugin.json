@@ -1,0 +1,9 @@
+{
+  "name": "intercooperative-network--icn",
+  "displayName": "icn",
+  "description": "A substrate daemon for the cooperative internet. Constraint engine where apps translate governance into generic constraints, kernel enforces them blindly.",
+  "version": "1.0.0",
+  "author": "InterCooperative-Network",
+  "homepage": "https://github.com/InterCooperative-Network/icn",
+  "skills": []
+}
