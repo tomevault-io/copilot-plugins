@@ -1,136 +1,228 @@
 ## consult-user-mcp
 
-> The installed app at `/Applications/Consult User MCP.app` runs its own bundled binaries. Local builds do NOT update the installed app.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Consult User MCP
+# CLAUDE.md
 
-## Development Workflow
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-The installed app at `/Applications/Consult User MCP.app` runs its own bundled binaries. Local builds do NOT update the installed app.
-
-**MUST use `bun run dev` for all development builds.** Builds dialog-cli, mcp-server, macos-app in debug mode and copies binaries into the installed app bundle. Restart the tray app after to pick up changes.
+## Build & Run Commands
 
 ```bash
-bun run dev          # Build all + install to /Applications (dev workflow)
-bun run build        # Build mcp-server + dialog-cli only (no install)
-bun run build:bundle # Full release build + create app bundle from scratch
+bun install          # Install dependencies
+bun run build        # Compile TypeScript + Swift CLI
+bun run build:ts     # TypeScript only
+bun run start        # Run the compiled server
+bun run dev          # Watch mode for development
+bun test             # Run tests
 ```
 
-**NEVER** use bare `swift build` or `bun run build` during development — those compile locally but do not update the running app.
+## Architecture
 
-## Release Checklist
+This is an MCP (Model Context Protocol) server that exposes native UI dialogs as tools for LLMs. Supports macOS (Swift/AppKit) and Windows (WPF/.NET).
 
-### macOS
+```
+src/
+├── index.ts                 # MCP server + tool registration (ask, notify, tweak, propose_layout)
+├── compact.ts               # Response transformer (provider → compact output)
+├── css-resolver.ts          # CSS selector/property → file location resolver (for tweak)
+├── humanize.ts              # Optional human-readable response formatting
+├── resolve-utils.ts         # Shared resolution utilities for tweak parameters
+├── settings.ts              # User settings reader
+├── text-search-resolver.ts  # Text pattern search → file location resolver (for tweak)
+├── types.ts                 # Shared types and interfaces
+├── update-check.ts          # GitHub release update checker
+├── validate-choices.ts      # Choice validation (no "all of above")
+├── index.test.ts            # Tests
+├── providers/
+│   ├── interface.ts         # DialogProvider interface
+│   ├── swift.ts             # macOS: Swift CLI + sketch CLI implementation
+│   └── windows.ts           # Windows: WPF CLI implementation
+```
 
-1. Update `macos-app/VERSION` with the new version number
-2. **If baseprompt changed:** update version in `macos-app/Sources/Resources/base-prompt.md` (first line comment)
-3. Update `docs/src/lib/data/releases.json` (single source of truth)
-4. Generate CHANGELOG: `bun run changelog`
-5. Validate versions: `bash scripts/validate-baseprompt-version.sh`
-6. Commit all changes
-7. Run: `bash scripts/release.sh --platform macos` — builds, zips, tags, creates GitHub release
+**Provider pattern**: Platform-specific code is abstracted behind `DialogProvider` interface. `createProvider()` in `index.ts` selects `WindowsDialogProvider` on Windows, `SwiftDialogProvider` on macOS.
 
-Use `--dry-run` to validate preconditions without executing.
+**Tool architecture**: Each tool in `index.ts`:
+1. Defines Zod schema for inputs
+2. Registers via `server.registerTool()` with metadata
+3. Delegates to `provider.methodName()` for platform execution
 
+**Key files**:
+- `types.ts`: `DialogPosition`, option interfaces, result types
+- `providers/interface.ts`: `DialogProvider` interface contract
+- `providers/swift.ts`: macOS implementation using Swift CLI
+- `providers/windows.ts`: Windows implementation using WPF CLI
 
-## Dialog Types & MCP Tools
+## Available Tools
 
-4 MCP tools: `ask` (interactive), `notify` (fire-and-forget), `tweak` (value adjustment pane), and `propose_layout` (grid layout editor, macOS only). When adding features, fixing bugs, or writing tests — **ALL dialog types MUST be considered**.
+| Tool | Purpose |
+|------|---------|
+| `ask` | Unified interactive dialog (type: confirm/pick/text/form) |
+| `notify` | Notification banner |
+| `tweak` | Real-time numeric value adjustment with live file writes |
+| `propose_layout` | Interactive grid layout editor (macOS only) |
 
-**Invariant:** The debug menu loads test cases from `test-cases/cases/` JSON files — no hardcoded dialog JSON in AppDelegate. When adding a new dialog type, add JSON files to `test-cases/cases/` and wire them into the debug menu. The `test-runner.sh` command mapping must also include the new type.
+The `ask` tool routes to provider methods via `type` field:
+- `confirm` → `provider.confirm()` — Yes/No
+- `pick` → `provider.choose()` — List picker (single or multi-select)
+- `text` → `provider.textInput()` — Free-form input (supports password masking)
+- `form` → `provider.questions()` — Multi-question (wizard or accordion)
 
-### All dialog types (flattened)
+Responses are transformed by `compact.ts` to strip verbose/null fields.
 
-| # | Dialog | `ask` type | CLI command | Key params | Response |
-|---|--------|-----------|-------------|------------|----------|
-| 1 | **Confirm** | `confirm` | `confirm` | `body`, `title`, `yes`, `no` | `answer: bool` |
-| 2 | **Single-select** | `pick` | `choose` | `body`, `choices[]`, `descriptions[]?`, `default?` | `answer: string` |
-| 3 | **Multi-select** | `pick` | `choose` | `body`, `choices[]`, `descriptions[]?`, `multi: true` | `answer: string[]` |
-| 4 | **Text input** | `text` | `textInput` | `body`, `title`, `default` | `answer: string` |
-| 5 | **Password input** | `text` | `textInput` | `body`, `title`, `hidden: true` | `answer: string` |
-| 6 | **Wizard form** | `form` | `questions` | `body`, `questions[]`, `mode: "wizard"` | `answer: Record<id, string\|string[]>` |
-| 7 | **Accordion form** | `form` | `questions` | `body`, `questions[]`, `mode: "accordion"` | `answer: Record<id, string\|string[]>` |
-| 8 | **Notification** | — (`notify`) | `notify` | `body`, `title`, `sound` | fire-and-forget |
-| 9 | **Value tweak** | — (`tweak`) | `tweak` | `body`, `parameters[]` | `answer: Record<id, number>` |
+## Checkpoints & Rewind Limitations
 
-`questions[]` items: `id`, `question`, `type?` (`"choice"` default, `"text"`), `options[]` (required for choice), `descriptions[]?`, `multi`, `placeholder?`, `hidden?`.
+**IMPORTANT**: These tools are designed as checkpoints to replace `AskUserQuestion` in MCP workflows, BUT they have a critical limitation with Claude Code's rewind feature:
 
-`parameters[]` items: `id`, `label`, `file`, `line`, `column`, `expectedText`, `current`, `min`, `max`, `step?`, `unit?`.
+- ❌ **MCP tool interactions do NOT create rewind points**
+- ✅ **Only user text messages create rewind points**
 
-### Shared parameters (all `ask` and `tweak` types)
+This means:
+- When Claude uses `ask`, your response via the dialog won't appear in the rewind timeline
+- You cannot rewind to restore code/conversation state at MCP interaction points
+- Only your typed messages in the chat create restore points
 
-`position` (`"left"` / `"center"` / `"right"`), `project_path` (shows project badge), `MCP_CLIENT_NAME` env var (prefixes title), `DIALOG_THEME` env var (`"sunset"` / `"midnight"` / system default).
-
-### Shared response states (all interactive dialogs)
-
-Every `ask` and `tweak` dialog can return: normal `answer`, `snoozed: true`, `askDifferently: "<type>"`, `feedbackText`, or `cancelled: true`. Responses compacted by `compact.ts` (strips null fields, maps `confirmed` → `answer: bool`, merges `dismissed` into `cancelled`). Compact priority: snoozed > askDifferently > feedbackText > cancelled > answer.
-
-### Windows (MUST run on Windows machine)
-
-.NET/WPF and Velopack require a Windows environment.
+**Recommended Workaround**: Use pre/post-change hooks to commit to a `claude/*` branch:
 
 ```bash
-ssh user@192.168.178.197
+# In your Claude Code settings, configure hooks:
+# Pre-change hook (before MCP checkpoint):
+git add -A && git commit -m "checkpoint: before $(date +%H:%M:%S)" --allow-empty
+
+# Post-change hook (after MCP response):
+git add -A && git commit -m "checkpoint: after user response $(date +%H:%M:%S)"
 ```
 
-Repo: `C:\Users\jurre\PycharmProjects\consult-user-mcp`. Commands run via `cmd.exe` by default; use `powershell -Command "..."` or `powershell -ExecutionPolicy Bypass -File ...` for PowerShell.
+This creates git commits at each checkpoint, giving you:
+- ✅ Actual code state snapshots
+- ✅ Easy revert via `git checkout <commit>`
+- ✅ Timeline of all checkpoints via `git log`
+- ✅ Works independently of Claude Code's rewind feature
 
-**Prerequisites:** `dotnet` SDK 8.0, `node`/`npm`, `gh` CLI (authenticated), `vpk` (`dotnet tool install -g vpk`).
+**Alternative**: Send a brief text message (e.g., "approved") after checkpoints to create a rewind point, but this only restores conversation, not code state.
 
-**Steps:**
+**Why this matters**: While these tools provide excellent control over Claude's workflow, they're invisible to the rewind feature, making it harder to jump back to key decision points without git-based checkpoints.
 
-1. On macOS: update `windows-app/VERSION`, `releases.json`, `bun run changelog`, commit + push
-2. On Windows (via SSH):
-   ```bash
-   cd C:\Users\jurre\PycharmProjects\consult-user-mcp
-   git checkout main && git pull
-   powershell -ExecutionPolicy Bypass -File scripts\build-windows-installer.ps1
-   ```
-3. Create release from Windows (gh is authenticated, assets are local):
-   ```bash
-   git tag windows/vX.Y.Z HEAD && git push origin windows/vX.Y.Z
-   gh release create windows/vX.Y.Z --title "Windows vX.Y.Z — ..." --notes "..." releases/windows/*
-   ```
+## Common Parameters
 
-**NEVER** run `gh release create` without attaching assets — releases without assets break the auto-updater.
+All dialog tools support:
+- `position`: `"left"` | `"right"` | `"center"` (default: `"left"`) - screen position
+- Titles are automatically prefixed with the calling client name (e.g., "Claude Desktop - Confirmation")
 
-**Gotcha:** The build script uses `$ErrorActionPreference = "Stop"`, so Node.js stderr warnings (e.g. ExperimentalWarning) can abort it. The script temporarily sets `Continue` around npm/npx commands. Wrap new npm commands the same way.
+## Handling Snooze & Feedback Responses
 
-## Baseprompt Versioning
+All interactive dialogs can return three types of responses:
 
-The base prompt has an independent version number.
+### Normal Response
+User answered the question. The `answer` field contains: `true/false` (confirm), `string` (pick single/text), `string[]` (pick multi), or `Record<string, string>` (form).
 
-- **Location:** `macos-app/Sources/Resources/base-prompt.md` (first line: `<!-- version: X.Y.Z -->`)
-- **Current:** v2.12.0
-- **Validate:** `bash scripts/validate-baseprompt-version.sh` (also runs in CI)
-- **Bump:** Major = breaking tool/workflow changes, Minor = new features/guidance, Patch = fixes/typos
+### Snooze Response
 
-## Windows Project Structure
+**CRITICAL**: When `snoozed: true` is returned, you MUST:
+1. **Actually wait** using `sleep` command (NOT just say "waiting")
+2. **Re-ask the same question** after the wait
 
-| Directory | Output | Purpose |
-|-----------|--------|---------|
-| `dialog-cli-windows/` | `dialog-cli.exe` | WPF dialog CLI (ephemeral, spawned per dialog) |
-| `windows-app/` | `consult-user-mcp.exe` | WPF tray app (persistent background process) |
+```bash
+# Example: User snoozed for 5 minutes (remainingSeconds: 300)
+sleep 300
+```
 
-Installer: Velopack-based (`scripts/build-windows-installer.ps1`), delta updates from GitHub Releases. First-run auto-configures Claude Code MCP server. User data: `%APPDATA%\ConsultUserMCP\`.
+**Response fields when snoozed:**
+- `snoozed: true`
+- `snoozeMinutes: 1 | 5 | 15 | 30 | 60` (original duration chosen by user)
+- `remainingSeconds: <int>` (seconds until snooze expires)
+- Normal response fields will be null/empty
 
-## Documentation Structure
+**Snooze is enforced globally**: During the snooze period, ALL subsequent dialog calls return immediately with `{ snoozed: true, remainingSeconds: X }` WITHOUT showing any dialog. This prevents interrupting the user.
 
-- **`docs/src/lib/data/releases.json`** — single source of truth for app releases. Feeds /docs page, generates CHANGELOG.md via `bun run changelog`. Only app changes, never docs-only.
-- **`CHANGELOG.md`** — auto-generated from releases.json. Do not edit manually.
-- **`docs/src/lib/data/releases.schema.json`** — JSON schema for validation.
+**Example handling:**
+```
+Tool response: { "snoozed": true, "snoozeMinutes": 1, "remainingSeconds": 60 }
 
-### Writing Changelists
+CORRECT:
+1. Run: sleep 60
+2. Re-call the same tool with same parameters
 
-Write **user-facing features and benefits**, not commit messages:
+WRONG:
+- Just saying "I'll wait" without running sleep
+- Asking a different question immediately
+- Moving on without re-asking
+```
 
-| Bad (commit-style) | Good (user-facing) |
-|---|---|
-| Add markdown support | Text input dialogs now support markdown formatting |
-| Fix snooze crash | Snooze feature now works reliably without crashes |
-| Refactor DialogManager | Dialogs now focus correctly when switching apps |
-| Add execute permission | Installation script now runs without permission errors |
+### Feedback Response
+User provided text feedback instead of answering. The `feedbackText` field contains their message - read it and adjust your approach accordingly.
+
+**Response fields when feedback given:**
+- `feedbackText: "user's message here"`
+- Normal response fields will be null/empty
+
+## Additional Tool Options
+
+`ask` with `type: "pick"` additionally supports:
+- `descriptions`: Array of description strings matching choices array. Displayed as `"Choice → Description"` format.
+
+## Platform Requirements
+
+- macOS (Swift CLI) or Windows (WPF CLI)
+- Node.js 18+
+
+## Creating a New Provider
+
+To add support for a new platform, implement the `DialogProvider` interface in `providers/interface.ts`:
+
+### 1. Create provider file
+
+```typescript
+// src/providers/linux.ts
+import type { DialogProvider } from "./interface.js";
+
+export class LinuxDialogProvider implements DialogProvider {
+  private clientName = "MCP";
+
+  setClientName(name: string): void { this.clientName = name; }
+  async pulse(): Promise<void> { /* keep-alive, can be no-op */ }
+  async confirm(opts) { /* zenity, kdialog, etc. */ }
+  async choose(opts) { /* ... */ }
+  async textInput(opts) { /* ... */ }
+  async notify(opts) { /* ... */ }
+  async preview(opts) { /* ... */ }
+  async questions(opts) { /* ... */ }
+  async tweak(opts) { /* ... */ }
+  async proposeLayout(opts) { /* ... */ }
+}
+```
+
+### 2. Required method behaviors
+
+| Method | Must handle | Return on cancel |
+|--------|-------------|------------------|
+| `confirm` | Yes/No dialog | `{confirmed: false, cancelled: true, ...}` |
+| `choose` | Single/multi-select | `{answer: null, cancelled: true, ...}` |
+| `textInput` | Text field + hidden mode | `{answer: null, cancelled: true, ...}` |
+| `questions` | Multi-question wizard/accordion | `{answers: {}, cancelled: true, ...}` |
+| `tweak` | Numeric sliders with live file writes | `{answers: {}, cancelled: true, ...}` |
+| `notify` | Non-blocking notification | `{success: true/false}` |
+| `preview` | Response preview before send | `{success: true/false}` |
+| `proposeLayout` | Interactive grid layout editor | `{status: "cancelled", ...}` |
+
+### 3. Wire up in index.ts
+
+Add platform detection in `createProvider()`:
+
+```typescript
+function createProvider(): DialogProvider {
+  if (process.platform === "linux") return new LinuxDialogProvider();
+  if (process.platform === "win32") return new WindowsDialogProvider();
+  return new SwiftDialogProvider();
+}
+```
+
+### 4. Implementation notes
+
+- `position` parameter controls dialog screen placement (left/right/center)
+- Prefix dialog titles with `clientName` via `buildTitle()` helper
+- Handle user cancellation gracefully (Escape key, window close)
 
 ---
 > Source: [doublej/consult-user-mcp](https://github.com/doublej/consult-user-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
