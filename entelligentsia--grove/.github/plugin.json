@@ -1,0 +1,9 @@
+{
+  "name": "entelligentsia--grove",
+  "displayName": "grove",
+  "description": "Structural, byte-precise, token-cheap codebase access for coding agents \u2014 tree-sitter over a CLI and an MCP server.",
+  "version": "1.0.0",
+  "author": "Entelligentsia",
+  "homepage": "https://github.com/Entelligentsia/grove",
+  "skills": []
+}
