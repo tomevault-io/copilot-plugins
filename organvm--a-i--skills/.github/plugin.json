@@ -1,0 +1,9 @@
+{
+  "name": "organvm--a-i--skills",
+  "displayName": "a-i--skills",
+  "description": "Public repository of AI agent skills: specialized capabilities and workflows across 12 categories",
+  "version": "1.0.0",
+  "author": "organvm",
+  "homepage": "https://github.com/organvm/a-i--skills",
+  "skills": []
+}
