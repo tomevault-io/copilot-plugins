@@ -1,0 +1,9 @@
+{
+  "name": "elcritch--ntagger",
+  "displayName": "ntagger",
+  "description": "Nim ctags processor",
+  "version": "1.0.0",
+  "author": "elcritch",
+  "homepage": "https://github.com/elcritch/ntagger",
+  "skills": []
+}
