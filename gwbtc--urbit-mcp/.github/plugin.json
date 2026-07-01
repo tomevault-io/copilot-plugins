@@ -1,0 +1,9 @@
+{
+  "name": "gwbtc--urbit-mcp",
+  "displayName": "urbit-mcp",
+  "description": "A general-purpose MCP interface for Urbit, a networked personal server.",
+  "version": "1.0.0",
+  "author": "gwbtc",
+  "homepage": "https://github.com/gwbtc/urbit-mcp",
+  "skills": []
+}
