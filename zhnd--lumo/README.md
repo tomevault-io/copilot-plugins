@@ -2,8 +2,6 @@
 
 > Tome by [zhnd](https://github.com/zhnd/lumo) — distributed by [TomeVault](https://tomevault.io)
 
-Local-first dashboard for observing Claude Code usage, cost, sessions, and time.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
