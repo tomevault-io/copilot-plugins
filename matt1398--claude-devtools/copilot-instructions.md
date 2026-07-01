@@ -1,166 +1,89 @@
 ## claude-devtools
 
-> Electron app that visualizes Claude Code session execution
+> UI components organized by feature domain.
 
-# claude-devtools
+# Components
 
-Electron app that visualizes Claude Code session execution
+UI components organized by feature domain.
 
-## Tech Stack
-Electron 28.x, React 18.x, TypeScript 5.x, Tailwind CSS 3.x, Zustand 4.x
-
-## Commands
-Always use pnpm (not npm/yarn) for this project.
-
-- `pnpm install` - Install dependencies
-- `pnpm dev` - Dev server with hot reload
-- `pnpm build` - Production build
-- `pnpm typecheck` - Type checking
-- `pnpm lint:fix` - Lint and auto-fix
-- `pnpm format` - Format code
-- `pnpm test` - Run all vitest tests
-- `pnpm test:watch` - Watch mode
-- `pnpm test:coverage` - Coverage report
-- `pnpm test:coverage:critical` - Critical path coverage
-- `pnpm test:chunks` - Chunk building tests
-- `pnpm test:semantic` - Semantic step extraction tests
-- `pnpm test:noise` - Noise filtering tests
-- `pnpm test:task-filtering` - Task tool filtering tests
-
-## Path Aliases
-Use path aliases for imports:
-- `@main/*` → `src/main/*`
-- `@renderer/*` → `src/renderer/*`
-- `@shared/*` → `src/shared/*`
-- `@preload/*` → `src/preload/*`
-
-## Data Sources
-~/.claude/projects/{encoded-path}/*.jsonl - Session files
-~/.claude/todos/{sessionId}.json - Todo data
-
-Path encoding: `/Users/name/project` → `-Users-name-project`
-
-## Critical Concepts
-
-### isMeta Flag
-- `isMeta: false` = Real user message (creates new chunks)
-- `isMeta: true` = Internal message (tool results, system-generated)
-
-### Chunk Structure
-Independent chunk types for timeline visualization:
-- **UserChunk**: Single user message with metrics
-- **AIChunk**: All assistant responses with tool executions and spawned subagents
-- **SystemChunk**: Command output/system messages
-- **CompactChunk**: System metadata/structural messages
-
-Each chunk has: timestamp, duration, metrics (tokens, cost, tools)
-
-### Task/Subagent Filtering
-Task tool_use blocks are filtered when subagent exists
-Keep orphaned Task calls (no matching subagent) for visibility.
-
-### Agent Teams
-Claude Code's "Orchestrate Teams" feature: multiple sessions coordinate as a team.
-- **Process.team?** `{ teamName, memberName, memberColor }` — enriched by SubagentResolver from Task call inputs and `teammate_spawned` tool results
-- **Teammate messages** arrive as `<teammate-message teammate_id="..." color="..." summary="...">content</teammate-message>` in user messages (isMeta: false). Detected by `isParsedTeammateMessage()` — excluded from UserChunks, rendered as `TeammateMessageItem` cards
-- **Session ongoing detection** treats `SendMessage` shutdown_response (approve: true) and its tool_result as ending events, not ongoing activity
-- **Display summary** counts distinct teammates (by name) separately from regular subagents
-- **Team tools**: TeamCreate, TaskCreate, TaskUpdate, TaskList, TaskGet, SendMessage, TeamDelete — have readable summaries in `toolSummaryHelpers.ts`
-
-### Visible Context Tracking
-Tracks what consumes tokens in Claude's context window across 6 categories (discriminated union on `category` field):
-
-| Category | Type | Source |
-|----------|------|--------|
-| `claude-md` | `ClaudeMdContextInjection` | CLAUDE.md files (global, project, directory) |
-| `mentioned-file` | `MentionedFileInjection` | User @-mentioned files |
-| `tool-output` | `ToolOutputInjection` | Tool execution results (Read, Bash, etc.) |
-| `thinking-text` | `ThinkingTextInjection` | Extended thinking + text output tokens |
-| `team-coordination` | `TeamCoordinationInjection` | Team tools (SendMessage, TaskCreate, etc.) |
-| `user-message` | `UserMessageInjection` | User prompt text per turn |
-
-- **Types**: `src/renderer/types/contextInjection.ts` — `ContextInjection` union, `ContextStats`, `TokensByCategory`
-- **Tracker**: `src/renderer/utils/contextTracker.ts` — `computeContextStats()`, `processSessionContextWithPhases()`
-- **Context Phases**: Compaction events reset accumulated injections, tracked via `ContextPhaseInfo`
-- **Display surfaces**: `ContextBadge` (per-turn popover), `TokenUsageDisplay` (hover breakdown), `SessionContextPanel` (full panel)
-
-## Error Handling
-- Main: try/catch, console.error, return safe defaults
-- Renderer: error state in Zustand store
-- IPC: parameter validation, graceful degradation
-
-## Performance
-- LRU Cache: Avoid re-parsing large JSONL files
-- Streaming JSONL: Line-by-line processing
-- Virtual Scrolling: For large session/message lists
-- Debounced File Watching: 100ms debounce
-
-## Troubleshooting
-
-### Build Issues
-```bash
-rm -rf dist dist-electron node_modules
-pnpm install
-pnpm build
+## Structure
+```
+components/
+├── chat/                    # Session message display
+│   ├── items/               # Individual message/tool items
+│   │   ├── linkedTool/      # Tool call/result display helpers
+│   │   ├── BaseItem         # Base item wrapper
+│   │   ├── baseItemHelpers  # Base item utility functions
+│   │   ├── ExecutionTrace   # Execution trace display
+│   │   ├── LinkedToolItem   # Tool call with linked result
+│   │   ├── MetricsPill      # Metrics badge display
+│   │   ├── SlashItem        # Slash command display
+│   │   ├── SubagentItem     # Subagent execution display
+│   │   ├── TeammateMessageItem  # Team message cards
+│   │   ├── ThinkingItem     # Extended thinking display
+│   │   └── TextItem         # Text output display
+│   ├── viewers/             # Content viewers (JSON, code, diff)
+│   ├── SessionContextPanel/ # Visible context tracking panel
+│   │   ├── components/      # Section wrappers (ClaudeMdFilesSection, ToolOutputsSection, UserMessagesSection, etc.)
+│   │   ├── items/           # Per-injection item renderers (ClaudeMdItem, ToolOutputItem, UserMessageItem, etc.)
+│   │   ├── DirectoryTree/   # CLAUDE.md directory navigation
+│   │   ├── utils/           # Formatting helpers
+│   │   ├── index.tsx        # Main panel component
+│   │   └── types.ts         # SectionType constants, panel props
+│   ├── AIChatGroup.tsx      # AI response group display
+│   ├── ChatHistory.tsx      # Chat timeline container
+│   ├── ChatHistoryEmptyState.tsx  # Empty state display
+│   ├── ChatHistoryItem.tsx  # Individual history item
+│   ├── ChatHistoryLoadingState.tsx # Loading state display
+│   ├── CompactBoundary.tsx  # Compaction event boundary marker
+│   ├── ContextBadge.tsx     # Per-turn context injection popover badge
+│   ├── DisplayItemList.tsx  # Display item list rendering
+│   ├── LastOutputDisplay.tsx # Last output display
+│   ├── SystemChatGroup.tsx  # System message group display
+│   ├── UserChatGroup.tsx    # User message display
+│   ├── markdownComponents.tsx # Custom markdown renderers
+│   └── searchHighlightUtils.ts # Search highlight utilities
+├── common/                  # Shared UI primitives
+│   ├── CopyButton           # Copy to clipboard button
+│   ├── CopyablePath         # Clickable, copyable file path
+│   ├── ErrorBoundary        # React error boundary
+│   ├── OngoingIndicator     # Session in-progress indicator
+│   ├── RepositoryDropdown   # Repository selector dropdown
+│   ├── TokenUsageDisplay    # Token breakdown with context stats hover
+│   └── WorktreeBadge        # Git worktree badge
+├── dashboard/               # Overview and listing pages
+├── layout/                  # App shell, sidebars, headers
+├── notifications/           # Notification panels and badges
+├── search/                  # Search UI and results
+├── settings/                # Settings pages and controls
+│   ├── components/          # Reusable setting controls (SettingRow, SettingsToggle, etc.)
+│   ├── hooks/               # Settings-specific hooks
+│   ├── sections/            # Setting sections (General, Notifications, Advanced)
+│   └── NotificationTriggerSettings/  # Trigger config UI
+│       ├── components/      # Trigger form components
+│       ├── hooks/           # Trigger form hooks
+│       └── utils/           # Trigger utilities
+└── sidebar/                 # Project/session navigation
 ```
 
-### Type Errors
-```bash
-pnpm typecheck
-```
+## Adding Components
+1. Choose appropriate parent directory by feature
+2. If used across features, place in `common/`
+3. Use Tailwind with theme-aware CSS variables
+4. Connect to store via `useStore()` hook if needed
+5. Colocate related hooks/utils in same directory
 
-### Test Failures
-Check for changes in message parsing or chunk building logic.
+## Component Guidelines
+- One component per file, PascalCase naming
+- Use functional components with hooks
+- Prefer composition over prop drilling
+- Use `TabUIContext` for per-tab UI state
 
-## TypeScript Conventions
-
-### Naming
-| Category | Convention | Example |
-|----------|------------|---------|
-| Services/Components | PascalCase | `ProjectScanner.ts` |
-| Utilities | camelCase | `pathDecoder.ts` |
-| Constants | UPPER_SNAKE_CASE | `PARALLEL_WINDOW_MS` |
-| Type Guards | isXxx | `isRealUserMessage()` |
-| Builders | buildXxx | `buildChunks()` |
-| Getters | getXxx | `getResponses()` |
-
-### Type Guards
-```typescript
-// Message type guards (src/main/types/messages.ts)
-isParsedRealUserMessage(msg)      // isMeta: false, string content
-isParsedInternalUserMessage(msg)  // isMeta: true, array content
-isAssistantMessage(msg)           // type: "assistant"
-
-// Chunk type guards
-isUserChunk(chunk)          // type: "user"
-isAIChunk(chunk)            // type: "ai"
-isSystemChunk(chunk)        // type: "system"
-isCompactChunk(chunk)       // type: "compact"
-
-// Context injection type guards (component-scoped in ContextBadge.tsx, not exported)
-isClaudeMdInjection(inj)          // category: "claude-md"
-isMentionedFileInjection(inj)     // category: "mentioned-file"
-isToolOutputInjection(inj)        // category: "tool-output"
-isThinkingTextInjection(inj)      // category: "thinking-text"
-isTeamCoordinationInjection(inj)  // category: "team-coordination"
-isUserMessageInjection(inj)       // category: "user-message"
-```
-
-### Barrel Exports
-`src/main/services/` and its domain subdirectories have barrel exports via index.ts:
-```typescript
-// Preferred
-import { ChunkBuilder, ProjectScanner } from './services';
-// Also valid
-import { ChunkBuilder } from './services/analysis';
-```
-Note: renderer utils/hooks/types do NOT have barrel exports — import directly from files.
-
-### Import Order
-1. External packages
-2. Path aliases (@main, @renderer, @shared)
-3. Relative imports
+## Virtual Scrolling
+Use `@tanstack/react-virtual` for lists > 100 items:
+- Session lists in sidebar
+- Message lists in chat view
 
 ---
 > Source: [matt1398/claude-devtools](https://github.com/matt1398/claude-devtools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
