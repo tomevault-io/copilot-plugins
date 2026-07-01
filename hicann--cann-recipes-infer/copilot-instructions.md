@@ -1,0 +1,137 @@
+## cann-recipes-infer
+
+> cann-recipes-infer 是基于 CANN 平台的 LLM/多模态模型离线推理优化样例库，面向昇腾 Atlas A2/A3 硬件。支持 TP/EP/DP 并行策略组合，提供 `ge_graph` 和 `eager` 两种执行模式。核心特性包括多流并行、融合算子、FBCache/TeaCache 等加速算法、W8A8/W4A16/W8A8C8 量化等。
+
+# cann-recipes-infer — NPU 推理优化
+
+cann-recipes-infer 是基于 CANN 平台的 LLM/多模态模型离线推理优化样例库，面向昇腾 Atlas A2/A3 硬件。支持 TP/EP/DP 并行策略组合，提供 `ge_graph` 和 `eager` 两种执行模式。核心特性包括多流并行、融合算子、FBCache/TeaCache 等加速算法、W8A8/W4A16/W8A8C8 量化等。
+
+---
+
+## Agent 使用说明
+
+Agent skill 与 subagent 源码位于 `.agents/`。首次克隆后根据使用的客户端运行对应命令，生成该平台的目录视图：
+
+- Codex：`bash scripts/init-agent.sh --codex`
+- Claude Code：`bash scripts/init-agent.sh --claude`
+- OpenCode：`bash scripts/init-agent.sh --opencode`
+
+Codex 直接读取 `.agents/skills`，初始化脚本会将 `.agents/agents/*.md` 转换为 `.codex/agents/*.toml`。复杂模型优化任务建议在任务入口明确启用 Codex subagent workflow：
+
+```text
+请使用 Codex subagent workflow，调用 model-infer-optimize，对 models/{model_name} 做端到端 NPU 推理优化。
+按 model-infer-analyzer / model-infer-implementer / model-infer-reviewer 三个 agent 执行，并通过 progress.md 传递状态。
+```
+
+---
+
+## 代码库结构
+
+```
+executor/       # 执行器框架：ModelRunner、模型加载、推理脚本
+models/         # 各模型实现（modeling_*.py, runner_*.py, config/）
+module/         # 共享基础模块：Linear、MoE GMM、量化、序列并行
+ops/            # 自定义算子：AscendC、PyPTO、TileLang
+accelerator/    # 加速组件
+docs/           # 设计文档、模型文档
+dataset/        # 数据集和默认 prompt
+contrib/        # 社区贡献模型
+scripts/        # 工具脚本
+```
+
+---
+
+## 参考模型速查
+
+当前模型存在两种方式，**统一流程**（推荐优先采用，参考 [统一流程方案](docs/design/executor_design.md)）与**ModelRunner**（逐渐废弃）。
+
+| 流程 | 类别 | 模型 |
+|---|---|---|
+| **统一流程** | Dense LLM | `gpt_oss`, `qwen25_7b_instruct`, `qwen3_8b`, `deepseek_v3_2_exp`, `gemma_4` |
+| | MoE LLM | `deepseek_r1`, `kimi_k2_thinking`, `qwen3_moe`, `qwen3.5`, `hy3_preview`, `step3p7_flash`, `longcat_flash`, `longcat_flash_lite` |
+| **ModelRunner** | LLM (Dense / MoE) | `deepseek-v4`, `glm-5`, `pangu-7b` |
+| | 视频生成 | `hunyuan-video`, `wan2.2-i2v`, `sana-video` |
+| | 图像生成 | `hunyuan-image-3.0` |
+| | 推荐 / 其他 | `hstu` |
+
+---
+
+## 硬件平台映射
+
+`asys info -r=status` 输出的 Chip Name 与 Atlas 系列的对应关系：
+
+| Atlas 系列 | Chip Name | 单卡 HBM |
+|-----------|---------|----------|
+| Atlas A2 | Ascend 910B* | 32/64 GB |
+| Atlas A3 | Ascend 910_93* | 64 GB |
+| Atlas A5 | Ascend 950* | — |
+
+---
+
+## 推荐环境
+
+CANN 9.0.0 + PyTorch 2.8.0 + torch_npu 2.8.0 + transformers 5.0.0
+
+## 常用命令
+
+```bash
+# 环境设置
+source /usr/local/Ascend/ascend-toolkit/latest/bin/setenv.bash
+pip3 install -r models/{model_name}/requirements.txt
+
+# 推理执行
+cd models/{model_name} && bash infer.sh
+
+# 权重转换（未启用 enable_online_split_weight 时）
+bash utils/weight_convert.sh --input_fp8_hf_path /path/to/origin \
+    --output_hf_path /path/to/output --quant_mode w8a8
+
+# 性能分析：YAML 中设 enable_profiler: True，结果在 prof/ 目录
+
+# CI 测试
+bash executor/scripts/test_all_case.sh
+
+# 多机部署：修改 executor/scripts/set_env.sh 中的 IPs 和 cann_path，各节点执行 infer.sh
+```
+
+---
+
+## Skill 路由
+
+| 场景 | Skill |
+|------|-------|
+| 模型部署基线 | model-infer-migrator |
+| 端到端模型优化 | model-infer-optimize（编排入口） |
+| KVCache 静态化 / FA 替换 | model-infer-kvcache |
+| 融合算子分析与替换 | model-infer-fusion |
+| 量化适配改造 | model-infer-quantization |
+| 图模式适配 | model-infer-graph-mode |
+| KVCache/FA 精度问题 | model-infer-precision-debug |
+| 并行策略分析 | model-infer-parallel-analysis |
+| 并行策略实施 | model-infer-parallel-impl |
+| NPU 运行时错误诊断 | model-infer-runtime-debug |
+
+---
+
+## 行为约束
+
+- **先理解再行动**：分析或修改模型代码前，先读懂当前实现和模型架构，参考对应 skill 的分析流程，不要基于猜测行动
+- **失败时回到 skill**：修复失败后不盲目重试，重新读取对应 skill 的排查流程，按步骤定位根因再动手
+- **调用而非重建**：需要 skill 覆盖的工作流，调用对应 skill 按步骤执行，不要凭记忆重建步骤
+- **及时持久化**：长任务中关键结论、设计决策、调试发现要及时写入文件（如 progress.md），上下文压缩会丢失未保存的信息
+- **事实性信息不推断**：硬件型号、卡数、die 数、显存容量、模型路径、权重路径等事实性配置信息，必须从已告知的获取方式或用户明确确认中获取。缺失时向用户确认，不猜测。获取后及时记录到 progress.md
+- **前置条件检查**：执行任务前，确认所需信息（模型路径、权重路径、部署配置等）是否可从 YAML 配置或 progress.md 中获取，缺失时向用户确认，不盲目搜索或猜测。单独使用 model-infer 系列 skill 时，若模型尚未完成框架适配或基线采集，应建议用户先通过 model-infer-optimize 完成阶段 0（模型分析与基线建立）
+- **工作目录规范**：运行推理、采集基线等操作必须先 `cd` 到模型目录（`models/{model_name}/`）再执行，不要从仓库根目录直接运行，避免日志和输出文件生成在错误位置
+- **证据优先**：所有判断、结论或决策都必须有来自代码库、需求或文档的明确证据支撑。没有证据，就不能下结论。被要求做判断时，先说明证据来源，再给出结论。禁止凭经验、印象或类比推断
+
+---
+
+## 注意事项
+
+- **LICENSE**：新增模型请确保 LICENSE 合规，建议 Apache 2.0 或 MIT
+- **代码规范**：提交前执行 `pre-commit run --all-files`
+- **OOM 缓解**：减 batch_size → enable_prefill_multi_cycle → moe_chunk_max_len（MoE）→ kvp_size（长序列）→ 换更高压缩量化
+
+---
+> Source: [hicann/cann-recipes-infer](https://github.com/hicann/cann-recipes-infer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
