@@ -1,0 +1,9 @@
+{
+  "name": "cass-2003--local-workflow-skill",
+  "displayName": "local-workflow-skill",
+  "description": "A local workflow orchestrator skill for routing project tasks, validation gates, authority resolution, and skill evolution.",
+  "version": "1.0.0",
+  "author": "cass-2003",
+  "homepage": "https://github.com/cass-2003/local-workflow-skill",
+  "skills": []
+}
