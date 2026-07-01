@@ -1,0 +1,9 @@
+{
+  "name": "opencoredev--mobbin-cli",
+  "displayName": "mobbin-cli",
+  "description": "Local Mobbin visual-search CLI with one-time OAuth login for agents and humans.",
+  "version": "1.0.0",
+  "author": "opencoredev",
+  "homepage": "https://github.com/opencoredev/mobbin-cli",
+  "skills": []
+}
