@@ -1,0 +1,9 @@
+{
+  "name": "superalp1985--fame-knowledge-agent-gateway",
+  "displayName": "fame-knowledge-agent-gateway",
+  "description": "A universal external memory and tool-governance gateway for coding agents, with FAME route memory, knowledge graph, guardrails, and local-first workbench.",
+  "version": "1.0.0",
+  "author": "superalp1985",
+  "homepage": "https://github.com/superalp1985/fame-knowledge-agent-gateway",
+  "skills": []
+}
