@@ -1,0 +1,9 @@
+{
+  "name": "initialneil--project-with-reflect",
+  "displayName": "project-with-reflect",
+  "description": "Claude Code meta-skill: turn each project/machine/device into a self-improving skill (log -> reflect -> improve).",
+  "version": "1.0.0",
+  "author": "initialneil",
+  "homepage": "https://github.com/initialneil/project-with-reflect",
+  "skills": []
+}
