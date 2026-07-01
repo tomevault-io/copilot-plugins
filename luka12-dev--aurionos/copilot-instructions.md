@@ -2,7 +2,7 @@
 
 > This document provides context and guidance for working with the AurionOS codebase. AurionOS is a complete operating system built from scratch in x86 assembly and C - no Linux kernel, no POSIX, no borrowed code.
 
-# AurionOS - Codex Development Guide
+# AurionOS - Claude Development Guide
 
 This document provides context and guidance for working with the AurionOS codebase. AurionOS is a complete operating system built from scratch in x86 assembly and C - no Linux kernel, no POSIX, no borrowed code.
 
@@ -344,7 +344,7 @@ make run
 
 ```
 AurionOS/
-├── .Codex/              # Codex AI context (this file)
+├── .claude/              # Claude AI context (this file)
 ├── AurionGL/             # 3D graphics library
 │   ├── auriongl.c        # Implementation
 │   ├── auriongl.h        # API header
@@ -684,4 +684,4 @@ This guide is maintained alongside the AurionOS codebase. When making significan
 
 ---
 > Source: [Luka12-dev/AurionOS](https://github.com/Luka12-dev/AurionOS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
