@@ -2,8 +2,8 @@
   "name": "ai-memory",
   "owner": "hyxnj666-creator",
   "repo": "ai-memory",
-  "description": "Extract structured knowledge from Cursor & Claude Code conversations into git-trackable Markdown files",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ai-memory",
+      "path": "docs/assets/demo/scenario/.claude/skills/ai-memory-decision-log/SKILL.md",
+      "github_url": "https://github.com/hyxnj666-creator/ai-memory/tree/main/docs/assets/demo/scenario/.claude/skills/ai-memory-decision-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-memory",
+      "path": "docs/assets/demo/scenario/.claude/skills/ai-memory-coding-conventions/SKILL.md",
+      "github_url": "https://github.com/hyxnj666-creator/ai-memory/tree/main/docs/assets/demo/scenario/.claude/skills/ai-memory-coding-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-memory",
+      "path": "docs/assets/demo/scenario/.claude/skills/ai-memory-system-architecture/SKILL.md",
+      "github_url": "https://github.com/hyxnj666-creator/ai-memory/tree/main/docs/assets/demo/scenario/.claude/skills/ai-memory-system-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/hyxnj666-creator/ai-memory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:43:42Z"
+  "distributed_at": "2026-07-01T09:33:34Z"
 }
