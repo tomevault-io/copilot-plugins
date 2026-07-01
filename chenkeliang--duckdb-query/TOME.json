@@ -1,0 +1,44 @@
+{
+  "name": "duckdb-query",
+  "owner": "Chenkeliang",
+  "repo": "duckdb-query",
+  "description": "AI-native visual SQL workbench on DuckDB. Query local CSV/Excel/JSON + remote MySQL/Postgres together with text-to-SQL chat \u2014 no ETL, local-first, cross-source JOINs. \u00b7 \u57fa\u4e8e DuckDB \u7684 AI \u53ef\u89c6\u5316 SQL \u5de5\u4f5c\u53f0,\u672c\u5730\u6587\u4ef6\u4e0e\u8fdc\u7a0b\u5e93\u4e00\u7ad9\u5f0f\u8de8\u6e90\u5206\u6790\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Chenkeliang/duckdb-query",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-01T22:45:57Z"
+}
