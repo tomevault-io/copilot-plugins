@@ -5,13 +5,13 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [aspekt19/unboxed-loyalty-spark](https://github.com/aspekt19/unboxed-loyalty-spark).
+Original source: `AGENTS.md` in [aspekt19/unboxed-loyalty-spark](https://github.com/aspekt19/unboxed-loyalty-spark).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
