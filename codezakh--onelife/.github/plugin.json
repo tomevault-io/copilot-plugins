@@ -1,0 +1,9 @@
+{
+  "name": "codezakh--onelife",
+  "displayName": "onelife",
+  "description": "[ICLR 26] How can an agent reverse engineer the underlying laws of an unknown, hostile & stochastic environment in \"one life\", without millions of steps + human-provided goals / rewards? We infer a wo",
+  "version": "1.0.0",
+  "author": "codezakh",
+  "homepage": "https://github.com/codezakh/onelife",
+  "skills": []
+}
