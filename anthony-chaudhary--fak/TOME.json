@@ -4,7 +4,7 @@
   "repo": "fak",
   "description": "fak \u2014 the Fused Agent Kernel: treat the model like an untrusted program and the tool call like a syscall. One Go binary \u2014 a default-deny capability gate the model can't talk past, plus an addressable, bit-exact KV cache.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anthony-chaudhary/fak",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T00:19:54Z"
+  "distributed_at": "2026-07-01T00:20:28Z"
 }
