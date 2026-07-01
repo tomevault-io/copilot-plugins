@@ -7,11 +7,11 @@ Free, bidirectional Figma MCP server — turn designs into framework-aware code 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [awdr74100/figwright](https://github.com/awdr74100/figwright).
+Original source: `CLAUDE.md` in [awdr74100/figwright](https://github.com/awdr74100/figwright).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
