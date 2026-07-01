@@ -4,7 +4,7 @@
   "repo": "Schematic",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BjoernKW/Schematic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T23:26:23Z"
+  "distributed_at": "2026-07-01T11:07:30Z"
 }
