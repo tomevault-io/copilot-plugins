@@ -7,11 +7,11 @@ Modern, open-source calendar app. Built for Omarchy.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [t4t5/rencal](https://github.com/t4t5/rencal).
+Original source: `CLAUDE.md` in [t4t5/rencal](https://github.com/t4t5/rencal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
