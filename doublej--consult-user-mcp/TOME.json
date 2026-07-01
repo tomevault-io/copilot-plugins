@@ -2,7 +2,7 @@
   "name": "consult-user-mcp",
   "owner": "doublej",
   "repo": "consult-user-mcp",
-  "description": "Consult User MCP - A Human Consultation Interface",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doublej/consult-user-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T03:42:17Z"
+  "distributed_at": "2026-07-01T19:11:20Z"
 }
