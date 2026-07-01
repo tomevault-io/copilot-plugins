@@ -7,11 +7,11 @@ CLIs for prompting with rich TUI, mouse/keyboard, typed inputs, consistent JSON 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tui-cs/clet](https://github.com/tui-cs/clet).
+Original source: `CLAUDE.md` in [tui-cs/clet](https://github.com/tui-cs/clet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
