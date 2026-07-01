@@ -1,66 +1,130 @@
 ## talebook
 
-> 本文件为 Claude Code（claude.ai/code）在此仓库中工作时提供指引。
+> 本文件为 Claude Code 在 `webserver/` 目录中工作时提供指引。
 
 # CLAUDE.md
 
-本文件为 Claude Code（claude.ai/code）在此仓库中工作时提供指引。
-
-## 项目概述
-
-Talebook 是基于 [Calibre](https://calibre-ebook.com/) 的个人电子书管理系统：
-
-- **`webserver/`** — Python 后端（Tornado + Calibre），详见 `webserver/CLAUDE.md`
-- **`app/`** — 前端（Nuxt 4 + Vue 3 + Vuetify），详见 `app/CLAUDE.md`
-
-生产环境由 Nginx 托管静态前端，并将 `/api/`、`/get/`、`/read/`、`/auth/`、`/opds/` 反向代理到 8080 端口的 Tornado 后端。
+本文件为 Claude Code 在 `webserver/` 目录中工作时提供指引。
 
 ## 常用命令
 
 ```bash
-# 后端依赖
-make init
-
-# 后端测试与检查
-make pytest
-make lint-py
-
-# Docker 全栈
-make test    # Docker 内运行 pytest
-make build   # 测试通过后构建生产镜像
-make up      # docker compose up
-make dev     # 挂载 webserver/ 进容器，用于后端开发调试
+# 在项目根目录执行
+make pytest                        # pytest tests -v --cov=webserver
+pytest tests/test_main.py -v       # 运行单个测试文件
+pytest tests/test_book.py::TestBookHandler::test_get -v  # 运行单个用例
+make lint-py                       # flake8 代码检查
 ```
 
-前端命令见 `app/CLAUDE.md`。
+## 架构
 
-## 开发规范
+### 请求处理
 
-### 测试
+`main.py` 初始化 Tornado 应用，URL 路由在 `handlers/__init__.py:routes()` 中组装。
 
-- **每次新增或修改功能，必须附带对应的测试用例**，不允许只改业务代码不写测试。
-- 后端改动在 `tests/` 中添加用例，前端改动在 `app/test/` 中添加用例。
-- 具体写法见各子目录的 CLAUDE.md。
+所有 handler 继承自 `handlers/base.py` 中的 `BaseHandler`。两个装饰器贯穿全局：
 
-### 提交前检查
+- **`@js`** — 将返回的 dict 序列化为 JSON 并附加 CORS 头；异常自动捕获并返回 `{"err": "exception", "msg": "..."}` 而不是 500。
+- **`@auth`** — 检查登录状态，未登录返回 `{"err": "not_login"}`。
+- **`@is_admin`**（在部分 handler 中）— 检查管理员权限。
 
-```bash
-make lint-py-fix  # 后端：用 black + isort 自动修复格式，开发完代码后必须执行
-make lint-py      # 后端：flake8 必须通过，不允许提交有 lint 错误的代码
-make pytest       # 后端：所有测试必须通过
-cd app && npm run lint   # 前端：eslint 必须通过
+新增接口的标准模式：
+```python
+class MyHandler(BaseHandler):
+    @js
+    @auth
+    def get(self):
+        # 直接 return dict，@js 负责序列化
+        return {"err": "ok", "data": {...}}
 ```
 
-### 代码风格
+### 配置系统
 
-- Python 行宽上限 120 字符（见 `pyproject.toml` black 配置）。
-- 后端新增接口统一使用 `@js` + `@auth` 装饰器，返回 `{"err": "ok", ...}`，禁止直接抛出 HTTP 异常。
-- 前端 API 调用统一使用 `plugins/talebook.js` 的 `backend()` 函数，禁止直接使用 `fetch`。
-- 前端 i18n 文案（`app/i18n/locales/*.json`）中**禁止出现字面量 `@` 和 `<`**：vue-i18n 把 `@`（如 `@js:`）当链接消息语法（报 `Invalid linked format`）、把 `<`（如 `<js>`）当 HTML（报 `Detected HTML`），任一出现都会让**整个 locale 编译失败**——页面所有文案显示为原始 key、dev server 返回 500，而 `JSON.parse` 与 eslint 均不报错（只有 dev server 日志里有 `[unplugin-vue-i18n]` 错误）。文案应改写绕开这两个符号，必须保留时用字面插值 `{'@'}`。新增 key 后 HMR 常不热更，需重启 `nuxt dev`。
+`loader.py` 提供单例 `CONF = loader.get_settings()`，所有模块在文件顶部导入它。配置按以下顺序叠加（后者覆盖前者）：
 
-### 目录规范
-- scripts 目录存放临时使用的脚本，例如迁移、构造数据、临时测试的脚本；
-- document 目录存放所有技术方案和进展文档，按日期整理，例如 document/20260429/merge_summary.md
+1. `settings.py` — 默认值，提交到仓库
+2. `/data/books/settings/auto.py` — 管理员在 UI 中保存的配置，运行时写入
+3. `manual.py`（可选）— 本地开发覆盖，不提交
+
+### 数据模型
+
+`models.py` 定义 SQLAlchemy 模型，管理 Talebook 自身的业务数据（**不是** Calibre 书库）：
+
+| 模型 | 说明 |
+|------|------|
+| `Reader` | 用户账号、密码、Kindle 邮箱、权限等 |
+| `Item` | 书籍的扩展属性（收藏者、访问/下载计数等） |
+| `Message` | 用户消息/通知 |
+| `ScanFile` | 扫描导入任务的文件记录 |
+| `OpdsSource` | 外部 OPDS 订阅源 |
+
+Calibre 书库数据通过 `BaseHandler.db`（Calibre DB 实例）读写，**不经过** SQLAlchemy。
+
+### 异步任务
+
+`services/async_service.py` 的 `AsyncService`（单例）用于长耗时后台任务（格式转换、邮件推送、扫描导入等）。使用方式：
+
+```python
+service = AsyncService()
+queue = service.start_service(some_service_func)
+queue.put((args, kwargs))
+```
+
+每个 service 对应一个守护线程，循环消费队列中的任务。
+
+### 元数据插件
+
+`plugins/meta/` 下每个插件（`douban`、`baike`、`youshu`、`tomato`）负责从外部数据源抓取书籍元数据，对外暴露统一接口，由 `handlers/meta.py` 统一调用。
+
+### 工具类
+
+`utils.py` 中的 `SimpleBookFormatter` / `BookFormatter` 负责将 Calibre book 对象转换为前端所需的 JSON 结构（拼接封面 URL、格式化日期等）。直接序列化 Calibre 对象时请使用这两个类，不要手动拼字段。
+
+### 测试 Fixture
+
+`tests/cases/` 包含预置的 Calibre 书库和 SQLite DB。`tests/test_main.py` 中定义了书籍 ID 常量（`BID_EPUB=1`、`BID_TXT=2` 等），对应 `tests/library/` 中的真实书籍文件。大多数集成测试通过 `tornado.testing.AsyncHTTPTestCase` 启动真实 Tornado 服务器，直接测试 HTTP 层。
+
+## 测试要求
+
+**每新增一个 feature，必须在 `tests/` 中添加对应的测试用例。**
+
+### 测试类继承关系
+
+根据场景选择基类：
+
+| 基类 | 适用场景 |
+|------|---------|
+| `TestApp` | 无需登录的接口（公开页面、OPDS 等） |
+| `TestWithUserLogin` | 需要普通用户登录的接口（已通过 `mock.patch` 模拟 `user_id=1`） |
+| `TestWithAdminUser` | 需要管理员权限的接口 |
+
+### 写法规范
+
+```python
+from tests.test_main import TestWithUserLogin, setUpModule as init
+
+def setUpModule():
+    init()  # 必须调用，初始化 Tornado app 和 mock
+
+class TestMyFeature(TestWithUserLogin):
+    def test_normal_case(self):
+        d = self.json("/api/my/endpoint")   # 发 GET 并解析 JSON
+        self.assertEqual(d["err"], "ok")
+
+    def test_post_case(self):
+        d = self.json("/api/my/endpoint", method="POST", body="param=value")
+        self.assertEqual(d["err"], "ok")
+
+    @mock.patch("webserver.handlers.book.SomeExternalCall")
+    def test_with_mock(self, m):
+        m.return_value = "fake"
+        d = self.json("/api/my/endpoint")
+        self.assertEqual(d["err"], "ok")
+```
+
+- 使用 `self.json(url, ...)` 代替 `self.fetch()`，它会断言状态码为 200 并自动解析 JSON。
+- 外部调用（邮件、Calibre 写操作、异步任务）用 `@mock.patch` 隔离，不要在测试中产生真实副作用。
+- 每个测试方法只验证一个行为，优先断言 `d["err"]` 的值。
 
 ---
 > Source: [talebook/talebook](https://github.com/talebook/talebook) — distributed by [TomeVault](https://tomevault.io).
