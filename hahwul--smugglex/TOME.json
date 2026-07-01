@@ -2,7 +2,7 @@
   "name": "smugglex",
   "owner": "hahwul",
   "repo": "smugglex",
-  "description": "Rust-powered HTTP Request Smuggling Scanner.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hahwul/smugglex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T22:51:45Z"
+  "distributed_at": "2026-07-01T14:54:19Z"
 }
