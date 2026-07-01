@@ -2,22 +2,20 @@
 
 > Sourced from [thiagodmont/keynobi](https://github.com/thiagodmont/keynobi) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-Your Android companion debug buddy
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [thiagodmont/keynobi](https://github.com/thiagodmont/keynobi).
+Original source: `CLAUDE.md` in [thiagodmont/keynobi](https://github.com/thiagodmont/keynobi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [thiagodmont/keynobi](https://github.com/thiagodmont/keynobi) — a repo with 47+ stars on GitHub.
+From [thiagodmont/keynobi](https://github.com/thiagodmont/keynobi) — a repo with 191+ stars on GitHub.
 
 ---
 
