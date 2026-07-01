@@ -1,0 +1,9 @@
+{
+  "name": "email-check-app--email-validator-js",
+  "displayName": "email-validator-js",
+  "description": "Verify email address checking MX records, and SMTP connection, check for disposable email addresses and free email providers.",
+  "version": "1.0.0",
+  "author": "email-check-app",
+  "homepage": "https://github.com/email-check-app/email-validator-js",
+  "skills": []
+}
