@@ -4,7 +4,7 @@
   "repo": "markdown-mindmap",
   "description": "Obsidian plugin: configurable mind maps / leveled trees rendered live from your notes' frontmatter links. Each map is one mindmap code block.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kikocastro/markdown-mindmap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T17:08:57Z"
+  "distributed_at": "2026-07-01T21:12:24Z"
 }
