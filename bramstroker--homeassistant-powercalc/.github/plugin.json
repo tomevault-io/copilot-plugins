@@ -1,0 +1,9 @@
+{
+  "name": "bramstroker--homeassistant-powercalc",
+  "displayName": "homeassistant-powercalc",
+  "description": "homeassistant-powercalc",
+  "version": "1.0.0",
+  "author": "bramstroker",
+  "homepage": "https://github.com/bramstroker/homeassistant-powercalc",
+  "skills": []
+}
