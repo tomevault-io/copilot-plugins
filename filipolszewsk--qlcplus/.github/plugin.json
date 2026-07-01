@@ -1,0 +1,9 @@
+{
+  "name": "filipolszewsk--qlcplus",
+  "displayName": "qlcplus",
+  "description": "Q Light Controller Plus (QLC+) is a free and cross-platform software to control DMX or analog lighting systems like moving heads, dimmers, scanners etc. This project is a fork of the great QLC project",
+  "version": "1.0.0",
+  "author": "filipolszewsk",
+  "homepage": "https://github.com/filipolszewsk/qlcplus",
+  "skills": []
+}
