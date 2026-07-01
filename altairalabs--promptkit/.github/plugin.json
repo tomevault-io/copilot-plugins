@@ -1,0 +1,9 @@
+{
+  "name": "altairalabs--promptkit",
+  "displayName": "PromptKit",
+  "description": "Test, red-team, and deploy LLM applications with confidence. Multi-provider support (OpenAI, Anthropic, Gemini), MCP integration, self-play testing, and production SDK.",
+  "version": "1.0.0",
+  "author": "AltairaLabs",
+  "homepage": "https://github.com/AltairaLabs/PromptKit",
+  "skills": []
+}
