@@ -1,0 +1,9 @@
+{
+  "name": "anthony-chaudhary--fak",
+  "displayName": "fak",
+  "description": "fak \u2014 the Fused Agent Kernel: treat the model like an untrusted program and the tool call like a syscall. One Go binary \u2014 a default-deny capability gate the model can't talk past, plus an addressable,",
+  "version": "1.0.0",
+  "author": "anthony-chaudhary",
+  "homepage": "https://github.com/anthony-chaudhary/fak",
+  "skills": []
+}
