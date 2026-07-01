@@ -1,70 +1,12 @@
-## context-based-logging
+## onelife
 
-> How to use context-based logging with loguru
+> - This project is managed by `uv`. Run code using `uv run --env-file .env <command>`. The .env file exists, you do not need to check for it.
 
-# Context-Based Logging with Loguru
-The `distant_sunburn` codebase uses Loguru with automatic extras support. You can bind contextual information to your logger and have it automatically displayed in all log messages. The logger has been set up for you already, and you can directly import it as `logger` from `loguru`.
-
-```python
-from loguru import logger
-
-# Bind context information
-logger = logger.bind(ip="192.168.1.1", user="john_doe")
-logger.info("User logged in successfully")
-```
-
-For usage in classes, assign the bound logger to the class and use it thereafter.
-Example:
-```python
-from loguru import logger
-
-class MyClass:
-    def __init__(self, some_important_metadata: str):
-        self.logger = logger.bind(well_chosen_name=some_important_metadata)
-
-    def do_thing(self):
-        self.logger.info("Doing thing") # will include "well_chosen_name=some_important_metadata" in the log message
-```
-
-You _must_ ensure that any complex data structures are well-formatted before binding to the logger.
-
-**BAD**:
-```python
-foo = {{{{...}}}} # complex data structure
-logger = logger.bind(foo=foo)
-```
-
-**GOOD**:
-```python
-foo = {{{{{...}}}}} # complex data structure
-formatted: str = # pick elements of foo to show as a string
-logger = logger.bind(foo=formatted)
-```
-
-Another pattern you can use is:
-```python
-from loguru import logger
-
-with logger.contextualize(foo=foo):
-    logger.info("Doing thing")
-```
-
-This is useful when you want to bind for a short period of time.
-
-## Guidelines
-1. Do not create and assign too many bound loggers.
-2. If assigning a logger using `self.logger = logger.bind(...)`, do so in the `__init__` method of the class or _very sparingly_ in other dedicated methods for logging. _AVOID_ doing this dynamically in other methods.
-3. Do not pass around loggers as arguments to functions.
-4. Use `logger.contextualize(...)` for short-term bindings rather than assigning a logger to a class attribute.
-
-
-# Common Mistakes
-## Passing in arguments that have no format placeholders
-```python
-from loguru import logger
-
-logger.info("This is a log message", foo="bar") # Will not be formatted
-```
+# Project Overview
+- This project is managed by `uv`. Run code using `uv run --env-file .env <command>`. The .env file exists, you do not need to check for it.
+- We use `pytest` for testing. You can run tests with `uv run --env-file .env pytest <path>`.
+- This project uses `ty` for type checking. Run it with `uvx ty check <path>`.
+- This project uses `ruff` for linting. Run it with `uvx ruff check <path>`.
 
 ---
 > Source: [codezakh/onelife](https://github.com/codezakh/onelife) — distributed by [TomeVault](https://tomevault.io).
