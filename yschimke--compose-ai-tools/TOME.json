@@ -2,9 +2,9 @@
   "name": "compose-ai-tools",
   "owner": "yschimke",
   "repo": "compose-ai-tools",
-  "description": "Helping the Agents Compose the Things",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yschimke/compose-ai-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T12:50:21Z"
+  "distributed_at": "2026-07-01T08:57:50Z"
 }
