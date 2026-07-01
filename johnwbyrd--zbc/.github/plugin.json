@@ -1,0 +1,9 @@
+{
+  "name": "johnwbyrd--zbc",
+  "displayName": "zbc",
+  "description": "Zero Board Computer semihosting device reference implementation",
+  "version": "1.0.0",
+  "author": "johnwbyrd",
+  "homepage": "https://github.com/johnwbyrd/zbc",
+  "skills": []
+}
