@@ -1,0 +1,9 @@
+{
+  "name": "eigenweltlabs--legalwork",
+  "displayName": "legalwork",
+  "description": "LegalWork \u2014 a local computer-use agent for law firms, by Eigenwelt Labs. Review, redline, and draft documents on your own machine with the model you choose.",
+  "version": "1.0.0",
+  "author": "eigenweltlabs",
+  "homepage": "https://github.com/eigenweltlabs/legalwork",
+  "skills": []
+}
