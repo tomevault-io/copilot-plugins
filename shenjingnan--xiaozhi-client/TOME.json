@@ -4,7 +4,7 @@
   "repo": "xiaozhi-client",
   "description": "\u5c0f\u667aAI\u5ba2\u6237\u7aef\uff0c\u76ee\u524d\u4e3b\u8981\u7528\u4e8eMCP\u7684\u5bf9\u63a5",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -103,9 +103,147 @@
       "path": ".claude/skills/type-validator",
       "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.claude/skills/type-validator",
       "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/api-docs/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/api-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/gen-tech/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/gen-tech/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/test-fixer/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/test-fixer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/gen-analyze/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/gen-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/fix-comment/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/fix-comment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/issue-hunter/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/issue-hunter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/ci-validator/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/ci-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/todo-manager/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/todo-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/test-creator/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/test-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/docs-updater/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/docs-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/docs-creator/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/docs-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/test-cleaner/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/test-cleaner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/fix-any-types/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/fix-any-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/type-validator/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/type-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/security-audit/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/commit-push-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/path-alias-validator/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/path-alias-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/dev-workflow-checker/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/dev-workflow-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/e2e-coverage-analyzer/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/e2e-coverage-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/localization-validator/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/localization-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xiaozhi-client",
+      "path": ".agents/skills/practical-development-validator/SKILL.md",
+      "github_url": "https://github.com/shenjingnan/xiaozhi-client/tree/main/.agents/skills/practical-development-validator/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/shenjingnan/xiaozhi-client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T20:44:49Z"
+  "distributed_at": "2026-07-01T02:46:53Z"
 }
