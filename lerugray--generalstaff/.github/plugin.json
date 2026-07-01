@@ -1,0 +1,9 @@
+{
+  "name": "lerugray--generalstaff",
+  "displayName": "generalstaff",
+  "description": "Open-source local-first dispatcher for AI coding agents. Verification-gated, BYOK, rolls back on test failures.",
+  "version": "1.0.0",
+  "author": "lerugray",
+  "homepage": "https://github.com/lerugray/generalstaff",
+  "skills": []
+}
