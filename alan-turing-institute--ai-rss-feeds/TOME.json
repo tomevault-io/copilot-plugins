@@ -4,7 +4,7 @@
   "repo": "ai-rss-feeds",
   "description": "A collection of RSS Feeds for AI news and blog sites",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alan-turing-institute/ai-rss-feeds",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T19:03:46Z"
+  "distributed_at": "2026-07-01T23:03:03Z"
 }
