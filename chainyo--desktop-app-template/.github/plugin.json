@@ -1,0 +1,9 @@
+{
+  "name": "chainyo--desktop-app-template",
+  "displayName": "desktop-app-template",
+  "description": "A good tauri app starter I use for my desktop app",
+  "version": "1.0.0",
+  "author": "chainyo",
+  "homepage": "https://github.com/chainyo/desktop-app-template",
+  "skills": []
+}
