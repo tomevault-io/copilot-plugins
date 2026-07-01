@@ -1,11 +1,15 @@
 ## needlr
 
-> See `AGENTS.md` at the repository root for all project conventions, patterns, and coding standards.
+> <!-- copilot-to-claude-compiler:start -->
 
-See `AGENTS.md` at the repository root for all project conventions, patterns, and coding standards.
+# Claude Project Notes
 
-Pattern-specific rules live in `.github/instructions/*.instructions.md` and activate automatically based on file globs.
+<!-- copilot-to-claude-compiler:start -->
+Path-scoped rules in `.claude/rules/generated/` are auto-generated from
+`.github/instructions/**/*.instructions.md`. Treat the Copilot instruction
+files as the source of truth. Do not manually edit generated rule files.
+<!-- copilot-to-claude-compiler:end -->
 
 ---
 > Source: [ncosentino/needlr](https://github.com/ncosentino/needlr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
