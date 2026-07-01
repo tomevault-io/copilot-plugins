@@ -4,7 +4,7 @@
   "repo": "CNet_Admin",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chi8708/CNet_Admin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T01:10:57Z"
+  "distributed_at": "2026-07-01T05:10:57Z"
 }
