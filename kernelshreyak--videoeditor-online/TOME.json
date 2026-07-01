@@ -4,7 +4,7 @@
   "repo": "videoeditor_online",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kernelshreyak/videoeditor_online",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T06:33:38Z"
+  "distributed_at": "2026-07-01T06:38:05Z"
 }
