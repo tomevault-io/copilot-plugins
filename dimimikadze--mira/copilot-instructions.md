@@ -1,64 +1,75 @@
 ## mira
 
-> Agentic AI system that automates company research with configurable data points and intelligent source selection. Features modular orchestration, smart early termination, and confidence-based data merging.
+> Complete Next.js application with Supabase integration for user authentication and workspace management.
 
-# Mira - AI Company Research System (Monorepo)
+# Mira Frontend Rules
 
-Agentic AI system that automates company research with configurable data points and intelligent source selection. Features modular orchestration, smart early termination, and confidence-based data merging.
+Complete Next.js application with Supabase integration for user authentication and workspace management.
 
-**Key Features:**
+## Architecture
 
-- Configurable data points with custom descriptions for precise extraction
-- Intelligent source selection (website crawling, LinkedIn, Google Search - landing page always analyzed)
-- Separate analysis configuration (executive summary, company criteria fit scoring)
-- Smart early termination when confidence thresholds are met
-- Modular orchestrator with separated concerns (context, flow, termination, results)
-- Real-time progress tracking with structured events
-- Workspace management with user authentication and data persistence
+### Database & Authentication
 
-**MONOREPO STRUCTURE**:
+- Use Supabase for authentication, user management, and workspace storage
+- All workspaces are private per user (Row Level Security enabled)
+- Database schema: boolean fields for sources (source_crawl, source_linkedin, source_google)
+- Analysis configuration: analysis_executive_summary (boolean), analysis_company_criteria (text)
 
-- `packages/mira-ai/` - Core TypeScript library (framework-agnostic npm package)
-- `apps/mira-frontend/` - Complete Next.js 15 application with Supabase integration
+### Workspace Management
 
-## Code Style & Naming
+- Users create and manage multiple research configurations
+- Each workspace contains: name, custom data points, source settings, analysis settings
+- Workspace modal handles both creation and editing
+- Form validation with Zod schemas
 
-### File Naming
+## Next.js
 
-- Use kebab-case for files: `company-analysis.ts`, `data-merger.ts`
-- Use PascalCase for components: `CompanyProgress.tsx`
-- Use descriptive names that explain purpose: `linkedin-company-scraper.ts`
+- Use App Router, not Pages Router
+- Server components by default, client only when needed
+- Import from 'mira-ai' for server code, 'mira-ai/types' for client
+- Use proper error boundaries
 
-### Variable & Function Naming
+## React
 
-- Use camelCase: `researchCompany`, `progressCallback`
-- Be descriptive: `scrapingBeeClient` not `client`
-- Prefer verb-noun for functions: `createProgressReporter`, `mergeDataPoints`
-- Use meaningful constants: `PROGRESS_EVENTS`, `DATA_POINT_TYPES`
+- Functional components only
+- Use hooks properly (deps arrays, cleanup)
+- Keep components focused on single responsibility
+- Use React Hook Form with Zod for form management
 
-### Code Quality
+## API Routes
 
-- Use TypeScript strictly with proper type definitions
-- Prefer const over let, avoid var completely
-- Keep functions small and focused on single responsibility
-- Add JSDoc comments for public APIs and complex logic
-- Use meaningful variable names that describe business purpose
+- Use proper HTTP status codes
+- Handle errors gracefully
+- Use Server-Sent Events for progress updates
+- Transform workspace data to match mira-ai library structure
 
-## Monorepo Guidelines
+## Data Flow
 
-- Import between packages using package names: `import { researchCompany } from 'mira-ai'`
-- Never use relative paths between packages: `../../../mira/src/types`
-- Keep shared types in appropriate package domains
-- Use npm workspaces for dependency management
-- Each package has specific .cursor/rules for detailed guidelines
+### Frontend → Library API Structure
 
-## Git Conventions
+```typescript
+// Frontend sends to /api/enrich
+{
+  sources: { crawl: boolean, linkedin: boolean, google: boolean },
+  analysis: { executiveSummary?: boolean, companyCriteria?: string }
+}
 
-- Conventional commits: `feat(core): add linkedin scraping`, `fix(frontend): progress bar styling`
-- One logical change per commit with clear scope
-- Use descriptive messages that explain business impact
-- Reference issues/PRs when applicable
+// Library expects enrichmentConfig
+{
+  dataPoints: CustomDataPoint[],
+  sources: EnrichmentSources,
+  analysis: Analysis
+}
+```
+
+## UI
+
+- Use shadcn/ui components
+- Follow existing design patterns
+- Keep accessibility in mind
+- Sources are optional (landing page always analyzed)
+- Analysis section contains executive summary toggle and company criteria input
 
 ---
 > Source: [DimiMikadze/Mira](https://github.com/DimiMikadze/Mira) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
