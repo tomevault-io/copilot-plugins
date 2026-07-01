@@ -4,7 +4,7 @@
   "repo": "llm-wiki-newsroom",
   "description": "An LLM-maintained knowledge wiki run by a multi-agent \"newsroom\" \u2014 local-first, API-key-free, a structured alternative to RAG.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alfadur7/llm-wiki-newsroom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T21:13:38Z"
+  "distributed_at": "2026-07-01T17:13:28Z"
 }
