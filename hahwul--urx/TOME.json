@@ -2,7 +2,7 @@
   "name": "urx",
   "owner": "hahwul",
   "repo": "urx",
-  "description": "Extracts URLs from OSINT Archives for Security Insights",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hahwul/urx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T06:05:58Z"
+  "distributed_at": "2026-07-01T13:09:32Z"
 }
