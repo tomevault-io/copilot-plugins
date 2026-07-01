@@ -2,16 +2,14 @@
 
 > Source: [Moyf/yearly-glance](https://github.com/Moyf/yearly-glance) — distributed by [TomeVault](https://tomevault.io)
 
-An obsidian plugin to build "year at a glance" view.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Moyf/yearly-glance](https://github.com/Moyf/yearly-glance).
+Original source: `AGENTS.md` in [Moyf/yearly-glance](https://github.com/Moyf/yearly-glance).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
