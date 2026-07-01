@@ -1,0 +1,9 @@
+{
+  "name": "poelzi--serde-nixos",
+  "displayName": "serde-nixos",
+  "description": "A Rust procedural macro that automatically generates NixOS type definitions from your Rust structures using serde.",
+  "version": "1.0.0",
+  "author": "poelzi",
+  "homepage": "https://github.com/poelzi/serde-nixos",
+  "skills": []
+}
