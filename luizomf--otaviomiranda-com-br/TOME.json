@@ -4,7 +4,7 @@
   "repo": "otaviomiranda.com.br",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luizomf/otaviomiranda.com.br",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T15:15:09Z"
+  "distributed_at": "2026-07-01T15:31:03Z"
 }
