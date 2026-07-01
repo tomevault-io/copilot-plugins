@@ -1,0 +1,9 @@
+{
+  "name": "awdr74100--figwright",
+  "displayName": "figwright",
+  "description": "Free, bidirectional Figma MCP server \u2014 turn designs into framework-aware code and write back to the canvas, for Claude Code, Cursor, and any MCP client.",
+  "version": "1.0.0",
+  "author": "awdr74100",
+  "homepage": "https://github.com/awdr74100/figwright",
+  "skills": []
+}
