@@ -1,0 +1,51 @@
+## aethershell
+
+> - **Name**: AetherShell — the shell built for AI agents
+
+# AetherShell - Cursor Rules
+
+## Project Identity
+- **Name**: AetherShell — the shell built for AI agents
+- **Tagline**: One language, every platform, deterministic typed output
+- **Binary**: `ae`
+- **Language**: Rust (edition 2021, MSRV 1.75)
+- **Version**: 1.4.0
+- **License**: AGPL-3.0-or-later
+
+## Why AetherShell Exists
+Traditional shells (Bash, PowerShell, Zsh) produce unstructured text that varies by OS version, locale, and tool installation — making AI agent workflows fundamentally brittle. AetherShell eliminates this: every command returns deterministic, typed data. An ontology built into the shell makes commands, arguments, and return types machine-discoverable without documentation scraping.
+
+## What Is AetherShell?
+A typed functional shell where data flows as structured `Value` types (Int, Float, String, Array, Record, Lambda) — not raw text. Same command, same result, every platform. 430+ builtins in 50 modules, multi-provider AI agents, MCP/A2A/A2UI/NANDA protocols, TUI, Agent API server.
+
+## Architecture
+- `src/ast.rs` -> `src/parser.rs` -> `src/eval.rs` -> `src/typecheck.rs` (language pipeline)
+- `src/builtins.rs` - all builtins return structured `Value` types
+- `src/ai.rs` - provider-agnostic LLM client, model URIs (`openai:gpt-4o`, `ollama:llama3`)
+- `src/agent.rs` - autonomous agents with tool access
+- `src/agent_api.rs` - HTTP/WS/SSE server (port 3002), 25+ AI provider schema formats
+- `src/tui/` - terminal UI (app, chat, events, media, agents)
+- `src/transpile/` - shell transpilers (Bash, Zsh, PowerShell → AetherShell)
+- `src/value.rs` - `Value` enum: Int, Float, String, Bool, Array, Record, Lambda, Null
+
+## Key Patterns
+- All builtins return `Value` types, never raw strings
+- Use `anyhow::Result<Value>` for evaluator functions
+- Lambda syntax: `fn(x) => x * 2`
+- Pipeline syntax: `expr | transform | filter | aggregate`
+- AI model URIs: `provider:model` (e.g., `openai:gpt-4o-mini`)
+
+## Build & Test
+```bash
+cargo build --bins    # Build ae + aimodel
+cargo test           # 1,237 tests
+```
+
+## Full AI Context
+See `llms-full.txt` for complete syntax, modules, and API reference.
+See `AGENTS.md` for agent discovery and module directory.
+See `.well-known/openapi.yaml` for the Agent API specification.
+
+---
+> Source: [nervosys/AetherShell](https://github.com/nervosys/AetherShell) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-01 -->
