@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--franken-markdown",
+  "displayName": "franken_markdown",
+  "description": "Pure-Rust, dependency-lean, ultra-fast Markdown -> beautiful all-in-one HTML & tiny optimized PDF (library + single-binary CLI: fmd)",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/franken_markdown",
+  "skills": []
+}
