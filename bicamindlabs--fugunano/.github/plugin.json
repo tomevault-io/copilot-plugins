@@ -1,0 +1,9 @@
+{
+  "name": "bicamindlabs--fugunano",
+  "displayName": "FuguNano",
+  "description": "Open & nano reimplementation of Sakana Fugu. A repo-native, multi-agent coding loop powered by 9+ LLMs (isolated via Claude Code) and an independent Codex reviewer. Lightweight, bounded, and self-impr",
+  "version": "1.0.0",
+  "author": "BicaMindLabs",
+  "homepage": "https://github.com/BicaMindLabs/FuguNano",
+  "skills": []
+}
