@@ -7,11 +7,11 @@ Claude Code plugin that delegates read-only review, adversarial review, free-for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [linxule/kimi-plugin-cc](https://github.com/linxule/kimi-plugin-cc).
+Original source: `CLAUDE.md` in [linxule/kimi-plugin-cc](https://github.com/linxule/kimi-plugin-cc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
