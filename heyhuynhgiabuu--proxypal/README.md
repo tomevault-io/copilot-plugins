@@ -2,8 +2,6 @@
 
 > Sourced from [heyhuynhgiabuu/proxypal](https://github.com/heyhuynhgiabuu/proxypal) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-A desktop app that lets you use your AI subscriptions (Claude, ChatGPT, Gemini, GitHub Copilot) with any coding tool. Wraps CLIProxyAPI with a clean UI for managing connections and tracking usage.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
