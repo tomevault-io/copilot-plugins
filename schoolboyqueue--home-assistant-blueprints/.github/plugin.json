@@ -1,0 +1,9 @@
+{
+  "name": "schoolboyqueue--home-assistant-blueprints",
+  "displayName": "home-assistant-blueprints",
+  "description": "Home Assistant Blueprints \u2014 pro-grade automation templates for real homes (Adaptive Comfort HVAC, Bathroom Light & Fan, Zooz Z-Wave dimming). Jinja2 + YAML. MIT.",
+  "version": "1.0.0",
+  "author": "schoolboyqueue",
+  "homepage": "https://github.com/schoolboyqueue/home-assistant-blueprints",
+  "skills": []
+}
