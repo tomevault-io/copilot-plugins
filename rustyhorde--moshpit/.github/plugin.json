@@ -1,0 +1,9 @@
+{
+  "name": "rustyhorde--moshpit",
+  "displayName": "moshpit",
+  "description": "A remote shell client in the same vein as Mosh",
+  "version": "1.0.0",
+  "author": "rustyhorde",
+  "homepage": "https://github.com/rustyhorde/moshpit",
+  "skills": []
+}
