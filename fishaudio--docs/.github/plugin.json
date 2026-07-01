@@ -1,0 +1,14 @@
+{
+  "name": "fishaudio--docs",
+  "displayName": "docs",
+  "description": "Official documentation for products, services, and projects by Fish Audio",
+  "version": "1.0.0",
+  "author": "fishaudio",
+  "homepage": "https://github.com/fishaudio/docs",
+  "skills": [
+    {
+      "name": "fish-audio-api",
+      "description": ""
+    }
+  ]
+}
