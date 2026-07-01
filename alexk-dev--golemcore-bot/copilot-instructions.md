@@ -1,19 +1,26 @@
 ## golemcore-bot
 
-> 1. Before starting any task, read `CLAUDE.md` in the repository root and follow it.
+> This module contains shared contracts for GolemCore Bot.
 
-# Instructions for Codex
+# CLAUDE.md — GolemCore Bot Contracts Module
 
-1. Before starting any task, read `CLAUDE.md` in the repository root and follow it.
-2. If the task touches one or more module directories, also read the matching module-local instruction file(s) before making changes:
-   - `golemcore-bot-app/CLAUDE.md`
-   - `golemcore-bot-client/CLAUDE.md`
-   - `golemcore-bot-contracts/CLAUDE.md`
-   - `dashboard/CLAUDE.md`
-3. If the task spans multiple modules, read all relevant local `CLAUDE.md` files.
-4. If rules conflict, the more local file has priority.
-5. For `dashboard/*`, `dashboard/CLAUDE.md` takes precedence.
+This module contains shared contracts for GolemCore Bot.
+
+## What belongs here
+
+- port interfaces
+- shared domain models used across modules
+- contract-style component interfaces
+- lightweight shared view models
+- other stable boundary types needed by multiple modules
+
+## Rules
+
+1. New shared contracts must go into this module.
+2. Do not put runtime-heavy Spring services, adapters, controllers, or tool implementations here.
+3. Keep this module lightweight and dependency-minimal.
+4. Prefer stable, reusable boundary types over feature-specific implementation details.
 
 ---
 > Source: [alexk-dev/golemcore-bot](https://github.com/alexk-dev/golemcore-bot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
