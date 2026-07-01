@@ -1,0 +1,9 @@
+{
+  "name": "guidone--node-red-contrib-chatbot",
+  "displayName": "node-red-contrib-chatbot",
+  "description": "node-red-contrib-chatbot",
+  "version": "1.0.0",
+  "author": "guidone",
+  "homepage": "https://github.com/guidone/node-red-contrib-chatbot",
+  "skills": []
+}
