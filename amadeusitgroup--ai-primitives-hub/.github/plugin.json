@@ -1,0 +1,9 @@
+{
+  "name": "amadeusitgroup--ai-primitives-hub",
+  "displayName": "ai-primitives-hub",
+  "description": "VS Code extension for managing, sharing, and installing AI prompt collections for GitHub Copilot and other AI assistants",
+  "version": "1.0.0",
+  "author": "AmadeusITGroup",
+  "homepage": "https://github.com/AmadeusITGroup/ai-primitives-hub",
+  "skills": []
+}
