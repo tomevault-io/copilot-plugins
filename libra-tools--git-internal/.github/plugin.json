@@ -1,0 +1,9 @@
+{
+  "name": "libra-tools--git-internal",
+  "displayName": "git-internal",
+  "description": "Internal Git infrastructure, experiments, and foundational components for Git-compatible monorepo systems",
+  "version": "1.0.0",
+  "author": "libra-tools",
+  "homepage": "https://github.com/libra-tools/git-internal",
+  "skills": []
+}
