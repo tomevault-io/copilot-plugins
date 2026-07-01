@@ -1,0 +1,9 @@
+{
+  "name": "astercommunity--asterdrive",
+  "displayName": "AsterDrive",
+  "description": "Self-hosted file infrastructure in Rust for small teams: reliable uploads, storage policies, S3/remote-node backends, WebDAV/WOPI, and ops tooling.",
+  "version": "1.0.0",
+  "author": "AsterCommunity",
+  "homepage": "https://github.com/AsterCommunity/AsterDrive",
+  "skills": []
+}
