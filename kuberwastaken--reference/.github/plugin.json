@@ -1,0 +1,9 @@
+{
+  "name": "kuberwastaken--reference",
+  "displayName": "reference",
+  "description": "Let your AI agents search each other's past sessions.",
+  "version": "1.0.0",
+  "author": "Kuberwastaken",
+  "homepage": "https://github.com/Kuberwastaken/reference",
+  "skills": []
+}
