@@ -1,0 +1,9 @@
+{
+  "name": "mhenrixon--sidekiq-unique-jobs",
+  "displayName": "sidekiq-unique-jobs",
+  "description": "sidekiq-unique-jobs",
+  "version": "1.0.0",
+  "author": "mhenrixon",
+  "homepage": "https://github.com/mhenrixon/sidekiq-unique-jobs",
+  "skills": []
+}
