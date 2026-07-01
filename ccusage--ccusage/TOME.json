@@ -4,7 +4,7 @@
   "repo": "ccusage",
   "description": "npx ccusage",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ccusage/ccusage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T17:25:24Z"
+  "distributed_at": "2026-07-01T21:28:21Z"
 }
