@@ -1,0 +1,9 @@
+{
+  "name": "deemkeen--diffwatch",
+  "displayName": "diffwatch",
+  "description": "A real-time CLI tool for watching file changes and visualizing diffs in your terminal",
+  "version": "1.0.0",
+  "author": "deemkeen",
+  "homepage": "https://github.com/deemkeen/diffwatch",
+  "skills": []
+}
