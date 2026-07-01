@@ -2,9 +2,9 @@
   "name": "mq",
   "owner": "muqsitnawaz",
   "repo": "mq",
-  "description": "AI instruction files for mq by muqsitnawaz",
+  "description": "Context Query language for Agents",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,15 @@
       "path": "skills/mq",
       "github_url": "https://github.com/muqsitnawaz/mq/tree/main/skills/mq",
       "description": ""
+    },
+    {
+      "name": "mq",
+      "path": "skills/mq/SKILL.md",
+      "github_url": "https://github.com/muqsitnawaz/mq/tree/main/skills/mq/SKILL.md",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/muqsitnawaz",
+  "source_url": "https://github.com/muqsitnawaz/mq",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T16:07:02Z"
+  "distributed_at": "2026-07-01T21:13:14Z"
 }
