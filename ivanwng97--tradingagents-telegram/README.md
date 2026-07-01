@@ -2,8 +2,6 @@
 
 > Tome by [IvanWng97](https://github.com/IvanWng97/TradingAgents-Telegram) — distributed by [TomeVault](https://tomevault.io)
 
-Telegram bot wrapping TradingAgents — chat-driven watchlist with parallel multi-ticker analysis, cancellation, and Telegraph reports.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [IvanWng97/TradingAgents-Telegram](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [IvanWng97/TradingAgents-Telegram](https://github.com/IvanWng97/TradingAgents-Telegram) — a repo with 12+ stars on GitHub.
+From [IvanWng97/TradingAgents-Telegram](https://github.com/IvanWng97/TradingAgents-Telegram) — a repo with 46+ stars on GitHub.
 
 ---
 
