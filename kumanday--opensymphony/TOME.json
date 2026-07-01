@@ -2,8 +2,8 @@
   "name": "OpenSymphony",
   "owner": "kumanday",
   "repo": "OpenSymphony",
-  "description": "OpenSymphony",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,63 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "OpenSymphony",
+      "path": ".agents/skills/land/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/.agents/skills/land/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSymphony",
+      "path": ".agents/skills/push/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/.agents/skills/push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSymphony",
+      "path": ".agents/skills/pull/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/.agents/skills/pull/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSymphony",
+      "path": ".agents/skills/debug/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/.agents/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSymphony",
+      "path": ".agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/.agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSymphony",
+      "path": ".agents/skills/linear/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/.agents/skills/linear/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSymphony",
+      "path": ".agents/skills/opensymphony-memory/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/.agents/skills/opensymphony-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSymphony",
+      "path": ".agents/skills/create-implementation-plan/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/.agents/skills/create-implementation-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenSymphony",
+      "path": "examples/target-repo/.agents/skills/inspect-opensymphony-artifacts/SKILL.md",
+      "github_url": "https://github.com/kumanday/OpenSymphony/tree/main/examples/target-repo/.agents/skills/inspect-opensymphony-artifacts/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/kumanday/OpenSymphony",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T13:07:28Z"
+  "distributed_at": "2026-07-01T09:39:43Z"
 }
