@@ -1,0 +1,9 @@
+{
+  "name": "ttu--ruuvitag-sensor",
+  "displayName": "ruuvitag-sensor",
+  "description": "ruuvitag-sensor",
+  "version": "1.0.0",
+  "author": "ttu",
+  "homepage": "https://github.com/ttu/ruuvitag-sensor",
+  "skills": []
+}
