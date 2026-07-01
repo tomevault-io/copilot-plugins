@@ -4,7 +4,7 @@
   "repo": "bowerbird",
   "description": "Simple personal knowledge with LLM Wiki as foundation adding automated content ingestion from X and other sources.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sergedoub/bowerbird",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T19:19:14Z"
+  "distributed_at": "2026-07-01T23:10:09Z"
 }
