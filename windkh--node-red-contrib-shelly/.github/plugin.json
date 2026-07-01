@@ -1,0 +1,9 @@
+{
+  "name": "windkh--node-red-contrib-shelly",
+  "displayName": "node-red-contrib-shelly",
+  "description": "node-red-contrib-shelly",
+  "version": "1.0.0",
+  "author": "windkh",
+  "homepage": "https://github.com/windkh/node-red-contrib-shelly",
+  "skills": []
+}
