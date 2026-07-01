@@ -1,0 +1,9 @@
+{
+  "name": "torchgeo--torchgeo-bench",
+  "displayName": "torchgeo-bench",
+  "description": "torchgeo-bench",
+  "version": "1.0.0",
+  "author": "torchgeo",
+  "homepage": "https://github.com/torchgeo/torchgeo-bench",
+  "skills": []
+}
