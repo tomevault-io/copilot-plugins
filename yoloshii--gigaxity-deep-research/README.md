@@ -7,11 +7,11 @@ Open-source deep research MCP. Qwen3-30B-A3B-Thinking via OpenRouter, cited web 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yoloshii/gigaxity-deep-research](https://github.com/yoloshii/gigaxity-deep-research).
+Original source: `CLAUDE.md` in [yoloshii/gigaxity-deep-research](https://github.com/yoloshii/gigaxity-deep-research).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
