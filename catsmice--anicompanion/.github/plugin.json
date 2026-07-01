@@ -1,0 +1,9 @@
+{
+  "name": "catsmice--anicompanion",
+  "displayName": "AniCompanion",
+  "description": "A desktop VRM character (\u5c0f\u5149) that gives your AI agent a face \u2014 chats, speaks, listens, lip-syncs, and emotes on macOS.",
+  "version": "1.0.0",
+  "author": "catsmice",
+  "homepage": "https://github.com/catsmice/AniCompanion",
+  "skills": []
+}
