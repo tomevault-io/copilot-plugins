@@ -1,0 +1,9 @@
+{
+  "name": "agentteamhq--agentteam-email",
+  "displayName": "agentteam-email",
+  "description": "Email for all of your agents with Cloudflare Send",
+  "version": "1.0.0",
+  "author": "agentteamhq",
+  "homepage": "https://github.com/agentteamhq/agentteam-email",
+  "skills": []
+}
