@@ -1,0 +1,9 @@
+{
+  "name": "xiaochengzjc--cxshell",
+  "displayName": "CxShell",
+  "description": "A cross-platform SSH/SFTP terminal and remote session client built with Avalonia and AtomUI",
+  "version": "1.0.0",
+  "author": "xiaochengzjc",
+  "homepage": "https://github.com/xiaochengzjc/CxShell",
+  "skills": []
+}
