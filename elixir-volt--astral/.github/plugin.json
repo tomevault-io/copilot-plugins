@@ -1,0 +1,9 @@
+{
+  "name": "elixir-volt--astral",
+  "displayName": "astral",
+  "description": "Volt-powered static site generator for Elixir applications.",
+  "version": "1.0.0",
+  "author": "elixir-volt",
+  "homepage": "https://github.com/elixir-volt/astral",
+  "skills": []
+}
