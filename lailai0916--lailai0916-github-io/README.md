@@ -2,8 +2,6 @@
 
 > Source: [lailai0916/lailai0916.github.io](https://github.com/lailai0916/lailai0916.github.io) — distributed by [TomeVault](https://tomevault.io)
 
-lailai's personal website for sharing technical notes, project experience, and learning insights.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
