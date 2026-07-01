@@ -1,0 +1,9 @@
+{
+  "name": "hissingrat--j2ll",
+  "displayName": "j2ll",
+  "description": "a java class to .ll obfuscator that converts java bytecode to LLVM IR and compile them into .dll/.so/.dylib (for x86_64 and arm64) using zig",
+  "version": "1.0.0",
+  "author": "HissingRat",
+  "homepage": "https://github.com/HissingRat/j2ll",
+  "skills": []
+}
