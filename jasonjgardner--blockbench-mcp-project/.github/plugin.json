@@ -1,0 +1,14 @@
+{
+  "name": "jasonjgardner--blockbench-mcp-project",
+  "displayName": "blockbench-mcp-project",
+  "description": "Example project using the Blockbench MCP plugin",
+  "version": "1.0.0",
+  "author": "jasonjgardner",
+  "homepage": "https://github.com/jasonjgardner/blockbench-mcp-project",
+  "skills": [
+    {
+      "name": "blockbench-development",
+      "description": ""
+    }
+  ]
+}
