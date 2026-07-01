@@ -1,0 +1,9 @@
+{
+  "name": "dustinlyons--nixos-config",
+  "displayName": "nixos-config",
+  "description": "nixos-config",
+  "version": "1.0.0",
+  "author": "dustinlyons",
+  "homepage": "https://github.com/dustinlyons/nixos-config",
+  "skills": []
+}
