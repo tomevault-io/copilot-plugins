@@ -1,0 +1,9 @@
+{
+  "name": "sylphxai--webgpu",
+  "displayName": "webgpu",
+  "description": "WebGPU for Node.js via wgpu-rs (modern, lightweight alternative to Dawn)",
+  "version": "1.0.0",
+  "author": "SylphxAI",
+  "homepage": "https://github.com/SylphxAI/webgpu",
+  "skills": []
+}
