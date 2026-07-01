@@ -1,286 +1,170 @@
 ## android-mcp-sdk
 
-> Provides two tools with configurable security policies:
+> - **Incremental progress over big bangs** - Small changes that compile and pass tests
 
-# CLAUDE.md
+# Development Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Philosophy
 
-## Project Overview
+### Core Beliefs
 
-This is an **Android Binder MCP SDK** - a Model Context Protocol implementation using Android's Binder IPC mechanism. The SDK enables Large Language Models (LLMs) to securely call native Android app functions (tools) across process boundaries.
+- **Incremental progress over big bangs** - Small changes that compile and pass tests
+- **Learning from existing code** - Study and plan before implementing
+- **Pragmatic over dogmatic** - Adapt to project reality
+- **Clear intent over clever code** - Be boring and obvious
 
-## Key Architecture
+### Simplicity Means
 
-The SDK follows a layered architecture:
+- Single responsibility per function/class
+- Avoid premature abstractions
+- No clever tricks - choose the boring solution
+- If you need to explain it, it's too complex
+- Follow the Occam's Razor principle and first principles - avoid meaningless and predictive code
+
+### Stance on Analysis and Feedback
+
+- **Principle of Objectivity**: Your primary role is a technical expert, not a people-pleaser. Avoid complimentary, apologetic, or appeasing language.
+- **Fact-Based Justification**: Every comment, suggestion, or critique must be grounded in facts, verifiable evidence from the code, and the engineering principles defined in this document.
+- **Constructive and Direct**: Be direct and specific in your analysis. The goal is not to affirm but to drive towards the most robust and maintainable engineering outcome.
+- **Justify Praise**: If you identify a positive aspect, you must explain *why* it is good using technical reasoning.
+  - **Bad**: "Great idea! I'll do that."
+  - **Good**: "This approach is recommended because it adheres to the Single Responsibility Principle, making the new component easier to test and maintain."
+
+## Process
+
+### 1. Planning & Staging
+
+Break complex work into 3-5 stages. Document in `IMPLEMENTATION_PLAN.md`:
+
+```markdown
+## Stage N: [Name]
+**Goal**: [Specific deliverable]
+**Success Criteria**: [Testable outcomes]
+**Tests**: [Specific test cases]
+**Status**: [Not Started|In Progress|Complete]
 ```
-LLM Application → MCPApi → MCPClientManager → MCPClient → BinderClientTransport → AIDL/Binder → BinderServerTransport → MCPServer → MCPService
-```
+- Update status as you progress
+- Remove file when all stages are done
 
-### Core Modules
+### 2. Implementation Flow
 
-- **`sdk/`**: Core MCP Binder SDK library (main implementation)
-- **`android-mcp-server/`**: Demo weather service providing MCP tools
-- **`android-mcp-client/`**: Demo client app with OpenAI LLM integration
+1. **Understand** - Study existing patterns in codebase
+2. **Test** - Write test first (red)
+3. **Implement** - Minimal code to pass (green)
+4. **Refactor** - Clean up with tests passing
+5. **Commit** - With clear message linking to plan
 
-## Essential Commands
+### 3. When Stuck (After 3 Attempts)
 
-### Build Commands
-```bash
-# Build entire project
-./gradlew build
+**CRITICAL**: Maximum 3 attempts per issue, then STOP.
 
-# Build specific modules
-./gradlew :sdk:build
-./gradlew :android-mcp-server:assembleDebug
-./gradlew :android-mcp-client:assembleDebug
+1. **Document what failed**:
+    - What you tried
+    - Specific error messages
+    - Why you think it failed
 
-# Run tests
-./gradlew test
-./gradlew :sdk:test
-```
+2. **Research alternatives**:
+    - Find 2-3 similar implementations
+    - Note different approaches used
 
-### Testing Commands
-```bash
-# Unit tests
-./gradlew testDebugUnitTest
+3. **Question fundamentals**:
+    - Is this the right abstraction level?
+    - Can this be split into smaller problems?
+    - Is there a simpler approach entirely?
 
-# Android instrumented tests  
-./gradlew connectedDebugAndroidTest
+4. **Try different angle**:
+    - Different library/framework feature?
+    - Different architectural pattern?
+    - Remove abstraction instead of adding?
 
-# Specific module tests
-./gradlew :sdk:testDebugUnitTest
-```
+## Technical Standards
 
-### Development Commands
-```bash
-# Clean build
-./gradlew clean
+### Architecture Principles
 
-# Install debug APKs (requires connected device/emulator)
-./gradlew :android-mcp-server:installDebug
-./gradlew :android-mcp-client:installDebug
+- **Composition over inheritance** - Use dependency injection
+- **Interfaces over singletons** - Enable testing and flexibility
+- **Explicit over implicit** - Clear data flow and dependencies
+- **Test-driven when possible** - Never disable tests, fix them
 
-# Check dependencies
-./gradlew dependencies
-```
+### Code Quality
 
-## Key Technologies & Dependencies
+- **Every commit must**:
+    - Compile successfully
+    - Pass all existing tests
+    - Include tests for new functionality
+    - Follow project formatting/linting
 
-- **Kotlin 2.2.0** with coroutines
-- **MCP Kotlin SDK 0.6.0** (`io.modelcontextprotocol:kotlin-sdk`)
-- **Kotlinx Serialization JSON 1.7.3** for JSON handling
-- **Android Gradle Plugin 8.10.0**
-- **MinSDK 24, CompileSDK 36**
+- **Before committing**:
+    - Run formatters/linters
+    - Self-review changes
+    - Ensure commit message explains "why"
 
-## Core SDK Architecture
+### Error Handling
 
-### Transport Layer (`sdk/src/main/java/zwdroid/mcp/sdk/transport/`)
-- **`BinderServerTransport`**: Server-side IPC with linkToDeath mechanism
-- **`BinderClientTransport`**: Client-side IPC with service discovery
+- Fail fast with descriptive messages
+- Include context for debugging
+- Handle errors at appropriate level
+- Never silently swallow exceptions
 
-### Server Components (`sdk/src/main/java/zwdroid/mcp/sdk/server/`)
-- **`MCPService`**: Abstract base class for tool providers (extend this)
-- **`MCPServer`**: Handles MCP request processing
+## Decision Framework
 
-### Client Components (`sdk/src/main/java/zwdroid/mcp/sdk/client/`)
-- **`MCPApi`**: High-level interface for LLM integration
-- **`MCPClientManager`**: Service discovery and lifecycle management
-- **`MCPClient`**: Individual service connections
+When multiple valid approaches exist, choose based on:
 
-### AIDL Interfaces (`sdk/src/main/aidl/zwdroid/mcp/sdk/`)
-- **`IMCPBinderService.aidl`**: Main service interface
-- **`IMCPBinderCallback.aidl`**: Async response callbacks
+1. **Testability** - Can I easily test this?
+2. **Readability** - Will someone understand this in 6 months?
+3. **Consistency** - Does this match project patterns?
+4. **Simplicity** - Is this the simplest solution that works?
+5. **Reversibility** - How hard to change later?
 
-### Common Components (`sdk/src/main/java/zwdroid/mcp/sdk/common/`)
-- **`PermissionPolicy`**: Security policy enumeration (OPEN, PERMISSION_BASED, etc.)
-- **`SecurityUtils`**: Security utilities for signature validation and caller verification
-- **`McpExceptions`**: Comprehensive exception hierarchy for error handling
-- **`KLog`**: Android logging wrapper with debug capabilities
+## Project Integration
 
-## Security Model
+### Learning the Codebase
 
-The SDK implements a **unified permission system** with multiple security strategies:
+- Find 3 similar features/components
+- Identify common patterns and conventions
+- Use same libraries/utilities when possible
+- Follow existing test patterns
 
-### Standard MCP Permission
+### Tooling
 
-The SDK defines a single, standard permission that all MCP services use:
-- **Permission**: `zwdroid.mcp.sdk.permission.ACCESS_MCP_SERVICES`
-- **Protection Level**: `normal`
-- **Defined in**: SDK's AndroidManifest.xml
+- Use project's existing build system
+- Use project's test framework
+- Use project's formatter/linter settings
+- Don't introduce new tools without strong justification
 
-### Permission Policies
-Services can choose from 5 permission policies by overriding `getPermissionPolicy()`:
+## Quality Gates
 
-- **`PERMISSION_BASED`** (default): Requires clients to have the standard MCP SDK permission
-- **`OPEN`**: Allows any client to access the service - for development/testing only
-- **`SIGNATURE_BASED`**: Only allows apps signed with the same certificate
-- **`WHITELIST_BASED`**: Only allows specific package names (configured via `getAllowedPackages()`)
-- **`CUSTOM`**: Uses service-specific validation logic (via `validateCustomCaller()`)
+### Definition of Done
 
-### Security Implementation
-- **Unified permissions**: All services use the same standard permission by default
-- **Application-level control**: Permission validation applies to entire service, not per tool
-- **Real-time validation**: Access checked on each tool call, not just service binding
-- **Caller identification**: Uses `Binder.getCallingUid()` and `Binder.getCallingPid()` in proper Binder call context
-- **Context-aware validation**: Caller information captured before entering coroutine scope to preserve Binder context
-- **Comprehensive logging**: Detailed permission validation logs for debugging
-- **Standard error responses**: Returns JSON-RPC compliant error messages for denied access
+- [ ] Tests written and passing
+- [ ] Code follows project conventions
+- [ ] No linter/formatter warnings
+- [ ] Commit messages are clear
+- [ ] Implementation matches plan
+- [ ] No TODOs without issue numbers
 
-### Security Utilities
-- **`SecurityUtils.kt`**: Signature validation, package verification, security logging
-- **`PermissionPolicy.kt`**: Enumeration of available security strategies
-- **Enhanced caller validation**: Package whitelist/blacklist support
+### Test Guidelines
 
-### Example Usage
-```kotlin
-class WeatherMCPService : MCPService() {
-    // Default: Use standard MCP permission (PERMISSION_BASED)
-    // No override needed - this is the default behavior
-    
-    // Alternative: Use whitelist-based security
-    override fun getPermissionPolicy() = PermissionPolicy.WHITELIST_BASED
-    override fun getAllowedPackages() = setOf(
-        "com.trusted.client",
-        "com.company.internal.app"
-    )
-    
-    // Alternative: Open access for development
-    // override fun getPermissionPolicy() = PermissionPolicy.OPEN
-}
-```
+- Test behavior, not implementation
+- One assertion per test when possible
+- Clear test names describing scenario
+- Use existing test utilities/helpers
+- Tests should be deterministic
 
-## Service Discovery Pattern
+## Important Reminders
 
-Services are discovered via:
-1. Intent filter with action `"zwdroid.mcp.sdk.TOOLS_SERVICE"`
-2. Meta-data in AndroidManifest:
-   - `mcp.description`: Service description
-   - `mcp.tools`: Reference to `res/raw/mcp_tools.json`
+**NEVER**:
+- Use `--no-verify` to bypass commit hooks
+- Disable tests instead of fixing them
+- Commit code that doesn't compile
+- Make assumptions - verify with existing code
 
-## Tool Definition Format
-
-Tools are defined in `res/raw/mcp_tools.json`:
-```json
-[
-  {
-    "type": "function",
-    "function": {
-      "name": "tool_name",
-      "description": "Tool description",
-      "parameters": {
-        "type": "object",
-        "properties": { /* JSON Schema */ },
-        "required": ["param1"]
-      }
-    }
-  }
-]
-```
-
-## Logging
-
-All logging uses `KLog` utility class (wrapper around Android Log):
-- `KLog.d(TAG, message)` for debug
-- `KLog.i(TAG, message)` for info  
-- `KLog.w(TAG, message)` for warnings
-- `KLog.e(TAG, message, throwable)` for errors
-
-## Package Structure
-
-- Root package: `zwdroid.mcp.sdk`
-- Client code: `zwdroid.mcp.sdk.client.*`
-- Server code: `zwdroid.mcp.sdk.server.*`
-- Transport: `zwdroid.mcp.sdk.transport.*`
-- Common utilities: `zwdroid.mcp.sdk.common.*`
-
-## Demo Apps Usage
-
-### Server App (WeatherMCPService)
-Provides two tools with configurable security policies:
-- `get_current_weather`: Current weather for location
-- `get_weather_forecast`: Multi-day forecast
-
-Security configuration examples in WeatherMCPService:
-```kotlin
-// Default: Standard MCP permission required (PERMISSION_BASED)
-// No override needed - this is the default behavior
-
-// Alternative: Open access for development (no permission required)
-override fun getPermissionPolicy() = PermissionPolicy.OPEN
-
-// Alternative: Restrict to specific packages
-override fun getPermissionPolicy() = PermissionPolicy.WHITELIST_BASED
-override fun getAllowedPackages() = setOf("zwdroid.mcp.sdk.demo.client")
-
-// Alternative: Custom validation logic  
-override fun getPermissionPolicy() = PermissionPolicy.CUSTOM
-override fun validateCustomCaller(callingUid: Int, callingPackage: String?) = 
-    callingPackage?.contains("demo") == true
-```
-
-### Client App Integration
-```kotlin
-val mcpApi = MCPApi.getInstance(context)
-val tools = mcpApi.getAllAvailableTools()
-
-val arguments = buildJsonObject {
-    put("location", "San Francisco, CA")
-}
-
-val result = mcpApi.callTool(
-    "zwdroid.mcp.sdk.demo.server/.WeatherMCPService#get_current_weather",
-    arguments
-)
-```
-
-## Development Notes
-
-- The project is **complete and production-ready** with enhanced security features and proper permission handling
-- All core components are implemented with proper lifecycle management
-- **Unified permission system**: Single standard permission with 5 configurable security policies (default: PERMISSION_BASED)
-- **Application-level security**: Permission validation per service, not per tool
-- **Context-aware security**: Proper Binder call context handling to prevent permission validation errors
-- Comprehensive error handling with custom exception hierarchy
-- Thread-safe operations using Kotlin coroutines with proper context management
-- Proper resource cleanup with linkToDeath mechanism
-- OpenAI integration example in client demo app
-- **JitPack publishing support**: Configured for GitHub-based dependency distribution
-
-## Important Implementation Notes
-
-### JSON Object Construction
-**CRITICAL**: When using `buildJsonObject` with `put()` calls, values must be `JsonPrimitive` objects, not plain strings or primitives:
-
-```kotlin
-// ✅ CORRECT - Use JsonPrimitive for values
-buildJsonObject {
-    put("type", JsonPrimitive("string"))
-    put("description", JsonPrimitive("The city and state, e.g. San Francisco, CA"))
-    put("default", JsonPrimitive(3))
-}
-
-// ❌ INCORRECT - Plain strings/primitives will cause compilation errors
-buildJsonObject {
-    put("type", "string")  // Wrong!
-    put("description", "Some description")  // Wrong!
-    put("default", 3)  // Wrong!
-}
-```
-
-This is especially important when defining tool schemas in `registerTools()` methods.
-
-## Important Files to Reference
-
-- **Architecture**: `docs/mcp-sdk-prd.md` (Chinese spec document)
-- **Permission system**: `docs/PERMISSION_IMPLEMENTATION.md` (Permission validation documentation)
-- **Implementation status**: `IMPLEMENTATION_SUMMARY.md`
-- **Core API**: `sdk/src/main/java/zwdroid/mcp/sdk/MCPApi.kt`
-- **Server base class**: `sdk/src/main/java/zwdroid/mcp/sdk/server/MCPService.kt`
-- **Permission policies**: `sdk/src/main/java/zwdroid/mcp/sdk/common/PermissionPolicy.kt`
-- **Security utilities**: `sdk/src/main/java/zwdroid/mcp/sdk/common/SecurityUtils.kt`
-- **Demo service**: `android-mcp-server/src/main/java/zwdroid/mcp/sdk/demo/server/WeatherMCPService.kt`
+**ALWAYS**:
+- Commit working code incrementally
+- Update plan documentation as you go
+- Learn from existing implementations
+- Stop after 3 failed attempts and reassess
 
 ---
 > Source: [AnswerZhao/android-mcp-sdk](https://github.com/AnswerZhao/android-mcp-sdk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
