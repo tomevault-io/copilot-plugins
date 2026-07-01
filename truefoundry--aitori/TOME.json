@@ -4,7 +4,7 @@
   "repo": "aitori",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/truefoundry/aitori",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T20:34:46Z"
+  "distributed_at": "2026-07-01T23:19:12Z"
 }
