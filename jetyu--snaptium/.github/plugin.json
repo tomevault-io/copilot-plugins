@@ -1,0 +1,9 @@
+{
+  "name": "jetyu--snaptium",
+  "displayName": "Snaptium",
+  "description": "A modern multi-platform note-taking application built with Electron, featuring local data storage for complete security and control.",
+  "version": "1.0.0",
+  "author": "jetyu",
+  "homepage": "https://github.com/jetyu/Snaptium",
+  "skills": []
+}
