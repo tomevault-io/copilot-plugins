@@ -1,0 +1,9 @@
+{
+  "name": "hackjutsu--vibe-speech",
+  "displayName": "vibe-speech",
+  "description": "Local near real-time voice AI assistant",
+  "version": "1.0.0",
+  "author": "hackjutsu",
+  "homepage": "https://github.com/hackjutsu/vibe-speech",
+  "skills": []
+}
