@@ -1,7 +1,7 @@
 {
   "name": "ncosentino--needlr",
   "displayName": "needlr",
-  "description": "An opinionated framework for scanning assemblies for types and registering them in your dependency injection container.",
+  "description": "needlr",
   "version": "1.0.0",
   "author": "ncosentino",
   "homepage": "https://github.com/ncosentino/needlr",
