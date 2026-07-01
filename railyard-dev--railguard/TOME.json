@@ -2,7 +2,7 @@
   "name": "railguard",
   "owner": "railyard-dev",
   "repo": "railguard",
-  "description": "Safe runtime for Claude Code, built to be yours.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/railyard-dev/railguard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:38:01Z"
+  "distributed_at": "2026-07-01T06:49:01Z"
 }
