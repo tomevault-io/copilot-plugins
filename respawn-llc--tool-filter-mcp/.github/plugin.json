@@ -1,0 +1,9 @@
+{
+  "name": "respawn-llc--tool-filter-mcp",
+  "displayName": "tool-filter-mcp",
+  "description": "MCP proxy server that filters tools from upstream MCP servers via regex-based deny list",
+  "version": "1.0.0",
+  "author": "respawn-llc",
+  "homepage": "https://github.com/respawn-llc/tool-filter-mcp",
+  "skills": []
+}
