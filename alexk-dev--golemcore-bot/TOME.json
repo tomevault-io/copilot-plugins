@@ -2,9 +2,9 @@
   "name": "golemcore-bot",
   "owner": "alexk-dev",
   "repo": "golemcore-bot",
-  "description": "Agent Platform for AI-Native Companies",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alexk-dev/golemcore-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T04:58:02Z"
+  "distributed_at": "2026-07-01T05:11:57Z"
 }
