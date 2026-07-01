@@ -7,14 +7,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [jasontang-ai/Context-Engineering](https://github.com/jasontang-ai/Context-Engineering).
+Original source: `CLAUDE.md` in [jasontang-ai/Context-Engineering](https://github.com/jasontang-ai/Context-Engineering).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [jasontang-ai/Context-Engineering](https://github.com/jasontang-ai/Context-Engineering) — a repo with 9128+ stars on GitHub.
