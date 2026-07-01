@@ -1,12 +1,8 @@
-## no-hasty-edits
+## no-unnecessary-work
 
-> !!! YOU MUST ALWAYS FOLLOW THIS RULE !!!
+> Avoid empty verbosity and bloviation. There is generally no need to provide verbose summaries of what you have done at the end of a task. There is also no need to provide "example scripts" of how to run a feature you've added. You should be provided clear acceptance criteria for any task you are given. If you have not been provided with acceptance criteria, you should ask for them or work with the user to define them. Then do no more work than needed to meet the acceptance criteria.
 
-!!! YOU MUST ALWAYS FOLLOW THIS RULE !!!
-!!! NOTHING IS MORE IMPORTANT THAN FOLLOWING THIS RULE !!!
-We frequently do test-driven development. You will run some tests, which will result in errors. Before you make edits to fix the errors, consult with me on why the error is happening and your proposed fix.
-Always do this, unless the fix is trivial. 
-!!! INCREDIBLY BAD THINGS HAPPEN IF YOU DO NOT FOLLOW THIS RULE !!!
+Avoid empty verbosity and bloviation. There is generally no need to provide verbose summaries of what you have done at the end of a task. There is also no need to provide "example scripts" of how to run a feature you've added. You should be provided clear acceptance criteria for any task you are given. If you have not been provided with acceptance criteria, you should ask for them or work with the user to define them. Then do no more work than needed to meet the acceptance criteria.
 
 ---
 > Source: [codezakh/onelife](https://github.com/codezakh/onelife) — distributed by [TomeVault](https://tomevault.io).
