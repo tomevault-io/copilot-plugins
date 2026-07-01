@@ -1,0 +1,44 @@
+{
+  "name": "icn",
+  "owner": "InterCooperative-Network",
+  "repo": "icn",
+  "description": "A substrate daemon for the cooperative internet. Constraint engine where apps translate governance into generic constraints, kernel enforces them blindly.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/InterCooperative-Network/icn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-01T23:16:43Z"
+}
