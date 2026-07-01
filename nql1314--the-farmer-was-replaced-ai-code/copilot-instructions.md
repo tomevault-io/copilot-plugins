@@ -1,310 +1,110 @@
-## common-issues
+## game-api-usage
 
-> 游戏使用的是类Python语法，但**不是标准Python**，以下特性不可用：
+> TFWR游戏API使用规则和最佳实践
 
-# TFWR 常见问题和解决方案
+# The Farmer Was Replaced API 使用规则
 
-## 语法限制（重要！）
+## 核心API导入
+始终从 [__builtins__.py](mdc:__builtins__.py) 引用类型定义。常用的类和常量包括：
 
-### 不支持的Python特性
-游戏使用的是类Python语法，但**不是标准Python**，以下特性不可用：
-
-1. **禁止使用三引号注释 `"""`**
-   ```python
-   # ❌ 错误：游戏不支持
-   def my_function():
-       """这是文档字符串"""
-       pass
-   
-   # ✅ 正确：使用 # 注释
-   def my_function():
-       # 这是注释
-       pass
-   ```
-
-2. **禁止使用 `nonlocal` 关键字**
-   ```python
-   # ❌ 错误：游戏不支持
-   def outer():
-       x = 1
-       def inner():
-           nonlocal x
-           x = 2
-   
-   # ✅ 正确：使用其他方法（避免嵌套函数，或使用全局变量/列表）
-   x = [1]  # 使用列表作为可变容器
-   def modify_x():
-       x[0] = 2
-   ```
-
-3. **避免复杂的嵌套函数**
-   ```python
-   # ❌ 可能有问题：复杂的闭包
-   def outer(callback):
-       def inner(x, y):
-           nonlocal some_var
-           callback(x, y)
-       return inner
-   
-   # ✅ 正确：使用简单的函数
-   def process(x, y):
-       # 直接处理
-       pass
-   ```
-
-4. **函数注释格式**
-   ```python
-   # ✅ 正确的注释方式
-   def my_function():
-       # 单行注释
-       # 多行注释的话
-       # 每行都用 #
-       pass
-   ```
-
-## 常见错误
-
-### 1. 移动到不存在的位置
+### 实体类 (Entities)
 ```python
-# ❌ 错误：可能移动到边界外
-move(North)  # 可能失败
+Entities.Grass      # 草
+Entities.Bush       # 灌木
+Entities.Tree       # 树
+Entities.Carrot     # 胡萝卜
+Entities.Pumpkin    # 南瓜
+Entities.Sunflower  # 向日葵
+Entities.Cactus     # 仙人掌
+```
 
-# ✅ 正确：农场是环形的，会自动包装
-# 但最好还是检查
+### 物品类 (Items)
+```python
+Items.Hay           # 干草
+Items.Wood          # 木材
+Items.Carrot        # 胡萝卜
+Items.Pumpkin       # 南瓜
+Items.Power         # 能量
+Items.Water         # 水
+Items.Fertilizer    # 肥料
+```
+
+### 方向 (Directions)
+```python
+North  # 上
+South  # 下
+East   # 右
+West   # 左
+```
+
+### 地面类型 (Grounds)
+```python
+Grounds.Grassland   # 草地
+Grounds.Soil        # 土壤
+```
+
+## 常用函数模式
+
+### 移动模式
+```python
+# 移动并检查成功
+if move(North):
+    # 移动成功
+    
+# 检查是否可以移动
 if can_move(North):
     move(North)
 ```
 
-### 2. 在错误的地面类型上种植
+### 收割模式
 ```python
-# ❌ 错误：某些植物只能种在特定地面
-plant(Entities.Carrot)  # 可能失败，如果不是土壤
+# 检查是否可以收割
+if can_harvest():
+    harvest()
+    
+# 检查特定实体
+if get_entity_type() == Entities.Grass:
+    if can_harvest():
+        harvest()
+```
 
-# ✅ 正确：先检查并准备地面
+### 种植模式
+```python
+# 翻土并种植
 if get_ground_type() != Grounds.Soil:
-    till()  # 转换为土壤
+    till()
 plant(Entities.Carrot)
 ```
 
-### 3. 收割未成熟的植物
+### 位置追踪
 ```python
-# ❌ 错误：浪费200 ticks
-harvest()  # 可能失败
-
-# ✅ 正确：先检查
-if can_harvest():
-    harvest()
+x = get_pos_x()
+y = get_pos_y()
+world_size = get_world_size()
 ```
 
-### 4. 忘记种植物的生长时间
-```python
-# 不同植物的平均生长时间：
-# - Grass: 0.5秒
-# - Dinosaur: 0.2秒
-# - Cactus: 1秒
-# - Bush: 4秒
-# - Pumpkin: 2秒
-# - Sunflower: 5秒
-# - Carrot: 6秒
-# - Tree: 7秒
+## Tick优化建议
 
-# 策略：在等待慢速植物时种植快速植物
-```
+### 低成本操作 (1 tick)
+- `can_harvest()`
+- `can_move()`
+- `get_entity_type()`
+- `get_ground_type()`
+- `get_pos_x()`, `get_pos_y()`
+- `get_world_size()`
 
-### 5. 无效的迷宫导航
-```python
-# 迷宫中的对冲（Entities.Hedge）不能穿越
-# 使用 can_move() 检查路径
-if get_entity_type() == Entities.Hedge:
-    # 这是墙，找另一条路
-    pass
-```
+### 高成本操作 (200 ticks)
+- `move()`
+- `harvest()`
+- `plant()`
+- `till()`
+- `swap()`
 
-## 解锁顺序建议
-
-### 早期解锁（优先级高）
-1. `Unlocks.Expand` - 扩展农场，获得更多空间
-2. `Unlocks.Loops` - 解锁循环，自动化必需
-3. `Unlocks.Operators` - 解锁运算符
-4. `Unlocks.Functions` - 定义函数，代码组织
-5. `Unlocks.Senses` - 获取位置和实体信息
-
-### 中期解锁
-1. `Unlocks.Carrots` - 获得胡萝卜
-2. `Unlocks.Speed` - 加快无人机速度
-3. `Unlocks.Lists` - 使用列表
-4. `Unlocks.Sunflowers` - 获得能量
-5. `Unlocks.Pumpkins` - 高产作物
-
-### 后期解锁
-1. `Unlocks.Mazes` - 迷宫和宝藏
-2. `Unlocks.Cactus` - 仙人掌（需要排序算法）
-3. `Unlocks.Polyculture` - 伴生种植增产
-4. `Unlocks.Megafarm` - 多无人机
-
-## 资源管理策略
-
-### 干草（Hay）
-```python
-# 最基础的资源
-# 来源：收割草
-# 用途：解锁基础功能
-
-# 快速获取策略：
-# 1. 让草自然生长
-# 2. 遍历农场收割
-# 3. 重复
-```
-
-### 木材（Wood）
-```python
-# 来源：灌木和树
-# 灌木生长快但产量少
-# 树生长慢但产量多
-
-# 优化策略：
-# - 早期：种植灌木快速获取
-# - 后期：种植树获得大量木材
-```
-
-### 能量（Power）
-```python
-# 来源：向日葵
-# 效果：自动加速移动
-
-# 策略：
-# - 尽早种植向日葵
-# - 在花瓣最多时收割（如果有10+向日葵可获得5x奖励）
-```
-
-### 金币（Gold）
-```python
-# 来源：迷宫中的宝藏
-# 用途：高级解锁
-
-# 获取策略：
-# - 需要导航算法（BFS/DFS）
-# - 宝藏金币 = 迷宫边长
-```
-
-## 特殊机制
-
-### 南瓜合并机制
-```python
-# 相邻的成熟南瓜会合并
-# 收获量 = 合并数量³
-# 例：3×3合并 = 9³ = 729个南瓜
-
-# 策略：
-# - 种植大片南瓜
-# - 等待全部成熟
-# - 一次收割获得巨量
-```
-
-### 仙人掌排序机制
-```python
-# 仙人掌大小0-9
-# 收割时，相邻的排序仙人掌会递归收割
-# 收获量 = 收割数量²
-
-# 策略：
-# - 使用 measure() 获取大小
-# - 从排序好的序列开始收割
-# - 最优：递增或递减序列
-```
-
-### 伴生种植（Polyculture）
-```python
-# 不同植物相邻时产量增加
-# 需要解锁 Unlocks.Polyculture
-
-# 策略：
-# - 棋盘式种植不同作物
-# - 测试哪些组合最有效
-```
-
-## 调试工具
-
-### 使用Debug解锁
-```python
-# 解锁 Unlocks.Debug 后可用：
-# - print() - 打印信息
-# - quick_print() - 快速打印（不暂停）
-
-# 解锁 Unlocks.Debug_2 后可用：
-# - set_execution_speed() - 调整执行速度
-# - set_farm_size() - 临时改变农场大小（测试用）
-```
-
-### 常用调试代码
-```python
-# 打印当前状态
-print("Pos:", get_pos_x(), get_pos_y())
-print("Entity:", get_entity_type())
-print("Ground:", get_ground_type())
-print("Ticks:", get_tick_count())
-
-# 测量性能
-start = get_tick_count()
-your_function()
-print("Ticks used:", get_tick_count() - start)
-```
-
-## 最佳实践
-
-### 1. 模块化代码
-```python
-def setup_field():
-    """准备田地"""
-    pass
-
-def plant_crops():
-    """种植作物"""
-    pass
-
-def harvest_crops():
-    """收割作物"""
-    pass
-
-def farming_cycle():
-    """完整的农场循环"""
-    setup_field()
-    plant_crops()
-    # 等待成熟
-    harvest_crops()
-```
-
-### 2. 使用常量
-```python
-# 定义常用的尺寸和数量
-FARM_SIZE = get_world_size()
-MIN_HAY = 100
-MIN_WOOD = 50
-```
-
-### 3. 早期返回
-```python
-def harvest_if_ready():
-    if not can_harvest():
-        return False
-    harvest()
-    return True
-```
-
-### 4. 注释你的策略
-```python
-# 这一段代码实现蛇形遍历以最小化移动
-# 预期tick消耗：(size² - 1) × 200
-for y in range(size):
-    # ...
-```
-
-## 记住
-- **测试小范围** - 在小农场测试代码，成功后再扩展
-- **逐步优化** - 先让代码工作，然后优化
-- **使用调试工具** - print() 是你的朋友
-- **参考API文档** - `__builtins__.py` 包含所有函数说明
-- **社区资源** - TFWR Discord 服务器有很多帮助
+### 优化原则
+1. **先检查再执行** - 使用 `can_*()` 函数避免无效操作
+2. **减少移动** - 移动是最昂贵的操作之一，优化路径
+3. **批量处理** - 在同一区域处理多个任务
+4. **避免重复检查** - 缓存不变的信息（如世界大小）
 
 ---
 > Source: [nql1314/The-Farmer-Was-Replaced-AI-Code](https://github.com/nql1314/The-Farmer-Was-Replaced-AI-Code) — distributed by [TomeVault](https://tomevault.io).
