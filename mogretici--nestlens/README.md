@@ -2,8 +2,6 @@
 
 > Tome by [mogretici](https://github.com/mogretici/nestlens) — distributed by [TomeVault](https://tomevault.io)
 
-Laravel Telescope-inspired debugging and monitoring for NestJS. Track requests, queries, exceptions, jobs, and 14 more watchers with a beautiful real-time dashboard.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
