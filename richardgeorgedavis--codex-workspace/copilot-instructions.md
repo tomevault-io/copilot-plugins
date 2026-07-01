@@ -55,7 +55,6 @@ Do not load or summarize these unless the task explicitly needs them:
 - repo `ref/`
 - repo `screenshots/`
 - `cache/`
-- `shared/mempalace/`
 - generated reports, large copied HTML, archives, lockfiles, vendor/build output
 
 For fresh context, read:
@@ -91,10 +90,10 @@ When no manifest exists, classify cautiously:
 
 ## Workspace Memory
 
-Workspace memory is temporarily disabled.
+The previous workspace memory service has been removed.
 
-Do not run `tools/bin/workspace-memory` or leave MemPalace closeout as a manual
-reminder until the pause is explicitly lifted in tracked docs.
+Do not add background memory hooks or leave memory closeout as a manual
+reminder. Record closeout in tracked docs instead.
 
 For handover updates:
 
@@ -109,11 +108,32 @@ Root `AGENTS.md` is the canonical public agent contract, including for
 TomeVault distribution. `.github/copilot-instructions.md` is a standalone
 Copilot summary, not the source of truth for cross-platform conversion.
 
+When a user request appears to need a skill, check the available local skill
+sources before creating, importing, or researching a new one. Start with the
+current session's advertised skills, then inspect relevant workspace skill
+folders such as `.agents/skills/`, `shared/skills/`,
+`repos/current-builds/knowledge-foundry/knowledge/skills/`, and
+`$CODEX_HOME/skills` or `~/.codex/skills` when needed. Prefer using or adapting
+an existing local skill over adding another copy.
+
 Tracked skills published for TomeVault live under `.agents/skills/` and are
 mirrored from `tools/manifests/tomevault-skills.json` by
 `tools/scripts/sync-tomevault-skills.sh`. Do not install TomeVault Relay, add
 TomeVault badges, or commit generated multi-format TomeVault files unless that
 is explicitly requested.
+
+Whenever a skill is developed, created, updated, or saved anywhere in this
+workspace, copy the final skill folder into
+`repos/current-builds/knowledge-foundry/process/input/_final-skills-here/`. Use
+`tools/scripts/sync-final-skills.sh` to preview the full workspace skill export
+and `tools/scripts/sync-final-skills.sh --run` to refresh that Knowledge
+Foundry input folder. Keep all discovered skills; do not prune a skill from the
+final-skills input unless the user explicitly requests removal.
+Do not rediscover or resync generated Knowledge Foundry direct-skill outputs
+under `process/input/_final-skills-here/`, the legacy
+`process/input/skills/` alias, or process queue review folders as new source
+skills; those folders are sync/import artifacts and are intentionally ignored
+by the sync wrapper.
 
 ## Upstream Updates
 
@@ -126,4 +146,4 @@ Do not refresh those sources by hand when a wrapper covers the flow.
 
 ---
 > Source: [RichardGeorgeDavis/Codex-Workspace](https://github.com/RichardGeorgeDavis/Codex-Workspace) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
