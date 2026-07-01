@@ -2,8 +2,6 @@
 
 > Tome by [Panzer-Jack](https://github.com/Panzer-Jack/Copiwaifu) — distributed by [TomeVault](https://tomevault.io)
 
-Your Live2D AI Navigator for every coding mission. Synchronized with ClaudeCode, Copilot and Codex ..)
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [Panzer-Jack/Copiwaifu](https://github.com/Panze
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Panzer-Jack/Copiwaifu](https://github.com/Panzer-Jack/Copiwaifu) — a repo with 23+ stars on GitHub.
+From [Panzer-Jack/Copiwaifu](https://github.com/Panzer-Jack/Copiwaifu) — a repo with 37+ stars on GitHub.
 
 ---
 
