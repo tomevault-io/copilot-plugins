@@ -1,0 +1,9 @@
+{
+  "name": "triple-mu--yolov8-tensorrt",
+  "displayName": "YOLOv8-TensorRT",
+  "description": "YOLOv8-TensorRT",
+  "version": "1.0.0",
+  "author": "triple-Mu",
+  "homepage": "https://github.com/triple-Mu/YOLOv8-TensorRT",
+  "skills": []
+}
