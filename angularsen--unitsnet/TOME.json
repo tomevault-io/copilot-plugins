@@ -4,7 +4,7 @@
   "repo": "UnitsNet",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/angularsen/UnitsNet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T21:47:26Z"
+  "distributed_at": "2026-07-01T05:28:55Z"
 }
