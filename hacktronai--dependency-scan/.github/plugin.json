@@ -1,0 +1,9 @@
+{
+  "name": "hacktronai--dependency-scan",
+  "displayName": "dependency-scan",
+  "description": "dependency-scan",
+  "version": "1.0.0",
+  "author": "HacktronAI",
+  "homepage": "https://github.com/HacktronAI/dependency-scan",
+  "skills": []
+}
