@@ -2,18 +2,16 @@
 
 > Tome by [ouestlabs](https://github.com/ouestlabs/audio-ui) — distributed by [TomeVault](https://tomevault.io)
 
-A set of accessible and composable components for building audio interfaces in your React apps. Built on top of shadcn/ui, it's designed for you to copy, paste, and own.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ouestlabs/audio-ui](https://github.com/ouestlabs/audio-ui).
+Original source: `CLAUDE.md` in [ouestlabs/audio-ui](https://github.com/ouestlabs/audio-ui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
