@@ -2,16 +2,14 @@
 
 > Tome by [alexk-dev](https://github.com/alexk-dev/golemcore-bot) — distributed by [TomeVault](https://tomevault.io)
 
-Agent Platform for AI-Native Companies
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [alexk-dev/golemcore-bot](https://github.com/alexk-dev/golemcore-bot).
+Original source: `CLAUDE.md` in [alexk-dev/golemcore-bot](https://github.com/alexk-dev/golemcore-bot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
