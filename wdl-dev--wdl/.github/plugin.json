@@ -1,0 +1,9 @@
+{
+  "name": "wdl-dev--wdl",
+  "displayName": "wdl",
+  "description": "Self-hosted multi-tenant Workers platform on stock Cloudflare workerd with multi-replica failover",
+  "version": "1.0.0",
+  "author": "wdl-dev",
+  "homepage": "https://github.com/wdl-dev/wdl",
+  "skills": []
+}
