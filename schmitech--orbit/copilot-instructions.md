@@ -6,116 +6,76 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
-
-**ORBIT** (Open Retrieval-Based Inference Toolkit) is a self-hosted AI gateway for production RAG (Retrieval-Augmented Generation). It exposes an OpenAI-compatible API that routes requests to 37+ LLM providers, performs intent-based SQL/NoSQL/vector retrieval, and includes enterprise controls (RBAC, audit logs, rate limiting, circuit breakers).
-
 ## Commands
 
-### Setup
 ```bash
-./install/setup.sh --profile default           # Basic install
-./install/setup.sh --profile all               # All dependencies
-./install/setup.sh --download-gguf [model]     # Download a GGUF model
+npm run dev        # Start Vite dev server with HMR
+npm run build      # TypeScript check + Vite build → dist/
+npm run lint       # ESLint (zero warnings policy)
+npm run preview    # Serve the production build locally
+npm test           # Run Node test suite (tests/**/*.test.js)
 ```
 
-### Running the Server
+Running the full app (after build):
 ```bash
-python3 server/main.py                         # Direct launch
-python3 server/main.py --config /path/to.yaml  # Custom config
-./bin/orbit.sh start                           # Via shell wrapper
-docker compose up -d                           # From docker/ directory
+node bin/orbitchat.js --config orbitchat.yaml --open
 ```
-
-### Testing
-```bash
-# From repo root, using the venv python:
-/Users/remsyschmilinsky/Downloads/orbit/venv/bin/python -m pytest server/tests/
-
-# Run a single test file:
-/Users/remsyschmilinsky/Downloads/orbit/venv/bin/python -m pytest server/tests/test_foo.py
-
-# Run by marker:
-/Users/remsyschmilinsky/Downloads/orbit/venv/bin/python -m pytest server/tests/ -m unit
-```
-
-Pytest markers: `unit`, `integration`, `slow`. Python imports resolve from `server/` — tests must be run with `server/` as the working directory or the venv python from the repo root.
-
-### Linting
-```bash
-ruff check .        # Check all Python files
-ruff check server/  # Check server code only
-```
-
-Config: `ruff.toml` — line length 120, target Python 3.11+.
 
 ## Architecture
 
-### Entry Points
-- `server/main.py` — FastAPI app factory
-- `server/inference_server.py` — Server initialization, config loading, service wiring, lifespan manager
+OrbitChat is a full-stack chat client: a React SPA bundled by Vite served by a thin Express proxy server (`bin/orbitchat.js`). The proxy is the security boundary — API keys never reach the browser.
 
-### Service Layer (`server/services/`)
-Services are initialized once via a service factory and injected via FastAPI dependency injection. Key services:
-- `ChatService` — message routing, streaming
-- `RetrievalService` — RAG and document retrieval
-- `APIKeyService` — authentication and quota management
-- `GuardrailService` — content moderation
-- `CacheService` — retrieval result caching
-- `ChatHistoryService` — conversation persistence
+### Request flow
 
-### Adapter System (`server/adapters/`)
-Adapters are the core abstraction — they define how a user query is handled end-to-end:
-- **Intent adapters** — Map natural language to SQL/NoSQL queries via template matching
-- **Composite adapters** — Fan out across multiple sources and merge results
-- **Passthrough adapters** — Route directly to an LLM provider
-- **File/QA adapters** — RAG over uploaded documents
+```
+Browser → Express proxy (bin/orbitchat.js)
+              ↓ injects X-API-Key from VITE_ADAPTER_KEYS env
+          ORBIT backend server
+```
 
-Adapter capabilities are declared in `server/adapters/capabilities.py` (`AdapterCapabilities`, `AdapterCapabilityRegistry`).
+The frontend sends an `X-Adapter-Name` header (not a secret). The proxy looks up the real key and injects it server-side before forwarding to the backend.
 
-Adapter configs live in `config/adapters/*.yaml`.
+### State management
 
-### Retrieval Pipeline (`server/retrievers/`)
-Intent-SQL RAG system: a user query is matched against named intent templates, which generate SQL/NoSQL queries. Results are injected as context into the LLM prompt.
-- Base classes: `server/retrievers/base/intent_sql_base.py`, `intent_http_base.py`
-- Response formatters: `server/retrievers/implementations/intent/domain/response/formatters.py`
-- Conversation threading: branches from any turn, reuses cached datasets
+There are two tiers:
 
-### Pipeline Steps (`server/inference/pipeline/steps/`)
-Modular steps executed in order: `llm_inference`, `context_retrieval`, `document_reranking`.
+- **React Context** — `ChatContext`, `ThemeContext`, `SettingsContext`, `AgentHomeNavContext` — used for app-wide UI state.
+- **Zustand** — `chatStore.ts` (the main streaming chat state machine), `loginPromptStore.ts`.
 
-### Data Sources (`server/datasources/`)
-Connectors for: Postgres, MySQL, MariaDB, SQL Server, Oracle, SQLite, MongoDB, Redis, Cassandra, DuckDB, Chroma, Qdrant, Pinecone, Milvus, Weaviate, Elasticsearch, HTTP/REST/GraphQL, file uploads, web crawling.
+### Key files
 
-### Routes (`server/routes/`)
-- `chat_routes.py` — `/v1/chat/completions` (OpenAI-compatible)
-- `admin_routes.py` — adapter/datasource CRUD, config management
-- `auth_routes.py` — login, API key lifecycle
-- `file_routes.py` — document uploads
-- `voice_routes.py` — STT/TTS
-- `health_routes.py`, `metrics_routes.py`
+| File | Role |
+|------|------|
+| `src/App.tsx` | Root: stacks all providers, decides home vs. chat layout |
+| `src/apiClient.ts` | All backend calls (streaming SSE, files, threads, feedback, models) |
+| `src/stores/chatStore.ts` | Core chat state machine — streaming, threading, feedback |
+| `src/hooks/useChatAgentSelection.ts` | Adapter selection, conversation setup, file-upload state |
+| `src/hooks/useVoice.ts` | STT recording + TTS playback |
+| `src/utils/runtimeConfig.ts` | Reads config from `window.ORBIT_CHAT_CONFIG` or Vite's `define()` |
+| `vite-plugin-orbitchat-config.ts` | Reads `orbitchat.yaml`, injects via Vite `define()`, generates sitemap |
+| `bin/orbitchat.js` | Express server: static serving, rate limiting, API proxy |
+
+### Chat streaming
+
+Responses arrive as SSE (Server-Sent Events / JSON lines). `apiClient.ts → streamChat()` handles the reader loop. The `chatStore` manages partial content accumulation and the `request_id` used to cancel in-flight requests via `stopChat()`.
 
 ### Configuration
-YAML-first configuration under `config/`:
-- `config.yaml` — main server config (providers, rate limits, auth)
-- `adapters.yaml` — adapter registry
-- `datasources.yaml` — DB connections
-- `inference.yaml` — LLM provider settings
-- `embeddings.yaml` — embedding model config
-- `adapters/` — pre-built adapter configs (14 subdirectories)
 
-### CLI (`bin/`)
-Click-based CLI (`bin/orbit.py`) wrapping common ops: `start`, `stop`, `status`, `config`, `keys`, `users`, `prompts`. Shell wrapper `bin/orbit.sh` handles venv activation and Python version checks.
+Runtime config comes from `orbitchat.yaml`. The Vite plugin reads it at build time and injects it via `define()`; the Express server reads it at startup and merges adapter keys from the `VITE_ADAPTER_KEYS` env var (JSON object: `{ adapterName: "key" }`).
 
-### MCP Server
-Exposed via FastMCP, integrated into the FastAPI lifespan. Tools implemented in `server/tools/`.
+### Authentication
 
-## Key Conventions
-- Async-first throughout (FastAPI + asyncio)
-- Prototype HTML/mockups go in `docs/prototypes/`, not `server/`
-- Python 3.12 (venv); system Python is 3.14 — always use the venv interpreter
-- Server code root for imports is `server/` — keep imports relative to that
+Auth0 is optional. `src/auth/` wraps the Auth0 React SDK and exposes `useIsAuthenticated`, token retrieval, and a stable user ID. Rate limits differ for guests vs. authenticated users (configured in `orbitchat.yaml`).
+
+## Conventions
+
+- **No secrets in the browser.** API keys live only in the Express proxy via environment variables.
+- **Adapter-based routing.** Each conversation targets one adapter; `X-Adapter-Name` header selects it.
+- **Session IDs.** Each conversation gets a UUID session ID used for history and feedback endpoints.
+- **TypeScript strict mode.** All new code must pass `tsc` without errors.
+- **ESLint zero-warnings.** `npm run lint` must exit clean.
+- **Component size.** `Message.tsx` and `MessageInput.tsx` are intentionally large (rich rendering + complex state). Keep new components focused.
 
 ---
 > Source: [schmitech/orbit](https://github.com/schmitech/orbit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
