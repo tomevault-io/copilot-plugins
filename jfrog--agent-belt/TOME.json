@@ -1,0 +1,44 @@
+{
+  "name": "agent-belt",
+  "owner": "jfrog",
+  "repo": "agent-belt",
+  "description": "Reproducible evaluation for AI coding agents. Multi-turn scenarios against Claude Code, Codex, Copilot, Cursor, Gemini CLI, Goose, OpenCode, or any custom agent you plug in; verify behavior with rule checks, workspace diffs, multi-judge LLM consensus; pin reliability with pass^k variance across trials. Git worktrees, optional Docker sandbox.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jfrog/agent-belt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-01T18:38:46Z"
+}
