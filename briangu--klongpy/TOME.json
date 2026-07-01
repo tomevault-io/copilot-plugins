@@ -4,7 +4,7 @@
   "repo": "klongpy",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/briangu/klongpy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T00:51:26Z"
+  "distributed_at": "2026-07-01T11:22:48Z"
 }
