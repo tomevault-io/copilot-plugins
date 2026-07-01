@@ -2,9 +2,9 @@
   "name": "yearly-glance",
   "owner": "Moyf",
   "repo": "yearly-glance",
-  "description": "An obsidian plugin to build \"year at a glance\" view.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Moyf/yearly-glance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T05:02:31Z"
+  "distributed_at": "2026-07-01T12:30:32Z"
 }
