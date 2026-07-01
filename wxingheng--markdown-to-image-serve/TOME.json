@@ -2,7 +2,7 @@
   "name": "markdown-to-image-serve",
   "owner": "wxingheng",
   "repo": "markdown-to-image-serve",
-  "description": "\u4e00\u4e2a\u57fa\u4e8e Next.js \u548c Puppeteer \u7684 Markdown \u8f6c\u56fe\u7247\u670d\u52a1\uff0c\u652f\u6301 Docker \u90e8\u7f72\u548c API \u96c6\u6210\u3002A Markdown to Image Service based on Next.js and Puppeteer, supporting Vercel deployment and API integration.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wxingheng/markdown-to-image-serve",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T09:18:09Z"
+  "distributed_at": "2026-07-01T06:46:57Z"
 }
