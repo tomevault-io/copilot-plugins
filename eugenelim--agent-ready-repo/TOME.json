@@ -4,7 +4,7 @@
   "repo": "agent-ready-repo",
   "description": "The sharpest loop engineering out there in the flagship pack. Plus a catalogue system with additional packs of subagents, skills, and hooks. Install per repo or per user. It's npm for your coding agent. The force multiplier behind the 100x engineer. Works with Claude Code, Codex, Cursor, Copilot, Gemini, Kiro.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eugenelim/agent-ready-repo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T18:44:11Z"
+  "distributed_at": "2026-07-01T22:48:28Z"
 }
