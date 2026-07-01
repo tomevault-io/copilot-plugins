@@ -1,0 +1,9 @@
+{
+  "name": "tradecatlabs--human-infra",
+  "displayName": "human_infra",
+  "description": "Human Infra: docs-as-code knowledge base for human runtime infrastructure, longevity evidence, future-waiting paths, disembodied CNS concepts, and memory-editing boundaries.",
+  "version": "1.0.0",
+  "author": "tradecatlabs",
+  "homepage": "https://github.com/tradecatlabs/human_infra",
+  "skills": []
+}
