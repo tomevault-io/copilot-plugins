@@ -1,476 +1,269 @@
-## comprehensive-pinescript-rules
+## pine-error-prevention-automation
 
-> *Derived from Pine Script v6 Extension analysis and [TradingView Pine Script v6 Reference](mdc:https:/www.tradingview.com/pine-script-reference/v6)*
+> 1. **`pine_master.sh`** - Development, versioning, error detection, solutions
 
-# Comprehensive Pine Script v6 Rules & Best Practices
+# Pine Script Error Prevention Automation Rules
 
-*Derived from Pine Script v6 Extension analysis and [TradingView Pine Script v6 Reference](mdc:https:/www.tradingview.com/pine-script-reference/v6)*
+## Core Automation Workflow with Intelligent Script Usage
 
----
+### 🎯 Primary Scripts (Only Two Needed)
+1. **`pine_master.sh`** - Development, versioning, error detection, solutions
+2. **`pine_tracker.sh`** - Feature tracking, failure logging, rollback documentation
 
-## 📋 Table of Contents
+### 📋 When to Use Scripts (Not Every Time!)
 
-1. [Version & Script Declaration](mdc:#version--script-declaration)
-2. [Type System & Keywords](mdc:#type-system--keywords)
-3. [Variable Declaration & Assignment](mdc:#variable-declaration--assignment)
-4. [Function Definition & Usage](mdc:#function-definition--usage)
-5. [Object Lifecycle Management](mdc:#object-lifecycle-management)
-6. [Array, Matrix & Map Operations](mdc:#array-matrix--map-operations)
-7. [Pine Script v6 Specific Features](mdc:#pine-script-v6-specific-features)
-8. [Common Error Patterns & Solutions](mdc:#common-error-patterns--solutions)
-9. [Performance & Best Practices](mdc:#performance--best-practices)
-10. [Syntax Rules & Line Continuation](mdc:#syntax-rules--line-continuation)
+#### Use `pine_master.sh develop` ONLY when:
+- Starting a NEW feature/modification
+- After SIGNIFICANT changes (not every edit)
+- Before taking a break/ending session
+- When you explicitly ask for versioning
 
----
+#### Use `pine_master.sh fix` ONLY when:
+- Actual compilation error occurs
+- You report a specific problem
+- After multiple failed attempts
 
-## 🔖 Version & Script Declaration
+#### Use `pine_tracker.sh` ONLY when:
+- You explicitly mention a new feature to add
+- A feature attempt fails completely
+- Rolling back to previous version
+- Marking feature as complete
 
-### **Rule V1.1: Version Declaration (MANDATORY)**
-```pine
-//@version=6
-indicator("My Indicator", overlay=true)
-```
+### 🚫 DON'T Run Scripts When:
+- Making minor edits or tweaks
+- In the middle of active coding flow
+- Just fixed a simple typo
+- You haven't asked for any tracking
 
-**✅ Supported Versions:** `4`, `5`, `6`  
-**🎯 Recommended:** Always use v6 for new scripts  
-**📌 Pattern:** `^(\/\/)(@)(version)(=)([456])`
+### 💡 Intelligent Workflow Pattern
 
-### **Rule V1.2: Script Type Declaration**
-```pine
-// Choose ONE of these script types:
-indicator("Title", overlay=true)    // Technical analysis indicator
-strategy("Title", overlay=true)     // Trading strategy with orders
-library("Title")                    // Reusable functions for export
-```
-
-**🚨 Critical:** Script declaration must appear after version and before any code
-
----
-
-## 🏷️ Type System & Keywords
-
-### **Rule T1.1: Type Keywords & Forms**
-
-| **Type** | **Usage** | **Example** |
-|----------|-----------|-------------|
-| `int`, `float`, `bool`, `string`, `color` | Basic types | `int myVar = 10` |
-| `line`, `label`, `box`, `table`, `linefill` | Object IDs (always series) | `line myLine = line.new(...)` |
-| `polyline`, `chart.point` | v6 Objects | `polyline pl = polyline.new()` |
-| `array<type>` or `type[]` | Arrays | `array<float> arr = array.new_float()` |
-| `matrix<type>` | Matrices | `matrix<float> mx = matrix.new_float()` |
-| `map<keyType, valueType>` | Key-value maps | `map<string, float> m = map.new<string, float>()` |
-
-### **Rule T1.2: Type Forms (Simple vs Series)**
-```pine
-// In exported library functions:
-export emaRight(float source, simple int length) =>  // ✅ Correct
-    ta.ema(source, length)
-
-export emaWrong(float source, int length) =>         // ❌ Error
-    ta.ema(source, length)  // length becomes 'series int', not supported
-```
-
-**🎯 Key Point:** Use `simple` for library function parameters that need compile-time constants
-
-### **Rule T1.3: Type Consistency**
-```pine
-// ✅ Correct - same type in both branches
-result = condition ? 1 : 2
-
-// ❌ Error - type mismatch
-result = condition ? 1 : 1.0  // int vs float
-```
-
----
-
-## 📝 Variable Declaration & Assignment
-
-### **Rule V2.1: Assignment Operators**
-
-| **Operator** | **Purpose** | **Usage** |
-|--------------|-------------|-----------|
-| `=` | Initial declaration | `myVar = 10` |
-| `:=` | Reassignment | `myVar := 20` |
-| `+=`, `-=`, `*=`, `/=`, `%=` | Compound operations | `myVar += 5` |
-
-### **Rule V2.2: Variable Scope & Declaration**
-```pine
-// ✅ Correct declaration order
-var globalVar = 0       // Global scope with 'var'
-myVar = 0              // Declare first
-myVar := myVar + 1     // Then reassign
-
-// ❌ Error - undeclared identifier
-myVar := myVar + 1     // Error: 'myVar' not declared
-```
-
-### **Rule V2.3: Explicit Typing Requirements**
-```pine
-// Required when initializing with 'na'
-int myInt = na         // ✅ Explicit type needed
-float myFloat = na     // ✅ Explicit type needed
-
-// Optional for normal initialization
-myInt = 10             // ✅ Type inferred
-myFloat = 3.14         // ✅ Type inferred
-```
-
----
-
-## 🔧 Function Definition & Usage
-
-### **Rule F1.1: Function Definition Syntax**
-```pine
-// Standard function definition
-myFunction(param1, param2) =>
-    result = param1 + param2
-    result  // Return value (last expression)
-
-// Function with default parameters
-myFunction(param1, param2 = 10) =>
-    param1 + param2
-
-// Multi-line function with local variables
-complexFunction(x, y) =>
-    local1 = x * 2
-    local2 = y * 3
-    final = local1 + local2
-    final
-```
-
-### **Rule F1.2: Function Parameter Types**
-```pine
-// Library export functions - specify type forms
-export customTA(series float src, simple int len) =>
-    ta.sma(src, len)
-
-// Method definitions
-method toString(simple int this) =>
-    str.tostring(this)
-```
-
-### **Rule F1.3: Built-in Function Usage**
-```pine
-// ✅ Correct parameter order and types
-line.new(x1, y1, x2, y2, color=color.blue, width=2)
-
-// ✅ Check required vs optional parameters
-request.security(symbol, timeframe, expression)  // All required
-
-// ✅ Use namespaced functions correctly
-ta.sma(close, 20)      // Technical analysis
-math.max(high, low)    // Math operations
-array.push(arr, val)   // Array operations
-```
-
----
-
-## 🗂️ Object Lifecycle Management
-
-### **Rule O1.1: Object Creation & Deletion**
-```pine
-// ✅ Proper object lifecycle
-if barstate.isconfirmed
-    // Create objects on confirmed bars only
-    myLine = line.new(bar_index-1, high, bar_index, high)
+```mermaid
+flowchart TD
+    A[🎯 1. FEATURE REQUEST<br/>"Add weekly filter to FVG"] --> B[🧠 AI CHOOSES APPROACH<br/>• Track if helpful<br/>• Version if needed<br/>• Start coding]
+    B --> C[🔨 2. ACTIVE DEVELOPMENT<br/>AI uses full toolkit<br/>• edit_file, search_replace<br/>• codebase_search, grep_search<br/>• run_terminal_cmd if needed<br/>• Any available tool]
     
-// ✅ Clean up objects to prevent memory leaks
-if barstate.islastconfirmedhistory
-    // Delete old objects
-    for i = 0 to array.size(lineArray) - 1
-        line.delete(array.get(lineArray, i))
-    array.clear(lineArray)
-```
-
-### **Rule O1.2: Object Types & Memory Management**
-```pine
-// Objects requiring cleanup:
-// line, label, box, table, linefill, polyline
-
-// ✅ Pattern for object arrays
-var array<line> lineArray = array.new<line>()
-
-// Add new objects
-if condition
-    newLine = line.new(...)
-    array.push(lineArray, newLine)
-
-// Cleanup when needed
-if array.size(lineArray) > maxLines
-    oldLine = array.shift(lineArray)
-    line.delete(oldLine)
-```
-
----
-
-## 📊 Array, Matrix & Map Operations
-
-### **Rule A1.1: Array Operations**
-```pine
-// ✅ Array creation and type specification
-var array<float> prices = array.new_float(0)
-var array<string> symbols = array.new_string(0, "DEFAULT")
-
-// ✅ Safe array access - ALWAYS check size first
-if array.size(prices) > 0
-    lastPrice = array.get(prices, -1)  // v6: negative indices supported!
+    C --> D{3. ERROR OCCURS?}
+    D -->|YES| E[🧠 AI SELECTS BEST SOLUTION<br/>• Pattern recognition<br/>• Tool combinations<br/>• Creative problem solving]
+    D -->|NO| F{4. MAJOR MILESTONE?}
     
-// ✅ Common array operations
-array.push(prices, close)
-array.pop(prices)
-array.sort(prices, order.ascending)
-```
-
-### **Rule A1.2: Pine v6 Array Enhancements**
-```pine
-// ✅ v6 Feature: Negative indices
-if array.size(arr) >= 2
-    lastValue = array.get(arr, -1)      // Last element
-    secondLast = array.get(arr, -2)     // Second to last
+    E --> G{Fixed?}
+    G -->|YES| C
+    G -->|NO| H[🔄 AI ADAPTS STRATEGY<br/>• Try different tools<br/>• Use scripts if helpful<br/>• Document learning]
     
-// ✅ Array bounds checking pattern
-safeArrayGet(arr, index) =>
-    if array.size(arr) > math.abs(index)
-        array.get(arr, index)
-    else
-        na
-```
-
-### **Rule A1.3: Matrix & Map Operations**
-```pine
-// Matrix creation
-var matrix<float> priceMatrix = matrix.new<float>(3, 3, 0.0)
-
-// Matrix operations
-matrix.set(priceMatrix, 0, 0, close)
-value = matrix.get(priceMatrix, 0, 0)
-
-// Map creation and usage
-var map<string, float> symbolPrices = map.new<string, float>()
-map.put(symbolPrices, "AAPL", 150.0)
-price = map.get(symbolPrices, "AAPL")
-```
-
----
-
-## 🆕 Pine Script v6 Specific Features
-
-### **Rule V6.1: Dynamic Requests**
-```pine
-// ✅ v6 Feature: Variable symbols in requests
-symbols = array.from("AAPL", "GOOGL", "MSFT")
-
-for symbol in symbols
-    // Dynamic symbol requests - NEW in v6!
-    price = request.security(symbol, "1D", close)
-    log.info("Price for " + symbol + ": " + str.tostring(price))
-```
-
-### **Rule V6.2: Enhanced Text Features**
-```pine
-// ✅ v6 Feature: Exact point sizes instead of size constants
-if barstate.islast
-    label.new(bar_index, high, "Bold Text", 
-              text_size = 16,  // Exact points instead of size.large
-              text_formatting = text.format_bold)
+    F -->|SUCCESS| I[🎯 AI CHOOSES COMPLETION<br/>• Track success if valuable<br/>• Document patterns<br/>• Version if appropriate]
+    F -->|FAILURE| H
+    F -->|CONTINUE| C
     
-    // ✅ v6 Feature: Combined text formatting
-    label.new(bar_index, low, "Bold & Italic", 
-              text_size = 18,
-              text_formatting = text.format_bold + text.format_italic)
-```
-
-### **Rule V6.3: Boolean Optimizations**
-```pine
-// ✅ v6 Feature: Short-circuit evaluation for better performance
-if array.size(myArray) > 0 and array.first(myArray) > 0
-    // array.first() only evaluated if size > 0
-    // More efficient boolean evaluation in v6
-```
-
----
-
-## ❌ Common Error Patterns & Solutions
-
-### **Rule E1.1: Series vs Simple Type Errors**
-```pine
-// ❌ Common Error
-ta.ema(close, series int length)  // Error: ta functions need simple int
-
-// ✅ Solution
-ta.ema(close, simple int length)  // Correct: use simple form
-
-// ✅ Alternative when you can't control the type
-length = input.int(20, "Length")  // This returns simple int
-ema = ta.ema(close, length)       // Works correctly
-```
-
-### **Rule E1.2: Array Bounds Errors**
-```pine
-// ❌ Common Error
-value = array.get(myArray, 5)  // May cause runtime error
-
-// ✅ Solution: Always check bounds
-if array.size(myArray) > 5
-    value = array.get(myArray, 5)
-else
-    value = na
-```
-
-### **Rule E1.3: Version Migration Errors**
-```pine
-// ❌ v4/v5 deprecated syntax
-study("My Study")              // Use indicator() instead
-security(symbol, tf, src)      // Use request.security() instead
-
-// ✅ v6 updated syntax  
-indicator("My Indicator")
-request.security(symbol, tf, src)
-
-// ❌ v5 text sizing
-text_size = size.large         // Use exact points in v6
-
-// ✅ v6 text sizing
-text_size = 16                 // Exact point values
-```
-
----
-
-## ⚡ Performance & Best Practices
-
-### **Rule P1.1: Object Memory Management**
-```pine
-// ✅ Efficient object cleanup pattern
-var MAX_OBJECTS = 100
-var array<line> lines = array.new<line>()
-
-addLine(x1, y1, x2, y2) =>
-    // Remove oldest if at limit
-    if array.size(lines) >= MAX_OBJECTS
-        oldest = array.shift(lines)
-        line.delete(oldest)
+    I --> J[📦 SESSION END<br/>AI decides best wrap-up<br/>• Scripts if helpful<br/>• Direct action if better]
+    H --> J
     
-    // Add new line
-    newLine = line.new(x1, y1, x2, y2)
-    array.push(lines, newLine)
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style E fill:#e8f5e8
+    style I fill:#e8f5e8
+    style J fill:#e8f5e8
+    style H fill:#e3f2fd
 ```
 
-### **Rule P1.2: Conditional Execution Optimization**
-```pine
-// ✅ Use barstate conditions for expensive operations
-if barstate.isconfirmed
-    // Only execute on confirmed bars
-    expensiveCalculation()
+**Key Phases:**
+1. 🎯 **Start**: Version + track ONCE at beginning
+2. 🔨 **Code**: Active development with NO script interruptions  
+3. 🔧 **Error**: Use scripts only when needed
+4. 🎯 **Milestone**: Track significant progress
+5. 📦 **End**: Final version at session end
 
-if barstate.islast
-    // Only execute on last bar
-    updateLabels()
+### 🎯 Smart Decision Tree
 
-if barstate.islastconfirmedhistory
-    // One-time cleanup
-    cleanupAllObjects()
+```mermaid
+flowchart TD
+    A[🤔 Got an Error?] --> B{New/Unknown Error?}
+    B -->|YES| C[🧠 AI AGENT CHOOSES BEST APPROACH<br/>• Query JSON patterns<br/>• Use any available tools<br/>• Apply optimal solution]
+    B -->|NO| D[⚡ AI AGENT APPLIES SOLUTION<br/>• Known fix from memory<br/>• Direct code edit<br/>• Whatever tool works best]
+    
+    C --> E{Fix Worked?}
+    D --> E
+    
+    E -->|YES| F[✅ Keep Coding<br/>AI continues with full toolkit]
+    E -->|NO| G[🔄 AI AGENT ADAPTS<br/>• Try different approach<br/>• Use alternative tools<br/>• Scripts as backup option]
+    
+    H[🚀 Making Progress?] --> I{What Type?}
+    I -->|Small Tweaks| J[💨 AI Codes Freely<br/>Full tool flexibility]
+    I -->|Major Feature Added| K[📊 Optional: Scripts for tracking]
+    I -->|Feature Complete| L[🎯 Optional: Scripts for documentation]
+    
+    F --> M[🔄 Continue Development<br/>AI uses best tools for the job]
+    G --> N[📝 AI Documents & Adapts<br/>Learn from experience]
+    J --> M
+    K --> M
+    L --> M
+    
+    style A fill:#fff3e0
+    style C fill:#e8f5e8
+    style D fill:#e8f5e8
+    style F fill:#e8f5e8
+    style G fill:#e3f2fd
+    style H fill:#f3e5f5
+    style K fill:#f0f8ff
+    style L fill:#f0f8ff
 ```
 
-### **Rule P1.3: Efficient Data Structures**
-```pine
-// ✅ Choose appropriate data structure
-// For ordered data: arrays
-// For key-value pairs: maps  
-// For 2D data: matrices
+**🧠 AI Agent Flexibility Guidelines:**
+- 🛠️ **Tool Freedom** → Use any tool that solves the problem best
+- 🎯 **Intelligent Selection** → Choose optimal approach for each situation  
+- 📊 **Scripts as Enhancement** → Use when helpful, not mandatory
+- 🔄 **Adaptive Response** → Switch strategies as needed
+- 💡 **Creative Solutions** → Not limited to predefined workflows
 
-// ✅ Pre-allocate when possible
-var array<float> buffer = array.new_float(100, 0.0)  // Pre-allocated
+### 📊 Script Usage Guidelines
 
-// ❌ Avoid frequent resizing
-// array.push() repeatedly without size management
+#### High-Value Script Usage:
+- **Beginning**: Version once, track feature
+- **Errors**: Search solutions, apply fixes
+- **Completion**: Document success/failure
+- **End**: Final version with summary
+
+#### Avoid Script Overuse:
+- NOT after every code change
+- NOT for minor syntax fixes
+- NOT during rapid iterations
+- NOT when in coding flow
+
+### 🔄 Error Handling Priority
+
+1. **First Time Error**: 
+   - Run `pine_master.sh fix`
+   - Log to solutions if fixed
+   
+2. **Repeat Error**:
+   - Check local memory first
+   - Apply known solution
+   - No script needed
+
+3. **Persistent Error**:
+   - Run `pine_tracker.sh fail`
+   - Consider rollback
+   - Document approach
+
+### 💾 Database Update Strategy
+
+#### Update Immediately:
+- New error type discovered
+- Successful fix for complex issue
+- Feature completion/failure
+
+#### DON'T Update:
+- Every minor edit
+- Known issues already in DB
+- Simple typo fixes
+- Routine code changes
+
+### 🎮 Practical Example Flow
+
+```bash
+# You: "Add weekly timeframe filter to FVG"
+
+# 1. START (Scripts needed)
+./scripts/pine_tracker.sh add fvg "Weekly timeframe filter"
+./scripts/pine_master.sh develop working/fvg/fvg.pine minor
+
+# 2. CODING PHASE (No scripts)
+# - Write HTF logic
+# - Add filter conditions  
+# - Adjust calculations
+# - Test edge cases
+
+# 3. ERROR OCCURS (Script needed)
+# "Cannot use 'resolution' in request.security"
+./scripts/pine_master.sh fix working/fvg/fvg.pine
+# Found: Use 'timeframe.period' instead
+# Apply fix and continue...
+
+# 4. MORE CODING (No scripts)
+# - Implement fix
+# - Add more logic
+# - Refine feature
+
+# 5. COMPLETE (Scripts needed)
+./scripts/pine_tracker.sh complete fvg v0.2.0
+./scripts/pine_master.sh develop working/fvg/fvg.pine minor
 ```
 
----
+### 🏁 Session Patterns
 
-## 📐 Syntax Rules & Line Continuation
-
-### **Rule S1.1: Single Line Statements**
-```pine
-// ✅ Keep statements on single lines (Pine Script doesn't support line continuation)
-line.new(bar_index, price1, bar_index+10, price2, color=color.blue, width=2)
-
-// ✅ Complex ternary expressions on single line
-bandColor = condition1 ? color.green : condition2 ? color.orange : color.red
-
-// ✅ Function calls with multiple parameters on single line  
-box.new(x1, y1, x2, y2, bgcolor=color.blue, border_color=color.black, border_width=1)
+#### Efficient Session:
+```
+Start → Track feature → Version once → Code code code → 
+Fix errors as needed → Code more → Complete → Final version
+(Only 4-5 script calls for entire feature)
 ```
 
-### **Rule S1.2: Indentation & Code Blocks**
-```pine
-// ✅ Proper indentation for control structures
-if condition
-    statement1
-    statement2
-else if anotherCondition
-    statement3
-    statement4
-else
-    statement5
-    statement6
-
-// ✅ Function body indentation
-myFunction(param1, param2) =>
-    localVar = param1 * 2
-    result = localVar + param2
-    result
+#### Inefficient Session:
+```
+Start → Version → Code → Version → Fix → Version → 
+Code → Version → etc...
+(Too many script calls, disrupts flow)
 ```
 
-### **Rule S1.3: Comments & Documentation**
-```pine
-// Single-line comments
-/* 
-Multi-line comments
-for longer explanations
-*/
+### 🎯 Key Principles
 
-// ✅ Document function purpose and parameters
-/// Calculates exponential moving average with custom smoothing
-/// @param source The data series to smooth
-/// @param length The number of periods (must be simple int)
-/// @returns Smoothed series value
-customEMA(series float source, simple int length) =>
-    ta.ema(source, length)
+1. **AI Agent has full tool autonomy** - Use whatever works best
+2. **Scripts enhance, never constrain** - Guidelines, not rigid rules
+3. **Intelligent tool selection** - Choose optimal approach for each situation
+4. **Adaptive problem solving** - Switch strategies as needed
+5. **Maintain coding momentum** - Don't interrupt flow
+6. **Version at milestones** - When it adds value
+7. **Track failures** - When learning is valuable
+8. **Creative solutions encouraged** - Not limited to predefined workflows
+
+### 📝 Mental Model
+
+Think of scripts as:
+- **Checkpoints** in a video game (not every step)
+- **Milestones** on a journey (not every mile)
+- **Insurance** for your work (not paranoia)
+
+The goal is smooth, efficient development with intelligent safety nets, not constant interruption with script execution.
+
+## 🧠 AI Agent Tool Autonomy
+
+### Core Philosophy
+The workflows are **intelligent guidelines** that enhance AI agent capabilities, not rigid constraints. AI agents should:
+
+- **Use any available tool** that solves the problem efficiently
+- **Combine tools creatively** for optimal solutions  
+- **Switch strategies dynamically** based on context
+- **Prioritize effectiveness** over following specific tool patterns
+- **Leverage full toolkit** including but not limited to:
+  - `edit_file`, `search_replace` for code changes
+  - `codebase_search`, `grep_search` for finding patterns
+  - `run_terminal_cmd` for system operations
+  - `create_diagram` for visualization
+  - `web_search` for research
+  - Any other available tools as needed
+
+### When Scripts Are Helpful
+- **Complex tracking** across multiple files/sessions
+- **Batch operations** on many indicators
+- **Analytics generation** for insights
+- **Standardized logging** for team workflows
+
+### When Direct Tools Are Better  
+- **Single file changes** - Direct edit is faster
+- **Quick fixes** - No overhead needed
+- **Creative solutions** - Custom tool combinations
+- **User-specific requests** - Adapt to their preferred workflow
+
+### Flexibility Examples
+```bash
+# AI Agent might choose:
+• Direct file edit for simple version increment
+• Script for complex multi-file versioning
+• Hybrid approach: direct edit + JSON logging
+• Creative combination of multiple tools
 ```
 
----
-
-## 🎯 Quick Reference Checklist
-
-### **Before Submitting Code:**
-- [ ] Script begins with `//@version=6`
-- [ ] Correct script type: `indicator()`, `strategy()`, or `library()`  
-- [ ] All variables declared before use (`=` then `:=`)
-- [ ] Array bounds checked with `array.size()`
-- [ ] Object cleanup implemented for memory management
-- [ ] Type consistency in ternary operators and expressions
-- [ ] Proper use of `simple` vs `series` type forms
-- [ ] One statement per line (no line continuation)
-- [ ] Proper indentation for code blocks
-- [ ] No compilation warnings in Pine Editor
-
-### **Pine v6 Features to Leverage:**
-- [ ] Dynamic symbols in `request.security()`
-- [ ] Exact point sizes for text (instead of size constants)
-- [ ] Text formatting combinations (`text.format_bold + text.format_italic`)
-- [ ] Negative array indices (`array.get(arr, -1)`)
-- [ ] Short-circuit boolean evaluation optimization
-
----
-
-## 📚 Reference Links
-
-- **Official Documentation:** [Pine Script v6 Reference](mdc:https:/www.tradingview.com/pine-script-reference/v6)
-- **Type System:** Focus on `simple` vs `series` forms for library functions
-- **Object Management:** Always implement cleanup for `line`, `label`, `box`, `table`, `linefill`, `polyline`
-- **Performance:** Use `barstate` conditions to optimize execution timing
-
-*This comprehensive rule set ensures consistent, efficient, and error-free Pine Script v6 development.*
+The system **amplifies** AI agent intelligence, never **constrains** it.
 
 ---
 > Source: [tradesdontlie/pinescript-development-workspace](https://github.com/tradesdontlie/pinescript-development-workspace) — distributed by [TomeVault](https://tomevault.io).
