@@ -2,7 +2,7 @@
   "name": "kclipper",
   "owner": "MacroPower",
   "repo": "kclipper",
-  "description": "KCL + Helm = kclipper",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MacroPower/kclipper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T20:52:13Z"
+  "distributed_at": "2026-07-01T21:00:30Z"
 }
