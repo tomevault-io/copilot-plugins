@@ -200,4 +200,4 @@ A: 默认最大执行时间 60 秒，复杂内容可能需要更长时间
 
 ---
 > Source: [wxingheng/markdown-to-image-serve](https://github.com/wxingheng/markdown-to-image-serve) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
