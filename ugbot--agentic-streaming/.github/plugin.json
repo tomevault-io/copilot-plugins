@@ -1,0 +1,9 @@
+{
+  "name": "ugbot--agentic-streaming",
+  "displayName": "Agentic-Streaming",
+  "description": "Agentic Streaming is for resilient pipelines of stateful agents over continuous data \u2014",
+  "version": "1.0.0",
+  "author": "Ugbot",
+  "homepage": "https://github.com/Ugbot/Agentic-Streaming",
+  "skills": []
+}
