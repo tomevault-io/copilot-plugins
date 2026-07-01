@@ -1,0 +1,9 @@
+{
+  "name": "kubeply--infra-bench",
+  "displayName": "infra-bench",
+  "description": "Real-world infrastructure tasks to evaluate AI agents, starting with Kubernetes.",
+  "version": "1.0.0",
+  "author": "kubeply",
+  "homepage": "https://github.com/kubeply/infra-bench",
+  "skills": []
+}
