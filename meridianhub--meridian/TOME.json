@@ -4,7 +4,7 @@
   "repo": "meridian",
   "description": "Meridian is a Transaction Integrity Engine",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/meridianhub/meridian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T20:45:09Z"
+  "distributed_at": "2026-07-01T23:25:14Z"
 }
