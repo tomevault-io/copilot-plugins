@@ -1,0 +1,9 @@
+{
+  "name": "glaforge--chrome-gemini-summarize-extension",
+  "displayName": "chrome-gemini-summarize-extension",
+  "description": "Chrome extension to summarize the text in the current tab",
+  "version": "1.0.0",
+  "author": "glaforge",
+  "homepage": "https://github.com/glaforge/chrome-gemini-summarize-extension",
+  "skills": []
+}
