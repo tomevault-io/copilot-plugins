@@ -1,0 +1,9 @@
+{
+  "name": "kmorrill--xy-format",
+  "displayName": "xy-format",
+  "description": "OP-XY file format reverse engineering",
+  "version": "1.0.0",
+  "author": "kmorrill",
+  "homepage": "https://github.com/kmorrill/xy-format",
+  "skills": []
+}
