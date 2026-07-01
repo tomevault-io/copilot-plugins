@@ -2,9 +2,9 @@
   "name": "abacus",
   "owner": "ChrisEdwards",
   "repo": "abacus",
-  "description": "Interactive terminal UI for visualizing and navigating Beads issue tracking projects",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ChrisEdwards/abacus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T03:56:07Z"
+  "distributed_at": "2026-07-01T15:26:41Z"
 }
