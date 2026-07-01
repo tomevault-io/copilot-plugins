@@ -1,0 +1,9 @@
+{
+  "name": "xqlsystems--duckdb-zarr",
+  "displayName": "duckdb-zarr",
+  "description": "duckdb-zarr",
+  "version": "1.0.0",
+  "author": "xqlsystems",
+  "homepage": "https://github.com/xqlsystems/duckdb-zarr",
+  "skills": []
+}
