@@ -1,0 +1,15 @@
+## cadwyn
+
+> - When writing tests, never mock
+
+- When writing tests, never mock
+- Only test through the PUBLIC interfaces of our library, external behaviors -- not internal implementation details
+- New tests should almost always be placed next to similar tests
+- New tests should reuse existing fixtures where appropriate to minimize future rework
+- New tests should not "overtest" and re-test the logic that is already covered by other tests -- they should be focused around their own functionality
+- At the end of the session, run all tests against all supported versions with tox
+- Never skip, return early, downgrade assertions, or silently pass because of missing environment. Let the test hard-fail, then fix the environment or implementation
+
+---
+> Source: [zmievsa/cadwyn](https://github.com/zmievsa/cadwyn) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
