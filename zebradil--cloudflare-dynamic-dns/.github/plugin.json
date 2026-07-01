@@ -1,0 +1,9 @@
+{
+  "name": "zebradil--cloudflare-dynamic-dns",
+  "displayName": "cloudflare-dynamic-dns",
+  "description": "cloudflare-dynamic-dns",
+  "version": "1.0.0",
+  "author": "Zebradil",
+  "homepage": "https://github.com/Zebradil/cloudflare-dynamic-dns",
+  "skills": []
+}
