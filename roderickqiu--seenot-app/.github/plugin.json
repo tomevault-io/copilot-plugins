@@ -1,0 +1,9 @@
+{
+  "name": "roderickqiu--seenot-app",
+  "displayName": "seenot-app",
+  "description": "Intent-aware Android screen time intervention that watches the current screen, not just the app-level management!",
+  "version": "1.0.0",
+  "author": "RoderickQiu",
+  "homepage": "https://github.com/RoderickQiu/seenot-app",
+  "skills": []
+}
