@@ -1,7 +1,7 @@
 {
   "name": "zhnd--lumo",
   "displayName": "lumo",
-  "description": "Local-first dashboard for observing Claude Code usage, cost, sessions, and time.",
+  "description": "lumo",
   "version": "1.0.0",
   "author": "zhnd",
   "homepage": "https://github.com/zhnd/lumo",
