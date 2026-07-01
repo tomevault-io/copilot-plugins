@@ -1,0 +1,9 @@
+{
+  "name": "stasstepv--hermes-pwa",
+  "displayName": "hermes-pwa",
+  "description": "Unofficial mobile PWA for Hermes Agent \u2014 installs as a plugin in your Hermes Dashboard (web UI) and adds a Mobile tab. Chat, approve actions, and watch your agent from your phone.",
+  "version": "1.0.0",
+  "author": "stasstepv",
+  "homepage": "https://github.com/stasstepv/hermes-pwa",
+  "skills": []
+}
