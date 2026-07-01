@@ -2,8 +2,6 @@
 
 > Sourced from [AnswerZhao/android-mcp-sdk](https://github.com/AnswerZhao/android-mcp-sdk) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-An SDK implementing the MCP with Binder for LLM-to-app communication on Android.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
