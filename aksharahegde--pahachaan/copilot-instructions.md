@@ -1,0 +1,20 @@
+## pahachaan
+
+> - Use Bun for package installs and lockfile work in this repository (`bun install`, `bun run` for scripts); avoid defaulting to npm for dependency installs.
+
+## Learned User Preferences
+
+- Use Bun for package installs and lockfile work in this repository (`bun install`, `bun run` for scripts); avoid defaulting to npm for dependency installs.
+- Do not run `bun run build` after every task when changes are content-only or rules-only; reserve builds for code, styling, config, dependency, or behavior changes that need compilation verification.
+
+## Learned Workspace Facts
+
+- Portfolio projects on the site are defined as JSON under `content/projects/`; list ordering often relies on numeric filename prefixes.
+- `package.json` pins Bun via a `packageManager` field for reproducible installs.
+- `nuxt-llms` expects `llms.domain`; it is wired from `NUXT_PUBLIC_SITE_URL` with a localhost fallback when that env var is unset.
+- Visitor globe markers are driven from Ably Presence locations via `useAblyVisitors().locations`.
+- Live visitor presence is Vercel-safe through Ably; keep `ABLY_API_KEY` server-only and avoid reintroducing app-hosted Nitro WebSocket visitor routes on Vercel.
+
+---
+> Source: [aksharahegde/pahachaan](https://github.com/aksharahegde/pahachaan) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-01 -->
