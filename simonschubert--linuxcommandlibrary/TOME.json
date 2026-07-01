@@ -4,7 +4,7 @@
   "repo": "LinuxCommandLibrary",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SimonSchubert/LinuxCommandLibrary",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T02:40:39Z"
+  "distributed_at": "2026-07-01T09:29:16Z"
 }
