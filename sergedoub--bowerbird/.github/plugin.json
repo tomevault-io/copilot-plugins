@@ -1,0 +1,9 @@
+{
+  "name": "sergedoub--bowerbird",
+  "displayName": "bowerbird",
+  "description": "Simple personal knowledge with LLM Wiki as foundation adding automated content ingestion from X and other sources.",
+  "version": "1.0.0",
+  "author": "sergedoub",
+  "homepage": "https://github.com/sergedoub/bowerbird",
+  "skills": []
+}
