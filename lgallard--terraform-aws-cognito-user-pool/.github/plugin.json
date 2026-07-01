@@ -1,0 +1,9 @@
+{
+  "name": "lgallard--terraform-aws-cognito-user-pool",
+  "displayName": "terraform-aws-cognito-user-pool",
+  "description": "terraform-aws-cognito-user-pool",
+  "version": "1.0.0",
+  "author": "lgallard",
+  "homepage": "https://github.com/lgallard/terraform-aws-cognito-user-pool",
+  "skills": []
+}
