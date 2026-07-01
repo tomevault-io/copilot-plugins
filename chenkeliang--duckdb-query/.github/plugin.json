@@ -1,0 +1,9 @@
+{
+  "name": "chenkeliang--duckdb-query",
+  "displayName": "duckdb-query",
+  "description": "AI-native visual SQL workbench on DuckDB. Query local CSV/Excel/JSON + remote MySQL/Postgres together with text-to-SQL chat \u2014 no ETL, local-first, cross-source JOINs. \u00b7 \u57fa\u4e8e DuckDB \u7684 AI \u53ef\u89c6\u5316 SQL \u5de5\u4f5c\u53f0,\u672c\u5730\u6587\u4ef6",
+  "version": "1.0.0",
+  "author": "Chenkeliang",
+  "homepage": "https://github.com/Chenkeliang/duckdb-query",
+  "skills": []
+}
