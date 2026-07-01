@@ -4,7 +4,7 @@
   "repo": "onelife",
   "description": "[ICLR 26] How can an agent reverse engineer the underlying laws of an unknown, hostile & stochastic environment in \"one life\", without millions of steps + human-provided goals / rewards? We infer a world model in Python for an unknown environment from a single episode!",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/codezakh/onelife",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T10:36:01Z"
+  "distributed_at": "2026-07-01T10:38:08Z"
 }
