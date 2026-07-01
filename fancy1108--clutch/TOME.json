@@ -4,7 +4,7 @@
   "repo": "Clutch",
   "description": "Local AI multi-agent orchestration desktop app (Tauri \u00b7 LangGraph)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fancy1108/Clutch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T19:15:06Z"
+  "distributed_at": "2026-07-01T19:32:30Z"
 }
