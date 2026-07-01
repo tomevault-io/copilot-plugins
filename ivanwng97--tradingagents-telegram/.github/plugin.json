@@ -1,7 +1,7 @@
 {
   "name": "ivanwng97--tradingagents-telegram",
   "displayName": "TradingAgents-Telegram",
-  "description": "Telegram bot wrapping TradingAgents \u2014 chat-driven watchlist with parallel multi-ticker analysis, cancellation, and Telegraph reports.",
+  "description": "TradingAgents-Telegram",
   "version": "1.0.0",
   "author": "IvanWng97",
   "homepage": "https://github.com/IvanWng97/TradingAgents-Telegram",
