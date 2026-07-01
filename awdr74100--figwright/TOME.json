@@ -4,7 +4,7 @@
   "repo": "figwright",
   "description": "Free, bidirectional Figma MCP server \u2014 turn designs into framework-aware code and write back to the canvas, for Claude Code, Cursor, and any MCP client.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awdr74100/figwright",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T19:28:47Z"
+  "distributed_at": "2026-07-01T23:17:13Z"
 }
