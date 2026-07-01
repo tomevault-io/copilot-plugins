@@ -1,109 +1,146 @@
 ## code-executor-mcp
 
-> This document provides a comprehensive overview of the `code-executor-mcp` project for Gemini, including its purpose, architecture, and development conventions.
+> > 📚 **Quick Reference:** Type these in chat to load into context:
 
-# Gemini Project Context: Code Executor MCP
 
-This document provides a comprehensive overview of the `code-executor-mcp` project for Gemini, including its purpose, architecture, and development conventions.
+# Claude Instructions for code-executor-mcp
 
-## 1. Project Overview
+> 📚 **Quick Reference:** Type these in chat to load into context:
+> - `@docs/coding-standards.md` - SOLID/DRY/KISS, TDD, best practices
+> - `@docs/release-workflow.md` - Patch/minor/major release steps
 
-`code-executor-mcp` is a sophisticated, security-focused proxy server built with TypeScript and Node.js. It operates within the Model-driven Code Protocol (MCP) ecosystem.
+## 🚨 CRITICAL: Always Use Code Executor MCP
 
-Its primary purpose is to solve the "context exhaustion" problem that occurs when AI models are given access to a large number of tools. Instead of exposing dozens of tools (consuming vast amounts of tokens), this server exposes only two primary tools: `executeTypescript` and `executePython`.
+**MANDATORY:** Use `mcp__code-executor__executeTypescript` + `callMCPTool` for ALL operations:
+- ❌ **DON'T:** Write tool, Read tool, Bash commands for file operations
+- ✅ **DO:** `executeTypescript` with `callMCPTool('mcp__filesystem__write_file', ...)`
 
-The AI model can then request the execution of code, and within that secure, sandboxed environment, the code can dynamically discover and call any number of other MCP tools (like filesystem, git, web browsers, etc.). This "progressive disclosure" mechanism reduces initial token load by up to 98%, enabling complex, multi-tool workflows that would otherwise be impossible.
+**Why this matters:**
+- Single round-trip (discover + execute + verify in one call)
+- Tests the actual MCP we're building (dogfooding)
+- Variables persist across operations (no context switching)
+- Real-world usage pattern that validates our architecture
 
-### Key Technologies
+**Example - File Operations:**
+```typescript
+// ❌ BAD: Using traditional tools
+Write('/tmp/test.json', content);  // Doesn't test our MCP
 
-*   **Language:** TypeScript (strict mode)
-*   **Platform:** Node.js (v22.0.0+)
-*   **Module System:** ES Modules (`"type": "module"`)
-*   **Sandboxing:**
-    *   **TypeScript/JavaScript:** [Deno](https://deno.land/) runtime, leveraging V8 isolates for secure, permission-based execution.
-    *   **Python:** [Pyodide](https://pyodide.org/), which runs Python in a WebAssembly sandbox.
-*   **Testing:** [Vitest](https://vitest.dev/) for unit and integration testing.
-*   **Linting:** [ESLint](https://eslint.org/) with TypeScript-specific rules.
-*   **Schema Validation:** [AJV](https://ajv.js.org/) and [Zod](https://zod.dev/) for robust validation of tool inputs.
+// ✅ GOOD: Using code-executor MCP
+await mcp__code-executor__executeTypescript({
+  code: `
+    const tools = await discoverMCPTools({ search: ['file'] });
+    const content = JSON.stringify({ test: true }, null, 2);
+    await callMCPTool('mcp__filesystem__write_file', {
+      path: '/tmp/test.json',
+      content
+    });
+    const result = await callMCPTool('mcp__filesystem__read_file', {
+      path: '/tmp/test.json'
+    });
+    console.log('Verified:', JSON.parse(result.content));
+  `,
+  allowedTools: ['mcp__filesystem__*']
+});
+```
 
-### Architecture
+**When to use traditional tools:**
+- Reading project source code for review/analysis
+- Git operations (commits, merges, branches)
+- Build/test commands (`npm run build`, `npm test`)
+- Everything else: Use code-executor MCP
 
-The core of the project is the `CodeExecutorServer` class (`src/index.ts`), which sets up an MCP server that communicates over `stdin`/`stdout`.
+## Project Overview
 
-1.  **Server Initialization:** The server starts, loads configuration from `.mcp.json` files, and checks for dependencies like the Deno runtime.
-2.  **Tool Registration:** It registers the `executeTypescript` and `executePython` tools. The Python tool includes a crucial security gate (`PYTHON_SANDBOX_READY`) to prevent use of the older, insecure implementation.
-3.  **Request Handling:** When the server receives a request to execute code:
-    a.  **Rate Limiting:** The request is checked against a rate limiter.
-    b.  **Validation:** The input is validated against a Zod schema.
-    c.  **Security Checks:** The code and its requested permissions are passed through a `SecurityValidator`, which checks for dangerous patterns, validates tool allowlists, and ensures path traversal protection.
-    d.  **Connection Pooling:** The request is handed to a `ConnectionPool` to manage concurrency.
-    e.  **Sandboxed Execution:** The code is executed in the appropriate sandbox (Deno or Pyodide). The sandbox environment has helper functions like `callMCPTool` and `discoverMCPTools` injected into its scope.
-    f.  **Tool Orchestration:** From within the sandbox, `callMCPTool` calls are routed through the `MCPClientPool`, which manages connections to all other configured MCP servers.
-    g.  **Auditing:** An audit log is written upon completion.
-4.  **Graceful Shutdown:** The server listens for `SIGINT`/`SIGTERM` signals to shut down gracefully, allowing in-flight requests to complete.
+**code-executor-mcp** - Universal MCP server with progressive disclosure | **98% token reduction** (141k → 1.6k)
 
-## 2. Building and Running
+**Core Concept:** 2 execution tools (`executeTypescript`, `executePython`) call other MCPs on-demand via `callMCPTool('mcp__server__tool', params)`
 
-The project uses `npm` for dependency management and scripts.
+**Key Features:** Progressive disclosure | AJV schema validation | AsyncLock schema cache | Deno sandbox | Multi-transport (STDIO/HTTP)
 
-### Key Commands
+## Current State
 
-*   **Install Dependencies:**
-    ```bash
-    npm install
-    ```
+**Version:** v0.3.1 (pre-1.0 beta) | **Branches:** `main` (stable, PR-only) + `develop` (active) | **Stack:** TypeScript 5.x + Node.js 20+ + @modelcontextprotocol/sdk + AJV + async-lock + Vitest + Deno
 
-*   **Build (Compile TypeScript):**
-    ```bash
-    npm run build
-    ```
-    *(Source in `src/` is compiled to `dist/`)*
+**Recent:** Deep validation (AJV) | AsyncLock mutex | 253 tests (98%+ coverage) | Runtime validation primary approach
 
-*   **Run Tests:**
-    ```bash
+## Architecture
 
-    npm test
-    ```
+**Components:** MCP Proxy Server | MCP Client Pool (STDIO/HTTP) | Schema Cache (24h TTL, AsyncLock) | Schema Validator (AJV) | Executors (TypeScript/Deno, Python)
 
-*   **Run Tests in Watch Mode:**
-    ```bash
-    npm run test:watch
-    ```
+**Key Files:** `package.json` | `CHANGELOG.md` | `RELEASE.md` | `SECURITY.md`
 
-*   **Run Linting:**
-    ```bash
-    npm run lint
-    ```
+## Development Workflow
 
-*   **Run Type Checking:**
-    ```bash
-    npm run typecheck
-    ```
+**Branch Strategy:** Work on `develop` → PR to `main` → `npm version` → `gh release create` → sync `develop`
 
-*   **Run the Server (for development):**
-    This command builds the project first, then starts the server.
-    ```bash
-    npm run server
-    ```
+**Commands:** `npm test` | `npm run typecheck` | `npm run build` | `npm run lint`
 
-## 3. Development Conventions
+**Standards:** TDD mandatory | 98%+ coverage (validation/caching) | TypeScript strict | SOLID principles | Security first
 
-*   **Code Style:** The project follows standard TypeScript best practices, enforced by ESLint and Prettier. The configuration can be found in `eslint.config.mjs`.
-*   **Testing:**
-    *   Tests are co-located in the `tests/` directory and use the `.test.ts` extension.
-    *   The project uses `vitest`.
-    *   Tests are comprehensive, covering unit, integration, and edge cases. Mocking is used extensively (`vi.fn()`) to isolate components.
-    *   Test names are descriptive (e.g., `should_completeWithin500ms_when_discoverMCPToolsCalled`).
-    *   Many tests are linked directly to User Stories (e.g., "US6") or bug reports in comments, providing excellent context.
-*   **Commits & PRs:** While not explicitly defined in the browsed files, the high quality of the code and tests suggests a convention of well-tested, focused PRs.
-*   **Error Handling:** The code makes extensive use of `try...catch` blocks and formats errors consistently using `formatErrorResponse`. It distinguishes between different error types (`VALIDATION`, `EXECUTION`).
-*   **Security:** Security is a primary concern. This is evident from:
-    *   The secure-by-default design (e.g., the `PYTHON_SANDBOX_READY` gate).
-    *   Multiple layers of validation (Zod, AJV, custom security validator).
-    *   Explicit sandboxing with Deno and Pyodide.
-    *   Detailed audit logging.
-    *   Graceful handling of failures.
+**Important:** When performing these tasks, reference the relevant docs:
+- **Writing code?** Reference @docs/coding-standards.md for SOLID/DRY/KISS principles, TDD requirements
+- **Creating release?** Reference @docs/release-workflow.md for step-by-step patch/minor/major instructions
+
+## Key Decisions
+
+**AJV:** Industry-standard | Deep recursive validation | Self-documenting errors | Zero maintenance
+**AsyncLock:** Prevents race conditions | Thread-safe cache writes | Production-ready
+**24h TTL:** Schemas rarely change | Reduces network overhead | Stale-on-error resilience
+
+## Common Tasks
+
+**Feature:** `develop` branch → TDD → implement → tests → CHANGELOG → commit → PR
+**Bugfix:** Failing test → fix → verify → CHANGELOG → `fix:` commit
+**Release:** See [Release Workflow](docs/release-workflow.md) for step-by-step instructions (patch/minor/major)
+
+## Testing
+
+**Structure:** Vitest + TypeScript | Mock dependencies | `vi.useFakeTimers()` | Test edge cases
+**Coverage:** Validation 98%+ | Caching 70%+ | Overall 90%+
+**Focus:** ✅ Logic/errors/edge cases/security | ❌ Third-party libs
+
+## Security (ZERO TOLERANCE)
+
+**Validation:** MUST validate all MCP tool calls | Nested objects/arrays recursive | No type coercion | No info leakage
+**Sandbox:** Minimal Deno permissions | Block eval/exec/__import__ | Prevent path traversal | Rate limiting
+**Audit:** Log all executions (timestamp, tool, params hash, status) | NO sensitive data
+
+## Dependencies
+
+**Production:** @modelcontextprotocol/sdk | ajv ^8.17.1 | async-lock ^1.4.1 | zod | ws
+**Development:** vitest | typescript | @types/async-lock
+
+## Troubleshooting
+
+**Fake Timers:** `vi.useFakeTimers()` in `beforeEach` | `vi.advanceTimersByTime()` | `vi.useRealTimers()` in `afterEach`
+**Cache Corruption:** Check AsyncLock | Delete `~/.code-executor/schema-cache.json`
+**Validation:** Check AJV errors | Verify schema | Test minimal params first
+
+## Available Agents (Use Proactively)
+
+- **code-guardian** - Review code quality, SOLID principles, MCP patterns, security (use after implementation)
+- **inquisitor** - Debug complex issues, trace root causes, systematic investigation (use for bugs)
+- **project-librarian** - Explore codebase, find files/functions, understand structure (use before changes)
+- **project-documentarian** - Maintain devlogs, preserve context, JSDoc enhancement (use for documentation)
+- **document-reviewer** - Review documentation quality and completeness (use for docs)
+- **research-specialist** - Fetch latest library docs, research technical questions (use for unknowns)
+
+## Available Slash Commands (Use Proactively)
+
+- **/build** - Build with TypeScript/ESLint enforcement, clean dist/ artifacts
+- **/code-review** - Comprehensive review against MCP server standards, invoke code-guardian
+- **/commit** - Create proper git commits with validation, handle pre-commit hooks
+- **/debug** - Investigate MCP server issues, schema validation, concurrency problems
+- **/fix** - Fix issues at root cause, enforce proper solutions (no quick hacks)
+- **/test** - Execute Vitest tests, focus on validation/caching/security coverage
+- **/compact_FILE** - Consolidate verbose files, remove duplicates, preserve all info
+- **/split-context** - Extract area-specific content into local CLAUDE.md files
+
+## Contact
+
+**Issues:** https://github.com/aberemia24/code-executor-MCP/issues | **Email:** aberemia@gmail.com | **Docs:** https://github.com/aberemia24/code-executor-MCP#readme
 
 ---
 > Source: [aberemia24/code-executor-MCP](https://github.com/aberemia24/code-executor-MCP) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
