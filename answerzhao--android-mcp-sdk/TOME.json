@@ -2,7 +2,7 @@
   "name": "android-mcp-sdk",
   "owner": "AnswerZhao",
   "repo": "android-mcp-sdk",
-  "description": "An SDK implementing the MCP with Binder for LLM-to-app communication on Android.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AnswerZhao/android-mcp-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T07:37:25Z"
+  "distributed_at": "2026-07-01T08:50:48Z"
 }
