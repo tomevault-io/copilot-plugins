@@ -1,0 +1,9 @@
+{
+  "name": "eugenelim--agent-ready-repo",
+  "displayName": "agent-ready-repo",
+  "description": "The sharpest loop engineering out there in the flagship pack. Plus a catalogue system with additional packs of subagents, skills, and hooks. Install per repo or per user. It's npm for your coding agen",
+  "version": "1.0.0",
+  "author": "eugenelim",
+  "homepage": "https://github.com/eugenelim/agent-ready-repo",
+  "skills": []
+}
