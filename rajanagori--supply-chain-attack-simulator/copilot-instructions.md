@@ -1,87 +1,114 @@
-## guidelines
+## scenario-patterns
 
-> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, define verifiable success criteria, and explore the codebase with minimal context while matching existing patterns.
+> SCAS repo map — canonical paths, repeated scenario layout, safety gates, and observability hooks. Read this instead of re-exploring the tree.
 
 
-# Karpathy behavioral guidelines
+# SCAS project patterns
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+Educational supply-chain attack labs. **22 scenarios** (`01-` … `22-`), CLI-only, **localhost-only** malicious behavior. Canonical docs live in `documentation/` (`documentation/index.md` is the hub; `documentation/README.md` is a thin pointer); `docs/` is GitHub Pages (symlinks).
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+## Canonical references (read one, not all)
 
-## 1. Think Before Coding
+| Task | Start here | Do not read all 22 copies |
+|------|------------|---------------------------|
+| Documentation hub | `documentation/index.md` | Section indexes under `documentation/*/` |
+| Full-stack install | `documentation/getting-started/FULL_STACK_SETUP.md` | SCAS + Elasticsearch + Floci workshop walkthrough |
+| Scripts & doc sync | `documentation/platform/TOOLING.md` | Full `scripts/` catalog + content lifecycle |
+| Mock exfil server | `scenarios/01-typosquatting/infrastructure/mock-server.js` | Same file in other scenarios unless port/endpoints differ |
+| New mock server (template) | `scenarios/_shared/mock-server-template.js` | Copy into `scenarios/NN-*/infrastructure/`; adjust `PORT` |
+| Setup flow | `scenarios/01-typosquatting/setup.sh` | Each `setup.sh` sources `scenarios/_shared/enable-testbench.sh` |
+| TESTBENCH auto-enable | `scenarios/_shared/enable-testbench.sh`, `testbench-env.js`, `testbench_env.py` | `setup.sh` exports for that shell; Node `npm start` uses `-r ../../_shared/testbench-env.js`; scenario 22 imports `testbench_env.py` |
+| Detection runbook | `scenarios/01-typosquatting/DETECT.md` | Sections: IOCs, Sample Log Lines, Sigma, YARA, EDR/SIEM, **Mitigation** |
+| Malicious package | `scenarios/01-typosquatting/templates/malicious-package-template.js` | Per-scenario `templates/` or `malicious-packages/` |
+| Learner walkthrough | `documentation/scenario-guides/zero-to-hero/ZERO_TO_HERO_SCENARIO_01.md` | `ZERO_TO_HERO_SCENARIO_XX.md` mirrors scenario number |
+| Quick ref | `documentation/scenario-guides/quick-reference/QUICK_REFERENCE_SCENARIO_01.md` | One per scenario |
+| Floci cloud track | `documentation/guides/FLOCI_INTEGRATION.md` | Scenarios 05, 06, 14, 17, 21 only |
+| Shared scanner | `detection-tools/package-scanner.js` | Scenario-specific scanners under `scenarios/XX-*/detection-tools/` |
+| ES forwarding | `detection-tools/es/forward-capture.js` | Called from mock servers after writing capture JSON |
+| Observability stack | `observability/README.md` | ES `:9200`, Kibana `:5601`; indices `scas-rules`, `scas-detections` |
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+## Scenario folder layout (typical)
 
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-
-## 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
 ```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+scenarios/NN-slug/
+├── README.md              # Scenario overview
+├── DETECT.md              # Runbook (detection + ## Mitigation) → scas-rules via load-runbooks.js
+├── setup.sh               # sources _shared/enable-testbench.sh, deps, instructions
+├── infrastructure/        # Mock attacker / harvester servers
+│   ├── mock-server.js     # Most scenarios (Node http, PORT, captured-data.json)
+│   └── captured-data.json # Runtime artifact (gitignored in some scenarios)
+├── victim-app/            # or corporate-app/, compromised-app/, etc.
+├── malicious-packages/    # or compromised-package/, registry/, packages/
+├── templates/             # Copy-paste attack templates
+└── detection-tools/       # Scenario-local detectors (optional)
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+**Exceptions (check these instead of assuming mock-server.js):**
+- **06-sha-hulud** — `infrastructure/credential-harvester.js` (port 3001), `mock-cdn.js`, `replication-simulator.js`, `github-actions-simulator.js`
+- **21-axios** / **22-litellm** — realistic npm/PyPI simulations; **22** uses `infrastructure/mock_server.py` and `detection-tools/litellm_pth_scanner.py`
 
-## 5. Pattern-Aware Exploration
+## Mock server contract (Node majority)
 
-**Orient cheaply. Learn the pattern once. Verify only what you will change.**
+- `POST /collect` — receive exfil JSON; append to `{ captures: [...] }` file
+- `GET|DELETE /captured-data` — view or clear captures
+- After each capture: `require('../../../detection-tools/es/forward-capture').forwardCaptureIfEnabled(__dirname, captureEntry).catch(() => {})`
+- Ports: see `scripts/ports.env` (`TESTBENCH_PORTS`); scenario 01 uses **3000**, 06 harvester **3001**
 
-At the start of a task (new session or new scope), build a mental model before reading large files or broad directories:
+## Safety gates (never weaken)
 
-1. **Infer structure first** — Use paths, naming, README, and folder layout to guess where logic lives. Read `.cursor/rules/scenario-patterns.mdc` for the repo map; treat one representative example as canonical unless the task says otherwise.
-2. **Search before read** — Prefer targeted `grep`/`glob` and semantic search for symbols and filenames. Read narrow slices (signatures, call sites, the function you will edit), not whole files or trees.
-3. **Stop when the pattern is clear** — Once you see how similar work is done (e.g. mock servers, capture shipping, scenario docs), reuse that shape. Do not re-read every duplicate to "be thorough."
-4. **Match nature of the project** — Educational labs with localhost-only malicious samples: preserve safety gates (`TESTBENCH_MODE`, isolated mocks), keep scenario parity when changing shared patterns, and treat `documentation/` as learner-facing copy that must stay accurate to runtime behavior. Doc maintenance scripts and lifecycle: `documentation/platform/TOOLING.md`.
-5. **Minimum context, verified accuracy** — Spend tokens on files you will edit or that define the contract you must honor. Confirm behavior with a quick read of call sites or one sibling scenario, not a full-repo tour. Hub navigation starts at `documentation/index.md`, not `documentation/README.md`.
+- Shell: `setup.sh` sources `scenarios/_shared/enable-testbench.sh` (lab auto-enable; payloads still gate on `TESTBENCH_MODE`)
+- Node/Python payloads: guard with `process.env.TESTBENCH_MODE === 'enabled'` (or equivalent) before malicious paths
+- Network: exfil targets **127.0.0.1 / localhost** only — no real external C2
+- Malicious samples are for isolated lab VMs only
 
-Ask yourself: "Do I know the pattern and the exact files I need?" If yes, implement. If no, one more targeted lookup — not another broad pass.
+## Observability (opt-in)
 
----
+- Enable forwarding: `export SCAS_ES_URL=http://localhost:9200` (see `observability/README.md`)
+- `detection-tools/es/load-runbooks.js` — parses all `scenarios/*/DETECT.md` → `scas-rules`
+- `detection-tools/es/ship-findings.js` — scanner output → `scas-detections`
+- `detection-tools/es/scenario-observability.json` — metadata for doc generation / Kibana
+- Stack scripts: `scripts/elasticsearch-up.sh`, `elasticsearch-down.sh`, `setup-kibana-data-views.sh`, `smoke-observability.sh`
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, clarifying questions come before implementation rather than after mistakes, and exploration stays narrow while results still match how this project is actually built.
+## Multi-scenario edits
+
+When changing a **shared pattern** (mock server, forward-capture hook, DETECT section shape, zero-to-hero observability block):
+
+1. Implement in scenario **01** (or the listed exception)
+2. `grep` for the old pattern across `scenarios/` and `documentation/scenario-guides/`
+3. Apply the same diff shape to matches — do not open every folder to “learn” it again
+
+## Zero to Hero (three different docs)
+
+Do not conflate these — each has a scope callout at the top:
+
+| Doc | Purpose |
+|-----|---------|
+| `documentation/getting-started/ZERO_TO_HERO.md` | First-lab quick start |
+| `documentation/learning-path/SUPPLY_CHAIN_ATTACKS_ZERO_TO_HERO.md` | Full curriculum / learning path |
+| `documentation/scenario-guides/zero-to-hero/ZERO_TO_HERO_SCENARIO_NN.md` | Per-scenario walkthrough (22 files) |
+
+## Documentation sync
+
+Canonical hub: `documentation/index.md`. Maintainer tooling: `documentation/platform/TOOLING.md`.
+
+**What goes where:**
+
+- `scenarios/NN-*/README.md` → `## Mitigation Playbook` + Table of Contents
+- `scenarios/NN-*/DETECT.md` → detection content + short `## Mitigation` for responders
+- `documentation/scenario-guides/zero-to-hero/ZERO_TO_HERO_SCENARIO_NN.md` → `## Mitigation Playbook` + Table of Contents
+- `documentation/scenario-guides/quick-reference/QUICK_REFERENCE_SCENARIO_NN.md` → update if IOCs/commands change
+
+If runtime behavior or mitigations change, update in lockstep:
+
+1. Edit canonical bullets in `scripts/lib/mitigation-playbooks.js` first (if mitigations changed)
+2. `node scripts/sync-mitigation-gaps.js` — sync DETECT `## Mitigation` + README playbooks (01–06)
+3. `node scripts/inject-zero-to-hero-mitigation-playbooks.js` — idempotent playbook insert for new guides
+4. `node scripts/inject-markdown-toc.js all` — rebuild every Table of Contents after heading changes
+5. `detection-tools/es/scenario-diagram-steps.js` when the lab flow or observability path changes
+6. `node detection-tools/es/generate-observability-section.js` after diagram metadata edits
+7. `node detection-tools/es/load-runbooks.js` if `DETECT.md` structure changes materially
+
+When adding or moving documentation files, also update section `index.md`, `docs/docs-manifest.json`, `docs/sitemap.xml`, and `scripts/materialize-docs-for-pages.sh` (see TOOLING.md → Documentation build & publishing).
 
 ---
 > Source: [RAJANAGORI/supply-chain-attack-simulator](https://github.com/RAJANAGORI/supply-chain-attack-simulator) — distributed by [TomeVault](https://tomevault.io).
