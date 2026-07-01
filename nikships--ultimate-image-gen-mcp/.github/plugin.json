@@ -1,0 +1,9 @@
+{
+  "name": "nikships--ultimate-image-gen-mcp",
+  "displayName": "ultimate-image-gen-mcp",
+  "description": "Ultimate Gemini 3.1 Flash Image MCP server with 4K generation, Google Search grounding, reference images (up to 14), and thinking mode. Professional image generation made simple.",
+  "version": "1.0.0",
+  "author": "nikships",
+  "homepage": "https://github.com/nikships/ultimate-image-gen-mcp",
+  "skills": []
+}
