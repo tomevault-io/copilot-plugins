@@ -1,0 +1,9 @@
+{
+  "name": "arvidn--libtorrent-webui",
+  "displayName": "libtorrent-webui",
+  "description": "libtorrent-webui",
+  "version": "1.0.0",
+  "author": "arvidn",
+  "homepage": "https://github.com/arvidn/libtorrent-webui",
+  "skills": []
+}
