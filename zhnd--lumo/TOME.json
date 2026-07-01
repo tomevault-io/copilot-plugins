@@ -2,7 +2,7 @@
   "name": "lumo",
   "owner": "zhnd",
   "repo": "lumo",
-  "description": "Local-first dashboard for observing Claude Code usage, cost, sessions, and time.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhnd/lumo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T07:21:29Z"
+  "distributed_at": "2026-07-01T03:04:01Z"
 }
