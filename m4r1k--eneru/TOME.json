@@ -2,9 +2,9 @@
   "name": "Eneru",
   "owner": "m4r1k",
   "repo": "Eneru",
-  "description": "\u26a1 Eneru\u2014Intelligent UPS monitoring daemon for NUT (Network UPS Tools) with configurable multi-system shutdown orchestration, Discord notifications, and enterprise-grade power event handling.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/m4r1k/Eneru",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T00:38:57Z"
+  "distributed_at": "2026-07-01T09:13:32Z"
 }
