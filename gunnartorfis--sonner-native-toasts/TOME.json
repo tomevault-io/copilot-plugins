@@ -4,7 +4,7 @@
   "repo": "sonner-native-toasts",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gunnartorfis/sonner-native-toasts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T15:27:15Z"
+  "distributed_at": "2026-07-01T20:51:58Z"
 }
