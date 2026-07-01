@@ -1,0 +1,9 @@
+{
+  "name": "alan-turing-institute--ai-rss-feeds",
+  "displayName": "ai-rss-feeds",
+  "description": "A collection of RSS Feeds for AI news and blog sites",
+  "version": "1.0.0",
+  "author": "alan-turing-institute",
+  "homepage": "https://github.com/alan-turing-institute/ai-rss-feeds",
+  "skills": []
+}
