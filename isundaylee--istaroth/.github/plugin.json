@@ -1,0 +1,9 @@
+{
+  "name": "isundaylee--istaroth",
+  "displayName": "istaroth",
+  "description": "Project Istaroth is a RAG-based LLM system for answering Genshin Impact lore questions.",
+  "version": "1.0.0",
+  "author": "isundaylee",
+  "homepage": "https://github.com/isundaylee/istaroth",
+  "skills": []
+}
