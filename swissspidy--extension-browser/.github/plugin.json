@@ -1,0 +1,9 @@
+{
+  "name": "swissspidy--extension-browser",
+  "displayName": "extension-browser",
+  "description": "Gemini CLI extension to browse and recommend other extensions.",
+  "version": "1.0.0",
+  "author": "swissspidy",
+  "homepage": "https://github.com/swissspidy/extension-browser",
+  "skills": []
+}
