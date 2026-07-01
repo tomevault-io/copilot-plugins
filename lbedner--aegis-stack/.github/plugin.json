@@ -1,7 +1,7 @@
 {
   "name": "lbedner--aegis-stack",
   "displayName": "aegis-stack",
-  "description": "A production-ready FastAPI platform with modular components and a built-in control plane.",
+  "description": "aegis-stack",
   "version": "1.0.0",
   "author": "lbedner",
   "homepage": "https://github.com/lbedner/aegis-stack",
