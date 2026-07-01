@@ -1,0 +1,9 @@
+{
+  "name": "sindresorhus--eslint-plugin-unicorn",
+  "displayName": "eslint-plugin-unicorn",
+  "description": "eslint-plugin-unicorn",
+  "version": "1.0.0",
+  "author": "sindresorhus",
+  "homepage": "https://github.com/sindresorhus/eslint-plugin-unicorn",
+  "skills": []
+}
