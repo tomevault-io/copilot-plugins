@@ -1,0 +1,9 @@
+{
+  "name": "xushengfeng--myde",
+  "displayName": "myde",
+  "description": "A Wayland compositor written in Electron.js",
+  "version": "1.0.0",
+  "author": "xushengfeng",
+  "homepage": "https://github.com/xushengfeng/myde",
+  "skills": []
+}
