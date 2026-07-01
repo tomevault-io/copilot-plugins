@@ -1,17 +1,64 @@
-## commit-style
+## efficient-editing
 
-> When asked to generate a commit log, please adhere to the following guidelines:
+> - 优先使用 `search_replace` 工具进行精确的局部修改
 
-# Commit Message Generation Rule
 
-When asked to generate a commit log, please adhere to the following guidelines:
+# 高效编辑规则
 
-1.  **Language:** All commit messages must be written in English.
-2.  **Style:** Follow the "Conventional Commits" specification. Use a type prefix like `feat:`, `fix:`, `perf:`, `chore:`, etc., followed by a concise, lowercase summary.
-3.  **Reference:** To ensure consistency, refer to the user's recent commit history to match their established style. You can use a command like `git log --author="Lysander" --pretty=oneline -n 10` for guidance.
-4.  **Content Analysis Workflow:** Base the commit message on the actual code changes. The standard workflow should be:
-    *   First, use a `git status` equivalent to see which files were changed and understand the scope.
-    *   Second, use a `git diff` equivalent to analyze the specific code modifications to understand the purpose and details of the changes.
+## 代码修改原则
+
+### 1. 最小化修改
+
+- 优先使用 `search_replace` 工具进行精确的局部修改
+- 避免重写整个文件，除非是全新的功能实现
+- 对于小的逻辑调整，只修改相关行或函数
+
+### 2. 修改策略
+
+- **字段修改**: 只修改需要改变的字段或属性
+- **逻辑调整**: 只修改相关的条件判断或函数调用
+- **错误修复**: 只修改出错的具体代码段
+- **功能增强**: 在现有结构基础上添加新功能
+
+### 3. 工具使用优先级
+
+1. `search_replace` - 用于精确的文本替换
+2. `edit_file` - 用于较大的代码块修改
+3. 重写文件 - 仅在完全重构时使用
+
+### 4. 代码质量检查
+
+- 确保修改不会破坏现有功能
+- 保持代码风格一致性
+
+### 5. 用户沟通
+
+- 在开始大规模修改前，先确认修改计划
+- 对于小的修改，直接执行并说明变更内容
+- 避免不必要的重复工作
+
+## 代码风格原则
+
+### 1. 命名规范
+
+- **追求命名的专业地道**：使用准确、专业的术语，避免模糊或口语化的命名
+- 变量名、函数名、类名应该清晰表达其用途和含义
+- 通过良好的命名让代码自解释，减少对注释的依赖
+
+### 2. 注释原则
+
+- **只在必要的地方添加注释**：当代码逻辑不够直观或需要说明特殊处理时
+- **避免冗余注释**：不要为显而易见的代码添加注释（如 `# 匹配正则表达式` 这种与代码表达相同意思的注释）
+- **注释应该解释"为什么"而非"是什么"**：代码本身已经说明了"是什么"，注释应该解释背后的原因或特殊考虑
+- 通过专业地道的命名和清晰的代码结构，让代码具有良好的可读性，减少对注释的依赖
+- **注释和文档字符串使用英文**：所有注释、docstring、日志信息都应使用英文
+
+### 3. 函数定义格式
+
+- **短函数定义使用单行**：如果函数签名较短（参数不超过 3 个且总长度合理），使用单行格式
+  - ✅ 正确：`async def generate_daily_summary(date: str, top_n: int = 10) -> Dict:`
+  - ❌ 错误：将短函数定义拆分成多行
+- **长函数定义使用多行**：只有当参数很多或单行过长时才使用多行格式
 
 ---
 > Source: [Lysander66/briefy](https://github.com/Lysander66/briefy) — distributed by [TomeVault](https://tomevault.io).
