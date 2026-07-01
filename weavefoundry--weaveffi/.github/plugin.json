@@ -1,0 +1,9 @@
+{
+  "name": "weavefoundry--weaveffi",
+  "displayName": "weaveffi",
+  "description": "Generate standalone, publish-ready packages for 11 target languages from a single native library.",
+  "version": "1.0.0",
+  "author": "weavefoundry",
+  "homepage": "https://github.com/weavefoundry/weaveffi",
+  "skills": []
+}
