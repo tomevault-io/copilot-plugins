@@ -1,0 +1,9 @@
+{
+  "name": "juninmd--tokenix",
+  "displayName": "tokenix",
+  "description": "Local semantic search, symbol graphs, secrets scanning, output filters, and CLI hooks that save 60-90% LLM tokens.",
+  "version": "1.0.0",
+  "author": "juninmd",
+  "homepage": "https://github.com/juninmd/tokenix",
+  "skills": []
+}
