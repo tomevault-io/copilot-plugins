@@ -1,0 +1,9 @@
+{
+  "name": "nimblesite--osprey",
+  "displayName": "osprey",
+  "description": "A modern functional programming language designed for elegance, safety, and performance. Written in Rust, outputs to LLVM.",
+  "version": "1.0.0",
+  "author": "Nimblesite",
+  "homepage": "https://github.com/Nimblesite/osprey",
+  "skills": []
+}
