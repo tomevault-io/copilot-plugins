@@ -1,6 +1,6 @@
 ## y-agent
 
-> handles raw/preview toggling and "Add to link" from `pages/`.
+> Personal AI agent platform: React web UI + FastAPI backend + async worker, deployed as
 
 # y-agent
 
@@ -45,7 +45,7 @@ Other top-level dirs: `scripts/` (deploy, DNS, IAM), `template.yaml` / `samconfi
 - **AWS SAM**: Lambda (API / Worker / Admin), SQS, S3 + CloudFront (web + link/RSS content),
   EventBridge schedules (reminders, RSS), DynamoDB
 - **Integrations**: Telegram Bot API, Google OAuth, SSH/Paramiko, EC2 lifecycle (boto3),
-  opencli (Twitter/X, Bilibili), oxylabs (WeChat)
+  oxylabs (WeChat / generic pages), yt-dlp (YouTube), Jina AI reader (Twitter/X)
 
 ## Notable Subsystems
 
@@ -70,14 +70,17 @@ entity + controller + service + CLI slices, and most have a web panel.
 - **RSS** — two-stage pipeline: admin schedules feed jobs → worker scrapes feed XML →
   downloader fetches each item's content → storage on S3 (per-activity key). `y rss` CLI
   for feeds + items.
-- **Link archive** — Chrome bookmark sync, Twitter/X and Bilibili downloads, WeChat via
-  oxylabs. Each link becomes an `activity_id` with content stored on S3; the FileViewer
-  handles raw/preview toggling and "Add to link" from `pages/`.
+- **Link archive** — EC2 is the single source of truth: `~/luohy15/links/<link_id>/{content,summary}.md` is canonical, `content_key`/`summary_content_key` are paths relative to `~/luohy15/` on EC2, API reads via SSH-cat, and S3 is not used for links.
+- **Browser cookies** — `y cookies sync` stores local browser cookies in the API/DB so remote `y link fetch` can pass them to `yt-dlp`.
 - **Reminder** — `reminder` table, `/api/reminder`, `y reminder` CLI. Admin Lambda runs
   `check_reminders` on a schedule and pushes matches to Telegram.
 - **Telegram** — forum topic binding (`tg_topic`), webhook secret verification,
   markdown → HTML conversion, per-topic routing, root-topic callbacks short-circuited
-  at the API layer.
+  at the API layer. Web-only artifact fences are stripped to `[chart]` / `[diagram]`
+  / `[svg]` placeholders before Telegram delivery.
+- **Artifacts** — assistant markdown fences tagged `mermaid`, `vega-lite`, or
+  `artifact-svg` render inline in `MessageBubble` via lazy Mermaid / Vega-Lite / sanitized
+  SVG rendering. Plain `svg` fences remain code blocks.
 - **Image transport** — API image ingestion stores bytes only under
   `/Users/roy/luohy15/assets/images/`: local writes when available, otherwise SSH-push
   to EC2. Workers SSH-fetch local EC2 paths before Telegram delivery. `Message.images`
@@ -86,17 +89,34 @@ entity + controller + service + CLI slices, and most have a web panel.
 - **Dev worktrees** — `dev_worktree` tracks active coding sessions. `y dev wt add/rm` +
   `y dev commit` handle worktree lifecycle; PID and session state live under
   `/tmp/dev-sessions/<name>/` so multiple worktrees coexist.
-- **Finance / Email / Calendar** — beancount balance sheet / income statement /
-  portfolio tracker; Gmail sync; full-stack calendar events with timezone-aware filtering.
+- **Finance / Email / Calendar** — DB-backed finance views under `y finance`
+  mirror `/api/finance/*` (balance sheet, income statement, holdings,
+  transactions, prices, FIRE progress); `y finance beancount` is the ledger-side
+  producer / low-level local view layer. Multi-account Gmail sync: per-account
+  IMAP app passwords live in the `email_account` table (`y email account
+  add/list/rm`), `y email sync-gmail` fans out over all registered accounts,
+  and `email.account` tags each row with its source address (filterable via
+  `?account=` / `--account` / the EmailList dropdown). Full-stack calendar
+  events with timezone-aware filtering.
 
 ## Agent Runtime
 
 The repo no longer contains an in-process agent loop — the worker shells out.
 
-- **Backends** — `agent/src/agent/claude_code.py` (Claude Code) and
-  `agent/src/agent/codex.py` (Codex CLI). `y chat --bot codex|claude_code -m "..."`
+- **Backends** — `agent/src/agent/claude_code.py` (Claude Code), `agent/src/agent/codex.py`
+  (Codex CLI), plus `gemini_cli` / `pi_cli`. `y chat --bot codex|claude_code -m "..."`
   picks one; default is `claude_code`. The chat's `backend` field is persisted and
   displayed.
+- **Claude Code TUI (`claude_tui`)** — `agent/src/agent/claude_tui.py` is a separate,
+  additive backend that drives the *interactive* Claude Code TUI through tmux instead of
+  `claude -p`: the prompt is pasted via tmux bracketed paste and output is poll-read from
+  the session JSONL (`~/.claude/projects/<cwd-dashed>/<uuid>.jsonl`), so it runs on the
+  EC2 subscription login (no base_url / API key) rather than an API budget. Deterministic
+  session id via `--session-id` (fresh) / `--resume` (continue); per-turn `cc-<chat_id>`
+  tmux session; turn completion is the `system/turn_duration` JSONL marker; live steer is
+  a mid-turn paste. The existing `claude -p` path (`claude_code.py`, `detach.py`) is
+  unchanged — `claude_tui` reuses only its pure helpers by import. Opt in via a bot_config
+  with `backend=claude_tui` or `--backend claude_tui`.
 - **Detached execution on EC2** — subprocesses run inside `tmux` on the VM. The worker
   SSHes in, tails stdout, and streams JSON events back. `agent/ssh_pool.py` reuses SSH
   connections across monitor passes; `agent/ec2_wake.py` auto-wakes the instance.
@@ -129,7 +149,7 @@ exceptions noted):
   coordination, no service)
 - **Dev / trace**: `dev_worktree`, `trace_share`
 - **Configuration**: `bot_config`, `vm_config`
-- **Email**: `email`
+- **Email**: `email`, `email_account`
 - **Base / DTO**: `base.py`, `dto.py` (Message, BotConfig, VmConfig structures)
 
 ### API Routes (`api/src/api/controller/`)
@@ -164,7 +184,7 @@ Grouped by feature area:
 - `tasks.py` — Celery task `process_chat()`
 - `monitor.py` — tails detached process stdout, flushes to DB
 - `steps/` — RSS feed fetch, link batch download
-- `downloaders/` — HTTP (httpx), oxylabs, SSH (opencli)
+- `downloaders/` — SSH wrapper that runs `y link fetch --json` on the user's VM
 - `link_downloader.py`, `process_manager.py`
 - `handler.py` — Lambda SQS event handler (in worker root)
 
@@ -172,7 +192,8 @@ Grouped by feature area:
 - `App.tsx` — multi-panel layout (sidebar / file viewer / chat / terminal / trace)
 - `components/ChatView.tsx` — SSE-based real-time chat with tool call display, steer,
   context usage tooltip
-- `components/TraceView.tsx`, `ShareTraceView.tsx` — waterfall, share page
+- `components/TraceView.tsx` — waterfall; `PublicTraceApp.tsx` — `/t/:shareId` public
+  read-only projection (snapshot ChatView + injected Note/Link panels + public FileViewer)
 - `components/FileTree.tsx`, `FileViewer.tsx` — lazy tree + edit mode (syntax
   highlighting, line numbers)
 - `components/TodoList.tsx`, `TodoViewer.tsx` — kanban + pagination + pin
@@ -186,7 +207,7 @@ Grouped by feature area:
 ### CLI (`cli/src/yagent/`)
 - `command_option.py` — root `y` command group
 - `commands/` subcommand groups: `chat`, `todo`, `calendar`, `note`, `entity`,
-  `reminder`, `rss`, `link`, `email`, `dev`, `beancount`, `image`, `bot`, `trace`,
+  `reminder`, `rss`, `link`, `email`, `dev`, `finance`, `image`, `bot`, `trace`,
   `assoc` / `unassoc`, plus `init` / `login` / `logout`
 
 ### Infrastructure
@@ -256,6 +277,20 @@ y chat -i [-c <id>] [-l] [-b <bot>] [-p "one-off prompt"]
 y dev wt add <project_path> <name>
 y dev wt rm <name>
 y dev commit <name> [-m "msg"]
+
+# DB-backed finance views (friendly tables by default; --json emits the raw
+# envelope, same shape as GET /api/finance/*)
+y finance balance-sheet [--user-id <id>] [--vm-name <name>] [--time month] [--history] [--granularity monthly] [--convert USD] [--json]
+y finance income-statement [--user-id <id>] [--vm-name <name>] [--time month] [--history] [--granularity monthly] [--convert USD] [--json]
+y finance investment-returns [--user-id <id>] [--vm-name <name>] [--time ytd] [--history] [--granularity monthly] [--convert USD] [--json]
+y finance holdings [--user-id <id>] [--at YYYY-MM-DD] [--risky-only] [--base-currency USD] [--json]
+y finance transactions [--user-id <id>] [--symbol AAPL] [--limit 500] [--json]
+y finance prices [--symbol AAPL] [--time ytd] [--limit 1000] [--json]
+y finance fire-progress [--user-id <id>] [--vm-name <name>] [--json]
+
+# Ledger-side producer / low-level local views
+y finance beancount snapshot
+y finance beancount update-market-data
 ```
 
 ## Conventions
@@ -271,7 +306,7 @@ y dev commit <name> [-m "msg"]
 - Global config: `~/.y-agent/config.toml` (preferred) or `.env` loaded from
   `Y_AGENT_HOME`. Key vars: `DATABASE_URL`, `JWT_SECRET_KEY`, `SQS_QUEUE_URL`,
   `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, `GOOGLE_CLIENT_ID`,
-  `Y_AGENT_S3_BUCKET`, `Y_AGENT_TIMEZONE`, `FETCHER_URL`.
+  `Y_AGENT_S3_BUCKET`, `Y_AGENT_TIMEZONE`, `FETCHER_URL`, `ALPHAVANTAGE_API_KEY`.
 - DB migrations: only generate the SQL — the maintainer runs it manually via `psql`.
   Do not wire up automatic migrations. Place new SQL under `migration/` (e.g.
   `migration/<todo_id>_<short_desc>.sql`). The directory is gitignored and shared
@@ -309,13 +344,13 @@ These three docs drift fast. Baseline cadence since 2026-04-23:
   user-facing highlights, group under Added / Changed / Fixed / Removed, commit as
   `docs(changelog): weekly update <YYYY-MM-DD>`. A weekly reminder handles the
   trigger.
-- **CLAUDE.md** — update opportunistically when a PR introduces a new entity,
+- **AGENTS.md** — update opportunistically when a PR introduces a new entity,
   controller, CLI subcommand group, or architectural convention. A quarterly audit
   reconciles the "Notable Subsystems", "Data Models", and "API Routes" sections with
   what's actually in `storage/entity/`, `api/controller/`, and `cli/commands/`. Keep
   numbers vague ("see the directory") to avoid stale counts.
 - **README.md** — update when user-visible capability changes (new subsystem, changed
-  install flow). Same quarterly audit window as CLAUDE.md.
+  install flow). Same quarterly audit window as AGENTS.md.
 
 Audit checklist (run quarterly):
 
@@ -328,4 +363,4 @@ Audit checklist (run quarterly):
 
 ---
 > Source: [luohy15/y-agent](https://github.com/luohy15/y-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
