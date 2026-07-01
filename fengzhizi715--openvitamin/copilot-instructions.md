@@ -1,252 +1,213 @@
 ## openvitamin
 
-> > 本文件是本项目中 **优先级最高的行为与架构约束文档之一**。
+> agent_runtime 是本地 AI 推理平台的 **Agent 执行引擎**。
 
-# AGENTS.md — Inference Gateway & Plugin Governance
+# Agent Runtime – AGENTS.md
 
-> 本文件是本项目中 **优先级最高的行为与架构约束文档之一**。
->
-> 所有 Agent / Plugin / 推理适配层的设计与实现，必须遵循本规范。
+# 1. 模块定位（非常重要）
 
----
+agent_runtime 是本地 AI 推理平台的 **Agent 执行引擎**。
 
-## 1. 项目与技术栈对齐说明
+> Agent Runtime = 有状态、有循环或计划、有决策能力的 LLM 执行系统
 
-本项目是一个 **Web 形态的本地 AI 推理平台**，整体架构为：
+职责包括：
+* Agent 的**定义**与**运行**（含持久化与注册）
+* **两种执行模式**：Legacy 多步 Loop（v1.5）与 Plan-Based（V2）
+* Tool / Skill 调用决策、RAG 注入
+* Trace / 可观测性
 
-* **前端（UI 层）**：Vue 3 + Vite + Tailwind CSS + shadcn-vue
-* **后端（核心中枢）**：Python + FastAPI
-* **角色定位**：
+⚠️ 本模块不是模型推理层，也不是协议适配层；不直接调用 runtimes。
 
-  * Web UI 只是“控制台”
-  * FastAPI 推理网关是“大脑”
-  * Agent / Plugin 是“能力模块”
+# 2. 与其他模块的关系
 
-* 后端的程序，都要在虚拟环境 conda 中运行。
-
-本文件定义的 **Agent**，并不等同于“自主智能体”，而是指：
-
-* 推理网关中的系统模块
-* 推理后端的统一封装代理
-* 以插件形式加载的能力增强模块
-
----
-
-## 2. 核心设计原则（Core Principles）
-
-所有 Agent / Plugin **必须遵循** 以下原则：
-
-### 2.1 User-in-Control（用户始终掌控）
-
-* Agent 不得擅自改变用户意图
-* 默认不启用任何“自动决策”或“隐式代理”行为
-
----
-
-### 2.2 Gateway-Centric（以推理网关为中心）
-
-* 所有模型调用必须经过 FastAPI 推理网关
-* 前端不得直连模型、推理引擎或工具
-
----
-
-### 2.3 Determinism over Magic（确定性优于魔法）
-
-* 禁止隐藏 Prompt
-* 禁止隐式参数注入
-* 行为必须可预测、可复现
-
----
-
-### 2.4 Plugin-first（插件优先）
-
-* 新能力优先设计为插件
-* 插件必须可独立启停、替换、升级
-
----
-
-### 2.5 Local-first & Privacy-first（本地与隐私优先）
-
-* 默认假设系统运行在 **无外网环境**
-* 不得未经授权进行任何数据外传
-
----
-
-## 3. Agent 分类（Agent Taxonomy）
-
-### 3.1 Gateway System Agents（系统代理）
-
-**位置**：FastAPI 推理网关核心层
-
-职责：
-
-* 请求规范化（Request Normalization）
-* 模型路由与选择
-* 流式响应协调（SSE / Streaming）
-* 错误捕获与恢复
-
-约束：
-
-* ❌ 不得包含业务逻辑
-* ❌ 不得访问外部网络或文件系统
-
----
-
-### 3.2 Model Agents（模型代理 / 推理适配层）
-
-对不同推理后端的统一封装。
-
-示例：
-
-* OpenAI / API Agent
-* Ollama Agent
-* vLLM Agent
-* llama.cpp Agent
-
-职责：
-
-* 将统一请求转换为后端调用
-* 统一流式输出格式
-* 明确暴露模型能力边界
-
-约束：
-
-* ❌ 不得修改用户输入语义
-* ❌ 不得注入隐藏 Prompt 或系统提示
-
----
-
-### 3.3 Capability Agents（能力插件）
-
-以 **插件形式** 挂载在推理流程中的增强模块。
-
-示例：
-
-* RAG Agent（本地知识库）
-* Tool Calling Agent
-* Memory / History Agent
-* Workflow / Agent Agent
-
-职责：
-
-* 明确声明权限与依赖
-* 对输入输出负责
-
-约束：
-
-* 必须可被禁用
-* 必须可观测、可审计
-
----
-
-## 4. Agent / Plugin 生命周期
-
-所有 Agent / Plugin 必须遵循以下生命周期：
+## 2.1 层级关系
 
 ```
-load → initialize → ready → execute → teardown
+agent_runtime
+   ├── legacy: loop.py + executor.py → agents (unified_agent / router) → runtimes
+   └── V2:     v2/runtime.py → v2/planner.py, v2/executor_v2 → agents → runtimes
 ```
 
-规则：
+## 2.2 边界
 
-* Agent 应尽量无状态
-* 必须支持优雅失败（graceful failure）
+| 模块            | 职责                           |
+|----------------|--------------------------------|
+| agent_runtime  | Agent 行为、状态、Loop/Plan、Trace |
+| core/agents    | 单次 ChatCompletion / 模型路由     |
+| core/runtimes  | 模型加载与推理                    |
+| core/plugins   | Tool / Skill 能力                |
+| core/skills    | Skill 定义、注册、执行            |
 
----
+👉 Agent Runtime 通过 agents 间接调用 runtimes，不直接调 runtimes。
 
-## 5. Agent / Plugin 接口规范
+# 3. 核心设计原则
 
-每个 Agent / Plugin **必须声明**：
+## 3.1 强约束、可解释
 
-* name（名称）
-* type（system / model / capability）
-* version（版本）
-* stage（pre / post / tool / router）
-* input schema
-* output schema
-* required permissions
+* Agent 必须有 step 或 plan 步数上限，每一步可追溯
+* 禁止隐式 Tool/Skill 调用；禁止黑盒行为
 
-**可选声明**：
+## 3.2 Agent ≠ Chat
 
-* configuration schema
-* 前端 UI Hint（供 Web UI 自动渲染配置面板）
+* Agent：有目标、有循环或计划、会调用工具/技能、会失败/重规划
+* Chat：输入 → 输出
 
----
+## 3.3 Tool / Skill / RAG 是能力，不是流程
 
-## 6. 权限与安全（Security & Permissions）
+* Agent（或 Planner）决定是否、何时使用 Tool / Skill / RAG
+* 能力层不反向控制 Agent Loop 或 Plan 流程
 
-* 默认禁止网络访问
-* 文件系统访问必须限定目录
-* 插件权限需显式声明
-* 所有执行过程必须可记录、可审计
+# 4. 模块结构说明
 
----
+```
+agent_runtime/
+├── definition.py       # AgentDefinition（静态定义与注册）
+├── session.py          # AgentSession（运行态）
+├── context.py          # 执行上下文
+├── project_context.py  # 工程上下文（scan/test/build 等共享状态）
+├── executor.py         # AgentExecutor（入口，按 execution_mode 分发）
+├── loop.py             # AgentLoop（Legacy 多步循环，v1.5）
+├── parser.py           # LLM 输出解析（Action: skill_call / tool_call / final）
+├── trace.py            # Agent Trace 记录
+├── rag.py              # RAG 注入
+│
+├── v2/                 # Plan-Based 执行（V2）
+│   ├── runtime.py      # AgentRuntime：V2 入口，调用 Planner + PlanBasedExecutor
+│   ├── models.py       # Plan, Step, StepType, ExecutorType 等
+│   ├── planner.py      # Planner：create_plan / create_followup_plan（含 RePlan 分支）
+│   ├── executor_v2.py  # PlanBasedExecutor：按序执行 Step，支持 REPLAN
+│   ├── executors.py    # LLMExecutor, SkillExecutor 等
+│   ├── plan_contract_adapter.py  # Plan Contract → 运行时 Plan 转换
+│   └── observability.py # 结构化日志与性能指标
+│
+└── AGENTS.md
+```
 
-## 7. 数据层与持久化（Data & Persistence）
+与 Plan Contract 协议层（独立模块）的关系：
+* `core/plan_contract`：契约模型与校验（无执行逻辑）
+* `v2/plan_contract_adapter`：契约解析并转换为 v2 Plan，仅在 RePlan 时由 Planner 使用
 
-后端已统一为 **ORM**（关系型）与 **VectorSearchProvider**（向量检索）两套抽象。凡有数据库或向量数据库需求的新功能，必须基于二者实现，不得绕过。
+# 5. AgentDefinition（静态 Agent）
 
-* **关系型持久化**：使用项目 **ORM**（如 `core/data` 层、SQLAlchemy 等）。禁止在业务中直接写裸 SQL、直接操作 DB 连接或自建表结构。
-* **向量检索**：使用 **VectorSearchProvider** 抽象。禁止在业务中直连具体向量库或自实现向量读写。
-* **适用范围**：Agent、Plugin、知识库、会话、Trace、配置等所有需要落库或向量检索的模块。
+## 5.1 职责
 
----
+* 描述 Agent 是什么（名称、描述、模型、提示、能力、执行策略）
+* 可持久化、可复制、可模板化
 
-## 8. 可观测性（Observability）
+## 5.2 典型字段（当前）
 
-Agent SHOULD 提供：
+```python
+# 标识与展示
+agent_id: str
+name: str
+description: str
+slug: Optional[str]
 
-* 执行耗时
-* Token / 资源消耗
-* 错误与异常信息
+# 推理
+model_id: str
+system_prompt: str
+temperature: float
+model_params: Dict[str, Any]   # 如 intent_rules, skill_param_extractors 等
 
-用于：
+# 能力：Agent 可见的是 Skill（v1.5 起）
+enabled_skills: List[str]     # 如 builtin_file.read, builtin_shell.run
+tool_ids: List[str]           # 兼容旧配置
+rag_ids: List[str]
 
-* Debug
-* 性能分析
-* 成本评估
+# 执行控制
+max_steps: int
+execution_mode: Optional[str]  # "legacy" | "plan_based"
 
----
+# V2.2 RePlan
+max_replan_count: int
+on_failure_strategy: str      # "stop" | "continue" | "replan"
+replan_prompt: str
 
-## 9. 版本与兼容性（Versioning）
+# V2.3 Plan Contract（RePlan 时可选）
+plan_contract_enabled: bool
+plan_contract_strict: bool
+plan_contract_sources: List[str]
+```
 
-* Agent 必须声明兼容的推理网关版本
-* 不兼容变更必须升级主版本号
+⚠️ AgentDefinition 不包含运行时状态。
 
----
+# 6. AgentSession（一次运行）
 
-## 10. 扩展规范（Extension Policy）
+* 每次 Run Agent 对应一个 Session（或复用已有 session_id）
+* 含 messages、step、status、workspace_dir、state（如 fix_attempt_count、replan_count）等
+* 可追踪、可恢复；Trace 与 Session 关联
 
-新增 Agent / Plugin 时：
+# 7. 执行模式
 
-1. 明确分类（System / Model / Capability）
-2. 明确权限声明
-3. 避免与核心网关强耦合
-4. 优先插件化
-5. 补充文档与示例
-6. 若有持久化或向量检索需求，遵循 [§7 数据层与持久化](#7-数据层与持久化data--persistence)。
+## 7.1 Legacy（v1.5）
 
----
+* `execution_mode == "legacy"` 或未设置时使用
+* **AgentLoop**：构造 Prompt → 调用 LLM → 解析输出（skill_call / tool_call / final）→ 执行 Skill 或结束 → 记录 Trace，循环直到 final 或达到 max_steps
+* 能力来源：SkillRegistry（enabled_skills）；Parser 解析 LLM 输出为 AgentAction
 
-## 11. 设计哲学（Philosophy）
+## 7.2 Plan-Based（V2）
 
-> FastAPI 推理网关是大脑
->
-> Agent / Plugin 是能力模块
->
-> Web UI 只是控制台
->
-> 用户永远拥有最终控制权
+* `execution_mode == "plan_based"` 时使用
+* **Planner** 根据用户输入与上下文生成 **Plan**（steps 序列）
+* **PlanBasedExecutor** 按序执行 Step（LLM / Skill / Composite / REPLAN），支持步骤失败后的 **RePlan**
+* RePlan 时 `create_followup_plan` 的优先级（在启用且存在时）：
+  1. **Plan Contract**（从 execution_context 的配置源取契约并校验、转换）
+  2. **replan_direct_skill**（可配置的直接技能计划）
+  3. **replan_fix_plan**（测试/命令失败时的固定「读→LLM patch→apply_patch→再测」链）
+  4. **create_plan**（LLM 重新规划）
+* 权限由 Skill/Tool 声明推导（如 `core.tools.permissions`），不在此模块写死
 
-## 12. 文档规范
-* 不要在完成功能开发后 **主动添加或总结任何文档**
-* 仅在明确指示时才允许修改 `README.md / AGENTS.md`
-* 不得擅自“补充说明”或“整理文档”
+# 8. LLM 输出协议
 
----
+## 8.1 Legacy（v1.5）
 
-End of AGENTS.md
+* Parser 解析为：`skill_call`（skill_id + input）或 `tool_call` 或 `final`
+* 解析失败按策略终止或记录错误
+
+## 8.2 V2
+
+* Planner 产出结构化 Plan（Step 列表），Step 类型为 LLM / Skill / Composite / REPLAN
+* REPLAN 步骤会再次调用 Planner.create_followup_plan 生成后续 Plan 并递归执行
+
+# 9. Tool / Skill 在 Agent Runtime 中的角色
+
+* **Skill** 是 Agent 可见的能力抽象（prompt / tool / composite）；由 SkillRegistry 提供，对应 enabled_skills
+* **Tool** 是具体实现，通过 Plugin 注册；Skill 的 type=tool 时由 SkillExecutor 调用 ToolRegistry
+* Agent Runtime 只通过统一 Skill/Tool 接口调用，不写死具体能力列表
+
+# 10. RAG 的使用原则
+
+* RAG 通过上下文注入或 Skill 使用；Agent/Planner 决定是否启用
+* Trace 必须记录检索相关行为
+
+# 11. Trace 与可观测性
+
+* 每一步 Prompt、LLM 输出、Skill/Tool 调用、耗时与错误均需可记录
+* V2 支持结构化日志与运行指标（如 plan 创建耗时、replan 次数、步骤耗时）
+* Trace 用于 Debug、审计及后续 Skill/Learning 扩展
+
+# 12. 明确禁止事项
+
+🚫 不要在 Agent Runtime 中：
+* 直接调用 runtimes
+* 写模型加载逻辑
+* 写 UI 逻辑
+* 写数据库 ORM（通过现有 data 层或服务）
+
+🚫 不要：
+* 在 Loop/Planner 中写死 Tool/Skill 列表（用 definition + 注册表）
+* 隐式调用 Tool/Skill
+* 跳过 Trace
+
+# 13. 与根目录 AGENTS.md 的关系
+
+* 根目录 **AGENTS.md** 为项目级 Agent/Plugin 规范（User-in-Control、Gateway-Centric、Determinism、Plugin-first 等）
+* 本文件为 **agent_runtime 模块** 的定位、结构与约束，需与根目录规范一致，且不重复表述全局原则
+
+# 14. 一句话总结
+
+> Agent Runtime 是「可解释、可演进」的 Agent 执行引擎：支持 Legacy 多步 Loop 与 V2 Plan-Based 两种模式，集成 RePlan、Plan Contract 与可观测性，而不是聊天封装或模型代理。
 
 ---
 > Source: [fengzhizi715/OpenVitamin](https://github.com/fengzhizi715/OpenVitamin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
