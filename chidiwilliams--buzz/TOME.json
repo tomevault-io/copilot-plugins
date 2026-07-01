@@ -4,7 +4,7 @@
   "repo": "buzz",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chidiwilliams/buzz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T21:15:30Z"
+  "distributed_at": "2026-07-01T09:20:42Z"
 }
