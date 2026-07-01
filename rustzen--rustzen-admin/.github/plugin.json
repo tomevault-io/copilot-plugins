@@ -1,0 +1,9 @@
+{
+  "name": "rustzen--rustzen-admin",
+  "displayName": "rustzen-admin",
+  "description": "A structured monorepo for Rust full-stack admin systems, with an Axum backend, React frontend, and clear architecture boundaries.",
+  "version": "1.0.0",
+  "author": "rustzen",
+  "homepage": "https://github.com/rustzen/rustzen-admin",
+  "skills": []
+}
