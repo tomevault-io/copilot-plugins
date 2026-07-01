@@ -1,0 +1,9 @@
+{
+  "name": "metaversejs--peercompute",
+  "displayName": "peercompute",
+  "description": "core library to support the peercompute library",
+  "version": "1.0.0",
+  "author": "MetaverseJS",
+  "homepage": "https://github.com/MetaverseJS/peercompute",
+  "skills": []
+}
