@@ -1,0 +1,9 @@
+{
+  "name": "jordepic--streamfusion",
+  "displayName": "StreamFusion",
+  "description": "The world's first OSS Flink Accelerator - Influenced by DataFusion (Comet) and Arroyo.  Drop-in replacement for Flink SQL jobs which operates on arrow buffers for significant performance improvements!",
+  "version": "1.0.0",
+  "author": "jordepic",
+  "homepage": "https://github.com/jordepic/StreamFusion",
+  "skills": []
+}
