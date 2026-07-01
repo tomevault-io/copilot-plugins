@@ -2,9 +2,9 @@
   "name": "y-agent",
   "owner": "luohy15",
   "repo": "y-agent",
-  "description": "A deceptively simple agent app",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luohy15/y-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T23:36:27Z"
+  "distributed_at": "2026-07-01T13:13:55Z"
 }
