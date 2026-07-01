@@ -4,7 +4,7 @@
   "repo": "unity-helpers",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wallstop/unity-helpers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T01:19:39Z"
+  "distributed_at": "2026-07-01T13:03:28Z"
 }
