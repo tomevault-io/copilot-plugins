@@ -1,0 +1,9 @@
+{
+  "name": "manaflow-ai--subrouter",
+  "displayName": "subrouter",
+  "description": "Subrouter routes Codex/Claude Code traffic across multiple ChatGPT Pro/Claude Max subscriptions and API keys.",
+  "version": "1.0.0",
+  "author": "manaflow-ai",
+  "homepage": "https://github.com/manaflow-ai/subrouter",
+  "skills": []
+}
