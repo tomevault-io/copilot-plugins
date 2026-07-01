@@ -4,7 +4,7 @@
   "repo": "MahoShojo-Generator",
   "description": "\u57fa\u4e8e AI \u7ed3\u6784\u5316\u751f\u6210\u7684\u4e2a\u6027\u5316\u9b54\u6cd5\u5c11\u5973\u89d2\u8272\u751f\u6210\u5668\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RunoreLab/MahoShojo-Generator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T17:26:27Z"
+  "distributed_at": "2026-07-01T21:29:24Z"
 }
