@@ -4,7 +4,7 @@
   "repo": "intellij-investor-dashboard",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WhiteVermouth/intellij-investor-dashboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T13:21:35Z"
+  "distributed_at": "2026-07-01T19:05:28Z"
 }
