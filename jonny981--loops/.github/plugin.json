@@ -1,0 +1,9 @@
+{
+  "name": "jonny981--loops",
+  "displayName": "loops",
+  "description": "A small, nestable agent-loop job primitive: loop(body\u2192until\u2192review) composed with dag, pluggable engines, agent-judge gates, budget + run records. TypeScript.",
+  "version": "1.0.0",
+  "author": "jonny981",
+  "homepage": "https://github.com/jonny981/loops",
+  "skills": []
+}
