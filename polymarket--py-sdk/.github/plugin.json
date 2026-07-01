@@ -1,0 +1,9 @@
+{
+  "name": "polymarket--py-sdk",
+  "displayName": "py-sdk",
+  "description": "Unified Python SDK for Polymarket DeFi",
+  "version": "1.0.0",
+  "author": "Polymarket",
+  "homepage": "https://github.com/Polymarket/py-sdk",
+  "skills": []
+}
