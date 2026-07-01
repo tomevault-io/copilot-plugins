@@ -1,0 +1,9 @@
+{
+  "name": "kainulla--skillfire",
+  "displayName": "skillfire",
+  "description": "Will your SKILL.md win the routing race, or get cannibalized by the skills people already have? The agent-skill collision tester.",
+  "version": "1.0.0",
+  "author": "kainulla",
+  "homepage": "https://github.com/kainulla/skillfire",
+  "skills": []
+}
