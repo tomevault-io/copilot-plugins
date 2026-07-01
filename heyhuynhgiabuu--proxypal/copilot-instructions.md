@@ -1,84 +1,69 @@
 ## proxypal
 
-> Tauri v2 desktop app — proxy API management with SolidJS frontend and Rust backend.
+> - Use `#[tauri::command]` for all IPC functions.
 
-# ProxyPal
-
-Tauri v2 desktop app — proxy API management with SolidJS frontend and Rust backend.
-
-## Stack
-
-- **Frontend:** SolidJS 1.9 + TypeScript 5.6 + Tailwind CSS 3 + Kobalte UI
-- **Backend:** Rust (Tauri v2, 10 plugins: dialog, fs, updater, deep-link, etc.)
-- **Build:** Vite 6 + Tauri CLI | **Test:** Vitest 4 | **PM:** pnpm
-- **Charts:** ECharts 6 + Chart.js 4 | **i18n:** @solid-primitives/i18n
-
-## Structure
-
-```
-src/                        # SolidJS frontend
-  components/               # UI components (22+), charts/, ui/
-  pages/                    # Dashboard, Analytics, ApiKeys, Settings, etc.
-  stores/                   # Reactive stores (app, requests, theme, toast)
-  i18n/                     # Internationalization (locale, catalog)
-  lib/                      # Utilities (tauri bindings, quotaCache)
-src-tauri/src/              # Rust backend
-  commands/                 # Tauri commands (proxy, cloudflare, ssh, config)
-  types/                    # Shared type definitions (16 modules)
-  lib.rs                    # Main library entry
-  config.rs, state.rs       # App config and state management
-```
+# Backend Guidelines (Rust + Tauri)
 
 ## Commands
 
-```bash
-pnpm tauri dev              # Dev (frontend + backend)
-pnpm tsc --noEmit           # Type check (frontend)
-pnpm check:ts               # Fast type check (uses tsgo when available, falls back to tsc)
-pnpm check:parallel         # Parallel: type check + lint + format
-cd src-tauri && cargo check # Type check (backend)
-pnpm test                   # Vitest (10 tests, 3 files)
-pnpm build                  # Vite build (frontend only)
-```
-
-## Code Style
-
-```tsx
-// SolidJS: interface above component, splitProps, `class` not `className`
-interface ProviderCardProps {
-  name: string;
-  provider: Provider;
-  connected: number;
-  onConnect: (provider: Provider) => Promise<void>;
-}
-export function ProviderCard(props: ProviderCardProps) {
-  const [loading, setLoading] = createSignal(false);
-  // ...
-}
-```
+- Use `#[tauri::command]` for all IPC functions.
+- Return `Result<T, String>` for error propagation to frontend.
+- Access shared state via `State<AppState>`.
 
 ```rust
-// Rust: Result<T, String>, State<AppState>, #[serde(rename_all = "camelCase")]
 #[tauri::command]
-pub fn save_config(state: State<AppState>, config: AppConfig) -> Result<(), String> {
-    let mut current_config = state.config.lock().unwrap();
-    *current_config = config;
-    Ok(())
+pub fn get_status(state: State<AppState>) -> Result<Status, String> {
+    let status = state.status.lock().map_err(|e| e.to_string())?;
+    Ok(status.clone())
 }
 ```
+
+## State Management
+
+- Shared state lives in `AppState` (`state.rs`).
+- Use `Mutex<T>` for interior mutability.
+- Use `Arc<AtomicBool>` for simple flags (e.g., `should_stop`).
+- Always handle mutex poisoning gracefully with `map_err`.
+
+## Serialization
+
+- IPC types live in `src/types/*.rs`.
+- Derive `Serialize, Deserialize` for all IPC structs.
+- Use `#[serde(rename_all = "camelCase")]` for frontend compatibility.
+
+```rust
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct ProxyStatus {
+    pub running: bool,
+    pub port: u16,
+    pub endpoint: String,
+}
+```
+
+## Config
+
+- Config schema is in `config.rs` (`AppConfig`).
+- All new fields need defaults and migration logic.
+- Config is stored in platform config dir as YAML.
+
+## Process Management
+
+- Long-running processes (SSH, Cloudflare) are managed by dedicated managers.
+- Use `tokio::process::Command` for async subprocess spawning.
+- Emit status via Tauri events (`ssh-status-changed`, `cloudflare-status-changed`).
+- Use non-interactive options for SSH (`BatchMode=yes`, `ExitOnForwardFailure=yes`).
+
+## Logging
+
+- Use `eprintln!` with clear prefixes: `[ProxyPal Debug]`, `[Migration]`, `[SSH]`.
 
 ## Boundaries
 
-- **Always:** Run `pnpm tsc --noEmit` + `cd src-tauri && cargo check` before done. Preserve Tailwind card/badge patterns.
-- **Ask first:** New dependencies. Modifying `AppConfig` schema. Changing CLIProxyAPI lifecycle.
-- **Never:** Commit secrets/`.env`. Blocking IO in async Rust without `spawn_blocking`. Edit `dist/` or `target/`.
-
-## Gotchas
-
-- `lib.rs` is 332KB — navigate with LSP, don't read fully
-- Vite build warns about chunk size (>500KB) — expected
-- Both `bun.lock` and `pnpm-lock.yaml` exist — use pnpm
+✅ **Always**: Handle `Result` with `map_err`, use camelCase for IPC types.
+⚠️ **Ask first**: New Tauri plugins, `AppConfig` schema changes, new IPC types.
+🚫 **Never**: Block async tasks with sync IO, use `unwrap()` on user-facing state, ignore mutex errors.
 
 ---
 > Source: [heyhuynhgiabuu/proxypal](https://github.com/heyhuynhgiabuu/proxypal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
