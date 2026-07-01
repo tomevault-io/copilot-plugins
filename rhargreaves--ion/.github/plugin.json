@@ -1,0 +1,9 @@
+{
+  "name": "rhargreaves--ion",
+  "displayName": "ion",
+  "description": "Light-weight C++ HTTP/2 server",
+  "version": "1.0.0",
+  "author": "rhargreaves",
+  "homepage": "https://github.com/rhargreaves/ion",
+  "skills": []
+}
