@@ -1,0 +1,9 @@
+{
+  "name": "yuichkun--unworklet",
+  "displayName": "unworklet",
+  "description": "A declarative framework for writing Audio Worklet-based DSP in TypeScript, compiled to WebAssembly with realtime-safety guarantees.",
+  "version": "1.0.0",
+  "author": "yuichkun",
+  "homepage": "https://github.com/yuichkun/unworklet",
+  "skills": []
+}
