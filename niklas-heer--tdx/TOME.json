@@ -2,9 +2,9 @@
   "name": "tdx",
   "owner": "niklas-heer",
   "repo": "tdx",
-  "description": "tdx - your todos, in markdown, done fast.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/niklas-heer/tdx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T19:12:14Z"
+  "distributed_at": "2026-07-01T06:42:02Z"
 }
