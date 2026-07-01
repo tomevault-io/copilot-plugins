@@ -1,0 +1,31 @@
+## seenot-app
+
+> 1. Do not use regexes, string matching hard-code, or other local heuristic patches to fix semantic interpretation bugs.
+
+# Project Instructions
+
+## Intent And Parser Rules
+
+1. Do not use regexes, string matching hard-code, or other local heuristic patches to fix semantic interpretation bugs.
+2. For parser semantic errors, prefer fixing the parser prompt, output schema, or upstream representation. Do not add local fallback normalization logic in app code or debugger code as a semantic band-aid.
+3. Always design parser and screen analyzer behavior with future multilingual support in mind. Even if the current UI is Chinese-first, implementation must not assume users only speak or input Chinese, and must remain extensible to 20+ languages.
+4. Always preserve generalizability across apps and domains. A fix must target the semantic class of behavior rather than a single named app, vendor, or screen. Do not ship a fix that only works for one app-specific phrasing if the same intent should work for other apps and platforms.
+
+## Engineering Expectations
+
+1. When fixing intent parsing bugs, validate the result through the parser path itself instead of masking the symptom in downstream rendering or post-processing.
+2. Prefer solutions that improve cross-language and cross-app behavior together. If a change only helps one Chinese phrasing or one app family, treat it as incomplete.
+3. Never commit changes without actual testing. If the relevant verification has not been run successfully, do not create a commit.
+4. If Android verification or build tooling updates `app/version.properties` as part of the checked workflow, treat that version bump as part of the change and include it in the commit unless the user explicitly says otherwise.
+5. Unless the user explicitly asks for a feature branch or says not to, commit directly to `main` in this repo.
+
+## Design Expectations
+
+1. For user-facing home or settings surfaces, avoid implementation-centric technical wording unless the screen is explicitly an advanced configuration surface. Prefer ordinary product language over terms like model maintenance, API keys, or provider internals.
+2. Style lower-priority maintenance or configuration actions with weaker visual emphasis so they do not compete with primary actions or current-state information.
+3. Design UI and write copy with the judgment of someone with strong product design and UX ability. Favor clear hierarchy, accurate semantics, realistic product behavior, and user-facing language that feels intentional rather than merely functional.
+4. When producing plans, analysis reports, or other durable planning artifacts, create a standalone HTML file rather than a Markdown-only artifact unless the user explicitly asks otherwise. Use the dark-mode report style: dark page background, raised dark surfaces, clear table/card hierarchy, high-contrast code blocks, restrained blue accent for primary emphasis, warm warning accent for risks, and dense but readable product-planning layout.
+
+---
+> Source: [RoderickQiu/seenot-app](https://github.com/RoderickQiu/seenot-app) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
