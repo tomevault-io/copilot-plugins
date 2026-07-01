@@ -2,8 +2,6 @@
 
 > Sourced from [shawnla90/gtm-coding-agent](https://github.com/shawnla90/gtm-coding-agent) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-Build your go-to-market engine with coding agents instead of a $2K/mo tool stack. Interactive onboarding, 10 educational chapters, GTM-OS skeleton, templates, and Python scripts.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
