@@ -1,7 +1,7 @@
 {
   "name": "andyrewlee--amux",
   "displayName": "amux",
-  "description": "TUI for easily running parallel coding agents",
+  "description": "amux",
   "version": "1.0.0",
   "author": "andyrewlee",
   "homepage": "https://github.com/andyrewlee/amux",
