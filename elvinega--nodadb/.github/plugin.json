@@ -1,0 +1,9 @@
+{
+  "name": "elvinega--nodadb",
+  "displayName": "NodaDB",
+  "description": "A modern, cross-platform database management tool .A fast, secure, and intuitive desktop SQL client. Built with Rust for native performance and zero compromise.",
+  "version": "1.0.0",
+  "author": "ElvinEga",
+  "homepage": "https://github.com/ElvinEga/NodaDB",
+  "skills": []
+}
