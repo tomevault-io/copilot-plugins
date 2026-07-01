@@ -1,0 +1,9 @@
+{
+  "name": "fosrl--pangolin-kube-controller",
+  "displayName": "pangolin-kube-controller",
+  "description": "A Kubernetes controller for the Pangolin server ",
+  "version": "1.0.0",
+  "author": "fosrl",
+  "homepage": "https://github.com/fosrl/pangolin-kube-controller",
+  "skills": []
+}
