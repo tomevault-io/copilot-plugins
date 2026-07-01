@@ -139,6 +139,5 @@ Search is in `lib/tree.go`:
 No external dependencies for the CLI binary.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/muqsitnawaz)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/muqsitnawaz)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [muqsitnawaz/mq](https://github.com/muqsitnawaz/mq) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
