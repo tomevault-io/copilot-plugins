@@ -7,11 +7,11 @@ Model Context Protocol (MCP) server for FileMaker Server OData 4.01 API integrat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fsans/fms-odata-mcp](https://github.com/fsans/fms-odata-mcp).
+Original source: `CLAUDE.md` in [fsans/fms-odata-mcp](https://github.com/fsans/fms-odata-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
