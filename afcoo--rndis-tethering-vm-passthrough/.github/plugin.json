@@ -1,0 +1,9 @@
+{
+  "name": "afcoo--rndis-tethering-vm-passthrough",
+  "displayName": "RNDIS-Tethering-VM-Passthrough",
+  "description": "RNDIS-Tethering-VM-Passthrough",
+  "version": "1.0.0",
+  "author": "Afcoo",
+  "homepage": "https://github.com/Afcoo/RNDIS-Tethering-VM-Passthrough",
+  "skills": []
+}
