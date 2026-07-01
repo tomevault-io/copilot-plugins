@@ -1,0 +1,9 @@
+{
+  "name": "linxule--kimi-plugin-cc",
+  "displayName": "kimi-plugin-cc",
+  "description": "Claude Code plugin that delegates read-only review, adversarial review, free-form ask, and write-capable rescue work to the local Kimi CLI. Includes an opt-in stop-time review gate.",
+  "version": "1.0.0",
+  "author": "linxule",
+  "homepage": "https://github.com/linxule/kimi-plugin-cc",
+  "skills": []
+}
