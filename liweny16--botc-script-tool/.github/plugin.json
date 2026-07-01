@@ -1,0 +1,9 @@
+{
+  "name": "liweny16--botc-script-tool",
+  "displayName": "botc-script-tool",
+  "description": "Free Blood on the Clocktower script layout beautifier & custom script generator. Import official JSON, customize characters,      jinxes, and night order, then export print-ready PDF. No signup, no in",
+  "version": "1.0.0",
+  "author": "LiWeny16",
+  "homepage": "https://github.com/LiWeny16/botc-script-tool",
+  "skills": []
+}
