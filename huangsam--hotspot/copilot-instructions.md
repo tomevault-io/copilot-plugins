@@ -1,0 +1,116 @@
+## hotspot
+
+> This document provides high-level architectural context and domain concepts for the Hotspot CLI tool to assist AI agents. For detailed implementation, struct definitions, and execution flows, agents should directly read the source code in `cmd/`, `core/`, and `schema/`, as Hotspot uses standard Go CLI patterns (Cobra/Viper) that are easily discoverable.
+
+# Hotspot CLI Agent Documentation
+
+This document provides high-level architectural context and domain concepts for the Hotspot CLI tool to assist AI agents. For detailed implementation, struct definitions, and execution flows, agents should directly read the source code in `cmd/`, `core/`, and `schema/`, as Hotspot uses standard Go CLI patterns (Cobra/Viper) that are easily discoverable.
+
+## Architecture & Data Flow
+
+Hotspot is a Git repository analysis tool that identifies code hotspots through various scoring algorithms. Whether invoked via the traditional CLI or the MCP server, it follows a unified analysis pipeline:
+
+**Analysis Pipeline:**
+
+```
+CLI Args (Viper) \                                                     / CLI (Table/CSV/etc.)
+                  → Validation → Git Analysis → Scoring → Ranking → Output
+MCP Request (URN) /                                                     \ MCP (JSON Response)
+```
+
+Hotspot can run as an MCP server (`hotspot mcp`) to expose its analysis capabilities as JSON-RPC tools with full parameter parity. **Critically, all MCP tools now support an optional `urn` parameter** to enable portable repository identity across machines (see Repository URN pattern below).
+
+Agents should provide a `urn` to ensure analysis runs for the same repository are unified in the database, regardless of the local clone path. Note that `repo_path` (defaulting to `.`) is still required to perform fresh Git analysis.
+
+## Self-Discovery & Guided Playbooks
+
+Agents can autonomously discover context and workflows via MCP:
+
+- **Resources**: `hotspot://docs/agents`, `hotspot://docs/metrics`.
+- **Prompts**: `release-readiness` (Audit), `refactor-prioritization` (ROI).
+
+## Core Domain Concepts
+
+### Scoring Modes
+
+The `core` package implements four distinct scoring algorithms based on different risk assessment principles. This is the most critical domain knowledge:
+
+1. **Hot Mode** (Activity hotspots)
+   - **Principle**: Identifies files with high recent activity and volatility.
+   - **Focus**: Recent commits, churn, and active development.
+   - **Use Case**: Find files currently undergoing active development or significant refactoring.
+
+2. **Risk Mode** (Knowledge risk / bus factor)
+   - **Principle**: Identifies files with concentrated ownership and high bus factor risk.
+   - **Focus**: Few contributors, uneven ownership distribution, knowledge silos.
+   - **Use Case**: Find files that would be problematic to maintain if key contributors leave.
+
+3. **Complexity Mode** (Technical debt candidates)
+   - **Principle**: Identifies large, old files with high maintenance burden.
+   - **Focus**: File size, age, complexity, and historical churn.
+   - **Use Case**: Find files that are expensive to modify or maintain.
+
+4. **ROI Mode** (Refactoring priority)
+   - **Principle**: Identifies files where refactoring effort provides the highest technical return.
+   - **Focus**: High churn on complex/large legacy files (Technical impact vs. Effort).
+   - **Use Case**: Prioritize refactoring targets in a large codebase with limited resources.
+
+### Composite Modes (v1.22.0+)
+
+Three composite modes blend two base algorithms to surface multi-dimensional risk. Agents should prefer these over base modes when the use case spans more than one risk dimension:
+
+| Mode | Blend | When to Use |
+|------|-------|-------------|
+| **active_owners** | Hot (50%) + Risk (50%) | File is actively changing AND siloed — prioritize knowledge transfer. |
+| **refactor_now** | Complexity (60%) + ROI (40%) | Sprint planning — rank files by highest refactoring return. |
+| **legacy_debt** | Complexity (70%) + Risk (30%) | Pre-change audit — identify fragile, concentrated legacy systems. |
+
+Composite scores, breakdowns, and reasoning for all base modes are returned together in a single MCP response, giving agents full signal transparency without additional round-trips.
+
+## Repository Shape & Preset System
+
+Hotspot includes **shape analysis** (lightweight single-pass aggregation) to characterize repositories and recommend presets.
+
+**Three fixed presets:**
+| Preset | Mode | Use Case |
+|--------|------|----------|
+| **small** | hot | CLI tools, microservices, libraries |
+| **large** | roi | Large monorepos with deep histories |
+| **infra** | risk | Infrastructure-as-code repositories |
+
+**Workflow:** `hotspot init` (or `hotspot shape`) → review recommendation → apply preset to analysis.
+
+## Key Design Patterns
+
+- **I/O Caching**: Results and analysis are cached using pluggable backends (SQLite, MySQL, PostgreSQL) to dramatically speed up repeated analyses. Stores use a "light constructor" pattern where connection is established first, followed by an explicit `Initialize()` call for schema setup. See `internal/iocache/`.
+
+- **Repository URN (Portable Identity)**: Every analysis run is tagged with a canonical repository identifier (`RepoURN`) of the form `git:host/owner/repo` (resolved from remote origin URL), `local:rootHash` (for local-only repos), or `local:absPath` (fallback). This ensures cache keys and DB records are path-independent and stable across checkout locations, solving multi-machine fragmentation. ALL MCP tools except `run_batch_analysis` (including `get_repo_shape`, `get_files_hotspots`, `get_heatmap`, `get_folders_hotspots`, `compare_file_hotspots`, `compare_folder_hotspots`, `get_timeseries`, `get_release_journey`, `get_blast_radius`, and `run_check`) accept an optional `urn` parameter, enabling agents to query by URN alone for fleet-wide querying and enterprise RAG without local path dependencies. `run_batch_analysis` resolves each repository's URN automatically during analysis.
+
+- **Per-Dialect SQL & Migrations**: `internal/iocache/` implements a `SQLDialect` interface to abstract backend-specific SQL variations (quoting, placeholders, and DDL). `internal/iocache/migrations/` contains three subdirectories (`sqlite/`, `mysql/`, `postgres/`) with backend-specific SQL files. `MigrateAnalysis` and store `Initialize()` methods select the correct dialect and migration sets. DDL differs meaningfully across backends (e.g. `AUTOINCREMENT` vs `AUTO_INCREMENT` vs `BIGSERIAL`, `TEXT` vs `DATETIME(6)` vs `TIMESTAMPTZ`). Do not write dialect-agnostic SQL for schema changes — add a file per dialect and update the Go dialect implementation if needed.
+
+- **Analysis Store Filtering**: `AnalysisStore` supports pagination and URN-based filtering via `schema.AnalysisQueryFilter`. Persistence dialects handle backend-specific variations (e.g., PostgreSQL placeholders vs SQLite/MySQL) internally.
+
+- **Quiet Mode & Telemetry Separation**: To support both human users and machine-readable pipelines (e.g., MCP, CI systems), the tool strictly separates output channels. Payload data (JSON, Parquet, or text tables) MUST go to `stdout`. Human UX contextual headers (`Repo: ..., Range: ...`) MUST go to `stderr`. Diagnostic and progress telemetry (e.g., "Running --follow...") MUST be routed through `internal/logger` (`logger.Info(...)`), remaining silent by default unless the user sets verbose/debug flags. The global `--quiet` flag (or `schema.NoneOut` format) can be used to suppress ALL output except errors, ideal for background indexing. **Never use `fmt.Println` or `fmt.Printf` for progress or status events**, to prevent corrupting structured data on standard out.
+
+- **Single-Pass Performance & AI Signal**: All git analysis (Total vs. Recent, Adds vs. Deletes) MUST happen in a single log pass in `core/agg` to avoid I/O regressions. Maintain raw magnitude metrics; modern AI handles absolute signals and ratios better than pre-normalized values.
+
+- **Enriched AI Signal (Reasoning)**: Analysis results (`FileResult`) include a `Reasoning` slice containing human-and-AI-readable justifications. These labels are dynamic and metric-anchored (e.g., distinguishing between a "Historical Hotspot" and an "Active Frontier") to prevent agents from misinterpreting stale historical data as current risk.
+
+- **Interpreting Recency & Freshness**: Every `FileResult` includes a `recency_signal` (float64, 0.0 to 1.0) and two shape-aware thresholds: `recency_threshold_low` and `recency_threshold_high`. Agents MUST compare the signal against these dynamic thresholds to distinguish between an **Active Frontier** (Signal > High Threshold) and a **Historical Hotspot** (Signal < Low Threshold). Because thresholds adapt to the repository shape (e.g., lower for Kubernetes, higher for microservices), this prevents agents from misinterpreting stale historical churn as current risk. Always verify the `Reasoning` array, which anchors these metrics to human-readable justifications like "Historical Hotspot" or "Development Bottleneck."
+
+- **High-Precision Architecture (Metric Type)**: Hotspot has evolved from a discrete integer engine to a continuous signal architecture via the `schema.Metric` type (aliased to `float64`), providing high-precision magnitudes that eliminate "clipping" artifacts during decay or weighting. This enables time-weighted activity (exponential decay with a 180-day half-life) for `hot` and `roi` modes to prioritize current development bottlenecks. By presenting raw, continuous magnitudes rather than coarse-grained integers, the engine provides a more robust signal for AI reasoning and facilitates multi-source ingestion—the "Sponge" architecture—blending "fuzzy" signals from external sources (e.g., JIRA, Slack, sentiment) into a unified scoring vector.
+
+- **Hardened Path Filtering (Recursive Globs)**: The `exclude` parameter supports recursive wildcard patterns (e.g., `**/node_modules/`, `**/*.pb.go`). This allows agents to reliably filter out build artifacts and generated code at any directory depth, ensuring high-signal analysis in multi-level repositories.
+
+- **Modular Output Provider Pattern**: Output formatting is decoupled from core analysis via the `outwriter.FormatProvider` interface, with specific formats like JSON, CSV, Text, Markdown, Parquet, and Describe implemented as specialized files within the `internal/outwriter/provider/` package. Cross-provider logic such as coloring, table rendering, and metric models is consolidated within the same package to facilitate code reuse and eliminate package circularity. The `internal/outwriter/outwriter.go` registry dispatches calls based on the configured `OutputMode`, and the `FormatProvider` interface should always be used when passing writers through the core orchestration layer.
+
+## Maintenance Guardrails
+
+To ensure consistency and readability in repository-wide documentation, agents MUST follow these formatting guardrails:
+
+- **Changelog Formatting**: All entries in `CHANGELOG.md` MUST be under 80 characters and formatted as one-liners. Do not use multi-line descriptions or wrapping for list items; instead, distill the change into a concise, high-impact summary.
+- **Versioning**: Do NOT hardcode the version string in `cmd/root.go` or other source files. The release version is managed by Git tags and injected by CI linker flags at build time. The source value should remain as `dev`.
+
+---
+> Source: [huangsam/hotspot](https://github.com/huangsam/hotspot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
