@@ -1,0 +1,9 @@
+{
+  "name": "hydro-project--infinity",
+  "displayName": "infinity",
+  "description": "An agent runtime and tool protocol for principled agent concurrency",
+  "version": "1.0.0",
+  "author": "hydro-project",
+  "homepage": "https://github.com/hydro-project/infinity",
+  "skills": []
+}
