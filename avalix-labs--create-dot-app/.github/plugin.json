@@ -1,0 +1,9 @@
+{
+  "name": "avalix-labs--create-dot-app",
+  "displayName": "create-dot-app",
+  "description": "A command-line interface (CLI) tool designed to streamline the development process for Polkadot-based decentralized applications (dApps).",
+  "version": "1.0.0",
+  "author": "avalix-labs",
+  "homepage": "https://github.com/avalix-labs/create-dot-app",
+  "skills": []
+}
