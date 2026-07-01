@@ -4,7 +4,7 @@
   "repo": "fms-odata-mcp",
   "description": "Model Context Protocol (MCP) server for FileMaker Server OData 4.01 API integration",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fsans/fms-odata-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T17:23:15Z"
+  "distributed_at": "2026-07-01T21:25:18Z"
 }
