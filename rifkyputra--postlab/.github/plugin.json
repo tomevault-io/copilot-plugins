@@ -1,0 +1,9 @@
+{
+  "name": "rifkyputra--postlab",
+  "displayName": "postlab",
+  "description": "Interactive TUI to manage bare-metal & homelab servers \u2014 packages, Docker, firewall, security hardening, and Git deploys. Single Rust binary, runs as root.",
+  "version": "1.0.0",
+  "author": "rifkyputra",
+  "homepage": "https://github.com/rifkyputra/postlab",
+  "skills": []
+}
