@@ -2,8 +2,6 @@
 
 > Sourced from [MacroPower/kclipper](https://github.com/MacroPower/kclipper) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-KCL + Helm = kclipper
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
