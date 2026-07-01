@@ -1,0 +1,9 @@
+{
+  "name": "ckotzbauer--sbom-operator",
+  "displayName": "sbom-operator",
+  "description": "sbom-operator",
+  "version": "1.0.0",
+  "author": "ckotzbauer",
+  "homepage": "https://github.com/ckotzbauer/sbom-operator",
+  "skills": []
+}
