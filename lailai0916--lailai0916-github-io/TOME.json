@@ -2,7 +2,7 @@
   "name": "lailai0916.github.io",
   "owner": "lailai0916",
   "repo": "lailai0916.github.io",
-  "description": "lailai's personal website for sharing technical notes, project experience, and learning insights.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lailai0916/lailai0916.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T13:24:39Z"
+  "distributed_at": "2026-07-01T08:59:29Z"
 }
