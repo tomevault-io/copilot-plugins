@@ -4,7 +4,7 @@
   "repo": "self-learning-skills",
   "description": "A self-improving skill for AI coding agents (Claude Code, Cursor, AGENTS.md): recognize a hard-won golden path in a session and harvest it into a reusable skill/rule for next time.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kulaxyz/self-learning-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T22:32:40Z"
+  "distributed_at": "2026-07-01T21:27:51Z"
 }
