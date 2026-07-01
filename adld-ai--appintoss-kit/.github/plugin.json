@@ -1,0 +1,9 @@
+{
+  "name": "adld-ai--appintoss-kit",
+  "displayName": "appintoss-kit",
+  "description": "The workflow for disciplined Apps in Toss generation. Research needs, build mini-apps in loops, generate assets, and prepare submission-ready releases.",
+  "version": "1.0.0",
+  "author": "adld-ai",
+  "homepage": "https://github.com/adld-ai/appintoss-kit",
+  "skills": []
+}
