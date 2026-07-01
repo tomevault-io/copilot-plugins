@@ -1,0 +1,9 @@
+{
+  "name": "dag-andersen--argocd-diff-preview",
+  "displayName": "argocd-diff-preview",
+  "description": "argocd-diff-preview",
+  "version": "1.0.0",
+  "author": "dag-andersen",
+  "homepage": "https://github.com/dag-andersen/argocd-diff-preview",
+  "skills": []
+}
