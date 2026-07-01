@@ -1,0 +1,9 @@
+{
+  "name": "atlassian--openapi-request-validator",
+  "displayName": "openapi-request-validator",
+  "description": "A Java library for validating request/responses against a OpenAPI / Swagger specification",
+  "version": "1.0.0",
+  "author": "atlassian",
+  "homepage": "https://github.com/atlassian/openapi-request-validator",
+  "skills": []
+}
