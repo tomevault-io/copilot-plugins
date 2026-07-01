@@ -1,7 +1,7 @@
 {
   "name": "macropower--kclipper",
   "displayName": "kclipper",
-  "description": "KCL + Helm = kclipper",
+  "description": "kclipper",
   "version": "1.0.0",
   "author": "MacroPower",
   "homepage": "https://github.com/MacroPower/kclipper",
