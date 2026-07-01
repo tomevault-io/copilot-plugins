@@ -1,6 +1,6 @@
-## always-use-uv
+## use-just-recipes
 
-> when running python commands or python executables like pytest use  `uv run python ...` or `uv run <cmd>`
+> When running things like unit tests, e2e tests, migrations, first look for a corresponding just recipe @justfile
 
 ---
 > Source: [databricks-solutions/vibescaler](https://github.com/databricks-solutions/vibescaler) — distributed by [TomeVault](https://tomevault.io).
