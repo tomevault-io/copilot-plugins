@@ -7,11 +7,11 @@ Meridian is a Transaction Integrity Engine
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [meridianhub/meridian](https://github.com/meridianhub/meridian).
+Original source: `CLAUDE.md` in [meridianhub/meridian](https://github.com/meridianhub/meridian).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
