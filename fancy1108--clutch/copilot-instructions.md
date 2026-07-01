@@ -1,17 +1,17 @@
-## base
+## clutch
 
-> Clutch 全局规则（指针）；完整铁律与命令见 CLAUDE.md
+> 本文件仅为入口索引，**不复制**实质规则。
 
+# Clutch — GitHub Copilot 指令（指针）
 
-# Clutch — Agent 入口
+本文件仅为入口索引，**不复制**实质规则。
 
-**定位：** 本地 AI 多 Agent 编排与监督桌面应用（Tauri · React · FastAPI + LangGraph）。
+- **唯一权威：** [`CLAUDE.md`](../CLAUDE.md) — 铁律、核心命令、Check-in/Check-out、日志字段规范
+- **进度接力：** [`memory/PROGRESS.md`](../memory/PROGRESS.md)
+- **产品历史快照：** [`specs/core/proposal.md`](../specs/core/proposal.md)（非权威，冲突时以 `CLAUDE.md` / `memory/DECISIONS.md` 为准）
+- **文档治理：** [`docs/document-governance.md`](../docs/document-governance.md)
 
-**命令：** 启动与校验见 [`CLAUDE.md`](../../CLAUDE.md) §核心命令（本文件不复制命令表）。
-
-**完整规则：** 铁律、Check-in/Check-out、Memory 六件套、日志字段规范 — 均以 [`CLAUDE.md`](../../CLAUDE.md) 为唯一权威。
-
-@CLAUDE.md
+新会话先读 `memory/PROGRESS.md`，再遵循 `CLAUDE.md` §Long-Running Agent 规则。
 
 ---
 > Source: [fancy1108/Clutch](https://github.com/fancy1108/Clutch) — distributed by [TomeVault](https://tomevault.io).
