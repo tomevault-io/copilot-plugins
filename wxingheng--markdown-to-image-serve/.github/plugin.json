@@ -1,7 +1,7 @@
 {
   "name": "wxingheng--markdown-to-image-serve",
   "displayName": "markdown-to-image-serve",
-  "description": "\u4e00\u4e2a\u57fa\u4e8e Next.js \u548c Puppeteer \u7684 Markdown \u8f6c\u56fe\u7247\u670d\u52a1\uff0c\u652f\u6301 Docker \u90e8\u7f72\u548c API \u96c6\u6210\u3002A Markdown to Image Service based on Next.js and Puppeteer, supporting Vercel deployment and API integration.",
+  "description": "markdown-to-image-serve",
   "version": "1.0.0",
   "author": "wxingheng",
   "homepage": "https://github.com/wxingheng/markdown-to-image-serve",
