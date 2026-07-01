@@ -1,0 +1,9 @@
+{
+  "name": "wrmilling--k3s-gitops",
+  "displayName": "k3s-gitops",
+  "description": "k3s-gitops",
+  "version": "1.0.0",
+  "author": "wrmilling",
+  "homepage": "https://github.com/wrmilling/k3s-gitops",
+  "skills": []
+}
