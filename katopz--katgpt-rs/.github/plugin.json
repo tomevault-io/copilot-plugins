@@ -1,0 +1,9 @@
+{
+  "name": "katopz--katgpt-rs",
+  "displayName": "katgpt-rs",
+  "description": "A neuro-symbolic micro-Transformer with speculative decoding, constraint pruning, recurrent attention, and adaptive test-time scaling \u2014 built in Rust.",
+  "version": "1.0.0",
+  "author": "katopz",
+  "homepage": "https://github.com/katopz/katgpt-rs",
+  "skills": []
+}
