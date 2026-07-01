@@ -1,0 +1,44 @@
+{
+  "name": "cabinet",
+  "owner": "pxx-design",
+  "repo": "cabinet",
+  "description": "Translate a feeling you can't name into transferable moves an AI can build \u2014 a browser inspiration library (feel \u2190 move \u2190 reference), no backend. \u628a\u8bf4\u4e0d\u6e05\u7684\u611f\u89c9\u7ffb\u8bd1\u6210 AI \u80fd\u9020\u7684\u624b\u6cd5\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pxx-design/cabinet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-01T23:00:15Z"
+}
