@@ -1,0 +1,44 @@
+{
+  "name": "loops",
+  "owner": "jonny981",
+  "repo": "loops",
+  "description": "A small, nestable agent-loop job primitive: loop(body\u2192until\u2192review) composed with dag, pluggable engines, agent-judge gates, budget + run records. TypeScript.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jonny981/loops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-01T23:04:03Z"
+}
