@@ -1,0 +1,9 @@
+{
+  "name": "jfrog--agent-belt",
+  "displayName": "agent-belt",
+  "description": "Reproducible evaluation for AI coding agents. Multi-turn scenarios against Claude Code, Codex, Copilot, Cursor, Gemini CLI, Goose, OpenCode, or any custom agent you plug in; verify behavior with rule ",
+  "version": "1.0.0",
+  "author": "jfrog",
+  "homepage": "https://github.com/jfrog/agent-belt",
+  "skills": []
+}
