@@ -1,0 +1,44 @@
+{
+  "name": "aiUniTokenHub",
+  "owner": "virtualman333",
+  "repo": "aiUniTokenHub",
+  "description": "uniTokenHub \u662f\u4e00\u4e2a\u529f\u80fd\u5b8c\u6574\u3001\u5f00\u7bb1\u5373\u7528\u7684 API \u4e2d\u8f6c\u7ad9/\u7f51\u5173\u670d\u52a1\u6846\u67b6\uff0c\u4e13\u4e3a\u6784\u5efa\u81ea\u5df1\u7684 API \u805a\u5408\u5e73\u53f0\u800c\u8bbe\u8ba1\u3002\u65e0\u8bba\u4f60\u662f\u60f3\u505a AI API \u4e2d\u8f6c\u3001OpenAI \u517c\u5bb9\u670d\u52a1\u3001\u8fd8\u662f\u901a\u7528 API \u7f51\u5173\uff0c\u8fd9\u4e2a\u6846\u67b6\u90fd\u80fd\u5e2e\u4f60\u5feb\u901f\u642d\u5efa\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/virtualman333/aiUniTokenHub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-01T18:46:24Z"
+}
