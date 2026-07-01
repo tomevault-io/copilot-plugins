@@ -1,0 +1,26 @@
+# AI instruction files for hibiki
+
+> Sourced from [hajisensai/hibiki](https://github.com/hajisensai/hibiki) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+A full-featured immersion language learning suite for mobile.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [hajisensai/hibiki](https://github.com/hajisensai/hibiki).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/hajisensai/hibiki](https://github.com/hajisensai/hibiki)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-p -->
