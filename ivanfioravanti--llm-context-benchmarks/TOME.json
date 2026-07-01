@@ -2,9 +2,9 @@
   "name": "llm_context_benchmarks",
   "owner": "ivanfioravanti",
   "repo": "llm_context_benchmarks",
-  "description": "  \ud83d\udcca LLM Context Benchmarks - A comprehensive benchmarking tool for testing LLMs with varying context sizes using Ollama. Features dual benchmark modes (API/CLI), automatic hardware detection (optimized for Apple Silicon), visual performance charts. ",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ivanfioravanti/llm_context_benchmarks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T07:56:23Z"
+  "distributed_at": "2026-07-01T09:16:51Z"
 }
