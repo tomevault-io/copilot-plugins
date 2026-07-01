@@ -1,0 +1,9 @@
+{
+  "name": "dhcgn--aiaudiotranscription",
+  "displayName": "AIAudioTranscription",
+  "description": "Simple Android app for transcribing voice messages and media files to text using OpenAI's Whisper API. Features encrypted API key storage, local history, and AI-powered text cleanup for improved reada",
+  "version": "1.0.0",
+  "author": "dhcgn",
+  "homepage": "https://github.com/dhcgn/AIAudioTranscription",
+  "skills": []
+}
