@@ -1,0 +1,9 @@
+{
+  "name": "sandraschi--windows-computer-use-mcp",
+  "displayName": "windows-computer-use-mcp",
+  "description": "Windows Computer Use for AI Agents. Both a tool (22 MCP tools for click, type, screenshot, OCR, UI inspection) and an agent (autonomous mission engine, macro recorder, intent-based discovery, event wa",
+  "version": "1.0.0",
+  "author": "sandraschi",
+  "homepage": "https://github.com/sandraschi/windows-computer-use-mcp",
+  "skills": []
+}
