@@ -2,9 +2,9 @@
   "name": "aegis-stack",
   "owner": "lbedner",
   "repo": "aegis-stack",
-  "description": "A production-ready FastAPI platform with modular components and a built-in control plane.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lbedner/aegis-stack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T23:04:35Z"
+  "distributed_at": "2026-07-01T09:00:37Z"
 }
