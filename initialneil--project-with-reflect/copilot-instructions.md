@@ -1,0 +1,19 @@
+## project-with-reflect
+
+> Use project-with-reflect persistent project memory and reflection workflow
+
+
+# project-with-reflect
+
+When the user asks to register, check in to, manage, or reflect on a project/connection, follow
+`skills/project-with-reflect/SKILL.md`.
+
+Core loop: load the generated project or connection skill first, work while logging notable events,
+record durable results immediately, then run reflect to distill logs into lessons and decisions.
+
+Use `$PROJECT_WITH_REFLECT_ROOT` for persistent state. Keep secrets out of disk state; store env-var
+names or ssh aliases only.
+
+---
+> Source: [initialneil/project-with-reflect](https://github.com/initialneil/project-with-reflect) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-01 -->
