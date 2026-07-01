@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--local-competitor-map",
+  "displayName": "local-competitor-map",
+  "description": "AI-powered local-competitor intelligence on a photorealistic Google 3D map. Ask in plain English and see who competes with any business, ranked with ratings and reviews.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/local-competitor-map",
+  "skills": []
+}
