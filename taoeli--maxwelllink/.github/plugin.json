@@ -1,0 +1,9 @@
+{
+  "name": "taoeli--maxwelllink",
+  "displayName": "MaxwellLink",
+  "description": "A flexible framework for self-consistent EM-molecular simulations, powered by AI agent skills",
+  "version": "1.0.0",
+  "author": "TaoELi",
+  "homepage": "https://github.com/TaoELi/MaxwellLink",
+  "skills": []
+}
