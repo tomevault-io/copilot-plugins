@@ -2,8 +2,6 @@
 
 > Source: [canmi21/seam](https://github.com/canmi21/seam) — distributed by [TomeVault](https://tomevault.io)
 
-Rendering is a protocol, not a render-time computation.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
