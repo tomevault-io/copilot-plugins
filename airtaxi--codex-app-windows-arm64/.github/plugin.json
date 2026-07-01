@@ -1,0 +1,9 @@
+{
+  "name": "airtaxi--codex-app-windows-arm64",
+  "displayName": "codex-app-windows-arm64",
+  "description": "Unofficial Windows ARM64 repackaging script for the OpenAI Codex app.",
+  "version": "1.0.0",
+  "author": "airtaxi",
+  "homepage": "https://github.com/airtaxi/codex-app-windows-arm64",
+  "skills": []
+}
