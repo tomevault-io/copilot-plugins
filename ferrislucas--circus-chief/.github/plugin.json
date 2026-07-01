@@ -1,0 +1,9 @@
+{
+  "name": "ferrislucas--circus-chief",
+  "displayName": "Circus-Chief",
+  "description": "Open-source control plane for managing Claude Code, OpenAI Codex, and Gemini CLI coding agents from a browser.",
+  "version": "1.0.0",
+  "author": "ferrislucas",
+  "homepage": "https://github.com/ferrislucas/Circus-Chief",
+  "skills": []
+}
