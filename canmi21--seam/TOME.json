@@ -2,7 +2,7 @@
   "name": "seam",
   "owner": "canmi21",
   "repo": "seam",
-  "description": "Rendering is a protocol, not a render-time computation.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/canmi21/seam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T16:41:30Z"
+  "distributed_at": "2026-07-01T03:23:33Z"
 }
