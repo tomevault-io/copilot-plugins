@@ -1,0 +1,9 @@
+{
+  "name": "false-systems--tapio",
+  "displayName": "tapio",
+  "description": "Edge Intelligence for Kubernetes  eBPF-based agent that captures kernel-level events, filters to anomalies at the edge",
+  "version": "1.0.0",
+  "author": "false-systems",
+  "homepage": "https://github.com/false-systems/tapio",
+  "skills": []
+}
