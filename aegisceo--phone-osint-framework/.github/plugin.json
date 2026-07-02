@@ -1,0 +1,9 @@
+{
+  "name": "aegisceo--phone-osint-framework",
+  "displayName": "phone-osint-framework",
+  "description": "Phone Deep (SO DEEP) OSINT Investigation Framework - Comprehensive phone number OSINT with aggressive name hunting capabilities for defensive security operations",
+  "version": "1.0.0",
+  "author": "aegisceo",
+  "homepage": "https://github.com/aegisceo/phone-osint-framework",
+  "skills": []
+}
