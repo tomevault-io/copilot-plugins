@@ -4,7 +4,7 @@
   "repo": "unity-editor-mcp",
   "description": "An MCP server and client for LLMs to interact with Unity Projects",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/akiojin/unity-editor-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T01:12:24Z"
+  "distributed_at": "2026-07-02T04:51:28Z"
 }
