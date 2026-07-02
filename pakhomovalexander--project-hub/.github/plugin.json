@@ -1,0 +1,9 @@
+{
+  "name": "pakhomovalexander--project-hub",
+  "displayName": "project-hub",
+  "description": "A template for running a project with Claude Code as a 'cockpit' repo: ubiquitous-language glossary, invariants, ADRs, a living tracker, repo linking, and a prompt-before-risky-commands hook. Point Cl",
+  "version": "1.0.0",
+  "author": "PakhomovAlexander",
+  "homepage": "https://github.com/PakhomovAlexander/project-hub",
+  "skills": []
+}
