@@ -4,7 +4,7 @@
   "repo": "moltis-gateway-mcp",
   "description": "personal agent server mcp with multi-provider LLMs, voice, memory, Telegram, WhatsApp, Discord, Teams | mcp server of several socials",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trifillara/moltis-gateway-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T22:30:30Z"
+  "distributed_at": "2026-07-02T22:31:01Z"
 }
