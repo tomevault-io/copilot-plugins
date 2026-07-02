@@ -1,0 +1,44 @@
+{
+  "name": "api2mcp",
+  "owner": "shenjingnan",
+  "repo": "api2mcp",
+  "description": "OpenAPI to MCP - \u8ba9 AI \u52a9\u624b\u76f4\u63a5\u8c03\u7528\u4efb\u610f API",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shenjingnan/api2mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T00:57:47Z"
+}
