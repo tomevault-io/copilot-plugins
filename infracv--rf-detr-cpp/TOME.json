@@ -4,7 +4,7 @@
   "repo": "rf-detr-cpp",
   "description": "Production-ready C++/TensorRT inference engine for RF-DETR. Object detection and instance segmentation with FP32/FP16/INT8 support. Optimized for NVIDIA GPUs, Jetson (Orin, AGX Thor).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/infracv/rf-detr-cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T20:53:33Z"
+  "distributed_at": "2026-07-02T00:42:22Z"
 }
