@@ -7,11 +7,11 @@ kubernetes in apple container based on kind
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vinnie357/kina](https://github.com/vinnie357/kina).
+Original source: `CLAUDE.md` in [vinnie357/kina](https://github.com/vinnie357/kina).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
