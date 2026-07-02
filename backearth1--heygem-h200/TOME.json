@@ -1,0 +1,44 @@
+{
+  "name": "heygem-h200",
+  "owner": "backearth1",
+  "repo": "heygem-h200",
+  "description": "HeyGem\u6570\u5b57\u4eba\u89c6\u9891\u751f\u6210\u7cfb\u7edf - H200 GPU\u4f18\u5316\u7248\u672c\uff0c\u652f\u6301\u52a8\u4f5c\u63a7\u5236\u548c\u60c5\u611f\u9a71\u52a8",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/backearth1/heygem-h200",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T02:40:57Z"
+}
