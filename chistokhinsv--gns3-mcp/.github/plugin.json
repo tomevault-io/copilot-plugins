@@ -1,0 +1,9 @@
+{
+  "name": "chistokhinsv--gns3-mcp",
+  "displayName": "gns3-mcp",
+  "description": "GNS3 MCP Server - Model Context Protocol server for AI assisted GNS3 network simulation",
+  "version": "1.0.0",
+  "author": "ChistokhinSV",
+  "homepage": "https://github.com/ChistokhinSV/gns3-mcp",
+  "skills": []
+}
