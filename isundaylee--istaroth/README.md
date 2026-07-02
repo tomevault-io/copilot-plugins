@@ -7,11 +7,11 @@ Project Istaroth is a RAG-based LLM system for answering Genshin Impact lore que
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [isundaylee/istaroth](https://github.com/isundaylee/istaroth).
+Original source: `CLAUDE.md` in [isundaylee/istaroth](https://github.com/isundaylee/istaroth).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
