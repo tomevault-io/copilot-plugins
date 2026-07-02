@@ -1,0 +1,9 @@
+{
+  "name": "confidential-dot-ai--home",
+  "displayName": "home",
+  "description": "Confidential is the confidential computing stack. We run your AI workloads (inference, training, agents) in hardware-encrypted Trusted Execution Environments (TEEs). You can provide on-prem security a",
+  "version": "1.0.0",
+  "author": "confidential-dot-ai",
+  "homepage": "https://github.com/confidential-dot-ai/home",
+  "skills": []
+}
