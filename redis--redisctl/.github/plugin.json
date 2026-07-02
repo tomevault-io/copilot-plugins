@@ -1,0 +1,9 @@
+{
+  "name": "redis--redisctl",
+  "displayName": "redisctl",
+  "description": "Unified CLI for Redis Cloud and Enterprise management",
+  "version": "1.0.0",
+  "author": "redis",
+  "homepage": "https://github.com/redis/redisctl",
+  "skills": []
+}
