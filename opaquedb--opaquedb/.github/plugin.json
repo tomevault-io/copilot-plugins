@@ -1,0 +1,9 @@
+{
+  "name": "opaquedb--opaquedb",
+  "displayName": "opaquedb",
+  "description": "Post-quantum distributed private database.",
+  "version": "1.0.0",
+  "author": "opaquedb",
+  "homepage": "https://github.com/opaquedb/opaquedb",
+  "skills": []
+}
