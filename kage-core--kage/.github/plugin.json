@@ -1,0 +1,9 @@
+{
+  "name": "kage-core--kage",
+  "displayName": "Kage",
+  "description": "Persistent, verified memory for coding agents \u2014 so they stop re-explaining your codebase and never act on stale knowledge. Every memory is checked against your actual code; lives in your repo as plain",
+  "version": "1.0.0",
+  "author": "kage-core",
+  "homepage": "https://github.com/kage-core/Kage",
+  "skills": []
+}
