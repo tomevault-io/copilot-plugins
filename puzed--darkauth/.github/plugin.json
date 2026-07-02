@@ -1,0 +1,9 @@
+{
+  "name": "puzed--darkauth",
+  "displayName": "darkauth",
+  "description": "A zero-knowledge authentication system with OIDC compatibility",
+  "version": "1.0.0",
+  "author": "puzed",
+  "homepage": "https://github.com/puzed/darkauth",
+  "skills": []
+}
