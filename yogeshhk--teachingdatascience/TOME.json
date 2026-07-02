@@ -4,7 +4,7 @@
   "repo": "TeachingDataScience",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -185,5 +185,5 @@
   ],
   "source_url": "https://github.com/yogeshhk/TeachingDataScience",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T20:32:08Z"
+  "distributed_at": "2026-07-02T04:31:37Z"
 }
