@@ -1,0 +1,9 @@
+{
+  "name": "m3rlin45--libxrk",
+  "displayName": "libxrk",
+  "description": "A Python Library for loading data from AIM xrk and xrz files",
+  "version": "1.0.0",
+  "author": "m3rlin45",
+  "homepage": "https://github.com/m3rlin45/libxrk",
+  "skills": []
+}
