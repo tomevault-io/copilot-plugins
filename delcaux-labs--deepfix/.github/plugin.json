@@ -1,0 +1,9 @@
+{
+  "name": "delcaux-labs--deepfix",
+  "displayName": "deepfix",
+  "description": "DeepFix is a testing tool that automatically diagnoses common bugs in machine learning models and provides a prioritized list of research-backed solutions.",
+  "version": "1.0.0",
+  "author": "delcaux-labs",
+  "homepage": "https://github.com/delcaux-labs/deepfix",
+  "skills": []
+}
