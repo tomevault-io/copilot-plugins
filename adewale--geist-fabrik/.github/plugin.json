@@ -1,0 +1,9 @@
+{
+  "name": "adewale--geist-fabrik",
+  "displayName": "geist_fabrik",
+  "description": "GeistFabrik is a Python-based divergence engine for Obsidian vaults that generates creative suggestions through both code and Tracery grammars.",
+  "version": "1.0.0",
+  "author": "adewale",
+  "homepage": "https://github.com/adewale/geist_fabrik",
+  "skills": []
+}
