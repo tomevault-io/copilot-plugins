@@ -1,0 +1,9 @@
+{
+  "name": "warterbili--auto-reverse",
+  "displayName": "AUTO_REVERSE",
+  "description": "AI-orchestrated framework for fully automated reverse engineering & pentesting \u2014 point it at an APK / iOS / PE / .so / URL and the AI fingerprints, plans, runs the tools, and verifies a reproducible r",
+  "version": "1.0.0",
+  "author": "warterbili",
+  "homepage": "https://github.com/warterbili/AUTO_REVERSE",
+  "skills": []
+}
