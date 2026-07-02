@@ -1,0 +1,9 @@
+{
+  "name": "gvray--gvray-admin",
+  "displayName": "gvray-admin",
+  "description": "\u2728 NestJS enterprise admin system with RBAC, Prisma ORM, JWT auth. Includes CLAUDE.md for AI-assisted development.",
+  "version": "1.0.0",
+  "author": "gvray",
+  "homepage": "https://github.com/gvray/gvray-admin",
+  "skills": []
+}
