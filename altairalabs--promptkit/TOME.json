@@ -4,7 +4,7 @@
   "repo": "PromptKit",
   "description": "Test, red-team, and deploy LLM applications with confidence. Multi-provider support (OpenAI, Anthropic, Gemini), MCP integration, self-play testing, and production SDK.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AltairaLabs/PromptKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T23:24:44Z"
+  "distributed_at": "2026-07-02T03:19:53Z"
 }
