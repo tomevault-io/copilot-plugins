@@ -1,7 +1,7 @@
 {
   "name": "ammario--kalshi-docs",
   "displayName": "kalshi-docs",
-  "description": "kalshi-docs",
+  "description": "LLM-friendly, auto-updating markdown repository of the Kalshi API docs",
   "version": "1.0.0",
   "author": "ammario",
   "homepage": "https://github.com/ammario/kalshi-docs",
