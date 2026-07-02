@@ -1,0 +1,9 @@
+{
+  "name": "kud--mcp-jenkins",
+  "displayName": "mcp-jenkins",
+  "description": "\ud83d\udee0\ufe0f Drive Jenkins from Claude \u2014 trigger builds, watch pipelines, and manage CI/CD jobs & nodes",
+  "version": "1.0.0",
+  "author": "kud",
+  "homepage": "https://github.com/kud/mcp-jenkins",
+  "skills": []
+}
