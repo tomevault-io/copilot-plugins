@@ -1,0 +1,44 @@
+{
+  "name": "code-agent-manager",
+  "owner": "Chat2AnyLLM",
+  "repo": "code-agent-manager",
+  "description": "code-agent-manager allows you to manage the code assistants like claude code, codex, gemini on a single interface.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Chat2AnyLLM/code-agent-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T00:43:21Z"
+}
