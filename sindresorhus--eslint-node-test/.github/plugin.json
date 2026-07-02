@@ -1,0 +1,9 @@
+{
+  "name": "sindresorhus--eslint-node-test",
+  "displayName": "eslint-node-test",
+  "description": "ESLint rules for the Node.js built-in test runner (`node:test`)",
+  "version": "1.0.0",
+  "author": "sindresorhus",
+  "homepage": "https://github.com/sindresorhus/eslint-node-test",
+  "skills": []
+}
