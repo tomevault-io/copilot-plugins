@@ -1,0 +1,9 @@
+{
+  "name": "mbrt--gencmd",
+  "displayName": "gencmd",
+  "description": "Generate bash commands from natural language directly in the console",
+  "version": "1.0.0",
+  "author": "mbrt",
+  "homepage": "https://github.com/mbrt/gencmd",
+  "skills": []
+}
