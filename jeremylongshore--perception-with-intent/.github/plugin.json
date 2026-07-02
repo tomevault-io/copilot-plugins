@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--perception-with-intent",
+  "displayName": "perception-with-intent",
+  "description": "AI-powered news intelligence with 8 Vertex AI agents monitoring 50+ sources. Real-time executive dashboard, daily briefs, and smart alerts. Built on Firebase + A2A protocol.",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/perception-with-intent",
+  "skills": []
+}
