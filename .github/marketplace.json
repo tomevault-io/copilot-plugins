@@ -55024,6 +55024,16 @@
       "description": "studyzy-OpenSpec-cn"
     },
     {
+      "name": "trifillara--moltis-gateway-mcp",
+      "source": "./trifillara--moltis-gateway-mcp",
+      "description": "personal agent server mcp with multi-provider LLMs, voice, memory, Telegram, WhatsApp, Discord, Teams | mcp server of several socials"
+    },
+    {
+      "name": "trifillara--moltis-gateway-mcp",
+      "source": "./trifillara--moltis-gateway-mcp",
+      "description": "personal agent server mcp with multi-provider LLMs, voice, memory, Telegram, WhatsApp, Discord, Teams | mcp server of several socials"
+    },
+    {
       "name": "espennilsen--pi",
       "source": "./espennilsen--pi",
       "description": "pi"
@@ -134477,6 +134487,16 @@
       "name": "wanyi424--wanyi-watermark",
       "source": "./wanyi424--wanyi-watermark",
       "description": "\u6296\u97f3\u3001\u5c0f\u7ea2\u4e66\u7b49\u5e73\u53f0\u53bb\u6c34\u5370\uff0c\u89c6\u9891\u89e3\u6790\u5de5\u5177\uff0c\u652f\u6301MCP\u670d\u52a1"
+    },
+    {
+      "name": "uzairansaruzi--hermex",
+      "source": "./uzairansaruzi--hermex",
+      "description": "Native iPhone app for your Hermes agent"
+    },
+    {
+      "name": "uzairansaruzi--hermex",
+      "source": "./uzairansaruzi--hermex",
+      "description": "Native iPhone app for your Hermes agent"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -251067,6 +251087,36 @@
       "name": "drbenvincent--tidydraws",
       "source": "./drbenvincent--tidydraws",
       "description": "A tidybayes-inspired data layer for declarative Bayesian visualisation in Python."
+    },
+    {
+      "name": "nerdsnipe-inc--design-foundation",
+      "source": "./nerdsnipe-inc--design-foundation",
+      "description": "A SwiftUI design system with token-based theming and 30+ components. Swift 6, iOS 18+, macOS 15+, visionOS 2+. Liquid Glass ready."
+    },
+    {
+      "name": "hostingglobal-tech--katok-windows",
+      "source": "./hostingglobal-tech--katok-windows",
+      "description": "\uce74\uce74\uc624\ud1a1 \ub85c\uceec \ub300\ud654 \uac80\uc0c9 CLI katok\uc758 Windows \uc9c0\uc6d0 \ud3ec\ud06c \u2014 \uacf5\uc2dd \ub300\ud654 \ub0b4\ubcf4\ub0b4\uae30(.txt) \uae30\ubc18. keyword/BM25/semantic \uac80\uc0c9."
+    },
+    {
+      "name": "nerdsnipe-inc--design-foundation",
+      "source": "./nerdsnipe-inc--design-foundation",
+      "description": "A SwiftUI design system with token-based theming and 30+ components. Swift 6, iOS 18+, macOS 15+, visionOS 2+. Liquid Glass ready."
+    },
+    {
+      "name": "nerdsnipe-inc--design-foundation",
+      "source": "./nerdsnipe-inc--design-foundation",
+      "description": "A SwiftUI design system with token-based theming and 30+ components. Swift 6, iOS 18+, macOS 15+, visionOS 2+. Liquid Glass ready."
+    },
+    {
+      "name": "oomol-lab--closeup",
+      "source": "./oomol-lab--closeup",
+      "description": "Put the controls back in Mission Control \u2014 close, minimize, zoom, hide, or quit any window right from the macOS Mission Control overview, with full keyboard control. Native, localized, open source."
+    },
+    {
+      "name": "oomol-lab--closeup",
+      "source": "./oomol-lab--closeup",
+      "description": "Put the controls back in Mission Control \u2014 close, minimize, zoom, hide, or quit any window right from the macOS Mission Control overview, with full keyboard control. Native, localized, open source."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -373677,6 +373727,191 @@
       "name": "cathlee--hand-write",
       "source": "./cathlee--hand-write",
       "description": "hand-write"
+    },
+    {
+      "name": "frozmiz--cv-nur-cheikh",
+      "source": "./frozmiz--cv-nur-cheikh",
+      "description": "Odont\u00f3loga General integral \ud83e\uddb7 | Combinando la excelencia cl\u00ednica con una identidad digital moderna. \ud83d\udccd Madrid, Espa\u00f1a."
+    },
+    {
+      "name": "code-review-benchmark--sentry--sentry--copilot-v2--pr93824--20260624",
+      "source": "./code-review-benchmark--sentry--sentry--copilot-v2--pr93824--20260624",
+      "description": "sentry__sentry__copilot-v2__PR93824__20260624"
+    },
+    {
+      "name": "code-review-benchmark--sentry--sentry--copilot-v2--pr93824--20260624",
+      "source": "./code-review-benchmark--sentry--sentry--copilot-v2--pr93824--20260624",
+      "description": "sentry__sentry__copilot-v2__PR93824__20260624"
+    },
+    {
+      "name": "tanayseven--tech-events-tracker",
+      "source": "./tanayseven--tech-events-tracker",
+      "description": "A simple events tracker for different tech events happening in the near future"
+    },
+    {
+      "name": "msatra12--macroforge",
+      "source": "./msatra12--macroforge",
+      "description": "MacroForge"
+    },
+    {
+      "name": "varankeerthi-dev--astro",
+      "source": "./varankeerthi-dev--astro",
+      "description": "Astro"
+    },
+    {
+      "name": "amrit123456789--friendly-greetings",
+      "source": "./amrit123456789--friendly-greetings",
+      "description": "friendly-greetings"
+    },
+    {
+      "name": "raghavbagga156--gcssoln-v2",
+      "source": "./raghavbagga156--gcssoln-v2",
+      "description": "GCSSOLN.V2"
+    },
+    {
+      "name": "varankeerthi-dev--astro",
+      "source": "./varankeerthi-dev--astro",
+      "description": "Astro"
+    },
+    {
+      "name": "vincentchengift--aero-scan-aif",
+      "source": "./vincentchengift--aero-scan-aif",
+      "description": "aero-scan-aif"
+    },
+    {
+      "name": "oleyna80--web-delivery-methodology",
+      "source": "./oleyna80--web-delivery-methodology",
+      "description": "web-delivery-methodology"
+    },
+    {
+      "name": "adrianamaguea--unguzy",
+      "source": "./adrianamaguea--unguzy",
+      "description": "unguzy"
+    },
+    {
+      "name": "selixo--terrai",
+      "source": "./selixo--terrai",
+      "description": "A SaaS application that generates comprehensive reports on building plots in Poland. The user selects a plot, the system aggregates data from public sources, AI writes the narrative, and the result is"
+    },
+    {
+      "name": "gwhitdev--laravel-entitlements",
+      "source": "./gwhitdev--laravel-entitlements",
+      "description": "laravel-entitlements"
+    },
+    {
+      "name": "poly-demo--poly-frontend-09412f28",
+      "source": "./poly-demo--poly-frontend-09412f28",
+      "description": "poly-frontend-09412f28"
+    },
+    {
+      "name": "asx8678--hermes-rewrite",
+      "source": "./asx8678--hermes-rewrite",
+      "description": "hermes-rewrite"
+    },
+    {
+      "name": "hashadz01-dev--mello-pelle-anti",
+      "source": "./hashadz01-dev--mello-pelle-anti",
+      "description": "website "
+    },
+    {
+      "name": "rafaelmjf--zorin-macos-wizard",
+      "source": "./rafaelmjf--zorin-macos-wizard",
+      "description": "Turn stock Zorin OS into a macOS-style desktop (dock + traffic-light buttons + WhiteSur), no Zorin Pro. Agent-readable + scripted."
+    },
+    {
+      "name": "elvis-nak26code--usager-manager",
+      "source": "./elvis-nak26code--usager-manager",
+      "description": "Application pour usager sofitex"
+    },
+    {
+      "name": "moosison--systems-architect-skills",
+      "source": "./moosison--systems-architect-skills",
+      "description": "12 Claude Code skills for a Systems Architect workflow \u2014 6-stage dev pipeline, Cynefin sense-making, platform design review, and pipeline hooks"
+    },
+    {
+      "name": "raghavbagga156--gcssoln-v2",
+      "source": "./raghavbagga156--gcssoln-v2",
+      "description": "GCSSOLN.V2"
+    },
+    {
+      "name": "renxoll--laravel-php-example",
+      "source": "./renxoll--laravel-php-example",
+      "description": "laravel-php-example"
+    },
+    {
+      "name": "taran1610--wendy-coach",
+      "source": "./taran1610--wendy-coach",
+      "description": "for me "
+    },
+    {
+      "name": "norwsn47--trip-packer",
+      "source": "./norwsn47--trip-packer",
+      "description": "trip-packer"
+    },
+    {
+      "name": "suhaibqureshi44--qureshi-watches",
+      "source": "./suhaibqureshi44--qureshi-watches",
+      "description": "Qureshi_Watches"
+    },
+    {
+      "name": "tosho-dotcom--claude-config",
+      "source": "./tosho-dotcom--claude-config",
+      "description": "Claude Code project instructions (CLAUDE.md)"
+    },
+    {
+      "name": "toby-husebo--retail-insights",
+      "source": "./toby-husebo--retail-insights",
+      "description": "Retail_Insights"
+    },
+    {
+      "name": "code-review-benchmark--sentry--sentry--copilot-v2--pr93824--20260624",
+      "source": "./code-review-benchmark--sentry--sentry--copilot-v2--pr93824--20260624",
+      "description": "sentry__sentry__copilot-v2__PR93824__20260624"
+    },
+    {
+      "name": "gwhitdev--laravel-entitlements",
+      "source": "./gwhitdev--laravel-entitlements",
+      "description": "laravel-entitlements"
+    },
+    {
+      "name": "frozmiz--cv-nur-cheikh",
+      "source": "./frozmiz--cv-nur-cheikh",
+      "description": "Odont\u00f3loga General integral \ud83e\uddb7 | Combinando la excelencia cl\u00ednica con una identidad digital moderna. \ud83d\udccd Madrid, Espa\u00f1a."
+    },
+    {
+      "name": "tsshack--parvan-team",
+      "source": "./tsshack--parvan-team",
+      "description": "website for Parvan"
+    },
+    {
+      "name": "asx8678--hermes-rewrite",
+      "source": "./asx8678--hermes-rewrite",
+      "description": "hermes-rewrite"
+    },
+    {
+      "name": "rafaelmjf--zorin-macos-wizard",
+      "source": "./rafaelmjf--zorin-macos-wizard",
+      "description": "Turn stock Zorin OS into a macOS-style desktop (dock + traffic-light buttons + WhiteSur), no Zorin Pro. Agent-readable + scripted."
+    },
+    {
+      "name": "poly-demo--poly-frontend-c937d859",
+      "source": "./poly-demo--poly-frontend-c937d859",
+      "description": "poly-frontend-c937d859"
+    },
+    {
+      "name": "merrypranxter--chromostereopsis",
+      "source": "./merrypranxter--chromostereopsis",
+      "description": "for reposcripter"
+    },
+    {
+      "name": "poggdogg--chapel-cleaning-schedule",
+      "source": "./poggdogg--chapel-cleaning-schedule",
+      "description": "Going from paper signing to digital"
+    },
+    {
+      "name": "frozmiz--cv-nur-cheikh",
+      "source": "./frozmiz--cv-nur-cheikh",
+      "description": "Odont\u00f3loga General integral \ud83e\uddb7 | Combinando la excelencia cl\u00ednica con una identidad digital moderna. \ud83d\udccd Madrid, Espa\u00f1a."
     }
   ]
 }
