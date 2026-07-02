@@ -1,0 +1,9 @@
+{
+  "name": "jacobparis--trackcn",
+  "displayName": "trackcn",
+  "description": "Track GitHub files, directories, commits, pull requests, and agent skills like dependencies.",
+  "version": "1.0.0",
+  "author": "jacobparis",
+  "homepage": "https://github.com/jacobparis/trackcn",
+  "skills": []
+}
