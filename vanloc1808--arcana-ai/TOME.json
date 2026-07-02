@@ -4,7 +4,7 @@
   "repo": "arcana-ai",
   "description": "AI Tarot Reading Platform - Interactive readings with AI chat, multiple decks, and user management.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vanloc1808/arcana-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:55:49Z"
+  "distributed_at": "2026-07-02T04:43:35Z"
 }
