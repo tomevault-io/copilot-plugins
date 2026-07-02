@@ -1,13 +1,13 @@
-# AI instruction files for Zoi
+# zoi
 
-> Sourced from [Zillowe/Zoi](https://github.com/Zillowe/Zoi) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Source: [zillowe/zoi](https://github.com/zillowe/zoi) — distributed by [TomeVault](https://tomevault.io)
 
-Universal Package Manager & Environment Setup Tool, GitLab Mirror
+Advanced Package Manager & Environment Orchestrator
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Zillowe/Zoi](https://github.com/Zillowe/Zoi).
+Original source: `AGENTS.md` in [zillowe/zoi](https://github.com/zillowe/zoi).
 
 ## Also available for
 
@@ -17,10 +17,14 @@ Original source: `AGENTS.md` in [Zillowe/Zoi](https://github.com/Zillowe/Zoi).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Zillowe/Zoi](https://github.com/Zillowe/Zoi) — a repo with 67+ stars on GitHub.
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/zillowe/zoi](https://github.com/zillowe/zoi)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Install this config instantly:
+```
+npx tomevault install zillowe/zoi
+```
+Source: [github.com/zillowe/zoi](https://github.com/zillowe/zoi).
 
-<!-- genome:a-e-s -->
+<!-- genome:d-i-q -->
