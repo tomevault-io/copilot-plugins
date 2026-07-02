@@ -7,11 +7,11 @@ Music at the speed of a blink, designed for pure simplicity, also an ideal start
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Jordan-Haidee/zeedle](https://github.com/Jordan-Haidee/zeedle).
+Original source: `CLAUDE.md` in [Jordan-Haidee/zeedle](https://github.com/Jordan-Haidee/zeedle).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
