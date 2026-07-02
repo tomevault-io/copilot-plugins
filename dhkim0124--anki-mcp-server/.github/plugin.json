@@ -1,0 +1,9 @@
+{
+  "name": "dhkim0124--anki-mcp-server",
+  "displayName": "anki-mcp-server",
+  "description": "A Model Context Protocol (MCP) server that connects Claude to Anki. This integration allows you to create and manage flashcards in Anki using natural language commands with Claude. Simply ask Claude t",
+  "version": "1.0.0",
+  "author": "dhkim0124",
+  "homepage": "https://github.com/dhkim0124/anki-mcp-server",
+  "skills": []
+}
