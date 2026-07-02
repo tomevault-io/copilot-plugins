@@ -4,7 +4,7 @@
   "repo": "tinyagents",
   "description": "A recursive language-model (RLM) harness for Rust.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tinyhumansai/tinyagents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T14:30:29Z"
+  "distributed_at": "2026-07-02T14:31:03Z"
 }
