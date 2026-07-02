@@ -1,0 +1,9 @@
+{
+  "name": "hikariming--ghfind",
+  "displayName": "ghfind",
+  "description": "Savage GitHub Roast \u00b7 Drop a handle, get a 0\u2013100 value & trust score in 30s plus one brutally honest roast. Exposes PR farmers, AI bots & fork-hoarders. Deterministic scoring, self-hostable.",
+  "version": "1.0.0",
+  "author": "hikariming",
+  "homepage": "https://github.com/hikariming/ghfind",
+  "skills": []
+}
