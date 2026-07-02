@@ -1,0 +1,9 @@
+{
+  "name": "oomol-lab--closeup",
+  "displayName": "CloseUp",
+  "description": "Put the controls back in Mission Control \u2014 close, minimize, zoom, hide, or quit any window right from the macOS Mission Control overview, with full keyboard control. Native, localized, open source.",
+  "version": "1.0.0",
+  "author": "oomol-lab",
+  "homepage": "https://github.com/oomol-lab/CloseUp",
+  "skills": []
+}
