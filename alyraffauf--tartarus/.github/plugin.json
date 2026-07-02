@@ -1,0 +1,9 @@
+{
+  "name": "alyraffauf--tartarus",
+  "displayName": "tartarus",
+  "description": "A declarative, hermetic harness for Nix-defined agents.",
+  "version": "1.0.0",
+  "author": "alyraffauf",
+  "homepage": "https://github.com/alyraffauf/tartarus",
+  "skills": []
+}
