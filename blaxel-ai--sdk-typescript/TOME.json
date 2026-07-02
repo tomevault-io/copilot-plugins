@@ -4,7 +4,7 @@
   "repo": "sdk-typescript",
   "description": "Typescript SDK for Blaxel",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blaxel-ai/sdk-typescript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T06:44:34Z"
+  "distributed_at": "2026-07-02T06:45:04Z"
 }
