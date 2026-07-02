@@ -1,110 +1,90 @@
 ## flowcraft
 
-> **FlowCraft** is a visual workflow builder designed for AI-powered content generation. It leverages Google's Gemini AI models to allow users to create complex workflows through a drag-and-drop interface. Users can connect various nodes (Agent, Text, Image, Video, File) to process and generate content in real-time.
+> This file provides guidance to ai agents when working with code in this repository.
 
-# FlowCraft Project Context
+# AGENTS.md
 
-## Project Overview
+This file provides guidance to ai agents when working with code in this repository.
 
-**FlowCraft** is a visual workflow builder designed for AI-powered content generation. It leverages Google's Gemini AI models to allow users to create complex workflows through a drag-and-drop interface. Users can connect various nodes (Agent, Text, Image, Video, File) to process and generate content in real-time.
-
-**Key Features:**
-
-- **Visual Workflow Builder:** Drag-and-drop interface using `@xyflow/react`.
-- **AI Integration:** Deep integration with Google's Gemini models (Gemini 2.0 Flash, Gemini 2.5 Flash, Imagen 4.0, Veo 3.1) via Vertex AI.
-- **Execution Engine:** Supports parallel processing and dependency resolution for workflows.
-- **Cloud Native:** Built to run on Google Cloud Platform (Cloud Run, Firestore, Cloud Storage).
-
-## Architecture & Technology Stack
-
-### Frontend
-
-- **Framework:** Next.js 15.5.4 (App Router)
-- **Language:** TypeScript
-- **UI Library:** React 19.1.0, Tailwind CSS 4.1.9, Radix UI
-- **Diagramming:** `@xyflow/react` 12.8.6
-- **State Management:** React Context (`flow-provider.tsx`)
-
-### Backend (Next.js API Routes)
-
-- **Platform:** Node.js (Next.js serverless functions)
-- **AI SDK:** `@google/genai` 1.25.0
-- **Storage:** `@google-cloud/storage` (GCS)
-- **Database:** `@google-cloud/firestore` (Firestore)
-- **Authentication:** `next-auth` (v5 beta) with Google Provider
-
-### Deployment
-
-- **Containerization:** Docker (`Dockerfile`)
-- **CI/CD:** Google Cloud Build (`cloudbuild.yaml`)
-- **Hosting:** Google Cloud Run
-- **Script:** `deploy.sh` handles build and deploy to Cloud Run.
-
-## Building and Running
-
-### Prerequisites
-
-- Node.js 18+
-- Google Cloud Project with Vertex AI enabled
-- Service Account with appropriate permissions
-
-### Development
-
-1.  **Install Dependencies:**
-    ```bash
-    npm install
-    ```
-2.  **Environment Setup:**
-    Create `.env.local` with:
-    ```env
-    PROJECT_ID=your-project-id
-    LOCATION=your-location
-    # Plus other variables as seen in deploy.sh or auth.ts
-    ```
-3.  **Run Development Server:**
-    ```bash
-    npm run dev
-    ```
-    Access at `http://localhost:3000`.
-
-### Build
+## Commands
 
 ```bash
-npm run build
+bun run dev          # Start Next.js dev server
+bun run build        # Production build
+bun run check        # TypeScript type-check (no emit)
+bun run lint         # ESLint
+bun run format       # Prettier
+bun run test         # Vitest (run once)
+bun run test:ui      # Vitest with browser UI
+bun run preflight    # format + check + lint + test (pre-merge gate)
 ```
 
-### Lint
+Run a single test file:
 
 ```bash
-npm run lint
+bun run test src/__tests__/workflow-engine.test.ts
 ```
 
-## Key Directories and Files
+The pre-commit hook runs lint-staged (format + lint on staged files). Never skip it with `--no-verify`.
 
-- **`app/`**: Next.js App Router pages and API routes.
-    - `app/api/`: Backend logic for AI generation (`generate-text`, `generate-image`, etc.) and auth.
-    - `app/flow/[id]/`: Page for viewing/editing a specific workflow.
-- **`components/`**: React components.
-    - `*-node.tsx`: Individual node components (Agent, Image, Video, etc.).
-    - `flow-canvas.tsx`: The main visual editor area.
-- **`lib/`**: Core logic and utilities.
-    - `workflow-engine.ts`: The execution engine that processes the node graph.
-    - `executors.ts`: Implementation of individual node execution logic.
-    - `types.ts`: TypeScript definitions for nodes and workflow data.
-- **`deploy.sh`**: Script to build and deploy the application to Google Cloud Run.
-- **`auth.ts`**: NextAuth.js configuration for Google authentication.
+## Architecture
 
-## Development Conventions
+Flowcraft is a **Next.js 15 / React 19** app with two distinct product surfaces built on the same stack.
 
-- **Styling:** Tailwind CSS is used for styling. UI components often use `shadcn/ui` patterns (Radix UI primitives + Tailwind).
-- **Type Safety:** Strict TypeScript usage is encouraged.
-- **State Management:** Local state and Context API are used. The workflow state is managed within `FlowProvider`.
-- **AI Interaction:** All AI interactions should go through the backend API routes (`app/api/`) to keep secrets secure and manage rate limiting/processing.
+### 1. Flow Editor (`/flow/[id]`)
 
-## Important
+A node-based pipeline builder powered by **@xyflow/react**. Users wire together nodes (LLM, image, video, text, file, upscale, resize, list, router, custom-workflow, workflow-input/output) into DAGs that execute sequentially or in batch.
 
-- Always use `npm run preflight` before finishing a task and fix all errors.
+Key layers:
+
+- **`src/lib/schemas.ts`** — Zod schemas for all node `data` shapes; single source of truth for types (re-exported via `src/lib/types.ts`).
+- **`src/lib/node-registry.ts`** — Central registry mapping `NodeType → NodeDefinition`. Every node exports a `NodeDefinition` from `src/lib/nodes/<type>.ts` with `gatherInputs` and `execute` methods.
+- **`src/lib/workflow-engine.ts`** — Orchestrates execution: detects batch mode, fans out requests at `BATCH_CONCURRENCY`, and calls each node's executor via the registry.
+- **`src/lib/store/use-flow-store.ts`** — Zustand store (sliced into `graph-slice` + `ui-slice`). Persisted to `localStorage` with transient fields stripped (`executing`, `batchProgress`, etc.).
+- **`src/lib/nodes/shared/`** — Shared helpers: `mention-resolver.ts` resolves `@node` references in prompts; `execute-api-call.ts` wraps API routes; `node-helpers.ts` has `gatherInputs` utilities.
+
+Adding a new node type: create `src/lib/nodes/<type>.ts` exporting a `NodeDefinition`, add it to `src/lib/nodes/index.ts`, add the type to `NodeType` in `src/lib/types.ts`, register a Zod schema in `schemas.ts`, and add a React component in `src/components/nodes/`.
+
+### 2. Canvas (`/canvas/[id]`)
+
+A freeform media workspace where an AI agent (Director/Agent A) orchestrates image and video generation via chat.
+
+Key layers:
+
+- **`src/lib/canvas/adk/runner.ts`** — `CanvasAgentRunner` wraps the Google ADK. Two variants:
+    - **Agent A** (`variant: "a"`): streaming LLM for simple image/video plans. Uses SSE streaming.
+    - **Agent B / Director** (`variant: "b"`): multi-turn agentic loop with `ThinkingLevel.LOW`. Uses `StreamingMode.NONE` because SSE closes after the first turn. Loads pattern skills from `src/lib/canvas/adk/skills/patterns/`.
+- **`src/lib/canvas/adk/tools.ts`** — ADK tool definitions: `planImageGenerationTool`, `planVideoGenerationTool`, `planProductionTool`, `suggestActionsTool`.
+- **`src/lib/canvas/adk/topology.ts`** — Kahn's algorithm (`topoSort`) for DAG-aware parallel execution of production plans. Only `depends_on` edges create ordering constraints.
+- **`src/lib/canvas/adk/prompt-engineer.ts`** — `PromptEngineer`: single-turn agent that enriches `PlanNode.promptIntent` → `PlanNode.prompt` using primitive skill docs from `src/lib/canvas/adk/skills/primitives/`.
+- **`src/lib/canvas/adk/step-mapper.ts`** — Maps Director tool-call outputs into `GenerationStep[]`.
+- **`src/lib/canvas/generation.ts`** — `executePlan`: resolves step references (canvas node URIs + inter-step dependencies), calls `geminiService`/`storageService`, streams `StepEvent`s.
+- **`src/lib/canvas/types.ts`** — All Canvas-specific types: `CanvasNode`, `ProductionPlan`, `PlanNode`, `PlanEdge`, `MediaOperation`, `GenerationStep`, `ChatMessage`.
+- **`src/lib/store/use-canvas-store.ts`** — Zustand store for canvas state (nodes, messages, viewport).
+
+Canvas API routes:
+
+- `POST /api/canvases/[id]/chat` — streams `AgentEvent`s from the ADK runner (SSE).
+- `POST /api/canvases/[id]/execute-plan` — runs an approved `AgentPlan` through `generation.ts` (SSE, `maxDuration: 300`).
+
+### Shared Infrastructure
+
+- **Auth**: `next-auth` v5 with Google provider (`src/auth.ts`). All API routes call `auth()` for session.
+- **Persistence**: Firestore via `src/lib/firestore.ts`. Services in `src/lib/services/` wrap Firestore collections (`flow.service`, `canvas.service`, `library.service`, etc.).
+- **Storage**: GCS via `src/lib/services/storage.service.ts`. Signed URLs cached in `src/lib/cache/signed-url-cache.ts` (pre-warmed after generation).
+- **AI**: `@google/genai` for Gemini API calls; `@google/adk` for the canvas agent framework. Both use Vertex AI (configured in `src/lib/config.ts`).
+- **UI**: shadcn/ui components in `src/components/ui/` (Radix primitives + Tailwind CSS v4). Flow node components in `src/components/nodes/`, config panels in `src/components/panels/`.
+
+### Path alias
+
+`@/` resolves to `src/` everywhere (configured in `tsconfig.json` and `vitest.config.ts`).
+
+## Testing
+
+Tests live in `src/__tests__/`. Vitest with jsdom. Integration tests (`.integration.test.ts`) hit real Gemini endpoints and require env vars — they are slow and not part of the default CI gate.
+
+Coverage thresholds: 60% lines/statements, 50% functions, 45% branches.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mblanc) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [mblanc/flowcraft](https://github.com/mblanc/flowcraft) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-01 -->
