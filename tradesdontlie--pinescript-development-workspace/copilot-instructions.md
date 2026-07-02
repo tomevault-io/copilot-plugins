@@ -1,225 +1,248 @@
-## pinescript-syntax-rules
+## pinescript-development-workspace
 
-> 1. **KEEP STATEMENTS ON A SINGLE LINE**: The most reliable approach is to keep each statement on a single line, even if it makes lines long.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Pine Script Syntax Rules
+# CLAUDE.md
 
-## Avoiding "End of Line Without Line Continuation" Errors
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-1. **KEEP STATEMENTS ON A SINGLE LINE**: The most reliable approach is to keep each statement on a single line, even if it makes lines long.
+## Overview
 
-2. **NO BACKSLASHES**: Unlike many other languages, Pine Script doesn't use backslashes `\` for line continuation.
+This is a Pine Script development workspace for creating professional TradingView indicators, strategies, and libraries. The repository provides comprehensive Pine Script v6 rules and validation scripts to ensure high-quality development.
 
-3. **FUNCTION CALLS**: When calling functions with multiple parameters, keep all parameters on the same line:
-   ```pine
-   line.new(bar_index, price1, bar_index+10, price2, color=color.blue, width=2)
-   ```
+## Repository Structure
 
-4. **TERNARY OPERATORS**: Keep the entire ternary expression on a single line:
-   ```pine
-   bandColor = condition1 ? color.green : condition2 ? color.orange : color.red
-   ```
+```
+development/                     # ACTIVE DEVELOPMENT AREA
+├── indicators/                  # Work-in-progress indicators
+├── strategies/                  # Developing trading strategies
+└── libraries/                   # Building reusable libraries
 
-5. **FUNCTION PARAMETERS**: When creating functions, put all parameters on the same line:
-   ```pine
-   myFunction(param1, param2, param3) => 
-       // Function body here
-   ```
+production/                      # FINALIZED & TESTED CODE
+├── indicators/                  # Production-ready indicators
+├── strategies/                  # Battle-tested strategies
+└── libraries/                   # Stable, reusable libraries
 
-6. **OBJECT CREATION**: When creating objects (like lines, labels, boxes), put all parameters on a single line:
-   ```pine
-   box.new(x1, y1, x2, y2, bgcolor=color.blue, border_color=color.black, border_width=1)
-   ```
+Pinescript-Coding-Suite/
+├── scripts/                     # Validation and automation tools
+├── extracted_rules/             # Pine Script v6 rule database
+│   ├── pine_syntax_rules.json
+│   ├── pine_error_patterns.json
+│   ├── pine_best_practices.json
+│   └── pine_v6_specific.json
+└── pine-script-v6-extension/   # VS Code extension (.vsix)
+```
 
-7. **ARITHMETIC EXPRESSIONS**: Keep complex arithmetic expressions on a single line rather than splitting them:
-   ```pine
-   result = (price1 * weight1 + price2 * weight2) / (weight1 + weight2)
-   ```
+## Development Commands
 
-8. **ARRAY OPERATIONS**: Keep array operations on a single line:
-   ```pine
-   array.push(myArray, newValue)
-   ```
+### Creating New Files
+```bash
+# Create new indicator
+mkdir -p development/indicators/my_indicator
+touch development/indicators/my_indicator/indicator.pine
 
-9. **CONDITIONAL STATEMENTS**: For conditional statements, keep the condition on one line, and use proper indentation for the code block:
-   ```pine
-   if condition
-       statement1
-       statement2
-   ```
+# Create new strategy
+mkdir -p development/strategies/my_strategy
+touch development/strategies/my_strategy/strategy.pine
 
-## Variable Declaration and Scope
+# Create new library
+mkdir -p development/libraries/my_library
+touch development/libraries/my_library/library.pine
+```
 
-1. **DECLARE VARIABLES BEFORE USE**: Always declare variables before using them, especially in functions.
-   ```pine
-   // Correct
-   myVar = 0
-   myVar := myVar + 1
-   
-   // Incorrect
-   myVar := myVar + 1  // Error: undeclared identifier
-   ```
+### Optional Validation Tools
+```bash
+# Validate Pine Script syntax
+python Pinescript-Coding-Suite/scripts/validate_pine_script.py <file.pine>
 
-2. **USE CORRECT ASSIGNMENT OPERATORS**: Use `=` for initial assignment and `:=` for reassignment.
-   ```pine
-   // Initial assignment
-   myVar = 10
-   
-   // Reassignment
-   myVar := 20
-   ```
+# Check memory management
+bash Pinescript-Coding-Suite/scripts/check_file_memory.sh <file.pine>
+```
 
-3. **RESPECT VARIABLE SCOPE**: Variables declared in functions can't modify global variables unless using the `export` keyword.
-   ```pine
-   var global = 0
-   
-   myFunction() =>
-       local = 5  // Local variable
-       // Cannot modify global from function without export
-   ```
+## Pine Script v6 Development Rules
 
-## Function Definition and Usage
+### 1. Mandatory Syntax
 
-1. **FUNCTION SYNTAX**: Use the `=>` operator for function declarations with proper indentation:
-   ```pine
-   myFunction(param1, param2) =>
-       result = param1 + param2
-       result
-   ```
+```pine
+//@version=6                    // ALWAYS first line
+indicator("Name", overlay=true)  // Required declaration
 
-2. **CHECK FUNCTION PARAMETERS**: Verify the required parameters for built-in functions:
-   ```pine
-   // Correct
-   input.session("0930-1600", "Session")
-   
-   // Incorrect
-   input.time("0930", "Time")  // Wrong parameter type
-   ```
+// ✅ CORRECT: Single line function calls
+box.new(left=bar_index-2, top=high, right=bar_index+10, bottom=low)
 
-3. **PROPER RETURN VALUES**: When a function returns multiple values, use array brackets for assignment:
-   ```pine
-   [value1, value2, value3] = myFunction()
-   ```
+// ❌ WRONG: Multi-line function calls
+box.new(
+    left=bar_index-2,
+    top=high
+)
+```
 
-4. **DEFAULT PARAMETER VALUES**: You can specify default values for function parameters:
-   ```pine
-   myFunction(param1, param2 = 10) =>
-       param1 + param2
-   ```
+### 2. Variable Assignment
 
-## Type System
+```pine
+myVar = 10        // Initial declaration uses =
+myVar := 20       // Reassignment uses :=
+```
 
-1. **RESPECT TYPE CONSTRAINTS**: Always use the correct type when passing arguments to functions.
-   ```pine
-   // Correct
-   ta.change(close)  // close is series float
-   
-   // Incorrect
-   ta.change("string")  // Error: expected series float
-   ```
+### 3. Type Safety
 
-2. **USE TYPE ANNOTATIONS**: When declaring arrays or complex variables, use type annotations:
-   ```pine
-   var array<float> myFloats = array.new_float(0)
-   var array<string> myStrings = array.new_string(0)
-   ```
+```pine
+// Both branches must return same type
+result = condition ? 1 : 0      // ✅ Both int
+result = condition ? 1 : 0.0    // ❌ Mixed types
 
-3. **TYPE CONSISTENCY**: In conditional statements, ensure both branches return the same type:
-   ```pine
-   // Correct
-   x = if close > open
-       close
-   else
-       open
-   
-   // Incorrect (will not compile)
-   y = if close > open
-       close
-   else
-       "open"
-   ```
+// Explicit typing for NA
+int myVar = na                   // Required
+```
 
-## Conditional Statements
+### 4. Array Safety
 
-1. **IF STATEMENT SYNTAX**: Proper indentation is required for if statements:
-   ```pine
-   if condition
-       statement1
-       statement2
-   else if anotherCondition
-       statement3
-       statement4
-   else
-       statement5
-       statement6
-   ```
+```pine
+// ALWAYS check bounds before access
+if array.size(myArray) > index
+    value = array.get(myArray, index)
 
-2. **RETURNING VALUES FROM IF**: Use the assignment form to capture the result of if statements:
-   ```pine
-   result = if condition
-       valueIfTrue
-   else
-       valueIfFalse
-   ```
+// Pine v6 negative indices
+lastElement = array.get(myArray, -1)
+```
 
-3. **NESTED IF STATEMENTS**: You can nest if statements with proper indentation:
-   ```pine
-   if condition1
-       if condition2
-           statement1
-       else
-           statement2
-   else
-       statement3
-   ```
+### 5. Memory Management
 
-## Version Declaration
+```pine
+// Drawing objects MUST be cleaned up
+var line myLine = na
+if condition
+    myLine := line.new(x1=bar_index, y1=high, x2=bar_index+1, y2=low)
+    
+// Required cleanup pattern
+if barstate.islastconfirmedhistory and not na(myLine)
+    myLine.delete()
+```
 
-1. **ALWAYS SPECIFY VERSION**: Always include the version annotation at the top of your script:
-   ```pine
-   //@version=5
-   indicator("My Indicator")
-   ```
+### 6. Library Functions
 
-2. **CORRECT VERSION PLACEMENT**: Place the version annotation at the beginning of your script for readability.
+```pine
+// TA functions require simple type for length
+export myFunction(simple int length, series float source) =>
+    ta.ema(source, length)  // ✅ Correct
+    
+// NOT series int length - causes error
+```
 
-## Session and Time Handling
+### 7. Pine v6 Features
 
-1. **USE PROPER TIME FUNCTIONS**: For session time inputs, use `input.session` instead of `input.time`:
-   ```pine
-   // Correct
-   sessionInput = input.session("0930-1600", "Trading Session")
-   
-   // Incorrect
-   timeInput = input.time("0930", "Time")  // May expect different format
-   ```
+```pine
+// Negative array indices
+last = array.get(arr, -1)
+secondLast = array.get(arr, -2)
 
-2. **SESSION CHECKING**: Use built-in session functions for checking session state:
-   ```pine
-   // Correct
-   inSession = session.ismarket
-   
-   // Alternative method using time
-   startTime = timestamp(year, month, day, 9, 30)
-   endTime = timestamp(year, month, day, 16, 0)
-   inSession = time >= startTime and time <= endTime
-   ```
+// Exact text sizing (not size.large)
+label.new(bar_index, high, "Text", size=16)
 
-## Comments and Documentation
+// Dynamic security requests
+symbol = "AAPL"
+data = request.security(symbol, "D", close)
+```
 
-1. **USE APPROPRIATE COMMENTS**: Use `//` for single-line comments and `/* */` for multi-line comments:
-   ```pine
-   // This is a single-line comment
-   
-   /*
-   This is a
-   multi-line comment
-   */
-   ```
+## Error Pattern Recognition
 
-2. **DOCUMENT YOUR CODE**: Add comments to explain complex logic, especially when creating libraries or indicators others might use.
+The repository includes extracted Pine Script rules in `Pinescript-Coding-Suite/extracted_rules/`:
 
-Following these rules will help you create Pine Script code that is both syntactically correct and easier to maintain. 
+- **pine_syntax_rules.json**: Version-specific syntax patterns
+- **pine_error_patterns.json**: Common errors and solutions
+- **pine_best_practices.json**: Performance and style guidelines
+- **pine_v6_specific.json**: v6-specific features and migrations
+
+When encountering errors, cross-reference with these rule files for immediate solutions.
+
+## IDE Integration
+
+### Language Server Diagnostics
+Use `mcp__ide__getDiagnostics` to get real-time Pine Script validation:
+- Syntax errors with line-precise locations
+- Type mismatches and inconsistencies
+- Undefined variables and functions
+- Memory management issues
+
+### VS Code Extension
+The repository includes a Pine Script v6 extension (`pine-script-v6-extension/pinescript-v6-vscode-0.1.0.vsix`) providing:
+- Syntax highlighting
+- IntelliSense completion
+- Real-time error detection
+- Function signatures
+
+## Development Workflow
+
+1. **Create new file**: Always use `.pine` extension in `development/` directory
+2. **Follow templates**: Use the templates provided in README for proper structure
+3. **Test in TradingView**: Copy code to Pine Editor for testing
+4. **Validate syntax**: Ensure no compilation errors
+5. **Test thoroughly**: Multiple timeframes and symbols
+6. **Promote when ready**: Move to `production/` after full validation
+
+## Critical Pine Script Patterns
+
+### TTS Signal Standard
+```pine
+// Trading signals follow TTS standard
+// 1 = Long Entry, -1 = Short Entry
+// 2 = Long Exit, -2 = Short Exit, 0 = No Signal
+signal = 0
+signal := longCondition ? 1 : signal
+signal := shortCondition ? -1 : signal
+plot(signal, "TTS Signal", display=display.data_window)
+```
+
+### Multi-Timeframe Pattern
+```pine
+htf_data = request.security(syminfo.tickerid, "D", close)
+htf_ema = request.security(syminfo.tickerid, "D", ta.ema(close, 20))
+```
+
+### Session Analysis Pattern
+```pine
+nySession = input.session("0930-1600", "NY Session")
+inSession = time(timeframe.period, nySession)
+sessionHigh = ta.highest(high, barssince(na(inSession[1])))
+```
+
+## Common Error Solutions
+
+### "Mismatched input" Error
+- Check for multi-line function calls (not allowed)
+- Ensure all parentheses are closed on same line
+
+### "Cannot use series" Error
+- Change `series int length` to `simple int length` for TA functions
+
+### "Type mismatch" Error
+- Ensure both branches of ternary operators return same type
+- Use explicit typing for NA values
+
+### "Array index out of bounds"
+- Always validate with `array.size()` before `array.get()`
+
+### Memory Leak Issues
+- Implement cleanup for all drawing objects
+- Use `barstate.islastconfirmedhistory` guard
+
+## Testing Guidelines
+
+Testing is done through:
+1. TradingView platform compilation
+2. Multi-timeframe validation (1m, 5m, 1H, 1D minimum)
+3. Symbol testing across different markets
+4. Forward testing on live data
+
+## Important Notes
+
+- **Development vs Production**: All new code starts in `development/`, only tested code goes to `production/`
+- **Primary workspace**: Always develop in `development/` directories first
+- **File extension**: Always use `.pine` extension for proper IDE support
+- **Version compliance**: Strictly follow Pine Script v6 syntax rules
+- **Memory safety**: Clean up all drawing objects to prevent leaks
+- **Type consistency**: Maintain consistent types in all expressions
+- **Quality gates**: Code must pass all validation before promotion to production
 
 ---
 > Source: [tradesdontlie/pinescript-development-workspace](https://github.com/tradesdontlie/pinescript-development-workspace) — distributed by [TomeVault](https://tomevault.io).
