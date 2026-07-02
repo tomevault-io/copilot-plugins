@@ -1,0 +1,9 @@
+{
+  "name": "carteakey--l3ms",
+  "displayName": "l3ms",
+  "description": "l3ms - local large language (l3) models - running and orchestrating models locally",
+  "version": "1.0.0",
+  "author": "carteakey",
+  "homepage": "https://github.com/carteakey/l3ms",
+  "skills": []
+}
