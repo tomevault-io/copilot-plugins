@@ -1,0 +1,9 @@
+{
+  "name": "diffbot--mcp-code-graph",
+  "displayName": "mcp-code-graph",
+  "description": "MCP Server for code graph analysis and visualization by CodeGPT",
+  "version": "1.0.0",
+  "author": "diffbot",
+  "homepage": "https://github.com/diffbot/mcp-code-graph",
+  "skills": []
+}
