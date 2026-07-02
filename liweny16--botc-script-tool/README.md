@@ -7,11 +7,11 @@ Free Blood on the Clocktower script layout beautifier & custom script generator.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LiWeny16/botc-script-tool](https://github.com/LiWeny16/botc-script-tool).
+Original source: `CLAUDE.md` in [LiWeny16/botc-script-tool](https://github.com/LiWeny16/botc-script-tool).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
