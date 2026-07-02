@@ -4,7 +4,7 @@
   "repo": "Napaxi",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/antgroup/Napaxi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:59:52Z"
+  "distributed_at": "2026-07-02T04:47:26Z"
 }
