@@ -7,11 +7,11 @@ A modern multi-platform note-taking application built with Electron, featuring l
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jetyu/Snaptium](https://github.com/jetyu/Snaptium).
+Original source: `CLAUDE.md` in [jetyu/Snaptium](https://github.com/jetyu/Snaptium).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
