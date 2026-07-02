@@ -1,0 +1,9 @@
+{
+  "name": "jqxue1999--mix-instruct-simulation",
+  "displayName": "mix-instruct-simulation",
+  "description": "Mix-Instruct Concurrent Simulation Framework for GPU-based LLM routing research",
+  "version": "1.0.0",
+  "author": "jqxue1999",
+  "homepage": "https://github.com/jqxue1999/mix-instruct-simulation",
+  "skills": []
+}
