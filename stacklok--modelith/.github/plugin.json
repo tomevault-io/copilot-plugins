@@ -1,0 +1,9 @@
+{
+  "name": "stacklok--modelith",
+  "displayName": "modelith",
+  "description": "A set of tools for working with domain models",
+  "version": "1.0.0",
+  "author": "stacklok",
+  "homepage": "https://github.com/stacklok/modelith",
+  "skills": []
+}
