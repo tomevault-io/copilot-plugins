@@ -1,0 +1,9 @@
+{
+  "name": "kyanitehq--linctl",
+  "displayName": "linctl",
+  "description": "A Go CLI for Linear with target-pinned guarded writes: every write re-resolves the active token and fails closed on org/team mismatch, with no bypass flag",
+  "version": "1.0.0",
+  "author": "KyaniteHQ",
+  "homepage": "https://github.com/KyaniteHQ/linctl",
+  "skills": []
+}
