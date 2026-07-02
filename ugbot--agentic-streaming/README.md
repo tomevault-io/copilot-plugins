@@ -7,11 +7,11 @@ Agentic Streaming is for resilient pipelines of stateful agents over continuous 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Ugbot/Agentic-Streaming](https://github.com/Ugbot/Agentic-Streaming).
+Original source: `CLAUDE.md` in [Ugbot/Agentic-Streaming](https://github.com/Ugbot/Agentic-Streaming).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
