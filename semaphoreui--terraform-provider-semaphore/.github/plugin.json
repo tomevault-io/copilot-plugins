@@ -1,0 +1,9 @@
+{
+  "name": "semaphoreui--terraform-provider-semaphore",
+  "displayName": "terraform-provider-semaphore",
+  "description": "terraform-provider-semaphore",
+  "version": "1.0.0",
+  "author": "semaphoreui",
+  "homepage": "https://github.com/semaphoreui/terraform-provider-semaphore",
+  "skills": []
+}
