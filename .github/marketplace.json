@@ -232004,6 +232004,11 @@
       "description": "Carcar\u00e1 Code: IDE desktop em Electron para programar com o Claude Code de forma visual e minimalista (inspirado no Lovable). Inclui preview ao vivo com \"grab\" de elementos, abas para conectores REST e"
     },
     {
+      "name": "codes30--pixovid",
+      "source": "./codes30--pixovid",
+      "description": "pixovid"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -251012,6 +251017,26 @@
       "name": "datakurre--operaton-robot-playground",
       "source": "./datakurre--operaton-robot-playground",
       "description": "Open Source Robot Framework Orchestration Playground"
+    },
+    {
+      "name": "frugalnico--niw-guru",
+      "source": "./frugalnico--niw-guru",
+      "description": "niw-guru"
+    },
+    {
+      "name": "whitecat-captain--bloom-animation",
+      "source": "./whitecat-captain--bloom-animation",
+      "description": "bloom-animation"
+    },
+    {
+      "name": "jorourke--naim-atom-home-assistant",
+      "source": "./jorourke--naim-atom-home-assistant",
+      "description": "A custom component for naim atom on home assistant"
+    },
+    {
+      "name": "luciuschen--ytm-radio",
+      "source": "./luciuschen--ytm-radio",
+      "description": "Emacs audio player for YouTube and YouTube Music"
     },
     {
       "name": "cheerhuan--save-your-token",
