@@ -1,0 +1,9 @@
+{
+  "name": "zeenix--rico8",
+  "displayName": "rico8",
+  "description": "a Rust-based PICO-8-like fantasy console",
+  "version": "1.0.0",
+  "author": "zeenix",
+  "homepage": "https://github.com/zeenix/rico8",
+  "skills": []
+}
