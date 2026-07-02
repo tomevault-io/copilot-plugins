@@ -2,9 +2,9 @@
   "name": "kalshi-docs",
   "owner": "ammario",
   "repo": "kalshi-docs",
-  "description": "",
+  "description": "LLM-friendly, auto-updating markdown repository of the Kalshi API docs",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ammario/kalshi-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T19:38:10Z"
+  "distributed_at": "2026-07-02T00:37:56Z"
 }
