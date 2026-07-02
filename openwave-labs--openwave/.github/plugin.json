@@ -1,0 +1,9 @@
+{
+  "name": "openwave-labs--openwave",
+  "displayName": "openwave",
+  "description": "Open-source subatomic physics simulator using classical field theories and topology to study particle & force emergence",
+  "version": "1.0.0",
+  "author": "openwave-labs",
+  "homepage": "https://github.com/openwave-labs/openwave",
+  "skills": []
+}
