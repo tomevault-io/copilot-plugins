@@ -4,7 +4,7 @@
   "repo": "taskplain",
   "description": "Task management designed for coding agents, living right in your repo.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fabiopelosin/taskplain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:31:11Z"
+  "distributed_at": "2026-07-02T03:21:19Z"
 }
