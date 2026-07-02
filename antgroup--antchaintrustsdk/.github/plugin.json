@@ -1,0 +1,9 @@
+{
+  "name": "antgroup--antchaintrustsdk",
+  "displayName": "AntChainTrustSDK",
+  "description": "A lightweight trusted on-chain SDK for embedded IoT devices, enabling tamper-evident, device-attributable data submission to cloud and blockchain workflows.",
+  "version": "1.0.0",
+  "author": "antgroup",
+  "homepage": "https://github.com/antgroup/AntChainTrustSDK",
+  "skills": []
+}
