@@ -16984,6 +16984,16 @@
       "description": "A powerful Go framework for building production-ready AI agents!"
     },
     {
+      "name": "swuecho--chat",
+      "source": "./swuecho--chat",
+      "description": "chat"
+    },
+    {
+      "name": "swuecho--chat",
+      "source": "./swuecho--chat",
+      "description": "chat"
+    },
+    {
       "name": "shopex--ecshopx",
       "source": "./shopex--ecshopx",
       "description": "The ECShopX Open Source E-Commerce System is free for commercial use, subject to the Apache 2.0 License. "
@@ -31984,11 +31994,6 @@
       "description": "One from scratch browser built by one human and one agent, working hand in hand"
     },
     {
-      "name": "kentcdodds--kody",
-      "source": "./kentcdodds--kody",
-      "description": "An experimental personal assistant platform built on Cloudflare Workers and MCP"
-    },
-    {
       "name": "t3-content--quipslop",
       "source": "./t3-content--quipslop",
       "description": "quipslop"
@@ -32072,6 +32077,11 @@
       "name": "orange-cpp--omath",
       "source": "./orange-cpp--omath",
       "description": "omath"
+    },
+    {
+      "name": "kentcdodds--kody",
+      "source": "./kentcdodds--kody",
+      "description": "An experimental personal assistant platform built on Cloudflare Workers and MCP"
     },
     {
       "name": "saramanda9988--lunabox",
@@ -44214,6 +44224,11 @@
       "description": "PyRunner"
     },
     {
+      "name": "sinyu1012--double-color-ball-ai",
+      "source": "./sinyu1012--double-color-ball-ai",
+      "description": "Double-Color-Ball-AI"
+    },
+    {
       "name": "modem-dev--baudbot",
       "source": "./modem-dev--baudbot",
       "description": "Multiplayer, always-on AI dev assistant - like OpenClaw but for your whole team on Slack \ud83e\udd16 "
@@ -47797,6 +47812,11 @@
       "name": "devondragon--jira-omnifocus",
       "source": "./devondragon--jira-omnifocus",
       "description": "jira-omnifocus"
+    },
+    {
+      "name": "lucays--ocg-rule-documentation",
+      "source": "./lucays--ocg-rule-documentation",
+      "description": "OCG-Rule-documentation"
     },
     {
       "name": "tiangzlab--omicsclaw",
@@ -53404,6 +53424,11 @@
       "description": "PokeDex-KMP"
     },
     {
+      "name": "robjhyndman--cv",
+      "source": "./robjhyndman--cv",
+      "description": "CV"
+    },
+    {
       "name": "0xsanei--darwinia",
       "source": "./0xsanei--darwinia",
       "description": "The Self-Evolving Agent Ecosystem \u2014 Trading agents that evolve through Darwinian selection and adversarial self-play"
@@ -55997,6 +56022,11 @@
       "name": "ashwin-nat--pits-n-giggles",
       "source": "./ashwin-nat--pits-n-giggles",
       "description": "pits-n-giggles"
+    },
+    {
+      "name": "wingrunr21--hassio-xcel-itron-mqtt",
+      "source": "./wingrunr21--hassio-xcel-itron-mqtt",
+      "description": "hassio-xcel-itron-mqtt"
     },
     {
       "name": "weaviate--agent-skills",
@@ -60879,6 +60909,11 @@
       "description": "myNotes"
     },
     {
+      "name": "documonster--documonster",
+      "source": "./documonster--documonster",
+      "description": "Zero-dependency TypeScript toolkit for Excel, Word, PDF, CSV, Markdown, XML & ZIP \u2014 one API across Node.js, Bun & browsers."
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -63047,6 +63082,16 @@
       "name": "flxxyz--douyudm",
       "source": "./flxxyz--douyudm",
       "description": "douyudm"
+    },
+    {
+      "name": "whiteinge--presentations",
+      "source": "./whiteinge--presentations",
+      "description": "presentations"
+    },
+    {
+      "name": "eoinkelly--notes",
+      "source": "./eoinkelly--notes",
+      "description": "notes"
     },
     {
       "name": "edisonwong520--wanny",
@@ -71254,11 +71299,6 @@
       "description": "Pixel art player built on ESP32-P4"
     },
     {
-      "name": "harleycoops--kimik2manim",
-      "source": "./harleycoops--kimik2manim",
-      "description": "Create epic math and physics explainer animations with Kimi K2 Thinking."
-    },
-    {
       "name": "thejacksoncode--agent-architecture",
       "source": "./thejacksoncode--agent-architecture",
       "description": "Visual multi-agent system designer for Claude Code. 28 agents, Five Minds Protocol, HITL gates, Live Simulation. Zero dependencies, single HTML file."
@@ -71552,6 +71592,16 @@
       "name": "remotebrowser--remotebrowser",
       "source": "./remotebrowser--remotebrowser",
       "description": "Free your data"
+    },
+    {
+      "name": "harleycoops--kimik2manim",
+      "source": "./harleycoops--kimik2manim",
+      "description": "Create epic math and physics explainer animations with Kimi K2 Thinking."
+    },
+    {
+      "name": "shamansir--noodle",
+      "source": "./shamansir--noodle",
+      "description": "noodle"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -77574,6 +77624,11 @@
       "description": "jirametrics"
     },
     {
+      "name": "wuyangwang--my-chat-web",
+      "source": "./wuyangwang--my-chat-web",
+      "description": "my-chat-web"
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -81452,6 +81507,11 @@
       "name": "ton-org--kit",
       "source": "./ton-org--kit",
       "description": "Monorepo for @ton/walletkit, @ton/appkit and their components"
+    },
+    {
+      "name": "legend80s--gallery-server",
+      "source": "./legend80s--gallery-server",
+      "description": "gallery-server"
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -97132,6 +97192,16 @@
       "name": "snowykami--neo-blog",
       "source": "./snowykami--neo-blog",
       "description": "neo-blog"
+    },
+    {
+      "name": "zhangzef--cooper",
+      "source": "./zhangzef--cooper",
+      "description": "COOPER"
+    },
+    {
+      "name": "zhangzef--cooper",
+      "source": "./zhangzef--cooper",
+      "description": "COOPER"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -148992,6 +149062,11 @@
       "name": "ryanrawlingswang--llm-rules",
       "source": "./ryanrawlingswang--llm-rules",
       "description": "A collection of battle-tested Cursor AI rules that enable rapid, high-quality development for Next.js projects. These rules are designed to help developers achieve \"one-shot\" feature implementation wi"
+    },
+    {
+      "name": "evanbacon--grok-voice-demo",
+      "source": "./evanbacon--grok-voice-demo",
+      "description": "Demo app built with Expo and Grok voice agents"
     },
     {
       "name": "13point5--agent-canvas",
@@ -231779,6 +231854,31 @@
       "description": "starfield"
     },
     {
+      "name": "mentor-wizard--mentor-wizard-webapp",
+      "source": "./mentor-wizard--mentor-wizard-webapp",
+      "description": "Mentor Wizard Webapp based on Larvel + InertiaJS (Vue)"
+    },
+    {
+      "name": "makaronz--dccm",
+      "source": "./makaronz--dccm",
+      "description": "Digital Cinema Color Management: A Comprehensive Guide"
+    },
+    {
+      "name": "z00mable--tokybay",
+      "source": "./z00mable--tokybay",
+      "description": "Search & download audiobooks from multiple sites and convert them automatically to the audiobook-friendly M4B format or good old MP3. No installation needed."
+    },
+    {
+      "name": "blaxel-ai--sdk-typescript",
+      "source": "./blaxel-ai--sdk-typescript",
+      "description": "Typescript SDK for Blaxel"
+    },
+    {
+      "name": "blaxel-ai--sdk-typescript",
+      "source": "./blaxel-ai--sdk-typescript",
+      "description": "Typescript SDK for Blaxel"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -250679,6 +250779,16 @@
       "description": "An MCP server for telnet, allowing Claude and other LLMs to interact with text-based interfaces"
     },
     {
+      "name": "scientificinternet--google-monetize",
+      "source": "./scientificinternet--google-monetize",
+      "description": "Google Ads optimization and monetization automation platform."
+    },
+    {
+      "name": "bobs-devlog--junmit",
+      "source": "./bobs-devlog--junmit",
+      "description": "junmit"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -255949,11 +256059,6 @@
       "description": "vika_ok"
     },
     {
-      "name": "watzon--three-mf",
-      "source": "./watzon--three-mf",
-      "description": "three-mf"
-    },
-    {
       "name": "ldmoxeii--only-engine",
       "source": "./ldmoxeii--only-engine",
       "description": "only-engine"
@@ -256632,6 +256737,11 @@
       "name": "dianfangsihuo--gptsovits-codex-voice-skill",
       "source": "./dianfangsihuo--gptsovits-codex-voice-skill",
       "description": "gptsovits-codex-voice-skill"
+    },
+    {
+      "name": "watzon--three-mf",
+      "source": "./watzon--three-mf",
+      "description": "three-mf"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -373267,6 +373377,26 @@
       "name": "hulupeep--agentic-codespace",
       "source": "./hulupeep--agentic-codespace",
       "description": "Get started with agentic coding in minutes! Complete GitHub Codespace with Claude Code, Claude Flow, and real marine data to build practical apps."
+    },
+    {
+      "name": "jescr--tetriseed",
+      "source": "./jescr--tetriseed",
+      "description": "A Tetris game with SuperSeed theme"
+    },
+    {
+      "name": "z-anah--sakinahstory",
+      "source": "./z-anah--sakinahstory",
+      "description": "sakinahstory"
+    },
+    {
+      "name": "cosergd--coser-bot-docs",
+      "source": "./cosergd--coser-bot-docs",
+      "description": "coser-bot-docs"
+    },
+    {
+      "name": "cathlee--hand-write",
+      "source": "./cathlee--hand-write",
+      "description": "hand-write"
     }
   ]
 }
