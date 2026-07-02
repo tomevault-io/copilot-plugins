@@ -1,0 +1,9 @@
+{
+  "name": "mixvlad--tarotcards",
+  "displayName": "TarotCards",
+  "description": "Public-domain tarot decks (Rider-Waite, Sola Busca, Tarot de Marseille & more) with Python tools for resizing and animated GIF generation",
+  "version": "1.0.0",
+  "author": "mixvlad",
+  "homepage": "https://github.com/mixvlad/TarotCards",
+  "skills": []
+}
