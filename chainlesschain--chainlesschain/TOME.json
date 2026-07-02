@@ -4,7 +4,7 @@
   "repo": "chainlesschain",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chainlesschain/chainlesschain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T23:06:36Z"
+  "distributed_at": "2026-07-02T02:56:01Z"
 }
