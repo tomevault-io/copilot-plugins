@@ -1,9 +1,9 @@
 {
   "name": "mblanc--flowcraft",
   "displayName": "flowcraft",
-  "description": "flowcraft",
+  "description": "Open Source - node based generative workflows on Google Cloud",
   "version": "1.0.0",
   "author": "mblanc",
-  "homepage": "https://tomevault.io/claim/mblanc",
+  "homepage": "https://github.com/mblanc/flowcraft",
   "skills": []
 }
