@@ -1,0 +1,87 @@
+{
+  "name": "dotfiles",
+  "owner": "ivy",
+  "repo": "dotfiles",
+  "description": "Agent-managed developer environment. I describe what I want, they do the rest.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-local-md",
+      "path": ".claude/skills/agents-local-md",
+      "github_url": "https://github.com/ivy/dotfiles/tree/main/.claude/skills/agents-local-md",
+      "description": ""
+    },
+    {
+      "name": "copy",
+      "path": "home/dot_claude/skills/copy",
+      "github_url": "https://github.com/ivy/dotfiles/tree/main/home/dot_claude/skills/copy",
+      "description": ""
+    },
+    {
+      "name": "gfm",
+      "path": "home/dot_claude/skills/gfm",
+      "github_url": "https://github.com/ivy/dotfiles/tree/main/home/dot_claude/skills/gfm",
+      "description": ""
+    },
+    {
+      "name": "gitingest",
+      "path": "home/dot_claude/skills/gitingest",
+      "github_url": "https://github.com/ivy/dotfiles/tree/main/home/dot_claude/skills/gitingest",
+      "description": ""
+    },
+    {
+      "name": "install",
+      "path": ".claude/skills/install",
+      "github_url": "https://github.com/ivy/dotfiles/tree/main/.claude/skills/install",
+      "description": ""
+    },
+    {
+      "name": "mob",
+      "path": "home/dot_claude/skills/mob",
+      "github_url": "https://github.com/ivy/dotfiles/tree/main/home/dot_claude/skills/mob",
+      "description": ""
+    },
+    {
+      "name": "update",
+      "path": ".claude/skills/update",
+      "github_url": "https://github.com/ivy/dotfiles/tree/main/.claude/skills/update",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ivy/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T00:30:23Z"
+}
