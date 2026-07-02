@@ -1,0 +1,9 @@
+{
+  "name": "brianpugh--unraid-claude-code",
+  "displayName": "unraid-claude-code",
+  "description": "Claude Code plugin for Unraid.",
+  "version": "1.0.0",
+  "author": "BrianPugh",
+  "homepage": "https://github.com/BrianPugh/unraid-claude-code",
+  "skills": []
+}
