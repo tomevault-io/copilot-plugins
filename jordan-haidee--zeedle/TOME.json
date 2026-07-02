@@ -4,7 +4,7 @@
   "repo": "zeedle",
   "description": "Music at the speed of a blink, designed for pure simplicity, also an ideal starter project for anyone new to Rust GUI development",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jordan-Haidee/zeedle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T22:47:59Z"
+  "distributed_at": "2026-07-02T02:32:55Z"
 }
