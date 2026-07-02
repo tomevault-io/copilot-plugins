@@ -1,0 +1,9 @@
+{
+  "name": "jiraska--open-bank-oss",
+  "displayName": "open-bank-oss",
+  "description": "Cloud-native, open-source retail banking platform reference implementation (Kotlin/Quarkus, Next.js, event-driven microservices).",
+  "version": "1.0.0",
+  "author": "JiRaska",
+  "homepage": "https://github.com/JiRaska/open-bank-oss",
+  "skills": []
+}
