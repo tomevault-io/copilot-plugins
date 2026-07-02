@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-mux-player",
+  "displayName": "capacitor-mux-player",
+  "description": "Capacitor plugin to play video with Mux Player SDK on IOS and Android",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-mux-player",
+  "skills": []
+}
