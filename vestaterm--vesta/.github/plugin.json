@@ -1,0 +1,9 @@
+{
+  "name": "vestaterm--vesta",
+  "displayName": "Vesta",
+  "description": "A native macOS terminal for running AI coding agents in parallel \u2014 built on real libghostty, with persistent tmux-style sessions and a scriptable Lua/CLI control plane.",
+  "version": "1.0.0",
+  "author": "vestaterm",
+  "homepage": "https://github.com/vestaterm/Vesta",
+  "skills": []
+}
