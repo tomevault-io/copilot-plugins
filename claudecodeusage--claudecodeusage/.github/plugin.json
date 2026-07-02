@@ -1,0 +1,9 @@
+{
+  "name": "claudecodeusage--claudecodeusage",
+  "displayName": "ClaudeCodeUsage",
+  "description": "A VSCode extension that monitors Claude Code usage and costs directly in your status bar.",
+  "version": "1.0.0",
+  "author": "ClaudeCodeUsage",
+  "homepage": "https://github.com/ClaudeCodeUsage/ClaudeCodeUsage",
+  "skills": []
+}
