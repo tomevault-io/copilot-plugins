@@ -4,7 +4,7 @@
   "repo": "loyal-app",
   "description": "Loyal \u2014 open-source Solana wallet. Smart-account guardrails for AI agents, private transfers and yield on private assets.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/loyal-labs/loyal-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:44:49Z"
+  "distributed_at": "2026-07-02T04:32:48Z"
 }
