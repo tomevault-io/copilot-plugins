@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-audiosession",
+  "displayName": "capacitor-audiosession",
+  "description": "Capacitor plugin to manage audio session ",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-audiosession",
+  "skills": []
+}
