@@ -7,11 +7,11 @@ Production-ready C++/TensorRT inference engine for RF-DETR. Object detection and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [infracv/rf-detr-cpp](https://github.com/infracv/rf-detr-cpp).
+Original source: `CLAUDE.md` in [infracv/rf-detr-cpp](https://github.com/infracv/rf-detr-cpp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
