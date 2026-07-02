@@ -7,11 +7,11 @@ Sanity.io & Next.js Starter template with live previews
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nuotsu/sanitypress](https://github.com/nuotsu/sanitypress).
+Original source: `CLAUDE.md` in [nuotsu/sanitypress](https://github.com/nuotsu/sanitypress).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
