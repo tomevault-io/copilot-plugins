@@ -1,0 +1,9 @@
+{
+  "name": "trifillara--moltis-gateway-mcp",
+  "displayName": "moltis-gateway-mcp",
+  "description": "personal agent server mcp with multi-provider LLMs, voice, memory, Telegram, WhatsApp, Discord, Teams | mcp server of several socials",
+  "version": "1.0.0",
+  "author": "trifillara",
+  "homepage": "https://github.com/trifillara/moltis-gateway-mcp",
+  "skills": []
+}
