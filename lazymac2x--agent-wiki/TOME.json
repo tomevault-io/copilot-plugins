@@ -4,7 +4,7 @@
   "repo": "agent-wiki",
   "description": "A Knowledge-Assetization OS for AI agents \u2014 an industry-specialized LLM wiki + business-logic core agents. Where manufacturing quality engineering meets agent harness engineering. Self-building, dogfooded, cross-platform.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lazymac2x/agent-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:53:50Z"
+  "distributed_at": "2026-07-02T04:39:42Z"
 }
