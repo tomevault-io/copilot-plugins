@@ -4,7 +4,7 @@
   "repo": "alldoneapp",
   "description": "Team up with AI to get it all done. Level up our life with your personal all-in-one project management tool. Full source code available for non-commercial use.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alldoneapp/alldoneapp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T03:08:53Z"
+  "distributed_at": "2026-07-02T05:19:05Z"
 }
