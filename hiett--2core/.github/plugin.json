@@ -1,0 +1,9 @@
+{
+  "name": "hiett--2core",
+  "displayName": "2core",
+  "description": "Experimental multi-frontend compiler in Gleam: lowers WebAssembly (and later JS/Rust/Gleam) into a shared IR and emits Core Erlang to run fast and preemptively on the BEAM.",
+  "version": "1.0.0",
+  "author": "hiett",
+  "homepage": "https://github.com/hiett/2core",
+  "skills": []
+}
