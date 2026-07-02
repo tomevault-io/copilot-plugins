@@ -7,11 +7,11 @@ A Knowledge-Assetization OS for AI agents — an industry-specialized LLM wiki +
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lazymac2x/agent-wiki](https://github.com/lazymac2x/agent-wiki).
+Original source: `CLAUDE.md` in [lazymac2x/agent-wiki](https://github.com/lazymac2x/agent-wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
