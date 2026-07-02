@@ -4,7 +4,7 @@
   "repo": "CloseUp",
   "description": "Put the controls back in Mission Control \u2014 close, minimize, zoom, hide, or quit any window right from the macOS Mission Control overview, with full keyboard control. Native, localized, open source.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oomol-lab/CloseUp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T22:36:43Z"
+  "distributed_at": "2026-07-02T22:37:16Z"
 }
