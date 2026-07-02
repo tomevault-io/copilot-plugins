@@ -7,11 +7,11 @@ personal agent server mcp with multi-provider LLMs, voice, memory, Telegram, Wha
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [trifillara/moltis-gateway-mcp](https://github.com/trifillara/moltis-gateway-mcp).
+Original source: `CLAUDE.md` in [trifillara/moltis-gateway-mcp](https://github.com/trifillara/moltis-gateway-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
