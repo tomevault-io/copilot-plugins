@@ -7,11 +7,11 @@ NixOS Infrastructure as Code using the Dendritic Pattern & flake parts
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Bad3r/nixos](https://github.com/Bad3r/nixos).
+Original source: `CLAUDE.md` in [Bad3r/nixos](https://github.com/Bad3r/nixos).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
