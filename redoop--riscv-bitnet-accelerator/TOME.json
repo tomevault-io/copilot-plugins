@@ -1,0 +1,44 @@
+{
+  "name": "riscv-bitnet-accelerator",
+  "owner": "redoop",
+  "repo": "riscv-bitnet-accelerator",
+  "description": "RISC-V AI Accelerator SoC with innovative BitNet multiplier-free architecture. Features PicoRV32 CPU, dual AI accelerators (6.4 GOPS), and supports open-source EDA toolchains. Designed for edge AI inference with <100mW power consumption.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/redoop/riscv-bitnet-accelerator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T01:26:47Z"
+}
