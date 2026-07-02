@@ -1,0 +1,9 @@
+{
+  "name": "buh--naturallanguageembeddings",
+  "displayName": "NaturalLanguageEmbeddings",
+  "description": "Semantic text search using Apple's NaturalLanguage framework",
+  "version": "1.0.0",
+  "author": "buh",
+  "homepage": "https://github.com/buh/NaturalLanguageEmbeddings",
+  "skills": []
+}
