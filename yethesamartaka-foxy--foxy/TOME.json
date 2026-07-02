@@ -4,7 +4,7 @@
   "repo": "Foxy",
   "description": "Foxy",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YetheSamartaka-Foxy/Foxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T14:32:42Z"
+  "distributed_at": "2026-07-02T14:33:15Z"
 }
