@@ -4,7 +4,7 @@
   "repo": "termplot",
   "description": "Beautiful plots in your terminal.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/termplot/termplot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T02:49:23Z"
+  "distributed_at": "2026-07-02T05:10:18Z"
 }
