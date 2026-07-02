@@ -1,0 +1,9 @@
+{
+  "name": "johnlindquist--sketch-cli",
+  "displayName": "sketch-cli",
+  "description": "AI-powered design mockup and component variation generator",
+  "version": "1.0.0",
+  "author": "johnlindquist",
+  "homepage": "https://github.com/johnlindquist/sketch-cli",
+  "skills": []
+}
