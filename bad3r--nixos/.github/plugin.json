@@ -1,0 +1,9 @@
+{
+  "name": "bad3r--nixos",
+  "displayName": "nixos",
+  "description": "NixOS Infrastructure as Code using the Dendritic Pattern & flake parts",
+  "version": "1.0.0",
+  "author": "Bad3r",
+  "homepage": "https://github.com/Bad3r/nixos",
+  "skills": []
+}
