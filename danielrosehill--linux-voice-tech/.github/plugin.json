@@ -1,0 +1,9 @@
+{
+  "name": "danielrosehill--linux-voice-tech",
+  "displayName": "Linux-Voice-Tech",
+  "description": "List of resources for voice technology with support for Linux, encompassing STT, ASR primarily as well as dev frameworks.",
+  "version": "1.0.0",
+  "author": "danielrosehill",
+  "homepage": "https://github.com/danielrosehill/Linux-Voice-Tech",
+  "skills": []
+}
