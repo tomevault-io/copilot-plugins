@@ -4,7 +4,7 @@
   "repo": "peercompute",
   "description": "core library to support the peercompute library",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MetaverseJS/peercompute",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T20:51:28Z"
+  "distributed_at": "2026-07-02T00:40:21Z"
 }
