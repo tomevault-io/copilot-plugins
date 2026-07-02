@@ -7,11 +7,11 @@ Bifrost Integrations is an open-source automation platform designed to democrati
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gobifrost/bifrost](https://github.com/gobifrost/bifrost).
+Original source: `CLAUDE.md` in [gobifrost/bifrost](https://github.com/gobifrost/bifrost).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
