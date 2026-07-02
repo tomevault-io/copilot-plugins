@@ -4,7 +4,7 @@
   "repo": "IntuneComplianceReport",
   "description": "PowerShell module that exports Microsoft Intune device compliance to a wide CSV via Microsoft Graph: one row per managed device, a policy-qualified column per compliance setting, and a collection-status column. Read-only, with throttling-aware retries and full paging. Runs on Windows PowerShell 5.1 and PowerShell 7.4-7.6.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DanStutz/IntuneComplianceReport",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T21:08:34Z"
+  "distributed_at": "2026-07-02T00:55:18Z"
 }
