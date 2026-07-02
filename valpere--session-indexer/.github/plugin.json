@@ -1,0 +1,9 @@
+{
+  "name": "valpere--session-indexer",
+  "displayName": "session-indexer",
+  "description": "Per-project semantic search over Claude Code session history. Indexes JSONL transcripts into SQLite; retrieves via bge-m3 embeddings (Ollama) with FTS5 fallback.",
+  "version": "1.0.0",
+  "author": "valpere",
+  "homepage": "https://github.com/valpere/session-indexer",
+  "skills": []
+}
