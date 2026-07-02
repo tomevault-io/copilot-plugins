@@ -1,0 +1,9 @@
+{
+  "name": "google-health-api--google-health-cli",
+  "displayName": "google-health-cli",
+  "description": "Google Workspace CLI \u2014 one command-line tool for the Google Health API. Includes AI agent skills.",
+  "version": "1.0.0",
+  "author": "Google-Health-API",
+  "homepage": "https://github.com/Google-Health-API/google-health-cli",
+  "skills": []
+}
