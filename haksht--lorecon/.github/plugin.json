@@ -1,0 +1,9 @@
+{
+  "name": "haksht--lorecon",
+  "displayName": "lorecon",
+  "description": "LoRa packet capture and analysis tool for ESP32-S3 + SX1262 radio. Focused reconnaissance, sniffing, capture, and replay capabilities with optional PSK testing and hardware stress validation.",
+  "version": "1.0.0",
+  "author": "haksht",
+  "homepage": "https://github.com/haksht/lorecon",
+  "skills": []
+}
