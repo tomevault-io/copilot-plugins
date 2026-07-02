@@ -1,0 +1,9 @@
+{
+  "name": "sanity-labs--sanity-eve-docs-agent",
+  "displayName": "sanity-eve-docs-agent",
+  "description": "Autonomous docs-feedback agent: Sanity Content Agent (read+write) on eve. Feedback -> drafts a fix into a Content Release -> Slack notice for review.",
+  "version": "1.0.0",
+  "author": "sanity-labs",
+  "homepage": "https://github.com/sanity-labs/sanity-eve-docs-agent",
+  "skills": []
+}
