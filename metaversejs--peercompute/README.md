@@ -7,11 +7,11 @@ core library to support the peercompute library
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MetaverseJS/peercompute](https://github.com/MetaverseJS/peercompute).
+Original source: `CLAUDE.md` in [MetaverseJS/peercompute](https://github.com/MetaverseJS/peercompute).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
