@@ -1,0 +1,9 @@
+{
+  "name": "calque-ai--go-calque",
+  "displayName": "go-calque",
+  "description": "A composable multi-agent AI framework for Go that makes it easy to build production-ready AI applications.",
+  "version": "1.0.0",
+  "author": "calque-ai",
+  "homepage": "https://github.com/calque-ai/go-calque",
+  "skills": []
+}
