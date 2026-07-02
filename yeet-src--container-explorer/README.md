@@ -7,11 +7,11 @@ docker ps that you can actually walk around in. Every running container on the h
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yeet-src/container-explorer](https://github.com/yeet-src/container-explorer).
+Original source: `CLAUDE.md` in [yeet-src/container-explorer](https://github.com/yeet-src/container-explorer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
