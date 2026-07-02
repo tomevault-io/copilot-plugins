@@ -1,0 +1,9 @@
+{
+  "name": "sakethkanchi--parley",
+  "displayName": "parley",
+  "description": "Parley \u2014 self-hosted Discord bot: records voice meetings, transcribes per-speaker locally, posts structured AI notes.",
+  "version": "1.0.0",
+  "author": "SakethKanchi",
+  "homepage": "https://github.com/SakethKanchi/parley",
+  "skills": []
+}
