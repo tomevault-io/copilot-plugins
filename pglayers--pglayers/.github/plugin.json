@@ -1,0 +1,9 @@
+{
+  "name": "pglayers--pglayers",
+  "displayName": "pglayers",
+  "description": "PostgreSQL Docker images with the extensions you actually need -- pre-built, composable, no compilation.",
+  "version": "1.0.0",
+  "author": "pglayers",
+  "homepage": "https://github.com/pglayers/pglayers",
+  "skills": []
+}
