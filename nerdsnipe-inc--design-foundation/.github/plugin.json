@@ -1,0 +1,9 @@
+{
+  "name": "nerdsnipe-inc--design-foundation",
+  "displayName": "design-foundation",
+  "description": "A SwiftUI design system with token-based theming and 30+ components. Swift 6, iOS 18+, macOS 15+, visionOS 2+. Liquid Glass ready.",
+  "version": "1.0.0",
+  "author": "NerdSnipe-Inc",
+  "homepage": "https://github.com/NerdSnipe-Inc/design-foundation",
+  "skills": []
+}
