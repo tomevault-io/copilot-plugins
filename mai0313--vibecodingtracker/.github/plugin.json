@@ -1,0 +1,9 @@
+{
+  "name": "mai0313--vibecodingtracker",
+  "displayName": "VibeCodingTracker",
+  "description": "Track AI coding costs in real-time \u2014 a lightweight Rust CLI/TUI for Claude Code, Codex, Copilot & Gemini usage and cost analytics",
+  "version": "1.0.0",
+  "author": "Mai0313",
+  "homepage": "https://github.com/Mai0313/VibeCodingTracker",
+  "skills": []
+}
