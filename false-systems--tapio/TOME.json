@@ -4,7 +4,7 @@
   "repo": "tapio",
   "description": "Edge Intelligence for Kubernetes  eBPF-based agent that captures kernel-level events, filters to anomalies at the edge",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/false-systems/tapio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T02:42:27Z"
+  "distributed_at": "2026-07-02T05:06:27Z"
 }
