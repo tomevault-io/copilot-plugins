@@ -1,0 +1,9 @@
+{
+  "name": "zhaosih--chatem",
+  "displayName": "ChatEM",
+  "description": "Control CST Studio or HFSS via AI agent",
+  "version": "1.0.0",
+  "author": "zhaosih",
+  "homepage": "https://github.com/zhaosih/ChatEM",
+  "skills": []
+}
