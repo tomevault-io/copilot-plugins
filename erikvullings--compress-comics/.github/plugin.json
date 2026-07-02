@@ -1,0 +1,9 @@
+{
+  "name": "erikvullings--compress-comics",
+  "displayName": "compress_comics",
+  "description": "Compresses comic books (CBR or CBZ extension) by using webp and decreasing the target height.",
+  "version": "1.0.0",
+  "author": "erikvullings",
+  "homepage": "https://github.com/erikvullings/compress_comics",
+  "skills": []
+}
