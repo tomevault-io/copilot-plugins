@@ -4,7 +4,7 @@
   "repo": "generative-engine-optimization-basic-guide",
   "description": "Free and Open-Source beginners guide to Generative Engine Optimization (GEO).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paladini/generative-engine-optimization-basic-guide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T02:31:25Z"
+  "distributed_at": "2026-07-02T04:59:50Z"
 }
