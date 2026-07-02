@@ -250864,6 +250864,16 @@
       "description": "juoma"
     },
     {
+      "name": "waybox-ai--roadtrip-skill",
+      "source": "./waybox-ai--roadtrip-skill",
+      "description": "An AI agent skill that turns \"start + days\" into a road trip you can actually drive."
+    },
+    {
+      "name": "jiraska--open-bank-oss",
+      "source": "./jiraska--open-bank-oss",
+      "description": "Cloud-native, open-source retail banking platform reference implementation (Kotlin/Quarkus, Next.js, event-driven microservices)."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
