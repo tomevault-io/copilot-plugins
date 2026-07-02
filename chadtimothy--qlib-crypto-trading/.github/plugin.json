@@ -1,0 +1,9 @@
+{
+  "name": "chadtimothy--qlib-crypto-trading",
+  "displayName": "qlib-crypto-trading",
+  "description": "Cryptocurrency quantitative trading platform built on Microsoft Qlib with real-time monitoring, backtesting, and investment KPI tracking",
+  "version": "1.0.0",
+  "author": "ChadTimothy",
+  "homepage": "https://github.com/ChadTimothy/qlib-crypto-trading",
+  "skills": []
+}
