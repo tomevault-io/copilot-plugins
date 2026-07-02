@@ -1,0 +1,9 @@
+{
+  "name": "oliverkillane--derive-c",
+  "displayName": "derive-C",
+  "description": "An attempt to replicate derive macros & generics using the C preprocessor",
+  "version": "1.0.0",
+  "author": "OliverKillane",
+  "homepage": "https://github.com/OliverKillane/derive-C",
+  "skills": []
+}
