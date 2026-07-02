@@ -1,0 +1,9 @@
+{
+  "name": "kyungw00k--brew-sync",
+  "displayName": "brew-sync",
+  "description": "\ud83d\udd04 Sync your Homebrew packages across multiple Macs with automatic cloud backup and restore.",
+  "version": "1.0.0",
+  "author": "kyungw00k",
+  "homepage": "https://github.com/kyungw00k/brew-sync",
+  "skills": []
+}
