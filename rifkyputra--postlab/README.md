@@ -7,13 +7,13 @@ Interactive TUI to manage bare-metal & homelab servers — packages, Docker, fir
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [rifkyputra/postlab](https://github.com/rifkyputra/postlab).
+Original source: `CLAUDE.md` in [rifkyputra/postlab](https://github.com/rifkyputra/postlab).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
