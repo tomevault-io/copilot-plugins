@@ -1,0 +1,40 @@
+## kit
+
+> Monorepo for TON blockchain integration libraries: `@ton/walletkit` (core wallet SDK), `@ton/appkit` (app-level kit), `@ton/appkit-react` (React bindings). Uses pnpm workspaces and Turbo.
+
+# CLAUDE.md
+
+## Project overview
+
+Monorepo for TON blockchain integration libraries: `@ton/walletkit` (core wallet SDK), `@ton/appkit` (app-level kit), `@ton/appkit-react` (React bindings). Uses pnpm workspaces and Turbo.
+
+## Commands
+
+- `pnpm quality` — run after every change, before considering a task complete. This single command runs tests, linting, and typechecking.
+- Use `pnpm` for all package management (not npm or yarn).
+- To reinstall packages cleanly: `pnpm clean:workspaces && pnpm clean && pnpm i`
+
+## Code conventions
+
+- Prefer keeping files under 200–250 lines. Extract utility functions to a nearby `utils` file and types to a `types` file when it helps.
+- Use named exports only. No default exports.
+
+## Agent skills
+
+- **Monorepo development** (actions, hooks, tests, UI): `.claude/skills/kit-dev/`
+- **AppKit consumer integration** (setup, TonConnect, swaps, etc.): `packages/appkit/skills/ton-appkit/`
+
+## TypeScript
+
+- Avoid `any` and `unknown`. Use proper types whenever possible.
+- `unknown` is acceptable only as a last resort when proper types are truly unavailable.
+- `any` is only allowed in tests for deliberately testing invalid input — never use it casually.
+
+## Testing
+
+- Test behaviors, not implementation details.
+- Always update existing tests related to your changes.
+
+---
+> Source: [ton-org/kit](https://github.com/ton-org/kit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-01 -->
