@@ -1,0 +1,9 @@
+{
+  "name": "nikosdion--joomla-mcp-php",
+  "displayName": "joomla-mcp-php",
+  "description": "An MCP server for Joomla 5 and later, written in PHP",
+  "version": "1.0.0",
+  "author": "nikosdion",
+  "homepage": "https://github.com/nikosdion/joomla-mcp-php",
+  "skills": []
+}
