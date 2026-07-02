@@ -1,0 +1,343 @@
+## intervyu
+
+> **intervyu.io** is an AI-powered interview preparation platform. Candidates do real voice interviews with an AI interviewer (Neerja), get their code evaluated live, upload their CV, and receive a performance report at the end.
+
+# intervyu - Claude Code Context
+
+## What This Project Is
+**intervyu.io** is an AI-powered interview preparation platform. Candidates do real voice interviews with an AI interviewer (Neerja), get their code evaluated live, upload their CV, and receive a performance report at the end.
+
+## Project Structure
+
+```
+intervyu/
+├── frontend/                    # Next.js 15 (React 19, TypeScript, Tailwind CSS 4)
+│   ├── app/
+│   │   ├── page.tsx             # Home — interview type selection + dashboard
+│   │   ├── layout.tsx           # Root layout (Geist fonts)
+│   │   ├── login/               # OAuth login page (Google + GitHub)
+│   │   ├── auth/callback/       # Supabase OAuth callback handler
+│   │   ├── interview/new/       # Live interview session page
+│   │   └── demo/                # Demo pages (code-editor, cv, performance)
+│   ├── components/
+│   │   ├── VoiceInterview.tsx   # Main voice interview + WebSocket logic
+│   │   ├── Sidebar.tsx          # Nav sidebar with user avatar + sign-out
+│   │   ├── home/
+│   │   │   ├── InterviewCard.tsx
+│   │   │   ├── StartInterviewModal.tsx
+│   │   │   ├── PastInterviewsList.tsx
+│   │   │   ├── StatsCard.tsx
+│   │   │   └── ScheduleModal.tsx
+│   │   ├── code-editor/CodeEditor.tsx
+│   │   ├── cv/CVUpload.tsx + CVAnalysisDisplay.tsx
+│   │   ├── performance/PerformanceDashboard.tsx + InterviewHistory.tsx
+│   │   └── common/PDFExport.tsx
+│   └── lib/
+│       ├── supabase/client.ts   # Supabase singleton client
+│       ├── supabase/auth.ts     # useSupabaseSession, useRequireAuth, OAuth helpers
+│       └── api.ts               # Centralised authFetch + all API helpers + buildWsUrl
+│
+├── backend/                     # FastAPI (Python 3.11)
+│   └── app/
+│       ├── main.py              # App init, CORS, router registration, DB pool lifespan
+│       ├── routers/
+│       │   ├── sessions.py      # POST /api/sessions, GET /api/sessions/{id}
+│       │   ├── websocket.py     # WS /ws/interview/{session_id}?token=<jwt>
+│       │   ├── interviews.py    # CV upload, transcript, end session, report
+│       │   ├── code.py          # Code execution via Lambda
+│       │   ├── analytics.py     # Aggregate stats, benchmarks, trends (PostgreSQL)
+│       │   └── auth.py          # GET /api/auth/me
+│       ├── services/
+│       │   ├── bedrock_service.py   # Claude Haiku 4.5 via bedrock-runtime
+│       │   ├── db_service.py        # asyncpg pool + all CRUD (replaces S3 JSON)
+│       │   ├── auth_service.py      # Supabase JWT verification (PyJWT HS256)
+│       │   ├── s3_service.py        # Binary files only: CVs, audio
+│       │   ├── lambda_service.py    # Lambda invocation helper
+│       │   └── textract_service.py  # CV text extraction + skill parsing
+│       ├── dependencies/
+│       │   └── auth.py              # CurrentUser dataclass + get_current_user Depends
+│       ├── models/
+│       │   ├── session.py           # Session Pydantic models
+│       │   └── code_submission.py   # Code metrics & test result models
+│       └── config/
+│           ├── settings.py          # Env-var settings (incl. Supabase + DATABASE_URL)
+│           ├── interview_types.py   # 8 interview configs + phases
+│           └── agent_instruction.txt # Neerja persona system prompt
+│
+├── lambda-tools/                # AWS SAM — 3 Lambda functions
+│   ├── code-executor/           # Sandboxed Python/JS execution
+│   ├── cv-analyzer/             # Resume parsing + skill categorization
+│   ├── performance-evaluator/   # Score calculation + report generation
+│   └── template.yaml            # SAM CloudFormation template
+│
+├── database/                    # Supabase PostgreSQL (active)
+│   ├── supabase_schema.sql      # Live schema (run in Supabase SQL Editor)
+│   ├── schema.sql               # Original local schema (reference only)
+│   ├── docker-compose.yml       # Local Postgres dev (optional)
+│   ├── migrations/
+│   │   └── 002_s3_to_postgres_migration.sql  # insert_session_from_json() for backfill
+│   └── scripts/migrate_from_s3.py  # S3 → Supabase migration script
+│
+├── knowledge-base/              # RAG content for Bedrock Agent
+├── deployment/                  # AWS deployment guides
+├── scripts/                     # deploy-frontend.sh, deploy-backend.sh
+└── docs/                        # Architecture, optimization notes
+```
+
+## Tech Stack
+
+### Backend (FastAPI)
+- **STT**: Deepgram Nova-2 API (cloud, persistent `httpx.AsyncClient` module-level singleton to `api.deepgram.com/v1/listen`)
+- **TTS**: Azure Cognitive Services Speech SDK (`azure-cognitiveservices-speech`, `en-IN-NeerjaNeural` voice, MP3 output `Audio24Khz48KBitRateMonoMp3`, pool of 3 persistent `SpeechSynthesizer` instances, SSML `<prosody rate="+20%">`, MP3 chunks streamed via asyncio.Queue concurrent sender)
+- **AI**: Anthropic API direct (`anthropic` SDK, `claude-haiku-4-5-20251001`); conversation history managed manually in `_session_cache`. Previously used AWS Bedrock `converse_stream` — switched 2026-06 when new AWS account couldn't get Bedrock model access approved.
+- **Auth**: Supabase JWT verification (`auth_service.py`, PyJWT HS256, `audience="authenticated"`); `get_current_user` FastAPI dependency on all endpoints; WebSocket auth via `?token=` query param
+- **Storage**: Supabase PostgreSQL (structured data) + S3 `intervyu-user-data-2026` (binary: CVs at `cvs/{session_id}/`, audio at `recordings/{session_id}/`)
+- **DB Driver**: asyncpg pool (min=5, max=20) in `db_service.py`; transcript writes are asyncio background tasks (off WebSocket critical path)
+- **CV Parsing**: AWS Textract (fallback for scanned PDFs) + `intervyu-cv-analyzer` Lambda (uses Anthropic API directly)
+- **Real-time**: WebSocket at `/ws/interview/{session_id}?token=<supabase_jwt>`
+
+### Frontend (Next.js 15)
+- **Pages**: `/` (home/dashboard), `/login` (Google OAuth + email OTP), `/auth/callback` (OAuth handler), `/interview/new` (live session), `/demo/*` (feature demos)
+- **Auth**: `@supabase/supabase-js` client-side only (static export); `useRequireAuth()` redirects to `/login`; JWT passed to backend via `Authorization: Bearer` header and `?token=` on WebSocket URL
+- **Key libs**: Monaco Editor, Recharts, react-dropzone, html2canvas, jspdf, lucide-react, @supabase/supabase-js
+- **WebSocket messages handled**: `transcript`, `llm_chunk`, `assistant_complete`, `coding_question`, `error`
+- **Audio**: Silero VAD (`@ricky0123/vad-react`, ONNX model in Web Worker) → single WAV blob per utterance to backend; `onnxruntime-web` 1.17.3, `numThreads=1` (no SharedArrayBuffer/COOP/COEP required)
+
+### AWS Lambda Functions (3)
+1. `intervyu-code-executor` — Python/JS sandboxed execution, test case runner
+2. `intervyu-cv-analyzer` — PDF/DOCX parsing, skills extraction by category (Anthropic API, Claude Haiku 4.5)
+3. `intervyu-performance-evaluator` — 5-dimension scoring, HIRE/NO_HIRE recommendation (Anthropic API, Claude Haiku 4.5; previously Sonnet 4.6 via Bedrock)
+
+## Deployment (Current — Production)
+
+> **AWS account migration complete (2026-06).** New AWS account `207423186601` (`adarsh-intervyu`).
+> Backend moved from EC2 → Azure VM (free tier). CloudFront still pending AWS account verification (support case open).
+
+- **Frontend**: S3 (`intervyu-frontend-1781778638`) — CloudFront pending account verification; serving directly from S3 in the meantime
+- **Custom Domain**: `https://intervyu.io` (Namecheap BasicDNS → CloudFront, pending)
+- **SSL**: ACM cert pending — re-issue once CloudFront is unblocked
+- **Backend**: Azure VM `intervyu-backend` (Standard B1ms, Ubuntu 24.04), IP `172.210.69.74`, port 8000, resource group `intervyu-rg`
+- **Azure SSH**: `ssh -i ~/Desktop/intervyu/intervyu-backend-key.pem azureuser@172.210.69.74`
+- **Restart backend**: `sudo systemctl restart intervyu-backend`
+- **Redeploy frontend**: `cd intervyu && bash scripts/redeploy-frontend.sh` — do NOT use a bare `aws s3 sync` (see warning)
+  ```bash
+  cd frontend && npm run build
+  # 1. Sync all static assets (hashed filenames — safe to cache)
+  aws s3 sync out/ s3://intervyu-frontend-1781778638/ --delete
+  # 2. Force-upload HTML and RSC payload .txt files — sync skips these when file size
+  #    is unchanged across builds (same-size files get identical ETags bypassed), which
+  #    leaves stale RSC payloads pointing to deleted chunks → Link navigation silently
+  #    breaks, buttons appear non-functional, SyntaxErrors on old chunks.
+  find frontend/out -name "*.html" -o -name "*.txt" | while read f; do
+    key="${f#frontend/out/}"
+    aws s3 cp "$f" "s3://intervyu-frontend-1781778638/$key" --cache-control "no-cache, no-store, must-revalidate"
+  done
+  # CloudFront invalidation — run once CloudFront distribution is created:
+  # aws cloudfront create-invalidation --distribution-id <NEW-DISTRO-ID> --paths "/*"
+  ```
+  **WARNING — `aws s3 sync` alone is not enough.** Next.js App Router generates `*.html` and
+  `*.txt` (RSC payload) files alongside hashed JS chunks. When the JS chunk filenames change
+  but the HTML/txt files happen to be the same byte-size, `sync` considers them unchanged and
+  skips them. The stale files still reference the OLD chunk names, which get deleted by
+  `--delete`. Result: CloudFront serves HTML/RSC payloads that load deleted chunks →
+  `SyntaxError: Unexpected token '<'` (404 HTML served as JS) → entire page JS broken →
+  buttons do nothing, PostHog never initialises. Always force-upload HTML + txt after build.
+- **Lambda deploy**: `cd lambda-tools && sam build && sam deploy`
+- **Lambda local dev**: `cd lambda-tools && sam build && sam local start-lambda --port 3001` — then uncomment `LAMBDA_ENDPOINT_URL=http://127.0.0.1:3001` in `backend/.env`. Unset/absent = real AWS.
+
+## Key APIs
+
+All endpoints (except WS) require `Authorization: Bearer <supabase_access_token>`.
+
+```
+GET  /api/auth/me                         → returns {user_id, email, role}
+
+POST /api/sessions                        → create session (returns session_id)
+GET  /api/sessions/{session_id}           → get session
+
+WS   /ws/interview/{session_id}?token=<jwt>  → voice interview (binary audio + JSON messages)
+
+POST /api/interviews/{id}/upload-cv       → upload PDF/DOCX/TXT CV (S3 binary + DB analysis)
+GET  /api/interviews/{id}/cv-analysis     → parsed CV data
+GET  /api/interviews/{id}/transcript      → full conversation history
+POST /api/interviews/{id}/end             → end session + generate performance report
+GET  /api/interviews/{id}/performance-report
+
+POST /api/code/execute                    → run code via Lambda
+GET  /api/code/{session_id}/submissions   → all submissions
+GET  /api/code/{session_id}/quality-summary
+
+GET  /api/analytics/aggregate             → totals + completion rate + avg score (scoped to user)
+GET  /api/analytics/benchmarks/{type}     → p25/p50/p75/p90 by interview type
+GET  /api/analytics/trends?days=30        → daily score trends (scoped to user)
+GET  /api/analytics/history               → full session history (scoped to user)
+```
+
+## WebSocket Protocol
+
+**Client → Server (JSON):**
+```
+{ "type": "interview_ready" }
+{ "type": "speech_start" }
+{ "type": "speech_end" }
+{ "type": "code_submission", "code": "...", "language": "python", "allTestsPassed": true, "testResults": [...] }
+```
+Binary frames = raw WebM/WAV audio chunks (sent between speech_start/speech_end)
+
+**Server → Client (JSON):**
+```
+{ "type": "transcript", "text": "...", "role": "user", "is_final": true }
+{ "type": "llm_chunk", "text": "..." }
+{ "type": "assistant_complete", "text": "...", "role": "assistant" }
+{ "type": "coding_question", "question": "...", "language": "python", "testCases": [...], "initialCode": "..." }
+{ "type": "error", "message": "..." }
+```
+Binary frames = WAV TTS audio chunks
+
+## Environment Variables
+
+**Backend `backend/.env`:**
+```
+AWS_ACCESS_KEY=...
+AWS_SECRET_ACCESS_KEY=...
+AWS_REGION=us-east-1
+S3_BUCKET_USER_DATA=intervyu-user-data-2026
+S3_BUCKET_KNOWLEDGE_BASE=intervyu-knowledge-base-2026
+BEDROCK_AGENT_ID=QWKJJLWIUO
+BEDROCK_AGENT_ALIAS_ID=TSTALIASID
+BEDROCK_KNOWLEDGE_BASE_ID=FGBOJOTC4C
+DEEPGRAM_API_KEY=...
+AZURE_SPEECH_KEY=...
+AZURE_SPEECH_REGION=eastus
+LAMBDA_CODE_EXECUTOR=intervyu-code-executor
+LAMBDA_CV_ANALYZER=intervyu-cv-analyzer
+LAMBDA_PERFORMANCE_EVALUATOR=intervyu-performance-evaluator
+CORS_ORIGINS=http://localhost:3000,https://intervyu.io,https://www.intervyu.io
+HOST=0.0.0.0
+PORT=8000
+LOG_LEVEL=INFO
+ENVIRONMENT=production
+# Supabase
+SUPABASE_URL=https://<ref>.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=...
+SUPABASE_JWT_SECRET=...
+DATABASE_URL=postgresql://postgres:<password>@db.<ref>.supabase.co:5432/postgres
+```
+
+**Frontend `frontend/.env.local`:**
+```
+NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_WS_URL=ws://localhost:8000
+NEXT_PUBLIC_SUPABASE_URL=https://<ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
+
+## Running Locally
+
+```bash
+# Backend
+cd backend && source venv/bin/activate && uvicorn app.main:app --reload
+
+# Frontend
+cd frontend && npm run dev
+
+# Database (optional, local dev)
+cd database && docker-compose up -d
+
+# Lambda (deploy to AWS)
+cd lambda-tools && sam build && sam deploy
+
+# Lambda (local dev — no deploy needed)
+cd lambda-tools && sam build && sam local start-lambda --port 3001
+# Then uncomment LAMBDA_ENDPOINT_URL=http://127.0.0.1:3001 in backend/.env
+```
+
+## Database Schema (Supabase PostgreSQL — active)
+
+Schema: `database/supabase_schema.sql` (run in Supabase SQL Editor)
+
+Key tables: `interview_sessions`, `session_transcripts`, `code_submissions`, `performance_reports`, `cv_documents`, `cv_analysis`, `user_profiles`, `user_statistics`, `scheduled_interviews`, `interview_analytics`
+
+All tables have RLS enabled. User data scoped via `auth.uid()`. `auth.users` managed by Supabase.
+
+Storage split:
+- **PostgreSQL**: all structured data (sessions, transcripts, code, reports, CV analysis)
+- **S3**: binary files only — CVs at `cvs/{session_id}/`, audio at `recordings/{session_id}/`
+
+## Current Phase
+
+Phase 5 (Production) — live at `https://intervyu.io`:
+- [x] Auth (Supabase JWT + Google OAuth + Email OTP)
+- [x] Migrate storage from S3 JSON → Supabase PostgreSQL
+- [x] Rate limiting (slowapi: 10/hr sessions, 5/hr CV upload, 30/hr code execution, 200/min global)
+- [x] Report an Issue (Supabase `feedback` table, polished popover with success state)
+- [ ] Redis caching (replace in-memory Bedrock session state cache — deferred; see Architecture Guide §5.8)
+
+## Interview Types (8)
+
+| Type | Key Focus |
+|------|-----------|
+| `google_sde` | Algorithms, data structures, system design |
+| `amazon_sde` | Leadership principles, coding, behavioral |
+| `microsoft_sde` | Problem solving, collaboration, design |
+| `aws_solutions_architect` | Cloud architecture, AWS best practices |
+| `azure_solutions_architect` | Azure services, enterprise solutions |
+| `gcp_solutions_architect` | GCP services, data analytics |
+| `cv_grilling` | Resume deep dive, STAR method |
+| `coding_practice` | Pure coding problems, optimization |
+
+Each type has configurable phases with duration targets and evaluation guidelines defined in `backend/app/config/interview_types.py`.
+
+## Performance Notes
+- **STT**: Deepgram Nova-2 API via persistent `httpx.AsyncClient` singleton — ~500–620ms stable (was 660–3726ms with per-call TCP+TLS)
+- **STT + session fetch parallelised**: `asyncio.gather(transcribe_audio, _warm_session)` — session fetch is 0ms on critical path
+- **Session cache in-place**: user+assistant turns appended to `_session_cache` after each turn; next turn's session fetch is a free dict lookup (0ms), no S3 re-read
+- **LLM**: bedrock-runtime `converse_stream` → direct Claude Haiku 4.5 token streaming (replaced Bedrock Agent; no ~300ms Agent overhead)
+- **TTS**: clause-split via `_find_tts_split()` (hard split at `.!?`, soft split at `,`/`;` when chunk >60 chars and remainder >20 chars); fired concurrently as tokens stream; asyncio.Queue `_audio_sender()` sends each MP3 to browser immediately upon completion; 263–476ms for short clauses, 866–1716ms for long clauses
+- **TTS audio payload**: MP3 `Audio24Khz48KBitRateMonoMp3` — 13–55KB/chunk (was 95–283KB WAV with edge-tts)
+- **S3 saves** are non-blocking (asyncio background tasks)
+- **Silero VAD** (neural ONNX) replaces amplitude VAD — eliminates mid-sentence cut-offs; audio sent as single WAV blob per utterance
+- **Hardcoded fast intro** hides any cold-start latency on session open
+- **Bedrock connection pool**: 50 max connections with adaptive retries
+- **End-to-end latency** (speech_end → first audio): ~1.7s first audio; ~2.9–4.0s last audio (scales with response length, 2026-03-27)
+
+---
+
+## Keeping Docs Up to Date
+
+After any significant change, update these three files **in the same session**. They are gitignored — local only.
+
+| File | What to update |
+|------|---------------|
+| `ARCHITECTURE_GUIDE.md` | Update the relevant section(s). If a design decision changes, update §5. If the pipeline changes, update §3 or §7. If a new service is added, update §2 and §6. |
+| `OPTIMIZATION_CHANGES.md` | Prepend a new entry with: date, what changed, why, measured/estimated impact, files changed. |
+| `CLAUDE.md` | Update Performance Notes, Project Structure, Tech Stack, or Key APIs if they've changed. |
+
+### What counts as a "significant change" (update docs for all of these):
+- Any change that measurably reduces end-to-end latency (>100ms)
+- Replacing or upgrading a core service (STT, TTS, LLM, storage, auth)
+- Adding or removing an API route, WebSocket message type, or Lambda function
+- Changing the VAD/audio pipeline behavior
+- Architectural shifts (e.g., S3 → PostgreSQL, in-memory → Redis)
+- New interview types or major changes to existing phase configs
+- Infrastructure changes (new EC2, CloudFront, domain, SSL)
+- Any optimization you'd explain in a technical interview or design review
+
+### What does NOT need a doc update:
+- Bug fixes that don't change architecture or performance
+- UI/copy changes
+- Dependency version bumps with no behavior change
+- Test additions
+
+## graphify
+
+This project has a graphify knowledge graph at graphify-out/.
+
+Rules:
+- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- After modifying code files in this session, run `python3 -c "from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code(Path('.'))"` to keep the graph current
+
+---
+> Source: [sahu-adarsh/intervyu](https://github.com/sahu-adarsh/intervyu) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
