@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [code-yeongyu/sisyphus-private](https://github.com/code-yeongyu/sisyphus-private).
+Original source: `CLAUDE.md` in [code-yeongyu/sisyphus-private](https://github.com/code-yeongyu/sisyphus-private).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
