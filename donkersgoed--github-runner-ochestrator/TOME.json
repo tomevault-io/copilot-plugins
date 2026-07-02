@@ -4,7 +4,7 @@
   "repo": "github-runner-ochestrator",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/donkersgoed/github-runner-ochestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T03:07:53Z"
+  "distributed_at": "2026-07-02T05:17:39Z"
 }
