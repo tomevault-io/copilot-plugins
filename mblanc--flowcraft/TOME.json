@@ -4,7 +4,7 @@
   "repo": "flowcraft",
   "description": "Open Source - node based generative workflows on Google Cloud",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mblanc/flowcraft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:51:49Z"
+  "distributed_at": "2026-07-02T04:37:42Z"
 }
