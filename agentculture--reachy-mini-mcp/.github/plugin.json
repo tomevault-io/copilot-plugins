@@ -1,0 +1,9 @@
+{
+  "name": "agentculture--reachy-mini-mcp",
+  "displayName": "reachy-mini-mcp",
+  "description": "An MCP to control Reachy Mini server or sim",
+  "version": "1.0.0",
+  "author": "agentculture",
+  "homepage": "https://github.com/agentculture/reachy-mini-mcp",
+  "skills": []
+}
