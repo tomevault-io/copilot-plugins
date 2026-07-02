@@ -4,7 +4,7 @@
   "repo": "istaroth",
   "description": "Project Istaroth is a RAG-based LLM system for answering Genshin Impact lore questions.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/isundaylee/istaroth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T03:01:49Z"
+  "distributed_at": "2026-07-02T05:13:39Z"
 }
