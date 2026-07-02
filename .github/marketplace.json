@@ -251064,6 +251064,11 @@
       "description": "Emacs audio player for YouTube and YouTube Music"
     },
     {
+      "name": "drbenvincent--tidydraws",
+      "source": "./drbenvincent--tidydraws",
+      "description": "A tidybayes-inspired data layer for declarative Bayesian visualisation in Python."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
