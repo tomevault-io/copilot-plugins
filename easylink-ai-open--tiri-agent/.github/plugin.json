@@ -1,0 +1,9 @@
+{
+  "name": "easylink-ai-open--tiri-agent",
+  "displayName": "tiri-agent",
+  "description": "Tiri local agent backend and web shell built on agent-runtime.",
+  "version": "1.0.0",
+  "author": "easylink-ai-open",
+  "homepage": "https://github.com/easylink-ai-open/tiri-agent",
+  "skills": []
+}
