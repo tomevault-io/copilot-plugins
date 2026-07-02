@@ -1,0 +1,9 @@
+{
+  "name": "akiojin--unity-editor-mcp",
+  "displayName": "unity-editor-mcp",
+  "description": "An MCP server and client for LLMs to interact with Unity Projects",
+  "version": "1.0.0",
+  "author": "akiojin",
+  "homepage": "https://github.com/akiojin/unity-editor-mcp",
+  "skills": []
+}
