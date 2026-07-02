@@ -1,0 +1,9 @@
+{
+  "name": "khaentertainment--docker-swarm-mcp",
+  "displayName": "docker-swarm-mcp",
+  "description": "MCP server for Docker Swarm orchestration using FastAPI and Docker SDK",
+  "version": "1.0.0",
+  "author": "KHAEntertainment",
+  "homepage": "https://github.com/KHAEntertainment/docker-swarm-mcp",
+  "skills": []
+}
