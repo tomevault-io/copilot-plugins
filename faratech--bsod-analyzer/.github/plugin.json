@@ -1,0 +1,9 @@
+{
+  "name": "faratech--bsod-analyzer",
+  "displayName": "bsod-analyzer",
+  "description": "AI-powered BSOD crash dump analyzer using Google Gemini",
+  "version": "1.0.0",
+  "author": "faratech",
+  "homepage": "https://github.com/faratech/bsod-analyzer",
+  "skills": []
+}
