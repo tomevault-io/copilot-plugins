@@ -1,0 +1,9 @@
+{
+  "name": "wonderfall--torrent7",
+  "displayName": "torrent7",
+  "description": "Modern and hardened macOS BitTorrent client built with SwiftUI and libtorrent. ",
+  "version": "1.0.0",
+  "author": "Wonderfall",
+  "homepage": "https://github.com/Wonderfall/torrent7",
+  "skills": []
+}
