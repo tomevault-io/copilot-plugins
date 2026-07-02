@@ -1,0 +1,9 @@
+{
+  "name": "drbenvincent--tidydraws",
+  "displayName": "tidydraws",
+  "description": "A tidybayes-inspired data layer for declarative Bayesian visualisation in Python.",
+  "version": "1.0.0",
+  "author": "drbenvincent",
+  "homepage": "https://github.com/drbenvincent/tidydraws",
+  "skills": []
+}
