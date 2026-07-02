@@ -1,0 +1,9 @@
+{
+  "name": "maxexcloo--homeassistant-beszel-integration",
+  "displayName": "homeassistant-beszel-integration",
+  "description": "Beszel Integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "maxexcloo",
+  "homepage": "https://github.com/maxexcloo/homeassistant-beszel-integration",
+  "skills": []
+}
