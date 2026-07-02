@@ -1,0 +1,44 @@
+{
+  "name": "carcara-code",
+  "owner": "Yg0rAndrade",
+  "repo": "carcara-code",
+  "description": "Carcar\u00e1 Code: IDE desktop em Electron para programar com o Claude Code de forma visual e minimalista (inspirado no Lovable). Inclui preview ao vivo com \"grab\" de elementos, abas para conectores REST e MCP, e identidade visual pr\u00f3pria (carv\u00e3o quente + brasa). Roda via assinatura, nunca por API.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yg0rAndrade/carcara-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T16:32:42Z"
+}
