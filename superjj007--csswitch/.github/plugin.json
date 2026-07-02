@@ -1,0 +1,9 @@
+{
+  "name": "superjj007--csswitch",
+  "displayName": "CSswitch",
+  "description": "\u8ba9 Claude Science \u7684\u63a8\u7406\u8d70\u81ea\u9009\u7684\u7b2c\u4e09\u65b9 API\uff08DeepSeek / \u901a\u4e49\u5343\u95ee / \u4efb\u610f OpenAI \u517c\u5bb9\u7aef\u70b9\uff09\uff0c\u4fdd\u7559\u5de5\u5177\u8c03\u7528\u00b7Skill\u00b7MCP\u00b7\u4ee3\u7801\u6267\u884c\uff0c\u542b\u672c\u5730\u865a\u62df\u767b\u5f55\u8df3\u8fc7\u3002macOS \u83dc\u5355\u680f app\u3002\u4ec5\u4f9b\u4e2a\u4eba\u5b66\u4e60\u7814\u7a76\uff0c\u4f7f\u7528\u8005\u81ea\u8d1f\u98ce\u9669\u3002",
+  "version": "1.0.0",
+  "author": "SuperJJ007",
+  "homepage": "https://github.com/SuperJJ007/CSswitch",
+  "skills": []
+}
