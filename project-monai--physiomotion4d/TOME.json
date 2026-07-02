@@ -4,7 +4,7 @@
   "repo": "physiomotion4d",
   "description": "Generate anatomic models in Omniverse with physiological motion derived from medical images.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Project-MONAI/physiomotion4d",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T22:52:59Z"
+  "distributed_at": "2026-07-02T02:39:58Z"
 }
