@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-jw-player",
+  "displayName": "capacitor-jw-player",
+  "description": "Capacitor plugin to plays videos natively with jwplayer",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-jw-player",
+  "skills": []
+}
