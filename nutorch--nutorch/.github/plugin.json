@@ -1,0 +1,9 @@
+{
+  "name": "nutorch--nutorch",
+  "displayName": "nutorch",
+  "description": "Like PyTorch but for Nushell.",
+  "version": "1.0.0",
+  "author": "nutorch",
+  "homepage": "https://github.com/nutorch/nutorch",
+  "skills": []
+}
