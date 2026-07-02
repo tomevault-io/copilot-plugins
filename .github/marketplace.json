@@ -27874,6 +27874,11 @@
       "description": "react-confirm"
     },
     {
+      "name": "freedesktop-rs--nmrs",
+      "source": "./freedesktop-rs--nmrs",
+      "description": "Rust bindings for NetworkManager over D-Bus."
+    },
+    {
       "name": "xiaolai--vmark",
       "source": "./xiaolai--vmark",
       "description": "An AI friendly markdown editor."
