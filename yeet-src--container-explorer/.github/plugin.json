@@ -1,0 +1,9 @@
+{
+  "name": "yeet-src--container-explorer",
+  "displayName": "container-explorer",
+  "description": "docker ps that you can actually walk around in. Every running container on the host as a live table \u2014 arrow into any one and get a full, self-refreshing inspect: CPU/mem/net sparklines, networks, moun",
+  "version": "1.0.0",
+  "author": "yeet-src",
+  "homepage": "https://github.com/yeet-src/container-explorer",
+  "skills": []
+}
