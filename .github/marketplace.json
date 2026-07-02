@@ -231894,6 +231894,16 @@
       "description": "Typescript SDK for Blaxel"
     },
     {
+      "name": "oliverkillane--derive-c",
+      "source": "./oliverkillane--derive-c",
+      "description": "An attempt to replicate derive macros & generics using the C preprocessor"
+    },
+    {
+      "name": "linxule--loom",
+      "source": "./linxule--loom",
+      "description": "A collection of essays exploring how meaning emerges through human and artificial intelligence interaction. Originally published at Thread Counts. Xule Lin, Kevin Corley, & AI Collaborators (mostly Cl"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -250802,6 +250812,26 @@
       "name": "bobs-devlog--junmit",
       "source": "./bobs-devlog--junmit",
       "description": "junmit"
+    },
+    {
+      "name": "gokeshenzhen--awesome-formal-verification-skill",
+      "source": "./gokeshenzhen--awesome-formal-verification-skill",
+      "description": "awesome-formal-verification-skill"
+    },
+    {
+      "name": "gokeshenzhen--awesome-formal-verification-skill",
+      "source": "./gokeshenzhen--awesome-formal-verification-skill",
+      "description": "awesome-formal-verification-skill"
+    },
+    {
+      "name": "lgrammel--apple-container-sandbox",
+      "source": "./lgrammel--apple-container-sandbox",
+      "description": "Run AI SDK sandbox sessions in Apple Container on your Mac."
+    },
+    {
+      "name": "justlucyhq--lucy",
+      "source": "./justlucyhq--lucy",
+      "description": "Lucy \u2014 open-core, self-hosted AI chat platform. Multi-provider (Claude/OpenAI/Gemini/local), memory, connectors, workflows. Local-first standalone mode or full connected deployment."
     },
     {
       "name": "cheerhuan--save-your-token",
