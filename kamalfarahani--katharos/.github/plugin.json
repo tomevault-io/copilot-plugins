@@ -1,0 +1,9 @@
+{
+  "name": "kamalfarahani--katharos",
+  "displayName": "katharos",
+  "description": "A functional programming and concurrency library for Python: algebraic abstractions (Semigroups, Monoids, Functors, Applicatives, Monads), immutable data types, and message-passing concurrency, all de",
+  "version": "1.0.0",
+  "author": "kamalfarahani",
+  "homepage": "https://github.com/kamalfarahani/katharos",
+  "skills": []
+}
