@@ -1,0 +1,9 @@
+{
+  "name": "mentor-wizard--mentor-wizard-webapp",
+  "displayName": "mentor-wizard-webapp",
+  "description": "Mentor Wizard Webapp based on Larvel + InertiaJS (Vue)",
+  "version": "1.0.0",
+  "author": "Mentor-Wizard",
+  "homepage": "https://github.com/Mentor-Wizard/mentor-wizard-webapp",
+  "skills": []
+}
