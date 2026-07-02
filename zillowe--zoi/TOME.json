@@ -1,8 +1,8 @@
 {
-  "name": "Zoi",
-  "owner": "Zillowe",
-  "repo": "Zoi",
-  "description": "Universal Package Manager & Environment Setup Tool, GitLab Mirror",
+  "name": "zoi",
+  "owner": "zillowe",
+  "repo": "zoi",
+  "description": "Advanced Package Manager & Environment Orchestrator",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/Zillowe/Zoi",
+  "source_url": "https://github.com/zillowe/zoi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T00:01:56Z"
+  "distributed_at": "2026-07-02T01:21:24Z"
 }
