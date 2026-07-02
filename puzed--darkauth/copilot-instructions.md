@@ -1,0 +1,27 @@
+## darkauth
+
+> The main thread and sub agents must follow this section:
+
+## Rules For All
+The main thread and sub agents must follow this section:
+- Use todo plans to break down your work then keep this up to date as you go.
+- ALWAYS consider removing things to fix the users issues. Not every needs an additive solution.
+- Code should be simple and reusable. Don't over-complicate things.
+- NEVER write comments.
+- Tell sub agents they are a sub agent, so they ignore the rules below.
+
+## Rules For Main Thread Only
+WARNING: If you are a Sub Agent ignore this section.
+
+Only the main top level thread/agent should follow these:
+- You can spawn multiple of the same sub agents for large tasks.
+  - backend-developer
+  - documentation-writer
+  - frontend-developer
+  - security-auditor
+  - test-writer
+- After making your change make sure you run the `pnpm tidy` and `pnpm build` when you have finished.
+
+---
+> Source: [puzed/darkauth](https://github.com/puzed/darkauth) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-01 -->
