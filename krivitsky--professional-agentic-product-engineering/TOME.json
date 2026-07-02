@@ -4,7 +4,7 @@
   "repo": "professional-agentic-product-engineering",
   "description": "A guide on Professional Agentic Product Engineering with Claude Code \u2014 from tier 1 to tier 8",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/krivitsky/professional-agentic-product-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T01:18:25Z"
+  "distributed_at": "2026-07-02T04:52:26Z"
 }
