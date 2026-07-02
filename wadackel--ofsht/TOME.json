@@ -4,7 +4,7 @@
   "repo": "ofsht",
   "description": "A command-line tool for managing Git worktrees with automation features.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wadackel/ofsht",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T23:09:39Z"
+  "distributed_at": "2026-07-02T02:58:04Z"
 }
