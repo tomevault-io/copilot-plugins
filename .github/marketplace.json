@@ -122284,6 +122284,11 @@
       "description": "OpenWiki is a CLI that writes and maintains agent documentation for your codebase."
     },
     {
+      "name": "1gr14--point0",
+      "source": "./1gr14--point0",
+      "description": "point0"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -177504,6 +177509,11 @@
       "description": "Control CST Studio or HFSS via AI agent"
     },
     {
+      "name": "anhtester--codex-testing-kit",
+      "source": "./anhtester--codex-testing-kit",
+      "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Codex h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -186397,6 +186407,11 @@
       "name": "gvray--gvray-admin",
       "source": "./gvray--gvray-admin",
       "description": "\u2728 NestJS enterprise admin system with RBAC, Prisma ORM, JWT auth. Includes CLAUDE.md for AI-assisted development."
+    },
+    {
+      "name": "vickman787--citeflowai",
+      "source": "./vickman787--citeflowai",
+      "description": "citeflowAI"
     },
     {
       "name": "lightninglabs--lnget",
