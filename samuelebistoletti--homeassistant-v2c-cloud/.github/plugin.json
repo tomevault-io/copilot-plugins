@@ -1,0 +1,9 @@
+{
+  "name": "samuelebistoletti--homeassistant-v2c-cloud",
+  "displayName": "HomeAssistant-V2C-Cloud",
+  "description": "V2C Cloud Home Assistant Integration",
+  "version": "1.0.0",
+  "author": "samuelebistoletti",
+  "homepage": "https://github.com/samuelebistoletti/HomeAssistant-V2C-Cloud",
+  "skills": []
+}
