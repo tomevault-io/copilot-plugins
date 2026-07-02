@@ -3,8 +3,8 @@
   "owner": "jabrena",
   "repo": "cursor-rules-java",
   "description": "A curated and opinionated collection of Skills and Agents to be used in modern SDLC workflows for Java Enterprise development with your favorite AI Agent harness.",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,33 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "200-agents-md",
-      "path": "skills/200-agents-md",
-      "github_url": "https://github.com/jabrena/cursor-rules-java/tree/main/skills/200-agents-md",
-      "description": ""
-    },
-    {
-      "name": "003-agents-installation",
-      "path": "skills/003-agents-installation",
-      "github_url": "https://github.com/jabrena/cursor-rules-java/tree/main/skills/003-agents-installation",
-      "description": ""
-    },
-    {
-      "name": "041-planning-plan-mode",
-      "path": "skills/041-planning-plan-mode",
-      "github_url": "https://github.com/jabrena/cursor-rules-java/tree/main/skills/041-planning-plan-mode",
-      "description": ""
-    },
-    {
-      "name": "504-frameworks-micronaut-security",
-      "path": "skills/504-frameworks-micronaut-security",
-      "github_url": "https://github.com/jabrena/cursor-rules-java/tree/main/skills/504-frameworks-micronaut-security",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/jabrena/cursor-rules-java",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T08:39:33Z"
+  "distributed_at": "2026-07-02T16:30:27Z"
 }
