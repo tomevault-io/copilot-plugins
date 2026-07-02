@@ -1,0 +1,9 @@
+{
+  "name": "nonlaproject--nonlaos",
+  "displayName": "nonlaOS",
+  "description": "Debian stable + KDE Plasma desktop distro for Vietnamese users",
+  "version": "1.0.0",
+  "author": "NonLaProject",
+  "homepage": "https://github.com/NonLaProject/nonlaOS",
+  "skills": []
+}
