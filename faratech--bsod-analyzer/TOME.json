@@ -4,7 +4,7 @@
   "repo": "bsod-analyzer",
   "description": "AI-powered BSOD crash dump analyzer using Google Gemini",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/faratech/bsod-analyzer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:35:06Z"
+  "distributed_at": "2026-07-02T05:19:34Z"
 }
