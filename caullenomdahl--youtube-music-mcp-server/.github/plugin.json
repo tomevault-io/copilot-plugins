@@ -1,0 +1,9 @@
+{
+  "name": "caullenomdahl--youtube-music-mcp-server",
+  "displayName": "youtube-music-mcp-server",
+  "description": "YouTube Music MCP Server - Search, curate, and manage YouTube Music playlists through Claude AI",
+  "version": "1.0.0",
+  "author": "CaullenOmdahl",
+  "homepage": "https://github.com/CaullenOmdahl/youtube-music-mcp-server",
+  "skills": []
+}
