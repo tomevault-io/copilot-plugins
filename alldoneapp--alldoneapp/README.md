@@ -7,11 +7,11 @@ Team up with AI to get it all done. Level up our life with your personal all-in-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [alldoneapp/alldoneapp](https://github.com/alldoneapp/alldoneapp).
+Original source: `CLAUDE.md` in [alldoneapp/alldoneapp](https://github.com/alldoneapp/alldoneapp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
