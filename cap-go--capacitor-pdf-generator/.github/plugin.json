@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-pdf-generator",
+  "displayName": "capacitor-pdf-generator",
+  "description": "Capacitor plugin to generate PDF files from HTML strings or URLs on iOS and Android.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-pdf-generator",
+  "skills": []
+}
