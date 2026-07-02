@@ -1,0 +1,9 @@
+{
+  "name": "thedevpp--quiz-generator",
+  "displayName": "quiz-generator",
+  "description": "A quiz app powered by Open Trivia DB, built to practice Claude Code MCP/skill/agent workflows",
+  "version": "1.0.0",
+  "author": "TheDevPP",
+  "homepage": "https://github.com/TheDevPP/quiz-generator",
+  "skills": []
+}
