@@ -1,0 +1,9 @@
+{
+  "name": "chienchuanw--gma2-mcp",
+  "displayName": "gma2-mcp",
+  "description": "grandMA2 MCP is a Python tool to remotely control grandMA2 onPC via persistent Telnet, enabling automated lighting-console workflows and command pipelines.",
+  "version": "1.0.0",
+  "author": "chienchuanw",
+  "homepage": "https://github.com/chienchuanw/gma2-mcp",
+  "skills": []
+}
