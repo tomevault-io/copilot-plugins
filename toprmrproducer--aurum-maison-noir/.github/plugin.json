@@ -1,0 +1,9 @@
+{
+  "name": "toprmrproducer--aurum-maison-noir",
+  "displayName": "aurum-maison-noir",
+  "description": "Scroll-driven 3D luxury perfume website (three.js + GSAP + Lenis, no build step). Built end to end by Claude Code. Includes a one-shot reproduction prompt. Crafted by RapidXAI.",
+  "version": "1.0.0",
+  "author": "toprmrproducer",
+  "homepage": "https://github.com/toprmrproducer/aurum-maison-noir",
+  "skills": []
+}
