@@ -1,0 +1,9 @@
+{
+  "name": "selixo--terrai",
+  "displayName": "terrai",
+  "description": "A SaaS application that generates comprehensive reports on building plots in Poland. The user selects a plot, the system aggregates data from public sources, AI writes the narrative, and the result is",
+  "version": "1.0.0",
+  "author": "Selixo",
+  "homepage": "https://github.com/Selixo/terrai",
+  "skills": []
+}
