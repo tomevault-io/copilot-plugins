@@ -1,0 +1,9 @@
+{
+  "name": "luciuschen--ytm-radio",
+  "displayName": "ytm-radio",
+  "description": "Emacs audio player for YouTube and YouTube Music",
+  "version": "1.0.0",
+  "author": "LuciusChen",
+  "homepage": "https://github.com/LuciusChen/ytm-radio",
+  "skills": []
+}
