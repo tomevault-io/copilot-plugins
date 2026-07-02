@@ -4,7 +4,7 @@
   "repo": "bifrost",
   "description": "Bifrost Integrations is an open-source automation platform designed to democratize best-in-class tooling for the emerging Integration Services industry - before venture capital gets the chance to own something we\u2019re all incredibly passionate about: solving problems with automation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gobifrost/bifrost",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T20:56:45Z"
+  "distributed_at": "2026-07-02T00:44:19Z"
 }
