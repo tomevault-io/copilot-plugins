@@ -7,11 +7,11 @@ AI-powered news intelligence with 8 Vertex AI agents monitoring 50+ sources. Rea
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jeremylongshore/perception-with-intent](https://github.com/jeremylongshore/perception-with-intent).
+Original source: `CLAUDE.md` in [jeremylongshore/perception-with-intent](https://github.com/jeremylongshore/perception-with-intent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
