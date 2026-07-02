@@ -1,0 +1,9 @@
+{
+  "name": "distantorigin--mcp-telnet",
+  "displayName": "mcp-telnet",
+  "description": "An MCP server for telnet, allowing Claude and other LLMs to interact with text-based interfaces",
+  "version": "1.0.0",
+  "author": "distantorigin",
+  "homepage": "https://github.com/distantorigin/mcp-telnet",
+  "skills": []
+}
