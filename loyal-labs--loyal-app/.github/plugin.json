@@ -1,0 +1,9 @@
+{
+  "name": "loyal-labs--loyal-app",
+  "displayName": "loyal-app",
+  "description": "Loyal \u2014 open-source Solana wallet. Smart-account guardrails for AI agents, private transfers and yield on private assets.",
+  "version": "1.0.0",
+  "author": "loyal-labs",
+  "homepage": "https://github.com/loyal-labs/loyal-app",
+  "skills": []
+}
