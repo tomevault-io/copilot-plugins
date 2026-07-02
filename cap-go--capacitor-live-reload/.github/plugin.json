@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-live-reload",
+  "displayName": "capacitor-live-reload",
+  "description": "Capcitor plugin to live reload Capacitor apps from a remote Vite dev server.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-live-reload",
+  "skills": []
+}
