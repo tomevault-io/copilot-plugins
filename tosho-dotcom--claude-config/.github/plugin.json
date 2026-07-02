@@ -1,0 +1,9 @@
+{
+  "name": "tosho-dotcom--claude-config",
+  "displayName": "claude-config",
+  "description": "Claude Code project instructions (CLAUDE.md)",
+  "version": "1.0.0",
+  "author": "Tosho-dotcom",
+  "homepage": "https://github.com/Tosho-dotcom/claude-config",
+  "skills": []
+}
