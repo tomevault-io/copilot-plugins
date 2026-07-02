@@ -1,0 +1,9 @@
+{
+  "name": "mip-org--mip",
+  "displayName": "mip",
+  "description": "pip-style package manager for matlab",
+  "version": "1.0.0",
+  "author": "mip-org",
+  "homepage": "https://github.com/mip-org/mip",
+  "skills": []
+}
