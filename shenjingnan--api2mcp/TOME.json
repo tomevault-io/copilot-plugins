@@ -4,7 +4,7 @@
   "repo": "api2mcp",
   "description": "OpenAPI to MCP - \u8ba9 AI \u52a9\u624b\u76f4\u63a5\u8c03\u7528\u4efb\u610f API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shenjingnan/api2mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:57:47Z"
+  "distributed_at": "2026-07-02T04:46:29Z"
 }
