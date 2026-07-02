@@ -7,14 +7,14 @@ AI video production workflow platform for professional short drama teams. Timeli
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [yfge/ai-video-studio](https://github.com/yfge/ai-video-studio).
+Original source: `AGENTS.md` in [yfge/ai-video-studio](https://github.com/yfge/ai-video-studio).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/yfge/ai-video-studio](https://github.com/yfge/ai-video-studio)
