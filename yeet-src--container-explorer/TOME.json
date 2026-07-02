@@ -4,7 +4,7 @@
   "repo": "container-explorer",
   "description": "docker ps that you can actually walk around in. Every running container on the host as a live table \u2014 arrow into any one and get a full, self-refreshing inspect: CPU/mem/net sparklines, networks, mounts, ports, the processes really running inside it, and a live log tail. Built as a yeet reactive JSX TUI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yeet-src/container-explorer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T03:11:57Z"
+  "distributed_at": "2026-07-02T05:20:31Z"
 }
