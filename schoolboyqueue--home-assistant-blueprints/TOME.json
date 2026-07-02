@@ -4,7 +4,7 @@
   "repo": "home-assistant-blueprints",
   "description": "Home Assistant Blueprints \u2014 pro-grade automation templates for real homes (Adaptive Comfort HVAC, Bathroom Light & Fan, Zooz Z-Wave dimming). Jinja2 + YAML. MIT.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/schoolboyqueue/home-assistant-blueprints",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T20:50:25Z"
+  "distributed_at": "2026-07-02T00:39:22Z"
 }
