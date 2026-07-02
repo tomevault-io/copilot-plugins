@@ -1,0 +1,9 @@
+{
+  "name": "jorourke--naim-atom-home-assistant",
+  "displayName": "naim-atom-home-assistant",
+  "description": "A custom component for naim atom on home assistant",
+  "version": "1.0.0",
+  "author": "jorourke",
+  "homepage": "https://github.com/jorourke/naim-atom-home-assistant",
+  "skills": []
+}
