@@ -1,0 +1,9 @@
+{
+  "name": "alliance-algorithm--rmcs-auto-aim-v2",
+  "displayName": "rmcs_auto_aim_v2",
+  "description": "Auto Aim System Of RoboMaster Control System",
+  "version": "1.0.0",
+  "author": "Alliance-Algorithm",
+  "homepage": "https://github.com/Alliance-Algorithm/rmcs_auto_aim_v2",
+  "skills": []
+}
