@@ -4,7 +4,7 @@
   "repo": "windows-computer-use-mcp",
   "description": "Windows Computer Use for AI Agents. Both a tool (22 MCP tools for click, type, screenshot, OCR, UI inspection) and an agent (autonomous mission engine, macro recorder, intent-based discovery, event watchers). Built with opencode (DeepSeek V4). Ships as MCP server, web UI, and Tauri desktop app.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sandraschi/windows-computer-use-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T16:33:33Z"
+  "distributed_at": "2026-07-02T01:24:20Z"
 }
