@@ -1,0 +1,9 @@
+{
+  "name": "divitmittal--audioresswitcher-raycast",
+  "displayName": "AudioResSwitcher-Raycast",
+  "description": "Control audio quality with precision. Switch sample rates, bit depth, and formats for input/output devices. Monitor current bitrate in menubar.",
+  "version": "1.0.0",
+  "author": "DivitMittal",
+  "homepage": "https://github.com/DivitMittal/AudioResSwitcher-Raycast",
+  "skills": []
+}
