@@ -1,0 +1,9 @@
+{
+  "name": "jwm0203--claude-science-for-win",
+  "displayName": "Claude-Science-for-win",
+  "description": "Windows-native replica of Claude Science research workbench",
+  "version": "1.0.0",
+  "author": "JWM0203",
+  "homepage": "https://github.com/JWM0203/Claude-Science-for-win",
+  "skills": []
+}
