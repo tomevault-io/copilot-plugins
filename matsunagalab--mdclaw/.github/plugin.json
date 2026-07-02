@@ -1,0 +1,9 @@
+{
+  "name": "matsunagalab--mdclaw",
+  "displayName": "mdclaw",
+  "description": "Molecular dynamics simulation skills for AI agents",
+  "version": "1.0.0",
+  "author": "matsunagalab",
+  "homepage": "https://github.com/matsunagalab/mdclaw",
+  "skills": []
+}
