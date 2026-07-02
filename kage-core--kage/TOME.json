@@ -4,7 +4,7 @@
   "repo": "Kage",
   "description": "Persistent, verified memory for coding agents \u2014 so they stop re-explaining your codebase and never act on stale knowledge. Every memory is checked against your actual code; lives in your repo as plain files, shared via git. No account, no DB. Install: npx -y @kage-core/kage-graph-mcp install",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kage-core/Kage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T19:30:27Z"
+  "distributed_at": "2026-07-02T19:32:33Z"
 }
