@@ -1,0 +1,9 @@
+{
+  "name": "0xdivinerapier--subpay",
+  "displayName": "subpay",
+  "description": "USDC recurring payments on Solana \u2014 TypeScript SDK, Fastify relay backend, and Next.js operator dashboard",
+  "version": "1.0.0",
+  "author": "0xDivineRapier",
+  "homepage": "https://github.com/0xDivineRapier/subpay",
+  "skills": []
+}
