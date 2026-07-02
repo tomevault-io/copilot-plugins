@@ -7,11 +7,11 @@ Verify email address checking MX records, and SMTP connection, check for disposa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [email-check-app/email-validator-js](https://github.com/email-check-app/email-validator-js).
+Original source: `CLAUDE.md` in [email-check-app/email-validator-js](https://github.com/email-check-app/email-validator-js).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
