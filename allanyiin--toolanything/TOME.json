@@ -4,7 +4,7 @@
   "repo": "ToolAnything",
   "description": "One Function to MCP and Tool calling",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AllanYiin/ToolAnything",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T23:03:33Z"
+  "distributed_at": "2026-07-02T02:49:53Z"
 }
