@@ -1,9 +1,30 @@
 {
   "name": "mudrii--openclaw-dashboard",
   "displayName": "openclaw-dashboard",
-  "description": "A beautiful, zero-dependency command center for OpenClaw AI agents",
+  "description": "openclaw-dashboard",
   "version": "1.0.0",
   "author": "mudrii",
   "homepage": "https://github.com/mudrii/openclaw-dashboard",
-  "skills": []
+  "skills": [
+    {
+      "name": "openclaw-dashboard",
+      "description": ""
+    },
+    {
+      "name": "openclaw-dashboard",
+      "description": ""
+    },
+    {
+      "name": "openclaw-dashboard",
+      "description": ""
+    },
+    {
+      "name": "openclaw-dashboard",
+      "description": ""
+    },
+    {
+      "name": "openclaw-dashboard",
+      "description": ""
+    }
+  ]
 }
