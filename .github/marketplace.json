@@ -22694,6 +22694,11 @@
       "description": "The functional, composable, and typescript-first AI Agent framework for real-world LLM Apps."
     },
     {
+      "name": "adrienbrault--geekmagic-hacs",
+      "source": "./adrienbrault--geekmagic-hacs",
+      "description": "geekmagic-hacs"
+    },
+    {
       "name": "run-llama--llama-agents",
       "source": "./run-llama--llama-agents",
       "description": "Llama Agents + Workflows are an event-driven, async-first, step-based way to control the execution flow of AI applications like agents."
@@ -97207,6 +97212,11 @@
       "name": "zhangzef--cooper",
       "source": "./zhangzef--cooper",
       "description": "COOPER"
+    },
+    {
+      "name": "opaquedb--opaquedb",
+      "source": "./opaquedb--opaquedb",
+      "description": "Post-quantum distributed private database."
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -186417,6 +186427,21 @@
       "name": "vickman787--citeflowai",
       "source": "./vickman787--citeflowai",
       "description": "citeflowAI"
+    },
+    {
+      "name": "zdolphin07-dotcom--lattice",
+      "source": "./zdolphin07-dotcom--lattice",
+      "description": "lattice"
+    },
+    {
+      "name": "zdolphin07-dotcom--lattice",
+      "source": "./zdolphin07-dotcom--lattice",
+      "description": "lattice"
+    },
+    {
+      "name": "hkust-c4g--echostyle",
+      "source": "./hkust-c4g--echostyle",
+      "description": "EchoStyle: Unlocking High-Fidelity Video Stylization with Reverse Data Synthesis"
     },
     {
       "name": "lightninglabs--lnget",
