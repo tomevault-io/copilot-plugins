@@ -5,22 +5,5 @@
   "version": "1.0.0",
   "author": "jabrena",
   "homepage": "https://github.com/jabrena/cursor-rules-java",
-  "skills": [
-    {
-      "name": "200-agents-md",
-      "description": ""
-    },
-    {
-      "name": "003-agents-installation",
-      "description": ""
-    },
-    {
-      "name": "041-planning-plan-mode",
-      "description": ""
-    },
-    {
-      "name": "504-frameworks-micronaut-security",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
