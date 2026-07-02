@@ -4,7 +4,7 @@
   "repo": "botc-script-tool",
   "description": "Free Blood on the Clocktower script layout beautifier & custom script generator. Import official JSON, customize characters,      jinxes, and night order, then export print-ready PDF. No signup, no install \u2014 open and create.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LiWeny16/botc-script-tool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T20:58:53Z"
+  "distributed_at": "2026-07-02T00:46:19Z"
 }
