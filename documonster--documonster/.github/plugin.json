@@ -1,0 +1,9 @@
+{
+  "name": "documonster--documonster",
+  "displayName": "documonster",
+  "description": "Zero-dependency TypeScript toolkit for Excel, Word, PDF, CSV, Markdown, XML & ZIP \u2014 one API across Node.js, Bun & browsers.",
+  "version": "1.0.0",
+  "author": "documonster",
+  "homepage": "https://github.com/documonster/documonster",
+  "skills": []
+}
