@@ -1,0 +1,44 @@
+{
+  "name": "Awakened-PoE-Trade-Simplified-Chinese",
+  "owner": "yl-tianxian",
+  "repo": "Awakened-PoE-Trade-Simplified-Chinese",
+  "description": "Awakened PoE Trade\u6d41\u653e\u4e4b\u8def\u67e5\u4ef7\u5668\u7b80\u4e2d\u7248",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yl-tianxian/Awakened-PoE-Trade-Simplified-Chinese",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T01:15:26Z"
+}
