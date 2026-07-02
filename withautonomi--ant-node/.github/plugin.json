@@ -1,0 +1,9 @@
+{
+  "name": "withautonomi--ant-node",
+  "displayName": "ant-node",
+  "description": "Pure quantum-proof network node for the Autonomi decentralized network",
+  "version": "1.0.0",
+  "author": "WithAutonomi",
+  "homepage": "https://github.com/WithAutonomi/ant-node",
+  "skills": []
+}
