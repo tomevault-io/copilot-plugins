@@ -1,0 +1,44 @@
+{
+  "name": "backupgram",
+  "owner": "ganiyevuz",
+  "repo": "backupgram",
+  "description": "Backup PostgreSQL to the local filesystem with periodic backups, automatic rotation, and Telegram bot integration to send the latest backup file.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ganiyevuz/backupgram",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T10:32:33Z"
+}
