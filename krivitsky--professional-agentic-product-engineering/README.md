@@ -7,11 +7,11 @@ A guide on Professional Agentic Product Engineering with Claude Code — from ti
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [krivitsky/professional-agentic-product-engineering](https://github.com/krivitsky/professional-agentic-product-engineering).
+Original source: `CLAUDE.md` in [krivitsky/professional-agentic-product-engineering](https://github.com/krivitsky/professional-agentic-product-engineering).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
