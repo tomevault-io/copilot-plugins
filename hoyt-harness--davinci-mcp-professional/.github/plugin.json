@@ -1,0 +1,9 @@
+{
+  "name": "hoyt-harness--davinci-mcp-professional",
+  "displayName": "davinci-mcp-professional",
+  "description": "An enterprise-grade MCP server that exposes the full functionality of DaVinci Resolve and DaVinci Resolve Studio (through version 20) to either Claude Desktop or Cursor MCP clients. Fully configured a",
+  "version": "1.0.0",
+  "author": "hoyt-harness",
+  "homepage": "https://github.com/hoyt-harness/davinci-mcp-professional",
+  "skills": []
+}
