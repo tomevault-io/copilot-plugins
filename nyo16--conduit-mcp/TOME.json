@@ -1,0 +1,44 @@
+{
+  "name": "conduit_mcp",
+  "owner": "nyo16",
+  "repo": "conduit_mcp",
+  "description": "Elixir implementation of the Model Context Protocol (MCP) \u2014 build servers to expose tools, resources, and prompts to LLM applications.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nyo16/conduit_mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T04:38:43Z"
+}
