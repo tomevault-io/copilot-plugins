@@ -1,0 +1,9 @@
+{
+  "name": "waybox-ai--roadtrip-skill",
+  "displayName": "roadtrip-skill",
+  "description": "An AI agent skill that turns \"start + days\" into a road trip you can actually drive.",
+  "version": "1.0.0",
+  "author": "Waybox-AI",
+  "homepage": "https://github.com/Waybox-AI/roadtrip-skill",
+  "skills": []
+}
