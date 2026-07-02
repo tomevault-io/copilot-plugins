@@ -1,0 +1,9 @@
+{
+  "name": "henryrobbins--open-atp",
+  "displayName": "open-atp",
+  "description": "OpenATP is an open-source Python package providing a common interface for Automated Theorem Proving (ATP)",
+  "version": "1.0.0",
+  "author": "henryrobbins",
+  "homepage": "https://github.com/henryrobbins/open-atp",
+  "skills": []
+}
