@@ -1,0 +1,9 @@
+{
+  "name": "tinyhumansai--tinyagents",
+  "displayName": "tinyagents",
+  "description": "A recursive language-model (RLM) harness for Rust.",
+  "version": "1.0.0",
+  "author": "tinyhumansai",
+  "homepage": "https://github.com/tinyhumansai/tinyagents",
+  "skills": []
+}
