@@ -1,0 +1,9 @@
+{
+  "name": "devdacian--touchstone",
+  "displayName": "touchstone",
+  "description": "A lightweight, automated multi-model process for rapid agent-skill improvement with adversarial cross-model review.",
+  "version": "1.0.0",
+  "author": "devdacian",
+  "homepage": "https://github.com/devdacian/touchstone",
+  "skills": []
+}
