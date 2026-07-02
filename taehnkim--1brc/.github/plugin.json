@@ -1,0 +1,9 @@
+{
+  "name": "taehnkim--1brc",
+  "displayName": "1brc",
+  "description": "Parsing 1 billion rows under 10s in TS",
+  "version": "1.0.0",
+  "author": "taehnkim",
+  "homepage": "https://github.com/taehnkim/1brc",
+  "skills": []
+}
