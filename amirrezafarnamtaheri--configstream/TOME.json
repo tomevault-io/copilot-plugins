@@ -4,7 +4,7 @@
   "repo": "ConfigStream",
   "description": "ConfigStream collects, deduplicates, tests, and ranks free VPN/proxy configs from hundreds of public sources, then publishes ready-to-use outputs on GitHub Pages. Scheduled runs (GitHub Actions) export Base64 subscriptions, Clash YAML, raw lists, and JSON metadata. Use for casual, non-sensitive browsing.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AmirrezaFarnamTaheri/ConfigStream",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T08:33:53Z"
+  "distributed_at": "2026-07-02T00:35:32Z"
 }
