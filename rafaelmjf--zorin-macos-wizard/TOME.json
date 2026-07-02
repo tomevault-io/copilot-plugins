@@ -4,7 +4,7 @@
   "repo": "zorin-macos-wizard",
   "description": "Turn stock Zorin OS into a macOS-style desktop (dock + traffic-light buttons + WhiteSur), no Zorin Pro. Agent-readable + scripted.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rafaelmjf/zorin-macos-wizard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T22:45:27Z"
+  "distributed_at": "2026-07-02T22:52:55Z"
 }
