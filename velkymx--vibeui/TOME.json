@@ -4,7 +4,7 @@
   "repo": "vibeui",
   "description": "VibeUI is a next generation UI library for VueJS 3 using the latest Bootstrap 5 ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/velkymx/vibeui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T03:05:53Z"
+  "distributed_at": "2026-07-02T05:16:41Z"
 }
