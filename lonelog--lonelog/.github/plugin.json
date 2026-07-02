@@ -1,0 +1,9 @@
+{
+  "name": "lonelog--lonelog",
+  "displayName": "lonelog",
+  "description": "Lonelog is a lightweight notation system for recording solo tabletop RPG sessions. It provides a standardized way to capture game mechanics, oracle questions, and narrative outcomes\u2014keeping your sessi",
+  "version": "1.0.0",
+  "author": "lonelog",
+  "homepage": "https://github.com/lonelog/lonelog",
+  "skills": []
+}
