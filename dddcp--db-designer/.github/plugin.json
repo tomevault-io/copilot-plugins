@@ -1,0 +1,9 @@
+{
+  "name": "dddcp--db-designer",
+  "displayName": "db-designer",
+  "description": "AI-empowered database model design, featuring lightweight, cross-platform compatibility, and the ability to synchronize and compare with databases",
+  "version": "1.0.0",
+  "author": "dddcp",
+  "homepage": "https://github.com/dddcp/db-designer",
+  "skills": []
+}
