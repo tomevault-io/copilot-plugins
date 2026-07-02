@@ -149099,6 +149099,16 @@
       "description": "Demo app built with Expo and Grok voice agents"
     },
     {
+      "name": "kage-core--kage",
+      "source": "./kage-core--kage",
+      "description": "Persistent, verified memory for coding agents \u2014 so they stop re-explaining your codebase and never act on stale knowledge. Every memory is checked against your actual code; lives in your repo as plain"
+    },
+    {
+      "name": "kage-core--kage",
+      "source": "./kage-core--kage",
+      "description": "Persistent, verified memory for coding agents \u2014 so they stop re-explaining your codebase and never act on stale knowledge. Every memory is checked against your actual code; lives in your repo as plain"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -177539,6 +177549,11 @@
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Codex h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
     },
     {
+      "name": "superjj007--csswitch",
+      "source": "./superjj007--csswitch",
+      "description": "\u8ba9 Claude Science \u7684\u63a8\u7406\u8d70\u81ea\u9009\u7684\u7b2c\u4e09\u65b9 API\uff08DeepSeek / \u901a\u4e49\u5343\u95ee / \u4efb\u610f OpenAI \u517c\u5bb9\u7aef\u70b9\uff09\uff0c\u4fdd\u7559\u5de5\u5177\u8c03\u7528\u00b7Skill\u00b7MCP\u00b7\u4ee3\u7801\u6267\u884c\uff0c\u542b\u672c\u5730\u865a\u62df\u767b\u5f55\u8df3\u8fc7\u3002macOS \u83dc\u5355\u680f app\u3002\u4ec5\u4f9b\u4e2a\u4eba\u5b66\u4e60\u7814\u7a76\uff0c\u4f7f\u7528\u8005\u81ea\u8d1f\u98ce\u9669\u3002"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -186457,6 +186472,11 @@
       "name": "emson--claudoro",
       "source": "./emson--claudoro",
       "description": "Claudoro: Feature rich Pomodoro timer embedded into Claude Code"
+    },
+    {
+      "name": "ambrosex--larksnap",
+      "source": "./ambrosex--larksnap",
+      "description": "larksnap"
     },
     {
       "name": "lightninglabs--lnget",
@@ -199507,6 +199527,11 @@
       "name": "sindresorhus--eslint-node-test",
       "source": "./sindresorhus--eslint-node-test",
       "description": "ESLint rules for the Node.js built-in test runner (`node:test`)"
+    },
+    {
+      "name": "jwm0203--claude-science-for-win",
+      "source": "./jwm0203--claude-science-for-win",
+      "description": "Windows-native replica of Claude Science research workbench"
     },
     {
       "name": "yschimke--compose-ai-tools",
