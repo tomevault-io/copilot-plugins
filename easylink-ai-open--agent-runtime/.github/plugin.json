@@ -1,0 +1,9 @@
+{
+  "name": "easylink-ai-open--agent-runtime",
+  "displayName": "agent-runtime",
+  "description": "Standalone agent runtime core with neutral LLM types, provider clients, tool loop, and extension protocols.",
+  "version": "1.0.0",
+  "author": "easylink-ai-open",
+  "homepage": "https://github.com/easylink-ai-open/agent-runtime",
+  "skills": []
+}
