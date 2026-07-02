@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-media-session",
+  "displayName": "capacitor-media-session",
+  "description": "Capacitor plugin to expose media session controls of the device",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-media-session",
+  "skills": []
+}
