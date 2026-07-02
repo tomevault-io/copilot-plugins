@@ -1,57 +1,37 @@
-## feature
+## alldoneapp
 
-> When building new features
+> This repository contains the Alldone app, a full-stack application built with React Native for the frontend and Google Cloud Functions for the backend. The app utilizes Firebase for authentication, real-time database, and storage. It also integrates with several external services, including Algolia for search, Sentry for error monitoring, and others.
 
+# GEMINI.md
 
-# Implementation Principles
+## Project Overview
 
-## Progressive Development
+This repository contains the Alldone app, a full-stack application built with React Native for the frontend and Google Cloud Functions for the backend. The app utilizes Firebase for authentication, real-time database, and storage. It also integrates with several external services, including Algolia for search, Sentry for error monitoring, and others.
 
--   Implement solutions in logical stages rather than all at once
+## Building and Running
 
--   Pause after completing each meaningful component to check user requirements
+### Prerequisites
 
--   Confirm scope understanding before beginning implementation
+-   Node.js v14.21.3
+-   npm v6.14.18
+-   expo-cli v6.1.0
+-   firebase-tools v13.29.3
 
-## Scope Management
+### Scripts
 
--   Implement only what is explicitly requested
+-   **`npm start`**: Starts the Metro Bundler.
+-   **`npm run android`**: Runs the app on an Android emulator or connected device.
+-   **`npm run ios`**: Runs the app on an iOS simulator or connected device.
+-   **`npm run web`**: Runs the app in a web browser.
+-   **`npm test`**: Runs the test suite using Jest.
+-   **`npm run format-code`**: Formats the code using Prettier.
 
--   When requirements are ambiguous, choose the minimal viable interpretation
+## Development Conventions
 
--   Identify when a request might require changes to multiple components or systems
-
--   Always ask permission before modifying components not specifically mentioned
-
-## Communication Protocol
-
--   After implementing each component, briefly summarize what you've completed
-
--   Classify proposed changes by impact level: Small (minor changes), Medium (moderate rework), or Large (significant restructuring)
-
--   For Large changes, outline your implementation plan before proceeding
-
--   Explicitly note which features are completed and which remain to be implemented
-
-## Quality Assurance
-
--   Provide testable increments when possible
-
--   Include usage examples for implemented components
-
--   Identify potential edge cases or limitations in your implementation
-
--   Suggest tests that would verify correct functionality
-
-# Balancing Efficiency with Control
-
--   For straightforward, low-risk tasks, you may implement the complete solution
-
--   For complex tasks, break implementation into logical chunks with review points
-
--   When uncertain about scope, pause and ask clarifying questions
-
--   Be responsive to user feedback about process - some users may prefer more or less granular control
+-   The project uses Prettier for code formatting.
+-   The project has a comprehensive test suite using Jest.
+-   The project uses GitLab CI/CD for continuous integration and deployment.
+-   The project has a `replacement_node_modules` directory, which contains a modified version of the Quill library. After installing the dependencies, the modified file needs to be copied to the `node_modules` directory.
 
 ---
 > Source: [alldoneapp/alldoneapp](https://github.com/alldoneapp/alldoneapp) — distributed by [TomeVault](https://tomevault.io).
