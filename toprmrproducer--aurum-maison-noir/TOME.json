@@ -1,0 +1,44 @@
+{
+  "name": "aurum-maison-noir",
+  "owner": "toprmrproducer",
+  "repo": "aurum-maison-noir",
+  "description": "Scroll-driven 3D luxury perfume website (three.js + GSAP + Lenis, no build step). Built end to end by Claude Code. Includes a one-shot reproduction prompt. Crafted by RapidXAI.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/toprmrproducer/aurum-maison-noir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T02:35:54Z"
+}
