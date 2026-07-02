@@ -4,7 +4,7 @@
   "repo": "mobile_ocr",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ente/mobile_ocr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T21:21:41Z"
+  "distributed_at": "2026-07-02T01:07:49Z"
 }
