@@ -1,0 +1,9 @@
+{
+  "name": "ganiyevuz--backupgram",
+  "displayName": "backupgram",
+  "description": "Backup PostgreSQL to the local filesystem with periodic backups, automatic rotation, and Telegram bot integration to send the latest backup file.",
+  "version": "1.0.0",
+  "author": "ganiyevuz",
+  "homepage": "https://github.com/ganiyevuz/backupgram",
+  "skills": []
+}
