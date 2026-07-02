@@ -1,0 +1,9 @@
+{
+  "name": "sliceworkz--eventstore",
+  "displayName": "eventstore",
+  "description": "DCB-compliant Eventstore implementation in Java/Postgres",
+  "version": "1.0.0",
+  "author": "sliceworkz",
+  "homepage": "https://github.com/sliceworkz/eventstore",
+  "skills": []
+}
