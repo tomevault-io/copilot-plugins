@@ -1,0 +1,9 @@
+{
+  "name": "vibe-motion--auto-motion",
+  "displayName": "auto-motion",
+  "description": "Automated SRT-to-motion workflow with Codex, Claude Code, and HyperFrames",
+  "version": "1.0.0",
+  "author": "vibe-motion",
+  "homepage": "https://github.com/vibe-motion/auto-motion",
+  "skills": []
+}
