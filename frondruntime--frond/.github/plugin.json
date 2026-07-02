@@ -1,0 +1,9 @@
+{
+  "name": "frondruntime--frond",
+  "displayName": "frond",
+  "description": "Effect-powered frontend runtime for React and MobX-facing application state.",
+  "version": "1.0.0",
+  "author": "frondruntime",
+  "homepage": "https://github.com/frondruntime/frond",
+  "skills": []
+}
