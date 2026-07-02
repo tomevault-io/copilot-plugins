@@ -1,0 +1,9 @@
+{
+  "name": "doublegate--cyberchef-mcp",
+  "displayName": "CyberChef-MCP",
+  "description": "[CyberChef-MCP] Model Context Protocol Server for CyberChef ... exposing GCHQ's \"Cyber Swiss Army Knife\" as 463+ executable AI agent tools spanning encryption, encoding, compression, and forensic data",
+  "version": "1.0.0",
+  "author": "doublegate",
+  "homepage": "https://github.com/doublegate/CyberChef-MCP",
+  "skills": []
+}
