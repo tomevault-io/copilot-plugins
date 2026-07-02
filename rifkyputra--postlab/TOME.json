@@ -4,7 +4,7 @@
   "repo": "postlab",
   "description": "Interactive TUI to manage bare-metal & homelab servers \u2014 packages, Docker, firewall, security hardening, and Git deploys. Single Rust binary, runs as root.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rifkyputra/postlab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T12:32:44Z"
+  "distributed_at": "2026-07-02T04:44:32Z"
 }
