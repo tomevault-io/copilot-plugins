@@ -1,0 +1,9 @@
+{
+  "name": "ton-org--kit",
+  "displayName": "kit",
+  "description": "Monorepo for @ton/walletkit, @ton/appkit and their components",
+  "version": "1.0.0",
+  "author": "ton-org",
+  "homepage": "https://github.com/ton-org/kit",
+  "skills": []
+}
