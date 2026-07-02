@@ -1,0 +1,9 @@
+{
+  "name": "pietz--moa-cli",
+  "displayName": "moa-cli",
+  "description": "Ask one question to multiple local AI coding CLIs in parallel and collect their answers.",
+  "version": "1.0.0",
+  "author": "pietz",
+  "homepage": "https://github.com/pietz/moa-cli",
+  "skills": []
+}
