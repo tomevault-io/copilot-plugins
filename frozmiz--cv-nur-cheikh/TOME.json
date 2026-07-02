@@ -4,7 +4,7 @@
   "repo": "cv-nur-cheikh",
   "description": "Odont\u00f3loga General integral \ud83e\uddb7 | Combinando la excelencia cl\u00ednica con una identidad digital moderna. \ud83d\udccd Madrid, Espa\u00f1a.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Frozmiz/cv-nur-cheikh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T22:51:24Z"
+  "distributed_at": "2026-07-02T22:55:00Z"
 }
