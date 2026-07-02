@@ -1,0 +1,9 @@
+{
+  "name": "hashicorp--terraform-ansible-collection",
+  "displayName": "terraform-ansible-collection",
+  "description": "Ansible collection for Terraform Enterprise/Cloud",
+  "version": "1.0.0",
+  "author": "hashicorp",
+  "homepage": "https://github.com/hashicorp/terraform-ansible-collection",
+  "skills": []
+}
