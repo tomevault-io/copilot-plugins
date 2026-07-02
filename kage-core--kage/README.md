@@ -7,11 +7,11 @@ Persistent, verified memory for coding agents — so they stop re-explaining you
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kage-core/Kage](https://github.com/kage-core/Kage).
+Original source: `CLAUDE.md` in [kage-core/Kage](https://github.com/kage-core/Kage).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
