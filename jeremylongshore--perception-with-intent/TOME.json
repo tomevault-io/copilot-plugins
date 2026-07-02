@@ -4,7 +4,7 @@
   "repo": "perception-with-intent",
   "description": "AI-powered news intelligence with 8 Vertex AI agents monitoring 50+ sources. Real-time executive dashboard, daily briefs, and smart alerts. Built on Firebase + A2A protocol.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeremylongshore/perception-with-intent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T00:36:56Z"
+  "distributed_at": "2026-07-02T03:22:14Z"
 }
