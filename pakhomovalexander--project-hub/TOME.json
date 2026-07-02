@@ -4,7 +4,7 @@
   "repo": "project-hub",
   "description": "A template for running a project with Claude Code as a 'cockpit' repo: ubiquitous-language glossary, invariants, ADRs, a living tracker, repo linking, and a prompt-before-risky-commands hook. Point Claude at it and say 'set up a hub for X'.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PakhomovAlexander/project-hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-02T01:20:23Z"
+  "distributed_at": "2026-07-02T04:54:26Z"
 }
