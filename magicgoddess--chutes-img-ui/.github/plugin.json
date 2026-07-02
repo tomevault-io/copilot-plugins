@@ -1,0 +1,9 @@
+{
+  "name": "magicgoddess--chutes-img-ui",
+  "displayName": "chutes-img-ui",
+  "description": "A web app for editing and generating images with the Chutes API that runs 100% in browser",
+  "version": "1.0.0",
+  "author": "MagicGoddess",
+  "homepage": "https://github.com/MagicGoddess/chutes-img-ui",
+  "skills": []
+}
