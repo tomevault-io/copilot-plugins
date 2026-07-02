@@ -1,0 +1,9 @@
+{
+  "name": "kleinmatic--open-journalism-bot",
+  "displayName": "open-journalism-bot",
+  "description": "I post open github repos form news orgs to bluesky.",
+  "version": "1.0.0",
+  "author": "kleinmatic",
+  "homepage": "https://github.com/kleinmatic/open-journalism-bot",
+  "skills": []
+}
