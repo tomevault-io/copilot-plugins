@@ -1,0 +1,9 @@
+{
+  "name": "kyh--loremllm",
+  "displayName": "loremllm",
+  "description": "Mock responses for LLMs",
+  "version": "1.0.0",
+  "author": "kyh",
+  "homepage": "https://github.com/kyh/loremllm",
+  "skills": []
+}
