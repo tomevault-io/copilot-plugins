@@ -54,6 +54,33 @@ git commit -m "refactor: extract color parsing into helper function"
 git commit -m "chore: add ty type checker and pre-commit hooks"
 ```
 
+## Release Process
+
+HACS detects new versions via GitHub releases. The user creates releases in the GitHub UI (with auto-generated notes); Codex prepares the version bump.
+
+### When the user asks for a version bump (e.g. "bump to 1.0.1", "release a new patch")
+
+1. Determine the new version using semver:
+   - **Patch** (`1.0.0 → 1.0.1`): bug fixes only
+   - **Minor** (`1.0.0 → 1.1.0`): new features, backward-compatible
+   - **Major** (`1.0.0 → 2.0.0`): breaking changes
+2. Update `version` in `custom_components/geekmagic/manifest.json`
+3. Commit on `main` (or a `chore/bump-X.Y.Z` branch if a PR is preferred):
+   ```
+   chore: bump version to X.Y.Z
+   ```
+4. Push, then tell the user to create the release in GitHub UI:
+   - Releases → "Draft a new release"
+   - Tag: `vX.Y.Z` (matches `manifest.json`)
+   - Target: the bump commit on `main`
+   - Click "Generate release notes" → Publish
+
+### Critical rules
+- **Tag must match `manifest.json` version exactly** (HA core reads `manifest.json` and a mismatch breaks update detection)
+- **Tag the bump commit, not an earlier one** — otherwise the tagged tree still has the old version
+- Tag format: `vX.Y.Z` (with leading `v`)
+- Never tag or create the release yourself — the user does that in GitHub UI
+
 ## Project Structure
 
 ```
@@ -142,6 +169,106 @@ GET  /app.json               # Get device state
 - Minimum font size: 10-12px for readability
 - Use high contrast colors (light on dark)
 - JPEG upload is faster than PNG (~2.5s vs ~5.8s)
+
+## Design System (watchOS-inspired) — rules for widget authors
+
+The default theme (`watchos`) is modelled on Apple's watchOS HIG: true-black
+background, system colours, opacity-based text hierarchy, tinted Activity-ring
+gauges, no card chrome. **Every widget should follow these rules so themes
+stay consistent.** When in doubt, look at how Entity / Clock / BarGauge
+handle the same thing — they're the canonical references.
+
+### Goals
+
+1. **Information density first.** A 240×240 cell is tiny. Use every pixel —
+   `justify="space-evenly"` to spread content top-to-bottom (equal gaps
+   before/between/after each band reads more balanced than pinning the
+   first/last items flush to the cell edges). Never leave the bottom half
+   of a cell empty if there's data to show. Three-band layout (caption /
+   hero / supporting strip) is the default for cells ≥100×100.
+2. **Hierarchy via size + weight + colour.** A glance must surface the
+   primary metric instantly: bold + large for the hero, secondary for
+   supporting data, tertiary for captions. Don't make everything the same
+   size.
+3. **Theme consistency.** A user moving between widgets in the same theme
+   should never see an unexplained colour shift. Colour comes from the
+   theme, not from the widget.
+4. **Adapt to cell shape.** Pick layout from `(width, height)` at render
+   time — a hero ring should spread across a fullscreen cell but stay tight
+   in a 3×3 grid; a vertical bar should stack everything when the cell is
+   very narrow.
+
+### Colour rules — pick by intent, not by RGB
+
+Widgets MUST use **theme role sentinels** from `widgets/components.py`,
+never hardcoded `SYSTEM_BLUE`/`SYSTEM_ORANGE`/etc. The sentinels resolve
+to the active theme's palette at render time.
+
+Available sentinels (resolve to `theme.<role>`):
+
+| Sentinel              | Use for                                              |
+|-----------------------|------------------------------------------------------|
+| `THEME_TEXT_PRIMARY`  | Default for hero values (white-ish on dark themes)   |
+| `THEME_TEXT_SECONDARY`| Supporting info (dates, units, "Sunny" condition)    |
+| `THEME_TEXT_TERTIARY` | Caps captions, very-low-priority text                |
+| `THEME_PRIMARY`       | Brand accent — fallback for chart / progress         |
+| `THEME_SECONDARY`     | Night, lightning, less-prominent accents             |
+| `THEME_SUCCESS`       | ON / connected / wind                                |
+| `THEME_WARNING`       | Sunny / hot temp / heating / caution                 |
+| `THEME_ERROR`         | Off / disconnected / extreme / preheating            |
+| `THEME_INFO`          | Cool / cold / water / rain / cooling / humidity      |
+| `THEME_MUTED`         | Idle / off / fog / disabled                          |
+
+**Rule of thumb for hero value colour:**
+
+- Default: `THEME_TEXT_PRIMARY` (white). Use this for entity value, clock
+  time, weather temp, climate temp, multi-progress hero, bar-gauge compact
+  value.
+- Use a role tint **only** when one of these narrow exceptions applies:
+  1. **Gauge family** (Bar/Ring/Arc) where the value matches the gauge's
+     own accent — value + fill read as one visual unit (Apple Activity-ring
+     style). E.g. ring `73%` in the ring's tint.
+  2. **Status state** where the colour IS the meaning — `ON` in success
+     green, `OFF` in error red.
+  3. **Mode chip** where the tint reinforces an explicit mode label
+     (climate `HEATING` chip in warning).
+
+**The icon, ring fill, bar fill, and dot indicators carry the semantic
+tint.** That's where the colour lives.
+
+### Don't
+
+- Don't hardcode `SYSTEM_*` in widget code — the regression test
+  `tests/test_watchos_design_system.py::TestNoHardcodedSystemColors` guards
+  this.
+- Don't `import` directly from `widgets/theme.py` for colour values.
+- Don't tint a hero value just because it "looks nice" — follow the rule
+  above. If you're tempted, the icon should probably be tinted instead.
+- Don't use `Column(justify="center")` if the cell is taller than the
+  natural content height — content will cluster centred and waste space.
+  Default to `justify="space-evenly"` for top-to-bottom content
+  distribution: it puts equal spacing before, between, and after the
+  children, which reads better in most cells than `space-between`
+  (which pins the first/last children flush to the edges and can leave
+  them feeling crowded). Only fall back to `space-between` when the
+  cell is so short that any breathing room would push content off
+  screen, or when you specifically want the first/last items hard
+  against the cell edge. For Rows (horizontal), `space-between` is
+  still the right call (label left / value right pattern).
+- Don't use absolute `Padding(top=..., bottom=...)` for layout when child
+  heights vary with cell size — they only work at the exact tuning point.
+  Prefer flex-style Column/Row with `Spacer`.
+
+### Do
+
+- Read `tests/test_watchos_design_system.py` before adding a widget — it
+  documents the contract.
+- Use `ctx.track_color(tint)` for any bar/ring/arc track — picks up the
+  theme's `tint_track` setting automatically.
+- Use `ctx.fit_text()` for hero values that should auto-scale to fill
+  their box — guarantees the value stays inside its budget.
+- Use the `BarGauge` factory's `mode="auto"` (default) — it picks
+  compact/stacked/vertical for you.
 
 ## Font Sizing System
 
@@ -295,6 +422,14 @@ When adding a new layout, update these files:
 
 - `tests/layouts/test_layouts.py` - Add test class for the new layout
 
+## README Image Conventions
+
+When embedding sample/screenshot images of device renders (240x240 PNGs from `samples/`) in `README.md`:
+
+- **Outside tables**: always use `width="200"` for consistency across Dashboard Samples, Binary Sensor States, Domain Icons, Layout Examples, etc.
+- **Inside tables**: omit the `width` attribute — let the table column dictate sizing.
+- UI screenshots (panel editor, device info pages) and the hero device photo are not "samples" and keep their own widths.
+
 ## Home Assistant Platform Discovery
 
 **IMPORTANT**: Home Assistant discovers entity platforms by looking for modules at `custom_components.<domain>.<platform>`. For example, `Platform.NUMBER` looks for `custom_components.geekmagic.number`.
@@ -380,4 +515,4 @@ The panel uses content-hash based cache busting. A SHA256 hash of the JS file is
 
 ---
 > Source: [adrienbrault/geekmagic-hacs](https://github.com/adrienbrault/geekmagic-hacs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
