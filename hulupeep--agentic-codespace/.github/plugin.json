@@ -1,0 +1,9 @@
+{
+  "name": "hulupeep--agentic-codespace",
+  "displayName": "Agentic_Codespace",
+  "description": "Get started with agentic coding in minutes! Complete GitHub Codespace with Claude Code, Claude Flow, and real marine data to build practical apps.",
+  "version": "1.0.0",
+  "author": "Hulupeep",
+  "homepage": "https://github.com/Hulupeep/Agentic_Codespace",
+  "skills": []
+}
