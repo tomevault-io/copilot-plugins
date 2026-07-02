@@ -1,0 +1,9 @@
+{
+  "name": "vkwhm--altair-silent",
+  "displayName": "Altair-Silent",
+  "description": "Altair-Silent is an autonomous drone navigation system developed for indoor, GPS-denied environments. It uses 2D LiDAR SLAM, behavior-tree navigation with the Nav2 stack, and a multi-stage window dete",
+  "version": "1.0.0",
+  "author": "VKWHM",
+  "homepage": "https://github.com/VKWHM/Altair-Silent",
+  "skills": []
+}
