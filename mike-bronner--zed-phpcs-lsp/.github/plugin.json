@@ -1,0 +1,9 @@
+{
+  "name": "mike-bronner--zed-phpcs-lsp",
+  "displayName": "zed-phpcs-lsp",
+  "description": "PHPCS linter for Zed",
+  "version": "1.0.0",
+  "author": "mike-bronner",
+  "homepage": "https://github.com/mike-bronner/zed-phpcs-lsp",
+  "skills": []
+}
