@@ -1,0 +1,9 @@
+{
+  "name": "langchain-ai--openwiki",
+  "displayName": "openwiki",
+  "description": "OpenWiki is a CLI that writes and maintains agent documentation for your codebase.",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/openwiki",
+  "skills": []
+}
