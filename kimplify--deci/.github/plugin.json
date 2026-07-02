@@ -1,0 +1,9 @@
+{
+  "name": "kimplify--deci",
+  "displayName": "Deci",
+  "description": "Precise decimal arithmetic for Kotlin Multiplatform projects, shipping high-precision operations across every target",
+  "version": "1.0.0",
+  "author": "Kimplify",
+  "homepage": "https://github.com/Kimplify/Deci",
+  "skills": []
+}
