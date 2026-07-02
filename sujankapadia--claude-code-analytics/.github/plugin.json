@@ -1,0 +1,9 @@
+{
+  "name": "sujankapadia--claude-code-analytics",
+  "displayName": "claude-code-analytics",
+  "description": "Analysis tool for Claude Code - automatically capture, search, and analyze your AI development conversations",
+  "version": "1.0.0",
+  "author": "sujankapadia",
+  "homepage": "https://github.com/sujankapadia/claude-code-analytics",
+  "skills": []
+}
