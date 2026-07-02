@@ -1,0 +1,9 @@
+{
+  "name": "biloxistudios--loregui",
+  "displayName": "loregui",
+  "description": "Cross-platform Desktop and Server GUI for Epic's Lore version control. Local discovery, Diff views, enhanced features. Community project, MIT.",
+  "version": "1.0.0",
+  "author": "BiloxiStudios",
+  "homepage": "https://github.com/BiloxiStudios/loregui",
+  "skills": []
+}
