@@ -1,0 +1,9 @@
+{
+  "name": "amvlab--webatm",
+  "displayName": "WebATM",
+  "description": "Modern web client for the BlueSky Air Traffic Management simulator with a TypeScript frontend using MapLibre GL.",
+  "version": "1.0.0",
+  "author": "amvlab",
+  "homepage": "https://github.com/amvlab/WebATM",
+  "skills": []
+}
