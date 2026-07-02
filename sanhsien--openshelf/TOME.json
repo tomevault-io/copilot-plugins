@@ -1,0 +1,44 @@
+{
+  "name": "openshelf",
+  "owner": "SanHsien",
+  "repo": "openshelf",
+  "description": "\u6279\u6b21\u532f\u51fa Google Play \u5716\u66f8\uff1a\u7121 DRM \u66f8\u4e0b\u8f09 EPUB/PDF\uff0cDRM \u66f8\u4e0b\u8f09\u5b98\u65b9 .acsm \u4f9b Adobe Digital Editions \u95b1\u8b80\u3002\u4e0d\u89e3\u6790 ACSM\u3001\u4e0d\u62bd\u91d1\u9470\u3001\u4e0d\u79fb\u9664\u4fdd\u8b77\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SanHsien/openshelf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-02T14:33:49Z"
+}
