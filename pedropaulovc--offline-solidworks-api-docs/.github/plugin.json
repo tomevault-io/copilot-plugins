@@ -1,0 +1,9 @@
+{
+  "name": "pedropaulovc--offline-solidworks-api-docs",
+  "displayName": "offline-solidworks-api-docs",
+  "description": "An offline replica of the Solidworks API documentation tailored for IntelliSense and LLM use cases",
+  "version": "1.0.0",
+  "author": "pedropaulovc",
+  "homepage": "https://github.com/pedropaulovc/offline-solidworks-api-docs",
+  "skills": []
+}
