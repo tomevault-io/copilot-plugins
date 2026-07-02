@@ -1,0 +1,9 @@
+{
+  "name": "shannon-whitlock--veracite",
+  "displayName": "VeraCite",
+  "description": "A lightweight, auditable tool for checking the accuracy and conformity of BibTeX/biblatex bibliographies in scientific articles",
+  "version": "1.0.0",
+  "author": "Shannon-Whitlock",
+  "homepage": "https://github.com/Shannon-Whitlock/VeraCite",
+  "skills": []
+}
