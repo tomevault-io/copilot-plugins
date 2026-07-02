@@ -7,11 +7,11 @@ Odontóloga General integral 🦷 | Combinando la excelencia clínica con una id
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Frozmiz/cv-nur-cheikh](https://github.com/Frozmiz/cv-nur-cheikh).
+Original source: `AGENTS.md` in [Frozmiz/cv-nur-cheikh](https://github.com/Frozmiz/cv-nur-cheikh).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
