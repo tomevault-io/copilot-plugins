@@ -56609,6 +56609,11 @@
       "description": "Production-ready full-stack blueprint for building multimodal GenAI apps with an Angular client and Node.js/Express AI Gateway."
     },
     {
+      "name": "hikariming--ghfind",
+      "source": "./hikariming--ghfind",
+      "description": "Savage GitHub Roast \u00b7 Drop a handle, get a 0\u2013100 value & trust score in 30s plus one brutally honest roast. Exposes PR farmers, AI bots & fork-hoarders. Deterministic scoring, self-hostable."
+    },
+    {
       "name": "insajin--autopus-adk",
       "source": "./insajin--autopus-adk",
       "description": "Autopus-ADK is of the agents, by the agents. for the agents. Multi-model orchestration (consensus/pipeline/debate/fastest). Architecture-as-Code, Lore decision tracking, SPEC/EARS engine."
@@ -186444,6 +186449,11 @@
       "description": "EchoStyle: Unlocking High-Fidelity Video Stylization with Reverse Data Synthesis"
     },
     {
+      "name": "emson--claudoro",
+      "source": "./emson--claudoro",
+      "description": "Claudoro: Feature rich Pomodoro timer embedded into Claude Code"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -199477,6 +199487,11 @@
       "name": "cai-aa--zotero-one",
       "source": "./cai-aa--zotero-one",
       "description": "Zotero One\u63d2\u4ef6\u7684\u4e3b\u8981\u529f\u80fd\u662f\u6587\u732e\u7f16\u53f7\u548c\u6587\u732e\u4fe1\u606f\u6a21\u6001\u7a97\u53e3\u901f\u89c8\u529f\u80fd"
+    },
+    {
+      "name": "jacobparis--trackcn",
+      "source": "./jacobparis--trackcn",
+      "description": "Track GitHub files, directories, commits, pull requests, and agent skills like dependencies."
     },
     {
       "name": "yschimke--compose-ai-tools",
