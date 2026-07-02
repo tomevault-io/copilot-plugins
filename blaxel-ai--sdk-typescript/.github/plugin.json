@@ -1,0 +1,9 @@
+{
+  "name": "blaxel-ai--sdk-typescript",
+  "displayName": "sdk-typescript",
+  "description": "Typescript SDK for Blaxel",
+  "version": "1.0.0",
+  "author": "blaxel-ai",
+  "homepage": "https://github.com/blaxel-ai/sdk-typescript",
+  "skills": []
+}
