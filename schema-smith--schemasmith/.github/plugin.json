@@ -1,0 +1,9 @@
+{
+  "name": "schema-smith--schemasmith",
+  "displayName": "SchemaSmith",
+  "description": "State-based schema and code deployment for SQL Server, PostgreSQL, and MySQL",
+  "version": "1.0.0",
+  "author": "Schema-Smith",
+  "homepage": "https://github.com/Schema-Smith/SchemaSmith",
+  "skills": []
+}
