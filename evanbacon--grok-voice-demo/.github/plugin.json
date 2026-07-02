@@ -1,0 +1,9 @@
+{
+  "name": "evanbacon--grok-voice-demo",
+  "displayName": "grok-voice-demo",
+  "description": "Demo app built with Expo and Grok voice agents",
+  "version": "1.0.0",
+  "author": "EvanBacon",
+  "homepage": "https://github.com/EvanBacon/grok-voice-demo",
+  "skills": []
+}
