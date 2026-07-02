@@ -1,0 +1,9 @@
+{
+  "name": "justlucyhq--lucy",
+  "displayName": "lucy",
+  "description": "Lucy \u2014 open-core, self-hosted AI chat platform. Multi-provider (Claude/OpenAI/Gemini/local), memory, connectors, workflows. Local-first standalone mode or full connected deployment.",
+  "version": "1.0.0",
+  "author": "JustLucyHQ",
+  "homepage": "https://github.com/JustLucyHQ/lucy",
+  "skills": []
+}
