@@ -1,0 +1,38 @@
+{
+  "name": "ivy--dotfiles",
+  "displayName": "dotfiles",
+  "description": "Agent-managed developer environment. I describe what I want, they do the rest.",
+  "version": "1.0.0",
+  "author": "ivy",
+  "homepage": "https://github.com/ivy/dotfiles",
+  "skills": [
+    {
+      "name": "agents-local-md",
+      "description": ""
+    },
+    {
+      "name": "copy",
+      "description": ""
+    },
+    {
+      "name": "gfm",
+      "description": ""
+    },
+    {
+      "name": "gitingest",
+      "description": ""
+    },
+    {
+      "name": "install",
+      "description": ""
+    },
+    {
+      "name": "mob",
+      "description": ""
+    },
+    {
+      "name": "update",
+      "description": ""
+    }
+  ]
+}
