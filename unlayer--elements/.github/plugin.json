@@ -1,0 +1,9 @@
+{
+  "name": "unlayer--elements",
+  "displayName": "elements",
+  "description": "Write once in React. Render emails, web pages, and PDFs from the same component tree.",
+  "version": "1.0.0",
+  "author": "unlayer",
+  "homepage": "https://github.com/unlayer/elements",
+  "skills": []
+}
