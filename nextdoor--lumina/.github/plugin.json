@@ -1,0 +1,9 @@
+{
+  "name": "nextdoor--lumina",
+  "displayName": "lumina",
+  "description": "Kubernetes controller that provides real-time cost visibility for EC2 instances and Fargate pods by tracking AWS Savings Plans, Reserved Instances, and spot pricing across your entire AWS organization",
+  "version": "1.0.0",
+  "author": "Nextdoor",
+  "homepage": "https://github.com/Nextdoor/lumina",
+  "skills": []
+}
