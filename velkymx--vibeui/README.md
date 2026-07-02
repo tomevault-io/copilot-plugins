@@ -7,11 +7,11 @@ VibeUI is a next generation UI library for VueJS 3 using the latest Bootstrap 5
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [velkymx/vibeui](https://github.com/velkymx/vibeui).
+Original source: `CLAUDE.md` in [velkymx/vibeui](https://github.com/velkymx/vibeui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
