@@ -7,11 +7,11 @@ Typescript SDK for Blaxel
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [blaxel-ai/sdk-typescript](https://github.com/blaxel-ai/sdk-typescript).
+Original source: `CLAUDE.md` in [blaxel-ai/sdk-typescript](https://github.com/blaxel-ai/sdk-typescript).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
