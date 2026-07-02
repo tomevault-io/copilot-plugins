@@ -1,0 +1,9 @@
+{
+  "name": "jiweiqi--fluent-mcp-server",
+  "displayName": "fluent-mcp-server",
+  "description": "Ansys Fluent MCP server in python",
+  "version": "1.0.0",
+  "author": "jiweiqi",
+  "homepage": "https://github.com/jiweiqi/fluent-mcp-server",
+  "skills": []
+}
