@@ -1,0 +1,9 @@
+{
+  "name": "rafaelmjf--zorin-macos-wizard",
+  "displayName": "zorin-macos-wizard",
+  "description": "Turn stock Zorin OS into a macOS-style desktop (dock + traffic-light buttons + WhiteSur), no Zorin Pro. Agent-readable + scripted.",
+  "version": "1.0.0",
+  "author": "rafaelmjf",
+  "homepage": "https://github.com/rafaelmjf/zorin-macos-wizard",
+  "skills": []
+}
