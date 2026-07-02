@@ -21809,6 +21809,11 @@
       "description": "Nimony is a new Nim implementation that is in heavy development."
     },
     {
+      "name": "jabrena--cursor-rules-java",
+      "source": "./jabrena--cursor-rules-java",
+      "description": "A curated and opinionated collection of Skills and Agents to be used in modern SDLC workflows for Java Enterprise development with your favorite AI Agent harness."
+    },
+    {
       "name": "quantumaikr--quant-cpp",
       "source": "./quantumaikr--quant-cpp",
       "description": "LLM inference with 7x longer context. Pure C, zero dependencies. Lossless KV cache compression + single-header library."
@@ -231974,6 +231979,21 @@
       "description": "A recursive language-model (RLM) harness for Rust."
     },
     {
+      "name": "valpere--session-indexer",
+      "source": "./valpere--session-indexer",
+      "description": "Per-project semantic search over Claude Code session history. Indexes JSONL transcripts into SQLite; retrieves via bge-m3 embeddings (Ollama) with FTS5 fallback."
+    },
+    {
+      "name": "vestaterm--vesta",
+      "source": "./vestaterm--vesta",
+      "description": "A native macOS terminal for running AI coding agents in parallel \u2014 built on real libghostty, with persistent tmux-style sessions and a scriptable Lua/CLI control plane."
+    },
+    {
+      "name": "yg0randrade--carcara-code",
+      "source": "./yg0randrade--carcara-code",
+      "description": "Carcar\u00e1 Code: IDE desktop em Electron para programar com o Claude Code de forma visual e minimalista (inspirado no Lovable). Inclui preview ao vivo com \"grab\" de elementos, abas para conectores REST e"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -250952,6 +250972,36 @@
       "name": "openforis--arena-mobile",
       "source": "./openforis--arena-mobile",
       "description": "User-friendly, free, and open-source application designed to streamline offline data collection on Android and iOS devices"
+    },
+    {
+      "name": "firecrawl--last30flames",
+      "source": "./firecrawl--last30flames",
+      "description": "Agent skill that researches what's actually new about any topic in a recent time window - keyless, harness-agnostic."
+    },
+    {
+      "name": "chenyang-zz--cove-api",
+      "source": "./chenyang-zz--cove-api",
+      "description": "cove-api"
+    },
+    {
+      "name": "easylink-ai-open--tiri-agent",
+      "source": "./easylink-ai-open--tiri-agent",
+      "description": "Tiri local agent backend and web shell built on agent-runtime."
+    },
+    {
+      "name": "chenyang-zz--cove-api",
+      "source": "./chenyang-zz--cove-api",
+      "description": "cove-api"
+    },
+    {
+      "name": "xunmengwinter--xiaohongshu-assistant",
+      "source": "./xunmengwinter--xiaohongshu-assistant",
+      "description": "\u901a\u8fc7\u8c03\u7528\u672c\u673a Codex CLI \u4e0e API \u751f\u6210\u5c0f\u7ea2\u4e66\u9009\u9898\u3001\u6587\u6848\u3001\u5c01\u9762"
+    },
+    {
+      "name": "datakurre--operaton-robot-playground",
+      "source": "./datakurre--operaton-robot-playground",
+      "description": "Open Source Robot Framework Orchestration Playground"
     },
     {
       "name": "cheerhuan--save-your-token",
