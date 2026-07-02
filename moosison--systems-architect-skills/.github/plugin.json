@@ -1,0 +1,9 @@
+{
+  "name": "moosison--systems-architect-skills",
+  "displayName": "systems-architect-skills",
+  "description": "12 Claude Code skills for a Systems Architect workflow \u2014 6-stage dev pipeline, Cynefin sense-making, platform design review, and pipeline hooks",
+  "version": "1.0.0",
+  "author": "moosison",
+  "homepage": "https://github.com/moosison/systems-architect-skills",
+  "skills": []
+}
