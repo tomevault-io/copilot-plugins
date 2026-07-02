@@ -1,0 +1,9 @@
+{
+  "name": "gvago--nextjs-supabase-ai-template",
+  "displayName": "nextjs-supabase-ai-template",
+  "description": "Modern full-stack template: Next.js + Supabase + FastAPI with AI development assistance",
+  "version": "1.0.0",
+  "author": "gvago",
+  "homepage": "https://github.com/gvago/nextjs-supabase-ai-template",
+  "skills": []
+}
