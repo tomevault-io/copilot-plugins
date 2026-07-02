@@ -1,0 +1,9 @@
+{
+  "name": "termplot--termplot",
+  "displayName": "termplot",
+  "description": "Beautiful plots in your terminal.",
+  "version": "1.0.0",
+  "author": "termplot",
+  "homepage": "https://github.com/termplot/termplot",
+  "skills": []
+}
