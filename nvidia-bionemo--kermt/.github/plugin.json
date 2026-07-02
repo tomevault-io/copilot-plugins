@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-bionemo--kermt",
+  "displayName": "KERMT",
+  "description": "KERMT is a pretrained graph neural network model for molecular property prediction.",
+  "version": "1.0.0",
+  "author": "NVIDIA-BioNeMo",
+  "homepage": "https://github.com/NVIDIA-BioNeMo/KERMT",
+  "skills": []
+}
