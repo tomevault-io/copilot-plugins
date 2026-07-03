@@ -1,0 +1,9 @@
+{
+  "name": "bymykel--cratesmove",
+  "displayName": "cratesmove",
+  "description": "A desktop application for managing your Counter-Strike 2 storage units. Deposit, retrieve, and organize your CS2 inventory items across storage units without the clunky in-game interface.",
+  "version": "1.0.0",
+  "author": "ByMykel",
+  "homepage": "https://github.com/ByMykel/cratesmove",
+  "skills": []
+}
