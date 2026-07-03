@@ -233069,6 +233069,16 @@
       "description": "OAuth 2.1 Authorization Server library for Model Context Protocol (MCP) servers"
     },
     {
+      "name": "vivekmishraishere--agentic-os-personal",
+      "source": "./vivekmishraishere--agentic-os-personal",
+      "description": "agentic-os-personal"
+    },
+    {
+      "name": "kvsankar--agent-history",
+      "source": "./kvsankar--agent-history",
+      "description": "Extract and convert Claude Code conversation history by workspace"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -252532,6 +252542,26 @@
       "name": "huyphan13189--qe-ai",
       "source": "./huyphan13189--qe-ai",
       "description": "QE-AI"
+    },
+    {
+      "name": "apoguita--py4gw-reforged-native",
+      "source": "./apoguita--py4gw-reforged-native",
+      "description": "this is a rework of the base Py4GW library focused specially on interfacing with python and supporting the proxy library over it."
+    },
+    {
+      "name": "vmlcode--guacamaya-net",
+      "source": "./vmlcode--guacamaya-net",
+      "description": "guacamaya-net"
+    },
+    {
+      "name": "rolfsimoes--rstatic",
+      "source": "./rolfsimoes--rstatic",
+      "description": "Primitives to generate static SpatioTemporal Asset Catalogs (STAC)"
+    },
+    {
+      "name": "vmlcode--guacamaya-net",
+      "source": "./vmlcode--guacamaya-net",
+      "description": "guacamaya-net"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -375452,6 +375482,21 @@
       "name": "wilson520403--gamelife",
       "source": "./wilson520403--gamelife",
       "description": "GameLife"
+    },
+    {
+      "name": "woodrowlove--civilos",
+      "source": "./woodrowlove--civilos",
+      "description": "the digital infrastructure that runs a society, similar to how an operating system runs a computer. Instead of managing memory, files, and processes, it manages citizens, identity, governance, economy"
+    },
+    {
+      "name": "docupotion--n8n-nodes-docupotion",
+      "source": "./docupotion--n8n-nodes-docupotion",
+      "description": "n8n-nodes-docupotion"
+    },
+    {
+      "name": "engineering-with-ai--typescript-react-mobile",
+      "source": "./engineering-with-ai--typescript-react-mobile",
+      "description": "React Native mobile template \u2014 Engineering With AI"
     }
   ]
 }
