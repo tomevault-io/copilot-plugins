@@ -1,0 +1,9 @@
+{
+  "name": "yaswanthme007--tokenscope",
+  "displayName": "tokenscope",
+  "description": "The first open-source token profiler for AI coding agents. Analyzes session logs, detects repeated content and bloated tool results, and shows you exactly where your context window budget goes  with c",
+  "version": "1.0.0",
+  "author": "yaswanthme007",
+  "homepage": "https://github.com/yaswanthme007/tokenscope",
+  "skills": []
+}
