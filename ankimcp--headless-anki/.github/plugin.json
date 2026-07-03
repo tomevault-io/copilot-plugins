@@ -1,0 +1,9 @@
+{
+  "name": "ankimcp--headless-anki",
+  "displayName": "headless-anki",
+  "description": "Docker images for running Anki headlessly with VNC access and AnkiConnect/MCP server support.",
+  "version": "1.0.0",
+  "author": "ankimcp",
+  "homepage": "https://github.com/ankimcp/headless-anki",
+  "skills": []
+}
