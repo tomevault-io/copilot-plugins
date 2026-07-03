@@ -1,0 +1,9 @@
+{
+  "name": "codesushi-com--clutch",
+  "displayName": "clutch",
+  "description": "WebSocket-driven real-time dashboard for OpenClaw AI agents",
+  "version": "1.0.0",
+  "author": "Codesushi-com",
+  "homepage": "https://github.com/Codesushi-com/clutch",
+  "skills": []
+}
