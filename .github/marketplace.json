@@ -14624,6 +14624,16 @@
       "description": "uview-plus"
     },
     {
+      "name": "layoutit--polycss",
+      "source": "./layoutit--polycss",
+      "description": "A CSS 3D engine for the DOM. Renders polygon meshes in HTML by leveraging matrix3d transforms. "
+    },
+    {
+      "name": "layoutit--polycss",
+      "source": "./layoutit--polycss",
+      "description": "A CSS 3D engine for the DOM. Renders polygon meshes in HTML by leveraging matrix3d transforms. "
+    },
+    {
       "name": "filiksyos--gitreverse",
       "source": "./filiksyos--gitreverse",
       "description": "Reverse engineer any repo into it's original prompt"
@@ -40047,6 +40057,11 @@
       "name": "zerox-dg--vi-rs",
       "source": "./zerox-dg--vi-rs",
       "description": "vi-rs"
+    },
+    {
+      "name": "inclusionai--awex",
+      "source": "./inclusionai--awex",
+      "description": "A high-performance RL training-inference weight synchronization framework, designed to enable second-level parameter updates from training to inference in RL workflows"
     },
     {
       "name": "kaihv--open-banking-chile",
@@ -199854,6 +199869,16 @@
       "description": "Claude orchestrates and reviews; Codex CLI implements. A Claude Code plugin for the two-model kitchen: /serve tasks end to end, /simmer goals until green. Your head chef doesn't chop onions."
     },
     {
+      "name": "m-saad-bin-mazhar--ms-rags-all-in-one",
+      "source": "./m-saad-bin-mazhar--ms-rags-all-in-one",
+      "description": "ms-rags-all-in-one-"
+    },
+    {
+      "name": "ba-itsys--keycloak-push-mfa-extension",
+      "source": "./ba-itsys--keycloak-push-mfa-extension",
+      "description": "Keycloak push MFA Extension"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -232814,6 +232839,81 @@
       "description": "Desktop notifications for Claude Code - get notified when tasks complete, when permission is needed, or when Claude is waiting for input."
     },
     {
+      "name": "flight505--storybook-assistant",
+      "source": "./flight505--storybook-assistant",
+      "description": "AI-powered Storybook 9 development assistant with component generation, story automation, and testing. Built for Claude Code."
+    },
+    {
+      "name": "sbrin--dictant",
+      "source": "./sbrin--dictant",
+      "description": "Minimalistic dictation app for Mac. (OpenAI Whisper wrapper)"
+    },
+    {
+      "name": "ukgovernmentbeis--gimlet",
+      "source": "./ukgovernmentbeis--gimlet",
+      "description": "gimlet"
+    },
+    {
+      "name": "ankimcp--headless-anki",
+      "source": "./ankimcp--headless-anki",
+      "description": "Docker images for running Anki headlessly with VNC access and AnkiConnect/MCP server support."
+    },
+    {
+      "name": "joshuadavidthomas--vibeusage",
+      "source": "./joshuadavidthomas--vibeusage",
+      "description": "Track usage across agentic LLM providers from your terminal"
+    },
+    {
+      "name": "eventual-inc--local-image-search",
+      "source": "./eventual-inc--local-image-search",
+      "description": "Give your AI coding agent the ability to search through all your local images. Privacy-first, 100% local MCP server for macOS. Uses MLX CLIP for embeddings, Daft for batch processing, and Lance for ve"
+    },
+    {
+      "name": "shi-gg--linkdave",
+      "source": "./shi-gg--linkdave",
+      "description": "performance, memory efficient, stability focused lavalink rewrite"
+    },
+    {
+      "name": "imbue-ai--ratchets",
+      "source": "./imbue-ai--ratchets",
+      "description": "Ratchet enforces that style violations for your project only monotonically decrease"
+    },
+    {
+      "name": "workato-devs--recipe-skills",
+      "source": "./workato-devs--recipe-skills",
+      "description": "Connector-specific knowledge for AI coding agents building Workato recipes. Datapill syntax, field mappings, control flow patterns, error handling, and schema design. Also home to connector-specific w"
+    },
+    {
+      "name": "nikankad--situation-monitor",
+      "source": "./nikankad--situation-monitor",
+      "description": "Geopolitical intelligence dashboard: real-time conflict tracking, news aggregation, market data and more."
+    },
+    {
+      "name": "imbue-ai--ratchets",
+      "source": "./imbue-ai--ratchets",
+      "description": "Ratchet enforces that style violations for your project only monotonically decrease"
+    },
+    {
+      "name": "haoceans--siyuan-toolbar-customizer",
+      "source": "./haoceans--siyuan-toolbar-customizer",
+      "description": "\u4e00\u4e2a\u5f3a\u5927\u7684\u601d\u6e90\u7b14\u8bb0\u5de5\u5177\u680f\u5b9a\u5236\u63d2\u4ef6\uff0c\u4e3a\u684c\u9762\u7aef\u548c\u79fb\u52a8\u7aef\u63d0\u4f9b\u5168\u9762\u7684\u5de5\u5177\u680f\u63a7\u5236\u529f\u80fd\u3002"
+    },
+    {
+      "name": "sudoeren--karpa",
+      "source": "./sudoeren--karpa",
+      "description": "The modern open-source alternative to cloud translation services. 100% Local, 100% Private."
+    },
+    {
+      "name": "mimnets--openhrapp",
+      "source": "./mimnets--openhrapp",
+      "description": "Open source self-hosted HR and employee attendance system, developed by the help of Google AI Studio - Gemini 3 Flash AI without prior knowledge, zero cost, zero knowledge, production ready, pocketbas"
+    },
+    {
+      "name": "fszontagh--stable-diffusion-cpp-restapi",
+      "source": "./fszontagh--stable-diffusion-cpp-restapi",
+      "description": "stable-diffusion.cpp-restapi"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -252037,6 +252137,11 @@
       "name": "temporal-sa--temporal-design-patterns",
       "source": "./temporal-sa--temporal-design-patterns",
       "description": "temporal-design-patterns"
+    },
+    {
+      "name": "yaswanthme007--tokenscope",
+      "source": "./yaswanthme007--tokenscope",
+      "description": "The first open-source token profiler for AI coding agents. Analyzes session logs, detects repeated content and bloated tool results, and shows you exactly where your context window budget goes  with c"
     },
     {
       "name": "cheerhuan--save-your-token",
