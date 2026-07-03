@@ -1,0 +1,9 @@
+{
+  "name": "senmuuuuw--universal-diagnostic-tutor-skill",
+  "displayName": "universal-diagnostic-tutor-skill",
+  "description": "Diagnosis-first AI tutor skill for STEM, AI/CS learning: teaches concepts, checks understanding, and builds mastery.",
+  "version": "1.0.0",
+  "author": "SenmuuuuW",
+  "homepage": "https://github.com/SenmuuuuW/universal-diagnostic-tutor-skill",
+  "skills": []
+}
