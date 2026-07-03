@@ -1,0 +1,44 @@
+{
+  "name": "ani-tupi",
+  "owner": "levyvix",
+  "repo": "ani-tupi",
+  "description": "Assista anime e leia mang\u00e1 direto do terminal em portugu\u00eas brasileiro. CLI completa com integra\u00e7\u00e3o AniList, m\u00faltiplos scrapers e leitor PDF.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/levyvix/ani-tupi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T04:30:25Z"
+}
