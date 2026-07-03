@@ -1,0 +1,9 @@
+{
+  "name": "chir24--opencode-tps-meter",
+  "displayName": "opencode-tps-meter",
+  "description": "A live tokens-per-second meter plugin for OpenCode. Track AI token throughput in real-time with a configurable rolling window display.",
+  "version": "1.0.0",
+  "author": "ChiR24",
+  "homepage": "https://github.com/ChiR24/opencode-tps-meter",
+  "skills": []
+}
