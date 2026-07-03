@@ -78529,6 +78529,21 @@
       "description": "BLEX"
     },
     {
+      "name": "borchero--ducklake-sdk",
+      "source": "./borchero--ducklake-sdk",
+      "description": "ducklake-sdk"
+    },
+    {
+      "name": "borchero--ducklake-sdk",
+      "source": "./borchero--ducklake-sdk",
+      "description": "ducklake-sdk"
+    },
+    {
+      "name": "borchero--ducklake-sdk",
+      "source": "./borchero--ducklake-sdk",
+      "description": "ducklake-sdk"
+    },
+    {
       "name": "anhtester--antigravity-testing-kit",
       "source": "./anhtester--antigravity-testing-kit",
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL, WORKFLOW, RULE do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Antigravity h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
@@ -117312,6 +117327,11 @@
       "name": "stefvw93--weft",
       "source": "./stefvw93--weft",
       "description": "Weft is a reactive DOM library where every node is an Effect."
+    },
+    {
+      "name": "theafh--ai-modules",
+      "source": "./theafh--ai-modules",
+      "description": "A collection of professional AI skills, packaged as Claude and Codex plugins and deployable globally across IDE vendors or per project."
     },
     {
       "name": "10xchengtu--mux0",
@@ -233084,6 +233104,26 @@
       "description": "Extract and convert Claude Code conversation history by workspace"
     },
     {
+      "name": "chainaware--behavioral-prediction-mcp",
+      "source": "./chainaware--behavioral-prediction-mcp",
+      "description": "AI-powered tools to analyze wallet behaviour prediction,fraud detection and rug pull prediction."
+    },
+    {
+      "name": "chainaware--behavioral-prediction-mcp",
+      "source": "./chainaware--behavioral-prediction-mcp",
+      "description": "AI-powered tools to analyze wallet behaviour prediction,fraud detection and rug pull prediction."
+    },
+    {
+      "name": "dragonminez--dragonminez",
+      "source": "./dragonminez--dragonminez",
+      "description": "A Minecraft Mod based in the Dragon Ball Series by Akira Toriyama. Made for Forge 1.20.1"
+    },
+    {
+      "name": "grafvonb--c8volt",
+      "source": "./grafvonb--c8volt",
+      "description": "c8volt is a Camunda CLI for Camunda 8 operations."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -252567,6 +252607,41 @@
       "name": "vmlcode--guacamaya-net",
       "source": "./vmlcode--guacamaya-net",
       "description": "guacamaya-net"
+    },
+    {
+      "name": "vercel-labs--steve",
+      "source": "./vercel-labs--steve",
+      "description": "Self-hosted eve poc"
+    },
+    {
+      "name": "virtuslab--sloth",
+      "source": "./virtuslab--sloth",
+      "description": "Sloth converts Scala 3.0-3.7 lazy vals to Scala 3.8 lazy vals"
+    },
+    {
+      "name": "florianbuetow--ai-guardrails",
+      "source": "./florianbuetow--ai-guardrails",
+      "description": "Templates for working with AI"
+    },
+    {
+      "name": "florianbuetow--ai-guardrails",
+      "source": "./florianbuetow--ai-guardrails",
+      "description": "Templates for working with AI"
+    },
+    {
+      "name": "maurik77--mcp-janus",
+      "source": "./maurik77--mcp-janus",
+      "description": "mcp-janus"
+    },
+    {
+      "name": "jason1365--donetick-mcp-server",
+      "source": "./jason1365--donetick-mcp-server",
+      "description": "Production-ready MCP server for Donetick chores management with JWT authentication, Full API support, and 10 MCP tools"
+    },
+    {
+      "name": "whitemuush--kraken",
+      "source": "./whitemuush--kraken",
+      "description": "Kraken is a modular Bash framework designed to automate and orchestrate the different phases of a penetration test. Inspired by the power and versatility of the mythical creature it\u2019s named after, Kra"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -375502,6 +375577,11 @@
       "name": "engineering-with-ai--typescript-react-mobile",
       "source": "./engineering-with-ai--typescript-react-mobile",
       "description": "React Native mobile template \u2014 Engineering With AI"
+    },
+    {
+      "name": "qlye--lc0-structural-experimentations",
+      "source": "./qlye--lc0-structural-experimentations",
+      "description": "LC0_structural_experimentations"
     }
   ]
 }
