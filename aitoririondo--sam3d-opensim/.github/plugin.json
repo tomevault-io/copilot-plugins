@@ -1,0 +1,9 @@
+{
+  "name": "aitoririondo--sam3d-opensim",
+  "displayName": "SAM3D-OpenSim",
+  "description": "Video to OpenSim motion data using SAM3D Body for 3D pose estimation",
+  "version": "1.0.0",
+  "author": "AitorIriondo",
+  "homepage": "https://github.com/AitorIriondo/SAM3D-OpenSim",
+  "skills": []
+}
