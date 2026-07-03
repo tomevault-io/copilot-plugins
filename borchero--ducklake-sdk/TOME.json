@@ -2,8 +2,8 @@
   "name": "ducklake-sdk",
   "owner": "borchero",
   "repo": "ducklake-sdk",
-  "description": "Native SDKs for DuckLake.",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ducklake-sdk",
+      "path": ".agents/skills/new-spec-version/SKILL.md",
+      "github_url": "https://github.com/borchero/ducklake-sdk/tree/main/.agents/skills/new-spec-version/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/borchero/ducklake-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:46:38Z"
+  "distributed_at": "2026-07-03T23:08:22Z"
 }
