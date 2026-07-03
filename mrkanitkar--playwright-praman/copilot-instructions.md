@@ -1,94 +1,90 @@
-## praman-cli
+## praman
 
-> Praman CLI patterns for SAP UI5 test automation with playwright-cli
+> Praman v1.0 — SAP UI5 Test Automation Platform for Playwright
 
 
-# Praman CLI — SAP UI5 Testing Patterns
+# Praman v1.0 Rules
 
-Token-efficient CLI alternative to MCP. Bridge object: `window.__praman_bridge`.
+## Architecture
 
-## Bridge Readiness Check
+- 5-layer: Core Infrastructure → Bridge Adapters → Typed Proxy → Fixtures → AI
+- Single npm package `playwright-praman` with sub-path exports
+- Lower layers NEVER import from higher layers
 
-Always verify the bridge is ready before interacting with controls:
+## Code Rules
 
-```bash
-npx playwright-cli run-code -s=sap "async page => {
-  const ready = await page.evaluate(() => window.__praman_bridge?.ready);
-  return ready;
-}"
-```
+- TypeScript strict mode — no `any`, no `as unknown as T`
+- ESM only in source (`import`, never `require`)
+- All public APIs: TSDoc with `@example` tag
+- Module size ≤ 300 LOC
+- Use pino logger — NEVER `console.log`
+- All errors extend `PramanError` with `code`, `attempted`, `retryable`, `suggestions[]`
+- All relative imports include `.js` extension
+- Node builtins use `node:` prefix (`node:path`, `node:fs`)
+- Config is `Readonly<PramanConfig>` — never mutate
+- Path aliases: `#core/*`, `#bridge/*`, `#proxy/*`, `#fixtures/*`
 
-Never proceed if `ready` is not `true`. The bridge is injected via `browser.initScript` in `.playwright/praman-cli.config.json`.
+## Cross-Platform
 
-## Control Discovery via run-code
+- Always use `node:path` methods — never hardcoded `/` or `\`
+- Always use `node:fs/promises` for async file operations
+- No bash-only npm scripts — use Node.js built-ins
+- Dual ESM+CJS build: `npm run check:exports` validates export map
 
-Use `getById()` to locate UI5 controls. Always `return` values — `console.log()` output is invisible to the agent.
+## Naming
 
-```bash
-npx playwright-cli run-code -s=sap "async page => {
-  const ctrl = await page.evaluate(() =>
-    window.__praman_bridge.getById('container-app---main--myInput')
-  );
-  return ctrl;
-}"
-```
+- Files: kebab-case (`bridge-error.ts`)
+- Types: PascalCase, no `I` prefix (`BridgeAdapter`)
+- Functions: camelCase (`findControl`)
+- Constants: UPPER_CASE (`MAX_RETRY_COUNT`)
+- Error codes: `ERR_SCOPE_DESCRIPTION`
+- Booleans: `is/has/can/should` prefix
 
-## WARNING: console.log() Is Invisible
+## Import Order
 
-`console.log()` inside `run-code` produces NO output for the agent. Always use `return` to surface results.
+1. Node built-ins (`node:path`)
+2. External packages (`zod`, `pino`)
+3. Internal (`#core/`, `#bridge/`, `#proxy/`)
+4. Parent (`../`)
+5. Sibling (`./`)
+
+## Testing
+
+- Unit: Vitest, hermetic (no network), `*.test.ts`
+- Integration: Playwright, `*.spec.ts`, use `test.step()`
+- NEVER use `page.waitForTimeout()` — use `waitForUI5Stable()`
+- Coverage ≥ 90% statements, ≥ 85% branches
+
+## Error Pattern
 
 ```typescript
-// WRONG — agent sees nothing
-async page => { console.log(await page.evaluate(() => ...)); }
-
-// CORRECT — agent receives the value
-async page => { return await page.evaluate(() => ...); }
+throw new ControlError({
+  code: 'ERR_CONTROL_NOT_FOUND',
+  message: `Control not found: ${selector}`,
+  attempted: `Find control: ${JSON.stringify(selector)}`,
+  retryable: true,
+  suggestions: ['Verify control ID', 'Check page loaded'],
+});
 ```
 
-## setValue + fireChange + waitForUI5 Pattern
+## 7 Mandatory Rules (SAP Test Generation)
 
-Every input interaction requires all three steps — never skip `fireChange()` or `waitForUI5()`:
+1. `import { test, expect } from 'playwright-praman'` ONLY
+2. Praman fixtures for ALL UI5 elements — NEVER `page.click('#__...')`
+3. Playwright native ONLY for verified non-UI5 elements
+4. Auth in seed — NEVER `sapAuth.login()` in test body
+5. `setValue()` + `fireChange()` + `waitForUI5()` for every input
+6. `searchOpenDialogs: true` for dialog controls
+7. TSDoc compliance header in every generated test
 
-```bash
-npx playwright-cli run-code -s=sap "async page => {
-  await page.evaluate(() => {
-    const ctrl = window.__praman_bridge.getById('container-app---main--inputField');
-    ctrl.setValue('test value');
-    ctrl.fireChange({ value: 'test value' });
-  });
-  await page.evaluate(() => window.__praman_bridge.waitForUI5());
-  return 'input set';
-}"
-```
+## Commands
 
-## Snapshot: Always Use --filename
-
-Agents MUST use `--filename` so the snapshot is written to a deterministic path they can read back:
-
-```bash
-npx playwright-cli snapshot -s=sap --filename=current-state.txt
-```
-
-Without `--filename`, the snapshot goes to stdout and may be truncated or lost in large outputs.
-
-## Sessions
-
-Use `-s=name` to persist the browser across commands. All commands in a test flow should share one session:
-
-```bash
-npx playwright-cli run-code -s=sap "async page => { ... }"
-npx playwright-cli snapshot -s=sap --filename=after-action.txt
-```
-
-## 7 Mandatory Rules for Generated Test Files
-
-1. `import { test, expect } from 'playwright-praman'` — the ONLY valid import
-2. Praman fixtures for ALL UI5 controls — NEVER `page.click('#__...')` or `.sapM...` selectors
-3. Playwright native ONLY for verified non-UI5 elements (login forms, plain DOM)
-4. Auth lives in the seed file — NEVER call `sapAuth.login()` in test body
-5. `setValue()` + `fireChange()` + `waitForUI5()` for every input — no exceptions
-6. `searchOpenDialogs: true` when interacting with controls inside dialogs
-7. TSDoc compliance header in every generated test file
+- `npm run lint` — ESLint (0 errors, 0 warnings)
+- `npm run typecheck` — tsc --noEmit
+- `npm run test:unit` — Vitest
+- `npm run build` — tsup (ESM + CJS)
+- `npm run check:exports` — attw export validation
+- `npm run ci` — full pipeline
 
 ---
 > Source: [mrkanitkar/playwright-praman](https://github.com/mrkanitkar/playwright-praman) — distributed by [TomeVault](https://tomevault.io).
