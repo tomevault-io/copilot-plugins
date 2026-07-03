@@ -144819,6 +144819,16 @@
       "description": "An Open-source Drug Discovery Engine"
     },
     {
+      "name": "crackle2k--vantage",
+      "source": "./crackle2k--vantage",
+      "description": "A community-focused discovery tool to help users find, rate, and support local small businesses."
+    },
+    {
+      "name": "crackle2k--vantage",
+      "source": "./crackle2k--vantage",
+      "description": "A community-focused discovery tool to help users find, rate, and support local small businesses."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -232089,6 +232099,91 @@
       "description": "\uc720\ud589\ucc98\ub7fc \ud3bc\uccd0\uc9c0\ub294 llm wiki\uc5d0 \ub300\ud55c \ub2e4\uc591\ud55c \uad00\uc810\uacfc \ubcf8\uc9c8\uc744 \uaff0\ub6ab\ub294 \ub808\ud3ec a wiki is a search contract, not a storage"
     },
     {
+      "name": "mrkanitkar--playwright-praman",
+      "source": "./mrkanitkar--playwright-praman",
+      "description": "AI-First SAP UI5 Test Automation  for Playwright"
+    },
+    {
+      "name": "skills-il--government-services",
+      "source": "./skills-il--government-services",
+      "description": "AI agent skills for Israeli government APIs and digital services"
+    },
+    {
+      "name": "mrkanitkar--playwright-praman",
+      "source": "./mrkanitkar--playwright-praman",
+      "description": "AI-First SAP UI5 Test Automation  for Playwright"
+    },
+    {
+      "name": "lifehug--lifehug",
+      "source": "./lifehug--lifehug",
+      "description": "lifehug"
+    },
+    {
+      "name": "mrkanitkar--playwright-praman",
+      "source": "./mrkanitkar--playwright-praman",
+      "description": "AI-First SAP UI5 Test Automation  for Playwright"
+    },
+    {
+      "name": "lifehug--lifehug",
+      "source": "./lifehug--lifehug",
+      "description": "lifehug"
+    },
+    {
+      "name": "michalsanger--nextjs-turbopack-bundle-size",
+      "source": "./michalsanger--nextjs-turbopack-bundle-size",
+      "description": "A GitHub Action that tracks Next.js App Router bundle sizes across pull requests."
+    },
+    {
+      "name": "apache--druid-operator",
+      "source": "./apache--druid-operator",
+      "description": "Apache druid"
+    },
+    {
+      "name": "mrkanitkar--playwright-praman",
+      "source": "./mrkanitkar--playwright-praman",
+      "description": "AI-First SAP UI5 Test Automation  for Playwright"
+    },
+    {
+      "name": "gaelic-ghost--apple-dev-skills",
+      "source": "./gaelic-ghost--apple-dev-skills",
+      "description": "Apple Dev Workflows for Codex | Now Available in Socket Marketplace"
+    },
+    {
+      "name": "identark--identark",
+      "source": "./identark--identark",
+      "description": "identark"
+    },
+    {
+      "name": "mrkanitkar--playwright-praman",
+      "source": "./mrkanitkar--playwright-praman",
+      "description": "AI-First SAP UI5 Test Automation  for Playwright"
+    },
+    {
+      "name": "avinkrisv--egui-xyflow",
+      "source": "./avinkrisv--egui-xyflow",
+      "description": "A Rust node graph editor widget for egui, inspired by xyflow/React Flow. Supports node dragging, edge connections, pan/zoom, selection, minimap, and animated edges."
+    },
+    {
+      "name": "appliedir--sift-mcp",
+      "source": "./appliedir--sift-mcp",
+      "description": "Valhuntir SIFT platform \u2014 MCP servers, gateway, Examiner Portal"
+    },
+    {
+      "name": "rlespinasse--agent-skills",
+      "source": "./rlespinasse--agent-skills",
+      "description": "A collection of Agent Skills for AI coding assistants (Claude, Cursor, Copilot). Following agentskills.io specification."
+    },
+    {
+      "name": "diagrid-labs--dapr-skills",
+      "source": "./diagrid-labs--dapr-skills",
+      "description": "A set of Claude Code skills to speed up the creation of Dapr Workflow applications"
+    },
+    {
+      "name": "diagrid-labs--dapr-skills",
+      "source": "./diagrid-labs--dapr-skills",
+      "description": "A set of Claude Code skills to speed up the creation of Dapr Workflow applications"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -255327,6 +255422,16 @@
       "name": "wdl-dev--wdl",
       "source": "./wdl-dev--wdl",
       "description": "Self-hosted multi-tenant Workers platform on stock Cloudflare workerd with multi-replica failover"
+    },
+    {
+      "name": "lgqyhm2010--loop-goal",
+      "source": "./lgqyhm2010--loop-goal",
+      "description": "Discipline skill for long-running agent tasks \u2014 recurring loops and run-until-done goals: checkpoint state, isolate context per iteration, explicit exit condition."
+    },
+    {
+      "name": "mynameistito--oc-usage-limits-plugin",
+      "source": "./mynameistito--oc-usage-limits-plugin",
+      "description": "OpenCode TUI plugin for usage limits of AI Providers"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
