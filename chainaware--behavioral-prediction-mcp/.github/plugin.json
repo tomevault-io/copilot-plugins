@@ -1,0 +1,9 @@
+{
+  "name": "chainaware--behavioral-prediction-mcp",
+  "displayName": "behavioral-prediction-mcp",
+  "description": "AI-powered tools to analyze wallet behaviour prediction,fraud detection and rug pull prediction.",
+  "version": "1.0.0",
+  "author": "ChainAware",
+  "homepage": "https://github.com/ChainAware/behavioral-prediction-mcp",
+  "skills": []
+}
