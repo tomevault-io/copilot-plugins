@@ -49959,6 +49959,11 @@
       "description": "avrora"
     },
     {
+      "name": "fr0zon3--notion-mcp",
+      "source": "./fr0zon3--notion-mcp",
+      "description": "Notion mcp to connect AI agents to notion through markdown | Read and write notion markdown "
+    },
+    {
       "name": "atuinsh--eye-declare",
       "source": "./atuinsh--eye-declare",
       "description": "A declarative inline TUI rendering library for Rust, built on Ratatui"
@@ -54029,6 +54034,11 @@
       "description": "craft"
     },
     {
+      "name": "yajra--laravel-datatables-docs",
+      "source": "./yajra--laravel-datatables-docs",
+      "description": "laravel-datatables-docs"
+    },
+    {
       "name": "dnakov--kittyfarm",
       "source": "./dnakov--kittyfarm",
       "description": "kittyfarm"
@@ -54772,6 +54782,11 @@
       "name": "shawnla90--gtm-coding-agent",
       "source": "./shawnla90--gtm-coding-agent",
       "description": "gtm-coding-agent"
+    },
+    {
+      "name": "liuminxin45--podflow-studio",
+      "source": "./liuminxin45--podflow-studio",
+      "description": "\u901a\u52e4\u65e9\u5496\u5561\u5f0f\u5355\u4eba\u65b0\u95fb\u64ad\u5ba2"
     },
     {
       "name": "livekit--livekit-wakeword",
@@ -76782,6 +76797,16 @@
       "name": "zouyee--dmlx",
       "source": "./zouyee--dmlx",
       "description": "dmlx"
+    },
+    {
+      "name": "blaenk--dots",
+      "source": "./blaenk--dots",
+      "description": "dots"
+    },
+    {
+      "name": "blaenk--dots",
+      "source": "./blaenk--dots",
+      "description": "dots"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -100267,6 +100292,31 @@
       "name": "lagowski--claudeautopm",
       "source": "./lagowski--claudeautopm",
       "description": "Autonomous Project Management Framework for Claude Code - Advanced AI-powered development automation"
+    },
+    {
+      "name": "mono424--sp00ky",
+      "source": "./mono424--sp00ky",
+      "description": "sp00ky"
+    },
+    {
+      "name": "mono424--sp00ky",
+      "source": "./mono424--sp00ky",
+      "description": "sp00ky"
+    },
+    {
+      "name": "mono424--sp00ky",
+      "source": "./mono424--sp00ky",
+      "description": "sp00ky"
+    },
+    {
+      "name": "mono424--sp00ky",
+      "source": "./mono424--sp00ky",
+      "description": "sp00ky"
+    },
+    {
+      "name": "mono424--sp00ky",
+      "source": "./mono424--sp00ky",
+      "description": "sp00ky"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -158319,6 +158369,16 @@
       "description": "[deprecated] Rule moved to see \u2193"
     },
     {
+      "name": "cashwu--mermify",
+      "source": "./cashwu--mermify",
+      "description": "Mermify"
+    },
+    {
+      "name": "cashwu--mermify",
+      "source": "./cashwu--mermify",
+      "description": "Mermify"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -170334,6 +170394,11 @@
       "description": "Universal MCP Server for AI Agent Roles, Skills & Cognitive Implants"
     },
     {
+      "name": "autark-labs--project-os",
+      "source": "./autark-labs--project-os",
+      "description": "A concerted effort to bring one-click opensource software installations to the public. Independence is not given - It is engineered."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -177612,6 +177677,16 @@
       "name": "superjj007--csswitch",
       "source": "./superjj007--csswitch",
       "description": "\u8ba9 Claude Science \u7684\u63a8\u7406\u8d70\u81ea\u9009\u7684\u7b2c\u4e09\u65b9 API\uff08DeepSeek / \u901a\u4e49\u5343\u95ee / \u4efb\u610f OpenAI \u517c\u5bb9\u7aef\u70b9\uff09\uff0c\u4fdd\u7559\u5de5\u5177\u8c03\u7528\u00b7Skill\u00b7MCP\u00b7\u4ee3\u7801\u6267\u884c\uff0c\u542b\u672c\u5730\u865a\u62df\u767b\u5f55\u8df3\u8fc7\u3002macOS \u83dc\u5355\u680f app\u3002\u4ec5\u4f9b\u4e2a\u4eba\u5b66\u4e60\u7814\u7a76\uff0c\u4f7f\u7528\u8005\u81ea\u8d1f\u98ce\u9669\u3002"
+    },
+    {
+      "name": "azazelitto21--prediction-markets-skill",
+      "source": "./azazelitto21--prediction-markets-skill",
+      "description": "Read-only Kalshi + Polymarket market data skill for AI agents (Claude Code, Codex, Cursor). Zero dependencies, no API keys, auditable in 5 minutes. Stops agents hallucinating prediction-market APIs."
+    },
+    {
+      "name": "azazelitto21--prediction-markets-skill",
+      "source": "./azazelitto21--prediction-markets-skill",
+      "description": "Read-only Kalshi + Polymarket market data skill for AI agents (Claude Code, Codex, Cursor). Zero dependencies, no API keys, auditable in 5 minutes. Stops agents hallucinating prediction-market APIs."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -186542,6 +186617,11 @@
       "name": "thisissadeghi--kmpilot",
       "source": "./thisissadeghi--kmpilot",
       "description": "AI-driven Spec-Driven Development template for Kotlin Multiplatform + Compose Multiplatform"
+    },
+    {
+      "name": "clidey--deptrust",
+      "source": "./clidey--deptrust",
+      "description": "deptrust is a CLI that checks package versions for known vulnerabilities across npm, PyPI, crates.io, Go modules, RubyGems, NuGet, Maven, Packagist, pub.dev, CocoaPods, Hex.pm, Hackage, GitHub Actions"
     },
     {
       "name": "lightninglabs--lnget",
