@@ -1,0 +1,9 @@
+{
+  "name": "dsadsasdaddas--rwkv7-hf-adapter",
+  "displayName": "rwkv7-hf-adapter",
+  "description": "First-stage Hugging Face adapter and converter for official RWKV-7 checkpoints",
+  "version": "1.0.0",
+  "author": "dsadsasdaddas",
+  "homepage": "https://github.com/dsadsasdaddas/rwkv7-hf-adapter",
+  "skills": []
+}
