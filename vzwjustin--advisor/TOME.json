@@ -4,7 +4,7 @@
   "repo": "advisor",
   "description": "Opus-led Claude Code agent team \u2014 strategist plans, Sonnet runners read and fix. Live two-way review-and-fix pipeline. Zero API calls. NOW IN RUST!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vzwjustin/advisor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T04:36:41Z"
+  "distributed_at": "2026-07-03T04:40:12Z"
 }
