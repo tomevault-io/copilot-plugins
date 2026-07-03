@@ -4,7 +4,7 @@
   "repo": "acad-api-skill",
   "description": "AI agent skills and rules for scaffolding and building AutoCAD, Civil 3D, and Plant 3D .NET 10 plugins",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ADN-DevTech/acad-api-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T04:31:55Z"
+  "distributed_at": "2026-07-03T04:39:12Z"
 }
