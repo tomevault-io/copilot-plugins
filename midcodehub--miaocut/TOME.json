@@ -1,0 +1,44 @@
+{
+  "name": "miaoCut",
+  "owner": "midcodehub",
+  "repo": "miaoCut",
+  "description": "\u514d\u8d39\u3001\u6ce8\u91cd\u9690\u79c1\u7684\u5728\u7ebf AI \u56fe\u50cf\u5904\u7406\u5de5\u5177\u7bb1\uff08\u5305\u542b\u4e00\u952e\u62a0\u56fe\u3001\u53bb\u6c34\u5370\u3001\u8001\u7167\u7247\u4fee\u590d\u7b49\uff09\u3002\u65e0\u6c34\u5370\uff0c\u514d\u6ce8\u518c\u3002| A free, privacy-first online AI image toolkit featuring one-click background removal, watermark remover, and old photo restoration. No signup required. \ud83d\udd17 https://miaocut.app",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/midcodehub/miaoCut",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T04:42:43Z"
+}
