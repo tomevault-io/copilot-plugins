@@ -20,7 +20,7 @@ Original source: `AGENTS.md` in [mono424/sp00ky](https://github.com/mono424/sp00
 - [sp00ky](https://github.com/mono424/sp00ky/tree/main/packages/client-solid/skills/sp00ky-solid/SKILL.md)
 - [sp00ky](https://github.com/mono424/sp00ky/tree/main/packages/query-builder/skills/sp00ky-query-builder/SKILL.md)
 
-From [mono424/sp00ky](https://github.com/mono424/sp00ky) — a repo with 36+ stars on GitHub.
+From [mono424/sp00ky](https://github.com/mono424/sp00ky) — a repo with 0+ stars on GitHub.
 
 ---
 
