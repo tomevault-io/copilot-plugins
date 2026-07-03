@@ -1,0 +1,9 @@
+{
+  "name": "outlinedriven--odin-reflector",
+  "displayName": "odin-reflector",
+  "description": "Codex CLI meta-reflection layer for Outline-Driven Development. Add-on for the Claude plugin.",
+  "version": "1.0.0",
+  "author": "OutlineDriven",
+  "homepage": "https://github.com/OutlineDriven/odin-reflector",
+  "skills": []
+}
