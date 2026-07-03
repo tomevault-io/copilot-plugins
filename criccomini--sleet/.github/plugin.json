@@ -1,0 +1,9 @@
+{
+  "name": "criccomini--sleet",
+  "displayName": "sleet",
+  "description": "Sleet manages compaction and garbage collection for a fleet of SlateDB databases",
+  "version": "1.0.0",
+  "author": "criccomini",
+  "homepage": "https://github.com/criccomini/sleet",
+  "skills": []
+}
