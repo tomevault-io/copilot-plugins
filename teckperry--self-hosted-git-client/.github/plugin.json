@@ -1,0 +1,9 @@
+{
+  "name": "teckperry--self-hosted-git-client",
+  "displayName": "self-hosted-git-client",
+  "description": "An awesome self-hosted Git Client",
+  "version": "1.0.0",
+  "author": "teckperry",
+  "homepage": "https://github.com/teckperry/self-hosted-git-client",
+  "skills": []
+}
