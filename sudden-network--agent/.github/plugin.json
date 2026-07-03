@@ -1,0 +1,9 @@
+{
+  "name": "sudden-network--agent",
+  "displayName": "agent",
+  "description": "A homegrown GitHub automation tool for agentic engineering workflows",
+  "version": "1.0.0",
+  "author": "sudden-network",
+  "homepage": "https://github.com/sudden-network/agent",
+  "skills": []
+}
