@@ -1,0 +1,9 @@
+{
+  "name": "ikislay--auto-claude",
+  "displayName": "auto-claude",
+  "description": "Automated workflow that orchestrates Claude Code in a continuous loop, autonomously creating PRs, waiting for checks, and merging - so multi-step projects complete while you sleep.",
+  "version": "1.0.0",
+  "author": "iKislay",
+  "homepage": "https://github.com/iKislay/auto-claude",
+  "skills": []
+}
