@@ -7,11 +7,11 @@ Open-source AI teaching assistant on WhatsApp — classroom coaching, reading as
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Orenda-Project/rumi-platform](https://github.com/Orenda-Project/rumi-platform).
+Original source: `CLAUDE.md` in [Orenda-Project/rumi-platform](https://github.com/Orenda-Project/rumi-platform).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
