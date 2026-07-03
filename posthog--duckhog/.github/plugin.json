@@ -1,0 +1,9 @@
+{
+  "name": "posthog--duckhog",
+  "displayName": "duckhog",
+  "description": "duckdb extension to connect to posthog managed data warehouse ",
+  "version": "1.0.0",
+  "author": "PostHog",
+  "homepage": "https://github.com/PostHog/duckhog",
+  "skills": []
+}
