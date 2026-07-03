@@ -1,0 +1,9 @@
+{
+  "name": "lgqyhm2010--loop-goal",
+  "displayName": "loop-goal",
+  "description": "Discipline skill for long-running agent tasks \u2014 recurring loops and run-until-done goals: checkpoint state, isolate context per iteration, explicit exit condition.",
+  "version": "1.0.0",
+  "author": "lgqyhm2010",
+  "homepage": "https://github.com/lgqyhm2010/loop-goal",
+  "skills": []
+}
