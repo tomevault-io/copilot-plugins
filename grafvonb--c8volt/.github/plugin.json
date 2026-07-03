@@ -1,0 +1,9 @@
+{
+  "name": "grafvonb--c8volt",
+  "displayName": "c8volt",
+  "description": "c8volt is a Camunda CLI for Camunda 8 operations.",
+  "version": "1.0.0",
+  "author": "grafvonb",
+  "homepage": "https://github.com/grafvonb/c8volt",
+  "skills": []
+}
