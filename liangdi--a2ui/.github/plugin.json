@@ -1,0 +1,9 @@
+{
+  "name": "liangdi--a2ui",
+  "displayName": "a2ui",
+  "description": "Rust impl of the A2UI protocol (ratatui terminal + Slint / egui / Bevy / Iced / Dioxus desktop)",
+  "version": "1.0.0",
+  "author": "Liangdi",
+  "homepage": "https://github.com/Liangdi/a2ui",
+  "skills": []
+}
