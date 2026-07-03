@@ -4,7 +4,7 @@
   "repo": "purrdf",
   "description": "PurRDF \u2014 one RDF 1.2 engine, one behavior, every language: interned primitives, Turtle/TriG/N-Quads/RDF-XML/JSON-LD codecs, RDFC-1.0, SPARQL 1.1/1.2, SHACL Core, GTS graph transport, and Python/WebAssembly/C bindings.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Blackcat-Informatics/purrdf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T00:31:25Z"
+  "distributed_at": "2026-07-03T00:32:24Z"
 }
