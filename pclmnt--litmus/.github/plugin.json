@@ -1,0 +1,9 @@
+{
+  "name": "pclmnt--litmus",
+  "displayName": "litmus",
+  "description": "Application built with OpenTUI / AI SDK / Openrouter allowing you to quickly compare and eval LLMs. ",
+  "version": "1.0.0",
+  "author": "PClmnt",
+  "homepage": "https://github.com/PClmnt/litmus",
+  "skills": []
+}
