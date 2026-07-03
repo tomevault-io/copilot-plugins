@@ -4,7 +4,7 @@
   "repo": "rhwp-python",
   "description": "PyO3 Python bindings for rhwp \u2014 parser and renderer for HWP/HWPX documents (Korean Hancom word processor format)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DanMeon/rhwp-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T04:35:42Z"
+  "distributed_at": "2026-07-03T04:38:09Z"
 }
