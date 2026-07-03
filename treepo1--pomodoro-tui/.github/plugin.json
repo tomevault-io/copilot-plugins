@@ -1,0 +1,9 @@
+{
+  "name": "treepo1--pomodoro-tui",
+  "displayName": "pomodoro-tui",
+  "description": "A terminal-based Pomodoro timer with lofi music integration, built with Bun and opentui",
+  "version": "1.0.0",
+  "author": "treepo1",
+  "homepage": "https://github.com/treepo1/pomodoro-tui",
+  "skills": []
+}
