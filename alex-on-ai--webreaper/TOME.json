@@ -4,7 +4,7 @@
   "repo": "WebReaper",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -131,5 +131,5 @@
   ],
   "source_url": "https://github.com/alex-on-ai/WebReaper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T20:31:10Z"
+  "distributed_at": "2026-07-03T20:06:31Z"
 }
