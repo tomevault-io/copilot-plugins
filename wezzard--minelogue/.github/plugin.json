@@ -1,0 +1,9 @@
+{
+  "name": "wezzard--minelogue",
+  "displayName": "minelogue",
+  "description": "Mine the dialogue out of your coding-agent session logs: timelines, transcripts, cross-examination, and (eventually) agent-as-judge evaluation",
+  "version": "1.0.0",
+  "author": "WeZZard",
+  "homepage": "https://github.com/WeZZard/minelogue",
+  "skills": []
+}
