@@ -232929,6 +232929,31 @@
       "description": "stable-diffusion.cpp-restapi"
     },
     {
+      "name": "msiccdev--ai-context-kit",
+      "source": "./msiccdev--ai-context-kit",
+      "description": "AI Context Kit provides a structured, instruction-based framework for context-aware AI collaboration across LLM providers. It includes authoritative specs, canonical templates, and skills workflows fo"
+    },
+    {
+      "name": "charlontank--agents-sleep-preventer",
+      "source": "./charlontank--agents-sleep-preventer",
+      "description": "Keep your Mac awake while Claude Code or Codex is working"
+    },
+    {
+      "name": "farzad-sedaghatbin--shipflow",
+      "source": "./farzad-sedaghatbin--shipflow",
+      "description": "AI product intelligence platform for roadmaps, insights, and execution \u2014 built on Shape Up + Kanban."
+    },
+    {
+      "name": "charlontank--agents-sleep-preventer",
+      "source": "./charlontank--agents-sleep-preventer",
+      "description": "Keep your Mac awake while Claude Code or Codex is working"
+    },
+    {
+      "name": "shanraisshan--claude-code-multi-agent-orchestrartion",
+      "source": "./shanraisshan--claude-code-multi-agent-orchestrartion",
+      "description": "multi agent orchestrartion using claude code cli"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -252157,6 +252182,106 @@
       "name": "yaswanthme007--tokenscope",
       "source": "./yaswanthme007--tokenscope",
       "description": "The first open-source token profiler for AI coding agents. Analyzes session logs, detects repeated content and bloated tool results, and shows you exactly where your context window budget goes  with c"
+    },
+    {
+      "name": "thecolab-ai--the-for-good-project",
+      "source": "./thecolab-ai--the-for-good-project",
+      "description": "An open research commons where people and AI agents work together to solve New Zealand's biggest societal problems. By thecolab.ai."
+    },
+    {
+      "name": "btravstack--unthrown",
+      "source": "./btravstack--unthrown",
+      "description": "Explicit errors as values for TypeScript \u2014 with a separate defect channel for the unexpected and qualification enforced at every boundary."
+    },
+    {
+      "name": "meltedinhex--analyst-ai-pack",
+      "source": "./meltedinhex--analyst-ai-pack",
+      "description": "An open agent-skills library for malware analysis, reverse engineering, and threat hunting - 118 curated, runnable skills mapped to MITRE ATT&CK, D3FEND, and CAR."
+    },
+    {
+      "name": "kylinfish--mailquill",
+      "source": "./kylinfish--mailquill",
+      "description": "Local, rule-based Gmail finance archiving & reporting \u2014 your bank statements, quietly reconciled. 100% local, zero cloud."
+    },
+    {
+      "name": "qzzqzzb--openclaudescience",
+      "source": "./qzzqzzb--openclaudescience",
+      "description": "A local-first research agent workbench for scientific files, code, skills, and compute. Built on DeepAgents and LangGraph, with project context, previews, tools, and human approvals in one browser UI."
+    },
+    {
+      "name": "thecolab-ai--the-for-good-project",
+      "source": "./thecolab-ai--the-for-good-project",
+      "description": "An open research commons where people and AI agents work together to solve New Zealand's biggest societal problems. By thecolab.ai."
+    },
+    {
+      "name": "servletcloud--fstache",
+      "source": "./servletcloud--fstache",
+      "description": "Fast dependency-free, typed Mustache renderer for Python 3.12+"
+    },
+    {
+      "name": "plattnericus--threejs-portfolio",
+      "source": "./plattnericus--threejs-portfolio",
+      "description": "ThreeJS_Portfolio"
+    },
+    {
+      "name": "juananzzz--resonus",
+      "source": "./juananzzz--resonus",
+      "description": "A clean Android music player for your self-hosted server \u2014 and your local files."
+    },
+    {
+      "name": "nooga--legmacs",
+      "source": "./nooga--legmacs",
+      "description": "A small terminal text editor written in and scriptable with let-go, a Clojure-dialect Lisp"
+    },
+    {
+      "name": "awlx--packetyeeter",
+      "source": "./awlx--packetyeeter",
+      "description": "PacketYeeter: eBPF-based DDoS protection and traffic filtering for Linux (XDP + TC)"
+    },
+    {
+      "name": "botcoder254--limboo",
+      "source": "./botcoder254--limboo",
+      "description": "An Orchestrate multiple coding agent desktop app "
+    },
+    {
+      "name": "liangdi--a2ui",
+      "source": "./liangdi--a2ui",
+      "description": "Rust impl of the A2UI protocol (ratatui terminal + Slint / egui / Bevy / Iced / Dioxus desktop)"
+    },
+    {
+      "name": "catsite05--novelvoice",
+      "source": "./catsite05--novelvoice",
+      "description": "NovelVoice\u662f\u4e00\u4e2aWeb\u5e94\u7528\u7a0b\u5e8f\uff0c\u80fd\u591f\u5c06\u81ea\u52a8\u4e2d\u6587\u5c0f\u8bf4\u6587\u672c\u6587\u4ef6\u8f6c\u6362\u4e3a\u9ad8\u8d28\u91cf\u7684\u6709\u58f0\u4e66\uff0c\u5e76\u63d0\u4f9b\u8fb9\u8f6c\u8fb9\u64ad\u7684\u5728\u7ebf\u64ad\u653e\u529f\u80fd\u3002\u8be5\u7cfb\u7edf\u4f7f\u7528LLM\u667a\u80fd\u5206\u6790\u6587\u672c\u5185\u5bb9\uff0c\u8bc6\u522b\u89d2\u8272\u548c\u5bf9\u8bdd\uff0c\u5e76\u4f7f\u7528\u591a\u58f0\u97f3\u5408\u6210\u6280\u672f\uff0c\u53ef\u4ee5\u6839\u636e\u89d2\u8272\u6027\u522b\u548c\u6027\u683c\u7279\u5f81\u5206\u914d\u4e0d\u540c\u7684\u8bed\u97f3\uff0c\u751f\u6210\u903c\u771f\u7684\u6709\u58f0\u4e66\u4f53\u9a8c\u3002\u9002\u5408\u4e0eNAS\u7b49\u8bbe\u5907\u7ed3\u5408\u4f7f\u7528\uff0c\u5b9e\u73b0\u65e0\u7ebf\u4e0a\u7f51\u64ad\u653e\u3002NovelVoice is a web application that automaticall"
+    },
+    {
+      "name": "shrektan--formaldoc",
+      "source": "./shrektan--formaldoc",
+      "description": "FormalDoc helps you turn AI-generated text into properly formatted Word documents"
+    },
+    {
+      "name": "cyberboyayush--memcontext",
+      "source": "./cyberboyayush--memcontext",
+      "description": "Persistent, evolving memory for AI agents and applications. Save once, retrieve forever."
+    },
+    {
+      "name": "ikislay--auto-claude",
+      "source": "./ikislay--auto-claude",
+      "description": "Automated workflow that orchestrates Claude Code in a continuous loop, autonomously creating PRs, waiting for checks, and merging - so multi-step projects complete while you sleep."
+    },
+    {
+      "name": "shrektan--formaldoc",
+      "source": "./shrektan--formaldoc",
+      "description": "FormalDoc helps you turn AI-generated text into properly formatted Word documents"
+    },
+    {
+      "name": "allannapier--claudesavvy",
+      "source": "./allannapier--claudesavvy",
+      "description": "Monitoring tool for local claude code usage"
+    },
+    {
+      "name": "jeanhua--aniabot",
+      "source": "./jeanhua--aniabot",
+      "description": "\u4e00\u4e2a\u63d2\u4ef6\u9a71\u52a8\u578b QQ \u673a\u5668\u4eba\u6846\u67b6\uff0c\u5185\u7f6eAI Agent\u63d2\u4ef6\uff0c\u652f\u6301MCP\u548cAgent Skill"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -374967,6 +375092,81 @@
       "name": "merostax--customer-management-front",
       "source": "./merostax--customer-management-front",
       "description": "customer-management-front"
+    },
+    {
+      "name": "clever021--deezer-explorer",
+      "source": "./clever021--deezer-explorer",
+      "description": "Projeto Pesquisa Deezer 01"
+    },
+    {
+      "name": "usmanperyani-alt--applyai",
+      "source": "./usmanperyani-alt--applyai",
+      "description": "applyai"
+    },
+    {
+      "name": "databreef-io--databreef-io",
+      "source": "./databreef-io--databreef-io",
+      "description": "DataBreef.io"
+    },
+    {
+      "name": "sridhar7601--skillfit-ai",
+      "source": "./sridhar7601--skillfit-ai",
+      "description": "Kannada-first AI video assessment for Karnataka workforce fitment \u2014 multilingual interviews, integrity checks, fitment classification. PanIIT AI for Bharat Hackathon Theme 5."
+    },
+    {
+      "name": "admingetseen-lang--getseensite",
+      "source": "./admingetseen-lang--getseensite",
+      "description": "getseensite"
+    },
+    {
+      "name": "sw-capco--policy-portal",
+      "source": "./sw-capco--policy-portal",
+      "description": "policy-portal"
+    },
+    {
+      "name": "bendeguzkudor--myoatlas",
+      "source": "./bendeguzkudor--myoatlas",
+      "description": "myoatlas"
+    },
+    {
+      "name": "guudin--ir-sniffing-beken-cb3s",
+      "source": "./guudin--ir-sniffing-beken-cb3s",
+      "description": "ir-sniffing-beken-cb3s"
+    },
+    {
+      "name": "usmanperyani-alt--applyai",
+      "source": "./usmanperyani-alt--applyai",
+      "description": "applyai"
+    },
+    {
+      "name": "mehmtcankilnc--my-portfolio",
+      "source": "./mehmtcankilnc--my-portfolio",
+      "description": "my-portfolio"
+    },
+    {
+      "name": "lopetpr--lumarapp",
+      "source": "./lopetpr--lumarapp",
+      "description": "App"
+    },
+    {
+      "name": "aonura--evaninlezzetleri",
+      "source": "./aonura--evaninlezzetleri",
+      "description": "evaninlezzetleri"
+    },
+    {
+      "name": "databreef-io--databreef-io",
+      "source": "./databreef-io--databreef-io",
+      "description": "DataBreef.io"
+    },
+    {
+      "name": "djeppers--sunseeker-app",
+      "source": "./djeppers--sunseeker-app",
+      "description": "sunseeker_app"
+    },
+    {
+      "name": "sakura176--cpp-practice",
+      "source": "./sakura176--cpp-practice",
+      "description": "cpp_practice"
     }
   ]
 }
