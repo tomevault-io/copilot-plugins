@@ -1,0 +1,9 @@
+{
+  "name": "appliedir--sift-mcp",
+  "displayName": "sift-mcp",
+  "description": "Valhuntir SIFT platform \u2014 MCP servers, gateway, Examiner Portal",
+  "version": "1.0.0",
+  "author": "AppliedIR",
+  "homepage": "https://github.com/AppliedIR/sift-mcp",
+  "skills": []
+}
