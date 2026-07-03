@@ -4,7 +4,7 @@
   "repo": "sales-agent",
   "description": "One sales agent. Your CRM (sqlite/hubspot/close/attio/salesforce) or none. Your channels (gmail, linkedin). Runs on any MCP-capable harness.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Dominien/sales-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T04:40:43Z"
+  "distributed_at": "2026-07-03T04:45:37Z"
 }
