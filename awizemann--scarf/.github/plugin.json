@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "awizemann",
   "homepage": "https://github.com/awizemann/scarf",
-  "skills": []
+  "skills": [
+    {
+      "name": "scarf",
+      "description": ""
+    },
+    {
+      "name": "scarf",
+      "description": ""
+    }
+  ]
 }
