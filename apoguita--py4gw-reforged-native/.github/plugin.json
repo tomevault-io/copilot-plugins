@@ -1,0 +1,9 @@
+{
+  "name": "apoguita--py4gw-reforged-native",
+  "displayName": "Py4GW_Reforged_Native",
+  "description": "this is a rework of the base Py4GW library focused specially on interfacing with python and supporting the proxy library over it.",
+  "version": "1.0.0",
+  "author": "apoguita",
+  "homepage": "https://github.com/apoguita/Py4GW_Reforged_Native",
+  "skills": []
+}
