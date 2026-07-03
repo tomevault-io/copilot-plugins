@@ -1,0 +1,45 @@
+## lltcgweb-architecture
+
+> LLTCG web architecture — source vs runtime, paths, Hostinger compatibility
+
+
+# lltcgweb architecture
+
+## Repository layout
+
+| Area | Path | Notes |
+|------|------|-------|
+| PHP entry shims | Root `*.php` | Keep deploy paths stable (`tcg/api.php`, etc.) |
+| PHP modules | `src/` | New logic goes here (PSR-4 `LLTCG\`) |
+| Config | `config/` | `paths.php`, `cors.php`, `rate_limit.php` |
+| Client modules | `client/js/` | New JS — do not grow `index.html` monolith |
+| Tests | `tests/`, `scripts/` | Run before deploy |
+| Migrations | `migrations/*.sql` | Versioned SQLite schema |
+| Runtime (gitignored) | `data/`, `games/`, `experiment_decks/`, `cardimg/` | Use `tcgPath()` / env vars |
+
+## Runtime vs source
+
+See [docs/RUNTIME.md](docs/RUNTIME.md). Never commit `data/tcg.db`, `games/*.json`, secrets, or art.
+
+## Hostinger deploy
+
+Production uses Chiichan `deploy-loveliveradio-ca.sh` with `LLR_TCG_ROOT` → this repo. **Do not** require a `public/` docroot change on Hostinger until production Docker ([docs/DEPLOY.md](docs/DEPLOY.md)).
+
+## Path configuration
+
+Use `config/paths.php` (`tcgPath()`, `tcgDefinePathConstants()`). Env overrides: `TCG_DATA_DIR`, `TCG_GAMES_DIR`, etc. ([.env.example](.env.example)).
+
+## Verification
+
+Before merging TCG changes:
+
+```bash
+composer test
+php scripts/validate_json.php
+php scripts/validate_cards.php
+bash scripts/lint_php.sh
+```
+
+---
+> Source: [Yumegipsu/lltcgweb](https://github.com/Yumegipsu/lltcgweb) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-03 -->
