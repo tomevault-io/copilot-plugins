@@ -1,0 +1,9 @@
+{
+  "name": "mindcockpit-ai--cognitive-core",
+  "displayName": "cognitive-core",
+  "description": "A vendor-agnostic, biomimetic skill framework for AI agents",
+  "version": "1.0.0",
+  "author": "mindcockpit-ai",
+  "homepage": "https://github.com/mindcockpit-ai/cognitive-core",
+  "skills": []
+}
