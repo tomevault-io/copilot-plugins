@@ -7,11 +7,11 @@ capture voice and shape it into structured thoughts.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [owk-owk130/koe](https://github.com/owk-owk130/koe).
+Original source: `AGENTS.md` in [owk-owk130/koe](https://github.com/owk-owk130/koe).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
