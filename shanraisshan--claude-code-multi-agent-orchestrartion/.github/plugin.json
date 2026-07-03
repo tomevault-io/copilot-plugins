@@ -1,0 +1,9 @@
+{
+  "name": "shanraisshan--claude-code-multi-agent-orchestrartion",
+  "displayName": "claude-code-multi-agent-orchestrartion",
+  "description": "multi agent orchestrartion using claude code cli",
+  "version": "1.0.0",
+  "author": "shanraisshan",
+  "homepage": "https://github.com/shanraisshan/claude-code-multi-agent-orchestrartion",
+  "skills": []
+}
