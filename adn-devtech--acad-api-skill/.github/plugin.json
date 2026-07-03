@@ -1,0 +1,9 @@
+{
+  "name": "adn-devtech--acad-api-skill",
+  "displayName": "acad-api-skill",
+  "description": "AI agent skills and rules for scaffolding and building AutoCAD, Civil 3D, and Plant 3D .NET 10 plugins",
+  "version": "1.0.0",
+  "author": "ADN-DevTech",
+  "homepage": "https://github.com/ADN-DevTech/acad-api-skill",
+  "skills": []
+}
