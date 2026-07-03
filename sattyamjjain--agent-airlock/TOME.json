@@ -4,7 +4,7 @@
   "repo": "agent-airlock",
   "description": "A deny-by-default contract & type-checker layer for AI agent tool calls \u2014 Pydantic-based, in-process, zero-core-deps. Validates the actual tool-call payload (ghost-arg stripping, strict types, self-healing retries) beneath MCP gateways & firewalls. Works with LangChain, OpenAI Agents SDK, PydanticAI & CrewAI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sattyamjjain/agent-airlock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T06:46:21Z"
+  "distributed_at": "2026-07-03T06:46:52Z"
 }
