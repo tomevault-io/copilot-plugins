@@ -1,0 +1,9 @@
+{
+  "name": "edg-l--engram-mcp",
+  "displayName": "engram-mcp",
+  "description": "MCP server in Rust for AI agent persistent memory: branch-aware session handoffs, local ONNX embeddings, SQLite-backed semantic search.",
+  "version": "1.0.0",
+  "author": "edg-l",
+  "homepage": "https://github.com/edg-l/engram-mcp",
+  "skills": []
+}
