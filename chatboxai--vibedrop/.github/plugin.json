@@ -1,0 +1,9 @@
+{
+  "name": "chatboxai--vibedrop",
+  "displayName": "vibedrop",
+  "description": "Agent-native static site hosting \u2014 CLI, MCP server, and SDK for deploying to vibedrop.cc",
+  "version": "1.0.0",
+  "author": "chatboxai",
+  "homepage": "https://github.com/chatboxai/vibedrop",
+  "skills": []
+}
