@@ -1,0 +1,9 @@
+{
+  "name": "rolfsimoes--rstatic",
+  "displayName": "rstatic",
+  "description": "Primitives to generate static SpatioTemporal Asset Catalogs (STAC)",
+  "version": "1.0.0",
+  "author": "rolfsimoes",
+  "homepage": "https://github.com/rolfsimoes/rstatic",
+  "skills": []
+}
