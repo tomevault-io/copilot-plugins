@@ -1,0 +1,9 @@
+{
+  "name": "michalsanger--nextjs-turbopack-bundle-size",
+  "displayName": "nextjs-turbopack-bundle-size",
+  "description": "A GitHub Action that tracks Next.js App Router bundle sizes across pull requests.",
+  "version": "1.0.0",
+  "author": "michalsanger",
+  "homepage": "https://github.com/michalsanger/nextjs-turbopack-bundle-size",
+  "skills": []
+}
