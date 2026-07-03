@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bearlike/Assistant](https://github.com/bearlike/Assistant).
+Original source: `AGENTS.md` in [bearlike/Assistant](https://github.com/bearlike/Assistant).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -20,7 +20,7 @@ Original source: `CLAUDE.md` in [bearlike/Assistant](https://github.com/bearlike
 - [Assistant](https://github.com/bearlike/Assistant/tree/main/.claude/skills/mewbo-cli-smoketest/SKILL.md)
 - [Assistant](https://github.com/bearlike/Assistant/tree/main/packages/mewbo_core/src/mewbo_core/builtin_plugins/widget_builder/skills/st-widget-builder/SKILL.md)
 
-From [bearlike/Assistant](https://github.com/bearlike/Assistant) — a repo with 35+ stars on GitHub.
+From [bearlike/Assistant](https://github.com/bearlike/Assistant) — a repo with 0+ stars on GitHub.
 
 ---
 
