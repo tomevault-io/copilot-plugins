@@ -1,0 +1,9 @@
+{
+  "name": "littlepenguin66--mcpacker",
+  "displayName": "mcpacker",
+  "description": "A command-line tool to convert client modpacks into ready-to-run Minecraft servers",
+  "version": "1.0.0",
+  "author": "littlepenguin66",
+  "homepage": "https://github.com/littlepenguin66/mcpacker",
+  "skills": []
+}
