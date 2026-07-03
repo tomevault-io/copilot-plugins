@@ -1,0 +1,9 @@
+{
+  "name": "shrektan--formaldoc",
+  "displayName": "formaldoc",
+  "description": "FormalDoc helps you turn AI-generated text into properly formatted Word documents",
+  "version": "1.0.0",
+  "author": "shrektan",
+  "homepage": "https://github.com/shrektan/formaldoc",
+  "skills": []
+}
