@@ -1,0 +1,9 @@
+{
+  "name": "msiccdev--ai-context-kit",
+  "displayName": "ai-context-kit",
+  "description": "AI Context Kit provides a structured, instruction-based framework for context-aware AI collaboration across LLM providers. It includes authoritative specs, canonical templates, and skills workflows fo",
+  "version": "1.0.0",
+  "author": "MSiccDev",
+  "homepage": "https://github.com/MSiccDev/ai-context-kit",
+  "skills": []
+}
