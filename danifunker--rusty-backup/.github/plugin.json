@@ -1,0 +1,9 @@
+{
+  "name": "danifunker--rusty-backup",
+  "displayName": "rusty-backup",
+  "description": "Backup your vintage computer hard disks using your modern one",
+  "version": "1.0.0",
+  "author": "danifunker",
+  "homepage": "https://github.com/danifunker/rusty-backup",
+  "skills": []
+}
