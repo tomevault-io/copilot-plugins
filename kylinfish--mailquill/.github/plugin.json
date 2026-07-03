@@ -1,0 +1,9 @@
+{
+  "name": "kylinfish--mailquill",
+  "displayName": "mailquill",
+  "description": "Local, rule-based Gmail finance archiving & reporting \u2014 your bank statements, quietly reconciled. 100% local, zero cloud.",
+  "version": "1.0.0",
+  "author": "kylinfish",
+  "homepage": "https://github.com/kylinfish/mailquill",
+  "skills": []
+}
