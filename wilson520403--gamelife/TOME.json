@@ -4,7 +4,7 @@
   "repo": "GameLife",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Wilson520403/GameLife",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T16:38:50Z"
+  "distributed_at": "2026-07-03T16:39:53Z"
 }
