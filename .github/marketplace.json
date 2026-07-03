@@ -22434,6 +22434,16 @@
       "description": "referrer-spam-blocker"
     },
     {
+      "name": "ndycode--codex-multi-auth",
+      "source": "./ndycode--codex-multi-auth",
+      "description": "codex-multi-auth"
+    },
+    {
+      "name": "ndycode--codex-multi-auth",
+      "source": "./ndycode--codex-multi-auth",
+      "description": "codex-multi-auth"
+    },
+    {
       "name": "kdaip--echobot",
       "source": "./kdaip--echobot",
       "description": "EchoBot: Your Anime AI Companion"
@@ -44507,6 +44517,21 @@
       "name": "ganador1--fenixai-tradingbot",
       "source": "./ganador1--fenixai-tradingbot",
       "description": "FenixAI_tradingBot"
+    },
+    {
+      "name": "ndycode--oc-codex-multi-auth",
+      "source": "./ndycode--oc-codex-multi-auth",
+      "description": "oc-codex-multi-auth"
+    },
+    {
+      "name": "ndycode--oc-codex-multi-auth",
+      "source": "./ndycode--oc-codex-multi-auth",
+      "description": "oc-codex-multi-auth"
+    },
+    {
+      "name": "ndycode--oc-codex-multi-auth",
+      "source": "./ndycode--oc-codex-multi-auth",
+      "description": "oc-codex-multi-auth"
     },
     {
       "name": "skywind3000--gamelib",
@@ -177864,6 +177889,11 @@
       "description": "Read-only Kalshi + Polymarket market data skill for AI agents (Claude Code, Codex, Cursor). Zero dependencies, no API keys, auditable in 5 minutes. Stops agents hallucinating prediction-market APIs."
     },
     {
+      "name": "senmuuuuw--universal-diagnostic-tutor-skill",
+      "source": "./senmuuuuw--universal-diagnostic-tutor-skill",
+      "description": "Diagnosis-first AI tutor skill for STEM, AI/CS learning: teaches concepts, checks understanding, and builds mastery."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -199892,6 +199922,11 @@
       "name": "ba-itsys--keycloak-push-mfa-extension",
       "source": "./ba-itsys--keycloak-push-mfa-extension",
       "description": "Keycloak push MFA Extension"
+    },
+    {
+      "name": "grafana--business-table",
+      "source": "./grafana--business-table",
+      "description": "The Business Table Panel is a versatile Grafana plugin designed to simplify and enhance data visualization in a table format. Built for flexibility and usability, it offers advanced features like tree"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -232954,6 +232989,21 @@
       "description": "multi agent orchestrartion using claude code cli"
     },
     {
+      "name": "sourangshupal--hybrid-search-rag",
+      "source": "./sourangshupal--hybrid-search-rag",
+      "description": "Production-ready Hybrid Search RAG system for academic research papers combining BM25 and semantic search with advanced AI capabilities"
+    },
+    {
+      "name": "pclmnt--litmus",
+      "source": "./pclmnt--litmus",
+      "description": "Application built with OpenTUI / AI SDK / Openrouter allowing you to quickly compare and eval LLMs. "
+    },
+    {
+      "name": "cgemise971--propfirmea",
+      "source": "./cgemise971--propfirmea",
+      "description": "Expert Advisor automatis\u00e9 pour Prop Firms (FTMO, E8, FundingPips, The5ers)"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -252282,6 +252332,31 @@
       "name": "jeanhua--aniabot",
       "source": "./jeanhua--aniabot",
       "description": "\u4e00\u4e2a\u63d2\u4ef6\u9a71\u52a8\u578b QQ \u673a\u5668\u4eba\u6846\u67b6\uff0c\u5185\u7f6eAI Agent\u63d2\u4ef6\uff0c\u652f\u6301MCP\u548cAgent Skill"
+    },
+    {
+      "name": "teckperry--self-hosted-git-client",
+      "source": "./teckperry--self-hosted-git-client",
+      "description": "An awesome self-hosted Git Client"
+    },
+    {
+      "name": "teckperry--self-hosted-git-client",
+      "source": "./teckperry--self-hosted-git-client",
+      "description": "An awesome self-hosted Git Client"
+    },
+    {
+      "name": "dsadsasdaddas--rwkv7-hf-adapter",
+      "source": "./dsadsasdaddas--rwkv7-hf-adapter",
+      "description": "First-stage Hugging Face adapter and converter for official RWKV-7 checkpoints"
+    },
+    {
+      "name": "leifdenby--weatherduck",
+      "source": "./leifdenby--weatherduck",
+      "description": "fiddle + pytorch-lightning GNN weather model architectures + training"
+    },
+    {
+      "name": "rahulsethi--sapdataspheremcp",
+      "source": "./rahulsethi--sapdataspheremcp",
+      "description": "MCP Server for SAP Datasphere"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -375167,6 +375242,41 @@
       "name": "sakura176--cpp-practice",
       "source": "./sakura176--cpp-practice",
       "description": "cpp_practice"
+    },
+    {
+      "name": "en0526--marketview-pro",
+      "source": "./en0526--marketview-pro",
+      "description": "marketview_pro"
+    },
+    {
+      "name": "bensblueprints--lees-ferry-on-the-fly",
+      "source": "./bensblueprints--lees-ferry-on-the-fly",
+      "description": "Lees Ferry On The Fly - Fly fishing guide service website"
+    },
+    {
+      "name": "owk-owk130--koe",
+      "source": "./owk-owk130--koe",
+      "description": "capture voice and shape it into structured thoughts."
+    },
+    {
+      "name": "owk-owk130--koe",
+      "source": "./owk-owk130--koe",
+      "description": "capture voice and shape it into structured thoughts."
+    },
+    {
+      "name": "wilson520403--gamelife",
+      "source": "./wilson520403--gamelife",
+      "description": "GameLife"
+    },
+    {
+      "name": "marsponce--julessansom-com",
+      "source": "./marsponce--julessansom-com",
+      "description": "Jules' Sansom personal website."
+    },
+    {
+      "name": "wilson520403--gamelife",
+      "source": "./wilson520403--gamelife",
+      "description": "GameLife"
     }
   ]
 }
