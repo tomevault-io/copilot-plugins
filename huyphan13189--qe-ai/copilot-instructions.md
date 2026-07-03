@@ -1,18 +1,16 @@
-## prompting-for-qe
+## writing-automation-tests
 
-> Soạn/tinh chỉnh prompt cho tác vụ QE (sinh test case, phân tích requirement, tóm tắt tài liệu test, phân tích log) — đặc biệt khi output AI lan man, chung chung, bịa, hoặc muốn chốt prompt thành template tái dùng.
+> Viết/mở rộng/bảo trì automation test (API hoặc UI) với sự hỗ trợ của AI — sinh khung test, chuyển test case thủ công sang script, thêm test cho endpoint/luồng mới.
 
 
-# Prompting for QE
+# Writing Automation Tests with AI
 
-Khi cần soạn hoặc tinh chỉnh prompt cho một tác vụ QE, ĐỌC và LÀM THEO nguyên văn skill đầy đủ tại
-`.claude/skills/prompting-for-qe/SKILL.md`.
+Khi cần viết automation test với AI, ĐỌC và LÀM THEO nguyên văn skill đầy đủ tại
+`.claude/skills/writing-automation-tests/SKILL.md`.
 
-Nguyên tắc cốt lõi: chất lượng output QE bị chặn trên bởi chất lượng prompt và context bạn cấp —
-prompt mơ hồ cho ra thứ "nghe hợp lý nhưng vô dụng". Đi theo Process và bảng "Prompt anatomy"
-trong skill: nêu rõ vai trò/nhiệm vụ, cấp context thật (đã ẩn danh dữ liệu nhạy cảm), chỉ định
-định dạng đầu ra + ràng buộc, dùng few-shot khi cần khuôn nhất quán, rồi lặp tinh chỉnh trước khi
-chốt thành template tái dùng.
+Nguyên tắc cốt lõi: AI sinh test rất nhanh nhưng mặc định hay ra test LUÔN XANH — assertion yếu
+(chỉ kiểm status/type), selector giòn, mock echo lại chính giá trị vừa set. Test chỉ có giá trị khi
+nó FAIL đúng lúc có bug — luôn chứng minh cả chiều pass lẫn chiều fail trước khi tin nó.
 
 ---
 > Source: [huyphan13189/QE-AI](https://github.com/huyphan13189/QE-AI) — distributed by [TomeVault](https://tomevault.io).
