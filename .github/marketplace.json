@@ -43429,6 +43429,11 @@
       "description": "alpenglow"
     },
     {
+      "name": "alex-on-ai--webreaper",
+      "source": "./alex-on-ai--webreaper",
+      "description": "WebReaper"
+    },
+    {
       "name": "wedow--harness",
       "source": "./wedow--harness",
       "description": "Minimal agent loop in bash. Pure state follower core with plugin-based tools, hooks, providers, and commands. Dependencies: bash 4+, jq, curl."
@@ -134742,6 +134747,11 @@
       "name": "uzairansaruzi--hermex",
       "source": "./uzairansaruzi--hermex",
       "description": "Native iPhone app for your Hermes agent"
+    },
+    {
+      "name": "autark-labs--autark-os",
+      "source": "./autark-labs--autark-os",
+      "description": "A concerted effort to bring one-click opensource software installations to the public. Independence is not given - It is engineered."
     },
     {
       "name": "develite98--angular-best-practices",
