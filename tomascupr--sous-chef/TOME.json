@@ -4,7 +4,7 @@
   "repo": "sous-chef",
   "description": "Claude orchestrates and reviews; Codex CLI implements. A Claude Code plugin for the two-model kitchen: /serve tasks end to end, /simmer goals until green. Your head chef doesn't chop onions.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tomascupr/sous-chef",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T09:31:30Z"
+  "distributed_at": "2026-07-03T09:32:01Z"
 }
