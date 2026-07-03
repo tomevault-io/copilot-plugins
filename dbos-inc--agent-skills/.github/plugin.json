@@ -1,0 +1,22 @@
+{
+  "name": "dbos-inc--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "dbos-inc",
+  "homepage": "https://github.com/dbos-inc/agent-skills",
+  "skills": [
+    {
+      "name": "dbos-python",
+      "description": ""
+    },
+    {
+      "name": "dbos-typescript",
+      "description": ""
+    },
+    {
+      "name": "dbos-golang",
+      "description": ""
+    }
+  ]
+}
