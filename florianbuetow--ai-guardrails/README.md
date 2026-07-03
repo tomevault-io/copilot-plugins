@@ -7,11 +7,11 @@ Templates for working with AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [florianbuetow/ai-guardrails](https://github.com/florianbuetow/ai-guardrails).
+Original source: `CLAUDE.md` in [florianbuetow/ai-guardrails](https://github.com/florianbuetow/ai-guardrails).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
