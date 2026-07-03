@@ -4,7 +4,7 @@
   "repo": "forty-two-watts",
   "description": "Unified Home Energy Management System - coordinates multiple battery systems on a shared grid connection",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/frahlg/forty-two-watts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T04:37:40Z"
+  "distributed_at": "2026-07-03T04:41:42Z"
 }
