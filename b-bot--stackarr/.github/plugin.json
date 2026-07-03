@@ -1,0 +1,9 @@
+{
+  "name": "b-bot--stackarr",
+  "displayName": "Stackarr",
+  "description": "Agentic control plane for your entire media server stack.",
+  "version": "1.0.0",
+  "author": "b-bot",
+  "homepage": "https://github.com/b-bot/Stackarr",
+  "skills": []
+}
