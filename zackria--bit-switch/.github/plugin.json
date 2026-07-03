@@ -1,0 +1,9 @@
+{
+  "name": "zackria--bit-switch",
+  "displayName": "bit-switch",
+  "description": "Bit Switch: A Flutter application for controlling Legacy Wemo smart home devices on iOS and Android. This app provides local network control without requiring cloud connectivity.",
+  "version": "1.0.0",
+  "author": "zackria",
+  "homepage": "https://github.com/zackria/bit-switch",
+  "skills": []
+}
