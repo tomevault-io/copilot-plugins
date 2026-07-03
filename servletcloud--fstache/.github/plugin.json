@@ -1,0 +1,9 @@
+{
+  "name": "servletcloud--fstache",
+  "displayName": "fstache",
+  "description": "Fast dependency-free, typed Mustache renderer for Python 3.12+",
+  "version": "1.0.0",
+  "author": "servletcloud",
+  "homepage": "https://github.com/servletcloud/fstache",
+  "skills": []
+}
