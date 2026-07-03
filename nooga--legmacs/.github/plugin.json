@@ -1,0 +1,9 @@
+{
+  "name": "nooga--legmacs",
+  "displayName": "legmacs",
+  "description": "A small terminal text editor written in and scriptable with let-go, a Clojure-dialect Lisp",
+  "version": "1.0.0",
+  "author": "nooga",
+  "homepage": "https://github.com/nooga/legmacs",
+  "skills": []
+}
