@@ -1,0 +1,9 @@
+{
+  "name": "qzzqzzb--openclaudescience",
+  "displayName": "OpenClaudeScience",
+  "description": "A local-first research agent workbench for scientific files, code, skills, and compute. Built on DeepAgents and LangGraph, with project context, previews, tools, and human approvals in one browser UI.",
+  "version": "1.0.0",
+  "author": "qzzqzzb",
+  "homepage": "https://github.com/qzzqzzb/OpenClaudeScience",
+  "skills": []
+}
