@@ -1,0 +1,9 @@
+{
+  "name": "grafana--business-table",
+  "displayName": "business-table",
+  "description": "The Business Table Panel is a versatile Grafana plugin designed to simplify and enhance data visualization in a table format. Built for flexibility and usability, it offers advanced features like tree",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/business-table",
+  "skills": []
+}
