@@ -1,0 +1,14 @@
+{
+  "name": "atman-33--ff15-openspec-agents",
+  "displayName": "ff15-openspec-agents",
+  "description": "GitHub Copilot agent orchestration framework using OpenSpec for spec-driven development.  Role-based multi-agent system with TDD, code quality review, and documentation automation.",
+  "version": "1.0.0",
+  "author": "atman-33",
+  "homepage": "https://github.com/atman-33/ff15-openspec-agents",
+  "skills": [
+    {
+      "name": "ff15-openspec-agents-sync",
+      "description": ""
+    }
+  ]
+}
