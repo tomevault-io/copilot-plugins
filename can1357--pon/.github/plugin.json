@@ -1,0 +1,9 @@
+{
+  "name": "can1357--pon",
+  "displayName": "pon",
+  "description": "Python 3.14, compiled to metal \u2014 JIT & AoT native compiler and runtime in Rust. Cranelift backend, ruff parser, Green Tea GC, byte-exact differential testing against CPython.",
+  "version": "1.0.0",
+  "author": "can1357",
+  "homepage": "https://github.com/can1357/pon",
+  "skills": []
+}
