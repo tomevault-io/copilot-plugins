@@ -4,7 +4,7 @@
   "repo": "wiki",
   "description": "Indexed knowledge bases with command-line tools for agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/plasma-ai/wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T18:30:25Z"
+  "distributed_at": "2026-07-03T18:30:55Z"
 }
