@@ -1,0 +1,9 @@
+{
+  "name": "resistanceto--cfpanel",
+  "displayName": "CFPanel",
+  "description": "A native iOS client for managing Cloudflare from iPhone and iPad, built for fast DNS, Workers, Pages, and security operations.",
+  "version": "1.0.0",
+  "author": "ResistanceTo",
+  "homepage": "https://github.com/ResistanceTo/CFPanel",
+  "skills": []
+}
