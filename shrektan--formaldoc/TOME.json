@@ -4,7 +4,7 @@
   "repo": "formaldoc",
   "description": "FormalDoc helps you turn AI-generated text into properly formatted Word documents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shrektan/formaldoc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T14:41:13Z"
+  "distributed_at": "2026-07-03T14:43:46Z"
 }
