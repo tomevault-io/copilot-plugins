@@ -4,7 +4,7 @@
   "repo": "podpull",
   "description": "Download any podcast episode straight to your shell \u2014 Apple Podcasts, RSS, or xiaoyuzhou. Interactive picker, live progress, resumable.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xiaoleiy/podpull",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T03:30:25Z"
+  "distributed_at": "2026-07-03T03:30:54Z"
 }
