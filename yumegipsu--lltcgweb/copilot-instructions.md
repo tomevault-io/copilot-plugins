@@ -1,44 +1,32 @@
-## lltcgweb-architecture
+## lltcgweb-cards-effects
 
-> LLTCG web architecture — source vs runtime, paths, Hostinger compatibility
+> Card abilities and effects — validation and regression requirements
 
 
-# lltcgweb architecture
+# lltcgweb cards & effects
 
-## Repository layout
+## Ability changes
 
-| Area | Path | Notes |
-|------|------|-------|
-| PHP entry shims | Root `*.php` | Keep deploy paths stable (`tcg/api.php`, etc.) |
-| PHP modules | `src/` | New logic goes here (PSR-4 `LLTCG\`) |
-| Config | `config/` | `paths.php`, `cors.php`, `rate_limit.php` |
-| Client modules | `client/js/` | New JS — do not grow `index.html` monolith |
-| Tests | `tests/`, `scripts/` | Run before deploy |
-| Migrations | `migrations/*.sql` | Versioned SQLite schema |
-| Runtime (gitignored) | `data/`, `games/`, `experiment_decks/`, `cardimg/` | Use `tcgPath()` / env vars |
+1. Update `cards.json` (and `import_from_db.py` if importing from DB).
+2. Implement handler in `effects.php` or set-specific `*_effects.php`.
+3. Add client prompts in `index.html` or `client/js/` when interactive.
+4. Run `php scripts/validate_cards.php` — every `abilities[].type` should map to a known handler.
 
-## Runtime vs source
+## Effect registry
 
-See [docs/RUNTIME.md](docs/RUNTIME.md). Never commit `data/tcg.db`, `games/*.json`, secrets, or art.
+Known types are discovered from `src/Game/AbilityResolverSwitch*.php` via `LLTCG\Game\EffectRegistry`. New core `type` strings add a `case` in `resolveAbilityEffectSwitch` or `tryResolveAbilityEffectSwitchOptional` (optional `optional_*` types), or a set module if set-specific.
 
-## Hostinger deploy
+## Live modifiers
 
-Production uses Chiichan `deploy-loveliveradio-ca.sh` with `LLR_TCG_ROOT` → this repo. **Do not** require a `public/` docroot change on Hostinger until production Docker ([docs/DEPLOY.md](docs/DEPLOY.md)).
+Modifier `then` types (`live_score_bonus`, `blade_bonus`, `grant_bonus_hearts`, etc.) are applied via `applyModifierEffect` in `src/Game/LiveModifiers.php` — not card `abilities[].type` values and not covered by `EffectRegistry`.
 
-## Path configuration
+## Regression
 
-Use `config/paths.php` (`tcgPath()`, `tcgDefinePathConstants()`). Env overrides: `TCG_DATA_DIR`, `TCG_GAMES_DIR`, etc. ([.env.example](.env.example)).
+Engine / prompt lifecycle changes: add or update `tests/fixtures/replays/*.json` and run `composer test`.
 
-## Verification
+## Chiichan parity
 
-Before merging TCG changes:
-
-```bash
-composer test
-php scripts/validate_json.php
-php scripts/validate_cards.php
-bash scripts/lint_php.sh
-```
+Discord card import (`LoveLiveTCG.py`, `tcg_cards_en_bridge.py`) is separate from web `cards.json` deploy — see Chiichan `.cursorrules`.
 
 ---
 > Source: [Yumegipsu/lltcgweb](https://github.com/Yumegipsu/lltcgweb) — distributed by [TomeVault](https://tomevault.io).
