@@ -1,0 +1,9 @@
+{
+  "name": "imbue-ai--ratchets",
+  "displayName": "ratchets",
+  "description": "Ratchet enforces that style violations for your project only monotonically decrease",
+  "version": "1.0.0",
+  "author": "imbue-ai",
+  "homepage": "https://github.com/imbue-ai/ratchets",
+  "skills": []
+}
