@@ -1,16 +1,17 @@
-## designing-test-strategy
+## generating-test-cases
 
-> Lập chiến lược test / test charter cho một tính năng bằng AI — lên kế hoạch test cho feature/epic/release, viết charter cho phiên exploratory, hoặc quyết định test gì trước và bỏ gì.
+> Sinh test case từ requirement/user story/spec API-UI bằng AI — thiết kế kịch bản test, "sinh test case cho tính năng này", mở rộng độ phủ, hoặc review danh sách case AI vừa tạo. Không dùng để audit test suite tự động sẵn có (dùng auditing-test-quality).
 
 
-# Designing Test Strategy
+# Generating Test Cases with AI
 
-Khi cần lập chiến lược test hoặc test charter với AI, ĐỌC và LÀM THEO nguyên văn skill đầy đủ tại
-`.claude/skills/designing-test-strategy/SKILL.md`.
+Khi cần sinh/thiết kế test case với AI, ĐỌC và LÀM THEO nguyên văn skill đầy đủ tại
+`.claude/skills/generating-test-cases/SKILL.md`.
 
-Nguyên tắc cốt lõi: một chiến lược test tốt là quyết định **ưu tiên theo rủi ro** — test gì trước, bỏ
-qua gì — chứ không phải liệt kê mọi loại test có thể làm. AI rất giỏi liệt kê tràn lan; giá trị nằm ở
-bước cắt, và việc xếp hạng rủi ro là quyết định của con người, AI chỉ hỗ trợ đề xuất.
+Nguyên tắc cốt lõi: AI sinh danh sách case gọn gàng rất nhanh, nhưng mặc định **lệch happy-path**,
+**bịa hành vi** không có trong spec, và **bỏ sót case biên/âm/lỗi**. Đi theo Process, bảng "coverage
+dimensions" và red-flag trong skill: ground trước khi sinh, ép đủ chiều phủ, cắt case bịa/trùng, và
+kiểm chứng lại với spec/app thật. Đánh giá case theo rủi ro nó phủ, không theo số lượng.
 
 ---
 > Source: [huyphan13189/QE-AI](https://github.com/huyphan13189/QE-AI) — distributed by [TomeVault](https://tomevault.io).
