@@ -1,0 +1,9 @@
+{
+  "name": "oomol-lab--open-connector",
+  "displayName": "open-connector",
+  "description": "Open-source auth gateway connecting 1000+ SaaS providers to AI agents through SDK, CLI, MCP, HTTP, and OpenAPI.",
+  "version": "1.0.0",
+  "author": "oomol-lab",
+  "homepage": "https://github.com/oomol-lab/open-connector",
+  "skills": []
+}
