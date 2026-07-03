@@ -199604,6 +199604,16 @@
       "description": "Python 3.14, compiled to metal \u2014 JIT & AoT native compiler and runtime in Rust. Cranelift backend, ruff parser, Green Tea GC, byte-exact differential testing against CPython."
     },
     {
+      "name": "levyvix--ani-tupi",
+      "source": "./levyvix--ani-tupi",
+      "description": "Assista anime e leia mang\u00e1 direto do terminal em portugu\u00eas brasileiro. CLI completa com integra\u00e7\u00e3o AniList, m\u00faltiplos scrapers e leitor PDF."
+    },
+    {
+      "name": "levyvix--ani-tupi",
+      "source": "./levyvix--ani-tupi",
+      "description": "Assista anime e leia mang\u00e1 direto do terminal em portugu\u00eas brasileiro. CLI completa com integra\u00e7\u00e3o AniList, m\u00faltiplos scrapers e leitor PDF."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -232194,6 +232204,116 @@
       "description": "A set of Claude Code skills to speed up the creation of Dapr Workflow applications"
     },
     {
+      "name": "adn-devtech--acad-api-skill",
+      "source": "./adn-devtech--acad-api-skill",
+      "description": "AI agent skills and rules for scaffolding and building AutoCAD, Civil 3D, and Plant 3D .NET 10 plugins"
+    },
+    {
+      "name": "vzwjustin--advisor",
+      "source": "./vzwjustin--advisor",
+      "description": "Opus-led Claude Code agent team \u2014 strategist plans, Sonnet runners read and fix. Live two-way review-and-fix pipeline. Zero API calls. NOW IN RUST!"
+    },
+    {
+      "name": "bulletxyz--bullet-bots",
+      "source": "./bulletxyz--bullet-bots",
+      "description": "Algorithmic trading reference framework for Bullet perpetuals. Written in Rust, built for latency-sensitive environments."
+    },
+    {
+      "name": "danmeon--rhwp-python",
+      "source": "./danmeon--rhwp-python",
+      "description": "PyO3 Python bindings for rhwp \u2014 parser and renderer for HWP/HWPX documents (Korean Hancom word processor format)"
+    },
+    {
+      "name": "shdsjh123-cpu--insta-carousel-builder",
+      "source": "./shdsjh123-cpu--insta-carousel-builder",
+      "description": "Claude Code harness for AI-generated Instagram carousels. Powered by Gemini 3.0 Pro Image (nano-banana). Korean text 88-98% accurate."
+    },
+    {
+      "name": "vzwjustin--advisor",
+      "source": "./vzwjustin--advisor",
+      "description": "Opus-led Claude Code agent team \u2014 strategist plans, Sonnet runners read and fix. Live two-way review-and-fix pipeline. Zero API calls. NOW IN RUST!"
+    },
+    {
+      "name": "evanyao826--china-university-admission",
+      "source": "./evanyao826--china-university-admission",
+      "description": "\u4e00\u7ad9\u5f0f\u67e5\u8be2\u5168\u56fd\u9ad8\u6821\u5386\u5e74\u9ad8\u8003\u3001\u7814\u7a76\u751f\u62db\u751f\u5206\u6570\u7ebf\u3001\u5f55\u53d6\u4eba\u6570\u53ca\u653f\u7b56\u6587\u4ef6\uff0c\u652f\u6301\u79bb\u7ebf\u4f7f\u7528\uff0c\u6570\u636e\u6253\u5305\u5728 SQLite \u4e2d\uff0c\u65e0\u9700\u8054\u7f51\u3002"
+    },
+    {
+      "name": "frahlg--forty-two-watts",
+      "source": "./frahlg--forty-two-watts",
+      "description": "Unified Home Energy Management System - coordinates multiple battery systems on a shared grid connection"
+    },
+    {
+      "name": "danmeon--rhwp-python",
+      "source": "./danmeon--rhwp-python",
+      "description": "PyO3 Python bindings for rhwp \u2014 parser and renderer for HWP/HWPX documents (Korean Hancom word processor format)"
+    },
+    {
+      "name": "sinedied--a-team",
+      "source": "./sinedied--a-team",
+      "description": "Copilot agent squad for autonomous project development"
+    },
+    {
+      "name": "adn-devtech--acad-api-skill",
+      "source": "./adn-devtech--acad-api-skill",
+      "description": "AI agent skills and rules for scaffolding and building AutoCAD, Civil 3D, and Plant 3D .NET 10 plugins"
+    },
+    {
+      "name": "automattic--radical-pipelines",
+      "source": "./automattic--radical-pipelines",
+      "description": "Set of tools to orchestrate autonomous development pipelines"
+    },
+    {
+      "name": "vzwjustin--advisor",
+      "source": "./vzwjustin--advisor",
+      "description": "Opus-led Claude Code agent team \u2014 strategist plans, Sonnet runners read and fix. Live two-way review-and-fix pipeline. Zero API calls. NOW IN RUST!"
+    },
+    {
+      "name": "railwayapp--inkwell",
+      "source": "./railwayapp--inkwell",
+      "description": "Inkwell is a markdown editor and renderer for React with an extensible plugin system."
+    },
+    {
+      "name": "frahlg--forty-two-watts",
+      "source": "./frahlg--forty-two-watts",
+      "description": "Unified Home Energy Management System - coordinates multiple battery systems on a shared grid connection"
+    },
+    {
+      "name": "artemisai--pi-loop",
+      "source": "./artemisai--pi-loop",
+      "description": "Recurring prompt scheduling and cron job management for pi-coding-agent"
+    },
+    {
+      "name": "midcodehub--miaocut",
+      "source": "./midcodehub--miaocut",
+      "description": "\u514d\u8d39\u3001\u6ce8\u91cd\u9690\u79c1\u7684\u5728\u7ebf AI \u56fe\u50cf\u5904\u7406\u5de5\u5177\u7bb1\uff08\u5305\u542b\u4e00\u952e\u62a0\u56fe\u3001\u53bb\u6c34\u5370\u3001\u8001\u7167\u7247\u4fee\u590d\u7b49\uff09\u3002\u65e0\u6c34\u5370\uff0c\u514d\u6ce8\u518c\u3002| A free, privacy-first online AI image toolkit featuring one-click background removal, watermark remover, and old photo restoration. No signup require"
+    },
+    {
+      "name": "microsoft--agent365-skills",
+      "source": "./microsoft--agent365-skills",
+      "description": "AI coding skills for Microsoft Agent 365 \u2014 transform agents into AI Teammates with Teams hosting, WorkIQ MCP tools, and OTel observability. Works with Claude Code and GitHub Copilot."
+    },
+    {
+      "name": "automattic--radical-pipelines",
+      "source": "./automattic--radical-pipelines",
+      "description": "Set of tools to orchestrate autonomous development pipelines"
+    },
+    {
+      "name": "chatboxai--vibedrop",
+      "source": "./chatboxai--vibedrop",
+      "description": "Agent-native static site hosting \u2014 CLI, MCP server, and SDK for deploying to vibedrop.cc"
+    },
+    {
+      "name": "bradtraversy--mission-control",
+      "source": "./bradtraversy--mission-control",
+      "description": "Traversy Lab home network mission control"
+    },
+    {
+      "name": "psyop-z--uiuxpromax",
+      "source": "./psyop-z--uiuxpromax",
+      "description": "UIUXProMax"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -251272,6 +251392,46 @@
       "name": "blackcat-informatics--purrdf",
       "source": "./blackcat-informatics--purrdf",
       "description": "PurRDF \u2014 one RDF 1.2 engine, one behavior, every language: interned primitives, Turtle/TriG/N-Quads/RDF-XML/JSON-LD codecs, RDFC-1.0, SPARQL 1.1/1.2, SHACL Core, GTS graph transport, and Python/WebAss"
+    },
+    {
+      "name": "wezzard--minelogue",
+      "source": "./wezzard--minelogue",
+      "description": "Mine the dialogue out of your coding-agent session logs: timelines, transcripts, cross-examination, and (eventually) agent-as-judge evaluation"
+    },
+    {
+      "name": "fahreziadh--tadabbur",
+      "source": "./fahreziadh--tadabbur",
+      "description": "Quran study app - read, reflect (tadabbur), take notes. SvelteKit + Convex."
+    },
+    {
+      "name": "wezzard--minelogue",
+      "source": "./wezzard--minelogue",
+      "description": "Mine the dialogue out of your coding-agent session logs: timelines, transcripts, cross-examination, and (eventually) agent-as-judge evaluation"
+    },
+    {
+      "name": "dominien--sales-agent",
+      "source": "./dominien--sales-agent",
+      "description": "One sales agent. Your CRM (sqlite/hubspot/close/attio/salesforce) or none. Your channels (gmail, linkedin). Runs on any MCP-capable harness."
+    },
+    {
+      "name": "dominien--sales-agent",
+      "source": "./dominien--sales-agent",
+      "description": "One sales agent. Your CRM (sqlite/hubspot/close/attio/salesforce) or none. Your channels (gmail, linkedin). Runs on any MCP-capable harness."
+    },
+    {
+      "name": "mnaoumov--obsidian-email-to-vault",
+      "source": "./mnaoumov--obsidian-email-to-vault",
+      "description": "Obsidian plugin that sends emails to your vault as notes. Create a free mailbox with one click \u2014 no backend or paid service required."
+    },
+    {
+      "name": "motorway-sandbox--product-os",
+      "source": "./motorway-sandbox--product-os",
+      "description": "product-os"
+    },
+    {
+      "name": "patrickclery--awesomer",
+      "source": "./patrickclery--awesomer",
+      "description": "What if every Awesome List had a trending page? Now they do."
     },
     {
       "name": "cheerhuan--save-your-token",
