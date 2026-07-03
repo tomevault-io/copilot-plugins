@@ -1,0 +1,9 @@
+{
+  "name": "simple-agent-lab--autotrainess",
+  "displayName": "AutoTrainess",
+  "description": "Repo for \"AutoTrainess: Teaching Language Models to Improve Language Models Autonomously\"",
+  "version": "1.0.0",
+  "author": "simple-agent-lab",
+  "homepage": "https://github.com/simple-agent-lab/AutoTrainess",
+  "skills": []
+}
