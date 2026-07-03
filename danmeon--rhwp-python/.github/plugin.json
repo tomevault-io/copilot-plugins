@@ -1,0 +1,9 @@
+{
+  "name": "danmeon--rhwp-python",
+  "displayName": "rhwp-python",
+  "description": "PyO3 Python bindings for rhwp \u2014 parser and renderer for HWP/HWPX documents (Korean Hancom word processor format)",
+  "version": "1.0.0",
+  "author": "DanMeon",
+  "homepage": "https://github.com/DanMeon/rhwp-python",
+  "skills": []
+}
