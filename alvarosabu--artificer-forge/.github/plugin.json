@@ -1,0 +1,9 @@
+{
+  "name": "alvarosabu--artificer-forge",
+  "displayName": "artificer-forge",
+  "description": "pnpm monorepo for 3D RPG games using **Nuxt + TresJS** (Vue-based Three.js).",
+  "version": "1.0.0",
+  "author": "alvarosabu",
+  "homepage": "https://github.com/alvarosabu/artificer-forge",
+  "skills": []
+}
