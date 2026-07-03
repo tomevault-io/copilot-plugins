@@ -1,0 +1,9 @@
+{
+  "name": "vzwjustin--advisor",
+  "displayName": "advisor",
+  "description": "Opus-led Claude Code agent team \u2014 strategist plans, Sonnet runners read and fix. Live two-way review-and-fix pipeline. Zero API calls. NOW IN RUST!",
+  "version": "1.0.0",
+  "author": "vzwjustin",
+  "homepage": "https://github.com/vzwjustin/advisor",
+  "skills": []
+}
