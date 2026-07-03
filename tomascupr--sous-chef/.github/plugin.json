@@ -1,0 +1,9 @@
+{
+  "name": "tomascupr--sous-chef",
+  "displayName": "sous-chef",
+  "description": "Claude orchestrates and reviews; Codex CLI implements. A Claude Code plugin for the two-model kitchen: /serve tasks end to end, /simmer goals until green. Your head chef doesn't chop onions.",
+  "version": "1.0.0",
+  "author": "tomascupr",
+  "homepage": "https://github.com/tomascupr/sous-chef",
+  "skills": []
+}
