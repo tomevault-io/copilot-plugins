@@ -1,0 +1,26 @@
+# AI instruction files for prediction-markets-skill
+
+> Sourced from [azazelitto21/prediction-markets-skill](https://github.com/azazelitto21/prediction-markets-skill) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+Read-only Kalshi + Polymarket market data skill for AI agents (Claude Code, Codex, Cursor). Zero dependencies, no API keys, auditable in 5 minutes. Stops agents hallucinating prediction-market APIs.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [azazelitto21/prediction-markets-skill](https://github.com/azazelitto21/prediction-markets-skill).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/azazelitto21/prediction-markets-skill](https://github.com/azazelitto21/prediction-markets-skill)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-q -->
