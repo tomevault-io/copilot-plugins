@@ -1,0 +1,9 @@
+{
+  "name": "ba-itsys--keycloak-push-mfa-extension",
+  "displayName": "keycloak-push-mfa-extension",
+  "description": "Keycloak push MFA Extension",
+  "version": "1.0.0",
+  "author": "ba-itsys",
+  "homepage": "https://github.com/ba-itsys/keycloak-push-mfa-extension",
+  "skills": []
+}
