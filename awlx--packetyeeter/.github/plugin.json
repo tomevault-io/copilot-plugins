@@ -1,0 +1,9 @@
+{
+  "name": "awlx--packetyeeter",
+  "displayName": "packetyeeter",
+  "description": "PacketYeeter: eBPF-based DDoS protection and traffic filtering for Linux (XDP + TC)",
+  "version": "1.0.0",
+  "author": "awlx",
+  "homepage": "https://github.com/awlx/packetyeeter",
+  "skills": []
+}
