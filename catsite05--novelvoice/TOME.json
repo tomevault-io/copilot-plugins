@@ -1,0 +1,44 @@
+{
+  "name": "novelvoice",
+  "owner": "catsite05",
+  "repo": "novelvoice",
+  "description": "NovelVoice\u662f\u4e00\u4e2aWeb\u5e94\u7528\u7a0b\u5e8f\uff0c\u80fd\u591f\u5c06\u81ea\u52a8\u4e2d\u6587\u5c0f\u8bf4\u6587\u672c\u6587\u4ef6\u8f6c\u6362\u4e3a\u9ad8\u8d28\u91cf\u7684\u6709\u58f0\u4e66\uff0c\u5e76\u63d0\u4f9b\u8fb9\u8f6c\u8fb9\u64ad\u7684\u5728\u7ebf\u64ad\u653e\u529f\u80fd\u3002\u8be5\u7cfb\u7edf\u4f7f\u7528LLM\u667a\u80fd\u5206\u6790\u6587\u672c\u5185\u5bb9\uff0c\u8bc6\u522b\u89d2\u8272\u548c\u5bf9\u8bdd\uff0c\u5e76\u4f7f\u7528\u591a\u58f0\u97f3\u5408\u6210\u6280\u672f\uff0c\u53ef\u4ee5\u6839\u636e\u89d2\u8272\u6027\u522b\u548c\u6027\u683c\u7279\u5f81\u5206\u914d\u4e0d\u540c\u7684\u8bed\u97f3\uff0c\u751f\u6210\u903c\u771f\u7684\u6709\u58f0\u4e66\u4f53\u9a8c\u3002\u9002\u5408\u4e0eNAS\u7b49\u8bbe\u5907\u7ed3\u5408\u4f7f\u7528\uff0c\u5b9e\u73b0\u65e0\u7ebf\u4e0a\u7f51\u64ad\u653e\u3002NovelVoice is a web application that automatically converts Chinese novel text files into high-quality audiobooks and offers real-time streaming playback.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/catsite05/novelvoice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T14:40:12Z"
+}
