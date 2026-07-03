@@ -1,131 +1,95 @@
 ## oc-codex-multi-auth
 
-> Generated: 2026-02-03
+> Per-tool modules for the 21 `codex-*` tools registered by the plugin.
 
-# PROJECT KNOWLEDGE BASE
+# lib/tools/
 
-Generated: 2026-02-03
-Commit: 461ea2b
-Branch: main
+Per-tool modules for the 21 `codex-*` tools registered by the plugin.
 
-## OVERVIEW
-OpenCode plugin: intercepts OpenAI SDK calls, routes through ChatGPT Codex backend with multi-account OAuth rotation.
+## Status
 
-## STRUCTURE
+All current tools live here. `index.ts` builds a `ToolContext` and passes it
+to `createToolRegistry(ctx)` from `./index.ts`, which wires every `codex-*`
+tool into the OpenCode plugin surface.
+
+## Layout
+
 ```
-./
-├── index.ts              # plugin entry (7-step fetch pipeline, tool registration)
-├── lib/                  # core logic (see lib/AGENTS.md)
-├── test/                 # vitest suites (see test/AGENTS.md)
-├── scripts/              # install + build helpers
-├── config/               # opencode.json examples (legacy/modern)
-├── docs/                 # architecture + user docs
-├── assets/               # static assets
-└── dist/                 # build output (generated, do not edit)
-```
-
-## WHERE TO LOOK
-| Task | Location | Notes |
-| --- | --- | --- |
-| Plugin orchestration | `index.ts` | 7-step request pipeline, tool registration |
-| OAuth flow + PKCE | `lib/auth/auth.ts` | token refresh, JWT decode |
-| OAuth callback server | `lib/auth/server.ts` | binds port 1455 |
-| Multi-account rotation | `lib/accounts.ts` | health scoring, cooldown, selection |
-| Account storage | `lib/storage.ts` | V3 format, per-project/global paths |
-| Request transformation | `lib/request/request-transformer.ts` | model normalization, prompt injection |
-| Headers + rate limits | `lib/request/fetch-helpers.ts` | Codex headers, error mapping |
-| SSE to JSON | `lib/request/response-handler.ts` | stream parsing |
-| Prompt templates | `lib/prompts/codex.ts` | model-family detection, GitHub ETag cache |
-| Config parsing | `lib/config.ts` | CODEX_MODE, plugin options |
-| Session recovery | `lib/recovery/` | conversation state persistence |
-| Graceful shutdown | `lib/shutdown.ts` | cleanup on process exit |
-| Health monitoring | `lib/health.ts` | account health status |
-| Circuit breaker | `lib/circuit-breaker.ts` | failure isolation |
-| Tests | `test/` | vitest globals, 80% coverage threshold |
-
-## CONVENTIONS
-- Source: root `index.ts` + `lib/`; `dist/` is generated output.
-- ESLint flat config: `no-explicit-any` enforced, unused args prefixed `_`.
-- Tests relax lint rules (see `eslint.config.js`).
-- Build emits `dist/lib/oauth-success.html` from the TypeScript source via `scripts/copy-oauth-success.js`.
-- ESM only (`"type": "module"`), Node >= 18.
-
-## ANTI-PATTERNS (THIS PROJECT)
-- Do not edit `dist/` or `tmp*` directories.
-- Do not use `as any`, `@ts-ignore`, `@ts-expect-error`.
-- Do not open public security issues; see `SECURITY.md`.
-- Do not hardcode ports other than 1455 for OAuth server.
-
-## COMMANDS
-```bash
-npm run build       # tsc + copy oauth-success.html
-npm run typecheck   # type checking only
-npm test            # vitest once
-npm run test:watch  # vitest watch mode
-npm run lint        # eslint
+lib/tools/
+  AGENTS.md
+  index.ts                # ToolContext type + createToolRegistry(ctx) barrel
+  codex-list.ts           # one file per tool
+  codex-switch.ts
+  codex-status.ts
+  codex-limits.ts
+  codex-metrics.ts
+  codex-help.ts
+  codex-setup.ts
+  codex-doctor.ts
+  codex-next.ts
+  codex-label.ts
+  codex-tag.ts
+  codex-note.ts
+  codex-dashboard.ts
+  codex-health.ts
+  codex-remove.ts
+  codex-refresh.ts
+  codex-export.ts
+  codex-import.ts
+  codex-diag.ts
+  codex-diff.ts
+  codex-keychain.ts
 ```
 
-## NOTES
-- OAuth callback: `http://127.0.0.1:1455/auth/callback`.
-- ChatGPT backend requires `store: false`, include `reasoning.encrypted_content`.
-- Per-project accounts: `~/.opencode/projects/<project-key>/oc-codex-multi-auth-accounts.json` (walks up to find project root).
-- Global accounts: `~/.opencode/oc-codex-multi-auth-accounts.json`.
-- Prompt templates synced from Codex CLI GitHub releases with ETag caching.
-- 5xx server errors trigger account rotation and health penalty (same as network errors).
-- API deprecation/sunset headers (RFC 8594) are logged as warnings.
-- StorageError preserves original stack traces via `cause` parameter.
-- saveToDiskDebounced errors are logged but don't crash the plugin.
+## Factory pattern
 
-## SKILL MAPPING (for delegate_task)
+Every tool is exported as a factory function that takes a `ToolContext`
+and returns a `ToolDefinition`:
 
-Skills to load when delegating tasks in this codebase.
+```ts
+// lib/tools/codex-refresh.ts
+import { tool, type ToolDefinition } from "@opencode-ai/plugin/tool";
+import type { ToolContext } from "./index.js";
 
-### Core Skills (load on most tasks)
-
-| Skill | Justification |
-|-------|---------------|
-| `typescript-senior` | Strict mode, template literal types (`QuotaKey`), discriminated unions (`TokenResult`), Zod inference |
-| `node-backend` | ESM-first, `node:crypto`, Buffer API, async patterns |
-| `testing-js` | Vitest with 80% coverage threshold, `vi.mock`, `vi.useFakeTimers` |
-| `mcp-builder` | Uses `@opencode-ai/plugin/tool` pattern for tool registration |
-
-### Domain-Specific Skills (load when touching these areas)
-
-| Skill | When to Load | Key Files |
-|-------|--------------|-----------|
-| `auth-patterns` | OAuth flow, PKCE, JWT, token refresh | `lib/auth/auth.ts`, `lib/refresh-queue.ts` |
-| `secrets-management` | Token storage, credential handling | `lib/storage.ts`, account JSON files |
-| `api-design` | Request transformation, headers, SSE | `lib/request/` directory |
-| `error-observability` | Circuit breaker, health scoring, logging | `lib/circuit-breaker.ts`, `lib/logger.ts`, `lib/health.ts` |
-| `git-master` | Any git operations | - |
-| `github` | PRs, GitHub API (ETag caching) | `lib/prompts/codex.ts` |
-
-### Situational Skills
-
-| Skill | When to Load |
-|-------|--------------|
-| `clean-architecture` | Refactoring, new module design |
-| `property-based-testing` | Testing rotation logic, rate-limit edge cases |
-
-### Quick Reference
-
-```typescript
-// Auth work
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "auth-patterns", "secrets-management"])
-
-// Request pipeline work  
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "api-design", "error-observability"])
-
-// Testing
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "testing-js"])
-
-// Plugin architecture
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "mcp-builder"])
-
-// Git/GitHub operations
-delegate_task(category="quick", load_skills=["git-master", "github"])
+export function createCodexRefreshTool(ctx: ToolContext): ToolDefinition {
+  const { resolveUiRuntime, formatCommandAccountLabel } = ctx;
+  return tool({
+    description: "…",
+    args: {},
+    async execute() {
+      const ui = resolveUiRuntime();
+      // …
+    },
+  });
+}
 ```
+
+`ToolContext` (declared in `lib/tools/index.ts`) exposes:
+
+- **Mutable plugin-closure refs** (`cachedAccountManagerRef`,
+  `accountManagerPromiseRef`) wrapping `let` bindings in `index.ts` via
+  getter/setter `.current` so factory writes propagate to the outer
+  closure.
+- **Read-only runtime handles** (`runtimeMetrics`, `beginnerSafeModeRef`).
+- **Helper functions** captured from the plugin closure
+  (`resolveUiRuntime`, `formatCommandAccountLabel`,
+  `promptAccountIndexSelection`, `buildRoutingVisibilitySnapshot`, …).
+
+Tool schema factories (`toolOutputFormatSchema`, `toolSensitiveJsonSchema`)
+are **inlined** in each tool that needs them rather than threaded through
+`ToolContext`, because their inferred Zod return type cannot be named
+across the module boundary without leaking the plugin's bundled `zod`
+copy (TS2742).
+
+## Adding a new codex-* tool
+
+1. Create `lib/tools/codex-<name>.ts` exporting `createCodex<Name>Tool(ctx)`.
+2. Import the factory in `lib/tools/index.ts` and add a wiring entry to
+   `createToolRegistry`.
+3. If the tool needs a new plugin-closure helper, add a field to
+   `ToolContext` and wire it up in the `ctx` builder inside
+   `index.ts` (search for `const ctx: ToolContext = {`).
 
 ---
 > Source: [ndycode/oc-codex-multi-auth](https://github.com/ndycode/oc-codex-multi-auth) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
