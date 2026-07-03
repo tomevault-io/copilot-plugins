@@ -22474,6 +22474,11 @@
       "description": "Google Gen AI Java SDK provides an interface for developers to integrate Google's generative models into their Java applications."
     },
     {
+      "name": "playautonomica--autonomica",
+      "source": "./playautonomica--autonomica",
+      "description": "Rent GPUs and run any AI model, paid in SOL. Buy with $RAM and every $RAM spent gets burned. "
+    },
+    {
       "name": "mint-sjtu--roboclaw",
       "source": "./mint-sjtu--roboclaw",
       "description": "RoboClaw is an Embodied AI Assistant."
