@@ -1,0 +1,44 @@
+{
+  "name": "ai-context-kit",
+  "owner": "MSiccDev",
+  "repo": "ai-context-kit",
+  "description": "AI Context Kit provides a structured, instruction-based framework for context-aware AI collaboration across LLM providers. It includes authoritative specs, canonical templates, and skills workflows for creating and validating user context and project AGENTS.md files.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MSiccDev/ai-context-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T14:37:08Z"
+}
