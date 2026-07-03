@@ -1,0 +1,9 @@
+{
+  "name": "bulletxyz--bullet-bots",
+  "displayName": "bullet-bots",
+  "description": "Algorithmic trading reference framework for Bullet perpetuals. Written in Rust, built for latency-sensitive environments.",
+  "version": "1.0.0",
+  "author": "bulletxyz",
+  "homepage": "https://github.com/bulletxyz/bullet-bots",
+  "skills": []
+}
