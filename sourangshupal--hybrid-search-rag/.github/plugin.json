@@ -1,0 +1,9 @@
+{
+  "name": "sourangshupal--hybrid-search-rag",
+  "displayName": "Hybrid-Search-RAG",
+  "description": "Production-ready Hybrid Search RAG system for academic research papers combining BM25 and semantic search with advanced AI capabilities",
+  "version": "1.0.0",
+  "author": "sourangshupal",
+  "homepage": "https://github.com/sourangshupal/Hybrid-Search-RAG",
+  "skills": []
+}
