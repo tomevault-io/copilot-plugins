@@ -1,0 +1,9 @@
+{
+  "name": "leifdenby--weatherduck",
+  "displayName": "weatherduck",
+  "description": "fiddle + pytorch-lightning GNN weather model architectures + training",
+  "version": "1.0.0",
+  "author": "leifdenby",
+  "homepage": "https://github.com/leifdenby/weatherduck",
+  "skills": []
+}
