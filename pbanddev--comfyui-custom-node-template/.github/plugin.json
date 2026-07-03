@@ -1,0 +1,9 @@
+{
+  "name": "pbanddev--comfyui-custom-node-template",
+  "displayName": "comfyui-custom-node-template",
+  "description": "Starter template for building ComfyUI custom nodes with TypeScript frontend",
+  "version": "1.0.0",
+  "author": "PBandDev",
+  "homepage": "https://github.com/PBandDev/comfyui-custom-node-template",
+  "skills": []
+}
