@@ -4,7 +4,7 @@
   "repo": "vantage",
   "description": "A community-focused discovery tool to help users find, rate, and support local small businesses.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/crackle2k/vantage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T02:30:25Z"
+  "distributed_at": "2026-07-03T02:30:55Z"
 }
