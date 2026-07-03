@@ -7,11 +7,11 @@ Keep your Mac awake while Claude Code or Codex is working
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [CharlonTank/agents-sleep-preventer](https://github.com/CharlonTank/agents-sleep-preventer).
+Original source: `CLAUDE.md` in [CharlonTank/agents-sleep-preventer](https://github.com/CharlonTank/agents-sleep-preventer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
