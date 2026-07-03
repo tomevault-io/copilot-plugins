@@ -1,0 +1,9 @@
+{
+  "name": "charlontank--agents-sleep-preventer",
+  "displayName": "agents-sleep-preventer",
+  "description": "Keep your Mac awake while Claude Code or Codex is working",
+  "version": "1.0.0",
+  "author": "CharlonTank",
+  "homepage": "https://github.com/CharlonTank/agents-sleep-preventer",
+  "skills": []
+}
