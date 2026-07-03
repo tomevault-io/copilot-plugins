@@ -177894,6 +177894,11 @@
       "description": "Diagnosis-first AI tutor skill for STEM, AI/CS learning: teaches concepts, checks understanding, and builds mastery."
     },
     {
+      "name": "b-bot--stackarr",
+      "source": "./b-bot--stackarr",
+      "description": "Agentic control plane for your entire media server stack."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
