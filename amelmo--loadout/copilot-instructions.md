@@ -1,0 +1,136 @@
+## loadout
+
+> A Tauri 2.x desktop application with React + Vite frontend.
+
+# Loadout
+
+A Tauri 2.x desktop application with React + Vite frontend.
+
+## Project Structure
+
+- `src/` - React frontend (Vite)
+  - `src/components/` - React UI components
+  - `src/lib/api/` - Frontend-backend communication wrappers (e.g., `mcps.ts`)
+  - `src/stores/` - Zustand state management stores
+  - `src/types/` - TypeScript interfaces (mirror Rust structs)
+- `src-tauri/` - Rust backend (Tauri 2.x)
+  - `src-tauri/src/commands/` - Tauri command handlers
+  - `src-tauri/src/parsers/` - Configuration file parsers
+  - `src-tauri/src/scanners/` - File system scanners
+- `issues/` - Task breakdown and specs with Acceptance Criteria, Technical Details, and Test Plans
+
+## Tech Stack
+
+- **Frontend**: React, Vite, Tailwind CSS, Zustand, TanStack Query
+- **Backend**: Rust, Tauri 2.x
+- **Package Manager**: pnpm
+
+## Key Commands
+
+```bash
+pnpm tauri dev           # Start development (both frontend and backend)
+pnpm tauri:dev:fixtures  # Start dev with demo fixtures (uses LOADOUT_HOME)
+pnpm tauri:dev:empty     # Start dev with empty fixtures (all empty states)
+pnpm build               # Build frontend only
+pnpm tauri build         # Build full application
+```
+
+## Test Fixtures
+
+`fixtures/home/` contains a realistic mock home directory with configurations for Claude, Codex, and Gemini (skills, rules, hooks, MCPs, and project-level settings). Use `pnpm tauri:dev:fixtures` to run the app against these fixtures instead of your real home directory. `fixtures/empty/` is a bare directory with no AI tool configs — use `pnpm tauri:dev:empty` to see all empty states across the UI. The `LOADOUT_HOME` env var is only honored in debug builds.
+
+## AI Tools Documentation
+
+`docs/ai-tools-reference.md` maps every supported tool (Claude, Codex, Gemini, Cursor, Copilot, Windsurf, Roo, Cline, Kilo, OpenCode) and concept (MCPs, skills, agents, hooks, prompts, plugins, commands) to its official documentation URL. When modifying scanners, parsers, or fixture data for any AI tool, always consult this reference **and** verify against live docs using `context7` or web search — config formats change frequently and the reference file may lag behind.
+
+## Conventions
+
+- Use `@` path alias for `src/` imports
+- Use `cn()` utility (clsx + tailwind-merge) for conditional Tailwind classes
+- Offload complex logic to Rust backend via Tauri commands
+- State management: Zustand stores in `src/stores/`
+- TypeScript interfaces in `src/types/index.ts` must mirror Rust structs for type safety
+- Use `camelCase` for JSON/TypeScript, `snake_case` for Rust with `#[serde(rename_all = "camelCase")]`
+- Mask sensitive environment variables with `***` in UI
+- Use Conventional Commits (`feat:`, `fix:`, `chore:`)
+- Branch names follow `type/LOA-ISSUE-description` format (see Branch Naming section)
+- Version is tracked in 3 files that must stay in sync: `package.json`, `src-tauri/tauri.conf.json`, `src-tauri/Cargo.toml`
+- Releases are cut manually via `pnpm release [patch|minor|major]` — never auto-version
+- Always include `<ToolLogo>` from `src/components/ToolLogo.tsx` next to AI tool names (Claude, Codex, Gemini) in the UI — in badges, filters, selectors, and tables. Keep logos small (10-14px) and use alongside text, never as sole identifier.
+- `src-tauri/.cargo/config.toml` is gitignored and machine-local (e.g., custom `target-dir`). Do not track it in git.
+- Platform-specific Rust crates (e.g., `security-framework`) must go under `[target.'cfg(...)'.dependencies]` in `Cargo.toml`, not unconditional `[dependencies]`, to avoid cross-platform build failures.
+
+## Branch Naming
+
+Use the format `type/LOA-ISSUE_NUMBER-short-description` for branches:
+- `feat/LOA-42-add-updater` — new features
+- `fix/LOA-57-version-mismatch` — bug fixes
+- `chore/LOA-63-update-deps` — maintenance
+- `refactor/LOA-71-simplify-scanner` — refactoring
+
+The `type/` prefix must match the conventional commit type used in the PR merge commit. The `LOA-XX` identifier ensures Linear auto-links the branch to the issue.
+
+## Releasing
+
+### Flow
+
+```
+feature branches → PRs → main → pnpm release → pnpm release:notes → edit & add screenshots → push → CI builds → publish
+```
+
+### How to cut a release
+
+1. Be on `main` with a clean working tree
+2. **Bump version + changelog:**
+   ```bash
+   pnpm release patch   # 0.1.0 → 0.1.1 (bug fixes)
+   pnpm release minor   # 0.1.0 → 0.2.0 (new features)
+   pnpm release major   # 0.1.0 → 1.0.0 (breaking changes)
+   ```
+   This bumps version in all 3 files, regenerates `Cargo.lock`, generates a `CHANGELOG.md` entry from conventional commits, and creates a commit + annotated tag.
+3. **Review the commit:** `git log --oneline -1 && git diff HEAD~1`
+4. **Generate release notes:**
+   ```bash
+   pnpm release:notes
+   ```
+   Uses Claude Code CLI (`claude -p`) with your Max subscription. Reads the commit log, writes user-facing release notes to `.github/release-notes/vX.Y.Z.md` with `<!-- 📸 screenshot: ... -->` placeholders.
+5. **Add screenshots and edit copy.** Open `.github/release-notes/vX.Y.Z.md`, replace placeholders with images (upload to GitHub issue/comment to get URLs, or use relative paths), and tweak wording as needed.
+6. **Amend the release commit:**
+   ```bash
+   git add .github/release-notes && git commit --amend --no-edit
+   ```
+7. **Push:** `git push origin main --tags`
+8. **Wait ~15-20 min** for GitHub Actions to build all 4 platforms
+9. **Publish:** Go to [GitHub Releases](https://github.com/AmElmo/loadout/releases) — CI creates an unpublished **draft** with the release notes as the body. Review it, make any final edits, then click **Publish release**. Nothing is visible to users until you publish.
+
+### What CI builds
+
+| Platform | Artifacts |
+|---|---|
+| macOS (Apple Silicon) | `.dmg`, `.app.tar.gz` |
+| macOS (Intel) | `.dmg`, `.app.tar.gz` |
+| Linux (x86_64) | `.AppImage`, `.deb` |
+| Windows (x86_64) | `.exe` (NSIS), `.msi` (WiX) |
+
+### Auto-updates
+
+Existing installations check for updates on launch (3s delay) and every 4 hours. When a new release is published, users see a toast notification with release notes and an "Update Now" button. The updater verifies cryptographic signatures before installing.
+
+### Required GitHub Secrets
+
+| Secret | Purpose |
+|---|---|
+| `TAURI_SIGNING_PRIVATE_KEY` | Signs updater artifacts (from `~/.tauri/loadout.key`) |
+| `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` | Password for the signing key |
+
+### First-time setup (already done unless regenerating keys)
+
+```bash
+pnpm tauri signer generate --write-keys ~/.tauri/loadout.key
+```
+
+Put the public key in `src-tauri/tauri.conf.json` → `plugins.updater.pubkey`, and the private key + password in GitHub repo secrets.
+
+---
+> Source: [AmElmo/loadout](https://github.com/AmElmo/loadout) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-03 -->
