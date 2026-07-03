@@ -45464,6 +45464,11 @@
       "description": "today-infrastructure"
     },
     {
+      "name": "baggat236--ai-trading-skills",
+      "source": "./baggat236--ai-trading-skills",
+      "description": "Ai agent claude trading skills for disiplined, repeatable trading workflows with a modern typescript platform"
+    },
+    {
       "name": "lakr233--cookey",
       "source": "./lakr233--cookey",
       "description": "Cookey"
@@ -114847,6 +114852,11 @@
       "name": "isola-run--isola",
       "source": "./isola-run--isola",
       "description": "Self-hosted Kubernetes sandboxing platform"
+    },
+    {
+      "name": "oomol-lab--open-connector",
+      "source": "./oomol-lab--open-connector",
+      "description": "Open-source auth gateway connecting 1000+ SaaS providers to AI agents through SDK, CLI, MCP, HTTP, and OpenAPI."
     },
     {
       "name": "eliornl--applypilot",
@@ -199827,6 +199837,16 @@
       "name": "levyvix--ani-tupi",
       "source": "./levyvix--ani-tupi",
       "description": "Assista anime e leia mang\u00e1 direto do terminal em portugu\u00eas brasileiro. CLI completa com integra\u00e7\u00e3o AniList, m\u00faltiplos scrapers e leitor PDF."
+    },
+    {
+      "name": "tomascupr--sous-chef",
+      "source": "./tomascupr--sous-chef",
+      "description": "Claude orchestrates and reviews; Codex CLI implements. A Claude Code plugin for the two-model kitchen: /serve tasks end to end, /simmer goals until green. Your head chef doesn't chop onions."
+    },
+    {
+      "name": "tomascupr--sous-chef",
+      "source": "./tomascupr--sous-chef",
+      "description": "Claude orchestrates and reviews; Codex CLI implements. A Claude Code plugin for the two-model kitchen: /serve tasks end to end, /simmer goals until green. Your head chef doesn't chop onions."
     },
     {
       "name": "yschimke--compose-ai-tools",
