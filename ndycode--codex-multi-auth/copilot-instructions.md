@@ -1,183 +1,170 @@
 ## codex-multi-auth
 
-> Generated: 2026-04-17
+> Generated: 2026-05-02
 
-# PROJECT KNOWLEDGE BASE
+# TEST KNOWLEDGE BASE
 
-Generated: 2026-04-17
-Commit: 1f6da97
-Branch: main
-Package version: 1.2.7
+Generated: 2026-05-02
+Commit: b0ef65d
 
 ## OVERVIEW
-Codex plugin: intercepts OpenAI SDK calls, routes through ChatGPT Codex backend with multi-account OAuth rotation. Includes CLI management dashboard, per-project/worktree account storage, and deterministic repo hygiene tooling.
+Vitest suites for OAuth flow, request transforms, response handling, rotation logic, storage, CLI management, repo hygiene, and more.
+**4909 tests** across **317 test files** with 80%+ coverage threshold.
 
 ## STRUCTURE
 ```
-./
-├── index.ts              # plugin entry (7-step fetch pipeline, tool registration)
-├── lib/                  # core logic (see lib/AGENTS.md)
-│   ├── auth/             # OAuth flow, PKCE, callback server
-│   ├── accounts/         # rate limit tracking per account
-│   ├── codex-cli/        # CLI state, sync, observability
-│   ├── codex-manager/    # settings-hub split into 5 focused sub-modules (all <500 LOC)
-│   ├── prompts/          # model-family prompts, GitHub ETag cache
-│   ├── recovery/         # conversation state persistence
-│   ├── request/          # request transform, SSE, rate-limit backoff
-│   ├── storage/          # project root detection, worktree resolution, migrations
-│   ├── tools/            # hashline tool helpers
-│   └── ui/               # TUI: ansi, auth-menu, theme, select, copy
-├── test/                 # vitest suites (see test/AGENTS.md)
-│   ├── chaos/            # fault injection tests
-│   ├── fixtures/         # test data (v3-storage.json)
-│   └── property/         # fast-check property-based tests
-├── scripts/              # install, build, hygiene, benchmarks
-├── config/               # Codex.json examples (legacy/modern)
-├── docs/                 # user + maintainer documentation
-│   ├── development/      # architecture, config fields/flow, testing, TUI parity
-│   ├── reference/        # commands, settings, storage paths
-│   ├── releases/         # v0.1.0, v0.1.1, beta, legacy history
-│   └── benchmarks/       # edit format benchmark
-├── vendor/               # vendored codex-ai-plugin + codex-ai-sdk dist shims
-├── assets/               # static assets
-├── .github/              # CI workflows, issue/PR templates, dependabot
-└── dist/                 # build output (generated, do not edit)
+test/
+├── accounts.test.ts                # multi-account storage/rotation
+├── ansi.test.ts                    # ANSI escape helpers
+├── audit.test.ts                   # rotating file audit log
+├── auth-menu-builder.test.ts       # auth dashboard view-model formatters
+├── auth-menu-hotkeys.test.ts       # auth menu hotkey behavior
+├── auth-rate-limit.test.ts         # token bucket for auth
+├── auth.test.ts                    # OAuth PKCE + JWT decoding
+├── update-notice.test.ts           # npm version notice
+├── browser.test.ts                 # platform-specific browser open
+├── capability-policy.test.ts       # model capability enforcement
+├── chaos/
+│   └── fault-injection.test.ts     # chaos/fault injection tests
+├── circuit-breaker.test.ts         # failure isolation
+├── cli-auth-menu.test.ts           # CLI auth menu integration
+├── cli.test.ts                     # CLI helpers
+├── codex-bin-wrapper.test.ts       # bin wrapper lazy-load, missing dist handling
+├── codex-cli-state.test.ts         # CLI state management
+├── codex-cli-sync.test.ts          # CLI sync coordination
+├── codex-host-resolver.test.ts     # host resolver
+├── codex-manager-cli.test.ts       # CLI settings Q cancel, all 5 panels
+├── codex-prompts.test.ts           # Codex prompt generation
+├── codex-routing.test.ts           # Codex routing decisions
+├── codex.test.ts                   # Codex instructions/caching
+├── config-files.test.ts            # config file handling
+├── config.test.ts                  # configuration parsing/merging
+├── context-overflow.test.ts        # context length handling
+├── copy-oauth-success.test.ts      # build script tests
+├── dashboard-settings.test.ts      # dashboard settings
+├── documentation.test.ts           # docs parity, CLI command flags, config precedence, governance
+├── entitlement-cache.test.ts       # entitlement cache
+├── errors.test.ts                  # custom error types
+├── eslint-config.test.ts           # ESLint config validation
+├── failure-policy.test.ts          # retry/failover policy
+├── fetch-helpers.test.ts           # fetch flow helpers
+├── fixtures/
+│   └── v3-storage.json             # V3 storage fixture
+├── forecast.test.ts                # account forecast
+├── hashline-tools.test.ts          # hashline tool helpers
+├── health.test.ts                  # account health status
+├── host-codex-prompt.test.ts       # host-specific prompts
+├── index-retry.test.ts             # plugin retry logic
+├── index.test.ts                   # main plugin integration, email dedup
+├── input-utils.test.ts             # input filtering
+├── install-codex-auth.test.ts      # installer tests
+├── live-account-sync.test.ts       # live account sync
+├── health-check.test.ts            # runHealthCheck quick + live probe paths
+├── logger.test.ts                  # logging functionality
+├── login-flow.test.ts              # runAuthLogin transports and cap handling
+├── login-menu-accounts.test.ts     # account-row assembly for the login menu
+├── login-menu-actions.test.ts      # manage actions, identity re-resolution
+├── login-menu-data.test.ts         # dashboard row view model, drift sync
+├── login-oauth-selection.test.ts   # login-oauth account selection
+├── model-map.test.ts               # model name normalization
+├── oauth-server.integration.test.ts # OAuth server (port 1455)
+├── package-bin.test.ts             # package.json bin field
+├── parallel-probe.test.ts          # concurrent health checks
+├── paths.test.ts                   # project root detection, worktree identity, UNC paths
+├── plugin-config.test.ts           # plugin config defaults
+├── preemptive-quota-scheduler.test.ts # quota deferral
+├── proactive-refresh.test.ts       # token refresh before expiry
+├── property/
+│   ├── account-identity.property.test.ts # identity matching/dedup invariants
+│   ├── helpers.ts                  # property test utilities
+│   ├── model-fallback.property.test.ts # unsupported-model fallback invariants
+│   ├── rotation.property.test.ts   # rotation property tests
+│   ├── setup.test.ts               # property test setup
+│   ├── setup.ts                    # property test config
+│   ├── settings-write-queue.property.test.ts # write-queue ordering/clamp invariants
+│   └── transformer.property.test.ts # transformer property tests
+├── quota-cache.test.ts             # quota cache
+├── quota-probe.test.ts             # quota probe
+├── rate-limit-backoff.test.ts      # exponential backoff
+├── rate-limit-decision.test.ts     # rate-limit/invalidation decision tree
+├── recovery-constants.test.ts      # recovery constants
+├── recovery-storage.test.ts        # recovery storage
+├── recovery.test.ts                # session recovery
+├── refresh-guardian.test.ts        # refresh guardian
+├── refresh-lease.test.ts           # refresh lease
+├── refresh-queue.test.ts           # queued token refresh
+├── repo-hygiene.test.ts            # repo cleanup/check, Windows removeWithRetry
+├── request-transformer.test.ts     # request body transforms
+├── response-handler-logging.test.ts # SSE handler logging branches
+├── response-handler.test.ts        # SSE to JSON conversion
+├── rotation-account-selection.test.ts # chooseAccount tiers, pin discipline
+├── rotation-integration.test.ts    # rotation integration, Windows cleanup
+├── rotation-proxy-state.test.ts    # proxy state init, stale-state recovery
+├── rotation-token-refresh.test.ts  # ensureFreshAccessToken refresh/cooldown
+├── rotation.test.ts                # account selection
+├── runtime-paths.test.ts           # runtime path resolution
+├── schemas.test.ts                 # Zod schema validation
+├── select.test.ts                  # select prompt tests
+├── server.unit.test.ts             # OAuth server unit tests
+├── session-affinity.test.ts        # session affinity
+├── settings-hub-shared.test.ts     # settings merge/persist transaction
+├── settings-write-queue.test.ts    # queued settings write retry policy
+├── shutdown.test.ts                # graceful shutdown
+├── storage-async.test.ts           # async storage operations
+├── storage-recovery-paths.test.ts  # storage recovery paths
+├── storage.test.ts                 # V3 storage, worktree migration, concurrent load, forged pointers
+├── stream-failover.test.ts         # stream failover (fake-timer deterministic)
+├── table-formatter.test.ts         # CLI table output
+├── test-model-matrix-script.test.ts # model matrix script
+├── token-utils.test.ts             # token validation
+├── tool-utils.test.ts              # tool schema helpers
+├── ui-format.test.ts               # UI formatting
+├── ui-runtime.test.ts              # UI runtime
+├── ui-theme.test.ts                # UI theming
+├── unified-settings.test.ts        # settings persistence, EBUSY retry, write queue
+└── utils.test.ts                   # shared utilities
 ```
 
 ## WHERE TO LOOK
 | Task | Location | Notes |
 | --- | --- | --- |
-| Plugin orchestration | `index.ts` | 7-step request pipeline, tool registration |
-| OAuth flow + PKCE | `lib/auth/auth.ts` | token refresh, JWT decode, `REDIRECT_URI` = `127.0.0.1:1455` |
-| OAuth callback server | `lib/auth/server.ts` | binds port 1455 |
-| Multi-account rotation | `lib/accounts.ts` | health scoring, cooldown, selection |
-| Account storage | `lib/storage.ts` | V3 format, per-project/global paths, worktree migration, case-insensitive email dedup |
-| Worktree resolution | `lib/storage/paths.ts` | `resolveProjectStorageIdentityRoot`, linked worktree detection, commondir/gitdir validation |
-| Storage migrations | `lib/storage/migrations.ts` | V1/V2 → V3 upgrade |
-| Request transformation | `lib/request/request-transformer.ts` | model normalization, prompt injection |
-| Headers + rate limits | `lib/request/fetch-helpers.ts` | Codex headers, error mapping |
-| SSE to JSON | `lib/request/response-handler.ts` | stream parsing |
-| Stream failover | `lib/request/stream-failover.ts` | SSE stream recovery |
-| Failure policy | `lib/request/failure-policy.ts` | retry/failover decisions |
-| Rate limit backoff | `lib/request/rate-limit-backoff.ts` | exponential + jitter |
-| Model map | `lib/request/helpers/model-map.ts` | model name normalization |
-| Prompt templates | `lib/prompts/codex.ts` | model-family detection, GitHub ETag cache |
-| Config parsing | `lib/config.ts` | CODEX_MODE, plugin options |
-| CLI manager | `lib/codex-manager.ts` | command dispatcher, `codex auth ...` family |
-| Settings hub | `lib/codex-manager/settings-hub/` | interactive settings split into shared/dashboard/backend/experimental/index (all <500 LOC), Q = cancel without save; `settings-hub.ts` is a back-compat re-export stub |
-| CLI state/sync | `lib/codex-cli/` | state management, observability, sync, writer |
-| Session recovery | `lib/recovery/` | conversation state persistence |
-| Graceful shutdown | `lib/shutdown.ts` | cleanup on process exit |
-| Health monitoring | `lib/health.ts` | account health status |
-| Circuit breaker | `lib/circuit-breaker.ts` | failure isolation |
-| Unified settings | `lib/unified-settings.ts` | settings persistence with EBUSY retry |
-| Dashboard settings | `lib/dashboard-settings.ts` | dashboard configuration |
-| UI layer | `lib/ui/` | ansi, auth-menu, confirm, copy, format, runtime, select, theme |
-| Repo hygiene | `scripts/repo-hygiene.js` | `clean --mode aggressive`, `check`, Windows `removeWithRetry` |
-| Codex bin wrapper | `scripts/codex.js` | lazy-load auth runtime, graceful missing-dist handling |
-| Tests | `test/` | vitest globals, 80% coverage threshold, 225 files, 3418 tests |
+| OAuth flow | `auth.test.ts` | PKCE + JWT decoding |
+| Token utils | `token-utils.test.ts` | validation, parsing |
+| Fetch helpers | `fetch-helpers.test.ts` | headers + errors |
+| Request transforms | `request-transformer.test.ts` | model normalization |
+| SSE handling | `response-handler.test.ts`, `response-handler-logging.test.ts` | SSE parsing, logging branches |
+| OAuth server | `oauth-server.integration.test.ts` | binds port 1455 |
+| Rotation logic | `rotation.test.ts`, `rotation-integration.test.ts` | account selection, Windows cleanup |
+| Property tests | `property/` | fast-check property-based tests |
+| Storage | `storage.test.ts`, `storage-async.test.ts` | V3, worktree migration, concurrent load |
+| Worktree paths | `paths.test.ts` | identity resolution, UNC paths, forged pointers |
+| Error handling | `errors.test.ts` | custom error types |
+| Circuit breaker | `circuit-breaker.test.ts` | failure isolation |
+| Health checks | `health.test.ts`, `parallel-probe.test.ts` | account health |
+| Chaos testing | `chaos/fault-injection.test.ts` | fault injection |
+| CLI management | `codex-manager-cli.test.ts` | Q cancel across 5 panels, EBUSY/concurrent races |
+| Bin wrapper | `codex-bin-wrapper.test.ts` | lazy-load, missing dist, concurrent invocations |
+| Repo hygiene | `repo-hygiene.test.ts` | cleanup/check modes, Windows removeWithRetry |
+| Documentation parity | `documentation.test.ts` | command flags, config precedence, changelog policy, governance |
+| Settings persistence | `unified-settings.test.ts` | EBUSY/EPERM retry, temp cleanup, write queue |
+| Stream failover | `stream-failover.test.ts` | fake-timer deterministic assertions |
+| Email dedup | `index.test.ts` | case-insensitive dedup |
+| Live sync | `live-account-sync.test.ts` | account sync |
 
 ## CONVENTIONS
-- Source: root `index.ts` + `lib/`; `dist/` is generated output.
-- ESLint flat config: `no-explicit-any` enforced, unused args prefixed `_`.
-- Tests relax lint rules (see `eslint.config.js`).
-- Build copies `lib/oauth-success.html` to `dist/lib/` via `scripts/copy-oauth-success.js`.
-- ESM only (`"type": "module"`), Node >= 18.
-- Windows filesystem safety: all `fs.rm` calls in scripts/tests use `removeWithRetry` with EBUSY/EPERM/ENOTEMPTY backoff.
-- Settings Q hotkey = cancel without save; theme live-preview restores baseline on cancel.
-- Email dedup is case-insensitive via `normalizeEmailKey()` (trim + lowercase).
+- Vitest globals are enabled (`describe`, `it`, `expect`).
+- Coverage thresholds: 80% across statements/branches/functions/lines.
+- Lint rules are relaxed for tests (see `eslint.config.js`).
+- Property tests use fast-check for randomized testing.
+- Windows filesystem cleanup uses `removeWithRetry` with EBUSY/EPERM/ENOTEMPTY backoff.
+- Stream failover tests use `vi.useFakeTimers()` for deterministic assertions (no real timeouts).
 
-## ANTI-PATTERNS (THIS PROJECT)
-- Do not edit `dist/` or `tmp*` directories.
-- Do not use `as any`, `@ts-ignore`, `@ts-expect-error`.
-- Do not open public security issues; see `SECURITY.md`.
-- Do not hardcode ports other than 1455 for OAuth server.
-- Do not use bare `fs.rm` without retry logic in scripts or test cleanup (Windows antivirus locks).
-- Do not key project storage by worktree path; use `resolveProjectStorageIdentityRoot` for shared repo identity.
-
-## COMMANDS
-```bash
-npm run build            # tsc + copy oauth-success.html
-npm run typecheck        # type checking only
-npm test                 # vitest once (225 files, 3418 tests)
-npm run test:watch       # vitest watch mode
-npm run test:coverage    # vitest with coverage report
-npm run lint             # eslint (ts + scripts)
-npm run clean:repo       # deterministic repo hygiene cleanup
-npm run clean:repo:check # validate hygiene (CI-gated)
-```
-
-## NOTES
-- OAuth callback: `http://127.0.0.1:1455/auth/callback`.
-- ChatGPT backend requires `store: false`, include `reasoning.encrypted_content`.
-- Per-project accounts: `~/.codex/multi-auth/projects/<project-key>/openai-codex-accounts.json` (walks up to find project root).
-- Global accounts: `~/.codex/multi-auth/openai-codex-accounts.json`.
-- Linked worktrees share accounts via repo identity root (commondir-based resolution).
-- Legacy worktree-keyed accounts are auto-migrated on first load; legacy files retained on persist failure.
-- Prompt templates synced from Codex CLI GitHub releases with ETag caching.
-- 5xx server errors trigger account rotation and health penalty (same as network errors).
-- API deprecation/sunset headers (RFC 8594) are logged as warnings.
-- StorageError preserves original stack traces via `cause` parameter.
-- saveToDiskDebounced errors are logged but don't crash the plugin.
-- Settings writes use queued retry with EBUSY/EPERM/EAGAIN backoff (max 4 retries, exponential).
-
-## SKILL MAPPING (for delegate_task)
-
-Skills to load when delegating tasks in this codebase.
-
-### Core Skills (load on most tasks)
-
-| Skill | Justification |
-|-------|---------------|
-| `typescript-senior` | Strict mode, template literal types (`QuotaKey`), discriminated unions (`TokenResult`), Zod inference |
-| `node-backend` | ESM-first, `node:crypto`, Buffer API, async patterns |
-| `testing-js` | Vitest with 80% coverage threshold, `vi.mock`, `vi.useFakeTimers` |
-| `mcp-builder` | Uses `@codex-ai/plugin/tool` pattern for tool registration |
-
-### Domain-Specific Skills (load when touching these areas)
-
-| Skill | When to Load | Key Files |
-|-------|--------------|-----------|
-| `auth-patterns` | OAuth flow, PKCE, JWT, token refresh | `lib/auth/auth.ts`, `lib/refresh-queue.ts` |
-| `secrets-management` | Token storage, credential handling | `lib/storage.ts`, account JSON files |
-| `api-design` | Request transformation, headers, SSE | `lib/request/` directory |
-| `error-observability` | Circuit breaker, health scoring, logging | `lib/circuit-breaker.ts`, `lib/logger.ts`, `lib/health.ts` |
-| `git-master` | Any git operations | - |
-| `github` | PRs, GitHub API (ETag caching) | `lib/prompts/codex.ts` |
-| `clean-architecture` | Settings hub, module extraction, refactoring | `lib/codex-manager/settings-hub.ts` |
-
-### Situational Skills
-
-| Skill | When to Load |
-|-------|--------------|
-| `clean-architecture` | Refactoring, new module design |
-| `property-based-testing` | Testing rotation logic, rate-limit edge cases |
-
-### Quick Reference
-
-```typescript
-// Auth work
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "auth-patterns", "secrets-management"])
-
-// Request pipeline work
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "api-design", "error-observability"])
-
-// Testing
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "testing-js"])
-
-// Plugin architecture
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "mcp-builder"])
-
-// CLI / Settings hub
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "clean-architecture"])
-
-// Storage / Worktree
-delegate_task(category="...", load_skills=["typescript-senior", "node-backend", "secrets-management"])
-
-// Git/GitHub operations
-delegate_task(category="quick", load_skills=["git-master", "github"])
-```
+## ANTI-PATTERNS
+- Avoid hardcoding ports other than 1455 for OAuth server tests.
+- Do not rely on `dist/` in tests; use source files.
+- Do not skip tests without justification.
+- Do not use bare `fs.rm` in test cleanup; use `removeWithRetry` for Windows safety.
 
 ---
 > Source: [ndycode/codex-multi-auth](https://github.com/ndycode/codex-multi-auth) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
