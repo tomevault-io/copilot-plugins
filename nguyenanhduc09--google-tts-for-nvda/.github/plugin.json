@@ -1,0 +1,9 @@
+{
+  "name": "nguyenanhduc09--google-tts-for-nvda",
+  "displayName": "Google-TTS-For-NVDA",
+  "description": "An NVDA screen-reader synthesizer add-on that exposes Google's Chrome WASM text-to-speech voices to NVDA.",
+  "version": "1.0.0",
+  "author": "nguyenanhduc09",
+  "homepage": "https://github.com/nguyenanhduc09/Google-TTS-For-NVDA",
+  "skills": []
+}
