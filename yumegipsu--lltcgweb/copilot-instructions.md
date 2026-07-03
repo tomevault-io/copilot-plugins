@@ -1,32 +1,37 @@
-## lltcgweb-cards-effects
+## lltcgweb-ci
 
-> Card abilities and effects — validation and regression requirements
+> CI, scripts, and test requirements for lltcgweb
 
 
-# lltcgweb cards & effects
+# lltcgweb CI
 
-## Ability changes
+## Required checks
 
-1. Update `cards.json` (and `import_from_db.py` if importing from DB).
-2. Implement handler in `effects.php` or set-specific `*_effects.php`.
-3. Add client prompts in `index.html` or `client/js/` when interactive.
-4. Run `php scripts/validate_cards.php` — every `abilities[].type` should map to a known handler.
+GitHub Actions (`.github/workflows/ci.yml`) runs:
 
-## Effect registry
+1. `php scripts/validate_json.php`
+2. `bash scripts/lint_php.sh`
+3. `composer test`
+4. Docker build + `api.php?action=ping` smoke (on `main`/PR)
 
-Known types are discovered from `src/Game/AbilityResolverSwitch*.php` via `LLTCG\Game\EffectRegistry`. New core `type` strings add a `case` in `resolveAbilityEffectSwitch` or `tryResolveAbilityEffectSwitchOptional` (optional `optional_*` types), or a set module if set-specific.
+## Adding tests
 
-## Live modifiers
+| Area | Location |
+|------|----------|
+| API smoke | `tests/Smoke/` |
+| Deck legality | `tests/Deck/` |
+| Booster | `tests/Booster/` |
+| Golden replays | `tests/fixtures/replays/` + `tests/Replay/` |
 
-Modifier `then` types (`live_score_bonus`, `blade_bonus`, `grant_bonus_hearts`, etc.) are applied via `applyModifierEffect` in `src/Game/LiveModifiers.php` — not card `abilities[].type` values and not covered by `EffectRegistry`.
+Use `tests/bootstrap.php` temp runtime dirs — never write tests under production `data/` or `games/`.
 
-## Regression
+## Scripts
 
-Engine / prompt lifecycle changes: add or update `tests/fixtures/replays/*.json` and run `composer test`.
+- `scripts/validate_json.php` — data file JSON parse
+- `scripts/validate_cards.php` — ability schema vs effects handlers
+- `scripts/lint_php.sh` — `php -l` all PHP files
 
-## Chiichan parity
-
-Discord card import (`LoveLiveTCG.py`, `tcg_cards_en_bridge.py`) is separate from web `cards.json` deploy — see Chiichan `.cursorrules`.
+Keep CI green before deploy.
 
 ---
 > Source: [Yumegipsu/lltcgweb](https://github.com/Yumegipsu/lltcgweb) — distributed by [TomeVault](https://tomevault.io).
