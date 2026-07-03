@@ -1,0 +1,9 @@
+{
+  "name": "yoanbernabeu--frankendeploy",
+  "displayName": "frankendeploy",
+  "description": "Deploy Symfony. Production-ready deployments on any VPS. From local to production in minutes.",
+  "version": "1.0.0",
+  "author": "yoanbernabeu",
+  "homepage": "https://github.com/yoanbernabeu/frankendeploy",
+  "skills": []
+}
