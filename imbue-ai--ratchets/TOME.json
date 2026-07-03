@@ -4,7 +4,7 @@
   "repo": "ratchets",
   "description": "Ratchet enforces that style violations for your project only monotonically decrease",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/imbue-ai/ratchets",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T12:37:21Z"
+  "distributed_at": "2026-07-03T12:38:57Z"
 }
