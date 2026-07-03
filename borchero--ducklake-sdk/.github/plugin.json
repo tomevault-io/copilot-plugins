@@ -1,9 +1,14 @@
 {
   "name": "borchero--ducklake-sdk",
   "displayName": "ducklake-sdk",
-  "description": "Native SDKs for DuckLake.",
+  "description": "ducklake-sdk",
   "version": "1.0.0",
   "author": "borchero",
   "homepage": "https://github.com/borchero/ducklake-sdk",
-  "skills": []
+  "skills": [
+    {
+      "name": "ducklake-sdk",
+      "description": ""
+    }
+  ]
 }
