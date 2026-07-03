@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [huyphan13189/QE-AI](https://github.com/huyphan13189/QE-AI).
+Original source: `.windsurf/rules/*.md` in [huyphan13189/QE-AI](https://github.com/huyphan13189/QE-AI).
 
 ## Also available for
 
@@ -13,7 +13,7 @@ Original source: `GEMINI.md` in [huyphan13189/QE-AI](https://github.com/huyphan1
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/huyphan13189/QE-AI](https://github.com/huyphan13189/QE-AI)
 
