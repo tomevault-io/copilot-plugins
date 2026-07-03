@@ -7,11 +7,11 @@ A deny-by-default contract & type-checker layer for AI agent tool calls — Pyda
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sattyamjjain/agent-airlock](https://github.com/sattyamjjain/agent-airlock).
+Original source: `AGENTS.md` in [sattyamjjain/agent-airlock](https://github.com/sattyamjjain/agent-airlock).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
