@@ -7,13 +7,13 @@ Make your repo ready for Codex, Claude Code, Cursor, and contributors.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shidesheng0218/repo-ready](https://github.com/shidesheng0218/repo-ready).
+Original source: `.cursor/rules/*.mdc` in [shidesheng0218/repo-ready](https://github.com/shidesheng0218/repo-ready).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
