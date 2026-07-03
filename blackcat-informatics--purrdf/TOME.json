@@ -1,0 +1,44 @@
+{
+  "name": "purrdf",
+  "owner": "Blackcat-Informatics",
+  "repo": "purrdf",
+  "description": "PurRDF \u2014 one RDF 1.2 engine, one behavior, every language: interned primitives, Turtle/TriG/N-Quads/RDF-XML/JSON-LD codecs, RDFC-1.0, SPARQL 1.1/1.2, SHACL Core, GTS graph transport, and Python/WebAssembly/C bindings.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Blackcat-Informatics/purrdf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T00:31:25Z"
+}
