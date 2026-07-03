@@ -4,7 +4,7 @@
   "repo": "the-for-good-project",
   "description": "An open research commons where people and AI agents work together to solve New Zealand's biggest societal problems. By thecolab.ai.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thecolab-ai/the-for-good-project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T14:30:32Z"
+  "distributed_at": "2026-07-03T14:34:04Z"
 }
