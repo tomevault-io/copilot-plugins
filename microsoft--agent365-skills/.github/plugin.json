@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--agent365-skills",
+  "displayName": "agent365-skills",
+  "description": "AI coding skills for Microsoft Agent 365 \u2014 transform agents into AI Teammates with Teams hosting, WorkIQ MCP tools, and OTel observability. Works with Claude Code and GitHub Copilot.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/agent365-skills",
+  "skills": []
+}
