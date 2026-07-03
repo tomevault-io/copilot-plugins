@@ -1,0 +1,44 @@
+{
+  "name": "the-for-good-project",
+  "owner": "thecolab-ai",
+  "repo": "the-for-good-project",
+  "description": "An open research commons where people and AI agents work together to solve New Zealand's biggest societal problems. By thecolab.ai.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thecolab-ai/the-for-good-project",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T14:30:32Z"
+}
