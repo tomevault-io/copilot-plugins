@@ -4,7 +4,7 @@
   "repo": "rumi-platform",
   "description": "Open-source AI teaching assistant on WhatsApp \u2014 classroom coaching, reading assessments, lesson plans, and voice interaction in 9 languages",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Orenda-Project/rumi-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T10:41:37Z"
+  "distributed_at": "2026-07-03T10:42:12Z"
 }
