@@ -1,0 +1,9 @@
+{
+  "name": "meltedinhex--analyst-ai-pack",
+  "displayName": "analyst-ai-pack",
+  "description": "An open agent-skills library for malware analysis, reverse engineering, and threat hunting - 118 curated, runnable skills mapped to MITRE ATT&CK, D3FEND, and CAR.",
+  "version": "1.0.0",
+  "author": "meltedinhex",
+  "homepage": "https://github.com/meltedinhex/analyst-ai-pack",
+  "skills": []
+}
