@@ -1,0 +1,9 @@
+{
+  "name": "recusive--agentsdk",
+  "displayName": "agentsdk",
+  "description": "Agent SDK toolkit for Building AI agents with system tools",
+  "version": "1.0.0",
+  "author": "Recusive",
+  "homepage": "https://github.com/Recusive/agentsdk",
+  "skills": []
+}
