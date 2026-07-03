@@ -1,0 +1,44 @@
+{
+  "name": "prediction-markets-skill",
+  "owner": "azazelitto21",
+  "repo": "prediction-markets-skill",
+  "description": "Read-only Kalshi + Polymarket market data skill for AI agents (Claude Code, Codex, Cursor). Zero dependencies, no API keys, auditable in 5 minutes. Stops agents hallucinating prediction-market APIs.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/azazelitto21/prediction-markets-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T05:33:55Z"
+}
