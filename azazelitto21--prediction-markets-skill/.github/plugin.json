@@ -1,0 +1,9 @@
+{
+  "name": "azazelitto21--prediction-markets-skill",
+  "displayName": "prediction-markets-skill",
+  "description": "Read-only Kalshi + Polymarket market data skill for AI agents (Claude Code, Codex, Cursor). Zero dependencies, no API keys, auditable in 5 minutes. Stops agents hallucinating prediction-market APIs.",
+  "version": "1.0.0",
+  "author": "azazelitto21",
+  "homepage": "https://github.com/azazelitto21/prediction-markets-skill",
+  "skills": []
+}
