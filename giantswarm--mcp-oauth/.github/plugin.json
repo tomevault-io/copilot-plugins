@@ -1,0 +1,9 @@
+{
+  "name": "giantswarm--mcp-oauth",
+  "displayName": "mcp-oauth",
+  "description": "OAuth 2.1 Authorization Server library for Model Context Protocol (MCP) servers",
+  "version": "1.0.0",
+  "author": "giantswarm",
+  "homepage": "https://github.com/giantswarm/mcp-oauth",
+  "skills": []
+}
