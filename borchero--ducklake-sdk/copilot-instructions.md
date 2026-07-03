@@ -1,35 +1,62 @@
 ## ducklake-sdk
 
-> - Never use classes for pytest, but only free functions
+> The `ducklake::catalog` module provides a representation of the catalog in a DuckLake. This includes:
 
-# Context
+# `ducklake::catalog`
 
-## Testing
+The `ducklake::catalog` module provides a representation of the catalog in a DuckLake. This includes:
 
-- Never use classes for pytest, but only free functions
-- Do not put `__init__.py` files into test directories
-- Tests should not have docstrings unless they are very complicated or very specific, i.e. warrant a description beyond
-  the test's name
-- All tests should follow the arrange-act-assert pattern. The respective logical blocks should be distinguished via
-  code comments as follows:
+- The currently active schemas
+- The tables within those schemas
+- The columns in all of those tables, including their data types and constraints
+- The partitioning information about tables
+- Tags for all entities (schemas, tables, columns)
 
-  ```python
-  def test_method() -> None:
-      # Arrange
-      ...
+The catalog is designed to be _mutable_:
 
-      # Act
-      ...
+- Entities which are added to the catalog (e.g. a new table) are marked as _pending_ until they receive a proper ID
+  generated as part of a transaction commit
+- Entities which are removed from the catalog are marked as _deleted_ without ever being removed
 
-      # Assert
-      ...
-  ```
+This allows to easily evolve the catalog within a transaction without the need for a secondary transaction-only catalog
+type.
 
-- If two or more tests are structurally equivalent, they should be merged into a single test and parametrized with
-  `@pytest.mark.parametrize`
-- If at least two tests share the same logic in the "arrange" step, the respective logic should be extracted into a
-  fixture
+## Architecture
+
+### Names, IDs, References
+
+There are two different levels of abstractions for entity references:
+
+- Users generally interact with entities by name (e.g. table name, column name, ...). However, this is impractical
+  within an evolving catalog as entities can be renamed and reference might break.
+- Within the DuckLake database, entities have a static ID which fixes the issue of dangling references. However, using
+  these IDs _exclusively_ within the catalog is not possible as IDs are pending when new entities are inserted: the IDs
+  can only be assigned during a transaction commit.
+
+As a result, the `ducklake::catalog` module introduces the concept of _references_ which are similar to IDs, i.e.
+static for an entity, but already exist for pending entities. To reference the different entities, there exists
+`SchemaRef`, `TableRef`, and `ColumnRef`.
+
+#### Arena Index
+
+All references are backed by instances of the `ArenaIdx` struct which is used to index into append-only vectors
+("arenas") that maintain entities. This type **must not be exposed outside of this module**.
+
+### Public API
+
+The public surface of the catalog is meant to be minimal. None of the internal representations of the catalog should
+leak outside of this module (i.e. not even be exposed as `pub(crate)`). This especially includes the internal
+representation of the entities (e.g. `CatalogTable`, `CatalogColumns`, ...).
+
+All publicly exposed functions must only have parameters and return types of the following kinds:
+
+- Names (e.g. table names) and references (i.e. `TableRef`, ...)
+- Crate-level types (e.g. `crate::Table`)
+- Collections thereof (e.g. `Vec`)
+
+Functions that allow the modification of internal state (i.e. set the ID of a pending entity) must not return mutable
+references to internal types. Instead, they should accept closures that provide values on-demand.
 
 ---
 > Source: [borchero/ducklake-sdk](https://github.com/borchero/ducklake-sdk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-11 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
