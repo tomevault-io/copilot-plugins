@@ -1,0 +1,9 @@
+{
+  "name": "midcodehub--miaocut",
+  "displayName": "miaoCut",
+  "description": "\u514d\u8d39\u3001\u6ce8\u91cd\u9690\u79c1\u7684\u5728\u7ebf AI \u56fe\u50cf\u5904\u7406\u5de5\u5177\u7bb1\uff08\u5305\u542b\u4e00\u952e\u62a0\u56fe\u3001\u53bb\u6c34\u5370\u3001\u8001\u7167\u7247\u4fee\u590d\u7b49\uff09\u3002\u65e0\u6c34\u5370\uff0c\u514d\u6ce8\u518c\u3002| A free, privacy-first online AI image toolkit featuring one-click background removal, watermark remover, and old photo restoration. No signup require",
+  "version": "1.0.0",
+  "author": "midcodehub",
+  "homepage": "https://github.com/midcodehub/miaoCut",
+  "skills": []
+}
