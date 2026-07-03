@@ -1,0 +1,14 @@
+{
+  "name": "hydro13--tandem-browser",
+  "displayName": "tandem-browser",
+  "description": "tandem-browser",
+  "version": "1.0.0",
+  "author": "hydro13",
+  "homepage": "https://github.com/hydro13/tandem-browser",
+  "skills": [
+    {
+      "name": "tandem-browser",
+      "description": ""
+    }
+  ]
+}
