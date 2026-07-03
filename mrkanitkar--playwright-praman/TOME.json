@@ -4,7 +4,7 @@
   "repo": "playwright-praman",
   "description": "AI-First SAP UI5 Test Automation  for Playwright",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrkanitkar/playwright-praman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T02:35:53Z"
+  "distributed_at": "2026-07-03T02:38:11Z"
 }
