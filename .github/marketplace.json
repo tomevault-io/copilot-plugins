@@ -141009,6 +141009,11 @@
       "description": "Open-source deep research MCP. Qwen3-30B-A3B-Thinking via OpenRouter, cited web synthesis for Claude Code, Codex, Cursor, Hermes and any MCP-compatible agent."
     },
     {
+      "name": "supasheet--supasheet",
+      "source": "./supasheet--supasheet",
+      "description": "Run your internal operations on Supabase"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -232054,6 +232059,11 @@
       "description": "pixovid"
     },
     {
+      "name": "cdsassj00--llm-wiki-anatomy",
+      "source": "./cdsassj00--llm-wiki-anatomy",
+      "description": "\uc720\ud589\ucc98\ub7fc \ud3bc\uccd0\uc9c0\ub294 llm wiki\uc5d0 \ub300\ud55c \ub2e4\uc591\ud55c \uad00\uc810\uacfc \ubcf8\uc9c8\uc744 \uaff0\ub6ab\ub294 \ub808\ud3ec a wiki is a search contract, not a storage"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -251117,6 +251127,21 @@
       "name": "oomol-lab--closeup",
       "source": "./oomol-lab--closeup",
       "description": "Put the controls back in Mission Control \u2014 close, minimize, zoom, hide, or quit any window right from the macOS Mission Control overview, with full keyboard control. Native, localized, open source."
+    },
+    {
+      "name": "yeet-src--agent-lock",
+      "source": "./yeet-src--agent-lock",
+      "description": "Confine an AI agent (Claude Code, Codex, oh-my-pi, ...) to one directory with a BPF-LSM program, and watch it live over eBPF."
+    },
+    {
+      "name": "blackcat-informatics--purrdf",
+      "source": "./blackcat-informatics--purrdf",
+      "description": "PurRDF \u2014 one RDF 1.2 engine, one behavior, every language: interned primitives, Turtle/TriG/N-Quads/RDF-XML/JSON-LD codecs, RDFC-1.0, SPARQL 1.1/1.2, SHACL Core, GTS graph transport, and Python/WebAss"
+    },
+    {
+      "name": "blackcat-informatics--purrdf",
+      "source": "./blackcat-informatics--purrdf",
+      "description": "PurRDF \u2014 one RDF 1.2 engine, one behavior, every language: interned primitives, Turtle/TriG/N-Quads/RDF-XML/JSON-LD codecs, RDFC-1.0, SPARQL 1.1/1.2, SHACL Core, GTS graph transport, and Python/WebAss"
     },
     {
       "name": "cheerhuan--save-your-token",
