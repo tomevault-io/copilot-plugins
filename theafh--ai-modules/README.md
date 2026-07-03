@@ -7,11 +7,11 @@ A collection of professional AI skills, packaged as Claude and Codex plugins and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [theafh/ai-modules](https://github.com/theafh/ai-modules).
+Original source: `AGENTS.md` in [theafh/ai-modules](https://github.com/theafh/ai-modules).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `CLAUDE.md` in [theafh/ai-modules](https://github.com/theafh/ai
 
 - [ai-instruction-writing](https://github.com/theafh/ai-modules/tree/main/plugins/ai_dev/skills/ai_instruction_writing)
 
-From [theafh/ai-modules](https://github.com/theafh/ai-modules) — a repo with 27+ stars on GitHub.
+From [theafh/ai-modules](https://github.com/theafh/ai-modules) — a repo with 0+ stars on GitHub.
 
 ---
 
