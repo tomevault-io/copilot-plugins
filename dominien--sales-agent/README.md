@@ -7,11 +7,11 @@ One sales agent. Your CRM (sqlite/hubspot/close/attio/salesforce) or none. Your 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Dominien/sales-agent](https://github.com/Dominien/sales-agent).
+Original source: `CLAUDE.md` in [Dominien/sales-agent](https://github.com/Dominien/sales-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
