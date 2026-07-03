@@ -1,0 +1,9 @@
+{
+  "name": "skills-il--government-services",
+  "displayName": "government-services",
+  "description": "AI agent skills for Israeli government APIs and digital services",
+  "version": "1.0.0",
+  "author": "skills-il",
+  "homepage": "https://github.com/skills-il/government-services",
+  "skills": []
+}
