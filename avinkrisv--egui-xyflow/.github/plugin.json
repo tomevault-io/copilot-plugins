@@ -1,0 +1,9 @@
+{
+  "name": "avinkrisv--egui-xyflow",
+  "displayName": "egui-xyflow",
+  "description": "A Rust node graph editor widget for egui, inspired by xyflow/React Flow. Supports node dragging, edge connections, pan/zoom, selection, minimap, and animated edges.",
+  "version": "1.0.0",
+  "author": "avinkrisv",
+  "homepage": "https://github.com/avinkrisv/egui-xyflow",
+  "skills": []
+}
