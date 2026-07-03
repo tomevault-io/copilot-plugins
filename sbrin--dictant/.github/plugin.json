@@ -1,0 +1,9 @@
+{
+  "name": "sbrin--dictant",
+  "displayName": "Dictant",
+  "description": "Minimalistic dictation app for Mac. (OpenAI Whisper wrapper)",
+  "version": "1.0.0",
+  "author": "sbrin",
+  "homepage": "https://github.com/sbrin/Dictant",
+  "skills": []
+}
