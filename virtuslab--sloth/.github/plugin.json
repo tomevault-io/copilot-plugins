@@ -1,0 +1,9 @@
+{
+  "name": "virtuslab--sloth",
+  "displayName": "sloth",
+  "description": "Sloth converts Scala 3.0-3.7 lazy vals to Scala 3.8 lazy vals",
+  "version": "1.0.0",
+  "author": "VirtusLab",
+  "homepage": "https://github.com/VirtusLab/sloth",
+  "skills": []
+}
