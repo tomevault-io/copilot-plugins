@@ -1,0 +1,9 @@
+{
+  "name": "baranzinilab--biorouter",
+  "displayName": "biorouter",
+  "description": "Foundational AI Platform for Biomedical Research Allowing Agents built by the Community",
+  "version": "1.0.0",
+  "author": "BaranziniLab",
+  "homepage": "https://github.com/BaranziniLab/biorouter",
+  "skills": []
+}
