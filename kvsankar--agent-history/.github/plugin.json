@@ -1,0 +1,9 @@
+{
+  "name": "kvsankar--agent-history",
+  "displayName": "agent-history",
+  "description": "Extract and convert Claude Code conversation history by workspace",
+  "version": "1.0.0",
+  "author": "kvsankar",
+  "homepage": "https://github.com/kvsankar/agent-history",
+  "skills": []
+}
