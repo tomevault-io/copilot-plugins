@@ -1,0 +1,9 @@
+{
+  "name": "mervinpraison--praisonaiui",
+  "displayName": "PraisonAIUI",
+  "description": "PraisonAIUI gives you a full-featured AI dashboard with multi-agent chat, memory, skills, sessions, and 19 admin pages \u2014 all from a single app.py. It also supports YAML-driven chat bots and static doc",
+  "version": "1.0.0",
+  "author": "MervinPraison",
+  "homepage": "https://github.com/MervinPraison/PraisonAIUI",
+  "skills": []
+}
