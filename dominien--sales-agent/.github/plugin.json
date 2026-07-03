@@ -1,0 +1,9 @@
+{
+  "name": "dominien--sales-agent",
+  "displayName": "sales-agent",
+  "description": "One sales agent. Your CRM (sqlite/hubspot/close/attio/salesforce) or none. Your channels (gmail, linkedin). Runs on any MCP-capable harness.",
+  "version": "1.0.0",
+  "author": "Dominien",
+  "homepage": "https://github.com/Dominien/sales-agent",
+  "skills": []
+}
