@@ -1,0 +1,9 @@
+{
+  "name": "inclusionai--awex",
+  "displayName": "Awex",
+  "description": "A high-performance RL training-inference weight synchronization framework, designed to enable second-level parameter updates from training to inference in RL workflows",
+  "version": "1.0.0",
+  "author": "inclusionAI",
+  "homepage": "https://github.com/inclusionAI/Awex",
+  "skills": []
+}
