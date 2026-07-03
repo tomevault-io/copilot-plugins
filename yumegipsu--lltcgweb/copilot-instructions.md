@@ -1,37 +1,32 @@
-## lltcgweb-ci
+## lltcgweb-frontend
 
-> CI, scripts, and test requirements for lltcgweb
+> Frontend module boundaries — client/js vs index.html
 
 
-# lltcgweb CI
+# lltcgweb frontend
 
-## Required checks
+## Module layout
 
-GitHub Actions (`.github/workflows/ci.yml`) runs:
+| Module | File | Responsibility |
+|--------|------|----------------|
+| API client | `client/js/api-client.js` | `apiPost`, account fetch, sync meta |
+| Game sync | `client/js/game-sync.js` | Poll loop, SSE sync, `pullLatestState`, `startPoll`/`stopPoll` |
+| State apply | `client/js/state-apply.js` | `onState`, `applyStateUpdate`, pending state queue |
+| Replay debug | `client/js/replay-debug.js` | `?debug` replay export |
+| Prompt UI | `client/js/prompt-renderer.js` | Full prompt UI: submit guards, pick openers, `handlePromptChoice`, **`renderPrompt`** |
+| CPU entry | `client/js/cpu-ai.js` | `cpuResolvePrompt` entry (handlers may stay inline until extracted) |
 
-1. `php scripts/validate_json.php`
-2. `bash scripts/lint_php.sh`
-3. `composer test`
-4. Docker build + `api.php?action=ping` smoke (on `main`/PR)
+Load order in `index.html`: i18n → sfx → **client/js/** (`api-client` → `game-sync` → `state-apply` → …) → main inline script → `cpu-ai.js` (after CPU helpers).
 
-## Adding tests
+## Rules
 
-| Area | Location |
-|------|----------|
-| API smoke | `tests/Smoke/` |
-| Deck legality | `tests/Deck/` |
-| Booster | `tests/Booster/` |
-| Golden replays | `tests/fixtures/replays/` + `tests/Replay/` |
+- **Do not** add large new features inline in `index.html` — add a `client/js/*.js` module and a thin wrapper if needed.
+- **Do not** introduce a bundler for Hostinger deploy unless explicitly requested.
+- i18n remains `i18n.js` / `log_i18n.js`.
 
-Use `tests/bootstrap.php` temp runtime dirs — never write tests under production `data/` or `games/`.
+## Deploy
 
-## Scripts
-
-- `scripts/validate_json.php` — data file JSON parse
-- `scripts/validate_cards.php` — ability schema vs effects handlers
-- `scripts/lint_php.sh` — `php -l` all PHP files
-
-Keep CI green before deploy.
+Include changed `client/js/*` and `index.html` in `LLR_SITE_FILES` when deploying via Chiichan.
 
 ---
 > Source: [Yumegipsu/lltcgweb](https://github.com/Yumegipsu/lltcgweb) — distributed by [TomeVault](https://tomevault.io).
