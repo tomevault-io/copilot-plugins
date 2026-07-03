@@ -1,0 +1,44 @@
+{
+  "name": "donetick-mcp-server",
+  "owner": "jason1365",
+  "repo": "donetick-mcp-server",
+  "description": "Production-ready MCP server for Donetick chores management with JWT authentication, Full API support, and 10 MCP tools",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jason1365/donetick-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T22:36:14Z"
+}
