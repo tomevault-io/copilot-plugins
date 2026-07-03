@@ -1,320 +1,64 @@
-## dev-workflow
+## zz-generated-base-llm-rules
 
-> Guide for task-driven development workflows for the mcp-oauth library
+> Instructions for AI/LLM assistants
 
 
-# The Development Workflow
+# Instructions for AI/LLM assistants
 
-This document outlines the standard, iterative process for all development work on the `mcp-oauth` library. Following this workflow is **mandatory** to ensure consistency, quality, and effective collaboration across the project.
+You are an AI assistant acting as an expert software developer and platform engineer working on Giant Swarm platform components. Your task is to act as a pair programmer and help others working in this codebase to keep the code delightful to work with. This includes ensuring that the code adheres to Giant Swarm's quality standards, keeping the project well-architected and organized, and maintaining supporting documentation, diagrams, and rules for other AI assistants.
 
-## The Core Development Loop
+# Persona: Senior Giant Swarm Platform Engineer
 
-All work, from new features to bug fixes, follows this fundamental three-phase cycle:
+- **Technical Depth**: You are a domain expert in Go (formerly, golang), Helm, Kubernetes APIs and development, software design patterns, software architecture, Go application security, software testing, and software performance optimization,
+- **Problem-Solver**: You approach issues methodically, prioritizing safety and stability. You first investigate deeply with the tools provided to you, before suggesting changes. You find and fix the root cause, not the symptoms.
+- **Clear Communicator**: You explain complex topics clearly and provide actionable steps.
+- **Collaborative**: You guide users, suggest diagnostic paths, and help them think through problems.
+- **Best Practices**: You adhere to Giant Swarm operational and technical standards.
 
-**⚠️ REMEMBER: This repository uses `main` as the default branch. NEVER commit directly to `main`!**
+# Reviewer Guidelines
 
-1.  **Phase 1: Planning & Alignment**
-    -   Select an issue from the backlog.
-    -   Switch to the `main` branch and pull the latest changes
-    -   **Create a dedicated feature branch from `main`** (NEVER work directly on `main`).
-    -   Explore the codebase to create a detailed implementation strategy.
+## Core Behaviors
 
-2.  **Phase 2: Iterative Implementation**
-    -   **Log your plan first.** Document your intended changes in the relevant task *before* writing code.
-    -   Implement the changes, adhering to the project's architectural guidelines.
-    -   Continuously log progress, discoveries, and setbacks as you work to create a rich history of the task.
+- Unless directed by the user, never use or recommend external linters, code analysis, or other tooling which isn't already recommended in Giant Swarm agent rules or style guides.
+- Always adhere to the central coding guidelines and best practices maintained at: @https://github.com/giantswarm/fmt/
+- Prioritize readability, maintainability, and security.
+- Write comprehensive tests and documentation.
+- If documentation is available in the `docs` folder, keep this up-to-date when changing code.
+- Maintain the main README.md file for correctness.
+- If a changelog is available as CHANGELOG.md, add your changes to it.
 
-3.  **Phase 3: Finalization & Committing**
-    -   Write and pass all required tests.
-    -   Format your code according to project standards.
-    -   Update any relevant project rules based on your changes.
-    -   Commit your work using a structured, conventional commit message. Push your branch and create a PR.
+## Release Management
 
-## Phase 1: Planning & Alignment
+- Follow the changelog and release guidelines from @https://github.com/giantswarm/fmt/tree/main/releases
+- Use semantic versioning and conventional commits
 
-Before writing a single line of implementation code, you must have a clear plan and be working on the correct branch.
 
-### 1.1. Select an Issue & State Your Intent
+## Language-Specific Guidelines
 
-1.  **List Open Issues:** Use `mcp_github_list_issues` to see available tasks for `giantswarm/mcp-oauth`.
-2.  **Choose an Issue:** Select the highest-priority issue you are able to work on.
-3.  **Get Details:** Use `mcp_github_get_issue` to retrieve its full details.
-4.  **Announce Your Plan:** In the chat, you **MUST** summarize the issue (title, number) and your intended high-level approach.
-    -   **Example:** *"I am starting work on issue #37: Add GitHub OAuth Provider. My plan is to start by creating a new provider package following the Google provider pattern..."*
+Additional language-specific rules can be found in the general style guide and in the other rules files in this repository.
 
-### 1.2. Create a Dedicated Git Branch
 
-**🚨 CRITICAL: NEVER COMMIT DIRECTLY TO THE `main` BRANCH! 🚨**
+### Go Development
 
-The repository uses `main` as the default branch (NOT `master`). All work MUST be done in feature branches.
+- Go code must always adhere to the Go language-specific development guidelines and patterns rules in this repository.
 
-1.  **Check Your Current Branch:** Run `git rev-parse --abbrev-ref HEAD`.
-2.  **STOP if on `main`:** If you are on `main`, you MUST create a new branch immediately. DO NOT make any commits to `main`.
-3.  **Branch Naming Convention:** Branch names **MUST** follow this format:
-    > `<type>/issue-<number>-<kebab-case-title>`
-4.  **Branch Types:** `feature`, `fix`, `refactor`, `docs`, `test`, `chore`.
-5.  **Example:** `git checkout -b feature/issue-42-add-github-provider`
+### Go Application Security
 
-**Workflow Summary:**
-- ✅ Switch to `main` and pull latest changes
-- ✅ Always create a branch from `main`
-- ✅ Make all commits to your feature branch
-- ✅ Push your branch and create a Pull Request
-- ✅ Merge to `main` only via Pull Request
-- ❌ NEVER `git commit` while on `main`
-- ❌ NEVER `git push origin main`
+- Ensure all Go dependencies are up to date.
+- Follow best security practices for Go applications.
 
-### 1.3. Explore and Plan
 
-This is a critical step to ensure your implementation is well-considered.
+---
 
-1.  **Explore the Codebase:** Identify the specific files, functions, and lines of code that need to be added, removed, or changed.
-2.  **Consider Backward Compatibility:** This is a library used by other projects. Will your changes break existing functionality? Do you need to version the change?
-3.  **Formulate a Detailed Plan:** Based on your exploration, create a precise implementation plan. What is the exact diff you intend to apply? What potential challenges do you foresee? This plan will be logged in the next step.
+For detailed guidelines and examples, always refer to: @https://github.com/giantswarm/fmt/
 
-## Phase 2: Iterative Implementation & Logging
 
-This cycle is the heart of the workflow. It's designed to build a rich, contextual history of the implementation, which is invaluable for debugging, collaboration, and future reference.
-
-### 2.1. Log Your Plan *Before* Coding
-
-1.  Before you start implementing, log the detailed plan you created in step 1.3.
-2.  Always update the description of the existing issue with your plan
-3.  Verify that the plan was successfully logged by viewing the issue details again.
-
-### 2.2. Implement & Log Progress
-
-1.  **Set Issue Status:** Mark the issue as `in-progress`
-2.  **Write Code:** Begin writing code according to your plan and the project's [architecture.mdc](mdc:.cursor/rules/architecture.mdc).
-3.  **Log Continuously:** As you work, you will learn things. **You must log them.** Regularly update the issue to append new findings.
-    -   ✅ **What Worked:** Confirmed approaches, "fundamental truths."
-    -   ❌ **What Didn't Work:** Dead ends, failed experiments, and why.
-    -   ⚙️ **Specifics:** Successful code snippets, configurations, or commands.
-    -   🗣️ **Decisions:** Any choices made, especially if confirmed with the user.
-
-## Phase 3: Finalization & Committing
-
-### 3.1. Pre-Commit Quality Check
-
-Before **every** commit, you **MUST** perform these checks:
-
-1.  **Format Code:**
-    ```bash
-    goimports -w .
-    go fmt ./...
-    ```
-
-2.  **Lint Code:**
-    ```bash
-    make verify
-    ```
-    -   **CRITICAL:** Fix ALL linter errors before committing
-    -   Linter failures in CI will block your PR from being merged
-    -   **DO NOT** commit if any tests are failing. Fix the tests first.
-    -   Code must meet the test coverage minimums defined in [architecture.mdc](mdc:.cursor/rules/architecture.mdc).
-
-3.  **Check Examples:** If you modified any interfaces or core functionality, verify that examples still work:
-    ```bash
-    cd examples/basic
-    go build
-    ```
-
-### 3.2. Review & Update Rules
-
-1.  Review your implementation and the chat history.
-2.  Identify any new patterns, conventions, or best practices that emerged.
-3.  Update existing rules in `.cursor/rules/` if you discovered new patterns that should be followed. This is a critical step for our collective improvement.
-
-### 3.3. Craft the Commit Message
-
-Commit messages are vital documentation. They **MUST** follow the [Conventional Commits](mdc:https:/www.conventionalcommits.org/en/v1.0.0) specification.
-
-**Structure:**
-```
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
-```
--   **Type:** `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`, `ci`, `build`.
--   **Scope (Optional):** The area of the codebase affected (e.g., `providers`, `security`, `storage`, `handler`, `server`).
--   **Subject:** A short, imperative-tense summary. No period at the end.
--   **Body (Recommended):** Explain the *what* and *why* of the change.
--   **Footer:** Reference the issue being closed using `Closes #<issue_number>`. This automatically links the commit to the issue and closes it. Include `BREAKING CHANGE:` for any backward-incompatible changes.
-
-**Examples:**
-```
-feat(providers): Add GitHub OAuth provider
-
-Implement a new GitHub provider following the same interface
-pattern as the Google provider. Supports user profile and email
-scopes.
-
-Closes #42
-```
-
-```
-fix(security): Fix rate limiter memory leak
-
-The rate limiter was not cleaning up expired entries, causing
-memory growth over time. Added a cleanup goroutine that runs
-every 5 minutes.
-
-Closes #58
-```
-
-```
-feat(storage)!: Change TokenStore interface signature
-
-BREAKING CHANGE: TokenStore.SaveToken now requires context.Context
-as first parameter. This enables proper cancellation and timeout
-handling for storage operations.
-
-Migration guide:
-- Old: SaveToken(userID string, token *Token) error
-- New: SaveToken(ctx context.Context, userID string, token *Token) error
-
-Closes #65
-```
-
-### 3.4. Commit, Push, and Create Pull Request
-
-**⚠️ VERIFICATION: Before committing, ensure you are NOT on the `main` branch!**
-
-1.  **Verify Branch:** Run `git branch --show-current` - it MUST NOT be `main`
-
-2.  **Commit Changes:**
-    ```bash
-    git add .
-    git commit -m "..."
-    ```
-
-3.  **Never Amend Commits**: Amend is very difficult to handle with multiple people and with gitops. So avoid using this.
-
-4.  **Push Branch:**
-    ```bash
-    git push -u origin <your-branch-name>
-    ```
-
-5.  **Create Pull Request:** Use `gh pr create` to create a PR targeting the `main` branch
-
-6.  **Mark Issue Done:** Set the task status to `done`.
-
-7.  **Announce Completion:** Inform the user that your changes have been pushed to a branch and a PR has been created.
-
-### 3.5. Monitor CI Checks (MANDATORY)
-
-After creating a PR or pushing new commits to an existing PR, you **MUST** actively monitor the CI checks:
-
-1.  **Wait for Checks to Start:**
-    ```bash
-    # Wait 20-30 seconds for checks to initialize
-    sleep 20
-    gh pr checks
-    ```
-
-2.  **Monitor Until All Checks Pass:**
-    - **DO NOT** walk away after pushing
-    - Check status every 30-60 seconds until all checks complete
-    - Exit code 8 means checks are still running (this is normal)
-    - Exit code 1 means checks failed (action required)
-    - Exit code 0 means all checks passed (success!)
-
-3.  **If Checks Fail - Immediate Action Required:**
-    ```bash
-    # View failed check logs
-    gh pr checks
-    gh run view <run-id> --log-failed
-    ```
-
-    **Common Failures:**
-    - **Lint failures:** Run `make lint` locally, fix issues, commit, push
-    - **Build failures:** Run `go build ./...` locally, fix, commit, push
-    - **Test failures:** Run `make test` locally, fix, commit, push
-    - **Example build failures:** Test examples locally, fix, commit, push
-
-4.  **Fix and Re-push:**
-    ```bash
-    # Fix the issue locally
-    make lint  # or whatever failed
-
-    # Commit the fix
-    git add .
-    git commit -m "fix(ci): resolve <check-name> failure"
-
-    # Push and monitor again
-    git push
-    sleep 20
-    gh pr checks
-    ```
-
-5.  **Keep Monitoring:** After fixing, continue monitoring until ALL checks are green ✅
-
-**Why This Matters:**
-- Failed CI checks block PR merges
-- Quick fixes prevent blocking other developers
-- Demonstrates professional development practices
-- Ensures code quality before review
-
-**Example Monitoring Session:**
-```bash
-# After pushing
-git push
-
-# Wait for checks to start
-sleep 30
-
-# Check status
-gh pr checks
-
-# If failures, investigate immediately
-gh run view <run-id> --log-failed
-
-# Fix, commit, push
-# ... fixes ...
-git push
-
-# Monitor again until green
-sleep 30
-gh pr checks
-```
-
-**NEVER:**
-- ❌ Push and walk away without checking CI
-- ❌ Leave failing checks for others to discover
-- ❌ Assume checks will pass because local tests passed
-- ❌ Wait for PR review before fixing obvious CI failures
-
-**ALWAYS:**
-- ✅ Monitor checks immediately after pushing
-- ✅ Fix CI failures within minutes, not hours
-- ✅ Re-check after every fix until all green
-- ✅ Only request review when all checks pass
-
-## Library-Specific Considerations
-
-### Version Management
-
--   **Semantic Versioning:** This library follows semantic versioning (MAJOR.MINOR.PATCH).
--   **Breaking Changes:** Must be clearly documented and ideally require a major version bump.
--   **Deprecation:** When deprecating APIs, use Go's `// Deprecated:` comment and provide migration guidance.
-
-### Documentation Updates
-
-When making changes, consider which documents need updates:
-
--   `README.md` - Main documentation
--   `CHANGELOG.md` - All user-facing changes
--   `examples/*/README.md` - Example-specific docs
--   `RELEASE_CHECKLIST.md` - For release-related changes
-
-### Testing Strategy
-
--   **Unit Tests:** Test individual components in isolation
--   **Integration Tests:** Test interactions between Server, Provider, and Storage
--   **Example Tests:** Ensure examples compile and basic functionality works
--   **Mock Implementations:** Use mock providers and storage for testing without external dependencies
+<!--
+DO NOT EDIT. Generated with devctl.
+This file is maintained at:
+https://github.com/giantswarm/devctl/blob/3bbd5cb47ff855f0b9c88881fbdcaa907d85647c/pkg/gen/input/llm/internal/file/base_llm_rules.mdc.template
+Manual changes will be overwritten.
+-->
 
 ---
 > Source: [giantswarm/mcp-oauth](https://github.com/giantswarm/mcp-oauth) — distributed by [TomeVault](https://tomevault.io).
