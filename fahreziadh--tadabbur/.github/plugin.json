@@ -1,0 +1,9 @@
+{
+  "name": "fahreziadh--tadabbur",
+  "displayName": "tadabbur",
+  "description": "Quran study app - read, reflect (tadabbur), take notes. SvelteKit + Convex.",
+  "version": "1.0.0",
+  "author": "fahreziadh",
+  "homepage": "https://github.com/fahreziadh/tadabbur",
+  "skills": []
+}
