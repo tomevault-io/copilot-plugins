@@ -7,11 +7,11 @@ A CSS 3D engine for the DOM. Renders polygon meshes in HTML by leveraging matrix
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [layoutit/polycss](https://github.com/layoutit/polycss).
+Original source: `CLAUDE.md` in [layoutit/polycss](https://github.com/layoutit/polycss).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
