@@ -1,0 +1,34 @@
+{
+  "name": "flight505--storybook-assistant",
+  "displayName": "storybook-assistant",
+  "description": "AI-powered Storybook 9 development assistant with component generation, story automation, and testing. Built for Claude Code.",
+  "version": "1.0.0",
+  "author": "flight505",
+  "homepage": "https://github.com/flight505/storybook-assistant",
+  "skills": [
+    {
+      "name": "visual-regression-testing",
+      "description": ""
+    },
+    {
+      "name": "design-token-sync",
+      "description": ""
+    },
+    {
+      "name": "component-usage-analytics",
+      "description": ""
+    },
+    {
+      "name": "plugin-guide",
+      "description": ""
+    },
+    {
+      "name": "visual-design",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-generator",
+      "description": ""
+    }
+  ]
+}
