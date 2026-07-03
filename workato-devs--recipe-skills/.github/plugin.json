@@ -1,0 +1,9 @@
+{
+  "name": "workato-devs--recipe-skills",
+  "displayName": "recipe-skills",
+  "description": "Connector-specific knowledge for AI coding agents building Workato recipes. Datapill syntax, field mappings, control flow patterns, error handling, and schema design. Also home to connector-specific w",
+  "version": "1.0.0",
+  "author": "workato-devs",
+  "homepage": "https://github.com/workato-devs/recipe-skills",
+  "skills": []
+}
