@@ -1,0 +1,9 @@
+{
+  "name": "jason1365--donetick-mcp-server",
+  "displayName": "donetick-mcp-server",
+  "description": "Production-ready MCP server for Donetick chores management with JWT authentication, Full API support, and 10 MCP tools",
+  "version": "1.0.0",
+  "author": "jason1365",
+  "homepage": "https://github.com/jason1365/donetick-mcp-server",
+  "skills": []
+}
