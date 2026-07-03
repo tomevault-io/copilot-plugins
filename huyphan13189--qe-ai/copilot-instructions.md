@@ -1,16 +1,17 @@
-## auditing-test-quality
+## building-test-tools-with-api
 
-> Audit chất lượng/độ phủ của một test suite hiện có — truy tìm fake/tautological test và rủi ro chưa được test. Dùng khi được yêu cầu "test tốt không", "audit coverage", "thiếu test gì", hoặc trước khi tin một suite đang xanh.
+> Viết script/công cụ QE tự động gọi Claude API/SDK trong code — ví dụ đọc requirement sinh test case, đọc spec API sinh checklist, triage log hàng loạt. Không dùng cho AI coding assistant tương tác, cũng không phải để chọn AI test tool có sẵn.
 
 
-# Auditing Test Quality
+# Building Test Tools with the Claude API
 
-Khi cần audit chất lượng test, ĐỌC và LÀM THEO nguyên văn skill đầy đủ tại
-`.claude/skills/auditing-test-quality/SKILL.md`.
+Khi cần viết công cụ QE tự động gọi Claude API/SDK trong code/script/pipeline, ĐỌC và LÀM THEO nguyên văn skill đầy đủ tại
+`.claude/skills/building-test-tools-with-api/SKILL.md`.
 
-Nguyên tắc cốt lõi: một suite xanh và coverage cao chỉ chứng minh test **CHẠY**, không chứng minh
-test **KIỂM TRA** được gì. Truy tìm cả fake/tautological/false-safety test lẫn khoảng trống rủi ro
-chưa được test — đừng chỉ trông vào con số coverage. Đi theo Process, 7 lenses và red-flag trong skill.
+Nguyên tắc cốt lõi: gọi LLM trong code cho sức mạnh tự động hóa, nhưng ba thứ giết chết một công cụ thật
+là API key bị lộ, model ID hard-code lỗi thời, và chi phí/độ tin cậy không kiểm soát. Key luôn đọc từ
+biến môi trường, model/tham số tra tài liệu hiện hành thay vì hard-code, và luôn có xử lý lỗi + ước
+lượng token trước khi chạy hàng loạt.
 
 ---
 > Source: [huyphan13189/QE-AI](https://github.com/huyphan13189/QE-AI) — distributed by [TomeVault](https://tomevault.io).
