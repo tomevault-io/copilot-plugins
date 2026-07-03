@@ -1,0 +1,9 @@
+{
+  "name": "automattic--radical-pipelines",
+  "displayName": "radical-pipelines",
+  "description": "Set of tools to orchestrate autonomous development pipelines",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/radical-pipelines",
+  "skills": []
+}
