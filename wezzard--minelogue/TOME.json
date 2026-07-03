@@ -4,7 +4,7 @@
   "repo": "minelogue",
   "description": "Mine the dialogue out of your coding-agent session logs: timelines, transcripts, cross-examination, and (eventually) agent-as-judge evaluation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WeZZard/minelogue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T04:32:18Z"
+  "distributed_at": "2026-07-03T04:34:42Z"
 }
