@@ -153849,6 +153849,16 @@
       "description": "Download any podcast episode straight to your shell \u2014 Apple Podcasts, RSS, or xiaoyuzhou. Interactive picker, live progress, resumable."
     },
     {
+      "name": "lee-parnell--promptor",
+      "source": "./lee-parnell--promptor",
+      "description": "promptor"
+    },
+    {
+      "name": "lee-parnell--promptor",
+      "source": "./lee-parnell--promptor",
+      "description": "promptor"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -186787,6 +186797,11 @@
       "name": "clidey--deptrust",
       "source": "./clidey--deptrust",
       "description": "deptrust is a CLI that checks package versions for known vulnerabilities across npm, PyPI, crates.io, Go modules, RubyGems, NuGet, Maven, Packagist, pub.dev, CocoaPods, Hex.pm, Hackage, GitHub Actions"
+    },
+    {
+      "name": "cleversnail--ai-comic-video-generator",
+      "source": "./cleversnail--ai-comic-video-generator",
+      "description": "AI\u6f2b\u5267\u751f\u6210\u5e73\u53f0\uff0c\u652f\u6301\u81ea\u5b9a\u4e49\u5404\u4e2a\u73af\u8282\u7684\u5927\u6a21\u578bapikey"
     },
     {
       "name": "lightninglabs--lnget",
