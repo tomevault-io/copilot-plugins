@@ -1,0 +1,44 @@
+{
+  "name": "claude-science-api-bridge",
+  "owner": "Jyx0208",
+  "repo": "claude-science-api-bridge",
+  "description": "\u8ba9 Claude Science \u5b89\u5168\u63a5\u5165 DeepSeek\u3001OpenAI\u3001\u7845\u57fa\u6d41\u52a8 Kimi \u7b49\u7b2c\u4e09\u65b9 API \u7684\u672c\u5730\u4ee3\u7406\uff1b\u652f\u6301 agent \u81ea\u52a8\u914d\u7f6e\u548c\u89c6\u89c9\u6a21\u578b\u8bfb\u56fe\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jyx0208/claude-science-api-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-03T06:33:52Z"
+}
