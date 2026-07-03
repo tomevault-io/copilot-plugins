@@ -1,0 +1,9 @@
+{
+  "name": "openshift-hyperfleet--kartograph",
+  "displayName": "kartograph",
+  "description": "Enterprise-Ready Bi-Temporal Knowledge Graph Platform",
+  "version": "1.0.0",
+  "author": "openshift-hyperfleet",
+  "homepage": "https://github.com/openshift-hyperfleet/kartograph",
+  "skills": []
+}
