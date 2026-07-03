@@ -2,8 +2,8 @@
   "name": "oc-codex-multi-auth",
   "owner": "ndycode",
   "repo": "oc-codex-multi-auth",
-  "description": "OpenCode plugin for using ChatGPT Plus/Pro in GPT-5 and Codex workflows with OAuth login, multi-account rotation, failover, and guided setup",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "oc-codex-multi-auth",
+      "path": "skills/oc-codex-setup/SKILL.md",
+      "github_url": "https://github.com/ndycode/oc-codex-multi-auth/tree/main/skills/oc-codex-setup/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ndycode/oc-codex-multi-auth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T04:00:50Z"
+  "distributed_at": "2026-07-03T16:03:22Z"
 }
