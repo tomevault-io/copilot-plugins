@@ -1,0 +1,30 @@
+## acad-plugin
+
+> AutoCAD .NET plugin development (AutoCAD 2027 / Civil 3D / Plant 3D)
+
+
+# AutoCAD .NET Plugin Development
+
+Refer to `CLAUDE.md` in this repository root for the full skill set.
+
+## Quick Reference
+
+- Framework: `net10.0-windows`, platform `win-x64`
+- AutoCAD.NET: `26.0.0` | Civil3D.NET: `13.9.628` | Plant 3D: local SDK (no NuGet)
+- Scaffold: `dotnet new acad` (AutoCAD/Plant base), `dotnet new civil` (Civil 3D)
+- Plant SDK path: `PLANT_SDK` env var / MSBuild property — must be set by user
+- AutoCAD install: `ACAD_HOME` env var — prompt user if not set
+- **Remove the skill pack:** see `CLAUDE.md` → *Uninstalling the skill pack* (templates + which folders to delete)
+
+## Skills in this repo
+
+- `skills/scaffold.md` — step-by-step project creation
+- `skills/autocad-api.md` — base AutoCAD .NET patterns
+- `skills/civil3d-api.md` — Civil 3D API patterns
+- `skills/plant3d-api.md` — Plant 3D world map + full API patterns
+- `skills/code-sleuth.md` — finding SDK samples and API references
+- `skills/learnings.md` — append-only log of new discoveries (do NOT edit main skill files directly)
+
+---
+> Source: [ADN-DevTech/acad-api-skill](https://github.com/ADN-DevTech/acad-api-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-03 -->
