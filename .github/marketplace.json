@@ -153624,6 +153624,16 @@
       "description": "Precise decimal arithmetic for Kotlin Multiplatform projects, shipping high-precision operations across every target"
     },
     {
+      "name": "xiaoleiy--podpull",
+      "source": "./xiaoleiy--podpull",
+      "description": "Download any podcast episode straight to your shell \u2014 Apple Podcasts, RSS, or xiaoyuzhou. Interactive picker, live progress, resumable."
+    },
+    {
+      "name": "xiaoleiy--podpull",
+      "source": "./xiaoleiy--podpull",
+      "description": "Download any podcast episode straight to your shell \u2014 Apple Podcasts, RSS, or xiaoyuzhou. Interactive picker, live progress, resumable."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
