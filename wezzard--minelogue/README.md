@@ -7,11 +7,11 @@ Mine the dialogue out of your coding-agent session logs: timelines, transcripts,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [WeZZard/minelogue](https://github.com/WeZZard/minelogue).
+Original source: `CLAUDE.md` in [WeZZard/minelogue](https://github.com/WeZZard/minelogue).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
