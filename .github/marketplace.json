@@ -233009,6 +233009,56 @@
       "description": "Expert Advisor automatis\u00e9 pour Prop Firms (FTMO, E8, FundingPips, The5ers)"
     },
     {
+      "name": "plasma-ai--wiki",
+      "source": "./plasma-ai--wiki",
+      "description": "Indexed knowledge bases with command-line tools for agents."
+    },
+    {
+      "name": "plasma-ai--wiki",
+      "source": "./plasma-ai--wiki",
+      "description": "Indexed knowledge bases with command-line tools for agents."
+    },
+    {
+      "name": "simple-agent-lab--autotrainess",
+      "source": "./simple-agent-lab--autotrainess",
+      "description": "Repo for \"AutoTrainess: Teaching Language Models to Improve Language Models Autonomously\""
+    },
+    {
+      "name": "afborda--synthfin-core",
+      "source": "./afborda--synthfin-core",
+      "description": "synthfin-core"
+    },
+    {
+      "name": "openshift-hyperfleet--kartograph",
+      "source": "./openshift-hyperfleet--kartograph",
+      "description": "Enterprise-Ready Bi-Temporal Knowledge Graph Platform"
+    },
+    {
+      "name": "afborda--synthfin-core",
+      "source": "./afborda--synthfin-core",
+      "description": "synthfin-core"
+    },
+    {
+      "name": "giantswarm--mcp-oauth",
+      "source": "./giantswarm--mcp-oauth",
+      "description": "OAuth 2.1 Authorization Server library for Model Context Protocol (MCP) servers"
+    },
+    {
+      "name": "giantswarm--mcp-oauth",
+      "source": "./giantswarm--mcp-oauth",
+      "description": "OAuth 2.1 Authorization Server library for Model Context Protocol (MCP) servers"
+    },
+    {
+      "name": "giantswarm--mcp-oauth",
+      "source": "./giantswarm--mcp-oauth",
+      "description": "OAuth 2.1 Authorization Server library for Model Context Protocol (MCP) servers"
+    },
+    {
+      "name": "giantswarm--mcp-oauth",
+      "source": "./giantswarm--mcp-oauth",
+      "description": "OAuth 2.1 Authorization Server library for Model Context Protocol (MCP) servers"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -252362,6 +252412,116 @@
       "name": "rahulsethi--sapdataspheremcp",
       "source": "./rahulsethi--sapdataspheremcp",
       "description": "MCP Server for SAP Datasphere"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "domala81--resume-autopilot",
+      "source": "./domala81--resume-autopilot",
+      "description": "resume-autopilot"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "zeke--skills",
+      "source": "./zeke--skills",
+      "description": "A catalog of public agent skill packages I maintain and use"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
+    },
+    {
+      "name": "huyphan13189--qe-ai",
+      "source": "./huyphan13189--qe-ai",
+      "description": "QE-AI"
     },
     {
       "name": "cheerhuan--save-your-token",
