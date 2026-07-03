@@ -1,0 +1,9 @@
+{
+  "name": "mynameistito--oc-usage-limits-plugin",
+  "displayName": "oc-usage-limits-plugin",
+  "description": "OpenCode TUI plugin for usage limits of AI Providers",
+  "version": "1.0.0",
+  "author": "mynameistito",
+  "homepage": "https://github.com/mynameistito/oc-usage-limits-plugin",
+  "skills": []
+}
