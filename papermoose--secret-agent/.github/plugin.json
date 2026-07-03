@@ -1,0 +1,9 @@
+{
+  "name": "papermoose--secret-agent",
+  "displayName": "secret-agent",
+  "description": "A CLI vault that keeps secrets out of AI agent traces",
+  "version": "1.0.0",
+  "author": "paperMoose",
+  "homepage": "https://github.com/paperMoose/secret-agent",
+  "skills": []
+}
