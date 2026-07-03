@@ -1,0 +1,9 @@
+{
+  "name": "dextune--kakao-x-termux",
+  "displayName": "kakao-x-termux",
+  "description": "KakaoTalk x Termux",
+  "version": "1.0.0",
+  "author": "dextune",
+  "homepage": "https://github.com/dextune/kakao-x-termux",
+  "skills": []
+}
