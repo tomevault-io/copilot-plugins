@@ -1,90 +1,49 @@
-## praman
+## tests
 
-> Praman v1.0 — SAP UI5 Test Automation Platform for Playwright
+> Praman test writing rules — Vitest unit tests and Playwright integration tests
 
 
-# Praman v1.0 Rules
+# Test Rules
 
-## Architecture
+## Unit Tests (Vitest)
 
-- 5-layer: Core Infrastructure → Bridge Adapters → Typed Proxy → Fixtures → AI
-- Single npm package `playwright-praman` with sub-path exports
-- Lower layers NEVER import from higher layers
-
-## Code Rules
-
-- TypeScript strict mode — no `any`, no `as unknown as T`
-- ESM only in source (`import`, never `require`)
-- All public APIs: TSDoc with `@example` tag
-- Module size ≤ 300 LOC
-- Use pino logger — NEVER `console.log`
-- All errors extend `PramanError` with `code`, `attempted`, `retryable`, `suggestions[]`
-- All relative imports include `.js` extension
-- Node builtins use `node:` prefix (`node:path`, `node:fs`)
-- Config is `Readonly<PramanConfig>` — never mutate
-- Path aliases: `#core/*`, `#bridge/*`, `#proxy/*`, `#fixtures/*`
-
-## Cross-Platform
-
-- Always use `node:path` methods — never hardcoded `/` or `\`
-- Always use `node:fs/promises` for async file operations
-- No bash-only npm scripts — use Node.js built-ins
-- Dual ESM+CJS build: `npm run check:exports` validates export map
-
-## Naming
-
-- Files: kebab-case (`bridge-error.ts`)
-- Types: PascalCase, no `I` prefix (`BridgeAdapter`)
-- Functions: camelCase (`findControl`)
-- Constants: UPPER_CASE (`MAX_RETRY_COUNT`)
-- Error codes: `ERR_SCOPE_DESCRIPTION`
-- Booleans: `is/has/can/should` prefix
-
-## Import Order
-
-1. Node built-ins (`node:path`)
-2. External packages (`zod`, `pino`)
-3. Internal (`#core/`, `#bridge/`, `#proxy/`)
-4. Parent (`../`)
-5. Sibling (`./`)
-
-## Testing
-
-- Unit: Vitest, hermetic (no network), `*.test.ts`
-- Integration: Playwright, `*.spec.ts`, use `test.step()`
-- NEVER use `page.waitForTimeout()` — use `waitForUI5Stable()`
+- File pattern: `*.test.ts`
+- Hermetic: no network, no SAP system
+- Use `describe` / `it` pattern
+- Mock bridge with typed test doubles from `tests/helpers/`
 - Coverage ≥ 90% statements, ≥ 85% branches
 
-## Error Pattern
+## Integration Tests (Playwright)
+
+- File pattern: `*.spec.ts`
+- Use `test.step()` for each logical step
+- NEVER use `page.waitForTimeout()` — use `waitForUI5Stable()`
+- Require SAP credentials in environment
+
+## Correct Pattern
 
 ```typescript
-throw new ControlError({
-  code: 'ERR_CONTROL_NOT_FOUND',
-  message: `Control not found: ${selector}`,
-  attempted: `Find control: ${JSON.stringify(selector)}`,
-  retryable: true,
-  suggestions: ['Verify control ID', 'Check page loaded'],
+import { describe, expect, it, vi } from 'vitest';
+
+describe('MyModule', () => {
+  it('should handle the expected case', () => {
+    const result = myFunction(input);
+    expect(result).toBe(expected);
+  });
+
+  it('should throw PramanError on failure', () => {
+    expect(() => myFunction(badInput)).toThrow(PramanError);
+  });
 });
 ```
 
-## 7 Mandatory Rules (SAP Test Generation)
+## Forbidden in Tests
 
-1. `import { test, expect } from 'playwright-praman'` ONLY
-2. Praman fixtures for ALL UI5 elements — NEVER `page.click('#__...')`
-3. Playwright native ONLY for verified non-UI5 elements
-4. Auth in seed — NEVER `sapAuth.login()` in test body
-5. `setValue()` + `fireChange()` + `waitForUI5()` for every input
-6. `searchOpenDialogs: true` for dialog controls
-7. TSDoc compliance header in every generated test
-
-## Commands
-
-- `npm run lint` — ESLint (0 errors, 0 warnings)
-- `npm run typecheck` — tsc --noEmit
-- `npm run test:unit` — Vitest
-- `npm run build` — tsup (ESM + CJS)
-- `npm run check:exports` — attw export validation
-- `npm run ci` — full pipeline
+- `any` type assertions
+- `console.log` (use test assertions)
+- `page.waitForTimeout()` (use `waitForUI5Stable()`)
+- Raw `throw new Error()` (use typed error subclass)
+- `require()` in test source (ESM only)
 
 ---
 > Source: [mrkanitkar/playwright-praman](https://github.com/mrkanitkar/playwright-praman) — distributed by [TomeVault](https://tomevault.io).
