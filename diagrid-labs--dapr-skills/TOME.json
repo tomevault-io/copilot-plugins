@@ -4,7 +4,7 @@
   "repo": "dapr-skills",
   "description": "A set of Claude Code skills to speed up the creation of Dapr Workflow applications",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/diagrid-labs/dapr-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-03T02:41:39Z"
+  "distributed_at": "2026-07-03T02:42:07Z"
 }
