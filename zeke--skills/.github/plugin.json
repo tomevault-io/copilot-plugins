@@ -1,0 +1,9 @@
+{
+  "name": "zeke--skills",
+  "displayName": "skills",
+  "description": "A catalog of public agent skill packages I maintain and use",
+  "version": "1.0.0",
+  "author": "zeke",
+  "homepage": "https://github.com/zeke/skills",
+  "skills": []
+}
