@@ -1,0 +1,9 @@
+{
+  "name": "btravstack--unthrown",
+  "displayName": "unthrown",
+  "description": "Explicit errors as values for TypeScript \u2014 with a separate defect channel for the unexpected and qualification enforced at every boundary.",
+  "version": "1.0.0",
+  "author": "btravstack",
+  "homepage": "https://github.com/btravstack/unthrown",
+  "skills": []
+}
