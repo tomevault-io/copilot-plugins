@@ -1,0 +1,9 @@
+{
+  "name": "mason369--ai-rvc",
+  "displayName": "AI-RVC",
+  "description": "\u4e00\u952e AI \u7ffb\u5531 (One-click AI Cover Generation)\uff1aAI \u68c0\u7d22\u5f0f\u58f0\u97f3\u8f6c\u6362\u5de5\u5177 - AI Retrieval-based Voice Conversion (RVC) toolkit with efficient training and inference pipelines",
+  "version": "1.0.0",
+  "author": "mason369",
+  "homepage": "https://github.com/mason369/AI-RVC",
+  "skills": []
+}
