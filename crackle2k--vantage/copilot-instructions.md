@@ -1,117 +1,73 @@
 ## vantage
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Project instructions for OpenAI Codex when working with the Vantage repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Project instructions for OpenAI Codex when working with the Vantage repository.
 
 ## Project Overview
 
-Vantage is a trust-first local business discovery app that ranks businesses by verified activity, credibility-weighted reviews, and recency. It is a full-stack app with a React/TypeScript frontend and a FastAPI/Python backend, deployed to Vercel.
+Vantage is a trust-first local business discovery platform. It ranks businesses by verified activity, credibility-weighted reviews, and recency via a Live Visibility Score (LVS). Ranking is earned, never bought — business claiming has zero effect on LVS (architecturally enforced).
 
 ## Commands
 
-### Backend
-
-```bash
-# Create and activate virtual environment
-python -m venv .venv
-source .venv/Scripts/activate  # Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run dev server (from repo root)
-uvicorn backend.main:app --reload
-# Backend runs on http://localhost:8000
-```
-
-### Frontend
-
-```bash
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-# Frontend runs on http://localhost:5173
-
-# Lint
-npm run lint
-
-# Build
-npm run build
-```
+- **Backend dev:** `cargo run -p vantage-backend --bin vantage` (runs on :8000)
+- **Frontend dev:** `cd frontend && npm run dev` (runs on :5173)
+- **Check backend:** `cargo check`
+- **Format backend:** `cargo fmt --all`
+- **Install frontend:** `cd frontend && npm install`
+- **Lint frontend:** `cd frontend && npm run lint`
+- **Build frontend:** `cd frontend && npm run build`
 
 ## Architecture
 
-### Full-Stack Layout
+- **Backend:** Rust + Axum at `backend/` — routers in `src/routes/`, business logic in `src/services/`, models in `src/models/`
+- **Frontend:** React 19 + TypeScript + Vite at `frontend/src/` — pages in `pages/`, components in `components/`, contexts in `contexts/`
+- **Serverless wrapper:** `api/index.rs` (Vercel Rust entry point)
+- **Database/Auth/Storage/Realtime:** Supabase is the single source of truth. MongoDB has been removed from runtime dependencies.
 
-```
-/
-├── backend/         # FastAPI app (local dev / uvicorn)
-│   ├── main.py      # App factory, CORS, route mounting
-│   ├── config.py    # Settings from .env (JWT, MongoDB, Google APIs)
-│   ├── database/    # Motor async MongoDB connection + index setup
-│   ├── models/      # Pydantic request/response models
-│   ├── routes/      # FastAPI routers (one file per domain)
-│   └── services/    # Business logic (ranking, geo, Google Places, scoring)
-├── api/
-│   └── index.py     # Thin Vercel serverless wrapper around backend app
-├── frontend/src/
-│   ├── main.tsx     # React root: GoogleOAuthProvider, Router, AuthContext, ThemeContext
-│   ├── api.ts       # Central fetch client; resolves base URL by environment
-│   ├── pages/       # One component per route
-│   ├── components/  # Shared UI and feature components
-│   ├── contexts/    # AuthContext (JWT + Google OAuth state), ThemeContext
-│   └── hooks/       # useSavedBusinesses and other custom hooks
-└── vercel.json      # Routes /api/* → serverless function; SPA fallback
-```
+## Key Files
 
-### Backend API Routes
+- `backend/src/lib.rs` — App factory, CORS, route mounting
+- `backend/src/config.rs` — Environment variable settings (Supabase Auth/JWT, Google, reCAPTCHA, Stripe)
+- `backend/src/services/visibility_score.rs` — Live Visibility Score (LVS) engine
+- `backend/src/routes/discovery.rs` — Discovery route and match scoring
+- `frontend/src/api.ts` — Central fetch client (env-aware base URL)
+- `frontend/src/contexts/AuthContext.tsx` — Supabase cookie-session and Google OAuth state
+- `vercel.json` — Routes /api/* to serverless; SPA fallback
 
-Mounted under `/api/` prefix in `backend/main.py`:
+## Conventions
 
-| Router module | Path prefix |
-|---|---|
-| auth | `/api/auth` |
-| businesses | `/api/businesses` |
-| reviews | `/api/reviews` |
-| deals | `/api/deals` |
-| claims | `/api/claims` |
-| subscriptions | `/api/subscriptions` |
-| activity | `/api/activity` |
-| discovery | `/api/discovery` |
-| saved | `/api/saved` |
-| users | `/api/users` |
+- **Rust:** snake_case, async/await with Tokio, Axum extractors, Supabase/PostgREST helpers
+- **TypeScript:** camelCase, React functional components, Tailwind CSS 4 utility classes
+- **Commits:** Conventional Commits format — `<type>(<scope>): <description>` (see `docs/COMMIT.md`)
+- **Formatting:** Prettier config at `.prettierrc` (single quotes, no semicolons, trailing comma: none, 80 char width)
+- **Linting:** ESLint flat config at `frontend/eslint.config.js`
 
-### Key Architectural Decisions
+## Constraints
 
-- **Demo mode**: `config.py` exposes `DEMO_MODE` flag; `database/document_store.py` seeds from `data/demo_businesses.json` when enabled. Routes fall back to demo data if Supabase document storage is unreachable (`DatabaseUnavailableError`).
-- **Ranking**: `services/visibility_score.py` and `services/match_score.py` compute per-business scores used by `routes/discovery.py`.
-- **Google Places**: `services/google_places.py` enriches business data; results are cached in the `geo_cache` MongoDB collection.
-- **Auth flow**: Frontend stores JWT in context (`AuthContext`). Backend issues JWTs via `routes/auth.py` using PyJWT. Google OAuth is handled both client-side (`@react-oauth/google`) and server-side (`google-auth`).
-- **Frontend API client**: `frontend/src/api.ts` automatically picks the correct base URL (`localhost:8000` for dev, relative `/api` for Vercel production).
+- **Never** modify LVS calculation to favor claimed businesses — this is an architectural invariant
+- **Never** commit `.env` files, API keys, or secrets — use environment variables
+- **Never** add Rust dependencies without checking the workspace `Cargo.lock`
+- **Always** use async patterns in backend code (Tokio, async Supabase/PostgREST calls, async route handlers)
+- **Always** resolve base URL through `frontend/src/api.ts` — never hardcode API URLs in components
 
-### MongoDB Collections
+## Restricted Areas
 
-`users`, `businesses`, `reviews`, `deals`, `claims`, `checkins`, `activity_feed`, `owner_posts`, `credibility`, `subscriptions`, `visits`, `geo_cache`, `api_usage_log`, `saved`
+- `backend/src/config.rs` — Contains env var mappings; changes may break deployment
+- `api/index.rs` — Thin Vercel wrapper; do not add business logic here
+- `backend/src/db/` — Supabase connection/client setup; changes require API, auth, and RLS review
+- `scripts/supabase/migrations/` — Applied migrations; never modify, only add new ones
 
-## Commit Conventions
+## Verification
 
-Follow the Conventional Commits format (see `COMMIT.md`):
-
-```
-<type>(<scope>): <description>
-```
-
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `build`, `chore`
-
-Breaking changes: append `!` to the type or add `BREAKING CHANGE:` footer.
+After making changes:
+1. Backend: run `cargo check`
+2. Frontend: run `cd frontend && npm run lint` and fix any issues
+3. Frontend: run `cd frontend && npm run build` to confirm clean production build
+4. Check that API routes match the mounting in `backend/src/lib.rs`
 
 ---
-> Source: [Crackle2K/vantage](https://github.com/Crackle2K/vantage) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+> Source: [crackle2k/vantage](https://github.com/crackle2k/vantage) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-03 -->
