@@ -1,0 +1,9 @@
+{
+  "name": "plasma-ai--wiki",
+  "displayName": "wiki",
+  "description": "Indexed knowledge bases with command-line tools for agents.",
+  "version": "1.0.0",
+  "author": "plasma-ai",
+  "homepage": "https://github.com/plasma-ai/wiki",
+  "skills": []
+}
