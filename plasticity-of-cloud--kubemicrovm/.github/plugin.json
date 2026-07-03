@@ -1,0 +1,9 @@
+{
+  "name": "plasticity-of-cloud--kubemicrovm",
+  "displayName": "KubeMicroVM",
+  "description": "The first community Kubernetes controller for AWS Lambda MicroVMs, with JOSDK, Quarkus and GraalVM",
+  "version": "1.0.0",
+  "author": "plasticity-of-cloud",
+  "homepage": "https://github.com/plasticity-of-cloud/KubeMicroVM",
+  "skills": []
+}
