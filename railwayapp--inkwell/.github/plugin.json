@@ -1,0 +1,9 @@
+{
+  "name": "railwayapp--inkwell",
+  "displayName": "inkwell",
+  "description": "Inkwell is a markdown editor and renderer for React with an extensible plugin system.",
+  "version": "1.0.0",
+  "author": "railwayapp",
+  "homepage": "https://github.com/railwayapp/inkwell",
+  "skills": []
+}
