@@ -1,0 +1,9 @@
+{
+  "name": "modus-lisp--modus",
+  "displayName": "modus",
+  "description": "bare metal lisp for sovereign computing in the infinite zero-day future",
+  "version": "1.0.0",
+  "author": "modus-lisp",
+  "homepage": "https://github.com/modus-lisp/modus",
+  "skills": []
+}
