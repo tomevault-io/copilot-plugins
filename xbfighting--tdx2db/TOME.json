@@ -1,0 +1,44 @@
+{
+  "name": "tdx2db",
+  "owner": "xbfighting",
+  "repo": "tdx2db",
+  "description": "\u5feb\u901f\u62e5\u6709\u4e00\u4e2aA\u80a1\u91cf\u5316\u6570\u636e\u5e93\uff0c\u5305\u542b\u65e5\u7ebf\u548c\u591a\u79cd\u5206\u949f\u7ebf\u5386\u53f2\u6570\u636e\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xbfighting/tdx2db",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T06:30:50Z"
+}
