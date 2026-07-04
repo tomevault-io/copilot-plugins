@@ -4,7 +4,7 @@
   "repo": "nexus-architect",
   "description": "Unified system architecture agent for Claude Code. 36 skills across 9 categories for legacy refactoring, greenfield ScalarDB design, and consulting deliverables.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wfukatsu/nexus-architect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T08:45:48Z"
+  "distributed_at": "2026-07-04T08:49:14Z"
 }
