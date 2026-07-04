@@ -1,0 +1,9 @@
+{
+  "name": "acedatacloud--seedancemcp",
+  "displayName": "SeedanceMCP",
+  "description": "MCP server for ByteDance Seedance video generation via Ace Data Cloud.",
+  "version": "1.0.0",
+  "author": "AceDataCloud",
+  "homepage": "https://github.com/AceDataCloud/SeedanceMCP",
+  "skills": []
+}
