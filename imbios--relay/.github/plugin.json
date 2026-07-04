@@ -1,0 +1,9 @@
+{
+  "name": "imbios--relay",
+  "displayName": "relay",
+  "description": "Universal AI API proxy \u2014 hot-switch between any LLM provider (GitHub Copilot, OpenAI, Anthropic, Z.AI, MiniMax, DeepSeek, Groq, Ollama, and more) from any AI coding agent (Claude Code, ForgeCode, Open",
+  "version": "1.0.0",
+  "author": "ImBIOS",
+  "homepage": "https://github.com/ImBIOS/relay",
+  "skills": []
+}
