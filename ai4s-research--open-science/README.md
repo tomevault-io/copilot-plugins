@@ -7,11 +7,11 @@ Open Science — an open AI workbench for scientists. Open-source alternative to
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ai4s-research/open-science](https://github.com/ai4s-research/open-science).
+Original source: `CLAUDE.md` in [ai4s-research/open-science](https://github.com/ai4s-research/open-science).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
