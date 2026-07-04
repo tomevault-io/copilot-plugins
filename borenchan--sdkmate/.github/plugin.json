@@ -1,0 +1,9 @@
+{
+  "name": "borenchan--sdkmate",
+  "displayName": "sdkmate",
+  "description": "An SDK version manager for full-stack engineers",
+  "version": "1.0.0",
+  "author": "borenchan",
+  "homepage": "https://github.com/borenchan/sdkmate",
+  "skills": []
+}
