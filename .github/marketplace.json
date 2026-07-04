@@ -5594,6 +5594,16 @@
       "description": "headplane"
     },
     {
+      "name": "off-grid-ai--off-grid-ai-mobile",
+      "source": "./off-grid-ai--off-grid-ai-mobile",
+      "description": "The Swiss Army Knife of Offline AI. Chat, Speak, and Generate Images - Privacy First, Zero Internet. Download an LLM and use it on your mobile device. No data ever leaves your phone. Supports text-to-"
+    },
+    {
+      "name": "off-grid-ai--off-grid-ai-mobile",
+      "source": "./off-grid-ai--off-grid-ai-mobile",
+      "description": "The Swiss Army Knife of Offline AI. Chat, Speak, and Generate Images - Privacy First, Zero Internet. Download an LLM and use it on your mobile device. No data ever leaves your phone. Supports text-to-"
+    },
+    {
       "name": "greensock--gsap-skills",
       "source": "./greensock--gsap-skills",
       "description": "Official AI skills for GSAP. These skills teach AI coding agents how to correctly use GSAP (GreenSock Animation Platform), including best practices, common animation patterns, and plugin usage."
@@ -112919,6 +112929,11 @@
       "description": "Local-first Rust/GPUI workspace for running coding agents side by side: real terminal panes, live status, worktree review, read-only MCP, and local orchestration."
     },
     {
+      "name": "off-grid-ai--off-grid-ai-desktop",
+      "source": "./off-grid-ai--off-grid-ai-desktop",
+      "description": "Off Grid AI \u2014 private, on-device AI. Run open models (text, vision, image, voice) locally through one OpenAI-compatible gateway. No cloud, no accounts, no API keys."
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -178529,6 +178544,11 @@
       "description": "High-performance .NET 10 terminal stack with a backend-neutral Avalonia core (RoyalTerminal.Avalonia), framebuffer shader support, official native Ghostty VT integration (libghostty-vt), and a separat"
     },
     {
+      "name": "banyango--margarita",
+      "source": "./banyango--margarita",
+      "description": "Deterministic AI Workflows with an AI programming language. (Writing Agents should be as easy as writing markdown!)"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -187562,6 +187582,11 @@
       "name": "thurbeen--thurbox",
       "source": "./thurbeen--thurbox",
       "description": "TUI for agentic code orchestration"
+    },
+    {
+      "name": "justicekb--justicekb-simple-loop-claw",
+      "source": "./justicekb--justicekb-simple-loop-claw",
+      "description": "JUSTICEKB-Simple-LOOP-CLAW"
     },
     {
       "name": "lightninglabs--lnget",
