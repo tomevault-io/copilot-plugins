@@ -1,0 +1,9 @@
+{
+  "name": "ceorkm--kratos-cli",
+  "displayName": "kratos-cli",
+  "description": "Persistent memory for AI coding agents \u2014 CLI-first, encrypted, local",
+  "version": "1.0.0",
+  "author": "ceorkm",
+  "homepage": "https://github.com/ceorkm/kratos-cli",
+  "skills": []
+}
