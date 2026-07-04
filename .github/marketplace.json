@@ -85204,6 +85204,11 @@
       "description": "gem"
     },
     {
+      "name": "ammaarreshi--generals-mac-ios-ipad",
+      "source": "./ammaarreshi--generals-mac-ios-ipad",
+      "description": "Command & Conquer Generals: Zero Hour running natively on macOS, iPhone & iPad \u2014 real engine (EA GPL v3 source, via GeneralsX), DXVK/MoltenVK renderer, RTS touch controls. No game assets included."
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
