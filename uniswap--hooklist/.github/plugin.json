@@ -1,0 +1,9 @@
+{
+  "name": "uniswap--hooklist",
+  "displayName": "hooklist",
+  "description": "Uniswap V4 hooks registry",
+  "version": "1.0.0",
+  "author": "Uniswap",
+  "homepage": "https://github.com/Uniswap/hooklist",
+  "skills": []
+}
