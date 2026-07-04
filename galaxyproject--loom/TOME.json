@@ -4,7 +4,7 @@
   "repo": "loom",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/galaxyproject/loom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T12:39:37Z"
+  "distributed_at": "2026-07-04T12:40:06Z"
 }
