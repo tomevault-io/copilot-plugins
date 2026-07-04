@@ -1,0 +1,9 @@
+{
+  "name": "deeplink-org--probing",
+  "displayName": "probing",
+  "description": "Dynamic Performance Profiler for Distributed AI",
+  "version": "1.0.0",
+  "author": "DeepLink-org",
+  "homepage": "https://github.com/DeepLink-org/probing",
+  "skills": []
+}
