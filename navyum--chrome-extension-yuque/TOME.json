@@ -1,0 +1,44 @@
+{
+  "name": "chrome-extension-yuque",
+  "owner": "Navyum",
+  "repo": "chrome-extension-yuque",
+  "description": "\u8bed\u96c0\u6587\u6863\u6279\u91cf\u5bfc\u51fa\u5230\u672c\u5730\u3002\u6240\u89c1\u5373\u53ef\u4e0b\u8f7d\u3002\u652f\u6301\u6536\u85cf\u6587\u4ef6\u5bfc\u51fa\u3002\u5e55\u5e03\u6587\u6863\u6279\u91cf\u5bfc\u51fa\u5230\u672c\u5730\u3002\u652f\u6301Markdown\u683c\u5f0f\uff0c\u65b9\u4fbf\u8fc1\u79fbAI\u7b14\u8bb0\u3001obsidian\u7b49\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Navyum/chrome-extension-yuque",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T22:58:06Z"
+}
