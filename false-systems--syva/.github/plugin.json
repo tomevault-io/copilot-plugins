@@ -1,0 +1,9 @@
+{
+  "name": "false-systems--syva",
+  "displayName": "syva",
+  "description": "Kernel-level eBPF enforcement for existing Kubernetes clusters. 7 LSM hooks watch every open, exec, kill, ptrace, and cgroup move \u2014 no runtime replacement needed.",
+  "version": "1.0.0",
+  "author": "false-systems",
+  "homepage": "https://github.com/false-systems/syva",
+  "skills": []
+}
