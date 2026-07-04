@@ -1,0 +1,9 @@
+{
+  "name": "agiletec-inc--cmd-ime",
+  "displayName": "cmd-ime",
+  "description": "Lightweight macOS app for switching input methods with Command keys (Rust + Tauri)",
+  "version": "1.0.0",
+  "author": "agiletec-inc",
+  "homepage": "https://github.com/agiletec-inc/cmd-ime",
+  "skills": []
+}
