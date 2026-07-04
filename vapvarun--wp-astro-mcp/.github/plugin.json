@@ -1,0 +1,9 @@
+{
+  "name": "vapvarun--wp-astro-mcp",
+  "displayName": "wp-astro-mcp",
+  "description": "Headless WordPress MCP server \u2014 adds an Astro frontend to any WordPress site. Multi-site support, content sync, and GitHub publishing.",
+  "version": "1.0.0",
+  "author": "vapvarun",
+  "homepage": "https://github.com/vapvarun/wp-astro-mcp",
+  "skills": []
+}
