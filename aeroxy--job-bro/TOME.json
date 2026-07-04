@@ -4,7 +4,7 @@
   "repo": "job-bro",
   "description": "AI-powered LinkedIn job posting analyzer Chrome extension.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aeroxy/job-bro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T06:57:35Z"
+  "distributed_at": "2026-07-04T07:07:16Z"
 }
