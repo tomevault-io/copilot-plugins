@@ -1,0 +1,9 @@
+{
+  "name": "rhecosystemappeng--agentic-plugins",
+  "displayName": "agentic-plugins",
+  "description": "Red Hat Ecosystem Engineering - Agentic Collections",
+  "version": "1.0.0",
+  "author": "RHEcosystemAppEng",
+  "homepage": "https://github.com/RHEcosystemAppEng/agentic-plugins",
+  "skills": []
+}
