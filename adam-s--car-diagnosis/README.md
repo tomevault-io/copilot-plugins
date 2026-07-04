@@ -7,11 +7,11 @@ Diagnose a car fault from its sound — an honest, end-to-end audio-ML pipeline 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [adam-s/car-diagnosis](https://github.com/adam-s/car-diagnosis).
+Original source: `CLAUDE.md` in [adam-s/car-diagnosis](https://github.com/adam-s/car-diagnosis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
