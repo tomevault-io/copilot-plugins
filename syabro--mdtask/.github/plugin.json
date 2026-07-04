@@ -1,0 +1,9 @@
+{
+  "name": "syabro--mdtask",
+  "displayName": "mdtask",
+  "description": "The spec-driven development system where specs and tasks live in your repo and never drift from the code.",
+  "version": "1.0.0",
+  "author": "syabro",
+  "homepage": "https://github.com/syabro/mdtask",
+  "skills": []
+}
