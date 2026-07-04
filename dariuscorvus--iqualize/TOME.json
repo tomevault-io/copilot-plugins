@@ -1,6 +1,6 @@
 {
   "name": "iqualize",
-  "owner": "DariusCorvus",
+  "owner": "dariuscorvus",
   "repo": "iqualize",
   "description": "macOS system-wide parametric EQ with real-time spectrum analyzer. Built in a day because it shouldn't need to exist. Native macOS system-wide parametric EQ \u2014 CATap, no virtual audio drivers, no Electron, no paywall.",
   "type": "config",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/DariusCorvus/iqualize",
+  "source_url": "https://github.com/dariuscorvus/iqualize",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T19:36:23Z"
+  "distributed_at": "2026-07-04T06:44:18Z"
 }
