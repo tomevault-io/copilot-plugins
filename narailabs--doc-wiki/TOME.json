@@ -4,7 +4,7 @@
   "repo": "doc-wiki",
   "description": "Documentation wiki generator + maintainer \u2014 Claude Code skill + agents + TypeScript helpers",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/narailabs/doc-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T01:32:22Z"
+  "distributed_at": "2026-07-04T01:33:21Z"
 }
