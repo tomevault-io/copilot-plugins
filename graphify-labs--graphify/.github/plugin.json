@@ -1,0 +1,9 @@
+{
+  "name": "graphify-labs--graphify",
+  "displayName": "graphify",
+  "description": "AI coding assistant skill (Claude Code, Codex, OpenCode, Cursor, Gemini CLI, and more). Turn any folder of code, SQL schemas, R scripts, shell scripts, docs, papers, images, or videos into a queryable",
+  "version": "1.0.0",
+  "author": "Graphify-Labs",
+  "homepage": "https://github.com/Graphify-Labs/graphify",
+  "skills": []
+}
