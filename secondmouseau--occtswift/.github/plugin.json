@@ -1,0 +1,9 @@
+{
+  "name": "secondmouseau--occtswift",
+  "displayName": "OCCTSwift",
+  "description": "Swift wrapper for OpenCASCADE Technology (OCCT) - B-Rep solid modeling for iOS/macOS",
+  "version": "1.0.0",
+  "author": "SecondMouseAU",
+  "homepage": "https://github.com/SecondMouseAU/OCCTSwift",
+  "skills": []
+}
