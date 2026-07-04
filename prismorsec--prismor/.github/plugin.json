@@ -1,0 +1,9 @@
+{
+  "name": "prismorsec--prismor",
+  "displayName": "prismor",
+  "description": "Runtime security for Agents. Blocks dangerous commands, prevent secret leaks, stop prompt injection, gate risky package installs and visibility and control over tool calls.",
+  "version": "1.0.0",
+  "author": "PrismorSec",
+  "homepage": "https://github.com/PrismorSec/prismor",
+  "skills": []
+}
