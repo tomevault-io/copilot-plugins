@@ -1,0 +1,9 @@
+{
+  "name": "hmakt99--akf",
+  "displayName": "AKF",
+  "description": "Trust metadata for AI agents \u2014 a stamp costs ~15 tokens, re-verifying costs 15,000. Agents stamp what they verify; the next agent runs 'akf check' and builds on it. pip install akf",
+  "version": "1.0.0",
+  "author": "HMAKT99",
+  "homepage": "https://github.com/HMAKT99/AKF",
+  "skills": []
+}
