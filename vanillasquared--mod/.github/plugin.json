@@ -1,0 +1,9 @@
+{
+  "name": "vanillasquared--mod",
+  "displayName": "Mod",
+  "description": "A Fabric combat and progression overhaul that keeps Minecraft close to vanilla while expanding weapons, armor, enchantments, and combat utility.",
+  "version": "1.0.0",
+  "author": "VanillaSquared",
+  "homepage": "https://github.com/VanillaSquared/Mod",
+  "skills": []
+}
