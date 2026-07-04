@@ -1,0 +1,9 @@
+{
+  "name": "hereon-institutems--oasis",
+  "displayName": "OASiS",
+  "description": "OASiS \u2014 an open-source multi-physics and multi-code framework for verified computer simulations. Model Context Protocol (MCP) server connecting AI coding agents to 8 finite element solvers (FEniCSx, d",
+  "version": "1.0.0",
+  "author": "Hereon-InstituteMS",
+  "homepage": "https://github.com/Hereon-InstituteMS/OASiS",
+  "skills": []
+}
