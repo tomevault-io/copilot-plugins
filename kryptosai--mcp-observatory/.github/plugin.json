@@ -1,0 +1,9 @@
+{
+  "name": "kryptosai--mcp-observatory",
+  "displayName": "mcp-observatory",
+  "description": "Test, secure, and monitor MCP servers before agents depend on them.",
+  "version": "1.0.0",
+  "author": "KryptosAI",
+  "homepage": "https://github.com/KryptosAI/mcp-observatory",
+  "skills": []
+}
