@@ -4,7 +4,7 @@
   "repo": "runwisp",
   "description": "Cron job manager + process supervisor in a single binary. Web dashboard, TUI, retries, failure notifications. crond/supervisord replacement",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/runwisp/runwisp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T06:46:45Z"
+  "distributed_at": "2026-07-04T06:59:09Z"
 }
