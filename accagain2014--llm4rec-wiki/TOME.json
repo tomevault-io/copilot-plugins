@@ -1,0 +1,44 @@
+{
+  "name": "LLM4Rec_wiki",
+  "owner": "Accagain2014",
+  "repo": "LLM4Rec_wiki",
+  "description": "Automated LLM4Rec Wiki Project Driven by Large Language Models. LLM\u9a71\u52a8\u7ef4\u62a4\u7684LLM4Rec\u77e5\u8bc6\u5e93.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Accagain2014/LLM4Rec_wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T06:54:38Z"
+}
