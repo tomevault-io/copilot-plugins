@@ -4,7 +4,7 @@
   "repo": "peta-pixel-nusantara",
   "description": "Peta Indonesia 8bit / pixel map of Indonesia with 38 provinces and 519 ADM2 regions, rendered as an interactive canvas grid.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RamaAditya49/peta-pixel-nusantara",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T22:30:54Z"
+  "distributed_at": "2026-07-04T22:33:48Z"
 }
