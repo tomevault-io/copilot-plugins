@@ -1,0 +1,44 @@
+{
+  "name": "UZI-SKILL-astock",
+  "owner": "gosinkx",
+  "repo": "UZI-SKILL-astock",
+  "description": "UZI-Skill \u4f18\u5316\u7248\uff1aA\u80a1\u6570\u636e\u6e90\u66ff\u6362\u4e3a\u817e\u8baf\u76f4\u8fde + \u4e1c\u8d22\u9650\u6d41 + \u65b0\u6d6a\u8d22\u62a5fallback (V3.10)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gosinkx/UZI-SKILL-astock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T14:37:51Z"
+}
