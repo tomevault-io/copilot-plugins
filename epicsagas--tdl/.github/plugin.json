@@ -1,0 +1,9 @@
+{
+  "name": "epicsagas--tdl",
+  "displayName": "tdl",
+  "description": "Tidal music downloader with lossless quality \u2014 CLI, TUI, and GUI. Download FLAC/MQA tracks from Tidal HiFi",
+  "version": "1.0.0",
+  "author": "epicsagas",
+  "homepage": "https://github.com/epicsagas/tdl",
+  "skills": []
+}
