@@ -1,0 +1,44 @@
+{
+  "name": "wandersort",
+  "owner": "jammutkarsh",
+  "repo": "wandersort",
+  "description": "WanderSort is a local-first media organiser that scans your chaotic pile of photos and videos \u2014 scattered across hard drives, SD cards, and phone dumps \u2014 and structures them into a clean, human-readable folder tree you actually understand.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jammutkarsh/wandersort",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T12:48:29Z"
+}
