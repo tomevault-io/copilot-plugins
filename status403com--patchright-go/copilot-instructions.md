@@ -1,0 +1,102 @@
+## patchright-go
+
+> Unofficial community Go library for Patchright - a patched Playwright driver that evades bot detection. Not affiliated with or endorsed by the Patchright project. If an official Go binding is released, it takes priority. This is maintained for our own use with no long-term maintenance commitment.
+
+# patchright-go
+
+Unofficial community Go library for Patchright - a patched Playwright driver that evades bot detection. Not affiliated with or endorsed by the Patchright project. If an official Go binding is released, it takes priority. This is maintained for our own use with no long-term maintenance commitment.
+
+## Project overview
+
+This is a fork of [playwright-go](https://github.com/playwright-community/playwright-go) modified to use the [Patchright](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright) driver instead of standard Playwright. The Go client communicates with the Patchright Node.js server over stdio JSON pipes, which in turn controls Chromium via CDP.
+
+### Architecture
+
+```
+Go client (patchright-go) → stdio JSON pipe → Patchright Node.js server → CDP → Chromium
+```
+
+The driver is assembled from two npm packages:
+- `patchright` - the wrapper package with cli.js
+- `patchright-core` - the actual patched Playwright driver
+
+### Key differences from playwright-go
+
+- Package name: `patchright` (not `playwright`)
+- Downloads `patchright` + `patchright-core` npm packages instead of `playwright-core`
+- All `Evaluate` methods pass `isolatedContext: true` by default (avoids Runtime.enable leak)
+- Init script injection via route interception with `patchrightInitScript` flag
+- Stealth API: `NewStealthPage`/`NewStealthContext` auto-patch HeadlessChrome UA
+- `PatchHeadlessUA()` helper transforms HeadlessChrome → Chrome, version → major.0.0.0
+- Chromium-only (Firefox/WebKit not supported by Patchright)
+- Env vars use `PATCHRIGHT_` prefix (not `PLAYWRIGHT_`)
+- Config can be passed as struct fields instead of env vars
+
+## Development workflow
+
+1. **Plan** - Create a plan for the change, get user review before coding
+2. **Code** - Implement the change
+3. **Review** - Review for bugs, performance issues (high-throughput, memory usage)
+4. **Branch** - Create a new branch for the change
+5. **Commit & Push** - Commit with clear messages, push to remote
+6. **PR** - Create PR and merge to main after review
+
+## Build & test
+
+```bash
+go build ./...
+go vet ./...
+go test -short ./...           # unit tests only
+go test ./... -timeout 120s    # includes integration tests (downloads driver + browser)
+```
+
+## File structure
+
+- `run.go` - Driver download, installation, and startup
+- `playwright.go` - Main `Patchright` type definition
+- `stealth.go` - `NewStealthPage`/`NewStealthContext`, `PatchHeadlessUA` helper
+- `connection.go` - JSON pipe communication with the Node.js driver
+- `transport.go` - stdio pipe transport (uses sync.Once for Close)
+- `frame.go` - Frame evaluation methods (with `isolatedContext: true`)
+- `worker.go` - Worker evaluation methods (with `isolatedContext: true`)
+- `js_handle.go` - JSHandle evaluation methods (with `isolatedContext: true`)
+- `page.go` - Page methods, init script route injection with `patchrightInitScript`
+- `browser_context.go` - Context methods, context-level route injection
+- `route.go` - Route handling, `patchrightInitScript` forwarding
+- `request.go` - Request overrides including `PatchrightInitScript`
+- `browser_type.go` - Browser launch and context creation
+- `generated-*.go` - Auto-generated types from Playwright protocol (+ Patchright additions)
+- `cmd/patchright/` - CLI tool for driver/browser management
+
+## Key env vars (all optional, struct fields preferred)
+
+| Env var | Purpose |
+|---------|---------|
+| `PATCHRIGHT_DRIVER_PATH` | Override driver directory (default: `<cwd>/bin/patchright-driver`) |
+| `PLAYWRIGHT_BROWSERS_PATH` | Override browser download directory (default: `~/.cache/ms-playwright`) |
+| `PATCHRIGHT_NODEJS_PATH` | Use preinstalled Node.js |
+| `PATCHRIGHT_CLI_PATH` | Override cli.js path |
+| `PATCHRIGHT_NPM_REGISTRY` | npm registry mirror |
+| `NODE_MIRROR` | Node.js download mirror |
+
+Note: `Run()` is idempotent — it auto-installs the driver and browsers if missing. No separate `Install()` call is required.
+
+## Updating to new Patchright version
+
+1. Update `patchrightCliVersion` in `run.go`
+2. Check if `nodeVersion` needs updating
+3. Regenerate types if Playwright protocol changed (run `scripts/generate-api.sh`)
+4. Run all tests
+
+## Credits
+
+- [Patchright](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright) by [Vinyzu](https://github.com/Kaliiiiiiiiii-Vinyzu) - the patched Playwright driver
+- [patchright-python](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-python) by [Vinyzu](https://github.com/Kaliiiiiiiiii-Vinyzu) - Python language binding
+- [patchright-nodejs](https://github.com/Kaliiiiiiiiii-Vinyzu/patchright-nodejs) by [Vinyzu](https://github.com/Kaliiiiiiiiii-Vinyzu) - Node.js language binding
+- [patchright-dotnet](https://github.com/DevEnterpriseSoftware/patchright-dotnet) by [DevEnterpriseSoftware](https://github.com/DevEnterpriseSoftware) - .NET language binding (community)
+- [playwright-go](https://github.com/playwright-community/playwright-go) by [Max Schmitt](https://github.com/mxschmitt) - the Go Playwright library this is forked from
+- [Playwright](https://playwright.dev/) by Microsoft - the upstream browser automation framework
+
+---
+> Source: [status403com/patchright-go](https://github.com/status403com/patchright-go) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
