@@ -1,0 +1,14 @@
+{
+  "name": "porcupine-md--jonggrang",
+  "displayName": "jonggrang",
+  "description": "AI agents write code fast. Too fast. Jonggrang makes sure they don't make a mess while doing it.",
+  "version": "1.0.0",
+  "author": "porcupine-md",
+  "homepage": "https://github.com/porcupine-md/jonggrang",
+  "skills": [
+    {
+      "name": "kubernetes-deployment",
+      "description": ""
+    }
+  ]
+}
