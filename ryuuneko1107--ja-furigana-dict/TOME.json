@@ -1,0 +1,44 @@
+{
+  "name": "ja-furigana-dict",
+  "owner": "RyuuNeko1107",
+  "repo": "ja-furigana-dict",
+  "description": "\u30b3\u30df\u30e5\u30cb\u30c6\u30a3\u904b\u55b6\u306e\u65e5\u672c\u8a9e\u30d5\u30ea\u30ac\u30ca\u8f9e\u66f8 (furigana \u30e9\u30a4\u30d6\u30e9\u30ea\u7528)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RyuuNeko1107/ja-furigana-dict",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T23:00:11Z"
+}
