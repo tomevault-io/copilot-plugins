@@ -1,0 +1,9 @@
+{
+  "name": "wfukatsu--nexus-architect",
+  "displayName": "nexus-architect",
+  "description": "Unified system architecture agent for Claude Code. 36 skills across 9 categories for legacy refactoring, greenfield ScalarDB design, and consulting deliverables.",
+  "version": "1.0.0",
+  "author": "wfukatsu",
+  "homepage": "https://github.com/wfukatsu/nexus-architect",
+  "skills": []
+}
