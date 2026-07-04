@@ -1,0 +1,9 @@
+{
+  "name": "sattyamjjain--agent-audit-kit",
+  "displayName": "agent-audit-kit",
+  "description": "Static scanner for MCP-connected AI agent pipelines \u2014 225 rules across 11 categories, 12 compliance frameworks, OWASP Agentic 10/10 + MCP 10/10, GitHub Action, SARIF, public CVE-to-rule ledger.",
+  "version": "1.0.0",
+  "author": "sattyamjjain",
+  "homepage": "https://github.com/sattyamjjain/agent-audit-kit",
+  "skills": []
+}
