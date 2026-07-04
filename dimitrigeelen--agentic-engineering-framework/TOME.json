@@ -4,7 +4,7 @@
   "repo": "agentic-engineering-framework",
   "description": "Governance framework for AI coding agents \u2014 enforces task traceability, structural gates, session continuity, and audit trails for Claude Code, Cursor, and Copilot.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DimitriGeelen/agentic-engineering-framework",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T08:36:58Z"
+  "distributed_at": "2026-07-04T08:37:27Z"
 }
