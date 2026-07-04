@@ -1,0 +1,9 @@
+{
+  "name": "m13v--s4l",
+  "displayName": "s4l",
+  "description": "Automated social posting pipeline for Reddit, X/Twitter, and LinkedIn",
+  "version": "1.0.0",
+  "author": "m13v",
+  "homepage": "https://github.com/m13v/s4l",
+  "skills": []
+}
