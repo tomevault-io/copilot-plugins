@@ -1,0 +1,9 @@
+{
+  "name": "alessiorubicini--apple-foundation-models-agent-skill",
+  "displayName": "Apple-Foundation-Models-Agent-Skill",
+  "description": "Add expert Apple Foundation Models guidance to your AI coding tool (Agent Skills open format)",
+  "version": "1.0.0",
+  "author": "alessiorubicini",
+  "homepage": "https://github.com/alessiorubicini/Apple-Foundation-Models-Agent-Skill",
+  "skills": []
+}
