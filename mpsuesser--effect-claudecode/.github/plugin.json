@@ -1,0 +1,9 @@
+{
+  "name": "mpsuesser--effect-claudecode",
+  "displayName": "effect-claudecode",
+  "description": "Effect v4 bindings for Claude Code's plugin primitives \u2014 hooks, skills, settings, MCP servers, frontmatter",
+  "version": "1.0.0",
+  "author": "mpsuesser",
+  "homepage": "https://github.com/mpsuesser/effect-claudecode",
+  "skills": []
+}
