@@ -1,0 +1,9 @@
+{
+  "name": "observal--observal",
+  "displayName": "Observal",
+  "description": "Observal is a local registry and analytics platform for your AI components.  Setup Observal, define the scope and share your Skills, MCPs and Agents.",
+  "version": "1.0.0",
+  "author": "Observal",
+  "homepage": "https://github.com/Observal/Observal",
+  "skills": []
+}
