@@ -1,0 +1,9 @@
+{
+  "name": "yuk1ty--herdr-spreader",
+  "displayName": "herdr-spreader",
+  "description": "Spin up your whole herdr workspace layout \u2014 tabs, panes, commands, and all \u2014 from a single YAML file.",
+  "version": "1.0.0",
+  "author": "yuk1ty",
+  "homepage": "https://github.com/yuk1ty/herdr-spreader",
+  "skills": []
+}
