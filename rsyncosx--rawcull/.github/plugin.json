@@ -1,0 +1,9 @@
+{
+  "name": "rsyncosx--rawcull",
+  "displayName": "RawCull",
+  "description": "Sony ARW culling app",
+  "version": "1.0.0",
+  "author": "rsyncOSX",
+  "homepage": "https://github.com/rsyncOSX/RawCull",
+  "skills": []
+}
