@@ -1,0 +1,9 @@
+{
+  "name": "cobusgreyling--llm-wiki",
+  "displayName": "llm-wiki",
+  "description": "A compounding knowledge base maintained by LLM agents \u2014 inspired by Karpathy's LLM Wiki pattern",
+  "version": "1.0.0",
+  "author": "cobusgreyling",
+  "homepage": "https://github.com/cobusgreyling/llm-wiki",
+  "skills": []
+}
