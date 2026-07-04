@@ -1,0 +1,9 @@
+{
+  "name": "smh01-mirrors--protonvpn-next-mirror",
+  "displayName": "ProtonVPN-Next-MIRROR",
+  "description": "Primary development on Codeberg - https://codeberg.org/SMH01/ProtonVPN-Next",
+  "version": "1.0.0",
+  "author": "SMH01-MIRRORS",
+  "homepage": "https://github.com/SMH01-MIRRORS/ProtonVPN-Next-MIRROR",
+  "skills": []
+}
