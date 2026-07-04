@@ -1,0 +1,9 @@
+{
+  "name": "christag--agency",
+  "displayName": "agency",
+  "description": "One dashboard for all your AI agents \u2014 manage teams across Claude Code, Codex, Gemini, Aider, and more. No database required.",
+  "version": "1.0.0",
+  "author": "christag",
+  "homepage": "https://github.com/christag/agency",
+  "skills": []
+}
