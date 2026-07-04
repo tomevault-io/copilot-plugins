@@ -1,0 +1,9 @@
+{
+  "name": "ocx-sh--ocx",
+  "displayName": "ocx",
+  "description": "A fast, cross-platform binary package manager built on OCI registries. Turn Docker Hub, GHCR, or any OCI-compliant registry into a binary distribution platform \u2014 zero extra infrastructure",
+  "version": "1.0.0",
+  "author": "ocx-sh",
+  "homepage": "https://github.com/ocx-sh/ocx",
+  "skills": []
+}
