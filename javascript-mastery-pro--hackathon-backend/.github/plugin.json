@@ -1,0 +1,9 @@
+{
+  "name": "javascript-mastery-pro--hackathon-backend",
+  "displayName": "Hackathon-backend",
+  "description": "A scalable backend API built with NestJS for managing hackathons. It seamlessly automates user auth, CRUD operations, project uploads, async processing, and email alerts with modern security.",
+  "version": "1.0.0",
+  "author": "JavaScript-Mastery-Pro",
+  "homepage": "https://github.com/JavaScript-Mastery-Pro/Hackathon-backend",
+  "skills": []
+}
