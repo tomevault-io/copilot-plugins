@@ -4,7 +4,7 @@
   "repo": "claude-caffeine",
   "description": "Keeps your Mac awake while Claude Code is working \u2014 even with the lid closed",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jmslau/claude-caffeine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T10:50:40Z"
+  "distributed_at": "2026-07-04T10:55:59Z"
 }
