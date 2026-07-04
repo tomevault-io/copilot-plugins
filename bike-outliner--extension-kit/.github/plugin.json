@@ -1,0 +1,9 @@
+{
+  "name": "bike-outliner--extension-kit",
+  "displayName": "extension-kit",
+  "description": "Build tooling and API types for Bike Outliner extensions",
+  "version": "1.0.0",
+  "author": "bike-outliner",
+  "homepage": "https://github.com/bike-outliner/extension-kit",
+  "skills": []
+}
