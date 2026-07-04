@@ -1,0 +1,44 @@
+{
+  "name": "zaroxi",
+  "owner": "ZaroxiHQ",
+  "repo": "zaroxi",
+  "description": "\ud83d\udcdd\u200b Zaroxi - modern lightweight next gen AI Collaborative text editor written in rust",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZaroxiHQ/zaroxi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T00:31:50Z"
+}
