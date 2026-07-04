@@ -1,0 +1,9 @@
+{
+  "name": "thomasdarimont--pgauthz",
+  "displayName": "pgauthz",
+  "description": "A pure PostgreSQL implementation of the Google Zanzibar / OpenFGA authorization model.",
+  "version": "1.0.0",
+  "author": "thomasdarimont",
+  "homepage": "https://github.com/thomasdarimont/pgauthz",
+  "skills": []
+}
