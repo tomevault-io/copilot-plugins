@@ -1,0 +1,9 @@
+{
+  "name": "ezbuilder--code-brain",
+  "displayName": "code-brain",
+  "description": "Persistent memory, BM25 code search, MCP tools, and hook guardrails for AI coding agents \u2014 Claude Code, Codex CLI & Antigravity. One local-first .ai/ layer per repo. No SaaS, no network on hot paths.",
+  "version": "1.0.0",
+  "author": "ezBuilder",
+  "homepage": "https://github.com/ezBuilder/code-brain",
+  "skills": []
+}
