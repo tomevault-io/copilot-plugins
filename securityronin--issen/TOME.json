@@ -1,0 +1,44 @@
+{
+  "name": "issen",
+  "owner": "SecurityRonin",
+  "repo": "issen",
+  "description": "Point it at disk + memory evidence; get a correlated, ATT&CK-mapped attack timeline. Rust DFIR orchestrator: one command ingests E01/EWF/VMDK/raw + memory dumps, parses NTFS/registry/EVTX/prefetch/LNK/SRUM/browser/Amcache + memory (processes, netstat, injection), correlates into a DuckDB super-timeline, scans threat-intel, and reports.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SecurityRonin/issen",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T08:56:35Z"
+}
