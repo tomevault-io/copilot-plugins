@@ -1,0 +1,9 @@
+{
+  "name": "vibber-ai--portmap",
+  "displayName": "portmap",
+  "description": "map names to localhost ports, made for agents and humans",
+  "version": "1.0.0",
+  "author": "vibber-ai",
+  "homepage": "https://github.com/vibber-ai/portmap",
+  "skills": []
+}
