@@ -1,0 +1,9 @@
+{
+  "name": "nitin27may--e-commerce-agents",
+  "displayName": "e-commerce-agents",
+  "description": "6 specialized AI agents collaborating via A2A protocol to power e-commerce \u2014 product discovery, orders, pricing, reviews, inventory & support. Built with Microsoft Agent Framework, FastAPI, Next.js, a",
+  "version": "1.0.0",
+  "author": "nitin27may",
+  "homepage": "https://github.com/nitin27may/e-commerce-agents",
+  "skills": []
+}
