@@ -107209,6 +107209,26 @@
       "description": "Generate standalone, publish-ready packages for 11 target languages from a single native library."
     },
     {
+      "name": "lowyshin--giip-fde-agent",
+      "source": "./lowyshin--giip-fde-agent",
+      "description": "giip-fde-agent"
+    },
+    {
+      "name": "lowyshin--giip-fde-agent",
+      "source": "./lowyshin--giip-fde-agent",
+      "description": "giip-fde-agent"
+    },
+    {
+      "name": "lowyshin--giip-fde-agent",
+      "source": "./lowyshin--giip-fde-agent",
+      "description": "giip-fde-agent"
+    },
+    {
+      "name": "lowyshin--giip-fde-agent",
+      "source": "./lowyshin--giip-fde-agent",
+      "description": "giip-fde-agent"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -120202,6 +120222,16 @@
       "name": "taeyoung96--mtd-map",
       "source": "./taeyoung96--mtd-map",
       "description": "[IROS 2026] MTD-Map: Single-Stage Long-Term LiDAR Map Maintenance Framework via Mixture Transition Distribution"
+    },
+    {
+      "name": "syabro--mdtask",
+      "source": "./syabro--mdtask",
+      "description": "The spec-driven development system where specs and tasks live in your repo and never drift from the code."
+    },
+    {
+      "name": "syabro--mdtask",
+      "source": "./syabro--mdtask",
+      "description": "The spec-driven development system where specs and tasks live in your repo and never drift from the code."
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -178549,6 +178579,11 @@
       "description": "Deterministic AI Workflows with an AI programming language. (Writing Agents should be as easy as writing markdown!)"
     },
     {
+      "name": "vanillasquared--mod",
+      "source": "./vanillasquared--mod",
+      "description": "A Fabric combat and progression overhaul that keeps Minecraft close to vanilla while expanding weapons, armor, enchantments, and combat utility."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -187587,6 +187622,11 @@
       "name": "justicekb--justicekb-simple-loop-claw",
       "source": "./justicekb--justicekb-simple-loop-claw",
       "description": "JUSTICEKB-Simple-LOOP-CLAW"
+    },
+    {
+      "name": "xtrafrancyz--glintwein",
+      "source": "./xtrafrancyz--glintwein",
+      "description": "UI framework for any Minecraft version. Fast shader-based renderer with msdf fonts, rounded corners and batching support."
     },
     {
       "name": "lightninglabs--lnget",
@@ -200917,6 +200957,16 @@
       "name": "galaxyproject--loom",
       "source": "./galaxyproject--loom",
       "description": "loom"
+    },
+    {
+      "name": "fullofcaffeine--reflaxe-rust",
+      "source": "./fullofcaffeine--reflaxe-rust",
+      "description": "Compile Haxe to mostly idiomatic Rust (not ready for consumption yet!)"
+    },
+    {
+      "name": "ryotat7--ge-demo-generator",
+      "source": "./ryotat7--ge-demo-generator",
+      "description": "ge-demo-generator"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -234864,6 +234914,41 @@
       "description": "the universal realtime, efficient agentic operating system to power future devices like smart glasses"
     },
     {
+      "name": "yuandaimaahao--aosp-harness-demo",
+      "source": "./yuandaimaahao--aosp-harness-demo",
+      "description": "AOSP \u6574\u673a\u6e90\u7801 Harness \u5de5\u7a0b\u63a2\u7d22"
+    },
+    {
+      "name": "narailabs--terminar",
+      "source": "./narailabs--terminar",
+      "description": "terminar"
+    },
+    {
+      "name": "milan0x--local-cloud-browser",
+      "source": "./milan0x--local-cloud-browser",
+      "description": "mac-Native AWS GUI, enables you to perform some fundamental actions without a CLI mess"
+    },
+    {
+      "name": "ero-cat--bento-homepage",
+      "source": "./ero-cat--bento-homepage",
+      "description": "A config-driven, liquid-glass styled personal homepage built with Next.js 16 + Tailwind CSS 4 + Framer Motion. Deployed as a fully static site on GitHub Pages."
+    },
+    {
+      "name": "savion--elegoo-rfid-editor",
+      "source": "./savion--elegoo-rfid-editor",
+      "description": "Web-based editor for Elegoo NTAG213 NFC spool tags"
+    },
+    {
+      "name": "clawddar--awesome-moltbook",
+      "source": "./clawddar--awesome-moltbook",
+      "description": "\ud83e\udd9e A curated list of projects, tools, agents, and resources in the MoltBook ecosystem"
+    },
+    {
+      "name": "donnchawp--immich-shared-library",
+      "source": "./donnchawp--immich-shared-library",
+      "description": "A Docker container that syncs face and ML data from one account to another for real partner sharing"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -254462,6 +254547,21 @@
       "name": "vovoronale--rehoboam-sensor-card",
       "source": "./vovoronale--rehoboam-sensor-card",
       "description": "A Home Assistant dashboard card for visualizing sensor history and anomaly limits as an animated 3D ring."
+    },
+    {
+      "name": "mizzy--peitho",
+      "source": "./mizzy--peitho",
+      "description": "peitho"
+    },
+    {
+      "name": "masonasons--fastsmrw",
+      "source": "./masonasons--fastsmrw",
+      "description": "A fast, accessible Mastodon/Bluesky client for blind users \u2014 C++ rewrite of FastSM with a portable core and a pure Win32 front end."
+    },
+    {
+      "name": "gosinkx--uzi-skill-astock",
+      "source": "./gosinkx--uzi-skill-astock",
+      "description": "UZI-Skill \u4f18\u5316\u7248\uff1aA\u80a1\u6570\u636e\u6e90\u66ff\u6362\u4e3a\u817e\u8baf\u76f4\u8fde + \u4e1c\u8d22\u9650\u6d41 + \u65b0\u6d6a\u8d22\u62a5fallback (V3.10)"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -377442,6 +377542,11 @@
       "name": "vamperd--robot-skill",
       "source": "./vamperd--robot-skill",
       "description": "robot-skill"
+    },
+    {
+      "name": "poly-demo--poly-frontend-c9358023",
+      "source": "./poly-demo--poly-frontend-c9358023",
+      "description": "poly-frontend-c9358023"
     }
   ]
 }
