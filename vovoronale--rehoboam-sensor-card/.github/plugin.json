@@ -1,0 +1,9 @@
+{
+  "name": "vovoronale--rehoboam-sensor-card",
+  "displayName": "rehoboam-sensor-card",
+  "description": "A Home Assistant dashboard card for visualizing sensor history and anomaly limits as an animated 3D ring.",
+  "version": "1.0.0",
+  "author": "Vovoronale",
+  "homepage": "https://github.com/Vovoronale/rehoboam-sensor-card",
+  "skills": []
+}
