@@ -7,11 +7,11 @@ Tidal music downloader with lossless quality — CLI, TUI, and GUI. Download FLA
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [epicsagas/tdl](https://github.com/epicsagas/tdl).
+Original source: `AGENTS.md` in [epicsagas/tdl](https://github.com/epicsagas/tdl).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
