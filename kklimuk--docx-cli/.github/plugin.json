@@ -1,0 +1,9 @@
+{
+  "name": "kklimuk--docx-cli",
+  "displayName": "docx-cli",
+  "description": "CLI for AI agents (Claude, Codex) to read, edit, and comment on .docx files with full format fidelity.",
+  "version": "1.0.0",
+  "author": "kklimuk",
+  "homepage": "https://github.com/kklimuk/docx-cli",
+  "skills": []
+}
