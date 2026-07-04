@@ -201004,6 +201004,11 @@
       "description": "A scalable backend API built with NestJS for managing hackathons. It seamlessly automates user auth, CRUD operations, project uploads, async processing, and email alerts with modern security."
     },
     {
+      "name": "2017yanr02--cuberoot-me",
+      "source": "./2017yanr02--cuberoot-me",
+      "description": "Modern speedcubing \u2014 Rubik's cube solvers, trainers, WCA stats. All in the browser."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
