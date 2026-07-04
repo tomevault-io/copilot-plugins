@@ -1,0 +1,81 @@
+{
+  "name": "Docker-Claude-Skill-Package",
+  "owner": "Impertio-Studio",
+  "repo": "Docker-Claude-Skill-Package",
+  "description": "22 deterministic Claude skills for Docker and Docker Compose. Dockerfile best practices, multi-stage builds, Compose orchestration, container security",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docker-errors-compose",
+      "path": "skills/source/docker-errors/docker-errors-compose",
+      "github_url": "https://github.com/Impertio-Studio/Docker-Claude-Skill-Package/tree/main/skills/source/docker-errors/docker-errors-compose",
+      "description": ""
+    },
+    {
+      "name": "docker-agents-generator",
+      "path": "skills/source/docker-agents/docker-agents-generator",
+      "github_url": "https://github.com/Impertio-Studio/Docker-Claude-Skill-Package/tree/main/skills/source/docker-agents/docker-agents-generator",
+      "description": ""
+    },
+    {
+      "name": "docker-syntax-compose-services",
+      "path": "skills/source/docker-syntax/docker-syntax-compose-services",
+      "github_url": "https://github.com/Impertio-Studio/Docker-Claude-Skill-Package/tree/main/skills/source/docker-syntax/docker-syntax-compose-services",
+      "description": ""
+    },
+    {
+      "name": "docker-impl-go-templates",
+      "path": "skills/source/docker-impl/docker-impl-go-templates",
+      "github_url": "https://github.com/Impertio-Studio/Docker-Claude-Skill-Package/tree/main/skills/source/docker-impl/docker-impl-go-templates",
+      "description": ""
+    },
+    {
+      "name": "docker-errors-runtime",
+      "path": "skills/source/docker-errors/docker-errors-runtime",
+      "github_url": "https://github.com/Impertio-Studio/Docker-Claude-Skill-Package/tree/main/skills/source/docker-errors/docker-errors-runtime",
+      "description": ""
+    },
+    {
+      "name": "docker-syntax-cli-containers",
+      "path": "skills/source/docker-syntax/docker-syntax-cli-containers",
+      "github_url": "https://github.com/Impertio-Studio/Docker-Claude-Skill-Package/tree/main/skills/source/docker-syntax/docker-syntax-cli-containers",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Impertio-Studio/Docker-Claude-Skill-Package",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T08:30:26Z"
+}
