@@ -80,5 +80,5 @@ If the app fails to launch ("can't be opened" error), debug and fix before proce
 - `Sources/iQualize/HelpWindowController.swift` — WKWebView-based Help window; intercepts link clicks to open them in the default browser
 
 ---
-> Source: [DariusCorvus/iqualize](https://github.com/DariusCorvus/iqualize) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
+> Source: [dariuscorvus/iqualize](https://github.com/dariuscorvus/iqualize) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
