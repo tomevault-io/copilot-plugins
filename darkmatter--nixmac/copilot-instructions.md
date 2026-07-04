@@ -1,46 +1,15 @@
-## native-orpc
+## native-state-package
 
-> oRPC and React Query for Rust ↔ TypeScript IPC in the native app
+> Where TypeScript state and data-fetching code lives
 
 
-# Rust ↔ TypeScript IPC — use oRPC
+# State and data fetching — `packages/state`
 
-All new Rust ↔ TypeScript communication must go through **oRPC** (fully typed end-to-end).
+TypeScript code for **state, data fetching, storage, and cache** belongs in **`packages/state`** (import: `@nixmac/state`).
 
-## Codegen (required after router changes)
-
-```bash
-cd apps/native && bun run gen:orpc
-```
-
-- Rust procedures: `apps/native/src-tauri/src/orpc/`
-- Generated TS bindings: `apps/native/src/ipc/orpc-bindings.ts` (do not edit)
-- Client + TanStack Query helpers: `apps/native/src/lib/orpc.ts`
-
-## Prefer React Query over `invoke()`
-
-oRPC integrates with **TanStack Query** via `orpc` helpers. This is the default for data that is fetched, cached, polled, or invalidated.
-
-```tsx
-// ✅ GOOD — cached, deduplicated, lifecycle-aware
-import { useQuery } from "@tanstack/react-query";
-import { orpc } from "@/lib/orpc";
-
-const { data } = useQuery(orpc.github.listRepos.queryOptions({ input: undefined }));
-```
-
-```ts
-// ❌ BAD — new feature wired through legacy invoke()
-import { invoke } from "@tauri-apps/api/core";
-await invoke("some_new_command");
-```
-
-- **`client`** — direct async calls for one-off/imperative flows (no cache needed).
-- **`orpc` + hooks** — anything that should behave like server state in React.
-
-Do **not** add new Zustand stores for global fetchable data — React Query is the cache. Even global async state belongs in query cache, not a hand-rolled store.
-
-Legacy `invoke()` in `apps/native/src/ipc/api.ts` is deprecated; migrate callers to oRPC when touching them.
+- Query hooks, selectors, and client-side projections live here — not scattered in `apps/native/src/components/`.
+- Server/async data from Rust: use oRPC + React Query (see `native-orpc` rule); wire hooks in `packages/state` when shared across views.
+- Existing Zustand slices (`viewmodel`, `ui`, `onboarding`) hold **client-side** and **event-projected** state only — do not extend them for new IPC fetch paths.
 
 ---
 > Source: [darkmatter/nixmac](https://github.com/darkmatter/nixmac) — distributed by [TomeVault](https://tomevault.io).
