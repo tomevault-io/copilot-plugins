@@ -1,0 +1,9 @@
+{
+  "name": "diegoguidaf--pulseweaver",
+  "displayName": "PulseWeaver",
+  "description": "Self-hosted forward-auth sidecar that gates your services by request IP + host \u2014 give family and friends per-user access without touching the apps behind your reverse proxy. Not authentication; a roam",
+  "version": "1.0.0",
+  "author": "DiegoGuidaF",
+  "homepage": "https://github.com/DiegoGuidaF/PulseWeaver",
+  "skills": []
+}
