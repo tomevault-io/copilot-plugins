@@ -1,0 +1,9 @@
+{
+  "name": "jentic--jentic-one",
+  "displayName": "jentic-one",
+  "description": "Self-hosted API execution layer that sits between your agent and the outside world. Your agent says what it wants to do. Jentic One handles the how \u2014 finding the right API, injecting credentials at ru",
+  "version": "1.0.0",
+  "author": "jentic",
+  "homepage": "https://github.com/jentic/jentic-one",
+  "skills": []
+}
