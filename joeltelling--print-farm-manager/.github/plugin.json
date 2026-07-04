@@ -1,0 +1,9 @@
+{
+  "name": "joeltelling--print-farm-manager",
+  "displayName": "print-farm-manager",
+  "description": "Self-hosted print farm manager for multi-brand 3D printer fleets \u2014 Prusa, Bambu, Elegoo, Klipper. Live fleet monitoring, automated job dispatch, no cloud.",
+  "version": "1.0.0",
+  "author": "joeltelling",
+  "homepage": "https://github.com/joeltelling/print-farm-manager",
+  "skills": []
+}
