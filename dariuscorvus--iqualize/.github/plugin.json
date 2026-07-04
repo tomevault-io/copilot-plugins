@@ -3,7 +3,7 @@
   "displayName": "iqualize",
   "description": "macOS system-wide parametric EQ with real-time spectrum analyzer. Built in a day because it shouldn't need to exist. Native macOS system-wide parametric EQ \u2014 CATap, no virtual audio drivers, no Electr",
   "version": "1.0.0",
-  "author": "DariusCorvus",
-  "homepage": "https://github.com/DariusCorvus/iqualize",
+  "author": "dariuscorvus",
+  "homepage": "https://github.com/dariuscorvus/iqualize",
   "skills": []
 }
