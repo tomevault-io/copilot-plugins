@@ -1,0 +1,9 @@
+{
+  "name": "mowglinext--mowglinext",
+  "displayName": "mowglinext",
+  "description": "MowgliNext \u2014 ROS2 autonomous robot mower monorepo (ROS2 stack, Docker, GUI, firmware)",
+  "version": "1.0.0",
+  "author": "mowglinext",
+  "homepage": "https://github.com/mowglinext/mowglinext",
+  "skills": []
+}
