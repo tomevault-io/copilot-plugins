@@ -4,7 +4,7 @@
   "repo": "squish",
   "description": "\u26a1\ufe0f The fastest way to run local LLMs on Apple Silicon \u2014 sub-second model loads, beats Ollama on throughput, tail latency, and full-response time. OpenAI/Ollama-compatible. No cloud, no API keys.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/konjoai/squish",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T10:43:52Z"
+  "distributed_at": "2026-07-04T10:46:17Z"
 }
