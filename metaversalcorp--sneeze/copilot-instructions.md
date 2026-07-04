@@ -1,0 +1,481 @@
+## project
+
+> Sneeze project context — MBE engine (static lib) consumed by a host metaverse browser application
+
+
+# OMBI — Open Metaverse Browser Initiative
+
+> **This file is a lightweight project overview.** Detailed module documentation lives in per-module `*.md` files alongside the source code. When you need to understand a module, read its `.md` file — not this file. This file covers project-wide concerns: what the project is, how to write code for it, and where to find things.
+
+### How to maintain `*.md` documentation
+
+All `*.md` files (this one and per-module docs) describe **what the system is right now** and **how to use it**. They are reference documents, not session logs.
+
+- **Rewrite, don't append.** When code changes affect a module's shape, rewrite the affected section from scratch. Do not add paragraphs explaining what changed or why.
+- **Delete stale content.** If a class was renamed, the old name must not appear. If a method was removed, remove it from the doc. If something no longer exists, remove it entirely.
+- **No revision history.** Do not record what was deleted, what used to exist, what was refactored, or the history of decisions. The doc describes the current state only.
+- **Watch for the drift pattern.** The natural tendency is to append context after each change until the doc becomes an archaeological record. Resist this. After making code changes, re-read the `.md` and ask: "Does every line describe something that exists right now?" Delete everything that doesn't.
+
+### The `docs/` wiki (the public reference manual)
+
+`docs/` is a **separate body of documentation** from the per-module `src/**/*.md` files described above. It is a cohesive, navigable reference manual written for newcomers — evaluators, integrators, and contributors coming in cold — and is intended to be **published to the project wiki**. Do not confuse the two:
+
+- **`src/**/*.md`** — terse, per-module reference notes living beside the code. Treated as *unverified hints* (see below).
+- **`docs/**/*.md`** — the curated wiki. Prose-first, organized into five tiers, written from the code itself.
+
+**Authoring is AI-maintained, source-of-truth is the code.** These pages are written and kept current primarily by AI coding agents working directly from the source tree. The **single source of truth is the code** (`include/*.h` + the current `src/` implementation). The `src/**/*.md` notes, `OMB_Architecture_*.md`, and this `project.mdc` are *unverified hints* — when a hint and the code disagree, the code is right. Every page is written by reading the code, not by paraphrasing other docs.
+
+**Structure.** Five tiers, each a folder under `docs/` with an `index.md`:
+- **Overview** — what the OMB is, core vocabulary, the open standards Sneeze builds on.
+- **Architecture** — engine/host split, lifecycle, fabric loading, threading, trust & isolation, coding conventions.
+- **Systems** — one page per subsystem (engine, control, context, container, scene, network, storage, console, viewport, msf, persona, wasm, spirv, compute, xr, ui).
+- **API** — one folder per public header in `include/`, one page per class.
+- **Guides** — embedding, building, contributing.
+
+`docs/Home.md` is the landing page. `docs/STYLE.md` is the **authoring contract** (tiers, page template, front-matter schema, voice, the rule that the wiki never names a specific browser product or any application that embeds Sneeze — "the engine" / "a host application" only). Read `STYLE.md` before writing or editing any wiki page.
+
+**Front matter links each page to the code.** Every page begins with YAML front matter; two fields make the doc-to-code dependency explicit and checkable:
+
+```yaml
+sources:
+  - include/Scene.h
+  - src/context/scene/Scene.cpp
+verified: <commit-sha>
+```
+
+- **`sources`** — the repo-relative code files the page documents (hand-maintained).
+- **`verified`** — the commit the page was last checked against. Set this to the current `HEAD` when you write or re-verify a page.
+
+**Drift detection — `tools/DocDrift/`.** `tools/DocDrift/docdrift.py` (Python 3 stdlib only, read-only) is the mechanical half of the maintenance loop. For each page it runs `git log <verified>..HEAD -- <sources>` and flags any page whose listed sources changed since it was verified (or whose source was deleted). It never edits docs. Flags: `--strict` (exit non-zero on drift; default is warn-only), `--quiet`, `--docs DIR`. See `tools/DocDrift/README.md`.
+
+**The maintenance loop:** (1) run DocDrift; (2) open each flagged page and compare against current code — code wins; (3) fix the page and bump its `verified` to the current `HEAD`.
+
+**Known limitation:** `sources` is hand-maintained, so DocDrift catches changes to files a page *lists*, not coverage a page *forgot* to list. When you add a source file to a subsystem, add it to the relevant page's `sources`.
+
+**Automation / CI (the next step — for whoever owns publishing).** Two pieces are meant to live in CI:
+1. **Drift check** — run `python tools/DocDrift/docdrift.py` as a **warn-only** check (no `--strict`) so drift is surfaced on a pull request without blocking the merge. Promote to `--strict` later if the team wants a hard gate.
+2. **Wiki publish** — on merge to the main branch, a CI job syncs `docs/**/*.md` to the wiki. `docs/` in this repo stays the editable source; the wiki is a publish *target*. `docs/Home.md` is the landing page.
+
+   **Open decision (for Jim): which backend, which determines the transform.** The docs are deliberately nested (`docs/overview/...`, `docs/api/scene/SCENE.md`) with relative links between pages and per-page nav footers. How that maps depends on the wiki backend:
+   - **GitHub/GitLab repo wiki** (a separate `<repo>.wiki.git` repo) — pages are effectively *flat* and links use page names, not file paths. Publishing needs a **transform step**: flatten filenames (e.g. `api/scene/SCENE.md` → `API-Scene-SCENE`) and rewrite relative links to match, plus generate a `_Sidebar.md` for navigation. A CI job clones the wiki remote, runs the transform over `docs/`, and pushes.
+   - **Static-site generator** (MkDocs / Docusaurus / similar) deployed to Pages — maps the nested structure and relative links **~1:1**, no flattening, and adds search + a real nav tree. Usually the nicer result if the "wiki" can be a docs *site*. This is the recommended route if the team is open to it.
+   - **Confluence / other hosted wiki** — needs an API-based push (convert + upload per page) rather than a git push.
+
+   The pages were authored to stay portable across all of these (relative links, nav footers, `Home.md`), so the choice is open. **Next action when this is picked up:** confirm the backend, then build the merge-to-main workflow plus the matching transform/sidebar script (or SSG config). No transform is needed for the SSG route; the flatten+rewrite script is the deliverable for a repo-wiki route.
+
+**On the first commit of `docs/`:** every page currently carries `verified:` set to the commit that was `HEAD` while the wiki was authored, so DocDrift reports everything as current at that point. That commit becomes the baseline; once later commits land, re-running DocDrift tracks drift normally. No manual re-baselining is needed after the initial commit.
+
+## Overview
+
+**OMBI** (Open Metaverse Browser Initiative) is an organizational unit under the Metaverse Standards Forum. Its mission is to define and build a reference implementation of the Open Metaverse Browser (OMB).
+
+The project produces two components:
+
+- **Sneeze** — the Metaverse Browser Engine (MBE). A standalone, reusable engine library (static `.lib`). Analogous to Blink in the web browser world. All code lives in namespace `SNEEZE`. Owns all third-party dependencies and the engine modules that wrap them. Public API headers live in `include/` (consumed by the host application); private implementation headers live in `src/`. Another team could build a different metaverse browser on top of Sneeze without touching the host application.
+
+- **The host application** — the metaverse browser application built on Sneeze. The single `.exe`. Analogous to Chrome/Chromium. A thin application layer that consumes Sneeze: window management (`canvas/`), user chrome, and `main()`. Owns SDL3 (windowing/input is application-level, not engine-level). It is a separate repo (sibling directory) that compiles Sneeze inline via `add_subdirectory`. It is **not open source**.
+
+The OMB architecture is fully documented in `OMB_Architecture_4.md` (authoritative, version 4, 2026 Q2, maintained outside this repo).
+
+### MBE Core Abstractions
+
+Six industry-adopted open standards that abstract the underlying hardware:
+
+- **ANARI** — rendering abstraction (scene description, not GPU calls)
+- **SPIR-V Compute via Vox** — browser-internal GPU compute (GLSL → SPIR-V → Vox dispatches on Vulkan/DX12/Metal)
+- **SPIR-V** — GPU interchange format for graphics and compute shaders
+- **OpenXR** — device I/O abstraction for VR/AR
+- **WASM** — sandboxed execution for third-party service logic
+- **SMAP** — fabric connectivity and service driver layer (future)
+
+### Core Concepts
+
+- **Spatial Fabric** — a collection of services that together define a spatial environment
+- **Service** — a discrete unit of functionality within a spatial fabric
+- **SOM** (Scene Object Model) — the browser's internal scene graph (like the DOM for 3D)
+- **Proximity** — the primary discovery and connection mechanism, replacing URLs
+
+## Directory Structure
+
+```
+Sneeze/
+├── include/            Public API headers (Sneeze.h, Context.h, Console.h, Viewport.h, Network.h, Storage.h, Scene.h, Persona.h, Container.h, Msf.h)
+├── src/
+│   ├── CMakeLists.txt  Sneeze library target
+│   ├── cmake/          Find<Name>.cmake modules
+│   ├── sneeze/         Engine core (ENGINE, THREAD, Types) + engine-wide singletons
+│   │   ├── control/    Engine thread, agent pools, metronome, job queues (CONTROL, AGENT, POOL)
+│   │   ├── console/    Developer console (CONSOLE, STREAM, ENTRY, BLOCK)
+│   │   ├── network/    HTTP fetch + disk cache (NETWORK, CACHE, ASSET, FILE)
+│   │   └── storage/    Persistent JSON storage (STORAGE, SILO, UNIT)
+│   ├── context/        Per-context subsystems
+│   │   ├── Context.cpp CONTEXT (per-tab session; forwards Console/Network/Storage to ENGINE)
+│   │   ├── Container.cpp CONTAINER (runtime MSF manifestation, CID identity)
+│   │   ├── scene/      Scene Object Model (SCENE, FABRIC, NODE, MAP_OBJECT)
+│   │   ├── viewport/   Rendering + camera (VIEWPORT, RENDERER, ANARI, VIEW, GltfMesh glTF→renderer bridge)
+│   │   └── msf/        MSF/JWS signing + verification (MSF, CHAIN)
+│   ├── deps/           Dependency wrappers (wasm/, spirv/, xr/, ui/, compute/, gltf/, stb/)
+│   └── persona/        Local identity proxy (PERSONA)
+├── tests/              Test source + test data + WASM test modules
+├── tools/              SignMsf CLI, MsfViewer HTML viewer, HelloWasm
+├── deps/               Deps CMake project (standalone, never references src/)
+│   ├── CMakeLists.txt  All deps by default, -DDEP=<name> for CI
+│   ├── *.cmake         One ExternalProject_Add per dep
+│   ├── repos/          Shared source clones (gitignored)
+│   └── builds/         Per-platform per-config build+install trees (gitignored)
+├── builds/             Sneeze build output (single multi-config tree, gitignored)
+├── scripts/            Platform build drivers (only glue between deps and src)
+├── msvc/               Hand-maintained Visual Studio project (mirrors CMake)
+└── cmake/              Cross-compilation toolchain files
+```
+
+**No top-level `CMakeLists.txt`.** Deps and Sneeze are two fully independent CMake projects. Scripts are the only glue.
+
+## Module Documentation
+
+Each module has a `*.md` file with its own documentation. **Read these when you need to understand or modify a module.** They describe what the module is now and how to use its components.
+
+| Module | Documentation | Purpose |
+|--------|--------------|---------|
+| `src/sneeze/` | `Sneeze.md` | ENGINE lifecycle, THREAD base class, foundational types |
+| `src/sneeze/control/` | `Control.md` | Engine thread, agent pools, metronome, job queues (CONTROL, AGENT, POOL) |
+| `src/sneeze/console/` | `Console.md` | Engine-singleton developer console (CONSOLE, STREAM, ENTRY, BLOCK) |
+| `src/sneeze/network/` | `Network.md` | Engine-singleton HTTP fetch + disk cache (NETWORK, CACHE, ASSET, FILE) |
+| `src/sneeze/storage/` | `Storage.md` | Engine-singleton persistent JSON document storage (STORAGE, SILO, UNIT) |
+| `src/context/scene/` | `Scene.md` | Scene Object Model (SCENE, FABRIC, NODE, MAP_OBJECT) |
+| `src/context/viewport/` | `Viewport.md` | Rendering pipeline + camera (VIEWPORT, RENDERER, ANARI, VIEW) |
+| `src/context/msf/` | `MsfFile.md` | MSF/JWS signing, verification, trust model (MSF, CHAIN) |
+| `src/deps/wasm/` | `Wasm.md` | WASM sandbox (WASM_RUNTIME, WASM_STORE, WASM_INSTANCE) |
+| `src/deps/spirv/` | `SpvPipeline.md` | SPIR-V validation |
+| `src/deps/xr/` | `XrRuntime.md` | OpenXR device abstraction |
+| `src/deps/ui/` | `Ui_Context.md` | RmlUi HTML/CSS UI toolkit (UI_CONTEXT, UI_PANEL, UI_RENDER) |
+| `src/deps/compute/` | `ComputeDispatch.md` | SPIR-V kernel embedding + GPU dispatch via Vox |
+| `src/deps/gltf/` | `Gltf.md` | glTF/GLB loader (fastgltf wrapper) → CPU `GLTF_MODEL` |
+| `src/persona/` | `Persona.md` | Local identity proxy |
+| `src/cmake/` | `Cmake.md` | CMake find-modules and build configuration |
+
+## Subsystem Ownership Model (Phase 3 — Engine Singletons)
+
+A three-phase rearchitecture moved the three disk-backed subsystems from per-context to engine-singleton:
+
+- **Phase 1** — split each subsystem into a singleton-ready engine object plus a per-container handle: `NETWORK`+`CACHE`, `CONSOLE`+`STREAM`, `STORAGE`+`SILO`. `NETWORK`'s single `m_mxNetwork` was split into three independent locks, now named `m_mxNetwork_Reset` (reset/staleness record + asset-index counter + `network_reset.json`), `m_mxNetwork_Cache` (cache registry), `m_mxNetwork_Asset` (asset map).
+- **Phase 2** — reorganized the on-disk folder layout (see the On-disk cache layout gotcha) and simplified filenames (`container.json`, `organization.json`, etc.). Identity-prefix derivation centralized in `CONTAINER` path accessors (`Path_Permanent_All/_Org`, `Path_Temporary_All/_Org`; `CID::Key_All/_Org`).
+- **Phase 3 (DONE for all three)** — `NETWORK`, `CONSOLE`, `STORAGE` are now engine-owned singletons living under `src/sneeze/{network,console,storage}/`. Constructed with `ENGINE*` (not `CONTEXT*`), instantiated in `ENGINE::Impl::Initialize` after `InitializePaths()`, deleted in `~ENGINE::Impl`. Accessed via `ENGINE::Network()/Console()/Storage()`; `CONTEXT::Network()/Console()/Storage()` forward to the engine. Public accessors declared in `include/Sneeze.h`.
+
+Key Phase 3 consequences and rules:
+- **Host resolution.** A singleton can't cache one context's host. Per-container handles self-resolve it: `pCache`/`pStream`/`pSilo` route callbacks via `Container()->Context()->Host()`. `INETWORK_IMPL::Host()`, `ISTORAGE_IMPL::Host()`, and `CONSOLE::Context()` were removed.
+- **Close signatures take the container.** `NETWORK::Cache_Close(CONTAINER*, CACHE*)` and `STORAGE::Silo_Close(CONTAINER*, SILO*)` — the container is passed in because the subsystem no longer stores one. Call sites: `CONTAINER::Close()` and the tests.
+- **Engine-wide dedup.** `NETWORK::m_umpAsset` (by pathname) and `STORAGE::m_umpUnit` (by pathname) now dedupe across *all* contexts. Benefit: eliminates two tabs writing the same on-disk file concurrently. Trade: same-file state is now live-shared across tabs.
+- **Enum is engine-wide.** `Cache_Enum` (added this phase, symmetric with `Stream_Enum`/`Silo_Enum`), plus the existing entry/silo enums, now span every context. A per-context inspector must filter — enumerate via `Context → Containers → its one CACHE/STREAM/SILO` instead of the global subsystem.
+- **Removed.** `NETWORK::Clear()`/the old network-wide `Reset()` (a network-wide clear is meaningless for a singleton). The new context-scoped clear is the keyed `NETWORK::Reset(sKey)` + `CONTEXT::Reset()`/`Key_Reset()` (see Item 2 detail).
+- **`~Impl` drains direct-delete.** Engine-teardown leak nets delete leaked handles/units/assets directly (no host callback — owning contexts are already gone). Note the container collections: `m_umpStream`/`m_umpUnit` are maps (delete `pair.second`), `m_apEntry` holds `shared_ptr` (just `clear()`).
+- **Dependency ctors.** `WASM_RUNTIME`, `SPV_PIPELINE`, `XR_RUNTIME`, `UI_CONTEXT` now take `ENGINE*` in their constructors (not in `Initialize()`).
+- **Storage notification rename (Item 1 below).** `ICONTEXT::OnStorageSiloChanged` was **removed**; storage now has a two-tier callback set mirroring network's Cache(handle)/File(leaf) tiers: `OnStorageSilo{Created,Deleted}` (handle, fired by `STORAGE` in `Silo_Open/Close`) and `OnStorageUnit{Created,Changed,Deleted}` (leaf, fired by `UNIT` in `Unit.cpp`). All in `include/Sneeze.h`.
+
+## Post-Phase-3 Jobs (Dean's 5-item list)
+
+After Phase 3 landed, Dean enumerated five remaining jobs. Status:
+
+1. **Storage notifications fan out across contexts — DONE.** See detail below.
+2. **Reset/Clear the cache — DONE (code complete, 71/71 network tests pass; not yet committed).** See detail below. This job subsumed and resolved the previously-deferred "Rules relocation" and "`m_nNextAssetIx` rehoming" items.
+3. **GLB files — DONE (code complete, Debug build clean, gltf tests pass; not yet committed).** See detail below.
+4. **Home page — NOT STARTED.**
+5. **Documentation — NOT STARTED** (includes the big wiki reconciliation below).
+
+### Item 1 detail — Storage change-notification fan-out (DONE)
+
+The problem: with engine-wide `UNIT` dedup, an org-scoped `UNIT` is shared by silos across containers/contexts, but the old `OnStorageSiloChanged` fired only on the *writing* silo — other contexts sharing the same unit were never told.
+
+Design (chosen by Dean, mirrors network exactly): network's notification carrier is `FILE`, which holds an `ICACHE_IMPL*` and shuttles it between `CACHE` and `ASSET`; `ASSET` (shared) drives the fan-out loop over `m_apFile`, and each `FILE::Notify_Changed` owns its host call. Storage has **no carrier** between `SILO` and `UNIT` — `UNIT` holds `SILO*` directly — so no `ISILO_IMPL` interface was needed. Instead:
+- `UNIT::Impl` gained `m_apSilo` (vector<SILO*>) populated in `Open(pSilo)` / cleared in `Close(pSilo)` — exact mirror of `ASSET::Impl::m_apFile` via `Open(pFile)`/`Close(pFile)`.
+- Directory creation moved from `SILO::Initialize` into `UNIT::Open` (first open) — the unit owns its own directory, mirroring `ASSET` owning its cache dir.
+- `UNIT::Impl` also gained `m_pUnit` back-pointer (mirrors `ASSET::Impl::m_pAsset`).
+- `UNIT` makes **all** `OnStorageUnit*` host calls itself, routing through `pSilo->Container()->Context()->Host()`. This required a new **public** accessor `SILO::Container()` (returns `m_pImpl->m_pContainer`) — added to `include/Storage.h` + `Silo.cpp`. (`m_pContainer` lives in the private `SILO::Impl`, so without this accessor `UNIT` couldn't reach it.)
+- Semantics: `OnStorageUnitCreated(pSilo, eScope)` / `OnStorageUnitDeleted(pSilo, eScope)` fire for the **one** attaching/closing silo (like `FILE` created/deleted, per `File_Open`). `OnStorageUnitChanged(pSilo, eScope, sPath)` is the **fan-out**: `UNIT::Notify_Changed(sPath)` loops `m_apSilo` and fires once per holding silo, so all contexts sharing the unit hear it. Fired from `Set`/`Remove`/the `Json` setter (the bulk setter passes empty path). Fired while holding `m_mxUnit` (recursive) — matches `ASSET` firing under `m_mxAsset`; do not re-enter storage from a callback.
+- `SILO::Impl::Set/Remove/Json` no longer make any host call (they just route to the unit); the old `pSilo`/`this` plumbing into those Impl methods was dropped.
+- **Bonus durability fix (Dean blessed):** the bulk `Json` setter previously wrote nothing to the `.log`, so a crash before `Save` lost a bulk replace. Now it appends `["Set","",<whole-doc>]`, and `Log_Replay`'s Set branch handles the empty-path (root) case by assigning the whole document (`*pParent = jEntry[2]`).
+- **`ISTORAGE_IMPL` on `UNIT`:** briefly removed (it was write-only — assigned in ctor, never read) then **restored at Dean's request** as `UNIT`'s parent back-pointer. Note the C++ detail Dean called out: `STORAGE::Impl : public ISTORAGE_IMPL`, so the `this` passed to `new UNIT(...)` is an upcast `ISTORAGE_IMPL*` — i.e. `pIStorage_Impl` *is* the `STORAGE::Impl`, the unit's link to its parent. Kept even though currently unused (unlike `ASSET`, which genuinely uses `m_pINetwork_Impl` for `Rules_Stale`/`Queue_Post_Fetch`/`Asset_Close`/`Asset_Index`). `UNIT` ctor is `UNIT(ISTORAGE_IMPL*, eSILO_SCOPE, sPathname)`; `Impl` ctor is `Impl(UNIT*, ISTORAGE_IMPL*, eSILO_SCOPE, sPathname)`.
+- **Test:** `StorageTest.cpp` Test 11 "Change notification fan-out" — two containers under the same org open silos on the shared `PERMANENT_ORG` unit; one write fires `OnStorageUnitChanged` twice (count==2), proving both holding silos are notified. (Both silos resolve to the same single test `ICONTEXT` host, so the count==2 is the proof.) Test 2's assertion text updated to `OnStorageUnitChanged`. 45/45 storage tests pass, Debug build clean.
+- **Network already fans out by construction** — `ASSET` holds every `FILE` across all contexts (singleton + pathname dedup), so `OnNetworkFileChanged` already reaches all contexts. Only storage needed the explicit fix.
+- **Not yet exercised in practice:** nothing in the app uses STORAGE yet; Dean is confident the heavy symmetry with NETWORK means it'll hold up when storage gets real use, and wants thorough testing deferred to then.
+- Docs updated this session: `src/sneeze/storage/Storage.md` (architecture, two-tier notifications + fan-out, `m_mxUnit`/split storage mutexes, dir-creation now in `UNIT::Open`), and wiki `docs/api/sneeze/ICONTEXT.md` + `docs/api/storage/SILO.md` (storage callback rename/tier, `SILO::Container()`). The wiki `ICONTEXT.md` is still otherwise stale (missing `OnNetworkCache*`) — left for Item 5.
+
+### Item 2 detail — Reset / Clear the cache (DONE)
+
+The "clear cache and reload" feature for the multi-origin browser. Code complete; 71/71 `--network` tests pass; Debug build clean. **Not yet committed** (Dean commits himself). Host app (Artemis) is wiring F5 = Reload and Ctrl+Alt+F5 = Reload-with-Reset against this.
+
+**Conceptual model (decided over prior + this session), captured in full prose in `src/sneeze/network/Network.md` "Clearing the Cache":**
+- A metaverse browser is multi-origin: a context (tab) loads a primary fabric, which loads subsidiary containers indefinitely. "Clear the cache of this context" is therefore ambiguous (which of past/present/future containers?). Resolution: **the clear affects the whole context** (every cached file it relies on goes stale), but **the record of the clear is keyed to the context's primary fabric's container** — the stable identity of "what the context is on." Web-consistent: like clearing a browser tab's cache being a durable statement about the *site* in the tab.
+- **Two contexts sharing the same primary fabric share the clear** (they resolve the same key). **Contexts with different primaries do NOT** — clearing in tab A does not durably clear a subsidiary that happens to be tab B's primary ("you cleared the site you were on, not its embeds"). Deliberate scoping, not an accident.
+
+**Staleness currency — the key design pivot this session (timestamp, not asset index):**
+- The first implementation used the monotonic asset index (`nAssetIx`) as the staleness currency (stale iff `assetIx < watermarkIndex`). Dean identified the fatal flaw: an asset index is only meaningful relative to the counter that issued it. If `network_reset.json` (which persists the counter) is lost/corrupted and the counter restarts at 1, new fetches reissue indices that collide with surviving on-disk files, and there is **no cheap way to invalidate** the scattered per-container cache files (would require a full tree walk deleting every `Network/` file).
+- Resolution: **staleness is now a wall-clock ISO-8601 timestamp** (the asset's `createdAt`), not the index. The OS clock is a durable, global, monotonic source, so counter loss is no longer dangerous: invalidation becomes implicit (set the floor to "now") and requires **no file traversal or deletion** — surviving files simply refetch on next access.
+- **`nAssetIx` is NOT retired** — Dean corrected the AI on this: it is the durable *fetch identity* (persisted per asset as `nMetaIx` in the `.meta` sidecar; used in `ASSET::Attach` to match a `FILE` to its `ASSET` version), unrelated to staleness. The two roles are now cleanly split: `nAssetIx` = fetch identity (kept, persisted reserve-ahead), timestamp = staleness.
+- **Currency is a `std::string` (ISO-8601), not an epoch int.** Rationale: `createdAt` is already an ISO string in the asset meta, and `NowIso8601()` emits fixed-width UTC second-resolution (`%Y-%m-%dT%H:%M:%SZ`), so lexicographic string compare == chronological compare — zero conversion anywhere. Tradeoffs accepted: 20 bytes vs 8, and correctness leans on the format invariant (a non-UTC/var-width emitter would silently break ordering). Named tradeoff of timestamp-vs-index overall: timestamp is coarse (second resolution) and trusts the clock (skew/backward), index had perfect ordering but was fragile on file loss; timestamp chosen because it eliminates the purge-on-loss problem and clock skew is minor on one local machine.
+- **Comparison:** an asset **survives iff `createdAt >= staleTime`**, i.e. stale iff `createdAt < staleTime`. `<` chosen so an asset created in the same second as a `Reset()` survives. In `ASSET::Impl::Attach` (after `Meta_Load`): `bStale = (m_bState == kASSET_STATE_READY  &&  m_sCreatedAt < sStale)`.
+- **No empty-string "no floor" sentinel** (Dean insisted `m_sTime_Stale` must ALWAYS be a real timestamp). The `!sStale.empty()` guard was removed from the `Attach` comparison. The very first run (no file) hits the failure path and stamps the floor to `NowIso8601()` as a baseline — nothing cached can predate the first run, so that floor excludes nothing real.
+
+**On-disk record — `network_reset.json`, single file at the engine cache root:**
+- Path: `<sPath_Root>/network_reset.json`, where `sPath_Root` is passed to `NETWORK::Initialize(const std::string&)` by `ENGINE` (added `ENGINE::Impl::m_sPath_Root`, set in `InitializePaths()`). It is one engine-wide file, **never scattered per container**.
+- Holds three correlated things: `nAssetIx_Next` (the counter), `sTime_Stale` (the global stale floor), and `resets` (a map: primary-container key → ISO timestamp, one entry per explicitly-cleared primary). Written atomically (temp + `rename`).
+- **Reserve-ahead counter persistence:** `Reset_Save` writes `m_nAssetIx_Reserve` (a ceiling `RESERVE_BLOCK = 1000` ahead). `Asset_Index()` returns `m_nAssetIx_Next++`; when it crosses the reserve it bumps the reserve and saves. `~NETWORK::Impl` sets `reserve = next` and saves (clean shutdown wastes no reserve). A crash skips at most one block; disk writes stay rare.
+
+**`Reset_Load` failure handling (heavily iterated this session — all-or-nothing):**
+- `bool bValid` starts `false`; set `true` at the top of the `try`; then `bValid &=` each check: `nAssetIx_Next > 0`, `IsIso8601(m_sTime_Stale)`, and `IsIso8601(sStale)` for every map value. `catch(...) → bValid = false`. `else` (file not open) `→ bValid = false`. Then **`if (!bValid)`** runs the single failure branch: `m_nAssetIx_Reserve = m_nAssetIx_Next = 1; m_umsReset.clear(); m_sTime_Stale = NowIso8601();` + log "starting fresh".
+- `IsIso8601(s)` (file-local static in `Network.cpp`, needs `<ctime>`+`<iomanip>`; `<sstream>` is in the PCH) parses against the exact `NowIso8601` format via `std::get_time` and requires `!ss.fail() && ss.peek()==EOF` (no trailing junk). Both the global floor AND every map entry are validated; any one bad value fails the whole file (consistent with all-or-nothing). `.at("sTime_Stale")` / `.at("resets")` throw on missing → failure; `value("nAssetIx_Next", 0)` then gated `> 0`.
+
+**Durability flaw Dean caught (and its fix):**
+- Originally `m_sTime_Stale` was NOT persisted (set only in memory on failure). Scenario: corrupt file → floor = now (cache cleared in memory) → use the app a bit → clean shutdown writes a fresh valid file *without* the floor → next clean load reverts floor to empty → pre-corruption files resurrected ("cache uncleared"). **Fix:** `m_sTime_Stale` is now ordinary persisted state — `Reset_Save` writes `sTime_Stale`; the `Reset_Load` success path *reads* it; the failure path sets it to `NowIso8601()` and it is persisted on the next save/shutdown. The implicit clear is thus itself durable.
+- **Related fix:** `Reset_Stale(sKey)` returns the **later** (`std::max`, via string `>`) of the global floor and the per-key entry — not a per-key override. Once the floor can be a real persisted timestamp, an older per-key entry must not be allowed to weaken it. (Under a monotonic clock per-key is always `>=` floor, because a failed load clears the map and any later `Reset()` stamps `now` > floor; the max only matters under clock regression — cheap insurance.)
+
+**Reset stamping + Context wiring:**
+- `NETWORK::Reset(sKey)` (public): if `!sKey.empty()`, `m_umsReset[sKey] = NowIso8601(); Reset_Save();`. (The old network-wide `Clear`/`Reset` removed in Phase 3 stays removed; this keyed `Reset` is the new context-clear primitive.)
+- `CONTEXT` stores `std::string m_sKey_Reset` (the primary container's `CID::Key_All()`), set in `Container_Open` on the **first MSF-bearing container** (= the primary). `CONTEXT::Key_Reset()` returns `const std::string&`. `CONTEXT::Reset()` guards on non-empty key then calls `Network()->Reset(m_sKey_Reset)`. The `bReset` constructor flag (Reload-with-Reset) stamps at primary open.
+- **Staleness resolution chain on each attach:** `FILE::Impl::Attach` calls `m_pICache_Impl->Reset_Stale()` → `CACHE` resolves `m_pContainer->Context()->Key_Reset()` and forwards to `NETWORK::Reset_Stale(sKey)` → returns the timestamp string → passed into `ASSET::Attach(pFile, bFetch, sStale)`. Critically the lookup is resolved **before** the asset lock is taken, so `m_mxNetwork_Reset` is never co-held with `ASSET::m_mxAsset` (cleaner than the old `Rules_Stale`, which ran under the asset lock). `INETWORK_IMPL::Reset_Stale` and `ICACHE_IMPL::Reset_Stale` now return `std::string`; `ASSET::Attach`'s last param is `const std::string& sStale`.
+- On a stale hit, `ASSET::Attach` does `Meta_Reset()` + refetch; `Fetch_Complete` re-stamps `m_sCreatedAt = NowIso8601()` on success so the refetched asset is not immediately re-staled (Dean had earlier also fixed `createdAt`/`lastAccessedAt` not being reset on refetch — `ResetState` clears them, `Fetch_Complete` re-stamps).
+
+**Renames:** mutex `m_mxNetwork_Rules` → `m_mxNetwork_Reset`; methods `Rules_*` → `Reset_*` (`Reset_Load`/`Reset_Save`/`Reset_Stale` + public stamp `Reset`); members `m_nNextAssetIx` → `m_nAssetIx_Next` (+ `m_nAssetIx_Reserve`), reset map `m_umsReset`, floor `m_sTime_Stale`, path `m_sPathname_Reset`. The word "watermark" is banished from network code/comments (kept only as historical narrative in the `.md`).
+
+**The 5-failure NetworkTest cluster — RESOLVED as faulty tests (not an engine bug).** Root cause: `FILE`'s `IsReady`/`IsServedFromCache`/`IsHashed`/`Hash`/`ReadData` read **snapshot** fields populated only by `SnapshotFinal()`, which runs inside the **async** `Fetch_Complete`. A cached/ready re-open deliberately routes through an async notify-only `ASSET_FETCH` job and transiently sets the asset to `FETCHING`. Test 9 Phase 2 and Test 14 asserted on those accessors *synchronously* after `File_Open`, before the callback. Fix: add `listener.WaitFor(15000)` before the assertions (the contract every passing test already follows). One line added to each. → 71/71.
+
+**Files touched (Item 2):** `src/sneeze/network/Network.{h,cpp}`, `Cache.cpp`, `Asset.cpp`, `File.cpp`; `include/Network.h` (`Reset(sKey)`, `Initialize(sPath_Root)`); `include/Context.h` + `src/context/Context.cpp` (`Key_Reset`, `Reset`, `m_sKey_Reset`, `bReset` wiring); `src/sneeze/Engine.cpp` (`m_sPath_Root`, pass to `NETWORK::Initialize`); `tests/NetworkTest.cpp` (timestamp-flow + the two async waits). `src/sneeze/network/Network.md` fully reconciled (architecture block, file-lifecycle, disk-storage, thread-safety/lock-ordering, files table, "Clearing the Cache" prose). `docs/` wiki NOT touched (Item 5).
+
+**Unrelated note:** `Context.cpp::Container_Open` has an intentional, temporary `CID.eTrust = kTRUST_EXPIRED;` line (Dean confirmed deliberate; `eTrust` is not part of `Key_All()` so it does not affect reset keying or the cache path).
+
+### Item 3 detail — GLB / glTF files (DONE)
+
+3D model loading for terrestrial/physical (and any) scenes. Code complete; Debug build clean; gltf test suite passes; DFW fabric renders its real models. **Not yet committed** (Dean commits himself).
+
+**Architectural decision — load glTF in Sneeze, not through ANARI.** Confirmed by Jonathan Hale (ANARI/Halogen author): ANARI is a *pure rendering-engine abstraction* ("in-memory scene data → pixels"). Asset loading is the framework's job (Sneeze), not the rendering engine's. Pushing glTF down through ANARI would make Halogen the only device that could ever render Artemis content — antithetical to ANARI's swappability. So Sneeze loads the glTF and feeds ANARI the decoded geometry. Jonathan's library recommendation: **fastgltf** (cgltf = ok; tinygltf = avoid; Magnum's importer = great but heavy deps).
+
+**The layering (four clean tiers):**
+1. **`src/deps/gltf/` (the dependency wrapper).** `DEP::GLTF::Load(bytes, model, sError)` (static) parses a GLB/glTF blob via fastgltf into a renderer-agnostic CPU `GLTF_MODEL` (meshes/materials/textures/node-hierarchy of the default scene). Flat, renderer-ready vertex streams; **textures kept encoded** (no image codec pulled into the loader). See `Gltf.md`.
+2. **`src/context/viewport/GltfMesh.cpp` (the bridge).** Free function `SNEEZE::Gltf_Render_Model_Build(DEP::GLTF_MODEL, matPlacement, GLTF_RENDER_MODEL& out)` flattens the node hierarchy (composing each node transform under `matPlacement`, baking the result into each `MESH_DATA::m16`), decodes base-color textures to RGBA8 via `IMAGE::Decode`, resolves materials, and computes a world-space AABB → `aCenter`/`dRadius`. `MESH_DATA` and `GLTF_RENDER_MODEL` are declared in `Viewport.h` (we folded the former `GltfMesh.h` into `Viewport.h` per the "one header per system" rule). `GLTF_RENDER_MODEL` owns its source model + decoded textures; `aMesh` entries **borrow** into that storage, so the model must outlive any submitted frame (same lifetime contract as `PANEL_DATA`).
+3. **`MAP_OBJECT` (storage).** The built `GLTF_RENDER_MODEL*` lives on the **base** `MAP_OBJECT` (not on NODE), via `Gltf_Render_Model()` getter / `Gltf_Render_Model(GLTF_RENDER_MODEL*)` setter — mirrors `Get/SetTexture`. Published write-once with an atomic acquire/release flag (immutable model → lockless read); freed in `MAP_OBJECT::Impl::~Impl`. Rationale (Dean): a model is *visual appearance*, which belongs on MAP_OBJECT; exposing it on NODE (which manages only relational/structural data) was a leak. And because it is on the base class, a model can sit at **any** level — celestial, terrestrial, or physical.
+4. **`Compositor.cpp` (render).** `TraverseNode` emits a node's model **independent of class**: a class-agnostic `pObj->Gltf_Render_Model()` block (gated only by skipping `action:` resources) emits one `MESH_BUILD` per `MESH_DATA` at the node's world frame and extends `dMaxReach` by the model's bounding sphere (so the single auto-frame render-scale frames it). The PHYSICAL branch's grounded-box is now only a **fallback when there is no model** (`!pModel`). `Execute_Render` applies the scene's `dRenderScale` to each mesh transform and calls `pRenderer->SubmitMeshes`.
+
+**Fetch is by URL, dispatch is by content (NODE refactor).** There is **one** resource path on `NODE::Impl`, not one per type. `Resource_Request()` opens the file; `OnFileReady` → `Resource_Load(bytes)` sniffs the bytes: binary GLB (ASCII `glTF` magic) or glTF JSON (leading `{`) → `Gltf_Load` (parse + `Gltf_Render_Model_Build` + hand to MAP_OBJECT); anything else → `Texture_Load` (stb_image). Removed the old URL-extension sniff (`IsGltfUrl`), the dual `Texture_Request`/`Gltf_Request` methods, and the `m_bGltf_Request` flag. (`bSubtype == 255` still routes to `SCENE::Fabric_Spawn` before any fetch.)
+
+**ANARI mesh path (`AnariRenderer.cpp`).** `SubmitMeshes` accumulates `MESH_DATA`; `BuildScene` makes one `"triangle"` geometry + `"physicallyBased"` material + instance per mesh, with a base-color `image2D` sampler when a texture is present (`MESH_ENTRY` holds the per-mesh ANARI handles + `pVertexKey`/`pTextureKey` rebuild keys). `UpdateScene` patches mesh instance transforms each frame; rebuild only when mesh **count**, a vertex pointer, or a texture pointer changes (`SceneNeedsRebuild`).
+
+**Naming.** For the type `GLTF_RENDER_MODEL`, the accessor/function is `Gltf_Render_Model` and the bridge is `Gltf_Render_Model_Build` (word breaks match the type).
+
+**Build wiring.** fastgltf 0.9.0 built from source as a static lib: `deps/fastgltf.cmake` (ExternalProject, source in `deps/repos/`), `src/cmake/FindFastgltf.cmake`, added to `src/CMakeLists.txt`, the MSVC `Sneeze.vcxproj`(+`.filters`), `vcpkg.json`, and CI `build-platform.yml` (tier0). **Static-lib gotcha:** because Sneeze is a static lib, the host exe (Artemis) had to add `fastgltf.lib` to its own `Artemis.vcxproj` `AdditionalDependencies` + include path — static libs don't propagate their dependencies.
+
+**Verified live.** DFW fabric (`https://cdn.rp1.com/test/dfw.msf.json`, physical nodes with `.glb` references) renders its buildings/roads as real geometry, replacing the placeholder boxes. Models render **grey** — confirmed correct: the test assets are untextured (grey in external glTF viewers too).
+
+**Open / deferred:**
+- **`.gltf` JSON with external buffers/images is not resolved.** `DEP::GLTF::Load` takes a byte buffer; external `.bin`/image URIs would need a base-path / custom data getter wired into fastgltf. **GLB (self-contained) is the working path**; embedded-data-URI `.gltf` would also work. Content-sniff accepts JSON glTF, but it won't fully load until URI resolution is added.
+- **Celestial double-render (latent, harmless).** The mesh-emit block is independent of the class chain, so a celestial node that *also* carried a GLB would render both its procedural sphere/star and the GLB. Not a real scenario today; if a model should *replace* the procedural celestial visual, add a `!pModel` guard to the celestial branch.
+- **A Cursor 3.5.x-on-Windows tooling bug** wrote new files as UTF-16LE (corrupting C++/CMake). Workaround in force: create/overwrite files via PowerShell `UTF8Encoding($false)` and byte-verify (no embedded `0x00`). Dean keeps a re-pasteable RULE block for this.
+
+### Item 5 (docs) note — what this session touched
+
+Per-module `src/**/*.md` reconciled for the GLB work: new `src/deps/gltf/Gltf.md`; `src/context/viewport/Viewport.md` (MESH_DATA/GLTF_RENDER_MODEL/SubmitMeshes/GltfMesh bridge); `src/context/scene/Scene.md` (NODE fetch-by-content, MAP_OBJECT visual-appearance accessors, removed the stale injected-test-panel prose). The curated **`docs/` wiki was NOT touched** for the GLB work — it remains part of the big Item 5 reconciliation (still `verified: 92fdc1c`, stale). `docs/api/viewport/RENDERER.md` in particular does not yet mention `SubmitMeshes`/meshes.
+
+Deferred / open items (still outstanding):
+- **Wiki (`docs/`) reconciliation (BIG, = Item 5, not started).** The curated wiki under `docs/` (systems + API pages for network/console/storage, `verified: 92fdc1c`) is stale all the way back to *before Phase 1*: there is no `CACHE` page; `api/network/NETWORK.md` still documents the monolithic pre-split per-`CONTEXT` `NETWORK` (`NETWORK(CONTEXT*)`, `File_Open`/`File_Enum`/`SetCacheEnabled`/`Clear`/`Reset()`/`Rules_Add`, single `m_mxNetwork`, `Initialize(bool bReset)`); `docs/systems/network.md` still describes the `rules.json`/staleness-rules model. Bringing the wiki current requires Phase 1+2+3 + the Item-2 reset rework reconciliation, not a touch-up. Done so far for docs: front-matter `sources:` paths repointed `src/context/{...}` → `src/sneeze/{...}` (so DocDrift still resolves), plus an earlier session's storage-callback fixes to `ICONTEXT.md`/`SILO.md` bodies; `verified:` left at `92fdc1c` and most bodies left stale (correctly flagged by DocDrift). The accurate, current references are the per-module `src/sneeze/**/*.md` docs and this file.
+
+## Design Principles
+
+- **Symmetry above all else.** Initialization and shutdown are perfect mirrors. If you open one way, you close the mirror image. No exceptions. This applies at every level: engine, context, subsystem.
+- **Add before init, remove after shutdown.** The parent always adds the child to the list BEFORE calling Initialize, and removes it AFTER calling Shutdown. The child must be visible to other threads during both its initialization and its teardown.
+- **No leaky abstractions.** Module boundaries are hard. The engine has no SDL3 dependency — the application passes raw input deltas.
+- **Namespace everything.** All code lives in namespace `SNEEZE`, with sub-namespaces per module. No global symbols.
+- **Prepare for concurrency.** Data structures should be read/write separable even in single-threaded code.
+- **Own the math.** `sneeze/Types.h` defines the canonical vector/quaternion types. Modules use these, not renderer-specific or library-specific types.
+
+### Threading Contract
+
+Authoritative threading policy — exists so future edits do not duplicate shutdown checks in the wrong layer.
+
+- **`THREAD::Wait` is not shutdown-aware.** Neither overload of `Wait` reads `m_bShutdown` or calls `IsShutdown()`. The predicate overload is exactly `m_cvThread.wait(lock, fnWork)`. The timed overload is exactly `m_cvThread.wait_for(lock, duration)`.
+- **Predicate meaning lives in one place per agent.** Signal-driven agents use `Wait([this] { return Tick(); })`; queue-driven agents use `Wait([this] { return Job(); })`. `Tick()` / `Job()` own what runs on each wake and what boolean ends the wait. `Main()` must not wrap those lambdas with extra `IsShutdown()`.
+- **`Join()` must be called in every derived destructor.** C++ destroys derived-class members before the base destructor runs. If `Main()` accesses derived members, the base `~THREAD()` join comes too late. Every THREAD-derived destructor must call `Join()` as its first action.
+- **Assignment + `&&` precedence:** `=` binds looser than `&&`. Init chains must parenthesize: `if ((m_pNetwork = new NETWORK(...)) && m_pNetwork->Initialize()) { … }`.
+
+## Coding Conventions (C++)
+
+These conventions carry over from the existing JavaScript codebase:
+
+- **3-space indentation.** Not 2, not 4, never tabs.
+- **Allman brace style.** Opening `{` on its own line. `else` on its own line.
+- **Space before `(`.** `if (`, `for (`, `FunctionName (`, etc.
+- **Double-space around `&&` and `||`.** `if (a  &&  b)`.
+- **Vertical alignment.** Align related declarations, initializer lists.
+- **Trailing comma in initializer lists.** Last item still gets `,` for easy reordering.
+- **No split lines.** Keep function calls, declarations on one line regardless of length.
+- **No executable code in headers.** Header files contain declarations only. All implementations go in `.cpp` files.
+- **Hungarian notation.** All variables carry type prefixes: `p` pointer/object, `d` double/float, `n` number, `s` string, `b` bool, `a` array, `tm` time, `fn` function, `ump` unordered_map, `map` ordered map, `mx` mutex, `cv` condition_variable, `th` thread, `pth` pointer-to-thread. Member variables: `m_` prefix (e.g. `m_pHost`, `m_apNode`, `m_mxControl`).
+- **Types, classes, constants: ALL CAPS.** `FABRIC`, `NODE`, `MAP_OBJECT`, `ANARI_RENDERER`.
+- **Functions: Capital first letter.** `Initialize()`, `Shutdown()`.
+- **Method naming: `Object_Action` pattern.** `Node_Add()`, `Node_Remove()`, `Queue_Post_Fetch()`. For getters, the action is dropped: `Node_Root()`, `Fabric_Parent()`. Boolean getters use `IsX()`. Simple owner-pointer accessors are just the name: `Host()`, `Scene()`, `Engine()`.
+- **No Get/Set prefixes.** Overload the same function name for getter and setter.
+- **Parameter names match member names.** If the member is `m_nAgentIz`, the setter parameter is `nAgentIz`.
+- **No convenience copies of owner data.** Objects should not cache pointers they can reach through their owner.
+- **Use structs for logically grouped parallel data.** Replace parallel vectors with a single `std::vector<STRUCT>`.
+- **Variable names describe purpose, not type.** The Hungarian prefix carries the type; the name describes what it's *for*.
+- **Member naming: no pluralization for collections.** `m_apNode` not `m_apNodes`. Qualify with purpose: `m_pFabric_Parent`, `m_mxCancel`.
+- **Single return at end.** One `return` statement, last line of function. No early returns.
+- **No obvious/narrating comments.** Comments should explain non-obvious intent only.
+- **Cross-language invariance.** Class names and algorithms must remain identical across JS and C++ implementations.
+- **Apache 2.0 header** on every `.h` and `.cpp` file.
+
+## Build Quick Reference
+
+```powershell
+# Windows (PowerShell)
+.\scripts\build-windows.ps1                        # Sneeze only, Release (day-to-day)
+.\scripts\build-windows.ps1 -Config Debug          # Sneeze only, Debug
+.\scripts\build-windows.ps1 -Fresh                 # Reconfigure Sneeze (no build)
+.\scripts\build-windows.ps1 -All                   # First-time: deps + Sneeze (~1-2 hours)
+.\scripts\build-windows.ps1 -All -Config Debug     # First-time Debug
+.\scripts\build-windows.ps1 -Deps                  # Deps only
+.\scripts\build-windows.ps1 -Only filament -Rebuild # Full-scrub one dep
+.\scripts\build-windows.ps1 -Rebuild               # Full-scrub Sneeze only
+
+# Run tests
+builds\windows-x64\install\release\bin\SneezeTest.exe          # all suites
+builds\windows-x64\install\release\bin\SneezeTest.exe --jws    # single suite
+builds\windows-x64\install\release\bin\SneezeTest.exe --help   # list suites
+```
+
+```bash
+# Linux / macOS
+./scripts/build-linux.sh                           # Sneeze only, Release
+./scripts/build-linux.sh --all                     # First-time: deps + Sneeze
+./scripts/build-linux.sh --config Debug            # Debug
+```
+
+**Day-to-day on Windows: open `builds\windows-x64\build\Sneeze.sln` in Visual Studio.** F7 for incremental builds; Debug/Release dropdown flips configs. Scripts are for first-time setup, reconfigure, and CI.
+
+### Build System Summary
+
+Two fully independent CMake projects, no top-level bridge:
+- `deps/CMakeLists.txt` — builds all third-party deps via `ExternalProject_Add`
+- `src/CMakeLists.txt` — builds Sneeze, finds deps in `${LIBS_DIR}/<Name>/install/`
+
+Scripts in `scripts/` are the only glue. Mode flags (`-Deps`, `-All`, `-Fresh`) are mutually exclusive. `-Rebuild` is a modifier that composes with any of them. `-Only <dep>` implies deps mode.
+
+### Dependencies
+
+All built from source. `vcpkg.json` provided as an alternative.
+
+| Dependency | Version | Purpose |
+|------------|---------|---------|
+| ANARI-SDK | 0.16.x | Rendering abstraction API |
+| Wasmtime | v43.0.0 | WebAssembly sandbox runtime |
+| SPIRV-Tools + Headers | vulkan-sdk-1.4.341.0 | SPIR-V validation |
+| OpenXR-SDK | 1.1.58 | XR device abstraction |
+| curl | 8.9.1 | HTTP/HTTPS client (static, Schannel on Windows) |
+| RmlUi | 6.2 | HTML/CSS retained-mode UI toolkit |
+| FreeType | 2.13.3 | Font rasterization (dep of RmlUi) |
+| glslang | vulkan-sdk-1.4.341.0 | GLSL→SPIR-V compiler (build-time only) |
+| nlohmann/json | 3.11.3 | Header-only JSON |
+| Filament | main (Metaversal fork) | PBR rendering engine |
+| Halogen | master (Metaversal) | ANARI device on Filament |
+| SPIRV-Cross | vulkan-sdk-1.4.341.0 | SPIR-V cross-compiler (used by Vox) |
+| Vox | main (Metaversal) | GPU compute dispatch (Vulkan/DX12/Metal) |
+| BoringSSL | main | Crypto backend (X.509, SHA-256, RSA/ECDSA) |
+| jwt-cpp | 0.7.0 | Header-only JWS/JWT |
+| fastgltf | 0.9.0 | glTF/GLB parser (C++17, static lib) |
+
+Build-time tools required: CMake 3.20+, C++17 compiler, Rust/Cargo (Wasmtime), Python 3 (glslang), Go + NASM (BoringSSL on Windows), Git.
+
+## Known Gotchas
+
+- **`SNEEZE::FILE` vs C's `FILE`.** Qualify as `SNEEZE::FILE` in translation units that `using namespace SNEEZE;`.
+- **Filament single-thread constraint.** All Filament API calls must be on one thread (compositor agent 0). Multiple agents calling `anariRenderFrame` concurrently crash.
+- **Filament vsync scaling.** Filament hardcodes `VK_PRESENT_MODE_FIFO_KHR` (vsync ON). With N viewports sequential on one thread, total frame time = N × 16ms.
+- **Debug Halogen requires Release filament.** `matc.exe` from Release filament is imported by Debug Halogen (Debug matc is 10-100x slower). Build Release filament first.
+- **`timeBeginPeriod(1)` on Windows.** Engine metronome calls this for 1ms sleep resolution. Links `winmm.lib`.
+- **BoringSSL requires Go + NASM on PATH.** NASM installs to `C:\Program Files\NASM\` but doesn't add itself to PATH.
+- **VS Dev Shell clobbers PATH.** Re-merge user PATH entries in PowerShell profile after dev-shell init.
+- **Orbit trail rendering.** ANARI `"curve"` geometry renders as thick PBR-lit tubes. Planned: unlit/emissive material, camera-distance radius scaling.
+- **NetworkTest snapshot-accessor timing (was the "cache-reload cluster").** `FILE`'s `IsReady`/`IsServedFromCache`/`IsHashed`/`Hash`/`ReadData` read snapshot fields populated only by the async `Fetch_Complete`→`SnapshotFinal`; a cached/ready re-open routes through an async notify-only `ASSET_FETCH` job. Any test asserting those accessors must `listener.WaitFor(...)` first. The historical "6 failing" cluster was this timing artifact in the tests, now fixed — not an engine defect.
+- **On-disk cache layout.** `Root/<Persistent|Transitory/v<hex>>/<persona>/<fp2>/<fp22>/<container>/<Network|Storage|Console>/…`; org-scoped Storage sits at `<persona>/<fp2>/<fp22>/Storage`. Persona segment is never empty (defaults to `000000000000`). `Transitory/s<hex>` is the per-session permanent root used only by incognito contexts — empty under normal browsing, scrubbed on clean shutdown. The network singleton's reset/staleness record lives in a single engine-wide file `network_reset.json` directly at the engine cache **root** (`<sPath_Root>/network_reset.json`, the path passed to `NETWORK::Initialize`) — holding `nAssetIx_Next`, the global stale-floor timestamp `sTime_Stale`, and the per-primary-container `resets` map. See the Item 2 detail for the full model.
+
+## Test Suites
+
+All suites compiled into a single `SneezeTest` executable. Suite flags: `--wasm`, `--spv`, `--xr`, `--net`, `--ui`, `--compute`, `--vox`, `--jws`, `--network`, `--storage`, `--console`. No flags = run all. `--help` lists suites.
+
+The JWS suite resolves its certs directory at build time via the `SNEEZE_TEST_CERTS_DIR` compile definition (CMake `target_compile_definitions`, default `tests/certs`, overridable by `argv[1]`), so `--jws` passes from any working directory. The CMake-generated `Sneeze.sln` carries the define; the hand-maintained `msvc/` project does not.
+
+## Signing MSF Files (SignMsf)
+
+An `.msf` file is a **signed JWS**: a JSON payload (the fabric source, e.g. `<name>.msf.json` / `<name>.json`) wrapped in a JWS envelope with an embedded X.509 cert chain. Signing turns the plain-JSON source into the deliverable `.msf` that gets published (e.g. to `cdn.rp1.com`) and verified at load time.
+
+**The signing program (do not go looking for it — it is here):**
+
+```
+builds\windows-x64\install\release\bin\SignMsf.exe
+```
+
+(Built from `tools/SignMsf/main.cpp` as part of the normal Sneeze build. Debug lives at `...\install\debug\bin\SignMsf.exe`.)
+
+**Test signing credentials live in `tests/certs/`:**
+- `provider-cert.pem` — the **leaf** cert ("Test Provider"). Passed as `--cert`.
+- `provider-key.pem` — the leaf's **private key**. Passed as `--key`.
+- `ca-cert.pem` — the **root** ("OMB Test Root CA"). Passed as `--chain` (embeds it in the JWS `x5c`, matching the published test fabrics) and as `--trust` when verifying.
+- `expired-cert.pem` / `expired-key.pem` — an expired leaf, for negative tests only.
+
+**To sign a source JSON into an `.msf` (PowerShell, absolute paths are safest):**
+
+```powershell
+builds\windows-x64\install\release\bin\SignMsf.exe `
+   --payload <name>.msf.json `
+   --key   tests\certs\provider-key.pem `
+   --cert  tests\certs\provider-cert.pem `
+   --chain tests\certs\ca-cert.pem `
+   --out   <name>.msf
+```
+
+`--alg` defaults to `RS256` (the provider key is RSA). Cert order in the resulting `x5c` is the order given: `--cert` (leaf) first, then each `--chain`.
+
+**To verify / dump a signed `.msf`:**
+
+```powershell
+builds\windows-x64\install\release\bin\SignMsf.exe --verify <name>.msf --trust tests\certs\ca-cert.pem
+```
+
+A good sign prints `Signed <out> (<n> bytes)`; a good verify prints `Signature:   VERIFIED` and dumps the cert chain + payload. Always verify after signing.
+
+## Examples Suite (fabric authoring tutorials)
+
+A progressive, copy-and-edit set of runnable fabric examples that accompanies the seven `docs/guides/authoring-*.md` pages. Motivated by two pieces of feedback on the original wiki: (a) the docs were hard to find, and (b) they were hard to follow and needed explicit examples a reader could copy and edit. This is a deliberately slow, arduous effort for Dean (he budgeted ~1 hour per example and expects worse); the intent is to go basic-to-complex, one example at a time. Example 01 was expensive largely because it doubled as foundation-laying (the engine features below plus establishing the README voice/conventions); subsequent examples should go faster.
+
+**Repo layout.** `examples/` at the repo root, one numbered folder per example (`examples/01-stool/`). Each example folder holds the fabric source (`<name>.json`) plus a `README.md` walkthrough. Shared, reusable assets live in `examples/assets/` (the GLB models) and modules are referenced under a shared `examples/wasm/` (the stock `map.wasm`). The 5 shared GLBs are `Stool.glb`, `Tin.glb`, `Container.glb`, `Bucket.glb`, `Crate.glb`.
+
+**URL / deploy convention.** URL root is `https://cdn.rp1.com/sneeze/examples/`. Fabrics are deployed **flat at the examples root** (e.g. `https://cdn.rp1.com/sneeze/examples/stool.json`) — the deployed URL does **not** mirror the numbered repo folder (`01-stool/`). Shared `assets/` and `wasm/` sit as siblings at that examples root, so a fabric at the root references `assets/Stool.glb` and `wasm/map.wasm` as simple folder-relative paths.
+
+**Asset pipeline (documented for reuse).** The 5 GLBs were built from CC0 downloads (unpacked glTF 2.0 or OBJ) entirely via `npx` (Node 22, no global installs): `gltf-pipeline` packs an unpacked `.gltf`+`.bin`+textures into a single `.glb`; `obj2gltf -b` converts an OBJ (crate). Then a `sharp`-based optimizer downscales textures to 1024px max and re-encodes (JPEG q80 for color/metallic-roughness, PNG kept for normal maps), yielding ~90-97% size reduction (e.g. Stool 41.8MB -> 1.35MB). FoodContainer4's body used `KHR_materials_transmission` (rendered clear) so the transmission extension was stripped and the material set to OPAQUE. Sneeze's stb-based decoder only accepts jpeg/png (no KTX2).
+
+**Example 01 (`examples/01-stool/`).** `stool.json`: map-managed, `container` `"example-stool"`, empty `services`, one module `wasm/map.wasm` (no `hash` — hashing deferred to a later example), and a single-node `data` tree: one physical node `Head.Self = "P-?"` named `"Stool"` with `Resource.sReference = "assets/Stool.glb"`. `README.md`: beginner-facing walkthrough (plain language, why/what/how, every field explained; house style for these docs = no newline mid-sentence/paragraph, ASCII only, no smugness). Confirmed rendering live. Wiki pages added: `docs/examples/index.md` (the Examples index) and `docs/examples/01-stool.md` (the per-example page, front-matter `verified: 10a5afd`, cross-linked to the authoring guides, links back to the repo source folder for copy/edit). `docs/Home.md` gained a `### 6. Examples` section and an examples pointer in the "Choose your path" authoring bullet (addressing the discoverability complaint). The five documentation tiers in `docs/STYLE.md` were left as-is; Examples is a new sixth grouping on Home only.
+
+**Example 02 (`examples/02-stool-and-bucket/`) — DONE.** `stool-and-bucket.json`: same map-managed shape as 01, `container` `"example-stool-bucket"`, and a small **tree** — the Stool (`P-?`) is the root with `Children`: a Bucket (`P-?`, `Transform.Position [0.0, 0.428, 0.0]`) and three **spot** lights (`L-?`, `bType: 4`) Key/Fill/Rim, each with `Position`, `Rotation` (aim), `fBrightness`, and a cone (`fOpeningAngle`/`fFalloffAngle`). Teaches three new ideas: `Children` (the scene as a tree), `Transform` placement, and authoring your own lights. `README.md` in the house voice; wiki page `docs/examples/02-stool-and-bucket.md` added (front-matter `verified: afe1ecd`, `nav.prev: 01-stool.md`) and wired into `docs/examples/index.md` (item 2), `docs/Home.md` (`### 6. Examples` bullet), and Example 01's `nav.next` + footer. A warning-sign emoji (⚠️ = U+26A0 U+FE0F, valid UTF-8) was added to the heading of every "This is not the preferred way..." section across both example READMEs and both wiki pages (Dean's request; he confirmed a UTF-8 emoji in the docs is fine). Deferred for 02: a preview screenshot in the README (parked until spot-light rendering is fixed).
+
+**GLB origins recentered to bottom-center (DONE).** All 5 shared GLBs were re-authored so each model's origin sits at its base (min.y = 0, centered in x/z) — Dean's rule that a physical object's origin belongs at its bottom. Done with a self-contained Node script (`e:\dev\gltf\_recenter.js`, no deps/network) that shifts each model's root-node transforms (BIN/geometry untouched); originals backed up to `e:\dev\gltf\_orig\`. Dean copied the recentered GLBs into `examples/assets/` and handles the CDN re-upload. Post-recenter heights (base->top): Stool 0.4281, Bucket 0.2031, Tin 0.0816, Container 0.1061, Crate 7.5594 (Crate ~26 m wide, not real scale — pre-existing). This is why Example 02's bucket sits at `y=0.428` (seat top = the stool's full height) with no half-height offset, and why its three lights rose 0.214 in `y` (their aim `Rotation`s were left unchanged, correct because light and target rose by the same amount).
+
+**Engine features landed to support the examples (all engine-side — require a Sneeze + Artemis rebuild to take effect):**
+
+1. **`P-?` auto-assigned node index.** `ComposeFromId` (`src/deps/wasm/HostFunctions.cpp`) now treats a `?` after the class dash (e.g. `"P-?"`) as the `OBJECTIX_IDENTITY` sentinel (`0x0000FFFFFFFFFFFF`, `include/Scene.h`). `CONTAINER::Node_Create` (`src/context/Container.cpp:253`) already resolves that sentinel to the next free per-container index (`++m_twObjectIx_Next`), composing it with the class. **Why:** node identity is scoped to its container (`m_umpNode` keyed by composed OBJECTIX), and a container's identity is persona + organization + container-name. Multiple **signed** fabrics can share one container, so hard-coded indices (`P-1`) across those fabrics would collide; `"P-?"` lets the engine hand out a unique index. Explicit numeric indices still work when you deliberately want to name a specific object. There is no clean string spelling of the sentinel other than `?` (the letter form only parses a literal number).
+
+2. **Relative resource/module URLs.** New `FABRIC::Resolve(const std::string& sReference) const` (declared `include/Scene.h`, implemented `src/context/scene/Fabric.cpp`) resolves a reference against the fabric's own URL (`m_sUrl`, set in `FABRIC::Initialize`) using standard RFC-3986 relative-reference rules: a reference carrying `scheme://` is absolute and used verbatim; a leading `/` resolves from the host root; anything else is relative to the fabric's folder; `.` and `..` segments collapse normally (`..` may climb — standard, per Dean's final call to follow ordinary filename addressing rather than invent a security model). File-local helpers `ResolveUrl` + `RemoveDotSegments` in `Fabric.cpp` do the string work. Wired at the three URL-consumption sites, each of which already reaches a FABRIC: module fetch (`Fabric.cpp` `Impl::Initialize`, `ResolveUrl(m_sUrl, Module.sUrl)`), NODE resource fetch (`Node.cpp` `Resource_Request`, `m_pFabric->Resolve(...)`), and attachment-fabric spawn (`Node.cpp` subtype 255, `m_pFabric->Resolve(...)`). Absolute references pass through unchanged, so the primary node (whose sReference is the absolute navigation URL) is unaffected; the network cache still dedups on the resolved absolute URL. Confirmed working live.
+
+3. **Removed the model-less-physical box fallback.** `Compositor.cpp`: deleted the `else if (PHYSICAL && !action && !pModel)` branch that emitted a grounded `BOX_BUILD` (and its now-dead helper `ColorFromIndex`). A physical node with no loaded model now draws nothing (including transiently while a GLB streams in). Child traversal and real GLB mesh emission were outside the branch, so nothing else changed. **The rest of the box machinery is intentionally left as dead code** (Dean: "we can leave it") — `struct BOX_BUILD`, the `aBox` threading through `TraverseNode`, the `BOX_DATA` build loop, `RENDERER::SubmitBoxes`, the ANARI box geometry, and `GenerateUnitBox` (~190-200 lines across `Compositor.cpp`, `Viewport.h`, `AnariRenderer.{h,cpp}`, `UVSphere.cpp`).
+
+4. **`fColor` fixes (both approved by Dean; require rebuild).** (a) Lights default to **white** when `fColor` is unset: in `Compositor.cpp`, after `ColorFromPropertyFloat`, if `r==g==b==0` set them to `1.0` (this also fixes the broken plaza example in `authoring-static-scenes.md`, whose light set only `fBrightness` and would render black). (b) `fColor` is now authorable as an ordinary `0xRRGGBB` value — a decimal integer (e.g. `3368601`), a hex string `"0x336699"`, or `"#336699"`. The parser in `HostFunctions.cpp` reads the 24-bit int and `memcpy`s its bits into the `fColor` float field (the engine reads fColor's BITS, not its numeric value, as the colour); added `#include <cstring>`. Verified via grep that no existing JSON relied on the old float-bits interpretation.
+
+5. **Spot-light support (engine builds clean; cone does NOT render — see Parked).** The light-type enums were **renumbered and aligned** to `NONE=0, AMBIENT=1, DIRECTIONAL=2, POINT=3, SPOT=4` (POINT moved from 1 to 3). Added `kSPOT`, cone-angle fields (`fOpeningAngle`/`fFalloffAngle` -> `dOpeningAngle`/`dFalloffAngle`), spot direction derived from the node's world frame, an ANARI `"spot"` branch in `AnariRenderer.cpp`, and class-tagged `MAP_OBJECT_PROPERTIES`/`MAP_OBJECT_ORBIT` unions. Also `SetLights` (`AnariRenderer.cpp`) now marks the scene dirty when the light set's **contents** change (any field), not just its count — a correct fix, though NOT the spot-cone bug (authored lights never mutate at runtime). **Consequence — committing breaks lighting in every existing fabric:** the enum renumber (POINT 1->3) plus the white default means any fabric authored against the old numbers is misread. Dean's plan to minimize the broken window: **commit -> do the Y->Z-up conversion -> then rewrite ALL fabrics in one pass** covering both the new light numbering/values and Z-up. He will check in after a break to do this together.
+
+**Parked / open:**
+- **Spot-light cone is inert through Halogen (blocker, awaiting Jonathan Hale).** A `"spot"` light illuminates but its cone has no visible effect — `fOpeningAngle` from ~40 deg down to ~7 deg looks identical (lights roughly omnidirectional). Point/directional/ambient all work. A note was authored to Jonathan asking: (a) whether a Filament spot needs its transform via `TransformManager` rather than builder params, (b) full-vs-half cone angle, (c) why a `FOCUSED_SPOT` renders omnidirectional, (d) for a minimal known-good spot param set. Until fixed, examples must not depend on tight cones — but Example 02 documents spots as the intended pattern anyway, per Dean ("that's what people should use", and he expects Jonathan's fix soon).
+- **Lightless-scene ambient does not work through Halogen/Filament IBL.** No visible ambient fill at any `ambientRadiance` (tried 0.35 -> 1.0 -> 5000). The wiring is correct end-to-end in source (Sneeze sets `ambientRadiance`; Halogen's `Renderer::commitParameters` parses it; `Frame.cpp` builds an `IndirectLight` when `> 0`) yet nothing appears, and the cause is unexplained. A concise note was sent to Jonathan Hale (Halogen author) asking whether band-1 SH irradiance alone produces visible diffuse / whether it's solvable. The session's AnariRenderer.cpp ambient rework (move the ambient switch into `SetLights`, remove the phantom `"ambient"` light that Halogen silently turns into a stray directional, init `ambientRadiance` 0.05 -> 0.0) **was reverted** — it was never verified to do anything, so the lightless-scene fallback remains the original directional-key + phantom-"ambient" form. Nothing depends on the revert. A model-only scene still reads via the directional key.
+- **Tooling — Cursor UTF-16 new-file write bug is still intermittently active** even after Dean updated Cursor. It silently wrote `docs/examples/index.md` and `docs/examples/01-stool.md` as UTF-16LE (an earlier `README.md` Write happened to come out clean). Keep byte-verifying writes (`ReadAllBytes`, check first bytes and no NUL) and re-encode to UTF-8-no-BOM via PowerShell `System.Text.UTF8Encoding($false)` when hit. NOTE (updated this session): it is no longer safe to assume `StrReplace` edits on existing UTF-8 files are unaffected — this session it flipped several `StrReplace` saves too (`EXAMPLES.md`, a wiki heading edit). Byte-verify after **any** write, not just new-file `Write`s.
+
+**Deferred / next:** the **Y->Z-up conversion** and the batched **rewrite of all fabrics** (new light numbering/values + Z-up in one pass), to be done right after Dean commits (see engine feature 5 for the sequencing rationale — this minimizes the window where fabrics are broken); a preview screenshot for Example 02's README (parked until spot rendering works); Example 03 (attaching a separate fabric as a child); hashing (a later example generates a module `hash`); signing an example into a published `.msf`; Jonathan's answers on the spot-cone and the ambient/IBL questions. Nothing is committed — Dean commits himself.
+
+---
+> Source: [MetaversalCorp/Sneeze](https://github.com/MetaversalCorp/Sneeze) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
