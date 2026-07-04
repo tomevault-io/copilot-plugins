@@ -7,11 +7,11 @@ A complete Docker stack for MSPs managing DMARC data (and everyone else)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [domainaware/dmarc-msp](https://github.com/domainaware/dmarc-msp).
+Original source: `CLAUDE.md` in [domainaware/dmarc-msp](https://github.com/domainaware/dmarc-msp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
