@@ -1,0 +1,9 @@
+{
+  "name": "cb2206--quickprotect",
+  "displayName": "QuickProtect",
+  "description": "macOS status bar app for live RTSP streaming from UniFi Protect cameras",
+  "version": "1.0.0",
+  "author": "cb2206",
+  "homepage": "https://github.com/cb2206/QuickProtect",
+  "skills": []
+}
