@@ -7,13 +7,13 @@ Project-agnostic dual-memory MCP CLI for Claude Code, Cursor, and OpenCode (Qdra
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [dzmitrys-dev/supamem](https://github.com/dzmitrys-dev/supamem).
+Original source: `CLAUDE.md` in [dzmitrys-dev/supamem](https://github.com/dzmitrys-dev/supamem).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
