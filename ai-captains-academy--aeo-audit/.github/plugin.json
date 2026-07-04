@@ -1,0 +1,9 @@
+{
+  "name": "ai-captains-academy--aeo-audit",
+  "displayName": "aeo-audit",
+  "description": "AEO Audit Rig \u2014 Answer Engine Optimization audit template for Claude Code",
+  "version": "1.0.0",
+  "author": "AI-Captains-Academy",
+  "homepage": "https://github.com/AI-Captains-Academy/aeo-audit",
+  "skills": []
+}
