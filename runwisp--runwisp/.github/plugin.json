@@ -1,0 +1,9 @@
+{
+  "name": "runwisp--runwisp",
+  "displayName": "runwisp",
+  "description": "Cron job manager + process supervisor in a single binary. Web dashboard, TUI, retries, failure notifications. crond/supervisord replacement",
+  "version": "1.0.0",
+  "author": "runwisp",
+  "homepage": "https://github.com/runwisp/runwisp",
+  "skills": []
+}
