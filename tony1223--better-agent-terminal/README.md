@@ -2,20 +2,22 @@
 
 > Tome by [tony1223](https://github.com/tony1223/better-agent-terminal) — distributed by [TomeVault](https://tomevault.io)
 
-Multi-workspace terminal aggregator with Claude Code AI integration
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tony1223/better-agent-terminal](https://github.com/tony1223/better-agent-terminal).
+Original source: `AGENTS.md` in [tony1223/better-agent-terminal](https://github.com/tony1223/better-agent-terminal).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [better-agent-terminal](https://github.com/tony1223/better-agent-terminal/tree/main/.claude/skills/check-sdk-updates/SKILL.md)
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tony1223/better-agent-terminal](https://github.com/tony1223/better-agent-terminal)
 
