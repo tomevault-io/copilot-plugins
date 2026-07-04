@@ -1,0 +1,9 @@
+{
+  "name": "bcorfman--freytag-forge",
+  "displayName": "freytag-forge",
+  "description": "Deterministic interactive fiction built around a multi-agent narrative pipeline",
+  "version": "1.0.0",
+  "author": "bcorfman",
+  "homepage": "https://github.com/bcorfman/freytag-forge",
+  "skills": []
+}
