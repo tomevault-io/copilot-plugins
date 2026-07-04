@@ -141444,6 +141444,16 @@
       "description": "Language server, formatter, and linter for R"
     },
     {
+      "name": "mowglinext--mowglinext",
+      "source": "./mowglinext--mowglinext",
+      "description": "MowgliNext \u2014 ROS2 autonomous robot mower monorepo (ROS2 stack, Docker, GUI, firmware)"
+    },
+    {
+      "name": "phantom--vitest-mobile",
+      "source": "./phantom--vitest-mobile",
+      "description": "vitest-mobile"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -145257,6 +145267,11 @@
       "name": "vibber-ai--portmap",
       "source": "./vibber-ai--portmap",
       "description": "map names to localhost ports, made for agents and humans"
+    },
+    {
+      "name": "jhjhjhjh--corey",
+      "source": "./jhjhjhjh--corey",
+      "description": "Review IFC model data visually, configure clauses & rules, validate, repeat."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -158774,6 +158789,11 @@
       "description": "Mermify"
     },
     {
+      "name": "chargrnmn--jobforge",
+      "source": "./chargrnmn--jobforge",
+      "description": "AI-powered job search automation built on Open Code + Geometra MCP. So that means entirely free to use end to end. Evaluate offers, generate ATS-optimized CVs, scan portals, negotiate   offers, and tr"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -164122,6 +164142,11 @@
       "name": "pajama-studio--geometry-node",
       "source": "./pajama-studio--geometry-node",
       "description": "geometry-node"
+    },
+    {
+      "name": "wwwidr--hiring-challenge",
+      "source": "./wwwidr--hiring-challenge",
+      "description": "Respaid Technical Challenge - Senior Laravel/AI Engineer"
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -178139,6 +178164,11 @@
       "description": "Home manager and nix-darwin that understands plain English"
     },
     {
+      "name": "microsoft--build26-lab540-observe-optimize-and-protect-your-hosted-agents-in-microsoft-foundry",
+      "source": "./microsoft--build26-lab540-observe-optimize-and-protect-your-hosted-agents-in-microsoft-foundry",
+      "description": "Workshop : Observe, optimize and protect your hosted agents in Microsoft Foundry "
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -187107,6 +187137,26 @@
       "name": "db-aeon--joshu-oss",
       "source": "./db-aeon--joshu-oss",
       "description": "Joshu open-source box stack (AGPL-3.0)"
+    },
+    {
+      "name": "supabase-community--opencode-supabase",
+      "source": "./supabase-community--opencode-supabase",
+      "description": "opencode-supabase"
+    },
+    {
+      "name": "supabase-community--opencode-supabase",
+      "source": "./supabase-community--opencode-supabase",
+      "description": "opencode-supabase"
+    },
+    {
+      "name": "akokk0--bilibili-notify",
+      "source": "./akokk0--bilibili-notify",
+      "description": "\u76d1\u542c B \u7ad9 UP \u4e3b\u52a8\u6001 / \u76f4\u64ad,\u6e32\u67d3\u6210\u5361\u7247\u56fe\u7247,\u63a8\u9001\u5230 QQ \u7fa4\u7b49\u6e20\u9053"
+    },
+    {
+      "name": "rafael-graunke--spellsplice",
+      "source": "./rafael-graunke--spellsplice",
+      "description": "Spellsplice: an unofficial MTG overlay editor designed to speed up Magic: The Gathering video editing"
     },
     {
       "name": "lightninglabs--lnget",
@@ -200252,6 +200302,56 @@
       "name": "atorber--qmt-trading-skill",
       "source": "./atorber--qmt-trading-skill",
       "description": "\u5c06\u8f7b\u91cf\u7ea7 **QMT Bridge** API \u670d\u52a1\uff08\u5c01\u88c5 [xtquant](https://dict.thinktrader.net/nativeApi/start_now.html) / miniQMT\uff09\u4e0e **21 \u4e2a Agent Skills** \u7ec4\u5408\u53d1\u5e03\uff0c\u4f9b Cursor / Claude Code \u4f7f\u7528\u3002Bridge \u5728 Windows \u4e0a\u968f QMT \u5ba2\u6237\u7aef\u8fd0\u884c\uff0c\u901a\u8fc7 HTTP/We"
+    },
+    {
+      "name": "porcupine-md--jonggrang",
+      "source": "./porcupine-md--jonggrang",
+      "description": "AI agents write code fast. Too fast. Jonggrang makes sure they don't make a mess while doing it."
+    },
+    {
+      "name": "john-rocky--litert-models",
+      "source": "./john-rocky--litert-models",
+      "description": "Converted TFLite Model Zoo for Android with LiteRT CompiledModel GPU acceleration"
+    },
+    {
+      "name": "metaversalcorp--sneeze",
+      "source": "./metaversalcorp--sneeze",
+      "description": "Sneeze"
+    },
+    {
+      "name": "ai-analyst-lab--ai-analyst-plus",
+      "source": "./ai-analyst-lab--ai-analyst-plus",
+      "description": "AI Product Analyst Plus \u2014 full system + premium skills for bootcamp and consulting"
+    },
+    {
+      "name": "mixaverros88--wiremate",
+      "source": "./mixaverros88--wiremate",
+      "description": "Web UI for WireMock - design stubs visually, group them into projects, persist to PostgreSQL, browse live stubs and logs, and publish in one click."
+    },
+    {
+      "name": "haogre--claudetokenmonitorbar-macos",
+      "source": "./haogre--claudetokenmonitorbar-macos",
+      "description": "ClaudeTokenMonitorBar-macOS"
+    },
+    {
+      "name": "false-systems--syva",
+      "source": "./false-systems--syva",
+      "description": "Kernel-level eBPF enforcement for existing Kubernetes clusters. 7 LSM hooks watch every open, exec, kill, ptrace, and cgroup move \u2014 no runtime replacement needed."
+    },
+    {
+      "name": "microsoft--build26-brk241-from-prototype-to-production-build-and-run-agents-at-scale",
+      "source": "./microsoft--build26-brk241-from-prototype-to-production-build-and-run-agents-at-scale",
+      "description": "Engineering patterns for taking AI agents to production \u2014 deployment, tools, memory, long-running work, human oversight, and observability at scale. From Microsoft Build 2026."
+    },
+    {
+      "name": "haogre--claudetokenmonitorbar-macos",
+      "source": "./haogre--claudetokenmonitorbar-macos",
+      "description": "ClaudeTokenMonitorBar-macOS"
+    },
+    {
+      "name": "tuna1999--dnspy-mcp",
+      "source": "./tuna1999--dnspy-mcp",
+      "description": "dnspy-mcp"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -233414,6 +233514,66 @@
       "description": "Dynamic Performance Profiler for Distributed AI"
     },
     {
+      "name": "harrymyers--aura",
+      "source": "./harrymyers--aura",
+      "description": "Generative AI influencers and UGC-style video ads for you brand."
+    },
+    {
+      "name": "swstegall--garlemald-client",
+      "source": "./swstegall--garlemald-client",
+      "description": "Cross-platform Rust launcher for FINAL FANTASY XIV v1.23b private servers (macOS / Linux / Windows)."
+    },
+    {
+      "name": "shreyaskarnik--bol-tts-marathi",
+      "source": "./shreyaskarnik--bol-tts-marathi",
+      "description": "Marathi (\u092e\u0930\u093e\u0920\u0940) fine-tune of Kokoro-82M. End-to-end training recipe built on semidark/kokoro-deutsch. Published model: shreyask/bol-tts-marathi on HuggingFace."
+    },
+    {
+      "name": "liangdabiao--fastmoss-rpa-skills",
+      "source": "./liangdabiao--fastmoss-rpa-skills",
+      "description": "Browser-RPA + \u6570\u636e\u5206\u6790\u5de5\u5177\u96c6\uff0c\u8986\u76d6 [fastmoss.com]  (TikTok Shop \u6570\u636e\u5206\u6790\u5e73\u53f0) \u5168\u90e8 7 \u4e2a\u6838\u5fc3\u6a21\u5757\u3002\u57fa\u4e8e [Kimi WebBridge] \u9a71\u52a8\u7528\u6237\u771f\u5b9e\u6d4f\u89c8\u5668\uff08\u590d\u7528\u767b\u5f55\u6001\uff09\uff0c\u628a FastMoss \u7684\u699c\u5355/\u8d8b\u52bf/\u5e02\u573a\u6570\u636e\u843d\u6210 CSV\uff0c\u5e76\u81ea\u52a8\u751f\u6210 Markdown \u5206\u6790\u62a5\u544a\u3002"
+    },
+    {
+      "name": "imbios--relay",
+      "source": "./imbios--relay",
+      "description": "Universal AI API proxy \u2014 hot-switch between any LLM provider (GitHub Copilot, OpenAI, Anthropic, Z.AI, MiniMax, DeepSeek, Groq, Ollama, and more) from any AI coding agent (Claude Code, ForgeCode, Open"
+    },
+    {
+      "name": "kianby--zoraxy-datashield-blocklist",
+      "source": "./kianby--zoraxy-datashield-blocklist",
+      "description": "zoraxy-datashield-blocklist"
+    },
+    {
+      "name": "saisushanthmoturi--prototype",
+      "source": "./saisushanthmoturi--prototype",
+      "description": "prototype"
+    },
+    {
+      "name": "harrymyers--aura",
+      "source": "./harrymyers--aura",
+      "description": "Generative AI influencers and UGC-style video ads for you brand."
+    },
+    {
+      "name": "prismplural--prism-app",
+      "source": "./prismplural--prism-app",
+      "description": "End-to-End Encrypted Plural System Tracking & Communication Tools"
+    },
+    {
+      "name": "swstegall--garlemald-client",
+      "source": "./swstegall--garlemald-client",
+      "description": "Cross-platform Rust launcher for FINAL FANTASY XIV v1.23b private servers (macOS / Linux / Windows)."
+    },
+    {
+      "name": "jin-bo--agentao-kanban",
+      "source": "./jin-bo--agentao-kanban",
+      "description": "Multi-agent kanban board built on agentao sub-agents"
+    },
+    {
+      "name": "prismplural--prism-app",
+      "source": "./prismplural--prism-app",
+      "description": "End-to-End Encrypted Plural System Tracking & Communication Tools"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -252952,6 +253112,36 @@
       "name": "muye1202--verumtrade",
       "source": "./muye1202--verumtrade",
       "description": "VerumTrade -- An open-source multi-agent AI trading framework, with visible reasoning and decision traces from evidence to final trade proposal."
+    },
+    {
+      "name": "youssefsz--agentdoctor",
+      "source": "./youssefsz--agentdoctor",
+      "description": "Audit repositories for AI coding agent readiness."
+    },
+    {
+      "name": "aziteee--clipsync",
+      "source": "./aziteee--clipsync",
+      "description": "Cross-device clipboard sync solution"
+    },
+    {
+      "name": "daftai2026--cavalry-i18n",
+      "source": "./daftai2026--cavalry-i18n",
+      "description": "Switch Cavalry between English, \u7b80\u4f53\u4e2d\u6587, \u7e41\u9ad4\u4e2d\u6587, and \u65e5\u672c\u8a9e \u2014 one-click language patcher for macOS."
+    },
+    {
+      "name": "hail-hq--hail",
+      "source": "./hail-hq--hail",
+      "description": "\ud83e\ude75 The universal communication platform for AI agents. Give your agent inbound and outbound phone calls, sms, emails, and more."
+    },
+    {
+      "name": "daftai2026--cavalry-i18n",
+      "source": "./daftai2026--cavalry-i18n",
+      "description": "Switch Cavalry between English, \u7b80\u4f53\u4e2d\u6587, \u7e41\u9ad4\u4e2d\u6587, and \u65e5\u672c\u8a9e \u2014 one-click language patcher for macOS."
+    },
+    {
+      "name": "lfnovo--harny",
+      "source": "./lfnovo--harny",
+      "description": "A light-weight harness for Claude Code development"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -375897,6 +376087,26 @@
       "name": "lyzr-apps--ticker-scheduler-fantastic-vault",
       "source": "./lyzr-apps--ticker-scheduler-fantastic-vault",
       "description": "ticker-scheduler-fantastic-vault"
+    },
+    {
+      "name": "danilowendler--campus",
+      "source": "./danilowendler--campus",
+      "description": "Campus"
+    },
+    {
+      "name": "ramananm0--stm32f7",
+      "source": "./ramananm0--stm32f7",
+      "description": "stm32f7"
+    },
+    {
+      "name": "danilowendler--campus",
+      "source": "./danilowendler--campus",
+      "description": "Campus"
+    },
+    {
+      "name": "ramananm0--stm32f7",
+      "source": "./ramananm0--stm32f7",
+      "description": "stm32f7"
     }
   ]
 }
