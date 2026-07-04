@@ -1,0 +1,9 @@
+{
+  "name": "kriss-b--llm-iso27001",
+  "displayName": "llm-iso27001",
+  "description": "ISO 27001 ISMS template designed to be instantiated and maintained by an LLM Agent",
+  "version": "1.0.0",
+  "author": "kriss-b",
+  "homepage": "https://github.com/kriss-b/llm-iso27001",
+  "skills": []
+}
