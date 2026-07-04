@@ -1,0 +1,9 @@
+{
+  "name": "awakecoding--windbg-tool",
+  "displayName": "windbg-tool",
+  "description": "WinDBG tool for AI agents",
+  "version": "1.0.0",
+  "author": "awakecoding",
+  "homepage": "https://github.com/awakecoding/windbg-tool",
+  "skills": []
+}
