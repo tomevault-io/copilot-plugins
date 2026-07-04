@@ -1,0 +1,78 @@
+## ev2090
+
+> NEVER import React in any file under `engine/`. NEVER import Three.js in any file under `components/`.
+
+# EV · 2090 — Cursor Rules
+# https://ev2090.com | React 19 + Three.js + Cloudflare Workers
+
+## The One Rule (Architecture Boundary)
+NEVER import React in any file under `engine/`. NEVER import Three.js in any file under `components/`.
+The engine is pure Three.js. React and the engine communicate only through `GameCanvasHandle` (imperative ref in `GameCanvas.tsx`).
+The engine pushes `GameState` to React at ~20fps via a subscribe callback.
+When a component needs 3D rendering, create a standalone class in `engine/` and instantiate it from the component via `useEffect` — see `ShipPreview.ts` and `ShipDetailRenderer.ts` for the pattern.
+
+## Tech Stack
+- React 19 + Three.js 0.172 + TypeScript 5.7 + Vite 6 (frontend)
+- Cloudflare Workers + Durable Objects + R2 + Queues (backend, `worker/`)
+- MCP server with 37 tools and OAuth 2.0 (`worker-mcp/`)
+- Admin dashboard (`admin/`) — local dev only, never deploy
+- Path alias: `@/` → `frontend/src/`
+
+## Key Files
+- `frontend/src/engine/Engine.ts` — core game loop, scene, all subsystem orchestration
+- `frontend/src/components/GameCanvas.tsx` — React-to-Engine bridge (forwardRef + useImperativeHandle)
+- `frontend/src/components/Game.tsx` — top-level React orchestrator
+- `frontend/src/types/game.ts` — shared types: GameState, ShipState, RadarContact
+- `frontend/src/engine/ShipCatalog.ts` — ship definitions (11 built-in + community)
+- `worker/src/index.ts` — HTTP router + queue consumer
+- `worker/src/economy-region.ts` — NPC economy engine (SQLite, 60s tick alarm)
+- `worker-mcp/src/index.ts` — MCP server entry point
+
+## Patterns to Follow
+
+### Engine systems (`engine/systems/`)
+Always: `constructor(scene, ...)` + `update(dt)` + `dispose()`
+Wire into `Engine.ts`: instantiate in constructor, call `update(dt)` in loop, call `dispose()` in `Engine.dispose()`.
+
+### Engine entities (`engine/entities/`)
+Always: `constructor(config)` + `update(dt)` + `dispose()`
+Entity owns a `THREE.Group` as root mesh. `scene.add(entity.mesh)` in Engine, `entity.dispose()` on teardown.
+All Three.js objects (geometry, materials, textures) MUST be disposed to prevent GPU memory leaks.
+
+### Durable Objects (`worker/src/`)
+Always: constructor loads state → `fetch()` routes requests → `alarm()` for periodic work.
+State is DUAL — in-memory (fast reads) + SQLite/KV (durable). Update BOTH or data is lost on restart.
+
+### MCP tools (`worker-mcp/src/tools/`)
+Always: validate scope → extract params → call DO or R2 → format response.
+Verb prefix controls access: `query_*`/`inspect_*` = read-only, `set_*`/`create_*` = read-write, `delete_*`/`mutate_*` = full-access.
+
+### React components (`components/`)
+Create `MyComponent.tsx` + `MyComponent.css` (co-located). Add to `Game.tsx` render tree.
+Read engine state from `gameState` prop. Call engine methods via `GameCanvasHandle`.
+Use `useConfigSlider` for debug/tuning sliders — not raw `useState`.
+ALL media queries go in `responsive.css` — never in component CSS files.
+
+## Ship Mesh Hierarchy
+`mesh` (Group) → `bankGroup` → `visualGroup` (heading) → `modelGroup` (GLTF root)
+Thrusters attach to `mesh` directly (NOT `visualGroup`) to avoid heading displacement.
+Community ships: embedded PBR in GLB, `source: "community"`, no separate texture files.
+
+## NPC State Machine
+`APPROACHING` → `DOCKING` → `DOCKED` → `DEPARTING` → `DONE`
+Never skip states or modify the state machine without understanding all transitions.
+
+## Console Debug Commands
+`config()` · `testship()` · `heroshot()` · `hardpoints()` · `forge()` · `ship("id")` · `zoom(n)` · `reset()`
+URL: `?scene=gameplay` · `?scene=docked` · `?scene=intro` · `?scene=config`
+
+## Do Not
+- Put component CSS in `App.css` — use co-located `ComponentName.css`
+- Add `wrangler.toml` secrets to version control — use `wrangler secret put`
+- Modify DO migration tags — they are append-only, never reorder or rename
+- Deploy `admin/` to Cloudflare — it is local-only tooling
+- Use raw `useState` for config sliders — use `useConfigSlider`
+
+---
+> Source: [Anashel-RPG/ev2090](https://github.com/Anashel-RPG/ev2090) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
