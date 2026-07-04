@@ -1,0 +1,9 @@
+{
+  "name": "baseinfinity--codex-sdlc-wizard",
+  "displayName": "codex-sdlc-wizard",
+  "description": "SDLC Wizard adapter for OpenAI Codex CLI. Plan is certified, implementation needed. PRs welcome!",
+  "version": "1.0.0",
+  "author": "BaseInfinity",
+  "homepage": "https://github.com/BaseInfinity/codex-sdlc-wizard",
+  "skills": []
+}
