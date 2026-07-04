@@ -1,0 +1,9 @@
+{
+  "name": "jin-bo--agentao-kanban",
+  "displayName": "agentao-kanban",
+  "description": "Multi-agent kanban board built on agentao sub-agents",
+  "version": "1.0.0",
+  "author": "jin-bo",
+  "homepage": "https://github.com/jin-bo/agentao-kanban",
+  "skills": []
+}
