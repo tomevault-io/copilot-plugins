@@ -1,0 +1,9 @@
+{
+  "name": "ktncodes--icm-template",
+  "displayName": "icm-template",
+  "description": "A model-agnostic template for organizing AI workflows using folder structure \u2014 based on the Interpretable Context Methodology",
+  "version": "1.0.0",
+  "author": "ktnCodes",
+  "homepage": "https://github.com/ktnCodes/icm-template",
+  "skills": []
+}
