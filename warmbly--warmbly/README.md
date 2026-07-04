@@ -7,11 +7,11 @@ The largest open-source platform for cold email & warmup
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [warmbly/warmbly](https://github.com/warmbly/warmbly).
+Original source: `CLAUDE.md` in [warmbly/warmbly](https://github.com/warmbly/warmbly).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
