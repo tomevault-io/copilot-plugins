@@ -2,9 +2,9 @@
   "name": "agentdeals",
   "owner": "robhunter",
   "repo": "agentdeals",
-  "description": "",
+  "description": "MCP server aggregating free tiers, startup credits & developer tool deals. 4 tools, 54 categories, 1,525+ offers.",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/robhunter/agentdeals",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T17:23:58Z"
+  "distributed_at": "2026-07-04T12:48:59Z"
 }
