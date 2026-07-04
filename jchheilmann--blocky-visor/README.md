@@ -1,13 +1,13 @@
-# blocky-visor
+# AI instruction files for blocky-visor
 
-> Tome by [JCHHeilmann](https://github.com/JCHHeilmann/blocky-visor) — distributed by [TomeVault](https://tomevault.io)
+> Sourced from [jchheilmann/blocky-visor](https://github.com/jchheilmann/blocky-visor) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 Fully featured frontend for blocky DNS proxy and ad-blocker.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JCHHeilmann/blocky-visor](https://github.com/JCHHeilmann/blocky-visor).
+Original source: `CLAUDE.md` in [jchheilmann/blocky-visor](https://github.com/jchheilmann/blocky-visor).
 
 ## Also available for
 
@@ -17,10 +17,14 @@ Original source: `CLAUDE.md` in [JCHHeilmann/blocky-visor](https://github.com/JC
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/JCHHeilmann/blocky-visor](https://github.com/JCHHeilmann/blocky-visor)
+From [jchheilmann/blocky-visor](https://github.com/jchheilmann/blocky-visor) — a repo with 16+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Install this config instantly:
+```
+npx tomevault install jchheilmann/blocky-visor
+```
+Source: [github.com/jchheilmann/blocky-visor](https://github.com/jchheilmann/blocky-visor).
 
-<!-- genome:t-e-q -->
+<!-- genome:a-i-s -->
