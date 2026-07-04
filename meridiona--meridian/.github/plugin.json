@@ -1,0 +1,9 @@
+{
+  "name": "meridiona--meridian",
+  "displayName": "meridian",
+  "description": "Your work logs itself. Meridian watches what you build \u2014 no prompts, no timers \u2014 classifies every session into the right task, and auto-updates Jira, Linear, and GitHub Issues. All data stays on your ",
+  "version": "1.0.0",
+  "author": "Meridiona",
+  "homepage": "https://github.com/Meridiona/meridian",
+  "skills": []
+}
