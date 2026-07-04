@@ -1,13 +1,13 @@
-# AI instruction files for CoinMarketCap-CLI
+# CoinMarketCap-CLI
 
-> Sourced from [openCMC/CoinMarketCap-CLI](https://github.com/openCMC/CoinMarketCap-CLI) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Tome by [OpenCMC](https://github.com/OpenCMC/CoinMarketCap-CLI) — distributed by [TomeVault](https://tomevault.io)
 
 Official CoinMarketCap CLI for market data, history, monitoring, and AI-agent workflows.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [openCMC/CoinMarketCap-CLI](https://github.com/openCMC/CoinMarketCap-CLI).
+Original source: `CLAUDE.md` in [OpenCMC/CoinMarketCap-CLI](https://github.com/OpenCMC/CoinMarketCap-CLI).
 
 ## Also available for
 
@@ -17,14 +17,10 @@ Original source: `CLAUDE.md` in [openCMC/CoinMarketCap-CLI](https://github.com/o
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/openCMC/CoinMarketCap-CLI](https://github.com/openCMC/CoinMarketCap-CLI)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/OpenCMC/CoinMarketCap-CLI](https://github.com/OpenCMC/CoinMarketCap-CLI)
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install openCMC/CoinMarketCap-CLI
-```
-Source: [github.com/openCMC/CoinMarketCap-CLI](https://github.com/openCMC/CoinMarketCap-CLI).
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-i-p -->
+<!-- genome:t-c-q -->
