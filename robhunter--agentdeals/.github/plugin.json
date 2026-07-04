@@ -1,7 +1,7 @@
 {
   "name": "robhunter--agentdeals",
   "displayName": "agentdeals",
-  "description": "agentdeals",
+  "description": "MCP server aggregating free tiers, startup credits & developer tool deals. 4 tools, 54 categories, 1,525+ offers.",
   "version": "1.0.0",
   "author": "robhunter",
   "homepage": "https://github.com/robhunter/agentdeals",
