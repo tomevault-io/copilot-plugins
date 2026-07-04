@@ -1,0 +1,9 @@
+{
+  "name": "rockeverm3m--acp-deepseek-adapter",
+  "displayName": "acp-deepseek-adapter",
+  "description": "Bridge DeepSeek TUI to Feishu/WeChat/QQ via cc-connect ACP | \u624b\u673a\u5199\u4ee3\u7801",
+  "version": "1.0.0",
+  "author": "rockeverm3m",
+  "homepage": "https://github.com/rockeverm3m/acp-deepseek-adapter",
+  "skills": []
+}
