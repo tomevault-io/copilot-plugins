@@ -1,0 +1,44 @@
+{
+  "name": "red-alert-llm",
+  "owner": "gabrielursan-beep",
+  "repo": "red-alert-llm",
+  "description": "Portable offline AI kit on a USB SSD \u2014 run LLM chat + Wikipedia + encrypted vault anywhere. No internet, no install, no subscriptions. Windows/macOS/Linux/Android/iOS. Powered by Qwen3 + llamafile.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gabrielursan-beep/red-alert-llm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T08:55:06Z"
+}
