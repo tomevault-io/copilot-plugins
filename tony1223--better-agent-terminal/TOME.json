@@ -2,9 +2,9 @@
   "name": "better-agent-terminal",
   "owner": "tony1223",
   "repo": "better-agent-terminal",
-  "description": "Multi-workspace terminal aggregator with Claude Code AI integration",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "better-agent-terminal",
+      "path": ".claude/skills/check-sdk-updates/SKILL.md",
+      "github_url": "https://github.com/tony1223/better-agent-terminal/tree/main/.claude/skills/check-sdk-updates/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tony1223/better-agent-terminal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T11:48:28Z"
+  "distributed_at": "2026-07-04T02:00:25Z"
 }
