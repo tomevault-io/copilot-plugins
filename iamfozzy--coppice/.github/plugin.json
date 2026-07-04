@@ -1,0 +1,9 @@
+{
+  "name": "iamfozzy--coppice",
+  "displayName": "coppice",
+  "description": "A desktop app for managing Git worktrees, AI agents, and development workflows in a unified interface.  Supports Claude Code and PI Agent.",
+  "version": "1.0.0",
+  "author": "iamfozzy",
+  "homepage": "https://github.com/iamfozzy/coppice",
+  "skills": []
+}
