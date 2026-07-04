@@ -4,7 +4,7 @@
   "repo": "open-science",
   "description": "Open Science \u2014 an open AI workbench for scientists. Open-source alternative to Claude Science: local-first, model-agnostic, reproducible AI research desktop (macOS & Windows), built on Tauri + MCP + agent skills.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai4s-research/open-science",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T08:35:02Z"
+  "distributed_at": "2026-07-04T08:35:31Z"
 }
