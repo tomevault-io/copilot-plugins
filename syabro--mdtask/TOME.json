@@ -4,7 +4,7 @@
   "repo": "mdtask",
   "description": "The spec-driven development system where specs and tasks live in your repo and never drift from the code.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/syabro/mdtask",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T14:33:19Z"
+  "distributed_at": "2026-07-04T14:33:49Z"
 }
