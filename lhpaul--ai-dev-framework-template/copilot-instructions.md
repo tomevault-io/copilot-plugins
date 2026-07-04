@@ -1,53 +1,44 @@
-## documentation
+## workflow
 
-> Documentation conventions. Apply when creating or editing any documentation file.
+> AI development workflow conventions. Apply when working on feature specs, implementation plans, code implementation, reviews, or releases.
 
 
-## Documentation Conventions
+## AI Development Workflow
 
-### Single source of truth
+This project follows a staged AI-assisted development workflow. The canonical reference is:
 
-Every piece of information lives in exactly one place. Before adding content:
-1. Check if it already exists somewhere in `docs/`
-2. If it exists, reference it — don't duplicate it
-3. If it doesn't exist, add it in the most appropriate file
+`docs/workflow/development-workflow/README.md`
 
-### Document boundaries
+Repository-specific workflow providers live in `.ai-dev-workflow.yaml`. Today, `review.on_draft.runner` is consumed by the Step 7a internal review gate protocol, and `review.on_draft.github` / `review.on_ready.github` are consumed by `pr-review-loop.sh` (Step 7); other sections are advisory until more tooling adopts them. Legacy review keys remain accepted for one transition release.
 
-| File/Directory | Contains |
+### Stages and protocols
+
+| Stage | Protocol |
 |---|---|
-| `README.md` | Project overview, quick start, repo map |
-| `AGENTS.md` | AI agent guidance, commands, key conventions |
-| `docs/project/` | Project-specific context (domain, architecture, stack, DB) |
-| `docs/best-practices/` | Coding standards and conventions |
-| `docs/workflow/development-workflow/` | Workflow protocols, templates, integrations |
-| `docs/specs/developments/` | Feature specs and implementation plans |
-| `docs/testing/` | Smoke test runbooks |
+| Write spec | `docs/workflow/development-workflow/protocols/01-generate-spec-protocol.md` |
+| Write plan | `docs/workflow/development-workflow/protocols/02-generate-implementation-plan-protocol.md` |
+| Implement | `docs/workflow/development-workflow/protocols/03-implement-development-protocol.md` |
+| Review gate | `REVIEW.md` and the compatibility wrappers under `docs/workflow/development-workflow/protocols/` |
+| Batch orchestrate | `docs/workflow/development-workflow/protocols/90-batch-orchestrate-work-protocol.md` |
+| Orchestrate one item | `docs/workflow/development-workflow/protocols/91-orchestrate-work-protocol.md` |
 
-### Cross-referencing
+### Key rules
 
-Prefer references over duplication:
+- Always read the spec and plan before implementing (Refactor items have no spec — read the plan and work item brief instead)
+- Continue through the review gate, PR readiness, and CI unless the protocol surfaces a real human decision
+- Always update CHANGELOG before opening a PR (except spec/plan-only PRs; for fixes to unreleased work, update the existing entry instead of adding a new one; in parallel batches, each PR adds its own CHANGELOG entry as normal; merge conflicts are resolved at merge time); **hotfix exception**: `hotfix/*` PRs write a new versioned section (e.g., `[1.0.1] - YYYY-MM-DD`) as the **first `##` section** in `CHANGELOG.md` (above all existing headers, including prior hotfix versions and `[Unreleased]`) — hotfixes patch released code and are released immediately on merge
+- No `git push --force`, `reset --hard`, or rebase on shared branches without explicit human approval
+- Humans merge PRs — agents open them
 
-```markdown
-<!-- Good -->
-For database conventions, see [`docs/best-practices/STACK-SPECIFIC.md`](../best-practices/STACK-SPECIFIC.md).
+### Development artifacts
 
-<!-- Bad -->
-[Copying the entire database conventions section here]
 ```
+docs/specs/developments/[YYYYMMDDHHMMSS]_[slug]/
+  1_[slug]_specs.md          # Full Pipeline only; Refactor items have no spec file
+  2_[slug]_implementation-plan.md
 
-### Placeholder discipline
-
-- Use `> TODO: [specific question]` for content that needs to be filled in
-- Never leave generic placeholder text (e.g., "[Description]") after setup is complete
-- If a section doesn't apply to the project, delete it rather than leaving it empty
-
-### Writing style
-
-- Write for AI readers as well as humans — be specific and unambiguous
-- Prefer tables over long prose for structured information
-- Use code blocks for commands, file paths, and code examples
-- Keep docs concise — AI agents read these on every task
+docs/testing/[section]/[slug].smoke-test.md
+```
 
 ---
 > Source: [lhpaul/ai-dev-framework-template](https://github.com/lhpaul/ai-dev-framework-template) — distributed by [TomeVault](https://tomevault.io).
