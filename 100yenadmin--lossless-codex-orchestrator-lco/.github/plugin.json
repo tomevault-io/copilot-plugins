@@ -1,0 +1,9 @@
+{
+  "name": "100yenadmin--lossless-codex-orchestrator-lco",
+  "displayName": "Lossless-Codex-Orchestrator-LCO",
+  "description": "Index, search, summarize, and approval-gate local Codex sessions through OpenClaw/MCP. Agent-first recall and dry-run orchestration for Codex-heavy work.",
+  "version": "1.0.0",
+  "author": "100yenadmin",
+  "homepage": "https://github.com/100yenadmin/Lossless-Codex-Orchestrator-LCO",
+  "skills": []
+}
