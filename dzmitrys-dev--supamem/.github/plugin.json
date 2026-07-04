@@ -1,0 +1,9 @@
+{
+  "name": "dzmitrys-dev--supamem",
+  "displayName": "supamem",
+  "description": "Project-agnostic dual-memory MCP CLI for Claude Code, Cursor, and OpenCode (Qdrant tuned hybrid retrieval + structural memory hooks)",
+  "version": "1.0.0",
+  "author": "dzmitrys-dev",
+  "homepage": "https://github.com/dzmitrys-dev/supamem",
+  "skills": []
+}
