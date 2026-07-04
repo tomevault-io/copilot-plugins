@@ -1,51 +1,45 @@
 ## better-agent-terminal
 
-> - **NEVER** break existing features when implementing new ones.
+> Follow the project guidance in `CLAUDE.md`. The most important operational notes are repeated here for agents that load `AGENTS.md` first.
 
-# CLAUDE.md - Project Guidelines
+# AGENTS.md - Project Guidelines
 
-## No Regressions Policy
+Follow the project guidance in `CLAUDE.md`. The most important operational notes are repeated here for agents that load `AGENTS.md` first.
 
-- **NEVER** break existing features when implementing new ones.
-- Before committing, verify ALL existing features still work — not just the new changes.
-- Run the build (`npx vite build`) to confirm compilation succeeds.
-- When modifying shared code (stores, IPC handlers, types), trace all consumers to ensure nothing breaks.
+## Package Management
 
-## Logging
+- This repository uses **pnpm**. Do not use `npm install`, `npm ci`, or `npx` for project workflows.
+- The pinned package manager is declared in `package.json` (`packageManager`: `pnpm@10.33.2`).
+- Use `pnpm install --frozen-lockfile` for reproducible installs.
+- Use `pnpm exec <tool>` instead of `npx <tool>`.
+- Keep `pnpm-lock.yaml` committed and do not reintroduce `package-lock.json`.
+- pnpm v10 blocks dependency lifecycle scripts unless explicitly allowed; required build-script packages are listed under `pnpm.onlyBuiltDependencies` in `package.json`.
 
-- **Frontend (renderer)**: Use `window.electronAPI.debug.log(...)` instead of `console.log()`. This sends logs to the electron main process logger, which writes to disk.
-- **Backend (electron)**: Use `logger.log(...)` / `logger.error(...)` from `./logger`.
-- Do NOT use `console.log()` for debugging — use the logger so logs are persisted and visible in the log file.
-- **Log file location**: `~/Library/Application Support/better-agent-terminal/debug.log`
+## Verification
 
-## Sub-agent / Active Tasks Tracking
+- Run `pnpm exec tsc --noEmit --pretty false` for type checking.
+- Run `pnpm run compile` for the standard build check.
+- Run `pnpm run test:sidecar` when touching Node sidecar resolution or runtime startup.
+- Run `pnpm run check:tauri-rust` when touching Rust/Tauri runtime code. This uses `cargo check`; `cargo test` is not a standard gate because local Windows builds can fail before assertions with loader error `0xc0000139`.
+- For local packaging verification without macOS signing/notarization, run:
+  - `pnpm run tauri:build:debug`
 
-- The Claude Agent SDK does **NOT** reliably emit `task_started` / `task_progress` / `task_notification` system messages.
-- We track Agent/Task tools from `tool_use` blocks directly in `session.activeTasks` (in `claude-agent-manager.ts`).
-- `stopTask()` falls back to using `toolUseId` as `task_id` when no mapping exists.
-- Tool results for Agent/Task must clean up `activeTasks` entries.
+## Project Rules
 
-## React Rendering
+- Do not replace the built-in status line implementation.
+- Renderer logs should use `window.batAppAPI.debug.log(...)`; Tauri/backend logs should use the project logger/debug helpers.
+- Tauri logs live under `<app-data>/logs/`: renderer/Rust logs in `debug.log`, sidecar logs in `sidecar.log`. On macOS fresh Tauri installs this is usually `~/Library/Application Support/com.tonyq.better-agent-terminal/logs/debug.log`; existing Electron migrations may use `~/Library/Application Support/BetterAgentTerminal/logs/debug.log`. `BAT_TAURI_DATA_DIR` overrides this in dev/tests.
+- When modifying shared code such as stores, IPC handlers, or shared types, trace consumers before committing.
 
-- Use `flushSync` from `react-dom` for Agent/Task tool state changes (`setMessages` in `onToolUse` and `onToolResult`) to prevent rendering delays from React 18 batching during streaming.
-- Do NOT use `flushSync` for regular tool calls — only for state changes that affect the active tasks bar visibility.
+## IPC Compatibility
 
-## Status Line
-
-- Our status line implementation is superior to external alternatives (e.g., ccstatusline). Do not replace it.
-- 13 configurable items with custom colors, zone alignment, and template-based config.
-- Usage polling: Chrome session key (primary, lenient rate limits) → OAuth fallback (strict rate limits).
-
-## Release
-
-- **正式版**: `release new tag version` → 基於最新 tag 遞增 patch 版號，建立 tag 並 push
-  - 例：目前 `v2.1.3` → 建立 `v2.1.4` tag
-- **預覽版**: `release new pre tag version` → 基於最新 tag 遞增 patch 版號，加 `-pre.1` 後綴
-  - 例：目前 `v2.1.3` → 建立 `v2.1.4-pre.1`
-  - 若已有 `v2.1.4-pre.1` → 建立 `v2.1.4-pre.2`
-- Tag 含 `-pre` 時 GitHub Release 自動標為 Pre-release，不更新 Homebrew tap
-- Tag 不含 `-pre` 時為正式版，更新 Homebrew tap
+- Treat renderer-facing IPC as a compatibility contract. Existing `host.*`, `window.batAppAPI.*`, and event names/signatures should be additive-only unless a task explicitly includes a coordinated migration.
+- Do not rename or reshape existing agent events such as `claude:message`, `claude:stream`, `claude:status`, `claude:history`, `claude:resume-loading`, `claude:result`, or `claude:turn-end`; new runtimes must adapt to those event shapes.
+- Tauri/Rust runtime work should route behind the existing host API when possible. For example, a Rust Codex runtime may handle `claude_start_session` / `claude_send_message` internally for Codex sessions, but the renderer should keep calling the existing `host.claude.*` methods.
+- New IPC commands or events may be added for capabilities, diagnostics, metrics, or explicitly new UI features, but they must not be required to keep existing UI workflows functioning.
+- Keep runtime ownership per session explicit. A session should be owned by either Rust or the Node sidecar for its lifecycle; avoid mixing Rust and Node responses for the same running session except through deliberate fallback at session start.
+- Fallback should happen below the renderer contract. If Rust cannot handle a Codex capability yet, route or degrade inside Tauri/sidecar code without forcing renderer callsite changes.
 
 ---
 > Source: [tony1223/better-agent-terminal](https://github.com/tony1223/better-agent-terminal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
