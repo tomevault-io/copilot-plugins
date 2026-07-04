@@ -19569,6 +19569,11 @@
       "description": "django-base-site"
     },
     {
+      "name": "connectrpc--connect-rust",
+      "source": "./connectrpc--connect-rust",
+      "description": "An implementation of the ConnectRPC protocol for Rust"
+    },
+    {
       "name": "0xsero--vllm-studio",
       "source": "./0xsero--vllm-studio",
       "description": "Control panel for VLLM, Sglang, llama.cpp, exllamav3"
@@ -41309,6 +41314,16 @@
       "description": "CnGalWebSite"
     },
     {
+      "name": "tuya--tuyaopenclaw",
+      "source": "./tuya--tuyaopenclaw",
+      "description": "Edge-Hardware (SoC/MCU) oriented Claw\ud83e\udd9e"
+    },
+    {
+      "name": "tuya--tuyaopenclaw",
+      "source": "./tuya--tuyaopenclaw",
+      "description": "Edge-Hardware (SoC/MCU) oriented Claw\ud83e\udd9e"
+    },
+    {
       "name": "jayminwest--agentic-engineering-book",
       "source": "./jayminwest--agentic-engineering-book",
       "description": "Agentic Engineering: A comprehensive, growing guide to building agentic systems"
@@ -52382,6 +52397,11 @@
       "name": "lgallard--terraform-aws-cognito-user-pool",
       "source": "./lgallard--terraform-aws-cognito-user-pool",
       "description": "terraform-aws-cognito-user-pool"
+    },
+    {
+      "name": "noahapp--noah-for-tinkerers",
+      "source": "./noahapp--noah-for-tinkerers",
+      "description": "Noah -- fixing your computer issues"
     },
     {
       "name": "aws-samples--sample-kolya-br-proxy",
@@ -120069,6 +120089,11 @@
       "description": "Write once in React. Render emails, web pages, and PDFs from the same component tree."
     },
     {
+      "name": "ebhattad--nfl-mcp",
+      "source": "./ebhattad--nfl-mcp",
+      "description": "nfl-mcp"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -154194,6 +154219,16 @@
       "description": "CLI to scaffold production-ready Next.js apps with curated templates and optional add-ons (shadcn, Elysia, GSAP + Lenis)."
     },
     {
+      "name": "kaieye--livo",
+      "source": "./kaieye--livo",
+      "description": "Livo"
+    },
+    {
+      "name": "kaieye--livo",
+      "source": "./kaieye--livo",
+      "description": "Livo"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -158902,6 +158937,21 @@
       "name": "opencmc--coinmarketcap-cli",
       "source": "./opencmc--coinmarketcap-cli",
       "description": "Official CoinMarketCap CLI for market data, history, monitoring, and AI-agent workflows."
+    },
+    {
+      "name": "ai-captains-academy--aeo-audit",
+      "source": "./ai-captains-academy--aeo-audit",
+      "description": "AEO Audit Rig \u2014 Answer Engine Optimization audit template for Claude Code"
+    },
+    {
+      "name": "devbd1--skills",
+      "source": "./devbd1--skills",
+      "description": "DevBD1 agent skills collection, including OpenClaw Scrapling MCP guidance."
+    },
+    {
+      "name": "dragfly--dictare",
+      "source": "./dragfly--dictare",
+      "description": "Voice interaction layer for AI coding agents and beyond. Open protocol (OpenVIP), 100% local."
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -170964,6 +171014,16 @@
       "description": "ADDF (\u81ea\u52d5\u4eba\u5f62\u81ea\u5f8b\u958b\u767a\u30d5\u30ec\u30fc\u30e0\u30ef\u30fc\u30af/AutomatonDevDriveFramework) is AgenticDevelopmentDrivenFramwork"
     },
     {
+      "name": "ai4s-research--open-science",
+      "source": "./ai4s-research--open-science",
+      "description": "Open Science \u2014 an open AI workbench for scientists. Open-source alternative to Claude Science: local-first, model-agnostic, reproducible AI research desktop (macOS & Windows), built on Tauri + MCP + a"
+    },
+    {
+      "name": "ai4s-research--open-science",
+      "source": "./ai4s-research--open-science",
+      "description": "Open Science \u2014 an open AI workbench for scientists. Open-source alternative to Claude Science: local-first, model-agnostic, reproducible AI research desktop (macOS & Windows), built on Tauri + MCP + a"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -178312,6 +178372,11 @@
       "name": "iblai--claw-setup",
       "source": "./iblai--claw-setup",
       "description": "Connect self-hosted OpenClaw and NemoClaw servers to the ibl.ai platform \u2014 server setup, Caddy TLS, and full API integration guides"
+    },
+    {
+      "name": "molefrog--moi",
+      "source": "./molefrog--moi",
+      "description": "\ud83d\udcbe MOI: agent-agnostic generative UI workspace"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -187312,6 +187377,11 @@
       "name": "ppak10--rocketsmith",
       "source": "./ppak10--rocketsmith",
       "description": "Use agents to design and build high powered rockets"
+    },
+    {
+      "name": "lachlanchen--leonardsusskind",
+      "source": "./lachlanchen--leonardsusskind",
+      "description": "The lecture notes of Professor Leonard Susskind."
     },
     {
       "name": "lightninglabs--lnget",
@@ -200532,6 +200602,36 @@
       "name": "zazencodes--zazencodes-season-3",
       "source": "./zazencodes--zazencodes-season-3",
       "description": "YouTube video source code for Season 3"
+    },
+    {
+      "name": "dimitrigeelen--agentic-engineering-framework",
+      "source": "./dimitrigeelen--agentic-engineering-framework",
+      "description": "Governance framework for AI coding agents \u2014 enforces task traceability, structural gates, session continuity, and audit trails for Claude Code, Cursor, and Copilot."
+    },
+    {
+      "name": "dimitrigeelen--agentic-engineering-framework",
+      "source": "./dimitrigeelen--agentic-engineering-framework",
+      "description": "Governance framework for AI coding agents \u2014 enforces task traceability, structural gates, session continuity, and audit trails for Claude Code, Cursor, and Copilot."
+    },
+    {
+      "name": "chattreenet--vibepulse",
+      "source": "./chattreenet--vibepulse",
+      "description": "Light-weighted Kanban for opencode"
+    },
+    {
+      "name": "maxwellsdm1867--wheeler",
+      "source": "./maxwellsdm1867--wheeler",
+      "description": "Turn Claude Code into an interactive scientific workspace: workflow, file system, and knowledge graph."
+    },
+    {
+      "name": "vapvarun--wp-astro-mcp",
+      "source": "./vapvarun--wp-astro-mcp",
+      "description": "Headless WordPress MCP server \u2014 adds an Astro frontend to any WordPress site. Multi-site support, content sync, and GitHub publishing."
+    },
+    {
+      "name": "erenaydev--viteplus-svelte",
+      "source": "./erenaydev--viteplus-svelte",
+      "description": "VitePlus + SvelteKit starter template"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -234019,6 +234119,191 @@
       "description": "whetstone | incredible optimization and caching for claude code | \ud83d\udca6\ud83e\udea8 "
     },
     {
+      "name": "impertio-studio--docker-claude-skill-package",
+      "source": "./impertio-studio--docker-claude-skill-package",
+      "description": "22 deterministic Claude skills for Docker and Docker Compose. Dockerfile best practices, multi-stage builds, Compose orchestration, container security"
+    },
+    {
+      "name": "zhangyu94--humanfile",
+      "source": "./zhangyu94--humanfile",
+      "description": "Declare boundaries for coding agents with .human files."
+    },
+    {
+      "name": "exponential-os--prompt-engineering-in-action",
+      "source": "./exponential-os--prompt-engineering-in-action",
+      "description": "Prompt engineering techniques that work in practice. Co-Dialectic: your AI coaches your prompts, you coach its answers. Paste one file into any AI. Five systems activate automatically \u2014 personas, prom"
+    },
+    {
+      "name": "giorobert88--financial-dashboard",
+      "source": "./giorobert88--financial-dashboard",
+      "description": "Modern Next.JS Firefly dashboard"
+    },
+    {
+      "name": "cilangzzz--yudao-skill-pro",
+      "source": "./cilangzzz--yudao-skill-pro",
+      "description": "RuoYi-Vue \u4f18\u5316skill\u7248\u672c\uff0c\u672c\u5206\u652f\u5728\u828b\u9053\u6e90\u7801\u57fa\u7840\u4e0a\uff0c\u6784\u5efa\u4e86\u4e00\u5957\u5b8c\u6574\u7684 AI Skill \u5f00\u53d1\u89c4\u8303\u4f53\u7cfb."
+    },
+    {
+      "name": "sysnet4admin--notiflex-platform",
+      "source": "./sysnet4admin--notiflex-platform",
+      "description": "Claude Code \uac00\ub4dc\ub808\uc77c\ub85c AI \uc5d0\uc774\uc804\ud2b8\uac00 GKE \uc704\uc5d0 \uad6c\ucd95\ud55c B2B \uc54c\ub9bc SaaS. GitOps(ArgoCD), Argo Rollouts(Canary), Kafka, Valkey, OpenTelemetry \ud65c\uc6a9. \ucc45 \u300cAI \uc2dc\ub300\uc5d0 \uac1c\ubc1c\uc790\uac00 \uc54c\uc544\uc57c \ud560 \uc778\ud504\ub77c \uad6c\uc131 \ubc30\ud3ec with \ud074\ub85c\ub4dc \ucf54\ub4dc\u300d\uc758 \uc2e4\uc2b5 \uc800\uc7a5\uc18c"
+    },
+    {
+      "name": "marsor707--msmail",
+      "source": "./marsor707--msmail",
+      "description": "\u5fae\u8f6f\u90ae\u7bb1\u53d6\u4ef6\u7cfb\u7edf"
+    },
+    {
+      "name": "byronxlg--skillfold",
+      "source": "./byronxlg--skillfold",
+      "description": "Configuration language and compiler for multi-agent AI pipelines. Compiles YAML config into standard SKILL.md files."
+    },
+    {
+      "name": "wfukatsu--nexus-architect",
+      "source": "./wfukatsu--nexus-architect",
+      "description": "Unified system architecture agent for Claude Code. 36 skills across 9 categories for legacy refactoring, greenfield ScalarDB design, and consulting deliverables."
+    },
+    {
+      "name": "decisiongraph--dg",
+      "source": "./decisiongraph--dg",
+      "description": "dg"
+    },
+    {
+      "name": "freenet--mail",
+      "source": "./freenet--mail",
+      "description": "Decentralized email application built on Freenet"
+    },
+    {
+      "name": "ktncodes--icm-template",
+      "source": "./ktncodes--icm-template",
+      "description": "A model-agnostic template for organizing AI workflows using folder structure \u2014 based on the Interpretable Context Methodology"
+    },
+    {
+      "name": "domainaware--dmarc-msp",
+      "source": "./domainaware--dmarc-msp",
+      "description": "A complete Docker stack for MSPs managing DMARC data (and everyone else)"
+    },
+    {
+      "name": "exponential-os--prompt-engineering-in-action",
+      "source": "./exponential-os--prompt-engineering-in-action",
+      "description": "Prompt engineering techniques that work in practice. Co-Dialectic: your AI coaches your prompts, you coach its answers. Paste one file into any AI. Five systems activate automatically \u2014 personas, prom"
+    },
+    {
+      "name": "coder--agent-tty",
+      "source": "./coder--agent-tty",
+      "description": "Drive, inspect & record terminal sessions from the CLI"
+    },
+    {
+      "name": "wfukatsu--nexus-architect",
+      "source": "./wfukatsu--nexus-architect",
+      "description": "Unified system architecture agent for Claude Code. 36 skills across 9 categories for legacy refactoring, greenfield ScalarDB design, and consulting deliverables."
+    },
+    {
+      "name": "termlnk--termlnk",
+      "source": "./termlnk--termlnk",
+      "description": "Termlnk is a modern terminal reimagined with AI agents, SSH workflows, and a rich extension system."
+    },
+    {
+      "name": "thomasdarimont--pgauthz",
+      "source": "./thomasdarimont--pgauthz",
+      "description": "A pure PostgreSQL implementation of the Google Zanzibar / OpenFGA authorization model."
+    },
+    {
+      "name": "ceorkm--kratos-cli",
+      "source": "./ceorkm--kratos-cli",
+      "description": "Persistent memory for AI coding agents \u2014 CLI-first, encrypted, local"
+    },
+    {
+      "name": "freenet--mail",
+      "source": "./freenet--mail",
+      "description": "Decentralized email application built on Freenet"
+    },
+    {
+      "name": "zhangyu94--humanfile",
+      "source": "./zhangyu94--humanfile",
+      "description": "Declare boundaries for coding agents with .human files."
+    },
+    {
+      "name": "cb2206--quickprotect",
+      "source": "./cb2206--quickprotect",
+      "description": "macOS status bar app for live RTSP streaming from UniFi Protect cameras"
+    },
+    {
+      "name": "das-lab--darkflow",
+      "source": "./das-lab--darkflow",
+      "description": "High performance (real time / offline) darknet flow feature extraction tool built in Rust using eBPF."
+    },
+    {
+      "name": "domainaware--dmarc-msp",
+      "source": "./domainaware--dmarc-msp",
+      "description": "A complete Docker stack for MSPs managing DMARC data (and everyone else)"
+    },
+    {
+      "name": "kozmosa--open-science",
+      "source": "./kozmosa--open-science",
+      "description": "open-science"
+    },
+    {
+      "name": "asermax--seemux",
+      "source": "./asermax--seemux",
+      "description": "A GTK4 terminal multiplexer for Linux with Claude Code integration, inspired by cmux."
+    },
+    {
+      "name": "zosmaai--zosma-qa",
+      "source": "./zosmaai--zosma-qa",
+      "description": "Zero-config QA platform \u2014 Playwright, AI agents, and extensible test runners."
+    },
+    {
+      "name": "gabrielursan-beep--red-alert-llm",
+      "source": "./gabrielursan-beep--red-alert-llm",
+      "description": "Portable offline AI kit on a USB SSD \u2014 run LLM chat + Wikipedia + encrypted vault anywhere. No internet, no install, no subscriptions. Windows/macOS/Linux/Android/iOS. Powered by Qwen3 + llamafile."
+    },
+    {
+      "name": "bike-outliner--extension-kit",
+      "source": "./bike-outliner--extension-kit",
+      "description": "Build tooling and API types for Bike Outliner extensions"
+    },
+    {
+      "name": "securityronin--issen",
+      "source": "./securityronin--issen",
+      "description": "Point it at disk + memory evidence; get a correlated, ATT&CK-mapped attack timeline. Rust DFIR orchestrator: one command ingests E01/EWF/VMDK/raw + memory dumps, parses NTFS/registry/EVTX/prefetch/LNK"
+    },
+    {
+      "name": "ceorkm--kratos-cli",
+      "source": "./ceorkm--kratos-cli",
+      "description": "Persistent memory for AI coding agents \u2014 CLI-first, encrypted, local"
+    },
+    {
+      "name": "berrzebb--quorum",
+      "source": "./berrzebb--quorum",
+      "description": "Cross-model audit gate with autonomous quality loop \u2014 AST hybrid scanning, fitness gate, blast radius, structured orchestration. 19 MCP tools, 743 tests. CLI + Claude Code plugin."
+    },
+    {
+      "name": "malyjacob--zujuan",
+      "source": "./malyjacob--zujuan",
+      "description": "\u7528\u4e8e\u4ece\u7ec4\u5377\u7f51\uff08zujuan.xkw.com\uff09\u6293\u53d6\u521d\u9ad8\u4e2d\u6570\u5b66\u9898\u76ee\u3001\u7b54\u6848\u548c\u89e3\u6790\u3002"
+    },
+    {
+      "name": "connexity-ai--connexity",
+      "source": "./connexity-ai--connexity",
+      "description": "Connexity is an open-source evaluation and observability platform for voice AI agents"
+    },
+    {
+      "name": "kozmosa--open-science",
+      "source": "./kozmosa--open-science",
+      "description": "open-science"
+    },
+    {
+      "name": "eiffl--le-claude",
+      "source": "./eiffl--le-claude",
+      "description": "Use Claude Code with France's Albert API \u2014 one command, zero config, complete privacy.   "
+    },
+    {
+      "name": "devlas-cl--dte-sii",
+      "source": "./devlas-cl--dte-sii",
+      "description": "Facturaci\u00f3n y boletas electr\u00f3nicas para el SII de Chile"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -253587,6 +253872,11 @@
       "name": "lfnovo--harny",
       "source": "./lfnovo--harny",
       "description": "A light-weight harness for Claude Code development"
+    },
+    {
+      "name": "researai--openscience",
+      "source": "./researai--openscience",
+      "description": "OpenScience organizes research questions, evidence, tasks, and agent work into a traceable collaboration workspace."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -376552,6 +376842,11 @@
       "name": "ramananm0--stm32f7",
       "source": "./ramananm0--stm32f7",
       "description": "stm32f7"
+    },
+    {
+      "name": "shemilkumar--devfolio",
+      "source": "./shemilkumar--devfolio",
+      "description": "devfolio"
     }
   ]
 }
