@@ -1,24 +1,46 @@
-## native-errors
+## native-orpc
 
-> TypeScript error handling with nostics in the native app
+> oRPC and React Query for Rust ↔ TypeScript IPC in the native app
 
 
-# TypeScript errors — use `nostics`
+# Rust ↔ TypeScript IPC — use oRPC
 
-Define and report user-facing errors through **`nostics`** in `apps/native/src/lib/errors.ts`.
+All new Rust ↔ TypeScript communication must go through **oRPC** (fully typed end-to-end).
 
-- Add diagnostic codes, titles, suggestions, and `defineDiagnostics` entries there — not ad hoc strings in components.
-- Import `diagnostics` (or helpers like `getRebuildErrorTitle`) from `@/lib/errors` when surfacing errors in UI.
-- Rust-side errors exposed to the frontend should map to stable codes that have entries in `errors.ts`.
+## Codegen (required after router changes)
 
-```typescript
-// ❌ BAD — one-off error copy in a component
-toast.error("Something went wrong with the provider");
-
-// ✅ GOOD — structured diagnostic
-import { diagnostics, DIAGNOSTIC_CODES } from "@/lib/errors";
-diagnostics.report(DIAGNOSTIC_CODES.EVOLVE_NO_PROVIDER);
+```bash
+cd apps/native && bun run gen:orpc
 ```
+
+- Rust procedures: `apps/native/src-tauri/src/orpc/`
+- Generated TS bindings: `apps/native/src/ipc/orpc-bindings.ts` (do not edit)
+- Client + TanStack Query helpers: `apps/native/src/lib/orpc.ts`
+
+## Prefer React Query over `invoke()`
+
+oRPC integrates with **TanStack Query** via `orpc` helpers. This is the default for data that is fetched, cached, polled, or invalidated.
+
+```tsx
+// ✅ GOOD — cached, deduplicated, lifecycle-aware
+import { useQuery } from "@tanstack/react-query";
+import { orpc } from "@/lib/orpc";
+
+const { data } = useQuery(orpc.github.listRepos.queryOptions({ input: undefined }));
+```
+
+```ts
+// ❌ BAD — new feature wired through legacy invoke()
+import { invoke } from "@tauri-apps/api/core";
+await invoke("some_new_command");
+```
+
+- **`client`** — direct async calls for one-off/imperative flows (no cache needed).
+- **`orpc` + hooks** — anything that should behave like server state in React.
+
+Do **not** add new Zustand stores for global fetchable data — React Query is the cache. Even global async state belongs in query cache, not a hand-rolled store.
+
+Legacy `invoke()` in `apps/native/src/ipc/api.ts` is deprecated; migrate callers to oRPC when touching them.
 
 ---
 > Source: [darkmatter/nixmac](https://github.com/darkmatter/nixmac) — distributed by [TomeVault](https://tomevault.io).
