@@ -1,0 +1,9 @@
+{
+  "name": "andreata--figma-to-avada",
+  "displayName": "figma-to-avada",
+  "description": "Convert Figma designs into Avada (WordPress) shortcodes using AI.",
+  "version": "1.0.0",
+  "author": "andreata",
+  "homepage": "https://github.com/andreata/figma-to-avada",
+  "skills": []
+}
