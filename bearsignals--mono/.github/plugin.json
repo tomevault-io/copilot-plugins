@@ -1,0 +1,9 @@
+{
+  "name": "bearsignals--mono",
+  "displayName": "mono",
+  "description": "backend for conductor.build",
+  "version": "1.0.0",
+  "author": "bearsignals",
+  "homepage": "https://github.com/bearsignals/mono",
+  "skills": []
+}
