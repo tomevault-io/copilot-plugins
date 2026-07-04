@@ -7,11 +7,11 @@ A simple Markdown Editor specializing in Data Visualization and ease of use.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [robrighter/simple-md](https://github.com/robrighter/simple-md).
+Original source: `AGENTS.md` in [robrighter/simple-md](https://github.com/robrighter/simple-md).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
