@@ -1,0 +1,9 @@
+{
+  "name": "status403com--patchright-go",
+  "displayName": "patchright-go",
+  "description": "Undetected Golang version of the Playwright testing and automation library.",
+  "version": "1.0.0",
+  "author": "status403com",
+  "homepage": "https://github.com/status403com/patchright-go",
+  "skills": []
+}
