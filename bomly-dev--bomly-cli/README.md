@@ -7,11 +7,11 @@ Free, open-source CLI for dependency intelligence, SBOMs, vulnerability auditing
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bomly-dev/bomly-cli](https://github.com/bomly-dev/bomly-cli).
+Original source: `CLAUDE.md` in [bomly-dev/bomly-cli](https://github.com/bomly-dev/bomly-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
