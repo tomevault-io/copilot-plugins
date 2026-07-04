@@ -1,0 +1,9 @@
+{
+  "name": "chriscantu--claude-safari-extension",
+  "displayName": "claude-safari-extension",
+  "description": "Safari Web Extension that lets Claude Code control Safari via MCP (Model Context Protocol)",
+  "version": "1.0.0",
+  "author": "chriscantu",
+  "homepage": "https://github.com/chriscantu/claude-safari-extension",
+  "skills": []
+}
