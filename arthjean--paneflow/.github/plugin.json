@@ -1,0 +1,9 @@
+{
+  "name": "arthjean--paneflow",
+  "displayName": "paneflow",
+  "description": "Local-first Rust/GPUI workspace for running coding agents side by side: real terminal panes, live status, worktree review, read-only MCP, and local orchestration.",
+  "version": "1.0.0",
+  "author": "arthjean",
+  "homepage": "https://github.com/arthjean/paneflow",
+  "skills": []
+}
