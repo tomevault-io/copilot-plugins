@@ -1,0 +1,9 @@
+{
+  "name": "openmanet--openvlm",
+  "displayName": "OpenVLM",
+  "description": "Open Voice Link Module for OpenMANET",
+  "version": "1.0.0",
+  "author": "OpenMANET",
+  "homepage": "https://github.com/OpenMANET/OpenVLM",
+  "skills": []
+}
