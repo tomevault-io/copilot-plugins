@@ -4,7 +4,7 @@
   "repo": "paneflow",
   "description": "Local-first Rust/GPUI workspace for running coding agents side by side: real terminal panes, live status, worktree review, read-only MCP, and local orchestration.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arthjean/paneflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T03:37:15Z"
+  "distributed_at": "2026-07-04T03:39:16Z"
 }
