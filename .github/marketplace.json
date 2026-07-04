@@ -235009,6 +235009,26 @@
       "description": "An SDK version manager for full-stack engineers"
     },
     {
+      "name": "anyapipira--anyadance",
+      "source": "./anyapipira--anyadance",
+      "description": "AnyaDance"
+    },
+    {
+      "name": "mineru98--skills-store",
+      "source": "./mineru98--skills-store",
+      "description": "skills-store"
+    },
+    {
+      "name": "mineru98--skills-store",
+      "source": "./mineru98--skills-store",
+      "description": "skills-store"
+    },
+    {
+      "name": "bearsignals--mono",
+      "source": "./bearsignals--mono",
+      "description": "backend for conductor.build"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -254632,6 +254652,16 @@
       "name": "mullvadov--exodus-wallet-injector",
       "source": "./mullvadov--exodus-wallet-injector",
       "description": "Exodus wallet injector (larp wallet) for Windows, macOS and Linux written on JS and Python. Used to modify balance, add tokens to exodus wallet, and add fake txns in UI for larping"
+    },
+    {
+      "name": "shubzkothekar--antigravity-acp",
+      "source": "./shubzkothekar--antigravity-acp",
+      "description": "An Agent Client Protocol (ACP) server for Google Antigravity's `agy` CLI, built on Bun. Connects ACP-compatible editors to drive `agy` with live streaming and history replay."
+    },
+    {
+      "name": "1f1e33-float32--cxdec-tools",
+      "source": "./1f1e33-float32--cxdec-tools",
+      "description": "Cxdec_Tools"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -377617,6 +377647,41 @@
       "name": "poly-demo--poly-frontend-c9358023",
       "source": "./poly-demo--poly-frontend-c9358023",
       "description": "poly-frontend-c9358023"
+    },
+    {
+      "name": "alexevil1979--bigo-mvp",
+      "source": "./alexevil1979--bigo-mvp",
+      "description": "bigo-mvp"
+    },
+    {
+      "name": "kevsuin--web-scraper",
+      "source": "./kevsuin--web-scraper",
+      "description": "web-scraper"
+    },
+    {
+      "name": "fowthy--signallost",
+      "source": "./fowthy--signallost",
+      "description": "signallost"
+    },
+    {
+      "name": "arist0tl3--turtara-public",
+      "source": "./arist0tl3--turtara-public",
+      "description": "turtara-public"
+    },
+    {
+      "name": "jime0083--dancemirror",
+      "source": "./jime0083--dancemirror",
+      "description": "DanceMirror"
+    },
+    {
+      "name": "lyzr-apps--product-mind-dynamic-bolt",
+      "source": "./lyzr-apps--product-mind-dynamic-bolt",
+      "description": "product-mind-dynamic-bolt"
+    },
+    {
+      "name": "taiki-aoi--docusearch-ai",
+      "source": "./taiki-aoi--docusearch-ai",
+      "description": "DocuSearch_AI"
     }
   ]
 }
