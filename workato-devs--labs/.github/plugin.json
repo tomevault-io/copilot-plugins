@@ -1,0 +1,9 @@
+{
+  "name": "workato-devs--labs",
+  "displayName": "labs",
+  "description": "Landing page and hub repo for Workato Labs \u2014 an open-source developer toolkit for building, validating, visualizing, and managing Workato recipes with AI coding agents.",
+  "version": "1.0.0",
+  "author": "workato-devs",
+  "homepage": "https://github.com/workato-devs/labs",
+  "skills": []
+}
