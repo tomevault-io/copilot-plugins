@@ -1,0 +1,9 @@
+{
+  "name": "brandonkramer--which-key-lazy",
+  "displayName": "which-key-lazy",
+  "description": "A which-key LazyVim-style popup for JetBrains IDEs with IdeaVim. Press your leader key and see all available keybindings in a clean, navigable popup \u2014 just like LazyVim.",
+  "version": "1.0.0",
+  "author": "brandonkramer",
+  "homepage": "https://github.com/brandonkramer/which-key-lazy",
+  "skills": []
+}
