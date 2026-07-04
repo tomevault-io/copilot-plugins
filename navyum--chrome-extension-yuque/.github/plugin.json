@@ -1,0 +1,9 @@
+{
+  "name": "navyum--chrome-extension-yuque",
+  "displayName": "chrome-extension-yuque",
+  "description": "\u8bed\u96c0\u6587\u6863\u6279\u91cf\u5bfc\u51fa\u5230\u672c\u5730\u3002\u6240\u89c1\u5373\u53ef\u4e0b\u8f7d\u3002\u652f\u6301\u6536\u85cf\u6587\u4ef6\u5bfc\u51fa\u3002\u5e55\u5e03\u6587\u6863\u6279\u91cf\u5bfc\u51fa\u5230\u672c\u5730\u3002\u652f\u6301Markdown\u683c\u5f0f\uff0c\u65b9\u4fbf\u8fc1\u79fbAI\u7b14\u8bb0\u3001obsidian\u7b49\u3002",
+  "version": "1.0.0",
+  "author": "Navyum",
+  "homepage": "https://github.com/Navyum/chrome-extension-yuque",
+  "skills": []
+}
