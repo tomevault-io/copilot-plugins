@@ -1,0 +1,9 @@
+{
+  "name": "aeroxy--job-bro",
+  "displayName": "job-bro",
+  "description": "AI-powered LinkedIn job posting analyzer Chrome extension.",
+  "version": "1.0.0",
+  "author": "aeroxy",
+  "homepage": "https://github.com/aeroxy/job-bro",
+  "skills": []
+}
