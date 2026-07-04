@@ -4,7 +4,7 @@
   "repo": "AKF",
   "description": "Trust metadata for AI agents \u2014 a stamp costs ~15 tokens, re-verifying costs 15,000. Agents stamp what they verify; the next agent runs 'akf check' and builds on it. pip install akf",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HMAKT99/AKF",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T10:32:23Z"
+  "distributed_at": "2026-07-04T10:46:46Z"
 }
