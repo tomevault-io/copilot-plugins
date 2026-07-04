@@ -1,0 +1,9 @@
+{
+  "name": "termlnk--termlnk",
+  "displayName": "termlnk",
+  "description": "Termlnk is a modern terminal reimagined with AI agents, SSH workflows, and a rich extension system.",
+  "version": "1.0.0",
+  "author": "termlnk",
+  "homepage": "https://github.com/termlnk/termlnk",
+  "skills": []
+}
