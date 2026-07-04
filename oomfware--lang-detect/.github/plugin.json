@@ -1,0 +1,9 @@
+{
+  "name": "oomfware--lang-detect",
+  "displayName": "lang-detect",
+  "description": "natural language detection library",
+  "version": "1.0.0",
+  "author": "oomfware",
+  "homepage": "https://github.com/oomfware/lang-detect",
+  "skills": []
+}
