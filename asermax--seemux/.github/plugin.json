@@ -1,0 +1,9 @@
+{
+  "name": "asermax--seemux",
+  "displayName": "seemux",
+  "description": "A GTK4 terminal multiplexer for Linux with Claude Code integration, inspired by cmux.",
+  "version": "1.0.0",
+  "author": "asermax",
+  "homepage": "https://github.com/asermax/seemux",
+  "skills": []
+}
