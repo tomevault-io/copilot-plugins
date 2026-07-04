@@ -4,7 +4,7 @@
   "repo": "prism-app",
   "description": "End-to-End Encrypted Plural System Tracking & Communication Tools",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prismplural/prism-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T04:46:08Z"
+  "distributed_at": "2026-07-04T04:48:33Z"
 }
