@@ -1,0 +1,9 @@
+{
+  "name": "lawyered0--lawyered-matter-tracker-clio",
+  "displayName": "lawyered-matter-tracker-clio",
+  "description": "Clio Manage edition of lawyered-matter-tracker \u2014 adds one-way sync of new matters to Clio via the clio-mcp server.",
+  "version": "1.0.0",
+  "author": "lawyered0",
+  "homepage": "https://github.com/lawyered0/lawyered-matter-tracker-clio",
+  "skills": []
+}
