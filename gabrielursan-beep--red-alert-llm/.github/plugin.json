@@ -1,0 +1,9 @@
+{
+  "name": "gabrielursan-beep--red-alert-llm",
+  "displayName": "red-alert-llm",
+  "description": "Portable offline AI kit on a USB SSD \u2014 run LLM chat + Wikipedia + encrypted vault anywhere. No internet, no install, no subscriptions. Windows/macOS/Linux/Android/iOS. Powered by Qwen3 + llamafile.",
+  "version": "1.0.0",
+  "author": "gabrielursan-beep",
+  "homepage": "https://github.com/gabrielursan-beep/red-alert-llm",
+  "skills": []
+}
