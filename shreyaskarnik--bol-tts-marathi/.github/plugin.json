@@ -1,0 +1,9 @@
+{
+  "name": "shreyaskarnik--bol-tts-marathi",
+  "displayName": "bol-tts-marathi",
+  "description": "Marathi (\u092e\u0930\u093e\u0920\u0940) fine-tune of Kokoro-82M. End-to-end training recipe built on semidark/kokoro-deutsch. Published model: shreyask/bol-tts-marathi on HuggingFace.",
+  "version": "1.0.0",
+  "author": "shreyaskarnik",
+  "homepage": "https://github.com/shreyaskarnik/bol-tts-marathi",
+  "skills": []
+}
