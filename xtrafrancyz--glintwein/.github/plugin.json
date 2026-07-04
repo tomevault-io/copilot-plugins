@@ -1,0 +1,9 @@
+{
+  "name": "xtrafrancyz--glintwein",
+  "displayName": "glintwein",
+  "description": "UI framework for any Minecraft version. Fast shader-based renderer with msdf fonts, rounded corners and batching support.",
+  "version": "1.0.0",
+  "author": "xtrafrancyz",
+  "homepage": "https://github.com/xtrafrancyz/glintwein",
+  "skills": []
+}
