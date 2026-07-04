@@ -1,0 +1,44 @@
+{
+  "name": "Hackathon-backend",
+  "owner": "JavaScript-Mastery-Pro",
+  "repo": "Hackathon-backend",
+  "description": "A scalable backend API built with NestJS for managing hackathons. It seamlessly automates user auth, CRUD operations, project uploads, async processing, and email alerts with modern security.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JavaScript-Mastery-Pro/Hackathon-backend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T16:31:06Z"
+}
