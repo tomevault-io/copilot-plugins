@@ -4,7 +4,7 @@
   "repo": "OASiS",
   "description": "OASiS \u2014 an open-source multi-physics and multi-code framework for verified computer simulations. Model Context Protocol (MCP) server connecting AI coding agents to 8 finite element solvers (FEniCSx, deal.II, 4C, NGSolve, scikit-fem, Kratos, DUNE-fem, FEBio) with cross-backend collation knowledge.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hereon-InstituteMS/OASiS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T06:32:20Z"
+  "distributed_at": "2026-07-04T06:47:44Z"
 }
