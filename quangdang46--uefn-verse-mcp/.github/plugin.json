@@ -1,0 +1,9 @@
+{
+  "name": "quangdang46--uefn-verse-mcp",
+  "displayName": "uefn-verse-mcp",
+  "description": "MCP bridge for Unreal Editor for Fortnite that lets Claude Code, Cursor, and other MCP clients drive a live UEFN editor safely.",
+  "version": "1.0.0",
+  "author": "quangdang46",
+  "homepage": "https://github.com/quangdang46/uefn-verse-mcp",
+  "skills": []
+}
