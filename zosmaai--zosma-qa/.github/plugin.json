@@ -1,0 +1,9 @@
+{
+  "name": "zosmaai--zosma-qa",
+  "displayName": "zosma-qa",
+  "description": "Zero-config QA platform \u2014 Playwright, AI agents, and extensible test runners.",
+  "version": "1.0.0",
+  "author": "zosmaai",
+  "homepage": "https://github.com/zosmaai/zosma-qa",
+  "skills": []
+}
