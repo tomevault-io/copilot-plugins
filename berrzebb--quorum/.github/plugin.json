@@ -1,0 +1,9 @@
+{
+  "name": "berrzebb--quorum",
+  "displayName": "quorum",
+  "description": "Cross-model audit gate with autonomous quality loop \u2014 AST hybrid scanning, fitness gate, blast radius, structured orchestration. 19 MCP tools, 743 tests. CLI + Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "berrzebb",
+  "homepage": "https://github.com/berrzebb/quorum",
+  "skills": []
+}
