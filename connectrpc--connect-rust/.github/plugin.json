@@ -1,0 +1,9 @@
+{
+  "name": "connectrpc--connect-rust",
+  "displayName": "connect-rust",
+  "description": "An implementation of the ConnectRPC protocol for Rust",
+  "version": "1.0.0",
+  "author": "connectrpc",
+  "homepage": "https://github.com/connectrpc/connect-rust",
+  "skills": []
+}
