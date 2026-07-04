@@ -1,0 +1,9 @@
+{
+  "name": "lykhoyda--rn-dev-agent",
+  "displayName": "rn-dev-agent",
+  "description": "Claude Code plugin for React Native \u2014 explores codebases, designs architecture, implements features, and verifies live on simulator via CDP",
+  "version": "1.0.0",
+  "author": "Lykhoyda",
+  "homepage": "https://github.com/Lykhoyda/rn-dev-agent",
+  "skills": []
+}
