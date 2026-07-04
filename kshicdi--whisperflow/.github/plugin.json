@@ -1,0 +1,9 @@
+{
+  "name": "kshicdi--whisperflow",
+  "displayName": "whisperflow",
+  "description": "\ud83c\udfa4 JARVIS AI Assistant - Local voice recognition + TTS + visual UI for macOS",
+  "version": "1.0.0",
+  "author": "kshicdi",
+  "homepage": "https://github.com/kshicdi/whisperflow",
+  "skills": []
+}
