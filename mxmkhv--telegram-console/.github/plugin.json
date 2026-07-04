@@ -1,0 +1,26 @@
+{
+  "name": "mxmkhv--telegram-console",
+  "displayName": "telegram-console",
+  "description": "Console client for telegram messenger",
+  "version": "1.0.0",
+  "author": "mxmkhv",
+  "homepage": "https://github.com/mxmkhv/telegram-console",
+  "skills": [
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "react-render-skill",
+      "description": ""
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    }
+  ]
+}
