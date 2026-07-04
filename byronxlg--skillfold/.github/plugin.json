@@ -1,0 +1,9 @@
+{
+  "name": "byronxlg--skillfold",
+  "displayName": "skillfold",
+  "description": "Configuration language and compiler for multi-agent AI pipelines. Compiles YAML config into standard SKILL.md files.",
+  "version": "1.0.0",
+  "author": "byronxlg",
+  "homepage": "https://github.com/byronxlg/skillfold",
+  "skills": []
+}
