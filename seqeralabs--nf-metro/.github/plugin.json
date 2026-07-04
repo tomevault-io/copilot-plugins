@@ -1,0 +1,9 @@
+{
+  "name": "seqeralabs--nf-metro",
+  "displayName": "nf-metro",
+  "description": "Metro-map-style SVG diagrams from Mermaid graph definitions, designed for visualizing bioinformatics pipeline workflows",
+  "version": "1.0.0",
+  "author": "seqeralabs",
+  "homepage": "https://github.com/seqeralabs/nf-metro",
+  "skills": []
+}
