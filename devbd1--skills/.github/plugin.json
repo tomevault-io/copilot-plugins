@@ -1,0 +1,9 @@
+{
+  "name": "devbd1--skills",
+  "displayName": "skills",
+  "description": "DevBD1 agent skills collection, including OpenClaw Scrapling MCP guidance.",
+  "version": "1.0.0",
+  "author": "DevBD1",
+  "homepage": "https://github.com/DevBD1/skills",
+  "skills": []
+}
