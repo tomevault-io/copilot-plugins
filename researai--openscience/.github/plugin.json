@@ -1,0 +1,9 @@
+{
+  "name": "researai--openscience",
+  "displayName": "OpenScience",
+  "description": "OpenScience organizes research questions, evidence, tasks, and agent work into a traceable collaboration workspace.",
+  "version": "1.0.0",
+  "author": "ResearAI",
+  "homepage": "https://github.com/ResearAI/OpenScience",
+  "skills": []
+}
