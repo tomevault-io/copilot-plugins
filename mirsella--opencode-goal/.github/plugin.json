@@ -1,0 +1,9 @@
+{
+  "name": "mirsella--opencode-goal",
+  "displayName": "opencode-goal",
+  "description": "Add Codex-style long-running goals to OpenCode",
+  "version": "1.0.0",
+  "author": "mirsella",
+  "homepage": "https://github.com/mirsella/opencode-goal",
+  "skills": []
+}
