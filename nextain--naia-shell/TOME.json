@@ -4,7 +4,7 @@
   "repo": "naia-shell",
   "description": "Naia OS - Next AI Networks OS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nextain/naia-shell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T10:39:34Z"
+  "distributed_at": "2026-07-04T10:41:28Z"
 }
