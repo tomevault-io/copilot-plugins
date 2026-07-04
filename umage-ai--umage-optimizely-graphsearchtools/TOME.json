@@ -4,7 +4,7 @@
   "repo": "Umage.Optimizely.GraphSearchtools",
   "description": "Marketer-facing admin tooling for Optimizely Graph site-search on Optimizely CMS 12 and CMS 13.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/umage-ai/Umage.Optimizely.GraphSearchtools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T23:02:21Z"
+  "distributed_at": "2026-07-04T23:03:50Z"
 }
