@@ -1,0 +1,44 @@
+{
+  "name": "lanjut",
+  "owner": "rimzzlabs",
+  "repo": "lanjut",
+  "description": "Lanjut is a local-first r\u00e9sum\u00e9 builder that stays entirely in your browser. No account, nothing uploaded. Style it freely, and every export is structured to sail through applicant tracking systems.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rimzzlabs/lanjut",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T12:41:34Z"
+}
