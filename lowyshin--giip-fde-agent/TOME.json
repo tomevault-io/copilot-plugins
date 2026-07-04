@@ -4,7 +4,7 @@
   "repo": "giip-fde-agent",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LowyShin/giip-fde-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T14:32:26Z"
+  "distributed_at": "2026-07-04T14:32:51Z"
 }
