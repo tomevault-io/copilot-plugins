@@ -1,0 +1,9 @@
+{
+  "name": "100yenadmin--fable-token-saving-skills-orchestrator",
+  "displayName": "fable-token-saving-skills-orchestrator",
+  "description": "\ud83e\uddda Fable-first Claude orchestration kit for token-saving lane routing, dense turns, and cache-preserving wait discipline.",
+  "version": "1.0.0",
+  "author": "100yenadmin",
+  "homepage": "https://github.com/100yenadmin/fable-token-saving-skills-orchestrator",
+  "skills": []
+}
