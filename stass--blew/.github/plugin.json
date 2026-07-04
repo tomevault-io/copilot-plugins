@@ -1,0 +1,9 @@
+{
+  "name": "stass--blew",
+  "displayName": "blew",
+  "description": "Mac OS X command line BLE tool and MCP server",
+  "version": "1.0.0",
+  "author": "stass",
+  "homepage": "https://github.com/stass/blew",
+  "skills": []
+}
