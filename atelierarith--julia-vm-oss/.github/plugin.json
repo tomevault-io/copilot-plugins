@@ -1,0 +1,9 @@
+{
+  "name": "atelierarith--julia-vm-oss",
+  "displayName": "julia-vm-oss",
+  "description": "Let's run Julia everywhere from mobile to web.",
+  "version": "1.0.0",
+  "author": "AtelierArith",
+  "homepage": "https://github.com/AtelierArith/julia-vm-oss",
+  "skills": []
+}
