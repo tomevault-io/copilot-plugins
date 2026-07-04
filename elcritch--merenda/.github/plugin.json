@@ -1,0 +1,9 @@
+{
+  "name": "elcritch--merenda",
+  "displayName": "merenda",
+  "description": "Cocoa flavored GUI with a dash of QT sprinkled in written in pure Nim",
+  "version": "1.0.0",
+  "author": "elcritch",
+  "homepage": "https://github.com/elcritch/merenda",
+  "skills": []
+}
