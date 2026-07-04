@@ -1,0 +1,9 @@
+{
+  "name": "jolicode--wallet-kit",
+  "displayName": "wallet-kit",
+  "description": "One fluent API to model Apple Wallet and Google Wallet payloads in typed PHP",
+  "version": "1.0.0",
+  "author": "jolicode",
+  "homepage": "https://github.com/jolicode/wallet-kit",
+  "skills": []
+}
