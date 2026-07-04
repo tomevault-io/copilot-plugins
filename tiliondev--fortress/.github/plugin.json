@@ -1,0 +1,9 @@
+{
+  "name": "tiliondev--fortress",
+  "displayName": "fortress",
+  "description": "Stealth Chromium engine that stops scrapers and browser agents from getting blocked, with one line of code change.",
+  "version": "1.0.0",
+  "author": "tiliondev",
+  "homepage": "https://github.com/tiliondev/fortress",
+  "skills": []
+}
