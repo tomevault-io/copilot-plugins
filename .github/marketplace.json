@@ -20174,6 +20174,11 @@
       "description": "command_line_reporter"
     },
     {
+      "name": "tony1223--better-agent-terminal",
+      "source": "./tony1223--better-agent-terminal",
+      "description": "better-agent-terminal"
+    },
+    {
       "name": "microsoft--ontology-playground",
       "source": "./microsoft--ontology-playground",
       "description": "Free, open-source web app for learning about ontologies and Microsoft Fabric IQ. Explore a catalogue of pre-built ontologies, design your own visually, export as RDF/XML, and share interactive diagram"
@@ -81684,6 +81689,11 @@
       "description": "gallery-server"
     },
     {
+      "name": "nvidia-tao--tao-skill-bank",
+      "source": "./nvidia-tao--tao-skill-bank",
+      "description": "tao-skill-bank"
+    },
+    {
       "name": "hyhmrright--brooks-lint",
       "source": "./hyhmrright--brooks-lint",
       "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix"
@@ -94642,6 +94652,16 @@
       "name": "stewie-pixel--claude-with-leetcode",
       "source": "./stewie-pixel--claude-with-leetcode",
       "description": "Daily Leetcode masterclass with Claude code DSA mentor"
+    },
+    {
+      "name": "johnfkoo951--cmds-llm-wiki",
+      "source": "./johnfkoo951--cmds-llm-wiki",
+      "description": "LLM Wiki template \u2014 Karpathy 3-layer pattern + Gold In Gold Out purpose gate + Claude Code harness (7 commands, 2 hooks, 18 web clipper templates)"
+    },
+    {
+      "name": "johnfkoo951--cmds-llm-wiki",
+      "source": "./johnfkoo951--cmds-llm-wiki",
+      "description": "LLM Wiki template \u2014 Karpathy 3-layer pattern + Gold In Gold Out purpose gate + Claude Code harness (7 commands, 2 hooks, 18 web clipper templates)"
     },
     {
       "name": "w3cj--ruta",
@@ -131702,6 +131722,11 @@
       "name": "sandraschi--windows-computer-use-mcp",
       "source": "./sandraschi--windows-computer-use-mcp",
       "description": "Windows Computer Use for AI Agents. Both a tool (22 MCP tools for click, type, screenshot, OCR, UI inspection) and an agent (autonomous mission engine, macro recorder, intent-based discovery, event wa"
+    },
+    {
+      "name": "hermes-webui--hermes-android",
+      "source": "./hermes-webui--hermes-android",
+      "description": "The best way to use Hermes from your Android"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -177934,6 +177959,36 @@
       "description": "Agentic control plane for your entire media server stack."
     },
     {
+      "name": "darkmatter--nixmac",
+      "source": "./darkmatter--nixmac",
+      "description": "Home manager and nix-darwin that understands plain English"
+    },
+    {
+      "name": "darkmatter--nixmac",
+      "source": "./darkmatter--nixmac",
+      "description": "Home manager and nix-darwin that understands plain English"
+    },
+    {
+      "name": "darkmatter--nixmac",
+      "source": "./darkmatter--nixmac",
+      "description": "Home manager and nix-darwin that understands plain English"
+    },
+    {
+      "name": "darkmatter--nixmac",
+      "source": "./darkmatter--nixmac",
+      "description": "Home manager and nix-darwin that understands plain English"
+    },
+    {
+      "name": "darkmatter--nixmac",
+      "source": "./darkmatter--nixmac",
+      "description": "Home manager and nix-darwin that understands plain English"
+    },
+    {
+      "name": "darkmatter--nixmac",
+      "source": "./darkmatter--nixmac",
+      "description": "Home manager and nix-darwin that understands plain English"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -186872,6 +186927,31 @@
       "name": "cleversnail--ai-comic-video-generator",
       "source": "./cleversnail--ai-comic-video-generator",
       "description": "AI\u6f2b\u5267\u751f\u6210\u5e73\u53f0\uff0c\u652f\u6301\u81ea\u5b9a\u4e49\u5404\u4e2a\u73af\u8282\u7684\u5927\u6a21\u578bapikey"
+    },
+    {
+      "name": "narailabs--doc-wiki",
+      "source": "./narailabs--doc-wiki",
+      "description": "Documentation wiki generator + maintainer \u2014 Claude Code skill + agents + TypeScript helpers"
+    },
+    {
+      "name": "narailabs--doc-wiki",
+      "source": "./narailabs--doc-wiki",
+      "description": "Documentation wiki generator + maintainer \u2014 Claude Code skill + agents + TypeScript helpers"
+    },
+    {
+      "name": "narailabs--doc-wiki",
+      "source": "./narailabs--doc-wiki",
+      "description": "Documentation wiki generator + maintainer \u2014 Claude Code skill + agents + TypeScript helpers"
+    },
+    {
+      "name": "rachana901070--video-loan-origination-system",
+      "source": "./rachana901070--video-loan-origination-system",
+      "description": "video-loan-origination-system"
+    },
+    {
+      "name": "narailabs--doc-wiki",
+      "source": "./narailabs--doc-wiki",
+      "description": "Documentation wiki generator + maintainer \u2014 Claude Code skill + agents + TypeScript helpers"
     },
     {
       "name": "lightninglabs--lnget",
@@ -199972,6 +200052,16 @@
       "name": "plasticity-of-cloud--kubemicrovm",
       "source": "./plasticity-of-cloud--kubemicrovm",
       "description": "The first community Kubernetes controller for AWS Lambda MicroVMs, with JOSDK, Quarkus and GraalVM"
+    },
+    {
+      "name": "tiliondev--fortress",
+      "source": "./tiliondev--fortress",
+      "description": "Stealth Chromium engine that stops scrapers and browser agents from getting blocked, with one line of code change."
+    },
+    {
+      "name": "heyhuynhgiabuu--pi-search",
+      "source": "./heyhuynhgiabuu--pi-search",
+      "description": "pi-search"
     },
     {
       "name": "yschimke--compose-ai-tools",
