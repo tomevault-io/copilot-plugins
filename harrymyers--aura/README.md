@@ -7,11 +7,11 @@ Generative AI influencers and UGC-style video ads for you brand.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [harrymyers/Aura](https://github.com/harrymyers/Aura).
+Original source: `CLAUDE.md` in [harrymyers/Aura](https://github.com/harrymyers/Aura).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
