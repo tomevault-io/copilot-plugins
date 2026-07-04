@@ -1,0 +1,9 @@
+{
+  "name": "mateffy--struktur",
+  "displayName": "struktur",
+  "description": "All-in-one tool for structured data extraction using LLMs. Feed it documents, get back validated JSON. Handles parsing files, chunking, retries, merging, and deduplication \u2014 you just define the schema",
+  "version": "1.0.0",
+  "author": "mateffy",
+  "homepage": "https://github.com/mateffy/struktur",
+  "skills": []
+}
