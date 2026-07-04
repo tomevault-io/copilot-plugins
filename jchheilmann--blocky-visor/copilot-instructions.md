@@ -112,5 +112,5 @@ Metric names used by the parser (Blocky v0.28):
 - Loading skeletons (`CardSkeleton`) used on analytics page while data loads
 
 ---
-> Source: [JCHHeilmann/blocky-visor](https://github.com/JCHHeilmann/blocky-visor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+> Source: [jchheilmann/blocky-visor](https://github.com/jchheilmann/blocky-visor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
