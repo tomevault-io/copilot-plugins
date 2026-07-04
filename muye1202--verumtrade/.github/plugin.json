@@ -1,0 +1,9 @@
+{
+  "name": "muye1202--verumtrade",
+  "displayName": "VerumTrade",
+  "description": "VerumTrade -- An open-source multi-agent AI trading framework, with visible reasoning and decision traces from evidence to final trade proposal.",
+  "version": "1.0.0",
+  "author": "muye1202",
+  "homepage": "https://github.com/muye1202/VerumTrade",
+  "skills": []
+}
