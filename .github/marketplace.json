@@ -2249,6 +2249,11 @@
       "description": "Ultra-high-performance, secure, all-in-one acceleration engine for developer resources"
     },
     {
+      "name": "unicity-sphere--sphere-sdk-connect-example",
+      "source": "./unicity-sphere--sphere-sdk-connect-example",
+      "description": "sphere-sdk-connect-example"
+    },
+    {
       "name": "bytedance--flowgram-ai",
       "source": "./bytedance--flowgram-ai",
       "description": "FlowGram is an extensible workflow development framework with built-in canvas, form, variable, and materials that helps developers build AI workflow platforms faster and simpler."
@@ -5774,6 +5779,16 @@
       "description": "A Windows context menu management tool with new menu monitoring"
     },
     {
+      "name": "usefulsoftwareco--executor",
+      "source": "./usefulsoftwareco--executor",
+      "description": "The missing integration layer for AI agents. Let them call any OpenAPI / MCP / GraphQL / custom js functions in secure environment."
+    },
+    {
+      "name": "usefulsoftwareco--executor",
+      "source": "./usefulsoftwareco--executor",
+      "description": "The missing integration layer for AI agents. Let them call any OpenAPI / MCP / GraphQL / custom js functions in secure environment."
+    },
+    {
       "name": "hardysimpson--zlog",
       "source": "./hardysimpson--zlog",
       "description": "zlog"
@@ -5807,6 +5822,11 @@
       "name": "slok--sloth",
       "source": "./slok--sloth",
       "description": "sloth"
+    },
+    {
+      "name": "light-heart-labs--ods",
+      "source": "./light-heart-labs--ods",
+      "description": "Turn your PC, Mac, or Linux box into an AI server.  LLM inference, chat UI, voice, agents, workflows, RAG, and image generation."
     },
     {
       "name": "afilmory--afilmory",
@@ -77109,6 +77129,16 @@
       "description": "dots"
     },
     {
+      "name": "k-kolomeitsev--data-structure-protocol",
+      "source": "./k-kolomeitsev--data-structure-protocol",
+      "description": "data-structure-protocol"
+    },
+    {
+      "name": "k-kolomeitsev--data-structure-protocol",
+      "source": "./k-kolomeitsev--data-structure-protocol",
+      "description": "data-structure-protocol"
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -90972,6 +91002,11 @@
       "name": "jansimek--gecko",
       "source": "./jansimek--gecko",
       "description": "gecko"
+    },
+    {
+      "name": "rhecosystemappeng--agentic-plugins",
+      "source": "./rhecosystemappeng--agentic-plugins",
+      "description": "Red Hat Ecosystem Engineering - Agentic Collections"
     },
     {
       "name": "janbjorge--rekal",
@@ -149789,6 +149824,11 @@
       "description": "Simple, feature rich project management software."
     },
     {
+      "name": "ketraterm--ketraterm",
+      "source": "./ketraterm--ketraterm",
+      "description": "A fast, allocation-conscious terminal emulator for the JVM, built for modern TUI and IDE integrations."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -154292,6 +154332,11 @@
       "name": "kaieye--livo",
       "source": "./kaieye--livo",
       "description": "Livo"
+    },
+    {
+      "name": "jchheilmann--blocky-visor",
+      "source": "./jchheilmann--blocky-visor",
+      "description": "Fully featured frontend for blocky DNS proxy and ad-blocker."
     },
     {
       "name": "vm--nila-code",
@@ -164394,6 +164439,21 @@
       "description": "workflais"
     },
     {
+      "name": "mateffy--struktur",
+      "source": "./mateffy--struktur",
+      "description": "All-in-one tool for structured data extraction using LLMs. Feed it documents, get back validated JSON. Handles parsing files, chunking, retries, merging, and deduplication \u2014 you just define the schema"
+    },
+    {
+      "name": "diegoguidaf--pulseweaver",
+      "source": "./diegoguidaf--pulseweaver",
+      "description": "Self-hosted forward-auth sidecar that gates your services by request IP + host \u2014 give family and friends per-user access without touching the apps behind your reverse proxy. Not authentication; a roam"
+    },
+    {
+      "name": "diegoguidaf--pulseweaver",
+      "source": "./diegoguidaf--pulseweaver",
+      "description": "Self-hosted forward-auth sidecar that gates your services by request IP + host \u2014 give family and friends per-user access without touching the apps behind your reverse proxy. Not authentication; a roam"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -171097,6 +171157,11 @@
       "name": "ai4s-research--open-science",
       "source": "./ai4s-research--open-science",
       "description": "Open Science \u2014 an open AI workbench for scientists. Open-source alternative to Claude Science: local-first, model-agnostic, reproducible AI research desktop (macOS & Windows), built on Tauri + MCP + a"
+    },
+    {
+      "name": "kshicdi--whisperflow",
+      "source": "./kshicdi--whisperflow",
+      "description": "\ud83c\udfa4 JARVIS AI Assistant - Local voice recognition + TTS + visual UI for macOS"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -178452,6 +178517,16 @@
       "name": "molefrog--moi",
       "source": "./molefrog--moi",
       "description": "\ud83d\udcbe MOI: agent-agnostic generative UI workspace"
+    },
+    {
+      "name": "orka-agents--orka",
+      "source": "./orka-agents--orka",
+      "description": "\ud83d\udc0b Cloud and AI-native multi-agent orchestration platform for Kubernetes"
+    },
+    {
+      "name": "royalapplications--royalterminal",
+      "source": "./royalapplications--royalterminal",
+      "description": "High-performance .NET 10 terminal stack with a backend-neutral Avalonia core (RoyalTerminal.Avalonia), framebuffer shader support, official native Ghostty VT integration (libghostty-vt), and a separat"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -187477,6 +187552,16 @@
       "name": "seqeralabs--nf-metro",
       "source": "./seqeralabs--nf-metro",
       "description": "Metro-map-style SVG diagrams from Mermaid graph definitions, designed for visualizing bioinformatics pipeline workflows"
+    },
+    {
+      "name": "bmarolleau--ibm-i-application-modernization-with-bob",
+      "source": "./bmarolleau--ibm-i-application-modernization-with-bob",
+      "description": "IBM-i-Application-Modernization-with-Bob"
+    },
+    {
+      "name": "thurbeen--thurbox",
+      "source": "./thurbeen--thurbox",
+      "description": "TUI for agentic code orchestration"
     },
     {
       "name": "lightninglabs--lnget",
@@ -200792,6 +200877,21 @@
       "name": "hmakt99--akf",
       "source": "./hmakt99--akf",
       "description": "Trust metadata for AI agents \u2014 a stamp costs ~15 tokens, re-verifying costs 15,000. Agents stamp what they verify; the next agent runs 'akf check' and builds on it. pip install akf"
+    },
+    {
+      "name": "aestheticsuraj234--mobleet-clone",
+      "source": "./aestheticsuraj234--mobleet-clone",
+      "description": "mobleet-clone"
+    },
+    {
+      "name": "galaxyproject--loom",
+      "source": "./galaxyproject--loom",
+      "description": "loom"
+    },
+    {
+      "name": "galaxyproject--loom",
+      "source": "./galaxyproject--loom",
+      "description": "loom"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -234629,6 +234729,116 @@
       "description": "typemd"
     },
     {
+      "name": "lhpaul--ai-dev-framework-template",
+      "source": "./lhpaul--ai-dev-framework-template",
+      "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided proj"
+    },
+    {
+      "name": "anashel-rpg--ev2090",
+      "source": "./anashel-rpg--ev2090",
+      "description": "ev2090"
+    },
+    {
+      "name": "lhpaul--ai-dev-framework-template",
+      "source": "./lhpaul--ai-dev-framework-template",
+      "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided proj"
+    },
+    {
+      "name": "lhpaul--ai-dev-framework-template",
+      "source": "./lhpaul--ai-dev-framework-template",
+      "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided proj"
+    },
+    {
+      "name": "lhpaul--ai-dev-framework-template",
+      "source": "./lhpaul--ai-dev-framework-template",
+      "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided proj"
+    },
+    {
+      "name": "rimzzlabs--lanjut",
+      "source": "./rimzzlabs--lanjut",
+      "description": "Lanjut is a local-first r\u00e9sum\u00e9 builder that stays entirely in your browser. No account, nothing uploaded. Style it freely, and every export is structured to sail through applicant tracking systems."
+    },
+    {
+      "name": "jaehongpark-agent--claude-code-spinner-verbs",
+      "source": "./jaehongpark-agent--claude-code-spinner-verbs",
+      "description": "claude-code-spinner-verbs"
+    },
+    {
+      "name": "rsyncosx--rawcull",
+      "source": "./rsyncosx--rawcull",
+      "description": "Sony ARW culling app"
+    },
+    {
+      "name": "lhpaul--ai-dev-framework-template",
+      "source": "./lhpaul--ai-dev-framework-template",
+      "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided proj"
+    },
+    {
+      "name": "rsyncosx--rawcull",
+      "source": "./rsyncosx--rawcull",
+      "description": "Sony ARW culling app"
+    },
+    {
+      "name": "manageryzy--opentaalas",
+      "source": "./manageryzy--opentaalas",
+      "description": "Open source AI ASIC chip for LLAMA inspired by Taalas"
+    },
+    {
+      "name": "lhpaul--ai-dev-framework-template",
+      "source": "./lhpaul--ai-dev-framework-template",
+      "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided proj"
+    },
+    {
+      "name": "matthewevans--alchemy",
+      "source": "./matthewevans--alchemy",
+      "description": "Kid-friendly, MTG-inspired elemental card battler built with React, TypeScript, and Vite."
+    },
+    {
+      "name": "elcritch--merenda",
+      "source": "./elcritch--merenda",
+      "description": "Cocoa flavored GUI with a dash of QT sprinkled in written in pure Nim"
+    },
+    {
+      "name": "iml1s--devclean",
+      "source": "./iml1s--devclean",
+      "description": "Safely kill orphaned dev processes (MCP servers, Flutter daemons, Gradle, iOS Simulators) to reclaim GBs of leaked memory. macOS & Linux."
+    },
+    {
+      "name": "intellectronica--mdbasequery",
+      "source": "./intellectronica--mdbasequery",
+      "description": "CLI and library for querying Markdown-Frontmatter bases (Obsidian-compatible)."
+    },
+    {
+      "name": "satori87--gdx-webrtc",
+      "source": "./satori87--gdx-webrtc",
+      "description": "WebRTC library for libGDX and beyond"
+    },
+    {
+      "name": "jammutkarsh--wandersort",
+      "source": "./jammutkarsh--wandersort",
+      "description": "WanderSort is a local-first media organiser that scans your chaotic pile of photos and videos \u2014 scattered across hard drives, SD cards, and phone dumps \u2014 and structures them into a clean, human-readab"
+    },
+    {
+      "name": "robhunter--agentdeals",
+      "source": "./robhunter--agentdeals",
+      "description": "MCP server aggregating free tiers, startup credits & developer tool deals. 4 tools, 54 categories, 1,525+ offers."
+    },
+    {
+      "name": "fredhjc--waoowaoo",
+      "source": "./fredhjc--waoowaoo",
+      "description": "\u9996\u5bb6\u5de5\u4e1a\u7ea7\u5168\u6d41\u7a0b\u53ef\u63a7\u534f\u4f5c\u5f0f\u4e13\u4e1aAIagent\u5f71\u89c6\u751f\u4ea7\u5e73\u53f0\uff0c\u4ece\u77ed\u7247\u5230\u6f2b\u5267\u5230\u771f\u4eba\u7ea7\u5f71\u89c6\u5267\u4e00\u7ad9\u641e\u5b9a\uff0c\u91c7\u7528\u597d\u83b1\u575e\u4e13\u4e1a\u5236\u4f5c\u56e2\u961f\u601d\u8def\uff0c\u8ba9\u4f60\u62e5\u6709\u865a\u62df\u5236\u7247\u573a"
+    },
+    {
+      "name": "voodootikigod--skills-check",
+      "source": "./voodootikigod--skills-check",
+      "description": "The missing quality toolkit for Agent Skills"
+    },
+    {
+      "name": "nathfavour--clarigggzos",
+      "source": "./nathfavour--clarigggzos",
+      "description": "the universal realtime, efficient agentic operating system to power future devices like smart glasses"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -254217,6 +254427,16 @@
       "name": "adam-s--car-diagnosis",
       "source": "./adam-s--car-diagnosis",
       "description": "Diagnose a car fault from its sound \u2014 an honest, end-to-end audio-ML pipeline (scrape \u2192 clean \u2192 CLAP \u2192 calibrated triage). Proof of concept."
+    },
+    {
+      "name": "yuk1ty--herdr-spreader",
+      "source": "./yuk1ty--herdr-spreader",
+      "description": "Spin up your whole herdr workspace layout \u2014 tabs, panes, commands, and all \u2014 from a single YAML file."
+    },
+    {
+      "name": "vovoronale--rehoboam-sensor-card",
+      "source": "./vovoronale--rehoboam-sensor-card",
+      "description": "A Home Assistant dashboard card for visualizing sensor history and anomaly limits as an animated 3D ring."
     },
     {
       "name": "cheerhuan--save-your-token",
