@@ -7,13 +7,13 @@ Declare boundaries for coding agents with .human files.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [zhangyu94/humanfile](https://github.com/zhangyu94/humanfile).
+Original source: `AGENTS.md` in [zhangyu94/humanfile](https://github.com/zhangyu94/humanfile).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
