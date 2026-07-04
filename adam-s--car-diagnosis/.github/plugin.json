@@ -1,0 +1,9 @@
+{
+  "name": "adam-s--car-diagnosis",
+  "displayName": "car-diagnosis",
+  "description": "Diagnose a car fault from its sound \u2014 an honest, end-to-end audio-ML pipeline (scrape \u2192 clean \u2192 CLAP \u2192 calibrated triage). Proof of concept.",
+  "version": "1.0.0",
+  "author": "adam-s",
+  "homepage": "https://github.com/adam-s/car-diagnosis",
+  "skills": []
+}
