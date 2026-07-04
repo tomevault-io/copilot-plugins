@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [k-kolomeitsev/data-structure-protocol](https://
 
 - [data-structure-protocol](https://github.com/k-kolomeitsev/data-structure-protocol/tree/main/skills/data-structure-protocol/SKILL.md)
 
-From [k-kolomeitsev/data-structure-protocol](https://github.com/k-kolomeitsev/data-structure-protocol) — a repo with 56+ stars on GitHub.
+From [k-kolomeitsev/data-structure-protocol](https://github.com/k-kolomeitsev/data-structure-protocol) — a repo with 0+ stars on GitHub.
 
 ---
 
