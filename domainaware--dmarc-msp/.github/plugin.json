@@ -1,0 +1,9 @@
+{
+  "name": "domainaware--dmarc-msp",
+  "displayName": "dmarc-msp",
+  "description": "A complete Docker stack for MSPs managing DMARC data (and everyone else)",
+  "version": "1.0.0",
+  "author": "domainaware",
+  "homepage": "https://github.com/domainaware/dmarc-msp",
+  "skills": []
+}
