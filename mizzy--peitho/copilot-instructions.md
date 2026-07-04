@@ -1,0 +1,79 @@
+## peitho
+
+> An HTML-native presentation tool with Markdown as the source of truth. The authoritative design reference is `docs/PEITHO_KICKOFF.md` (the kickoff spec). When in doubt about a design decision, check §18 "Undecided Items" in the spec; for new decisions not covered there, check with the author.
+
+# peitho
+
+An HTML-native presentation tool with Markdown as the source of truth. The authoritative design reference is `docs/PEITHO_KICKOFF.md` (the kickoff spec). When in doubt about a design decision, check §18 "Undecided Items" in the spec; for new decisions not covered there, check with the author.
+
+## The three pillars (invariants that must not be broken)
+
+1. **Separation of content and design**: Content is Markdown, design is layout HTML+CSS. Do not mix them
+2. **Git-manageable HTML/CSS layouts**: The layout itself is the schema (`<slot name accepts arity>`). Do not split the contract into a separate file
+3. **Type-checked slot contracts and keyed overrides**: Slot excess/deficiency, type mismatches, broken references, and unassigned content are all build errors with line numbers + help. **Silent dropping is absolutely forbidden** (never let the parser swallow unknown structures with `_ => {}`)
+
+Other invariants:
+- typestate `Parsed→Mapped→Checked→Rendered`. Phase constructors are private within the crate. An unchecked deck cannot be passed to the renderer (pinned down by a compile_fail doctest)
+- Multiple layouts use hybrid dispatch (type-driven approach from §18 adopted at the author's discretion, 2026-07-03): explicit `{"layout":"name"}` > unconditional if there's only one > unique structural match. Ambiguous or zero matches are never silently resolved — they are build errors. Slides carry their own Layout from Mapped onward, so no lookup-failure path is created downstream
+- Syntax highlighting is done at build time with syntect (adopted 2026-07-03). Output is spans with `hl-*` classes, colors come from the theme CSS. Unknown language tags are a parse-time error with a line number (no tag means plain text)
+- Deck-level settings ride in YAML frontmatter at the top of the deck (author decision 2026-07-03: "zero-config, settings live in Markdown frontmatter"). First key: `time` (planned presentation time, `15m`/`90s`/`1h30m`/bare integer minutes). The frontmatter body is restricted to flat `key:` lines (trailing style blank lines allowed); unknown keys, invalid values, markdown swallowed by a missing closing `---`, a leading `---` without valid frontmatter, and settings anywhere but the top are all line-numbered build errors with help — no silent path exists. Validation happens once at `PlannedTime`'s construction (nonzero, overflow, ≤ `Number.MAX_SAFE_INTEGER` so JSON.parse can't round it), and the validated newtype rides on `Deck<P>` through every phase; milliseconds appear only at consumption boundaries (manifest). Design record: `docs/specs/2026-07-03-time-tracking-design.md`. Migrating `--layouts`/`--css` into frontmatter is Issue #62
+- Agenda sections (2026-07-04): a slide's page settings comment may declare `{"section":"Name","time":"1m"}` (section and time must appear together; the marked slide starts a section that runs until the next marker). Ranges are derived at parse end; if any marker exists the first slide must carry one; when frontmatter `time` is present the section total must equal it, when absent the total becomes the deck's planned time (so a second validation point exists at parse end, not only at `PlannedTime` construction). A slide accepts at most ONE page settings comment — a second one is a build error (the old field-wise last-wins merge could silently drop a section marker). Sections ride `DeckSettings` through every phase into `manifest.json` `sections` (always present, empty when unused); the presenter agenda measures actuals client-side (cumulative, in-memory). Design record: `docs/specs/2026-07-04-presenter-agenda-design.md`
+- Speaker notes (2026-07-04): non-JSON HTML comments in a slide body are collected as that slide's speaker note (Marp / k1LoW/deck-style). JSON-vs-plaintext is the discriminator (reuses `parse_page_comment`) so page settings and notes coexist; empty comments are ignored; multiple comments per slide are joined with a blank line; position is unconstrained (before/inside/after the body). Notes ride `notes: Option<String>` on the slide through every phase and are emitted into `notes.json` (keyed by `SlideKey`, built at Rendered when keys are final). **Notes never enter `dist/`** — only `peitho present` reads `notes.json`; the publish contamination check enforces this. Presenter renders notes as `textContent` (plaintext v1); Markdown interpretation is a future extension the versioned schema leaves room for. Design record: `docs/plans/2026-07-04-speaker-notes.md`
+- Presenter view (2026-07-04, PR #79 + follow-ups): state-synced timer UI with a fixed 42vh notes panel and a height-derived 16:9 preview stage that keeps left-column widths stable. Space bar maps to `playpause` (start/pause/resume derived from `TimerState`); the presenter emits `peitho:timercontrol` and the shell executes the transition. Empty notes render as a dimmed placeholder rather than a blank block. Design records: `docs/plans/2026-07-04-presenter-redesign.md`, `docs/plans/2026-07-04-presenter-redesign-followups.md`
+- Display swap (2026-07-04, Issue #108): `S` key / presenter Swap button is an escape hatch for display misidentification — each window navigates (`location.replace`) to its counterpart route, so the windows stay put and only content roles swap. Role = URL via four routes / two files: `present.html`⇄`/presenter-swapped` (slides window), `/presenter`⇄`/present-swapped` (presenter window); the swapped aliases are extensionless and dot-free so Chrome placement keys stay distinct (dot pitfall below). Sync state is an **absolute** `{"swapped":bool}` (never a toggle command — the channel coalesces), the server tracks current `index`/`swapped`, and **every** `/sync` GET response (handshake and poll) carries that state, which the client replays idempotently after each message — this per-poll replay is load-bearing for convergence (a live window that misses a coalesced-away swap never reloads, so handshake-only replay is insufficient) and is what preserves the slide index across swap navigations. UI only emits `peitho:swaprequest` (§16); the sync bridge posts/navigates. The slides page gates the shortcut on `present.json` `presenterOpen` (a solo slides window must not swap itself away). Known tradeoffs: the presenter timer resets on swap; post-swap slides sit windowed (press `f`). Chord-modified keys (meta/ctrl/alt) are ignored by all shortcuts via a shared `hasChordModifier` guard (Cmd+S/Cmd+F keep their browser meaning). Design record: `docs/plans/2026-07-04-display-swap.md`
+- Single source for the contract: domain types are authoritative in peitho-core (Rust). TS types are generated into `bindings/*.ts` via ts-rs and committed. CI checks for drift
+- §16 event contract: only the shell executes transitions. UI components only emit request events like `peitho:navigate`/`peitho:timercontrol`. The slide body itself has no knowledge of the shell's existence
+- Do not mix the presentation shell or notes into distributed artifacts (dist/) (publish gatekeeps this with a contamination check)
+
+## Structure
+
+```
+crates/peitho-core/   Contract & pipeline (parser/layout/mapping/check/render/theme/manifest/notes)
+crates/peitho/        CLI (build/present/publish), server.rs (serving + /sync long polling), browser.rs, displays.rs
+packages/peitho-present/  TS presentation shell (canvas/shell/controls/keyboard/sync/presenter)
+bindings/             ts-rs generated TS types (committed)
+layouts/ themes/ examples/  Shared layouts, base theme, samples (the default layouts/base.css/presentation shell dist/shell.js are embedded in the binary via include_str!. Used when no CLI flag is given. shell.js is a build artifact but, like bindings/, is committed + checked for CI drift). `--layouts`/`--css` can be a file or a directory (reads `*.html`/`*.css` in filename order). When not specified, auto-detects `layouts/`/`css/` **next to the deck** (zero-config convention, adopted per Issue #17; falls back to the built-in default if absent). CSS validation is uniform across all files: keyed selectors are checked against the slots of that slide's layout, and bare `.slot-*` are checked against the union of provided layouts
+docs/plans/           Implementation plans for each milestone (history)
+```
+
+## Gates (all must pass before committing)
+
+```
+cargo test --workspace          # run 3 times in a row (past test-race incidents)
+cargo clippy --workspace --all-targets -- -D warnings
+cargo fmt --all --check
+git diff --exit-code bindings/  # contract drift
+cd packages/peitho-present && npm run build && npm test && npm run typecheck
+git diff --exit-code packages/peitho-present/dist/shell.js  # embedded shell drift (after npm run build)
+```
+
+Always verify UX changes end-to-end in a real browser/real display (jsdom cannot detect layout, flashing, or window behavior. Past incidents — a fully black screen, undelivered SSE, infinite rebuild loops — were only caught via E2E). For checking present, a fixed `--port` + `curl POST /sync` + `screencapture -x -D <n>` is handy.
+
+## Pitfalls (facts confirmed by measurement — no need to re-investigate)
+
+- **SSE does not work with tiny_http**: when data_length is None, bodies below a threshold are buffered until EOF, and the chunk encoder doesn't flush small chunks either. That's why /sync uses long polling (`GET /sync?seq=N`; a GET with no query returns immediately = join handshake; every JSON GET response (handshake and 200 poll; the 30s poll timeout is an empty 204) carries `{"seq":…,"message":…,"index":…,"swapped":…}` — current state on top of the latest message; `POST /sync` sends `{index}|{swapped}|{close:true}`)
+- **Flag handoff to an already-running Chrome instance only works via `--app`**: `--start-fullscreen`/`--window-position`/`--window-size` are ignored. To reliably apply them, launch a new process with a separate `--user-data-dir` (which is why slides/presenter use two instances, `~/.peitho/chrome-profile-{slides,presenter}`)
+- **On macOS, Chrome's process lingers even after all windows are closed**: if the previous present instance is still holding the peitho profile, the next launch becomes a handoff and all placement flags are lost. That's why present terminates any lingering process before opening
+- **Lingering Chrome processes must be terminated normally, not killed with SIGTERM**: SIGTERM registers as a crash to Chrome (`exit_type: Crashed`), triggering crash recovery on the next launch which restores the old session's windows/bounds. Using `NSRunningApplication.terminate` (in JXA this fires via **parenthesis-less** access, due to the bridge — confirmed by testing) terminates it as Normal. Note that `exit_type` always shows Crashed while running (it's written up front at launch, then flipped back to Normal on clean exit), so reading it while the process is active is meaningless. Restrict target pids to the Chrome main process (no `--type=`) from `ps` (`pgrep -f` also catches the shell itself if it contains the pattern)
+- **Chrome's `--app` window position restoration breaks if the app name contains a dot**: the position is saved under `browser.app_window_placement` keyed by a URL-derived app name (host+path), but a dot in the name (as in `127.0.0.1` or `.html`) gets expanded as a pref path when written, causing a mismatch on read and preventing restoration (confirmed Chromium behavior, measured). That's why presenter opens at `http://localhost:<port>/presenter` (an extensionless route). Since the app name doesn't include the port, restoration still works even though the port changes each time
+- **On the first `--app` launch with no placement flags, which display the window appears on is undetermined**: if it appears on the slides-side display, it can end up completely hidden behind the fullscreen Space (it won't even show up in CGWindowList's OnScreenOnly). That's why windowed mode only seeds `--window-position`+`--window-size` to center on the primary display when there's no saved placement or the saved position is off-screen; when there is a visible saved placement, it's left flag-free and Chrome's own restoration is trusted (the check is peitho reading the profile's Preferences). Chrome clamps partially off-screen saved bounds at launch
+- **BroadcastChannel does not reach across different profiles**: that's why sync goes through the server (a deliberate extension from §15; the layering — DOM events bridged to a transport — remains unchanged)
+- **A CLI-launched app window is closed via `window.close()`** (because it has only 1 history entry). Esc triggers `peitho:closerequest` → `{close:true}` broadcast to all windows → each closes itself → the server also unblocks and exits after a grace period
+- **requestFullscreen/window.open require transient user activation**: awaiting a permission prompt in between invalidates it. In-browser window placement failed twice this way before the switch to CLI-driven placement (M8/M9/M10)
+- NSScreen has a bottom-left origin. Chrome's `--window-position` uses top-left. The conversion lives in `displays.rs` (pure functions + tests against measured values)
+- In vitest tests, always destroy/clean up the shell/listeners (listener contamination on the shared window causes multiple firings)
+- `.peitho/present-cache/` is recreated every time (the adopted value from the §18 cache policy). `dist/slides/` is also cleared on every build (to prevent stale fragments from leaking into publish)
+- **pulldown-cmark 0.10 loops forever on indented `---` dense pairs once `ENABLE_YAML_STYLE_METADATA_BLOCKS` is on** (upstream #912, fixed in 0.11.1) — that is why the workspace pins 0.13. **0.13 still tokenizes dense mid-document `---` pairs as metadata blocks** (measured; legitimate slides like `---`/`# Cfg`/`port: 8080`/`---` get swallowed), so frontmatter detection and slide splitting use two grammars: metadata-enabled only for the leading block, the legacy grammar for splitting. Do not load metadata blocks into the split grammar
+- **A named ES-module import from a bundle that lacks the export fails at module instantiation** — showError never runs and the window is just black (a recurring incident class). The present/presenter entry pages therefore use a namespace import (`import * as peitho from './shell.js'`) plus feature detection, so a stale `--shell` bundle degrades to a visible error instead
+
+## Undecided — awaiting author's judgment (do not decide unilaterally)
+
+- Explicit fenced div slot notation `::: {slot=...}` (§18)
+- Markdown rendering of speaker notes in the presenter (v1 renders `notes.json` as plaintext `textContent`; the versioned schema leaves room for a future upgrade)
+- peitho.toml is **not planned**: deck-level settings ride in the deck's own frontmatter (author decision 2026-07-03; `time` landed, `layouts`/`css` migration is Issue #62). Revisit only if something cannot be expressed in frontmatter. peitho.gosu.ke deployment of real decks is still open
+
+Remaining tasks are registered in GitHub Issues. Before starting work, write a plan in `docs/plans/` and then implement.
+
+---
+> Source: [mizzy/peitho](https://github.com/mizzy/peitho) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
