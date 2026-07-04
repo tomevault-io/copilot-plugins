@@ -1,0 +1,9 @@
+{
+  "name": "plclub--sf-in-lean",
+  "displayName": "sf-in-lean",
+  "description": "Development repo for translating Software Foundations to Lean",
+  "version": "1.0.0",
+  "author": "plclub",
+  "homepage": "https://github.com/plclub/sf-in-lean",
+  "skills": []
+}
