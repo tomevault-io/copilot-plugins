@@ -1,0 +1,44 @@
+{
+  "name": "hormozi-marketing-ultimate",
+  "owner": "elkadrinaoufal1996",
+  "repo": "hormozi-marketing-ultimate",
+  "description": "Ultimate marketing plugin for Claude Code and Cowork \u2014  selling digital products (PDF guides, templates, printables)  using Alex Hormozi complete methodology. 40+ skills, 6 slash  commands /hook /offer /ads /proof /brand /retention.  Based on coreyhaines31/marketingskills enriched with  $100M Hormozi frameworks.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/elkadrinaoufal1996/hormozi-marketing-ultimate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T06:56:35Z"
+}
