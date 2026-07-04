@@ -4,7 +4,7 @@
   "repo": "julia-vm-oss",
   "description": "Let's run Julia everywhere from mobile to web.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AtelierArith/julia-vm-oss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T10:45:49Z"
+  "distributed_at": "2026-07-04T10:47:14Z"
 }
