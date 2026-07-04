@@ -7,11 +7,11 @@ Switch Cavalry between English, 简体中文, 繁體中文, and 日本語 — on
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [daftAI2026/Cavalry-i18n](https://github.com/daftAI2026/Cavalry-i18n).
+Original source: `CLAUDE.md` in [daftAI2026/Cavalry-i18n](https://github.com/daftAI2026/Cavalry-i18n).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
