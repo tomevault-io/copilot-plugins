@@ -199969,6 +199969,11 @@
       "description": "The Business Table Panel is a versatile Grafana plugin designed to simplify and enhance data visualization in a table format. Built for flexibility and usability, it offers advanced features like tree"
     },
     {
+      "name": "plasticity-of-cloud--kubemicrovm",
+      "source": "./plasticity-of-cloud--kubemicrovm",
+      "description": "The first community Kubernetes controller for AWS Lambda MicroVMs, with JOSDK, Quarkus and GraalVM"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
