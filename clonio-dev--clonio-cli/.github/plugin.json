@@ -1,0 +1,9 @@
+{
+  "name": "clonio-dev--clonio-cli",
+  "displayName": "clonio-cli",
+  "description": "Clonio is a GDPR and PII compliant CLI that clones production databases into your test, dev and CI stages with automatic anonymization.",
+  "version": "1.0.0",
+  "author": "clonio-dev",
+  "homepage": "https://github.com/clonio-dev/clonio-cli",
+  "skills": []
+}
