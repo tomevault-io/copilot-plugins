@@ -4,7 +4,7 @@
   "repo": "Garlemald-Client",
   "description": "Cross-platform Rust launcher for FINAL FANTASY XIV v1.23b private servers (macOS / Linux / Windows).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/swstegall/Garlemald-Client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T04:42:12Z"
+  "distributed_at": "2026-07-04T04:46:36Z"
 }
