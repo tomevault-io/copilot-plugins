@@ -1,0 +1,9 @@
+{
+  "name": "tlennon-ie--bracket",
+  "displayName": "bracket",
+  "description": "Bracket trains your diffusion model up to 32 ways at once, shows you which one looked best, and proves it.",
+  "version": "1.0.0",
+  "author": "tlennon-ie",
+  "homepage": "https://github.com/tlennon-ie/bracket",
+  "skills": []
+}
