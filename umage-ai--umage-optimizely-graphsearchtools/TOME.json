@@ -1,0 +1,44 @@
+{
+  "name": "Umage.Optimizely.GraphSearchtools",
+  "owner": "umage-ai",
+  "repo": "Umage.Optimizely.GraphSearchtools",
+  "description": "Marketer-facing admin tooling for Optimizely Graph site-search on Optimizely CMS 12 and CMS 13.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/umage-ai/Umage.Optimizely.GraphSearchtools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T23:02:21Z"
+}
