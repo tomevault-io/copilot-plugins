@@ -1,0 +1,9 @@
+{
+  "name": "atorber--qmt-trading-skill",
+  "displayName": "qmt-trading-skill",
+  "description": "\u5c06\u8f7b\u91cf\u7ea7 **QMT Bridge** API \u670d\u52a1\uff08\u5c01\u88c5 [xtquant](https://dict.thinktrader.net/nativeApi/start_now.html) / miniQMT\uff09\u4e0e **21 \u4e2a Agent Skills** \u7ec4\u5408\u53d1\u5e03\uff0c\u4f9b Cursor / Claude Code \u4f7f\u7528\u3002Bridge \u5728 Windows \u4e0a\u968f QMT \u5ba2\u6237\u7aef\u8fd0\u884c\uff0c\u901a\u8fc7 HTTP/We",
+  "version": "1.0.0",
+  "author": "atorber",
+  "homepage": "https://github.com/atorber/qmt-trading-skill",
+  "skills": []
+}
