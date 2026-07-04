@@ -1,0 +1,48 @@
+## joshu-oss
+
+> This Cursor workspace is **multi-root**. All of these repos are open together:
+
+# .cursorrules
+
+This Cursor workspace is **multi-root**. All of these repos are open together:
+
+| Repo folder | Role |
+|-------------|------|
+| `joshu-oss/` | **Canonical AGPL** — community PRs, engine/apps/packages/skills |
+| `joshu/` | Private fleet superset — merges OSS + `proprietary/`, `vendor/`, Joshu-SOP |
+| `joshu-control-plane/` | Private control plane (Vercel → hello.joshu.me) |
+| `joshu-design/` | Private JDL brand pack (tokens, assets) |
+
+## Where to edit
+
+| Change type | Repository |
+|-------------|------------|
+| AGPL engine, apps, EA skills, generic docs | **`joshu-oss/`** |
+| Proprietary apps, fleet SOPs, learning-loop scripts | **`joshu/`** only |
+| Control plane | **`joshu-control-plane/`** |
+
+Fleet repo sync: `bash joshu/scripts/sync-from-oss.sh` after OSS `main` moves.
+
+## Documentation
+
+1. **`joshu-oss/docs/`** — public self-host and app docs (canonical for AGPL).
+2. **`joshu/docs/`** — full internal canon including `Joshu-SOP/`, fleet runbooks.
+3. **`joshu-control-plane/docs/`** — provisioning, portal, schema.
+4. **`joshu-design/`** — brand guidelines and assets.
+
+Generic EA guide (OSS): `docs/executive-assistant.md`. Fleet SOP depth stays in `joshu/docs/Joshu-SOP/`.
+
+**OSS boundaries:** run `npm run check:oss-boundaries` before publishing. Never hardcode fleet customer names in AGPL paths.
+
+**ArozOS:** Joshu patches live in `joshu/patches/arozos/joshu-core.patch`, not as commits inside `joshu/vendor/arozos` (submodule).
+
+Coding Style:
+- Use comments liberally
+- Keep things DRY
+- Keep architecture clean and separate interests
+
+Finally, if you need me to run something locally because of sandbox permissions, just ask.
+
+---
+> Source: [db-aeon/joshu-oss](https://github.com/db-aeon/joshu-oss) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
