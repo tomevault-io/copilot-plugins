@@ -1,0 +1,9 @@
+{
+  "name": "gyldlab--next-app",
+  "displayName": "next-app",
+  "description": "CLI to scaffold production-ready Next.js apps with curated templates and optional add-ons (shadcn, Elysia, GSAP + Lenis).",
+  "version": "1.0.0",
+  "author": "gyldlab",
+  "homepage": "https://github.com/gyldlab/next-app",
+  "skills": []
+}
