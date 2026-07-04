@@ -1,0 +1,9 @@
+{
+  "name": "off-grid-ai--off-grid-ai-desktop",
+  "displayName": "off-grid-ai-desktop",
+  "description": "Off Grid AI \u2014 private, on-device AI. Run open models (text, vision, image, voice) locally through one OpenAI-compatible gateway. No cloud, no accounts, no API keys.",
+  "version": "1.0.0",
+  "author": "off-grid-ai",
+  "homepage": "https://github.com/off-grid-ai/off-grid-ai-desktop",
+  "skills": []
+}
