@@ -235034,6 +235034,16 @@
       "description": "backend for conductor.build"
     },
     {
+      "name": "typster-io--typster",
+      "source": "./typster-io--typster",
+      "description": "typst-app-like webapp"
+    },
+    {
+      "name": "typster-io--typster",
+      "source": "./typster-io--typster",
+      "description": "typst-app-like webapp"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -254667,6 +254677,16 @@
       "name": "1f1e33-float32--cxdec-tools",
       "source": "./1f1e33-float32--cxdec-tools",
       "description": "Cxdec_Tools"
+    },
+    {
+      "name": "nikiforovall--opencode-marketplace",
+      "source": "./nikiforovall--opencode-marketplace",
+      "description": "CLI marketplace for OpenCode plugins"
+    },
+    {
+      "name": "secondmouseau--occtswift",
+      "source": "./secondmouseau--occtswift",
+      "description": "Swift wrapper for OpenCASCADE Technology (OCCT) - B-Rep solid modeling for iOS/macOS"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -377687,6 +377707,11 @@
       "name": "taiki-aoi--docusearch-ai",
       "source": "./taiki-aoi--docusearch-ai",
       "description": "DocuSearch_AI"
+    },
+    {
+      "name": "okuyamashin--querycanvas",
+      "source": "./okuyamashin--querycanvas",
+      "description": "AI-powered database client for Cursor/VS Code with smart SQL formatting and customizable result display"
     }
   ]
 }
