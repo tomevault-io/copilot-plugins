@@ -4,7 +4,7 @@
   "repo": "kratos-cli",
   "description": "Persistent memory for AI coding agents \u2014 CLI-first, encrypted, local",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ceorkm/kratos-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T08:50:43Z"
+  "distributed_at": "2026-07-04T08:57:05Z"
 }
