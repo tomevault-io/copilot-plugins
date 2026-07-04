@@ -233129,6 +233129,11 @@
       "description": "c8volt is a Camunda CLI for Camunda 8 operations."
     },
     {
+      "name": "deeplink-org--probing",
+      "source": "./deeplink-org--probing",
+      "description": "Dynamic Performance Profiler for Distributed AI"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -252647,6 +252652,16 @@
       "name": "whitemuush--kraken",
       "source": "./whitemuush--kraken",
       "description": "Kraken is a modular Bash framework designed to automate and orchestrate the different phases of a penetration test. Inspired by the power and versatility of the mythical creature it\u2019s named after, Kra"
+    },
+    {
+      "name": "agiletec-inc--cmd-ime",
+      "source": "./agiletec-inc--cmd-ime",
+      "description": "Lightweight macOS app for switching input methods with Command keys (Rust + Tauri)"
+    },
+    {
+      "name": "zaroxihq--zaroxi",
+      "source": "./zaroxihq--zaroxi",
+      "description": "\ud83d\udcdd\u200b Zaroxi - modern lightweight next gen AI Collaborative text editor written in rust"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -375587,6 +375602,11 @@
       "name": "qlye--lc0-structural-experimentations",
       "source": "./qlye--lc0-structural-experimentations",
       "description": "LC0_structural_experimentations"
+    },
+    {
+      "name": "lyzr-apps--ticker-scheduler-fantastic-vault",
+      "source": "./lyzr-apps--ticker-scheduler-fantastic-vault",
+      "description": "ticker-scheduler-fantastic-vault"
     }
   ]
 }
