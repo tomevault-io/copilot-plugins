@@ -4,7 +4,7 @@
   "repo": "WaveHouse",
   "description": "Schema-aware real-time API gateway for ClickHouse. Async ingestion with per-table batching, JWT/JWKS auth, Hasura-style access policies, query caching, real-time SSE streaming, optional deduplication.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Wave-RF/WaveHouse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T06:38:28Z"
+  "distributed_at": "2026-07-04T06:41:22Z"
 }
