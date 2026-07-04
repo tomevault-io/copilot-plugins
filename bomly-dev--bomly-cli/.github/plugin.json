@@ -1,0 +1,9 @@
+{
+  "name": "bomly-dev--bomly-cli",
+  "displayName": "bomly-cli",
+  "description": "Free, open-source CLI for dependency intelligence, SBOMs, vulnerability auditing, and CI policy gates.",
+  "version": "1.0.0",
+  "author": "bomly-dev",
+  "homepage": "https://github.com/bomly-dev/bomly-cli",
+  "skills": []
+}
