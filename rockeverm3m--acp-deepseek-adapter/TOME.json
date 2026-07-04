@@ -1,0 +1,44 @@
+{
+  "name": "acp-deepseek-adapter",
+  "owner": "rockeverm3m",
+  "repo": "acp-deepseek-adapter",
+  "description": "Bridge DeepSeek TUI to Feishu/WeChat/QQ via cc-connect ACP | \u624b\u673a\u5199\u4ee3\u7801",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rockeverm3m/acp-deepseek-adapter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T23:01:51Z"
+}
