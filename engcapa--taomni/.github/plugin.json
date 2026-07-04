@@ -1,0 +1,9 @@
+{
+  "name": "engcapa--taomni",
+  "displayName": "taomni",
+  "description": "An AI-native remote workspace for developers \u2014 full-featured yet compact: terminal, SSH, SFTP, RDP/VNC, tunnels, and a database client in one refined desktop app.",
+  "version": "1.0.0",
+  "author": "engcapa",
+  "homepage": "https://github.com/engcapa/taomni",
+  "skills": []
+}
