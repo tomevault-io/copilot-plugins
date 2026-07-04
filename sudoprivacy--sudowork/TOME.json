@@ -4,7 +4,7 @@
   "repo": "sudowork",
   "description": "sudowork ai agent",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sudoprivacy/sudowork",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T10:59:26Z"
+  "distributed_at": "2026-07-04T11:04:29Z"
 }
