@@ -1,0 +1,9 @@
+{
+  "name": "iml1s--devclean",
+  "displayName": "devclean",
+  "description": "Safely kill orphaned dev processes (MCP servers, Flutter daemons, Gradle, iOS Simulators) to reclaim GBs of leaked memory. macOS & Linux.",
+  "version": "1.0.0",
+  "author": "ImL1s",
+  "homepage": "https://github.com/ImL1s/devclean",
+  "skills": []
+}
