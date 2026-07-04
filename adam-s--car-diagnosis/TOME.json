@@ -4,7 +4,7 @@
   "repo": "car-diagnosis",
   "description": "Diagnose a car fault from its sound \u2014 an honest, end-to-end audio-ML pipeline (scrape \u2192 clean \u2192 CLAP \u2192 calibrated triage). Proof of concept.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adam-s/car-diagnosis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T10:47:44Z"
+  "distributed_at": "2026-07-04T10:53:05Z"
 }
