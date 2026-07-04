@@ -1,0 +1,9 @@
+{
+  "name": "coder--agent-tty",
+  "displayName": "agent-tty",
+  "description": "Drive, inspect & record terminal sessions from the CLI",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/agent-tty",
+  "skills": []
+}
