@@ -1,0 +1,9 @@
+{
+  "name": "ero-cat--bento-homepage",
+  "displayName": "Bento-Homepage",
+  "description": "A config-driven, liquid-glass styled personal homepage built with Next.js 16 + Tailwind CSS 4 + Framer Motion. Deployed as a fully static site on GitHub Pages.",
+  "version": "1.0.0",
+  "author": "Ero-Cat",
+  "homepage": "https://github.com/Ero-Cat/Bento-Homepage",
+  "skills": []
+}
