@@ -1,0 +1,9 @@
+{
+  "name": "sneh14--ai-native-qa-automation",
+  "displayName": "ai-native-qa-automation",
+  "description": "AI-powered multi-agent QA automation system that generates, validates, and optimizes test coverage across the test pyramid using Claude Code.",
+  "version": "1.0.0",
+  "author": "Sneh14",
+  "homepage": "https://github.com/Sneh14/ai-native-qa-automation",
+  "skills": []
+}
