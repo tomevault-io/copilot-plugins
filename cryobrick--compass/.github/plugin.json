@@ -1,0 +1,9 @@
+{
+  "name": "cryobrick--compass",
+  "displayName": "compass",
+  "description": "Bitcoin wallet for KaiOS feature phones.",
+  "version": "1.0.0",
+  "author": "cryobrick",
+  "homepage": "https://github.com/cryobrick/compass",
+  "skills": []
+}
