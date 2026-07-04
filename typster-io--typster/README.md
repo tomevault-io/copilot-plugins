@@ -7,11 +7,11 @@ typst-app-like webapp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [typster-io/typster](https://github.com/typster-io/typster).
+Original source: `CLAUDE.md` in [typster-io/typster](https://github.com/typster-io/typster).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
