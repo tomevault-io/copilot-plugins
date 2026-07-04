@@ -1,0 +1,30 @@
+## job-bro
+
+> use bun for package management
+
+use bun for package management
+
+use bun typecheck
+
+be concise
+
+read and update wiki below when needed
+
+---
+
+## Wiki
+
+Enriched project context:
+
+- [overview.md](wiki/overview.md) — Project purpose, tech stack, extension metadata, core constraints
+- [architecture.md](wiki/architecture.md) — Directory structure, process model, IPC message flow, storage layout
+- [evaluators.md](wiki/evaluators.md) — All 5 AI evaluators, aggregator, scoring weights, verdict logic, resume generator
+- [types.md](wiki/types.md) — Full TypeScript type reference (ExtractedJob, UserProfile, AggregatedReport, all evaluator results)
+- [components.md](wiki/components.md) — React hooks (useAnalysis, useProfile, useResumeGenerator, useHistory) and UI components
+- [lib.md](wiki/lib.md) — LLM client, storage wrappers, IndexedDB, download utilities, LinkedIn extractor
+- [workflows.md](wiki/workflows.md) — Step-by-step flows for analysis, resume generation, settings, history, error handling
+- [qwen-studio.md](wiki/qwen-studio.md) — Why Qwen Studio is selected
+
+---
+> Source: [aeroxy/job-bro](https://github.com/aeroxy/job-bro) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
