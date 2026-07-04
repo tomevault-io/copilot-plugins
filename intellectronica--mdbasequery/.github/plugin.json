@@ -1,0 +1,9 @@
+{
+  "name": "intellectronica--mdbasequery",
+  "displayName": "mdbasequery",
+  "description": "CLI and library for querying Markdown-Frontmatter bases (Obsidian-compatible).",
+  "version": "1.0.0",
+  "author": "intellectronica",
+  "homepage": "https://github.com/intellectronica/mdbasequery",
+  "skills": []
+}
