@@ -1,0 +1,9 @@
+{
+  "name": "darkmatter--nixmac",
+  "displayName": "nixmac",
+  "description": "Home manager and nix-darwin that understands plain English",
+  "version": "1.0.0",
+  "author": "darkmatter",
+  "homepage": "https://github.com/darkmatter/nixmac",
+  "skills": []
+}
