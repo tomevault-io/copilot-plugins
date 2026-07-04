@@ -1,0 +1,9 @@
+{
+  "name": "savion--elegoo-rfid-editor",
+  "displayName": "elegoo-rfid-editor",
+  "description": "Web-based editor for Elegoo NTAG213 NFC spool tags",
+  "version": "1.0.0",
+  "author": "Savion",
+  "homepage": "https://github.com/Savion/elegoo-rfid-editor",
+  "skills": []
+}
