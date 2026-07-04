@@ -1,0 +1,9 @@
+{
+  "name": "ketraterm--ketraterm",
+  "displayName": "KetraTerm",
+  "description": "A fast, allocation-conscious terminal emulator for the JVM, built for modern TUI and IDE integrations.",
+  "version": "1.0.0",
+  "author": "ketraterm",
+  "homepage": "https://github.com/ketraterm/KetraTerm",
+  "skills": []
+}
