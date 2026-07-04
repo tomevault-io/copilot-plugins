@@ -1,0 +1,9 @@
+{
+  "name": "inematds--open-design",
+  "displayName": "open-design",
+  "description": "Alternativa open-source ao Claude Design: sua CLI de agente vira o motor de design",
+  "version": "1.0.0",
+  "author": "inematds",
+  "homepage": "https://github.com/inematds/open-design",
+  "skills": []
+}
