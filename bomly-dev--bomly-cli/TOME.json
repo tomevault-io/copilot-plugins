@@ -4,7 +4,7 @@
   "repo": "bomly-cli",
   "description": "Free, open-source CLI for dependency intelligence, SBOMs, vulnerability auditing, and CI policy gates.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bomly-dev/bomly-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T06:45:47Z"
+  "distributed_at": "2026-07-04T06:55:07Z"
 }
