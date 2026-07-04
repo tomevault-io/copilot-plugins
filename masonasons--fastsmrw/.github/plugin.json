@@ -1,0 +1,9 @@
+{
+  "name": "masonasons--fastsmrw",
+  "displayName": "FastSMRW",
+  "description": "A fast, accessible Mastodon/Bluesky client for blind users \u2014 C++ rewrite of FastSM with a portable core and a pure Win32 front end.",
+  "version": "1.0.0",
+  "author": "masonasons",
+  "homepage": "https://github.com/masonasons/FastSMRW",
+  "skills": []
+}
