@@ -1,0 +1,9 @@
+{
+  "name": "lhpaul--ai-dev-framework-template",
+  "displayName": "ai-dev-framework-template",
+  "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided proj",
+  "version": "1.0.0",
+  "author": "lhpaul",
+  "homepage": "https://github.com/lhpaul/ai-dev-framework-template",
+  "skills": []
+}
