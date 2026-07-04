@@ -1,0 +1,9 @@
+{
+  "name": "handy-computer--transcribe-cpp",
+  "displayName": "transcribe.cpp",
+  "description": " ggml speech-to-text inference for 16+ model families",
+  "version": "1.0.0",
+  "author": "handy-computer",
+  "homepage": "https://github.com/handy-computer/transcribe.cpp",
+  "skills": []
+}
