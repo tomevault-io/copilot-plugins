@@ -1,0 +1,44 @@
+{
+  "name": "lawyered-matter-tracker-clio",
+  "owner": "lawyered0",
+  "repo": "lawyered-matter-tracker-clio",
+  "description": "Clio Manage edition of lawyered-matter-tracker \u2014 adds one-way sync of new matters to Clio via the clio-mcp server.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lawyered0/lawyered-matter-tracker-clio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T02:33:51Z"
+}
