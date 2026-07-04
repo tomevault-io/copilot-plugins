@@ -1,0 +1,9 @@
+{
+  "name": "jmslau--claude-caffeine",
+  "displayName": "claude-caffeine",
+  "description": "Keeps your Mac awake while Claude Code is working \u2014 even with the lid closed",
+  "version": "1.0.0",
+  "author": "jmslau",
+  "homepage": "https://github.com/jmslau/claude-caffeine",
+  "skills": []
+}
