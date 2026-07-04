@@ -1,0 +1,9 @@
+{
+  "name": "freenet--mail",
+  "displayName": "mail",
+  "description": "Decentralized email application built on Freenet",
+  "version": "1.0.0",
+  "author": "freenet",
+  "homepage": "https://github.com/freenet/mail",
+  "skills": []
+}
