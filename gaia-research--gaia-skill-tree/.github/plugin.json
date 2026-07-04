@@ -1,0 +1,9 @@
+{
+  "name": "gaia-research--gaia-skill-tree",
+  "displayName": "gaia-skill-tree",
+  "description": "Gaia is a living, open registry of every AI agent skill in existence \u2014 structured as a leveling skill graph. Basic skills combine into Extras, Extra Skills evolve into Ultimates. Fork it, extend it, P",
+  "version": "1.0.0",
+  "author": "gaia-research",
+  "homepage": "https://github.com/gaia-research/gaia-skill-tree",
+  "skills": []
+}
