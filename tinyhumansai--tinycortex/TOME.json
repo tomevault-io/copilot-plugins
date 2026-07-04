@@ -4,7 +4,7 @@
   "repo": "tinycortex",
   "description": "The Fastest AI Memory Model - Your Second Brain",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tinyhumansai/tinycortex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T10:33:16Z"
+  "distributed_at": "2026-07-04T10:33:45Z"
 }
