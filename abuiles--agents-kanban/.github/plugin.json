@@ -1,0 +1,9 @@
+{
+  "name": "abuiles--agents-kanban",
+  "displayName": "agents-kanban",
+  "description": "AgentsKanban is a Cloudflare Workers application for multi-repo task orchestration with a kanban UI and background agent runs. It combines a React/Vite frontend with a Worker API that manages tasks, r",
+  "version": "1.0.0",
+  "author": "abuiles",
+  "homepage": "https://github.com/abuiles/agents-kanban",
+  "skills": []
+}
