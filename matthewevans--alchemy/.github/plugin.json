@@ -1,0 +1,9 @@
+{
+  "name": "matthewevans--alchemy",
+  "displayName": "alchemy",
+  "description": "Kid-friendly, MTG-inspired elemental card battler built with React, TypeScript, and Vite.",
+  "version": "1.0.0",
+  "author": "matthewevans",
+  "homepage": "https://github.com/matthewevans/alchemy",
+  "skills": []
+}
