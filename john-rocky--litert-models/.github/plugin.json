@@ -1,0 +1,9 @@
+{
+  "name": "john-rocky--litert-models",
+  "displayName": "LiteRT-Models",
+  "description": "Converted TFLite Model Zoo for Android with LiteRT CompiledModel GPU acceleration",
+  "version": "1.0.0",
+  "author": "john-rocky",
+  "homepage": "https://github.com/john-rocky/LiteRT-Models",
+  "skills": []
+}
