@@ -1,0 +1,9 @@
+{
+  "name": "manageryzy--opentaalas",
+  "displayName": "OpenTaalas",
+  "description": "Open source AI ASIC chip for LLAMA inspired by Taalas",
+  "version": "1.0.0",
+  "author": "manageryzy",
+  "homepage": "https://github.com/manageryzy/OpenTaalas",
+  "skills": []
+}
