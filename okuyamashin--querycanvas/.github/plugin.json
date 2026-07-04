@@ -1,0 +1,9 @@
+{
+  "name": "okuyamashin--querycanvas",
+  "displayName": "querycanvas",
+  "description": "AI-powered database client for Cursor/VS Code with smart SQL formatting and customizable result display",
+  "version": "1.0.0",
+  "author": "okuyamashin",
+  "homepage": "https://github.com/okuyamashin/querycanvas",
+  "skills": []
+}
