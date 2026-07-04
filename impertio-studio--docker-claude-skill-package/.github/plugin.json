@@ -1,0 +1,34 @@
+{
+  "name": "impertio-studio--docker-claude-skill-package",
+  "displayName": "Docker-Claude-Skill-Package",
+  "description": "22 deterministic Claude skills for Docker and Docker Compose. Dockerfile best practices, multi-stage builds, Compose orchestration, container security",
+  "version": "1.0.0",
+  "author": "Impertio-Studio",
+  "homepage": "https://github.com/Impertio-Studio/Docker-Claude-Skill-Package",
+  "skills": [
+    {
+      "name": "docker-errors-compose",
+      "description": ""
+    },
+    {
+      "name": "docker-agents-generator",
+      "description": ""
+    },
+    {
+      "name": "docker-syntax-compose-services",
+      "description": ""
+    },
+    {
+      "name": "docker-impl-go-templates",
+      "description": ""
+    },
+    {
+      "name": "docker-errors-runtime",
+      "description": ""
+    },
+    {
+      "name": "docker-syntax-cli-containers",
+      "description": ""
+    }
+  ]
+}
