@@ -1,0 +1,9 @@
+{
+  "name": "sajennings79--apple-silicon-openbrain",
+  "displayName": "apple-silicon-openbrain",
+  "description": "Fully local AI memory for Apple Silicon. MCP server with semantic vector search, MLX embeddings, and LLM enrichment \u2014 no cloud APIs required.",
+  "version": "1.0.0",
+  "author": "sajennings79",
+  "homepage": "https://github.com/sajennings79/apple-silicon-openbrain",
+  "skills": []
+}
