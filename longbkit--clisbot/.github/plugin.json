@@ -1,9 +1,22 @@
 {
   "name": "longbkit--clisbot",
   "displayName": "clisbot",
-  "description": "Agentic Coding CLI & chat bot",
+  "description": "clisbot",
   "version": "1.0.0",
   "author": "longbkit",
   "homepage": "https://github.com/longbkit/clisbot",
-  "skills": []
+  "skills": [
+    {
+      "name": "clisbot",
+      "description": ""
+    },
+    {
+      "name": "clisbot",
+      "description": ""
+    },
+    {
+      "name": "clisbot",
+      "description": ""
+    }
+  ]
 }
