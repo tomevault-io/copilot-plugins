@@ -1,0 +1,9 @@
+{
+  "name": "das-lab--darkflow",
+  "displayName": "darkflow",
+  "description": "High performance (real time / offline) darknet flow feature extraction tool built in Rust using eBPF.",
+  "version": "1.0.0",
+  "author": "das-lab",
+  "homepage": "https://github.com/das-lab/darkflow",
+  "skills": []
+}
