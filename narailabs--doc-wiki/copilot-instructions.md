@@ -1,0 +1,94 @@
+## doc-wiki
+
+> Manage the current codebase's doc-wiki — bootstrap with optional atlas (init), full-doc generation (atlas), source ingest from Jira/Confluence/GitHub/Notion/AWS/GCP/databases/files/URLs with `--refresh` for re-fetch (ingest), search + synthesis with promote-to-page and shortest-path modes (query), health check + self-heal (lint), targeted page edit (edit), restore an archived page (unarchive), token/cost metrics (stats). Always invoke when the user mentions "the wiki" or "the docs", or asks to set up doc-wiki, onboard this repo, ingest a URL into docs, refresh docs, look up something in the wiki, find a concept path, save the last query answer as a page, check wiki health, fix/edit a wiki page, restore an archived page, or see wiki cost metrics — even if "wiki" is not said explicitly. Slash commands — `/doc-wiki:init`, `:atlas`, `:ingest`, `:query`, `:lint`, `:edit`, `:unarchive`, `:stats`. Skip for unrelated docs work — arbitrary README edits, code comments, or general programming questions.
+
+
+# Wiki Skill
+
+This project has a documentation wiki skill. Before searching the codebase with grep, find, or glob, check if the wiki has the answer by running wiki-query first.
+
+## Commands
+
+- `/doc-wiki:init` -- Bootstrap wiki scaffold (includes ecosystem onboarding in Phase 3): `node skills/doc-wiki/scripts/init_wiki.js --path <wiki-root> --domain "<domain>" --name "<name>"`
+- `/doc-wiki:ingest` -- Fetch, extract, compile sources into wiki pages; use `--refresh` to re-fetch previously ingested sources
+- `/doc-wiki:query` -- Two modes: synthesis (`<question>`) for summary-first search with `--promote <file>` to save answer as a page, or path mode (`--from <a> --to <b>`) for shortest-path traversal via `node skills/doc-wiki/scripts/graph_ops.js path --edges <wiki-root>/graph/edges.jsonl`
+- `/doc-wiki:lint` -- Health check: `node skills/doc-wiki/scripts/lint_checks.js --wiki-root <wiki-root>`
+- `/doc-wiki:edit` -- Targeted page edit with diff preview
+- `/doc-wiki:stats` -- Token efficiency: `node skills/doc-wiki/scripts/event_logger.js stats --wiki-root <wiki-root> --since 7d`
+
+## Script Paths
+
+All TypeScript scripts live at: `skills/doc-wiki/scripts/` and compile to `.js` siblings via `npm run build`.
+
+| Script | Purpose |
+|---|---|
+| `init_wiki.ts` | Bootstrap wiki scaffold |
+| `parse_config.ts` | Read/write `wiki.config.yaml` |
+| `cache_manager.ts` | Content-hash cache for dedup |
+| `extract_binary.ts` | Binary file extraction |
+| `lint_checks.ts` | Structural lint checks |
+| `quality_score.ts` | Page quality scoring (0.0-1.0) |
+| `graph_ops.ts` | Graph traversal and path queries |
+| `event_logger.ts` | Operation logging and stats |
+| `mermaid_lint.ts` | Mermaid diagram validation |
+| `daily_summary.ts` | Daily summary generation |
+
+## Agent Paths
+
+Sub-agents at `agents/`. External-source fetching is handled by the connectors bundled inside `narai-primitives` and dispatched through its `gather()` planner — no per-service subagents in doc-wiki.
+
+- `wiki-orm-agent` -- ORM profile detection
+- `wiki-mermaid-agent` -- Mermaid diagram generation
+- `wiki-claude-md-agent` -- CLAUDE.md maintenance
+- `wiki-readme-agent` -- Sync repo-root `README.md` quickstart block against `wiki/getting-started.md`; dispatched alongside `wiki-claude-md-agent` in atlas Phase 8
+
+## Invocation
+
+```bash
+node skills/doc-wiki/scripts/<script>.js <args>
+```
+
+Install dependencies (Node 20 required): `npm install && npm run build`
+
+## Post-Operation Hooks
+
+After write operations (`/doc-wiki:ingest`, `/doc-wiki:edit`, `/doc-wiki:query --promote`, `/doc-wiki:unarchive`), run crosslink and tag-harmonize passes if the wiki has 3+ pages. Skip with `--no-crosslink` or `--no-tag-harmonize`.
+
+## Documentation
+
+Public-facing docs live in [`docs/`](../../docs/) at the repo root: [`getting-started.md`](../../docs/getting-started.md), [`commands.md`](../../docs/commands.md), [`configuration.md`](../../docs/configuration.md), [`internals/architecture.md`](../../docs/internals/architecture.md), [`connectors.md`](../../docs/connectors.md), [`troubleshooting.md`](../../docs/troubleshooting.md).
+
+<!-- wiki-managed: reference start -->
+## Reference
+
+### Documentation index
+
+- [`README.md`](../../README.md) — repo entry point + quickstart
+- [`docs/README.md`](../../docs/README.md) — public-facing documentation index
+- [`docs/getting-started.md`](../../docs/getting-started.md) — first-run walkthrough
+- [`docs/internals/architecture.md`](../../docs/internals/architecture.md) — full architecture overview
+
+### Coding agent configuration registry
+
+Per-tool configuration lives at the repo root in this very file family:
+
+| Tool | Config file |
+|---|---|
+| Claude Code | [`CLAUDE.md`](../../CLAUDE.md) |
+| Codex / OpenAI agents | [`AGENTS.md`](../../AGENTS.md) |
+| Gemini | [`GEMINI.md`](../../GEMINI.md) |
+| Cursor | [`.cursor/rules/doc-wiki.mdc`](../../.cursor/rules/doc-wiki.mdc) |
+| Aider | [`.aider/conventions.md`](../../.aider/conventions.md) |
+
+### Other references
+
+- [`docs/atlas.md`](../../docs/atlas.md) — `/doc-wiki:atlas` reference
+- [`docs/commands.md`](../../docs/commands.md) — every `/doc-wiki:*` slash command
+- [`docs/configuration.md`](../../docs/configuration.md) — `wiki.config.yaml` schema
+- [`docs/troubleshooting.md`](../../docs/troubleshooting.md) — symptom → cause → fix
+- [`docs/connectors.md`](../../docs/connectors.md) — connector setup
+<!-- wiki-managed: reference end -->
+
+---
+> Source: [narailabs/doc-wiki](https://github.com/narailabs/doc-wiki) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
