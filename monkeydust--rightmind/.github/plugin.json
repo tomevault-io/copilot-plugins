@@ -1,0 +1,9 @@
+{
+  "name": "monkeydust--rightmind",
+  "displayName": "rightmind",
+  "description": "Multi-agent LLM advisory platform for complex decision-making.",
+  "version": "1.0.0",
+  "author": "monkeydust",
+  "homepage": "https://github.com/monkeydust/rightmind",
+  "skills": []
+}
