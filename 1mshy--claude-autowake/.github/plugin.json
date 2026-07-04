@@ -1,0 +1,9 @@
+{
+  "name": "1mshy--claude-autowake",
+  "displayName": "claude-autowake",
+  "description": "Start's claude code's 5 hour limit at the most efficient time to maximize usage",
+  "version": "1.0.0",
+  "author": "1mshy",
+  "homepage": "https://github.com/1mshy/claude-autowake",
+  "skills": []
+}
