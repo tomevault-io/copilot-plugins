@@ -1,0 +1,9 @@
+{
+  "name": "ai4s-research--open-science",
+  "displayName": "open-science",
+  "description": "Open Science \u2014 an open AI workbench for scientists. Open-source alternative to Claude Science: local-first, model-agnostic, reproducible AI research desktop (macOS & Windows), built on Tauri + MCP + a",
+  "version": "1.0.0",
+  "author": "ai4s-research",
+  "homepage": "https://github.com/ai4s-research/open-science",
+  "skills": []
+}
