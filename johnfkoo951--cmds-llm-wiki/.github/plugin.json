@@ -1,0 +1,9 @@
+{
+  "name": "johnfkoo951--cmds-llm-wiki",
+  "displayName": "cmds-llm-wiki",
+  "description": "LLM Wiki template \u2014 Karpathy 3-layer pattern + Gold In Gold Out purpose gate + Claude Code harness (7 commands, 2 hooks, 18 web clipper templates)",
+  "version": "1.0.0",
+  "author": "johnfkoo951",
+  "homepage": "https://github.com/johnfkoo951/cmds-llm-wiki",
+  "skills": []
+}
