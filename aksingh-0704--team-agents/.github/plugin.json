@@ -1,0 +1,9 @@
+{
+  "name": "aksingh-0704--team-agents",
+  "displayName": "Team_Agents",
+  "description": "Multi-agent AI system. Autonomous agents coordinating task execution, decision routing, and workflow orchestration using LangChain and LLM Model.",
+  "version": "1.0.0",
+  "author": "AKSINGH-0704",
+  "homepage": "https://github.com/AKSINGH-0704/Team_Agents",
+  "skills": []
+}
