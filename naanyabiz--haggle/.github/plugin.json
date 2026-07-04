@@ -1,0 +1,9 @@
+{
+  "name": "naanyabiz--haggle",
+  "displayName": "haggle",
+  "description": "AGL Australia smart meter -> Home Assistant Energy dashboard (Claude-generated custom integration)",
+  "version": "1.0.0",
+  "author": "NaanyaBiz",
+  "homepage": "https://github.com/NaanyaBiz/haggle",
+  "skills": []
+}
