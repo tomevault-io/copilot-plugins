@@ -1,0 +1,9 @@
+{
+  "name": "zeabur--zbplan",
+  "displayName": "zbplan",
+  "description": "AI-powered Dockerfile generation with automatic build-and-fix iteration.",
+  "version": "1.0.0",
+  "author": "zeabur",
+  "homepage": "https://github.com/zeabur/zbplan",
+  "skills": []
+}
