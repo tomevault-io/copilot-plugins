@@ -1,23 +1,23 @@
-## native-env
+## native-errors
 
-> Environment access — only through env.ts
+> TypeScript error handling with nostics in the native app
 
 
-# Environment variables — `env.ts` only
+# TypeScript errors — use `nostics`
 
-**Do not use `process.env` or `import.meta.env` anywhere except `apps/native/src/lib/env.ts`.**
+Define and report user-facing errors through **`nostics`** in `apps/native/src/lib/errors.ts`.
 
-All app code reads deployment settings through exports from that module (`settings`, `nixmacEnvironment`, `getProfileValue`, etc.).
-
-Benefits: single validation path, typed profile JSON, no scattered env reads, and build-time profile baking stays consistent with Rust (`build.rs`).
+- Add diagnostic codes, titles, suggestions, and `defineDiagnostics` entries there — not ad hoc strings in components.
+- Import `diagnostics` (or helpers like `getRebuildErrorTitle`) from `@/lib/errors` when surfacing errors in UI.
+- Rust-side errors exposed to the frontend should map to stable codes that have entries in `errors.ts`.
 
 ```typescript
-// ❌ BAD
-const key = import.meta.env.VITE_POSTHOG_KEY;
+// ❌ BAD — one-off error copy in a component
+toast.error("Something went wrong with the provider");
 
-// ✅ GOOD
-import { settings } from "@/lib/env";
-const key = settings.posthogKey;
+// ✅ GOOD — structured diagnostic
+import { diagnostics, DIAGNOSTIC_CODES } from "@/lib/errors";
+diagnostics.report(DIAGNOSTIC_CODES.EVOLVE_NO_PROVIDER);
 ```
 
 ---
