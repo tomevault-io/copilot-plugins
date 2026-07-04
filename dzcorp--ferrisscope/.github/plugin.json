@@ -1,0 +1,9 @@
+{
+  "name": "dzcorp--ferrisscope",
+  "displayName": "FerrisScope",
+  "description": "A Rust-native, open-source desktop IDE for Kubernetes",
+  "version": "1.0.0",
+  "author": "dzcorp",
+  "homepage": "https://github.com/dzcorp/FerrisScope",
+  "skills": []
+}
