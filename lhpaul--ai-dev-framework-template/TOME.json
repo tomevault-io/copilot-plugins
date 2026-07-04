@@ -4,7 +4,7 @@
   "repo": "ai-dev-framework-template",
   "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided project setup.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lhpaul/ai-dev-framework-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T12:32:25Z"
+  "distributed_at": "2026-07-04T12:33:52Z"
 }
