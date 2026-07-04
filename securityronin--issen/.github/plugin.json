@@ -1,0 +1,9 @@
+{
+  "name": "securityronin--issen",
+  "displayName": "issen",
+  "description": "Point it at disk + memory evidence; get a correlated, ATT&CK-mapped attack timeline. Rust DFIR orchestrator: one command ingests E01/EWF/VMDK/raw + memory dumps, parses NTFS/registry/EVTX/prefetch/LNK",
+  "version": "1.0.0",
+  "author": "SecurityRonin",
+  "homepage": "https://github.com/SecurityRonin/issen",
+  "skills": []
+}
