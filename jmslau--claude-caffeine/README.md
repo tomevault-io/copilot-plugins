@@ -7,11 +7,11 @@ Keeps your Mac awake while Claude Code is working — even with the lid closed
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jmslau/claude-caffeine](https://github.com/jmslau/claude-caffeine).
+Original source: `CLAUDE.md` in [jmslau/claude-caffeine](https://github.com/jmslau/claude-caffeine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
