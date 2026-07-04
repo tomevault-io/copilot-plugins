@@ -1,0 +1,9 @@
+{
+  "name": "cwdaniel--radrview",
+  "displayName": "RadrView",
+  "description": "Open-source real-time weather radar with NEXRAD Level 2 at 250m, wind flow visualization, and biological detection. Self-hosted. No API keys.",
+  "version": "1.0.0",
+  "author": "cwdaniel",
+  "homepage": "https://github.com/cwdaniel/RadrView",
+  "skills": []
+}
