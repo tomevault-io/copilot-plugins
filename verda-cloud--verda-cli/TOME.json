@@ -4,7 +4,7 @@
   "repo": "verda-cli",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/verda-cloud/verda-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T06:53:40Z"
+  "distributed_at": "2026-07-04T07:03:42Z"
 }
