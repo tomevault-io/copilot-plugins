@@ -1,0 +1,9 @@
+{
+  "name": "swstegall--garlemald-client",
+  "displayName": "Garlemald-Client",
+  "description": "Cross-platform Rust launcher for FINAL FANTASY XIV v1.23b private servers (macOS / Linux / Windows).",
+  "version": "1.0.0",
+  "author": "swstegall",
+  "homepage": "https://github.com/swstegall/Garlemald-Client",
+  "skills": []
+}
