@@ -1,0 +1,9 @@
+{
+  "name": "fullofcaffeine--reflaxe-rust",
+  "displayName": "reflaxe.rust",
+  "description": "Compile Haxe to mostly idiomatic Rust (not ready for consumption yet!)",
+  "version": "1.0.0",
+  "author": "fullofcaffeine",
+  "homepage": "https://github.com/fullofcaffeine/reflaxe.rust",
+  "skills": []
+}
