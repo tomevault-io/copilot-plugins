@@ -4,7 +4,7 @@
   "repo": "Hackathon-backend",
   "description": "A scalable backend API built with NestJS for managing hackathons. It seamlessly automates user auth, CRUD operations, project uploads, async processing, and email alerts with modern security.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JavaScript-Mastery-Pro/Hackathon-backend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T16:31:06Z"
+  "distributed_at": "2026-07-04T16:31:35Z"
 }
