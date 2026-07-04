@@ -4,7 +4,7 @@
   "repo": "TuyaOpenClaw",
   "description": "Edge-Hardware (SoC/MCU) oriented Claw\ud83e\udd9e",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tuya/TuyaOpenClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T08:31:13Z"
+  "distributed_at": "2026-07-04T08:34:05Z"
 }
