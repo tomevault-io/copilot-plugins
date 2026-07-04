@@ -4,7 +4,7 @@
   "repo": "nothing-todo",
   "description": "\u4e0d\u8981\u8ba9AI\u65e0\u4e8b\u53ef\u505a ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/weibaohui/nothing-todo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T22:38:08Z"
+  "distributed_at": "2026-07-04T22:38:39Z"
 }
