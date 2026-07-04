@@ -1,0 +1,9 @@
+{
+  "name": "konjoai--squish",
+  "displayName": "squish",
+  "description": "\u26a1\ufe0f The fastest way to run local LLMs on Apple Silicon \u2014 sub-second model loads, beats Ollama on throughput, tail latency, and full-response time. OpenAI/Ollama-compatible. No cloud, no API keys.",
+  "version": "1.0.0",
+  "author": "konjoai",
+  "homepage": "https://github.com/konjoai/squish",
+  "skills": []
+}
