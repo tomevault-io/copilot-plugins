@@ -1,33 +1,24 @@
-## native-config-tiers
+## native-env
 
-> Three configuration tiers for the native app
+> Environment access — only through env.ts
 
 
-# Configuration — use one of three tiers
+# Environment variables — `env.ts` only
 
-Any new configuration must land in exactly one of these places. Do not invent a fourth config file or hard-code values in components.
+**Do not use `process.env` or `import.meta.env` anywhere except `apps/native/src/lib/env.ts`.**
 
-## 1. Build profiles (environment variables)
+All app code reads deployment settings through exports from that module (`settings`, `nixmacEnvironment`, `getProfileValue`, etc.).
 
-**Files:** `apps/native/env.development.json`, `apps/native/env.release.json` (and `env.e2e.json` for e2e)
+Benefits: single validation path, typed profile JSON, no scattered env reads, and build-time profile baking stays consistent with Rust (`build.rs`).
 
-We call these **profiles** to distinguish them from runtime user settings. Anything that can be passed as an env var belongs here. Preferred over ad hoc env reads — each file references a generated JSON Schema (`src-tauri/resources/schemas/env.schema.json`) for intellisense.
+```typescript
+// ❌ BAD
+const key = import.meta.env.VITE_POSTHOG_KEY;
 
-Read in app code via `apps/native/src/lib/env.ts`.
-
-## 2. User preferences (device-wide)
-
-**Path:** `$XDG_CONFIG_HOME/nixmac/settings.json`
-
-App settings at the **user** level — they apply across every project/config repo the user opens. Rust: `GlobalPreferences` / observable persistence in `src-tauri/src/state/`.
-
-## 3. Project level (repo-scoped)
-
-**Path:** `<config_dir>/.nixmac/settings.json`
-
-Settings that travel with the user's nix/darwin config **repository** (agent limits, per-repo defaults, etc.). Rust: repo-scoped configurable slices via `storage/configurable_scope.rs`.
-
-When unsure which tier: build-time constant → profile; follows the person → user prefs; follows the repo → project level.
+// ✅ GOOD
+import { settings } from "@/lib/env";
+const key = settings.posthogKey;
+```
 
 ---
 > Source: [darkmatter/nixmac](https://github.com/darkmatter/nixmac) — distributed by [TomeVault](https://tomevault.io).
