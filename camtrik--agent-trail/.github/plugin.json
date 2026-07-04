@@ -1,0 +1,9 @@
+{
+  "name": "camtrik--agent-trail",
+  "displayName": "agent-trail",
+  "description": "Local dashboard for Claude Code, Codex, OpenCode, OpenClaw and Qoder session history, token usage, cost tracking, tool calls and subagent replay.",
+  "version": "1.0.0",
+  "author": "camtrik",
+  "homepage": "https://github.com/camtrik/agent-trail",
+  "skills": []
+}
