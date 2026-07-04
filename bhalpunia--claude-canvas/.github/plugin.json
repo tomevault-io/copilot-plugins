@@ -1,0 +1,9 @@
+{
+  "name": "bhalpunia--claude-canvas",
+  "displayName": "claude-canvas",
+  "description": "TUI toolkit for Claude Code - fork with iTerm2 and Apple Terminal support",
+  "version": "1.0.0",
+  "author": "BhalPunia",
+  "homepage": "https://github.com/BhalPunia/claude-canvas",
+  "skills": []
+}
