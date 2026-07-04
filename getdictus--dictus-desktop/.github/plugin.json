@@ -1,0 +1,9 @@
+{
+  "name": "getdictus--dictus-desktop",
+  "displayName": "dictus-desktop",
+  "description": "100% offline voice dictation for macOS, Windows & Linux \u2014 Whisper & Parakeet on-device, no cloud, open source.",
+  "version": "1.0.0",
+  "author": "getdictus",
+  "homepage": "https://github.com/getdictus/dictus-desktop",
+  "skills": []
+}
