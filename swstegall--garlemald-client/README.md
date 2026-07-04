@@ -7,11 +7,11 @@ Cross-platform Rust launcher for FINAL FANTASY XIV v1.23b private servers (macOS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [swstegall/Garlemald-Client](https://github.com/swstegall/Garlemald-Client).
+Original source: `CLAUDE.md` in [swstegall/Garlemald-Client](https://github.com/swstegall/Garlemald-Client).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
