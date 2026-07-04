@@ -1,0 +1,9 @@
+{
+  "name": "jaehongpark-agent--claude-code-spinner-verbs",
+  "displayName": "claude-code-spinner-verbs",
+  "description": "claude-code-spinner-verbs",
+  "version": "1.0.0",
+  "author": "jaehongpark-agent",
+  "homepage": "https://github.com/jaehongpark-agent/claude-code-spinner-verbs",
+  "skills": []
+}
