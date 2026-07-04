@@ -1,0 +1,9 @@
+{
+  "name": "quangdang46--hashline",
+  "displayName": "hashline",
+  "description": "Stable line-addressed file editing for Claude Code, Codex using content-hashed anchors instead of fragile string replacement.",
+  "version": "1.0.0",
+  "author": "quangdang46",
+  "homepage": "https://github.com/quangdang46/hashline",
+  "skills": []
+}
