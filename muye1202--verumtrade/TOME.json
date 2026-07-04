@@ -1,0 +1,44 @@
+{
+  "name": "VerumTrade",
+  "owner": "muye1202",
+  "repo": "VerumTrade",
+  "description": "VerumTrade -- An open-source multi-agent AI trading framework, with visible reasoning and decision traces from evidence to final trade proposal.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/muye1202/VerumTrade",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T02:37:50Z"
+}
