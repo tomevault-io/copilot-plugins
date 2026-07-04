@@ -4,7 +4,7 @@
   "repo": "dmarc-msp",
   "description": "A complete Docker stack for MSPs managing DMARC data (and everyone else)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/domainaware/dmarc-msp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T08:47:47Z"
+  "distributed_at": "2026-07-04T08:53:08Z"
 }
