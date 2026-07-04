@@ -7,11 +7,11 @@ Cron job manager + process supervisor in a single binary. Web dashboard, TUI, re
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [runwisp/runwisp](https://github.com/runwisp/runwisp).
+Original source: `CLAUDE.md` in [runwisp/runwisp](https://github.com/runwisp/runwisp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
