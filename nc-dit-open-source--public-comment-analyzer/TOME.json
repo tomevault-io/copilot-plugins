@@ -1,0 +1,44 @@
+{
+  "name": "Public-Comment-Analyzer",
+  "owner": "NC-DIT-Open-Source",
+  "repo": "Public-Comment-Analyzer",
+  "description": "AI-powered analysis of public comments at scale \u2014 upload a CSV/XLSX, get per-comment insights plus an aggregate summary. Serverless AWS + Bedrock (Claude), WCAG 2.1 AA accessible. Built by NC DIT's Office of AI & Policy.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NC-DIT-Open-Source/Public-Comment-Analyzer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T10:40:59Z"
+}
