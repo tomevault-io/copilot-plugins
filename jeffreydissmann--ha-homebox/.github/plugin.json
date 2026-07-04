@@ -1,0 +1,9 @@
+{
+  "name": "jeffreydissmann--ha-homebox",
+  "displayName": "ha-homebox",
+  "description": "Home Assistant custom integration for HomeBox: inventory statistics, HA-device to HomeBox-item linking, and area-to-location sync (HACS).",
+  "version": "1.0.0",
+  "author": "JeffreyDissmann",
+  "homepage": "https://github.com/JeffreyDissmann/ha-homebox",
+  "skills": []
+}
