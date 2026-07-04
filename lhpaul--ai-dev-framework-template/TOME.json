@@ -1,0 +1,44 @@
+{
+  "name": "ai-dev-framework-template",
+  "owner": "lhpaul",
+  "repo": "ai-dev-framework-template",
+  "description": "A tool-agnostic AI-assisted development framework template. Structured workflow (Spec \u2192 Plan \u2192 Implement \u2192 Review) with canonical protocols, agent definitions for Claude Code/Cursor, and a guided project setup.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lhpaul/ai-dev-framework-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T12:31:29Z"
+}
