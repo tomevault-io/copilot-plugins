@@ -7,11 +7,11 @@ MCP bridge for Unreal Editor for Fortnite that lets Claude Code, Cursor, and oth
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [quangdang46/uefn-verse-mcp](https://github.com/quangdang46/uefn-verse-mcp).
+Original source: `CLAUDE.md` in [quangdang46/uefn-verse-mcp](https://github.com/quangdang46/uefn-verse-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
