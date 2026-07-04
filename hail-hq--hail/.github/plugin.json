@@ -1,0 +1,9 @@
+{
+  "name": "hail-hq--hail",
+  "displayName": "hail",
+  "description": "\ud83e\ude75 The universal communication platform for AI agents. Give your agent inbound and outbound phone calls, sms, emails, and more.",
+  "version": "1.0.0",
+  "author": "hail-hq",
+  "homepage": "https://github.com/hail-hq/hail",
+  "skills": []
+}
