@@ -1,0 +1,808 @@
+## mail
+
+> Handles identity creation, message composition, encryption, and inbox display.
+
+# Freenet Email – Agent Guide
+
+## Overview
+
+Decentralized email application built on Freenet. Uses Dioxus for the web UI,
+WASM contracts for inbox storage, and Anti-Flood Tokens (AFT) for rate limiting.
+
+## One-time setup
+
+```bash
+git config core.hooksPath .githooks   # Enable repo-local git hooks
+```
+
+The pre-commit hook blocks stray `.wasm` commits outside
+`published-contract/` and requires `contract-id.txt` to be staged
+alongside any WASM change.
+
+## Quick Reference
+
+### Commands
+
+```bash
+cargo make build                 # Full release build (UI + contracts)
+cargo make dev                   # Local Dioxus dev server
+cargo make dev-example           # Offline dev server (mock data, no node)
+cargo make test                  # Run all tests
+cargo make test-inbox            # Run inbox contract integration tests
+cargo make clippy                # Lint
+cargo make run-node              # Start local Freenet node
+
+# Publishing pipeline (see "Publishing" section below)
+cargo make publish-email-test    # Sandbox publish with committed test key
+cargo make publish-email         # Production publish with uncommitted key
+cargo make update-published-contract       # Refresh test snapshot
+cargo make update-published-contract-prod  # Refresh production snapshot
+cargo make publish-all           # End-to-end test publish (build → sign → publish)
+cargo make publish-production    # End-to-end production publish
+cargo make publish               # Alias for publish-email-test
+
+# Release automation (see RELEASING.md)
+scripts/generate-production-key.sh       # One-time: generate prod ed25519 key
+scripts/release.sh <version>             # Full release: build → sign → publish → tag → push
+scripts/smoke-test-production.sh <url>   # Playwright suite against deployed webapp
+```
+
+### Repository Structure
+
+```
+freenet-email/
+├── common/                  # Shared types (freenet-email-core)
+├── contracts/
+│   ├── inbox/               # Email inbox contract (WASM)
+│   └── web-container/       # Web container contract (WASM)
+├── ui/                      # Dioxus web UI
+│   └── src/
+│       ├── lib.rs           # Entry point, WEB_CONTAINER_CONTRACT_ID embed
+│       ├── app.rs           # Main component, inbox UI
+│       ├── app/login.rs     # Identity management UI
+│       ├── api.rs           # WebSocket communication with Freenet node
+│       ├── aft.rs           # Anti-Flood Token management
+│       ├── inbox.rs         # Inbox state & message encryption
+│       ├── log.rs           # Logging abstraction
+│       └── test_util.rs     # Test helpers
+├── modules/                 # Vendored dependencies
+│   ├── antiflood-tokens/
+│   │   └── interfaces/      # freenet-aft-interface
+│   └── identity-management/ # Identity delegate
+├── tools/
+│   └── web-container-sign/  # ed25519 signer binary (our web-container-tool)
+├── test-contract/           # Committed test keys (identity + web-container)
+├── published-contract/      # Committed signed-webapp snapshot
+├── Cargo.toml               # Workspace root
+└── Makefile.toml            # cargo-make build system
+```
+
+### Key Dependencies
+
+| Dependency | Purpose |
+|-----------|---------|
+| `freenet-stdlib` | Freenet contract/delegate SDK |
+| `dioxus` | Web UI framework (WASM) |
+| `ml-kem` | ML-KEM-768 (NIST FIPS 203) post-quantum key encapsulation for message encryption |
+| `ml-dsa` | ML-DSA-65 (NIST FIPS 204) post-quantum signatures for inbox state deltas and AFT |
+| `chacha20poly1305` | Symmetric encryption for message content (key from ML-KEM) |
+| `freenet-aft-interface` | Anti-Flood Token protocol |
+| `identity-management` | Identity delegate for alias management |
+
+### Architecture
+
+- **Inbox Contract**: Stores encrypted messages on Freenet. ML-DSA-65 signatures
+  verify ownership of state deltas. Messages are gated by AFT tokens to prevent spam.
+- **Web Container**: Minimal contract that hosts the compiled Dioxus UI as a
+  Freenet webapp.
+- **UI**: Dioxus WASM app communicating with a local Freenet node via WebSocket.
+  Handles identity creation, message composition, encryption, and inbox display.
+- **AFT Integration**: Each sent message requires a token from the Anti-Flood
+  Token system, preventing spam while preserving sender privacy.
+
+### Feature flag matrix
+
+The UI crate at `ui/Cargo.toml` exposes four features that compose to
+produce different builds. The cell shows whether that combination is a
+supported build target and what it's used for.
+
+| Flag          | Purpose                                                                                  |
+|---------------|------------------------------------------------------------------------------------------|
+| `use-node`    | Default. Enables the WebSocket bridge to a local Freenet node and all contract calls.    |
+| `example-data`| Seeds the UI with two mock identities (`address1`, `address2`) and mock inboxes.          |
+| `no-sync`     | Disables the WebSocket bridge entirely. Must be combined with `example-data` to be useful.|
+| `contract`    | (inbox crate, not ui) Enables the inbox contract's `ContractInterface` impl.             |
+
+**Supported combinations:**
+
+| Build                                                        | What it's for                                |
+|--------------------------------------------------------------|----------------------------------------------|
+| `cargo make build` (default: `use-node`)                     | Production release, talks to a real node    |
+| `cargo make dev-example` (`example-data,no-sync`)            | Offline dev loop, no node required           |
+| `cargo make build-ui-example-no-sync`                        | CI Playwright builds (same flags as above)   |
+| `cargo test -p freenet-email-inbox --features contract`      | Inbox contract integration tests (host)     |
+
+`example-data + use-node` is technically buildable but has no user —
+the app always reaches for the node when `use-node` is set. Use
+`no-sync` whenever you want offline mode.
+
+### Running a Freenet node
+
+There are two modes depending on what you're doing:
+
+| Mode                 | Command               | When to use                                                   |
+|----------------------|-----------------------|---------------------------------------------------------------|
+| **Local sandbox**    | `freenet local` (or `cargo make run-node`) | Developing contracts, running integration tests, publishing the test contract |
+| **Network-connected**| `freenet network`     | Production publish, smoke-testing the live webapp             |
+
+The local sandbox is entirely self-contained — it spins up a single-node
+network with no peers, so publishing to it doesn't propagate anywhere
+and can't be observed from other machines. It's the right target for
+`publish-email-test`, `publish-all`, and every Phase 3 / Phase 4
+automated test.
+
+The network-connected mode joins the real Freenet network and is the
+target for production publishes: `publish-email`, `publish-production`,
+and `scripts/release.sh`. The first publish takes ~30s to propagate
+before the gateway URL resolves.
+
+> **⚠️ Port collision — never test-publish onto a running `freenet network` node.**
+> `freenet local`/`fdev` both default to **port 7509**. If a long-running
+> `freenet network` node already owns 7509 (some dev machines run one under
+> launchd), then `cargo make publish-email-test` / `publish-all` will publish
+> the **test-key contract onto the real network** and drive your manual QA
+> against the wrong node. Before any test publish:
+> 1. `ps aux | grep "[f]reenet network"` — if one is up, 7509 is the real net.
+> 2. Start a dedicated sandbox on a free port and target it, e.g.
+>    `freenet local --ws-api-port 7600`, then publish/QA against 7600.
+> 3. `publish-email-test`/`publish-all` run `update-published-contract`, which
+>    **overwrites** `published-contract/contract-id.txt` + `webapp.parameters`
+>    with the TEST id, clobbering the committed **prod** snapshot. After QA:
+>    `git checkout -- published-contract/contract-id.txt published-contract/webapp.parameters`.
+>    **Never commit that diff** — the committed snapshot is the prod-key id.
+>
+> (`WEB_CONTAINER_CONTRACT_ID` is embedded from `contract-id.txt` at build
+> time but is **diagnostic-only** — logged in `ui/src/lib.rs`, never used for a
+> contract op — so a wrong embedded id is cosmetic console noise, not a
+> functional break.)
+
+### Testing
+
+```bash
+cargo test --workspace              # All tests
+cargo test -p freenet-email-inbox   # Inbox contract tests only
+cargo make test-ui-playwright       # Playwright E2E tests (build + serve + test)
+cargo make test-ui-playwright-setup # One-time: install Playwright browsers
+```
+
+### Build Targets
+
+- `wasm32-unknown-unknown`: Contracts (inbox, web-container) and UI
+- Native: Development tools (`identity-management` key generator,
+  `web-container-sign` signer)
+
+## Publishing
+
+Freenet-email follows `freenet-river`'s signed-and-committed publishing
+pattern: every release is a pair of `(ed25519 signature, webapp bytes)`
+under a contract ID that is deterministic given the committed source.
+
+### Directory layout
+
+```
+freenet-email/
+├── published-contract/          # ← committed snapshot (W4 of #6)
+│   ├── contract-id.txt          # base58 ContractInstanceId
+│   ├── web_container_contract.wasm
+│   ├── webapp.parameters        # 32 bytes: ed25519 verifying key
+│   └── README.md
+├── test-contract/
+│   ├── README.md                # security notes on committed test keys
+│   ├── web-container-keys.toml  # committed ed25519 test keypair
+│   └── identity/                # (pre-existing) P-384 delegate test key
+└── tools/
+    └── web-container-sign/      # the signer binary (our web-container-tool)
+```
+
+### Sandbox publish (test)
+
+1. Start a local Freenet node in another shell:
+   ```bash
+   cargo make run-node
+   ```
+2. From a fresh checkout, run the end-to-end flow:
+   ```bash
+   cargo make publish-all
+   ```
+   This chains `build` → `update-published-contract` →
+   `publish-email-test`. The committed test key at
+   `test-contract/web-container-keys.toml` is used for signing, and the
+   derived contract ID must match
+   `published-contract/contract-id.txt` — if it doesn't, the
+   committed snapshot has drifted and you should commit the diff.
+
+3. To refresh the committed snapshot without publishing:
+   ```bash
+   cargo make update-published-contract
+   git add published-contract/ && git commit -m "chore: refresh published-contract snapshot"
+   ```
+
+### Production publish
+
+Production uses an **uncommitted** ed25519 keypair at
+`~/.config/freenet-email/web-container-keys.toml` (override with
+`WEB_CONTAINER_KEY_FILE=/path/to/keys.toml`).
+
+**One-time setup** — generate the key via the release script:
+
+```bash
+scripts/generate-production-key.sh
+```
+
+This writes the keypair with `chmod 600` and prints a reminder to back
+it up offline. **Never commit this file.** Losing it means rotating the
+production contract ID and every user losing access to the previous
+deployment.
+
+**End-to-end release** — use the release driver:
+
+```bash
+scripts/release.sh 0.1.0
+```
+
+See `RELEASING.md` for the full runbook, preconditions, and recovery
+procedures. Under the hood this runs `cargo make publish-production`,
+which chains `build` → `update-published-contract-prod` →
+`publish-email`.
+
+The production key produces a **different** contract ID than the test
+key, because the ID is `hash(wasm, parameters)` and the 32-byte
+`webapp.parameters` blob is the verifying key itself. The committed
+`published-contract/contract-id.txt` is the one signed by the
+*production* key; the test snapshot lives in git history but gets
+overwritten by `cargo make update-published-contract-prod` on every
+real release.
+
+### Facade contract — stable URL across releases (issue #200, Phase 1)
+
+The web-container contract id rotates whenever workspace `Cargo.lock`
+churn shifts the wasm bytes (issue #198). To give users a permanent
+bookmarkable URL, the project ships a **facade** contract whose id is
+designed to stay byte-stable across every release.
+
+```
+contracts/facade/                 stable wasm — never rebuilt for a release
+contracts/facade-loader/          static HTML+JS shell served by the facade
+published-contract/facade.wasm    committed snapshot; CI enforces byte-equality
+published-contract/facade-id.txt  the stable contract id users bookmark
+published-contract/facade.parameters
+                                  32-byte ed25519 verifying key (same prod key
+                                  as web-container; the "publisher identity")
+```
+
+Per release the facade WASM is unchanged. Only the facade contract's
+state changes — its `current_app_id` pointer is flipped via
+`fdev execute update`, signing with the same production key. The loader
+HTML is rendered with the new app id baked in by
+`scripts/build-loader.sh` and embedded in the new state. `prev_app_ids`
+keeps a small ring of previous pointers for client-side rollback.
+
+State framing matches the web-container's `[meta_len][meta][web_len][web]`,
+but `meta` carries `FacadePointer { version, current_app_id, prev_app_ids }`
+instead of just a webapp signature. Signature payload is canonicalized
+hand-rolled bytes (see `freenet_email_core::facade::signed_payload`) to
+sidestep CBOR map-ordering concerns.
+
+**Phase 1 scope**: facade lives alongside the web-container, not yet
+replacing it. The UI is still served at the rotating web-container id;
+the facade is published once per environment as the new stable entry
+point.
+
+**Phase 3 scope (#200)**: `scripts/release.sh` automatically renders +
+signs + UPDATEs the facade pointer per release (so users hitting the
+facade URL get the new app). UI's `lib.rs` logs both
+`WEB_CONTAINER_CONTRACT_ID` and `FACADE_CONTRACT_ID` on startup so
+devtools shows which facade a build references. Both are conditional
+on `published-contract/facade-id.txt` being committed (one-time facade
+publish required first; see RELEASING.md §"Facade contract update").
+
+#### Pointer lifecycle — how the facade actually serves a release
+
+Each release rotates the web-container contract id but leaves the
+facade contract id fixed. The full chain on every release:
+
+1. `cargo make build` rebuilds the UI webapp. Workspace `Cargo.lock`
+   churn shifts wasm bytes, producing a new `published-contract/contract-id.txt`.
+2. `scripts/build-loader.sh <new_app_id>` substitutes the new id into
+   `contracts/facade-loader/src/index.html.tmpl` → writes
+   `contracts/facade-loader/dist/index.html`. This loader is the file
+   the facade actually serves; it's a static HTML+JS page that
+   redirects the browser to the new web-container url.
+3. `cargo make pack-facade-loader` tars + xzs the loader into
+   `target/facade/loader.tar.xz`. The gateway's `WebApp::try_from`
+   pipeline (XzDecoder → tar.unpack) requires this exact framing, see
+   memory `facade_state_framing.md`.
+4. `cargo make sign-facade-state` signs a fresh `FacadePointer { version=now, current_app_id=<new>, prev_app_ids=[<old>] }`
+   with the production key from `~/.config/freenet-email/web-container-keys.toml`.
+   Output: `target/facade/facade.state` (signed `[meta_len][meta][web_len][web]`).
+5. `fdev execute update --as-state <facade_id> target/facade/facade.state`
+   pushes the new state to the network. **`--as-state` is required** —
+   default is `UpdateData::Delta` which a facade-style contract rejects
+   silently as `InvalidUpdate` (memory `fdev_update_needs_as_state.md`).
+6. `scripts/release.sh` commits the new web-container snapshot, tags,
+   pushes.
+
+The facade contract id never changes across any of this. Users
+bookmark `/v1/contract/web/<facade_id>/` once and that URL keeps
+working release after release.
+
+#### Loader must postMessage, not location.replace (v0.1.8)
+
+The gateway wraps every contract URL response in a shell page with a
+sandboxed iframe and `X-Frame-Options: DENY` on the shell. Inside the
+sandbox, the loader cannot `window.location.replace(<new_app_url>)` —
+the new app's gateway response would have to render inside our iframe,
+and XFO DENY blocks that (Firefox: "Firefox Can't Open This Page").
+
+The fix: the loader posts `{__freenet_shell__: true, type: 'navigate', href: <new_app_url>}`
+to `window.parent`. The freenet-core shell already implements
+cross-contract navigation for that message — it does a top-level
+`window.location.assign` outside our iframe, which loads a fresh
+shell for the new contract id. See `path_handlers.rs:836` in
+freenet-core for the handler.
+
+Fallback path: if the loader is opened standalone (e.g. `?__sandbox=1`
+or a dev fetch with no parent frame), it uses `window.location.replace`
+so the dev UX still works.
+
+#### Manual pointer flip / recovery
+
+If `scripts/release.sh` aborts after publish-webapp (e.g. fdev's
+300s timeout — see freenet-core#4102 — fires even though the publish
+landed), resume the pointer flip manually:
+
+```bash
+# 1. Confirm the new webapp actually published.
+curl -sI "http://127.0.0.1:7509/v1/contract/web/$(cat published-contract/contract-id.txt)/" \
+  | head -1   # expect HTTP/1.1 200
+
+# 2. Rebuild loader + repack + re-sign state with the production key.
+cargo make sign-facade-state
+# (chains build-facade-loader → pack-facade-loader → sign)
+
+# 3. Push the pointer update.
+fdev execute update --as-state \
+  "$(cat published-contract/facade-id.txt)" \
+  target/facade/facade.state
+# expect "Contract updated successfully" + StateSummary
+
+# 4. Verify the facade now serves the new loader.
+curl -s "http://127.0.0.1:7509/v1/contract/web/$(cat published-contract/facade-id.txt)/?__sandbox=1" \
+  | grep CURRENT_APP_ID
+# expect the new app id baked in
+
+# 5. Open the facade URL in a browser. The loader should postMessage
+# the shell and the shell should navigate to the new web-container url.
+```
+
+If step 4 returns the old app id, the gateway likely served a stale
+extracted webapp from its on-disk cache. The gateway extracts the
+webapp tar.xz on GetResponse and writes the extracted files to its
+webapp_cache directory; UPDATEs that change the `web` slot don't
+invalidate that cache until the next contract get. Bust the cache by
+hand:
+
+```bash
+# macOS:
+CACHE_DIR="$HOME/Library/Caches/The-Freenet-Project-Inc.freenet/webapp_cache"
+# Linux:
+# CACHE_DIR="$HOME/.cache/freenet/webapp_cache"
+FACADE_ID=$(cat published-contract/facade-id.txt)
+rm -rf "${CACHE_DIR}/${FACADE_ID}" "${CACHE_DIR}/${FACADE_ID}.hash"
+
+# Trigger a GetResponse by hitting the MAIN URL (not ?__sandbox=1).
+# The sandbox endpoint short-circuits on cache miss with a 500.
+curl -s -o /dev/null "http://127.0.0.1:7509/v1/contract/web/${FACADE_ID}/"
+```
+
+This is a freenet-core gateway issue. The pointer is correct on-chain
+(verified by `fdev execute get`); the staleness is local to the
+gateway's extracted-webapp cache. Track downstream as a freenet-core
+issue when you next encounter it.
+
+#### What NOT to commit per release
+
+- `target/facade/facade.state` is signed with the production key and
+  carries a per-build timestamp version. **Do not commit it** — every
+  release re-signs. Only the WASM/parameters/id snapshot under
+  `published-contract/facade.*` is checked into git, and that triplet
+  stays byte-stable across releases by design.
+- `contracts/facade-loader/dist/index.html` is regenerated from
+  `src/index.html.tmpl` at every release. Don't hand-edit dist; edit
+  the tmpl and let `build-loader.sh` re-render.
+
+**Inbox + AFT lockfile isolation (issue #199 Phase A)**: same pattern
+extended to every other on-chain contract:
+
+- `contracts/inbox/` — the inbox contract.
+- `modules/antiflood-tokens/contracts/token-allocation-record/` — the
+  AFT token-allocation-record contract.
+- `modules/antiflood-tokens/delegates/token-generator/` — the AFT
+  token-generator delegate.
+- `modules/antiflood-tokens/interfaces/` — shared aft-interface types
+  crate (analog of facade-types). Path-dep'd by all three contracts AND
+  by the workspace UI.
+
+All four are listed in `[workspace.exclude]`. Each has its own
+`Cargo.lock` and =x.y.z pins on every dep that influences wasm output
+(chrono, ml-dsa, freenet-stdlib, etc.). Each also has a one-line
+`[workspace]` stanza so `fdev`'s `get_workspace_target_dir()` walk
+doesn't panic.
+
+Net effect: bumping any workspace dep (dioxus, ml-kem) cannot rotate
+inbox.wasm or AFT contract wasms, so users' stored messages and AFT
+token ledgers stay accessible across releases. To deliberately rotate
+(e.g. for a contract bugfix that requires data migration), edit the
+=x.y.z pin in the relevant Cargo.toml and pair the change with the
+per-identity migration story.
+
+**Inbox migration (#213/#223, shipped; #251 hardening)**: on UI
+startup the `set_aliases` callback in `ui/src/api.rs` compares the
+embedded `INBOX_CODE_HASH` against the `inbox_wasm_hash` recorded on
+each identity in the identity-management delegate. On drift it
+dispatches GETs for the old inbox keys (chained over every plausible
+historical hash — see below), and the GetResponse arm decodes the
+old state, re-signs via `Inbox::new`, and PUTs it under the current
+inbox key. Toast surfaces the migration to the user. On first
+observation (`inbox_wasm_hash = None`) the UI stamps the current
+hash as a baseline so the next bump is detectable. The schema bump
+on the delegate is backwards-compatible (`#[serde(default)]` on
+`AliasInfo.inbox_wasm_hash`).
+
+**AFT contract migration (#251 improvement 3)**: same shape applied
+to the AFT token-allocation-record contract. `AliasInfo` carries
+`aft_record_wasm_hash` + `pending_aft_migration_from`;
+`LEGACY_TOKEN_RECORD_CODE_HASHES` in `ui/src/aft.rs` is the
+append-only oldest→newest list (parallel to
+`LEGACY_INBOX_CODE_HASHES`). On startup, after the inbox loop, the
+UI runs the same drift / chained-migration / persistent-retry loop
+against `TOKEN_RECORD_CODE_HASH`, dispatching GETs for each prior
+AFT-record key and re-PUTing the decoded `TokenAllocationRecord`
+under the current key. Re-validation works because the contract's
+`TokenDelegateParameters.generator_public_key` is the identity's
+ML-DSA verifying key, which is unchanged across an AFT contract
+bump. The token-generator delegate is not migrated (its key derives
+from the identity's ML-DSA seed, not from the WASM, so it rotates
+only when the seed changes — i.e. never under a deliberate
+contract bump). The `current_aft_hash_not_in_legacy` test
+enforces the same append-only invariant as the inbox slice.
+`token_delegate_parameters_are_deterministic_per_vk` pins the
+load-bearing claim that `TokenDelegateParameters::new(&vk)` encodes
+byte-identically across calls.
+
+Deliberate AFT-record rotation recipe: edit a `=x.y.z` pin in
+`modules/antiflood-tokens/contracts/token-allocation-record/Cargo.toml`
+(or the contract source), `cargo make build-token-allocation-record`,
+append the prior `TOKEN_RECORD_CODE_HASH` to
+`LEGACY_TOKEN_RECORD_CODE_HASHES` in `ui/src/aft.rs`, ship. Schema
+of `TokenAllocationRecord` itself must stay compatible — appending
+to the legacy slice migrates state byte-for-byte; a JSON-schema
+change in the same release would silently fail `validate_state`
+per user and needs a dedicated re-shape pass in
+`put_migrated_aft_record`.
+
+**Chained migration (#251 improvement 2)**: `LEGACY_INBOX_CODE_HASHES`
+in `ui/src/inbox.rs` is an append-only oldest→newest list of every
+prior `INBOX_CODE_HASH`. `build_migration_candidates` walks from the
+recorded hash forward and `migrate_inbox` dispatches a GET per
+candidate; the first GetResponse to resolve wins, suppressed by
+`MIGRATED_IDENTITIES` (keyed by ML-DSA verifying-key bytes, not the
+mutable alias). Append the previous hash to the slice as part of any
+deliberate inbox-contract bump so users skipping releases still
+recover. The current `INBOX_CODE_HASH` must never appear in the slice
+— enforced by the `current_hash_not_in_legacy` test.
+
+**Sender-side recipient hash (#251 improvement 4)**: the inbox WASM
+hash a recipient was running at import time is captured on the
+contact (`StoredContactKeys.inbox_wasm_hash`,
+`Contact.inbox_wasm_hash`) from the import-fetch `GetResponse`'s
+`key.code_hash()`. The send path
+(`inbox.rs::start_sending`, `aft.rs::assign_token`,
+`inbox.rs::inbox_key_for_with_hash`) addresses the recipient's
+inbox under THAT hash, falling back to the sender's embedded
+`INBOX_CODE_HASH` when the field is absent (own-identity sends,
+contacts imported before this shipped). This decouples sender and
+recipient upgrade schedules — an upgraded sender can still deliver
+to a non-upgraded recipient. Stored as a bs58 string (encoded via
+plain `bs58::encode`, NOT `CodeHash::encode` whose `to_lowercase`
+breaks the roundtrip with `ContractKey::from_params`). Migration
+to a fresher hash on the recipient's side is out of scope — the
+hash sticks until the user re-imports the contact card; the
+in-protocol upgrade pointer (#251 improvement 1) is the longer-
+term fix for that.
+
+Every helper that derives a contact's on-chain inbox key from its
+ML-DSA VK MUST go through `inbox_key_for_with_hash` with the
+contact's `inbox_wasm_hash` (fallback to `INBOX_CODE_HASH`) — using
+`inbox_key_for` (sender's hash) silently breaks contact recognition
+for cross-version contacts. Currently:
+`ui/src/app/address_book.rs::is_contact_inbox_key`,
+`::lookup_by_bs58`, and the rehydrate + CreateContact prime GETs in
+`ui/src/api.rs` (~1442 and ~2540). `inbox_key_for` is still correct
+for OWN-identity derivations (own inbox is at the sender's embedded
+hash by construction).
+
+**Persistent migration retry (#251 improvement 5)**:
+`AliasInfo.pending_migration_from: Option<String>` is stamped on the
+identity-management delegate via `IdentityMsg::SetPendingMigrationFrom`
+BEFORE dispatching the migration GETs, and cleared (set to `None`)
+only when the PUT under the current inbox key succeeds. On startup
+`select_migrate_from` (in `ui/src/inbox.rs`) prefers a non-None
+pending marker over the recorded hash, so a session whose GET never
+resolved (node offline, contract expired) re-attempts on the next
+session. Stale markers (`prior == current` with a leftover pending
+value) are cleared in the no-drift branch.
+
+**Facade lockfile isolation (issue #198)**: the facade contract and its
+shared types crate live OUTSIDE the freenet-email workspace:
+
+- `contracts/facade-types/` — tiny crate with `FacadePointer`,
+  `FacadeMetadata`, `signed_payload()`, `FACADE_MAX_PREV_APP_IDS`. Its
+  only deps are `ed25519-dalek` and `serde`.
+- `contracts/facade/` — the on-chain contract crate. Path-deps on
+  `freenet-email-facade-types`. Has its own `Cargo.lock` with `=x.y.z`
+  pins on `byteorder`, `ciborium`, `ed25519-dalek`, `freenet-stdlib`.
+
+Both are listed in `[workspace.exclude]` of the root `Cargo.toml`. The
+freenet-email workspace re-exports the same types via
+`freenet-email-core::facade::*` (path-dep on `freenet-email-facade-types`)
+so signer + UI keep their existing imports unchanged.
+
+Net effect: bumping `dioxus`, `chrono`, `ml-dsa`, or any other
+workspace dep cannot rotate `facade.wasm`, because cargo resolves the
+facade build against `contracts/facade/Cargo.lock` — not the workspace
+lockfile. To deliberately bump a facade dep, edit the `=x.y.z` pin in
+`contracts/facade/Cargo.toml` (and pair with a snapshot regeneration +
+release-id update; see #200).
+
+**Build hygiene**: `scripts/check-facade-byte-equal.sh` rebuilds the
+facade (using the facade-local manifest at `contracts/facade/`) and
+`cmp`s against `published-contract/facade.wasm`. CI runs this step in
+`check-contract-wasm.yml`. The main `build.yml` workflow also runs
+`cargo fmt`, `cargo clippy`, `cargo test`, and a wasm32 release build
+inside `contracts/facade/` so PRs that touch facade are still gated.
+
+**Status (#206 closed)**: the committed snapshot at
+`published-contract/facade.{wasm,parameters,id.txt}` is the canonical
+artifact. It was produced under linux/amd64 with the rustc version
+pinned in `rust-toolchain.toml` (currently 1.95.0). The CI byte-equality
+step in `check-contract-wasm.yml` is now a **release blocker**: any
+rebuild that doesn't match the committed bytes fails the PR.
+
+To regenerate the snapshot deliberately (e.g. after bumping the rustc
+pin or a `=x.y.z` dep pin in `contracts/facade/Cargo.toml`):
+
+**On native linux/amd64**:
+
+```bash
+scripts/build-facade-snapshot-linux.sh
+git add published-contract/facade.{wasm,parameters,id.txt}
+git commit -m "chore(facade): regenerate snapshot — <reason>"
+```
+
+**On macOS / arm64 / anything else**: qemu emulation produces wasm
+bytes that drift from CI's native amd64 build (verified empirically),
+so local rebuilds can't match the gate. Use the CI-bootstrap path:
+
+1. Push the change with whatever facade.wasm bytes are on disk (any
+   non-empty file works — gate WILL fail).
+2. The `check-contract-wasm.yml` job rebuilds and uploads the
+   canonical wasm as workflow artifact `facade-wasm-rebuilt-<sha>`.
+3. Download via
+   `gh run download <run-id> -n facade-wasm-rebuilt-<sha>`.
+4. Replace `published-contract/facade.wasm`, recompute the id with
+   `fdev get-contract-id --code … --parameters …`, write to
+   `published-contract/facade-id.txt`, commit, push.
+5. CI passes.
+
+The local `check-facade-byte-equal.sh` skips with a warning on
+non-canonical hosts so dev rebuilds aren't blocked.
+
+### Reproducibility caveats
+
+The signed-payload version is the **unix timestamp at signing time**
+(see `sign-webapp` / `sign-webapp-test` in `Makefile.toml`). Two
+developers signing at different moments produce different payloads
+and therefore different contract IDs, so
+`published-contract/contract-id.txt` is **not** reproducible from
+source. The committed snapshot is the authoritative ID for the
+deployed contract; `cargo make update-published-contract*` rewrites
+it on every refresh.
+
+Why timestamp instead of a deterministic-from-source value: the
+on-chain web-container update check requires strictly monotonic
+versions. The previous scheme (commit-hash hex truncated to u32) was
+not monotonic — newer commits could hash lower than the deployed
+state — and broke the v0.1.1 publish. Commit count
+(`git rev-list --count HEAD`) is monotonic per branch but starts at
+~22, far below the version (~1.6e9) the chain already accepted under
+the broken scheme. Timestamp is the simplest source that's always
+above the deployed value.
+
+GNU tar is still required by `compress-webapp` for the
+`--sort=name --mtime=… --owner=0 --group=0` flags; the resulting
+archive is byte-identical across machines (rustc pin and release
+profile are also pinned), but the per-build timestamp injected at
+signing time means the final signed bytes differ. Install GNU tar:
+
+```bash
+brew install gnu-tar   # provides `gtar`
+```
+
+The `cargo make compress-webapp` target detects `gtar` / GNU `tar`
+automatically and emits a loud warning when falling back to BSD tar.
+`scripts/release.sh` errors out at preflight if GNU tar is missing.
+
+### Security — committed test key
+
+The ed25519 keypair at `test-contract/web-container-keys.toml` is
+**committed on purpose** so the test contract ID is reproducible
+across clones. Anyone with read access to this repository can sign
+webapps under the test contract ID, but the key grants no access to
+any user data and must never be reused for production. See
+`test-contract/README.md` for the full threat model.
+
+### Regenerating test keys
+
+Two committed test keys live under `test-contract/`:
+
+1. **Web container signer** (`test-contract/web-container-keys.toml`) —
+   ed25519, used to sign test webapps. Produces the test
+   `published-contract/contract-id.txt`.
+2. **Identity delegate** (`test-contract/identity/identity-manager-key.*.pem`) —
+   P-384, used by the `identity-management` delegate. Stable across
+   test runs so generated `identity-manager-params` is reproducible.
+
+**To rotate the web-container test key:**
+
+```bash
+rm test-contract/web-container-keys.toml
+cargo make generate-web-container-keys
+cargo make update-published-contract   # regenerates contract-id.txt
+git add test-contract/web-container-keys.toml published-contract/
+git commit -m "chore: rotate committed web-container test key"
+```
+
+The test contract ID will change. CI `check-contract-wasm.yml` and any
+Phase 3 Playwright tests that embed the contract ID will pick up the
+new value automatically on next run.
+
+**To rotate the identity delegate key:** delete the files under
+`test-contract/identity/` and `modules/identity-management/build/identity-manager-params`,
+then re-run `cargo make generate-identity-params`. This changes the
+identity delegate's on-chain key, which is usually not what you want
+unless you're reproducing a specific upstream change.
+
+## End-to-end testing
+
+### QA inventory
+
+`docs/qa/manual-test-inventory.md` is the source of truth for what's
+covered automatically vs what needs manual exercise. Consult it before
+merging non-trivial UI/contract changes and update it when a test is
+added or removed. The `freenet-mail-qa` skill at
+`.claude/skills/freenet-mail-qa/SKILL.md` instructs agents on when and
+how to use the matrix.
+
+### Automated (Playwright)
+
+The Playwright suite at `ui/tests/` tests the UI in offline mode
+(`--features example-data,no-sync`) across 5 browser/viewport
+profiles: Desktop Chrome, Firefox, Safari, Pixel 5, iPhone 13.
+
+One-time setup:
+
+```bash
+cargo make test-ui-playwright-setup
+```
+
+Run the full suite (builds UI, starts dev server, runs tests, tears down):
+
+```bash
+cargo make test-ui-playwright
+```
+
+Or manually:
+
+```bash
+# Terminal 1: start the dev server
+cd ui && dx serve --port 8082 --features example-data,no-sync --no-default-features
+
+# Terminal 2: run tests
+cd ui/tests && npx playwright test
+```
+
+The `example-data` feature seeds two identities (`address1`,
+`address2`) with mock inboxes and supports in-memory message delivery
+between them — no Freenet node required. The Playwright tests
+exercise multi-turn cross-inbox messaging (compose → send → switch
+identity → verify delivery → reply).
+
+There's also `ui/tests/production-liveness.spec.ts`, a minimal
+browser-loads-and-mounts check used by
+`scripts/smoke-test-production.sh` against a deployed `use-node`
+webapp. It deliberately doesn't exercise identity creation or
+messaging — see `RELEASING.md` §"Post-release smoke test" for the
+scope and the rationale.
+
+### Automated real-node harness
+
+`ui/tests/live-node.spec.ts` drives the real `use-node` build through
+the AFT permission flow against the isolated 2-node network from
+`scripts/run-isolated-nodes.sh`. One command runs the full pipeline:
+
+```bash
+cargo make test-e2e-real-node
+```
+
+This wipes any prior iso-node state, brings up gw (7510) + peer
+(7511), publishes the webapp to the gw, then runs Playwright with
+`FREENET_EMAIL_BASE_URL` pointing at the published contract URL.
+The spec covers identity creation, reload-persistence, and (gated on
+`FREENET_LIVE_E2E_SEND=1`) the send-via-address-book → AFT permission
+→ inbox UPDATE round trip.
+
+To leave the iso nodes up for inspection after the run:
+
+```bash
+FREENET_E2E_KEEP=1 cargo make test-e2e-real-node
+cargo make iso-nodes-status
+cargo make iso-nodes-down   # when done
+```
+
+The host's permission overlay is driven by polling
+`/permission/pending` on the gateway and POSTing
+`{"index": 0}` to `/permission/{nonce}/respond` — see the
+`startPermissionPump` helper in the spec. This avoids coupling
+to the gateway shell page's overlay HTML.
+
+Log assertions tail `~/freenet-mail-iso/gw/logs/freenet.*.log`
+(override via `FREENET_ISO_GW_LOG_DIR`) and grep for
+`UPDATE_PROPAGATION`, `allocate_token`, and identity-management
+markers. Day-1 AFT cap is dodged by wiping node data per run, so
+single-identity self-send works for the first send of the run.
+
+CI scope: this target is heavy (full freenet network + dx build
++ headed browser) and is intended for tags / nightly, not every PR.
+
+### Manual E2E checklist (against a local node)
+
+This checklist validates the pieces that unit tests and Playwright
+can't cover: real WebSocket framing, real AFT token mint/burn, real
+ML-KEM encapsulation + ChaCha20-Poly1305 round trip through the inbox
+contract state.
+
+1. `cargo make run-node` in one terminal
+2. `cargo make publish-email-test` in another
+3. Open the published webapp URL in the browser
+4. Create identity A and identity B
+5. As B, click "Share address" and copy the share text — bs58 inbox
+   address (~44 chars) on its own line, optionally followed by a
+   `verify: <six words>` fingerprint line for out-of-band verification (#249)
+6. As A, click "+ Import contact", paste B's card, set a local label, click Import
+7. A sends a message to B by typing the imported alias into the To field
+   (the compose form should show a fingerprint badge once the alias resolves);
+   sending burns an AFT token
+8. B receives, decrypts, and reads the message
+9. Token accounting check: A's remaining tokens decremented
+
+Notes:
+- Single-user identity creation only validates the inbox/AFT/encryption
+  pipeline. Cross-identity messaging requires the address-book share/import
+  flow because contact pubkeys are not auto-discovered yet (see issue #42).
+- For two browsers / two nodes, use the iso-nodes harness from #41 and run
+  steps 5–6 on each side.
+
+---
+> Source: [freenet/mail](https://github.com/freenet/mail) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
