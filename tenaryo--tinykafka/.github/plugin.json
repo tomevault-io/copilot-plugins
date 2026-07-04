@@ -1,0 +1,9 @@
+{
+  "name": "tenaryo--tinykafka",
+  "displayName": "TinyKafka",
+  "description": "A High-Proformance Kafka Broker in C++23",
+  "version": "1.0.0",
+  "author": "Tenaryo",
+  "homepage": "https://github.com/Tenaryo/TinyKafka",
+  "skills": []
+}
