@@ -1,0 +1,44 @@
+{
+  "name": "fastmoss-rpa-skills",
+  "owner": "liangdabiao",
+  "repo": "fastmoss-rpa-skills",
+  "description": "Browser-RPA + \u6570\u636e\u5206\u6790\u5de5\u5177\u96c6\uff0c\u8986\u76d6 [fastmoss.com]  (TikTok Shop \u6570\u636e\u5206\u6790\u5e73\u53f0) \u5168\u90e8 7 \u4e2a\u6838\u5fc3\u6a21\u5757\u3002\u57fa\u4e8e [Kimi WebBridge] \u9a71\u52a8\u7528\u6237\u771f\u5b9e\u6d4f\u89c8\u5668\uff08\u590d\u7528\u767b\u5f55\u6001\uff09\uff0c\u628a FastMoss \u7684\u699c\u5355/\u8d8b\u52bf/\u5e02\u573a\u6570\u636e\u843d\u6210 CSV\uff0c\u5e76\u81ea\u52a8\u751f\u6210 Markdown \u5206\u6790\u62a5\u544a\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liangdabiao/fastmoss-rpa-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-04T04:43:42Z"
+}
