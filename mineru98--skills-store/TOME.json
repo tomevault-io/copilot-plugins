@@ -4,7 +4,7 @@
   "repo": "skills-store",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mineru98/skills-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T18:32:19Z"
+  "distributed_at": "2026-07-04T18:32:50Z"
 }
