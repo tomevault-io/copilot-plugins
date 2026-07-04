@@ -1,135 +1,28 @@
-## git-conventions
+## jentic-one
 
-> Git commit message conventions and PR merge strategy for jentic-one
+> This repo's agent guidance lives in **[`CLAUDE.md`](CLAUDE.md)**. Read it first.
 
+# AGENTS.md
 
-# Git Conventions
+This repo's agent guidance lives in **[`CLAUDE.md`](CLAUDE.md)**. Read it first.
 
-Conventional Commits are **enforced repo-wide** by the `commit-msg` hook
-(`uv run cz check`, pure Python — no Node). The allowed types and the schema
-regex live in `pyproject.toml` (`[tool.commitizen.customize]`) and are guarded
-by `tests/arch/test_commit_convention.py`. This document is the human-readable
-source of truth those reference; keep all three in sync.
+It covers the quick start, commands, project layout (backend + `ui/` frontend),
+code style, testing conventions, and — most importantly — the **Rules index**:
+the `.cursor/rules/*` you must consult before changing ORM
+models, services, web handlers, or any UI code.
 
-## Commit Types — Use the Correct Type
+Key conventions, in one breath:
 
-Reserve `fix` **exclusively** for real bug fixes — something was broken **in production** (on `main`), now it works. Misusing `fix` pollutes the auto-generated changelog.
+- **Backend:** layered Router → Service → Repository; no raw DB in web/service;
+  enforced by the architecture tests in [`tests/arch/`](tests/arch/).
+- **Frontend (`ui/`):** feature modules mirror the backend's module/layer shape;
+  views talk to the backend only through their module's `api/hooks`; import
+  shared code via the `@/shared` / `@/shared/ui` barrels; routes live under
+  `/app/*` and are registered additively. Enforced by `ui/eslint.config.js`.
+- **Git:** see [`.cursor/rules/git-conventions.mdc`](.cursor/rules/git-conventions.mdc)
+  (`alwaysApply`).
 
-### `fix` in feature branches
-
-If you created the code **and** the bug in the same feature branch, it's not a `fix`. You're refactoring your own unshipped work:
-
-```
-# ❌ WRONG — AppLink was created in this branch, not shipped yet
-fix(ui): harden AppLink against XSS and correct prop spread order
-
-# ✅ CORRECT — refactoring new code before it ships
-refactor(ui): harden AppLink against XSS and correct prop spread order
-
-# ❌ WRONG — our own new password toggle broke the e2e locator
-fix(e2e): use getByRole for password field to avoid toggle collision
-
-# ✅ CORRECT — adjusting tests for our own new feature
-test(e2e): use getByRole for password field to avoid toggle collision
-```
-
-**Rule of thumb:** if the bug doesn't exist on `main`, it's not a `fix`.
-
-```
-# ❌ WRONG — not a bug fix, and scope should be the file or area
-fix(ci): fix CI concurrency and duplicate Docker builds on main
-
-# ✅ CORRECT — use the type that matches the change
-ci(release.yaml): fix CI concurrency and duplicate Docker builds on main
-```
-
-### Type reference
-
-| Type       | Use for                                      |
-| ---------- | -------------------------------------------- |
-| `feat`     | New user-facing feature                      |
-| `fix`      | Bug fix (something was broken, now it works) |
-| `test`     | Adding or updating tests                     |
-| `ci`       | CI/CD pipeline changes                       |
-| `chore`    | Dependency updates, tooling, configs         |
-| `docs`     | Documentation only                           |
-| `style`    | Formatting, whitespace (no logic change)     |
-| `refactor` | Code restructuring (no behavior change)      |
-| `perf`     | Performance improvement                      |
-| `build`    | Build system or external deps (Docker, pkg)  |
-| `revert`   | Reverting a previous commit                  |
-
-This table must match the types in the `schema_pattern` regex in
-`pyproject.toml`. If you add or remove a type, update both and the arch test.
-
-### Scope
-
-The scope is **mandatory** (the hook rejects a message with no scope). Always
-include it in parentheses: `ci(ci.yml)`, `test(e2e)`, `chore(deps)`, `fix(security)`.
-
-## PR Title Format
-
-The PR title becomes the squash commit message on `main`. Format:
-
-```
-type(scope): concise description
-```
-
-GitHub automatically appends `(#PR)` on squash merge.
-
-## Squash Commit Body
-
-When squash merging, **replace** the auto-generated list of individual commits with a clean summary:
-
-```
-type(scope): concise description (#137)
-
-Brief paragraph explaining what changed and why.
-
-- Specific change 1
-- Specific change 2
-- Specific change 3
-```
-
-Do NOT dump individual branch commits into the body. Keep it concise and accurate to the final state of the PR.
-
-### Real examples from this repo
-
-```
-fix(security): reject unknown fields in permission rules (#135)
-
-PermissionRule had extra: "allow" (Pydantic config), so unknown fields
-like "pattern" were silently accepted. A rule with only unrecognized
-fields has no conditions — matches everything — and allows the request
-before system safety rules are reached.
-
-Changes:
-- PermissionRule: extra: "forbid" — rejects unknown fields on input
-- PermissionRuleOut: new output model for read responses
-- Remove manual _-prefix stripping in _write_credential_permissions
-```
-
-```
-fix(ci): fix CI concurrency and duplicate Docker builds on main (#138)
-
-Three issues fixed:
-
-1. cancel-in-progress: true was cancelling CI runs when multiple PRs
-   merged to main in quick succession. Changed to only cancel on PR
-   branches, never on main.
-2. ci-docker.yml triggered on push to main AND was called by
-   docker-publish.yml — running the Docker build twice.
-```
-
-## PR Merge Strategy
-
-Always use **squash + merge** when merging PRs. This keeps `main` history clean — one commit per PR — and prevents transient in-progress commits from leaking into the auto-generated changelog.
-
-When creating PRs with `gh pr create`, remind the user to use squash merge.
-
-## Issue Linking
-
-Use `Closes #N` or `Fixes #N` in the PR body to auto-close related issues on merge.
+When `CLAUDE.md` and this file disagree, `CLAUDE.md` wins.
 
 ---
 > Source: [jentic/jentic-one](https://github.com/jentic/jentic-one) — distributed by [TomeVault](https://tomevault.io).
