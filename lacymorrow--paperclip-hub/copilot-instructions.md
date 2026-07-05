@@ -1,111 +1,179 @@
-## error-handling
+## graceful-degradation
 
-> Error Handling Best Practices and Guidelines
+> Shipkit implements graceful degradation to provide a seamless experience whether users have a database configured or not. When no `DATABASE_URL` is provided, the application automatically falls back to local storage for data persistence.
 
+# Shipkit Graceful Degradation
 
-# Error Handling Best Practices
+## Overview
 
-## Client-Side Errors
-- Use error boundaries
-- Handle async errors
-- Provide user feedback
-- Log errors properly
-- Implement recovery
-- Monitor client errors
-- Document error types
+Shipkit implements graceful degradation to provide a seamless experience whether users have a database configured or not. When no `DATABASE_URL` is provided, the application automatically falls back to local storage for data persistence.
 
-## Server-Side Errors
-- Use proper try/catch
-- Handle async errors
-- Implement logging
-- Return proper status
-- Monitor server errors
-- Regular error review
-- Document procedures
+## Architecture
 
-## API Errors
-- Use proper status codes
-- Return meaningful messages
-- Handle validation errors
-- Log API errors
-- Monitor error rates
-- Regular error review
-- Document API errors
+### Database Detection
 
-## Webhook Errors
-- Return proper HTTP status codes (200 for success, 4xx for client errors)
-- Implement comprehensive try/catch blocks for webhook processing
-- Log all webhook processing errors with context (but not sensitive data)
-- Never expose internal error details in webhook responses
-- Implement graceful degradation for non-critical webhook failures
-- Handle signature verification failures appropriately
-- Implement retry logic for failed webhook processing
-- Set up alerts for webhook failure patterns
-- Track webhook success/failure rates
-- Handle duplicate webhook events gracefully
+The system checks for database availability in multiple places:
 
-## Database Errors
-- Handle connection errors
-- Handle query errors
-- Implement retries
-- Log database errors
-- Monitor error patterns
-- Regular error review
-- Document procedures
+1. **[src/server/db/index.ts](mdc:src/server/db/index.ts)** - Database connection with graceful degradation
+2. **[src/payload.config.ts](mdc:src/payload.config.ts)** - Payload CMS conditional initialization
+3. **[src/lib/payload/payload.ts](mdc:src/lib/payload/payload.ts)** - Payload client initialization with null fallback
+4. **Service layer** - All data operations check `db` availability before proceeding
 
-## Validation
-- Validate all inputs
-- Handle edge cases
-- Return clear messages
-- Log validation errors
-- Monitor patterns
-- Regular review
-- Document rules
+### Local Storage Fallbacks
 
-## Logging
-- Use proper logging levels
-- Structure log messages
-- Include context
-- Handle sensitive data
-- Monitor logs
-- Regular log review
-- Document patterns
+When database is unavailable, the following local storage services are used:
 
-## Recovery
-- Implement fallbacks
-- Handle graceful degradation
-- Provide recovery options
-- Monitor recovery
-- Test recovery paths
-- Regular drills
-- Document procedures
+- **[src/lib/local-storage/project-storage.ts](mdc:src/lib/local-storage/project-storage.ts)** - Project management
+- **[src/lib/local-storage/team-storage.ts](mdc:src/lib/local-storage/team-storage.ts)** - Team management
 
-## Monitoring
-- Track error rates
-- Set up alerts
-- Monitor patterns
-- Regular analysis
-- Take action
-- Document findings
-- Share insights
+## Implementation Patterns
 
-## User Experience
-- Show friendly messages
-- Provide clear guidance
-- Handle offline states
-- Support recovery
-- Monitor user impact
-- Regular UX review
-- Document patterns
+### Service Pattern
 
-## Documentation
-- Document error types
-- Document handling
-- Keep updated
-- Share knowledge
-- Regular reviews
-- Monitor changes
-- Maintain docs
+All services follow this pattern for graceful degradation:
+
+```typescript
+async someMethod(params: any) {
+  if (!db) {
+    // Use local storage fallback
+    return LocalStorageService.someMethod(params);
+  }
+
+  // Use database
+  return await this.database.someMethod(params);
+}
+```
+
+### Payload Client Pattern
+
+Always use `getPayloadClient()` function, never import singleton:
+
+```typescript
+// ✅ Correct
+import { getPayloadClient } from "@/lib/payload/payload";
+
+const payload = await getPayloadClient();
+if (!payload) {
+  // Handle gracefully - CMS not available
+  return null;
+}
+
+// ❌ Wrong - Don't use singleton (causes crashes)
+import { payload } from "@/lib/payload/payload";
+```
+
+### Conditional Configuration
+
+Configuration files check for environment variables before initializing database-dependent features:
+
+```typescript
+const isFeatureEnabled = !!process.env.DATABASE_URL && process.env.FEATURE_FLAG === "true";
+
+if (isFeatureEnabled) {
+  // Initialize database-dependent features
+}
+```
+
+## Key Files
+
+### Core Database Files
+- **[src/server/db/index.ts](mdc:src/server/db/index.ts)** - Main database connection with null fallback
+- **[src/payload.config.ts](mdc:src/payload.config.ts)** - Conditional Payload initialization
+
+### Local Storage Services
+- **[src/lib/local-storage/project-storage.ts](mdc:src/lib/local-storage/project-storage.ts)** - Project CRUD operations
+- **[src/lib/local-storage/team-storage.ts](mdc:src/lib/local-storage/team-storage.ts)** - Team CRUD operations
+
+### Service Integration
+- **[src/server/services/project-service.ts](mdc:src/server/services/project-service.ts)** - Project service with fallbacks
+- **[src/server/services/team-service.ts](mdc:src/server/services/team-service.ts)** - Team service with fallbacks
+
+## Data Models
+
+Local storage services mirror the database schema exactly:
+
+### Projects
+```typescript
+interface LocalProject {
+  id: string;
+  name: string;
+  teamId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  members: LocalProjectMember[];
+}
+```
+
+### Teams
+```typescript
+interface LocalTeam {
+  id: string;
+  name: string;
+  type: "personal" | "workspace";
+  createdAt: Date;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
+}
+```
+
+## Environment Variables
+
+### Required for Database Mode
+- `DATABASE_URL` - PostgreSQL connection string
+- `PAYLOAD_SECRET` - Secret key to enable Payload CMS (optional, can use `DISABLE_PAYLOAD=true` to disable)
+
+### Optional Feature Flags
+- `NEXT_PUBLIC_FEATURE_S3_ENABLED` - Enable S3 storage
+- `NEXT_PUBLIC_FEATURE_VERCEL_BLOB_ENABLED` - Enable Vercel Blob storage
+- `NEXT_PUBLIC_FEATURE_AUTH_RESEND_ENABLED` - Enable Resend email
+
+## Demo Data
+
+When no database is available and no local data exists, the system automatically initializes with demo data:
+
+- Demo user account
+- Sample personal team
+- Example projects
+- Realistic project members
+
+## Best Practices
+
+### 1. Always Check Database Availability
+```typescript
+if (!db) {
+  // Local storage fallback
+  return LocalStorage.method();
+}
+```
+
+### 2. Mirror Database APIs
+Local storage services should exactly match database service method signatures.
+
+### 3. Handle User Sessions
+Demo mode creates a consistent user session that persists across browser sessions.
+
+### 4. Data Consistency
+Local storage maintains referential integrity similar to database constraints.
+
+### 5. Error Handling
+Graceful degradation should never throw errors - always provide fallbacks.
+
+## Debugging
+
+### Check Database Status
+```typescript
+import { db } from "@/server/db";
+console.log("Database available:", !!db);
+```
+
+### Inspect Local Storage
+```typescript
+console.log("Projects:", LocalProjectStorage.getAllProjects());
+console.log("Teams:", LocalTeamStorage.getAllTeams());
+```
+
+### Environment Validation
+Check that all required environment variables are set for the desired mode of operation.
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
