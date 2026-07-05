@@ -1,0 +1,9 @@
+{
+  "name": "gradatum--gradatum",
+  "displayName": "gradatum",
+  "description": "Memory backbone for AI agents \u2014 Rust embedded, multi-vault, hierarchical ACL. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "gradatum",
+  "homepage": "https://github.com/gradatum/gradatum",
+  "skills": []
+}
