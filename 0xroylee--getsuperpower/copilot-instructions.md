@@ -1,41 +1,129 @@
-## codegraph
+## getsuperpower
 
-> CodeGraph MCP usage guide — when to use which tool
+> This file gives AI agents the short operating map for this repository.
 
-<!-- CODEGRAPH_START -->
-## CodeGraph
+# Repository Guidelines
 
-This project has a CodeGraph MCP server (`codegraph_*` tools) configured. CodeGraph is a tree-sitter-parsed knowledge graph of every symbol, edge, and file. Reads are sub-millisecond and return structural information grep cannot.
+This file gives AI agents the short operating map for this repository.
 
-### When to prefer codegraph over native search
+> **Single source of truth:** Keep this file concise. Architecture details live in
+> `docs/architecture.md`; command definitions live in `package.json`; formatting
+> and lint rules live in `biome.json`. Read those files before changing behavior.
 
-Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
+## Quick Reference
 
-| Question | Tool |
-|---|---|
-| "Where is X defined?" / "Find symbol named X" | `codegraph_search` |
-| "What calls function Y?" | `codegraph_callers` |
-| "What does Y call?" | `codegraph_callees` |
-| "What would break if I changed Z?" | `codegraph_impact` |
-| "Show me Y's signature / source / docstring" | `codegraph_node` |
-| "Give me focused context for a task/area" | `codegraph_context` |
-| "See several related symbols' source at once" | `codegraph_explore` |
-| "What files exist under path/" | `codegraph_files` |
-| "Is the index healthy?" | `codegraph_status` |
+### Architecture
 
-### Rules of thumb
+Bun + TypeScript CLI runtime for authoring, installing, and validating
+GetSuperpower skill-tree bundles.
 
-- **Answer directly — don't delegate exploration.** For "how does X work" / architecture / trace questions, answer with 2-3 codegraph calls: `codegraph_context` first, then ONE `codegraph_explore` for the source of the symbols it surfaces. Codegraph IS the pre-built index, so spawning a separate file-reading sub-task/agent — or running a grep + read loop — repeats work codegraph already did and costs more for the same answer.
-- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
-- **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
-- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
-- **Don't loop `codegraph_node` over many symbols** — one `codegraph_explore` call returns several symbols' source grouped in a single capped call, while each separate node/Read call re-reads the whole context and costs far more.
-- **Index lag**: the file watcher debounces ~500ms behind writes; don't re-query immediately after editing a file in the same turn.
+- `src/cli.ts` - thin Commander CLI shell.
+- `src/getsuperpower.ts` - primary GetSuperpower command module.
+- `src/runtimes/ponytrail/` - internal compatibility runtime for workflow
+  manifests and install records; snapshot modules are paused from the public CLI.
+- `src/plugins/` - skill installer seam for bundled, local, Superpowers,
+  external, and agent-target installs.
+- `tests/` - Bun tests for runtime behavior and CLI command registration.
+- `docs/architecture.md` - authoritative architecture map.
+- `work/` - scratch space for local smoke tests and temporary files.
 
-### If `.codegraph/` doesn't exist
+### Runtime Flow
 
-The MCP server returns "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialized. Want me to run `codegraph init -i` to build the index?"*
-<!-- CODEGRAPH_END -->
+```text
+Author or user request
+  -> getsuperpower CLI
+  -> workflow manifest validation
+  -> skill dependency resolution
+  -> Skills CLI bootstrap when needed
+  -> agent skill target installs
+  -> .getsuperpower workflow records
+```
+
+## Module Boundaries
+
+- `src/cli.ts` must stay thin. It may parse commands, prompt users, print
+  output, and call runtime or plugin interfaces. It must not own bundle rules.
+- `src/getsuperpower.ts` owns GetSuperpower command registration and skill
+  dependency bootstrap for install/deps/init/validate/list.
+- `src/runtimes/ponytrail/` owns workflow manifest schemas, scaffolding, and
+  install records. The folder name remains for internal compatibility.
+- `src/plugins/` is for skill resolution and target writes. Keep
+  environment-specific behavior behind small interfaces.
+- Generated `.getsuperpower/` project workspaces are local runtime state. Do not
+  make source code depend on files generated during smoke tests.
+
+## GetSuperpower Rules
+
+- A GetSuperpower is a deployable bundle skills set with a `workflow.json`,
+  README, and optional local skills.
+- If a workflow provides one callable entry skill, that skill must be listed in
+  `skills[]`; it does not need a workflow step.
+- Every `steps[].skill` value must exactly match a declared `skills[].source`.
+- `getsuperpower install` is the only public workflow install command.
+- The older `bundle` and `workflow` command surfaces exist only as
+  compatibility aliases.
+- Pony Trail history, revert, and prehook features are paused. Do not expose or
+  document them as active CLI commands unless the feature is explicitly resumed.
+
+## Commands
+
+```bash
+bun install                 # Install dependencies
+bun run dev -- --help       # Show CLI commands
+bun run dev -- install examples/workflows/release-review
+bun run dev -- deps examples/workflows/release-review
+bun run dev -- init my-workflow
+bun run dev -- validate examples/workflows/real-engineering
+bun run dev -- skills install
+bun run build               # Build the packaged CLI bundle
+bun test                    # Run Bun tests
+bun run coverage            # Run tests and enforce 90% line coverage
+bun run deps:check-recency -- <package[@version]>
+bun run typecheck           # TypeScript check
+bun run check               # Biome + typecheck + coverage gate
+```
+
+The shell environment for this workspace expects commands to be prefixed with
+`rtk` when run by Codex, for example `rtk bun run check`.
+
+## Development Rules
+
+- Prefer test-first changes for runtime behavior. Add or update a focused Bun
+  test before changing production TypeScript.
+- The coverage gate is 90% line coverage. Do not chase 100% coverage by
+  testing low-value details; add meaningful tests around runtime behavior,
+  adapter seams, and failure modes.
+- Keep interfaces small and deep. Callers should use runtime exports instead of
+  reaching into internal files unnecessarily.
+- Use Zod for manifest and user-provided JSON validation.
+- Use Zod schemas to replace `any` types with validated `unknown` inputs and
+  inferred TypeScript types.
+- Keep onboarding deterministic and safe to run repeatedly in a scratch
+  directory.
+- Do not add live Codex, Claude, network, or filesystem side effects to core
+  modules without routing them through a plugin seam.
+- Do not install a new npm package version published less than 30 days ago.
+  Before adding dependencies, run
+  `rtk bun run deps:check-recency -- <package[@version]>`. If the selected
+  version is newer than 30 days, choose an older stable version or ask the
+  human owner for explicit approval.
+
+## Verification
+
+Before claiming completion, run:
+
+```bash
+rtk bun run check
+```
+
+For CLI changes, also run a smoke check against a scratch directory under
+`work/`, such as:
+
+```bash
+rtk bun run dev -- --help
+rtk bun run dev -- deps examples/workflows/release-review
+rtk bun run dev -- validate examples/workflows/release-review
+```
 
 ---
 > Source: [0xroylee/getsuperpower](https://github.com/0xroylee/getsuperpower) — distributed by [TomeVault](https://tomevault.io).
