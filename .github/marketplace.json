@@ -172519,6 +172519,16 @@
       "description": "claude-code-research"
     },
     {
+      "name": "lumidesk--verifin",
+      "source": "./lumidesk--verifin",
+      "description": "\u5b8c\u5168\u514d\u8d39 \u00b7 \u5f00\u6e90 \u00b7 \u6570\u636e\u81ea\u4e3b\u7684\u6781\u7b80\u8bb0\u8d26\u5de5\u5177"
+    },
+    {
+      "name": "lumidesk--verifin",
+      "source": "./lumidesk--verifin",
+      "description": "\u5b8c\u5168\u514d\u8d39 \u00b7 \u5f00\u6e90 \u00b7 \u6570\u636e\u81ea\u4e3b\u7684\u6781\u7b80\u8bb0\u8d26\u5de5\u5177"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -189374,6 +189384,16 @@
       "description": "Make Claude Code work like a disciplined engineer: OODA, multi-party adversarial review, model routing, fail-then-pass. Distilled from Fable to reinforce the Opus harness."
     },
     {
+      "name": "a3s-lab--a3s",
+      "source": "./a3s-lab--a3s",
+      "description": "Agent as a Service"
+    },
+    {
+      "name": "a3s-lab--a3s",
+      "source": "./a3s-lab--a3s",
+      "description": "Agent as a Service"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -202882,6 +202902,11 @@
       "name": "tadashi-aikawa--jinrai-spoon",
       "source": "./tadashi-aikawa--jinrai-spoon",
       "description": "A Hammerspoon script for switching and recognizing windows at the speed of thought \u26a1"
+    },
+    {
+      "name": "csyqlz--vozeb",
+      "source": "./csyqlz--vozeb",
+      "description": "vozeb AI image creation and management"
     },
     {
       "name": "yschimke--compose-ai-tools",
