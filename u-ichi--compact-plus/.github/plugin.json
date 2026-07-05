@@ -1,0 +1,9 @@
+{
+  "name": "u-ichi--compact-plus",
+  "displayName": "compact-plus",
+  "description": "Claude Code plugin: preserve and restore working state around /compact",
+  "version": "1.0.0",
+  "author": "u-ichi",
+  "homepage": "https://github.com/u-ichi/compact-plus",
+  "skills": []
+}
