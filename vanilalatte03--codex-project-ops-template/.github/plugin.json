@@ -1,0 +1,14 @@
+{
+  "name": "vanilalatte03--codex-project-ops-template",
+  "displayName": "codex-project-ops-template",
+  "description": "PRD/ADR \uae30\ubc18 Codex \ud504\ub85c\uc81d\ud2b8 \uc6b4\uc601 \ud558\ub124\uc2a4 \ud15c\ud50c\ub9bf",
+  "version": "1.0.0",
+  "author": "vanilalatte03",
+  "homepage": "https://github.com/vanilalatte03/codex-project-ops-template",
+  "skills": [
+    {
+      "name": "review",
+      "description": ""
+    }
+  ]
+}
