@@ -4,7 +4,7 @@
   "repo": "tradingview-mcp-jackson",
   "description": "TradingView Desktop MCP \u2014 Fortuna trading system working copy. Upstream: LewisWJackson/tradingview-mcp-jackson",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drasticstatic/tradingview-mcp-jackson",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T01:06:12Z"
+  "distributed_at": "2026-07-05T01:18:42Z"
 }
