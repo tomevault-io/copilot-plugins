@@ -1,302 +1,128 @@
-## database-patterns
+## database
 
-> Use the `createTable` function with consistent naming:
+> Database Best Practices and Guidelines
 
-# Database Patterns & Best Practices
+# Database Best Practices
 
-## Schema Design Patterns
+## Data Modeling
+- Use meaningful and consistent naming
+- Define clear relationships between entities
+- Use appropriate data types
+- Implement proper indexing
+- Consider query patterns
+- Plan for scalability
+- Document schema design
 
-### Table Creation Pattern
-Use the `createTable` function with consistent naming:
-```typescript
-const createTable = pgTableCreator((name) => `${env?.DB_PREFIX ?? ""}_${name}`);
+## Field Types
+- Use dates instead of booleans
+  - ❌ `isActive: boolean`
+  - ✅ `activeAt: Date`
+  - ❌ `isDeleted: boolean`
+  - ✅ `deletedAt: Date`
+- Use enums for fixed values
+- Use JSON for flexible structures
+- Use proper numeric types
+- Consider storage implications
 
-export const waitlistEntries = createTable(
-  "waitlist_entry",
-  {
-    id: serial("id").primaryKey(),
-    email: varchar("email", { length: 255 }).notNull().unique(),
-    // ... other fields
-  },
-  (table) => ({
-    emailIdx: index("waitlist_email_idx").on(table.email),
-    createdAtIdx: index("waitlist_created_at_idx").on(table.createdAt),
-  })
-);
-```
+## Field Consistency and Provider Integration
+- **ALWAYS** store critical data in multiple compatible fields when dealing with external providers
+- **NEVER** assume external systems use your field naming conventions
+- Use fallback logic when reading data that could exist in multiple fields
+  - ✅ `payment.orderId || payment.processorOrderId || ""`
+  - ❌ `payment.orderId ?? ""`
+- Document which providers populate which fields in [src/server/providers/](mdc:src/server/providers)
+- Test complete data flow from provider import to UI display
+- Maintain backward compatibility when adding new fields
+- Example from payments table:
+  ```typescript
+  // Store in both fields for compatibility
+  orderId: processorOrderId,           // For display compatibility
+  processorOrderId: processorOrderId,  // For provider-specific operations
+  ```
 
-### Field Naming Conventions
-- Use `snake_case` for database columns
-- Use `camelCase` for TypeScript properties
-- Include length constraints for varchar fields
-- Use descriptive index names
+## Relationships
+- Define foreign key constraints
+- Use junction tables for many-to-many
+- Consider denormalization when needed
+- Document relationship types
+- Plan for cascading operations
+- Handle circular references
+- Consider query performance
 
-### Required Field Patterns
-```typescript
-// ✅ Good patterns
-id: serial("id").primaryKey()
-email: varchar("email", { length: 255 }).notNull().unique()
-createdAt: timestamp("created_at", { withTimezone: true })
-  .default(sql`CURRENT_TIMESTAMP`)
-  .notNull()
-updatedAt: timestamp("updated_at", { withTimezone: true })
-  .$onUpdate(() => new Date())
+## Webhook Data Patterns
+- Store webhook event IDs for idempotency checks
+- Use database transactions for atomic webhook processing
+- Implement proper indexes on webhook event lookup fields
+- Store webhook processing status and timestamps
+- Use proper data types for webhook payload storage (JSON/JSONB)
+- Implement webhook event deduplication at database level
+- Create audit trails for webhook-triggered data changes
+- Handle webhook event ordering and dependencies
+- Use database locks to prevent race conditions in webhook processing
+- Store webhook retry attempts and failure reasons
 
-// Optional fields
-company: varchar("company", { length: 255 })  // No .notNull()
-metadata: text("metadata").default("{}")      // Default JSON
-```
+## Querying
+- Use parameterized queries
+- Optimize query performance
+- Use appropriate indexes
+- Avoid N+1 queries
+- Use transactions appropriately
+- Handle race conditions
+- Monitor query performance
 
-## Index Strategy
-
-### Performance Indexes
-Create indexes for common query patterns:
-```typescript
-(table) => ({
-  // Single column indexes
-  emailIdx: index("waitlist_email_idx").on(table.email),
-  createdAtIdx: index("waitlist_created_at_idx").on(table.createdAt),
-
-  // Conditional indexes for boolean fields
-  isNotifiedIdx: index("waitlist_is_notified_idx").on(table.isNotified),
-
-  // Composite indexes for multi-column queries
-  userCompanyIdx: index("user_company_idx").on(table.userId, table.company),
-})
-```
-
-### Index Naming Convention
-- Format: `{table}_{column}_{type}_idx`
-- Examples: `waitlist_email_idx`, `user_created_at_idx`
-
-## Type Generation
-
-### Infer Types from Schema
-```typescript
-export type WaitlistEntry = typeof waitlistEntries.$inferSelect;
-export type NewWaitlistEntry = typeof waitlistEntries.$inferInsert;
-
-// Use in service functions
-export async function addWaitlistEntry(
-  data: Omit<NewWaitlistEntry, "id" | "createdAt" | "updatedAt">
-): Promise<WaitlistEntry> {
-  // implementation
-}
-```
-
-### Partial Types for Updates
-```typescript
-// For update operations
-type WaitlistEntryUpdate = Partial<Omit<NewWaitlistEntry, "id" | "email">>;
-```
-
-## Migration Patterns
-
-### Schema Changes
-Use Drizzle Kit for schema migrations:
-```bash
-# Generate migration
-npx drizzle-kit generate
-
-# Apply to database
-bun run db:push
-
-# Or use migrate for production
-npx drizzle-kit migrate
-```
-
-### Migration Safety
-- Always backup before major schema changes
-- Test migrations on staging first
-- Use transactions for complex migrations
-- Consider downtime for large table changes
-
-## Query Patterns
-
-### Basic CRUD Operations
-```typescript
-// Create
-const [entry] = await db
-  .insert(waitlistEntries)
-  .values(data)
-  .returning();
-
-// Read with conditions
-const [entry] = await db
-  .select()
-  .from(waitlistEntries)
-  .where(eq(waitlistEntries.email, email))
-  .limit(1);
-
-// Update
-await db
-  .update(waitlistEntries)
-  .set({ isNotified: true })
-  .where(eq(waitlistEntries.email, email));
-
-// Delete
-await db
-  .delete(waitlistEntries)
-  .where(eq(waitlistEntries.id, id));
-```
-
-### Pagination Pattern
-```typescript
-export async function getWaitlistEntries(options: {
-  limit?: number;
-  offset?: number;
-  orderBy?: "asc" | "desc";
-} = {}) {
-  const { limit = 50, offset = 0, orderBy = "desc" } = options;
-
-  return await db
-    .select()
-    .from(waitlistEntries)
-    .orderBy(
-      orderBy === "desc"
-        ? desc(waitlistEntries.createdAt)
-        : waitlistEntries.createdAt
-    )
-    .limit(limit)
-    .offset(offset);
-}
-```
-
-### Aggregation Queries
-```typescript
-// Count queries
-const [result] = await db
-  .select({ count: count() })
-  .from(waitlistEntries);
-
-// Conditional counts
-const [notifiedResult] = await db
-  .select({ count: count() })
-  .from(waitlistEntries)
-  .where(eq(waitlistEntries.isNotified, true));
-```
-
-## Relationship Patterns
-
-### Foreign Key Relations
-```typescript
-// In schema.ts
-export const waitlistEntries = createTable("waitlist_entry", {
-  userId: varchar("user_id", { length: 255 })
-    .references(() => users.id, { onDelete: "cascade" }),
-});
-
-// Define relations
-export const waitlistRelations = relations(waitlistEntries, ({ one }) => ({
-  user: one(users, {
-    fields: [waitlistEntries.userId],
-    references: [users.id],
-  }),
-}));
-```
-
-### Querying with Relations
-```typescript
-// Simple join
-const entriesWithUsers = await db
-  .select({
-    entry: waitlistEntries,
-    user: users,
-  })
-  .from(waitlistEntries)
-  .leftJoin(users, eq(waitlistEntries.userId, users.id));
-```
-
-## Data Validation
-
-### Database Level Constraints
-```typescript
-// Unique constraints
-email: varchar("email", { length: 255 }).notNull().unique(),
-
-// Check constraints (when supported)
-status: varchar("status", { length: 50 })
-  .notNull()
-  .default("pending"),
-```
-
-### Application Level Validation
-```typescript
-export async function addWaitlistEntry(data: NewWaitlistEntry) {
-  // Validate before insert
-  if (!data.email || !data.name) {
-    throw new Error("Email and name are required");
-  }
-
-  // Check for duplicates
-  const existing = await isEmailOnWaitlist(data.email);
-  if (existing) {
-    throw new Error("Email already exists");
-  }
-
-  // Proceed with insert
-}
-```
+## Security
+- Use prepared statements
+- Implement row-level security
+- Encrypt sensitive data
+- Use connection pooling
+- Implement proper access control
+- Regular security audits
+- Monitor for vulnerabilities
 
 ## Error Handling
+- Use try-catch blocks
+- Implement retries for transient failures
+- Log database errors
+- Handle constraint violations
+- Implement proper rollbacks
+- Monitor for deadlocks
+- Document error scenarios
 
-### Database Error Handling
-```typescript
-try {
-  const result = await db.insert(table).values(data);
-  return result;
-} catch (error) {
-  if (error.code === '23505') { // Unique violation
-    throw new Error("Duplicate entry");
-  }
-  throw error; // Re-throw unknown errors
-}
-```
+## Performance
+- Use appropriate indexes
+- Monitor query performance
+- Implement caching strategies
+- Regular maintenance
+- Handle connection pooling
+- Monitor resource usage
+- Optimize bulk operations
 
-### Connection Error Handling
-```typescript
-export async function serviceFunction() {
-  if (!db) {
-    throw new Error("Database not initialized");
-  }
+## Migrations
+- Version control migrations
+- Test migrations thoroughly
+- Plan for rollbacks
+- Document changes
+- Handle data backfills
+- Consider downtime impact
+- Monitor migration progress
 
-  try {
-    // database operations
-  } catch (error) {
-    console.error("Database operation failed:", error);
-    throw new Error("Database operation failed");
-  }
-}
-```
+## Backup and Recovery
+- Regular backups
+- Test recovery procedures
+- Document backup strategy
+- Monitor backup success
+- Plan for disaster recovery
+- Regular restore tests
+- Maintain backup history
 
-## Performance Optimization
-
-### Query Optimization
-- Use `select()` to specify needed columns
-- Add `limit()` for large result sets
-- Use indexes for WHERE and ORDER BY clauses
-- Avoid N+1 queries with proper joins
-
-### Connection Management
-- Use connection pooling (handled by Drizzle)
-- Close connections properly
-- Monitor connection usage
-- Set appropriate timeouts
-
-## Environment Configuration
-
-### Database Configuration
-Reference the main database config in [schema.ts](mdc:src/server/db/schema.ts):
-```typescript
-const createTable = pgTableCreator((name) => `${env?.DB_PREFIX ?? ""}_${name}`);
-```
-
-### Environment Variables
-Required database environment variables:
-- `DATABASE_URL` - Connection string
-- `DB_PREFIX` - Table prefix for multi-tenant setups
-
-This pattern ensures consistent database operations across the Shipkit application while maintaining performance and data integrity.
+## Monitoring
+- Monitor performance metrics
+- Set up alerts
+- Track error rates
+- Monitor disk usage
+- Check connection pools
+- Monitor query patterns
+- Regular health checks
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
