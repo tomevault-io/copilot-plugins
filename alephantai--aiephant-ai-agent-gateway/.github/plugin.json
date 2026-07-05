@@ -1,0 +1,9 @@
+{
+  "name": "alephantai--aiephant-ai-agent-gateway",
+  "displayName": "AIephant-AI-Agent-Gateway",
+  "description": "Alephant is an open-source AI Agent Gateway for routing, tracking, and controlling LLM usage across AI agents, members, and workflows, and for publishing agent capabilities as paid endpoints with x402",
+  "version": "1.0.0",
+  "author": "AlephantAI",
+  "homepage": "https://github.com/AlephantAI/AIephant-AI-Agent-Gateway",
+  "skills": []
+}
