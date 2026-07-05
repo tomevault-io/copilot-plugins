@@ -1,0 +1,9 @@
+{
+  "name": "professorpalmer--puppetmaster",
+  "displayName": "Puppetmaster",
+  "description": "Provider-neutral control plane for durable-state agent swarms: subprocess workers, leases, artifacts, memory, and deterministic stitching.",
+  "version": "1.0.0",
+  "author": "professorpalmer",
+  "homepage": "https://github.com/professorpalmer/Puppetmaster",
+  "skills": []
+}
