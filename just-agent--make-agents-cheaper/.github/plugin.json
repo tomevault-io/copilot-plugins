@@ -1,0 +1,9 @@
+{
+  "name": "just-agent--make-agents-cheaper",
+  "displayName": "make-agents-cheaper",
+  "description": "Rust CLI for improving prompt cache hit rate in coding-agent workflows",
+  "version": "1.0.0",
+  "author": "Just-Agent",
+  "homepage": "https://github.com/Just-Agent/make-agents-cheaper",
+  "skills": []
+}
