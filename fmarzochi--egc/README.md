@@ -1,0 +1,26 @@
+# AI instruction files for EGC
+
+> Sourced from [Fmarzochi/EGC](https://github.com/Fmarzochi/EGC) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+Your AI agents never start from zero again. Local-first MCP runtime with persistent memory across sessions and tools.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [Fmarzochi/EGC](https://github.com/Fmarzochi/EGC).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Fmarzochi/EGC](https://github.com/Fmarzochi/EGC)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-p -->
