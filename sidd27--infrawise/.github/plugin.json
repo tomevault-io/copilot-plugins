@@ -1,0 +1,9 @@
+{
+  "name": "sidd27--infrawise",
+  "displayName": "infrawise",
+  "description": "MCP server for AWS infrastructure analysis (16 tools) \u2014 DynamoDB, Lambda, SQS, SNS, S3, API Gateway, PostgreSQL, MySQL, MongoDB, Kafka & IaC drift. Works with Claude Code, Cursor, and GitHub Copilot.",
+  "version": "1.0.0",
+  "author": "Sidd27",
+  "homepage": "https://github.com/Sidd27/infrawise",
+  "skills": []
+}
