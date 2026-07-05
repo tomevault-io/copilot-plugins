@@ -1,0 +1,9 @@
+{
+  "name": "prasadhonrao--ghcp-cli-cheatsheet",
+  "displayName": "ghcp-cli-cheatsheet",
+  "description": "Searchable GitHub Copilot CLI cheatsheet built with React, Vite, and TypeScript.",
+  "version": "1.0.0",
+  "author": "prasadhonrao",
+  "homepage": "https://github.com/prasadhonrao/ghcp-cli-cheatsheet",
+  "skills": []
+}
