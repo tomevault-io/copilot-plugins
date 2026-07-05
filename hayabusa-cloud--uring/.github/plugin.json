@@ -1,0 +1,9 @@
+{
+  "name": "hayabusa-cloud--uring",
+  "displayName": "uring",
+  "description": "Minimal pure Go io_uring library for Linux 6.18+",
+  "version": "1.0.0",
+  "author": "hayabusa-cloud",
+  "homepage": "https://github.com/hayabusa-cloud/uring",
+  "skills": []
+}
