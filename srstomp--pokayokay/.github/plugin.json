@@ -1,0 +1,82 @@
+{
+  "name": "srstomp--pokayokay",
+  "displayName": "pokayokay",
+  "description": "An orchestration plugin for Claude Code and Codex that enables reliable autonomous development sessions with configurable checkpoints and task management.",
+  "version": "1.0.0",
+  "author": "srstomp",
+  "homepage": "https://github.com/srstomp/pokayokay",
+  "skills": [
+    {
+      "name": "architecture-review",
+      "description": ""
+    },
+    {
+      "name": "database-design",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy",
+      "description": ""
+    },
+    {
+      "name": "sdk-development",
+      "description": ""
+    },
+    {
+      "name": "session-review",
+      "description": ""
+    },
+    {
+      "name": "api-design",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "description": ""
+    },
+    {
+      "name": "api-integration",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "browser-verification",
+      "description": ""
+    },
+    {
+      "name": "ci-cd",
+      "description": ""
+    },
+    {
+      "name": "cloud-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "feature-audit",
+      "description": ""
+    },
+    {
+      "name": "planning",
+      "description": ""
+    },
+    {
+      "name": "work-session",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "description": ""
+    }
+  ]
+}
