@@ -1,0 +1,9 @@
+{
+  "name": "zvzuola--acp-components",
+  "displayName": "acp-components",
+  "description": "UI component library for the Agent Client Protocol (ACP), providing a complete set of components to build agentic coding interfaces that communicate with AI agents like Claude Code.",
+  "version": "1.0.0",
+  "author": "zvzuola",
+  "homepage": "https://github.com/zvzuola/acp-components",
+  "skills": []
+}
