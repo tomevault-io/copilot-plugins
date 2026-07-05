@@ -1,0 +1,44 @@
+{
+  "name": "ai_work_flow",
+  "owner": "raqueeb",
+  "repo": "ai_work_flow",
+  "description": "Being the CTO of Link3 Technologies, I do lot of tinkering. This is a production-ready collection of local LLM-powered enterprise automations built for an ISP/Telecom environment. Every app runs entirely on-premise using small open-source models (Qwen2.5-1.5B) via LM Studio \u2014 keeping sensitive customer, employee data completely private.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/raqueeb/ai_work_flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T04:34:51Z"
+}
