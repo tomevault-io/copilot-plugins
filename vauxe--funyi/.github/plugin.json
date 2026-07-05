@@ -1,0 +1,9 @@
+{
+  "name": "vauxe--funyi",
+  "displayName": "funyi",
+  "description": "local realtime streaming speech-to-text and translation app",
+  "version": "1.0.0",
+  "author": "vauxe",
+  "homepage": "https://github.com/vauxe/funyi",
+  "skills": []
+}
