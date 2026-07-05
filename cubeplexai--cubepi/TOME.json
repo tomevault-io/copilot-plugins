@@ -4,7 +4,7 @@
   "repo": "cubepi",
   "description": "CubePi \u2014 An async-first Python agent kernel inspired by Pi, built for coding agents, tools, and continuous sessions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cubeplexai/cubepi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T04:41:47Z"
+  "distributed_at": "2026-07-05T04:57:08Z"
 }
