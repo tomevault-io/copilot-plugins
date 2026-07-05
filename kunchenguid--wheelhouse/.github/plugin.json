@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--wheelhouse",
+  "displayName": "wheelhouse",
+  "description": "Wheelhouse - steer your open-source maintenance from one place. A portable IssueOps command center: cross-repo decision cards driven by GitHub Actions, decided by checkbox or plain English.",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/wheelhouse",
+  "skills": []
+}
