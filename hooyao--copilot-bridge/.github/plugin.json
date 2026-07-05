@@ -1,0 +1,9 @@
+{
+  "name": "hooyao--copilot-bridge",
+  "displayName": "copilot-bridge",
+  "description": ".NET 10 Native AOT reverse proxy exposing GitHub Copilot's LLM API as Anthropic/OpenAI/Gemini-compatible endpoints",
+  "version": "1.0.0",
+  "author": "hooyao",
+  "homepage": "https://github.com/hooyao/copilot-bridge",
+  "skills": []
+}
