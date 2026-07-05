@@ -4,7 +4,7 @@
   "repo": "rapid-domain-mastery",
   "description": "A universal Agent Skill for deep, multi-source learning across 18+ AI coding agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Emily2040/rapid-domain-mastery",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T10:38:13Z"
+  "distributed_at": "2026-07-05T10:38:42Z"
 }
