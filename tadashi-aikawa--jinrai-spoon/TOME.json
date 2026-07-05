@@ -4,7 +4,7 @@
   "repo": "jinrai-spoon",
   "description": "A Hammerspoon script for switching and recognizing windows at the speed of thought \u26a1",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tadashi-aikawa/jinrai-spoon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T12:31:58Z"
+  "distributed_at": "2026-07-05T12:32:27Z"
 }
