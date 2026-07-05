@@ -1,0 +1,44 @@
+{
+  "name": "gseprofiler",
+  "owner": "todevelopers",
+  "repo": "gseprofiler",
+  "description": "A developer toolkit for GNOME Shell extension authors. GSE Profiler installs a lightweight shell extension bridge inside the running shell process and gives you live function timing (flamegraph/swimlane/histogram), structured log filtering, and object inspection. All from a native GTK4 interface, with zero changes to your extension's code.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/todevelopers/gseprofiler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T02:51:45Z"
+}
