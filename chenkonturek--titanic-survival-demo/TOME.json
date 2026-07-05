@@ -1,0 +1,44 @@
+{
+  "name": "titanic-survival-demo",
+  "owner": "chenkonturek",
+  "repo": "titanic-survival-demo",
+  "description": "Titanic survival prediction: end-to-end ML pipeline with EDA, Random Forest model (79.9% accuracy), and feature importance analysis",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chenkonturek/titanic-survival-demo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T05:13:04Z"
+}
