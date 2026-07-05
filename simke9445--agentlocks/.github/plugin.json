@@ -1,0 +1,9 @@
+{
+  "name": "simke9445--agentlocks",
+  "displayName": "agentlocks",
+  "description": "Advisory file locks so multiple AI coding agents can share one Git worktree.",
+  "version": "1.0.0",
+  "author": "simke9445",
+  "homepage": "https://github.com/simke9445/agentlocks",
+  "skills": []
+}
