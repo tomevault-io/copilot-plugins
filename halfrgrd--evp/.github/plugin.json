@@ -1,0 +1,9 @@
+{
+  "name": "halfrgrd--evp",
+  "displayName": "evp",
+  "description": "A terminal recoder powered by libghostty and rust.",
+  "version": "1.0.0",
+  "author": "HalFrgrd",
+  "homepage": "https://github.com/HalFrgrd/evp",
+  "skills": []
+}
