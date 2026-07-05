@@ -1,0 +1,9 @@
+{
+  "name": "prevalentware--opencode-goal-plugin",
+  "displayName": "opencode-goal-plugin",
+  "description": "OpenCode goal plugin for Codex-style goal mode, /goal slash commands, persistent objectives, and AI coding agent focus.",
+  "version": "1.0.0",
+  "author": "prevalentWare",
+  "homepage": "https://github.com/prevalentWare/opencode-goal-plugin",
+  "skills": []
+}
