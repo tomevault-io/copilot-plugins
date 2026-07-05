@@ -1,0 +1,9 @@
+{
+  "name": "owl234--arl-next",
+  "displayName": "ARL-Next",
+  "description": "\u4f01\u4e1a\u7ea7\u81ea\u52a8\u5316\u8d44\u4ea7\u4fa6\u5bdf\u4e0e\u6f0f\u6d1e\u76d1\u63a7\u201c\u706f\u5854\u201d\u3002\u57fa\u4e8e Vue3 \u4e0e\u539f\u751f Puppeteer \u91cd\u6784\uff0c\u6253\u901a\u8d44\u4ea7\u53d1\u73b0\u5230\u6f0f\u6d1e PoC \u7684\u81ea\u52a8\u5316\u95ed\u73af\u3002",
+  "version": "1.0.0",
+  "author": "owl234",
+  "homepage": "https://github.com/owl234/ARL-Next",
+  "skills": []
+}
