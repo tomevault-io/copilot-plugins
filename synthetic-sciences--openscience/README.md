@@ -7,11 +7,11 @@ The open-source AI workbench for scientific research
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [synthetic-sciences/openscience](https://github.com/synthetic-sciences/openscience).
+Original source: `AGENTS.md` in [synthetic-sciences/openscience](https://github.com/synthetic-sciences/openscience).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
