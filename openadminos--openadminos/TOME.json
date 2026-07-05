@@ -4,7 +4,7 @@
   "repo": "OpenAdminOS",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenAdminOS/OpenAdminOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T01:12:01Z"
+  "distributed_at": "2026-07-05T01:24:24Z"
 }
