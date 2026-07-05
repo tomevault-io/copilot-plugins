@@ -1,0 +1,9 @@
+{
+  "name": "ygncode--pi-web",
+  "displayName": "pi-web",
+  "description": "Drive your pi coding agent from any browser on your network \u2014 laptop, phone, or tablet.",
+  "version": "1.0.0",
+  "author": "ygncode",
+  "homepage": "https://github.com/ygncode/pi-web",
+  "skills": []
+}
