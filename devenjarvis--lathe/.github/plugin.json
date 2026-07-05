@@ -1,0 +1,9 @@
+{
+  "name": "devenjarvis--lathe",
+  "displayName": "lathe",
+  "description": "Generate hands-on, multi-part technical tutorials on demand, with LLM skills tuned to make content approachable. Then you work through them yourself, by hand \u270b",
+  "version": "1.0.0",
+  "author": "devenjarvis",
+  "homepage": "https://github.com/devenjarvis/lathe",
+  "skills": []
+}
