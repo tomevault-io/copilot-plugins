@@ -96999,6 +96999,11 @@
       "description": "kclipper"
     },
     {
+      "name": "changeroa--stylegallery",
+      "source": "./changeroa--stylegallery",
+      "description": "describe useful style patterns"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -237304,6 +237309,86 @@
       "description": "Educational platforms for developers. Each app presents code challenges where you pick the better variant, with topic-specific tools and a pattern reference library."
     },
     {
+      "name": "lewismconte--blendit",
+      "source": "./lewismconte--blendit",
+      "description": "One-click Revit \u2192 Blender renderer. Free, open source, no subscription."
+    },
+    {
+      "name": "emily2040--rapid-domain-mastery",
+      "source": "./emily2040--rapid-domain-mastery",
+      "description": "A universal Agent Skill for deep, multi-source learning across 18+ AI coding agents"
+    },
+    {
+      "name": "byerlikaya--septum",
+      "source": "./byerlikaya--septum",
+      "description": "Privacy-first AI middleware with local PII detection, approval gate, and automatic de-anonymization. Query your documents with any LLM \u2014 GDPR, KVKK, HIPAA ready."
+    },
+    {
+      "name": "emily2040--rapid-domain-mastery",
+      "source": "./emily2040--rapid-domain-mastery",
+      "description": "A universal Agent Skill for deep, multi-source learning across 18+ AI coding agents"
+    },
+    {
+      "name": "emily2040--rapid-domain-mastery",
+      "source": "./emily2040--rapid-domain-mastery",
+      "description": "A universal Agent Skill for deep, multi-source learning across 18+ AI coding agents"
+    },
+    {
+      "name": "gabrielbosse1--cardboardplusplus",
+      "source": "./gabrielbosse1--cardboardplusplus",
+      "description": "Bringing Google Cardboard closer to a Meta Quest!"
+    },
+    {
+      "name": "emily2040--rapid-domain-mastery",
+      "source": "./emily2040--rapid-domain-mastery",
+      "description": "A universal Agent Skill for deep, multi-source learning across 18+ AI coding agents"
+    },
+    {
+      "name": "emily2040--rapid-domain-mastery",
+      "source": "./emily2040--rapid-domain-mastery",
+      "description": "A universal Agent Skill for deep, multi-source learning across 18+ AI coding agents"
+    },
+    {
+      "name": "kid0317--xiaopow",
+      "source": "./kid0317--xiaopow",
+      "description": "xiaopow"
+    },
+    {
+      "name": "bilili-syy--trace-diary",
+      "source": "./bilili-syy--trace-diary",
+      "description": "\u7d20\u5c65 - \u8bb0\u5f55\u4eba\u751f\u8f68\u8ff9\uff0c\u7d20\u96c5\u4e14\u7eaf\u7cb9\u3002\u9690\u79c1\u4f18\u5148\u7684\u79fb\u52a8\u7aef\u65e5\u8bb0\u5e94\u7528\u3002"
+    },
+    {
+      "name": "byerlikaya--septum",
+      "source": "./byerlikaya--septum",
+      "description": "Privacy-first AI middleware with local PII detection, approval gate, and automatic de-anonymization. Query your documents with any LLM \u2014 GDPR, KVKK, HIPAA ready."
+    },
+    {
+      "name": "codingjoe--voip",
+      "source": "./codingjoe--voip",
+      "description": "Python VoIP library of the AI age"
+    },
+    {
+      "name": "codingjoe--voip",
+      "source": "./codingjoe--voip",
+      "description": "Python VoIP library of the AI age"
+    },
+    {
+      "name": "tirth1107--open-claw-repo",
+      "source": "./tirth1107--open-claw-repo",
+      "description": "open-claw-repo"
+    },
+    {
+      "name": "gordonbrander--busytown-pi",
+      "source": "./gordonbrander--busytown-pi",
+      "description": "Multi-agent factory on top of SQLite"
+    },
+    {
+      "name": "gordonbrander--busytown-pi",
+      "source": "./gordonbrander--busytown-pi",
+      "description": "Multi-agent factory on top of SQLite"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257142,6 +257227,36 @@
       "name": "lonormaly--builders-stack",
       "source": "./lonormaly--builders-stack",
       "description": "Opinionated AI-native monorepo starter \u2014 build your MVP as a production-ready structure. apps/services/libs \u00b7 Tilt \u00b7 Nx boundary-enforced \u00b7 agent-ready."
+    },
+    {
+      "name": "kunchenguid--wheelhouse",
+      "source": "./kunchenguid--wheelhouse",
+      "description": "Wheelhouse - steer your open-source maintenance from one place. A portable IssueOps command center: cross-repo decision cards driven by GitHub Actions, decided by checkbox or plain English."
+    },
+    {
+      "name": "kunchenguid--wheelhouse",
+      "source": "./kunchenguid--wheelhouse",
+      "description": "Wheelhouse - steer your open-source maintenance from one place. A portable IssueOps command center: cross-repo decision cards driven by GitHub Actions, decided by checkbox or plain English."
+    },
+    {
+      "name": "fix3dll--quicmic",
+      "source": "./fix3dll--quicmic",
+      "description": "Turn any phone or tablet into a low-latency wireless microphone for your PC, over your local network - no app to install, just a web browser."
+    },
+    {
+      "name": "correctroadh--niceeval",
+      "source": "./correctroadh--niceeval",
+      "description": "build eval for your agent in 10 mins"
+    },
+    {
+      "name": "correctroadh--niceeval",
+      "source": "./correctroadh--niceeval",
+      "description": "build eval for your agent in 10 mins"
+    },
+    {
+      "name": "xiddoc--playintegrityalert",
+      "source": "./xiddoc--playintegrityalert",
+      "description": "Get notified when an app calls the Play Integrity API."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -380217,6 +380332,21 @@
       "name": "scf-stem--second-bloom",
       "source": "./scf-stem--second-bloom",
       "description": "second-bloom"
+    },
+    {
+      "name": "mpppk--gwt",
+      "source": "./mpppk--gwt",
+      "description": "utility for git worktree"
+    },
+    {
+      "name": "mpppk--gwt",
+      "source": "./mpppk--gwt",
+      "description": "utility for git worktree"
+    },
+    {
+      "name": "alsry922--discord-clone",
+      "source": "./alsry922--discord-clone",
+      "description": "discord clone project with react.js and nest.js"
     }
   ]
 }
