@@ -1,0 +1,9 @@
+{
+  "name": "eastonman--ferret",
+  "displayName": "ferret",
+  "description": "FrontEnd Reverse-engineering Toolkit - CPU frontend uarch research framework",
+  "version": "1.0.0",
+  "author": "eastonman",
+  "homepage": "https://github.com/eastonman/ferret",
+  "skills": []
+}
