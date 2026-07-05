@@ -1,0 +1,109 @@
+## puppetmaster-workflow
+
+> Default to Puppetmaster swarms for multi-step exploration, analysis, and implementation; only fall back to native Cursor tooling for narrow cases
+
+
+# Puppetmaster is the Default Subagent Runtime
+
+When this repo is open, Puppetmaster's MCP tools are the **primary** path for fanning out work. Do not roll your own grep/read exploration loops or invoke ad-hoc subagents when a Puppetmaster swarm is available.
+
+## When you MUST start a Puppetmaster swarm (no permission needed)
+
+For any user request that involves more than a single trivial change, start a Puppetmaster swarm **before** spending tokens on your own exploration:
+
+- Broad repo investigation, audit, or risk analysis ("review this", "find issues", "what could break").
+- Multi-file refactors, migrations, or cross-cutting cleanups.
+- Debugging that requires tracing call graphs, data flow, or test coverage across multiple files.
+- Planning the next implementation slice when scope or risks are unclear.
+- Comparing approaches, surfacing trade-offs, or producing decision artifacts.
+
+The default routing is:
+
+1. Call `puppetmaster_start_cursor_swarm` (read-only multi-role analysis) — this is the daily-driver entry point.
+2. For implementation that needs durable patches, logs, and dirty-tree guards, use `puppetmaster_start_implement` in a clean worktree — it routes to whatever platform the lock enables (cursor preferred, then claude-code). `puppetmaster_start_cursor_implement` / `puppetmaster_start_claude_implement` force a specific platform.
+3. For a single fast review or plan pass, `puppetmaster_start_cursor_review` / `puppetmaster_start_cursor_plan` are acceptable lighter alternatives.
+
+Start tools return a `job_id` immediately. Do **not** wait inside one long MCP call.
+
+## When you MUST NOT route through Puppetmaster
+
+Use native Cursor tooling directly for:
+
+- Trivial single-file edits with obvious intent (rename, add comment, fix typo).
+- Questions answerable from the current visible file or recent context.
+- Conversational follow-ups that don't change repo state.
+- Anything explicitly framed as "just answer me" / "no swarm".
+
+## How to drive a started swarm
+
+After kicking off a swarm:
+
+1. Return the `job_id` to the user immediately, in one line.
+2. Prefer `puppetmaster_live_artifacts_follow` (long-poll, push-style stream) over polling `puppetmaster_status` in a loop. Chain calls with the returned `next_cursor`.
+3. Use `puppetmaster_partial_summary` for a current synthesis without waiting for final stitching.
+4. Summarize concrete file-backed findings, risks, and open questions — never raw worker transcripts.
+5. Ask for approval before implementation unless the user already approved edits.
+
+If the swarm completes with empty findings, only verification artifacts, or a degraded Cursor SDK artifact, report Puppetmaster as **degraded** and do not treat the run as a successful analysis.
+
+## Model routing (auto_route)
+
+Puppetmaster ships a task-aware **model router** that picks the right LLM per task. Prefer it over hardcoding `model` in every spec.
+
+**Auto-routing is the unconditional default for non-trivial work.** Don't wait to be handed a task list — proactively set `payload.auto_route = true` on every worker you dispatch for substantive work so each task lands on the cheapest sufficient model. Pin a `model` only when the user explicitly asks. The trivial-task carve-out still holds (no routed worker for a rename or a one-line answer — that costs more, not less), but for any work that warrants a worker, routing is on, every time.
+
+- User registry lives at `~/.puppetmaster/models.json`. Inspect with `puppetmaster_list_models`. If empty, ask the user to run `python -m puppetmaster models init`.
+- Opt a worker in by setting `payload.auto_route = true`. The orchestrator picks the cheapest sufficient model, stamps `adapter` + `payload.model`, and persists a `ROUTING` artifact tied to the task.
+- Savings are tracked: `python -m puppetmaster savings` prints the read-only, local, numbers-only receipt (routing dollars saved, policy-aware + CodeGraph exploration savings). Nothing is emitted over the network.
+- Call `puppetmaster_route_task` to dry-run a decision when the user asks "how much will this cost" / "what model would this use" / "why did task X run on model Y" — the response includes the picked model, estimated USD cost, and every rejected alternative with the reason.
+- Per-task overrides: `payload.min_capability`, `payload.max_cost_usd`, `payload.required_tags`, `payload.routing_policy` (one of `balanced`/`cheap`/`quality`/`escalating`).
+- Read `ROUTING` artifacts to answer "why this model" — the audit trail is in `payload.rejected`.
+
+## Repo intelligence (CodeGraph)
+
+Puppetmaster auto-injects CodeGraph context into every Cursor and Claude Code worker prompt when `.codegraph/` exists in the target repo. Look for `context:codegraph` in verification artifact evidence to confirm shared context was used.
+
+For quick, direct repo lookups without spinning up a swarm, prefer the bundled tools: `puppetmaster_codegraph_search`, `puppetmaster_codegraph_context`, `puppetmaster_codegraph_affected`, `puppetmaster_codegraph_files`, `puppetmaster_codegraph_status`. If CodeGraph isn't initialized in the target repo, call `puppetmaster_codegraph_init` once before using the other CodeGraph tools.
+
+## Why this is the default
+
+Puppetmaster workers run as independent OS subprocesses with durable SQLite-backed state, leases, and structured JSON artifacts. That gives you parallelism, replayable runs, and a stitched summary instead of a single long transcript. Defaulting to this path keeps the main session lean and the work auditable.
+
+## When MCP fails: fall back to the CLI, don't give up
+
+If a `puppetmaster_*` MCP call returns **`Tool execution error. Not connected`** (or similar transport-level error), **do not stop**. The daemon and CodeGraph are almost certainly still running — Cursor's MCP client lost the stdio pipe for this chat. Puppetmaster ships a CLI surface that mirrors every MCP tool. Switch to it immediately via the Shell tool. Examples:
+
+| MCP tool | CLI equivalent |
+| --- | --- |
+| `puppetmaster_doctor` | `python -m puppetmaster doctor` |
+| `puppetmaster_status` | `python -m puppetmaster status <job_id>` |
+| `puppetmaster_logs` | `python -m puppetmaster logs <job_id>` |
+| `puppetmaster_live_artifacts` | `python -m puppetmaster feed <job_id>` |
+| `puppetmaster_live_artifacts_follow` | `python -m puppetmaster feed <job_id> --follow` |
+| `puppetmaster_partial_summary` | `python -m puppetmaster show <job_id> --partial` |
+| `puppetmaster_artifacts` | `python -m puppetmaster artifacts <job_id>` |
+| `puppetmaster_show` | `python -m puppetmaster show <job_id>` |
+| `puppetmaster_last_job` | `python -m puppetmaster last` |
+| `puppetmaster_jobs` | `python -m puppetmaster jobs` (add `--all-projects` to see every workspace) |
+| `puppetmaster_mcp_status` | `python -m puppetmaster mcp list` |
+| `puppetmaster_mcp_cleanup` | `python -m puppetmaster mcp cleanup --kill-stale` |
+| `puppetmaster_repair_codegraph` | `python -m puppetmaster repair-codegraph` |
+| `puppetmaster_codegraph_status` | `python -m puppetmaster codegraph status` |
+| `puppetmaster_codegraph_search` | `python -m puppetmaster codegraph search '<query>'` |
+| `puppetmaster_codegraph_context` | `python -m puppetmaster codegraph context '<task>' --max-nodes 15 --format markdown` |
+| `puppetmaster_codegraph_init` | `python -m puppetmaster codegraph init --index` |
+
+> Always invoke CodeGraph via `python -m puppetmaster codegraph …`, never a bare `codegraph …` from the shell. The bare shim runs under your shell's Node, whose ABI usually differs from Cursor's bundled Node that compiled better-sqlite3, so it dies with `NODE_MODULE_VERSION`. The passthrough runs under Cursor's Node and auto-rebuilds the binding on a mismatch.
+
+`PYTHONPATH=/Users/cary/Desktop/Puppetmaster` (or the actual Puppetmaster install dir) needs to be set on the shell call if Puppetmaster isn't on `sys.path`. Use `python -m puppetmaster projects` to find which workspace owns a given job — `show`/`artifacts`/`logs`/`feed`/`status` auto-pivot to that workspace's state dir, so you do **not** need to manually export `PUPPETMASTER_STATE_DIR`.
+
+If the user asks "is MCP broken?", check both at once: `python -m puppetmaster doctor` and `python -m puppetmaster mcp list` from the shell. Report:
+- ✅ daemon healthy / ❌ daemon dead
+- which MCP servers are registered, alive, stale
+- whether `Tool execution error. Not connected` means the transport, not Puppetmaster
+
+Only ask the user to restart MCP in Cursor Settings if `mcp list` shows zero alive servers. Otherwise just use the CLI and keep working — that's what durable state is for.
+
+---
+> Source: [professorpalmer/Puppetmaster](https://github.com/professorpalmer/Puppetmaster) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
