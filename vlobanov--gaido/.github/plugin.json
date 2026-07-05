@@ -1,0 +1,9 @@
+{
+  "name": "vlobanov--gaido",
+  "displayName": "gaido",
+  "description": "Creative-coding agents on a forkable node graph \u2014 coder writes the scene, renderer films it, critic reviews. Local-first.",
+  "version": "1.0.0",
+  "author": "vlobanov",
+  "homepage": "https://github.com/vlobanov/gaido",
+  "skills": []
+}
