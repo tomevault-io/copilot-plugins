@@ -4,7 +4,7 @@
   "repo": "baerly-storage",
   "description": "Document database with no database server. Tiny, LLM-friendly TypeScript API; DB engine runs to completion in each JS request handler; state lives in S3/R2.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Gusto/baerly-storage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T04:49:43Z"
+  "distributed_at": "2026-07-05T05:07:35Z"
 }
