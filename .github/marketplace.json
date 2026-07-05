@@ -48369,6 +48369,11 @@
       "description": "exif-gallery-nuxt"
     },
     {
+      "name": "ttsiodras--utils",
+      "source": "./ttsiodras--utils",
+      "description": "utils"
+    },
+    {
       "name": "interfacex-co-jp--genshijin",
       "source": "./interfacex-co-jp--genshijin",
       "description": "genshijin \u539f\u59cb\u4eba \ud83d\uddff| Claude Code / Codex\u7b49AI\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8 \u5411\u3051\u8d85\u5727\u7e2e\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u30b9\u30ad\u30eb\u3002caveman \u306e\u65e5\u672c\u8a9e\u7248\u3092\u30d9\u30fc\u30b9\u306b\u3001\u65e5\u672c\u8a9e\u7279\u6709\u306e\u5197\u9577\u8868\u73fe\u306b\u6700\u9069\u5316\u3002"
@@ -235049,6 +235054,291 @@
       "description": "typst-app-like webapp"
     },
     {
+      "name": "dzmitrys-dev--supamem",
+      "source": "./dzmitrys-dev--supamem",
+      "description": "Project-agnostic dual-memory MCP CLI for Claude Code, Cursor, and OpenCode (Qdrant tuned hybrid retrieval + structural memory hooks)"
+    },
+    {
+      "name": "cobusgreyling--llm-wiki",
+      "source": "./cobusgreyling--llm-wiki",
+      "description": "A compounding knowledge base maintained by LLM agents \u2014 inspired by Karpathy's LLM Wiki pattern"
+    },
+    {
+      "name": "jayminwest--burrow",
+      "source": "./jayminwest--burrow",
+      "description": "OS-isolated sandbox runtime for coding agents"
+    },
+    {
+      "name": "epicsagas--tdl",
+      "source": "./epicsagas--tdl",
+      "description": "Tidal music downloader with lossless quality \u2014 CLI, TUI, and GUI. Download FLAC/MQA tracks from Tidal HiFi"
+    },
+    {
+      "name": "jayminwest--burrow",
+      "source": "./jayminwest--burrow",
+      "description": "OS-isolated sandbox runtime for coding agents"
+    },
+    {
+      "name": "ys-bw--nomi-core",
+      "source": "./ys-bw--nomi-core",
+      "description": "nomi-core"
+    },
+    {
+      "name": "epicsagas--tdl",
+      "source": "./epicsagas--tdl",
+      "description": "Tidal music downloader with lossless quality \u2014 CLI, TUI, and GUI. Download FLAC/MQA tracks from Tidal HiFi"
+    },
+    {
+      "name": "tlennon-ie--bracket",
+      "source": "./tlennon-ie--bracket",
+      "description": "Bracket trains your diffusion model up to 32 ways at once, shows you which one looked best, and proves it."
+    },
+    {
+      "name": "ys-bw--nomi-core",
+      "source": "./ys-bw--nomi-core",
+      "description": "nomi-core"
+    },
+    {
+      "name": "ezbuilder--code-brain",
+      "source": "./ezbuilder--code-brain",
+      "description": "Persistent memory, BM25 code search, MCP tools, and hook guardrails for AI coding agents \u2014 Claude Code, Codex CLI & Antigravity. One local-first .ai/ layer per repo. No SaaS, no network on hot paths."
+    },
+    {
+      "name": "gudo7208--awesome-ai4cad",
+      "source": "./gudo7208--awesome-ai4cad",
+      "description": "Survey & curated paper list: AI meets CAD \u2014 700+ papers across generation, understanding, optimization, and manufacturing (2018\u20132026)."
+    },
+    {
+      "name": "weibaohui--nothing-todo",
+      "source": "./weibaohui--nothing-todo",
+      "description": "\u4e0d\u8981\u8ba9AI\u65e0\u4e8b\u53ef\u505a "
+    },
+    {
+      "name": "weibaohui--nothing-todo",
+      "source": "./weibaohui--nothing-todo",
+      "description": "\u4e0d\u8981\u8ba9AI\u65e0\u4e8b\u53ef\u505a "
+    },
+    {
+      "name": "yuyohe--longevity-antiaging-evidence-atlas-encn",
+      "source": "./yuyohe--longevity-antiaging-evidence-atlas-encn",
+      "description": "Bilingual longevity, anti-aging, and healthspan evidence atlas"
+    },
+    {
+      "name": "sonicfieldlabs--akouo",
+      "source": "./sonicfieldlabs--akouo",
+      "description": "Operational ears for agentic workflows"
+    },
+    {
+      "name": "eric-ky-zhang--filings-atlas",
+      "source": "./eric-ky-zhang--filings-atlas",
+      "description": "\u4e00\u952e\u6279\u91cf\u4e0b\u8f7d A\u80a1/\u6e2f\u80a1/\u7f8e\u80a1/\u97e9\u80a1/\u53f0\u80a1\u4e0a\u5e02\u516c\u53f8\u5b98\u65b9\u62ab\u9732\u6587\u4ef6\uff08\u5e74\u62a5/\u5ba1\u8ba1\u62a5\u544a/\u5b63\u62a5/\u534a\u5e74\u62a5/IPO\u62db\u80a1\u4e66\uff09"
+    },
+    {
+      "name": "yuyohe--longevity-antiaging-evidence-atlas-encn",
+      "source": "./yuyohe--longevity-antiaging-evidence-atlas-encn",
+      "description": "Bilingual longevity, anti-aging, and healthspan evidence atlas"
+    },
+    {
+      "name": "ralsina--bt2i2c",
+      "source": "./ralsina--bt2i2c",
+      "description": "bt2i2c"
+    },
+    {
+      "name": "manish6523--local-media-server",
+      "source": "./manish6523--local-media-server",
+      "description": "local-media-server"
+    },
+    {
+      "name": "jiuyi777--xiao-shouji",
+      "source": "./jiuyi777--xiao-shouji",
+      "description": "xiao-shouji"
+    },
+    {
+      "name": "raphapr--pi-cymbal",
+      "source": "./raphapr--pi-cymbal",
+      "description": "Fast agent-native code navigation with Pi"
+    },
+    {
+      "name": "dzmitrys-dev--supamem",
+      "source": "./dzmitrys-dev--supamem",
+      "description": "Project-agnostic dual-memory MCP CLI for Claude Code, Cursor, and OpenCode (Qdrant tuned hybrid retrieval + structural memory hooks)"
+    },
+    {
+      "name": "benchflow-ai--env0",
+      "source": "./benchflow-ai--env0",
+      "description": "env0"
+    },
+    {
+      "name": "dzcorp--ferrisscope",
+      "source": "./dzcorp--ferrisscope",
+      "description": "A Rust-native, open-source desktop IDE for Kubernetes"
+    },
+    {
+      "name": "monkeydust--rightmind",
+      "source": "./monkeydust--rightmind",
+      "description": "Multi-agent LLM advisory platform for complex decision-making."
+    },
+    {
+      "name": "naanyabiz--haggle",
+      "source": "./naanyabiz--haggle",
+      "description": "AGL Australia smart meter -> Home Assistant Energy dashboard (Claude-generated custom integration)"
+    },
+    {
+      "name": "eric-ky-zhang--filings-atlas",
+      "source": "./eric-ky-zhang--filings-atlas",
+      "description": "\u4e00\u952e\u6279\u91cf\u4e0b\u8f7d A\u80a1/\u6e2f\u80a1/\u7f8e\u80a1/\u97e9\u80a1/\u53f0\u80a1\u4e0a\u5e02\u516c\u53f8\u5b98\u65b9\u62ab\u9732\u6587\u4ef6\uff08\u5e74\u62a5/\u5ba1\u8ba1\u62a5\u544a/\u5b63\u62a5/\u534a\u5e74\u62a5/IPO\u62db\u80a1\u4e66\uff09"
+    },
+    {
+      "name": "eliassfl--sunflower-land-overview",
+      "source": "./eliassfl--sunflower-land-overview",
+      "description": "Community tool: live timers for your Sunflower Land farm"
+    },
+    {
+      "name": "mainframecomputer--mainframe-plugins",
+      "source": "./mainframecomputer--mainframe-plugins",
+      "description": "mainframe-plugins"
+    },
+    {
+      "name": "robrighter--simple-md",
+      "source": "./robrighter--simple-md",
+      "description": "A simple Markdown Editor specializing in Data Visualization and ease of use."
+    },
+    {
+      "name": "dzmitrys-dev--supamem",
+      "source": "./dzmitrys-dev--supamem",
+      "description": "Project-agnostic dual-memory MCP CLI for Claude Code, Cursor, and OpenCode (Qdrant tuned hybrid retrieval + structural memory hooks)"
+    },
+    {
+      "name": "aigc-builder-club--usagemonitor",
+      "source": "./aigc-builder-club--usagemonitor",
+      "description": "UsageMonitor"
+    },
+    {
+      "name": "naanyabiz--haggle",
+      "source": "./naanyabiz--haggle",
+      "description": "AGL Australia smart meter -> Home Assistant Energy dashboard (Claude-generated custom integration)"
+    },
+    {
+      "name": "ching-chiang--comsol-mcp",
+      "source": "./ching-chiang--comsol-mcp",
+      "description": "comsol-mcp"
+    },
+    {
+      "name": "robrighter--simple-md",
+      "source": "./robrighter--simple-md",
+      "description": "A simple Markdown Editor specializing in Data Visualization and ease of use."
+    },
+    {
+      "name": "jeanxpereira--crystalosd",
+      "source": "./jeanxpereira--crystalosd",
+      "description": "Reverse-engineered reconstruction of the PS2 OSDSYS"
+    },
+    {
+      "name": "ching-chiang--comsol-mcp",
+      "source": "./ching-chiang--comsol-mcp",
+      "description": "comsol-mcp"
+    },
+    {
+      "name": "jclauzel--zx-next-unite",
+      "source": "./jclauzel--zx-next-unite",
+      "description": "ZX-Next-Unite"
+    },
+    {
+      "name": "camtrik--agent-trail",
+      "source": "./camtrik--agent-trail",
+      "description": "Local dashboard for Claude Code, Codex, OpenCode, OpenClaw and Qoder session history, token usage, cost tracking, tool calls and subagent replay."
+    },
+    {
+      "name": "meridiona--meridian",
+      "source": "./meridiona--meridian",
+      "description": "Your work logs itself. Meridian watches what you build \u2014 no prompts, no timers \u2014 classifies every session into the right task, and auto-updates Jira, Linear, and GitHub Issues. All data stays on your "
+    },
+    {
+      "name": "finger-gun--omux",
+      "source": "./finger-gun--omux",
+      "description": "A fast, flexible, and hackable workspace for developers."
+    },
+    {
+      "name": "arylmera--token-dashboard",
+      "source": "./arylmera--token-dashboard",
+      "description": "Local desktop dashboard for Claude Code. Reads your JSONL transcripts and surfaces per-prompt cost, tool heatmaps, subagent attribution, cache analytics, and a rule-based tips engine. Rust + Tauri, fu"
+    },
+    {
+      "name": "maris205--open-rosalind",
+      "source": "./maris205--open-rosalind",
+      "description": "open-rosalind: open source version of gpt rosalind"
+    },
+    {
+      "name": "kklimuk--docx-cli",
+      "source": "./kklimuk--docx-cli",
+      "description": "CLI for AI agents (Claude, Codex) to read, edit, and comment on .docx files with full format fidelity."
+    },
+    {
+      "name": "awakecoding--windbg-tool",
+      "source": "./awakecoding--windbg-tool",
+      "description": "WinDBG tool for AI agents"
+    },
+    {
+      "name": "zeabur--zbplan",
+      "source": "./zeabur--zbplan",
+      "description": "AI-powered Dockerfile generation with automatic build-and-fix iteration."
+    },
+    {
+      "name": "zeabur--zbplan",
+      "source": "./zeabur--zbplan",
+      "description": "AI-powered Dockerfile generation with automatic build-and-fix iteration."
+    },
+    {
+      "name": "forketyfork--walkthrough-plugin",
+      "source": "./forketyfork--walkthrough-plugin",
+      "description": "walkthrough-plugin"
+    },
+    {
+      "name": "forketyfork--walkthrough-plugin",
+      "source": "./forketyfork--walkthrough-plugin",
+      "description": "walkthrough-plugin"
+    },
+    {
+      "name": "ricardoding--generate-test-cases-skill",
+      "source": "./ricardoding--generate-test-cases-skill",
+      "description": "\u540e\u7aef\u6d4b\u8bd5\u7528\u4f8b\u751f\u6210Skill\uff0c\u4ece\u9700\u6c42\u6587\u6863\u81ea\u52a8\u751f\u6210\u6d4b\u8bd5\u7528\u4f8b\u5e76\u8f93\u51fa XMind \u6587\u4ef6\u3002\u7cfb\u7edf\u6027\u5e94\u7528 10 \u79cd\u6d4b\u8bd5\u8bbe\u8ba1\u65b9\u6cd5\uff0c\u5185\u7f6e\u8d28\u91cf\u81ea\u67e5\u8bc4\u4f30\u80fd\u529b\u3002\u652f\u6301\u8de8\u4f1a\u8bdd\u81ea\u5b66\u4e60\u2014\u2014\u672f\u8bed\u81ea\u52a8\u63d0\u53d6\u3001\u6b67\u4e49\u51b3\u7b56\u590d\u7528\u3001\u7528\u6237\u504f\u597d\u8bb0\u5fc6\u3001\u751f\u6210\u5386\u53f2\u8d8b\u52bf\u5206\u6790\u3002\u652f\u6301\u4e0d\u540c\u516c\u53f8\u4e0d\u540c\u7279\u5b9a\u914d\u7f6e\uff0c\u53ef\u4ee5\u8de8\u516c\u53f8\u4f7f\u7528\u3002"
+    },
+    {
+      "name": "leandro754--navidrome-tui",
+      "source": "./leandro754--navidrome-tui",
+      "description": "\ud83d\udcbf Modern music streaming client for the terminal"
+    },
+    {
+      "name": "navyum--chrome-extension-yuque",
+      "source": "./navyum--chrome-extension-yuque",
+      "description": "\u8bed\u96c0\u6587\u6863\u6279\u91cf\u5bfc\u51fa\u5230\u672c\u5730\u3002\u6240\u89c1\u5373\u53ef\u4e0b\u8f7d\u3002\u652f\u6301\u6536\u85cf\u6587\u4ef6\u5bfc\u51fa\u3002\u5e55\u5e03\u6587\u6863\u6279\u91cf\u5bfc\u51fa\u5230\u672c\u5730\u3002\u652f\u6301Markdown\u683c\u5f0f\uff0c\u65b9\u4fbf\u8fc1\u79fbAI\u7b14\u8bb0\u3001obsidian\u7b49\u3002"
+    },
+    {
+      "name": "different-ai--handsfree",
+      "source": "./different-ai--handsfree",
+      "description": "The open source voice remote control for macOS"
+    },
+    {
+      "name": "ai-driven-dev--manifest",
+      "source": "./ai-driven-dev--manifest",
+      "description": "AI manifesto for Developers."
+    },
+    {
+      "name": "ai-driven-dev--manifest",
+      "source": "./ai-driven-dev--manifest",
+      "description": "AI manifesto for Developers."
+    },
+    {
+      "name": "ryuuneko1107--ja-furigana-dict",
+      "source": "./ryuuneko1107--ja-furigana-dict",
+      "description": "\u30b3\u30df\u30e5\u30cb\u30c6\u30a3\u904b\u55b6\u306e\u65e5\u672c\u8a9e\u30d5\u30ea\u30ac\u30ca\u8f9e\u66f8 (furigana \u30e9\u30a4\u30d6\u30e9\u30ea\u7528)"
+    },
+    {
+      "name": "jonghakseo--picky",
+      "source": "./jonghakseo--picky",
+      "description": "Local-first macOS command center for Pi sessions"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -254692,6 +254982,121 @@
       "name": "secondmouseau--occtswift",
       "source": "./secondmouseau--occtswift",
       "description": "Swift wrapper for OpenCASCADE Technology (OCCT) - B-Rep solid modeling for iOS/macOS"
+    },
+    {
+      "name": "ramaaditya49--peta-pixel-nusantara",
+      "source": "./ramaaditya49--peta-pixel-nusantara",
+      "description": "Peta Indonesia 8bit / pixel map of Indonesia with 38 provinces and 519 ADM2 regions, rendered as an interactive canvas grid."
+    },
+    {
+      "name": "april4xxxx--rampet",
+      "source": "./april4xxxx--rampet",
+      "description": "RamPet"
+    },
+    {
+      "name": "xxsang--writers-loop",
+      "source": "./xxsang--writers-loop",
+      "description": "writers-loop"
+    },
+    {
+      "name": "ramaaditya49--peta-pixel-nusantara",
+      "source": "./ramaaditya49--peta-pixel-nusantara",
+      "description": "Peta Indonesia 8bit / pixel map of Indonesia with 38 provinces and 519 ADM2 regions, rendered as an interactive canvas grid."
+    },
+    {
+      "name": "engcapa--taomni",
+      "source": "./engcapa--taomni",
+      "description": "An AI-native remote workspace for developers \u2014 full-featured yet compact: terminal, SSH, SFTP, RDP/VNC, tunnels, and a database client in one refined desktop app."
+    },
+    {
+      "name": "rockeverm3m--acp-deepseek-adapter",
+      "source": "./rockeverm3m--acp-deepseek-adapter",
+      "description": "Bridge DeepSeek TUI to Feishu/WeChat/QQ via cc-connect ACP | \u624b\u673a\u5199\u4ee3\u7801"
+    },
+    {
+      "name": "umage-ai--umage-optimizely-graphsearchtools",
+      "source": "./umage-ai--umage-optimizely-graphsearchtools",
+      "description": "Marketer-facing admin tooling for Optimizely Graph site-search on Optimizely CMS 12 and CMS 13."
+    },
+    {
+      "name": "engcapa--taomni",
+      "source": "./engcapa--taomni",
+      "description": "An AI-native remote workspace for developers \u2014 full-featured yet compact: terminal, SSH, SFTP, RDP/VNC, tunnels, and a database client in one refined desktop app."
+    },
+    {
+      "name": "xxsang--writers-loop",
+      "source": "./xxsang--writers-loop",
+      "description": "writers-loop"
+    },
+    {
+      "name": "umage-ai--umage-optimizely-graphsearchtools",
+      "source": "./umage-ai--umage-optimizely-graphsearchtools",
+      "description": "Marketer-facing admin tooling for Optimizely Graph site-search on Optimizely CMS 12 and CMS 13."
+    },
+    {
+      "name": "sajennings79--apple-silicon-openbrain",
+      "source": "./sajennings79--apple-silicon-openbrain",
+      "description": "Fully local AI memory for Apple Silicon. MCP server with semantic vector search, MLX embeddings, and LLM enrichment \u2014 no cloud APIs required."
+    },
+    {
+      "name": "xxsang--writers-loop",
+      "source": "./xxsang--writers-loop",
+      "description": "writers-loop"
+    },
+    {
+      "name": "gaia-research--gaia-skill-tree",
+      "source": "./gaia-research--gaia-skill-tree",
+      "description": "Gaia is a living, open registry of every AI agent skill in existence \u2014 structured as a leveling skill graph. Basic skills combine into Extras, Extra Skills evolve into Ultimates. Fork it, extend it, P"
+    },
+    {
+      "name": "scaffoldic--agentforge-py",
+      "source": "./scaffoldic--agentforge-py",
+      "description": "Production-grade, contracts-first framework for AI agents in Python \u2014 vendor-neutral, audit-ready."
+    },
+    {
+      "name": "danmossa--spacetimedb-skills",
+      "source": "./danmossa--spacetimedb-skills",
+      "description": "AI Skills for SpacetimeDB"
+    },
+    {
+      "name": "frankie567--reauth",
+      "source": "./frankie567--reauth",
+      "description": "The authentication toolkit for Python"
+    },
+    {
+      "name": "hombrefeliz--project-template",
+      "source": "./hombrefeliz--project-template",
+      "description": "project-template"
+    },
+    {
+      "name": "jcommaret--kodia",
+      "source": "./jcommaret--kodia",
+      "description": "Kodia is an Opensource AI IDE forked from Void"
+    },
+    {
+      "name": "inematds--open-design",
+      "source": "./inematds--open-design",
+      "description": "Alternativa open-source ao Claude Design: sua CLI de agente vira o motor de design"
+    },
+    {
+      "name": "mirsella--opencode-goal",
+      "source": "./mirsella--opencode-goal",
+      "description": "Add Codex-style long-running goals to OpenCode"
+    },
+    {
+      "name": "homayounmmdy--lingoo",
+      "source": "./homayounmmdy--lingoo",
+      "description": "An interactive web application designed for Persian speakers to master English idioms AND test their knowledge through exciting trivia quizzes. Built with modern web technologies for a seamless, engag"
+    },
+    {
+      "name": "danmossa--spacetimedb-skills",
+      "source": "./danmossa--spacetimedb-skills",
+      "description": "AI Skills for SpacetimeDB"
+    },
+    {
+      "name": "tenaryo--tinykafka",
+      "source": "./tenaryo--tinykafka",
+      "description": "A High-Proformance Kafka Broker in C++23"
     },
     {
       "name": "cheerhuan--save-your-token",
