@@ -1,0 +1,9 @@
+{
+  "name": "cubeplexai--cubepi",
+  "displayName": "cubepi",
+  "description": "CubePi \u2014 An async-first Python agent kernel inspired by Pi, built for coding agents, tools, and continuous sessions.",
+  "version": "1.0.0",
+  "author": "cubeplexai",
+  "homepage": "https://github.com/cubeplexai/cubepi",
+  "skills": []
+}
