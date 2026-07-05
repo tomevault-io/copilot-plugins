@@ -1,0 +1,9 @@
+{
+  "name": "imjasonh--pasta",
+  "displayName": "pasta",
+  "description": "Using ASTs and CUE to describe multi-language linters and fixers",
+  "version": "1.0.0",
+  "author": "imjasonh",
+  "homepage": "https://github.com/imjasonh/pasta",
+  "skills": []
+}
