@@ -1,0 +1,44 @@
+{
+  "name": "PrivAiTe",
+  "owner": "crp4222",
+  "repo": "PrivAiTe",
+  "description": "Drop-in self-hosted LLM proxy that reversibly redacts PII before OpenAI, ChatGPT and Ollama calls, including inside tool-call arguments and multimodal content. OpenAI-compatible, zero telemetry.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/crp4222/PrivAiTe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T03:17:54Z"
+}
