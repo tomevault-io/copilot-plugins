@@ -1,0 +1,44 @@
+{
+  "name": "Opptrix",
+  "owner": "Travisun",
+  "repo": "Opptrix",
+  "description": "Opptrix \u2014 \u5927\u6a21\u578b\u9a71\u52a8\u7684\u6295\u7814\u52a9\u624b | Open-source LLM research assistant for China A-shares. 40+ MCP tools, factor screening, backtest, watchlist & Electron desktop. TypeScript \u00b7 React \u00b7 Fastify monorepo.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Travisun/Opptrix",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T08:31:35Z"
+}
