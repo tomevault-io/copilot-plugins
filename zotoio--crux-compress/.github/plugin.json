@@ -1,0 +1,9 @@
+{
+  "name": "zotoio--crux-compress",
+  "displayName": "CRUX-Compress",
+  "description": "Compress verbose LLM rules while retaining self-contained meaning and intent.",
+  "version": "1.0.0",
+  "author": "zotoio",
+  "homepage": "https://github.com/zotoio/CRUX-Compress",
+  "skills": []
+}
