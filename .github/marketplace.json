@@ -202864,6 +202864,26 @@
       "description": "Claude Code skill for AI image generation using Alibaba Cloud Bailian API (\u901a\u4e49\u5343\u95ee/\u901a\u4e49\u4e07\u76f8)"
     },
     {
+      "name": "fkguo--nullius",
+      "source": "./fkguo--nullius",
+      "description": "nullius"
+    },
+    {
+      "name": "fkguo--nullius",
+      "source": "./fkguo--nullius",
+      "description": "nullius"
+    },
+    {
+      "name": "tadashi-aikawa--jinrai-spoon",
+      "source": "./tadashi-aikawa--jinrai-spoon",
+      "description": "A Hammerspoon script for switching and recognizing windows at the speed of thought \u26a1"
+    },
+    {
+      "name": "tadashi-aikawa--jinrai-spoon",
+      "source": "./tadashi-aikawa--jinrai-spoon",
+      "description": "A Hammerspoon script for switching and recognizing windows at the speed of thought \u26a1"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -237414,6 +237434,36 @@
       "description": "Multi-agent factory on top of SQLite"
     },
     {
+      "name": "fourteenseed--founder-os-starter",
+      "source": "./fourteenseed--founder-os-starter",
+      "description": "A calm command centre for a founder who works with more than one AI tool. Eleven rooms, agents as colleagues, honest data. Point your agent at this repo and build your own."
+    },
+    {
+      "name": "konnokai--discordwidgetsv2bot",
+      "source": "./konnokai--discordwidgetsv2bot",
+      "description": "DiscordWidgetsV2Bot"
+    },
+    {
+      "name": "gaboe--opencode-usage",
+      "source": "./gaboe--opencode-usage",
+      "description": "opencode-usage"
+    },
+    {
+      "name": "sheldonzipingchen--genvid",
+      "source": "./sheldonzipingchen--genvid",
+      "description": "\u4e00\u4e2a\u4e13\u4e3a\u8de8\u5883\u7535\u5546\u5356\u5bb6\u8bbe\u8ba1\u7684 AI UGC \u89c6\u9891\u751f\u6210\u5e73\u53f0\uff0c\u5e2e\u52a9\u7528\u6237\u5728\u51e0\u5206\u949f\u5185\u521b\u5efa\u4e13\u4e1a\u3001\u771f\u5b9e\u7684 TikTok/Reels/Shorts \u98ce\u683c\u4ea7\u54c1\u89c6\u9891\u3002"
+    },
+    {
+      "name": "thezwiss--backspace",
+      "source": "./thezwiss--backspace",
+      "description": "backspace"
+    },
+    {
+      "name": "gaboe--opencode-usage",
+      "source": "./gaboe--opencode-usage",
+      "description": "opencode-usage"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257282,6 +257332,11 @@
       "name": "xiddoc--playintegrityalert",
       "source": "./xiddoc--playintegrityalert",
       "description": "Get notified when an app calls the Play Integrity API."
+    },
+    {
+      "name": "wilfredinni--noodle",
+      "source": "./wilfredinni--noodle",
+      "description": "A delicious REST client for your terminal"
     },
     {
       "name": "cheerhuan--save-your-token",
