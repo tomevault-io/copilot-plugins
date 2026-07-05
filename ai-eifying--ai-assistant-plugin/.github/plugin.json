@@ -1,0 +1,9 @@
+{
+  "name": "ai-eifying--ai-assistant-plugin",
+  "displayName": "ai-assistant-plugin",
+  "description": "OpenAI-powered AI assistant plugin for Super Productivity",
+  "version": "1.0.0",
+  "author": "ai-eifying",
+  "homepage": "https://github.com/ai-eifying/ai-assistant-plugin",
+  "skills": []
+}
