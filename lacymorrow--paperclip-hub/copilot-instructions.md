@@ -1,117 +1,125 @@
-## supabase-edge
+## testing
 
-> Coding rules for Supabase Edge Functions
+> Testing Best Practices and Guidelines
 
+# Testing Best Practices and Guidelines
 
-# Writing Supabase Edge Functions
+## General Testing
+- Write tests for all components
+- Test user interactions
+- Test edge cases
+- Test error scenarios
+- Test accessibility
+- Use proper test data
+- Keep tests maintainable
 
-You're an expert in writing TypeScript and Deno JavaScript runtime. Generate **high-quality Supabase Edge Functions** that adhere to the following best practices:
+## Unit Testing
+- Test individual functions
+- Mock external dependencies
+- Test return values
+- Test error handling
+- Use descriptive test names
+- Keep tests focused
+- Test both happy and sad paths
 
-## Guidelines
+## Integration Testing
+- Test component interactions
+- Test API endpoints
+- Test database operations
+- Test authentication flows
+- Test payment processing
+- Test webhook handling
+- Test third-party integrations
 
-1. Try to use Web APIs and Deno’s core APIs instead of external dependencies (eg: use fetch instead of Axios, use WebSockets API instead of node-ws)
-2. If you are reusing utility methods between Edge Functions, add them to `supabase/functions/_shared` and import using a relative path. Do NOT have cross dependencies between Edge Functions.
-3. Do NOT use bare specifiers when importing dependecnies. If you need to use an external dependency, make sure it's prefixed with either `npm:` or `jsr:`. For example, `@supabase/supabase-js` should be written as `npm:@supabase/supabase-js`.
-4. For external imports, always define a version. For example, `npm:@express` should be written as `npm:express@4.18.2`.
-5. For external dependencies, importing via `npm:` and `jsr:` is preferred. Minimize the use of imports from @`deno.land/x` , `esm.sh` and @`unpkg.com` . If you have a package from one of those CDNs, you can replace the CDN hostname with `npm:` specifier.
-6. You can also use Node built-in APIs. You will need to import them using `node:` specifier. For example, to import Node process: `import process from "node:process". Use Node APIs when you find gaps in Deno APIs.
-7. Do NOT use `import { serve } from "https://deno.land/std@0.168.0/http/server.ts"`. Instead use the built-in `Deno.serve`.
-8. Following environment variables (ie. secrets) are pre-populated in both local and hosted Supabase environments. Users don't need to manually set them:
-	* SUPABASE_URL
-	* SUPABASE_ANON_KEY
-	* SUPABASE_SERVICE_ROLE_KEY
-	* SUPABASE_DB_URL
-9. To set other environment variables (ie. secrets) users can put them in a env file and run the `supabase secrets set --env-file path/to/env-file`
-10. A single Edge Function can handle multiple routes. It is recommended to use a library like Express or Hono to handle the routes as it's easier for developer to understand and maintain. Each route must be prefixed with `/function-name` so they are routed correctly.
-11. File write operations are ONLY permitted on `/tmp` directory. You can use either Deno or Node File APIs.
-12. Use `EdgeRuntime.waitUntil(promise)` static method to run long-running tasks in the background without blocking response to a request. Do NOT assume it is available in the request / execution context.
+## Payment Provider Testing
+- **ALWAYS** test complete data flow: Provider API → Import → Database → Service → UI
+- Create debug scripts for each provider (e.g., `debug-{provider}-api-test.ts`)
+- Test with real provider data, not just mock data
+- Verify field mapping between provider responses and database storage
+- Test admin UI displays correctly after import
+- Validate backward compatibility with existing payment data
+- Test error scenarios (API failures, invalid data, network issues)
+- Example debug script pattern:
+  ```typescript
+  // debug-polar-import-test.ts
+  const importStats = await polarProvider.importPayments();
+  const payments = await PaymentService.getUsersWithPayments();
+  console.log("Import stats:", importStats);
+  console.log("Sample payment data:", payments[0]);
+  // Verify orderId is populated correctly
+  ```
 
-## Example Templates
+## E2E Testing
+- Test complete user journeys
+- Test across different browsers
+- Test mobile responsiveness
+- Test performance scenarios
+- Test accessibility compliance
+- Use realistic test data
+- Test production-like environment
 
-### Simple Hello World Function
+## API Testing
+- Test all endpoints
+- Test request/response formats
+- Test authentication
+- Test rate limiting
+- Test error responses
+- Test data validation
+- Test performance
 
-```tsx
-interface reqPayload {
-	name: string;
-}
+## Database Testing
+- Test CRUD operations
+- Test data integrity
+- Test migrations
+- Test performance
+- Test concurrency
+- Test backup/restore
+- Test security constraints
 
-console.info('server started');
+## Frontend Testing
+- Test component rendering
+- Test user interactions
+- Test state management
+- Test form validation
+- Test responsive design
+- Test accessibility
+- Test performance
 
-Deno.serve(async (req: Request) => {
-	const { name }: reqPayload = await req.json();
-	const data = {
-		message: `Hello ${name} from foo!`,
-	};
+## Test Data Management
+- Use factory patterns
+- Create realistic test data
+- Clean up after tests
+- Isolate test data
+- Version control test data
+- Document test scenarios
+- Maintain test data consistency
 
-	return new Response(
-		JSON.stringify(data),
-		{ headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' }}
-		);
-});
+## Continuous Integration
+- Run tests on every commit
+- Test multiple environments
+- Test different configurations
+- Monitor test performance
+- Report test coverage
+- Handle flaky tests
+- Maintain test reliability
 
-```
+## Performance Testing
+- Test load scenarios
+- Test memory usage
+- Test response times
+- Test scalability
+- Test resource consumption
+- Monitor performance trends
+- Set performance benchmarks
 
-### Example Function using Node built-in API
-
-```tsx
-import { randomBytes } from "node:crypto";
-import { createServer } from "node:http";
-import process from "node:process";
-
-const generateRandomString = (length) => {
-    const buffer = randomBytes(length);
-    return buffer.toString('hex');
-};
-
-const randomString = generateRandomString(10);
-console.log(randomString);
-
-const server = createServer((req, res) => {
-    const message = `Hello`;
-    res.end(message);
-});
-
-server.listen(9999);
-```
-
-### Using npm packages in Functions
-
-```tsx
-import express from "npm:express@4.18.2";
-
-const app = express();
-
-app.get(/(.*)/, (req, res) => {
-    res.send("Welcome to Supabase");
-});
-
-app.listen(8000);
-
-```
-
-### Generate embeddings using built-in @Supabase.ai API
-
-```tsx
-const model = new Supabase.ai.Session('gte-small');
-
-Deno.serve(async (req: Request) => {
-	const params = new URL(req.url).searchParams;
-	const input = params.get('text');
-	const output = await model.run(input, { mean_pool: true, normalize: true });
-	return new Response(
-		JSON.stringify(
-			output,
-		),
-		{
-			headers: {
-				'Content-Type': 'application/json',
-				'Connection': 'keep-alive',
-			},
-		},
-	);
-});
-
-```
+## Security Testing
+- Test authentication
+- Test authorization
+- Test input validation
+- Test data encryption
+- Test vulnerability scanning
+- Test penetration scenarios
+- Regular security audits
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
