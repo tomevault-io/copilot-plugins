@@ -4,7 +4,7 @@
   "repo": "scriveno",
   "description": "Spec-driven creative writing, publishing, and translation pipeline for AI coding agents. From blank page to published book.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hannsxpeter/scriveno",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T06:39:33Z"
+  "distributed_at": "2026-07-05T06:49:15Z"
 }
