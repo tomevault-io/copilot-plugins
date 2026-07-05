@@ -1,0 +1,9 @@
+{
+  "name": "docloulou--wayland-wheeltani",
+  "displayName": "Wayland-Wheeltani",
+  "description": "Progressive middle-click autoscroll for Wayland.  Hold the middle mouse button, move vertically, and Wayland-Wheeltani emits smooth wheel events through a virtual mouse.",
+  "version": "1.0.0",
+  "author": "docloulou",
+  "homepage": "https://github.com/docloulou/Wayland-Wheeltani",
+  "skills": []
+}
