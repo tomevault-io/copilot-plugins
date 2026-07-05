@@ -1,0 +1,9 @@
+{
+  "name": "schalkneethling--skills-autoresearch-flue",
+  "displayName": "skills-autoresearch-flue",
+  "description": "Flue agent harness for autoresearching, evaluating, and improving agent skills.",
+  "version": "1.0.0",
+  "author": "schalkneethling",
+  "homepage": "https://github.com/schalkneethling/skills-autoresearch-flue",
+  "skills": []
+}
