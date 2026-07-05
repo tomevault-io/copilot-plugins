@@ -1,0 +1,44 @@
+{
+  "name": "PixelText",
+  "owner": "Pixel-Tailor-CN",
+  "repo": "PixelText",
+  "description": "\u4e3a Pixel \u6253\u9020\u7684\u672c\u5730\u667a\u80fd\u77ed\u4fe1\u5e94\u7528\uff0c\u9a8c\u8bc1\u7801\u3001\u8d26\u5355\u3001\u5feb\u9012\u4e00\u773c\u770b\u6e05",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Pixel-Tailor-CN/PixelText",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T02:33:45Z"
+}
