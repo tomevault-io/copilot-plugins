@@ -1,0 +1,9 @@
+{
+  "name": "pedromello--manifoldpowered-com",
+  "displayName": "manifoldpowered.com",
+  "description": "Manifold is the infrastructure that powers multiple independent game stores through a shared backend, enabling cross-store purchases, downloads, and progress synchronization.",
+  "version": "1.0.0",
+  "author": "pedromello",
+  "homepage": "https://github.com/pedromello/manifoldpowered.com",
+  "skills": []
+}
