@@ -4,7 +4,7 @@
   "repo": "lathe",
   "description": "Generate hands-on, multi-part technical tutorials on demand, with LLM skills tuned to make content approachable. Then you work through them yourself, by hand \u270b",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/devenjarvis/lathe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T00:33:22Z"
+  "distributed_at": "2026-07-05T00:33:51Z"
 }
