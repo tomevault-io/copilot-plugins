@@ -1,0 +1,9 @@
+{
+  "name": "osovv--vv-opencode",
+  "displayName": "vv-opencode",
+  "description": "A curated, opinionated set of OpenCode plugins for spec-first, review-driven, safer agentic development.",
+  "version": "1.0.0",
+  "author": "osovv",
+  "homepage": "https://github.com/osovv/vv-opencode",
+  "skills": []
+}
