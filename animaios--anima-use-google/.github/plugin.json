@@ -1,0 +1,9 @@
+{
+  "name": "animaios--anima-use-google",
+  "displayName": "anima-use-google",
+  "description": "MCP server + browser sidecar extension that lets AI agents run Google AI Mode searches using your own logged-in browser session",
+  "version": "1.0.0",
+  "author": "animaios",
+  "homepage": "https://github.com/animaios/anima-use-google",
+  "skills": []
+}
