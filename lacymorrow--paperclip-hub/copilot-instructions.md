@@ -1,195 +1,99 @@
-## paperclip-hub
+## accessibility
 
-> You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+> Accessibility Best Practices and Guidelines
 
-# Shipkit Rules
 
-You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+# Accessibility Best Practices
 
-This is a Next.js project using App Router, Shadcn/UI, Tailwind, Resend, Builder.io, Payload CMS v3, NextAuth/AuthJS v5, TypeScript, using Bun as the package manager.
+## Semantic HTML
+- Use proper heading hierarchy
+- Use semantic elements (nav, main, article)
+- Use proper list structures
+- Use proper table markup
+- Use proper form labels
+- Use ARIA roles when needed
+- Validate HTML structure
 
-Be aware of the latest versions of all libraries.
-Your plans should be documented into a ai.mdx file. Check to see if it exists. If it does, pick up where you left off. Mark completed steps with a checkbox. Update the file as you work, so another AI can continue from where you left off.
+## Keyboard Navigation
+- Ensure keyboard focus visibility
+- Implement logical tab order
+- Provide skip links
+- Handle keyboard shortcuts
+- Test keyboard-only navigation
+- Support focus management
+- Document keyboard interactions
 
-Shipkit is a premium starter boilerplate for Next.js that allows customers to opt in to features by adding environment variables.
+## Screen Readers
+- Provide alt text for images
+- Use proper ARIA labels
+- Implement proper headings
+- Announce dynamic content
+- Test with screen readers
+- Support text-to-speech
+- Document screen reader support
 
-For example, you may launch with no environment variables at all. Adding a database will enable features like payload CMS. Adding a builder.io API key will enable the builder.io integration.
+## Visual Design
+- Ensure sufficient color contrast
+- Support high contrast modes
+- Provide text alternatives
+- Allow text resizing
+- Support zoom functionality
+- Avoid reliance on color alone
+- Test with color blindness tools
 
-## Key Principles
+## Interactive Elements
+- Make buttons keyboard accessible
+- Make modals accessible
+- Make dropdowns accessible
+- Handle focus management
+- Provide feedback on actions
+- Support touch interfaces
+- Test all interactions
 
-- Authentication uses NextAuth/AuthJS v5.
-- Authentication with credentials uses payload CMS user management.
-- Use the Shadcn/UI components and styles when possible. This means colors, fonts, spacing, border-radius, etc. are already set up.
+## Forms
+- Use proper labels
+- Provide clear error messages
+- Support keyboard navigation
+- Group related fields
+- Validate input accessibly
+- Support autocomplete
+- Test form submissions
 
-## Code sacred beliefs
+## Media
+- Provide captions for videos
+- Provide transcripts for audio
+- Support media controls
+- Allow volume control
+- Provide media alternatives
+- Test media playback
+- Document media features
 
-- Thou shalt Make files small and discrete. When possible keep files under 500 lines, if at all possible.
-- Thou shalt Write concise, technical TypeScript code with accurate examples.
-- Thou shalt Use functional and declarative programming patterns; avoid classes.
-- Thou shalt Prefer iteration and modularization over code duplication.
-- Thou shalt Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Thou shalt Structure files: exported component, subcomponents, helpers, static content, types.
-- Thou shalt Use the simplest solution first and only add complexity when necessary.
+## Dynamic Content
+- Announce updates
+- Handle loading states
+- Manage focus on updates
+- Provide progress indicators
+- Support pause/stop
+- Test dynamic changes
+- Document behavior
 
-## React State Management
+## Testing
+- Use accessibility checkers
+- Test with screen readers
+- Test keyboard navigation
+- Test color contrast
+- Test with users
+- Regular audits
+- Document findings
 
-- Avoid circular dependencies between state variables that can cause infinite update loops
-- Don't update state directly inside useEffect without dependencies or conditions
-- Don't use useState and useEffect when a single state update function would suffice
-- When synchronizing two state variables, use a single source of truth approach
-- For local storage integration, ensure state updates don't trigger unnecessary re-renders
-- Prefer unidirectional data flow: parent state flowing to children
-- When using multiple state variables that change together, consider useReducer
-- Carefully analyze effects to avoid unwanted side effects and re-renders
-- When a state update depends on previous state, always use the functional form (prev => ...)
-- For complex state transitions, implement dedicated state management functions rather than direct setters
-
-## Naming Conventions
-
-- Use lowercase with dashes for directories (e.g., components/auth-wizard).
-- Favor named exports for components.
-
-## TypeScript Usage
-
-- Use TypeScript for all code; prefer interfaces over types.
-- Avoid enums; use maps instead.
-- Use functional components with TypeScript interfaces.
-
-## Syntax and Formatting
-
-- Use the "function" keyword for pure functions.
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-- Use declarative JSX.
-
-## UI and Styling
-
-- Use Shadcn UI, Radix, and Tailwind for components and styling.
-- Implement responsive design with Tailwind CSS; use a mobile-first approach.
-
-## Navigation Patterns
-
-- Prefer declarative links over imperative navigation (`router.push`)
-- In the App Router, use `src/components/primitives/link-with-transition` instead of `next/link`
-- For styled links that look like buttons, use: `<Link className={cn(buttonVariants({ variant: "...", size: "..." }))} ...>`
-- Only use router navigation for complex scenarios (e.g., form submissions with redirects)
-- Prefer shallow routing when appropriate to avoid unnecessary data fetching
-- Add proper aria labels to navigation elements
-
-## Performance Optimization
-
-- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
-- Wrap client components in Suspense with fallback.
-- Use dynamic loading for non-critical components.
-- Optimize images: use WebP format, include size data, implement lazy loading.
-
-## Key Conventions
-
-- Use 'nuqs' for URL search parameter state management.
-- Optimize Web Vitals (LCP, CLS, FID).
-- Limit 'use client':
-- Favor server components and Next.js SSR.
-- Use only for Web API access in small components.
-- Avoid for data fetching or state management.
-
-Follow Next.js docs for Data Fetching, Rendering, and Routing.
-
-## Don't
-
-Don't delete environment variables.
-Don't run the dev server (`bun dev`) in the terminal, User will do that.
-Don't nest server components in client components unless passed through props.
-Don't forget to add `use client` to the top of the file if you are using client-side code like hooks.
-Don't use `use client` in server components.
-Don't fetch data with server actions. AGAIN, DO NOT FETCH DATA WITH SERVER ACTIONS.
-
-## Comments
-
-pre-emptively add comments to explain "why" behind the code.
-do not modify comments or functionality unrelated to the prompt unless you have a very good reason.
-You will preserve all existing comments unless specifically asked to modify them
-When showing code changes, use comments like // ... to indicate unchanged sections of code
-We like comments with callouts and examples, like:
-
-```
-/*
- * Logging configuration
- * @see https://nextjs.org/docs/app/api-reference/next-config-js/logging
- */
-```
-
-## File structure
-
-Prefer `hyphen-case.ext` over `CamelCase.ext`.
-Use `@/server/actions` for all server actions.
-Use `@/server/services` for all internal services.
-
-## Coding conventions
-
-pre-emptively ask questions if you are unsure about the requirements.
-pre-emptively optimize code for production.
-pre-emptively add types to all functions and variables.
-pre-emptively fix any typescript errors or warnings.
-
-Use open-source libraries when they would enhance the user/developer experience.
-Use best practices, write production-ready code.
-Fix bugs and improve performance.
-Comment any complex or hard-to-read code.
-fix all typescript errors and warnings.
-
-## React
-
-Use functional components and hooks for state management.
-Ensure components are reusable and maintainable.
-Prefer server actions for internal API requests.
-Maintain a separation of concerns between client and server components.
-
-Prefer arrow functions for React components:
-✅ export const Component = () => { ... }
-❌ export function Component() { ... }
-❌ export default function Component() { ... }
-
-## Next.js
-
-Don't use server actions to fetch data. Use Server Components instead.
-Server code belongs in services, server action code belongs in actions if an action needs server-side code it should call services. So, a server component may load data using a service, then manipulate data using a server action, which then calls a service.
-
-- `params`, `searchParams`, and `headers` should be awaited before using its properties.
-- Never nest server components in client components unless passed through props.
-- Never use server actions to fetch data.
-- Never nest `<Button>` components in `<Link>` components, or vice versa.
-
-## When interacting with the database
-
-1. Ensure all required fields are provided when interacting with the database.
-2. Check for potential undefined values and handle them appropriately.
-3. Use TypeScript's type system to enforce correct data structures.
-4. Implement error handling for database operations and API requests.
-5. Validate input data to prevent runtime errors and ensure data integrity.
-6. Add comments to explain complex logic or important decisions in the code.
-7. Regularly review and test code to catch and fix errors early.
-8. Use the `db.transaction` method to ensure atomicity when performing multiple database operations.
-9. don't use boolean values for anything, use dates instead. (e.g. isActive: boolean -> activeAt: Date)
-
-## API Integration
-
-- Use environment variables for sensitive data like API keys.
-- Handle API errors gracefully and provide user feedback.
-- Use async/await for asynchronous operations to improve readability.
-- Document API interactions and expected responses.
-
-## UI/UX Design
-
-- Follow Tailwind CSS conventions for styling.
-- Ensure responsive design for all components.
-- Use Shadcn/UI components for consistency in UI elements.
-- Prioritize accessibility in UI design.
-
-## Performance Optimization
-
-- Optimize images and assets for faster load times.
-- Use lazy loading for components and images where applicable.
-- Minimize the use of heavy libraries and dependencies.
-- Regularly audit and improve performance metrics.
+## Documentation
+- Document accessibility features
+- Provide usage guidelines
+- Document known issues
+- Keep VPAT updated
+- Document test results
+- Regular reviews
+- Maintain compliance docs 
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
