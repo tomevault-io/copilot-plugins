@@ -1,0 +1,9 @@
+{
+  "name": "innei--trade-skills",
+  "displayName": "trade-skills",
+  "description": "Personal U.S. stock trading research workspace with market-intelligence agent skills and a local realtime charting app.",
+  "version": "1.0.0",
+  "author": "Innei",
+  "homepage": "https://github.com/Innei/trade-skills",
+  "skills": []
+}
