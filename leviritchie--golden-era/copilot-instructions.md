@@ -1,0 +1,30 @@
+## golden-era
+
+> - Release builds are assembled by GitHub Actions from `release_inputs/golden_era_release_payload.zip`; local Steam installs are maintainer-only inputs and must not be required in CI.
+
+# Agent Notes
+
+- Release builds are assembled by GitHub Actions from `release_inputs/golden_era_release_payload.zip`; local Steam installs are maintainer-only inputs and must not be required in CI.
+- Public release output is now a single self-extracting `GoldenEraModInstaller-<version>.exe` plus `.sha256`, not a zip of an installer folder. Do not reintroduce adjacent payload/script assumptions into the installer.
+- Do not tag, publish, or upload public GitHub release assets for installer changes until a local EXE smoke test has passed and the maintainer explicitly approves the release.
+- The installer must keep Steam vanilla: use the selected Steam folder only as a clean source, create a separate Golden Era target copy, and install Doorstop/BepInEx/plugin files plus the Core overlay only into that target.
+- Be precise in user docs: the clean Steam `Core.zip` is required for Install/Repair validation and copy staging, but an installed Golden Era target launches from its own patched `Core.zip` and does not read Steam's `Core.zip` at runtime.
+- Update mode is target-only. It must restore and validate an installer-created clean `Core.zip.backup-installer-*` from the Golden Era target before applying the new overlay. If no matching clean baseline exists, fail closed and tell the user to use Repair with a clean Steam source.
+- Treat `tools/release_installer/templates/install.ps1` and `uninstall.ps1` as legacy unpacked-package references unless they are intentionally redesigned. The WinForms EXE owns the supported install/uninstall path.
+- Before replacing `release_inputs/golden_era_release_payload.zip`, sanitize generated manifests so local paths, user names, and old playtest paths are not present in JSON/config/text files.
+- When refreshing release inputs from a locally modded Steam root, pass a verified clean Steam `Core.zip` backup as `-CleanReleaseCore`; check that the chosen baseline has zero `homm3_` entries before exporting the overlay.
+- Do not package Python helper scripts or `__pycache__` files from `reference_pack`; they are build-time scratch helpers and can leak local workspace paths.
+- Do not package backup configs, `.disabled` files, `.flag` diagnostics, `.pdb` files, Unity `.meta` files, or stale bundle backup files from a live Steam plugin folder.
+- If rebuilding `OfflineUnlockMod.dll` for a payload, build with `DebugType=None` and `DebugSymbols=false` or inspect the DLL for embedded PDB paths before publishing.
+- Core overlay manifests use the generic `hommoe-golden-era-release-overlay-v1` format. Do not reintroduce Stronghold-only token filtering when exporting release inputs.
+- `actions/upload-artifact@v7` with `archive: false` accepts only one file per upload step. Upload the installer EXE and checksum in separate artifact steps; the GitHub Release step may still attach both files together.
+- Keep `modding_guide/mod_helper.md` and `modding_guide/GameSymbols.cs` as release-time public snapshots from the private/source workspace. Refresh them intentionally when publishing a release that includes new modder-facing architecture or symbol-registry changes.
+- Release tags should have a matching `release_notes/<tag>.md` file. The workflow prepends that curated note to GitHub's generated commit notes so user-facing release history reflects gameplay, installer, and documentation changes across the recent private/source work.
+- `docs/github_wiki/` is a GitHub-wiki-ready Markdown export for current custom faction attributes. It is generated from the private playtest workspace's live Core data and custom faction manifests; do not hand-edit it as source of truth unless the underlying Core/manifest data is also updated.
+- HoMM3 prerequisite validation must accept the actual clean Steam HD executable names `HOMM3 2.0.exe` and `HOMM3Launcher.exe`, in addition to GOG Complete and HD-mod names. Keep `InstallerBackend.IsValidHomm3Root` and legacy `templates/install.ps1` in sync when this validator changes.
+- Golden Era releases must not include the separate damage histogram mod. `refresh_release_inputs.ps1` should exclude `histogram_icons`, strip `damageHistogram*`/`damageHistograms` keys from the packaged `OfflineUnlockMod/config.json`, and fail if histogram payload/config files reach `release_inputs/golden_era_release_payload.zip`.
+- Release workflow output is intentionally two EXEs: `*-upscaled-portraits.exe` and `*-standard-portraits.exe`. They can share the same payload assets, but `package_from_release_inputs.ps1` must force `homm3UseUpscaledHeroPortraits=true` or `false` inside the embedded payload config so users can choose the portrait mode without editing config files after install.
+
+---
+> Source: [leviritchie/Golden-Era](https://github.com/leviritchie/Golden-Era) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
