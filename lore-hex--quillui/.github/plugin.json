@@ -1,0 +1,9 @@
+{
+  "name": "lore-hex--quillui",
+  "displayName": "QuillUI",
+  "description": "SwiftUI compatibility experiments for Linux, QuillData, QuillKit, and Enchanted/Quill Chat porting",
+  "version": "1.0.0",
+  "author": "Lore-Hex",
+  "homepage": "https://github.com/Lore-Hex/QuillUI",
+  "skills": []
+}
