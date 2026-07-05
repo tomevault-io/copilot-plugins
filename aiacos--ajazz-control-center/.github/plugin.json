@@ -1,0 +1,9 @@
+{
+  "name": "aiacos--ajazz-control-center",
+  "displayName": "ajazz-control-center",
+  "description": "Cross-platform Qt6 control center for AJAZZ devices (stream decks, keyboards, mice). Linux, Windows, macOS.",
+  "version": "1.0.0",
+  "author": "Aiacos",
+  "homepage": "https://github.com/Aiacos/ajazz-control-center",
+  "skills": []
+}
