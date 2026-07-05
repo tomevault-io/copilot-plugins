@@ -4,7 +4,7 @@
   "repo": "Puppetmaster",
   "description": "Provider-neutral control plane for durable-state agent swarms: subprocess workers, leases, artifacts, memory, and deterministic stitching.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/professorpalmer/Puppetmaster",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T00:52:06Z"
+  "distributed_at": "2026-07-05T01:02:50Z"
 }
