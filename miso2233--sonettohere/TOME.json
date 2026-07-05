@@ -1,0 +1,44 @@
+{
+  "name": "SonettoHere",
+  "owner": "Miso2233",
+  "repo": "SonettoHere",
+  "description": "Sonetto\uff0c\u4e00\u4e2a\u4e0d\u90a3\u4e48\u50cf AI \u7684 AI \u52a9\u624b\u3002\u4f1a\u8ba4\u771f\u8bb0\u4f4f\u4f60\u7684\u6bcf\u4ef6\u5c0f\u4e8b\uff0c\u966a\u4f60\u5199\u4ee3\u7801\u3001\u590d\u4e60\u8003\u8bd5\u3001\u804a\u756a\u5267\uff0c\u5076\u5c14\u4e5f\u966a\u4f60\u804a\u804a\u65e5\u5e38\u3002\u4f60\u503e\u6ce8\u5fc3\u8840\u5728\u505a\u7684\u4e8b\u60c5\uff0c\u6211\u4e5f\u4f1a\u8ba4\u771f\u5bf9\u5f85\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Miso2233/SonettoHere",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T00:58:39Z"
+}
