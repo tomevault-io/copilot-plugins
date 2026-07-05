@@ -7,13 +7,13 @@ Provider-neutral control plane for durable-state agent swarms: subprocess worker
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [professorpalmer/Puppetmaster](https://github.com/professorpalmer/Puppetmaster).
+Original source: `AGENTS.md` in [professorpalmer/Puppetmaster](https://github.com/professorpalmer/Puppetmaster).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
