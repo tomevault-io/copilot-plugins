@@ -1,0 +1,26 @@
+# AI instruction files for tradingview-mcp-jackson
+
+> Sourced from [drasticstatic/tradingview-mcp-jackson](https://github.com/drasticstatic/tradingview-mcp-jackson) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+TradingView Desktop MCP — Fortuna trading system working copy. Upstream: LewisWJackson/tradingview-mcp-jackson
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [drasticstatic/tradingview-mcp-jackson](https://github.com/drasticstatic/tradingview-mcp-jackson).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/drasticstatic/tradingview-mcp-jackson](https://github.com/drasticstatic/tradingview-mcp-jackson)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-q -->
