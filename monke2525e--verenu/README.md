@@ -7,11 +7,11 @@ Open-source, local-first AI dictation for Windows and macOS. Hold a hotkey, spea
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MONKE2525E/Verenu](https://github.com/MONKE2525E/Verenu).
+Original source: `AGENTS.md` in [MONKE2525E/Verenu](https://github.com/MONKE2525E/Verenu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
