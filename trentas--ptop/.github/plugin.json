@@ -1,0 +1,9 @@
+{
+  "name": "trentas--ptop",
+  "displayName": "ptop",
+  "description": "Interactive TUI that uses eBPF to live-inspect any Linux process \u2014 CPU, syscalls, network, I/O, memory, threads, and file descriptors.",
+  "version": "1.0.0",
+  "author": "trentas",
+  "homepage": "https://github.com/trentas/ptop",
+  "skills": []
+}
