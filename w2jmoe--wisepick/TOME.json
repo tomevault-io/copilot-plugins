@@ -1,0 +1,44 @@
+{
+  "name": "WisePick",
+  "owner": "w2jmoe",
+  "repo": "WisePick",
+  "description": "Decision Infrastructure for the AI Era. \ud83e\udde0\u2728\ufe0f\ud83e\udd3a",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/w2jmoe/WisePick",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T03:01:37Z"
+}
