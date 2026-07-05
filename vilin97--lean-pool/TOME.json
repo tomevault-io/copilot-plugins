@@ -4,7 +4,7 @@
   "repo": "lean-pool",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Vilin97/lean-pool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T00:57:14Z"
+  "distributed_at": "2026-07-05T01:08:38Z"
 }
