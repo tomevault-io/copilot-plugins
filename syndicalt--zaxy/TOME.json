@@ -1,0 +1,44 @@
+{
+  "name": "zaxy",
+  "owner": "syndicalt",
+  "repo": "zaxy",
+  "description": "Zaxy turns agent work into durable, auditable memory: a hash-chained Eventloom log as the source of truth, an embedded temporal knowledge graph for reasoning (local-first, no sidecar; Neo4j/Postgres optional), cited Memory Checkout for compact context, and MCP tools for  model-facing retrieval, capture, and feedback.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/syndicalt/zaxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T04:39:20Z"
+}
