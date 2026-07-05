@@ -4,7 +4,7 @@
   "repo": "AILA",
   "description": "A Cyber Security AI Framework you need",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/project-lambda-zero/AILA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T01:04:46Z"
+  "distributed_at": "2026-07-05T01:17:16Z"
 }
