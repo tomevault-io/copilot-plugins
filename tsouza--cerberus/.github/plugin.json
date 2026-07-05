@@ -1,0 +1,9 @@
+{
+  "name": "tsouza--cerberus",
+  "displayName": "cerberus",
+  "description": "Drop-in Prometheus / Loki / Tempo HTTP gateway for ClickHouse. Translate PromQL, LogQL, and TraceQL into optimized CH SQL \u2014 keep Grafana, swap the backend.",
+  "version": "1.0.0",
+  "author": "tsouza",
+  "homepage": "https://github.com/tsouza/cerberus",
+  "skills": []
+}
