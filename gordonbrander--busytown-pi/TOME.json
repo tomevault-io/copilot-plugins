@@ -4,7 +4,7 @@
   "repo": "busytown-pi",
   "description": "Multi-agent factory on top of SQLite",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gordonbrander/busytown-pi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T10:42:09Z"
+  "distributed_at": "2026-07-05T10:42:40Z"
 }
