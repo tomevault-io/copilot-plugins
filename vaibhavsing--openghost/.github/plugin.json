@@ -1,0 +1,9 @@
+{
+  "name": "vaibhavsing--openghost",
+  "displayName": "openghost",
+  "description": "OpenGhost is an Agent Skill for authorized web app penetration testing: Enter lab url paste credential your agent and wait everything does with help of openghost",
+  "version": "1.0.0",
+  "author": "VAIBHAVSING",
+  "homepage": "https://github.com/VAIBHAVSING/openghost",
+  "skills": []
+}
