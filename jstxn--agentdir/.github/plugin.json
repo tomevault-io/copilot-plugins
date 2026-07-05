@@ -1,0 +1,9 @@
+{
+  "name": "jstxn--agentdir",
+  "displayName": "agentdir",
+  "description": "Local-first Maildir-inspired work mailstore for software agents",
+  "version": "1.0.0",
+  "author": "jstxn",
+  "homepage": "https://github.com/jstxn/agentdir",
+  "skills": []
+}
