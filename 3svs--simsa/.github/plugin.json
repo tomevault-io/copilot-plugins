@@ -1,0 +1,9 @@
+{
+  "name": "3svs--simsa",
+  "displayName": "simsa",
+  "description": "Drop .conclave/prd.md \u2014 every PR auto-reviews for spec drift, missing requirements, and scope creep. Three models, one verdict, autofix included. Free on public repos.",
+  "version": "1.0.0",
+  "author": "3SVS",
+  "homepage": "https://github.com/3SVS/simsa",
+  "skills": []
+}
