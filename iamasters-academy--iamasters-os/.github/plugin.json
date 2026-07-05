@@ -1,0 +1,9 @@
+{
+  "name": "iamasters-academy--iamasters-os",
+  "displayName": "iamasters-os",
+  "description": "Sistema operativo ag\u00e9ntico para operadores de IA. Sinapsis v4.5 (engine de memoria) + capa OS (brand context, agent context, skills curadas, multi-cliente). En castellano. Por Angel Aparicio \u00b7 IA Mast",
+  "version": "1.0.0",
+  "author": "iamasters-academy",
+  "homepage": "https://github.com/iamasters-academy/iamasters-os",
+  "skills": []
+}
