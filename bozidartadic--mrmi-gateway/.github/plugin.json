@@ -1,0 +1,9 @@
+{
+  "name": "bozidartadic--mrmi-gateway",
+  "displayName": "MRMI_Gateway",
+  "description": "Multi-Regional Multi-App Interlock \u2014 open-source federation middleware for regulated cross-border messaging corridors (RU\u00b7BY\u00b7KZ\u00b7AM\u00b7RS)",
+  "version": "1.0.0",
+  "author": "BozidarTadic",
+  "homepage": "https://github.com/BozidarTadic/MRMI_Gateway",
+  "skills": []
+}
