@@ -1,0 +1,9 @@
+{
+  "name": "open-curiosity--gini-agent",
+  "displayName": "gini-agent",
+  "description": "The agent that remembers and learns.",
+  "version": "1.0.0",
+  "author": "Open-Curiosity",
+  "homepage": "https://github.com/Open-Curiosity/gini-agent",
+  "skills": []
+}
