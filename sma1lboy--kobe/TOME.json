@@ -4,7 +4,7 @@
   "repo": "kobe",
   "description": "The best terminal IDE for coding agents. kobe reimagines how you work with AI agents \u2014 fan out many in parallel, each isolated in its own git worktree, all from one screen. Engine-agnostic: Claude Code, Codex, and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sma1lboy/kobe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T00:51:31Z"
+  "distributed_at": "2026-07-05T01:04:17Z"
 }
