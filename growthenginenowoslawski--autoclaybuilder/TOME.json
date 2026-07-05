@@ -4,7 +4,7 @@
   "repo": "autoclaybuilder",
   "description": "Builds Clay tables \u2014 correctly, verifiably, the first time. Plan-gated; cloning is the calibration test suite.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/growthenginenowoslawski/autoclaybuilder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T02:48:56Z"
+  "distributed_at": "2026-07-05T03:05:07Z"
 }
