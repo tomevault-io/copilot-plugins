@@ -4,7 +4,7 @@
   "repo": "infrawise",
   "description": "MCP server for AWS infrastructure analysis (16 tools) \u2014 DynamoDB, Lambda, SQS, SNS, S3, API Gateway, PostgreSQL, MySQL, MongoDB, Kafka & IaC drift. Works with Claude Code, Cursor, and GitHub Copilot.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sidd27/infrawise",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T04:50:44Z"
+  "distributed_at": "2026-07-05T05:08:35Z"
 }
