@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--fabric-apps-analytic-templates",
+  "displayName": "fabric-apps-analytic-templates",
+  "description": "Build data analytics apps based on your data in Fabric",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/fabric-apps-analytic-templates",
+  "skills": []
+}
