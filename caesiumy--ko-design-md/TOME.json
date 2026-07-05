@@ -1,0 +1,44 @@
+{
+  "name": "ko-design-md",
+  "owner": "CaesiumY",
+  "repo": "ko-design-md",
+  "description": "\ud55c\uad6d \ube0c\ub79c\ub4dc \ub514\uc790\uc778 \uc2dc\uc2a4\ud15c\uc744 Stitch v0.1 \ub9c8\ud06c\ub2e4\uc6b4\uc73c\ub85c \uc815\ub9ac\ud55c \uc624\ud508 \uce74\ud0c8\ub85c\uadf8 \u2014 Open catalog of Korean design systems in structured markdown.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CaesiumY/ko-design-md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T03:16:55Z"
+}
