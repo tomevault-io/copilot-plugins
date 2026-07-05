@@ -4,7 +4,7 @@
   "repo": "codex-webtoon",
   "description": "A webtoon studio that uses Codex CLI OAuth",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OU9999/codex-webtoon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T04:48:44Z"
+  "distributed_at": "2026-07-05T05:06:35Z"
 }
