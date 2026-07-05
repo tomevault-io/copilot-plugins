@@ -1,0 +1,9 @@
+{
+  "name": "by-sonic--sonicdpi",
+  "displayName": "sonicdpi",
+  "description": "Open-source DPI bypass for YouTube and Discord. Cross-platform (Windows / Linux / macOS), Rust. Zapret / GoodbyeDPI / byedpi alternative. Works against TSPU, GFW and other carrier-grade DPI.",
+  "version": "1.0.0",
+  "author": "by-sonic",
+  "homepage": "https://github.com/by-sonic/sonicdpi",
+  "skills": []
+}
