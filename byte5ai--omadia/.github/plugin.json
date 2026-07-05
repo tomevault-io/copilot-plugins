@@ -1,0 +1,9 @@
+{
+  "name": "byte5ai--omadia",
+  "displayName": "omadia",
+  "description": "Self-hostable agentic OS. Build, run & audit multi-agent AI teams from signed plugins. Bring your own LLM key, own all your data, EU/GDPR-ready.",
+  "version": "1.0.0",
+  "author": "byte5ai",
+  "homepage": "https://github.com/byte5ai/omadia",
+  "skills": []
+}
