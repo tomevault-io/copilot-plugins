@@ -1,0 +1,9 @@
+{
+  "name": "pvrlabs--aibadger",
+  "displayName": "aibadger",
+  "description": "AI Badger - Local-first tool that extracts focused repo context for any AI chat (Claude, ChatGPT, Grok, etc.) without wasting tokens on irrelevant files.",
+  "version": "1.0.0",
+  "author": "PVRLabs",
+  "homepage": "https://github.com/PVRLabs/aibadger",
+  "skills": []
+}
