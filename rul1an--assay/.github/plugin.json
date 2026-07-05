@@ -1,0 +1,9 @@
+{
+  "name": "rul1an--assay",
+  "displayName": "assay",
+  "description": "Policy-as-code for MCP agents: deny risky tool calls before they run, prove what ran with verifiable evidence, and enforce egress in the kernel (eBPF/LSM, Linux). Deterministic, offline-first, bounded",
+  "version": "1.0.0",
+  "author": "Rul1an",
+  "homepage": "https://github.com/Rul1an/assay",
+  "skills": []
+}
