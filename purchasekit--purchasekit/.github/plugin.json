@@ -1,0 +1,9 @@
+{
+  "name": "purchasekit--purchasekit",
+  "displayName": "purchasekit",
+  "description": "Add mobile in-app purchases (IAP) to your Rails app with PurchaseKit and Pay.",
+  "version": "1.0.0",
+  "author": "PurchaseKit",
+  "homepage": "https://github.com/PurchaseKit/purchasekit",
+  "skills": []
+}
