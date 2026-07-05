@@ -237489,6 +237489,36 @@
       "description": "opencode-usage"
     },
     {
+      "name": "sksat--orts",
+      "source": "./sksat--orts",
+      "description": "orts is an astrodynamics simulation platform \u2014 orbit and attitude dynamics with real-time 3D visualization, extensible WASM plugins, and in-browser analytics."
+    },
+    {
+      "name": "pollux12--gmod-glua-ls",
+      "source": "./pollux12--gmod-glua-ls",
+      "description": "Garry's Mod (GLua) Language Server "
+    },
+    {
+      "name": "bestcow--lain",
+      "source": "./bestcow--lain",
+      "description": "AI orchestrator \u2014 electron, claude, ai-agent, orchestrator, korean, Windows"
+    },
+    {
+      "name": "mdemirhan--dux",
+      "source": "./mdemirhan--dux",
+      "description": "A disk usage tool written in Python"
+    },
+    {
+      "name": "honeyfield-org--ris-mcp-ts",
+      "source": "./honeyfield-org--ris-mcp-ts",
+      "description": "MCP Server for the Austrian Legal Information System (RIS) - Access Austrian federal laws, state laws, court decisions and more"
+    },
+    {
+      "name": "refined-element--lightning-enable-mcp",
+      "source": "./refined-element--lightning-enable-mcp",
+      "description": "MCP server enabling AI agents to make Lightning Network payments"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257362,6 +257392,16 @@
       "name": "wilfredinni--noodle",
       "source": "./wilfredinni--noodle",
       "description": "A delicious REST client for your terminal"
+    },
+    {
+      "name": "xzulab--free-for-dev-zh",
+      "source": "./xzulab--free-for-dev-zh",
+      "description": "\u5f00\u53d1\u8005\u514d\u8d39\u8d44\u6e90\u6e05\u5355\u4e2d\u6587\u7248\uff0c\u6574\u7406\u81ea ripienaar/free-for-dev\uff0c\u6536\u5f55 SaaS\u3001PaaS\u3001   IaaS\u3001\u5f00\u53d1\u5de5\u5177\u3001\u4e91\u670d\u52a1\u3001AI\u3001\u76d1\u63a7\u3001\u6258\u7ba1\u3001\u6d4b\u8bd5\u7b49\u9762\u5411\u5f00\u53d1\u8005\u7684\u514d\u8d39\u5957\u9910\u4e0e\u514d\u8d39\u989d\u5ea6\u3002"
+    },
+    {
+      "name": "xzulab--free-for-dev-zh",
+      "source": "./xzulab--free-for-dev-zh",
+      "description": "\u5f00\u53d1\u8005\u514d\u8d39\u8d44\u6e90\u6e05\u5355\u4e2d\u6587\u7248\uff0c\u6574\u7406\u81ea ripienaar/free-for-dev\uff0c\u6536\u5f55 SaaS\u3001PaaS\u3001   IaaS\u3001\u5f00\u53d1\u5de5\u5177\u3001\u4e91\u670d\u52a1\u3001AI\u3001\u76d1\u63a7\u3001\u6258\u7ba1\u3001\u6d4b\u8bd5\u7b49\u9762\u5411\u5f00\u53d1\u8005\u7684\u514d\u8d39\u5957\u9910\u4e0e\u514d\u8d39\u989d\u5ea6\u3002"
     },
     {
       "name": "cheerhuan--save-your-token",
