@@ -1,0 +1,9 @@
+{
+  "name": "ermalha--praxis-engine",
+  "displayName": "Praxis-Engine",
+  "description": "The first agent-led framework for IT Business Analysis. Built for high-complexity, multi-stakeholder environments where standard LLMs fail. Features a strict \"Sufficiency Gate\" to ensure requirement i",
+  "version": "1.0.0",
+  "author": "ermalha",
+  "homepage": "https://github.com/ermalha/Praxis-Engine",
+  "skills": []
+}
