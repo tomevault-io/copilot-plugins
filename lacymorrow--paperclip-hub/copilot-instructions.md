@@ -1,215 +1,111 @@
-## server-actions-patterns
+## single-responsibility-principle
 
-> ❌ **Never export classes from "use server" files**
+> The Single Responsibility Principle states that "A module should be responsible to one, and only one, actor." In simpler terms, a class or function should have only one reason to change.
 
-# Server Actions & Services Patterns
+# Single Responsibility Principle (SRP)
 
-## Next.js "use server" Restrictions
+## Definition
+The Single Responsibility Principle states that "A module should be responsible to one, and only one, actor." In simpler terms, a class or function should have only one reason to change.
 
-### Critical Rule: Only Async Functions in "use server" Files
-❌ **Never export classes from "use server" files**
+## Core Principles
+- Each module has one clearly defined purpose
+- Services handle only their domain concerns
+- User creation belongs only in UserService
+- Payment processing belongs only in PaymentService
+- Side effects are managed by their respective services
+- Cross-cutting concerns use service composition
+
+## Signs of SRP Violations
+- Methods doing multiple unrelated things
+- Large service files (>300 lines)
+- Services creating/managing entities outside their domain
+- Duplicated logic across services
+- A change in one feature requires changes in multiple services
+- Conditional logic based on entity types
+- Direct database access across domain boundaries
+
+## Best Practices
+
+### Service Organization
+- Services should only manipulate their own domain entities
+- UserService should be the ONLY place creating/updating users
+- TeamService should be the ONLY place creating/updating teams
+- PaymentService should NEVER create users directly
+- Use service composition instead of cross-domain logic
+
+### Correct Patterns
 ```typescript
-// This will cause build errors
-"use server";
-export class MyService { // ❌ BREAKS
-  static async method() {}
+// ✅ Good: PaymentService calls UserService for user creation
+const user = await userService.ensureUserExists({
+  email: payment.email,
+  name: payment.name
+});
+await this.linkPaymentToUser(payment, user.id);
+
+// ✅ Good: UserService manages all user creation side effects
+async createUser(data) {
+  const user = await this.insert(data);
+  await this.createPersonalTeam(user.id);
+  await this.createDefaultApiKey(user.id);
+  return user;
 }
 ```
 
-✅ **Always use individual exported async functions**
+### Incorrect Patterns
 ```typescript
-// This works correctly
-"use server";
-export async function myServiceMethod() { // ✅ WORKS
-  // implementation
-}
-```
+// ❌ Bad: PaymentService creating users directly
+const [user] = await db.insert(users).values({
+  email: payment.email,
+  name: payment.name
+}).returning();
 
-## Service Layer Pattern
-
-### Function Naming Convention
-Use descriptive function names that indicate the entity and action:
-```typescript
-// Waitlist service functions
-addWaitlistEntry()
-getWaitlistEntry()
-updateWaitlistEntry()
-deleteWaitlistEntry()
-
-// User service functions
-addUserAccount()
-getUserProfile()
-updateUserSettings()
-```
-
-### Database Null Checks
-Always validate database connection in service functions:
-```typescript
-export async function serviceFunction() {
-  if (!db) {
-    throw new Error("Database not initialized");
-  }
-  // proceed with database operations
-}
-```
-
-## Server Actions Pattern
-
-### Form Handling Actions
-Server actions should handle the complete user flow:
-```typescript
-export async function handleFormSubmission(formData: FormData) {
-  try {
-    // 1. Validate input
-    // 2. Check business rules (duplicates, etc.)
-    // 3. Call service functions
-    // 4. Handle side effects (emails, etc.)
-    // 5. Return success/error response
-    return { success: true };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-}
-```
-
-### Error Handling Pattern
-Always provide user-friendly error responses:
-```typescript
-} catch (error: unknown) {
-  if (error instanceof Error) {
-    console.error("Specific error:", error.message);
-    return { success: false, error: error.message };
-  }
-  console.error("Unknown error:", error);
-  return { success: false, error: "An unknown error occurred" };
-}
-```
-
-## Import/Export Patterns
-
-### Service Function Imports
-Import specific functions, optionally with aliases:
-```typescript
-import {
-  addWaitlistEntry,
-  isEmailOnWaitlist,
-  getWaitlistStats as getStats
-} from "@/server/services/waitlist-service";
-```
-
-### Avoid Default Exports
-Use named exports for better TypeScript support:
-```typescript
-// ✅ Good
-export async function myFunction() {}
-
-// ❌ Avoid
-export default async function() {}
-```
-
-## Database Operation Patterns
-
-### Single Responsibility Functions
-Each service function should have one clear purpose:
-```typescript
-// ✅ Good - single responsibility
-export async function addWaitlistEntry(data: NewEntry) {}
-export async function isEmailOnWaitlist(email: string) {}
-
-// ❌ Avoid - multiple responsibilities
-export async function handleWaitlistOperations(action: string, data: any) {}
-```
-
-### Proper Return Types
-Use specific TypeScript return types:
-```typescript
-export async function getWaitlistStats(): Promise<{
-  total: number;
-  notified: number;
-  pending: number;
-}> {
-  // implementation
-}
-```
-
-## Testing Service Functions
-
-### Interface Testing
-Test that functions exist and have correct signatures:
-```typescript
-import { myServiceFunction } from "@/server/services/my-service";
-
-it("should have correct interface", () => {
-  expect(typeof myServiceFunction).toBe("function");
+// ❌ Bad: Duplicated team creation logic
+await db.insert(teams).values({
+  id: randomUUID(),
+  name: "Personal",
+  userId: user.id
 });
 ```
 
-### Mock Database for Tests
-Use dependency injection or mocking for unit tests:
-```typescript
-// Mock the database for testing
-vi.mock("@/server/db", () => ({
-  db: mockDb
-}));
-```
+## Refactoring Guidelines
 
-## File Organization
+### When to Refactor
+- When you find duplicated business logic
+- When a service needs to know too much about another domain
+- When adding a feature requires changes to multiple services
+- When a service file exceeds 300 lines
 
-### Service Files Structure
-```
-src/server/
-├── services/          # Business logic functions
-│   ├── user-service.ts
-│   ├── waitlist-service.ts
-│   └── email-service.ts
-├── actions/           # Form handling and UI interactions
-│   ├── user-actions.ts
-│   └── waitlist-actions.ts
-└── db/               # Database configuration
-    ├── schema.ts
-    └── index.ts
-```
+### How to Refactor
+1. Identify the "actor" responsible for each piece of functionality
+2. Move methods to their appropriate service
+3. Replace direct operations with service calls
+4. Update tests to reflect new structure
+5. Document service boundaries
 
-### Function Exports
-Keep related functions in the same file:
-```typescript
-// waitlist-service.ts
-export async function addWaitlistEntry() {}
-export async function getWaitlistEntry() {}
-export async function updateWaitlistEntry() {}
-export async function deleteWaitlistEntry() {}
-```
+## Examples
 
-## Performance Patterns
+### User Creation
+- UserService: responsible for creating users and all related side effects
+- PaymentService: should NEVER create users directly
+- AuthService: should defer to UserService for user creation
 
-### Parallel Database Operations
-Use Promise.all for independent queries:
-```typescript
-export async function getWaitlistDashboardData() {
-  const [stats, entries] = await Promise.all([
-    getWaitlistStats(),
-    getWaitlistEntries({ limit: 100 })
-  ]);
-  return { stats, entries };
-}
-```
+### Team Management
+- TeamService: responsible for all team operations
+- UserService: should call TeamService for team-related operations
+- ProjectService: should call TeamService for team access checks
 
-### Pagination Support
-Include pagination options in list functions:
-```typescript
-export async function getWaitlistEntries(
-  options: {
-    limit?: number;
-    offset?: number;
-    orderBy?: "asc" | "desc";
-  } = {}
-): Promise<Entry[]> {
-  const { limit = 50, offset = 0, orderBy = "desc" } = options;
-  // implementation
-}
-```
+## Testing
 
-This pattern ensures service functions are properly structured for Next.js App Router and provides clear separation of concerns between data access and user interface logic.
+- Test services in isolation using mocks for dependencies
+- Verify service boundaries are respected in integration tests
+- Don't test implementation details, test outcomes
+
+## Monitoring for SRP Violations
+
+- Regular code reviews focusing on service boundaries
+- Static analysis for cyclomatic complexity
+- Monitor file size growth over time
+- Track cross-service dependencies
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
