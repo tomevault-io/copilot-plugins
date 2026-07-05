@@ -1,0 +1,9 @@
+{
+  "name": "cameronfoxly--patch-studio",
+  "displayName": "patch-studio",
+  "description": "Web-based GUI for building synthesized sounds with @web-kits/audio",
+  "version": "1.0.0",
+  "author": "CameronFoxly",
+  "homepage": "https://github.com/CameronFoxly/patch-studio",
+  "skills": []
+}
