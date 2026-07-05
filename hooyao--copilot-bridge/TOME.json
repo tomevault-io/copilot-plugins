@@ -4,7 +4,7 @@
   "repo": "copilot-bridge",
   "description": ".NET 10 Native AOT reverse proxy exposing GitHub Copilot's LLM API as Anthropic/OpenAI/Gemini-compatible endpoints",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hooyao/copilot-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T03:24:45Z"
+  "distributed_at": "2026-07-05T04:49:14Z"
 }
