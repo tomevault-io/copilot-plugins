@@ -113699,6 +113699,11 @@
       "description": "A Fable written Claude MD for Opus/Sonnet to give it some of the quality methodology that Fable uses"
     },
     {
+      "name": "u-ichi--compact-plus",
+      "source": "./u-ichi--compact-plus",
+      "description": "Claude Code plugin: preserve and restore working state around /compact"
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -146482,6 +146487,11 @@
       "name": "animaios--anima-use-google",
       "source": "./animaios--anima-use-google",
       "description": "MCP server + browser sidecar extension that lets AI agents run Google AI Mode searches using your own logged-in browser session"
+    },
+    {
+      "name": "crussella0129--animus-1-0",
+      "source": "./crussella0129--animus-1-0",
+      "description": "A repository for the open source, natively running, Agentic CLI project: Animus (Deprecated prototype repo for now, see Animus_Ferric repo for most recent developments)"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -237529,6 +237539,26 @@
       "description": "MCP server enabling AI agents to make Lightning Network payments"
     },
     {
+      "name": "aeon-7--aeon-bench-pod",
+      "source": "./aeon-7--aeon-bench-pod",
+      "description": "Run the AEON Bench suite on your own hardware: verified HuggingFace pull \u2192 serve \u2192 benchmark (text \u00b7 agentic \u00d73 harnesses \u00b7 vision \u00b7 audio \u00b7 arena \u00b7 perf) \u2192 ed25519-signed attested submit."
+    },
+    {
+      "name": "alexey-pelykh--lhremote",
+      "source": "./alexey-pelykh--lhremote",
+      "description": "CLI and MCP server for LinkedHelper automation \u2014 let AI assistants control LinkedIn outreach"
+    },
+    {
+      "name": "jandedobbeleer--punch",
+      "source": "./jandedobbeleer--punch",
+      "description": "punch"
+    },
+    {
+      "name": "w-martin--typedframes",
+      "source": "./w-martin--typedframes",
+      "description": "typedframes"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257412,6 +257442,36 @@
       "name": "xzulab--free-for-dev-zh",
       "source": "./xzulab--free-for-dev-zh",
       "description": "\u5f00\u53d1\u8005\u514d\u8d39\u8d44\u6e90\u6e05\u5355\u4e2d\u6587\u7248\uff0c\u6574\u7406\u81ea ripienaar/free-for-dev\uff0c\u6536\u5f55 SaaS\u3001PaaS\u3001   IaaS\u3001\u5f00\u53d1\u5de5\u5177\u3001\u4e91\u670d\u52a1\u3001AI\u3001\u76d1\u63a7\u3001\u6258\u7ba1\u3001\u6d4b\u8bd5\u7b49\u9762\u5411\u5f00\u53d1\u8005\u7684\u514d\u8d39\u5957\u9910\u4e0e\u514d\u8d39\u989d\u5ea6\u3002"
+    },
+    {
+      "name": "zotoio--crux-compress",
+      "source": "./zotoio--crux-compress",
+      "description": "Compress verbose LLM rules while retaining self-contained meaning and intent."
+    },
+    {
+      "name": "zotoio--crux-compress",
+      "source": "./zotoio--crux-compress",
+      "description": "Compress verbose LLM rules while retaining self-contained meaning and intent."
+    },
+    {
+      "name": "zotoio--crux-compress",
+      "source": "./zotoio--crux-compress",
+      "description": "Compress verbose LLM rules while retaining self-contained meaning and intent."
+    },
+    {
+      "name": "yappologistic--winotch",
+      "source": "./yappologistic--winotch",
+      "description": "winotch"
+    },
+    {
+      "name": "zotoio--crux-compress",
+      "source": "./zotoio--crux-compress",
+      "description": "Compress verbose LLM rules while retaining self-contained meaning and intent."
+    },
+    {
+      "name": "zotoio--crux-compress",
+      "source": "./zotoio--crux-compress",
+      "description": "Compress verbose LLM rules while retaining self-contained meaning and intent."
     },
     {
       "name": "cheerhuan--save-your-token",
