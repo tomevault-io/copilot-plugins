@@ -1,0 +1,9 @@
+{
+  "name": "patlux--pi-commandcode-provider",
+  "displayName": "pi-commandcode-provider",
+  "description": "pi custom provider for the Command Code API \u2014 18 models including Claude, GPT, DeepSeek, Kimi, GLM, MiniMax, and Qwen",
+  "version": "1.0.0",
+  "author": "patlux",
+  "homepage": "https://github.com/patlux/pi-commandcode-provider",
+  "skills": []
+}
