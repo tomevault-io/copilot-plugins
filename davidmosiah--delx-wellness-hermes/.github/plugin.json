@@ -1,0 +1,9 @@
+{
+  "name": "davidmosiah--delx-wellness-hermes",
+  "displayName": "delx-wellness-hermes",
+  "description": "Turn Hermes into a local-first wellness agent with guided setup, onboarding, wellness skills and MCP connector presets.",
+  "version": "1.0.0",
+  "author": "davidmosiah",
+  "homepage": "https://github.com/davidmosiah/delx-wellness-hermes",
+  "skills": []
+}
