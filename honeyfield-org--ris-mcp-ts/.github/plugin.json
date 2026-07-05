@@ -1,0 +1,9 @@
+{
+  "name": "honeyfield-org--ris-mcp-ts",
+  "displayName": "ris-mcp-ts",
+  "description": "MCP Server for the Austrian Legal Information System (RIS) - Access Austrian federal laws, state laws, court decisions and more",
+  "version": "1.0.0",
+  "author": "Honeyfield-Org",
+  "homepage": "https://github.com/Honeyfield-Org/ris-mcp-ts",
+  "skills": []
+}
