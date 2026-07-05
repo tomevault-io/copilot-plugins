@@ -1,0 +1,9 @@
+{
+  "name": "duendesoftware--duende-skills",
+  "displayName": "duende-skills",
+  "description": "A set of skills focused on helping agents build Duende IdentityServer solutions.",
+  "version": "1.0.0",
+  "author": "DuendeSoftware",
+  "homepage": "https://github.com/DuendeSoftware/duende-skills",
+  "skills": []
+}
