@@ -1,0 +1,9 @@
+{
+  "name": "zycaskevin--vault-agent-memory",
+  "displayName": "Vault-Agent-Memory",
+  "description": "Local-first memory governance for AI agents: shared, reviewable, auditable memory via SQLite and MCP.",
+  "version": "1.0.0",
+  "author": "zycaskevin",
+  "homepage": "https://github.com/zycaskevin/Vault-Agent-Memory",
+  "skills": []
+}
