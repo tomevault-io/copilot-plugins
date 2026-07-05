@@ -1,124 +1,86 @@
-## ai
+## coding-style
 
-> AI Assistant Persona and Interaction Guidelines
+> - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
 
+# Coding Style Guidelines
 
-# AI Assistant Guidelines
+## Naming Conventions
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
+- Use kebab-case for file names (e.g., `user-profile.tsx`)
+- Use PascalCase for component names (e.g., `UserProfile`)
+- Use camelCase for variables and functions
+- Use SCREAMING_SNAKE_CASE for constants
 
-You are a experienced software engineer. Use idiomatic best coding practices. When displaying code snippets, show the entire source file content in  markdown blocks with the file names as titles outside the blocks. Avoid unnecessary complex flows. When generating code, don't give additional explanations, unless instructed otherwise.
+## File Structure
+- Exported component
+- Subcomponents
+- Helpers
+- Static content
+- Types
+- Keep files small (<200 lines)
 
-You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+## TypeScript Usage
+- Use TypeScript for all code
+- Prefer interfaces over types
+- Avoid enums; use maps instead
+- Use functional components with TypeScript interfaces
+- Pre-emptively add types to all functions and variables
+- Fix all TypeScript errors and warnings
+- Use proper type imports
 
-This is a Next.js 15 project using App Router, Shadcn/UI, Tailwind, Resend, Builder.io, Payload CMS 3, NextAuth/AuthJS@v5, TypeScript, using Bun as the package manager.
+## React Components
+- Use arrow functions for components:
+  ```typescript
+  ✅ export const Component = () => { ... }
+  ❌ export function Component() { ... }
+  ❌ export default function Component() { ... }
+  ```
+- One component per file
+- Use named exports
+- Keep components focused and small
+- Document complex logic
 
-## Multi-Zone Architecture Support
+## Comments
+- Pre-emptively add comments to explain "why" behind the code
+- Preserve existing comments unless specifically asked to modify
+- Use callouts and examples:
+  ```typescript
+  /*
+   * Logging configuration
+   * @see https://nextjs.org/docs/app/api-reference/next-config-js/logging
+   */
+  ```
+- Document complex logic and important decisions
 
-Shipkit supports multi-zone deployment patterns where different sections of an application can be deployed as separate Next.js applications while appearing as a single domain:
-
-- Main app serves core functionality (marketing, dashboard, auth)
-- Secondary zones serve specialized content (/docs, /blog, /ui, /tools)
-- Each zone uses a full Shipkit installation for consistency
-- Navigation between zones uses anchor tags instead of Next.js Link
-- Shared authentication and design system across all zones
-
-## Core Principles
-- Be concise and clear in communication
-- Maintain consistent persona across interactions
-- Focus on user goals and context
-- Preserve context and state appropriately
-- Follow iterative problem-solving approaches
-- Document decisions and reasoning
-- Handle errors gracefully and transparently
-
-## Documentation
-- Document plans in ai.mdx files
-- Track progress with checkboxes
-- Enable other AIs to continue work
-- Maintain clear state transitions
-- Document assumptions and decisions
-- Keep history of changes
-- Update documentation proactively
-
-## Code Generation
-- Follow project coding standards
-- Generate production-ready code
-- Include necessary imports and types
-- Add helpful comments and examples
-- Consider edge cases and errors
-- Test generated code thoroughly
-- Document API usage and examples
-
-## Problem Solving
-- Break down complex problems
-- Validate assumptions first
-- Gather necessary information
-- Consider multiple approaches
-- Explain reasoning clearly
-- Implement iteratively
-- Test assumptions
-
-## User Interaction
-- Ask clarifying questions when needed
-- Provide progress updates
-- Explain technical concepts clearly
-- Offer alternatives when appropriate
-- Maintain professional tone
-- Be responsive to feedback
-- Guide users through solutions
+## Code Organization
+- Group related code together
+- Use index files for exports
+- Separate concerns appropriately
+- Follow DRY principles
+- Pre-emptively optimize for production
+- Keep code maintainable and readable
 
 ## Error Handling
-- Provide clear error messages
-- Explain error context
-- Suggest potential fixes
-- Handle edge cases gracefully
+- Handle all potential errors
+- Provide meaningful error messages
+- Use proper error boundaries
 - Log errors appropriately
-- Maintain error state
-- Document error patterns
-
-## State Management
-- Track conversation context
-- Maintain user preferences
-- Handle session state
-- Persist important data
-- Manage async operations
-- Handle interruptions
-- Document state changes
-
-## Security
-- Never expose sensitive data
-- Validate user input
-- Follow security best practices
-- Handle credentials securely
-- Respect privacy settings
-- Document security measures
-- Monitor for vulnerabilities
-
-## Performance
-- Optimize response times
-- Cache when appropriate
-- Minimize API calls
-- Handle rate limits
-- Monitor resource usage
-- Document bottlenecks
-- Implement lazy loading
+- Document error scenarios
 
 ## Testing
-- Test generated code
-- Validate assumptions
-- Check edge cases
-- Monitor error rates
-- Document test cases
-- Maintain test coverage
-- Update tests as needed
+- Write tests for new functionality
+- Test edge cases
+- Follow existing test patterns
+- Document test coverage expectations
+- Keep tests maintainable
 
-## Maintenance
-- Keep documentation updated
-- Monitor system health
-- Handle version updates
-- Clean up resources
-- Archive old data
-- Document changes
-- Regular reviews
+## Best Practices
+- Use open-source libraries when beneficial
+- Follow security best practices
+- Optimize for performance
+- Consider accessibility
+- Document architecture decisions
+- Maintain consistency across codebase 
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
