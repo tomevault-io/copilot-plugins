@@ -1,0 +1,9 @@
+{
+  "name": "0xroylee--getsuperpower",
+  "displayName": "getsuperpower",
+  "description": "GetSuperpower packages a whole AI-agent workflow as one callable skill.",
+  "version": "1.0.0",
+  "author": "0xroylee",
+  "homepage": "https://github.com/0xroylee/getsuperpower",
+  "skills": []
+}
