@@ -1,0 +1,9 @@
+{
+  "name": "skp2001vn--go-concurrency-examples",
+  "displayName": "go-concurrency-examples",
+  "description": "Concurrency examples such as batchers, connection pools, pub/sub brokers, rate limiters, bank accounts, inventory, lazy initialization, bounded queues, pipelines",
+  "version": "1.0.0",
+  "author": "skp2001vn",
+  "homepage": "https://github.com/skp2001vn/go-concurrency-examples",
+  "skills": []
+}
