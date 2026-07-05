@@ -4,7 +4,7 @@
   "repo": "pro7-lyric-corrector",
   "description": "Free ProPresenter 7 worship lyric autocorrector for the Songs library",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stephenrgarcia/pro7-lyric-corrector",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T06:34:11Z"
+  "distributed_at": "2026-07-05T06:38:34Z"
 }
