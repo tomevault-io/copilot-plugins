@@ -1,0 +1,9 @@
+{
+  "name": "meepolabs--routectl",
+  "displayName": "routectl",
+  "description": "A local LLM router with OpenAI and Anthropic format translation, retry and fallback chains",
+  "version": "1.0.0",
+  "author": "meepolabs",
+  "homepage": "https://github.com/meepolabs/routectl",
+  "skills": []
+}
