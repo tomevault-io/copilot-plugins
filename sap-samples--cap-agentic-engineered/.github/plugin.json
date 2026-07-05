@@ -1,0 +1,9 @@
+{
+  "name": "sap-samples--cap-agentic-engineered",
+  "displayName": "cap-agentic-engineered",
+  "description": "Reference CAP + Fiori Elements application showing how AI coding agents produce higher-quality SAP applications when grounded by SAP MCP servers (CAP, Fiori, UI5). Includes a reusable AGENTS.md, MCP s",
+  "version": "1.0.0",
+  "author": "SAP-samples",
+  "homepage": "https://github.com/SAP-samples/cap-agentic-engineered",
+  "skills": []
+}
