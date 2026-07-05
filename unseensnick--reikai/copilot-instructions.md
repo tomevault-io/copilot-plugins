@@ -1,0 +1,119 @@
+## reikai
+
+> Android manga + light-novel reader. Personal fork built on [Mihon](https://github.com/mihonapp/mihon) (Tachiyomi lineage), adding light novels, multi-source grouping, manual merge/unmerge, and category sort order.
+
+# Reikai
+
+Android manga + light-novel reader. Personal fork built on [Mihon](https://github.com/mihonapp/mihon) (Tachiyomi lineage), adding light novels, multi-source grouping, manual merge/unmerge, and category sort order.
+
+**Rebase onto Mihon (shipped 2026-06 as v0.1.0):** Reikai was previously a fork of [Yōkai](https://github.com/null2264/yokai); it has been rebased onto Mihon. The rebase has shipped: `main` is now the Mihon-based main (the old `design/mihon-rebase` branch is gone). The old Yōkai-based code (branch `design/library-compose`) is kept only as the porting reference. Full plan and feature list: [ROADMAP.md](ROADMAP.md) plus the per-feature records in [docs/dev/plans/](docs/dev/plans/); ongoing status: the `mihon-rebase` memory.
+
+## Working approach
+
+**Investigate before planning when context is thin.** If you aren't confident you understand the surrounding code, conventions, or constraints for a task (porting a Reikai feature onto Mihon, touching an unfamiliar module, changing cross-cutting infrastructure), investigate first: read the relevant files, trace the existing pattern. Two reference sources: `refs/mihon/` (the live upstream base) and the `design/library-compose` branch (Reikai's Yōkai-era features awaiting port). For non-trivial work, invoke `/scout` to produce a grounded findings report before forming a plan. Only present a plan once you're truly confident, then wait for approval before executing.
+
+**Cite before you claim.** Every concrete claim about the codebase, framework, or upstream (a function name, a file path, a flag, "X calls Y") must come with a `file:line` citation from current code that you just read. If you can't cite it, you don't know it: read first, claim second. Memory and Handoff content are hypotheses, not facts; a memory that names a function or file is true only if it still exists in current code. When a stale memory is found, surface it for pruning instead of acting on it.
+
+**Plan before acting.** Once you have enough context, think through what needs to change and why: which files are affected, what the failure modes are, whether the approach is sound. Use `EnterPlanMode` for non-trivial tasks to draft and get approval before touching code.
+
+**Stop and replan when blocked.** If you hit an unexpected problem mid-task (a failing constraint, a broken assumption, an error you don't fully understand), stop all changes immediately and surface the blocker. Do not circumvent it (deleting a test, silencing a lint error, skipping a hook, or forcing past a tool denial). Replan from scratch with the new information.
+
+**Offload long or hard tasks to subagents.** When a task requires deep codebase exploration, multi-file research, or extended multi-step work, spawn a subagent (`Agent` tool). This keeps the main context window clean.
+
+**Explain in plain English, without dumbing down.** Default to clear everyday language: spell out what something does and why it matters before naming the construct, define jargon the first time, and prefer a concrete analogy over a term of art (the user is newer to Kotlin/Android). Plain English does NOT mean less substance: keep the real technical detail, the tradeoffs, the failure modes, and the `file:line` citations. The goal is that someone can follow the reasoning without already knowing the codebase, not that the content is thinner. When presenting findings or a plan, lead with the plain-English picture; the precise function/file names are support, not the headline.
+
+## Architecture in brief
+
+Mihon is **Compose + Voyager throughout**: there is no Conductor `*Controller` / RxJava `*Presenter` legacy layer to migrate from. Screens are Voyager `Screen` / `Tab` classes backed by a `ScreenModel`. DI is **Injekt**. Domain models are immutable (`tachiyomi.domain.*.model`). Preferences go through `PreferenceStore` and typed `*Preferences` classes. Persistence is SQLDelight. Full detail: [.claude/rules/architecture.md](.claude/rules/architecture.md).
+
+## Screen conventions (match Mihon)
+
+Every Reikai screen ported onto or added to Mihon follows Mihon's existing Voyager conventions. Index (full rationale + reference screen in [.claude/rules/screen-conventions.md](.claude/rules/screen-conventions.md)):
+
+1. A Voyager `Screen` / `Tab` class, not a bare `@Composable fun FooScreen()`.
+2. Business logic in a `ScreenModel` resolved via `rememberScreenModel { ... }`. Pure-UI screens may skip it and say so in a one-line comment.
+3. No `Injekt.get<>()` / `injectLazy()` inside a `@Composable` body. Inject in the ScreenModel.
+4. State exposed as `StateFlow` (typically `StateScreenModel<S>`). No RxJava on the screen path.
+5. No `PreferenceStore` / `*Preferences` read inside a `@Composable`. Read in the ScreenModel, expose as state.
+6. Coroutines via `screenModelScope.launchIO` / `launchUI` (ScreenModel) or `rememberCoroutineScope()` (composable). Never `GlobalScope`; use `WorkManager` for work that must outlive the screen.
+7. Business logic out of `@Composable`. Side-effects in `LaunchedEffect` or the ScreenModel.
+8. Re-typed to Mihon's immutable domain models; in-place edits to Mihon's own files fenced with `// RK -->` / `// RK <--` markers (see below). Net-new code lives in its own files/modules.
+
+## Code change defaults
+
+- **DRY**: Before adding a helper, search the codebase (or run an Explore agent in plan mode) for an existing equivalent.
+- **YAGNI**: Only add what the current task requires. No speculative APIs, optional parameters, or abstractions for hypothetical callers.
+- **KISS**: Prefer the simplest correct solution. Complexity must be justified by concrete requirements, not elegance or anticipated scale.
+- **Minimal blast radius**: A bug fix changes only what's broken. A feature adds only what's specified. Leave working surrounding code untouched.
+- **No standalone refactor sprints**: Refactor incrementally alongside the feature or fix that motivated it. Never propose a separate "cleanup pass" unless the user asks.
+
+### Anti-defaults
+
+- No premature abstractions. Three similar lines beat a helper used once.
+- Don't add features or improvements beyond what was asked.
+- Don't refactor adjacent code while fixing a bug.
+- No dead code or commented-out blocks. Git has history.
+- Comments, KDoc, and docstrings exist for contributors and maintainers. Keep them short and concise without losing context. Explain WHY, not WHAT (rename if a WHAT comment is needed). Reserve KDoc for module boundaries (public APIs of `source-api`, repository interfaces), not every internal function. Never a wall of text.
+- No em dashes in prose, comments, commit messages, or PR bodies. Use commas, parentheses, periods, or colons. Em dashes are a Claude stylistic tic that flags writing as AI-generated.
+- No AI-generated watermarks. Don't add "Co-Authored-By: Claude", "Generated with Claude Code", robot emoji footers, or similar tags to commits, PRs, code, or docs.
+
+## Commit messages (every commit, no exceptions)
+
+EVERY commit on the branch (including `docs` / `chore` / one-line fixes, not just feature commits) follows the standard in [.claude/rules/workflow.md](.claude/rules/workflow.md) "Commit message standard". Run its pre-commit checklist before each commit; the non-negotiables:
+
+- Subject `type(scope): summary`: imperative, lower-case, no trailing period, `<=72` chars.
+- **Never a bare `#N`** in the subject OR body (it's ambiguous). A roadmap item is `Roadmap N`; a real issue/PR uses the explicit `owner/repo#N` form (`unseensnick/Reikai#N` for ours, `mihonapp/mihon#N` for upstream), which links correctly. A bare `#N` (and `Roadmap #8`, `Mihon PR #3403`) is the most common past slip, so check the body, not just the subject.
+- No em dashes; no AI watermark.
+- Non-trivial commits get a body that leads with 1-2 plain-language sentences, then benefit-first bullets. A trivial commit is just the compliant subject.
+
+**Public-facing surfaces stay generic about content sources.** No specific source names (especially adult) or aggregation vocab in the repo description / topics, README, release notes (and the CHANGELOG sections feeding them), or branch / PR names: use generic wording ("adult content sources", "a Cloudflare-blocked source") and link to the detailed docs (which may name them). Branch example `fix/paging-crash`. In-app strings / code name sources as the feature needs; commit history is left as-is. Stay a notch tighter than Komikku (which names sources in its README / releases). Full rule: [.claude/rules/workflow.md](.claude/rules/workflow.md) "Public-facing naming".
+
+## Identity (load-bearing, preserve through the rebase)
+
+`applicationId = "eu.kanade.tachiyomi"` with release suffix `.y2k` (and debug `.debugY2k`), so existing installs upgrade in place. Mihon's own `applicationId` is `app.mihon`; the namespace `eu.kanade.tachiyomi` is shared by both, so source classes resolve either way. App name string `Reikai` lives in `i18n/src/commonMain/moko-resources/base/strings.xml`. Keep the `.y2k` suffix and app name; take Mihon for everything else.
+
+**Reikai patches on Mihon files** are fenced with `// RK -->` / `// RK <--` comment islands (grep `// RK` to find every active patch), mirroring how Komikku marks its `// SY` / `// KMK` patches. Everything that can live in its own file/module should, rather than editing Mihon's files.
+
+## Active upstream-sync watch (revisit, don't let this get lost)
+
+- **Notes background-crash fix (`mihonapp/mihon#3515`): Reikai deliberately diverges.** We keep our ported `mihonapp/mihon#3515` fix (serializable notes-screen args) because it fixes a crash we reproduced and verified on-device; Mihon reverted `mihonapp/mihon#3515` upstream on 2026-07-04 (`94b3b5eaa`) with no stated reason, keeping the sibling `mihonapp/mihon#3516`. **Watch what Mihon does next** (re-land, ship an alternative fix, or leave it reverted) and reconcile our port then, do not silently follow the revert. Full reasoning + ledger: [docs/dev/upstream-sync.md](docs/dev/upstream-sync.md) "Deliberate divergences". Remove this note once upstream settles.
+
+## Build
+
+Build in Android Studio. Gradle: JDK 21 (Temurin 21.0.11; matches `.github/.java-version`), formatting via Spotless (`./gradlew spotlessApply`), version catalogs `libs` and `mihonx`, build-logic via `gradle/build-logic` (`includeBuild`). Domain tests: `./gradlew :domain:test`. No `lintKotlin` / `formatKotlin` tasks exist (Kotlinter only installs a pre-push hook); use `spotlessApply` to format and `compileDebugKotlin` to check. (CLI Gradle is intermittent on this machine; build/test on-device in Android Studio when CLI fails.)
+
+**Release-type builds are minified, the `debugY2k` dev build is not**, so R8-only bugs are invisible in the normal dev loop. The recurring one: a net-new top-level package that uses Injekt generics (`Injekt.get<T>()`) needs its own proguard `-keep`, or the minified build crashes (Injekt `FullTypeReference`). When adding such a package or code, add the keep and verify a minified `:app:assemblePreview` build. Full rule: [.claude/rules/architecture.md](.claude/rules/architecture.md) "Minification (R8) and net-new packages".
+
+## Design context
+
+- [PRODUCT.md](PRODUCT.md) — register (product), users, brand personality (quiet, dense, deliberate), anti-references, design principles, accessibility. Read before any UI / visual work. Maintained via the `impeccable` skill.
+- [DESIGN.md](DESIGN.md) — once seeded, holds visual tokens (color, typography, motion, components).
+
+## Where things live
+
+- [.claude/rules/architecture.md](.claude/rules/architecture.md) — Compose + Voyager, Injekt DI, PreferenceStore, coroutines, domain models, module layout, `// RK` markers, R8/minification keeps for net-new packages.
+- [.claude/rules/screen-conventions.md](.claude/rules/screen-conventions.md) — Reikai screen conventions on Mihon, with rationale and a reference screen.
+- [.claude/rules/workflow.md](.claude/rules/workflow.md) — CHANGELOG rule, commits/PRs, release-cut, Mihon-upstream + Reikai-feature porting. **Commit message standard** (in "Commits & PRs"): subject `type(scope): summary` (imperative, <=72 chars); body leads with 1-2 plain-language sentences a non-developer can read, then benefit-first bullets (large commits group a user-facing section then `Under the hood:`), optional footer for tests/tradeoffs. Lead with the user-facing effect, never implementation. No em dashes, no AI watermarks. ROADMAP refs are written `Roadmap N` (never a bare `#N`, which is ambiguous); a real issue/PR uses the explicit `owner/repo#N` form (`unseensnick/Reikai#N` for ours, `mihonapp/mihon#N` for upstream). A `commit-msg` hook (`.githooks/commit-msg`) enforces the standard. **Mihon-sync standards** (the commit-message convention referencing upstream PRs/issues as `mihonapp/mihon#N` (cross-repo link, since a bare `#N` auto-links to a Reikai issue), the verbatim-cp + `// RK` hand-merge method, and the running synced-base ledger) live in its "Syncing with Mihon" section and, in full, [docs/dev/upstream-sync.md](docs/dev/upstream-sync.md).
+- [.claude/rules/code-quality.md](.claude/rules/code-quality.md) — DRY/YAGNI/KISS, naming, code markers, file organization.
+- [.claude/rules/testing.md](.claude/rules/testing.md) — behavior over implementation, mock at boundaries, coroutine test patterns.
+- [.claude/rules/database.md](.claude/rules/database.md) — SQLDelight migrations.
+- [.claude/rules/security.md](.claude/rules/security.md) — secrets, input validation.
+- [docs/dev/development.md](docs/dev/development.md) — architecture and module overview (Mihon-based: Compose + Voyager, Injekt, SQLDelight).
+- [docs/dev/plans/](docs/dev/plans/): per-feature implementation and decision records (one per substantial feature, indexed by its README). The forward backlog is [ROADMAP.md](ROADMAP.md); the format for both lives in `.claude/rules/workflow.md`.
+- [docs/dev/upstream-sync.md](docs/dev/upstream-sync.md) — porting upstream Mihon changes by hand (Reikai is a standalone repo, not a GitHub fork): the process, commit convention, verbatim-cp + `// RK` hand-merge method, recurring gotchas, and the running synced-base ledger. Enforced by `docs-lint` + the `pre-commit` hook (no em dash, no bare `#N`; content-source names allowed).
+- **Doc flow (finish an item, then ship):** [ROADMAP.md](ROADMAP.md) forward backlog, then [CHANGELOG.md](CHANGELOG.md) `[Unreleased]` (the source of truth for release notes, benefit-first bold headline), then [docs/dev/shipped.md](docs/dev/shipped.md) done-log at release-cut. Format for all three lives in `.claude/rules/workflow.md`.
+- [docs/dev/readme-showcase.md](docs/dev/readme-showcase.md) — how the README showcase animation (`screens.webp`) is captured and built; the reproduction kit (stills + frame + scripts) lives in `.github/readme-images/showcase/`.
+- Read-only reference clones live in `refs/` (declared in `.claude/settings.json`), mostly self-evident from their names. Non-obvious: `refs/tachiyomi-extension/` is the **Suwayomi** extension repo (`Suwayomi/tachiyomi-extension`, for connecting Reikai to a self-hosted Suwayomi server as an in-app source), NOT the archived `tachiyomiorg/tachiyomi-extensions`.
+
+## Skills for common flows
+
+- `/scout` — investigate a non-trivial task before planning; produces a findings report grounded in `file:line` citations. Use before ports or cross-cutting changes.
+- `/tighten` — trim verbose prose, walls of text, journey narration, and WHAT comments from docs (and, on ask, code comments) without losing vital info. Always plans before editing.
+- `/port-audit` — audit a port for behavioral parity against the Reikai source on `design/library-compose`. Use after a phase ships.
+- `/ship` — scan, stage, commit, push, PR with Reikai conventions (no `Co-Authored-By`, no `## Test plan`; `--repo unseensnick/Reikai`). Work targets `main`.
+- `/debug-fix` — bug-hunt workflow (`--fast` for hotfixes).
+- `/pr-review`, `/refactor`, `/test-writer`, `/tdd`, `/explain`, `/context-budget`.
+
+---
+> Source: [unseensnick/Reikai](https://github.com/unseensnick/Reikai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
