@@ -113694,6 +113694,11 @@
       "description": "Portable phone-call Agent Skills, apps, examples, adapters, and scheduler recipes for AI agents."
     },
     {
+      "name": "thecolliny--fableclaudemdforopus",
+      "source": "./thecolliny--fableclaudemdforopus",
+      "description": "A Fable written Claude MD for Opus/Sonnet to give it some of the quality methodology that Fable uses"
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -189392,6 +189397,11 @@
       "name": "a3s-lab--a3s",
       "source": "./a3s-lab--a3s",
       "description": "Agent as a Service"
+    },
+    {
+      "name": "tgdash--hashpay",
+      "source": "./tgdash--hashpay",
+      "description": "HashPay"
     },
     {
       "name": "lightninglabs--lnget",
