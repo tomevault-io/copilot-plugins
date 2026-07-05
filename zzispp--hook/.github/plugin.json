@@ -1,0 +1,9 @@
+{
+  "name": "zzispp--hook",
+  "displayName": "Hook",
+  "description": "AI API gateway and operations platform for unified model routing, token/RBAC access control, billing, provider management, and monitoring.",
+  "version": "1.0.0",
+  "author": "zzispp",
+  "homepage": "https://github.com/zzispp/Hook",
+  "skills": []
+}
