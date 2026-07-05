@@ -1,0 +1,9 @@
+{
+  "name": "agents365-ai--imagencn",
+  "displayName": "imagenCN",
+  "description": "Claude Code skill for AI image generation using Alibaba Cloud Bailian API (\u901a\u4e49\u5343\u95ee/\u901a\u4e49\u4e07\u76f8)",
+  "version": "1.0.0",
+  "author": "Agents365-ai",
+  "homepage": "https://github.com/Agents365-ai/imagenCN",
+  "skills": []
+}
