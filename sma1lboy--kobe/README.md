@@ -7,11 +7,11 @@ The best terminal IDE for coding agents. kobe reimagines how you work with AI ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Sma1lboy/kobe](https://github.com/Sma1lboy/kobe).
+Original source: `AGENTS.md` in [Sma1lboy/kobe](https://github.com/Sma1lboy/kobe).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
