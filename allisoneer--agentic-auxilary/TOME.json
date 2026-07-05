@@ -2,9 +2,9 @@
   "name": "agentic_auxilary",
   "owner": "allisoneer",
   "repo": "agentic_auxilary",
-  "description": "A collection of software tools to aid myself (and optionally others) in improved agentic ai development",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,105 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/test-tui/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/test-tui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/codex-bug/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/codex-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/babysit-pr/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/babysit-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/remote-tests/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/remote-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/codex-pr-body/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/codex-pr-body/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/codex-issue-digest/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/codex-issue-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/code-review-testing/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/code-review-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/code-review-context/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/code-review-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/code-review-change-size/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/code-review-change-size/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/.codex/skills/code-review-breaking-changes/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/.codex/skills/code-review-breaking-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/codex-rs/skills/src/assets/samples/imagegen/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/codex-rs/skills/src/assets/samples/imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/codex-rs/skills/src/assets/samples/openai-docs/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/codex-rs/skills/src/assets/samples/openai-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/codex-rs/skills/src/assets/samples/skill-creator/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/codex-rs/skills/src/assets/samples/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/codex-rs/skills/src/assets/samples/plugin-creator/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/codex-rs/skills/src/assets/samples/plugin-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic_auxilary",
+      "path": "vendor/codex/codex-rs/skills/src/assets/samples/skill-installer/SKILL.md",
+      "github_url": "https://github.com/allisoneer/agentic_auxilary/tree/main/vendor/codex/codex-rs/skills/src/assets/samples/skill-installer/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/allisoneer/agentic_auxilary",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T07:51:40Z"
+  "distributed_at": "2026-07-05T02:08:32Z"
 }
