@@ -1,0 +1,9 @@
+{
+  "name": "nudgebee--nudgebee",
+  "displayName": "nudgebee",
+  "description": "Unified CloudOps platform with AI-SRE, AI-FinOps, AI-K8sOps, and the Agentic Automation Builder without fragmented tools, context switching, or model lock-in.",
+  "version": "1.0.0",
+  "author": "nudgebee",
+  "homepage": "https://github.com/nudgebee/nudgebee",
+  "skills": []
+}
