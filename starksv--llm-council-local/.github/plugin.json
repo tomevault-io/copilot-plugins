@@ -1,0 +1,9 @@
+{
+  "name": "starksv--llm-council-local",
+  "displayName": "llm-council-local",
+  "description": "Multi-model deliberation with local Ollama \u2014 3-stage council with anonymous peer review",
+  "version": "1.0.0",
+  "author": "starkSV",
+  "homepage": "https://github.com/starkSV/llm-council-local",
+  "skills": []
+}
