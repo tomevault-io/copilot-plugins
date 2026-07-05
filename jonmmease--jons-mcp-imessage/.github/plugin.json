@@ -1,0 +1,9 @@
+{
+  "name": "jonmmease--jons-mcp-imessage",
+  "displayName": "jons-mcp-imessage",
+  "description": "MCP server for iMessage with hybrid search and contact name enrichment",
+  "version": "1.0.0",
+  "author": "jonmmease",
+  "homepage": "https://github.com/jonmmease/jons-mcp-imessage",
+  "skills": []
+}
