@@ -7,11 +7,11 @@ Opinionated AI-native monorepo starter — build your MVP as a production-ready 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lonormaly/builders-stack](https://github.com/lonormaly/builders-stack).
+Original source: `AGENTS.md` in [lonormaly/builders-stack](https://github.com/lonormaly/builders-stack).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
