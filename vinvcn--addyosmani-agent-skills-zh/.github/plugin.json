@@ -1,0 +1,22 @@
+{
+  "name": "vinvcn--addyosmani-agent-skills-zh",
+  "displayName": "addyosmani-agent-skills-zh",
+  "description": "\u672c\u4ed3\u5e93\u662f addyosmani/agent-skills \u7684\u7b80\u4f53\u4e2d\u6587\u672c\u5730\u5316\u7248\u672c\u3002",
+  "version": "1.0.0",
+  "author": "vinvcn",
+  "homepage": "https://github.com/vinvcn/addyosmani-agent-skills-zh",
+  "skills": [
+    {
+      "name": "ci-cd-and-automation",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-and-versioning",
+      "description": ""
+    },
+    {
+      "name": "documentation-and-adrs",
+      "description": ""
+    }
+  ]
+}
