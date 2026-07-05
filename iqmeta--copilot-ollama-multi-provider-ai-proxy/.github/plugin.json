@@ -1,0 +1,9 @@
+{
+  "name": "iqmeta--copilot-ollama-multi-provider-ai-proxy",
+  "displayName": "copilot-ollama-multi-provider-ai-proxy",
+  "description": "The fastest way to run DeepSeek, OpenAI, NVIDIA, Groq, OpenRouter, Moonshot/Kimi, Cerebras, and Ollama models in GitHub Copilot in Visual Studio and Visual Studio Code",
+  "version": "1.0.0",
+  "author": "iqmeta",
+  "homepage": "https://github.com/iqmeta/copilot-ollama-multi-provider-ai-proxy",
+  "skills": []
+}
