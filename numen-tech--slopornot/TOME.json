@@ -4,7 +4,7 @@
   "repo": "slopornot",
   "description": "Agentic AI Humanizer Skill for Codex, Claude and OpenClaw: Bypass AI Detectors",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/numen-tech/slopornot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T01:19:10Z"
+  "distributed_at": "2026-07-05T02:39:56Z"
 }
