@@ -237244,6 +237244,56 @@
       "description": "A curated, opinionated set of OpenCode plugins for spec-first, review-driven, safer agentic development."
     },
     {
+      "name": "aerovato--magic-compact",
+      "source": "./aerovato--magic-compact",
+      "description": "Lossless context compression plugin for OpenCode."
+    },
+    {
+      "name": "travisun--opptrix",
+      "source": "./travisun--opptrix",
+      "description": "Opptrix \u2014 \u5927\u6a21\u578b\u9a71\u52a8\u7684\u6295\u7814\u52a9\u624b | Open-source LLM research assistant for China A-shares. 40+ MCP tools, factor screening, backtest, watchlist & Electron desktop. TypeScript \u00b7 React \u00b7 Fastify monorepo."
+    },
+    {
+      "name": "duendesoftware--duende-skills",
+      "source": "./duendesoftware--duende-skills",
+      "description": "A set of skills focused on helping agents build Duende IdentityServer solutions."
+    },
+    {
+      "name": "travisun--opptrix",
+      "source": "./travisun--opptrix",
+      "description": "Opptrix \u2014 \u5927\u6a21\u578b\u9a71\u52a8\u7684\u6295\u7814\u52a9\u624b | Open-source LLM research assistant for China A-shares. 40+ MCP tools, factor screening, backtest, watchlist & Electron desktop. TypeScript \u00b7 React \u00b7 Fastify monorepo."
+    },
+    {
+      "name": "duendesoftware--duende-skills",
+      "source": "./duendesoftware--duende-skills",
+      "description": "A set of skills focused on helping agents build Duende IdentityServer solutions."
+    },
+    {
+      "name": "clientell-ai--salesforce-skills",
+      "source": "./clientell-ai--salesforce-skills",
+      "description": "Salesforce development skills for AI coding agents - Apex, Flows, LWC, SOQL, security, deployments. Works with Claude Code, Cursor, Codex, and 50+ tools."
+    },
+    {
+      "name": "clientell-ai--salesforce-skills",
+      "source": "./clientell-ai--salesforce-skills",
+      "description": "Salesforce development skills for AI coding agents - Apex, Flows, LWC, SOQL, security, deployments. Works with Claude Code, Cursor, Codex, and 50+ tools."
+    },
+    {
+      "name": "cyanheads--openalex-mcp-server",
+      "source": "./cyanheads--openalex-mcp-server",
+      "description": "Access the OpenAlex academic research catalog - 270M+ publications through MCP. STDIO & Streamable HTTP."
+    },
+    {
+      "name": "cyanheads--openalex-mcp-server",
+      "source": "./cyanheads--openalex-mcp-server",
+      "description": "Access the OpenAlex academic research catalog - 270M+ publications through MCP. STDIO & Streamable HTTP."
+    },
+    {
+      "name": "saschb2b--cant",
+      "source": "./saschb2b--cant",
+      "description": "Educational platforms for developers. Each app presents code challenges where you pick the better variant, with topic-specific tools and a pattern reference library."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257072,6 +257122,16 @@
       "name": "jandedobbeleer--tempo",
       "source": "./jandedobbeleer--tempo",
       "description": "tempo"
+    },
+    {
+      "name": "lonormaly--builders-stack",
+      "source": "./lonormaly--builders-stack",
+      "description": "Opinionated AI-native monorepo starter \u2014 build your MVP as a production-ready structure. apps/services/libs \u00b7 Tilt \u00b7 Nx boundary-enforced \u00b7 agent-ready."
+    },
+    {
+      "name": "lonormaly--builders-stack",
+      "source": "./lonormaly--builders-stack",
+      "description": "Opinionated AI-native monorepo starter \u2014 build your MVP as a production-ready structure. apps/services/libs \u00b7 Tilt \u00b7 Nx boundary-enforced \u00b7 agent-ready."
     },
     {
       "name": "cheerhuan--save-your-token",
