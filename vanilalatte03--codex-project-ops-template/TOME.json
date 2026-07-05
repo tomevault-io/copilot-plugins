@@ -1,0 +1,51 @@
+{
+  "name": "codex-project-ops-template",
+  "owner": "vanilalatte03",
+  "repo": "codex-project-ops-template",
+  "description": "PRD/ADR \uae30\ubc18 Codex \ud504\ub85c\uc81d\ud2b8 \uc6b4\uc601 \ud558\ub124\uc2a4 \ud15c\ud50c\ub9bf",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "review",
+      "path": ".agents/skills/review",
+      "github_url": "https://github.com/vanilalatte03/codex-project-ops-template/tree/main/.agents/skills/review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vanilalatte03/codex-project-ops-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T00:32:42Z"
+}
