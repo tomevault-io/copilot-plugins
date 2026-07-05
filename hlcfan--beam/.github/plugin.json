@@ -1,0 +1,9 @@
+{
+  "name": "hlcfan--beam",
+  "displayName": "beam",
+  "description": "A native GUI HTTP client written in Rust",
+  "version": "1.0.0",
+  "author": "hlcfan",
+  "homepage": "https://github.com/hlcfan/beam",
+  "skills": []
+}
