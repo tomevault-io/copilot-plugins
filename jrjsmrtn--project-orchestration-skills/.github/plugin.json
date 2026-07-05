@@ -1,0 +1,9 @@
+{
+  "name": "jrjsmrtn--project-orchestration-skills",
+  "displayName": "project-orchestration-skills",
+  "description": "Claude Code plugin: Skills for AI-assisted project orchestration",
+  "version": "1.0.0",
+  "author": "jrjsmrtn",
+  "homepage": "https://github.com/jrjsmrtn/project-orchestration-skills",
+  "skills": []
+}
