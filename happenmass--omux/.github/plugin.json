@@ -1,0 +1,9 @@
+{
+  "name": "happenmass--omux",
+  "displayName": "omux",
+  "description": "Orchestrate AI coding agents (Claude Code, Codex) as parallel subagents over tmux \u2014 a loop-engineering runtime with auto-continue, execute-then-review, and cross-session memory.",
+  "version": "1.0.0",
+  "author": "Happenmass",
+  "homepage": "https://github.com/Happenmass/omux",
+  "skills": []
+}
