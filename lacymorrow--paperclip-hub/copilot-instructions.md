@@ -1,116 +1,99 @@
-## payments
+## performance
 
-> - Always use HTTPS for all payment-related endpoints
+> Performance Best Practices and Guidelines
 
-# Payment Processing Best Practices
 
-## Payment Security
-- Always use HTTPS for all payment-related endpoints
-- Implement proper webhook signature verification for all payment providers
-- Never store sensitive payment data (use tokens and references)
-- Encrypt payment-related data at rest and in transit
-- Implement proper access controls for payment endpoints
-- Regular security audits for payment processing systems
-- Follow PCI DSS compliance requirements
+# Performance Best Practices
 
-## Webhook Implementation
-- Verify webhook signatures using timing-safe comparison
-- Implement idempotency for all payment webhook events
-- Use database transactions for payment state changes
-- Handle webhook retries from payment providers gracefully
-- Log payment webhook events (excluding sensitive data)
-- Monitor webhook success rates and alert on failures
-- Test webhook endpoints with payment provider sandbox environments
+## Core Web Vitals
+- Optimize LCP (Largest Contentful Paint)
+- Minimize FID (First Input Delay)
+- Reduce CLS (Cumulative Layout Shift)
+- Monitor Web Vitals
+- Set performance budgets
+- Regular performance audits
+- Document metrics
 
-## Payment State Management
-- Use database transactions for payment status updates
-- Implement proper state machines for payment flows
-- Handle edge cases like partial payments and refunds
-- Synchronize payment data between local database and payment provider
-- Implement proper rollback mechanisms for failed payments
-- Track payment history and audit trails
-- Handle subscription lifecycle events properly
+## Image Optimization
+- Use next/image
+- Implement lazy loading
+- Choose proper formats
+- Optimize image sizes
+- Use responsive images
+- Implement caching
+- Monitor image performance
 
-## Error Handling
-- Return appropriate HTTP status codes for webhook responses
-- Implement proper error logging for payment failures
-- Never expose internal payment errors to end users
-- Implement graceful degradation for payment system outages
-- Handle payment provider API rate limits
-- Implement retry logic with exponential backoff
-- Monitor payment error rates and patterns
+## JavaScript
+- Implement code splitting
+- Use dynamic imports
+- Minimize bundle size
+- Tree shake unused code
+- Optimize dependencies
+- Use proper caching
+- Monitor JS performance
 
-## Lemon Squeezy Integration
-- Always verify X-Signature header using HMAC-SHA256
-- Support critical webhook events: subscription_created, subscription_updated, subscription_cancelled, order_created, order_refunded
-- Handle both test and production webhook environments
-- Implement proper customer and subscription synchronization
-- Use Lemon Squeezy checkout URLs for secure payment processing
-- Handle Lemon Squeezy specific payment methods and currencies
-- Test integration thoroughly in sandbox environment
+## CSS
+- Minimize unused CSS
+- Use CSS modules
+- Implement critical CSS
+- Optimize tailwind usage
+- Reduce CSS bundle size
+- Use proper specificity
+- Monitor CSS performance
 
-## Stripe Integration
-- Verify webhook signatures using Stripe's signature verification
-- Handle Stripe webhook events: payment_intent, subscription, invoice events
-- Use Stripe's idempotency keys for safe retries
-- Implement proper handling of 3D Secure and payment confirmations
-- Handle Stripe's webhook delivery guarantees and retries
-- Use Stripe's test mode for development and testing
-- Implement proper handling of disputed payments and chargebacks
+## Server-Side
+- Use proper caching
+- Optimize database queries
+- Implement CDN
+- Use edge functions
+- Optimize API responses
+- Monitor server performance
+- Regular optimization
 
-## Data Privacy
-- Follow GDPR requirements for customer payment data
-- Implement proper data retention policies for payment information
-- Anonymize or delete customer data upon request
-- Never log credit card numbers or sensitive payment details
-- Implement proper access controls for customer payment data
-- Regular audits of payment data handling procedures
-- Document data processing procedures for compliance
+## Client-Side
+- Implement proper caching
+- Use service workers
+- Optimize rendering
+- Reduce reflows/repaints
+- Handle offline support
+- Monitor client performance
+- Regular optimization
 
-## Testing
-- Test payment flows in sandbox/test environments
-- Implement unit tests for payment webhook processing
-- Test payment failure scenarios and edge cases
-- Validate payment provider integration using test cards/accounts
-- Test webhook signature verification with invalid signatures
-- Implement integration tests for complete payment flows
-- Regular penetration testing of payment endpoints
+## Data Loading
+- Use proper fetching
+- Implement caching
+- Handle loading states
+- Optimize payload size
+- Use proper protocols
+- Monitor data loading
+- Regular optimization
+
+## Build Optimization
+- Optimize build process
+- Minimize asset size
+- Use proper compression
+- Implement caching
+- Monitor build metrics
+- Regular build audits
+- Document optimizations
 
 ## Monitoring
-- Monitor payment success/failure rates
-- Track payment processing times and performance
-- Set up alerts for payment system anomalies
-- Monitor webhook delivery success rates
-- Track customer payment experience metrics
-- Implement dashboards for payment system health
-- Regular review of payment processing logs
-
-## Compliance
-- Implement PCI DSS compliance requirements
-- Follow payment provider compliance guidelines
-- Document payment processing procedures
-- Regular compliance audits and assessments
-- Implement audit trails for all payment actions
-- Train team members on payment security requirements
-- Keep compliance documentation up to date
-
-## Customer Experience
-- Provide clear payment status feedback to customers
-- Implement proper loading states during payment processing
-- Handle payment failures gracefully with clear error messages
-- Provide payment history and receipt functionality
-- Implement proper payment confirmation flows
-- Support multiple payment methods when possible
-- Optimize payment flows for conversion
+- Use performance monitoring
+- Track key metrics
+- Set up alerts
+- Monitor trends
+- Regular analysis
+- Document findings
+- Take action on insights
 
 ## Documentation
-- Document all payment webhook endpoints and events
-- Maintain payment integration guides and procedures
-- Document payment error codes and troubleshooting steps
-- Keep payment provider integration documentation updated
-- Document payment testing procedures and test cases
-- Maintain compliance documentation and procedures
-- Regular review and updates of payment documentation
+- Document performance goals
+- Track improvements
+- Document optimizations
+- Keep metrics history
+- Regular reviews
+- Share best practices
+- Maintain documentation 
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
