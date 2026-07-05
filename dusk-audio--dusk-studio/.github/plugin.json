@@ -1,0 +1,9 @@
+{
+  "name": "dusk-audio--dusk-studio",
+  "displayName": "dusk-studio",
+  "description": "A portastudio-style DAW to keep you focused and making music",
+  "version": "1.0.0",
+  "author": "dusk-audio",
+  "homepage": "https://github.com/dusk-audio/dusk-studio",
+  "skills": []
+}
