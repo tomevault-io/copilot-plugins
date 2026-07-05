@@ -1,0 +1,14 @@
+{
+  "name": "pollux12--gmod-glua-ls",
+  "displayName": "gmod-glua-ls",
+  "description": "Garry's Mod (GLua) Language Server ",
+  "version": "1.0.0",
+  "author": "Pollux12",
+  "homepage": "https://github.com/Pollux12/gmod-glua-ls",
+  "skills": [
+    {
+      "name": "rust-best-practices",
+      "description": ""
+    }
+  ]
+}
