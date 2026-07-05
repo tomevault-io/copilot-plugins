@@ -1,86 +1,88 @@
-## coding-style
+## cursor-rules
 
-> - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
+> Cursor Rules Location
 
-# Coding Style Guidelines
 
-## Naming Conventions
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
-- Use kebab-case for file names (e.g., `user-profile.tsx`)
-- Use PascalCase for component names (e.g., `UserProfile`)
-- Use camelCase for variables and functions
-- Use SCREAMING_SNAKE_CASE for constants
+# Cursor Rules Location
 
-## File Structure
-- Exported component
-- Subcomponents
-- Helpers
-- Static content
-- Types
-- Keep files small (<200 lines)
+Rules for placing and organizing Cursor rule files in the repository.
 
-## TypeScript Usage
-- Use TypeScript for all code
-- Prefer interfaces over types
-- Avoid enums; use maps instead
-- Use functional components with TypeScript interfaces
-- Pre-emptively add types to all functions and variables
-- Fix all TypeScript errors and warnings
-- Use proper type imports
+<rule>
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
+filters:
+  # Match any .mdc files
+  - type: file_extension
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
+  - type: content
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
 
-## React Components
-- Use arrow functions for components:
-  ```typescript
-  ✅ export const Component = () => { ... }
-  ❌ export function Component() { ... }
-  ❌ export default function Component() { ... }
-  ```
-- One component per file
-- Use named exports
-- Keep components focused and small
-- Document complex logic
+actions:
 
-## Comments
-- Pre-emptively add comments to explain "why" behind the code
-- Preserve existing comments unless specifically asked to modify
-- Use callouts and examples:
-  ```typescript
-  /*
-   * Logging configuration
-   * @see https://nextjs.org/docs/app/api-reference/next-config-js/logging
-   */
-  ```
-- Document complex logic and important decisions
+- type: reject
+  conditions:
 
-## Code Organization
-- Group related code together
-- Use index files for exports
-- Separate concerns appropriately
-- Follow DRY principles
-- Pre-emptively optimize for production
-- Keep code maintainable and readable
+  - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.\*\\.mdc$)"
+    message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
 
-## Error Handling
-- Handle all potential errors
-- Provide meaningful error messages
-- Use proper error boundaries
-- Log errors appropriately
-- Document error scenarios
+- type: suggest
+  message: |
+  When creating Cursor rules:
 
-## Testing
-- Write tests for new functionality
-- Test edge cases
-- Follow existing test patterns
-- Document test coverage expectations
-- Keep tests maintainable
+  1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
 
-## Best Practices
-- Use open-source libraries when beneficial
-- Follow security best practices
-- Optimize for performance
-- Consider accessibility
-- Document architecture decisions
-- Maintain consistency across codebase 
+     ```
+     .cursor/rules/
+     ├── your-rule-name.mdc
+     ├── another-rule.mdc
+     └── ...
+     ```
+
+  2. Follow the naming convention:
+
+     - Use kebab-case for filenames
+     - Always use .mdc extension
+     - Make names descriptive of the rule's purpose
+
+  3. Directory structure:
+
+     ```
+     PROJECT_ROOT/
+     ├── .cursor/
+     │   └── rules/
+     │       ├── your-rule-name.mdc
+     │       └── ...
+     └── ...
+     ```
+
+  4. Never place rule files:
+     - In the project root
+     - In subdirectories outside .cursor/rules
+     - In any other location
+
+examples:
+
+- input: |
+
+  # Bad: Rule file in wrong location
+
+  rules/my-rule.mdc
+  my-rule.mdc
+  .rules/my-rule.mdc
+
+  # Good: Rule file in correct location
+
+  .cursor/rules/my-rule.mdc
+  output: "Correctly placed Cursor rule file"
+
+metadata:
+priority: high
+version: 1.0
+</rule>
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
