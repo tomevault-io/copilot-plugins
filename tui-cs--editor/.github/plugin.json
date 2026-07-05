@@ -1,0 +1,9 @@
+{
+  "name": "tui-cs--editor",
+  "displayName": "Editor",
+  "description": "Terminal.Gui Text Editor based on AvaloniaEdit",
+  "version": "1.0.0",
+  "author": "tui-cs",
+  "homepage": "https://github.com/tui-cs/Editor",
+  "skills": []
+}
