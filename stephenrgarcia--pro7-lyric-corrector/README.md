@@ -7,7 +7,7 @@ Free ProPresenter 7 worship lyric autocorrector for the Songs library
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [stephenrgarcia/pro7-lyric-corrector](https://github.com/stephenrgarcia/pro7-lyric-corrector).
+Original source: `.windsurf/rules/*.md` in [stephenrgarcia/pro7-lyric-corrector](https://github.com/stephenrgarcia/pro7-lyric-corrector).
 
 ## Also available for
 
@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [stephenrgarcia/pro7-lyric-corrector](https://gi
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/stephenrgarcia/pro7-lyric-corrector](https://github.com/stephenrgarcia/pro7-lyric-corrector)
 
