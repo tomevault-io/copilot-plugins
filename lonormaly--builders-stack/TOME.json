@@ -4,7 +4,7 @@
   "repo": "builders-stack",
   "description": "Opinionated AI-native monorepo starter \u2014 build your MVP as a production-ready structure. apps/services/libs \u00b7 Tilt \u00b7 Nx boundary-enforced \u00b7 agent-ready.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lonormaly/builders-stack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T08:30:59Z"
+  "distributed_at": "2026-07-05T08:31:59Z"
 }
