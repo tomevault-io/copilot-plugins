@@ -1,0 +1,34 @@
+{
+  "name": "overcut-ai--overcut-playbooks",
+  "displayName": "overcut-playbooks",
+  "description": "Overcut is an agentic SDLC orchestration platform that automates end-to-end software workflows across tools and repositories, using governed AI agents with built-in approvals, policies, and full audit",
+  "version": "1.0.0",
+  "author": "overcut-ai",
+  "homepage": "https://github.com/overcut-ai/overcut-playbooks",
+  "skills": [
+    {
+      "name": "agent-session-design",
+      "description": ""
+    },
+    {
+      "name": "agent-tools-reference",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "step-actions",
+      "description": ""
+    },
+    {
+      "name": "template-variables",
+      "description": ""
+    },
+    {
+      "name": "workflow-triggers",
+      "description": ""
+    }
+  ]
+}
