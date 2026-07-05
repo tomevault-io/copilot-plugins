@@ -4,7 +4,7 @@
   "repo": "CRUX-Compress",
   "description": "Compress verbose LLM rules while retaining self-contained meaning and intent.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zotoio/CRUX-Compress",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T16:35:23Z"
+  "distributed_at": "2026-07-05T16:36:17Z"
 }
