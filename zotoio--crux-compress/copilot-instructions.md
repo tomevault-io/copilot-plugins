@@ -1,96 +1,54 @@
-## skill-and-agent-references
+## spec-implementation-hygiene
 
-> Reference skills, agents, and commands by their registered name (never by filesystem path), and decompose oversized commands or agents by extracting sections into skills with by-name references
+> Keep production code free of spec/phase metadata and back-compat shims; capture migrations in spec-local upgrade scripts instead
 
 
-# Skill and Agent References
+# Spec Implementation Hygiene
 
-Skills, agents, and commands in Cursor are registered with the IDE/CLI **by name** — the directory name under `.cursor/skills/<name>/SKILL.md`, the file basename under `.cursor/agents/<name>.md`, and the file basename under `.cursor/commands/<name>.md`, mirrored in the `name:` frontmatter field where present. The IDE skill loader, the `Task` subagent dispatcher, the slash-command surface, and the skill resolution machinery all look up a primitive from this registered name. Filesystem paths are an implementation detail.
-
-This rule keeps every operational reference stable, portable, and resilient to file moves.
+When implementing or executing engineering specs (anything under `specs/` or `.ai-ignored/executed/`), keep production code clean of coordination metadata and avoid backwards-compatibility shims. Capture any required migration logic in an executable upgrade file inside the spec directory.
 
 ## Rules
 
-### 1. Reference skills, agents, and commands by name only
+### 1. No spec, subtask, or phase references in code
 
-Always write the registered name in backticks:
+Do **not** add code comments, docstrings, log messages, error messages, or identifiers that reference spec files, subtask IDs, phase numbers, status pairs, or execution-report sections. Examples to avoid:
 
-- Skill: `` `crux-skill-memory-extract` ``
-- Agent: `` `crux-cursor-meditation-guide` ``
-- Command: `/crux-meditate`
-
-Never embed the filesystem path in instructional or operational prose. Examples to avoid:
-
-```text
-Bad:  `.cursor/skills/crux-skill-memory-extract/SKILL.md`
-Bad:  [`.cursor/skills/foo/SKILL.md`](../skills/foo/SKILL.md)
-Bad:  Read `.cursor/agents/crux-cursor-memory-manager.md` to see how it works.
-Bad:  Load .cursor/skills/crux-skill-memory-meditation-research/SKILL.md for Research mode.
-
-Good: Use the `crux-skill-memory-extract` skill.
-Good: Spawn a `crux-cursor-memory-manager` subagent.
-Good: Load the `crux-skill-memory-meditation-research` skill for Research mode.
+```python
+# Per subtask-05-meditate-decomp-skills-extraction-20260517.md
+# Phase 3: rebalance trigger
+# Implements spec 20260523-meditate-richness, Subtask 04
+# TODO(spec-meditate-richness): tighten coordinator gate
 ```
 
-The Cursor skill loader and the `Task` tool resolve these names automatically. Paths break the moment a file moves, double the maintenance cost (path + name), add visual noise, and falsely imply the file must be opened directly when it should be loaded through the standard skill or agent mechanism.
+These comments become stale the moment a spec is archived, leak ephemeral coordination metadata into long-lived code, and obscure the actual intent of the line. Comments must explain **why** the code exists — not which spec or phase authored it. The spec, its subtasks, and its status files are the durable record of authorship and rationale; production code does not need to repeat them.
 
-This applies to:
+### 2. No backwards-compatibility shims
 
-- **Commands** under `.cursor/commands/` — refer to as `/<command-name>`
-- **Agents** under `.cursor/agents/` — refer to by `<agent-name>` in backticks
-- **Skills** under `.cursor/skills/<name>/SKILL.md` — refer to by `<skill-name>` in backticks
-- Any other Cursor primitive that is loaded by name
+Do **not** add adapters, wrappers, deprecated aliases, fallback branches, dual-path readers, or `v1`/`v2` parallel surfaces to preserve old behavior alongside new behavior. This repository is a single coordinated distribution — producer code, consumer code, agents, hooks, skills, evals, and docs all ship together.
 
-**Hooks are different**: hooks have no separate registered name — they are invoked directly by the `command` string in `.cursor/hooks.json`. When discussing a hook in prose, refer to the script basename (e.g. `crux-session-start.py`) and let `hooks.json` own the canonical command line.
+Replace, do not layer. When a function, file, frontmatter field, command surface, or schema changes, change every caller in the same change set and delete the old form. If you find yourself reaching for a shim, that is the signal to either:
 
-### 2. Allowed exceptions for paths
+- expand the change set to cover all callers in one go, or
+- write an upgrade file (see Rule 3) so installed users can move forward without the shim.
 
-Paths may appear only when the path itself is the subject of the line:
+### 3. Capture migrations in a spec-local upgrade file
 
-- A documentation table whose explicit purpose is to record file layout — for example the `Definition` column in the `AGENTS.md` agent registry that records where each agent file lives so consumers can locate it after install
-- An install, dist, or release script (`install.py`, `scripts/create-crux-zip.py`) that needs to copy files
-- A migration or upgrade script (per `spec-implementation-hygiene.mdc`) that needs to move, rename, or read files
-- Code that reads or writes the file as data (compression scripts, generators, validators, evals)
-- The `command` field inside `.cursor/hooks.json` itself
+When a spec introduces a change that requires action on an existing install — config schema updates, file moves or renames, generated-file regeneration, memory index rebuilds, hook re-registration, etc. — add an executable upgrade file inside the spec directory:
 
-In every other context — "use the X skill", "spawn the Y agent", "load the Z protocol", "the W command does …" — write the registered name only.
+- **Path**: `specs/<spec-id>/upgrade-<spec-slug>.<ext>` where `<ext>` is `.sh`, `.py`, or `.md` (markdown is allowed only if every step is a literal copy-pasteable command).
+- **Content**: idempotent steps that bring a pre-spec install up to the post-spec state. Safe to re-run. No interactive prompts unless guarded by `--yes`.
+- **Audience**: anyone running the spec's outputs against a pre-spec install (including future you, CI, and downstream consumers).
+- **Lifetime**: lives with the spec. When the spec is archived to `.ai-ignored/executed/`, the upgrade file moves with it.
 
-### 3. Decompose large commands and agents into skills
-
-When a command (`.cursor/commands/<name>.md`) or agent (`.cursor/agents/<name>.md`) grows beyond about **300 lines**, extract logical sections into skills under `.cursor/skills/<skill-name>/SKILL.md` and replace the inline content with by-name references to those skills.
-
-The command or agent file should be a thin orchestrator that:
-
-1. Documents the user-facing surface (usage, arguments, modes, related commands)
-2. Documents the user input escalation pattern and any user-facing gates
-3. Names the skills and subagents that own the actual mechanics
-4. Routes work to those skills and subagents
-
-Long protocols, contracts, templates, schemas, file grammars, rendering rules, validation logic, severity classifications, and any other "how the work is done" content belong in skills. The command or agent file describes **what** runs and **when**; the skills describe **how**.
-
-A command file approaching or exceeding 1000 lines is a strong signal that mechanics have leaked into the user-facing surface. Extract them into named skills and replace each leaked section with a one-paragraph reference like:
-
-```text
-The Foo Protocol (steps 1–8, registry lock, citations index, peer review file
-spec) is owned by the `crux-skill-memory-foo` skill. The calling agent passes
-`mode`, `depth`, and `comprehensiveness` in the spawn prompt.
-```
-
-The reference paragraph should name the skill, summarise what it owns in one or two sentences, and list any required spawn-prompt fields the calling agent must supply — never restate the skill's protocol.
-
-### 4. Skills reference other skills by name too
-
-When one skill needs to invoke or hand off to another, reference the target by name, never by path. The receiving agent loads it through the normal skill mechanism. The same applies when an agent definition file lists the skills it loads — reference each skill by its registered name in backticks, with a short purpose summary, and omit the SKILL.md path.
+This file is the **option to consider for distribution**. If and when the spec ships to consumers, the upgrade script can be promoted into `install.py`, referenced from a release note, or added to the dist zip (per `zip-contents-protection.crux.mdc`). Until that promotion is explicitly requested, the upgrade file stays inside the spec directory and is not distributed.
 
 ## Quick Checklist
 
-Before completing any change to a command, agent, or skill file, verify:
+Before completing any spec subtask, verify:
 
-- [ ] No `.cursor/skills/<...>/SKILL.md` or `.cursor/agents/<...>.md` paths appear in instructional prose; every reference is by name.
-- [ ] No markdown links of the form `` [`...SKILL.md`](...) `` are used for skill or agent references.
-- [ ] Skill and agent names in backticks match the directory name (skills) or file basename (agents) and the `name:` frontmatter field exactly.
-- [ ] If the file is a command or agent over ~300 lines, large mechanical sections have been extracted into skills (or a tracked plan to do so exists in the relevant spec).
-- [ ] Paths appear only in: documentation tables that document file layout, install/dist/release scripts, migration/upgrade scripts, data-processing code, or `.cursor/hooks.json`.
+- [ ] No new code comments, docstrings, or strings mention a spec id, subtask id, or phase number.
+- [ ] No new shims, aliases, or `if old_format: ... else: new_format` branches were added to preserve pre-spec behavior.
+- [ ] If the change requires action on an existing install, an `upgrade-<spec-slug>.<ext>` file exists in the spec directory and is idempotent.
 
 ---
 > Source: [zotoio/CRUX-Compress](https://github.com/zotoio/CRUX-Compress) — distributed by [TomeVault](https://tomevault.io).
