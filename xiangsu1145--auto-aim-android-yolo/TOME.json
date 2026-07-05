@@ -4,7 +4,7 @@
   "repo": "Auto-aim_android-yolo",
   "description": "\u5b89\u5353\u8fd0\u884cyolo\u6a21\u578b\u8fdb\u884c\u56fe\u50cf\u8bc6\u522b",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xiangsu1145/Auto-aim_android-yolo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T01:13:26Z"
+  "distributed_at": "2026-07-05T02:30:27Z"
 }
