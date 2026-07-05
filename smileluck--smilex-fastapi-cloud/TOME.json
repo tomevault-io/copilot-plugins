@@ -1,0 +1,44 @@
+{
+  "name": "SmileX-Fastapi-Cloud",
+  "owner": "smileluck",
+  "repo": "SmileX-Fastapi-Cloud",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e FastAPI\u3001SQLAlchemy\uff08\u5f02\u6b65\u7248\uff09\u548c Asyncpg \u6784\u5efa\u7684\u9ad8\u6027\u80fd\u5f02\u6b65\u5fae\u670d\u52a1\u6846\u67b6\uff0c\u65e8\u5728\u6253\u9020\u53ef\u6269\u5c55\u3001\u53ef\u7ef4\u62a4\u4e14\u9002\u5408\u751f\u4ea7\u73af\u5883\u7684\u540e\u7aef\u670d\u52a1\uff0c\u80fd\u591f\u901a\u8fc7AI\u5feb\u901f\u8fed\u4ee3\u7684\u5f00\u53d1\u6846\u67b6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/smileluck/SmileX-Fastapi-Cloud",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T20:32:31Z"
+}
