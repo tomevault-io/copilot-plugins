@@ -1,0 +1,9 @@
+{
+  "name": "twilio--twilio-agent-connect-aws",
+  "displayName": "twilio-agent-connect-aws",
+  "description": "AWS integrations for Twilio Agent Connect \u2014 connect AWS agent services to Twilio's communication channels.",
+  "version": "1.0.0",
+  "author": "twilio",
+  "homepage": "https://github.com/twilio/twilio-agent-connect-aws",
+  "skills": []
+}
