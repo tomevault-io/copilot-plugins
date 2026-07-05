@@ -1,0 +1,9 @@
+{
+  "name": "stevyhacker--lokalbot",
+  "displayName": "lokalbot",
+  "description": "Local LLM helper bot for meetings notes, time tracking, and copying.",
+  "version": "1.0.0",
+  "author": "stevyhacker",
+  "homepage": "https://github.com/stevyhacker/lokalbot",
+  "skills": []
+}
