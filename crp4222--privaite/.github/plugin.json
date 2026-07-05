@@ -1,0 +1,9 @@
+{
+  "name": "crp4222--privaite",
+  "displayName": "PrivAiTe",
+  "description": "Drop-in self-hosted LLM proxy that reversibly redacts PII before OpenAI, ChatGPT and Ollama calls, including inside tool-call arguments and multimodal content. OpenAI-compatible, zero telemetry.",
+  "version": "1.0.0",
+  "author": "crp4222",
+  "homepage": "https://github.com/crp4222/PrivAiTe",
+  "skills": []
+}
