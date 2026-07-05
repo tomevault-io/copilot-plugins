@@ -7,13 +7,13 @@ GUI-Anything is a dual-pane Flow Observer for Claude Code. It watches live JSONL
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [YurunChen/GUI-Anything](https://github.com/YurunChen/GUI-Anything).
+Original source: `AGENTS.md` in [YurunChen/GUI-Anything](https://github.com/YurunChen/GUI-Anything).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
