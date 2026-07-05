@@ -1,0 +1,57 @@
+{
+  "name": "telegram-webapp-auth",
+  "owner": "swimmwatch",
+  "repo": "telegram-webapp-auth",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "telegram-webapp-auth",
+      "path": ".agents/skills/project-release/SKILL.md",
+      "github_url": "https://github.com/swimmwatch/telegram-webapp-auth/tree/main/.agents/skills/project-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-webapp-auth",
+      "path": ".agents/skills/project-pull-request/SKILL.md",
+      "github_url": "https://github.com/swimmwatch/telegram-webapp-auth/tree/main/.agents/skills/project-pull-request/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/swimmwatch/telegram-webapp-auth",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T06:30:30Z"
+}
