@@ -1,121 +1,99 @@
-## deployment
+## docker
 
-> Deployment Best Practices and Guidelines
+> Docker Best Practices and Guidelines
 
 
-# Deployment Best Practices
+# Docker Best Practices
 
-## Multi-Zone Deployment
-
-### Zone Deployment Strategy
-- Deploy each zone as separate Vercel project
-- Use consistent naming: `main-shipkit`, `docs-shipkit`, `blog-shipkit`, `ui-shipkit`, `tools-shipkit`
-- Configure environment variables pointing to zone URLs
-- Assign custom domain to main application
-- Test cross-zone navigation and functionality
-
-### Zone Environment Configuration
-- Main app contains zone domain environment variables
-- Each zone has its own environment configuration
-- Use separate databases or shared database per zone requirements
-- Configure authentication to work across zones
-- Set up monitoring for each zone independently
-
-### Zone-Specific Optimizations
-- Documentation zone: Static generation, search optimization
-- Blog zone: ISR for posts, SEO optimization
-- UI zone: Component isolation, visual regression testing
-- Tools zone: Client-side rendering, real-time features
-
-## Environment Setup
-- Use `.env.local` for local development
-- Use `.env.production` for production
-- Use `.env.test` for testing
-- Never commit environment files
-- Document all required variables
-- Use strong naming conventions
-- Validate environment variables at startup
-
-## Docker Configuration
+## Image Building
 - Use multi-stage builds
-- Optimize layer caching
-- Include only necessary files
-- Use appropriate base images
-- Set proper environment variables
-- Configure health checks
-- Document all configurations
+- Minimize layer count
+- Order layers by change frequency
+- Use .dockerignore
+- Cache dependencies properly
+- Use specific base images
+- Document build process
 
-## CI/CD Pipeline
-- Automate build process
-- Run tests before deployment
-- Check code quality
+## Base Images
+- Use official images
+- Use specific versions
+- Keep images minimal
 - Scan for vulnerabilities
-- Use proper caching
-- Implement proper rollbacks
-- Monitor deployment status
-
-## Production Deployment
-- Use proper build optimization
-- Enable proper caching
-- Configure proper headers
-- Set up monitoring
-- Configure logging
-- Set up alerts
-- Plan for scaling
-
-## Infrastructure
-- Use infrastructure as code
-- Implement proper monitoring
-- Set up logging
-- Configure backups
-- Plan for disaster recovery
-- Document architecture
-- Monitor costs
+- Update regularly
+- Document image choices
+- Consider size implications
 
 ## Security
-- Use HTTPS everywhere
-- Configure proper headers
-- Implement rate limiting
-- Set up WAF
-- Monitor for threats
+- Run as non-root
+- Remove unnecessary tools
+- Scan for vulnerabilities
+- Use secrets management
+- Update dependencies
+- Follow security best practices
 - Regular security audits
-- Document security measures
 
-## Monitoring
-- Set up error tracking
-- Monitor performance
-- Track user metrics
-- Set up alerting
-- Log important events
-- Monitor resources
-- Track costs
-
-## Scaling
-- Plan for horizontal scaling
-- Configure auto-scaling
-- Optimize resource usage
-- Monitor bottlenecks
-- Plan capacity
-- Document scaling strategy
-- Test scaling scenarios
-
-## Backup and Recovery
-- Regular backups
-- Test recovery procedures
-- Document recovery plans
-- Monitor backup status
-- Plan for disasters
-- Regular recovery tests
-- Document procedures
-
-## Documentation
-- Document deployment process
+## Configuration
+- Use environment variables
+- Use docker-compose
+- Configure health checks
+- Set resource limits
+- Configure logging
+- Use proper networking
 - Document configuration
+
+## Development
+- Use hot reloading
+- Share development config
+- Use volume mounts
+- Configure debugging
+- Use docker-compose
+- Document setup steps
+- Maintain parity with production
+
+## Production
+- Optimize for size
+- Configure for performance
+- Set up monitoring
+- Configure logging
+- Use orchestration
+- Plan for scaling
+- Document deployment
+
+## Dependencies
+- Cache dependencies
+- Use lockfiles
+- Update regularly
+- Scan for vulnerabilities
 - Document dependencies
-- Document troubleshooting
-- Keep runbooks updated
-- Document incidents
-- Maintain change log
+- Manage versions
+- Clean up unused deps
+
+## Performance
+- Optimize layer caching
+- Minimize image size
+- Configure resource limits
+- Monitor performance
+- Use proper storage
+- Optimize networking
+- Regular maintenance
+
+## Networking
+- Use proper networks
+- Configure service discovery
+- Set up load balancing
+- Manage port mapping
+- Configure DNS
+- Secure communications
+- Document network setup
+
+## Storage
+- Use proper volumes
+- Configure persistence
+- Manage backups
+- Clean up unused data
+- Monitor usage
+- Plan capacity
+- Document storage setup 
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
