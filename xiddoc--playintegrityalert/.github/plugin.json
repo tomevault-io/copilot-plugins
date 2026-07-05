@@ -1,0 +1,9 @@
+{
+  "name": "xiddoc--playintegrityalert",
+  "displayName": "PlayIntegrityAlert",
+  "description": "Get notified when an app calls the Play Integrity API.",
+  "version": "1.0.0",
+  "author": "Xiddoc",
+  "homepage": "https://github.com/Xiddoc/PlayIntegrityAlert",
+  "skills": []
+}
