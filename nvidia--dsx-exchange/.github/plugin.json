@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--dsx-exchange",
+  "displayName": "dsx-exchange",
+  "description": "DSX Exchange",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/dsx-exchange",
+  "skills": []
+}
