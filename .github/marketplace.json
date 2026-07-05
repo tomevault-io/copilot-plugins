@@ -52639,6 +52639,16 @@
       "description": "OpenCode goal plugin for Codex-style goal mode, /goal slash commands, persistent objectives, and AI coding agent focus."
     },
     {
+      "name": "happenmass--omux",
+      "source": "./happenmass--omux",
+      "description": "Orchestrate AI coding agents (Claude Code, Codex) as parallel subagents over tmux \u2014 a loop-engineering runtime with auto-continue, execute-then-review, and cross-session memory."
+    },
+    {
+      "name": "happenmass--omux",
+      "source": "./happenmass--omux",
+      "description": "Orchestrate AI coding agents (Claude Code, Codex) as parallel subagents over tmux \u2014 a loop-engineering runtime with auto-continue, execute-then-review, and cross-session memory."
+    },
+    {
       "name": "aws-samples--sample-kolya-br-proxy",
       "source": "./aws-samples--sample-kolya-br-proxy",
       "description": "sample-kolya-br-proxy"
@@ -111752,6 +111762,11 @@
       "name": "ameshkov--tokenguard-copilot",
       "source": "./ameshkov--tokenguard-copilot",
       "description": "Use third-party OpenAI-compatible models with VS Code Copilot Chat. Includes proper reasoning support, usage tracking, etc."
+    },
+    {
+      "name": "agentcathq--webmcp-react",
+      "source": "./agentcathq--webmcp-react",
+      "description": "React hooks for exposing your app's functionality as WebMCP tools - transport-agnostic, SSR-safe, Strict Mode safe, W3C spec-aligned"
     },
     {
       "name": "navikt--cplt",
@@ -189354,6 +189369,11 @@
       "description": "AI Badger - Local-first tool that extracts focused repo context for any AI chat (Claude, ChatGPT, Grok, etc.) without wasting tokens on irrelevant files."
     },
     {
+      "name": "miguok--fable-harness",
+      "source": "./miguok--fable-harness",
+      "description": "Make Claude Code work like a disciplined engineer: OODA, multi-party adversarial review, model routing, fail-then-pass. Distilled from Fable to reinforce the Opus harness."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -202837,6 +202857,11 @@
       "name": "llucs--backon",
       "source": "./llucs--backon",
       "description": "Function decoration for backoff and retry \u2014 modern, fast, and zero dependencies"
+    },
+    {
+      "name": "agents365-ai--imagencn",
+      "source": "./agents365-ai--imagencn",
+      "description": "Claude Code skill for AI image generation using Alibaba Cloud Bailian API (\u901a\u4e49\u5343\u95ee/\u901a\u4e49\u4e07\u76f8)"
     },
     {
       "name": "yschimke--compose-ai-tools",
