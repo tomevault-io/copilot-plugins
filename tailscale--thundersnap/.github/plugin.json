@@ -1,0 +1,9 @@
+{
+  "name": "tailscale--thundersnap",
+  "displayName": "thundersnap",
+  "description": "Thundering Herd replication and Thanos Snap durability, together at last",
+  "version": "1.0.0",
+  "author": "tailscale",
+  "homepage": "https://github.com/tailscale/thundersnap",
+  "skills": []
+}
