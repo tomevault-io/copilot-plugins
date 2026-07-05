@@ -1,0 +1,9 @@
+{
+  "name": "suyash-lyzr--scout-agent",
+  "displayName": "scout-agent",
+  "description": "Scout \u2014 the entire internet in one governed AI agent. Reads Twitter, Reddit, YouTube, GitHub & more via your local browser sessions. Read-only, free, git-native. A port of Agent Reach with a built-in ",
+  "version": "1.0.0",
+  "author": "suyash-lyzr",
+  "homepage": "https://github.com/suyash-lyzr/scout-agent",
+  "skills": []
+}
