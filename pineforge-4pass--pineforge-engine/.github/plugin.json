@@ -1,0 +1,9 @@
+{
+  "name": "pineforge-4pass--pineforge-engine",
+  "displayName": "pineforge-engine",
+  "description": "Deterministic PineScript v6 backtest runtime. Validated trade-for-trade against TradingView.",
+  "version": "1.0.0",
+  "author": "pineforge-4pass",
+  "homepage": "https://github.com/pineforge-4pass/pineforge-engine",
+  "skills": []
+}
