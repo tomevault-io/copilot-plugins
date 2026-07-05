@@ -202819,6 +202819,11 @@
       "description": "Plan-driven development toolkit for Claude Code"
     },
     {
+      "name": "llucs--backon",
+      "source": "./llucs--backon",
+      "description": "Function decoration for backoff and retry \u2014 modern, fast, and zero dependencies"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
