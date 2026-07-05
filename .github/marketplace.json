@@ -237584,6 +237584,26 @@
       "description": "Host-side gauntlet for untrusted code"
     },
     {
+      "name": "yaralahruthik--find-me-a-job",
+      "source": "./yaralahruthik--find-me-a-job",
+      "description": "find-me-a-job"
+    },
+    {
+      "name": "jrjsmrtn--project-orchestration-skills",
+      "source": "./jrjsmrtn--project-orchestration-skills",
+      "description": "Claude Code plugin: Skills for AI-assisted project orchestration"
+    },
+    {
+      "name": "yaralahruthik--find-me-a-job",
+      "source": "./yaralahruthik--find-me-a-job",
+      "description": "find-me-a-job"
+    },
+    {
+      "name": "smileluck--smilex-fastapi-cloud",
+      "source": "./smileluck--smilex-fastapi-cloud",
+      "description": "\u4e00\u4e2a\u57fa\u4e8e FastAPI\u3001SQLAlchemy\uff08\u5f02\u6b65\u7248\uff09\u548c Asyncpg \u6784\u5efa\u7684\u9ad8\u6027\u80fd\u5f02\u6b65\u5fae\u670d\u52a1\u6846\u67b6\uff0c\u65e8\u5728\u6253\u9020\u53ef\u6269\u5c55\u3001\u53ef\u7ef4\u62a4\u4e14\u9002\u5408\u751f\u4ea7\u73af\u5883\u7684\u540e\u7aef\u670d\u52a1\uff0c\u80fd\u591f\u901a\u8fc7AI\u5feb\u901f\u8fed\u4ee3\u7684\u5f00\u53d1\u6846\u67b6"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257497,6 +257517,11 @@
       "name": "zotoio--crux-compress",
       "source": "./zotoio--crux-compress",
       "description": "Compress verbose LLM rules while retaining self-contained meaning and intent."
+    },
+    {
+      "name": "boa-z--vowifi-go",
+      "source": "./boa-z--vowifi-go",
+      "description": "\u672c\u9879\u76ee\u57fa\u4e8e VoHive \u539f\u672c\u4f9d\u8d56\u7684\u95ed\u6e90 vowifi \u7248\u672c\u7684\u516c\u5171\u63a5\u53e3\u8fdb\u884c\u5f00\u53d1\uff0c\u672c\u9879\u76ee\u4e0e VoHive \u5b98\u65b9\u56e2\u961f\u65e0\u4efb\u4f55\u5173\u8054\uff0c\u672c\u9879\u76ee\u529f\u80fd\u5c1a\u672a\u5b9e\u73b0\u4e14\u5904\u4e8e\u5b9e\u9a8c\u9636\u6bb5\uff0c\u4ec5\u4e2a\u4eba\u5b66\u4e60\u4f7f\u7528"
     },
     {
       "name": "cheerhuan--save-your-token",
