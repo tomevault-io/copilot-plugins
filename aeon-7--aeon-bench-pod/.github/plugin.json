@@ -1,0 +1,9 @@
+{
+  "name": "aeon-7--aeon-bench-pod",
+  "displayName": "Aeon-Bench-Pod",
+  "description": "Run the AEON Bench suite on your own hardware: verified HuggingFace pull \u2192 serve \u2192 benchmark (text \u00b7 agentic \u00d73 harnesses \u00b7 vision \u00b7 audio \u00b7 arena \u00b7 perf) \u2192 ed25519-signed attested submit.",
+  "version": "1.0.0",
+  "author": "AEON-7",
+  "homepage": "https://github.com/AEON-7/Aeon-Bench-Pod",
+  "skills": []
+}
