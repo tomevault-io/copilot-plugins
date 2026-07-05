@@ -1,0 +1,44 @@
+{
+  "name": "ARL-Next",
+  "owner": "owl234",
+  "repo": "ARL-Next",
+  "description": "\u4f01\u4e1a\u7ea7\u81ea\u52a8\u5316\u8d44\u4ea7\u4fa6\u5bdf\u4e0e\u6f0f\u6d1e\u76d1\u63a7\u201c\u706f\u5854\u201d\u3002\u57fa\u4e8e Vue3 \u4e0e\u539f\u751f Puppeteer \u91cd\u6784\uff0c\u6253\u901a\u8d44\u4ea7\u53d1\u73b0\u5230\u6f0f\u6d1e PoC \u7684\u81ea\u52a8\u5316\u95ed\u73af\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/owl234/ARL-Next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T01:14:24Z"
+}
