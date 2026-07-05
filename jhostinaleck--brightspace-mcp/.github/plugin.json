@@ -1,0 +1,9 @@
+{
+  "name": "jhostinaleck--brightspace-mcp",
+  "displayName": "brightspace-mcp",
+  "description": "MCP server for D2L Brightspace with multi-strategy authentication (TOTP, OAuth, browser, etc.), retry/circuit breaker/cache tiers, and opt-in write operations.",
+  "version": "1.0.0",
+  "author": "JhostinAleck",
+  "homepage": "https://github.com/JhostinAleck/brightspace-mcp",
+  "skills": []
+}
