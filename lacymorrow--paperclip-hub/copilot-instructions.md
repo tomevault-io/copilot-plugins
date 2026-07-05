@@ -1,99 +1,111 @@
-## environment
+## error-handling
 
-> Environment Configuration Best Practices
+> Error Handling Best Practices and Guidelines
 
 
-# Environment Configuration Best Practices
+# Error Handling Best Practices
 
-## Environment Files
-- Use `.env.local` for local development
-- Use `.env.development` for development
-- Use `.env.test` for testing
-- Use `.env.production` for production
-- Never commit env files
-- Document all variables
-- Use example files
+## Client-Side Errors
+- Use error boundaries
+- Handle async errors
+- Provide user feedback
+- Log errors properly
+- Implement recovery
+- Monitor client errors
+- Document error types
 
-## Variable Naming
-- Use SCREAMING_SNAKE_CASE
-- Use descriptive names
-- Group related variables
-- Use proper prefixes
-- Document purpose
-- Consider scope
-- Maintain consistency
+## Server-Side Errors
+- Use proper try/catch
+- Handle async errors
+- Implement logging
+- Return proper status
+- Monitor server errors
+- Regular error review
+- Document procedures
 
-## Security
-- Never commit secrets
-- Use proper encryption
-- Rotate secrets regularly
-- Use secret management
-- Audit access
-- Monitor usage
+## API Errors
+- Use proper status codes
+- Return meaningful messages
+- Handle validation errors
+- Log API errors
+- Monitor error rates
+- Regular error review
+- Document API errors
+
+## Webhook Errors
+- Return proper HTTP status codes (200 for success, 4xx for client errors)
+- Implement comprehensive try/catch blocks for webhook processing
+- Log all webhook processing errors with context (but not sensitive data)
+- Never expose internal error details in webhook responses
+- Implement graceful degradation for non-critical webhook failures
+- Handle signature verification failures appropriately
+- Implement retry logic for failed webhook processing
+- Set up alerts for webhook failure patterns
+- Track webhook success/failure rates
+- Handle duplicate webhook events gracefully
+
+## Database Errors
+- Handle connection errors
+- Handle query errors
+- Implement retries
+- Log database errors
+- Monitor error patterns
+- Regular error review
 - Document procedures
 
 ## Validation
-- Validate at startup
-- Check required variables
-- Validate formats
-- Type checking
-- Document requirements
-- Handle missing values
+- Validate all inputs
+- Handle edge cases
+- Return clear messages
 - Log validation errors
+- Monitor patterns
+- Regular review
+- Document rules
 
-## Organization
-- Group by purpose
-- Use proper prefixes
-- Document structure
-- Maintain consistency
-- Version control
-- Review regularly
-- Keep organized
+## Logging
+- Use proper logging levels
+- Structure log messages
+- Include context
+- Handle sensitive data
+- Monitor logs
+- Regular log review
+- Document patterns
 
-## Development
-- Use local overrides
-- Document setup
-- Share examples
-- Handle conflicts
-- Maintain parity
-- Test configurations
-- Document workflows
+## Recovery
+- Implement fallbacks
+- Handle graceful degradation
+- Provide recovery options
+- Monitor recovery
+- Test recovery paths
+- Regular drills
+- Document procedures
 
-## Production
-- Use proper secrets
-- Configure monitoring
-- Set up logging
-- Handle rotation
-- Plan for scaling
-- Document deployment
-- Regular audits
+## Monitoring
+- Track error rates
+- Set up alerts
+- Monitor patterns
+- Regular analysis
+- Take action
+- Document findings
+- Share insights
 
-## Testing
-- Use test-specific values
-- Mock when needed
-- Clean up after tests
-- Validate configurations
-- Document test setup
-- Maintain isolation
-- Regular validation
+## User Experience
+- Show friendly messages
+- Provide clear guidance
+- Handle offline states
+- Support recovery
+- Monitor user impact
+- Regular UX review
+- Document patterns
 
 ## Documentation
-- Document all variables
-- Explain purpose
-- Show examples
-- Document requirements
+- Document error types
+- Document handling
 - Keep updated
-- Version control
+- Share knowledge
 - Regular reviews
-
-## Management
-- Use secret management
-- Configure access control
-- Monitor usage
-- Regular rotation
-- Audit access
-- Document procedures
-- Plan for emergencies 
+- Monitor changes
+- Maintain docs
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
