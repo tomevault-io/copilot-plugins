@@ -1,0 +1,9 @@
+{
+  "name": "ifnull--ha-airspace",
+  "displayName": "ha-airspace",
+  "description": "A Home Assistant add-on / Docker service that turns your local aircraft and drone receivers into useful HA entities, alerts, dashboards, and automations without relying on external services..",
+  "version": "1.0.0",
+  "author": "ifnull",
+  "homepage": "https://github.com/ifnull/ha-airspace",
+  "skills": []
+}
