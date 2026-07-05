@@ -202944,6 +202944,11 @@
       "description": "8 installable Claude Code skills for finding your unknowns before they get expensive: blindspot pass, brainstorms, interviews, references, plans, notes, pitches, and a merge quiz. Community distillati"
     },
     {
+      "name": "rul1an--assay",
+      "source": "./rul1an--assay",
+      "description": "Policy-as-code for MCP agents: deny risky tool calls before they run, prove what ran with verifiable evidence, and enforce egress in the kernel (eBPF/LSM, Linux). Deterministic, offline-first, bounded"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -237614,6 +237619,26 @@
       "description": "\u4e00\u4e2a\u57fa\u4e8e FastAPI\u3001SQLAlchemy\uff08\u5f02\u6b65\u7248\uff09\u548c Asyncpg \u6784\u5efa\u7684\u9ad8\u6027\u80fd\u5f02\u6b65\u5fae\u670d\u52a1\u6846\u67b6\uff0c\u65e8\u5728\u6253\u9020\u53ef\u6269\u5c55\u3001\u53ef\u7ef4\u62a4\u4e14\u9002\u5408\u751f\u4ea7\u73af\u5883\u7684\u540e\u7aef\u670d\u52a1\uff0c\u80fd\u591f\u901a\u8fc7AI\u5feb\u901f\u8fed\u4ee3\u7684\u5f00\u53d1\u6846\u67b6"
     },
     {
+      "name": "overcut-ai--overcut-playbooks",
+      "source": "./overcut-ai--overcut-playbooks",
+      "description": "Overcut is an agentic SDLC orchestration platform that automates end-to-end software workflows across tools and repositories, using governed AI agents with built-in approvals, policies, and full audit"
+    },
+    {
+      "name": "hayabusa-cloud--uring",
+      "source": "./hayabusa-cloud--uring",
+      "description": "Minimal pure Go io_uring library for Linux 6.18+"
+    },
+    {
+      "name": "stevyhacker--lokalbot",
+      "source": "./stevyhacker--lokalbot",
+      "description": "Local LLM helper bot for meetings notes, time tracking, and copying."
+    },
+    {
+      "name": "jonmmease--jons-mcp-imessage",
+      "source": "./jonmmease--jons-mcp-imessage",
+      "description": "MCP server for iMessage with hybrid search and contact name enrichment"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257532,6 +257557,16 @@
       "name": "boa-z--vowifi-go",
       "source": "./boa-z--vowifi-go",
       "description": "\u672c\u9879\u76ee\u57fa\u4e8e VoHive \u539f\u672c\u4f9d\u8d56\u7684\u95ed\u6e90 vowifi \u7248\u672c\u7684\u516c\u5171\u63a5\u53e3\u8fdb\u884c\u5f00\u53d1\uff0c\u672c\u9879\u76ee\u4e0e VoHive \u5b98\u65b9\u56e2\u961f\u65e0\u4efb\u4f55\u5173\u8054\uff0c\u672c\u9879\u76ee\u529f\u80fd\u5c1a\u672a\u5b9e\u73b0\u4e14\u5904\u4e8e\u5b9e\u9a8c\u9636\u6bb5\uff0c\u4ec5\u4e2a\u4eba\u5b66\u4e60\u4f7f\u7528"
+    },
+    {
+      "name": "suyash-lyzr--scout-agent",
+      "source": "./suyash-lyzr--scout-agent",
+      "description": "Scout \u2014 the entire internet in one governed AI agent. Reads Twitter, Reddit, YouTube, GitHub & more via your local browser sessions. Read-only, free, git-native. A port of Agent Reach with a built-in "
+    },
+    {
+      "name": "starksv--llm-council-local",
+      "source": "./starksv--llm-council-local",
+      "description": "Multi-model deliberation with local Ollama \u2014 3-stage council with anonymous peer review"
     },
     {
       "name": "cheerhuan--save-your-token",
