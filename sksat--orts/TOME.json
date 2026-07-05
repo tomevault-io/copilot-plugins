@@ -1,0 +1,51 @@
+{
+  "name": "orts",
+  "owner": "sksat",
+  "repo": "orts",
+  "description": "orts is an astrodynamics simulation platform \u2014 orbit and attitude dynamics with real-time 3D visualization, extensible WASM plugins, and in-browser analytics.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/sksat/orts/tree/main/.claude/skills/code-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sksat/orts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T14:30:28Z"
+}
