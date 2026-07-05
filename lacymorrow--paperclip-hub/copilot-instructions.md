@@ -1,125 +1,195 @@
-## webhook-security
+## paperclip-hub
 
-> - ALWAYS verify webhook signatures using timing-safe comparison
+> You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-# Webhook Security Best Practices
+# Shipkit Rules
 
-## Signature Verification
-- ALWAYS verify webhook signatures using timing-safe comparison
-- Never accept webhooks without proper signature validation
-- Use environment variables for webhook secrets
-- Implement multiple signature algorithm support when available
-- Log signature verification failures for security monitoring
-- Never expose signature verification logic in error messages
-- Use raw request body for signature validation (before JSON parsing)
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-## Request Validation
-- Validate all webhook payload fields before processing
-- Implement strict JSON schema validation
-- Check for required fields and proper data types
-- Sanitize all input data before database operations
-- Validate webhook event types against expected values
-- Implement payload size limits to prevent DoS attacks
-- Check request headers for proper content-type
+This is a Next.js project using App Router, Shadcn/UI, Tailwind, Resend, Builder.io, Payload CMS v3, NextAuth/AuthJS v5, TypeScript, using Bun as the package manager.
 
-## Idempotency
-- Implement idempotency using unique event identifiers
-- Store processed webhook IDs to prevent duplicate processing
-- Use database transactions for atomic operations
-- Handle race conditions with proper locking mechanisms
-- Implement retry logic for failed webhook processing
-- Set appropriate timeouts for database operations
-- Log all idempotency checks and outcomes
+Be aware of the latest versions of all libraries.
+Your plans should be documented into a ai.mdx file. Check to see if it exists. If it does, pick up where you left off. Mark completed steps with a checkbox. Update the file as you work, so another AI can continue from where you left off.
 
-## Error Handling
-- Return proper HTTP status codes (200 for success, 4xx for client errors)
-- Implement comprehensive try/catch blocks
-- Log all webhook processing errors with context
-- Never expose internal error details in responses
-- Implement graceful degradation for non-critical failures
-- Use structured logging for better error analysis
-- Set up alerts for webhook failure patterns
+Shipkit is a premium starter boilerplate for Next.js that allows customers to opt in to features by adding environment variables.
 
-## Rate Limiting
-- Implement rate limiting per webhook source
-- Use sliding window or token bucket algorithms
-- Configure different limits for different event types
-- Monitor and alert on rate limit violations
-- Implement progressive backoff for repeated violations
-- Log all rate limiting actions
-- Allow for burst traffic during normal operations
+For example, you may launch with no environment variables at all. Adding a database will enable features like payload CMS. Adding a builder.io API key will enable the builder.io integration.
 
-## Data Security
-- Never log sensitive data from webhook payloads
-- Encrypt webhook data at rest if storage is required
-- Implement data retention policies for webhook logs
-- Sanitize logs before external monitoring systems
-- Use secure connections (HTTPS) for all webhook endpoints
-- Validate SSL certificates in development and production
-- Implement proper access controls for webhook endpoints
+## Key Principles
 
-## Monitoring and Alerting
-- Track webhook success/failure rates
-- Monitor processing times and performance metrics
-- Set up alerts for unusual patterns or failures
-- Implement health checks for webhook endpoints
-- Track payload sizes and processing volumes
-- Monitor for potential security threats or attacks
-- Regular review of webhook logs and metrics
+- Authentication uses NextAuth/AuthJS v5.
+- Authentication with credentials uses payload CMS user management.
+- Use the Shadcn/UI components and styles when possible. This means colors, fonts, spacing, border-radius, etc. are already set up.
 
-## Testing
-- Test signature verification with invalid signatures
-- Test with malformed and oversized payloads
-- Implement integration tests with webhook providers
-- Test idempotency with duplicate events
-- Test error handling and recovery scenarios
-- Validate rate limiting behavior under load
-- Test webhook endpoint availability and performance
+## Code sacred beliefs
 
-## Database Security
-- Use parameterized queries to prevent SQL injection
-- Implement proper database connection pooling
-- Use database transactions for webhook data consistency
-- Implement proper database access controls
-- Regular database security audits
-- Monitor database performance during webhook processing
-- Implement database backup and recovery procedures
+- Thou shalt Make files small and discrete. When possible keep files under 500 lines, if at all possible.
+- Thou shalt Write concise, technical TypeScript code with accurate examples.
+- Thou shalt Use functional and declarative programming patterns; avoid classes.
+- Thou shalt Prefer iteration and modularization over code duplication.
+- Thou shalt Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Thou shalt Structure files: exported component, subcomponents, helpers, static content, types.
+- Thou shalt Use the simplest solution first and only add complexity when necessary.
 
-## Event Processing
-- Process webhooks asynchronously when possible
-- Implement proper queuing mechanisms for high-volume webhooks
-- Use database transactions for multi-step operations
-- Handle webhook dependencies and ordering when required
-- Implement proper rollback mechanisms for failed operations
-- Track processing status and provide visibility
-- Implement dead letter queues for failed events
+## React State Management
 
-## Documentation
-- Document all supported webhook events and formats
-- Maintain webhook endpoint documentation
-- Document security requirements and procedures
-- Keep webhook integration guides updated
-- Document error codes and troubleshooting steps
-- Maintain webhook testing and validation procedures
-- Document monitoring and alerting configurations
+- Avoid circular dependencies between state variables that can cause infinite update loops
+- Don't update state directly inside useEffect without dependencies or conditions
+- Don't use useState and useEffect when a single state update function would suffice
+- When synchronizing two state variables, use a single source of truth approach
+- For local storage integration, ensure state updates don't trigger unnecessary re-renders
+- Prefer unidirectional data flow: parent state flowing to children
+- When using multiple state variables that change together, consider useReducer
+- Carefully analyze effects to avoid unwanted side effects and re-renders
+- When a state update depends on previous state, always use the functional form (prev => ...)
+- For complex state transitions, implement dedicated state management functions rather than direct setters
 
-## Compliance
-- Follow payment processor security requirements
-- Implement PCI DSS compliance for payment webhooks
-- Follow GDPR requirements for customer data processing
-- Implement audit trails for compliance reporting
-- Regular security assessments and penetration testing
-- Document compliance procedures and requirements
-- Regular compliance training for development teams
+## Naming Conventions
 
-## Lemon Squeezy Specific
-- Always verify X-Signature header using HMAC-SHA256
-- Support all critical webhook events (subscription.created, payment_success, etc.)
-- Implement proper customer and subscription data synchronization
-- Handle test vs production webhook environments correctly
-- Implement proper error responses for Lemon Squeezy retry logic
-- Follow Lemon Squeezy webhook documentation requirements
-- Test webhook integration in Lemon Squeezy sandbox environment
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for components.
+
+## TypeScript Usage
+
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript interfaces.
+
+## Syntax and Formatting
+
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
+
+## UI and Styling
+
+- Use Shadcn UI, Radix, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
+
+## Navigation Patterns
+
+- Prefer declarative links over imperative navigation (`router.push`)
+- In the App Router, use `src/components/primitives/link-with-transition` instead of `next/link`
+- For styled links that look like buttons, use: `<Link className={cn(buttonVariants({ variant: "...", size: "..." }))} ...>`
+- Only use router navigation for complex scenarios (e.g., form submissions with redirects)
+- Prefer shallow routing when appropriate to avoid unnecessary data fetching
+- Add proper aria labels to navigation elements
+
+## Performance Optimization
+
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+- Wrap client components in Suspense with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+
+## Key Conventions
+
+- Use 'nuqs' for URL search parameter state management.
+- Optimize Web Vitals (LCP, CLS, FID).
+- Limit 'use client':
+- Favor server components and Next.js SSR.
+- Use only for Web API access in small components.
+- Avoid for data fetching or state management.
+
+Follow Next.js docs for Data Fetching, Rendering, and Routing.
+
+## Don't
+
+Don't delete environment variables.
+Don't run the dev server (`bun dev`) in the terminal, User will do that.
+Don't nest server components in client components unless passed through props.
+Don't forget to add `use client` to the top of the file if you are using client-side code like hooks.
+Don't use `use client` in server components.
+Don't fetch data with server actions. AGAIN, DO NOT FETCH DATA WITH SERVER ACTIONS.
+
+## Comments
+
+pre-emptively add comments to explain "why" behind the code.
+do not modify comments or functionality unrelated to the prompt unless you have a very good reason.
+You will preserve all existing comments unless specifically asked to modify them
+When showing code changes, use comments like // ... to indicate unchanged sections of code
+We like comments with callouts and examples, like:
+
+```
+/*
+ * Logging configuration
+ * @see https://nextjs.org/docs/app/api-reference/next-config-js/logging
+ */
+```
+
+## File structure
+
+Prefer `hyphen-case.ext` over `CamelCase.ext`.
+Use `@/server/actions` for all server actions.
+Use `@/server/services` for all internal services.
+
+## Coding conventions
+
+pre-emptively ask questions if you are unsure about the requirements.
+pre-emptively optimize code for production.
+pre-emptively add types to all functions and variables.
+pre-emptively fix any typescript errors or warnings.
+
+Use open-source libraries when they would enhance the user/developer experience.
+Use best practices, write production-ready code.
+Fix bugs and improve performance.
+Comment any complex or hard-to-read code.
+fix all typescript errors and warnings.
+
+## React
+
+Use functional components and hooks for state management.
+Ensure components are reusable and maintainable.
+Prefer server actions for internal API requests.
+Maintain a separation of concerns between client and server components.
+
+Prefer arrow functions for React components:
+✅ export const Component = () => { ... }
+❌ export function Component() { ... }
+❌ export default function Component() { ... }
+
+## Next.js
+
+Don't use server actions to fetch data. Use Server Components instead.
+Server code belongs in services, server action code belongs in actions if an action needs server-side code it should call services. So, a server component may load data using a service, then manipulate data using a server action, which then calls a service.
+
+- `params`, `searchParams`, and `headers` should be awaited before using its properties.
+- Never nest server components in client components unless passed through props.
+- Never use server actions to fetch data.
+- Never nest `<Button>` components in `<Link>` components, or vice versa.
+
+## When interacting with the database
+
+1. Ensure all required fields are provided when interacting with the database.
+2. Check for potential undefined values and handle them appropriately.
+3. Use TypeScript's type system to enforce correct data structures.
+4. Implement error handling for database operations and API requests.
+5. Validate input data to prevent runtime errors and ensure data integrity.
+6. Add comments to explain complex logic or important decisions in the code.
+7. Regularly review and test code to catch and fix errors early.
+8. Use the `db.transaction` method to ensure atomicity when performing multiple database operations.
+9. don't use boolean values for anything, use dates instead. (e.g. isActive: boolean -> activeAt: Date)
+
+## API Integration
+
+- Use environment variables for sensitive data like API keys.
+- Handle API errors gracefully and provide user feedback.
+- Use async/await for asynchronous operations to improve readability.
+- Document API interactions and expected responses.
+
+## UI/UX Design
+
+- Follow Tailwind CSS conventions for styling.
+- Ensure responsive design for all components.
+- Use Shadcn/UI components for consistency in UI elements.
+- Prioritize accessibility in UI design.
+
+## Performance Optimization
+
+- Optimize images and assets for faster load times.
+- Use lazy loading for components and images where applicable.
+- Minimize the use of heavy libraries and dependencies.
+- Regularly audit and improve performance metrics.
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
