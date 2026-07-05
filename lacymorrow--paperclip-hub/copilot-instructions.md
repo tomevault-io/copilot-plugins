@@ -1,88 +1,302 @@
-## cursor-rules
+## database-patterns
 
-> Cursor Rules Location
+> Use the `createTable` function with consistent naming:
 
+# Database Patterns & Best Practices
 
-# Cursor Rules Location
+## Schema Design Patterns
 
-Rules for placing and organizing Cursor rule files in the repository.
+### Table Creation Pattern
+Use the `createTable` function with consistent naming:
+```typescript
+const createTable = pgTableCreator((name) => `${env?.DB_PREFIX ?? ""}_${name}`);
 
-<rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
-filters:
-  # Match any .mdc files
-  - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
-  - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
+export const waitlistEntries = createTable(
+  "waitlist_entry",
+  {
+    id: serial("id").primaryKey(),
+    email: varchar("email", { length: 255 }).notNull().unique(),
+    // ... other fields
+  },
+  (table) => ({
+    emailIdx: index("waitlist_email_idx").on(table.email),
+    createdAtIdx: index("waitlist_created_at_idx").on(table.createdAt),
+  })
+);
+```
 
-actions:
+### Field Naming Conventions
+- Use `snake_case` for database columns
+- Use `camelCase` for TypeScript properties
+- Include length constraints for varchar fields
+- Use descriptive index names
 
-- type: reject
-  conditions:
+### Required Field Patterns
+```typescript
+// ✅ Good patterns
+id: serial("id").primaryKey()
+email: varchar("email", { length: 255 }).notNull().unique()
+createdAt: timestamp("created_at", { withTimezone: true })
+  .default(sql`CURRENT_TIMESTAMP`)
+  .notNull()
+updatedAt: timestamp("updated_at", { withTimezone: true })
+  .$onUpdate(() => new Date())
 
-  - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.\*\\.mdc$)"
-    message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+// Optional fields
+company: varchar("company", { length: 255 })  // No .notNull()
+metadata: text("metadata").default("{}")      // Default JSON
+```
 
-- type: suggest
-  message: |
-  When creating Cursor rules:
+## Index Strategy
 
-  1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+### Performance Indexes
+Create indexes for common query patterns:
+```typescript
+(table) => ({
+  // Single column indexes
+  emailIdx: index("waitlist_email_idx").on(table.email),
+  createdAtIdx: index("waitlist_created_at_idx").on(table.createdAt),
 
-     ```
-     .cursor/rules/
-     ├── your-rule-name.mdc
-     ├── another-rule.mdc
-     └── ...
-     ```
+  // Conditional indexes for boolean fields
+  isNotifiedIdx: index("waitlist_is_notified_idx").on(table.isNotified),
 
-  2. Follow the naming convention:
+  // Composite indexes for multi-column queries
+  userCompanyIdx: index("user_company_idx").on(table.userId, table.company),
+})
+```
 
-     - Use kebab-case for filenames
-     - Always use .mdc extension
-     - Make names descriptive of the rule's purpose
+### Index Naming Convention
+- Format: `{table}_{column}_{type}_idx`
+- Examples: `waitlist_email_idx`, `user_created_at_idx`
 
-  3. Directory structure:
+## Type Generation
 
-     ```
-     PROJECT_ROOT/
-     ├── .cursor/
-     │   └── rules/
-     │       ├── your-rule-name.mdc
-     │       └── ...
-     └── ...
-     ```
+### Infer Types from Schema
+```typescript
+export type WaitlistEntry = typeof waitlistEntries.$inferSelect;
+export type NewWaitlistEntry = typeof waitlistEntries.$inferInsert;
 
-  4. Never place rule files:
-     - In the project root
-     - In subdirectories outside .cursor/rules
-     - In any other location
+// Use in service functions
+export async function addWaitlistEntry(
+  data: Omit<NewWaitlistEntry, "id" | "createdAt" | "updatedAt">
+): Promise<WaitlistEntry> {
+  // implementation
+}
+```
 
-examples:
+### Partial Types for Updates
+```typescript
+// For update operations
+type WaitlistEntryUpdate = Partial<Omit<NewWaitlistEntry, "id" | "email">>;
+```
 
-- input: |
+## Migration Patterns
 
-  # Bad: Rule file in wrong location
+### Schema Changes
+Use Drizzle Kit for schema migrations:
+```bash
+# Generate migration
+npx drizzle-kit generate
 
-  rules/my-rule.mdc
-  my-rule.mdc
-  .rules/my-rule.mdc
+# Apply to database
+bun run db:push
 
-  # Good: Rule file in correct location
+# Or use migrate for production
+npx drizzle-kit migrate
+```
 
-  .cursor/rules/my-rule.mdc
-  output: "Correctly placed Cursor rule file"
+### Migration Safety
+- Always backup before major schema changes
+- Test migrations on staging first
+- Use transactions for complex migrations
+- Consider downtime for large table changes
 
-metadata:
-priority: high
-version: 1.0
-</rule>
+## Query Patterns
+
+### Basic CRUD Operations
+```typescript
+// Create
+const [entry] = await db
+  .insert(waitlistEntries)
+  .values(data)
+  .returning();
+
+// Read with conditions
+const [entry] = await db
+  .select()
+  .from(waitlistEntries)
+  .where(eq(waitlistEntries.email, email))
+  .limit(1);
+
+// Update
+await db
+  .update(waitlistEntries)
+  .set({ isNotified: true })
+  .where(eq(waitlistEntries.email, email));
+
+// Delete
+await db
+  .delete(waitlistEntries)
+  .where(eq(waitlistEntries.id, id));
+```
+
+### Pagination Pattern
+```typescript
+export async function getWaitlistEntries(options: {
+  limit?: number;
+  offset?: number;
+  orderBy?: "asc" | "desc";
+} = {}) {
+  const { limit = 50, offset = 0, orderBy = "desc" } = options;
+
+  return await db
+    .select()
+    .from(waitlistEntries)
+    .orderBy(
+      orderBy === "desc"
+        ? desc(waitlistEntries.createdAt)
+        : waitlistEntries.createdAt
+    )
+    .limit(limit)
+    .offset(offset);
+}
+```
+
+### Aggregation Queries
+```typescript
+// Count queries
+const [result] = await db
+  .select({ count: count() })
+  .from(waitlistEntries);
+
+// Conditional counts
+const [notifiedResult] = await db
+  .select({ count: count() })
+  .from(waitlistEntries)
+  .where(eq(waitlistEntries.isNotified, true));
+```
+
+## Relationship Patterns
+
+### Foreign Key Relations
+```typescript
+// In schema.ts
+export const waitlistEntries = createTable("waitlist_entry", {
+  userId: varchar("user_id", { length: 255 })
+    .references(() => users.id, { onDelete: "cascade" }),
+});
+
+// Define relations
+export const waitlistRelations = relations(waitlistEntries, ({ one }) => ({
+  user: one(users, {
+    fields: [waitlistEntries.userId],
+    references: [users.id],
+  }),
+}));
+```
+
+### Querying with Relations
+```typescript
+// Simple join
+const entriesWithUsers = await db
+  .select({
+    entry: waitlistEntries,
+    user: users,
+  })
+  .from(waitlistEntries)
+  .leftJoin(users, eq(waitlistEntries.userId, users.id));
+```
+
+## Data Validation
+
+### Database Level Constraints
+```typescript
+// Unique constraints
+email: varchar("email", { length: 255 }).notNull().unique(),
+
+// Check constraints (when supported)
+status: varchar("status", { length: 50 })
+  .notNull()
+  .default("pending"),
+```
+
+### Application Level Validation
+```typescript
+export async function addWaitlistEntry(data: NewWaitlistEntry) {
+  // Validate before insert
+  if (!data.email || !data.name) {
+    throw new Error("Email and name are required");
+  }
+
+  // Check for duplicates
+  const existing = await isEmailOnWaitlist(data.email);
+  if (existing) {
+    throw new Error("Email already exists");
+  }
+
+  // Proceed with insert
+}
+```
+
+## Error Handling
+
+### Database Error Handling
+```typescript
+try {
+  const result = await db.insert(table).values(data);
+  return result;
+} catch (error) {
+  if (error.code === '23505') { // Unique violation
+    throw new Error("Duplicate entry");
+  }
+  throw error; // Re-throw unknown errors
+}
+```
+
+### Connection Error Handling
+```typescript
+export async function serviceFunction() {
+  if (!db) {
+    throw new Error("Database not initialized");
+  }
+
+  try {
+    // database operations
+  } catch (error) {
+    console.error("Database operation failed:", error);
+    throw new Error("Database operation failed");
+  }
+}
+```
+
+## Performance Optimization
+
+### Query Optimization
+- Use `select()` to specify needed columns
+- Add `limit()` for large result sets
+- Use indexes for WHERE and ORDER BY clauses
+- Avoid N+1 queries with proper joins
+
+### Connection Management
+- Use connection pooling (handled by Drizzle)
+- Close connections properly
+- Monitor connection usage
+- Set appropriate timeouts
+
+## Environment Configuration
+
+### Database Configuration
+Reference the main database config in [schema.ts](mdc:src/server/db/schema.ts):
+```typescript
+const createTable = pgTableCreator((name) => `${env?.DB_PREFIX ?? ""}_${name}`);
+```
+
+### Environment Variables
+Required database environment variables:
+- `DATABASE_URL` - Connection string
+- `DB_PREFIX` - Table prefix for multi-tenant setups
+
+This pattern ensures consistent database operations across the Shipkit application while maintaining performance and data integrity.
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
