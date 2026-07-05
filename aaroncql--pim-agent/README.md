@@ -7,11 +7,11 @@ A Bun-native extension pack for Pi: web access, subagents, revamped core tools, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AaronCQL/pim-agent](https://github.com/AaronCQL/pim-agent).
+Original source: `AGENTS.md` in [AaronCQL/pim-agent](https://github.com/AaronCQL/pim-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
