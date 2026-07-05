@@ -1,0 +1,14 @@
+{
+  "name": "alecs5am--ralphy",
+  "displayName": "ralphy",
+  "description": "\ud83c\udfac Give AI agents tools to create viral videos. Influence at scale, from your terminal.",
+  "version": "1.0.0",
+  "author": "alecs5am",
+  "homepage": "https://github.com/alecs5am/ralphy",
+  "skills": [
+    {
+      "name": "dev-release",
+      "description": ""
+    }
+  ]
+}
