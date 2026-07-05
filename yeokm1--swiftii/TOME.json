@@ -4,7 +4,7 @@
   "repo": "swiftii",
   "description": "A Swift-flavored mini development environment for the Apple II.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yeokm1/swiftii",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T02:53:11Z"
+  "distributed_at": "2026-07-05T03:10:23Z"
 }
