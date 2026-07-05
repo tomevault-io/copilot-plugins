@@ -1,0 +1,9 @@
+{
+  "name": "chenkonturek--titanic-survival-demo",
+  "displayName": "titanic-survival-demo",
+  "description": "Titanic survival prediction: end-to-end ML pipeline with EDA, Random Forest model (79.9% accuracy), and feature importance analysis",
+  "version": "1.0.0",
+  "author": "chenkonturek",
+  "homepage": "https://github.com/chenkonturek/titanic-survival-demo",
+  "skills": []
+}
