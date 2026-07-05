@@ -1,0 +1,9 @@
+{
+  "name": "amiantos--lurker",
+  "displayName": "lurker",
+  "description": "Lurker is a beautiful self-hosted modern IRC client with a retro flair, most easily described as \"your personal IRCCloud, with Weechat looks\".",
+  "version": "1.0.0",
+  "author": "amiantos",
+  "homepage": "https://github.com/amiantos/lurker",
+  "skills": []
+}
