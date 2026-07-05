@@ -7,11 +7,11 @@ Orchestrate AI coding agents (Claude Code, Codex) as parallel subagents over tmu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Happenmass/omux](https://github.com/Happenmass/omux).
+Original source: `CLAUDE.md` in [Happenmass/omux](https://github.com/Happenmass/omux).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
