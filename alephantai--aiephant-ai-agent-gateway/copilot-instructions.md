@@ -1,0 +1,38 @@
+## api-workflow
+
+> This document outlines common patterns and the request workflow in the LLM Proxy.
+
+# API Workflow and Patterns
+
+This document outlines common patterns and the request workflow in the LLM Proxy.
+
+## Request Flow
+
+1. API request received by [ai-gateway/src/app.rs](mdc:ai-gateway/src/app.rs)
+2. Middleware processing in [ai-gateway/src/middleware/](mdc:ai-gateway/src/middleware)
+3. Routing via [ai-gateway/src/router/](mdc:ai-gateway/src/router)
+4. Request dispatching in [ai-gateway/src/dispatcher.rs](mdc:ai-gateway/src/dispatcher.rs)
+5. Provider selection via [ai-gateway/src/balancer/](mdc:ai-gateway/src/balancer)
+6. Response processing and return
+
+## Common Patterns
+
+### Error Handling
+
+- Errors are defined in [ai-gateway/src/error/](mdc:ai-gateway/src/error)
+- Return structured errors to API clients
+
+### Configuration
+
+- Configuration is loaded from files and environment variables
+- See [ai-gateway/src/config/](mdc:ai-gateway/src/config) for details
+
+### Testing
+
+- Unit tests alongside code
+- Integration tests in [ai-gateway/tests/](mdc:ai-gateway/tests)
+- Mock services for external APIs in [ai-gateway/stubs/](mdc:ai-gateway/stubs)
+
+---
+> Source: [AlephantAI/AIephant-AI-Agent-Gateway](https://github.com/AlephantAI/AIephant-AI-Agent-Gateway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
