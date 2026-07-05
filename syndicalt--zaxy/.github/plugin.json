@@ -1,0 +1,9 @@
+{
+  "name": "syndicalt--zaxy",
+  "displayName": "zaxy",
+  "description": "Zaxy turns agent work into durable, auditable memory: a hash-chained Eventloom log as the source of truth, an embedded temporal knowledge graph for reasoning (local-first, no sidecar; Neo4j/Postgres o",
+  "version": "1.0.0",
+  "author": "syndicalt",
+  "homepage": "https://github.com/syndicalt/zaxy",
+  "skills": []
+}
