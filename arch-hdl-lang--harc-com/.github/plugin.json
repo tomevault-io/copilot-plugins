@@ -1,0 +1,9 @@
+{
+  "name": "arch-hdl-lang--harc-com",
+  "displayName": "harc-com",
+  "description": "HARC: verification language compiler, sister to ARCH",
+  "version": "1.0.0",
+  "author": "arch-hdl-lang",
+  "homepage": "https://github.com/arch-hdl-lang/harc-com",
+  "skills": []
+}
