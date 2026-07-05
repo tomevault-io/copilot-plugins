@@ -1,0 +1,9 @@
+{
+  "name": "agamiai--agami-core",
+  "displayName": "agami-core",
+  "description": "Lightweight BI skill, built for Claude. Designed to run locally with no infra dependency. ",
+  "version": "1.0.0",
+  "author": "AgamiAI",
+  "homepage": "https://github.com/AgamiAI/agami-core",
+  "skills": []
+}
