@@ -1,0 +1,9 @@
+{
+  "name": "agentcathq--webmcp-react",
+  "displayName": "webmcp-react",
+  "description": "React hooks for exposing your app's functionality as WebMCP tools - transport-agnostic, SSR-safe, Strict Mode safe, W3C spec-aligned",
+  "version": "1.0.0",
+  "author": "agentcathq",
+  "homepage": "https://github.com/agentcathq/webmcp-react",
+  "skills": []
+}
