@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--destino",
+  "displayName": "destino",
+  "description": "Doom terminal demo based on Node.js, doomgeneric and OpenTUI",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/destino",
+  "skills": []
+}
