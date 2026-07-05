@@ -1,0 +1,9 @@
+{
+  "name": "gusto--baerly-storage",
+  "displayName": "baerly-storage",
+  "description": "Document database with no database server. Tiny, LLM-friendly TypeScript API; DB engine runs to completion in each JS request handler; state lives in S3/R2.",
+  "version": "1.0.0",
+  "author": "Gusto",
+  "homepage": "https://github.com/Gusto/baerly-storage",
+  "skills": []
+}
