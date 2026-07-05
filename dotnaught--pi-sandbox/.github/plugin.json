@@ -1,0 +1,9 @@
+{
+  "name": "dotnaught--pi-sandbox",
+  "displayName": "pi-sandbox",
+  "description": "A Docker Sandbox for running the Pi agent locally with a model served by oMLX.",
+  "version": "1.0.0",
+  "author": "Dotnaught",
+  "homepage": "https://github.com/Dotnaught/pi-sandbox",
+  "skills": []
+}
