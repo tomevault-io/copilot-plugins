@@ -1,0 +1,9 @@
+{
+  "name": "ruby-native--pingrb",
+  "displayName": "pingrb",
+  "description": "A tiny push notification app to get alerts on anything.",
+  "version": "1.0.0",
+  "author": "ruby-native",
+  "homepage": "https://github.com/ruby-native/pingrb",
+  "skills": []
+}
