@@ -4,7 +4,7 @@
   "repo": "agentlocks",
   "description": "Advisory file locks so multiple AI coding agents can share one Git worktree.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/simke9445/agentlocks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T02:59:36Z"
+  "distributed_at": "2026-07-05T05:19:32Z"
 }
