@@ -7,11 +7,11 @@ Sistema operativo agéntico para operadores de IA. Sinapsis v4.5 (engine de memo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [iamasters-academy/iamasters-os](https://github.com/iamasters-academy/iamasters-os).
+Original source: `AGENTS.md` in [iamasters-academy/iamasters-os](https://github.com/iamasters-academy/iamasters-os).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
