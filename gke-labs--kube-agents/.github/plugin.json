@@ -1,0 +1,9 @@
+{
+  "name": "gke-labs--kube-agents",
+  "displayName": "kube-agents",
+  "description": "kube-agents",
+  "version": "1.0.0",
+  "author": "gke-labs",
+  "homepage": "https://github.com/gke-labs/kube-agents",
+  "skills": []
+}
