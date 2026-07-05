@@ -4,7 +4,7 @@
   "repo": "Septum",
   "description": "Privacy-first AI middleware with local PII detection, approval gate, and automatic de-anonymization. Query your documents with any LLM \u2014 GDPR, KVKK, HIPAA ready.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/byerlikaya/Septum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T10:32:28Z"
+  "distributed_at": "2026-07-05T10:40:10Z"
 }
