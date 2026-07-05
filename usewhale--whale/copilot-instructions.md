@@ -20,14 +20,14 @@ Keep new packages focused and place tests next to the code they cover.
 
 ## Build, Test, and Development Commands
 
-- `make build` builds `bin/whale` with the repo-local `.gocache`
-- `make run` builds and launches the interactive TUI
-- `make test` runs the full offline Go test suite
-- `make test-tui` runs the TUI-focused subset
-- `make test-evals` runs eval and replay tests
+- `make build` (or `go build -o bin/whale .` on Windows without Make) builds `bin/whale` with the repo-local `.gocache`
+- `make run` (or `go build -o bin/whale . && ./bin/whale`) builds and launches the interactive TUI
+- `make test` (or `go test ./...`) runs the full offline Go test suite
+- `make test-tui` (or `go test ./internal/tui/...`) runs the TUI-focused subset
+- `make test-evals` (or `go test ./internal/evals/...`) runs eval and replay tests
 - `make clean` removes `bin/` and `.gocache`
 
-Use the Makefile targets instead of raw `go` commands so cache paths stay consistent.
+Prefer Makefile targets on macOS/Linux. On Windows (where `make` is not available by default), use the equivalent `go` commands listed above. The `.gocache` directory is managed automatically so cache paths stay consistent regardless of which method you use.
 
 ## Coding Style & Naming Conventions
 
@@ -46,5 +46,5 @@ Recent history mixes short imperative subjects with scoped prefixes such as `fea
 Do not commit `~/.whale/` data, `./.whale/settings.json`, session logs, or API keys. Treat project hook config as untrusted input because hooks can execute shell commands.
 
 ---
-> Source: [usewhale/whale](https://github.com/usewhale/whale) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-08 -->
+> Source: [usewhale/Whale](https://github.com/usewhale/Whale) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
