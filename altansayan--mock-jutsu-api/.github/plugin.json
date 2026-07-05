@@ -1,0 +1,9 @@
+{
+  "name": "altansayan--mock-jutsu-api",
+  "displayName": "mock-jutsu-api",
+  "description": "The Ultimate Algorithmic Mock Data Engine. Stop mocking with random strings \u2014 generate cryptographically valid test data. 390 types \u00b7 6 locales \u00b7 Zero dependencies \u00b7 CLI + REST API + JMeter Plugin",
+  "version": "1.0.0",
+  "author": "altansayan",
+  "homepage": "https://github.com/altansayan/mock-jutsu-api",
+  "skills": []
+}
