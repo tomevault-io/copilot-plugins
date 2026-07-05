@@ -1,0 +1,9 @@
+{
+  "name": "slash9494--ai-config-sync-manager",
+  "displayName": "ai-config-sync-manager",
+  "description": "Bidirectional sync for Claude Code and Codex \u2014 instructions, skills, agents, MCP servers, hooks, permissions.",
+  "version": "1.0.0",
+  "author": "slash9494",
+  "homepage": "https://github.com/slash9494/ai-config-sync-manager",
+  "skills": []
+}
