@@ -1,0 +1,9 @@
+{
+  "name": "arrow7000--fhm",
+  "displayName": "fhm",
+  "description": "Formalised Hindley-Milner: machine-checked Algorithm W (soundness + principality) in Lean 4 + some opinionated language design choices",
+  "version": "1.0.0",
+  "author": "Arrow7000",
+  "homepage": "https://github.com/Arrow7000/fhm",
+  "skills": []
+}
