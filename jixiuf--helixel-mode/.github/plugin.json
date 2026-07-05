@@ -1,0 +1,9 @@
+{
+  "name": "jixiuf--helixel-mode",
+  "displayName": "helixel-mode",
+  "description": "Helix-style modal editing for Emacs.",
+  "version": "1.0.0",
+  "author": "jixiuf",
+  "homepage": "https://github.com/jixiuf/helixel-mode",
+  "skills": []
+}
