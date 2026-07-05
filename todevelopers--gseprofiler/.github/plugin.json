@@ -1,0 +1,9 @@
+{
+  "name": "todevelopers--gseprofiler",
+  "displayName": "gseprofiler",
+  "description": "A developer toolkit for GNOME Shell extension authors. GSE Profiler installs a lightweight shell extension bridge inside the running shell process and gives you live function timing (flamegraph/swimla",
+  "version": "1.0.0",
+  "author": "todevelopers",
+  "homepage": "https://github.com/todevelopers/gseprofiler",
+  "skills": []
+}
