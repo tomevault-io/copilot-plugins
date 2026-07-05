@@ -1,0 +1,14 @@
+{
+  "name": "sksat--orts",
+  "displayName": "orts",
+  "description": "orts is an astrodynamics simulation platform \u2014 orbit and attitude dynamics with real-time 3D visualization, extensible WASM plugins, and in-browser analytics.",
+  "version": "1.0.0",
+  "author": "sksat",
+  "homepage": "https://github.com/sksat/orts",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
