@@ -1,0 +1,9 @@
+{
+  "name": "jackthepunished--brokkr",
+  "displayName": "brokkr",
+  "description": "a self-hosted distributed build & compute grid in Rust, REAPI v2-compatible. Many hammers, one forge.",
+  "version": "1.0.0",
+  "author": "jackthepunished",
+  "homepage": "https://github.com/jackthepunished/brokkr",
+  "skills": []
+}
