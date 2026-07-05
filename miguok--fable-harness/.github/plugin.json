@@ -1,0 +1,9 @@
+{
+  "name": "miguok--fable-harness",
+  "displayName": "fable-harness",
+  "description": "Make Claude Code work like a disciplined engineer: OODA, multi-party adversarial review, model routing, fail-then-pass. Distilled from Fable to reinforce the Opus harness.",
+  "version": "1.0.0",
+  "author": "Miguok",
+  "homepage": "https://github.com/Miguok/fable-harness",
+  "skills": []
+}
