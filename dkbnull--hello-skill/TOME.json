@@ -1,0 +1,135 @@
+{
+  "name": "hello-skill",
+  "owner": "dkbnull",
+  "repo": "hello-skill",
+  "description": "\u5b58\u653e\u548c\u7ba1\u7406 SKILL.md \u6587\u4ef6\uff0c\u63d0\u4f9b\u5404\u7c7b\u6280\u672f\u6808\u7684 Skill \u914d\u7f6e\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue",
+      "path": "skills/vue",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-typescript",
+      "path": "skills/vue-typescript",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/skills/vue-typescript",
+      "description": ""
+    },
+    {
+      "name": "vue-vite",
+      "path": "skills/vue-vite",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/skills/vue-vite",
+      "description": ""
+    },
+    {
+      "name": "vue-vite-typescript",
+      "path": "skills/vue-vite-typescript",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/skills/vue-vite-typescript",
+      "description": ""
+    },
+    {
+      "name": "vue-typescript",
+      "path": "frontend/skills/vue-typescript",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/frontend/skills/vue-typescript",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "frontend/skills/vue",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/frontend/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-vite-typescript",
+      "path": "frontend/skills/vue-vite-typescript",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/frontend/skills/vue-vite-typescript",
+      "description": ""
+    },
+    {
+      "name": "vue-vite",
+      "path": "frontend/skills/vue-vite",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/frontend/skills/vue-vite",
+      "description": ""
+    },
+    {
+      "name": "django",
+      "path": "backend/skills/django",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/backend/skills/django",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "path": "backend/skills/fastapi",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/backend/skills/fastapi",
+      "description": ""
+    },
+    {
+      "name": "nodejs",
+      "path": "backend/skills/nodejs",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/backend/skills/nodejs",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "path": "devops/skills/kubernetes",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/devops/skills/kubernetes",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "path": "devops/skills/terraform",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/devops/skills/terraform",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": "mobile-desktop/skills/flutter",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/mobile-desktop/skills/flutter",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "devops/skills/git-workflow",
+      "github_url": "https://github.com/dkbnull/hello-skill/tree/main/devops/skills/git-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dkbnull/hello-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T00:30:26Z"
+}
