@@ -4,7 +4,7 @@
   "repo": "smartmoney-cub-harness",
   "description": "Read-only AI trading companion harness for decision logging, D1/D3 review, and rule evolution.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/myc0576/smartmoney-cub-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T05:06:04Z"
+  "distributed_at": "2026-07-05T05:22:02Z"
 }
