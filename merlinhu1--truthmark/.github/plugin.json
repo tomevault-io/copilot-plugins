@@ -1,0 +1,9 @@
+{
+  "name": "merlinhu1--truthmark",
+  "displayName": "truthmark",
+  "description": "Git-native truth docs for AI-assisted codebases, keeping branch-scoped documentation aligned with code so changes stay visible, reviewable, and auditable.",
+  "version": "1.0.0",
+  "author": "merlinhu1",
+  "homepage": "https://github.com/merlinhu1/truthmark",
+  "skills": []
+}
