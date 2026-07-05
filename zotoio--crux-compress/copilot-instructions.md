@@ -1,54 +1,109 @@
-## spec-implementation-hygiene
+## crux-compress
 
-> Keep production code free of spec/phase metadata and back-compat shims; capture migrations in spec-local upgrade scripts instead
+> Use when all user choices are known before the subagent starts (e.g. memory type, tags).
 
+<CRUX agents="always">
 
-# Spec Implementation Hygiene
+## CRITICAL: CRUX Notation
 
-When implementing or executing engineering specs (anything under `specs/` or `.ai-ignored/executed/`), keep production code clean of coordination metadata and avoid backwards-compatibility shims. Capture any required migration logic in an executable upgrade file inside the spec directory.
+This repository uses CRUX notation for semantic compression. **If not already loaded into context, load `CRUX.md` from the project root** to understand the encoding symbols and decompress any CRUX-formatted content you encounter.
 
-## Rules
+**Repository**: [github.com/zotoio/CRUX-Compress](https://github.com/zotoio/CRUX-Compress)
 
-### 1. No spec, subtask, or phase references in code
+### Foundational CRUX Rules (MUST FOLLOW)
 
-Do **not** add code comments, docstrings, log messages, error messages, or identifiers that reference spec files, subtask IDs, phase numbers, status pairs, or execution-report sections. Examples to avoid:
+1. **ALWAYS INTERPRET AND UNDERSTAND ALL CRUX RULES FIRST** - At the beginning of each agent session, interpret and understand all crux notation detected in rules, and when a new rule(s) is added to context do the same for the new rule(s) immediately. Build a mental model of all rules in context that the user can ask for at any point in time that will include a visualisation.
+2. **NEVER EDIT `CRUX.md`** - The specification is read-only unless the user specifically asks you by name to edit it, at which point ask the user to confirm before proceeding
+3. **DO NOT LOAD SOURCE FILES when CRUX exists** - When you see `⟦CRUX:source_file ... ⟧`, use the compressed CRUX content instead of loading the original source file. The CRUX version is semantically equivalent and more token-efficient.
+4. **SURGICAL DIFF UPDATES** - When updating a source file that has a corresponding `[filename].crux.`* file, you MUST also update the CRUX file with surgical diff changes to maintain synchronization.
+5. **ABORT IF NO SIGNIFICANT REDUCTION** - If CRUX compression does not achieve significant token reduction (target ≤20% of original), DO NOT generate the CRUX file. The source is already compact enough.
+6. **PRESERVE LITERAL PATHS** - When constructing paths, URIs, or tool calls from CRUX references, preserve the literal path, filename, and extension exactly as they exist in the repository.
+7. **NEVER EDIT GENERATED CRUX OUTPUT** - Do not edit `.crux.md` or `.crux.mdc` files directly, and do not edit files marked with generated frontmatter (`generated:` plus `sourceChecksum:` or `sourceUrl:`) or the banner `> [!IMPORTANT] > Generated file - do not edit!`
+8. **EDIT THE REAL SOURCE FILE** - Move edits to the underlying source file, then re-generate the derived CRUX output. For example, `[name].crux.md` / `[name].crux.mdc` should be changed by editing the real source such as `[name].md`. `AGENTS.md` itself is a source file in this repository; do not invent `AGENTS.source.md`.
 
-```python
-# Per subtask-05-meditate-decomp-skills-extraction-20260517.md
-# Phase 3: rebalance trigger
-# Implements spec 20260523-meditate-richness, Subtask 04
-# TODO(spec-meditate-richness): tighten coordinator gate
-```
+### Available Agents
 
-These comments become stale the moment a spec is archived, leak ephemeral coordination metadata into long-lived code, and obscure the actual intent of the line. Comments must explain **why** the code exists — not which spec or phase authored it. The spec, its subtasks, and its status files are the durable record of authorship and rationale; production code does not need to repeat them.
+| Agent | Definition | Purpose |
+|-------|-----------|---------|
+| `crux-cursor-rule-manager` | `.cursor/agents/crux/crux-cursor-rule-manager.md` | CRUX compression, decompression, and validation |
+| `crux-cursor-memory-manager` | `.cursor/agents/crux/crux-cursor-memory-manager.md` | Memory lifecycle management (dream, REM sleep, Recall, Forget, Remember, Meditate) |
+| `crux-cursor-meditation-guide` | `.cursor/agents/crux/crux-cursor-meditation-guide.md` | Recursive memory-informed meditation guide. Owns the Meditate persona, Research Phases A–G, Quick 6-step protocol, Adversarial Review function, Ensemble Aggregation function, and the K10 finalisation-enhancements reflection function. Spawned by `/crux-meditate` for the entire subagent tree; never user-invoked directly. |
 
-### 2. No backwards-compatibility shims
+### User Input Escalation — Subagent Protocol
 
-Do **not** add adapters, wrappers, deprecated aliases, fallback branches, dual-path readers, or `v1`/`v2` parallel surfaces to preserve old behavior alongside new behavior. This repository is a single coordinated distribution — producer code, consumer code, agents, hooks, skills, evals, and docs all ship together.
+Subagents NEVER call `AskQuestion` directly. All user-facing prompts must be handled by the **parent agent** (the top-level agent that the user interacts with).
 
-Replace, do not layer. When a function, file, frontmatter field, command surface, or schema changes, change every caller in the same change set and delete the old form. If you find yourself reaching for a shim, that is the signal to either:
+**Two supported patterns** — choose the one that fits the workflow:
 
-- expand the change set to cover all callers in one go, or
-- write an upgrade file (see Rule 3) so installed users can move forward without the shim.
+#### Pattern A: Pre-collect then spawn
 
-### 3. Capture migrations in a spec-local upgrade file
+Use when all user choices are known before the subagent starts (e.g. memory type, tags).
 
-When a spec introduces a change that requires action on an existing install — config schema updates, file moves or renames, generated-file regeneration, memory index rebuilds, hook re-registration, etc. — add an executable upgrade file inside the spec directory:
+1. Parent uses `AskQuestion` to collect all answers
+2. Parent spawns subagent with pre-collected answers in the task prompt
+3. Subagent executes using the provided answers without asking again
 
-- **Path**: `specs/<spec-id>/upgrade-<spec-slug>.<ext>` where `<ext>` is `.sh`, `.py`, or `.md` (markdown is allowed only if every step is a literal copy-pasteable command).
-- **Content**: idempotent steps that bring a pre-spec install up to the post-spec state. Safe to re-run. No interactive prompts unless guarded by `--yes`.
-- **Audience**: anyone running the spec's outputs against a pre-spec install (including future you, CI, and downstream consumers).
-- **Lifetime**: lives with the spec. When the spec is archived to `.ai-ignored/executed/`, the upgrade file moves with it.
+#### Pattern B: Work first, then escalate
 
-This file is the **option to consider for distribution**. If and when the spec ships to consumers, the upgrade script can be promoted into `install.py`, referenced from a release note, or added to the dist zip (per `zip-contents-protection.crux.mdc`). Until that promotion is explicitly requested, the upgrade file stays inside the spec directory and is not distributed.
+Use when the subagent must do analysis, search, or computation before it can formulate the right questions (e.g. resolve memory matches before asking which to delete, analyse artifacts before presenting candidates).
 
-## Quick Checklist
+1. Parent spawns subagent (foreground recommended for complex workflows)
+2. Subagent does its work (search, analysis, extraction, etc.)
+3. Subagent returns results **plus** a `needs_user_input` section describing the decisions needed
+4. Parent displays the subagent's analysis to the user
+5. Parent uses `AskQuestion` to collect the user's decisions
+6. Parent resumes the subagent with the collected answers
+7. Subagent applies the confirmed decisions
 
-Before completing any spec subtask, verify:
+**Mixing patterns is fine.** A command can pre-collect simple choices (Pattern A) while using Pattern B for decisions that depend on subagent analysis. For example, `/crux-remember` pre-collects type and tags, but if the subagent discovers a conflict with an existing memory, it escalates that decision via Pattern B.
 
-- [ ] No new code comments, docstrings, or strings mention a spec id, subtask id, or phase number.
-- [ ] No new shims, aliases, or `if old_format: ... else: new_format` branches were added to preserve pre-spec behavior.
-- [ ] If the change requires action on an existing install, an `upgrade-<spec-slug>.<ext>` file exists in the spec directory and is idempotent.
+Commands that invoke subagents (e.g. `/crux-dream`, `/crux-remember`, `/crux-forget`, `/crux-recall`, `/crux-meditate`) document which pattern applies to each interaction point.
+
+</CRUX>
+
+<!--
+The block above (between <CRUX agents="always"> and </CRUX>) is the ONLY part of
+this file that is distributed to consumers. It is extracted verbatim by
+scripts/create-crux-zip.py and merged into the consumer's AGENTS.md by install.py.
+
+Anything below this comment is repository-internal — used by agents working in
+the CRUX-Compress repo itself — and MUST NOT be moved back inside the <CRUX> block.
+Consumer-facing skills, commands, rules, and hooks MUST NOT reference any of the
+repository-internal agents listed below.
+-->
+
+## Repository-Internal Agents (CRUX-Compress repo only)
+
+The following agents are used to develop and maintain the CRUX-Compress project
+itself. They are **not** distributed to consumer projects.
+
+| Agent | Definition | Purpose |
+|-------|-----------|---------|
+| `crux-platform-architect` | `.cursor/agents/crux-platform-architect.md` | Platform architecture, Cursor/LLM harness design, documentation, and eval strategy |
+| `crux-software-engineer` | `.cursor/agents/crux-software-engineer.md` | Core implementation — Python, shell, MCP server, hooks, skills, and evals |
+| `integrity-expert` | `.cursor/agents/integrity-expert.md` | Code quality audits, test coverage, security, CI/CD |
+| `docs-sync-agent` | `.cursor/agents/docs-sync-agent.md` | Documentation synchronization on source changes |
+
+### Spec Execution — Agent Allocation (CRUX-Compress repo only)
+
+When building or executing engineering specs in this repository, **always use the CRUX agents** instead of `generalPurpose`. Assign subtasks based on their nature:
+
+| Subtask Type | Assign To |
+|-------------|-----------|
+| Architecture, design, trade-off analysis | `crux-platform-architect` |
+| Documentation updates (README, AGENTS.md, CONTRIBUTORS) | `crux-platform-architect` |
+| Eval strategy and test design | `crux-platform-architect` |
+| Code implementation (Python, shell, MCP, hooks, skills) | `crux-software-engineer` |
+| Bug fixes, refactoring, feature implementation | `crux-software-engineer` |
+| Writing evals and tests | `crux-software-engineer` |
+| Integration testing and verification | `crux-software-engineer` |
+| CRUX compression or decompression tasks | `crux-cursor-rule-manager` |
+| Memory lifecycle operations (dream, REM, recall) | `crux-cursor-memory-manager` |
+| Meditate / Research / Quick / Ensemble work | `crux-cursor-meditation-guide` |
+| Code quality audits, security reviews, CI/CD checks | `integrity-expert` |
+| Documentation sync after source changes | `docs-sync-agent` |
+
+**Do not default to `generalPurpose`** — every subtask in a spec should map to the most appropriate CRUX agent above.
 
 ---
 > Source: [zotoio/CRUX-Compress](https://github.com/zotoio/CRUX-Compress) — distributed by [TomeVault](https://tomevault.io).
