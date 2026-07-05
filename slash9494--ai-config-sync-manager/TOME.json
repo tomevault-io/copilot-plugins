@@ -4,7 +4,7 @@
   "repo": "ai-config-sync-manager",
   "description": "Bidirectional sync for Claude Code and Codex \u2014 instructions, skills, agents, MCP servers, hooks, permissions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/slash9494/ai-config-sync-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T03:19:51Z"
+  "distributed_at": "2026-07-05T04:45:17Z"
 }
