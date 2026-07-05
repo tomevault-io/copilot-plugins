@@ -7,13 +7,13 @@ Privacy-first AI middleware with local PII detection, approval gate, and automat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [byerlikaya/Septum](https://github.com/byerlikaya/Septum).
+Original source: `CLAUDE.md` in [byerlikaya/Septum](https://github.com/byerlikaya/Septum).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
