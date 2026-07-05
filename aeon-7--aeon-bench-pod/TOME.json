@@ -1,0 +1,44 @@
+{
+  "name": "Aeon-Bench-Pod",
+  "owner": "AEON-7",
+  "repo": "Aeon-Bench-Pod",
+  "description": "Run the AEON Bench suite on your own hardware: verified HuggingFace pull \u2192 serve \u2192 benchmark (text \u00b7 agentic \u00d73 harnesses \u00b7 vision \u00b7 audio \u00b7 arena \u00b7 perf) \u2192 ed25519-signed attested submit.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AEON-7/Aeon-Bench-Pod",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T16:32:23Z"
+}
