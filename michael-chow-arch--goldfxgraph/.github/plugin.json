@@ -1,0 +1,9 @@
+{
+  "name": "michael-chow-arch--goldfxgraph",
+  "displayName": "goldfxgraph",
+  "description": "AI-assisted XAUUSD daily research workflow with Research Skill, Agent Harness, LangGraph, Tool Calling, and free public data sources.",
+  "version": "1.0.0",
+  "author": "michael-chow-arch",
+  "homepage": "https://github.com/michael-chow-arch/goldfxgraph",
+  "skills": []
+}
