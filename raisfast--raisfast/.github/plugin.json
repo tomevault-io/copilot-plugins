@@ -1,0 +1,9 @@
+{
+  "name": "raisfast--raisfast",
+  "displayName": "raisfast",
+  "description": "The fastest CMS, easiest to deploy. Single binary, zero dependencies, zero GC. Download and run.  Rust-powered high-performance BaaS and headless CMS with built-in blog, ecommerce, wallet, payment & m",
+  "version": "1.0.0",
+  "author": "RaisFast",
+  "homepage": "https://github.com/RaisFast/raisfast",
+  "skills": []
+}
