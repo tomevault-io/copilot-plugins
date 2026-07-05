@@ -1,0 +1,9 @@
+{
+  "name": "tnbao91--ai-asset",
+  "displayName": "ai_asset",
+  "description": "Generator-neutral AI pipeline: reference images -> style guide -> image prompt for 2D mobile-game assets",
+  "version": "1.0.0",
+  "author": "tnbao91",
+  "homepage": "https://github.com/tnbao91/ai_asset",
+  "skills": []
+}
