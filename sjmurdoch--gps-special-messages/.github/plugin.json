@@ -1,0 +1,9 @@
+{
+  "name": "sjmurdoch--gps-special-messages",
+  "displayName": "gps-special-messages",
+  "description": "Analysis of the GPS Special Message field",
+  "version": "1.0.0",
+  "author": "sjmurdoch",
+  "homepage": "https://github.com/sjmurdoch/gps-special-messages",
+  "skills": []
+}
