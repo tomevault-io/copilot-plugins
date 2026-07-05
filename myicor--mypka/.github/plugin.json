@@ -1,0 +1,9 @@
+{
+  "name": "myicor--mypka",
+  "displayName": "myPKA",
+  "description": "AI-powered Personal Knowledge Assistance in a folder. Built on the ICOR methodology. Plain markdown. Any LLM. Yours forever.",
+  "version": "1.0.0",
+  "author": "myICOR",
+  "homepage": "https://github.com/myICOR/myPKA",
+  "skills": []
+}
