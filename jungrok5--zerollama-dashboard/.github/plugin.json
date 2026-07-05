@@ -1,0 +1,9 @@
+{
+  "name": "jungrok5--zerollama-dashboard",
+  "displayName": "zerollama-dashboard",
+  "description": "Single-HTML monitoring dashboard for llama.cpp \u2014 per-slot sampling, plain-language tuning hints, router-mode aware, with built-in chat. Zero deps.",
+  "version": "1.0.0",
+  "author": "jungrok5",
+  "homepage": "https://github.com/jungrok5/zerollama-dashboard",
+  "skills": []
+}
