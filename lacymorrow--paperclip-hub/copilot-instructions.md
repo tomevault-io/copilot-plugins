@@ -1,251 +1,109 @@
-## documentation-system
+## dont-do
 
-> The Shipkit documentation system uses dynamic file-based loading from the `/docs` directory at the project root. It supports both `.mdx` and `.md` files with full production-ready security features.
+> Things to Avoid - Anti-patterns and Common Mistakes
 
-# Documentation System
+# Don't Do These Things
 
-## Overview
-The Shipkit documentation system uses dynamic file-based loading from the `/docs` directory at the project root. It supports both `.mdx` and `.md` files with full production-ready security features.
+## Next.js
+- Prefer use pages router (use app router)
+- Don't nest server components in client components
+- Don't use `use client` in server components
+- Don't fetch data with server actions
+- Don't mix client and server code
+- Don't use getStaticProps or getServerSideProps
+- Don't use router.push in server components
 
-## Architecture
+## React
+- Don't use class components
+- Don't use default exports
+- Don't use React.FC type
+- Don't use inline styles (use Tailwind)
+- Don't use useState when useReducer is clearer
+- Don't mutate state directly
+- Don't use indexes as keys
 
-### Core Components
-- **Main Library**: [src/lib/docs.ts](mdc:src/lib/docs.ts) - Core documentation loading and processing
-- **Search Service**: [src/server/services/docs-search.ts](mdc:src/server/services/docs-search.ts) - Documentation search functionality
-- **Pages**: [src/app/(app)/docs/[[...slug]]/page.tsx](mdc:src/app/(app)/docs/[[...slug]]/page.tsx) - Dynamic routing for docs
+## TypeScript
+- Don't use `any` type
+- Don't disable TypeScript checks
+- Don't use `@ts-ignore`
+- Don't use non-null assertion operator
+- Don't use `Object` type
+- Don't use `Function` type
+- Don't use `{}` as a type
 
-### File Structure
-```
-/docs/                          # Root documentation directory
-├── index.mdx                   # Main documentation index
-├── *.mdx, *.md                # Root level docs
-├── content-management/         # Organized by topic
-│   ├── index.mdx              # Section index
-│   └── *.mdx, *.md            # Section documentation
-├── development/
-├── integrations/
-└── snippets/
-```
+## State Management
+- Don't use global state for local concerns
+- Don't prop drill more than 2 levels
+- Don't mutate context values directly
+- Don't use Redux (use context + reducers)
+- Don't store derived state
+- Don't store server state client-side
+- Don't duplicate state
 
-## Security Features (Production-Ready)
+## API
+- Don't expose internal APIs publicly
+- Don't handle errors silently
+- Don't return raw error messages
+- Don't trust client-side data
+- Don't expose sensitive information
+- Don't make unnecessary API calls
+- Don't ignore API errors
 
-### Input Validation & Sanitization
-- **Path Traversal Protection**: All file paths validated using `path.resolve()`
-- **Slug Validation**: Regex patterns prevent malicious input
-- **Content Sanitization**: HTML sanitization prevents XSS attacks
-- **Size Limits**: Files limited to 5MB, content to 1MB
+## Security
+- Don't store secrets in code
+- Don't use eval() or new Function()
+- Don't trust user input
+- Don't expose stack traces
+- Don't store sensitive data client-side
+- Don't use innerHTML
+- Don't disable security headers
 
-### Rate Limiting & DoS Prevention
-- Maximum 100 documents total
-- Maximum 20 directories per level
-- Maximum 50 files per directory
-- Maximum depth of 5 levels
-- Input length limits enforced via Zod schemas
+## Performance
+- Don't bundle unused code
+- Don't load unnecessary resources
+- Don't block the main thread
+- Don't ignore memory leaks
+- Don't skip code splitting
+- Don't ignore performance metrics
+- Don't render unnecessary components
 
-### Error Handling
-- Comprehensive error logging without information leakage
-- Graceful degradation on missing files
-- Proper HTTP status codes
-- No stack trace exposure in production
+## Database
+- Don't use raw SQL queries
+- Don't store passwords in plain text
+- Don't use boolean fields (use dates)
+- Don't ignore database indexes
+- Don't leak connection pools
+- Don't ignore transaction boundaries
+- Don't store large blobs
 
-## File Format Support
-
-### MDX Files (.mdx)
-- Full React component support
-- Frontmatter metadata required
-- Dynamic imports supported
-- Processing via remark/rehype
-
-### Markdown Files (.md)
-- Standard markdown syntax
-- Frontmatter metadata required
-- Converted to React components
-- Syntax highlighting support
-
-### Required Frontmatter
-```yaml
----
-title: "Document Title" # Required, max 500 chars
-description: "Optional description" # Optional, max 1000 chars
-section: "category-name" # Optional, defaults to "core", max 100 chars
-updatedAt: "2024-01-01" # Optional
-author: "Author Name" # Optional, max 200 chars
-keywords: ["tag1", "tag2"] # Optional array, each max 100 chars
----
-```
-
-## Core Functions
-
-### `getDocBySlug(slug: string)`
-- Loads documents from `/docs` directory
-- Handles both `.mdx` and `.md` files
-- Returns sanitized Doc object or null
-- Cached for performance
-
-### `getAllDocs()`
-- Discovers all documents recursively
-- Returns array of Doc objects
-- Limited to prevent DoS attacks
-- Sorted and filtered
-
-### `importDocFromRootDocs(slug: string)`
-- Dynamic import from filesystem
-- Security validation on all paths
-- Handles missing files gracefully
-- Supports index files
-
-## Navigation Generation
-
-### Automatic Structure
-- Navigation generated from filesystem structure
-- Directory names become section titles
-- File frontmatter provides titles and metadata
-- Automatic sorting and organization
-
-### processDirectory()
-- Recursively processes directories
-- Validates all file paths for security
-- Generates NavSection arrays
-- Limits depth and file counts
-
-## Development Guidelines
-
-### Adding New Documentation
-1. Create `.mdx` or `.md` file in appropriate `/docs` subdirectory
-2. Include required frontmatter with title and description
-3. Use semantic file naming (kebab-case)
-4. Organize into logical directory structure
-
-### Security Considerations
-- Never bypass path validation functions
-- Always use `sanitizeFilePath()` for user input
-- Validate frontmatter data types
-- Monitor file sizes and counts
-- Log suspicious access patterns
-
-### Performance Best Practices
-- Use caching for frequently accessed docs
-- Limit recursive directory depth
-- Implement pagination for large doc sets
-- Monitor memory usage with large files
-
-## Webpack Configuration
-
-### Bundle Inclusion
-- [next.config.ts](mdc:next.config.ts) includes `/docs` directory in webpack bundle
-- Raw loader configured for `.md` and `.mdx` files
-- File watching enabled for hot reload
-- Output file tracing includes `./docs/**/*`
-
-### Build Process
-```typescript
-// In next.config.ts
-webpack: (config) => {
-  config.module.rules.push({
-    test: /\.(md|mdx)$/,
-    use: 'raw-loader',
-    include: [
-      path.join(__dirname, 'docs'),
-      path.join(__dirname, 'src/content')
-    ]
-  });
-  return config;
-}
-```
-
-## API Endpoints
-
-### Search API
-- [src/app/api/docs/search/route.ts](mdc:src/app/api/docs/search/route.ts) - Full-text search
-- Implements rate limiting and input validation
-- Returns structured search results
-- Supports relevance scoring
-
-## Error Scenarios & Handling
-
-### Common Issues
-- **Missing Files**: Returns null, logs warning
-- **Invalid Frontmatter**: Skips file, logs error
-- **Path Traversal Attempts**: Blocks request, logs security event
-- **Large Files**: Rejects with size limit error
-- **Deep Nesting**: Stops at max depth limit
-
-### Monitoring & Logging
-- Security events logged at WARN level
-- Performance issues logged at INFO level
-- Errors include context but not sensitive data
-- Regular audit of access patterns recommended
-
-## Migration Notes
-
-### From Legacy Location
-- All docs moved from `/src/content/docs` to `/docs`
-- Legacy import code removed to prevent module resolution errors
-- Search service updated to only load from root directory
-- Backward compatibility maintained via fallback logic
-
-### Breaking Changes
-- Dynamic imports from `@/content/docs/` no longer supported
-- All documentation must be in `/docs` directory
-- Frontmatter structure enforced via flexible Zod validation
-- Only `title` field is required in frontmatter
-- `description` is now optional
-- `section` is flexible string (no longer restricted enum)
+## Payment Provider Integration
+- Don't store order IDs in only one database field (use both `orderId` and `processorOrderId`)
+- Don't assume provider data maps to your field names
+- Don't read from single fields without fallback logic
+- Don't skip testing the complete data flow (Provider → Import → Database → Service → UI)
+- Don't assume all providers follow the same data structure
+- Don't ignore field mapping inconsistencies between providers
+- Don't deploy provider changes without verifying admin UI displays correctly
+- Don't hardcode field names in service layer without fallbacks
+- Don't skip creating debug scripts for provider integration testing
 
 ## Testing
+- Don't skip writing tests
+- Don't test implementation details
+- Don't use snapshot tests exclusively
+- Don't mock everything
+- Don't ignore test coverage
+- Don't write brittle tests
+- Don't test third-party code
 
-### Validation Tests
-- Path traversal protection
-- Input sanitization
-- File size limits
-- Directory depth limits
-- Frontmatter validation
-
-### Performance Tests
-- Large file handling
-- Deep directory structures
-- High-frequency access patterns
-- Memory usage monitoring
-
-## Dependencies
-
-### Required Packages
-- `remark` - Markdown processing
-- `remark-gfm` - GitHub Flavored Markdown
-- `remark-html` - HTML output
-- `rehype-highlight` - Syntax highlighting
-- `gray-matter` - Frontmatter parsing
-- `raw-loader` - Webpack raw file loading
-- `zod` - Schema validation
-
-### Version Compatibility
-- Next.js 14+ (App Router)
-- React 18+
-- Node.js 18+
-
-## Production Deployment
-
-### Environment Variables
-- No special environment variables required
-- Uses filesystem access (ensure `/docs` directory is included in deployment)
-- Consider CDN for static assets
-
-### Performance Monitoring
-- Monitor doc loading times
-- Track search query performance
-- Alert on high error rates
-- Monitor file system access patterns
-
-### Security Checklist
-- [ ] Path validation functions working
-- [ ] Input sanitization enabled
-- [ ] File size limits enforced
-- [ ] Rate limiting active
-- [ ] Error logging configured
-- [ ] No sensitive data in logs
-- [ ] Access patterns monitored
-
-This documentation system is fully production-ready with comprehensive security, performance, and maintainability features.
+## Code Quality
+- Don't repeat code (DRY)
+- Don't ignore TypeScript errors
+- Don't skip code reviews
+- Don't leave TODO comments
+- Don't ignore linter warnings
+- Don't write unclear code
+- Don't skip documentation
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
