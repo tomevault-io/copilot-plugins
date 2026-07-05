@@ -1,0 +1,9 @@
+{
+  "name": "datafusion-contrib--streamfusion",
+  "displayName": "StreamFusion",
+  "description": "World's First OSS Flink Accelerator built on Apache DataFusion",
+  "version": "1.0.0",
+  "author": "datafusion-contrib",
+  "homepage": "https://github.com/datafusion-contrib/StreamFusion",
+  "skills": []
+}
