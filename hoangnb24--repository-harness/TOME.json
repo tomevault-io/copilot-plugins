@@ -4,7 +4,7 @@
   "repo": "repository-harness",
   "description": "Turn any repo into an agent-ready workspace for Claude Code, Codex, Cursor, and other coding agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangnb24/repository-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T00:36:51Z"
+  "distributed_at": "2026-07-05T00:38:46Z"
 }
