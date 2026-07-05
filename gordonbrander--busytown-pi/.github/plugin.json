@@ -1,0 +1,9 @@
+{
+  "name": "gordonbrander--busytown-pi",
+  "displayName": "busytown-pi",
+  "description": "Multi-agent factory on top of SQLite",
+  "version": "1.0.0",
+  "author": "gordonbrander",
+  "homepage": "https://github.com/gordonbrander/busytown-pi",
+  "skills": []
+}
