@@ -1,0 +1,9 @@
+{
+  "name": "blazity--atlas",
+  "displayName": "atlas",
+  "description": "Framework-agnostic AI documentation scaffold \u2014 one command gives any repo the shared instructions, memory, and gates coding agents need to work safely.",
+  "version": "1.0.0",
+  "author": "Blazity",
+  "homepage": "https://github.com/Blazity/atlas",
+  "skills": []
+}
