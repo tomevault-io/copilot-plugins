@@ -1,0 +1,9 @@
+{
+  "name": "llucs--backon",
+  "displayName": "backon",
+  "description": "Function decoration for backoff and retry \u2014 modern, fast, and zero dependencies",
+  "version": "1.0.0",
+  "author": "Llucs",
+  "homepage": "https://github.com/Llucs/backon",
+  "skills": []
+}
