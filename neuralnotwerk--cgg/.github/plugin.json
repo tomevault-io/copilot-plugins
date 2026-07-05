@@ -1,0 +1,9 @@
+{
+  "name": "neuralnotwerk--cgg",
+  "displayName": "cgg",
+  "description": "Offline multi-language call graph generator in Rust \u2014 point at any folder, get a graph.",
+  "version": "1.0.0",
+  "author": "NeuralNotwerk",
+  "homepage": "https://github.com/NeuralNotwerk/cgg",
+  "skills": []
+}
