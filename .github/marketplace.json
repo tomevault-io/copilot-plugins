@@ -202934,6 +202934,16 @@
       "description": "vozeb AI image creation and management"
     },
     {
+      "name": "tnbao91--ai-asset",
+      "source": "./tnbao91--ai-asset",
+      "description": "Generator-neutral AI pipeline: reference images -> style guide -> image prompt for 2D mobile-game assets"
+    },
+    {
+      "name": "neeeophytee--finding-unknowns-skills",
+      "source": "./neeeophytee--finding-unknowns-skills",
+      "description": "8 installable Claude Code skills for finding your unknowns before they get expensive: blindspot pass, brainstorms, interviews, references, plans, notes, pitches, and a merge quiz. Community distillati"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
