@@ -4,7 +4,7 @@
   "repo": "ajazz-control-center",
   "description": "Cross-platform Qt6 control center for AJAZZ devices (stream decks, keyboards, mice). Linux, Windows, macOS.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aiacos/ajazz-control-center",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T05:07:03Z"
+  "distributed_at": "2026-07-05T05:23:03Z"
 }
