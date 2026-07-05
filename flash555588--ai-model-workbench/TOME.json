@@ -4,7 +4,7 @@
   "repo": "ai-model-workbench",
   "description": "Obsidian desktop plugin: Babylon.js 3D model viewer with multi-model grid, presets, knowledge notes. Supports GLB/GLTF/STL/OBJ/SPLAT.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flash555588/ai-model-workbench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T04:37:50Z"
+  "distributed_at": "2026-07-05T04:53:10Z"
 }
