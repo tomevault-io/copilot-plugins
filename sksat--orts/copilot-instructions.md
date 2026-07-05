@@ -1,0 +1,77 @@
+## orts
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+orts is a numerical computation and optimization platform primarily for orbital mechanics. The design document is [DESIGN.md](DESIGN.md) (written in Japanese).
+
+## Languages and Structure
+
+- **Rust**: Core simulation platform — coordinate transformations, numerical integration, orbital mechanics solvers, CLI interface
+- **TypeScript/React**: Web-based real-time viewer for simulation visualization (React + @react-three/fiber + Vite)
+
+Rust libraries are split by responsibility (e.g., coordinate transforms, numerical integration) with independent test suites per module.
+
+## Build Commands
+
+### Rust (Cargo workspace)
+- `cargo run --bin orts -- run` — run a simulation (auto-detects orts.toml in CWD)
+- `cargo run --bin orts -- serve` — start WebSocket server (port 9001)
+- `cargo run --bin orts -- serve --sat "altitude=800" --dt 5` — custom parameters
+- `cargo run --bin orts -- serve --dt 1 --output-interval 10` — fine dt with decimated output
+- `cargo test -p utsuroi` — test only the utsuroi (integrator) crate
+- `cargo test -p arika` — test only the arika crate
+- `cargo test -p tobari` — test only the tobari (Earth environment models) crate
+- `cargo test -p orts` — test the simulation library (orts crate)
+- `cargo test -p orts-cli` — run CLI E2E tests
+
+## Development Methodology
+
+- **TDD-first**: Write unit tests before integration. Every module (numerical integration, coordinate transforms, etc.) must have unit tests verifying behavior before being integrated.
+- **Reference validation**: Use GMAT and Orekit as reference implementations for E2E black-box testing.
+- **Playwright** for viewer E2E tests.
+- **CLI execution** enables simple E2E testing of the simulator independently from the viewer.
+- **Validate the design before implementing**: an issue or spec is a starting point, not a fixed prescription. For non-trivial designs or refactors, sanity-check the approach with an independent design review (the `smart-friend` skill / Codex) before writing code — the stated plan is not always the cleanest one (a proposed "shared utility" may already exist in `std`; a literal file split may be the wrong granularity).
+- **External review before merge**: get a code review (Codex / Copilot) on non-trivial PRs. Independent reviewers catch complementary issues — design/whole-program vs. line-level edge cases.
+- **Behavior-preserving refactors**: pin the existing behavior with a characterization test, and include boundary *and* non-finite inputs (`NaN`, `±∞`) — float predicate rewrites can match for finite values yet diverge at `NaN`.
+
+## Pre-commit Checklist
+
+Before committing, always run the relevant checks and confirm they pass.
+
+### Rust
+- `cargo fmt --all` — format all crates (CI enforces `--check`)
+- `cargo clippy --workspace -- -D warnings` — lint with warnings as errors
+- `cargo test --workspace` — run all tests
+- Some crates are `no_std` and/or built for `wasm` beyond the default std build, and CI checks each applicable tier per crate. When changing a crate, run the tiers that apply to it — not just the std `--workspace` checks above.
+
+### TypeScript (viewer + uneri)
+- `pnpm lint` — lint & format check (Biome, CI enforces)
+- `pnpm lint:fix` — auto-fix lint & format issues
+- `pnpm --filter uneri build` — build uneri library
+- `pnpm --filter orts-viewer build` — build viewer (includes wasm-pack + tsc)
+- `pnpm --filter uneri test` — run uneri unit tests
+- `pnpm --filter orts-viewer test` — run viewer unit tests
+
+### E2E tests (Playwright)
+WebSocket 通信、データフロー、UI 統合など mock しにくい部分を変更した場合は E2E テストも実行する:
+- `cd uneri && pnpm test:e2e` — uneri E2E (DuckDB + charting)
+- `cd viewer && npx playwright test` — viewer E2E (requires orts serve + vite dev)
+
+## Dependencies
+
+- 新しいライブラリを追加する際は、最新の安定バージョンを調べてから指定する。古いバージョンを指定しない。
+
+## Architecture Notes
+
+- Systems and precision are configurable — e.g., Earth-Moon-Sun for SSO vs. full N-body for solar system simulations; detailed atmospheric drag vs. simple drag coefficients.
+- Strict separation of concerns across modules to enable parallel development.
+
+---
+> Source: [sksat/orts](https://github.com/sksat/orts) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-05 -->
