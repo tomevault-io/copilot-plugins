@@ -7,11 +7,11 @@ Claude Code MCP로 연결하는 인디 개발자 앱 출시 자동화 콘솔 —
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jeonghwanko/mimi-seed-sdk](https://github.com/jeonghwanko/mimi-seed-sdk).
+Original source: `AGENTS.md` in [jeonghwanko/mimi-seed-sdk](https://github.com/jeonghwanko/mimi-seed-sdk).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
