@@ -1,0 +1,9 @@
+{
+  "name": "refined-element--lightning-enable-mcp",
+  "displayName": "lightning-enable-mcp",
+  "description": "MCP server enabling AI agents to make Lightning Network payments",
+  "version": "1.0.0",
+  "author": "refined-element",
+  "homepage": "https://github.com/refined-element/lightning-enable-mcp",
+  "skills": []
+}
