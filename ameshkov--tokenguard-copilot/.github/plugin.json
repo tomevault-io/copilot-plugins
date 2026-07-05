@@ -1,0 +1,9 @@
+{
+  "name": "ameshkov--tokenguard-copilot",
+  "displayName": "tokenguard-copilot",
+  "description": "Use third-party OpenAI-compatible models with VS Code Copilot Chat. Includes proper reasoning support, usage tracking, etc.",
+  "version": "1.0.0",
+  "author": "ameshkov",
+  "homepage": "https://github.com/ameshkov/tokenguard-copilot",
+  "skills": []
+}
