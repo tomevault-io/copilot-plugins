@@ -1,0 +1,9 @@
+{
+  "name": "waydir--waydir",
+  "displayName": "Waydir",
+  "description": "\ud83d\udcc2 Modern, Keyboard-driven dual-pane file manager, built with Rust and Flutter.",
+  "version": "1.0.0",
+  "author": "Waydir",
+  "homepage": "https://github.com/Waydir/Waydir",
+  "skills": []
+}
