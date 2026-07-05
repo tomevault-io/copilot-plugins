@@ -1,0 +1,9 @@
+{
+  "name": "aerovato--magic-compact",
+  "displayName": "magic-compact",
+  "description": "Lossless context compression plugin for OpenCode.",
+  "version": "1.0.0",
+  "author": "aerovato",
+  "homepage": "https://github.com/aerovato/magic-compact",
+  "skills": []
+}
