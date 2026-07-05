@@ -1,0 +1,153 @@
+{
+  "name": "pokayokay",
+  "owner": "srstomp",
+  "repo": "pokayokay",
+  "description": "An orchestration plugin for Claude Code and Codex that enables reliable autonomous development sessions with configurable checkpoints and task management.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture-review",
+      "path": "plugins/pokayokay/skills/architecture-review",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/architecture-review",
+      "description": ""
+    },
+    {
+      "name": "database-design",
+      "path": "plugins/pokayokay/skills/database-design",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/database-design",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy",
+      "path": "plugins/pokayokay/skills/testing-strategy",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/testing-strategy",
+      "description": ""
+    },
+    {
+      "name": "sdk-development",
+      "path": "plugins/pokayokay/skills/sdk-development",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/sdk-development",
+      "description": ""
+    },
+    {
+      "name": "session-review",
+      "path": "plugins/pokayokay/skills/session-review",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/session-review",
+      "description": ""
+    },
+    {
+      "name": "api-design",
+      "path": "plugins/pokayokay/skills/api-design",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/api-design",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "path": "plugins/pokayokay/skills/error-handling",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/error-handling",
+      "description": ""
+    },
+    {
+      "name": "api-integration",
+      "path": "plugins/pokayokay/skills/api-integration",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/api-integration",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "path": "plugins/pokayokay/skills/observability",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/observability",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "path": "plugins/pokayokay/skills/deep-research",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/deep-research",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "plugins/pokayokay/skills/documentation",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "browser-verification",
+      "path": "plugins/pokayokay/skills/browser-verification",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/browser-verification",
+      "description": ""
+    },
+    {
+      "name": "ci-cd",
+      "path": "plugins/pokayokay/skills/ci-cd",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/ci-cd",
+      "description": ""
+    },
+    {
+      "name": "cloud-infrastructure",
+      "path": "plugins/pokayokay/skills/cloud-infrastructure",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/cloud-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "feature-audit",
+      "path": "plugins/pokayokay/skills/feature-audit",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/feature-audit",
+      "description": ""
+    },
+    {
+      "name": "planning",
+      "path": "plugins/pokayokay/skills/planning",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/planning",
+      "description": ""
+    },
+    {
+      "name": "work-session",
+      "path": "plugins/pokayokay/skills/work-session",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/work-session",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "path": "plugins/pokayokay/skills/worktrees",
+      "github_url": "https://github.com/srstomp/pokayokay/tree/main/plugins/pokayokay/skills/worktrees",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/srstomp/pokayokay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T18:30:30Z"
+}
