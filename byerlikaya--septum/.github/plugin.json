@@ -1,0 +1,9 @@
+{
+  "name": "byerlikaya--septum",
+  "displayName": "Septum",
+  "description": "Privacy-first AI middleware with local PII detection, approval gate, and automatic de-anonymization. Query your documents with any LLM \u2014 GDPR, KVKK, HIPAA ready.",
+  "version": "1.0.0",
+  "author": "byerlikaya",
+  "homepage": "https://github.com/byerlikaya/Septum",
+  "skills": []
+}
