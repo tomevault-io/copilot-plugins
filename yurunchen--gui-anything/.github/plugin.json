@@ -1,0 +1,9 @@
+{
+  "name": "yurunchen--gui-anything",
+  "displayName": "GUI-Anything",
+  "description": "GUI-Anything is a dual-pane Flow Observer for Claude Code. It watches live JSONL sessions, visualizes exploration as timelines and flowcharts, and curates on-demand project wiki knowledge without inte",
+  "version": "1.0.0",
+  "author": "YurunChen",
+  "homepage": "https://github.com/YurunChen/GUI-Anything",
+  "skills": []
+}
