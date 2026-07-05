@@ -1,0 +1,9 @@
+{
+  "name": "techimmigrants--cv-builder",
+  "displayName": "cv-builder",
+  "description": "AI-powered CV builder for tech professionals. Paste a job description, get a tailored resume. Open source, free forever.",
+  "version": "1.0.0",
+  "author": "TechImmigrants",
+  "homepage": "https://github.com/TechImmigrants/cv-builder",
+  "skills": []
+}
