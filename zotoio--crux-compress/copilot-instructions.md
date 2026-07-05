@@ -1,33 +1,38 @@
-## crux-rule
+## crux-memories-mcp-context
 
-> CRUX Compression of markdown rules
+> Proactively query crux-memories MCP to inform decisions with auxiliary context
 
 
-# Foundational CRUX Rules (MUST FOLLOW)
-If not already loaded in context, load `CRUX.md` and `AGENTS.md` from the project root.
+# Use CRUX Memories MCP for Auxiliary Context
 
-## When you encounter CRUX notation, use the 'CRUX Rule Compression Specification' in `CRUX.md` to help you understand and adhere to the rules or intents it contains. 
+When working on non-trivial tasks, proactively query the `crux-memories` MCP server to find relevant memories that can inform your decisions. Memories contain project-specific learnings, patterns, red flags, and architectural context accumulated over time.
 
-## CRUX Decompression - CRITICAL
-Always interpret, understand and adhere to the meaning compressed in CRUX notation! NEVER forget this.
+## When to Search
 
-## Path Construction - CRITICAL
-When constructing paths, URIs, or tool calls from CRUX references, preserve the literal path, filename, and extension exactly as they exist in the repository.
+- Before making architectural or design decisions
+- When encountering unfamiliar parts of the codebase
+- When planning implementations, refactors, or debugging
+- When the task touches patterns, conventions, or past decisions that may be documented
 
-## CRUX Compression - CRITICAL
-When asked to compress a markdown rule file, delegate this to the `crux-cursor-rule-manager` subagent that adheres to this spec. 
+## How to Search
 
-## CRUX Compressed File Protection - CRITICAL
-NEVER edit files that are CRUX compression output. These are:
-- Files with `.crux.md` or `.crux.mdc` extensions
-- Files whose frontmatter contains both `generated:` and `sourceChecksum:` or `sourceUrl:`
-- Files that carry the banner `> [!IMPORTANT] > Generated file - do not edit!`
+Use the `memory-search` tool from the `crux-memories` MCP server:
 
-Always edit the corresponding SOURCE file instead, then re-generate the derived CRUX output.
-- `[name].crux.md` / `[name].crux.mdc` -> edit the real source file such as `[name].md`
-- `AGENTS.md` is a source file in this repository; do not invent `AGENTS.source.md`
+```
+CallMcpTool: server=user-crux-memories, toolName=memory-search
+  arguments: { "query": "<natural language description of what you need>", "includeContent": true }
+```
 
-If you are about to edit a file and it contains `sourceChecksum`, `sourceUrl`, or the generated-file banner, stop and move the change to the source file instead.
+Then read full memory content with `memory-read` if search results are relevant but need more detail.
+
+## Guidelines
+
+- Search early in your workflow, not after you've already committed to an approach
+- Use descriptive queries — the search is semantic, so natural language works well
+- Filter by `types` (core, learning, redflag, idea, goal) when you know the category
+- Filter by `minStrength` to prioritise well-established memories (strength >= 3)
+- When a memory influences your response, annotate with `[memory:{title}]` per the memories integration rule
+- Do NOT search if `/crux-amnesia` is active (unless the user explicitly invoked a memory command)
 
 ---
 > Source: [zotoio/CRUX-Compress](https://github.com/zotoio/CRUX-Compress) — distributed by [TomeVault](https://tomevault.io).
