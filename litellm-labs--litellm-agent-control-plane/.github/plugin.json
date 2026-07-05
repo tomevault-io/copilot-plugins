@@ -1,0 +1,9 @@
+{
+  "name": "litellm-labs--litellm-agent-control-plane",
+  "displayName": "litellm-agent-control-plane",
+  "description": "1 place to call all your agents - OpenCode, Hermes, Claude Managed Agents, Cursor Agents API, DeepAgents.",
+  "version": "1.0.0",
+  "author": "LiteLLM-Labs",
+  "homepage": "https://github.com/LiteLLM-Labs/litellm-agent-control-plane",
+  "skills": []
+}
