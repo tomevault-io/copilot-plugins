@@ -1,0 +1,53 @@
+## solidrt
+
+> ASCII characters only. No em-dashes.
+
+# Code style
+ASCII characters only. No em-dashes.
+
+## JavaScript and TypeScript
+Prefer `let` over `const`. Use `const` only for "real" constants of a single value referred to in ALL_CAPS.
+
+## Rust
+Never only use `.unwrap()`; use `.expect(..)` or `.unwrap_or(..)` or something similar to explicitly handle the scenario where the result is not Ok.
+
+Plugins (the `*/plugins/` modules that register `ffi`/global functions) should be thin FFI layers: marshal arguments and results between JavaScript and Rust, and nothing more. Domain logic belongs in the owning module (e.g. rendertree), exposed as methods the plugin closure forwards to.
+
+The rendertree must stay engine-independent: no QuickJS/`rquickjs` (or any JavaScript) references. It should be usable from other engines, not even necessarily JavaScript. JS value parsing belongs in the plugin layer; rendertree methods take and return native Rust types only.
+
+In `flux/src/plugins/`, the root holds generic, web-standard JS APIs (e.g. `fetch`, `Response`, `Headers`, `console`, timers). flux-specific modules (the `Flux.*` globals and `flux:*` modules, e.g. `serve`, `file`, `sqlite`) go in the `flux/src/plugins/flux/` subfolder. Put new flux-specific plugins there, not in the root.
+
+# Dependencies
+## SDL
+SDL is accessed through the sdl3 Rust crate, which does not expose all SDL functionality. If something is not available in the sdl3 crate, check if it's available in SDL directly, and if so, add a wrapper function in `alloy/src/sdl_utils.rs`.
+
+# Projects
+## Rust
+- `alloy` combines SDL, Impeller, wgpu
+- `flux` embeds a JavaScript runtime built on QuickJS
+- `packages/core/lattice` combines Alloy, Crystal and Flux, providing commands to access rendering from JavaScript
+
+## JavaScript
+- `packages/core` SolidRT core, linking SolidJS and Lattice
+- `packages/cli` SolidRT command-line developer tooling 
+
+# Building
+Run from repo root:
+- `make solidrt-go` - build the go binary (release)
+- `make solidrt-go PROFILE=debug` - build the go binary (debug)
+- `make runtime` - build the production runtime (release)
+
+# General
+If you get a prompt which asks to implement something, but there's a non-trivial reason why that is not easy, then point this out and ask for feedback how to continue.
+
+Always ask for user confirmation of your plan before starting to implement.
+
+Prefer minimalistic proposals which do the bare minimum, while focussing on elegant, correct code. Example: when implementing a text input component, the bare minimum would be to enable and disable the keyboard when focussing on the element and leaving; blinking cursors, cursors that can move, text selection, they are all extra's.
+
+If you get a question without asking for an implementation, then just answer the question instead of implementing anything.
+
+If you do not know something, or if instructions are ambiguous, then explicitly say so and ask for feedback.
+
+---
+> Source: [wellawaretech/solidrt](https://github.com/wellawaretech/solidrt) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
