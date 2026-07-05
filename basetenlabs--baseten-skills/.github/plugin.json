@@ -1,0 +1,9 @@
+{
+  "name": "basetenlabs--baseten-skills",
+  "displayName": "baseten-skills",
+  "description": "Skills for using Baseten effectively",
+  "version": "1.0.0",
+  "author": "basetenlabs",
+  "homepage": "https://github.com/basetenlabs/baseten-skills",
+  "skills": []
+}
