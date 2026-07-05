@@ -1,166 +1,125 @@
-## waitlist-implementation
+## webhook-security
 
-> Shipkit includes a complete waitlist feature for product launches. The implementation follows Next.js App Router patterns with Server Components, Server Actions, and Drizzle ORM.
+> - ALWAYS verify webhook signatures using timing-safe comparison
 
-# Waitlist Implementation Guide
+# Webhook Security Best Practices
 
-## Overview
-Shipkit includes a complete waitlist feature for product launches. The implementation follows Next.js App Router patterns with Server Components, Server Actions, and Drizzle ORM.
+## Signature Verification
+- ALWAYS verify webhook signatures using timing-safe comparison
+- Never accept webhooks without proper signature validation
+- Use environment variables for webhook secrets
+- Implement multiple signature algorithm support when available
+- Log signature verification failures for security monitoring
+- Never expose signature verification logic in error messages
+- Use raw request body for signature validation (before JSON parsing)
 
-## Architecture Pattern
+## Request Validation
+- Validate all webhook payload fields before processing
+- Implement strict JSON schema validation
+- Check for required fields and proper data types
+- Sanitize all input data before database operations
+- Validate webhook event types against expected values
+- Implement payload size limits to prevent DoS attacks
+- Check request headers for proper content-type
 
-### Service Layer Pattern
-The waitlist uses individual async functions instead of classes due to Next.js "use server" restrictions:
-
-- ✅ **Correct**: Individual exported async functions in [waitlist-service.ts](mdc:src/server/services/waitlist-service.ts)
-- ❌ **Incorrect**: Class-based services (not allowed in "use server" files)
-
-### Database Schema
-The waitlist table is defined in [schema.ts](mdc:src/server/db/schema.ts) with:
-- Email uniqueness constraints
-- Proper indexing for performance
-- Timestamp tracking for analytics
-- Metadata field for extensibility
-
-## File Structure
-
-### Core Components
-- **Main Page**: [waitlist/page.tsx](mdc:src/app/(app)/waitlist/page.tsx) - Server component with Suspense
-- **Hero Component**: [waitlist-hero.tsx](mdc:src/app/(app)/waitlist/_components/waitlist-hero.tsx) - Client component with form
-- **Admin Dashboard**: [admin/waitlist/page.tsx](mdc:src/app/(app)/(admin)/admin/waitlist/page.tsx) - Server component
-
-### Service Layer
-- **Database Operations**: [waitlist-service.ts](mdc:src/server/services/waitlist-service.ts) - Individual async functions
-- **Server Actions**: [waitlist-actions.ts](mdc:src/server/actions/waitlist-actions.ts) - Form handling and email integration
-
-### Key Functions
-```typescript
-// Service functions (use server)
-addWaitlistEntry() - Add new entry to database
-isEmailOnWaitlist() - Check for duplicates
-getWaitlistEntries() - Paginated retrieval
-getWaitlistStats() - Analytics data
-
-// Server actions (use server)
-addToWaitlist() - Full signup flow with email
-addToWaitlistSimple() - Quick email signup
-getWaitlistStats() - Public stats access
-```
-
-## Database Patterns
-
-### Migration Pattern
-Use Drizzle Kit for schema changes:
-```bash
-bun run db:push
-```
-
-### Schema Conventions
-- Use `createTable` with DB_PREFIX from env
-- Include proper indexes for query patterns
-- Use timestamps for audit trails
-- Store metadata as JSON string
-
-## Component Patterns
-
-### Server Components (Default)
-- Use for data fetching and analytics
-- Render directly from database queries
-- Example: [waitlist-stats.tsx](mdc:src/app/(app)/waitlist/_components/waitlist-stats.tsx)
-
-### Client Components ("use client")
-- Use for forms and interactive elements
-- Handle loading states and user feedback
-- Example: [waitlist-hero.tsx](mdc:src/app/(app)/waitlist/_components/waitlist-hero.tsx)
-
-### Suspense Pattern
-Wrap async components with Suspense for better UX:
-```typescript
-<Suspense fallback={<SuspenseFallback />}>
-  <WaitlistStats />
-</Suspense>
-```
-
-## Email Integration
-
-### Resend Configuration
-- Multiple API key support (RESEND_API_KEY + RESEND_API_KEY fallback)
-- Optional audience integration
-- Graceful error handling when email fails
-- Configuration in [resend.ts](mdc:src/lib/resend.ts)
-
-### Email Flow
-1. User submits form
-2. Database entry created first
-3. Email sent as secondary action
-4. Graceful fallback if email fails
-
-## Admin Dashboard Patterns
-
-### Real-time Stats
-- Server-side rendering for live data
-- Promise.all for parallel data fetching
-- Proper error boundaries
-
-### Data Display
-- Use Shadcn/UI Card components
-- Format numbers with toLocaleString()
-- Include relative timestamps with date-fns
-
-## Testing Patterns
-
-### Service Layer Tests
-- Test function interfaces exist
-- Validate data structures
-- Mock database for unit tests
-- Example: [waitlist-service.test.ts](mdc:tests/unit/server/services/waitlist-service.test.ts)
+## Idempotency
+- Implement idempotency using unique event identifiers
+- Store processed webhook IDs to prevent duplicate processing
+- Use database transactions for atomic operations
+- Handle race conditions with proper locking mechanisms
+- Implement retry logic for failed webhook processing
+- Set appropriate timeouts for database operations
+- Log all idempotency checks and outcomes
 
 ## Error Handling
+- Return proper HTTP status codes (200 for success, 4xx for client errors)
+- Implement comprehensive try/catch blocks
+- Log all webhook processing errors with context
+- Never expose internal error details in responses
+- Implement graceful degradation for non-critical failures
+- Use structured logging for better error analysis
+- Set up alerts for webhook failure patterns
 
-### Database Null Checks
-Always check if database is initialized:
-```typescript
-if (!db) {
-  throw new Error("Database not initialized");
-}
-```
+## Rate Limiting
+- Implement rate limiting per webhook source
+- Use sliding window or token bucket algorithms
+- Configure different limits for different event types
+- Monitor and alert on rate limit violations
+- Implement progressive backoff for repeated violations
+- Log all rate limiting actions
+- Allow for burst traffic during normal operations
 
-### Graceful Fallbacks
-- Continue if email service fails
-- Provide meaningful error messages
-- Log errors for debugging
+## Data Security
+- Never log sensitive data from webhook payloads
+- Encrypt webhook data at rest if storage is required
+- Implement data retention policies for webhook logs
+- Sanitize logs before external monitoring systems
+- Use secure connections (HTTPS) for all webhook endpoints
+- Validate SSL certificates in development and production
+- Implement proper access controls for webhook endpoints
 
-## Performance Considerations
+## Monitoring and Alerting
+- Track webhook success/failure rates
+- Monitor processing times and performance metrics
+- Set up alerts for unusual patterns or failures
+- Implement health checks for webhook endpoints
+- Track payload sizes and processing volumes
+- Monitor for potential security threats or attacks
+- Regular review of webhook logs and metrics
 
-### Database Optimization
-- Proper indexing on email and created_at
-- Pagination for large datasets
-- Select only needed fields
+## Testing
+- Test signature verification with invalid signatures
+- Test with malformed and oversized payloads
+- Implement integration tests with webhook providers
+- Test idempotency with duplicate events
+- Test error handling and recovery scenarios
+- Validate rate limiting behavior under load
+- Test webhook endpoint availability and performance
 
-### Caching Strategy
-- Server components cache automatically
-- Use revalidation for admin dashboards
-- Consider edge caching for public stats
+## Database Security
+- Use parameterized queries to prevent SQL injection
+- Implement proper database connection pooling
+- Use database transactions for webhook data consistency
+- Implement proper database access controls
+- Regular database security audits
+- Monitor database performance during webhook processing
+- Implement database backup and recovery procedures
 
-## Security Patterns
-
-### Input Validation
-- Email format validation
-- SQL injection prevention via Drizzle
-- Sanitize user inputs
-
-### Access Control
-- Admin routes protected by middleware
-- Public routes rate-limited
-- No sensitive data in client components
+## Event Processing
+- Process webhooks asynchronously when possible
+- Implement proper queuing mechanisms for high-volume webhooks
+- Use database transactions for multi-step operations
+- Handle webhook dependencies and ordering when required
+- Implement proper rollback mechanisms for failed operations
+- Track processing status and provide visibility
+- Implement dead letter queues for failed events
 
 ## Documentation
+- Document all supported webhook events and formats
+- Maintain webhook endpoint documentation
+- Document security requirements and procedures
+- Keep webhook integration guides updated
+- Document error codes and troubleshooting steps
+- Maintain webhook testing and validation procedures
+- Document monitoring and alerting configurations
 
-Complete feature documentation available in [waitlist.mdx](mdc:src/content/docs/waitlist.mdx) including:
-- Setup instructions
-- Environment variables
-- API examples
-- Troubleshooting guide
+## Compliance
+- Follow payment processor security requirements
+- Implement PCI DSS compliance for payment webhooks
+- Follow GDPR requirements for customer data processing
+- Implement audit trails for compliance reporting
+- Regular security assessments and penetration testing
+- Document compliance procedures and requirements
+- Regular compliance training for development teams
+
+## Lemon Squeezy Specific
+- Always verify X-Signature header using HMAC-SHA256
+- Support all critical webhook events (subscription.created, payment_success, etc.)
+- Implement proper customer and subscription data synchronization
+- Handle test vs production webhook environments correctly
+- Implement proper error responses for Lemon Squeezy retry logic
+- Follow Lemon Squeezy webhook documentation requirements
+- Test webhook integration in Lemon Squeezy sandbox environment
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
