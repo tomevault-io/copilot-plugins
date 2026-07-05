@@ -1,0 +1,9 @@
+{
+  "name": "cicd-sensor--cicd-sensor",
+  "displayName": "cicd-sensor",
+  "description": "Open-source eBPF runtime security sensor for GitHub Actions and GitLab CI/CD.",
+  "version": "1.0.0",
+  "author": "cicd-sensor",
+  "homepage": "https://github.com/cicd-sensor/cicd-sensor",
+  "skills": []
+}
