@@ -4,7 +4,7 @@
   "repo": "Mail-Otter",
   "description": "AI-powered Cloudflare Worker that monitors Gmail and Outlook inboxes, summarizes new emails, and replies privately with thread-level summaries.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Rexezuge-CloudflareWorkers/Mail-Otter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T02:44:40Z"
+  "distributed_at": "2026-07-05T03:00:01Z"
 }
