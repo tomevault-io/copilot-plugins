@@ -1,0 +1,9 @@
+{
+  "name": "rexezuge-cloudflareworkers--mail-otter",
+  "displayName": "Mail-Otter",
+  "description": "AI-powered Cloudflare Worker that monitors Gmail and Outlook inboxes, summarizes new emails, and replies privately with thread-level summaries.",
+  "version": "1.0.0",
+  "author": "Rexezuge-CloudflareWorkers",
+  "homepage": "https://github.com/Rexezuge-CloudflareWorkers/Mail-Otter",
+  "skills": []
+}
