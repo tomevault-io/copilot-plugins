@@ -1,0 +1,44 @@
+{
+  "name": "cap-agentic-engineered",
+  "owner": "SAP-samples",
+  "repo": "cap-agentic-engineered",
+  "description": "Reference CAP + Fiori Elements application showing how AI coding agents produce higher-quality SAP applications when grounded by SAP MCP servers (CAP, Fiori, UI5). Includes a reusable AGENTS.md, MCP skills, and a working Financial Risk Analyzer built entirely by Claude Code.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SAP-samples/cap-agentic-engineered",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T05:23:33Z"
+}
