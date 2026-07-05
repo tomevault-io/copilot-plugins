@@ -1,0 +1,9 @@
+{
+  "name": "aaroncql--pim-agent",
+  "displayName": "pim-agent",
+  "description": "A Bun-native extension pack for Pi: web access, subagents, revamped core tools, ANSI-compatible themes, fzf-style completions, Telegram mode, and more.",
+  "version": "1.0.0",
+  "author": "AaronCQL",
+  "homepage": "https://github.com/AaronCQL/pim-agent",
+  "skills": []
+}
