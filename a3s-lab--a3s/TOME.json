@@ -1,9 +1,9 @@
 {
-  "name": "a3s",
+  "name": "A3S",
   "owner": "A3S-Lab",
-  "repo": "a3s",
+  "repo": "A3S",
   "description": "Agent as a Service",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "rust-sdk-ci",
-      "path": ".claude/skills/rust-sdk-ci",
-      "github_url": "https://github.com/A3S-Lab/a3s/tree/main/.claude/skills/rust-sdk-ci",
-      "description": ""
-    }
-  ],
-  "source_url": "https://github.com/A3S-Lab/a3s",
+  "skills": [],
+  "source_url": "https://github.com/A3S-Lab/A3S",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T18:32:39Z"
+  "distributed_at": "2026-07-05T13:32:06Z"
 }
