@@ -1,0 +1,44 @@
+{
+  "name": "parakey",
+  "owner": "rcourtman",
+  "repo": "parakey",
+  "description": "Push-to-talk dictation for macOS Apple Silicon. On-device speech recognition via Parakeet TDT v3 on the Apple Neural Engine (ANE) + CoreML. ~100 ms from key release to pasted text, 2.5 MB download, ~80 MB RAM. Native Swift, no cloud.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rcourtman/parakey",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T05:13:36Z"
+}
