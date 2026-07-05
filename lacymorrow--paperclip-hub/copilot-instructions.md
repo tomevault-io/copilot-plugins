@@ -1,128 +1,121 @@
-## database
+## deployment
 
-> Database Best Practices and Guidelines
+> Deployment Best Practices and Guidelines
 
-# Database Best Practices
 
-## Data Modeling
-- Use meaningful and consistent naming
-- Define clear relationships between entities
-- Use appropriate data types
-- Implement proper indexing
-- Consider query patterns
-- Plan for scalability
-- Document schema design
+# Deployment Best Practices
 
-## Field Types
-- Use dates instead of booleans
-  - ❌ `isActive: boolean`
-  - ✅ `activeAt: Date`
-  - ❌ `isDeleted: boolean`
-  - ✅ `deletedAt: Date`
-- Use enums for fixed values
-- Use JSON for flexible structures
-- Use proper numeric types
-- Consider storage implications
+## Multi-Zone Deployment
 
-## Field Consistency and Provider Integration
-- **ALWAYS** store critical data in multiple compatible fields when dealing with external providers
-- **NEVER** assume external systems use your field naming conventions
-- Use fallback logic when reading data that could exist in multiple fields
-  - ✅ `payment.orderId || payment.processorOrderId || ""`
-  - ❌ `payment.orderId ?? ""`
-- Document which providers populate which fields in [src/server/providers/](mdc:src/server/providers)
-- Test complete data flow from provider import to UI display
-- Maintain backward compatibility when adding new fields
-- Example from payments table:
-  ```typescript
-  // Store in both fields for compatibility
-  orderId: processorOrderId,           // For display compatibility
-  processorOrderId: processorOrderId,  // For provider-specific operations
-  ```
+### Zone Deployment Strategy
+- Deploy each zone as separate Vercel project
+- Use consistent naming: `main-shipkit`, `docs-shipkit`, `blog-shipkit`, `ui-shipkit`, `tools-shipkit`
+- Configure environment variables pointing to zone URLs
+- Assign custom domain to main application
+- Test cross-zone navigation and functionality
 
-## Relationships
-- Define foreign key constraints
-- Use junction tables for many-to-many
-- Consider denormalization when needed
-- Document relationship types
-- Plan for cascading operations
-- Handle circular references
-- Consider query performance
+### Zone Environment Configuration
+- Main app contains zone domain environment variables
+- Each zone has its own environment configuration
+- Use separate databases or shared database per zone requirements
+- Configure authentication to work across zones
+- Set up monitoring for each zone independently
 
-## Webhook Data Patterns
-- Store webhook event IDs for idempotency checks
-- Use database transactions for atomic webhook processing
-- Implement proper indexes on webhook event lookup fields
-- Store webhook processing status and timestamps
-- Use proper data types for webhook payload storage (JSON/JSONB)
-- Implement webhook event deduplication at database level
-- Create audit trails for webhook-triggered data changes
-- Handle webhook event ordering and dependencies
-- Use database locks to prevent race conditions in webhook processing
-- Store webhook retry attempts and failure reasons
+### Zone-Specific Optimizations
+- Documentation zone: Static generation, search optimization
+- Blog zone: ISR for posts, SEO optimization
+- UI zone: Component isolation, visual regression testing
+- Tools zone: Client-side rendering, real-time features
 
-## Querying
-- Use parameterized queries
-- Optimize query performance
-- Use appropriate indexes
-- Avoid N+1 queries
-- Use transactions appropriately
-- Handle race conditions
-- Monitor query performance
+## Environment Setup
+- Use `.env.local` for local development
+- Use `.env.production` for production
+- Use `.env.test` for testing
+- Never commit environment files
+- Document all required variables
+- Use strong naming conventions
+- Validate environment variables at startup
+
+## Docker Configuration
+- Use multi-stage builds
+- Optimize layer caching
+- Include only necessary files
+- Use appropriate base images
+- Set proper environment variables
+- Configure health checks
+- Document all configurations
+
+## CI/CD Pipeline
+- Automate build process
+- Run tests before deployment
+- Check code quality
+- Scan for vulnerabilities
+- Use proper caching
+- Implement proper rollbacks
+- Monitor deployment status
+
+## Production Deployment
+- Use proper build optimization
+- Enable proper caching
+- Configure proper headers
+- Set up monitoring
+- Configure logging
+- Set up alerts
+- Plan for scaling
+
+## Infrastructure
+- Use infrastructure as code
+- Implement proper monitoring
+- Set up logging
+- Configure backups
+- Plan for disaster recovery
+- Document architecture
+- Monitor costs
 
 ## Security
-- Use prepared statements
-- Implement row-level security
-- Encrypt sensitive data
-- Use connection pooling
-- Implement proper access control
+- Use HTTPS everywhere
+- Configure proper headers
+- Implement rate limiting
+- Set up WAF
+- Monitor for threats
 - Regular security audits
-- Monitor for vulnerabilities
+- Document security measures
 
-## Error Handling
-- Use try-catch blocks
-- Implement retries for transient failures
-- Log database errors
-- Handle constraint violations
-- Implement proper rollbacks
-- Monitor for deadlocks
-- Document error scenarios
+## Monitoring
+- Set up error tracking
+- Monitor performance
+- Track user metrics
+- Set up alerting
+- Log important events
+- Monitor resources
+- Track costs
 
-## Performance
-- Use appropriate indexes
-- Monitor query performance
-- Implement caching strategies
-- Regular maintenance
-- Handle connection pooling
-- Monitor resource usage
-- Optimize bulk operations
-
-## Migrations
-- Version control migrations
-- Test migrations thoroughly
-- Plan for rollbacks
-- Document changes
-- Handle data backfills
-- Consider downtime impact
-- Monitor migration progress
+## Scaling
+- Plan for horizontal scaling
+- Configure auto-scaling
+- Optimize resource usage
+- Monitor bottlenecks
+- Plan capacity
+- Document scaling strategy
+- Test scaling scenarios
 
 ## Backup and Recovery
 - Regular backups
 - Test recovery procedures
-- Document backup strategy
-- Monitor backup success
-- Plan for disaster recovery
-- Regular restore tests
-- Maintain backup history
+- Document recovery plans
+- Monitor backup status
+- Plan for disasters
+- Regular recovery tests
+- Document procedures
 
-## Monitoring
-- Monitor performance metrics
-- Set up alerts
-- Track error rates
-- Monitor disk usage
-- Check connection pools
-- Monitor query patterns
-- Regular health checks
+## Documentation
+- Document deployment process
+- Document configuration
+- Document dependencies
+- Document troubleshooting
+- Keep runbooks updated
+- Document incidents
+- Maintain change log
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
