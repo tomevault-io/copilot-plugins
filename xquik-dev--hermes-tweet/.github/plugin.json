@@ -1,0 +1,9 @@
+{
+  "name": "xquik-dev--hermes-tweet",
+  "displayName": "hermes-tweet",
+  "description": "Native Hermes Agent plugin for X/Twitter automation through Xquik",
+  "version": "1.0.0",
+  "author": "Xquik-dev",
+  "homepage": "https://github.com/Xquik-dev/hermes-tweet",
+  "skills": []
+}
