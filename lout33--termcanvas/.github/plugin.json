@@ -1,0 +1,9 @@
+{
+  "name": "lout33--termcanvas",
+  "displayName": "termcanvas",
+  "description": "Open-source, tmux-backed canvas for steering a fleet of AI coding agents - real terminals as nodes with commander-to-worker delegation. See which agent needs you. (macOS, Apple Silicon)",
+  "version": "1.0.0",
+  "author": "lout33",
+  "homepage": "https://github.com/lout33/termcanvas",
+  "skills": []
+}
