@@ -1,0 +1,9 @@
+{
+  "name": "kaiwood--vscode-tauren",
+  "displayName": "vscode-tauren",
+  "description": "AI coding assistant with code traceability",
+  "version": "1.0.0",
+  "author": "kaiwood",
+  "homepage": "https://github.com/kaiwood/vscode-tauren",
+  "skills": []
+}
