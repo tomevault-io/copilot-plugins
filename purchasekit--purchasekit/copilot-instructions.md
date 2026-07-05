@@ -1,0 +1,318 @@
+## purchasekit
+
+> In-app purchase webhook handling for Rails. Provides a Rails engine with webhook endpoint, paywall helpers, JavaScript for Hotwire Native bridge communication, and optional Pay gem integration.
+
+# purchasekit gem
+
+In-app purchase webhook handling for Rails. Provides a Rails engine with webhook endpoint, paywall helpers, JavaScript for Hotwire Native bridge communication, and optional Pay gem integration.
+
+## Architecture
+
+```
+PurchaseKit (this gem)
+├── Configuration - API credentials, demo mode, event handlers
+├── Engine - Rails engine with controllers, helpers, JavaScript
+├── ApiClient - HTTP client for PurchaseKit SaaS API
+├── Product - Product abstraction (demo/remote)
+├── Purchase::Intent - Purchase intent abstraction (demo/remote)
+├── Events - Event publishing and callback system
+├── WebhookSignature - HMAC-SHA256 signature verification
+├── Pay integration (conditional) - Auto-detected when Pay gem is present
+└── Error classes
+```
+
+## Pay gem integration
+
+The gem auto-detects the Pay gem via `PurchaseKit.pay_enabled?` (checks `defined?(::Pay)`).
+
+**With Pay gem**: Webhooks automatically create Pay::Subscription records and broadcast Turbo Stream redirects via ActionCable.
+
+**Without Pay gem**: Use event callbacks to handle subscriptions with your own models.
+
+## Rails engine
+
+The gem provides a Rails engine that mounts at `/purchasekit`:
+
+```ruby
+# config/routes.rb
+mount PurchaseKit::Engine, at: "/purchasekit"
+```
+
+This adds:
+- `POST /purchasekit/webhooks` - Receives webhooks from PurchaseKit SaaS
+- `POST /purchasekit/purchases` - Creates purchase intents for native apps (responds with Turbo Stream append)
+- `POST /purchasekit/purchase/completions/:id` - Demo mode only - called by iOS after Xcode StoreKit purchase completes
+
+### Controllers
+
+- `PurchaseKit::WebhooksController` - Verifies signature, publishes events via callback system, queues for Pay if available
+- `PurchaseKit::PurchasesController` - Creates intents, appends response div via Turbo Stream (form stays visible but disabled)
+- `PurchaseKit::Purchase::CompletionsController` - Demo mode only, skips CSRF (called directly by iOS), publishes events and redirects
+- `PurchaseKit::ApplicationController` - Base controller with `rescue_from` for `NotFoundError` (404) and `SubscriptionRequiredError` (402)
+
+### Helpers
+
+The `purchasekit_paywall` helper renders a paywall form:
+
+```erb
+<% pay_customer = current_user.set_payment_processor(:purchasekit) %>
+<%= purchasekit_paywall customer_id: pay_customer.id, success_path: dashboard_path do |paywall| %>
+  <%= paywall.plan_option product: @annual, selected: true do %>
+    Annual - <%= paywall.price %>/year
+  <% end %>
+  <%= paywall.submit "Subscribe" %>
+  <%= paywall.restore %>
+<% end %>
+```
+
+Builder methods: `plan_option`, `price`, `submit`, `restore`. The `restore` method accepts an optional `url:` parameter. When provided, the JS controller POSTs subscription IDs to the URL after reading them from StoreKit/Play Billing. Without `url:`, it dispatches a `purchasekit--paywall:restore` DOM event for custom handling.
+
+`purchasekit_paywall` accepts an optional `proration_mode:` (default `"charge_prorated_price"`) that controls how Google Play handles base plan swaps within one umbrella subscription (for example monthly to annual). It is passed to the Android bridge and ignored on Apple, which handles intra-group upgrades automatically. See `android/CLAUDE.md` for accepted values.
+
+`customer_id` is whatever identifier you want the webhook to receive back. With Pay, it **must** be `Pay::Customer.id` — `SubscriptionCreated` and `SubscriptionUpdated` both do `Pay::Customer.find(event["customer_id"])`. Without Pay, use your own user ID.
+
+### JavaScript
+
+The gem provides a single unified Stimulus controller for both Pay and non-Pay integrations:
+
+- `purchasekit--paywall` Stimulus controller for Hotwire Native bridge communication
+- `purchasekit/turbo_actions` custom Turbo Stream action for redirects
+
+The controller handles prices, purchases, restore, errors, and includes a 30-second fallback redirect if ActionCable isn't connected. The `restore()` action sends a bridge message and dispatches a `purchasekit--paywall:restore` CustomEvent with `{ subscriptionIds, error }` in the detail.
+
+#### Purchase lifecycle events
+
+The controller dispatches a CustomEvent at each transition so host apps can swap their own copy (e.g. "Confirming your purchase...") without guessing timing. Same `this.dispatch(...)` pattern as `restore`, so all are prefixed with the controller identifier:
+
+| Event | Fires when |
+|-------|-----------|
+| `purchasekit--paywall:initiated` | The purchase intent is created and the native purchase is about to start. Detail: `{ correlationId }` |
+| `purchasekit--paywall:store-confirmed` | The native bridge replies with a non-terminal-error status (the store confirmed the purchase). Detail: `{ status }` |
+| `purchasekit--paywall:awaiting-webhook` | The form is disabled and waiting for the webhook-driven redirect. Detail: `{}` |
+| `purchasekit--paywall:complete` | The redirect fires, either from the broadcast Turbo Stream `redirect` action or the 30-second fallback. Detail: `{}` |
+
+Listen on the paywall element (or a parent, since these bubble):
+
+```javascript
+document.addEventListener("purchasekit--paywall:awaiting-webhook", () => {
+  // update your copy
+})
+```
+
+Import in your application:
+
+```javascript
+// app/javascript/application.js
+import "purchasekit/turbo_actions"
+
+// app/javascript/controllers/index.js
+eagerLoadControllersFrom("purchasekit", application)
+```
+
+## Configuration
+
+Configuration is a singleton accessed via `PurchaseKit.config`:
+
+```ruby
+PurchaseKit.configure do |config|
+  config.api_url = "https://purchasekit.com"  # Default
+  config.api_key = "sk_xxx"
+  config.app_id = "app_xxx"
+  config.webhook_secret = "whsec_xxx"
+  config.demo_mode = false
+  config.demo_products = {}
+end
+```
+
+### Event handlers
+
+Register callbacks using `config.on`:
+
+```ruby
+config.on(:subscription_created) { |event| ... }
+config.on(:subscription_canceled) { |event| ... }
+```
+
+Handlers are stored in `@event_handlers` hash, keyed by event type symbol.
+
+## Event system
+
+`PurchaseKit::Events` handles event publishing:
+
+1. Calls all registered block handlers from `config.handlers_for(type)`
+2. Publishes via `ActiveSupport::Notifications` for additional subscribers
+3. Broadcasts Turbo Stream redirect for `subscription_created` (when Pay is not enabled)
+4. Returns an `Event` object with parsed payload
+
+**Turbo Stream broadcasts:**
+
+- *Without Pay:* `Events.publish` broadcasts to `purchasekit_customer_#{customer_id}`. Subscribe with `turbo_stream_from "purchasekit_customer_#{current_user.id}"`.
+- *With Pay:* `SubscriptionCreated` and `SubscriptionUpdated` broadcast to `dom_id(pay_customer)` (i.e., `pay_customer_<id>`). Subscribe with `turbo_stream_from dom_id(current_user.payment_processor)`.
+
+A 30-second fallback redirect fires if ActionCable isn't connected. Subscribing to the wrong channel only loses the realtime redirect — the JS fallback still works after 30s.
+
+**Idempotency:** Webhooks may be delivered more than once. Handlers should be idempotent (use `find_or_create_by`). The `event.event_id` is available for custom deduplication if needed.
+
+### Event class
+
+`PurchaseKit::Events::Event` wraps the raw payload with convenience methods:
+
+- `event_id` - Unique event identifier (for idempotency)
+- `customer_id` - Your user ID
+- `subscription_id` - Store's transaction/purchase ID
+- `store` - "apple" or "google"
+- `store_product_id` - Store-specific product ID
+- `google_base_plan_id` - Google Play base plan ID when using umbrella subscriptions (nil for Apple and flat Google products)
+- `subscription_name` - Name from PurchaseKit dashboard
+- `status` - "active", "canceled", "expired"
+- `current_period_start/end` - Billing period timestamps
+- `ends_at` - When subscription will end
+- `success_path` - Redirect path for post-purchase
+
+Time fields are parsed via `Time.zone.parse` when accessed.
+
+## Product and Intent
+
+Both use polymorphic subclasses for demo vs. production:
+
+```
+Product.find(id)
+├── demo_mode? → Product::Demo (reads from config)
+└── else → Product::Remote (API call)
+
+Purchase::Intent.create(...)
+├── demo_mode? → Intent::Demo (in-memory store)
+└── else → Intent::Remote (API call)
+```
+
+### Demo mode
+
+Demo mode enables local development:
+- `Product::Demo.find` reads from `config.demo_products`
+- `Intent::Demo` stores intents in a class variable hash
+- `Intent::Demo.clear_store!` resets for tests
+
+**Demo mode purchase flow:**
+1. User clicks Subscribe → form POSTs to `/purchasekit/purchases`
+2. Controller creates `Intent::Demo`, appends response div via Turbo Stream
+3. JS controller disables form, extracts data, triggers native purchase via bridge
+4. iOS shows StoreKit sheet, user completes purchase
+5. iOS detects Xcode environment, POSTs to `xcodeCompletionUrl` (absolute URL built by JS)
+6. CompletionsController publishes `:subscription_created` event
+7. Event system broadcasts redirect via ActionCable (or JS fallback redirects after 30 seconds)
+
+### Remote mode
+
+Remote implementations call the PurchaseKit SaaS API:
+- Products: `GET /api/v1/apps/:app_id/products/:id`
+- Intents: `POST /api/v1/apps/:app_id/purchase/intents`
+
+## Webhook signature verification
+
+`WebhookSignature` verifies HMAC-SHA256 signatures:
+
+```ruby
+PurchaseKit::WebhookSignature.verify!(
+  payload: raw_body,
+  signature: header_value,
+  secret: config.webhook_secret
+)
+```
+
+Raises `SignatureVerificationError` if:
+- Secret is blank
+- Signature is missing
+- Signature doesn't match
+
+## Error classes
+
+All errors inherit from `PurchaseKit::Error`:
+
+| Error | HTTP Code | Description |
+|-------|-----------|-------------|
+| `Error` | - | Base error |
+| `NotFoundError` | 404 | Resource not found |
+| `SubscriptionRequiredError` | 402 | PurchaseKit subscription needed |
+| `SignatureVerificationError` | - | Invalid webhook signature |
+
+## File structure
+
+```
+app/
+├── controllers/purchase_kit/
+│   ├── application_controller.rb
+│   ├── webhooks_controller.rb
+│   ├── purchases_controller.rb
+│   └── purchase/
+│       └── completions_controller.rb  # Demo mode Xcode completion
+├── helpers/purchase_kit/
+│   └── paywall_helper.rb
+├── javascript/
+│   ├── controllers/purchasekit/
+│   │   └── paywall_controller.js
+│   └── purchasekit/
+│       └── turbo_actions.js
+├── models/pay/purchasekit/          # Pay gem integration (loaded conditionally)
+│   └── subscription.rb
+└── views/purchase_kit/purchases/
+    └── _intent.html.erb
+config/
+├── routes.rb
+└── importmap.rb
+lib/
+├── purchasekit.rb           # Entry point, module definition, conditional Pay loading
+└── purchasekit/
+    ├── version.rb
+    ├── configuration.rb     # Config + event handler registration
+    ├── engine.rb            # Rails engine with conditional Pay initializers
+    ├── error.rb             # Error classes
+    ├── events.rb            # Event publishing + Event class
+    ├── webhook_signature.rb # HMAC verification
+    ├── api_client.rb        # HTTParty wrapper
+    ├── product.rb           # Product base class
+    ├── product/
+    │   ├── demo.rb
+    │   └── remote.rb
+    ├── purchase/
+    │   ├── intent.rb        # Intent base class
+    │   └── intent/
+    │       ├── demo.rb
+    │       └── remote.rb
+    └── pay/                 # Pay gem integration (loaded conditionally)
+        ├── webhooks.rb      # Webhook handler registration
+        └── webhook.rb       # Background job for webhook processing
+```
+
+## Dependencies
+
+- `rails` (>= 7.0, < 9) - Rails engine, controllers, helpers
+- `httparty` (~> 0.22) - HTTP client
+
+## Testing
+
+Tests should cover:
+
+- Configuration (defaults, setters, event registration)
+- Events (publishing, Event class methods)
+- WebhookSignature (valid/invalid/missing signatures)
+- Product (demo find, remote find with VCR)
+- Intent (demo create/find, remote create with VCR)
+- ApiClient (URL building, headers)
+- Controllers (webhook verification, intent creation, demo completions)
+- Helpers (paywall form generation)
+- Pay integration (conditional loading, subscription creation)
+
+## Key decisions
+
+- **Single gem with conditional Pay**: Auto-detects Pay gem via `defined?(::Pay)` and loads integration
+- **Rails engine**: Provides full-featured webhook handling out of the box
+- **Callback-based**: Users without Pay bring their own storage/models
+- **Polymorphism over conditionals**: Demo/Remote dispatch in base classes
+- **Event object**: Parsed payload with time conversion, not raw hash
+- **Signature verification extracted**: Reusable outside controllers
+- **Demo mode completions**: Xcode StoreKit testing can complete purchases without real webhooks
+- **Unified JS controller**: Single `purchasekit--paywall` controller for both Pay and non-Pay, with ActionCable broadcasts and fallback timeout
+
+---
+> Source: [PurchaseKit/purchasekit](https://github.com/PurchaseKit/purchasekit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-04 -->
