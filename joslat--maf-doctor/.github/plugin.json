@@ -1,0 +1,9 @@
+{
+  "name": "joslat--maf-doctor",
+  "displayName": "maf-doctor",
+  "description": "AI-powered toolkit for Microsoft Agent Framework (MAF) migrations \u2014 agents, skills, MCP server, and self-updating guide",
+  "version": "1.0.0",
+  "author": "joslat",
+  "homepage": "https://github.com/joslat/maf-doctor",
+  "skills": []
+}
