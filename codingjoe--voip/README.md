@@ -7,11 +7,11 @@ Python VoIP library of the AI age
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [codingjoe/VoIP](https://github.com/codingjoe/VoIP).
+Original source: `CLAUDE.md` in [codingjoe/VoIP](https://github.com/codingjoe/VoIP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
