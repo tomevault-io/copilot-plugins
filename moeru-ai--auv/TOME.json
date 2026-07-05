@@ -4,7 +4,7 @@
   "repo": "auv",
   "description": "\ud83d\udcf1\ud83d\udc2d No we are not computer use, it's Application Use Via... a unified orchestration layer of OS automation, 0 token cost",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moeru-ai/auv",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T02:56:40Z"
+  "distributed_at": "2026-07-05T05:10:34Z"
 }
