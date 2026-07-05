@@ -1,0 +1,9 @@
+{
+  "name": "yendo-eng--remuda",
+  "displayName": "remuda",
+  "description": "A CLI to make AI-assisted development low friction",
+  "version": "1.0.0",
+  "author": "yendo-eng",
+  "homepage": "https://github.com/yendo-eng/remuda",
+  "skills": []
+}
