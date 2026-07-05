@@ -7,11 +7,11 @@ Generate hands-on, multi-part technical tutorials on demand, with LLM skills tun
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [devenjarvis/lathe](https://github.com/devenjarvis/lathe).
+Original source: `CLAUDE.md` in [devenjarvis/lathe](https://github.com/devenjarvis/lathe).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
