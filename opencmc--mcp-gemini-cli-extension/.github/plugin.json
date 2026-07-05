@@ -1,0 +1,9 @@
+{
+  "name": "opencmc--mcp-gemini-cli-extension",
+  "displayName": "mcp-gemini-cli-extension",
+  "description": "Coinmarketcap extension for Gemini CLI",
+  "version": "1.0.0",
+  "author": "OpenCMC",
+  "homepage": "https://github.com/OpenCMC/mcp-gemini-cli-extension",
+  "skills": []
+}
