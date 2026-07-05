@@ -1,139 +1,116 @@
-## payment-providers
+## payments
 
-> - **ALWAYS** store order IDs in both `orderId` and `processorOrderId` fields during import for maximum compatibility
+> - Always use HTTPS for all payment-related endpoints
 
-# Payment Provider Integration Best Practices
+# Payment Processing Best Practices
 
-## Field Consistency and Data Mapping
+## Payment Security
+- Always use HTTPS for all payment-related endpoints
+- Implement proper webhook signature verification for all payment providers
+- Never store sensitive payment data (use tokens and references)
+- Encrypt payment-related data at rest and in transit
+- Implement proper access controls for payment endpoints
+- Regular security audits for payment processing systems
+- Follow PCI DSS compliance requirements
 
-### Database Field Usage
-- **ALWAYS** store order IDs in both `orderId` and `processorOrderId` fields during import for maximum compatibility
-- **NEVER** assume a single field will contain the data - different providers may use different conventions
-- Use consistent field naming patterns across all providers in [src/server/providers/](mdc:src/server/providers)
+## Webhook Implementation
+- Verify webhook signatures using timing-safe comparison
+- Implement idempotency for all payment webhook events
+- Use database transactions for payment state changes
+- Handle webhook retries from payment providers gracefully
+- Log payment webhook events (excluding sensitive data)
+- Monitor webhook success rates and alert on failures
+- Test webhook endpoints with payment provider sandbox environments
 
-### Provider Import Methods
-When implementing `importPayments()` in provider classes:
-```typescript
-// ✅ CORRECT: Store in both fields
-await db.insert(payments).values({
-  orderId: processorOrderId,           // For display compatibility
-  processorOrderId: processorOrderId,  // For provider-specific operations
-  // ... other fields
-});
+## Payment State Management
+- Use database transactions for payment status updates
+- Implement proper state machines for payment flows
+- Handle edge cases like partial payments and refunds
+- Synchronize payment data between local database and payment provider
+- Implement proper rollback mechanisms for failed payments
+- Track payment history and audit trails
+- Handle subscription lifecycle events properly
 
-// ❌ WRONG: Only storing in one field
-await db.insert(payments).values({
-  processorOrderId: processorOrderId,  // Missing orderId for display
-  // ... other fields
-});
-```
+## Error Handling
+- Return appropriate HTTP status codes for webhook responses
+- Implement proper error logging for payment failures
+- Never expose internal payment errors to end users
+- Implement graceful degradation for payment system outages
+- Handle payment provider API rate limits
+- Implement retry logic with exponential backoff
+- Monitor payment error rates and patterns
 
-### Service Layer Display Logic
-In [src/server/services/payment-service.ts](mdc:src/server/services/payment-service.ts), always implement fallback logic:
-```typescript
-// ✅ CORRECT: Fallback logic
-orderId: payment.orderId || payment.processorOrderId || "",
+## Lemon Squeezy Integration
+- Always verify X-Signature header using HMAC-SHA256
+- Support critical webhook events: subscription_created, subscription_updated, subscription_cancelled, order_created, order_refunded
+- Handle both test and production webhook environments
+- Implement proper customer and subscription synchronization
+- Use Lemon Squeezy checkout URLs for secure payment processing
+- Handle Lemon Squeezy specific payment methods and currencies
+- Test integration thoroughly in sandbox environment
 
-// ❌ WRONG: Single field dependency
-orderId: payment.orderId ?? "",
-```
+## Stripe Integration
+- Verify webhook signatures using Stripe's signature verification
+- Handle Stripe webhook events: payment_intent, subscription, invoice events
+- Use Stripe's idempotency keys for safe retries
+- Implement proper handling of 3D Secure and payment confirmations
+- Handle Stripe's webhook delivery guarantees and retries
+- Use Stripe's test mode for development and testing
+- Implement proper handling of disputed payments and chargebacks
 
-## Provider Integration Patterns
+## Data Privacy
+- Follow GDPR requirements for customer payment data
+- Implement proper data retention policies for payment information
+- Anonymize or delete customer data upon request
+- Never log credit card numbers or sensitive payment details
+- Implement proper access controls for customer payment data
+- Regular audits of payment data handling procedures
+- Document data processing procedures for compliance
 
-### Required Provider Methods
-Every payment provider must implement consistent data mapping:
-- `getAllOrders()` - Must include proper order ID mapping
-- `getOrdersByEmail()` - Must use same mapping as getAllOrders
-- `importPayments()` - Must store data in compatible database fields
-- `handleWebhookEvent()` - Must use consistent field mapping
+## Testing
+- Test payment flows in sandbox/test environments
+- Implement unit tests for payment webhook processing
+- Test payment failure scenarios and edge cases
+- Validate payment provider integration using test cards/accounts
+- Test webhook signature verification with invalid signatures
+- Implement integration tests for complete payment flows
+- Regular penetration testing of payment endpoints
 
-### Data Validation
-- **ALWAYS** validate that imported data contains expected fields
-- **ALWAYS** test the complete data flow: Provider API → Import → Database → Service → UI
-- **NEVER** assume provider APIs return data in expected formats
+## Monitoring
+- Monitor payment success/failure rates
+- Track payment processing times and performance
+- Set up alerts for payment system anomalies
+- Monitor webhook delivery success rates
+- Track customer payment experience metrics
+- Implement dashboards for payment system health
+- Regular review of payment processing logs
 
-### Error Handling
-- Log detailed information when field mapping fails
-- Provide meaningful fallback values for missing data
-- Document which fields are required vs optional for each provider
+## Compliance
+- Implement PCI DSS compliance requirements
+- Follow payment provider compliance guidelines
+- Document payment processing procedures
+- Regular compliance audits and assessments
+- Implement audit trails for all payment actions
+- Train team members on payment security requirements
+- Keep compliance documentation up to date
 
-## Testing Requirements
+## Customer Experience
+- Provide clear payment status feedback to customers
+- Implement proper loading states during payment processing
+- Handle payment failures gracefully with clear error messages
+- Provide payment history and receipt functionality
+- Implement proper payment confirmation flows
+- Support multiple payment methods when possible
+- Optimize payment flows for conversion
 
-### Integration Testing
-- Test complete data flow from provider import to admin UI display
-- Verify all database fields are populated correctly
-- Test with real provider data, not just mock data
-- Validate backward compatibility with existing payment data
-
-### Field Mapping Verification
-Create debug scripts to verify field mapping:
-```typescript
-// Example: debug-{provider}-import-test.ts
-const importStats = await provider.importPayments();
-const payments = await PaymentService.getUsersWithPayments();
-// Verify orderId is populated in UI data
-```
-
-## Common Anti-Patterns
-
-### ❌ Field Mapping Mistakes
-- Storing order IDs only in provider-specific fields
-- Reading from single fields without fallbacks
-- Inconsistent field usage across providers
-- Not testing complete data flow
-
-### ❌ Provider Implementation Issues
-- Missing product name extraction during import
-- Inconsistent error handling across providers
-- Not storing metadata for debugging
-- Missing webhook signature verification
-
-### ❌ Service Layer Problems
-- Hard-coding field names without fallbacks
-- Not handling missing or null values
-- Inconsistent data transformation
-- Missing validation of provider data
-
-## Documentation Requirements
-
-### Provider Documentation
-- Document which database fields each provider populates
-- Explain field mapping rationale and fallback logic
-- Include examples of successful imports
-- Document known limitations or edge cases
-
-### Database Schema Documentation
-- Explain purpose of both `orderId` and `processorOrderId` fields
-- Document which providers use which fields
-- Explain fallback logic in service layer
-- Keep migration notes for field changes
-
-## Validation Checklist
-
-Before deploying provider changes:
-- [ ] Import stores data in compatible database fields
-- [ ] Service layer includes fallback logic for display
-- [ ] Admin UI shows correct data for all providers
-- [ ] Backward compatibility maintained
-- [ ] Debug scripts created and tested
-- [ ] Documentation updated
-- [ ] Integration tests pass
-
-## Reference Implementation
-
-See [src/server/providers/polar-provider.ts](mdc:src/server/providers/polar-provider.ts) lines 290-295 for correct field mapping during import.
-
-See [src/server/services/payment-service.ts](mdc:src/server/services/payment-service.ts) line 909 for correct fallback logic in service layer.
-
-## Lessons from Polar Integration
-
-The Polar payment integration revealed critical field mapping issues:
-- Product names extracted correctly but order IDs missing in UI
-- Root cause: Field stored in `processorOrderId` but UI read from `orderId`
-- Solution: Store in both fields + add fallback logic
-- Result: Backward compatible fix that works for all providers
-
-This pattern should be applied to all future provider integrations to ensure data consistency and proper UI display.
+## Documentation
+- Document all payment webhook endpoints and events
+- Maintain payment integration guides and procedures
+- Document payment error codes and troubleshooting steps
+- Keep payment provider integration documentation updated
+- Document payment testing procedures and test cases
+- Maintain compliance documentation and procedures
+- Regular review and updates of payment documentation
 
 ---
 > Source: [lacymorrow/paperclip-hub](https://github.com/lacymorrow/paperclip-hub) — distributed by [TomeVault](https://tomevault.io).
