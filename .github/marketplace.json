@@ -237564,6 +237564,26 @@
       "description": "typedframes"
     },
     {
+      "name": "srstomp--pokayokay",
+      "source": "./srstomp--pokayokay",
+      "description": "An orchestration plugin for Claude Code and Codex that enables reliable autonomous development sessions with configurable checkpoints and task management."
+    },
+    {
+      "name": "devdacian--coldclone",
+      "source": "./devdacian--coldclone",
+      "description": "Host-side gauntlet for untrusted code"
+    },
+    {
+      "name": "litendesign--liten",
+      "source": "./litendesign--liten",
+      "description": "design-engineered components. depth, not glow."
+    },
+    {
+      "name": "devdacian--coldclone",
+      "source": "./devdacian--coldclone",
+      "description": "Host-side gauntlet for untrusted code"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
