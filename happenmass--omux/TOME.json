@@ -4,7 +4,7 @@
   "repo": "omux",
   "description": "Orchestrate AI coding agents (Claude Code, Codex) as parallel subagents over tmux \u2014 a loop-engineering runtime with auto-continue, execute-then-review, and cross-session memory.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Happenmass/omux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T11:30:29Z"
+  "distributed_at": "2026-07-05T11:30:59Z"
 }
