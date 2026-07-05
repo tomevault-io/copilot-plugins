@@ -1,0 +1,44 @@
+{
+  "name": "sonicdpi",
+  "owner": "by-sonic",
+  "repo": "sonicdpi",
+  "description": "Open-source DPI bypass for YouTube and Discord. Cross-platform (Windows / Linux / macOS), Rust. Zapret / GoodbyeDPI / byedpi alternative. Works against TSPU, GFW and other carrier-grade DPI.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/by-sonic/sonicdpi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T04:57:37Z"
+}
