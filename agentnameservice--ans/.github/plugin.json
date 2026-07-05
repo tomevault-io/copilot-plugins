@@ -1,0 +1,9 @@
+{
+  "name": "agentnameservice--ans",
+  "displayName": "ans",
+  "description": "Open-source reference implementation of the Agent Name Service (ANS) based on the IETF draft \u2014 registry, transparency log, and offline verifier in Go.",
+  "version": "1.0.0",
+  "author": "agentnameservice",
+  "homepage": "https://github.com/agentnameservice/ans",
+  "skills": []
+}
