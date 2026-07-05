@@ -1,0 +1,9 @@
+{
+  "name": "mdemirhan--dux",
+  "displayName": "dux",
+  "description": "A disk usage tool written in Python",
+  "version": "1.0.0",
+  "author": "mdemirhan",
+  "homepage": "https://github.com/mdemirhan/dux",
+  "skills": []
+}
