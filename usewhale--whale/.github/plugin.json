@@ -1,9 +1,9 @@
 {
   "name": "usewhale--whale",
-  "displayName": "whale",
-  "description": "DeepSeek-native coding agent for the terminal.",
+  "displayName": "Whale",
+  "description": "Whale \u2014 blazingly fast, terminal-first AI coding agent for DeepSeek. ~98% prompt cache hit rate, 1M context, MCP tools, dynamic workflows.",
   "version": "1.0.0",
   "author": "usewhale",
-  "homepage": "https://github.com/usewhale/whale",
+  "homepage": "https://github.com/usewhale/Whale",
   "skills": []
 }
