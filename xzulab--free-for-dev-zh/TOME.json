@@ -1,0 +1,44 @@
+{
+  "name": "free-for-dev-zh",
+  "owner": "xzulab",
+  "repo": "free-for-dev-zh",
+  "description": "\u5f00\u53d1\u8005\u514d\u8d39\u8d44\u6e90\u6e05\u5355\u4e2d\u6587\u7248\uff0c\u6574\u7406\u81ea ripienaar/free-for-dev\uff0c\u6536\u5f55 SaaS\u3001PaaS\u3001   IaaS\u3001\u5f00\u53d1\u5de5\u5177\u3001\u4e91\u670d\u52a1\u3001AI\u3001\u76d1\u63a7\u3001\u6258\u7ba1\u3001\u6d4b\u8bd5\u7b49\u9762\u5411\u5f00\u53d1\u8005\u7684\u514d\u8d39\u5957\u9910\u4e0e\u514d\u8d39\u989d\u5ea6\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xzulab/free-for-dev-zh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-05T14:31:51Z"
+}
