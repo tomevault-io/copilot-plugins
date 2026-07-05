@@ -1,0 +1,9 @@
+{
+  "name": "fmarzochi--egc",
+  "displayName": "EGC",
+  "description": "Your AI agents never start from zero again. Local-first MCP runtime with persistent memory across sessions and tools.",
+  "version": "1.0.0",
+  "author": "Fmarzochi",
+  "homepage": "https://github.com/Fmarzochi/EGC",
+  "skills": []
+}
