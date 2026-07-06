@@ -1,0 +1,44 @@
+{
+  "name": "Sluice",
+  "owner": "Franlinozz",
+  "repo": "Sluice",
+  "description": "Sluice is a toll booth for the AI-read web. Creators price the smallest unit of what they make, AI agents pay it automatically in USDC, and Circle Gateway batches the tiny payments and settles them on Arc, gas-free and verifiable.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Franlinozz/Sluice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-06T18:31:09Z"
+}
