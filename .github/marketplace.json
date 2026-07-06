@@ -180334,6 +180334,11 @@
       "description": "\u8bb0\u5f55\u89c2\u5f71\u3001\u9605\u8bfb\u548c\u7b14\u8bb0\u7684 Android \u8f6f\u4ef6"
     },
     {
+      "name": "xiangyu-cas--codex-canvas",
+      "source": "./xiangyu-cas--codex-canvas",
+      "description": "Infinite canvas plugin for codex;  Codex\u65e0\u9650\u753b\u5e03\u63d2\u4ef6\uff0c\u56fe\u5c42\u5206\u79bb\uff0c\u7cbe\u51c6\u4fee\u6539"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -203102,6 +203107,36 @@
       "name": "wieslawsoltes--xamlvisualeditor",
       "source": "./wieslawsoltes--xamlvisualeditor",
       "description": "Extensible Avalonia XAML visual editor with live designer, code editor, language services, debugging, and .NET extensions."
+    },
+    {
+      "name": "hexianweb--lego-stylized-nature",
+      "source": "./hexianweb--lego-stylized-nature",
+      "description": "A LEGO-style nature exploration world built with Three.js WebGPU."
+    },
+    {
+      "name": "hexianweb--lego-stylized-nature",
+      "source": "./hexianweb--lego-stylized-nature",
+      "description": "A LEGO-style nature exploration world built with Three.js WebGPU."
+    },
+    {
+      "name": "hexianweb--lego-stylized-nature",
+      "source": "./hexianweb--lego-stylized-nature",
+      "description": "A LEGO-style nature exploration world built with Three.js WebGPU."
+    },
+    {
+      "name": "hexianweb--lego-stylized-nature",
+      "source": "./hexianweb--lego-stylized-nature",
+      "description": "A LEGO-style nature exploration world built with Three.js WebGPU."
+    },
+    {
+      "name": "hexianweb--lego-stylized-nature",
+      "source": "./hexianweb--lego-stylized-nature",
+      "description": "A LEGO-style nature exploration world built with Three.js WebGPU."
+    },
+    {
+      "name": "hexianweb--lego-stylized-nature",
+      "source": "./hexianweb--lego-stylized-nature",
+      "description": "A LEGO-style nature exploration world built with Three.js WebGPU."
     },
     {
       "name": "yschimke--compose-ai-tools",
