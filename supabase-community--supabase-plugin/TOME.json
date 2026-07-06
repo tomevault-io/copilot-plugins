@@ -4,7 +4,7 @@
   "repo": "supabase-plugin",
   "description": "Supabase plugin for AI coding assistants",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/supabase-community/supabase-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T02:37:29Z"
+  "distributed_at": "2026-07-06T02:39:59Z"
 }
