@@ -1,0 +1,26 @@
+# lego-stylized-nature
+
+> Tome by [hexianWeb](https://github.com/hexianWeb/lego-stylized-nature) — distributed by [TomeVault](https://tomevault.io)
+
+A LEGO-style nature exploration world built with Three.js WebGPU.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `.cursor/rules/*.mdc` in [hexianWeb/lego-stylized-nature](https://github.com/hexianWeb/lego-stylized-nature).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/hexianWeb/lego-stylized-nature](https://github.com/hexianWeb/lego-stylized-nature)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-q -->
