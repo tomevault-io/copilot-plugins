@@ -1,0 +1,9 @@
+{
+  "name": "1a7432--loreweaver",
+  "displayName": "loreweaver",
+  "description": "A self-hosted, world & story-first AI Game Master / Keeper for TTRPGs (D&D 5e SRD + CoC 7e): AI KP via function-calling, cross-platform shared sessions, AI party members, SillyTavern card import, mult",
+  "version": "1.0.0",
+  "author": "1A7432",
+  "homepage": "https://github.com/1A7432/loreweaver",
+  "skills": []
+}
