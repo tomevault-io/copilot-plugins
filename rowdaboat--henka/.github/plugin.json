@@ -1,0 +1,9 @@
+{
+  "name": "rowdaboat--henka",
+  "displayName": "henka",
+  "description": "henka is a bindings generator for Nim \ud83d\udc51",
+  "version": "1.0.0",
+  "author": "RowDaBoat",
+  "homepage": "https://github.com/RowDaBoat/henka",
+  "skills": []
+}
