@@ -1,0 +1,9 @@
+{
+  "name": "hralet1--cavalry-assistant",
+  "displayName": "cavalry-assistant",
+  "description": "Create with Cavalry from AI. An MCP server that gives your AI assistant a direct line into Cavalry \u2014 run scripts, query the knowledge base, and animate from a prompt.",
+  "version": "1.0.0",
+  "author": "hralet1",
+  "homepage": "https://github.com/hralet1/cavalry-assistant",
+  "skills": []
+}
