@@ -1,0 +1,9 @@
+{
+  "name": "glarue--cairn",
+  "displayName": "cairn",
+  "description": "Reconciles your iPhone photo library against your Immich server.",
+  "version": "1.0.0",
+  "author": "glarue",
+  "homepage": "https://github.com/glarue/cairn",
+  "skills": []
+}
