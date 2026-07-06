@@ -1,26 +1,67 @@
-## post-processing
+## webgpu-threejs-tsl
 
-> Post-processing effects for Three.js WebGPU via the TSL node-based pipeline. Covers PostProcessing class, built-in passes (bloom, blur, FXAA, DOF), custom effects with Fn(), and effect chaining. Use when building render pipelines with post effects.
+> Entry point for Three.js WebGPU + TSL guidance. Covers renderer setup, node materials, and TSL syntax fundamentals. Auto-attaches on JS/TS files in projects using three/webgpu.
 
 
-# Three.js WebGPU Post-Processing (TSL)
+# WebGPU Three.js with TSL
 
-Post-processing uses the `PostProcessing` class from `three/webgpu` with node-based effect composition. Effects chain via TSL nodes rather than EffectComposer passes.
+TSL (Three.js Shading Language) is a node-based shader abstraction that lets you write GPU shaders in JavaScript instead of GLSL/WGSL strings. Use this rule when working with `three/webgpu`, TSL nodes, node materials, or GPU compute in Three.js.
+
+## Import pattern
 
 ```javascript
-import { PostProcessing } from 'three/webgpu';
-import { pass, mrt, output, emissive } from 'three/tsl';
-import { bloom } from 'three/addons/tsl/display/BloomNode.js';
+import * as THREE from 'three/webgpu';
+import { color, time, oscSine, Fn, float } from 'three/tsl';
 
-const postProcessing = new PostProcessing(renderer);
-const scenePass = pass(scene, camera);
-postProcessing.outputNode = scenePass.add(bloom(scenePass.getTextureNode()));
+const renderer = new THREE.WebGPURenderer();
+await renderer.init();
 ```
 
-Call `postProcessing.renderAsync()` instead of `renderer.renderAsync()`.
+Always use the `three/webgpu` entry point — not `three`. TSL functions come from `three/tsl`.
 
-@skills/webgpu-threejs-tsl/docs/post-processing.md
-@skills/webgpu-threejs-tsl/examples/post-processing.js
+## Node materials
+
+Replace standard material properties with TSL nodes:
+
+```javascript
+material.colorNode = texture(map);        // instead of material.map
+material.roughnessNode = float(0.5);      // instead of material.roughness
+material.positionNode = displaced;        // vertex displacement
+```
+
+## Method chaining
+
+TSL uses method chaining, not infix operators:
+
+```javascript
+// Instead of: sin(time * 2.0 + offset) * 0.5 + 0.5
+time.mul(2.0).add(offset).sin().mul(0.5).add(0.5)
+```
+
+## Custom functions
+
+Use `Fn()` for reusable shader logic:
+
+```javascript
+const fresnel = Fn(([power = 2.0]) => {
+  const nDotV = normalWorld.dot(viewDir).saturate();
+  return float(1.0).sub(nDotV).pow(power);
+});
+```
+
+## Version notes
+
+- **r178+**: `PI2` deprecated (use `TWO_PI`); `transformedNormalView/World` renamed to `normalView/World`
+- **r171+**: Stable TSL API, requires `three/webgpu` import map entry
+
+## Full skill content
+
+The source-of-truth documentation lives under `skills/webgpu-threejs-tsl/`. Reference these files directly when deeper guidance is needed:
+
+@skills/webgpu-threejs-tsl/SKILL.md
+@skills/webgpu-threejs-tsl/REFERENCE.md
+@skills/webgpu-threejs-tsl/docs/core-concepts.md
+@skills/webgpu-threejs-tsl/docs/materials.md
 
 ---
 > Source: [hexianWeb/lego-stylized-nature](https://github.com/hexianWeb/lego-stylized-nature) — distributed by [TomeVault](https://tomevault.io).
