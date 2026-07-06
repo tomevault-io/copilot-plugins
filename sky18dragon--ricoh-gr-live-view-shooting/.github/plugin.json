@@ -1,0 +1,9 @@
+{
+  "name": "sky18dragon--ricoh-gr-live-view-shooting",
+  "displayName": "RICOH-GR-Live-View-Shooting",
+  "description": "\u8fd0\u884c\u5728 M5Stack StickS3 \u4e0a\u7684\u7406\u5149 (RICOH) GR \u8fdc\u7a0b\u5b9e\u65f6\u53d6\u666f\u5668\u4e0e BLE \u9065\u63a7\u5feb\u95e8\u56fa\u4ef6\u3002 A wireless live-view shooting and BLE remote shutter firmware running on the M5Stack StickS3 for RICOH GR cameras.",
+  "version": "1.0.0",
+  "author": "sky18Dragon",
+  "homepage": "https://github.com/sky18Dragon/RICOH-GR-Live-View-Shooting",
+  "skills": []
+}
