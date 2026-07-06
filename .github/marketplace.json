@@ -238089,6 +238089,11 @@
       "description": "A complete RAG microservice that ingests from multiple sources, stores embeddings in PGVector with hybrid search, and provides both raw chunk retrieval and LLM-powered answer generation. Built with Fa"
     },
     {
+      "name": "devonjones--devon-claude-skills",
+      "source": "./devonjones--devon-claude-skills",
+      "description": "Claude Code skills marketplace: PR review automation and AI image generation"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -258252,6 +258257,26 @@
       "name": "xpenatan--jbox3d",
       "source": "./xpenatan--jbox3d",
       "description": "Box3D Java Binding for desktop, mobile and web"
+    },
+    {
+      "name": "lpbas--beacon",
+      "source": "./lpbas--beacon",
+      "description": "Beacon is a native macOS menu bar app that re-broadcasts selected Bonjour/mDNS services from your Mac, making Docker or OrbStack-hosted services like Home Assistant and HomeKit bridges discoverable ac"
+    },
+    {
+      "name": "xteardx--diaphora-mcp",
+      "source": "./xteardx--diaphora-mcp",
+      "description": "diaphora-mcp"
+    },
+    {
+      "name": "ayooooo123--peartube",
+      "source": "./ayooooo123--peartube",
+      "description": "peartube"
+    },
+    {
+      "name": "ayooooo123--peartube",
+      "source": "./ayooooo123--peartube",
+      "description": "peartube"
     },
     {
       "name": "cheerhuan--save-your-token",
