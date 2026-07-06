@@ -1,0 +1,9 @@
+{
+  "name": "lpbas--beacon",
+  "displayName": "Beacon",
+  "description": "Beacon is a native macOS menu bar app that re-broadcasts selected Bonjour/mDNS services from your Mac, making Docker or OrbStack-hosted services like Home Assistant and HomeKit bridges discoverable ac",
+  "version": "1.0.0",
+  "author": "lpbas",
+  "homepage": "https://github.com/lpbas/Beacon",
+  "skills": []
+}
