@@ -1,21 +1,20 @@
-## compute-shaders
+## device-loss-and-limits
 
-> GPU compute shaders in Three.js WebGPU using TSL. Covers instanced array buffers, parallel simulation, particle systems, atomic operations, and workgroup barriers. Use when writing compute passes, particle systems, or GPU-side simulations.
+> WebGPU device loss handling, recovery strategies, and device limits/optional features. Use when adding robustness to a WebGPU app, handling GPU crashes, requesting non-default limits, or enabling optional features like timestamp queries or float32-filterable.
 
 
-# Three.js WebGPU Compute Shaders (TSL)
+# WebGPU Device Loss & Limits
 
-Compute shaders in TSL use `Fn()` wrapped with `.compute(count)` and dispatched via `renderer.computeAsync()`. Data lives in `instancedArray()` buffers accessed by `instanceIndex`.
+## Device loss
 
-Key patterns:
-- `instancedArray(count, 'vec3')` for storage buffers
-- `Fn(() => { ... }).compute(count)` to define a compute kernel
-- `renderer.computeAsync(kernel)` to dispatch
-- Workgroup barriers via `workgroupBarrier()` for shared memory sync
+WebGPU devices can be lost (tab backgrounded for too long, driver crash, OS suspend). Listen via `device.lost` and recreate the renderer on recovery. Preserve scene state outside the renderer so it can be re-uploaded after a new `WebGPURenderer` is initialized.
 
-@skills/webgpu-threejs-tsl/docs/compute-shaders.md
-@skills/webgpu-threejs-tsl/examples/particle-system.js
-@skills/webgpu-threejs-tsl/templates/compute-shader.js
+## Limits and features
+
+Request non-default limits and optional features via `WebGPURenderer`'s device descriptor options. Always check `adapter.features` and `adapter.limits` before requesting.
+
+@skills/webgpu-threejs-tsl/docs/device-loss.md
+@skills/webgpu-threejs-tsl/docs/limits-and-features.md
 
 ---
 > Source: [hexianWeb/lego-stylized-nature](https://github.com/hexianWeb/lego-stylized-nature) — distributed by [TomeVault](https://tomevault.io).
