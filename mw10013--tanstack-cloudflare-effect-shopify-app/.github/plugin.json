@@ -1,0 +1,9 @@
+{
+  "name": "mw10013--tanstack-cloudflare-effect-shopify-app",
+  "displayName": "tanstack-cloudflare-effect-shopify-app",
+  "description": "Port of the Shopify App Template to TanStack Start + Cloudflare Workers + Effect v4.",
+  "version": "1.0.0",
+  "author": "mw10013",
+  "homepage": "https://github.com/mw10013/tanstack-cloudflare-effect-shopify-app",
+  "skills": []
+}
