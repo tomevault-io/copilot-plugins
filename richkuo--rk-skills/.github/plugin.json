@@ -1,0 +1,9 @@
+{
+  "name": "richkuo--rk-skills",
+  "displayName": "rk-skills",
+  "description": "Claude Code workflow skills \u2014 GitHub issue/PR/release automation and Fable-driven planning. Install via npx or as a Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "richkuo",
+  "homepage": "https://github.com/richkuo/rk-skills",
+  "skills": []
+}
