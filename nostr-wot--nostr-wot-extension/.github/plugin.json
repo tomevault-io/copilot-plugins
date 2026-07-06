@@ -1,0 +1,9 @@
+{
+  "name": "nostr-wot--nostr-wot-extension",
+  "displayName": "nostr-wot-extension",
+  "description": "Browser extension for Nostr Web of Trust - query custom trust score and social distance between pubkeys via remote oracle or local graph",
+  "version": "1.0.0",
+  "author": "nostr-wot",
+  "homepage": "https://github.com/nostr-wot/nostr-wot-extension",
+  "skills": []
+}
