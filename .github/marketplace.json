@@ -180304,6 +180304,16 @@
       "description": "Claude Code skills that make Claude (Fable) the conductor of AI worker fleets: many parallel OpenAI Codex workers plus Opus design agents, organized into campaigns, waves, squads, and review gates."
     },
     {
+      "name": "dellevin--mooknote",
+      "source": "./dellevin--mooknote",
+      "description": "\u8bb0\u5f55\u89c2\u5f71\u3001\u9605\u8bfb\u548c\u7b14\u8bb0\u7684 Android \u8f6f\u4ef6"
+    },
+    {
+      "name": "dellevin--mooknote",
+      "source": "./dellevin--mooknote",
+      "description": "\u8bb0\u5f55\u89c2\u5f71\u3001\u9605\u8bfb\u548c\u7b14\u8bb0\u7684 Android \u8f6f\u4ef6"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -189492,6 +189502,11 @@
       "name": "asuraace--ambit",
       "source": "./asuraace--ambit",
       "description": "Local-first desktop manager for AI image libraries"
+    },
+    {
+      "name": "nasroykh--foxmayn-frappe-cli",
+      "source": "./nasroykh--foxmayn-frappe-cli",
+      "description": "Go CLI for managing Frappe/ERPNext sites"
     },
     {
       "name": "lightninglabs--lnget",
@@ -203047,6 +203062,16 @@
       "name": "samuelecorra--cybersec-unimi-ssri2-0",
       "source": "./samuelecorra--cybersec-unimi-ssri2-0",
       "description": "Archivio personale locale Cybersecurity"
+    },
+    {
+      "name": "oila-gmbh--skill-bill",
+      "source": "./oila-gmbh--skill-bill",
+      "description": "Skill Bill lets developers use AI agents for real feature work without losing engineering process: spec, implementation, review, verification, quality gates, and resumable state. "
+    },
+    {
+      "name": "oila-gmbh--skill-bill",
+      "source": "./oila-gmbh--skill-bill",
+      "description": "Skill Bill lets developers use AI agents for real feature work without losing engineering process: spec, implementation, review, verification, quality gates, and resumable state. "
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -237859,6 +237884,11 @@
       "description": "A fancy Android app that pauses / fades out music, disables things like WiFi and Bluetooth when the timer ends"
     },
     {
+      "name": "hralet1--cavalry-assistant",
+      "source": "./hralet1--cavalry-assistant",
+      "description": "Create with Cavalry from AI. An MCP server that gives your AI assistant a direct line into Cavalry \u2014 run scripts, query the knowledge base, and animate from a prompt."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257907,6 +257937,16 @@
       "name": "wess--guise",
       "source": "./wess--guise",
       "description": "Mantine inspired components for Zed's GPUI library."
+    },
+    {
+      "name": "anmoln7--agent-standard-oss",
+      "source": "./anmoln7--agent-standard-oss",
+      "description": "A house standard that keeps AI-agent instruction files (AGENTS.md / CLAUDE.md) honest and single-sourced \u2014 one source of truth, in-repo fix log, anti-drift contracts, and safe commit/deploy hygiene."
+    },
+    {
+      "name": "zhoushoujianwork--easyeda-agent",
+      "source": "./zhoushoujianwork--easyeda-agent",
+      "description": "easyeda-agent"
     },
     {
       "name": "cheerhuan--save-your-token",
