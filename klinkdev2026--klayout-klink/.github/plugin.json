@@ -1,0 +1,9 @@
+{
+  "name": "klinkdev2026--klayout-klink",
+  "displayName": "klayout-klink",
+  "description": "AI-native control plane for KLayout: RPC plugin, Python client, MCP bridge, and routing workflows for agent-driven   layout automation.",
+  "version": "1.0.0",
+  "author": "klinkdev2026",
+  "homepage": "https://github.com/klinkdev2026/klayout-klink",
+  "skills": []
+}
