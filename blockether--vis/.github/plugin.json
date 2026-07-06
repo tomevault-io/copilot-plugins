@@ -1,0 +1,9 @@
+{
+  "name": "blockether--vis",
+  "displayName": "vis",
+  "description": "an RLM-inspired coding agent built from the ground up.",
+  "version": "1.0.0",
+  "author": "Blockether",
+  "homepage": "https://github.com/Blockether/vis",
+  "skills": []
+}
