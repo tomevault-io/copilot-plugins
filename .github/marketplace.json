@@ -237899,6 +237899,21 @@
       "description": "Create with Cavalry from AI. An MCP server that gives your AI assistant a direct line into Cavalry \u2014 run scripts, query the knowledge base, and animate from a prompt."
     },
     {
+      "name": "lulzx--cuda-metal",
+      "source": "./lulzx--cuda-metal",
+      "description": "CUDA compiler and runtime for Apple Silicon"
+    },
+    {
+      "name": "mancusolab--scientific-software-playbook",
+      "source": "./mancusolab--scientific-software-playbook",
+      "description": "scientific-software-playbook"
+    },
+    {
+      "name": "microsoft--purview-dlm-mcp",
+      "source": "./microsoft--purview-dlm-mcp",
+      "description": "purview-dlm-mcp"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257957,6 +257972,26 @@
       "name": "zhoushoujianwork--easyeda-agent",
       "source": "./zhoushoujianwork--easyeda-agent",
       "description": "easyeda-agent"
+    },
+    {
+      "name": "pieceoffall--jdbg",
+      "source": "./pieceoffall--jdbg",
+      "description": "Debug Java like an agent: persistent runtime sessions, safe JDI inspection, jdb fallback, and MCP/CLI control."
+    },
+    {
+      "name": "cholf5--blazor-clicker",
+      "source": "./cholf5--blazor-clicker",
+      "description": "Unofficial Cookie Clicker fan remake, built with Blazor WebAssembly."
+    },
+    {
+      "name": "pieceoffall--jdbg",
+      "source": "./pieceoffall--jdbg",
+      "description": "Debug Java like an agent: persistent runtime sessions, safe JDI inspection, jdb fallback, and MCP/CLI control."
+    },
+    {
+      "name": "sky18dragon--ricoh-gr-live-view-shooting",
+      "source": "./sky18dragon--ricoh-gr-live-view-shooting",
+      "description": "\u8fd0\u884c\u5728 M5Stack StickS3 \u4e0a\u7684\u7406\u5149 (RICOH) GR \u8fdc\u7a0b\u5b9e\u65f6\u53d6\u666f\u5668\u4e0e BLE \u9065\u63a7\u5feb\u95e8\u56fa\u4ef6\u3002 A wireless live-view shooting and BLE remote shutter firmware running on the M5Stack StickS3 for RICOH GR cameras."
     },
     {
       "name": "cheerhuan--save-your-token",
