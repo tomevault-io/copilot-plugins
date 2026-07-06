@@ -1,0 +1,9 @@
+{
+  "name": "ray-amjad--hyperwhisper-app",
+  "displayName": "hyperwhisper-app",
+  "description": "HyperWhisper \u2014 open-source speech-to-text for macOS, Windows & iOS. Local transcription is free and open; HyperWhisper Cloud is the paid, server-validated product.",
+  "version": "1.0.0",
+  "author": "ray-amjad",
+  "homepage": "https://github.com/ray-amjad/hyperwhisper-app",
+  "skills": []
+}
