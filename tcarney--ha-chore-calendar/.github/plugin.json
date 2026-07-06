@@ -1,0 +1,9 @@
+{
+  "name": "tcarney--ha-chore-calendar",
+  "displayName": "ha-chore-calendar",
+  "description": "A Home Assistant custom integration that manages recurring household chores",
+  "version": "1.0.0",
+  "author": "tcarney",
+  "homepage": "https://github.com/tcarney/ha-chore-calendar",
+  "skills": []
+}
