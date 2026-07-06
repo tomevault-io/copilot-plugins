@@ -1,0 +1,9 @@
+{
+  "name": "renatomoselli--rpacore-examples",
+  "displayName": "rpacore-examples",
+  "description": "Consumer-facing example automations for RPA Core.",
+  "version": "1.0.0",
+  "author": "renatomoselli",
+  "homepage": "https://github.com/renatomoselli/rpacore-examples",
+  "skills": []
+}
