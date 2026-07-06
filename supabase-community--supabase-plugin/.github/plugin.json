@@ -1,0 +1,9 @@
+{
+  "name": "supabase-community--supabase-plugin",
+  "displayName": "supabase-plugin",
+  "description": "Supabase plugin for AI coding assistants",
+  "version": "1.0.0",
+  "author": "supabase-community",
+  "homepage": "https://github.com/supabase-community/supabase-plugin",
+  "skills": []
+}
