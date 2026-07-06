@@ -5714,6 +5714,11 @@
       "description": "Local-first session search, analytics, insights, and token use statistics for coding agents, supporting Claude Code, Codex, and more than 20 other agents. "
     },
     {
+      "name": "osmantic--ods",
+      "source": "./osmantic--ods",
+      "description": "Turn your PC, Mac, or Linux box into an AI server.  LLM inference, chat UI, voice, agents, workflows, RAG, and image generation."
+    },
+    {
       "name": "white0dew--xiaohongshuskills",
       "source": "./white0dew--xiaohongshuskills",
       "description": "\u652f\u6301\u5c0f\u7ea2\u4e66\u81ea\u52a8\u53d1\u5e03\u3001\u81ea\u52a8\u8bc4\u8bba\u3001\u81ea\u52a8\u68c0\u7d22\u7684 Skill\u3002\u652f\u6301 OpenClaw\u3001Codex\u3001CC \u7b49"
