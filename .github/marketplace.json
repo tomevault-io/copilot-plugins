@@ -165704,6 +165704,11 @@
       "description": "LianYu-app"
     },
     {
+      "name": "emergence-engineering--pcbjam",
+      "source": "./emergence-engineering--pcbjam",
+      "description": "pcbjam"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
