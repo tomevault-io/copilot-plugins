@@ -67854,6 +67854,11 @@
       "description": "cpp-bootcamp"
     },
     {
+      "name": "layernorm--overlay-web",
+      "source": "./layernorm--overlay-web",
+      "description": "The open source AI operating system"
+    },
+    {
       "name": "aelf-hzz780--ai-bounty-skill",
       "source": "./aelf-hzz780--ai-bounty-skill",
       "description": "Public Codex skill for claiming AI bounty on aelf tDVV via RewardClaimContract, supporting EOA Claim() and Portkey CA ClaimByPortkeyToCa()."
@@ -126509,6 +126514,11 @@
       "description": "A Personal Agent in Python"
     },
     {
+      "name": "uholli--ai-website-cloner",
+      "source": "./uholli--ai-website-cloner",
+      "description": "AI website cloner for rebuilding live websites with AI coding agents"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -146542,6 +146552,16 @@
       "name": "crussella0129--animus-1-0",
       "source": "./crussella0129--animus-1-0",
       "description": "A repository for the open source, natively running, Agentic CLI project: Animus (Deprecated prototype repo for now, see Animus_Ferric repo for most recent developments)"
+    },
+    {
+      "name": "schroedernathan--amber",
+      "source": "./schroedernathan--amber",
+      "description": "Save it for later"
+    },
+    {
+      "name": "schroedernathan--amber",
+      "source": "./schroedernathan--amber",
+      "description": "Save it for later"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -180344,6 +180364,11 @@
       "description": "Infinite canvas plugin for codex;  Codex\u65e0\u9650\u753b\u5e03\u63d2\u4ef6\uff0c\u56fe\u5c42\u5206\u79bb\uff0c\u7cbe\u51c6\u4fee\u6539"
     },
     {
+      "name": "ethsystems--iptf-pocs",
+      "source": "./ethsystems--iptf-pocs",
+      "description": "iptf-pocs"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -189542,6 +189567,11 @@
       "name": "un4ckn0wl3z--dioprocess-private",
       "source": "./un4ckn0wl3z--dioprocess-private",
       "description": "DioProcess \u2014 Advanced Windows Internals, Evasion, Rootkit, Hypervisor, SMM & Bootkit Research Framework"
+    },
+    {
+      "name": "bozhoudev--finding-unknowns-skills",
+      "source": "./bozhoudev--finding-unknowns-skills",
+      "description": "Unknown-discovery guidelines for Claude Code, derived from Thariq's (Anthropic) 'A Field Guide to Fable: Finding Your Unknowns'"
     },
     {
       "name": "lightninglabs--lnget",
@@ -203142,6 +203172,11 @@
       "name": "hexianweb--lego-stylized-nature",
       "source": "./hexianweb--lego-stylized-nature",
       "description": "A LEGO-style nature exploration world built with Three.js WebGPU."
+    },
+    {
+      "name": "egeominotti--bunqueue-dashboard",
+      "source": "./egeominotti--bunqueue-dashboard",
+      "description": "Web dashboard that fully drives a bunqueue server. queues, jobs, DLQ, cron, webhooks, workers"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -238029,6 +238064,26 @@
       "description": "A persistent cognitive workspace that manages information flow for knowledge workers"
     },
     {
+      "name": "ranvier-technologies--pixir",
+      "source": "./ranvier-technologies--pixir",
+      "description": "Pixir: supervised subagents and workflows for coding agents"
+    },
+    {
+      "name": "ranvier-technologies--pixir",
+      "source": "./ranvier-technologies--pixir",
+      "description": "Pixir: supervised subagents and workflows for coding agents"
+    },
+    {
+      "name": "vudknguyen--openskill",
+      "source": "./vudknguyen--openskill",
+      "description": "An universal agent skill manager"
+    },
+    {
+      "name": "wikiteq--rag-of-all-trades",
+      "source": "./wikiteq--rag-of-all-trades",
+      "description": "A complete RAG microservice that ingests from multiple sources, stores embeddings in PGVector with hybrid search, and provides both raw chunk retrieval and LLM-powered answer generation. Built with Fa"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -258147,6 +258202,31 @@
       "name": "nostr-wot--nostr-wot-extension",
       "source": "./nostr-wot--nostr-wot-extension",
       "description": "Browser extension for Nostr Web of Trust - query custom trust score and social distance between pubkeys via remote oracle or local graph"
+    },
+    {
+      "name": "jellydn--pi-clinepass-provider",
+      "source": "./jellydn--pi-clinepass-provider",
+      "description": "ClinePass provider for pi \u2014 10 curated open-weight coding models (GLM-5.2, Kimi K2.7, DeepSeek V4, Qwen3.7, and more)"
+    },
+    {
+      "name": "moeleak--iced-material",
+      "source": "./moeleak--iced-material",
+      "description": "iced_material"
+    },
+    {
+      "name": "richkuo--rk-skills",
+      "source": "./richkuo--rk-skills",
+      "description": "Claude Code workflow skills \u2014 GitHub issue/PR/release automation and Fable-driven planning. Install via npx or as a Claude Code plugin."
+    },
+    {
+      "name": "burakorkmez--triply-ai",
+      "source": "./burakorkmez--triply-ai",
+      "description": "triply-ai"
+    },
+    {
+      "name": "coreyjj1679--chainstitch-eth",
+      "source": "./coreyjj1679--chainstitch-eth",
+      "description": "Collaborative notebooks for smart contracts \u2014 compose, run, and share on-chain calls like Jupyter cells."
     },
     {
       "name": "cheerhuan--save-your-token",
