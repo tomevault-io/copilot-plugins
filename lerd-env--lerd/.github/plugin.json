@@ -1,0 +1,9 @@
+{
+  "name": "lerd-env--lerd",
+  "displayName": "lerd",
+  "description": "Open-source, Herd-like local PHP development environment for Linux and macOS. Automatic .test domains, per-project PHP/Node isolation, one-command TLS. Podman-native, rootless.",
+  "version": "1.0.0",
+  "author": "lerd-env",
+  "homepage": "https://github.com/lerd-env/lerd",
+  "skills": []
+}
