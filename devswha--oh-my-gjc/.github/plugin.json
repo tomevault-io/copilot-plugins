@@ -1,0 +1,9 @@
+{
+  "name": "devswha--oh-my-gjc",
+  "displayName": "oh-my-gjc",
+  "description": "Community plugin marketplace for Gajae Code (gjc). Workflow skills + slash commands, Claude Code / Codex compatible.",
+  "version": "1.0.0",
+  "author": "devswha",
+  "homepage": "https://github.com/devswha/oh-my-gjc",
+  "skills": []
+}
