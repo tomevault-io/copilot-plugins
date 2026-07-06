@@ -1,0 +1,9 @@
+{
+  "name": "sema-lisp--sema",
+  "displayName": "sema",
+  "description": "A Lisp with first-class LLM primitives, implemented in Rust",
+  "version": "1.0.0",
+  "author": "sema-lisp",
+  "homepage": "https://github.com/sema-lisp/sema",
+  "skills": []
+}
