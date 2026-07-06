@@ -7,11 +7,11 @@ HyperWhisper — open-source speech-to-text for macOS, Windows & iOS. Local tran
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ray-amjad/hyperwhisper-app](https://github.com/ray-amjad/hyperwhisper-app).
+Original source: `CLAUDE.md` in [ray-amjad/hyperwhisper-app](https://github.com/ray-amjad/hyperwhisper-app).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
