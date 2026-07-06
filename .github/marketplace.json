@@ -189454,6 +189454,11 @@
       "description": "Reconciles your iPhone photo library against your Immich server."
     },
     {
+      "name": "asuraace--ambit",
+      "source": "./asuraace--ambit",
+      "description": "Local-first desktop manager for AI image libraries"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -202992,6 +202997,11 @@
       "name": "tcarney--ha-chore-calendar",
       "source": "./tcarney--ha-chore-calendar",
       "description": "A Home Assistant custom integration that manages recurring household chores"
+    },
+    {
+      "name": "lexwdex--opencode-dag",
+      "source": "./lexwdex--opencode-dag",
+      "description": "Extends the Hooks API with Goal-Oriented Instructions, TODO Pre-Hooks, Sandboxed Workspaces, and DAG (Directed Acyclic Graph) based Workflow Execution Engine\uff08WIP\uff09."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -237722,6 +237732,31 @@
       "name": "fuqiuluo--yh-cheat",
       "source": "./fuqiuluo--yh-cheat",
       "description": "\u5f02\u73af"
+    },
+    {
+      "name": "timominkus--obsidian-para-gtd-ai",
+      "source": "./timominkus--obsidian-para-gtd-ai",
+      "description": "A complete productivity system combining PARA (Projects, Areas, Resources, Archive) with GTD (Getting Things Done) task management, powered by Claude Code AI skills. Built for busy knowledge workers \u2014"
+    },
+    {
+      "name": "scap3sh4rk--darkvault",
+      "source": "./scap3sh4rk--darkvault",
+      "description": "The most stable, zero-knowledge encrypted Android client for Google Drive. Secure your photos, videos, and documents with military-grade AES-256-GCM. 100% Private. 100% Open Source."
+    },
+    {
+      "name": "blockether--vis",
+      "source": "./blockether--vis",
+      "description": "an RLM-inspired coding agent built from the ground up."
+    },
+    {
+      "name": "rowdaboat--henka",
+      "source": "./rowdaboat--henka",
+      "description": "henka is a bindings generator for Nim \ud83d\udc51"
+    },
+    {
+      "name": "kuops--opencode-codebuddy-auth",
+      "source": "./kuops--opencode-codebuddy-auth",
+      "description": "OpenCode \u63d2\u4ef6\uff0c\u7528\u4e8e CodeBuddy (IOA) \u8ba4\u8bc1\u3002\u901a\u8fc7\u6d4f\u89c8\u5668 OAuth \u767b\u5f55\u540e\uff0c\u53ef\u5728 OpenCode CLI \u4e2d\u4f7f\u7528 CodeBuddy \u7684\u5bf9\u8bdd\u6a21\u578b\u3002"
     },
     {
       "name": "ocrbase-hq--ocrbase",
@@ -380927,6 +380962,11 @@
       "name": "frosco--deezer-tools",
       "source": "./frosco--deezer-tools",
       "description": "Manage loved content and playlists"
+    },
+    {
+      "name": "hapi330--kodomo-support-3",
+      "source": "./hapi330--kodomo-support-3",
+      "description": "kodomo-support-3"
     }
   ]
 }
