@@ -1,0 +1,9 @@
+{
+  "name": "lexwdex--opencode-dag",
+  "displayName": "OpenCode-DAG",
+  "description": "Extends the Hooks API with Goal-Oriented Instructions, TODO Pre-Hooks, Sandboxed Workspaces, and DAG (Directed Acyclic Graph) based Workflow Execution Engine\uff08WIP\uff09.",
+  "version": "1.0.0",
+  "author": "LeXwDeX",
+  "homepage": "https://github.com/LeXwDeX/OpenCode-DAG",
+  "skills": []
+}
