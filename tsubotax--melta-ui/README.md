@@ -2,22 +2,25 @@
 
 > Source: [tsubotax/melta-ui](https://github.com/tsubotax/melta-ui) — distributed by [TomeVault](https://tomevault.io)
 
-人間にも、AIにも、読めるデザインシステム — AI-Ready Design System for Claude Code & Cursor
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tsubotax/melta-ui](https://github.com/tsubotax/melta-ui).
+Original source: `AGENTS.md` in [tsubotax/melta-ui](https://github.com/tsubotax/melta-ui).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [tsubotax/melta-ui](https://github.com/tsubotax/melta-ui) — a repo with 142+ stars on GitHub.
+## Bundled Skills (2)
+
+- [melta-ui](https://github.com/tsubotax/melta-ui/tree/main/skills/ban-pattern/SKILL.md)
+- [melta-ui](https://github.com/tsubotax/melta-ui/tree/main/skills/design-review/SKILL.md)
+
+From [tsubotax/melta-ui](https://github.com/tsubotax/melta-ui) — a repo with 0+ stars on GitHub.
 
 ---
 
