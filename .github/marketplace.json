@@ -258234,6 +258234,26 @@
       "description": "Collaborative notebooks for smart contracts \u2014 compose, run, and share on-chain calls like Jupyter cells."
     },
     {
+      "name": "nyra-lang--nyra",
+      "source": "./nyra-lang--nyra",
+      "description": "Nyra programming langauge (Beta)"
+    },
+    {
+      "name": "franlinozz--sluice",
+      "source": "./franlinozz--sluice",
+      "description": "Sluice is a toll booth for the AI-read web. Creators price the smallest unit of what they make, AI agents pay it automatically in USDC, and Circle Gateway batches the tiny payments and settles them on"
+    },
+    {
+      "name": "nyra-lang--nyra",
+      "source": "./nyra-lang--nyra",
+      "description": "Nyra programming langauge (Beta)"
+    },
+    {
+      "name": "xpenatan--jbox3d",
+      "source": "./xpenatan--jbox3d",
+      "description": "Box3D Java Binding for desktop, mobile and web"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
