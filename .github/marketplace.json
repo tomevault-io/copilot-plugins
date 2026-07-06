@@ -139434,6 +139434,11 @@
       "description": "Skills pour Jarvis. "
     },
     {
+      "name": "sema-lisp--sema",
+      "source": "./sema-lisp--sema",
+      "description": "A Lisp with first-class LLM primitives, implemented in Rust"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -189524,6 +189529,11 @@
       "description": "Go CLI for managing Frappe/ERPNext sites"
     },
     {
+      "name": "un4ckn0wl3z--dioprocess-private",
+      "source": "./un4ckn0wl3z--dioprocess-private",
+      "description": "DioProcess \u2014 Advanced Windows Internals, Evasion, Rootkit, Hypervisor, SMM & Bootkit Research Framework"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -203087,6 +203097,11 @@
       "name": "oila-gmbh--skill-bill",
       "source": "./oila-gmbh--skill-bill",
       "description": "Skill Bill lets developers use AI agents for real feature work without losing engineering process: spec, implementation, review, verification, quality gates, and resumable state. "
+    },
+    {
+      "name": "wieslawsoltes--xamlvisualeditor",
+      "source": "./wieslawsoltes--xamlvisualeditor",
+      "description": "Extensible Avalonia XAML visual editor with live designer, code editor, language services, debugging, and .NET extensions."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -237919,6 +237934,31 @@
       "description": "purview-dlm-mcp"
     },
     {
+      "name": "jeduden--mdsmith",
+      "source": "./jeduden--mdsmith",
+      "description": "fast, auto-fixing Markdown linter and formatter. Checks style, readability, structure, and cross-file integrity."
+    },
+    {
+      "name": "elis132--everything-mcp",
+      "source": "./elis132--everything-mcp",
+      "description": "The definitive MCP server for voidtools Everything - lightning-fast file search for AI agents."
+    },
+    {
+      "name": "phrase--phrase-mcp-server",
+      "source": "./phrase--phrase-mcp-server",
+      "description": "Official Phrase MCP Server"
+    },
+    {
+      "name": "jeduden--mdsmith",
+      "source": "./jeduden--mdsmith",
+      "description": "fast, auto-fixing Markdown linter and formatter. Checks style, readability, structure, and cross-file integrity."
+    },
+    {
+      "name": "liujuanjuan1984--codex-a2a",
+      "source": "./liujuanjuan1984--codex-a2a",
+      "description": "Expose Codex through A2A with an inbound server surface and embedded outbound client."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257997,6 +258037,26 @@
       "name": "sky18dragon--ricoh-gr-live-view-shooting",
       "source": "./sky18dragon--ricoh-gr-live-view-shooting",
       "description": "\u8fd0\u884c\u5728 M5Stack StickS3 \u4e0a\u7684\u7406\u5149 (RICOH) GR \u8fdc\u7a0b\u5b9e\u65f6\u53d6\u666f\u5668\u4e0e BLE \u9065\u63a7\u5feb\u95e8\u56fa\u4ef6\u3002 A wireless live-view shooting and BLE remote shutter firmware running on the M5Stack StickS3 for RICOH GR cameras."
+    },
+    {
+      "name": "aestheticsuraj234--leetcode-mobile",
+      "source": "./aestheticsuraj234--leetcode-mobile",
+      "description": "leetcode-mobile"
+    },
+    {
+      "name": "zhuoming2026--sillytavern-to-storycompiler",
+      "source": "./zhuoming2026--sillytavern-to-storycompiler",
+      "description": "\u628a\u9152\u9986\u5f0f\u89d2\u8272\u626e\u6f14\uff0c\u4ece\u201c\u6bcf\u8f6e\u62fc Prompt \u7684\u804a\u5929\u201d\uff0c\u5347\u7ea7\u6210\u201c\u7528\u5de5\u7a0b\u9879\u76ee\u7ba1\u7406\u7684\u957f\u7bc7\u53d9\u4e8b\u7cfb\u7edf\u201d\u3002"
+    },
+    {
+      "name": "orkas-ai--orkas-videostudio",
+      "source": "./orkas-ai--orkas-videostudio",
+      "description": "Turn your coding agent into a video studio: describe a video in plain language, and your agent writes the timeline and produces the file."
+    },
+    {
+      "name": "cdwv--reviewphin",
+      "source": "./cdwv--reviewphin",
+      "description": "Self-hosted, agentic code review for GitLab and GitHub. Let engineers spend review time on design, risk, and intent instead of hunting typos and obvious errors."
     },
     {
       "name": "cheerhuan--save-your-token",
