@@ -189444,6 +189444,11 @@
       "description": "The all-in-one TypeScript toolkit for Office documents. Generate, parse, and patch .docx, .pptx, .xlsx files \u2014 fully typed, spec-compliant, and works everywhere. Compatible with Microsoft Office, WPS "
     },
     {
+      "name": "glarue--cairn",
+      "source": "./glarue--cairn",
+      "description": "Reconciles your iPhone photo library against your Immich server."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -202972,6 +202977,11 @@
       "name": "rul1an--assay",
       "source": "./rul1an--assay",
       "description": "Policy-as-code for MCP agents: deny risky tool calls before they run, prove what ran with verifiable evidence, and enforce egress in the kernel (eBPF/LSM, Linux). Deterministic, offline-first, bounded"
+    },
+    {
+      "name": "nishikantaray--insighttrack",
+      "source": "./nishikantaray--insighttrack",
+      "description": "Self-hosted, privacy-first web analytics \u2014 the open-source alternative to Google Analytics"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -237679,6 +237689,31 @@
       "description": "agent-building-playbook"
     },
     {
+      "name": "bike4mind--bike4mind",
+      "source": "./bike4mind--bike4mind",
+      "description": "The open-core AI workbench \u2014 notebooks, agents, RAG, voice, and images across any model: OpenAI, Anthropic, Google, xAI, or local via Ollama/vLLM. BSL 1.1,  auto-converting to Apache-2.0 on a two-year"
+    },
+    {
+      "name": "plattnum--planka-cli",
+      "source": "./plattnum--planka-cli",
+      "description": "Deterministic, scriptable CLI and live TUI for Planka kanban \u2014 built for shell scripts, CI/CD, and AI agents."
+    },
+    {
+      "name": "bogdanr--fono",
+      "source": "./bogdanr--fono",
+      "description": "Press a key, speak, text lands at your cursor. Press another, get a spoken answer. Local-first, lightweight voice dictation and assistant for Linux. \u03c6"
+    },
+    {
+      "name": "plattnum--planka-cli",
+      "source": "./plattnum--planka-cli",
+      "description": "Deterministic, scriptable CLI and live TUI for Planka kanban \u2014 built for shell scripts, CI/CD, and AI agents."
+    },
+    {
+      "name": "fuqiuluo--yh-cheat",
+      "source": "./fuqiuluo--yh-cheat",
+      "description": "\u5f02\u73af"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257652,6 +257687,66 @@
       "name": "percypham--friendfocus",
       "source": "./percypham--friendfocus",
       "description": "Chrome extension that filters your Facebook newsfeed to show only posts from your friends \u2014 no ads, no algorithm, no noise."
+    },
+    {
+      "name": "1a7432--loreweaver",
+      "source": "./1a7432--loreweaver",
+      "description": "A self-hosted, world & story-first AI Game Master / Keeper for TTRPGs (D&D 5e SRD + CoC 7e): AI KP via function-calling, cross-platform shared sessions, AI party members, SillyTavern card import, mult"
+    },
+    {
+      "name": "bestcow--dear-agent",
+      "source": "./bestcow--dear-agent",
+      "description": "Dear agent: everything you need to resume this project. A 5-file docs convention + workspace template for AI coding agents."
+    },
+    {
+      "name": "nimblecoai--hermes-agent-mt",
+      "source": "./nimblecoai--hermes-agent-mt",
+      "description": "Multiplayer fork of hermes-agent"
+    },
+    {
+      "name": "1a7432--loreweaver",
+      "source": "./1a7432--loreweaver",
+      "description": "A self-hosted, world & story-first AI Game Master / Keeper for TTRPGs (D&D 5e SRD + CoC 7e): AI KP via function-calling, cross-platform shared sessions, AI party members, SillyTavern card import, mult"
+    },
+    {
+      "name": "valpere--chorus",
+      "source": "./valpere--chorus",
+      "description": "Cross-agent plugin collection for AI coding CLIs. Delegate tasks and run workflow patterns (council, parallel review, debug) across Claude Code, OpenCode, Gemini CLI, and Codex."
+    },
+    {
+      "name": "supabase-community--supabase-plugin",
+      "source": "./supabase-community--supabase-plugin",
+      "description": "Supabase plugin for AI coding assistants"
+    },
+    {
+      "name": "mw10013--tanstack-cloudflare-effect-shopify-app",
+      "source": "./mw10013--tanstack-cloudflare-effect-shopify-app",
+      "description": "Port of the Shopify App Template to TanStack Start + Cloudflare Workers + Effect v4."
+    },
+    {
+      "name": "valpere--chorus",
+      "source": "./valpere--chorus",
+      "description": "Cross-agent plugin collection for AI coding CLIs. Delegate tasks and run workflow patterns (council, parallel review, debug) across Claude Code, OpenCode, Gemini CLI, and Codex."
+    },
+    {
+      "name": "preslandallan-ui--marketingskills",
+      "source": "./preslandallan-ui--marketingskills",
+      "description": "Marketingskills from Corey Haynes"
+    },
+    {
+      "name": "supabase-community--supabase-plugin",
+      "source": "./supabase-community--supabase-plugin",
+      "description": "Supabase plugin for AI coding assistants"
+    },
+    {
+      "name": "godseals--claude-code-game-studios",
+      "source": "./godseals--claude-code-game-studios",
+      "description": "clone form https://github.com/Donchitos/Claude-Code-Game-Studios/tree/main .  add code buddy platform"
+    },
+    {
+      "name": "preslandallan-ui--marketingskills",
+      "source": "./preslandallan-ui--marketingskills",
+      "description": "Marketingskills from Corey Haynes"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -380777,6 +380872,51 @@
       "name": "omniphx--filellama",
       "source": "./omniphx--filellama",
       "description": "A document management app"
+    },
+    {
+      "name": "abekkali--mtpfastapiocr",
+      "source": "./abekkali--mtpfastapiocr",
+      "description": "MtpFastAPIocr"
+    },
+    {
+      "name": "zachmatt02--decadentpointsapp",
+      "source": "./zachmatt02--decadentpointsapp",
+      "description": "DecadentPointsApp"
+    },
+    {
+      "name": "suzukisch-lang--flux-web-sprint",
+      "source": "./suzukisch-lang--flux-web-sprint",
+      "description": "flux-web-sprint"
+    },
+    {
+      "name": "frosco--deezer-tools",
+      "source": "./frosco--deezer-tools",
+      "description": "Manage loved content and playlists"
+    },
+    {
+      "name": "arpdoul--truthbond-v2",
+      "source": "./arpdoul--truthbond-v2",
+      "description": "truthbond-v2"
+    },
+    {
+      "name": "slugger380--mjmlbuilder",
+      "source": "./slugger380--mjmlbuilder",
+      "description": "MJMLbuilder"
+    },
+    {
+      "name": "m-rocchinotti--wand-editor",
+      "source": "./m-rocchinotti--wand-editor",
+      "description": "Interactive wall panel designer"
+    },
+    {
+      "name": "adamsknowledgegraph--philou-food-map",
+      "source": "./adamsknowledgegraph--philou-food-map",
+      "description": "philou-food-map"
+    },
+    {
+      "name": "frosco--deezer-tools",
+      "source": "./frosco--deezer-tools",
+      "description": "Manage loved content and playlists"
     }
   ]
 }
