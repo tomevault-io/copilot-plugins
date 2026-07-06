@@ -24459,6 +24459,11 @@
       "description": "movies"
     },
     {
+      "name": "wesammustafa--opencode-primer",
+      "source": "./wesammustafa--opencode-primer",
+      "description": "Master OpenCode, the open-source AI coding agent \u2014 setup, agents, skills, plugins, MCP, Zen & headless CI."
+    },
+    {
       "name": "atilladeniz--kubeli",
       "source": "./atilladeniz--kubeli",
       "description": "A modern Kubernetes GUI management desktop app for macOS & Windows. Multi-cluster support, real-time monitoring, AI assistant, terminal access, and more."
@@ -28427,6 +28432,11 @@
       "name": "aqm857886159--nomi",
       "source": "./aqm857886159--nomi",
       "description": "Open-source, local-first desktop app for AI video creation: write a script \u2192 generate images & video \u2192 edit on a timeline \u2192 export. Bring your own model & API key \u2014 everything runs on your machine. Bu"
+    },
+    {
+      "name": "prisma-labs-dev--apple-skills",
+      "source": "./prisma-labs-dev--apple-skills",
+      "description": "Apple development skills for Claude Code and Codex \u2014 latest iOS 26+ APIs, SwiftUI, Liquid Glass, and more"
     },
     {
       "name": "redai-infra--relax",
