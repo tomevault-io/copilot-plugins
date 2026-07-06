@@ -1,0 +1,9 @@
+{
+  "name": "oila-gmbh--skill-bill",
+  "displayName": "skill-bill",
+  "description": "Skill Bill lets developers use AI agents for real feature work without losing engineering process: spec, implementation, review, verification, quality gates, and resumable state. ",
+  "version": "1.0.0",
+  "author": "oila-gmbh",
+  "homepage": "https://github.com/oila-gmbh/skill-bill",
+  "skills": []
+}
