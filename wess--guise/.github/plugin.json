@@ -1,0 +1,9 @@
+{
+  "name": "wess--guise",
+  "displayName": "guise",
+  "description": "Mantine inspired components for Zed's GPUI library.",
+  "version": "1.0.0",
+  "author": "wess",
+  "homepage": "https://github.com/wess/guise",
+  "skills": []
+}
