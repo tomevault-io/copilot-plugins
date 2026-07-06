@@ -4,7 +4,7 @@
   "repo": "recap",
   "description": "Search your browsing history in plain English. Local-first RAG - Chrome extension + private Python backend (FastAPI, SQLite FTS5, LanceDB). Your data never leaves your machine.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atliq/recap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T06:31:05Z"
+  "distributed_at": "2026-07-06T06:32:09Z"
 }
