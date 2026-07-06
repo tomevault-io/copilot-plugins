@@ -1,0 +1,9 @@
+{
+  "name": "nasroykh--foxmayn-frappe-cli",
+  "displayName": "foxmayn_frappe_cli",
+  "description": "Go CLI for managing Frappe/ERPNext sites",
+  "version": "1.0.0",
+  "author": "nasroykh",
+  "homepage": "https://github.com/nasroykh/foxmayn_frappe_cli",
+  "skills": []
+}
