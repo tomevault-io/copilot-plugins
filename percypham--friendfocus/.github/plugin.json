@@ -1,0 +1,9 @@
+{
+  "name": "percypham--friendfocus",
+  "displayName": "FriendFocus",
+  "description": "Chrome extension that filters your Facebook newsfeed to show only posts from your friends \u2014 no ads, no algorithm, no noise.",
+  "version": "1.0.0",
+  "author": "PercyPham",
+  "homepage": "https://github.com/PercyPham/FriendFocus",
+  "skills": []
+}
