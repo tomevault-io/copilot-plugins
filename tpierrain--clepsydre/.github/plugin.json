@@ -1,0 +1,9 @@
+{
+  "name": "tpierrain--clepsydre",
+  "displayName": "clepsydre",
+  "description": "A Fort Boyard\u2013style water clock for your Claude Code context window \u2014 /clear before you're trapped in the context-rot room.",
+  "version": "1.0.0",
+  "author": "tpierrain",
+  "homepage": "https://github.com/tpierrain/clepsydre",
+  "skills": []
+}
