@@ -1,0 +1,9 @@
+{
+  "name": "antfarm-official--solidity-toolkit",
+  "displayName": "solidity-toolkit",
+  "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure.",
+  "version": "1.0.0",
+  "author": "antfarm-official",
+  "homepage": "https://github.com/antfarm-official/solidity-toolkit",
+  "skills": []
+}
