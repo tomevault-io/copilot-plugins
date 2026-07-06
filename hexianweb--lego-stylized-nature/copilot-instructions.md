@@ -1,25 +1,37 @@
-## wgsl-integration
+## windows-command-preferences
 
-> Mixing custom WGSL code into Three.js TSL shaders via wgslFn(). Use when integrating raw WGSL functions, porting existing WGSL, or optimizing hot paths that need hand-written shader code.
+> Instruct agent to use rg (ripgrep) and PowerShell commands instead of Unix ls/find/grep on Windows 10
 
 
-# TSL + WGSL Integration
+# Windows Command Preferences
 
-`wgslFn()` lets you embed raw WGSL functions inside a TSL node graph. Inputs and outputs are declared in the WGSL signature and bound from TSL-side nodes at call time.
+This project runs on Windows 10 with PowerShell and rg (ripgrep) installed. Never use Unix-only commands.
 
-```javascript
-import { wgslFn } from 'three/tsl';
+## Required Behavior
+- **For file/content search**: Always use `rg` instead of `grep`, `find`, or `ls | grep`.
+  - List project files: `rg --files`
+  - Search in files: `rg "search pattern"`
+  - Limit to specific types: `rg --glob "*.js" "pattern"`
+- **For directory listing**: Use PowerShell cmdlets.
+  - `Get-ChildItem` (or its alias `dir`)
+  - Avoid `ls -la` (use `Get-ChildItem -Force` for hidden files)
+- **When Shell tool fails** on a command, immediately switch to `rg` or PowerShell equivalent and retry.
 
-const myNoise = wgslFn(`
-  fn myNoise(p: vec3<f32>) -> f32 {
-    return fract(sin(dot(p, vec3<f32>(12.9898, 78.233, 37.719))) * 43758.5453);
-  }
-`);
+## Why
+Unix commands like `ls -la`, `find .`, `grep -r` are not native on Windows 10 and cause repeated failures. rg provides fast, cross-platform search and is already installed for this reason.
 
-material.colorNode = myNoise(positionWorld);
+## Examples
+```powershell
+# BAD (will fail)
+ls -la
+find . -name "*.js"
+grep -r "foo" .
+
+# GOOD
+rg --files
+rg "foo" --glob "*.js"
+Get-ChildItem
 ```
-
-@skills/webgpu-threejs-tsl/docs/wgsl-integration.md
 
 ---
 > Source: [hexianWeb/lego-stylized-nature](https://github.com/hexianWeb/lego-stylized-nature) — distributed by [TomeVault](https://tomevault.io).
