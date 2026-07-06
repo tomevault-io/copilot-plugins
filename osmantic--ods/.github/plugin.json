@@ -1,0 +1,9 @@
+{
+  "name": "osmantic--ods",
+  "displayName": "ODS",
+  "description": "Turn your PC, Mac, or Linux box into an AI server.  LLM inference, chat UI, voice, agents, workflows, RAG, and image generation.",
+  "version": "1.0.0",
+  "author": "Osmantic",
+  "homepage": "https://github.com/Osmantic/ODS",
+  "skills": []
+}
