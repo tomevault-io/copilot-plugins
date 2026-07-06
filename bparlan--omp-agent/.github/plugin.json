@@ -1,0 +1,9 @@
+{
+  "name": "bparlan--omp-agent",
+  "displayName": "omp-agent",
+  "description": "OhMyPi (OMP) Agent Framework Spec-Driven Development infrastructure for Oh My Pi. Skills transform artifacts through a deterministic engineering workflow.",
+  "version": "1.0.0",
+  "author": "bparlan",
+  "homepage": "https://github.com/bparlan/omp-agent",
+  "skills": []
+}
