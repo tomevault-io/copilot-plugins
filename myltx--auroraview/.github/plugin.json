@@ -1,0 +1,9 @@
+{
+  "name": "myltx--auroraview",
+  "displayName": "AuroraView",
+  "description": "\u4e00\u4e2a\u9762\u5411\u7528\u6237\u7684\u8f7b\u91cf\u684c\u9762\u5e94\u7528\uff0c\u63d0\u4f9b Cockpit \u603b\u89c8\u4e0e Viewer \u6d4f\u89c8\u4e24\u7c7b\u6838\u5fc3\u754c\u9762\uff0c\u5f00\u7bb1\u5373\u53ef\u8fd0\u884c\u4e0e\u4f53\u9a8c\u5f53\u524d\u529f\u80fd\u3002",
+  "version": "1.0.0",
+  "author": "myltx",
+  "homepage": "https://github.com/myltx/AuroraView",
+  "skills": []
+}
