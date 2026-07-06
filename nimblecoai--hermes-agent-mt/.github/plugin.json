@@ -1,0 +1,9 @@
+{
+  "name": "nimblecoai--hermes-agent-mt",
+  "displayName": "hermes-agent-mt",
+  "description": "Multiplayer fork of hermes-agent",
+  "version": "1.0.0",
+  "author": "NimbleCoAI",
+  "homepage": "https://github.com/NimbleCoAI/hermes-agent-mt",
+  "skills": []
+}
