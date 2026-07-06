@@ -1,0 +1,9 @@
+{
+  "name": "razvandimescu--gopdf",
+  "displayName": "gopdf",
+  "description": "Pure Go PDF library \u2014 text extraction, merge, search, overlay, redaction. No CGo, no dependencies. MIT licensed.",
+  "version": "1.0.0",
+  "author": "razvandimescu",
+  "homepage": "https://github.com/razvandimescu/gopdf",
+  "skills": []
+}
