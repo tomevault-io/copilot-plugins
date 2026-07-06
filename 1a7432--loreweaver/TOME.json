@@ -4,7 +4,7 @@
   "repo": "loreweaver",
   "description": "A self-hosted, world & story-first AI Game Master / Keeper for TTRPGs (D&D 5e SRD + CoC 7e): AI KP via function-calling, cross-platform shared sessions, AI party members, SillyTavern card import, multi-provider LLMs. MIT.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/1A7432/loreweaver",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T02:30:31Z"
+  "distributed_at": "2026-07-06T02:35:59Z"
 }
