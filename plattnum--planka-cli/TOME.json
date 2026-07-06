@@ -1,0 +1,44 @@
+{
+  "name": "planka-cli",
+  "owner": "plattnum",
+  "repo": "planka-cli",
+  "description": "Deterministic, scriptable CLI and live TUI for Planka kanban \u2014 built for shell scripts, CI/CD, and AI agents.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/plattnum/planka-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-06T02:32:58Z"
+}
