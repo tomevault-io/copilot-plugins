@@ -1,0 +1,9 @@
+{
+  "name": "egeominotti--bunqueue-dashboard",
+  "displayName": "bunqueue-dashboard",
+  "description": "Web dashboard that fully drives a bunqueue server. queues, jobs, DLQ, cron, webhooks, workers",
+  "version": "1.0.0",
+  "author": "egeominotti",
+  "homepage": "https://github.com/egeominotti/bunqueue-dashboard",
+  "skills": []
+}
