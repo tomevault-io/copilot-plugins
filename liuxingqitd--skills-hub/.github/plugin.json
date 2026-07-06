@@ -1,0 +1,9 @@
+{
+  "name": "liuxingqitd--skills-hub",
+  "displayName": "skills-hub",
+  "description": "A local dashboard to manage AI coding agent skills \u2014 sync, install, and organize skills across OpenClaw, Cursor, Claude Code, and more.",
+  "version": "1.0.0",
+  "author": "liuxingqitd",
+  "homepage": "https://github.com/liuxingqitd/skills-hub",
+  "skills": []
+}
