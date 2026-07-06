@@ -1,0 +1,9 @@
+{
+  "name": "concorddev--concord-cognitive-engine",
+  "displayName": "concord-cognitive-engine",
+  "description": "2million+ LOC. Lens Architecture . 5 LLM brains. A self-compressing knowledge substrate, a creator economy, a 3D civilization sim. Solo project, live at <concord-os.org>.",
+  "version": "1.0.0",
+  "author": "ConcordDev",
+  "homepage": "https://github.com/ConcordDev/concord-cognitive-engine",
+  "skills": []
+}
