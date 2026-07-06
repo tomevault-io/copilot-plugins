@@ -4,7 +4,7 @@
   "repo": "marketingskills",
   "description": "Marketingskills from Corey Haynes",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/preslandallan-ui/marketingskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T02:39:30Z"
+  "distributed_at": "2026-07-06T02:42:01Z"
 }
