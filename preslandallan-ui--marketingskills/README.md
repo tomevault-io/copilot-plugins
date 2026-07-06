@@ -7,11 +7,11 @@ Marketingskills from Corey Haynes
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [preslandallan-ui/marketingskills](https://github.com/preslandallan-ui/marketingskills).
+Original source: `CLAUDE.md` in [preslandallan-ui/marketingskills](https://github.com/preslandallan-ui/marketingskills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
