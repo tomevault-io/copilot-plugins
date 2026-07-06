@@ -1,0 +1,9 @@
+{
+  "name": "bogdanr--fono",
+  "displayName": "fono",
+  "description": "Press a key, speak, text lands at your cursor. Press another, get a spoken answer. Local-first, lightweight voice dictation and assistant for Linux. \u03c6",
+  "version": "1.0.0",
+  "author": "bogdanr",
+  "homepage": "https://github.com/bogdanr/fono",
+  "skills": []
+}
