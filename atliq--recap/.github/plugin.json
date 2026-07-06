@@ -1,0 +1,9 @@
+{
+  "name": "atliq--recap",
+  "displayName": "recap",
+  "description": "Search your browsing history in plain English. Local-first RAG - Chrome extension + private Python backend (FastAPI, SQLite FTS5, LanceDB). Your data never leaves your machine.",
+  "version": "1.0.0",
+  "author": "atliq",
+  "homepage": "https://github.com/atliq/recap",
+  "skills": []
+}
