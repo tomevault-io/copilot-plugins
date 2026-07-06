@@ -1,0 +1,44 @@
+{
+  "name": "SillyTavern-to-StoryCompiler",
+  "owner": "zhuoming2026",
+  "repo": "SillyTavern-to-StoryCompiler",
+  "description": "\u628a\u9152\u9986\u5f0f\u89d2\u8272\u626e\u6f14\uff0c\u4ece\u201c\u6bcf\u8f6e\u62fc Prompt \u7684\u804a\u5929\u201d\uff0c\u5347\u7ea7\u6210\u201c\u7528\u5de5\u7a0b\u9879\u76ee\u7ba1\u7406\u7684\u957f\u7bc7\u53d9\u4e8b\u7cfb\u7edf\u201d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhuoming2026/SillyTavern-to-StoryCompiler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-06T12:35:29Z"
+}
