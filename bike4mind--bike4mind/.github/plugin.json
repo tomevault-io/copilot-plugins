@@ -1,0 +1,9 @@
+{
+  "name": "bike4mind--bike4mind",
+  "displayName": "bike4mind",
+  "description": "The open-core AI workbench \u2014 notebooks, agents, RAG, voice, and images across any model: OpenAI, Anthropic, Google, xAI, or local via Ollama/vLLM. BSL 1.1,  auto-converting to Apache-2.0 on a two-year",
+  "version": "1.0.0",
+  "author": "Bike4Mind",
+  "homepage": "https://github.com/Bike4Mind/bike4mind",
+  "skills": []
+}
