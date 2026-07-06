@@ -7,11 +7,11 @@ Claude Code skills that make Claude (Fable) the conductor of AI worker fleets: m
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jvogan/a-fable-of-codexes](https://github.com/jvogan/a-fable-of-codexes).
+Original source: `CLAUDE.md` in [jvogan/a-fable-of-codexes](https://github.com/jvogan/a-fable-of-codexes).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
