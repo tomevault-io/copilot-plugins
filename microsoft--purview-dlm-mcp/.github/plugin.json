@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--purview-dlm-mcp",
+  "displayName": "purview-dlm-mcp",
+  "description": "purview-dlm-mcp",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/purview-dlm-mcp",
+  "skills": []
+}
