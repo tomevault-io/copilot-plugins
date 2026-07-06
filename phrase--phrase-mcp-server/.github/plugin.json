@@ -1,0 +1,9 @@
+{
+  "name": "phrase--phrase-mcp-server",
+  "displayName": "phrase-mcp-server",
+  "description": "Official Phrase MCP Server",
+  "version": "1.0.0",
+  "author": "phrase",
+  "homepage": "https://github.com/phrase/phrase-mcp-server",
+  "skills": []
+}
