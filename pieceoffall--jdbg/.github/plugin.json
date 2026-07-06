@@ -1,0 +1,9 @@
+{
+  "name": "pieceoffall--jdbg",
+  "displayName": "jdbg",
+  "description": "Debug Java like an agent: persistent runtime sessions, safe JDI inspection, jdb fallback, and MCP/CLI control.",
+  "version": "1.0.0",
+  "author": "PieceOfFall",
+  "homepage": "https://github.com/PieceOfFall/jdbg",
+  "skills": []
+}
