@@ -14799,6 +14799,11 @@
       "description": "openhare"
     },
     {
+      "name": "lerd-env--lerd",
+      "source": "./lerd-env--lerd",
+      "description": "Open-source, Herd-like local PHP development environment for Linux and macOS. Automatic .test domains, per-project PHP/Node isolation, one-command TLS. Podman-native, rootless."
+    },
+    {
       "name": "steve02081504--fount",
       "source": "./steve02081504--fount",
       "description": "\u26f2Imagination, Given Voice.\u2728"
@@ -66434,6 +66439,11 @@
       "description": "A self-improving skill for AI coding agents (Claude Code, Cursor, AGENTS.md): recognize a hard-won golden path in a session and harvest it into a reusable skill/rule for next time."
     },
     {
+      "name": "tianma-if--edgeever",
+      "source": "./tianma-if--edgeever",
+      "description": "Self-hosted, Cloudflare-native Evernote alternative with REST API, MCP, and PWA support."
+    },
+    {
       "name": "tmdgusya--engineering-discipline",
       "source": "./tmdgusya--engineering-discipline",
       "description": "SKILL for engineering-discipline"
@@ -113702,6 +113712,16 @@
       "name": "u-ichi--compact-plus",
       "source": "./u-ichi--compact-plus",
       "description": "Claude Code plugin: preserve and restore working state around /compact"
+    },
+    {
+      "name": "pocket-stack--pocketjs",
+      "source": "./pocket-stack--pocketjs",
+      "description": "High-performance JSX UI outside the browser, with hardware rendering, standard Vue Vapor and Solid support, a Tailwind design system, and 60 FPS animation under an 8 MB memory budget."
+    },
+    {
+      "name": "pocket-stack--pocketjs",
+      "source": "./pocket-stack--pocketjs",
+      "description": "High-performance JSX UI outside the browser, with hardware rendering, standard Vue Vapor and Solid support, a Tailwind design system, and 60 FPS animation under an 8 MB memory budget."
     },
     {
       "name": "mulhamna--jira-commands",
