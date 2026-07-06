@@ -1,0 +1,44 @@
+{
+  "name": "concord-cognitive-engine",
+  "owner": "ConcordDev",
+  "repo": "concord-cognitive-engine",
+  "description": "2million+ LOC. Lens Architecture . 5 LLM brains. A self-compressing knowledge substrate, a creator economy, a 3D civilization sim. Solo project, live at <concord-os.org>.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ConcordDev/concord-cognitive-engine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-06T00:34:01Z"
+}
