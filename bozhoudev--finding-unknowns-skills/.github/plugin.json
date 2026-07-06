@@ -1,0 +1,9 @@
+{
+  "name": "bozhoudev--finding-unknowns-skills",
+  "displayName": "finding-unknowns-skills",
+  "description": "Unknown-discovery guidelines for Claude Code, derived from Thariq's (Anthropic) 'A Field Guide to Fable: Finding Your Unknowns'",
+  "version": "1.0.0",
+  "author": "bozhouDev",
+  "homepage": "https://github.com/bozhouDev/finding-unknowns-skills",
+  "skills": []
+}
