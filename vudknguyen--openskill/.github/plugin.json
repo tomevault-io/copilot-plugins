@@ -1,0 +1,9 @@
+{
+  "name": "vudknguyen--openskill",
+  "displayName": "openskill",
+  "description": "An universal agent skill manager",
+  "version": "1.0.0",
+  "author": "vudknguyen",
+  "homepage": "https://github.com/vudknguyen/openskill",
+  "skills": []
+}
