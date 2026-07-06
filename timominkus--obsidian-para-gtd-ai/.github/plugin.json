@@ -1,0 +1,9 @@
+{
+  "name": "timominkus--obsidian-para-gtd-ai",
+  "displayName": "obsidian-para-gtd-ai",
+  "description": "A complete productivity system combining PARA (Projects, Areas, Resources, Archive) with GTD (Getting Things Done) task management, powered by Claude Code AI skills. Built for busy knowledge workers \u2014",
+  "version": "1.0.0",
+  "author": "timominkus",
+  "homepage": "https://github.com/timominkus/obsidian-para-gtd-ai",
+  "skills": []
+}
