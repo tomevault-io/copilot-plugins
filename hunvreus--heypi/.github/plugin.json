@@ -1,0 +1,9 @@
+{
+  "name": "hunvreus--heypi",
+  "displayName": "heypi",
+  "description": "Chat agents for your team, with approvals and sandboxed tools. Slack, Discord, Telegram, webhooks.",
+  "version": "1.0.0",
+  "author": "hunvreus",
+  "homepage": "https://github.com/hunvreus/heypi",
+  "skills": []
+}
