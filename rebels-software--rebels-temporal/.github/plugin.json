@@ -1,0 +1,9 @@
+{
+  "name": "rebels-software--rebels-temporal",
+  "displayName": "rebels-temporal",
+  "description": "High-performance C# library for temporal message matching and correlation, designed especially for IoT, telemetry processing, and event-driven architectures.",
+  "version": "1.0.0",
+  "author": "rebels-software",
+  "homepage": "https://github.com/rebels-software/rebels-temporal",
+  "skills": []
+}
