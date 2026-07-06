@@ -1,0 +1,9 @@
+{
+  "name": "plattnum--planka-cli",
+  "displayName": "planka-cli",
+  "description": "Deterministic, scriptable CLI and live TUI for Planka kanban \u2014 built for shell scripts, CI/CD, and AI agents.",
+  "version": "1.0.0",
+  "author": "plattnum",
+  "homepage": "https://github.com/plattnum/planka-cli",
+  "skills": []
+}
