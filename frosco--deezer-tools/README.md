@@ -7,11 +7,11 @@ Manage loved content and playlists
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Frosco/deezer-tools](https://github.com/Frosco/deezer-tools).
+Original source: `CLAUDE.md` in [Frosco/deezer-tools](https://github.com/Frosco/deezer-tools).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
