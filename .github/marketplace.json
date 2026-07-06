@@ -155429,6 +155429,11 @@
       "description": "CubePi \u2014 An async-first Python agent kernel inspired by Pi, built for coding agents, tools, and continuous sessions."
     },
     {
+      "name": "renatomoselli--rpacore",
+      "source": "./renatomoselli--rpacore",
+      "description": "RPA Core \u2014 deterministic, stateful RPA in Python"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -202982,6 +202987,11 @@
       "name": "nishikantaray--insighttrack",
       "source": "./nishikantaray--insighttrack",
       "description": "Self-hosted, privacy-first web analytics \u2014 the open-source alternative to Google Analytics"
+    },
+    {
+      "name": "tcarney--ha-chore-calendar",
+      "source": "./tcarney--ha-chore-calendar",
+      "description": "A Home Assistant custom integration that manages recurring household chores"
     },
     {
       "name": "yschimke--compose-ai-tools",
