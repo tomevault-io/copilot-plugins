@@ -1,0 +1,9 @@
+{
+  "name": "valpere--chorus",
+  "displayName": "chorus",
+  "description": "Cross-agent plugin collection for AI coding CLIs. Delegate tasks and run workflow patterns (council, parallel review, debug) across Claude Code, OpenCode, Gemini CLI, and Codex.",
+  "version": "1.0.0",
+  "author": "valpere",
+  "homepage": "https://github.com/valpere/chorus",
+  "skills": []
+}
