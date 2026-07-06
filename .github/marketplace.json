@@ -136069,6 +136069,11 @@
       "description": "Concurrency examples such as batchers, connection pools, pub/sub brokers, rate limiters, bank accounts, inventory, lazy initialization, bounded queues, pipelines"
     },
     {
+      "name": "bparlan--omp-agent",
+      "source": "./bparlan--omp-agent",
+      "description": "OhMyPi (OMP) Agent Framework Spec-Driven Development infrastructure for Oh My Pi. Skills transform artifacts through a deterministic engineering workflow."
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -180289,6 +180294,16 @@
       "description": "webull-openapi-thai-lab"
     },
     {
+      "name": "jvogan--a-fable-of-codexes",
+      "source": "./jvogan--a-fable-of-codexes",
+      "description": "Claude Code skills that make Claude (Fable) the conductor of AI worker fleets: many parallel OpenAI Codex workers plus Opus design agents, organized into campaigns, waves, squads, and review gates."
+    },
+    {
+      "name": "jvogan--a-fable-of-codexes",
+      "source": "./jvogan--a-fable-of-codexes",
+      "description": "Claude Code skills that make Claude (Fable) the conductor of AI worker fleets: many parallel OpenAI Codex workers plus Opus design agents, organized into campaigns, waves, squads, and review gates."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -203022,6 +203037,16 @@
       "name": "lexwdex--opencode-dag",
       "source": "./lexwdex--opencode-dag",
       "description": "Extends the Hooks API with Goal-Oriented Instructions, TODO Pre-Hooks, Sandboxed Workspaces, and DAG (Directed Acyclic Graph) based Workflow Execution Engine\uff08WIP\uff09."
+    },
+    {
+      "name": "samuelecorra--cybersec-unimi-ssri2-0",
+      "source": "./samuelecorra--cybersec-unimi-ssri2-0",
+      "description": "Archivio personale locale Cybersecurity"
+    },
+    {
+      "name": "samuelecorra--cybersec-unimi-ssri2-0",
+      "source": "./samuelecorra--cybersec-unimi-ssri2-0",
+      "description": "Archivio personale locale Cybersecurity"
     },
     {
       "name": "yschimke--compose-ai-tools",
