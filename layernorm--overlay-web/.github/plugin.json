@@ -1,0 +1,9 @@
+{
+  "name": "layernorm--overlay-web",
+  "displayName": "overlay-web",
+  "description": "The open source AI operating system",
+  "version": "1.0.0",
+  "author": "LayerNorm",
+  "homepage": "https://github.com/LayerNorm/overlay-web",
+  "skills": []
+}
