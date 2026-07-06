@@ -4,7 +4,7 @@
   "repo": "CrumBLE",
   "description": "Xteink X4 e-reader firmware, fork of CrossInk",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/imshentastic/CrumBLE",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T23:36:02Z"
+  "distributed_at": "2026-07-06T23:37:36Z"
 }
