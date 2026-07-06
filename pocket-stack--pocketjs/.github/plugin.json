@@ -1,0 +1,9 @@
+{
+  "name": "pocket-stack--pocketjs",
+  "displayName": "pocketjs",
+  "description": "High-performance JSX UI outside the browser, with hardware rendering, standard Vue Vapor and Solid support, a Tailwind design system, and 60 FPS animation under an 8 MB memory budget.",
+  "version": "1.0.0",
+  "author": "pocket-stack",
+  "homepage": "https://github.com/pocket-stack/pocketjs",
+  "skills": []
+}
