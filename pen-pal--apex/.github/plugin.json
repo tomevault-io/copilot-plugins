@@ -1,0 +1,9 @@
+{
+  "name": "pen-pal--apex",
+  "displayName": "apex",
+  "description": "Live, interactive, byte-accurate visualizations of how computers actually work \u2014 300+ tested topics across networking, cryptography, distributed systems, databases, algorithms & OS internals. Real byt",
+  "version": "1.0.0",
+  "author": "pen-pal",
+  "homepage": "https://github.com/pen-pal/apex",
+  "skills": []
+}
