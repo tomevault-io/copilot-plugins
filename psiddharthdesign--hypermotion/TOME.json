@@ -4,7 +4,7 @@
   "repo": "hypermotion",
   "description": "Native motion design tool with Figma-style structural layout, semantic keyframes, auto-layout, 3D camera, and pixel-correct MP4/WebM/GIF export.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/psiddharthdesign/hypermotion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T23:40:08Z"
+  "distributed_at": "2026-07-06T23:42:44Z"
 }
