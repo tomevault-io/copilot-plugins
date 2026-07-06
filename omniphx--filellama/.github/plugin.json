@@ -1,0 +1,9 @@
+{
+  "name": "omniphx--filellama",
+  "displayName": "FileLlama",
+  "description": "A document management app",
+  "version": "1.0.0",
+  "author": "omniphx",
+  "homepage": "https://github.com/omniphx/FileLlama",
+  "skills": []
+}
