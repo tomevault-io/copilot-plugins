@@ -4,7 +4,7 @@
   "repo": "sleep-timer",
   "description": "A fancy Android app that pauses / fades out music, disables things like WiFi and Bluetooth when the timer ends",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Xitee1/sleep-timer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T06:35:45Z"
+  "distributed_at": "2026-07-06T06:37:18Z"
 }
