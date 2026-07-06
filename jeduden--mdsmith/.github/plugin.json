@@ -1,0 +1,9 @@
+{
+  "name": "jeduden--mdsmith",
+  "displayName": "mdsmith",
+  "description": "fast, auto-fixing Markdown linter and formatter. Checks style, readability, structure, and cross-file integrity.",
+  "version": "1.0.0",
+  "author": "jeduden",
+  "homepage": "https://github.com/jeduden/mdsmith",
+  "skills": []
+}
