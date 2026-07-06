@@ -1,0 +1,9 @@
+{
+  "name": "jellydn--pi-clinepass-provider",
+  "displayName": "pi-clinepass-provider",
+  "description": "ClinePass provider for pi \u2014 10 curated open-weight coding models (GLM-5.2, Kimi K2.7, DeepSeek V4, Qwen3.7, and more)",
+  "version": "1.0.0",
+  "author": "jellydn",
+  "homepage": "https://github.com/jellydn/pi-clinepass-provider",
+  "skills": []
+}
