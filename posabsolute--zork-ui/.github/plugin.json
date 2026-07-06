@@ -1,0 +1,9 @@
+{
+  "name": "posabsolute--zork-ui",
+  "displayName": "zork-ui",
+  "description": "Zork I (1980) in the browser \u2014 real Z-machine, 110 hand-crafted animated pixel-art scenes that track the live game state, generative WebAudio ambience, Trizbort-style auto-map",
+  "version": "1.0.0",
+  "author": "posabsolute",
+  "homepage": "https://github.com/posabsolute/zork-ui",
+  "skills": []
+}
