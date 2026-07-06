@@ -1,0 +1,44 @@
+{
+  "name": "darkVault",
+  "owner": "scap3sh4rk",
+  "repo": "darkVault",
+  "description": "The most stable, zero-knowledge encrypted Android client for Google Drive. Secure your photos, videos, and documents with military-grade AES-256-GCM. 100% Private. 100% Open Source.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/scap3sh4rk/darkVault",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-06T04:32:06Z"
+}
