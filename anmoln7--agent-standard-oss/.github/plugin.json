@@ -1,0 +1,9 @@
+{
+  "name": "anmoln7--agent-standard-oss",
+  "displayName": "agent-standard-oss",
+  "description": "A house standard that keeps AI-agent instruction files (AGENTS.md / CLAUDE.md) honest and single-sourced \u2014 one source of truth, in-repo fix log, anti-drift contracts, and safe commit/deploy hygiene.",
+  "version": "1.0.0",
+  "author": "anmoln7",
+  "homepage": "https://github.com/anmoln7/agent-standard-oss",
+  "skills": []
+}
