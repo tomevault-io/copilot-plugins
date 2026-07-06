@@ -4,7 +4,7 @@
   "repo": "cybersec_unimi_ssri2.0",
   "description": "Archivio personale locale Cybersecurity",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/samuelecorra/cybersec_unimi_ssri2.0",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T07:32:10Z"
+  "distributed_at": "2026-07-06T07:32:43Z"
 }
