@@ -1,0 +1,9 @@
+{
+  "name": "demomacro--office-open",
+  "displayName": "office-open",
+  "description": "The all-in-one TypeScript toolkit for Office documents. Generate, parse, and patch .docx, .pptx, .xlsx files \u2014 fully typed, spec-compliant, and works everywhere. Compatible with Microsoft Office, WPS ",
+  "version": "1.0.0",
+  "author": "DemoMacro",
+  "homepage": "https://github.com/DemoMacro/office-open",
+  "skills": []
+}
