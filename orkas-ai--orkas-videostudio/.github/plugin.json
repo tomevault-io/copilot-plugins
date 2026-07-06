@@ -1,0 +1,9 @@
+{
+  "name": "orkas-ai--orkas-videostudio",
+  "displayName": "Orkas-VideoStudio",
+  "description": "Turn your coding agent into a video studio: describe a video in plain language, and your agent writes the timeline and produces the file.",
+  "version": "1.0.0",
+  "author": "Orkas-AI",
+  "homepage": "https://github.com/Orkas-AI/Orkas-VideoStudio",
+  "skills": []
+}
