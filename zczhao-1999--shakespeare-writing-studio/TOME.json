@@ -1,0 +1,44 @@
+{
+  "name": "shakespeare-writing-studio",
+  "owner": "ZCZHAO-1999",
+  "repo": "shakespeare-writing-studio",
+  "description": "Agent-ready writing studio for Chinese WeChat articles, English essays, research writing, human voice editing, source-bound data storytelling, and statistical graphics.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZCZHAO-1999/shakespeare-writing-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-06T06:30:34Z"
+}
