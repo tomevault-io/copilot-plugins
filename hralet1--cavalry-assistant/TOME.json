@@ -1,0 +1,44 @@
+{
+  "name": "cavalry-assistant",
+  "owner": "hralet1",
+  "repo": "cavalry-assistant",
+  "description": "Create with Cavalry from AI. An MCP server that gives your AI assistant a direct line into Cavalry \u2014 run scripts, query the knowledge base, and animate from a prompt.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hralet1/cavalry-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-06T08:34:58Z"
+}
