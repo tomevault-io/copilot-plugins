@@ -7,11 +7,11 @@ Deterministic, scriptable CLI and live TUI for Planka kanban — built for shell
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [plattnum/planka-cli](https://github.com/plattnum/planka-cli).
+Original source: `CLAUDE.md` in [plattnum/planka-cli](https://github.com/plattnum/planka-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
