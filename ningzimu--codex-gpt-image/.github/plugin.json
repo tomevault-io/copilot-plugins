@@ -1,0 +1,9 @@
+{
+  "name": "ningzimu--codex-gpt-image",
+  "displayName": "codex-gpt-image",
+  "description": "OpenClaw/Claude Code SKILL.md for gpt-image-2 via Codex OAuth, no OPENAI_API_KEY required",
+  "version": "1.0.0",
+  "author": "ningzimu",
+  "homepage": "https://github.com/ningzimu/codex-gpt-image",
+  "skills": []
+}
