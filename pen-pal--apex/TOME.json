@@ -1,0 +1,44 @@
+{
+  "name": "apex",
+  "owner": "pen-pal",
+  "repo": "apex",
+  "description": "Live, interactive, byte-accurate visualizations of how computers actually work \u2014 300+ tested topics across networking, cryptography, distributed systems, databases, algorithms & OS internals. Real bytes, real checksums, real crypto.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pen-pal/apex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-06T00:30:33Z"
+}
