@@ -1,0 +1,9 @@
+{
+  "name": "office-kit--xlsx",
+  "displayName": "xlsx",
+  "description": "A JavaScript library for Excel (XLSX) files, inspired by openpyxl",
+  "version": "1.0.0",
+  "author": "office-kit",
+  "homepage": "https://github.com/office-kit/xlsx",
+  "skills": []
+}
