@@ -4,7 +4,7 @@
   "repo": "alicization",
   "description": "Build your own local-first digital lifeform: an AI companion with memory, soul, multimodal perception, proactive dialogue, and auditable execution.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TouHouQing/alicization",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T06:33:40Z"
+  "distributed_at": "2026-07-06T06:34:12Z"
 }
