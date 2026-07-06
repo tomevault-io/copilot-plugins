@@ -1,0 +1,9 @@
+{
+  "name": "tianma-if--edgeever",
+  "displayName": "edgeever",
+  "description": "Self-hosted, Cloudflare-native Evernote alternative with REST API, MCP, and PWA support.",
+  "version": "1.0.0",
+  "author": "tianma-if",
+  "homepage": "https://github.com/tianma-if/edgeever",
+  "skills": []
+}
