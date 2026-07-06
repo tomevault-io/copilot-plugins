@@ -4,7 +4,7 @@
   "repo": "FriendFocus",
   "description": "Chrome extension that filters your Facebook newsfeed to show only posts from your friends \u2014 no ads, no algorithm, no noise.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PercyPham/FriendFocus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T00:33:05Z"
+  "distributed_at": "2026-07-06T00:38:04Z"
 }
