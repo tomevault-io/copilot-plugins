@@ -1,0 +1,9 @@
+{
+  "name": "bestcow--dear-agent",
+  "displayName": "dear-agent",
+  "description": "Dear agent: everything you need to resume this project. A 5-file docs convention + workspace template for AI coding agents.",
+  "version": "1.0.0",
+  "author": "bestcow",
+  "homepage": "https://github.com/bestcow/dear-agent",
+  "skills": []
+}
