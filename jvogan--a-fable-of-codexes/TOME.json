@@ -4,7 +4,7 @@
   "repo": "a-fable-of-codexes",
   "description": "Claude Code skills that make Claude (Fable) the conductor of AI worker fleets: many parallel OpenAI Codex workers plus Opus design agents, organized into campaigns, waves, squads, and review gates.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jvogan/a-fable-of-codexes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T07:30:35Z"
+  "distributed_at": "2026-07-06T07:31:06Z"
 }
