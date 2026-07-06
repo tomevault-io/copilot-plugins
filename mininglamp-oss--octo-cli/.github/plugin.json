@@ -1,0 +1,9 @@
+{
+  "name": "mininglamp-oss--octo-cli",
+  "displayName": "octo-cli",
+  "description": "Metadata-driven CLI for AI Agent Bots \u2014 48 operations across 7 domains, structured JSON envelope I/O, zero interactive prompts.",
+  "version": "1.0.0",
+  "author": "Mininglamp-OSS",
+  "homepage": "https://github.com/Mininglamp-OSS/octo-cli",
+  "skills": []
+}
