@@ -4,7 +4,7 @@
   "repo": "pocketjs",
   "description": "High-performance JSX UI outside the browser, with hardware rendering, standard Vue Vapor and Solid support, a Tailwind design system, and 60 FPS animation under an 8 MB memory budget.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pocket-stack/pocketjs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T05:31:48Z"
+  "distributed_at": "2026-07-06T05:32:17Z"
 }
