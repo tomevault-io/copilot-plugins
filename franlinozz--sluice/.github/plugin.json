@@ -1,0 +1,9 @@
+{
+  "name": "franlinozz--sluice",
+  "displayName": "Sluice",
+  "description": "Sluice is a toll booth for the AI-read web. Creators price the smallest unit of what they make, AI agents pay it automatically in USDC, and Circle Gateway batches the tiny payments and settles them on",
+  "version": "1.0.0",
+  "author": "Franlinozz",
+  "homepage": "https://github.com/Franlinozz/Sluice",
+  "skills": []
+}
