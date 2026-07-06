@@ -1,0 +1,9 @@
+{
+  "name": "wieslawsoltes--xamlvisualeditor",
+  "displayName": "XamlVisualEditor",
+  "description": "Extensible Avalonia XAML visual editor with live designer, code editor, language services, debugging, and .NET extensions.",
+  "version": "1.0.0",
+  "author": "wieslawsoltes",
+  "homepage": "https://github.com/wieslawsoltes/XamlVisualEditor",
+  "skills": []
+}
