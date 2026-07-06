@@ -1,0 +1,9 @@
+{
+  "name": "thermiteau--maverick-validate",
+  "displayName": "maverick-validate",
+  "description": "Evaluate software that was created by a coding agent",
+  "version": "1.0.0",
+  "author": "thermiteau",
+  "homepage": "https://github.com/thermiteau/maverick-validate",
+  "skills": []
+}
