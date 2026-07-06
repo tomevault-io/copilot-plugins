@@ -160214,6 +160214,21 @@
       "description": "Drop .conclave/prd.md \u2014 every PR auto-reviews for spec drift, missing requirements, and scope creep. Three models, one verdict, autofix included. Free on public repos."
     },
     {
+      "name": "antfarm-official--solidity-toolkit",
+      "source": "./antfarm-official--solidity-toolkit",
+      "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure."
+    },
+    {
+      "name": "antfarm-official--solidity-toolkit",
+      "source": "./antfarm-official--solidity-toolkit",
+      "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure."
+    },
+    {
+      "name": "antfarm-official--solidity-toolkit",
+      "source": "./antfarm-official--solidity-toolkit",
+      "description": "Solidity compiler tooling and smart-contract analysis workspace for Tirixa Web3 infrastructure."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -189422,6 +189437,11 @@
       "name": "tgdash--hashpay",
       "source": "./tgdash--hashpay",
       "description": "HashPay"
+    },
+    {
+      "name": "demomacro--office-open",
+      "source": "./demomacro--office-open",
+      "description": "The all-in-one TypeScript toolkit for Office documents. Generate, parse, and patch .docx, .pptx, .xlsx files \u2014 fully typed, spec-compliant, and works everywhere. Compatible with Microsoft Office, WPS "
     },
     {
       "name": "lightninglabs--lnget",
