@@ -1,0 +1,9 @@
+{
+  "name": "lockhart-ai--penny",
+  "displayName": "penny",
+  "description": "A Personal Agent in Python",
+  "version": "1.0.0",
+  "author": "lockhart-ai",
+  "homepage": "https://github.com/lockhart-ai/penny",
+  "skills": []
+}
