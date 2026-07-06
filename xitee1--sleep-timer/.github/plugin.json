@@ -1,0 +1,9 @@
+{
+  "name": "xitee1--sleep-timer",
+  "displayName": "sleep-timer",
+  "description": "A fancy Android app that pauses / fades out music, disables things like WiFi and Bluetooth when the timer ends",
+  "version": "1.0.0",
+  "author": "Xitee1",
+  "homepage": "https://github.com/Xitee1/sleep-timer",
+  "skills": []
+}
