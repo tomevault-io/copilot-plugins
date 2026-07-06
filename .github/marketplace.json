@@ -237644,6 +237644,21 @@
       "description": "MCP server for iMessage with hybrid search and contact name enrichment"
     },
     {
+      "name": "pen-pal--apex",
+      "source": "./pen-pal--apex",
+      "description": "Live, interactive, byte-accurate visualizations of how computers actually work \u2014 300+ tested topics across networking, cryptography, distributed systems, databases, algorithms & OS internals. Real byt"
+    },
+    {
+      "name": "gordonwang1878--jd-crawler",
+      "source": "./gordonwang1878--jd-crawler",
+      "description": "\u4eac\u4e1c\u4ef7\u683c\u76d1\u6d4b\u5de5\u5177 - \u81ea\u52a8\u722c\u53d6\u4eac\u4e1c\u5546\u54c1\u4ef7\u683c\u5e76\u4fdd\u5b58\u5230Excel"
+    },
+    {
+      "name": "ramparte--agent-building-playbook",
+      "source": "./ramparte--agent-building-playbook",
+      "description": "agent-building-playbook"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -257572,6 +257587,51 @@
       "name": "starksv--llm-council-local",
       "source": "./starksv--llm-council-local",
       "description": "Multi-model deliberation with local Ollama \u2014 3-stage council with anonymous peer review"
+    },
+    {
+      "name": "percypham--friendfocus",
+      "source": "./percypham--friendfocus",
+      "description": "Chrome extension that filters your Facebook newsfeed to show only posts from your friends \u2014 no ads, no algorithm, no noise."
+    },
+    {
+      "name": "concorddev--concord-cognitive-engine",
+      "source": "./concorddev--concord-cognitive-engine",
+      "description": "2million+ LOC. Lens Architecture . 5 LLM brains. A self-compressing knowledge substrate, a creator economy, a 3D civilization sim. Solo project, live at <concord-os.org>."
+    },
+    {
+      "name": "savg92--voice-cloning",
+      "source": "./savg92--voice-cloning",
+      "description": "This project provides a comprehensive testing and comparison platform for multiple text-to-speech (TTS), ASR and VAD models."
+    },
+    {
+      "name": "testdino-hq--testdino-mcp",
+      "source": "./testdino-hq--testdino-mcp",
+      "description": "A MCP server that bridges TestDino with AI agents such as Cursor and Claude. Navigate test results, analyze failures, and manage test cases through conversational commands."
+    },
+    {
+      "name": "dorukardahan--twitterapi-io-mcp",
+      "source": "./dorukardahan--twitterapi-io-mcp",
+      "description": "TwitterAPI.io MCP server: offline docs (endpoints, pages, blogs) for Claude and other AI assistants."
+    },
+    {
+      "name": "dorukardahan--twitterapi-io-mcp",
+      "source": "./dorukardahan--twitterapi-io-mcp",
+      "description": "TwitterAPI.io MCP server: offline docs (endpoints, pages, blogs) for Claude and other AI assistants."
+    },
+    {
+      "name": "percypham--friendfocus",
+      "source": "./percypham--friendfocus",
+      "description": "Chrome extension that filters your Facebook newsfeed to show only posts from your friends \u2014 no ads, no algorithm, no noise."
+    },
+    {
+      "name": "wubo0067--ai-app-hub",
+      "source": "./wubo0067--ai-app-hub",
+      "description": "analysis vmcore"
+    },
+    {
+      "name": "percypham--friendfocus",
+      "source": "./percypham--friendfocus",
+      "description": "Chrome extension that filters your Facebook newsfeed to show only posts from your friends \u2014 no ads, no algorithm, no noise."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -380662,6 +380722,41 @@
       "name": "alsry922--discord-clone",
       "source": "./alsry922--discord-clone",
       "description": "discord clone project with react.js and nest.js"
+    },
+    {
+      "name": "ddev-hyeoncheol--recommendation-system",
+      "source": "./ddev-hyeoncheol--recommendation-system",
+      "description": "Recommendation System"
+    },
+    {
+      "name": "lommaks777--businessidea",
+      "source": "./lommaks777--businessidea",
+      "description": "businessidea"
+    },
+    {
+      "name": "davos0--challenge-dice-game",
+      "source": "./davos0--challenge-dice-game",
+      "description": "challenge-dice-game"
+    },
+    {
+      "name": "joungwon-dreams--joungwon-stocks",
+      "source": "./joungwon-dreams--joungwon-stocks",
+      "description": "joungwon-stocks"
+    },
+    {
+      "name": "myltx--auroraview",
+      "source": "./myltx--auroraview",
+      "description": "\u4e00\u4e2a\u9762\u5411\u7528\u6237\u7684\u8f7b\u91cf\u684c\u9762\u5e94\u7528\uff0c\u63d0\u4f9b Cockpit \u603b\u89c8\u4e0e Viewer \u6d4f\u89c8\u4e24\u7c7b\u6838\u5fc3\u754c\u9762\uff0c\u5f00\u7bb1\u5373\u53ef\u8fd0\u884c\u4e0e\u4f53\u9a8c\u5f53\u524d\u529f\u80fd\u3002"
+    },
+    {
+      "name": "joungwon-dreams--joungwon-stocks",
+      "source": "./joungwon-dreams--joungwon-stocks",
+      "description": "joungwon-stocks"
+    },
+    {
+      "name": "omniphx--filellama",
+      "source": "./omniphx--filellama",
+      "description": "A document management app"
     }
   ]
 }
