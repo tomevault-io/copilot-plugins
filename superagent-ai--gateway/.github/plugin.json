@@ -1,0 +1,9 @@
+{
+  "name": "superagent-ai--gateway",
+  "displayName": "gateway",
+  "description": "A tiny Rust gateway for running coding agents across model providers safely.",
+  "version": "1.0.0",
+  "author": "superagent-ai",
+  "homepage": "https://github.com/superagent-ai/gateway",
+  "skills": []
+}
