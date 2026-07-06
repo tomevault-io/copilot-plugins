@@ -1,0 +1,9 @@
+{
+  "name": "lulzx--cuda-metal",
+  "displayName": "cuda-metal",
+  "description": "CUDA compiler and runtime for Apple Silicon",
+  "version": "1.0.0",
+  "author": "Lulzx",
+  "homepage": "https://github.com/Lulzx/cuda-metal",
+  "skills": []
+}
