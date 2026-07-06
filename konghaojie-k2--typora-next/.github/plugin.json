@@ -1,0 +1,9 @@
+{
+  "name": "konghaojie-k2--typora-next",
+  "displayName": "typora-next",
+  "description": "A lightning-fast, minimal Markdown reader built in Rust. KaTeX math, Mermaid diagrams, Prism.js code highlighting \u2014 built for the AI era.",
+  "version": "1.0.0",
+  "author": "konghaojie-k2",
+  "homepage": "https://github.com/konghaojie-k2/typora-next",
+  "skills": []
+}
