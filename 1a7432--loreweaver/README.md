@@ -7,11 +7,11 @@ A self-hosted, world & story-first AI Game Master / Keeper for TTRPGs (D&D 5e SR
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [1A7432/loreweaver](https://github.com/1A7432/loreweaver).
+Original source: `CLAUDE.md` in [1A7432/loreweaver](https://github.com/1A7432/loreweaver).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
