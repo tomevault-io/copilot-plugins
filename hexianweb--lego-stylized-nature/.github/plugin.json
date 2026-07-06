@@ -1,0 +1,9 @@
+{
+  "name": "hexianweb--lego-stylized-nature",
+  "displayName": "lego-stylized-nature",
+  "description": "A LEGO-style nature exploration world built with Three.js WebGPU.",
+  "version": "1.0.0",
+  "author": "hexianWeb",
+  "homepage": "https://github.com/hexianWeb/lego-stylized-nature",
+  "skills": []
+}
