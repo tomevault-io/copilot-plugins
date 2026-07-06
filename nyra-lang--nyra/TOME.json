@@ -4,7 +4,7 @@
   "repo": "nyra",
   "description": "Nyra programming langauge (Beta)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nyra-lang/nyra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T18:30:36Z"
+  "distributed_at": "2026-07-06T18:31:51Z"
 }
