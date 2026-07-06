@@ -4,7 +4,7 @@
   "repo": "mooknote",
   "description": "\u8bb0\u5f55\u89c2\u5f71\u3001\u9605\u8bfb\u548c\u7b14\u8bb0\u7684 Android \u8f6f\u4ef6",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dellevin/mooknote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T08:30:34Z"
+  "distributed_at": "2026-07-06T08:31:08Z"
 }
