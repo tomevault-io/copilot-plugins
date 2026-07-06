@@ -7,11 +7,11 @@ A fancy Android app that pauses / fades out music, disables things like WiFi and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Xitee1/sleep-timer](https://github.com/Xitee1/sleep-timer).
+Original source: `AGENTS.md` in [Xitee1/sleep-timer](https://github.com/Xitee1/sleep-timer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
