@@ -4,7 +4,7 @@
   "repo": "skills-hub",
   "description": "A local dashboard to manage AI coding agent skills \u2014 sync, install, and organize skills across OpenClaw, Cursor, Claude Code, and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liuxingqitd/skills-hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-06T23:35:03Z"
+  "distributed_at": "2026-07-06T23:35:34Z"
 }
