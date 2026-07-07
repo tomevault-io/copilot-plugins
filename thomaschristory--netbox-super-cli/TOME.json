@@ -4,7 +4,7 @@
   "repo": "netbox-super-cli",
   "description": "Dynamic NetBox CLI generated from the live OpenAPI schema.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thomaschristory/netbox-super-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T01:10:20Z"
+  "distributed_at": "2026-07-07T01:23:06Z"
 }
