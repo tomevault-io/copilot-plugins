@@ -4,7 +4,7 @@
   "repo": "zweig",
   "description": "Throw ballast overboard! \u2702\ufe0f Skill that refines all forms of writing like Stefan Zweig in The World of Yesterday.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rornic/zweig",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T10:32:51Z"
+  "distributed_at": "2026-07-07T10:34:31Z"
 }
