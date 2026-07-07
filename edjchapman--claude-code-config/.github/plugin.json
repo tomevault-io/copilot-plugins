@@ -1,0 +1,9 @@
+{
+  "name": "edjchapman--claude-code-config",
+  "displayName": "claude-code-config",
+  "description": "Reusable agents, commands, and permission templates for Claude Code",
+  "version": "1.0.0",
+  "author": "edjchapman",
+  "homepage": "https://github.com/edjchapman/claude-code-config",
+  "skills": []
+}
