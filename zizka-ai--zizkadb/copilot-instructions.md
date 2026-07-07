@@ -1,27 +1,32 @@
-## backend-dashboard-contract
+## dashboard
 
-> Backend contract the ZizkaDB dashboard depends on — invariants to preserve and KB to keep in sync
+> ZizkaDB dashboard context, conventions, and gotchas for future work
 
 
-# Backend ↔ Dashboard Contract
+# ZizkaDB Dashboard — Agent Guide
 
-The dashboard (`dashboard/`) is a client of this FastAPI backend. Before changing these files, check how the dashboard consumes them: `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` — endpoint map (§17.3), auth model (§17.2), backend state machine (§18), data model (§21).
+**Read first:** `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` is the source of truth (has a Table of Contents). Consult it before implementing features, fixing bugs, or reasoning about flows. Section map: architecture (§1-3), funnel (§5), business rules (§7), API layer (§8), touch points (§17), backend state machine (§18), per-screen behavior (§19), marketing/community/docs/admin surfaces (§20), data model / DB schema (§21), glossary (§22).
 
-## Contracts the dashboard relies on (do not break silently)
-- **`verify-otp` response shape** (`core/api/auth.py`): `{access_token, token_type, requires_plan_selection, requires_checkout, has_access, plan}`. Signup/login always get `has_access: true`, `requires_checkout: false` (no payment gate).
-- **`billing_status_payload` shape** (`core/services/billing.py`): `{enforced, has_access, requires_plan_selection, requires_checkout, subscription_status, trial_ends_at, plan, trial_days?}`. Consumed by `TenantPlanBanner`. Always returns `has_access: true`, `enforced: false`.
-- **Trial activation** (`core/services/auth.py`): on OTP verify, users get `plan=pro` (if unset), `subscription_status=trialing`, `trial_ends_at=+30d`. Startup backfill converts legacy `pending_checkout` → `trialing`.
-- **Auth resolution** (`core/api/deps.py::get_tenant`): JWT vs API key vs dev key; `assert_agent_allowed` (403) for agent-scoped keys; account routes are JWT-only (`require_dashboard_session`). `get_tenant` does NOT check subscription status.
-- **Event schema** (`core/api/events.py`, `event_write.py`): `POST /v1/events` is written by SDKs/MCP/integrations AND read back by the dashboard. Field renames affect both sides.
-- **Route paths/prefixes** (`core/main.py`): the dashboard calls fixed `/v1/...` paths via `dashboard/lib/api.ts`. Renaming a route breaks the client.
-- **API key plan limits** (`core/services/plan_limits.py` = single source of truth; `core/services/api_keys.py::assert_and_reserve_api_key_slot`): active keys per tenant capped by plan (Pro 3 / Team 10; else unlimited). Guard runs in a per-tenant advisory-locked txn before insert. Behind kill switch `API_KEY_LIMITS_ENFORCED` (default OFF). Usage: `GET /v1/auth/api-keys/usage` → `{plan, limit, used, unlimited, at_limit}`.
-- **Demo requests** (`core/api/demo_requests.py`): public `POST /v1/demo-requests` — no auth; optional `position`, allowlisted `source` (`enterprise`|`landing`|`newsletter`, else 422); honeypot `botcheck` → 400; 8/hr/IP in-memory rate limit. Admin: `GET /v1/admin/demo-requests` returns `position` + `source`. Dashboard: `lib/demo.ts`, Enterprise form sends `source: 'enterprise'`.
+## Conventions (match these)
+- Next.js 14 App Router. Interactive pages are Client Components (`'use client'`). TS `strict`, `@/*` alias. No Prettier — match surrounding style (2-space, single quotes, no semicolons).
+- **All API calls go through `lib/api.ts`** (`apiFetch` injects auth + normalizes errors). No React Query/SWR/Redux/Zustand/Context — local `useState`/`useEffect` only.
+- Guard every async effect with a `let cancelled = false` flag; check it before `setState` (see `signup/page.tsx`, `TenantPlanBanner`).
+- Redirect guards: render the page's `*Fallback` loader while a redirect is pending; never render real UI before guard checks resolve (see the `checked` gate in `signup/page.tsx`).
+- Wrap `useSearchParams` pages in `<Suspense>` (Next CSR bailout).
+- Errors: `apiFetch` throws a normalized `Error`; catch and render into a local `error` string.
 
-## Data model
-Schema in `core/db/schema.sql` + `migrations/002-007` + runtime DDL in `core/db/connection.py`. Plan/trial state lives on `users` (`stripe_*` columns retained but unused). Qdrant `agent_events` is 1536-dim COSINE; embeddings are dual-written to Postgres `events.embedding` + Qdrant. See §21.
+## Critical gotchas (do not break)
+- **No payment gate.** Signup: plan → consent → OTP → `/dashboard`. `postAuthRedirect` always returns `/dashboard`.
+- **Auth split:** middleware reads the access-token cookie; client code reads `localStorage`. The refresh token is an HttpOnly cookie (backend). Keep both cookie + localStorage in sync via `setToken`/`clearToken`.
+- **Funnel state** lives in `sessionStorage` (`signup_plan`, `signup_consent_gdpr`, `signup_consent_marketing`); cleared after OTP verify.
+- Self-host `NEXT_PUBLIC_DEV_MODE=true` enables dev-token login and changes onboarding copy.
+- **API key limits (§7):** active keys per tenant are capped by plan (Pro 3 / Team 10; else unlimited) when `API_KEY_LIMITS_ENFORCED=true`. UI reads `useApiKeyQuota` — never hardcode limits.
+
+## Testing / safety
+- There are **no frontend tests** and `apiFetch` is untyped. Prefer adding tests for pure helpers (`postAuthRedirect`, funnel guards) when touching them.
 
 ## Keep the KB in sync
-If you change any contract above, a route, the billing/auth logic, or the DB schema, update `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` (§17.3, §18, §21) in the same change — and the matching `dashboard/lib/api.ts` types/callers if the response shape changed.
+If you change billing/auth/the signup funnel, `lib/api.ts`, routes, a backend endpoint the dashboard calls, or the DB schema, **update `dashboard/DASHBOARD_KNOWLEDGE_BASE.md`** (esp. §7, §8, §17.3, §18, §19-21) in the same change.
 
 ---
 > Source: [Zizka-ai/ZizkaDB](https://github.com/Zizka-ai/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
