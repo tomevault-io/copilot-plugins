@@ -1,0 +1,9 @@
+{
+  "name": "atelier-project--flowcal",
+  "displayName": "flowcal",
+  "description": "A visual node-editor and calculator. Create computational flows by wiring nodes together.",
+  "version": "1.0.0",
+  "author": "atelier-project",
+  "homepage": "https://github.com/atelier-project/flowcal",
+  "skills": []
+}
