@@ -1,0 +1,9 @@
+{
+  "name": "rubennati--privacy-deidentification",
+  "displayName": "privacy-deidentification",
+  "description": "Local privacy-first document de-identification and redaction system.",
+  "version": "1.0.0",
+  "author": "rubennati",
+  "homepage": "https://github.com/rubennati/privacy-deidentification",
+  "skills": []
+}
