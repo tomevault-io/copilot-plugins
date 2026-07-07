@@ -1,77 +1,32 @@
-## dual-entry-point-guard
+## feature-docs-rules
 
-> Guard dual entry points (Next.js layout.tsx + Vite main.tsx) Provider tree consistency
+> 修改核心模块时自动提醒查阅功能文档
 
 
-# 双入口 Provider 树守护
+# 功能文档提醒
 
-## 背景
+当前文件所属模块有详细设计文档，修改前请先查阅以确保一致性。
 
-应用有两个入口点，共享相同的 Provider 树（通过 `OuterProviders` 组件）：
+## 模块 → 文档映射
 
-| 文件 | 用途 | 何时使用 |
-|---|---|---|
-| `apps/web/src/app/layout.tsx` | Next.js 生产 + SSR | 生产构建、`next dev` |
-| `apps/web/src/main.tsx` | Vite 开发 + TMA 调试 | `pnpm dev --filter @mobazha/web`、SSH 隧道 TMA 调试 |
-| `apps/web/src/components/OuterProviders.tsx` | 共享外层 Provider 树 | 被上述两者引用 |
+| 模块关键词 | 文档路径 |
+|-----------|---------|
+| Listing / 商品 / useListingForm | `docs/features/listing-module.md` |
+| Shipping / 配送 / useShippingProfiles | `docs/features/shipping-profiles.md` |
+| Wallet / 钱包 / useWallet / payment | `docs/features/wallet-integration.md` |
+| Account / 账号绑定 / accountBinding | `docs/features/account-binding.md` |
+| i18n / useI18n / locales | `docs/features/i18n.md` |
+| Theme / useTheme / 主题 | `docs/features/theme-system.md` |
+| UI 组件 / components/ui | `docs/features/ui-components.md` |
 
-## 关键约束
+## 修改后同步更新文档
 
-### 1. 路由无关的 Provider 必须放在 `OuterProviders.tsx`
-
-以下 Provider 只在 `OuterProviders.tsx` 中维护，layout.tsx 和 main.tsx 不直接导入：
-
-- `ThemeProvider`
-- `TGMiniAppProvider`
-- `DiscordActivityProvider`
-- `ServiceWorkerProvider`
-- `AppKitProvider`
-- `CurrencyProvider`
-
-```tsx
-// ✅ 正确：在 OuterProviders.tsx 中添加新 Provider
-export function OuterProviders({ children }) {
-  return (
-    <ThemeProvider>
-      <TGMiniAppProvider>
-        <NewProvider> {/* 新增 Provider 在这里 */}
-          ...
-        </NewProvider>
-      </TGMiniAppProvider>
-    </ThemeProvider>
-  );
-}
-
-// ❌ 错误：只在 layout.tsx 中添加，忘记 main.tsx
-// 这会导致 Vite 开发环境缺少 Provider，TMA 调试时出现难以追踪的 bug
-```
-
-### 2. 路由相关的 Provider 分别放置
-
-以下组件因依赖路由上下文，需要各入口自行处理：
-
-- `QueryProvider` / `QueryClientProvider`（配置可能不同）
-- `AuthProvider`（位于路由内部）
-- `ProductModalProvider`、`PaymentSelectorProvider`（位于路由内部）
-
-### 3. 修改时的检查清单
-
-修改 `OuterProviders.tsx` 时：
-- [ ] 确认 Provider 顺序正确（后层可能依赖先层的 Context）
-- [ ] layout.tsx 和 main.tsx 都使用 `<OuterProviders>` 包裹
-
-修改 layout.tsx 或 main.tsx 添加新 Provider 时：
-- [ ] 问自己：这个 Provider 是路由无关的吗？如果是 → 放入 `OuterProviders.tsx`
-- [ ] 问自己：另一个入口是否也需要这个 Provider？
-
-## 历史教训
-
-2026-03 `TGMiniAppProvider` 只在 `layout.tsx`（Next.js）中存在，`main.tsx`（Vite）中遗漏：
-- `useTGMiniApp()` 在 Vite 开发环境始终返回 `isAvailable: false`
-- TG 原生 BackButton 完全失效 → 被误判为"不可靠"→ 整个 hook 被删除
-- Create Account 按钮无响应 → 花费大量时间排查
-- **根因**：两个入口点的 Provider 树不同步
-- **解决**：提取 `OuterProviders` 共享组件，作为 Provider 的单一来源
+如果你的修改涉及以下任何一项，请同步更新对应的 feature doc：
+- 新增/移除/重命名文件
+- 修改数据结构或类型定义
+- 修改 Hook 的公开 API（参数、返回值）
+- 修改 API 端点
+- 新增翻译键
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
