@@ -1,0 +1,9 @@
+{
+  "name": "ccolosimo3--rostra-chat-app",
+  "displayName": "rostra-chat-app",
+  "description": "Real-time chat app using WebSockets, FastAPI, TypeScript/React, and PostgreSQL.",
+  "version": "1.0.0",
+  "author": "ccolosimo3",
+  "homepage": "https://github.com/ccolosimo3/rostra-chat-app",
+  "skills": []
+}
