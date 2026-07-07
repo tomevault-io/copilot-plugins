@@ -1,0 +1,9 @@
+{
+  "name": "xazingatrend--trend-viewer",
+  "displayName": "trend-viewer",
+  "description": "\uc720\ud29c\ube0c, \ub9b4\uc2a4, X, \uc2a4\ub808\ub4dc, \ud2f1\ud1a1, AI \ub274\uc2a4\ub97c \ud55c \ud654\uba74\uc5d0\uc11c \ubcf4\ub294 \ub85c\uceec \ud2b8\ub80c\ub4dc \uad00\uc81c\ud310. Python stdlib only.",
+  "version": "1.0.0",
+  "author": "xazingatrend",
+  "homepage": "https://github.com/xazingatrend/trend-viewer",
+  "skills": []
+}
