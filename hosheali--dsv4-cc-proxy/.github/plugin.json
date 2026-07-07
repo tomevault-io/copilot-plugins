@@ -1,0 +1,9 @@
+{
+  "name": "hosheali--dsv4-cc-proxy",
+  "displayName": "dsv4-cc-proxy",
+  "description": "Anthropic API \u517c\u5bb9\u6027\u4ee3\u7406 \u2014 \u4fee\u590d DeepSeek V4 \u7684 3 \u4e2a\u4e0d\u517c\u5bb9\u95ee\u9898\uff0c\u8ba9 Claude Code \u7a33\u5b9a\u8fd0\u884c\u3002Make DeepSeek V4 work flawlessly with Claude Code.",
+  "version": "1.0.0",
+  "author": "HosheaLi",
+  "homepage": "https://github.com/HosheaLi/dsv4-cc-proxy",
+  "skills": []
+}
