@@ -4,7 +4,7 @@
   "repo": "ntd",
   "description": "AI \u9a71\u52a8\u7684\u4efb\u52a1\u5f15\u64ce",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/weibaohui/ntd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T02:32:06Z"
+  "distributed_at": "2026-07-07T02:38:21Z"
 }
