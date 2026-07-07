@@ -4,7 +4,7 @@
   "repo": "baobabcat.github.io",
   "description": "Baobab Cat website hosting ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Thehandsomebog/baobabcat.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T17:22:51Z"
+  "distributed_at": "2026-07-07T17:29:08Z"
 }
