@@ -1,0 +1,9 @@
+{
+  "name": "tykeal--homeassistant-local-akuvox",
+  "displayName": "homeassistant-local-akuvox",
+  "description": "Local control of Akuvox intercoms for Home Assistant",
+  "version": "1.0.0",
+  "author": "tykeal",
+  "homepage": "https://github.com/tykeal/homeassistant-local-akuvox",
+  "skills": []
+}
