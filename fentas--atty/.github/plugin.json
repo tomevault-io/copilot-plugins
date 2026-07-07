@@ -1,0 +1,9 @@
+{
+  "name": "fentas--atty",
+  "displayName": "atty",
+  "description": "Suckless-style PTY proxy in Zig that drops an LLM exec dialog, atuin autosuggest, and guardrail - eBPF LSM, tiered classification (regex + SLM/ONNX), atom corpus, osv-live, trust store",
+  "version": "1.0.0",
+  "author": "fentas",
+  "homepage": "https://github.com/fentas/atty",
+  "skills": []
+}
