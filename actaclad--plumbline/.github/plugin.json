@@ -1,0 +1,9 @@
+{
+  "name": "actaclad--plumbline",
+  "displayName": "plumbline",
+  "description": "The reliability & architecture analyzer for LLM and agentic systems. By ActaClad.",
+  "version": "1.0.0",
+  "author": "ActaClad",
+  "homepage": "https://github.com/ActaClad/plumbline",
+  "skills": []
+}
