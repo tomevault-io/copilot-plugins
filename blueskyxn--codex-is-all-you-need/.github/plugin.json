@@ -1,0 +1,9 @@
+{
+  "name": "blueskyxn--codex-is-all-you-need",
+  "displayName": "Codex-is-all-you-need",
+  "description": "Public-safe Codex plugin-first preset system with agents, skills, examples, scripts, and a read-only dashboard.",
+  "version": "1.0.0",
+  "author": "BlueSkyXN",
+  "homepage": "https://github.com/BlueSkyXN/Codex-is-all-you-need",
+  "skills": []
+}
