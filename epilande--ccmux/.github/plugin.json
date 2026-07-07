@@ -1,0 +1,9 @@
+{
+  "name": "epilande--ccmux",
+  "displayName": "ccmux",
+  "description": "\ud83d\udd2e Track all your AI coding agents (Claude Code, Codex, Cursor, ...) in tmux and jump to the one that needs you",
+  "version": "1.0.0",
+  "author": "epilande",
+  "homepage": "https://github.com/epilande/ccmux",
+  "skills": []
+}
