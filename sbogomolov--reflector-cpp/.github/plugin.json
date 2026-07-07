@@ -1,0 +1,9 @@
+{
+  "name": "sbogomolov--reflector-cpp",
+  "displayName": "reflector-cpp",
+  "description": "mDNS, SSDP/DIAL, WoL reflector",
+  "version": "1.0.0",
+  "author": "sbogomolov",
+  "homepage": "https://github.com/sbogomolov/reflector-cpp",
+  "skills": []
+}
