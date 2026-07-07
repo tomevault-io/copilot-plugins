@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankensim",
+  "displayName": "frankensim",
+  "description": "Plan-first Rust continuum for certified geometry, physics simulation, optimization, and rendering.",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankensim",
+  "skills": []
+}
