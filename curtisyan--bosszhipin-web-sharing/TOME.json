@@ -1,0 +1,44 @@
+{
+  "name": "BossZhipin-Web-Sharing",
+  "owner": "CurtisYan",
+  "repo": "BossZhipin-Web-Sharing",
+  "description": "BOSS\u76f4\u8058Web\u7aef\u63d2\u4ef6\u5b9e\u73b0APP\u7aef\u957f\u56fe\u5bfc\u51fa\u529f\u80fd",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CurtisYan/BossZhipin-Web-Sharing",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T00:51:05Z"
+}
