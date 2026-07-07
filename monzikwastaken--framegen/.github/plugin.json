@@ -1,0 +1,9 @@
+{
+  "name": "monzikwastaken--framegen",
+  "displayName": "Framegen",
+  "description": "Real-time neural frame interpolation in the browser: hand-written WGSL runtime on raw WebGPU, 2.9 MB model, 2x-6x any <video> at 3-4 ms per frame. Chrome extension.",
+  "version": "1.0.0",
+  "author": "MONZikWasTaken",
+  "homepage": "https://github.com/MONZikWasTaken/Framegen",
+  "skills": []
+}
