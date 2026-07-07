@@ -1,7 +1,7 @@
 {
-  "name": "Traverse",
+  "name": "traverse",
   "owner": "traverse-framework",
-  "repo": "Traverse",
+  "repo": "traverse",
   "description": "Contract-driven runtime for portable business capabilities \u2014 spec-governed, WASM-first, composable across browser, edge, cloud, and AI.",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/traverse-framework/Traverse",
+  "source_url": "https://github.com/traverse-framework/traverse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-04T05:34:48Z"
+  "distributed_at": "2026-07-07T05:31:13Z"
 }
