@@ -1,0 +1,9 @@
+{
+  "name": "membodied--phyai",
+  "displayName": "phyai",
+  "description": "PhyAI is a high-performance framework for running Physical AI models (VLA, WAM, and beyond), supporting both cloud-based serving and on-device deployment.",
+  "version": "1.0.0",
+  "author": "MEmbodied",
+  "homepage": "https://github.com/MEmbodied/phyai",
+  "skills": []
+}
