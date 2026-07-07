@@ -1,0 +1,9 @@
+{
+  "name": "rauls-kjarners--claude-to-agy",
+  "displayName": "claude-to-agy",
+  "description": "A lightweight MCP bridge that lets Claude Code delegate heavy tasks to the Antigravity CLI - saving context window and tokens for what matters.",
+  "version": "1.0.0",
+  "author": "rauls-kjarners",
+  "homepage": "https://github.com/rauls-kjarners/claude-to-agy",
+  "skills": []
+}
