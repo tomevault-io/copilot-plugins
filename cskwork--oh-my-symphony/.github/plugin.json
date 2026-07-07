@@ -1,0 +1,9 @@
+{
+  "name": "cskwork--oh-my-symphony",
+  "displayName": "oh-my-symphony",
+  "description": "Multi-agent fork of OpenAI Symphony \u2014 drives Codex, Claude Code, Gemini, and Pi CLIs from one orchestrator with a Jira-style CLI Kanban TUI",
+  "version": "1.0.0",
+  "author": "cskwork",
+  "homepage": "https://github.com/cskwork/oh-my-symphony",
+  "skills": []
+}
