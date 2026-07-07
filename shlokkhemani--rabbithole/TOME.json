@@ -1,0 +1,44 @@
+{
+  "name": "rabbithole",
+  "owner": "shlokkhemani",
+  "repo": "rabbithole",
+  "description": "An infinite canvas for learning \u2014 select text, ask, and answers branch out as documents. MCP server for Claude Code, Codex, and any agent.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shlokkhemani/rabbithole",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T03:30:33Z"
+}
