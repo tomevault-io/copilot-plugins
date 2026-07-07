@@ -1,336 +1,146 @@
-## settings-redesign
+## store-sections-rules
 
-> Settings 重构规则 — 改动 settings 相关文件时自动应用，确保遵循 Shopify 风格页面模式
+> Store Section 组件开发规范 — PG-201 Section-based 店铺品牌化的实施约束
 
 
-# Settings 重构规则
+# Store Section 组件开发规范
 
-> 完整设计文档：`docs/features/settings-redesign.md`
+> 设计文档：`docs/features/PG-201_STORE_BRANDING_DESIGN.md`（v2.1，权威来源）
 
-## 核心原则
+## 类型安全
 
-**页面优先，禁止弹框**。Settings 是独立页面，有 URL 路由，不是 Dialog/Drawer/Modal。
+### Discriminated Union（必须遵守）
 
-## 当前状态
+`StoreSection` 使用 discriminated union，`type` 字段决定 `props` 类型。
 
-项目存在四套并存的 Settings UI（SettingsDrawer、Settings Pages、SettingsContent、SettingsModal），正在统一为 Settings Pages 页面模式。
-- **多数 Settings Pages 已有完整功能实现**（如 general 511行、account 342行），需要的是**重构布局**而非从零开发
-- SettingsDrawer 将在 Phase 3 统一删除
-- 新代码必须写在 Settings Pages 体系中
-- 禁止在 SettingsDrawer 中新增功能
+```typescript
+// ✅ 正确：类型严格绑定
+export type StoreSection =
+  | { id: string; type: 'hero'; props: HeroSectionProps; visible: boolean; layout?: SectionLayout }
+  | { id: string; type: 'faq';  props: FaqSectionProps;  visible: boolean; layout?: SectionLayout };
 
-## 页面类型分类
-
-设置子页面分为三种类型，必须根据类型选择正确的布局：
-
-### 1. 表单配置型（使用 SettingsSection 两列布局）
-
-主要内容是表单控件（输入框、开关、下拉选择等），适合左列放标题+描述、右列放表单卡片。
-
-**适用页面**：General、Page Profile、Store（导航入口）、Store Policies、Privacy、Moderator（自身仲裁设置）、Chat Encryption、Advanced
-
-```tsx
-// ✅ 正确：表单配置型使用 SettingsSection 两列布局
-<SettingsSection
-  title={t('settings.general.localeTitle')}
-  description={t('settings.general.localeDesc')}
->
-  <Card className="p-4 md:p-6">
-    <FormField label={t('settings.general.language')}>
-      <Select ... />
-    </FormField>
-  </Card>
-</SettingsSection>
-```
-
-### 2. 列表管理型（全宽布局，不使用 SettingsSection）
-
-主要内容是列表/表格/Tab 切换（用户组、地址列表、屏蔽列表等），内容需要占满宽度。描述文字放在 `SettingsPageHeader` 的 `description` prop 中。
-
-**适用页面**：User Groups、Product Groups、Access Requests、Account、Addresses、Blocked、Store Shipping、Store Moderators
-
-```tsx
-// ✅ 正确：列表管理型使用全宽布局
-<SettingsPageHeader
-  title={t('settings.sidebar.addresses')}
-  description={t('settingsModal.addressesDescription')}
-  actions={<Button>添加</Button>}
-/>
-<Card className="p-4 md:p-6">
-  {/* 列表内容直接全宽展示 */}
-</Card>
-
-// ❌ 错误：列表管理型使用 SettingsSection 两列布局（导致内容区太窄）
-<SettingsSection
-  title={t('settings.sidebar.addresses')}
-  description={t('settingsModal.addressesDescription')}
->
-  <Card>...</Card>
-</SettingsSection>
-```
-
-### 3. 导航入口型（使用 SettingsSection 按逻辑分组）
-
-页面主要是跳转链接（如 Store 页面），用 SettingsSection 按逻辑分组：
-
-```tsx
-// ✅ 正确：导航入口型分组 + 两列布局
-<div className="divide-y divide-border">
-  <SettingsSection
-    className="pb-5 md:pb-8"
-    title={t('settingsExtended.storePolicies')}
-    description={t('settingsExtended.storePoliciesDesc')}
-  >
-    <Card className="overflow-hidden">
-      <SettingRow title="..." onClick={...} />
-    </Card>
-  </SettingsSection>
-</div>
-```
-
-## 布局规范
-
-### 表单配置型页面的 SettingsSection title 必须填写
-
-对于使用 `SettingsSection` 的页面，必须提供 `title` 和 `description`。左列留空会导致桌面端视觉不平衡。
-
-```tsx
-// ✅ 正确：提供 title
-<SettingsSection
-  title={t('settings.general.localeTitle')}
-  description={t('settings.general.localeDesc')}
->
-  <Card>...</Card>
-</SettingsSection>
-
-// ❌ 错误：省略 title 导致左列空白
-<SettingsSection description={t('...')}>
-  <Card>...</Card>
-</SettingsSection>
-```
-
-### 列表管理型页面如有多个区块，使用小标题分隔
-
-```tsx
-// ✅ 正确：全宽布局 + 小标题
-<SettingsPageHeader title="..." description="..." />
-<Card>...主列表...</Card>
-
-<div className="mt-6">
-  <div className="mb-4">
-    <h2 className="text-base font-semibold">{t('...')}</h2>
-    <p className="text-sm text-muted-foreground mt-1">{t('...')}</p>
-  </div>
-  <Card>...次要区块...</Card>
-</div>
-```
-
-### 两列布局比例
-
-桌面/平板使用 `grid-cols-[2fr_5fr]`，移动端自动折叠为单列：
-
-```tsx
-<div className="grid grid-cols-1 md:grid-cols-[2fr_5fr] gap-x-8 gap-y-2 md:gap-y-4">
-  <div>{/* 左列（移动端在上）：标题 + 描述 */}</div>
-  <div className="md:max-w-2xl">{/* 右列（移动端在下）：Card + 表单 */}</div>
-</div>
-```
-
-### 响应式断点
-
-| 断点 | Sidebar | SettingsSection | 返回导航 |
-|------|---------|-----------------|---------|
-| `<768px` (mobile) | 隐藏 | 单列 | SettingsPageHeader 返回按钮 |
-| `768–1023px` (tablet) | 隐藏 | 两列 | SettingsPageHeader 返回按钮 |
-| `≥1024px` (desktop) | 显示 `w-64` | 两列 | Sidebar 导航 |
-
-### Section 之间间距
-
-用 `divide-y` + **响应式 padding** 分隔，**不要**同时使用 gap 和 divide-y：
-
-```tsx
-// ✅ 正确：移动端 py-6，桌面端 py-10
-<div className="divide-y divide-border">
-  <SettingsSection className="pb-6 md:pb-10" ... />
-  <SettingsSection className="py-6 md:py-10" ... />
-  <SettingsSection className="pt-6 md:pt-10" ... />
-</div>
-
-// ❌ 错误：gap 和 divide-y 叠加
-<VStack gap="lg" className="divide-y divide-border">
-  <SettingsSection ... />
-</VStack>
-```
-
-### 移动端间距
-
-```tsx
-// Card 内：移动端 p-4，桌面 p-6
-<Card className="p-4 md:p-6">...</Card>
-```
-
-## 移动端规范
-
-### SettingsPageHeader（返回按钮 + 标题）
-
-每个子页面必须使用 `SettingsPageHeader`，**不要**在各页面自行实现返回按钮：
-
-```tsx
-// ✅ 正确：使用统一组件
-<SettingsPageHeader
-  title={t('settings.sidebar.general')}
-  backHref="/settings"  // 一级页面返回 /settings
-/>
-
-// ❌ 错误：各页面自行实现
-<div className="lg:hidden mb-4">
-  <Link href="/settings">← 返回</Link>
-</div>
-```
-
-返回目标规则：
-- 一级页面 → `/settings`
-- Access Control 子页 → `/settings/access-control`
-- Shipping → `/settings/store`
-
-### 触摸目标
-
-所有可交互元素最小触摸目标 44×44px（Apple HIG 标准）。
-
-### 弹框适配
-
-选择弹框（语言/国家/货币等长列表）在移动端使用全屏 Dialog 或底部 Drawer：
-
-```tsx
-const isDesktop = useMediaQuery('(min-width: 768px)');
-return isDesktop ? <Dialog ... /> : <Drawer ... />;
-```
-
-### Save Bar 移动端
-
-底部 Save Bar 需要兼容 iOS Safe Area：
-
-```tsx
-<div className="fixed bottom-0 ... pb-[env(safe-area-inset-bottom)]">
-```
-
-## 保存交互
-
-| 类型 | 场景 | 适用页面 |
-|------|------|---------|
-| 即时保存 | Switch/Toggle/单项选择（语言/货币/主题） | General、Account、Shipping（增删）、Access Control、Addresses、Blocked、Chat Encryption |
-| Save Bar | 多字段文本表单 | **仅** Page Profile、Store、Moderation |
-| 二次确认 | 危险操作（删除/重置/清除） | Advanced、Shipping（删除）、Addresses（删除）、Chat Encryption（重置）|
-
-**注意**：General 页面**不使用** Save Bar，因为每个设置项（语言/国家/货币/主题）都是独立选择后立即生效。
-
-## 架构规范
-
-### 业务逻辑必须在 core hooks 中
-
-```tsx
-// ✅ 正确：业务逻辑在 core
-// packages/core/hooks/useGeneralSettings.ts
-export function useGeneralSettings() {
-  // API 调用、状态管理、转换逻辑
-}
-
-// apps/web/src/components/SettingsContent/GeneralSettingsContent.tsx
-export function GeneralSettingsContent() {
-  const { language, setLanguage, ... } = useGeneralSettings();
-  return <SettingsSection>...</SettingsSection>;
-}
-
-// ❌ 错误：业务逻辑在 UI 组件中
-export function GeneralPage() {
-  const { fetchSettings } = useUserStore();
-  const response = await api.getSettings(); // 直接调 API
+// ❌ 禁止：props 为 any 或 Record<string, unknown>
+interface StoreSection {
+  type: string;
+  props: Record<string, unknown>;  // 丢失类型安全
 }
 ```
 
-### 设置内容组件命名
+### 新增 Section 类型
 
-- 文件：`{Section}SettingsContent.tsx`（如 `GeneralSettingsContent.tsx`）
-- 组件：`{Section}SettingsContent`
-- 位置：`apps/web/src/components/SettingsContent/`
+添加新 Section 类型时必须同步修改 4 处：
 
-### 页面文件只做组合
+1. `packages/core/types/storeConfig.ts` — 添加 Props 接口 + union 分支
+2. `store-sections/SectionRenderer.tsx` — `SectionSwitch` 添加 case
+3. `store-sections/registry.ts` — 添加元数据（名称、图标、缩略图、默认 props）
+4. `store-editor/SectionPicker.tsx` — 确认新 Section 出现在添加列表中
 
-```tsx
-// apps/web/src/app/settings/general/page.tsx
-export default function GeneralSettingsPage() {
-  return (
-    <div>
-      <SettingsPageHeader title={t('settings.sidebar.general')} />
-      <GeneralSettingsContent />
-    </div>
-  );
+## SSR 兼容性
+
+### Server Component 优先
+
+`SectionRenderer` 是 Server Component，Section 内容必须出现在服务端渲染的 HTML 中（SEO 不可回退）。
+
+```typescript
+// ✅ 默认：Section 组件是 Server Component（不加 'use client'）
+export function HeroSection({ title, subtitle, ...props }: HeroSectionProps) {
+  return <section>...</section>;
+}
+
+// ✅ 例外：需要 DOM API 或浏览器交互的 Section 标记 'use client'
+'use client';
+export function RichTextSection({ content }: RichTextSectionProps) {
+  const clean = DOMPurify.sanitize(content);  // DOMPurify 需要 DOM
+  return <div dangerouslySetInnerHTML={{ __html: clean }} />;
 }
 ```
 
-## AI-Ready 标记
+### 需要标记 `'use client'` 的 Section
 
-新建或修改设置表单字段时，添加语义化属性：
+| Section | 原因 |
+|---|---|
+| `RichTextSection` | DOMPurify 需要 DOM |
+| `GallerySection` | Lightbox 交互 |
+| `AnnouncementBarSection` | dismissible 状态（sessionStorage） |
+| `SectionBlock` | layout.backgroundColor 动态样式可用 Server Component 处理 |
+
+### P2 Section 懒加载
+
+低优先级 Section 使用 `Suspense` + `lazy()` 减少主 bundle 体积：
+
+```typescript
+// SectionSwitch 中
+case 'gallery': return <Suspense fallback={<SectionSkeleton />}><GallerySection {...section.props} /></Suspense>;
+```
+
+## 主题变量使用
+
+### 使用 `--store-*` 变量
+
+Section 组件运行在 `StoreThemeProvider` 子树中，必须使用 `--store-*` CSS 变量：
 
 ```tsx
-<Select
-  data-ai-field="settings.general.language"
-  data-ai-type="select"
-  ...
-/>
+// ✅ 使用 store 变量
+<h2 style={{ color: 'var(--store-on-primary)', fontFamily: 'var(--store-font)' }}>Title</h2>
+<div className="bg-[var(--store-primary)] rounded-[var(--store-radius)]">Content</div>
 
-<Button
-  data-ai-action="settings.save"
-  data-ai-scope="general"
-  ...
-/>
+// ❌ 禁止：全局主题变量
+<h2 className="text-primary">Title</h2>
+
+// ❌ 禁止：硬编码颜色
+<div className="bg-emerald-500">Content</div>
 ```
 
-## 重构步骤（针对每个 Section）
+### 可用 CSS 变量
 
-1. **阅读**现有 `app/settings/{section}/page.tsx`，理解已有功能（大多页面已有完整实现）
-2. **对比**阅读 SettingsDrawer 中同一 section 的代码（行范围见设计文档的「代码重复矩阵」）
-3. **提取**业务逻辑到 `packages/core/hooks/use{Section}Settings.ts`
-4. **创建** `{Section}SettingsContent.tsx` 使用 `SettingsSection` 两列布局
-5. **删除**页面内局部定义的 `SettingItem`/`SettingGroup` 等重复组件
-6. **更新** page.tsx 为薄包装（仅含 `SettingsPageHeader` + Content 组件）
-7. **浏览器验证**（桌面 1440x900 + 移动 375x667），确保所有现有功能不丢失
-8. Phase 3 统一删除 SettingsDrawer（单个 Section 完成后不需要从 Drawer 中删除）
+| 变量 | 用途 |
+|---|---|
+| `--store-primary` | 卖家品牌主色 |
+| `--store-secondary` | 辅助色 |
+| `--store-accent` | 强调色 |
+| `--store-on-primary` | primary 上的可读文字色（WCAG AA 自动计算） |
+| `--store-on-secondary` | secondary 上的可读文字色 |
+| `--store-on-accent` | accent 上的可读文字色 |
+| `--store-font` | 卖家选择的 font-family |
+| `--store-radius` | 圆角 px 值 |
 
-## 浏览器验证
+### 允许例外
 
-每次改动后启动前端检查：
+- `text-white` / `bg-white/*`：在 Hero 等深色背景区域
+- Tailwind 布局类（flex/grid/spacing/sizing）：不涉及颜色的工具类
 
-```bash
-cd ~/dev/openbazaar/mobazha-unified/apps/web && pnpm dev:vite --port 3000
-```
+## store-tabs 系统 Section
 
-使用 browser-use subagent 验证：
+- **不可删除**：编辑器中隐藏删除按钮
+- **不出现在添加列表**：`SectionPicker` 排除 `store-tabs` 类型
+- **可排序可隐藏**：卖家可以拖拽调整位置或 toggle visible
+- **默认包含**：`DEFAULT_STORE_CONFIG` 中始终包含 `store-tabs`
 
-- 桌面端 1440x900：两列布局、Sidebar 高亮、Save Bar 行为
-- 平板 768x1024：两列布局、无 Sidebar、有返回按钮
-- 移动端 375x667：
-  - `/settings` 显示分组的分类卡片列表
-  - 子页面：单列布局、SettingsPageHeader 返回按钮、Card `p-4`、Section `py-6`
-  - 触摸目标 ≥ 44px
-  - 弹框全屏或底部 Sheet
-  - 移动端无桌面 Footer（`hidden md:block`），底部导航由 MobileNav 提供
-  - 主内容区底部留 `pb-24 lg:pb-8` 避免被 MobileNav 遮挡
+## 安全约束
 
-## 禁止事项
+| 约束 | 实现方式 |
+|---|---|
+| XSS | `RichTextSection` 使用 DOMPurify sanitize |
+| 图片来源 | 仅接受 IPFS hash 或 `/v1/media/` 路径 |
+| Section 数量 | 编辑器最多 20 个 + 后端校验 |
+| JSON 大小 | StoreConfig 总计最大 100KB |
+| 对比度安全 | `--store-on-*` 使用 sRGB 线性化计算（`sRGBtoLinear`） |
 
-- ❌ 在 SettingsDrawer 中新增任何功能
-- ❌ 使用 `openSettings()` 打开弹框（应改为 `router.push`）
-- ❌ 使用 `useSettingsDrawer()` 或 `useSettingsDrawerOptional()`（应改为 `useRouter()`）
-- ❌ 在 settings 页面直接调 API（应通过 core hooks）
-- ❌ 在页面内定义局部 `SettingItem`/`SettingGroup` 组件（使用 `SettingsSection`）
-- ❌ 对 General 页面使用 Save Bar（General 全部即时保存）
-- ❌ 同时使用 `gap`/`space-y` 和 `divide-y`（间距叠加）
-- ❌ 各页面自行实现返回按钮（使用 `SettingsPageHeader`）
-- ❌ 固定 px 间距而非响应式（用 `p-4 md:p-6`、`py-6 md:py-10` 等）
-- ❌ 移动端 `max-w-2xl` 限制宽度（移动端应全宽，用 `md:max-w-2xl`）
-- ❌ 硬编码颜色（遵循 theme-rules.mdc）
-- ❌ 硬编码文案（遵循 i18n-rules.mdc）
+## 悬空引用处理
+
+`FeaturedProducts` 的 `productSlugs` 和 `Collections` 的 `collectionIDs` 可能指向已删除资源：
+
+- **渲染时**：自动过滤不存在的 slug/ID，只渲染有效的
+- **编辑器提示**：当有效数量 < 原始数量 50% 时，显示"部分商品已下架，建议更新精选"
+- **不自动修改 config**：避免在买家浏览时触发写操作
+
+## 代码审查检查项
+
+- [ ] 新 Section 同步修改了 4 处（types + SectionSwitch + registry + SectionPicker）
+- [ ] 使用 `--store-*` 变量而非全局主题色或硬编码颜色
+- [ ] 需要 DOM API 的组件标记了 `'use client'`
+- [ ] 图片 URL 校验为 IPFS hash 或 `/v1/media/` 路径
+- [ ] Props 有默认值（编辑器创建新 Section 时从 registry 获取）
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
