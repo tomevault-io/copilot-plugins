@@ -239119,6 +239119,81 @@
       "description": "Code for \"Persistent Robot World Models: Stabilizing Multi-Step Rollouts via Reinforcement Learning\""
     },
     {
+      "name": "smos--cert-drawer",
+      "source": "./smos--cert-drawer",
+      "description": "Certifcate Inventory - Search, expiry and automation"
+    },
+    {
+      "name": "millionco--react-grab-bench",
+      "source": "./millionco--react-grab-bench",
+      "description": "Evaluating coding agents on React.js tasks"
+    },
+    {
+      "name": "redhat-community-ai-tools--claude-plugins",
+      "source": "./redhat-community-ai-tools--claude-plugins",
+      "description": "claude-plugins"
+    },
+    {
+      "name": "ec-jrc--aloha",
+      "source": "./ec-jrc--aloha",
+      "description": "Aloha (AI Logical Orchestrator Hub for Agents) is a centralized hub to manage and interconnect data, tools and agents leveraging the MCP and A2A protocols"
+    },
+    {
+      "name": "productory--obsidian-claude-code-template",
+      "source": "./productory--obsidian-claude-code-template",
+      "description": "A Claude Code-Native Obsidian Vault"
+    },
+    {
+      "name": "millionco--react-grab-bench",
+      "source": "./millionco--react-grab-bench",
+      "description": "Evaluating coding agents on React.js tasks"
+    },
+    {
+      "name": "a-green-hand-jack--ml-research-skills",
+      "source": "./a-green-hand-jack--ml-research-skills",
+      "description": "Use skills to manage the project lifecycle"
+    },
+    {
+      "name": "cubetribe--codex-godmode-on",
+      "source": "./cubetribe--codex-godmode-on",
+      "description": "Community repo for clean Codex setup, reusable skills, hooks, and team-ready best practices."
+    },
+    {
+      "name": "icoretech--warden-mcp",
+      "source": "./icoretech--warden-mcp",
+      "description": "\ud83d\udd10 Streamable HTTP + stdio MCP server for Vaultwarden/Bitwarden"
+    },
+    {
+      "name": "a-green-hand-jack--ml-research-skills",
+      "source": "./a-green-hand-jack--ml-research-skills",
+      "description": "Use skills to manage the project lifecycle"
+    },
+    {
+      "name": "agent-tools-org--ai-dispatch",
+      "source": "./agent-tools-org--ai-dispatch",
+      "description": "Multi-AI CLI team orchestrator \u2014 dispatch work to gemini, codex, opencode, cursor and custom agents"
+    },
+    {
+      "name": "icoretech--warden-mcp",
+      "source": "./icoretech--warden-mcp",
+      "description": "\ud83d\udd10 Streamable HTTP + stdio MCP server for Vaultwarden/Bitwarden"
+    },
+    {
+      "name": "briansmith80--claude-code-status-bar",
+      "source": "./briansmith80--claude-code-status-bar",
+      "description": "Configurable status bar for Claude Code: usage limits with pacing markers, context window, git state, live activity, session cost, and 8 colour themes. Pure bash, zero dependencies."
+    },
+    {
+      "name": "developer0hye--marknest",
+      "source": "./developer0hye--marknest",
+      "description": "Markdown to PDF converter with Mermaid diagrams, LaTeX math, themes, and batch conversion. CLI + WASM."
+    },
+    {
+      "name": "developer0hye--marknest",
+      "source": "./developer0hye--marknest",
+      "description": "Markdown to PDF converter with Mermaid diagrams, LaTeX math, themes, and batch conversion. CLI + WASM."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -259457,6 +259532,26 @@
       "name": "heyito--moo",
       "source": "./heyito--moo",
       "description": "Git versions files. moo versions the machine."
+    },
+    {
+      "name": "dejavumoe--picforge",
+      "source": "./dejavumoe--picforge",
+      "description": "a local-first browser app for batch image compression and resizing. It uses Canvas, Web Workers, and WebAssembly codecs to process images on your device. There are no accounts, uploads, or server-side"
+    },
+    {
+      "name": "devolutions--pwsh-distro",
+      "source": "./devolutions--pwsh-distro",
+      "description": "Devolutions PowerShell distribution"
+    },
+    {
+      "name": "gaoweiblue-source--skill-lab",
+      "source": "./gaoweiblue-source--skill-lab",
+      "description": "skill_lab"
+    },
+    {
+      "name": "devolutions--pwsh-distro",
+      "source": "./devolutions--pwsh-distro",
+      "description": "Devolutions PowerShell distribution"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -382692,6 +382787,11 @@
       "name": "eugenc--fabco-trading",
       "source": "./eugenc--fabco-trading",
       "description": "fabco_trading"
+    },
+    {
+      "name": "cloudbridgeuy--ralph",
+      "source": "./cloudbridgeuy--ralph",
+      "description": "My take on the ralph loop"
     }
   ]
 }
