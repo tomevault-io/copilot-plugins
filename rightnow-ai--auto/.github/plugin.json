@@ -1,0 +1,9 @@
+{
+  "name": "rightnow-ai--auto",
+  "displayName": "auto",
+  "description": "the agi compiler: records llm agent behavior, proves what repeats, and compiles it into verified, sandboxed wasm binaries that run for microdollars. nothing figured out twice, paper: https://arxiv.org",
+  "version": "1.0.0",
+  "author": "RightNow-AI",
+  "homepage": "https://github.com/RightNow-AI/auto",
+  "skills": []
+}
