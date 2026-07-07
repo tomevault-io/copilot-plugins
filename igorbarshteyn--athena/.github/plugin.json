@@ -1,0 +1,9 @@
+{
+  "name": "igorbarshteyn--athena",
+  "displayName": "athena",
+  "description": "A conversational voice-to-voice open-weights LLM-powered assistant designed to run on high-end consumer or workstation class hardware",
+  "version": "1.0.0",
+  "author": "igorbarshteyn",
+  "homepage": "https://github.com/igorbarshteyn/athena",
+  "skills": []
+}
