@@ -1,31 +1,25 @@
-## ss14-shared
+## ss14-tests
 
 > <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 ---
-description: Shared SS14 rules for replicated state, shared events, localization identifiers, and prediction-aware gameplay code.
+description: Test-layer selection and authoring rules for SS14 content and integration coverage.
 globs:
-  - Content.Shared/**/*.cs
-  - Content.Goobstation.Shared/**/*.cs
-  - Content.Goobstation.Common/**/*.cs
-  - Content.Goobstation.Maths/**/*.cs
-  - Content.Shared.Database/**/*.cs
+  - Content.Tests/**/*.cs
+  - Content.IntegrationTests/**/*.cs
 alwaysApply: false
 ---
 
-Apply @.agents/rules/ss14-csharp-style.md
-
 Read these skills before editing matching files:
 
-- @.agents/skills/ss14-ecs-components/SKILL.md
-- @.agents/skills/ss14-ecs-entities/SKILL.md
-- @.agents/skills/ss14-ecs-systems/SKILL.md
-- @.agents/skills/ss14-events/SKILL.md
-- @.agents/skills/ss14-prediction/SKILL.md
-- @.agents/skills/ss14-netcode/SKILL.md
-- @.agents/skills/ss14-localization-code/SKILL.md
+- @.agents/skills/ss14-tests-authoring/SKILL.md
+- @.agents/skills/ss14-naming-conventions/SKILL.md
+- @.agents/skills/ss14-upstream-maintenance/SKILL.md
+
+- Prefer the smallest test layer that covers the risk.
+- Keep test additions focused on the changed behavior.
 
 ---
 > Source: [ArcaneSS14/arcane-old](https://github.com/ArcaneSS14/arcane-old) — distributed by [TomeVault](https://tomevault.io).
