@@ -1,32 +1,51 @@
-## dashboard
+## enterprise-page-knowledge-base
 
-> ZizkaDB dashboard context, conventions, and gotchas for future work
+> Enterprise marketing page — copy guardrails, lead capture, QA, and cross-links
 
 
-# ZizkaDB Dashboard — Agent Guide
+# Enterprise Page — Agent Guide
 
-**Read first:** `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` is the source of truth (has a Table of Contents). Consult it before implementing features, fixing bugs, or reasoning about flows. Section map: architecture (§1-3), funnel (§5), business rules (§7), API layer (§8), touch points (§17), backend state machine (§18), per-screen behavior (§19), marketing/community/docs/admin surfaces (§20), data model / DB schema (§21), glossary (§22).
+**Route:** `/enterprise` · **QA checklist:** `docs/enterprise-page-qa.md` · **Product overview:** `docs/enterprise-product-overview.md` · **Dashboard KB:** §20.6 · **Copy source:** `dashboard/components/marketing/enterprise/enterprise-copy.ts`
 
-## Conventions (match these)
-- Next.js 14 App Router. Interactive pages are Client Components (`'use client'`). TS `strict`, `@/*` alias. No Prettier — match surrounding style (2-space, single quotes, no semicolons).
-- **All API calls go through `lib/api.ts`** (`apiFetch` injects auth + normalizes errors). No React Query/SWR/Redux/Zustand/Context — local `useState`/`useEffect` only.
-- Guard every async effect with a `let cancelled = false` flag; check it before `setState` (see `signup/page.tsx`, `TenantPlanBanner`).
-- Redirect guards: render the page's `*Fallback` loader while a redirect is pending; never render real UI before guard checks resolve (see the `checked` gate in `signup/page.tsx`).
-- Wrap `useSearchParams` pages in `<Suspense>` (Next CSR bailout).
-- Errors: `apiFetch` throws a normalized `Error`; catch and render into a local `error` string.
+## Page composition (order)
 
-## Critical gotchas (do not break)
-- **No payment gate.** Signup: plan → consent → OTP → `/dashboard`. `postAuthRedirect` always returns `/dashboard`.
-- **Auth split:** middleware reads the access-token cookie; client code reads `localStorage`. The refresh token is an HttpOnly cookie (backend). Keep both cookie + localStorage in sync via `setToken`/`clearToken`.
-- **Funnel state** lives in `sessionStorage` (`signup_plan`, `signup_consent_gdpr`, `signup_consent_marketing`); cleared after OTP verify.
-- Self-host `NEXT_PUBLIC_DEV_MODE=true` enables dev-token login and changes onboarding copy.
-- **API key limits (§7):** active keys per tenant are capped by plan (Pro 3 / Team 10; else unlimited) when `API_KEY_LIMITS_ENFORCED=true`. UI reads `useApiKeyQuota` — never hardcode limits.
+Live route (`app/enterprise/page.tsx`): Hero → What is → Fleet → Capabilities → Why enterprises choose → Security → Deployment → Pricing → FAQ → Contact form (`#contact`) → Technical resources → footer.
 
-## Testing / safety
-- There are **no frontend tests** and `apiFetch` is untyped. Prefer adding tests for pure helpers (`postAuthRedirect`, funnel guards) when touching them.
+Modular shell (`EnterprisePageClient`, not live): Hero → What is → Fleet → Capabilities → Tier compare → VPC deploy → Platform → FAQ → Footer CTA (`#connect`) → Resources strip.
 
-## Keep the KB in sync
-If you change billing/auth/the signup funnel, `lib/api.ts`, routes, a backend endpoint the dashboard calls, or the DB schema, **update `dashboard/DASHBOARD_KNOWLEDGE_BASE.md`** (esp. §7, §8, §17.3, §18, §19-21) in the same change.
+Shared shell: `SiteNav active="enterprise"`, `MarketingPageStyles`, `CalendlyBookModal`.
+
+## Lead capture
+
+- Form: `EnterpriseConnectForm` → `submitDemoRequest` (`lib/demo.ts`) → `POST /v1/demo-requests`
+- Always sends `source: 'enterprise'`; optional `position` (role/title)
+- Honeypot field name: **`botcheck`** (not `website`); client silently drops if filled
+- Backend allowlist: `enterprise`, `landing`, `newsletter` — else **422**
+- Admin demo tab shows Role + Source; search includes both
+- DB: nullable `position VARCHAR(120)`, `source VARCHAR(64)` — migration `007_demo_requests_enterprise.sql` + runtime DDL in `connection.py`
+
+## Copy guardrails (must NOT claim on `/enterprise`)
+
+SOC 2, HIPAA, SSO/SAML/SCIM **as shipped**, Slack/PagerDuty alerts, SLA guarantees, hallucination **detection** (negation OK).
+
+**Must stay honest:** behavioral drift (not hallucination detection), VPC deployment (Model A), commercial license, install package, fleet UI + audit export **in customer VPC** (not on public cloud today). SSO/SAML only as **roadmap** footnote in platform section.
+
+## Cross-page consistency
+
+- Trust `#deployment`, `#limits`, `#licensing`: Enterprise row + links to `/enterprise`
+- Landing `#pricing`: fourth **Enterprise** card (`Annual License` / `1 Year`, Let's Connect → `/enterprise#contact`); config in `pricing-plans.ts`
+- `MarketingFooter` includes Enterprise on landing, trust, enterprise (docs/community when wired)
+
+## Before merge
+
+```bash
+cd dashboard && npm run lint && npm run build
+cd ../core && pytest tests/test_demo_requests.py tests/test_rate_limiting.py::TestDemoRequestsRateLimiting -q
+rg -i 'SOC 2|HIPAA|SAML|SCIM|PagerDuty|Slack alert|SLA guarantee|detects hallucination' \
+  dashboard/components/marketing/enterprise dashboard/app/enterprise
+```
+
+Update `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` §20.6, `wiki/REST-API.md`, and `backend-dashboard-contract.mdc` if demo-requests contract changes.
 
 ---
 > Source: [Zizka-ai/ZizkaDB](https://github.com/Zizka-ai/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
