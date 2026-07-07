@@ -1,0 +1,9 @@
+{
+  "name": "redhat-community-ai-tools--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "claude-plugins",
+  "version": "1.0.0",
+  "author": "redhat-community-ai-tools",
+  "homepage": "https://github.com/redhat-community-ai-tools/claude-plugins",
+  "skills": []
+}
