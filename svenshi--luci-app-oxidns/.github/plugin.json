@@ -1,0 +1,9 @@
+{
+  "name": "svenshi--luci-app-oxidns",
+  "displayName": "luci-app-oxidns",
+  "description": "luci-app-oxidns is the LuCI management app for OxiDNS on OpenWrt",
+  "version": "1.0.0",
+  "author": "svenshi",
+  "homepage": "https://github.com/svenshi/luci-app-oxidns",
+  "skills": []
+}
