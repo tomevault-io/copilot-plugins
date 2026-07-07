@@ -1,0 +1,9 @@
+{
+  "name": "gowaru--gowaru-nuvio-providers",
+  "displayName": "gowaru-nuvio-providers",
+  "description": "An collection of French streaming plugins for the Nuvio",
+  "version": "1.0.0",
+  "author": "Gowaru",
+  "homepage": "https://github.com/Gowaru/gowaru-nuvio-providers",
+  "skills": []
+}
