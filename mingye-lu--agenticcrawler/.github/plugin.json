@@ -1,0 +1,9 @@
+{
+  "name": "mingye-lu--agenticcrawler",
+  "displayName": "AgenticCrawler",
+  "description": "acrawl \u2014 LLM-powered web crawler. Describe what you want in plain English, get structured data back. Single Rust binary, 25 providers, MCP server built-in.",
+  "version": "1.0.0",
+  "author": "Mingye-Lu",
+  "homepage": "https://github.com/Mingye-Lu/AgenticCrawler",
+  "skills": []
+}
