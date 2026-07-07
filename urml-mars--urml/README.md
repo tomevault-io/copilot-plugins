@@ -7,11 +7,11 @@ The specification, reference runtimes, validator, LLM bridge, and conformance su
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [URML-MARS/URML](https://github.com/URML-MARS/URML).
+Original source: `CLAUDE.md` in [URML-MARS/URML](https://github.com/URML-MARS/URML).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
