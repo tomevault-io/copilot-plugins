@@ -1,0 +1,9 @@
+{
+  "name": "skyeshark--eidoverse-video",
+  "displayName": "eidoverse-video",
+  "description": "Video-production toolkit for AI agents: Deno + WebGPU + three.js/TSL render engine with VRM character locomotion, simulations, effects, and a full audio pipeline \u2014 real-time GPU rendering with minimal",
+  "version": "1.0.0",
+  "author": "SkyeShark",
+  "homepage": "https://github.com/SkyeShark/eidoverse-video",
+  "skills": []
+}
