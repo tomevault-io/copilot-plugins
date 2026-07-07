@@ -1,0 +1,9 @@
+{
+  "name": "nbpadilha--nbp-skillforge",
+  "displayName": "nbp-skillforge",
+  "description": "Compose agent skills (SKILL.md / commands) from reusable bricks, with a drift-gate.",
+  "version": "1.0.0",
+  "author": "nbpadilha",
+  "homepage": "https://github.com/nbpadilha/nbp-skillforge",
+  "skills": []
+}
