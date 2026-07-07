@@ -1,0 +1,9 @@
+{
+  "name": "dejavumoe--picforge",
+  "displayName": "PicForge",
+  "description": "a local-first browser app for batch image compression and resizing. It uses Canvas, Web Workers, and WebAssembly codecs to process images on your device. There are no accounts, uploads, or server-side",
+  "version": "1.0.0",
+  "author": "DejavuMoe",
+  "homepage": "https://github.com/DejavuMoe/PicForge",
+  "skills": []
+}
