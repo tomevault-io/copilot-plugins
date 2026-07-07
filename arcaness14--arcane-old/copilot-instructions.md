@@ -1,26 +1,22 @@
-## arcane-old
+## ss14-core
 
 > <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
-# Gemini Repo Instructions
+---
+description: Core SS14 Orion repo guidance, skill routing, and validation rules.
+alwaysApply: true
+---
 
-Follow [AGENTS.md](AGENTS.md) as the primary repository instruction file for this SS14 fork.
+Apply @AGENTS.md
+Apply @.agents/rules/ss14-skill-preflight-and-refresh.md
+Apply @.agents/rules/ss14-engine-boundaries.md
+Apply @.agents/rules/ss14-localization-required.md
+Apply @.agents/rules/ss14-testing-and-validation.md
 
-Before editing:
-
-- Read `.agents/rules/`
-- Read every relevant skill under `.agents/skills/`
-- Prefer the nearest subtree `AGENTS.md` when one exists for the touched files
-
-Core expectations:
-
-- Keep components data-only and behavior in systems.
-- Use `On... -> Try... -> Can... -> Do...` for gameplay actions.
-- Prefer `Entity<T?>`, `ProtoId<T>`, `EntProtoId`, and localized strings.
-- Avoid `RobustToolbox/` edits unless engine work is explicitly required.
-- Use prediction and localization as first-pass design constraints, not cleanup.
+- Use `.agents/skills/` as the canonical project skill set.
+- Keep changes inside content boundaries unless the task explicitly requires engine work.
 
 ---
 > Source: [ArcaneSS14/arcane-old](https://github.com/ArcaneSS14/arcane-old) — distributed by [TomeVault](https://tomevault.io).
