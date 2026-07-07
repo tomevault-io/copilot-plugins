@@ -1,0 +1,9 @@
+{
+  "name": "amit-timalsina--pi-agent-go",
+  "displayName": "pi-agent-go",
+  "description": "Minimal Go agent framework for LLM tool-calling loops (v1.0, stable). Typed tools, parallel execution, three hooks, streaming progress, snapshot resume, prompt caching across iterations. Anthropic Cla",
+  "version": "1.0.0",
+  "author": "amit-timalsina",
+  "homepage": "https://github.com/amit-timalsina/pi-agent-go",
+  "skills": []
+}
