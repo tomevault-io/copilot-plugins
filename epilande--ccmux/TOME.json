@@ -1,0 +1,44 @@
+{
+  "name": "ccmux",
+  "owner": "epilande",
+  "repo": "ccmux",
+  "description": "\ud83d\udd2e Track all your AI coding agents (Claude Code, Codex, Cursor, ...) in tmux and jump to the one that needs you",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/epilande/ccmux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T13:31:52Z"
+}
