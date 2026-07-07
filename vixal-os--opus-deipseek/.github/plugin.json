@@ -1,0 +1,9 @@
+{
+  "name": "vixal-os--opus-deipseek",
+  "displayName": "Opus-Deipseek",
+  "description": "A cost-effective Discord bot powered by multiple LLMs with smart context management.  Features: \ud83e\uddf5 Thread-based conversations \ud83d\udcf7 Image understanding \ud83d\ude00 Emoji reactions \ud83d\udcce File attachments \ud83e\udde0 Two-tier memor",
+  "version": "1.0.0",
+  "author": "VIXAL-OS",
+  "homepage": "https://github.com/VIXAL-OS/Opus-Deipseek",
+  "skills": []
+}
