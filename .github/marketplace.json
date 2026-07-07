@@ -17084,6 +17084,11 @@
       "description": "\ud83d\udd25 An autonomous AI agent that runs your deep learning experiments 24/7 while you sleep. Zero-cost monitoring, Leader-Worker architecture, constant-size memory."
     },
     {
+      "name": "fradser--dotclaude",
+      "source": "./fradser--dotclaude",
+      "description": "A comprehensive development environment with specialized AI agents for code review, security analysis, and technical leadership."
+    },
+    {
       "name": "realkimbarrett--advertising-skills",
       "source": "./realkimbarrett--advertising-skills",
       "description": "Advertising Skills for Open Claw, Claude Code & AI agents. Direct response, paid ads, funnels, and copy systems."
@@ -17762,11 +17767,6 @@
       "name": "vercel-labs--bash-tool",
       "source": "./vercel-labs--bash-tool",
       "description": "A bash tool for AI SDK"
-    },
-    {
-      "name": "fradser--dotclaude",
-      "source": "./fradser--dotclaude",
-      "description": "A comprehensive development environment with specialized AI agents for code review, security analysis, and technical leadership."
     },
     {
       "name": "davidbeesley--claude-chill",
@@ -110189,6 +110189,11 @@
       "description": "Automatically scaffold files by just creating them"
     },
     {
+      "name": "kewang--spek",
+      "source": "./kewang--spek",
+      "description": "A lightweight, read-only viewer for OpenSpec content"
+    },
+    {
       "name": "0xerwin1--dbflux",
       "source": "./0xerwin1--dbflux",
       "description": "A fast, keyboard-first database client built with Rust and GPUI."
@@ -146829,6 +146834,16 @@
       "description": "BOSS\u76f4\u8058Web\u7aef\u63d2\u4ef6\u5b9e\u73b0APP\u7aef\u957f\u56fe\u5bfc\u51fa\u529f\u80fd"
     },
     {
+      "name": "harryyangthu--mars-multi-agent-research-system",
+      "source": "./harryyangthu--mars-multi-agent-research-system",
+      "description": "MARS-Multi-Agent-Research-System"
+    },
+    {
+      "name": "harryyangthu--mars-multi-agent-research-system",
+      "source": "./harryyangthu--mars-multi-agent-research-system",
+      "description": "MARS-Multi-Agent-Research-System"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -166594,11 +166609,6 @@
       "description": "Initialize projects with AGENTS.md 1.1 standard support for seamless AI agent collaboration"
     },
     {
-      "name": "kewang--spek",
-      "source": "./kewang--spek",
-      "description": "A lightweight, read-only viewer for OpenSpec content"
-    },
-    {
       "name": "angular-material-dev--angular-material-ai-rules",
       "source": "./angular-material-dev--angular-material-ai-rules",
       "description": "This repo contains rules, instructions and guidelines for various AI based code editors to work with Angular Material"
@@ -180852,6 +180862,16 @@
       "name": "varunyn--wiki-langgraph",
       "source": "./varunyn--wiki-langgraph",
       "description": "LangGraph pipeline that ingests raw markdown, compiles an Obsidian-style vault (wikilinks, backlinks, Index.md), optionally runs LLM authoring and semantic \u201cSee also\u201d links, refreshes a local QMD inde"
+    },
+    {
+      "name": "tokinx--one-api-workers",
+      "source": "./tokinx--one-api-workers",
+      "description": "A distributed, low-latency, and high-performance AI unified gateway based on Cloudflare Workers, supporting multi-channel management, load balancing, usage statistics, and tracking."
+    },
+    {
+      "name": "tokinx--one-api-workers",
+      "source": "./tokinx--one-api-workers",
+      "description": "A distributed, low-latency, and high-performance AI unified gateway based on Cloudflare Workers, supporting multi-channel management, load balancing, usage statistics, and tracking."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -203727,6 +203747,11 @@
       "name": "nmxmxh--foundation",
       "source": "./nmxmxh--foundation",
       "description": "A different approach to software and ai. An opinionated full stack framework delivering native performance and graphics to web experiences."
+    },
+    {
+      "name": "kikakkz--wait-agent",
+      "source": "./kikakkz--wait-agent",
+      "description": "Agent mux terminal."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -238774,6 +238799,101 @@
       "description": "Named after Clio \u2014 the Greek Muse of history and record-keeping. She was the keeper of knowledge, the one who made sure nothing worth remembering was lost. Clio KB does the same for your docs."
     },
     {
+      "name": "bayesimpact--bayes-platform",
+      "source": "./bayesimpact--bayes-platform",
+      "description": "bayes-platform"
+    },
+    {
+      "name": "forumhfr--redface2",
+      "source": "./forumhfr--redface2",
+      "description": "Redface 2 \u2014 Le futur client Android pour Hardware.fr. Sp\u00e9cifications, architecture et roadmap."
+    },
+    {
+      "name": "bayesimpact--bayes-platform",
+      "source": "./bayesimpact--bayes-platform",
+      "description": "bayes-platform"
+    },
+    {
+      "name": "bayesimpact--bayes-platform",
+      "source": "./bayesimpact--bayes-platform",
+      "description": "bayes-platform"
+    },
+    {
+      "name": "rafaellopes--spit",
+      "source": "./rafaellopes--spit",
+      "description": "Free, open-source, 100% on-device voice dictation for macOS. No subscription, no cloud, no API keys."
+    },
+    {
+      "name": "forumhfr--redface2",
+      "source": "./forumhfr--redface2",
+      "description": "Redface 2 \u2014 Le futur client Android pour Hardware.fr. Sp\u00e9cifications, architecture et roadmap."
+    },
+    {
+      "name": "j-tech-japan--intent-system",
+      "source": "./j-tech-japan--intent-system",
+      "description": "intent-system"
+    },
+    {
+      "name": "j-tech-japan--intent-system",
+      "source": "./j-tech-japan--intent-system",
+      "description": "intent-system"
+    },
+    {
+      "name": "euraika-labs--codex-code-game-studios",
+      "source": "./euraika-labs--codex-code-game-studios",
+      "description": "Codex-native port of the game studio workflow framework for Codex CLI"
+    },
+    {
+      "name": "younghong1992--ruankao-senior-architecture-designer",
+      "source": "./younghong1992--ruankao-senior-architecture-designer",
+      "description": "\u5168\u56fd\u8ba1\u7b97\u673a\u6280\u672f\u4e0e\u8f6f\u4ef6\u4e13\u4e1a\u6280\u672f\u8d44\u683c\uff08\u6c34\u5e73\uff09\u8003\u8bd5 \u2014 \u9ad8\u7ea7\u8d44\u683c \u00b7 \u7cfb\u7edf\u67b6\u6784\u8bbe\u8ba1\u5e08\uff1a\u5c06\u8003\u8bd5\u5927\u7eb2+\u5b98\u65b9\u6559\u6750\u4ece\u626b\u63cf PDF \u4e2d\u63d0\u53d6\uff0c\u7ed3\u6784\u5316\u4e3a Markdown \u77e5\u8bc6\u5e93\uff0c\u652f\u6301 **INDEX \u7d22\u5f15 + \u6309\u9700\u52a0\u8f7d**\uff0c\u65b9\u4fbf\u7528 AI \u8f85\u52a9\u590d\u4e60\u548c\u68c0\u7d22\u3002"
+    },
+    {
+      "name": "agentjz--kitty",
+      "source": "./agentjz--kitty",
+      "description": "kitty\uff0c\u8f7b\u91cf\u7ea7agent\uff0c\u4f46\u5c1d\u8bd5\u903c\u51fa\u6a21\u578b\u7684\u6781\u9650\u80fd\u529b\u3002"
+    },
+    {
+      "name": "cabinetai--cabinets",
+      "source": "./cabinetai--cabinets",
+      "description": "cabinets"
+    },
+    {
+      "name": "bayesimpact--bayes-platform",
+      "source": "./bayesimpact--bayes-platform",
+      "description": "bayes-platform"
+    },
+    {
+      "name": "bayesimpact--bayes-platform",
+      "source": "./bayesimpact--bayes-platform",
+      "description": "bayes-platform"
+    },
+    {
+      "name": "forumhfr--redface2",
+      "source": "./forumhfr--redface2",
+      "description": "Redface 2 \u2014 Le futur client Android pour Hardware.fr. Sp\u00e9cifications, architecture et roadmap."
+    },
+    {
+      "name": "forumhfr--redface2",
+      "source": "./forumhfr--redface2",
+      "description": "Redface 2 \u2014 Le futur client Android pour Hardware.fr. Sp\u00e9cifications, architecture et roadmap."
+    },
+    {
+      "name": "ayhammouda--mentor",
+      "source": "./ayhammouda--mentor",
+      "description": "Claude skill for official-first, dependency-ordered learning paths for technical topics."
+    },
+    {
+      "name": "ayhammouda--mentor",
+      "source": "./ayhammouda--mentor",
+      "description": "Claude skill for official-first, dependency-ordered learning paths for technical topics."
+    },
+    {
+      "name": "argotorg--solidity-fuzzing",
+      "source": "./argotorg--solidity-fuzzing",
+      "description": "Solidity fuzzing tooling lives here."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -259104,6 +259224,11 @@
       "description": "Software_Teamwork"
     },
     {
+      "name": "piacerex--notex",
+      "source": "./piacerex--notex",
+      "description": "notex"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -263272,6 +263397,11 @@
       "name": "mynameistito--oc-usage-limits-plugin",
       "source": "./mynameistito--oc-usage-limits-plugin",
       "description": "OpenCode TUI plugin for usage limits of AI Providers"
+    },
+    {
+      "name": "magnus919--programming-principles",
+      "source": "./magnus919--programming-principles",
+      "description": "Agent Skills-format programming principles distilled from 14 classic software engineering books"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
