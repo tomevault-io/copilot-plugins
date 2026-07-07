@@ -7,11 +7,11 @@ The ultimate companion app for scale modelers and collectors
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [CarloMicieli/rusty-shed](https://github.com/CarloMicieli/rusty-shed).
+Original source: `CLAUDE.md` in [CarloMicieli/rusty-shed](https://github.com/CarloMicieli/rusty-shed).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
