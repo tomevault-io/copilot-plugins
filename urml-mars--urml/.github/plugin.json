@@ -1,0 +1,9 @@
+{
+  "name": "urml-mars--urml",
+  "displayName": "URML",
+  "description": "The specification, reference runtimes, validator, LLM bridge, and conformance suite for URML \u2014 an open language for robot intent.",
+  "version": "1.0.0",
+  "author": "URML-MARS",
+  "homepage": "https://github.com/URML-MARS/URML",
+  "skills": []
+}
