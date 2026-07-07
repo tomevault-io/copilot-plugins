@@ -1,0 +1,9 @@
+{
+  "name": "lifthrasiir--libbeef",
+  "displayName": "libbeef",
+  "description": "Beeg float library, a Rust port of Fabrice Bellard's libbf",
+  "version": "1.0.0",
+  "author": "lifthrasiir",
+  "homepage": "https://github.com/lifthrasiir/libbeef",
+  "skills": []
+}
