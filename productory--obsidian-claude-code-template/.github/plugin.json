@@ -1,0 +1,9 @@
+{
+  "name": "productory--obsidian-claude-code-template",
+  "displayName": "obsidian-claude-code-template",
+  "description": "A Claude Code-Native Obsidian Vault",
+  "version": "1.0.0",
+  "author": "productory",
+  "homepage": "https://github.com/productory/obsidian-claude-code-template",
+  "skills": []
+}
