@@ -1,0 +1,9 @@
+{
+  "name": "planx-lab--planx-plugin-template-go",
+  "displayName": "planx-plugin-template-go",
+  "description": "planx-plugin-template-go",
+  "version": "1.0.0",
+  "author": "planx-lab",
+  "homepage": "https://github.com/planx-lab/planx-plugin-template-go",
+  "skills": []
+}
