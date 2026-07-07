@@ -1,0 +1,9 @@
+{
+  "name": "402md--x402-wallet-for-claude-desktop",
+  "displayName": "x402-wallet-for-claude-desktop",
+  "description": "Claude Desktop extension that signs x402 USDC payments on Stellar (Soroban) and Base (EVM).",
+  "version": "1.0.0",
+  "author": "402md",
+  "homepage": "https://github.com/402md/x402-wallet-for-claude-desktop",
+  "skills": []
+}
