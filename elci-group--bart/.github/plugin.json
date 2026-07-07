@@ -1,0 +1,9 @@
+{
+  "name": "elci-group--bart",
+  "displayName": "bart",
+  "description": "Visualise your storage use within a directory with this rust based CLI tool",
+  "version": "1.0.0",
+  "author": "elci-group",
+  "homepage": "https://github.com/elci-group/bart",
+  "skills": []
+}
