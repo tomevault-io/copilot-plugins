@@ -4,7 +4,7 @@
   "repo": "code-301-guide",
   "description": "Code 301 - Fullstack Software Development by Enter Tech School",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/entertechschool/code-301-guide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T22:44:35Z"
+  "distributed_at": "2026-07-07T22:52:42Z"
 }
