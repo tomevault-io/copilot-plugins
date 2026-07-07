@@ -1,0 +1,44 @@
+{
+  "name": "ruankao-senior-architecture-designer",
+  "owner": "YoungHong1992",
+  "repo": "ruankao-senior-architecture-designer",
+  "description": "\u5168\u56fd\u8ba1\u7b97\u673a\u6280\u672f\u4e0e\u8f6f\u4ef6\u4e13\u4e1a\u6280\u672f\u8d44\u683c\uff08\u6c34\u5e73\uff09\u8003\u8bd5 \u2014 \u9ad8\u7ea7\u8d44\u683c \u00b7 \u7cfb\u7edf\u67b6\u6784\u8bbe\u8ba1\u5e08\uff1a\u5c06\u8003\u8bd5\u5927\u7eb2+\u5b98\u65b9\u6559\u6750\u4ece\u626b\u63cf PDF \u4e2d\u63d0\u53d6\uff0c\u7ed3\u6784\u5316\u4e3a Markdown \u77e5\u8bc6\u5e93\uff0c\u652f\u6301 **INDEX \u7d22\u5f15 + \u6309\u9700\u52a0\u8f7d**\uff0c\u65b9\u4fbf\u7528 AI \u8f85\u52a9\u590d\u4e60\u548c\u68c0\u7d22\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YoungHong1992/ruankao-senior-architecture-designer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T04:38:56Z"
+}
