@@ -1,0 +1,44 @@
+{
+  "name": "ai-dispatch",
+  "owner": "agent-tools-org",
+  "repo": "ai-dispatch",
+  "description": "Multi-AI CLI team orchestrator \u2014 dispatch work to gemini, codex, opencode, cursor and custom agents",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/agent-tools-org/ai-dispatch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T08:39:22Z"
+}
