@@ -1,0 +1,44 @@
+{
+  "name": "portal-rh-gca",
+  "owner": "Pablolsd25",
+  "repo": "portal-rh-gca",
+  "description": "Portal de n\u00f3minas y bit\u00e1cora - Grupo Castro Acero",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Pablolsd25/portal-rh-gca",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T20:32:55Z"
+}
