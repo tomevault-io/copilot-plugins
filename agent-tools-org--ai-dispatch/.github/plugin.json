@@ -1,0 +1,9 @@
+{
+  "name": "agent-tools-org--ai-dispatch",
+  "displayName": "ai-dispatch",
+  "description": "Multi-AI CLI team orchestrator \u2014 dispatch work to gemini, codex, opencode, cursor and custom agents",
+  "version": "1.0.0",
+  "author": "agent-tools-org",
+  "homepage": "https://github.com/agent-tools-org/ai-dispatch",
+  "skills": []
+}
