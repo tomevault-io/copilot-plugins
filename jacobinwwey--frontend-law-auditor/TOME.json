@@ -4,7 +4,7 @@
   "repo": "frontend-law-auditor",
   "description": "Human-centered frontend quality gate and theory-based UX audit skill with measurable fast-gate checks, weighted scoring, and CI strict mode.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jacobinwwey/frontend-law-auditor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T00:33:21Z"
+  "distributed_at": "2026-07-07T01:25:29Z"
 }
