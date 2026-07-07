@@ -1,0 +1,9 @@
+{
+  "name": "analyticalmonk--explain-this",
+  "displayName": "explain-this",
+  "description": "An agentic skills framework for creating interactive HTML explainers for a topic, documents or codebase",
+  "version": "1.0.0",
+  "author": "analyticalmonk",
+  "homepage": "https://github.com/analyticalmonk/explain-this",
+  "skills": []
+}
