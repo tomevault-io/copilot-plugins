@@ -1,0 +1,9 @@
+{
+  "name": "aenoriss--merlin",
+  "displayName": "merlin",
+  "description": "An AI study assistant that answers only from the uploaded course documents. RAG with TF-IDF and rank fusion.",
+  "version": "1.0.0",
+  "author": "aenoriss",
+  "homepage": "https://github.com/aenoriss/merlin",
+  "skills": []
+}
