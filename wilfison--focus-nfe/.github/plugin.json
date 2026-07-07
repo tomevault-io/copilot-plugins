@@ -1,0 +1,9 @@
+{
+  "name": "wilfison--focus-nfe",
+  "displayName": "focus_nfe",
+  "description": "Cliente Ruby **n\u00e3o-oficial** para a API da Focus NFe",
+  "version": "1.0.0",
+  "author": "wilfison",
+  "homepage": "https://github.com/wilfison/focus_nfe",
+  "skills": []
+}
