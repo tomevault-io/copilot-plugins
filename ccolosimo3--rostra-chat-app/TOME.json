@@ -4,7 +4,7 @@
   "repo": "rostra-chat-app",
   "description": "Real-time chat app using WebSockets, FastAPI, TypeScript/React, and PostgreSQL.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ccolosimo3/rostra-chat-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T17:12:09Z"
+  "distributed_at": "2026-07-07T17:12:44Z"
 }
