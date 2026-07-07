@@ -1,0 +1,9 @@
+{
+  "name": "benjaminnh--moto-ocr",
+  "displayName": "moto_ocr",
+  "description": "OCR tool for motorcycle insurance policy recognition and commission settlement",
+  "version": "1.0.0",
+  "author": "BenjaminNH",
+  "homepage": "https://github.com/BenjaminNH/moto_ocr",
+  "skills": []
+}
