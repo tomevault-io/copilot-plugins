@@ -1,0 +1,9 @@
+{
+  "name": "vlados09--data-analyst-agent",
+  "displayName": "data-analyst-agent",
+  "description": "Conversational data-analyst agent for non technical users. Converts natural language requests into SQL  to extract and produce reports from data in BigQuery",
+  "version": "1.0.0",
+  "author": "Vlados09",
+  "homepage": "https://github.com/Vlados09/data-analyst-agent",
+  "skills": []
+}
