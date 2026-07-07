@@ -1,0 +1,9 @@
+{
+  "name": "cedrickchee--text-to-cad",
+  "displayName": "text-to-cad",
+  "description": "An open source harness for generating CAD models [forked of https://github.com/earthtojake/text-to-cad]",
+  "version": "1.0.0",
+  "author": "cedrickchee",
+  "homepage": "https://github.com/cedrickchee/text-to-cad",
+  "skills": []
+}
