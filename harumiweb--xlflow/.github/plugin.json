@@ -1,0 +1,9 @@
+{
+  "name": "harumiweb--xlflow",
+  "displayName": "xlflow",
+  "description": "AI-Agent-ready CLI framework for editing, testing, running, tracing, and diffing Excel VBA projects.",
+  "version": "1.0.0",
+  "author": "harumiWeb",
+  "homepage": "https://github.com/harumiWeb/xlflow",
+  "skills": []
+}
