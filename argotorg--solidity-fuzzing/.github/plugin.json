@@ -1,0 +1,9 @@
+{
+  "name": "argotorg--solidity-fuzzing",
+  "displayName": "solidity-fuzzing",
+  "description": "Solidity fuzzing tooling lives here.",
+  "version": "1.0.0",
+  "author": "argotorg",
+  "homepage": "https://github.com/argotorg/solidity-fuzzing",
+  "skills": []
+}
