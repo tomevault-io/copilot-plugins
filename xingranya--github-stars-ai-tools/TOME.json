@@ -1,0 +1,44 @@
+{
+  "name": "GitHub-Stars-AI-Tools",
+  "owner": "xingranya",
+  "repo": "GitHub-Stars-AI-Tools",
+  "description": "\u672c\u5730\u4f18\u5148\u7684 GitHub Stars AI \u684c\u9762\u5e94\u7528\uff0c\u7528\u4e8e\u540c\u6b65\u3001\u6458\u8981\u3001\u6807\u7b7e\u3001\u641c\u7d22\u548c\u53d1\u73b0\u9879\u76ee\u3002Local-first AI desktop app for GitHub Stars.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xingranya/GitHub-Stars-AI-Tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T09:32:20Z"
+}
