@@ -1,97 +1,105 @@
-## api-paths-rules
+## brand-theme-rules
 
-> 前端 API 路径规范，确保与后端路由一致
+> 品牌区域主题化规则 — Hero、Landing Page、Store Section 等品牌展示区域必须使用主题变量
 
 
-# 前端 API 路径规范
+# 品牌区域主题化规则
 
-## 后端 API 设计标准
+## 核心原则
 
-完整规范：`mobazha_hosting/docs/API_DESIGN_STANDARD.md`
-标准化执行清单：`mobazha_hosting/docs/API_STANDARDIZATION_CHECKLIST.md`
+品牌展示区域（Hero、Landing Page、营销区块）的**装饰性/氛围性色彩必须跟随主题**。品牌的一致性来自布局、排版、动效，而非固定的某一个颜色。
 
-## 三层 API 路径常量
+## 严格要求
 
-所有后端 API 路径定义在 `packages/core/config/apiPaths.ts`：
+### 渐变背景
+```tsx
+// ❌ 禁止硬编码渐变
+<section className="bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900">
 
-| 常量组 | 后端服务 | URL 拼接 | 前缀 |
-|---|---|---|---|
-| `NODE_API` | mobazha | `getGatewayUrl()` + path | `/v1/` 前缀由 URL 提供 |
-| `HOSTING_API` | mobazha_hosting | 绝对路径，含 `/platform/` | `/platform/v1/` |
-| `SEARCH_API` | mobazha.info | `getSearchUrl()` + path | 目标 `/search/v1/` |
-
-## 命名规范
-
-### 路径常量命名
-
-```typescript
-// ✅ 静态路径：大写 + 下划线
-WALLET_RECEIVING_ACCOUNTS: '/wallet/receiving-accounts',
-
-// ✅ 动态路径：函数，参数描述清晰
-ORDER_CONFIRM: (orderId: string) => `/orders/${orderId}/confirm`,
+// ✅ 使用 --hero-* CSS 变量
+<section className="bg-gradient-to-br from-[var(--hero-gradient-from)] via-[var(--hero-gradient-via)] to-[var(--hero-gradient-to)]">
 ```
 
-### 路径值规范
+### 强调色/光晕
+```tsx
+// ❌ 禁止
+<div className="bg-emerald-500/20 rounded-full blur-3xl" />
+<span className="text-emerald-300">标签</span>
 
-| 维度 | 规范 | 正确 | 错误 |
-|---|---|---|---|
-| 大小写 | **kebab-case** | `/receiving-accounts` | ~~`/receivingaccountlist`~~ |
-| 资源名 | **复数** | `/listings`, `/accounts` | ~~`/listing`~~, ~~`/account`~~ |
-| Action | ID 在 URL 中 | `(id) => /orders/${id}/confirm` | ~~`'/orders/confirm'`~~ |
-
-## 禁止规则
-
-### 1. 禁止硬编码 API 路径
-
-```typescript
-// ❌ 直接拼路径
-fetch(`${getGatewayUrl()}/wallet/spend`)
-
-// ✅ 使用 apiPaths 常量
-fetch(`${getGatewayUrl()}${NODE_API.WALLET_SPEND}`)
+// ✅ 使用变量
+<div className="bg-[var(--hero-glow)]/20 rounded-full blur-3xl" />
+<span className="text-[var(--hero-accent)]">标签</span>
 ```
 
-### 2. 禁止 HOSTING_API 使用无版本路径（新增时）
+### 渐变文字
+```tsx
+// ❌ 禁止
+<span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
 
-```typescript
-// ❌ 新增路径没有 /v1/
-MATRIX_CONFIG: '/platform/matrix/config',
-
-// ✅ 新增路径带 /v1/ 和域分组
-MATRIX_CONFIG: '/platform/v1/matrix/config',
+// ✅ 使用变量
+<span className="bg-gradient-to-r from-[var(--hero-accent)] to-[var(--hero-accent-secondary)] bg-clip-text text-transparent">
 ```
 
-### 3. 禁止 camelCase 路径段
+## 可用 CSS 变量
 
-```typescript
-// ❌
-WALLET_RECEIVING_ACCOUNT_LIST: '/wallet/receivingaccountlist',
+| 变量 | 用途 |
+|------|------|
+| `--hero-gradient-from` | 渐变起始色（通常为深色） |
+| `--hero-gradient-via` | 渐变中间色（主题特色色） |
+| `--hero-gradient-to` | 渐变结束色（通常为深色） |
+| `--hero-accent` | 主强调色（徽章、图标、渐变文字起始） |
+| `--hero-accent-secondary` | 辅强调色（渐变文字结束） |
+| `--hero-glow` | 光晕/阴影色 |
 
-// ✅
-WALLET_RECEIVING_ACCOUNTS: '/wallet/receiving-accounts',
+每套主题在 `globals.css` 中定义了不同的值，无需手动处理主题切换。
+
+## Store Section 变量（PG-201 — StoreThemeProvider 注入）
+
+Store Section 组件使用 `--store-*` 变量系列，由 `StoreThemeProvider` 从卖家的 StoreConfig.theme 生成。
+这些变量与全局 `--hero-*` 变量是**独立的两套体系**，分别用于不同场景。
+
+| 变量 | 用途 | 来源 |
+|------|------|------|
+| `--store-primary` | 卖家品牌主色 | `StoreConfig.theme.primaryColor` |
+| `--store-secondary` | 辅助色 | `StoreConfig.theme.secondaryColor` |
+| `--store-accent` | 强调色 | `StoreConfig.theme.accentColor` |
+| `--store-on-primary` | primary 上的可读文字色（自动计算，WCAG AA） | sRGB 亮度计算 |
+| `--store-on-secondary` | secondary 上的可读文字色 | 同上 |
+| `--store-on-accent` | accent 上的可读文字色 | 同上 |
+| `--store-font` | 卖家选择的字体 | `StoreConfig.theme.fontFamily` → font-family 映射 |
+| `--store-radius` | 圆角档位 | `StoreConfig.theme.borderRadius` → px 映射 |
+
+### 使用方式
+
+```tsx
+// ✅ Section 组件中使用 store 变量
+<h2 className="text-[var(--store-on-primary)]" style={{ fontFamily: 'var(--store-font)' }}>
+  Section Title
+</h2>
+<div className="bg-[var(--store-primary)] rounded-[var(--store-radius)]">
+  品牌色背景
+</div>
+
+// ❌ 禁止在 Section 中使用全局主题色或硬编码
+<h2 className="text-primary">Not this</h2>
+<div className="bg-emerald-500">Not this</div>
 ```
 
-## Service 文件使用三层 helpers
+### `--hero-*` vs `--store-*` 适用范围
 
-```typescript
-import { authFetch, publicFetch, searchFetch } from '../helpers';
-import { NODE_API, HOSTING_API, SEARCH_API } from '../../config/apiPaths';
+| 变量体系 | 适用组件 | 数据来源 |
+|---|---|---|
+| `--hero-*` | SaaS 首页 Hero、Landing Page | 全局 theme 定义（`globals.css`） |
+| `--store-*` | Store Section 组件（品牌化区域） | 卖家 StoreConfig.theme（运行时注入） |
 
-// Node API（需认证）
-const response = await authFetch(NODE_API.LISTINGS);
+两套变量不冲突。Store Section 渲染在 `StoreThemeProvider` 子树中，不影响全局主题。
 
-// Hosting API（平台操作）
-const response = await authFetch(HOSTING_API.MATRIX_CONFIG);
+## 允许的例外
 
-// Search API（公开搜索）
-const response = await searchFetch(SEARCH_API.SEARCH_LISTINGS);
-```
-
-## 迁移状态
-
-**Phase R1-R3 已全部完成（2026-02-27）**：`apiPaths.ts` 中所有路径常量已迁移为规范格式。
-所有路径常量**必须**遵循本规范。
+- Logo SVG 图形：可使用固定品牌色
+- `text-white` / `text-white/*`：深色背景上的文字
+- `bg-white/*`：毛玻璃效果（`bg-white/10 backdrop-blur-sm`）
+- `border-white/*`：深色背景上的分隔线
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
