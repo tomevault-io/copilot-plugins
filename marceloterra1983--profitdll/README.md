@@ -7,14 +7,14 @@ PROFITDLL
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [marceloterra1983/PROFITDLL](https://github.com/marceloterra1983/PROFITDLL).
+Original source: `GEMINI.md` in [marceloterra1983/PROFITDLL](https://github.com/marceloterra1983/PROFITDLL).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/marceloterra1983/PROFITDLL](https://github.com/marceloterra1983/PROFITDLL)
