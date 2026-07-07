@@ -4,7 +4,7 @@
   "repo": "astro-reason",
   "description": "Evaluating LLM agents' capabilities on space mission planning tasks.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mtrya/astro-reason",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T16:41:23Z"
+  "distributed_at": "2026-07-07T16:44:53Z"
 }
