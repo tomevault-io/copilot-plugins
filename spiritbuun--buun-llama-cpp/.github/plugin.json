@@ -1,0 +1,9 @@
+{
+  "name": "spiritbuun--buun-llama-cpp",
+  "displayName": "buun-llama-cpp",
+  "description": "LLAMA Turboquant implementation with CUDA support",
+  "version": "1.0.0",
+  "author": "spiritbuun",
+  "homepage": "https://github.com/spiritbuun/buun-llama-cpp",
+  "skills": []
+}
