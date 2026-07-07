@@ -181089,6 +181089,11 @@
       "description": "Avernet"
     },
     {
+      "name": "ethsystems--pocs",
+      "source": "./ethsystems--pocs",
+      "description": "pocs"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -239364,6 +239369,46 @@
       "description": "The reliability & architecture analyzer for LLM and agentic systems. By ActaClad."
     },
     {
+      "name": "sonlovinbot--lesson-spark",
+      "source": "./sonlovinbot--lesson-spark",
+      "description": "lesson-spark"
+    },
+    {
+      "name": "khurrambhutto--scope",
+      "source": "./khurrambhutto--scope",
+      "description": "Scope is a Linux desktop app for discovering, updating, and uninstalling installed   packages and apps in one place."
+    },
+    {
+      "name": "tobiasosborne--vibefeld",
+      "source": "./tobiasosborne--vibefeld",
+      "description": "Agent-first CLI tools, UX patterns for LLM agents to prove mathematical results"
+    },
+    {
+      "name": "mtrya--astro-reason",
+      "source": "./mtrya--astro-reason",
+      "description": "Evaluating LLM agents' capabilities on space mission planning tasks."
+    },
+    {
+      "name": "dylanreed--shopify-theme-design",
+      "source": "./dylanreed--shopify-theme-design",
+      "description": "Claude Code skill for creating distinctive, marketplace-quality Shopify themes"
+    },
+    {
+      "name": "tobiasosborne--vibefeld",
+      "source": "./tobiasosborne--vibefeld",
+      "description": "Agent-first CLI tools, UX patterns for LLM agents to prove mathematical results"
+    },
+    {
+      "name": "mtrya--astro-reason",
+      "source": "./mtrya--astro-reason",
+      "description": "Evaluating LLM agents' capabilities on space mission planning tasks."
+    },
+    {
+      "name": "edjchapman--claude-code-config",
+      "source": "./edjchapman--claude-code-config",
+      "description": "Reusable agents, commands, and permission templates for Claude Code"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -259767,6 +259812,26 @@
       "name": "psycgod--sage",
       "source": "./psycgod--sage",
       "description": "\ud83e\udde0S.A.G.E - Smart Agent Guidance Engine for AI coding assistants. by\u26a1 PsYc+GoD AI&ML \ud83e\udd16"
+    },
+    {
+      "name": "frenck--probatio",
+      "source": "./frenck--probatio",
+      "description": "\u2696\ufe0f Probatio. A modern, maintained data validation library for Python. Clean-room, MIT-licensed, drop-in reimplementation of voluptuous."
+    },
+    {
+      "name": "frenck--probatio",
+      "source": "./frenck--probatio",
+      "description": "\u2696\ufe0f Probatio. A modern, maintained data validation library for Python. Clean-room, MIT-licensed, drop-in reimplementation of voluptuous."
+    },
+    {
+      "name": "samuelcolvin--mactab",
+      "source": "./samuelcolvin--mactab",
+      "description": "MacTab"
+    },
+    {
+      "name": "yuntaoovo--csswitch-linux",
+      "source": "./yuntaoovo--csswitch-linux",
+      "description": "CS-Switch\u7684 Linux \u79fb\u690d\u7248\uff0c\u589e\u52a0\u4e86deb\u3001rpm\u5305\u652f\u6301"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -383012,6 +383077,461 @@
       "name": "iflow-mcp--douinc-mkdocs-mcp-plugin",
       "source": "./iflow-mcp--douinc-mkdocs-mcp-plugin",
       "description": "Mkdocs + MCP to enhance context retrieval using repo docs"
+    },
+    {
+      "name": "stctheproducer--open-submission-approval-workflow",
+      "source": "./stctheproducer--open-submission-approval-workflow",
+      "description": "Workflow-first application submission and approval system for applicants and reviewers"
+    },
+    {
+      "name": "mhr327--unimoa-frontend",
+      "source": "./mhr327--unimoa-frontend",
+      "description": "unimoa_frontend"
+    },
+    {
+      "name": "litdemon--coin-strategy-orchestrator",
+      "source": "./litdemon--coin-strategy-orchestrator",
+      "description": "Coin Strategy Orchestrator"
+    },
+    {
+      "name": "stctheproducer--open-submission-approval-workflow",
+      "source": "./stctheproducer--open-submission-approval-workflow",
+      "description": "Workflow-first application submission and approval system for applicants and reviewers"
+    },
+    {
+      "name": "martuakevinamh--personal-website",
+      "source": "./martuakevinamh--personal-website",
+      "description": "personal-website"
+    },
+    {
+      "name": "filsammy--school-website",
+      "source": "./filsammy--school-website",
+      "description": "school_website"
+    },
+    {
+      "name": "ainsley2007--osrs-clan-events",
+      "source": "./ainsley2007--osrs-clan-events",
+      "description": "osrs-clan-events"
+    },
+    {
+      "name": "stctheproducer--open-submission-approval-workflow",
+      "source": "./stctheproducer--open-submission-approval-workflow",
+      "description": "Workflow-first application submission and approval system for applicants and reviewers"
+    },
+    {
+      "name": "tommasocavalli08-beep--angelo",
+      "source": "./tommasocavalli08-beep--angelo",
+      "description": "test configuration"
+    },
+    {
+      "name": "maxencebb--mcp-deploy",
+      "source": "./maxencebb--mcp-deploy",
+      "description": "mcp-deploy"
+    },
+    {
+      "name": "cafetoesdigital--megapack-site",
+      "source": "./cafetoesdigital--megapack-site",
+      "description": "megapack-site"
+    },
+    {
+      "name": "techhound--streamlit-dcf",
+      "source": "./techhound--streamlit-dcf",
+      "description": "streamlit-dcf"
+    },
+    {
+      "name": "link-to-mac--web",
+      "source": "./link-to-mac--web",
+      "description": "linktoweb web site"
+    },
+    {
+      "name": "rubennati--privacy-deidentification",
+      "source": "./rubennati--privacy-deidentification",
+      "description": "Local privacy-first document de-identification and redaction system."
+    },
+    {
+      "name": "rubennati--privacy-deidentification",
+      "source": "./rubennati--privacy-deidentification",
+      "description": "Local privacy-first document de-identification and redaction system."
+    },
+    {
+      "name": "martinwesthead--1stcontact",
+      "source": "./martinwesthead--1stcontact",
+      "description": "1stcontact"
+    },
+    {
+      "name": "soarezsamilla-alt--glad-hand-lab",
+      "source": "./soarezsamilla-alt--glad-hand-lab",
+      "description": "glad-hand-lab"
+    },
+    {
+      "name": "loki495--homie",
+      "source": "./loki495--homie",
+      "description": "A self-hosted, configurable homepage/dashboard for home lab services"
+    },
+    {
+      "name": "sunspellcoffee--journal",
+      "source": "./sunspellcoffee--journal",
+      "description": "journal"
+    },
+    {
+      "name": "estebanmdq--tower-defense",
+      "source": "./estebanmdq--tower-defense",
+      "description": "A Tower Defense game developed using claude code and openspec."
+    },
+    {
+      "name": "mehrabix--spartan-dashboard-ui",
+      "source": "./mehrabix--spartan-dashboard-ui",
+      "description": "spartan-dashboard-ui"
+    },
+    {
+      "name": "developer3441--arifsons-commission-shop",
+      "source": "./developer3441--arifsons-commission-shop",
+      "description": "arifsons-commission-shop"
+    },
+    {
+      "name": "sdsdfnsdnfkbsdfkbsdfkvb--agent-visibility-template",
+      "source": "./sdsdfnsdnfkbsdfkbsdfkvb--agent-visibility-template",
+      "description": "agent-visibility-template"
+    },
+    {
+      "name": "mehrabix--spartan-dashboard-ui",
+      "source": "./mehrabix--spartan-dashboard-ui",
+      "description": "spartan-dashboard-ui"
+    },
+    {
+      "name": "swapnasahoo--docs",
+      "source": "./swapnasahoo--docs",
+      "description": "docs"
+    },
+    {
+      "name": "vlados09--data-analyst-agent",
+      "source": "./vlados09--data-analyst-agent",
+      "description": "Conversational data-analyst agent for non technical users. Converts natural language requests into SQL  to extract and produce reports from data in BigQuery"
+    },
+    {
+      "name": "murilooneto-dev--portal-tesserato",
+      "source": "./murilooneto-dev--portal-tesserato",
+      "description": "Portal"
+    },
+    {
+      "name": "randysmith-hub--enercon-opportunity-tracker",
+      "source": "./randysmith-hub--enercon-opportunity-tracker",
+      "description": "Enercon Africa-Opportunities"
+    },
+    {
+      "name": "fabianobertuche--quadro-do-mane",
+      "source": "./fabianobertuche--quadro-do-mane",
+      "description": "quadro-do-mane"
+    },
+    {
+      "name": "halexoh--rag-chemistry",
+      "source": "./halexoh--rag-chemistry",
+      "description": "RAG-chemistry"
+    },
+    {
+      "name": "chasebinns27--med-tracking",
+      "source": "./chasebinns27--med-tracking",
+      "description": "med-tracking"
+    },
+    {
+      "name": "vincweb--lm-visualizer-mac",
+      "source": "./vincweb--lm-visualizer-mac",
+      "description": "Visualiseur natif macOS (SwiftUI) de l'activit\u00e9 LM Studio \u2014 animation du r\u00e9seau de neurones + stats d'inf\u00e9rence et machine, sans proxy."
+    },
+    {
+      "name": "vishnu77887--integrity-compass-app",
+      "source": "./vishnu77887--integrity-compass-app",
+      "description": "integrity-compass-app"
+    },
+    {
+      "name": "saatvikaggarwal--therapist-services",
+      "source": "./saatvikaggarwal--therapist-services",
+      "description": "therapist_services"
+    },
+    {
+      "name": "alisonqiu--alisonqiu-github-io",
+      "source": "./alisonqiu--alisonqiu-github-io",
+      "description": "alisonqiu.github.io"
+    },
+    {
+      "name": "itsmeluan--azoth-breach",
+      "source": "./itsmeluan--azoth-breach",
+      "description": "AZOTH: Breach is a Alchemy inspired mobile idle RPG"
+    },
+    {
+      "name": "youssef-ahkim--cherry-jewelry",
+      "source": "./youssef-ahkim--cherry-jewelry",
+      "description": "cherry-jewelry"
+    },
+    {
+      "name": "piroammar--easy-access",
+      "source": "./piroammar--easy-access",
+      "description": "Easy-Access is a self-hosted remote file management platform. Access, manage, and share your PC's hard drive from anywhere through a secure web dashboard."
+    },
+    {
+      "name": "v-vabyo--telegram-drive-storage",
+      "source": "./v-vabyo--telegram-drive-storage",
+      "description": "A modern, multi-user SaaS cloud storage application that leverages the Telegram MTProto API to provide unlimited, isolated, and secure file storage using Next.js."
+    },
+    {
+      "name": "wilfison--focus-nfe",
+      "source": "./wilfison--focus-nfe",
+      "description": "Cliente Ruby **n\u00e3o-oficial** para a API da Focus NFe"
+    },
+    {
+      "name": "supreeta-anand-byatnal--skylark-hygiene",
+      "source": "./supreeta-anand-byatnal--skylark-hygiene",
+      "description": "skylark-hygiene"
+    },
+    {
+      "name": "valgulnecron--gameplane-website",
+      "source": "./valgulnecron--gameplane-website",
+      "description": "Marketing + docs website for Gameplane \u2014 Kubernetes-native game server control panel"
+    },
+    {
+      "name": "piroammar--easy-access",
+      "source": "./piroammar--easy-access",
+      "description": "Easy-Access is a self-hosted remote file management platform. Access, manage, and share your PC's hard drive from anywhere through a secure web dashboard."
+    },
+    {
+      "name": "44bvhg4rf5-glitch--prop-pro",
+      "source": "./44bvhg4rf5-glitch--prop-pro",
+      "description": "For creating letters for properties"
+    },
+    {
+      "name": "valgulnecron--gameplane-website",
+      "source": "./valgulnecron--gameplane-website",
+      "description": "Marketing + docs website for Gameplane \u2014 Kubernetes-native game server control panel"
+    },
+    {
+      "name": "chandreshkkhatri--chess-rebundled-co",
+      "source": "./chandreshkkhatri--chess-rebundled-co",
+      "description": "An app for learning chess notations"
+    },
+    {
+      "name": "silaasdantas--global-config-ai",
+      "source": "./silaasdantas--global-config-ai",
+      "description": "Configura\u00e7\u00f5es reutilizaveis e globais a serem feitas"
+    },
+    {
+      "name": "diogopaesdev--nodeform",
+      "source": "./diogopaesdev--nodeform",
+      "description": "nodeform"
+    },
+    {
+      "name": "mintlify-atlas--docs-atlas-ea106f5d",
+      "source": "./mintlify-atlas--docs-atlas-ea106f5d",
+      "description": "docs-atlas-ea106f5d"
+    },
+    {
+      "name": "fmnepalisociety-dev--webapp",
+      "source": "./fmnepalisociety-dev--webapp",
+      "description": "Web-App for Nepali Society of Fargo Moorhead"
+    },
+    {
+      "name": "ccolosimo3--rostra-chat-app",
+      "source": "./ccolosimo3--rostra-chat-app",
+      "description": "Real-time chat app using WebSockets, FastAPI, TypeScript/React, and PostgreSQL."
+    },
+    {
+      "name": "ccolosimo3--rostra-chat-app",
+      "source": "./ccolosimo3--rostra-chat-app",
+      "description": "Real-time chat app using WebSockets, FastAPI, TypeScript/React, and PostgreSQL."
+    },
+    {
+      "name": "clebronrivera--praxismakesperfect",
+      "source": "./clebronrivera--praxismakesperfect",
+      "description": "PraxisMakesPerfect"
+    },
+    {
+      "name": "clebronrivera--praxismakesperfect",
+      "source": "./clebronrivera--praxismakesperfect",
+      "description": "PraxisMakesPerfect"
+    },
+    {
+      "name": "ablacon-studios--scribble",
+      "source": "./ablacon-studios--scribble",
+      "description": "A project that we hope we can finish. If we do, it'll be a dope drawing app."
+    },
+    {
+      "name": "tomwangowa--agent-skills",
+      "source": "./tomwangowa--agent-skills",
+      "description": "agent-skills"
+    },
+    {
+      "name": "noeinkan--f9-congresstrading",
+      "source": "./noeinkan--f9-congresstrading",
+      "description": "F9_CongressTrading"
+    },
+    {
+      "name": "cubicotech-gif--billoo-travel-management-system",
+      "source": "./cubicotech-gif--billoo-travel-management-system",
+      "description": "Billoo-Travel-Management-System"
+    },
+    {
+      "name": "bvstt1--powerlifting-cnn",
+      "source": "./bvstt1--powerlifting-cnn",
+      "description": "powerlifting-cnn"
+    },
+    {
+      "name": "ashitaorbis--historical-nanochat",
+      "source": "./ashitaorbis--historical-nanochat",
+      "description": "Time-locked language models trained on pre-cutoff historical texts using Karpathy's nanochat pipeline"
+    },
+    {
+      "name": "michaelalber--second-brain",
+      "source": "./michaelalber--second-brain",
+      "description": "AI-enhanced personal knowledge management system implementing Tiago Forte's Second Brain methodology \u2014 capture, organize, distill, and surface knowledge using local LLMs."
+    },
+    {
+      "name": "blck-snwmn--bg-transparent",
+      "source": "./blck-snwmn--bg-transparent",
+      "description": "Background transparent and align tool"
+    },
+    {
+      "name": "ainsley2007--osrs-clan-events",
+      "source": "./ainsley2007--osrs-clan-events",
+      "description": "osrs-clan-events"
+    },
+    {
+      "name": "iovisor-goodies--langchain-agent",
+      "source": "./iovisor-goodies--langchain-agent",
+      "description": "langchain-agent"
+    },
+    {
+      "name": "anindyoy--simple-mp",
+      "source": "./anindyoy--simple-mp",
+      "description": "simple_mp"
+    },
+    {
+      "name": "ripleyhhunter--situation-monitor",
+      "source": "./ripleyhhunter--situation-monitor",
+      "description": "Situation-Monitor"
+    },
+    {
+      "name": "nono8six--cir-cockpit",
+      "source": "./nono8six--cir-cockpit",
+      "description": "CIR-Cockpit"
+    },
+    {
+      "name": "seonghwapark--launchpad",
+      "source": "./seonghwapark--launchpad",
+      "description": "\ud83e\ude90 Star Wars \ud14c\ub9c8\uc758 \ud074\ub77c\uc6b0\ub4dc \ub3d9\uae30\ud654 \ud560\uc77c \uad00\ub9ac \uc571 - Firebase Auth + Realtime DB"
+    },
+    {
+      "name": "thehandsomebog--baobabcat-github-io",
+      "source": "./thehandsomebog--baobabcat-github-io",
+      "description": "Baobab Cat website hosting "
+    },
+    {
+      "name": "litdemon--coin-strategy-orchestrator",
+      "source": "./litdemon--coin-strategy-orchestrator",
+      "description": "Coin Strategy Orchestrator"
+    },
+    {
+      "name": "lucasdeekay--project-monitoring-backend",
+      "source": "./lucasdeekay--project-monitoring-backend",
+      "description": "project-monitoring-backend"
+    },
+    {
+      "name": "noeinkan--f9-congresstrading",
+      "source": "./noeinkan--f9-congresstrading",
+      "description": "F9_CongressTrading"
+    },
+    {
+      "name": "blondarb--opsamplehtml",
+      "source": "./blondarb--opsamplehtml",
+      "description": "Operational process management and documentation platform for managing standard operating procedures and clinical workflows. LIVE PRODUCTION"
+    },
+    {
+      "name": "michaelalber--second-brain",
+      "source": "./michaelalber--second-brain",
+      "description": "AI-enhanced personal knowledge management system implementing Tiago Forte's Second Brain methodology \u2014 capture, organize, distill, and surface knowledge using local LLMs."
+    },
+    {
+      "name": "curtisnewbie--miso-agent",
+      "source": "./curtisnewbie--miso-agent",
+      "description": "framework for miso & agentloop"
+    },
+    {
+      "name": "carlos-dev--ffmpeg-worker-fastify",
+      "source": "./carlos-dev--ffmpeg-worker-fastify",
+      "description": "ffmpeg-worker-fastify"
+    },
+    {
+      "name": "duksosleepy--staffreview",
+      "source": "./duksosleepy--staffreview",
+      "description": "staffreview"
+    },
+    {
+      "name": "philippe-arnd--journalvibecoded",
+      "source": "./philippe-arnd--journalvibecoded",
+      "description": "Journaling app Vibecoded using the Bmad Method along with Claude Code (4.5) and Gemini 3. The app is using a 4 sections method to structure your journaling and aims to provide insights through AI"
+    },
+    {
+      "name": "nono8six--cir-cockpit",
+      "source": "./nono8six--cir-cockpit",
+      "description": "CIR-Cockpit"
+    },
+    {
+      "name": "thehandsomebog--baobabcat-github-io",
+      "source": "./thehandsomebog--baobabcat-github-io",
+      "description": "Baobab Cat website hosting "
+    },
+    {
+      "name": "syamaz--blog",
+      "source": "./syamaz--blog",
+      "description": "https://blog.shunyamazaki.com/"
+    },
+    {
+      "name": "cmaidmentnh--nh-election-results",
+      "source": "./cmaidmentnh--nh-election-results",
+      "description": "NH Election Results Explorer - Interactive web app for analyzing NH election data 2016-2024"
+    },
+    {
+      "name": "voidnxsec--neoland",
+      "source": "./voidnxsec--neoland",
+      "description": "(Alpha phase, undergoing integration testing.) Definitive agent orchestration prioritizing low latency, low operating costs, better workflow alignment and synergy between entities, and observability s"
+    },
+    {
+      "name": "aquilaignis--algovictory",
+      "source": "./aquilaignis--algovictory",
+      "description": "AlgoVictory"
+    },
+    {
+      "name": "emsqrd--f1fantasyapp",
+      "source": "./emsqrd--f1fantasyapp",
+      "description": "f1fantasyapp"
+    },
+    {
+      "name": "grovetools--hooks",
+      "source": "./grovetools--hooks",
+      "description": "Claude hooks integration for Grove ecosystem"
+    },
+    {
+      "name": "anhquang296--nxblogs",
+      "source": "./anhquang296--nxblogs",
+      "description": "nxblogs"
+    },
+    {
+      "name": "tj0517--seaclouds-management-system",
+      "source": "./tj0517--seaclouds-management-system",
+      "description": "Seaclouds_management_system"
+    },
+    {
+      "name": "joshrobbinsuk--bl-fe",
+      "source": "./joshrobbinsuk--bl-fe",
+      "description": "bl-fe"
+    },
+    {
+      "name": "fisherkkk--inspire",
+      "source": "./fisherkkk--inspire",
+      "description": "\u4e2a\u4eba\u6280\u672f\u77e5\u8bc6\u5e93"
+    },
+    {
+      "name": "thehareshbhatia-tech--performsat",
+      "source": "./thehareshbhatia-tech--performsat",
+      "description": "Virtual SAT Platform"
     }
   ]
 }
