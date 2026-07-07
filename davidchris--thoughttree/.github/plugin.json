@@ -1,0 +1,9 @@
+{
+  "name": "davidchris--thoughttree",
+  "displayName": "thoughttree",
+  "description": "A graph-based conversation tool for LLMs. Think mind-map meets chat interface: branch conversations, explore ideas in parallel, and keep your research organized as a DAG rather than linear chat thread",
+  "version": "1.0.0",
+  "author": "davidchris",
+  "homepage": "https://github.com/davidchris/thoughttree",
+  "skills": []
+}
