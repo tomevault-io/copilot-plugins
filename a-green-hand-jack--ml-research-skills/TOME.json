@@ -4,7 +4,7 @@
   "repo": "ml-research-skills",
   "description": "Use skills to manage the project lifecycle",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/a-green-hand-jack/ml-research-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T08:37:11Z"
+  "distributed_at": "2026-07-07T08:38:51Z"
 }
