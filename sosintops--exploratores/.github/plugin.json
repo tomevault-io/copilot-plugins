@@ -1,0 +1,9 @@
+{
+  "name": "sosintops--exploratores",
+  "displayName": "Exploratores",
+  "description": "Modular browser-based OSINT toolkit \u2014 curated search tools, PII Redactor, multi-country IBAN analysis and embedded CyberChef. No backend required.",
+  "version": "1.0.0",
+  "author": "SOsintOps",
+  "homepage": "https://github.com/SOsintOps/Exploratores",
+  "skills": []
+}
