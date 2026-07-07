@@ -1,181 +1,119 @@
-## visual-check-rules
+## vite-nextjs-compat
 
-> 页面完成后自动视觉检查规范
+> Vite/Next.js 双模式开发兼容规则 - 开发 apps/web 时应用
 
 
-# 页面可视化检查规范
+# Vite/Next.js 双模式兼容开发
 
-## 触发时机
+本项目支持两种开发模式：
+- **Vite 模式**：`pnpm dev:vite` - 秒级启动，用于快速开发
+- **Next.js 模式**：`pnpm dev` - 完整功能，用于生产验证
 
-当以下条件**任一**满足时，AI 必须主动执行可视化截图检查：
+## 兼容性原则
 
-1. **新页面/组件完成**：新增或大幅修改了 page/component 并涉及 UI 变更
-2. **交互流程完成**：完成了涉及多步骤用户交互的功能（如购物车流程、结账流程）
-3. **用户要求**：用户说"截图检查"、"视觉检查"、"看看效果"、"验证页面"
+### 1. 路由导航
 
-## 执行方法
+使用 `next/navigation` 的 hooks，兼容层会自动处理：
 
-使用 puppeteer-core 在本机 Chrome 中截图，然后用 Read 工具读取图片分析。
+```typescript
+// ✅ 正确 - 两种模式都支持
+import { useRouter, useParams, useSearchParams, usePathname } from 'next/navigation';
 
-### 脚本模板
+const router = useRouter();
+router.push('/orders');
+router.replace('/cart');
+router.back();
+```
 
-在 `/tmp/` 下创建 `.mjs` 脚本，遵循以下模式：
+### 2. 链接组件
 
-```javascript
-import puppeteer from '/tmp/node_modules/puppeteer-core/lib/esm/puppeteer/puppeteer-core.js';
+使用 `next/link`，兼容层会自动转换：
 
-const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const SCREENSHOT_DIR = '/tmp/visual-check-screenshots';
+```typescript
+// ✅ 正确
+import Link from 'next/link';
+<Link href="/product/abc">查看商品</Link>
 
-// 根据实际场景选择端口：
-// - localhost:3000 = hosted 模式 (SaaS)
-// - localhost:3002 = standalone 模式 (独立站)
-const BASE_URL = 'http://localhost:3002';
+// ❌ 避免直接使用 react-router-dom
+import { Link } from 'react-router-dom';  // 不要这样做
+```
 
-async function run() {
-  const { mkdirSync } = await import('fs');
-  mkdirSync(SCREENSHOT_DIR, { recursive: true });
+### 3. 图片组件
 
-  const browser = await puppeteer.launch({
-    executablePath: CHROME_PATH,
-    headless: 'new',
-    args: ['--no-sandbox', '--window-size=1440,900'],
-    defaultViewport: { width: 1440, height: 900 },
-  });
+优先使用普通 `img` 标签或自定义组件，避免依赖 Next.js 图片优化：
 
-  const page = await browser.newPage();
+```typescript
+// ✅ 推荐 - 两种模式都兼容
+<img src={imageUrl} alt="product" loading="lazy" />
 
-  try {
-    // Desktop 截图...
-    // Mobile 截图（375x812 = iPhone SE/13 mini）...
-  } finally {
-    await browser.close();
-  }
+// ⚠️ 可用但 Vite 下无优化
+import Image from 'next/image';
+<Image src={imageUrl} alt="product" width={200} height={200} />
+```
+
+### 4. 动态路由参数
+
+Next.js 用 `[param]`，React Router 用 `:param`，编写代码时使用 Next.js 风格：
+
+```typescript
+// 文件路径: app/orders/[orderId]/page.tsx
+// Vite 会自动映射到 /orders/:orderId
+
+export default function OrderPage() {
+  const { orderId } = useParams();  // 两种模式都能获取
+  // ...
 }
-
-run().catch(console.error);
 ```
 
-### 前置条件
+### 5. 'use client' 指令
 
-- puppeteer-core 安装在 `/tmp/node_modules/`（首次需 `cd /tmp && npm install puppeteer-core`）
-- 前端 dev server 正在运行（检查 terminals 或 `curl -s -o /dev/null -w '%{http_code}' http://localhost:3002`）
-- 如果需要登录状态，脚本中添加 Cookie 注入或 localStorage 设置
+保留 `'use client'` 指令，Vite 会忽略它，Next.js 需要它：
 
-### 截图命名规范
+```typescript
+'use client';  // ✅ 保留，不影响 Vite
 
-`{序号}-{视口}-{页面/动作}.png`，例如：
-- `01-desktop-homepage.png`
-- `02-desktop-product-detail.png`
-- `03-desktop-after-add-to-cart.png`
-- `04-mobile-product-detail.png`
-
-## 分析检查清单
-
-读取截图后，按以下维度审查：
-
-### 1. 布局与间距
-- [ ] 组件对齐正确，无明显错位
-- [ ] 间距符合 4px/8px 网格系统
-- [ ] 无内容溢出或被截断
-
-### 2. 颜色与主题
-- [ ] 使用了正确的 design tokens（bg-primary, bg-destructive 等）
-- [ ] 同类元素颜色一致（如所有 badge 同色）
-- [ ] 暗色/亮色主题下可读性良好
-
-### 3. 交互反馈
-- [ ] 按钮点击后有状态变化（loading / success / disabled）
-- [ ] Badge 数量实时更新
-- [ ] 空状态有引导（不是空白页）
-
-### 4. 移动端适配
-- [ ] 触控目标 >= 44x44px
-- [ ] 文字可读（>=14px body, >=12px caption）
-- [ ] 底部导航栏不遮挡内容
-- [ ] 无水平滚动
-
-### 5. 匿名用户体验（独立站关键）
-- [ ] 公共页面（首页、商品、购物车）无需登录即可访问
-- [ ] 购物车图标对所有用户可见
-- [ ] 需要登录的操作有明确提示而非强制跳转
-
-### 6. 电商 UX 规范
-- [ ] 价格显示格式一致（$X.XX）
-- [ ] 库存/可用性清晰标注
-- [ ] CTA 按钮突出（Add to Cart 用主色）
-- [ ] 商品图片有 fallback（图片加载失败时显示占位符）
-
-## 报告格式
-
-分析完成后，输出以下格式的报告：
-
-```
-## 可视化检查报告
-
-### 通过项
-- [描述]
-
-### 需改进
-- **[优先级]** [问题描述] — [建议修复方式]
-
-### 后续优化（非阻塞）
-- [描述]
+import { useState } from 'react';
+// ...
 ```
 
-## Playwright 视觉回归测试（E2E）
+### 6. 服务端功能
 
-除了 puppeteer 临时截图检查外，项目有正式的 Playwright 视觉回归测试：
+以下 Next.js 功能在 Vite 模式下不可用，仅用于生产环境：
 
-### 测试文件
+- `metadata` 导出（SEO）
+- `generateStaticParams`（静态生成）
+- Server Actions
+- Route Handlers (`app/api/`)
 
-| 文件 | 用途 |
-|---|---|
-| `apps/web/e2e/desktop-visual.spec.ts` | 桌面端视觉回归（1280×720） |
-| `apps/web/e2e/mobile-visual.spec.ts` | 移动端视觉回归（Pixel 5） |
-| `apps/web/e2e/ux-audit.spec.ts` | 桌面端 UX 审计（深度检查） |
-| `apps/web/e2e/mobile-ux-audit.spec.ts` | 移动端 UX 审计（深度检查） |
-
-### 测试分组
-
-测试分为两组，确保公开和已登录页面都有覆盖：
-
-- **Public Pages** — 无需登录：首页、市场、搜索、登录页、仲裁者列表
-- **Authenticated Pages** — 需登录态：购物车、结账、订单、钱包、设置、聊天等
-
-### E2E Fixtures
-
-| 文件 | 职责 |
-|---|---|
-| `e2e/fixtures/auth.ts` | `performCasdoorLogin` + `completeOnboardingIfNeeded` + `loginAndSetup` |
-| `e2e/fixtures/mock-api-routes.ts` | Mock API 响应（订单/通知/搜索/商品详情/地址等），确保页面有数据 |
-| `e2e/fixtures/seed-visual-data.ts` | 创建测试商品 + 注入购物车 localStorage 数据 |
-
-### 运行命令
-
-```bash
-# 桌面端视觉测试
-pnpm --filter @mobazha/web exec playwright test desktop-visual --project=chromium
-
-# 移动端视觉测试
-pnpm --filter @mobazha/web exec playwright test mobile-visual --project="Mobile Chrome"
-
-# 更新快照
-pnpm --filter @mobazha/web exec playwright test desktop-visual --update-snapshots
+```typescript
+// ✅ 可以写，Vite 下会被忽略
+export const metadata = {
+  title: 'My Page',
+};
 ```
 
-### Mock API 最佳实践
+## 添加新页面
 
-- Mock 函数使用 `(route, request)` 签名，仅拦截 GET 请求
-- 非 GET 请求 `return route.fallback()` 让其通过
-- Mock 数据定义在 `mock-api-routes.ts` 顶部，方便维护
+1. 在 `app/` 目录创建 Next.js 风格的页面
+2. 在 `src/routes.tsx` 添加对应的 Vite 路由映射
 
-## 已知约束
+```typescript
+// routes.tsx 示例
+{ path: '/new-page', element: lazyPage(() => import('./app/new-page/page')) },
+{ path: '/new-page/:id', element: lazyPage(() => import('./app/new-page/[id]/page')) },
+```
 
-- Headless Chrome 中模态框/Drawer 动画可能需要额外等待（`sleep(1000)`）
-- Sheet/Dialog 组件需要先关闭上层模态框才能交互
-- 截图不包含鼠标 hover 状态，需单独测试
-- 脚本运行需要 `required_permissions: ["all"]`
+## 快速参考
+
+| 功能 | 使用方式 | Vite | Next.js |
+|------|---------|------|---------|
+| 路由跳转 | `useRouter().push()` | ✅ | ✅ |
+| 路由参数 | `useParams()` | ✅ | ✅ |
+| 查询参数 | `useSearchParams()` | ✅ | ✅ |
+| 链接 | `<Link href="...">` | ✅ | ✅ |
+| 图片 | `<img>` 或 `<Image>` | ✅ | ✅ |
+| SSR/SSG | - | ❌ | ✅ |
+| API Routes | `/api/*` 代理 | ✅ | ✅ |
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
