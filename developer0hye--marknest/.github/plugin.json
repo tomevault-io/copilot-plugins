@@ -1,0 +1,9 @@
+{
+  "name": "developer0hye--marknest",
+  "displayName": "marknest",
+  "description": "Markdown to PDF converter with Mermaid diagrams, LaTeX math, themes, and batch conversion. CLI + WASM.",
+  "version": "1.0.0",
+  "author": "developer0hye",
+  "homepage": "https://github.com/developer0hye/marknest",
+  "skills": []
+}
