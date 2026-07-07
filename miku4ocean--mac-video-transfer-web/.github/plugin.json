@@ -1,0 +1,9 @@
+{
+  "name": "miku4ocean--mac-video-transfer-web",
+  "displayName": "mac-video-transfer-web",
+  "description": "\u7dda\u4e0a\u5f71\u7247\u58d3\u7e2e\u5de5\u5177 - Browser-based video compression using FFmpeg WASM",
+  "version": "1.0.0",
+  "author": "miku4ocean",
+  "homepage": "https://github.com/miku4ocean/mac-video-transfer-web",
+  "skills": []
+}
