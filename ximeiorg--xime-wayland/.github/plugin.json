@@ -1,0 +1,9 @@
+{
+  "name": "ximeiorg--xime-wayland",
+  "displayName": "xime-wayland",
+  "description": "\u4e00\u4e2a\u5f00\u7bb1\u5373\u7528\u7684 Linux \u8f93\u5165\u6cd5,\u57fa\u4e8e Rime \u4e0e Rust \u5b9e\u73b0\u3002",
+  "version": "1.0.0",
+  "author": "ximeiorg",
+  "homepage": "https://github.com/ximeiorg/xime-wayland",
+  "skills": []
+}
