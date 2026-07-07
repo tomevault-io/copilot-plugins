@@ -1,9 +1,9 @@
 {
   "name": "traverse-framework--traverse",
-  "displayName": "Traverse",
+  "displayName": "traverse",
   "description": "Contract-driven runtime for portable business capabilities \u2014 spec-governed, WASM-first, composable across browser, edge, cloud, and AI.",
   "version": "1.0.0",
   "author": "traverse-framework",
-  "homepage": "https://github.com/traverse-framework/Traverse",
+  "homepage": "https://github.com/traverse-framework/traverse",
   "skills": []
 }
