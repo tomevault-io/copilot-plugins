@@ -1,105 +1,63 @@
-## brand-theme-rules
+## code-reuse-rules
 
-> 品牌区域主题化规则 — Hero、Landing Page、Store Section 等品牌展示区域必须使用主题变量
+> 代码复用与架构一致性规则 - 确保跨平台统一客户端的代码质量
 
 
-# 品牌区域主题化规则
+# 代码复用与架构一致性规则
 
 ## 核心原则
 
-品牌展示区域（Hero、Landing Page、营销区块）的**装饰性/氛围性色彩必须跟随主题**。品牌的一致性来自布局、排版、动效，而非固定的某一个颜色。
+1. **单一数据源** - 相同逻辑只存在一处
+2. **分层架构** - 业务逻辑与 UI 分离
+3. **复用优先** - 使用 `@mobazha/core` 中的共享代码
 
-## 严格要求
+## 架构分层
 
-### 渐变背景
-```tsx
-// ❌ 禁止硬编码渐变
-<section className="bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900">
-
-// ✅ 使用 --hero-* CSS 变量
-<section className="bg-gradient-to-br from-[var(--hero-gradient-from)] via-[var(--hero-gradient-via)] to-[var(--hero-gradient-to)]">
+```
+apps/web          → UI 组件层（纯展示，通过 props 接收数据）
+                     ↑ 使用
+@mobazha/core     → hooks → utils/transforms → types → services/api
 ```
 
-### 强调色/光晕
-```tsx
-// ❌ 禁止
-<div className="bg-emerald-500/20 rounded-full blur-3xl" />
-<span className="text-emerald-300">标签</span>
+## 严格禁止
 
-// ✅ 使用变量
-<div className="bg-[var(--hero-glow)]/20 rounded-full blur-3xl" />
-<span className="text-[var(--hero-accent)]">标签</span>
+1. **禁止在 `apps/` 中定义业务类型**（Props 除外）→ 移到 `@mobazha/core/types/`
+2. **禁止在 `apps/` 中定义转换函数** → 移到 `@mobazha/core/utils/transforms/`
+3. **禁止 UI 组件直接调用 API** → 使用 hooks
+4. **禁止业务逻辑在多处实现** → 合并到 core
+
+```tsx
+// ❌ 错误
+interface DisplayOrder { ... }  // 应在 @mobazha/core/types/
+function transformCoreOrder() { ... }  // 应在 @mobazha/core/utils/
+const order = await ordersApi.getOrder(id);  // 应使用 hooks
+
+// ✅ 正确
+import type { DisplayOrder } from '@mobazha/core';
+import { transformCoreOrder } from '@mobazha/core';
+const { displayOrder } = useOrderDetail(orderId, viewingContext);
 ```
 
-### 渐变文字
-```tsx
-// ❌ 禁止
-<span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+## 代码位置规范
 
-// ✅ 使用变量
-<span className="bg-gradient-to-r from-[var(--hero-accent)] to-[var(--hero-accent-secondary)] bg-clip-text text-transparent">
-```
-
-## 可用 CSS 变量
-
-| 变量 | 用途 |
+| 类别 | 位置 |
 |------|------|
-| `--hero-gradient-from` | 渐变起始色（通常为深色） |
-| `--hero-gradient-via` | 渐变中间色（主题特色色） |
-| `--hero-gradient-to` | 渐变结束色（通常为深色） |
-| `--hero-accent` | 主强调色（徽章、图标、渐变文字起始） |
-| `--hero-accent-secondary` | 辅强调色（渐变文字结束） |
-| `--hero-glow` | 光晕/阴影色 |
+| API/UI 类型 | `packages/core/types/` |
+| 数据转换 | `packages/core/utils/transforms/` |
+| 状态映射 | `packages/core/utils/` |
+| API 调用 | `packages/core/services/api/` |
+| 业务 Hooks | `packages/core/hooks/` |
+| 组件 Props | 组件文件内 |
 
-每套主题在 `globals.css` 中定义了不同的值，无需手动处理主题切换。
+## 检查清单
 
-## Store Section 变量（PG-201 — StoreThemeProvider 注入）
+- [ ] `apps/` 中无 `interface`/`type` 定义（Props 除外）
+- [ ] `apps/` 中无 `transform*`/`map*` 函数
+- [ ] 组件不直接调用 `xxxApi.*`
+- [ ] 无重复业务逻辑
+- [ ] 上下文（如 `viewingContext`）正确传递
 
-Store Section 组件使用 `--store-*` 变量系列，由 `StoreThemeProvider` 从卖家的 StoreConfig.theme 生成。
-这些变量与全局 `--hero-*` 变量是**独立的两套体系**，分别用于不同场景。
-
-| 变量 | 用途 | 来源 |
-|------|------|------|
-| `--store-primary` | 卖家品牌主色 | `StoreConfig.theme.primaryColor` |
-| `--store-secondary` | 辅助色 | `StoreConfig.theme.secondaryColor` |
-| `--store-accent` | 强调色 | `StoreConfig.theme.accentColor` |
-| `--store-on-primary` | primary 上的可读文字色（自动计算，WCAG AA） | sRGB 亮度计算 |
-| `--store-on-secondary` | secondary 上的可读文字色 | 同上 |
-| `--store-on-accent` | accent 上的可读文字色 | 同上 |
-| `--store-font` | 卖家选择的字体 | `StoreConfig.theme.fontFamily` → font-family 映射 |
-| `--store-radius` | 圆角档位 | `StoreConfig.theme.borderRadius` → px 映射 |
-
-### 使用方式
-
-```tsx
-// ✅ Section 组件中使用 store 变量
-<h2 className="text-[var(--store-on-primary)]" style={{ fontFamily: 'var(--store-font)' }}>
-  Section Title
-</h2>
-<div className="bg-[var(--store-primary)] rounded-[var(--store-radius)]">
-  品牌色背景
-</div>
-
-// ❌ 禁止在 Section 中使用全局主题色或硬编码
-<h2 className="text-primary">Not this</h2>
-<div className="bg-emerald-500">Not this</div>
-```
-
-### `--hero-*` vs `--store-*` 适用范围
-
-| 变量体系 | 适用组件 | 数据来源 |
-|---|---|---|
-| `--hero-*` | SaaS 首页 Hero、Landing Page | 全局 theme 定义（`globals.css`） |
-| `--store-*` | Store Section 组件（品牌化区域） | 卖家 StoreConfig.theme（运行时注入） |
-
-两套变量不冲突。Store Section 渲染在 `StoreThemeProvider` 子树中，不影响全局主题。
-
-## 允许的例外
-
-- Logo SVG 图形：可使用固定品牌色
-- `text-white` / `text-white/*`：深色背景上的文字
-- `bg-white/*`：毛玻璃效果（`bg-white/10 backdrop-blur-sm`）
-- `border-white/*`：深色背景上的分隔线
+**记住**：如果你在复制粘贴代码，停下来思考是否应该提取到 `@mobazha/core`。
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
