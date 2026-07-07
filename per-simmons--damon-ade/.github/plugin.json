@@ -1,0 +1,9 @@
+{
+  "name": "per-simmons--damon-ade",
+  "displayName": "damon-ade",
+  "description": "ADE \u2014 an agentic development environment for macOS. A roster of persistent coding agents, each with its own repo, runtime CLI, and memory.",
+  "version": "1.0.0",
+  "author": "per-simmons",
+  "homepage": "https://github.com/per-simmons/damon-ade",
+  "skills": []
+}
