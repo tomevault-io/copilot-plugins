@@ -156009,6 +156009,11 @@
       "description": "RoboDojo"
     },
     {
+      "name": "pablogdcr--daily-crumple",
+      "source": "./pablogdcr--daily-crumple",
+      "description": "daily-crumple"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -181094,6 +181099,11 @@
       "description": "pocs"
     },
     {
+      "name": "arjun988--blender-skills",
+      "source": "./arjun988--blender-skills",
+      "description": "23 specialist Blender skills for Claude Code, Cursor & Kiro - MCP-powered production pipeline from blockout to engine export."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -204037,6 +204047,11 @@
       "name": "epilande--ccmux",
       "source": "./epilande--ccmux",
       "description": "\ud83d\udd2e Track all your AI coding agents (Claude Code, Codex, Cursor, ...) in tmux and jump to the one that needs you"
+    },
+    {
+      "name": "shure-dev--small-vlm-video-analysis",
+      "source": "./shure-dev--small-vlm-video-analysis",
+      "description": "\u4f5c\u696d\u52d5\u753b\u304c\u624b\u9806\u66f8\uff08SOP\uff09\u3069\u304a\u308a\u304b\u3092\u3001\u30ed\u30fc\u30ab\u30eb\u306e\u5c0f\u578bVLM\uff08Qwen3-VL / Apple Silicon\uff09\u3060\u3051\u3067\u30c1\u30a7\u30c3\u30af\u3059\u308b\u30c7\u30e2"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -259832,6 +259847,16 @@
       "name": "yuntaoovo--csswitch-linux",
       "source": "./yuntaoovo--csswitch-linux",
       "description": "CS-Switch\u7684 Linux \u79fb\u690d\u7248\uff0c\u589e\u52a0\u4e86deb\u3001rpm\u5305\u652f\u6301"
+    },
+    {
+      "name": "x-school-academy--ai-dev-swarm",
+      "source": "./x-school-academy--ai-dev-swarm",
+      "description": "A swarm of AI developers building your product"
+    },
+    {
+      "name": "x-school-academy--ai-dev-swarm",
+      "source": "./x-school-academy--ai-dev-swarm",
+      "description": "A swarm of AI developers building your product"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -383532,6 +383557,181 @@
       "name": "thehareshbhatia-tech--performsat",
       "source": "./thehareshbhatia-tech--performsat",
       "description": "Virtual SAT Platform"
+    },
+    {
+      "name": "ishikawatakashi-create--nfc",
+      "source": "./ishikawatakashi-create--nfc",
+      "description": "NFC"
+    },
+    {
+      "name": "design-frontend-projects--react-ecommerce-admin",
+      "source": "./design-frontend-projects--react-ecommerce-admin",
+      "description": "react-ecommerce-admin"
+    },
+    {
+      "name": "cfmmxcompliance--logi",
+      "source": "./cfmmxcompliance--logi",
+      "description": "logi"
+    },
+    {
+      "name": "lightning-goats--cl-mycelium",
+      "source": "./lightning-goats--cl-mycelium",
+      "description": "cl-mycelium"
+    },
+    {
+      "name": "t45k--github-diary",
+      "source": "./t45k--github-diary",
+      "description": "github-diary"
+    },
+    {
+      "name": "t45k--github-diary",
+      "source": "./t45k--github-diary",
+      "description": "github-diary"
+    },
+    {
+      "name": "hrimfaxi--ktuctl-go",
+      "source": "./hrimfaxi--ktuctl-go",
+      "description": "tutuicmptunnel-kmod ktuctl written in Go, featuring a built-in TUI interface"
+    },
+    {
+      "name": "vittodecba--tesis",
+      "source": "./vittodecba--tesis",
+      "description": "Tesis"
+    },
+    {
+      "name": "tomyf-dev--portfolio",
+      "source": "./tomyf-dev--portfolio",
+      "description": "tomyf.dev"
+    },
+    {
+      "name": "sonaljay--taru-villas",
+      "source": "./sonaljay--taru-villas",
+      "description": "Taru-Villas"
+    },
+    {
+      "name": "mattemoore--monogame-learning",
+      "source": "./mattemoore--monogame-learning",
+      "description": "Learning XNA/MonoGame"
+    },
+    {
+      "name": "noguchisakihand-source--apartment-dashboard",
+      "source": "./noguchisakihand-source--apartment-dashboard",
+      "description": "\u6771\u4eac\u90fd\u4e2d\u53e4\u30de\u30f3\u30b7\u30e7\u30f3\u76f8\u5834\u6bd4\u8f03\u30c0\u30c3\u30b7\u30e5\u30dc\u30fc\u30c9"
+    },
+    {
+      "name": "carlomicieli--rusty-shed",
+      "source": "./carlomicieli--rusty-shed",
+      "description": "The ultimate companion app for scale modelers and collectors"
+    },
+    {
+      "name": "carlomicieli--rusty-shed",
+      "source": "./carlomicieli--rusty-shed",
+      "description": "The ultimate companion app for scale modelers and collectors"
+    },
+    {
+      "name": "nesdevr--minley-budget",
+      "source": "./nesdevr--minley-budget",
+      "description": "minley-budget"
+    },
+    {
+      "name": "jrusco--monitor-comisiones-bancarias",
+      "source": "./jrusco--monitor-comisiones-bancarias",
+      "description": "A easy-to-read webapp to aggregate and compare payment processing fees from the most popular Argentinian financial entities"
+    },
+    {
+      "name": "kingprogrammer07--mandarin-web",
+      "source": "./kingprogrammer07--mandarin-web",
+      "description": "mandarin_web"
+    },
+    {
+      "name": "omeroth--corpus",
+      "source": "./omeroth--corpus",
+      "description": "corpus"
+    },
+    {
+      "name": "miku4ocean--mac-video-transfer-web",
+      "source": "./miku4ocean--mac-video-transfer-web",
+      "description": "\u7dda\u4e0a\u5f71\u7247\u58d3\u7e2e\u5de5\u5177 - Browser-based video compression using FFmpeg WASM"
+    },
+    {
+      "name": "arete-consortium--rebellion",
+      "source": "./arete-consortium--rebellion",
+      "description": "ARCHIVED \u2014 Moved to AreteDriver/arcade/eve-rebellion"
+    },
+    {
+      "name": "robopony2k--firefighterai",
+      "source": "./robopony2k--firefighterai",
+      "description": "FIreFighterAI"
+    },
+    {
+      "name": "caistech--deal-findrs",
+      "source": "./caistech--deal-findrs",
+      "description": "AI-powered property deal assessment \u2014 voice coaches + analysis on a shared property-intelligence substrate."
+    },
+    {
+      "name": "m1yon--dotfiles",
+      "source": "./m1yon--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "jindrichmynarz--localquiz",
+      "source": "./jindrichmynarz--localquiz",
+      "description": "Data-driven multiplayer quiz engine"
+    },
+    {
+      "name": "trini0n--ron-group-buy",
+      "source": "./trini0n--ron-group-buy",
+      "description": "ron-group-buy"
+    },
+    {
+      "name": "vixal-os--opus-deipseek",
+      "source": "./vixal-os--opus-deipseek",
+      "description": "A cost-effective Discord bot powered by multiple LLMs with smart context management.  Features: \ud83e\uddf5 Thread-based conversations \ud83d\udcf7 Image understanding \ud83d\ude00 Emoji reactions \ud83d\udcce File attachments \ud83e\udde0 Two-tier memor"
+    },
+    {
+      "name": "jeffsharris--jeffharr-is",
+      "source": "./jeffsharris--jeffharr-is",
+      "description": "Personal website"
+    },
+    {
+      "name": "kingprogrammer07--mandarin-web",
+      "source": "./kingprogrammer07--mandarin-web",
+      "description": "mandarin_web"
+    },
+    {
+      "name": "miku4ocean--mac-video-transfer-web",
+      "source": "./miku4ocean--mac-video-transfer-web",
+      "description": "\u7dda\u4e0a\u5f71\u7247\u58d3\u7e2e\u5de5\u5177 - Browser-based video compression using FFmpeg WASM"
+    },
+    {
+      "name": "shahmaran0207--digital-twin-city-infrastructure-viewer",
+      "source": "./shahmaran0207--digital-twin-city-infrastructure-viewer",
+      "description": "3D \uacf5\uac04 \uc704\uc5d0 \uc2dc\uc124\ubb3c / \uc7a5\ube44 / \uc778\ud504\ub77c \uc815\ubcf4\ub97c \uc2dc\uac01\ud654\ud558\uace0, \ud544\ud130\ub9c1 + \uc0c1\uc138\uc870\ud68c + \uc704\uae30\ub808\ubca8 \uc0c9\uc0c1 \ud45c\uc2dc \uc815\ub3c4\uae4c\uc9c0 \uc81c\uacf5\ud558\ub294 \uc11c\ube44\uc2a4"
+    },
+    {
+      "name": "mruwnik--media-server",
+      "source": "./mruwnik--media-server",
+      "description": "My Raspberry Pi setup"
+    },
+    {
+      "name": "masterprompt--caseykerr-dev",
+      "source": "./masterprompt--caseykerr-dev",
+      "description": "My personal site. Built with mass instead of velocity because $E=mc^2$ hits different."
+    },
+    {
+      "name": "spinbris--cblanalytics-blog",
+      "source": "./spinbris--cblanalytics-blog",
+      "description": "a blog about whatever seems useful from cblanalytics"
+    },
+    {
+      "name": "davidchris--thoughttree",
+      "source": "./davidchris--thoughttree",
+      "description": "A graph-based conversation tool for LLMs. Think mind-map meets chat interface: branch conversations, explore ideas in parallel, and keep your research organized as a DAG rather than linear chat thread"
+    },
+    {
+      "name": "granadev--granaevo",
+      "source": "./granadev--granaevo",
+      "description": "Sistema de Controle Financeiro"
     }
   ]
 }
