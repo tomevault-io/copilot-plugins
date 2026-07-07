@@ -7,11 +7,11 @@ Dynamic NetBox CLI generated from the live OpenAPI schema.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thomaschristory/netbox-super-cli](https://github.com/thomaschristory/netbox-super-cli).
+Original source: `CLAUDE.md` in [thomaschristory/netbox-super-cli](https://github.com/thomaschristory/netbox-super-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
