@@ -4,7 +4,7 @@
   "repo": "freelens-gateway-api-extension",
   "description": "Freelens Gateway API Extension",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/freelensapp/freelens-gateway-api-extension",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T00:53:43Z"
+  "distributed_at": "2026-07-07T01:06:26Z"
 }
