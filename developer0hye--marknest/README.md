@@ -7,11 +7,11 @@ Markdown to PDF converter with Mermaid diagrams, LaTeX math, themes, and batch c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [developer0hye/marknest](https://github.com/developer0hye/marknest).
+Original source: `CLAUDE.md` in [developer0hye/marknest](https://github.com/developer0hye/marknest).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
