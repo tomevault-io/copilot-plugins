@@ -1,119 +1,40 @@
-## vite-nextjs-compat
+## vite-routes-sync
 
-> Vite/Next.js 双模式开发兼容规则 - 开发 apps/web 时应用
+> 提醒同步 Vite 路由配置 - 创建或移动页面时应用
 
 
-# Vite/Next.js 双模式兼容开发
+# Vite 路由同步提醒
 
-本项目支持两种开发模式：
-- **Vite 模式**：`pnpm dev:vite` - 秒级启动，用于快速开发
-- **Next.js 模式**：`pnpm dev` - 完整功能，用于生产验证
+当在 `apps/web/src/app/` 目录下创建、删除或移动页面时，需要同步更新 Vite 路由配置。
 
-## 兼容性原则
+## 创建新页面时
 
-### 1. 路由导航
-
-使用 `next/navigation` 的 hooks，兼容层会自动处理：
+在 `src/routes.tsx` 添加对应路由：
 
 ```typescript
-// ✅ 正确 - 两种模式都支持
-import { useRouter, useParams, useSearchParams, usePathname } from 'next/navigation';
+// 示例：创建 app/example/page.tsx 后
+{ path: '/example', element: lazyPage(() => import('./app/example/page')) },
 
-const router = useRouter();
-router.push('/orders');
-router.replace('/cart');
-router.back();
+// 动态路由：创建 app/example/[id]/page.tsx 后
+{ path: '/example/:id', element: lazyPage(() => import('./app/example/[id]/page')) },
 ```
 
-### 2. 链接组件
+## 路径转换规则
 
-使用 `next/link`，兼容层会自动转换：
+| Next.js 路径 | React Router 路径 |
+|-------------|------------------|
+| `app/foo/page.tsx` | `/foo` |
+| `app/foo/[id]/page.tsx` | `/foo/:id` |
+| `app/foo/[...slug]/page.tsx` | `/foo/*` |
+| `app/foo/bar/page.tsx` | `/foo/bar` |
 
-```typescript
-// ✅ 正确
-import Link from 'next/link';
-<Link href="/product/abc">查看商品</Link>
+## 删除页面时
 
-// ❌ 避免直接使用 react-router-dom
-import { Link } from 'react-router-dom';  // 不要这样做
-```
+从 `src/routes.tsx` 移除对应路由条目。
 
-### 3. 图片组件
+## 位置
 
-优先使用普通 `img` 标签或自定义组件，避免依赖 Next.js 图片优化：
-
-```typescript
-// ✅ 推荐 - 两种模式都兼容
-<img src={imageUrl} alt="product" loading="lazy" />
-
-// ⚠️ 可用但 Vite 下无优化
-import Image from 'next/image';
-<Image src={imageUrl} alt="product" width={200} height={200} />
-```
-
-### 4. 动态路由参数
-
-Next.js 用 `[param]`，React Router 用 `:param`，编写代码时使用 Next.js 风格：
-
-```typescript
-// 文件路径: app/orders/[orderId]/page.tsx
-// Vite 会自动映射到 /orders/:orderId
-
-export default function OrderPage() {
-  const { orderId } = useParams();  // 两种模式都能获取
-  // ...
-}
-```
-
-### 5. 'use client' 指令
-
-保留 `'use client'` 指令，Vite 会忽略它，Next.js 需要它：
-
-```typescript
-'use client';  // ✅ 保留，不影响 Vite
-
-import { useState } from 'react';
-// ...
-```
-
-### 6. 服务端功能
-
-以下 Next.js 功能在 Vite 模式下不可用，仅用于生产环境：
-
-- `metadata` 导出（SEO）
-- `generateStaticParams`（静态生成）
-- Server Actions
-- Route Handlers (`app/api/`)
-
-```typescript
-// ✅ 可以写，Vite 下会被忽略
-export const metadata = {
-  title: 'My Page',
-};
-```
-
-## 添加新页面
-
-1. 在 `app/` 目录创建 Next.js 风格的页面
-2. 在 `src/routes.tsx` 添加对应的 Vite 路由映射
-
-```typescript
-// routes.tsx 示例
-{ path: '/new-page', element: lazyPage(() => import('./app/new-page/page')) },
-{ path: '/new-page/:id', element: lazyPage(() => import('./app/new-page/[id]/page')) },
-```
-
-## 快速参考
-
-| 功能 | 使用方式 | Vite | Next.js |
-|------|---------|------|---------|
-| 路由跳转 | `useRouter().push()` | ✅ | ✅ |
-| 路由参数 | `useParams()` | ✅ | ✅ |
-| 查询参数 | `useSearchParams()` | ✅ | ✅ |
-| 链接 | `<Link href="...">` | ✅ | ✅ |
-| 图片 | `<img>` 或 `<Image>` | ✅ | ✅ |
-| SSR/SSG | - | ❌ | ✅ |
-| API Routes | `/api/*` 代理 | ✅ | ✅ |
+路由配置文件：`apps/web/src/routes.tsx`
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
