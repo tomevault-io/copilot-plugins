@@ -1,0 +1,9 @@
+{
+  "name": "tokinx--one-api-workers",
+  "displayName": "one-api-workers",
+  "description": "A distributed, low-latency, and high-performance AI unified gateway based on Cloudflare Workers, supporting multi-channel management, load balancing, usage statistics, and tracking.",
+  "version": "1.0.0",
+  "author": "Tokinx",
+  "homepage": "https://github.com/Tokinx/one-api-workers",
+  "skills": []
+}
