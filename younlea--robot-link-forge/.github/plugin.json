@@ -1,0 +1,9 @@
+{
+  "name": "younlea--robot-link-forge",
+  "displayName": "robot-link-forge",
+  "description": "A web-based URDF builder bridging the gap between Mechanical Design and Robot Simulation.",
+  "version": "1.0.0",
+  "author": "younlea",
+  "homepage": "https://github.com/younlea/robot-link-forge",
+  "skills": []
+}
