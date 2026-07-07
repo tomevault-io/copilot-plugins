@@ -1,0 +1,9 @@
+{
+  "name": "psycherosai--psycheros",
+  "displayName": "Psycheros",
+  "description": "A persistent AI entity harness. The entity has its own identity files, a memory hierarchy that consolidates across time, and a single canonical self that persists across multiple interfaces.",
+  "version": "1.0.0",
+  "author": "PsycherosAI",
+  "homepage": "https://github.com/PsycherosAI/Psycheros",
+  "skills": []
+}
