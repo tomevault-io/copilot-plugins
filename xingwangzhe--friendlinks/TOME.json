@@ -1,0 +1,44 @@
+{
+  "name": "FriendLinks",
+  "owner": "xingwangzhe",
+  "repo": "FriendLinks",
+  "description": "\u63a2\u7d22\u6d69\u701a\u7684\u535a\u5ba2\u5b87\u5b99\uff0c\u5bfb\u627e\u5f7c\u6b64\u4e4b\u95f4\u7684\u8054\u7cfb\u3002\u6bcf\u4e2a\u8282\u70b9\u662f\u4e00\u4e2a\u535a\u5ba2\uff0c\u6bcf\u6761\u8fde\u7ebf\u662f\u4e00\u6bb5\u53cb\u94fe\u5173\u7cfb\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xingwangzhe/FriendLinks",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T22:33:12Z"
+}
