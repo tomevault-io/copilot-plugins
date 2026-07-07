@@ -1,0 +1,44 @@
+{
+  "name": "easy-access",
+  "owner": "PiroAmmar",
+  "repo": "easy-access",
+  "description": "Easy-Access is a self-hosted remote file management platform. Access, manage, and share your PC's hard drive from anywhere through a secure web dashboard.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PiroAmmar/easy-access",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T17:03:23Z"
+}
