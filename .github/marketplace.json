@@ -74859,6 +74859,11 @@
       "description": "wordpress-developer-mcp-server"
     },
     {
+      "name": "igorbarshteyn--athena",
+      "source": "./igorbarshteyn--athena",
+      "description": "A conversational voice-to-voice open-weights LLM-powered assistant designed to run on high-end consumer or workstation class hardware"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -180837,6 +180842,16 @@
       "name": "uitbreidenos--uitkit",
       "source": "./uitbreidenos--uitkit",
       "description": "Claude Code Skills, Agents & Plugins \u2014 UitKit"
+    },
+    {
+      "name": "shlokkhemani--rabbithole",
+      "source": "./shlokkhemani--rabbithole",
+      "description": "An infinite canvas for learning \u2014 select text, ask, and answers branch out as documents. MCP server for Claude Code, Codex, and any agent."
+    },
+    {
+      "name": "varunyn--wiki-langgraph",
+      "source": "./varunyn--wiki-langgraph",
+      "description": "LangGraph pipeline that ingests raw markdown, compiles an Obsidian-style vault (wikilinks, backlinks, Index.md), optionally runs LLM authoring and semantic \u201cSee also\u201d links, refreshes a local QMD inde"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
