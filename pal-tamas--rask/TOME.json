@@ -4,7 +4,7 @@
   "repo": "rask",
   "description": "Live web apps in C# \u2014 server-rendered over WebSocket or client-side via WebAssembly, one codebase. No .razor, no JS.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pal-tamas/rask",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T00:34:16Z"
+  "distributed_at": "2026-07-07T00:34:45Z"
 }
