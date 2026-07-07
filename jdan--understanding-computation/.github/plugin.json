@@ -1,0 +1,9 @@
+{
+  "name": "jdan--understanding-computation",
+  "displayName": "understanding-computation",
+  "description": "Some light ruby while following the Understanding Computation book",
+  "version": "1.0.0",
+  "author": "jdan",
+  "homepage": "https://github.com/jdan/understanding-computation",
+  "skills": []
+}
