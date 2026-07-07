@@ -1,0 +1,44 @@
+{
+  "name": "claude-design-engine",
+  "owner": "rahamanbinujit",
+  "repo": "claude-design-engine",
+  "description": "Your AI Creative Director. 190+ design styles, AI photo generation, self-reviewing quality system, and 4K pixel-perfect export. Design social media posts, carousels, YouTube thumbnails, websites, and PDFs \u2014 just describe what you want. Works with Claude Code, Cursor, Codex, Gemini CLI. Built through 300+ real design experiments by Rahaman Bin Ujit.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rahamanbinujit/claude-design-engine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T07:34:21Z"
+}
