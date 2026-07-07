@@ -1,0 +1,44 @@
+{
+  "name": "redface2",
+  "owner": "ForumHFR",
+  "repo": "redface2",
+  "description": "Redface 2 \u2014 Le futur client Android pour Hardware.fr. Sp\u00e9cifications, architecture et roadmap.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ForumHFR/redface2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T04:32:37Z"
+}
