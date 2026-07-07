@@ -1,0 +1,44 @@
+{
+  "name": "CSM",
+  "owner": "NovasPlace",
+  "repo": "CSM",
+  "description": "Cross-Session Memory (CSM) \u2014 a continuity runtime that turns raw tool events into durable beliefs. Full pipeline: work journal \u2192 compaction \u2192 experience packets \u2192 candidate scanning \u2192 belief promotion \u2192 advisory living state. Safety gates at every stage. PostgreSQL + pgvector or SQLite. 728 tests.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NovasPlace/CSM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T02:36:47Z"
+}
