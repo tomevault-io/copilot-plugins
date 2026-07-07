@@ -1,50 +1,130 @@
-## general-coding-guidelines
+## pr-creation-guidelines
 
-> **ALWAYS** check: `.github/guidelines/CODING_GUIDELINES.md` • `README.md` • Relevant `/docs` before coding
+> Pull Request (PR) Creation Guidelines. Use these rules when creating pull requests
 
 
-# General Coding Guidelines
+# MetaMask Mobile Pull Request Guidelines
 
-## Required Reading Before Development
+Follow these rules when creating PRs to ensure consistent quality and smooth reviews.
 
-**ALWAYS** check: `.github/guidelines/CODING_GUIDELINES.md` • `README.md` • Relevant `/docs` before coding
+## Core Principles
 
-**Docs Structure**: `/docs/readme/` (core) • `/docs/` (features) • `README.md` (overview)
+Small focused PRs • Clear titles/descriptions • Complete template • Correct labels • Branch naming
 
-## Development Workflow
+## 1. PR Title Requirements
 
-**Before Starting**: Read README.md → Check coding guidelines → Review relevant docs → Understand architecture
+**Format**: `<type>[optional scope]: <description>` (Conventional Commits)
 
-**Code Quality**:
-- TypeScript guidelines from contributor docs • Functional components + hooks • PascalCase (components) / camelCase (functions)
-- Reusable components/utilities • TSDoc format • Comprehensive tests • Apply `.cursor/rules/unit-testing-guidelines.mdc`
+**Types**: feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert
 
-**File Organization**:
+**Examples**:
+
+| ✅ Good | ❌ Bad |
+|---------|--------|
+| `feat: add NFT gallery to collectibles tab` | `Add some stuff` |
+| `fix: resolve wallet connection timeout on cold start` | `fixing bug` |
+| `refactor: extract transaction formatter into utility` | `refactor code` |
+| `test: add e2e spec for onboarding SRP import flow` | `tests` |
+| `docs: update contributing guide with design-system usage` | `update docs` |
+| `chore: bump react-native to 0.74.5` | `upgrade rn` |
+
+**Rules**: Use imperative mode • Keep concise (<72 chars) • Be specific
+
+## 2. PR Template Compliance
+
+Use `.github/pull-request-template.md` - fill ALL sections:
+
+- **Description**: What changed and why (context, constraints, trade-offs)
+- **Changelog**: User-facing summary in past participle (`Added`, `Fixed`) OR `CHANGELOG entry: null`
+- **Related issues**: `Fixes: #NUMBER`, `Closes: #NUMBER`, or `Refs: #NUMBER`
+- **Manual testing**: test cases desciption using Gherkin syntax (see sample in template)
+- **Screenshots/Recordings**: Required for UI changes (before/after)
+- **Pre-merge checklist**: Ensure all items checked, even if thye don't apply, it shows that you thought about the specific item.
+
+## 3. Required Labels and Assignment
+
+**PR Assignment**: Assignee is the one who is in charge of making the PR move forward to merge. It's usually the author, but can be delegated.
+
+**Team Label** (REQUIRED - merge will be blocked if missing):
+- Must have one: `team-*` label OR `external-contributor`
+
+**Blocking Labels** (these WILL prevent merge):
+- `needs-qa` - QA validation required
+- `need-ux-ds-review` - UX/Design System review needed  
+- `blocked` - Blocked by external dependency
+- `stale` - PR is stale and needs attention
+- `DO-NOT-MERGE` - Explicit block
+
+**DO**:
+- ✅ Assign to person responsible for moving PR forward (usually author)
+- ✅ Add team label (required for merge)
+- ✅ Remove blocking labels when resolved
+
+**DON'T**:
+- ❌ Leave unassigned
+- ❌ Use deprecated labels
+
+## 4. Branch Naming
+
+**Format**: `<type>/<issue-number>_<short-kebab-description>` (include issue number when applicable)
+
+**Examples**: 
+- `fix/1234_wallet-connection-issue` - with issue number
+- `feat/5678_add-nft-gallery` - with issue number
+- `chore/update-linting-config` - no issue (maintenance work)
+- `refactor/migrate-util-to-ts` - no issue (internal improvement)
+
+**Rules**: Lowercase • Kebab-case • Include issue number when fixing/implementing • Match PR type • Keep description short
+
+## 5. PR Best Practices
+
+- Submit as **Draft** initially for CI
+- Mark "Ready for review" only after:
+  - Manually tested by yourself first
+  - Assigned to yourself
+  - Template complete
+  - Lint/tests/type-checks pass
+  - Screenshots attached (if UI)
+  - Labels applied
+- Target `main` branch
+- Keep focused (single feature/fix)
+- Include tests (unit/Component-view/e2e)
+- Update TSDoc when relevant
+
+**⚠️ Force Push Policy**:
+- **DO NOT use force push** (`git push --force`) once first review is done
+- Force push breaks GitHub's "changes since last review" feature
+- Reviewers must re-review entire PR instead of just new changes
+- If you need to clean history, do it BEFORE requesting first review
+- After first review: use regular commits, squash on merge if needed
+
+**DO**: Assign yourself • Keep diff small • Include testing steps • Update docs/changelog • Regular push after reviews
+
+**DON'T**: Leave unassigned • Skip template • Push unrelated changes • Force push after first review
+
+## GitHub CLI Example
+
+```bash
+# Create PR with auto team detection
+gh pr create \
+  --title "feat: add NFT gallery to collectibles tab" \
+  --assignee @me \
+  --draft
 ```
-ComponentName/
-├── ComponentName.{constants,stories,styles,test,types}.ts(x)
-├── ComponentName.tsx
-├── README.md
-└── index.ts
-```
 
-## Documentation Quick Reference
+## Enforcement
 
-**Core**: `/docs/readme/` (architecture, testing, debugging, performance, environment, expo-environment, storybook, troubleshooting, expo-e2e-testing, reassure, release-build-profiler)
+- PRs must use template with all sections complete
+- PRs must be assigned
+- Titles must follow Conventional Commits
+- Blocking labels must be resolved before asking for review
+- Non-compliant PRs converted to Draft with comment
 
-**Features**: `/docs/` (deeplinks, animations, tailwind, confirmations, confirmation-refactoring) • `app/component-library/README.md` • `e2e/MOCKING.md` • `CHANGELOG.md` • `app/core/{Analytics,Engine}/README.md`
+## References
 
-**External**: [MetaMask Contributor Docs](https://github.com/MetaMask/contributor-docs) • [TypeScript Guidelines](https://github.com/MetaMask/contributor-docs/blob/main/docs/typescript.md) • [Unit Testing](https://github.com/MetaMask/contributor-docs/blob/main/docs/testing/unit-testing.md)
-
-## Enforcement (MANDATORY)
-
-**Documentation**: Read `.github/guidelines/`, `README.md`, and relevant `/docs` before implementing
-
-**Commands**: ONLY use `.claude/commands/` + yarn command
-
-**Testing**: see .claude/commands/unit-test.md
-
-**Forbidden**: ❌ npm/npx commands
+- Conventional Commits: https://www.conventionalcommits.org/
+- PR Template: `.github/pull-request-template.md`
+- E2E framework: `e2e/`
 
 ---
 > Source: [granjacours410-source/supreme-disco](https://github.com/granjacours410-source/supreme-disco) — distributed by [TomeVault](https://tomevault.io).
