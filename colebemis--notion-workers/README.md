@@ -7,11 +7,11 @@ My Notion Workers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [colebemis/notion-workers](https://github.com/colebemis/notion-workers).
+Original source: `CLAUDE.md` in [colebemis/notion-workers](https://github.com/colebemis/notion-workers).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
