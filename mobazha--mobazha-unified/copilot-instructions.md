@@ -1,195 +1,119 @@
-## theme-rules
+## tma-ui-rules
 
-> UI 主题适配规则 - 创建或修改 UI 组件时应用
+> Telegram Mini App (TMA) UI adaptation rules — viewport, navigation, headers, theming
 
 
-# UI 主题适配规则
+# TMA (Telegram Mini App) UI Rules
 
-## 核心原则
+Rules for building UI that works correctly inside the Telegram Mini App embedded viewport.
+Detect via `usePlatform()` → `isEmbeddedApp` / `isTGMiniApp`, or `data-embedded` attribute.
 
-在 Tailwind CSS 项目中，**禁止使用硬编码颜色**，必须使用主题变量以确保浅色/深色模式自动适配。
+## 1. Viewport Height
 
-## 禁止使用的硬编码颜色
+- **NEVER** use `100vh` for full-height containers — it includes the TG native header area
+  and causes content to overflow below the visible viewport.
+- **USE** `100dvh` or Tailwind `h-dvh` (dynamic viewport height) which adapts to the actual
+  visible area in TMA.
+- When a fixed element (MobileNav, header) is visible, subtract its height:
+  `h-[calc(100dvh-4rem)]`. When no fixed element is present (e.g. MobileNav hidden in
+  chat room view), use `h-dvh` directly.
+- Verify MobileNav visibility before choosing the offset — `MobileNav` hides itself when
+  `chatRoomActive`, on admin routes, and on detail pages via `HIDE_NAV_PATTERNS`.
 
-以下颜色类名视为"硬编码颜色"，应替换为主题变量：
-
-### 文字颜色（禁止）
-- `text-slate-*`, `text-gray-*`, `text-zinc-*`, `text-neutral-*`, `text-stone-*`
-- `text-emerald-*`, `text-green-*`, `text-teal-*`
-- `text-blue-*`, `text-indigo-*`, `text-violet-*`, `text-purple-*`
-
-### 背景颜色（禁止）
-- `bg-slate-*`, `bg-gray-*`, `bg-zinc-*`, `bg-neutral-*`, `bg-stone-*`
-- `bg-emerald-*`, `bg-green-*`, `bg-teal-*`
-- 其他非主题色的背景
-
-### 边框颜色（禁止）
-- `border-slate-*`, `border-gray-*`, `border-emerald-*` 等
-
-## 推荐使用的主题变量
-
-### 文字颜色
-| 用途 | 推荐类名 |
-|-----|---------|
-| 主要文字 | `text-foreground` |
-| 次要/辅助文字 | `text-muted-foreground` |
-| 强调/链接/价格 | `text-primary` |
-| 禁用/淡化文字 | `text-muted-foreground/50` 或 `text-muted-foreground/70` |
-
-### 背景颜色
-| 用途 | 推荐类名 |
-|-----|---------|
-| 页面背景 | `bg-background` |
-| 卡片/容器背景 | `bg-card` |
-| 次要背景/hover | `bg-muted` |
-| 强调背景 | `bg-primary` |
-| 强调背景（浅） | `bg-primary/10` 或 `bg-primary/20` |
-
-### 边框颜色
-| 用途 | 推荐类名 |
-|-----|---------|
-| 普通边框 | `border-border` |
-| 强调边框 | `border-primary` 或 `border-primary/30` |
-| 淡化边框 | `border-muted-foreground/40` |
-
-### 交互状态
-| 用途 | 推荐类名 |
-|-----|---------|
-| 链接 hover | `hover:text-primary` |
-| 背景 hover | `hover:bg-muted` 或 `hover:bg-primary/10` |
-| 按钮主色 | `bg-primary text-primary-foreground` |
-| 按钮 hover | `hover:bg-primary/90` |
-
-### 表面层级（Elevation）
-| 层级 | 类名 | 使用场景 |
-|------|------|---------|
-| 底层 | `bg-background` | 页面背景 |
-| 卡片层 | `bg-card` | 卡片、对话框、弹出面板 |
-| 悬浮层 | `bg-muted` | 下拉菜单、Tooltip、Popover |
-| 强调层 | `bg-primary/10` | 选中状态、高亮区域、活跃标签 |
-| 操作层 | `bg-primary` | 主按钮、CTA 区域 |
-
-### 语义颜色
-| 用途 | 推荐类名 | 说明 |
-|-----|---------|------|
-| 错误/删除 | `text-destructive`, `bg-destructive` | 删除确认、表单错误 |
-| 警告 | `text-amber-*`, `bg-amber-*` | 需配合 `dark:` 变体确保对比度 |
-| 成功 | `text-success`, `bg-success/10` | 订单完成、支付成功、验证通过 |
-| 信息 | `text-info`, `bg-info/10` | 提示、帮助文本、状态说明 |
-| 在线状态 | `bg-primary` | 替代 `bg-emerald-500` |
-
-### 色彩层级选择
-| 需求 | 选择 | 示例场景 |
-|------|------|---------|
-| 核心操作/品牌色 | `primary` | CTA 按钮、价格、链接、选中态 |
-| 辅助信息/次要操作 | `secondary` | 次要按钮、标签、徽章 |
-| 装饰/点缀 | `accent` | 特殊标记、渐变装饰 |
-| 文字层级 | `foreground` > `muted-foreground` > `muted-foreground/50` | 标题 > 正文 > 辅助说明 |
-
-## 修复示例
-
-### ❌ 错误写法
 ```tsx
-<p className="text-slate-500">描述文字</p>
-<button className="bg-emerald-500 text-white">提交</button>
-<span className="text-emerald-600">${price}</span>
-<div className="border-slate-300">卡片</div>
-<input className="border-slate-300 dark:border-slate-600" />
+// ❌ Bad — overflows in TMA
+<div className="h-[calc(100vh-4rem)]">
+
+// ✅ Good — dynamic viewport, adapts to TMA
+<div className="h-[calc(100dvh-4rem)]">  // MobileNav visible
+<div className="h-dvh">                  // MobileNav hidden
 ```
 
-### ✅ 正确写法
+## 2. Back Button / Navigation
+
+- **NEVER** show in-page back buttons (`<`, `← Back`) in TMA.
+  `TGBackButtonManager` (layout-level) already manages the native Telegram BackButton
+  for all non-root-tab pages.
+- In `MobilePageHeader`: early-return a left-aligned title layout for embedded apps.
+- In `SettingsPageHeader`: `hideBackLink = isEmbeddedApp`.
+- In custom headers (e.g. ChatMessages room header): guard with `!isEmbeddedApp`.
+- Root tab pages (`/`, `/orders`, `/cart`, `/chat`, `/me`): TG BackButton is hidden
+  automatically.
+
 ```tsx
-<p className="text-muted-foreground">描述文字</p>
-<button className="bg-primary text-primary-foreground">提交</button>
-<span className="text-primary">${price}</span>
-<div className="border-border">卡片</div>
-<input className="border-border" />
+// ❌ Bad — redundant with TG native back button
+{onBack && <button onClick={onBack}>←</button>}
+
+// ✅ Good — hidden in TMA
+{onBack && !isEmbeddedApp && <button onClick={onBack}>←</button>}
 ```
 
-## 特殊情况
+## 3. L2 Page Headers
 
-### 允许保留的设计性颜色
-1. **Hero 区块**的装饰性/氛围性色彩（渐变、光晕、强调色）必须使用 `--hero-*` CSS 变量（参见 `brand-theme-rules.mdc`），不允许硬编码颜色；深色背景上的 `text-white`/`bg-white/*`/`border-white/*` 属于可见性例外，允许使用
-2. **Store Section 组件**（`store-sections/` 目录）使用 `--store-*` CSS 变量（由 `StoreThemeProvider` 注入），包括 `var(--store-primary/secondary/accent/on-*/font/radius)`。这些变量来自卖家的 `StoreConfig.theme`，是运行时动态值，不是全局主题变量。详见 `brand-theme-rules.mdc`
-3. **登录页面**等专门的深色主题页面
-4. **星级评分**的金色 `text-amber-500`（语义明确）
-5. **深色背景区域**的 `text-white` / `text-white/*`（文字可见性需求）
+- All L2 (sub-page) headers must use a consistent **left-aligned title** style in TMA.
+- `MobilePageHeader` renders differently per context:
+  - **Embedded (TMA)**: `<h1>` left-aligned, `text-lg font-semibold`, no back button.
+  - **Mobile browser**: centered title with `<` back button + right action.
+  - **Root tab + TMA**: returns `null` (hidden entirely).
+- This matches `SettingsPageHeader` which also renders left-aligned `<h1>` in TMA.
 
-### 深色背景区域的文字颜色
-在 Hero、登录页等深色背景区域，文字颜色应使用 `text-white` 及其透明度变体，而不是 `text-slate-*`：
+## 4. Theme & Color System
+
+- TMA theme colors are managed by `TGMiniAppProvider` via inline `style.setProperty()`
+  on `--theme-*` CSS variables. `useTheme` skips color writes when `data-embedded` is set.
+- **NEVER** use `hsl(var(--xxx))` format — Tailwind v4 already wraps values.
+  Use `var(--color-xxx)` directly (e.g. in recharts, Stripe, inline styles).
+- For derived colors (e.g. `--color-muted` for skeleton visibility), use `blendHex()`
+  in TGMiniAppProvider to compute from TG's `bg_color` and `secondary_bg_color`.
+- Hide theme/appearance selectors in TMA — TG controls the color scheme.
+
 ```tsx
-// ✅ 正确：深色背景区域
-<p className="text-white">主要文字</p>
-<p className="text-white/80">次要文字</p>
-<p className="text-white/60">辅助文字</p>
+// ❌ Bad — double-wrapping breaks in Tailwind v4
+fill: 'hsl(var(--primary))'
 
-// ❌ 错误：不要在深色背景使用 slate
-<p className="text-slate-300">次要文字</p>
-<p className="text-slate-400">辅助文字</p>
+// ✅ Good — direct CSS variable reference
+fill: 'var(--color-primary)'
 ```
 
-### 警告/提示框的处理
-警告框可以使用 `amber` 颜色，但需要同时配置深色模式以确保对比度：
+## 5. Spacing & Density
+
+- Admin pages: use `py-2` (not `py-6`) for main content in TMA to save vertical space.
+- `SettingsPageHeader`: reduce bottom margin to `mb-2` in TMA (vs `mb-4 md:mb-6`).
+- Hide redundant page titles that duplicate the L2 header (e.g. desktop-only `<h1>`
+  that repeats `MobilePageHeader` title).
+
+## 6. Feature Flags & Route Registration
+
+- **NEVER** gate core infrastructure routes (user-groups, product-groups) behind
+  optional feature flags. Only gate feature-specific routes (e.g. group marketplace
+  discovery endpoints).
+- When a route returns 405 Method Not Allowed, check `gateway.go` for routes
+  accidentally nested inside feature-flag conditionals.
+
+## 7. API Error Handling
+
+- **ALWAYS** check `response.ok` before calling `response.json()`.
+  Non-JSON error responses (405, 502, etc.) will throw `SyntaxError` otherwise.
+
 ```tsx
-// ✅ 正确：深色模式对比度足够
-<div className="bg-amber-100 dark:bg-amber-900/40 border-amber-300 dark:border-amber-700 rounded-lg p-3">
-  <p className="text-amber-800 dark:text-amber-200 font-medium">警告文字</p>
-</div>
+// ❌ Bad — crashes on 405/502
+const data = await response.json();
+
+// ✅ Good — safe error extraction
+if (!response.ok) {
+  const text = await response.text();
+  let msg = `HTTP ${response.status}`;
+  try { msg = extractErrorMessage(JSON.parse(text)); } catch { /* non-JSON */ }
+  throw new Error(msg);
+}
+const data = await response.json();
 ```
 
-### 渐变背景
-使用主题色的渐变：
-```tsx
-// ✅ 正确
-<div className="bg-gradient-to-br from-primary/10 to-primary/5">内容</div>
+## 8. TestId Generation
 
-// ❌ 错误
-<div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5">内容</div>
-```
-
-## 复选框/开关组件
-```tsx
-// ✅ 正确
-className={`rounded border-2 ${
-  checked ? 'bg-primary border-primary' : 'border-muted-foreground/40'
-}`}
-
-// ❌ 错误
-className={`rounded border-2 ${
-  checked ? 'bg-emerald-500 border-emerald-500' : 'border-slate-300'
-}`}
-```
-
-## 检查方法
-
-使用以下命令检查硬编码颜色：
-```bash
-# 检查所有硬编码颜色
-grep -rE "text-slate-|bg-slate-|text-emerald-|bg-emerald-|text-gray-|bg-gray-|border-slate-|border-emerald-|border-gray-" apps/web/src/
-
-# 统计各文件的问题数量
-grep -rEc "text-slate-|bg-slate-|text-emerald-|bg-emerald-" apps/web/src/ | grep -v ":0$"
-```
-
-## 修复优先级
-
-1. **P0（必须修复）**: 核心页面
-   - 首页、商品详情、店铺页面、购物车、结账、订单
-
-2. **P1（应该修复）**: 次要页面
-   - 设置、钱包、通知、个人中心、搜索
-
-3. **P2（建议修复）**: 边缘功能
-   - 仲裁、OTC、Marketplace 管理等
-
-## Code Review 检查项
-
-- [ ] 没有使用 `text-slate-*`, `text-gray-*`, `text-emerald-*` 等硬编码文字颜色
-- [ ] 没有使用 `bg-slate-*`, `bg-gray-*`, `bg-emerald-*` 等硬编码背景颜色
-- [ ] 没有使用 `border-slate-*`, `border-emerald-*` 等硬编码边框颜色
-- [ ] 警告/提示框配置了正确的深色模式变体
-- [ ] 渐变背景使用主题变量
-- [ ] 交互状态（hover/focus）使用主题变量
+- When generating `data-testid` from i18n keys, avoid `labelKey.split('.').pop()` which
+  can collide (e.g. `chat.title` and `me.title` both yield `title`).
+- Prefer an explicit `testId` field on nav/config items, falling back to the split method.
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
