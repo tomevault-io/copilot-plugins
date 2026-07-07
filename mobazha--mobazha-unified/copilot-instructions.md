@@ -1,70 +1,51 @@
-## component-rules
+## currency-rules
 
-> 组件开发规则 - 创建或修改 UI 组件时应用
+> 货币格式化与显示规范 - 涉及价格、金额、货币相关代码时应用
 
 
-# 组件开发规则
+# 货币格式化规范
 
-## UI 组件库选择
+## 严格禁止
 
-| 场景 | 使用 |
-|------|------|
-| 表单控件、对话框、Toast | `@/components/ui` (shadcn/ui) |
-| 业务卡片、布局组件 | `@mobazha/ui` |
+1. **禁止硬编码货币符号**（`$`、`€`、`¥`）
+2. **禁止在 `apps/` 定义格式化/单位转换函数**
+3. **禁止硬编码小数位** `.toFixed(2)`
+4. **禁止手动 `Math.pow(10, divisibility)` 转换**
 
-优先使用 shadcn/ui 替代 @mobazha/ui。
-
-## 组件基本要求
-
-- 使用 `memo` 包装接收对象 props 的组件
-- 使用 `useCallback` 包装传给子组件的回调
-- 使用 `cn()` 合并类名，使用设计 Token 不硬编码颜色
-- 添加 `aria-label`、`alt`、`data-testid`
-- 所有可点击元素满足 44px 最小触摸目标
-
-## 响应式写法
+## 必须使用
 
 ```tsx
-// 移动端紧凑，桌面端正常
-<Card className="p-3 md:p-4">
-  <h2 className="text-base md:text-lg">标题</h2>
-  <p className="text-sm md:text-base">内容</p>
-</Card>
+import { useCurrency, fromMinimalUnit } from '@mobazha/core';
 
-// 网格响应
-<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+const { formatPrice, renderPairedPrice, formatLocalPrice } = useCurrency();
+
+formatPrice(199.00, 'USD')                    // "$199.00" — 始终标准单位
+renderPairedPrice(19900, 'USD')               // "$199.00 (¥1,372.31)" — 默认最小单位
+renderPairedPrice(199, 'USD', { isMinimalUnit: false }) // 显式标准单位
+fromMinimalUnit(19900, 'USD')                 // 19900 → 199.00
 ```
 
-## 关键间距
+## API 速查
 
-- 卡片内边距：桌面 `p-4`，移动 `p-3`
-- 图标与文字：`gap-2`
-- 内容不紧贴卡片边界
+| 场景 | 函数 |
+|------|------|
+| 带符号价格 | `formatPrice(amount, currency)` |
+| 配对价格 | `renderPairedPrice(amount, currency)` |
+| 本地货币 | `formatLocalPrice(amount, fromCurrency)` |
+| 单位转换 | `fromMinimalUnit()` / `toMinimalUnit()` |
+| 货币符号 | `getCurrencySymbol(code)` |
+| RWA 价格 | `formatRwaPrice(price, currency)` |
 
-## 微交互反馈
+## 复合代币码
 
-- 按钮操作后必须有视觉反馈（成功 toast / 按钮状态变化 / 图标动画）
-- 收藏/取消收藏需要即时的图标状态变化
-- 加入购物车需有明确的确认提示（toast 或 badge 动画）
-- 表单提交成功/失败必须有视觉反馈，不能静默
+新增代币/链只更新 `packages/core/data/tokens.ts`，`currencies.ts` 自动推导。
 
-## 表单验证
+```tsx
+// ❌ 手动在 currencies.ts 添加
+// ✅ 在 tokens.ts 的 TOKENS 数组添加
+```
 
-- 首次验证时机：`on blur`（用户离开输入框时）
-- 后续验证时机：`on change`（首次错误后实时更新）
-- 错误消息显示在输入框下方，使用 `text-destructive`
-- 提交按钮在表单无效时应 `disabled` 或显示错误摘要
-- 移动端输入框应设置 `inputMode`（如 `numeric`、`email`）和 `enterKeyHint`
-
-## 动效与可访问性
-
-- 所有动画必须使用 `transition-*` 或项目工具类（`touch-feedback` 等）
-- 必须支持 `prefers-reduced-motion`：关键动画提供静态替代
-- 禁止纯装饰性的持续动画（如无限旋转的装饰元素）
-
-> 详细间距表、测试示例、交互模式请参考 `.cursor/skills/component-dev/` skill。
-> 移动端/桌面端 UX 规范请参考 `.cursor/skills/mobile-ux-guide/` 和 `.cursor/skills/desktop-ux-guide/`。
-> 动效系统请参考 `.cursor/skills/motion-design/` skill。
+数据层存储货币代码（`'USD'`），不存储符号（`'$'`）。
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
