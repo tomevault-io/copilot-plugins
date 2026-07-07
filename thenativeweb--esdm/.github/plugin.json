@@ -1,0 +1,9 @@
+{
+  "name": "thenativeweb--esdm",
+  "displayName": "esdm",
+  "description": "Event-Sourced Domain Modeling language.",
+  "version": "1.0.0",
+  "author": "thenativeweb",
+  "homepage": "https://github.com/thenativeweb/esdm",
+  "skills": []
+}
