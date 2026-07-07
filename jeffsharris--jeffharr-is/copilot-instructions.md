@@ -1,0 +1,116 @@
+## jeffharr-is
+
+> - Static site with Cloudflare Pages Functions under `functions/api`.
+
+# AGENTS.md
+
+## Working in this repo
+- Static site with Cloudflare Pages Functions under `functions/api`.
+- Preserve API response shapes; frontend expects the current JSON fields.
+- Avoid adding production dependencies without explicit approval.
+- Unless the user explicitly says not to publish, finish tasks by committing the completed work, rebasing onto the latest `origin/main`, and pushing to the remote so Cloudflare Pages deploys it.
+- Current content storage is documented in `notes/content-storage.md`. Start there before changing Read Later, shared items, Dharma talk shares, assets, lists, or push device storage.
+- For UI/UX consultation, run `claude -p` outside the sandbox. In the sandbox the Claude CLI cannot access its authenticated session and may fail with `Not logged in`; request escalated execution rather than skipping the consultation.
+
+## Coordinator Context
+
+When acting as this repo's represented coordinator in Jeff's agent organization, also follow `/Users/jeffharris/code/agents/AGENTS.md` and its shared delegation and notification protocols. Ordinary repo implementation work should follow this repo's local instructions.
+
+## Dharma audio project
+- Public feed merge lives in `tools/dharma-feed/` and publishes static files under `dharma/{corpus}/`.
+- Feed-specific agent orientation lives in `tools/dharma-feed/AGENTS.md`; read it before changing sources or generated feed artifacts.
+- Local transcription/search tooling lives in `tools/dharma-transcripts/`.
+- Future-agent runbook for adding Matthew sources, using QMD, private Dharma Seed keys, automation, and adding other Dharma teachers lives at `tools/dharma-transcripts/docs/dharma-content-agent-runbook.md`.
+- The transcript and feed tooling is now corpus-configurable. Matthew Brensilver uses `tools/dharma-transcripts/config/brensilver-corpus.json`; Rob Burbea uses `tools/dharma-transcripts/config/burbea-corpus.json`; Alan Watts uses `tools/dharma-transcripts/config/watts-corpus.json`.
+- Transcript artifacts are intentionally written to `.local-corpus/brensilver/`, which is gitignored and should not be deployed unless Jeff explicitly asks.
+- Watts transcript artifacts are intentionally written to `.local-corpus/watts/`, also gitignored; public generated artifacts live under `dharma/watts/`.
+- Burbea transcript artifacts are intentionally written to `.local-corpus/burbea/`, also gitignored; public generated artifacts live under `dharma/burbea/`.
+- The transcript workflow is split deliberately: `whisper-1` raw segments, GPT-5.4 mini transcript correction, then a separate external reference extraction pass.
+- Corrected transcripts also pass through local silence-hallucination cleanup; removed rows are preserved as `suppressed_segments` in corrected JSON.
+- Reference extraction writes `references/{talk_id}.json`; references are holistic jumpable moments, not exact quote spans. Low-confidence or unsupported attributions should stay marked `needs_review` rather than being promoted into indexes.
+- Episode metadata writes `episode-metadata/{talk_id}.json` and `chapters/{talk_id}.json`; generated artwork writes `artwork/prompts`, `artwork/images`, and `artwork/manifests`.
+- The public feed builder can merge local episode metadata into `dharma/{corpus}/feed.xml`, write `dharma/{corpus}/chapters/{safe_id}.json`, and generate canonical `dharma/{corpus}/talks/{safe_id}/` pages. Use explicit `--artwork-base-url` and `--chapters-base-url` for new workflows; `--media-base-url` remains a legacy alias for both.
+- Generated Dharma artifact policy lives in `tools/dharma-feed/README.md`. Git/Pages owns feed XML, JSON indexes, HTML pages, chapter JSON, and stable corpus images. Per-episode artwork can be same-site for preview builds, but production should prefer media/R2 artwork URLs.
+- Use `--prune-generated=report` to dry-run stale generated talk pages, chapter JSON, and per-episode artwork. It reports only; it does not delete files.
+- `scripts/build-dharma-feed.py <corpus>` seeds from existing `dharma/{corpus}/talks.json` when present, so historical archived talks are preserved if an upstream source feed shrinks.
+- When adding or changing a feed source, do not stop after a feed rebuild. Run local ingestion next so newly discovered talks get transcripts, references, episode metadata, artwork, QMD indexing, and regenerated public feed artifacts.
+- Preferred one-command local ingestion: `scripts/run-dharma-ingestion.sh <corpus>`. It refreshes source feeds first, then runs `run-corpus`. Set `<CORPUS>_AUTO_PUBLISH=1` only for a scheduled job that should commit and push generated `dharma/{corpus}/` artifacts automatically.
+- For full corpus work, use `run-corpus --limit 20 --feed-every 20`; it processes pending talks through correction, reference extraction, episode metadata, artwork, markdown, QMD, and public feed rebuilds.
+- The `/dharma/brensilver/` landing page is generated by the feed builder. Do not hand-edit `dharma/brensilver/index.html`; update `tools/dharma-feed/src/dharma_feed/build.py`.
+- The local transcript viewer is generated at `.local-corpus/brensilver/viewer/index.html` and uses original online audio URLs plus local transcript/reference data.
+- The local feedback viewer is generated at `.local-corpus/brensilver/feedback-viewer/index.html` and queues suppressed transcript spans, uncertain terms, reference moments, episode metadata, and artwork with review priorities.
+- QMD must use the dedicated index `dharma`; Brensilver uses collection `brensilver`, Burbea uses `burbea`, and Watts uses `watts`. Do not use the default QMD index for these corpora.
+
+Typical commands from repo root:
+
+```sh
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline pilot
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline batch --config tools/dharma-transcripts/config/twenty-talks.json --update-qmd
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline clean --talk-id audiodharma:18176 --update-qmd
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline extract-references --batch --config tools/dharma-transcripts/config/twenty-talks.json --update-qmd
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline metadata --batch --config tools/dharma-transcripts/config/twenty-talks.json --build-feedback-viewer
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline generate-artwork --batch --config tools/dharma-transcripts/config/twenty-talks.json --image-model gpt-image-2 --image-quality low --build-feedback-viewer
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline description-summary --jobs 4 --rebuild-feed --artwork-base-url https://jeffharr.is/dharma/brensilver/ --chapters-base-url https://jeffharr.is/dharma/brensilver/
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline run-corpus --limit 20 --feed-every 20 --artwork-base-url https://jeffharr.is/dharma/brensilver/ --chapters-base-url https://jeffharr.is/dharma/brensilver/ --copy-artwork --update-qmd --build-feedback-viewer
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline build-feedback-viewer --config tools/dharma-transcripts/config/twenty-talks.json
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline setup-qmd
+python3 scripts/build-dharma-feed.py brensilver --talks-json dharma/brensilver/talks.json --artwork-base-url https://media.jeffharr.is/brensilver/ --chapters-base-url https://jeffharr.is/dharma/brensilver/
+python3 scripts/build-dharma-feed.py watts --copy-artwork
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline --corpus-config tools/dharma-transcripts/config/watts-corpus.json run-corpus --limit 50 --feed-every 10 --artwork-base-url https://jeffharr.is/dharma/watts/ --chapters-base-url https://jeffharr.is/dharma/watts/ --copy-artwork --update-qmd --build-feedback-viewer
+python3 scripts/build-dharma-feed.py burbea --copy-artwork
+PYTHONPATH=tools/dharma-transcripts/src python3 -m dharma_transcripts.pipeline --corpus-config tools/dharma-transcripts/config/burbea-corpus.json run-corpus --limit 1000 --feed-every 20 --artwork-base-url https://jeffharr.is/dharma/burbea/ --chapters-base-url https://jeffharr.is/dharma/burbea/ --copy-artwork --update-qmd --build-feedback-viewer
+```
+
+## Read Later architecture (critical)
+- There are two deploy targets for Read Later:
+- `Pages Functions` in this repo (`functions/api/*`) for API routes.
+- Separate queue consumer Worker at `workers/read-later-sync/` for background Kindle/cover sync.
+- Separate queue consumer Worker at `workers/push-delivery/` for APNs push delivery.
+- A Pages deploy does **not** deploy `workers/read-later-sync`.
+- A Pages deploy does **not** deploy `workers/push-delivery`.
+- If background sync behavior changes, deploy both surfaces as needed.
+- Read Later no longer uses KV. Metadata/state lives in D1 `CONTENT_DB`; reader HTML and generated covers live in R2 `CONTENT_ASSETS`.
+
+## Queue worker gotchas
+- Queue consumer code path: `workers/read-later-sync/index.js`.
+- Push queue consumer code path: `workers/push-delivery/index.js`.
+- Push testing runbook: `notes/push-test-runbook.md`.
+- Worker secrets/vars are independent from Pages env vars. Keep both in sync when required (for example `OPENAI_API_KEY`, `X_API_BEARER_TOKEN`, `RESEND_API_KEY`, Kindle emails).
+- If items stay `pending`/`retrying`, verify:
+- consumer is deployed (`cd workers/read-later-sync && npx wrangler deploy`)
+- queue delivery is not paused (`npx wrangler queues resume-delivery read-later-sync`)
+- consumer binding exists on queue (`npx wrangler queues info read-later-sync`)
+- If iOS pushes fail to deliver, verify:
+- consumer is deployed (`cd workers/push-delivery && npx wrangler deploy`)
+- queue delivery is not paused (`npx wrangler queues resume-delivery push-delivery`)
+- consumer binding exists on queue (`npx wrangler queues info push-delivery`)
+- test send flow uses `POST /api/push/test` and helper script `node scripts/send-test-push.js --item-id <ITEM_ID>`
+- if `PUSH_TEST_API_KEY` value is unknown locally, use the direct queue fallback in `notes/push-test-runbook.md`
+
+## Cloudflare Pages build notes
+- When adding dependencies used by Pages Functions, update both `package.json` (root) and `functions/package.json` so Pages can resolve them during the root install (missing entries cause build failures).
+- If functions use Node built-ins (ex: puppeteer), keep `wrangler.toml` valid with `pages_build_output_dir = "."` and `compatibility_flags = ["nodejs_compat"]` so Pages applies the config (otherwise deploy fails with `node:*` module errors).
+- Cloudflare Pages is connected to GitHub and deploys pushes to `main`; do not use an ad hoc Wrangler Pages deploy for normal publishing.
+- Before any commit/push that should trigger a Pages deploy, run `git fetch origin` and fast-forward or rebase onto `origin/main`. If the local branch cannot be cleanly brought current, stop instead of pushing or deploying stale artifacts.
+- For generated Dharma artifacts, prefer `scripts/run-dharma-ingestion.sh <corpus>` with `<CORPUS>_AUTO_PUBLISH=1`; it pulls before work starts and rebases its generated commit onto the latest remote immediately before push.
+
+## Tests
+- Run `npm test` (uses `node --test tests`).
+- Tests are unit-only and should not require network access.
+
+## Manual checks (when UI behavior changes)
+- `index.html`: theme toggle persists, system preference is respected when no local override, panel open/close, deep links via `?view=`, and history back/forward close the panel.
+- `poems/index.html`: manifest loads, search/filter works, modal open/close, deep links via `?poem=`, and copy/share actions behave gracefully when APIs are unavailable.
+
+## Poem image iteration workflow
+- Use `npm run poem-images:review` for the local review UI. It serves `notes/poem-image-prompt-review.html` and autosaves browser edits into gitignored JSON files under `notes/`.
+- Future image-iteration agents should read `notes/poem-image-iteration-handoff.json`, not Chrome LocalStorage. Generate only entries where the current contender has non-empty feedback.
+- The full workflow playbook is `notes/poem-image-review-workflow.md`.
+
+## Reliability notes
+- Prefer fetch timeouts for external APIs.
+- When errors occur, functions should return empty results with cache headers rather than throw.
+
+---
+> Source: [jeffsharris/jeffharr.is](https://github.com/jeffsharris/jeffharr.is) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-07 -->
