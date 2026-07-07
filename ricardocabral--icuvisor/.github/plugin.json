@@ -1,0 +1,9 @@
+{
+  "name": "ricardocabral--icuvisor",
+  "displayName": "icuvisor",
+  "description": "Open-source local MCP connector for intervals.icu (Go binary)",
+  "version": "1.0.0",
+  "author": "ricardocabral",
+  "homepage": "https://github.com/ricardocabral/icuvisor",
+  "skills": []
+}
