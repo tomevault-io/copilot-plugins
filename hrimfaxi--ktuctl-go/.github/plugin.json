@@ -1,0 +1,9 @@
+{
+  "name": "hrimfaxi--ktuctl-go",
+  "displayName": "ktuctl-go",
+  "description": "tutuicmptunnel-kmod ktuctl written in Go, featuring a built-in TUI interface",
+  "version": "1.0.0",
+  "author": "hrimfaxi",
+  "homepage": "https://github.com/hrimfaxi/ktuctl-go",
+  "skills": []
+}
