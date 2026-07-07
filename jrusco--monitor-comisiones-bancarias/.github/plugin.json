@@ -1,0 +1,9 @@
+{
+  "name": "jrusco--monitor-comisiones-bancarias",
+  "displayName": "monitor-comisiones-bancarias",
+  "description": "A easy-to-read webapp to aggregate and compare payment processing fees from the most popular Argentinian financial entities",
+  "version": "1.0.0",
+  "author": "jrusco",
+  "homepage": "https://github.com/jrusco/monitor-comisiones-bancarias",
+  "skills": []
+}
