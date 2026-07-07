@@ -1,0 +1,9 @@
+{
+  "name": "icoretech--warden-mcp",
+  "displayName": "warden-mcp",
+  "description": "\ud83d\udd10 Streamable HTTP + stdio MCP server for Vaultwarden/Bitwarden",
+  "version": "1.0.0",
+  "author": "icoretech",
+  "homepage": "https://github.com/icoretech/warden-mcp",
+  "skills": []
+}
