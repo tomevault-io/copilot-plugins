@@ -15359,6 +15359,11 @@
       "description": "Unified Go interface for Language Model (LLM) providers. Simplifies LLM integration with flexible prompt management and common task functions."
     },
     {
+      "name": "spiritbuun--buun-llama-cpp",
+      "source": "./spiritbuun--buun-llama-cpp",
+      "description": "LLAMA Turboquant implementation with CUDA support"
+    },
+    {
       "name": "fcakyon--claude-codex-settings",
       "source": "./fcakyon--claude-codex-settings",
       "description": "My personal Claude Code and OpenAI Codex setup with battle-tested skills, plugins, hooks and agents that I use daily."
@@ -39752,6 +39757,16 @@
       "name": "marcuspat--turbo-flow",
       "source": "./marcuspat--turbo-flow",
       "description": "turbo-flow"
+    },
+    {
+      "name": "traverse-framework--traverse",
+      "source": "./traverse-framework--traverse",
+      "description": "Contract-driven runtime for portable business capabilities \u2014 spec-governed, WASM-first, composable across browser, edge, cloud, and AI."
+    },
+    {
+      "name": "traverse-framework--traverse",
+      "source": "./traverse-framework--traverse",
+      "description": "Contract-driven runtime for portable business capabilities \u2014 spec-governed, WASM-first, composable across browser, edge, cloud, and AI."
     },
     {
       "name": "traverse-framework--traverse",
@@ -110189,11 +110204,6 @@
       "description": "Automatically scaffold files by just creating them"
     },
     {
-      "name": "kewang--spek",
-      "source": "./kewang--spek",
-      "description": "A lightweight, read-only viewer for OpenSpec content"
-    },
-    {
       "name": "0xerwin1--dbflux",
       "source": "./0xerwin1--dbflux",
       "description": "A fast, keyboard-first database client built with Rust and GPUI."
@@ -111917,6 +111927,11 @@
       "name": "agentcathq--webmcp-react",
       "source": "./agentcathq--webmcp-react",
       "description": "React hooks for exposing your app's functionality as WebMCP tools - transport-agnostic, SSR-safe, Strict Mode safe, W3C spec-aligned"
+    },
+    {
+      "name": "kewang--spek",
+      "source": "./kewang--spek",
+      "description": "A lightweight, read-only viewer for OpenSpec content"
     },
     {
       "name": "navikt--cplt",
@@ -155819,6 +155834,136 @@
       "description": "A Rust reimplementation of Apache Kafka. Apache 2.0, derivative work. Beta"
     },
     {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
+      "name": "mobazha--mobazha-unified",
+      "source": "./mobazha--mobazha-unified",
+      "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -173067,6 +173212,11 @@
       "name": "taotao9125--light-agent",
       "source": "./taotao9125--light-agent",
       "description": "light-agent"
+    },
+    {
+      "name": "lorenzo-mazza--versatil",
+      "source": "./lorenzo-mazza--versatil",
+      "description": "VersatIL"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -203752,6 +203902,11 @@
       "name": "kikakkz--wait-agent",
       "source": "./kikakkz--wait-agent",
       "description": "Agent mux terminal."
+    },
+    {
+      "name": "qa-aman--next-leap-claude-code",
+      "source": "./qa-aman--next-leap-claude-code",
+      "description": "Workshop workspace for Claude Code for PMs course - AI-powered meeting assistant (MeetFlow) product context"
     },
     {
       "name": "yschimke--compose-ai-tools",
