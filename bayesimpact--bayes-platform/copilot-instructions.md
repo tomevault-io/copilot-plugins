@@ -1,15 +1,241 @@
-## no-autonomous-git-commit-push
+## web
 
-> Never commit or push without explicit user approval
+> Rules for the React Web frontend application (apps/web)
 
 
-# No Autonomous Git Commits or Pushes
+# Cursor Agent Rules for CaseAI Connect - Web
 
-NEVER run `git commit` or `git push` (on any branch or worktree) unless the user explicitly asks for it in their message.
+## Redux & Feature Architecture
 
-- Fixing a bug, a failing CI check, or completing a task is NOT implicit permission to commit or push.
-- When a fix requires a commit/push to take effect (e.g. CI runs on the remote branch), stage or prepare the changes, then stop and tell the user what to commit and push.
-- Instead of committing, end the response with the usual suggested commit message (`💬 Git: ...`) and let the user run the git commands themselves.
+### API Calls Must Go Through Redux + Services
+
+**Rule**: All API calls MUST go through React-Redux thunks, which in turn MUST use the shared `services` object. React components MUST NOT call the API client (Axios, `fetch`, etc.) directly.
+
+**Requirements**:
+- All API calls must use Redux thunks (`createAsyncThunk`)
+- Thunks call `extra.services.{feature}` methods only (never `axios` / `fetch` directly)
+- Components dispatch thunks, never call API directly
+- API routes and DTOs come from `@caseai-connect/api-contracts`
+- The Axios client is centralized in `external/axios.ts`
+- The feature services registry is centralized in `external/axios.services.ts` and exposed via `di/services.ts`
+
+**Structure**:
+- Redux slices: `features/{domain}/{domain}.slice.ts`
+- Redux thunks: `features/{domain}/{domain}.thunks.ts`
+- Redux selectors: `features/{domain}/{domain}.selectors.ts`
+- Axios client: `external/axios.ts` (singleton Axios with auth interceptors)
+- Services registry: `external/axios.services.ts` (builds concrete services) and `di/services.ts` (typed `Services` + `getServices()`)
+
+**Store wiring**:
+- `store/index.ts`:
+  - Registers feature reducers under their domain keys (e.g. `me`, `projects`, `organizations`, `agents`, etc.)
+  - Configures `thunk.extraArgument` with `{ services: getServices() }` (typed as `ThunkExtraArg`)
+  - Middleware and listeners must assume all side-effectful work goes through these services
+
+### Feature Service Pattern (SPI + External API + Models)
+
+**Rule**: Each feature MUST follow the "me" feature architecture as the canonical pattern for defining and organizing objects inside a feature.
+
+**Canonical Example (Me Feature)**:
+- `features/me/me.models.ts`
+  - Defines domain-level types (`User`, `Me`, etc.)
+  - These are the types slices and components should depend on (not raw DTOs)
+- `features/me/me.spi.ts`
+  - Declares the Service Provider Interface for the feature (`IMeSpi`)
+  - Only exposes domain models (`Me`) in its API surface
+- `features/me/external/me.api.ts`
+  - Concrete implementation of the SPI using Axios + `@caseai-connect/api-contracts`
+  - Uses `satisfies IMeSpi` to ensure the implementation matches the SPI contract
+  - Performs DTO → domain mapping via small helpers (e.g. `fromDto(dto: MeResponseDto): Me`)
+- `external/axios.services.ts`
+  - Wires the feature implementation into the global `services` object:
+    - `me: meApi` (where `meApi` is the SPI implementation from `features/me/external/me.api.ts`)
+- `di/services.ts`
+  - Declares the `Services` type (e.g. `me: IMeSpi`, `projects: IProjectsApi`, etc.)
+  - Exposes `getServices()` which returns the concrete `services` instance
+- `features/me/me.thunks.ts`
+  - Uses `createAsyncThunk<Me, void, { state: RootState; extra: ThunkExtraArg }>`
+  - Accesses the SPI through `extra.services.me` only
+- `features/me/me.slice.ts`
+  - Stores domain state based on `Me` / `Me["user"]` types
+  - Handles pending/fulfilled/rejected states of the feature thunks
+- `features/me/me.selectors.ts`
+  - Selectors read from the slice and return domain models, not DTOs
+
+**Requirements for New or Refactored Features**:
+- Define **domain models** in `features/{domain}/{domain}.models.ts`
+  - Components and slices should use these models, not raw DTOs
+- Define a **feature SPI** in `features/{domain}/{domain}.spi.ts`
+  - The interface should expose domain models and hide transport details
+- Implement the SPI in `features/{domain}/external/{domain}.api.ts`
+  - Use `@caseai-connect/api-contracts` routes and DTOs
+  - Perform DTO → domain mapping in small, explicit functions
+  - Ensure the implementation `satisfies I{Domain}Spi`
+- Register the implementation in `external/axios.services.ts`
+  - Add `{domain}: {domain}Api` to the `services` object
+- Update `di/services.ts`
+  - Add the feature to the `Services` type
+- Write thunks in `features/{domain}/{domain}.thunks.ts`
+  - Use `createAsyncThunk<DomainModel, ...>` and call `extra.services.{domain}`
+- Keep Redux slices and selectors feature-local, typed on the **domain models**
+
+**Migration Guidance**:
+- Legacy features (e.g. `projects`, `organizations`, `agents`, `test`) that currently:
+  - Define APIs in `services/{domain}.ts`
+  - Return DTOs directly to slices
+  - Are wired via `build{Domain}Api(getAxiosInstance())` in `external/axios.services.ts`
+- SHOULD be refactored over time to:
+  - Introduce `*.models.ts` + `*.spi.ts` + `external/*.api.ts`
+  - Use domain models internally and map from DTOs at the edge
+  - Use `satisfies I{Domain}Spi` for API implementations
+  - Mirror the "me" feature structure and patterns
+
+**Example**:
+```typescript
+// ✅ Correct - Component dispatches thunk
+const dispatch = useAppDispatch()
+dispatch(fetchMe())
+
+// ❌ Wrong - Component calls API directly
+const response = await fetch('/me')
+```
+
+## Form Component Architecture
+
+### Separation of Create and Update Forms
+
+**Rule**: A `CreateXXXForm` component MUST NEVER be used for both creating and updating actions. Always create separate components for create and update operations, and extract shared form logic into a shared component.
+
+**Requirements**:
+- `CreateXXXForm` should ONLY handle creation logic
+- `UpdateXXXForm` should ONLY handle update logic
+- When forms share common code (fields, validation, layout), extract it into a shared `XXXForm` component
+- The shared form component should be a presentational component that accepts props for different behaviors
+
+**Structure**:
+- Shared form component: `components/{domain}/{Domain}Form.tsx` (e.g., `components/projects/ProjectForm.tsx`)
+- Create form: `components/{domain}/Create{Domain}Form.tsx` (e.g., `components/projects/CreateProjectForm.tsx`)
+- Update form: `components/{domain}/Update{Domain}Form.tsx` (e.g., `components/projects/UpdateProjectForm.tsx`)
+
+**Example - Correct Pattern**:
+```typescript
+// ✅ Correct - Shared form component
+// components/projects/ProjectForm.tsx
+export function ProjectForm({
+  defaultName,
+  isLoading,
+  error,
+  onSubmit,
+  submitLabelIdle,
+  submitLabelLoading,
+}: ProjectFormProps) {
+  // Shared form fields, validation, and layout
+}
+
+// ✅ Correct - Create-only form
+// components/projects/CreateProjectForm.tsx
+export function CreateProjectForm({ organizationId, onSuccess }: CreateProjectFormProps) {
+  const dispatch = useAppDispatch()
+  const handleSubmit = async (data) => {
+    await dispatch(createProject({ name: data.name, organizationId })).unwrap()
+    onSuccess?.()
+  }
+  return <ProjectForm onSubmit={handleSubmit} submitLabelIdle="Create Project" ... />
+}
+
+// ✅ Correct - Update-only form
+// components/projects/UpdateProjectForm.tsx
+export function UpdateProjectForm({ project, onSuccess }: UpdateProjectFormProps) {
+  const dispatch = useAppDispatch()
+  const handleSubmit = async (data) => {
+    await dispatch(updateProject({ projectId: project.id, payload: { name: data.name } })).unwrap()
+    onSuccess?.()
+  }
+  return <ProjectForm defaultName={project.name} onSubmit={handleSubmit} submitLabelIdle="Update Project" ... />
+}
+```
+
+**Example - Wrong Pattern**:
+```typescript
+// ❌ Wrong - Single form handling both create and update
+export function CreateProjectForm({ organizationId, project, onSuccess }: CreateProjectFormProps) {
+  const onSubmit = async (data) => {
+    if (project) {
+      // Update logic
+    } else {
+      // Create logic
+    }
+  }
+  // ...
+}
+```
+
+**Why this pattern?**
+- **Separation of concerns**: Each form has a single, clear responsibility
+- **Type safety**: Create and update forms can have different prop types
+- **Maintainability**: Changes to create logic don't affect update logic and vice versa
+- **Reusability**: Shared form component can be reused in other contexts
+- **Testability**: Easier to test create and update logic independently
+
+## TypeScript Type Safety
+
+### Never Use `any` to Fix TypeScript Errors
+
+**Rule**: NEVER use `any` type or `as any` type assertions to fix TypeScript errors. Always use proper types, type guards, or type narrowing instead.
+
+**Requirements**:
+- Never use `any` type annotations
+- Never use `as any` type assertions
+- Never use `// @ts-ignore` or `// @ts-expect-error` to suppress type errors
+- Always fix type errors properly by:
+  - Using correct types from the codebase
+  - Adding proper type guards
+  - Using type narrowing
+  - Creating proper type definitions when needed
+  - Using `unknown` and type guards if the type is truly unknown
+
+**Examples**:
+```typescript
+// ❌ Wrong - Using `any` to fix type errors
+const result = someFunction() as any
+dispatch(action as any)
+
+// ✅ Correct - Using proper types
+const result: ExpectedType = someFunction()
+dispatch(action)
+
+// ✅ Correct - Using type guards for unknown types
+function isExpectedType(value: unknown): value is ExpectedType {
+  return typeof value === 'object' && value !== null && 'property' in value
+}
+
+if (isExpectedType(unknownValue)) {
+  // Now TypeScript knows the type
+  useValue(unknownValue)
+}
+```
+
+**Why this rule?**
+- `any` defeats the purpose of TypeScript's type safety
+- `any` can hide real bugs and lead to runtime errors
+- Proper types make the code more maintainable and self-documenting
+- Type guards and narrowing provide runtime safety checks
+
+## Completion Criteria
+
+### Required Checks Before Marking Work as Completed
+
+**Rule**: When working on the web frontend application (`apps/web`), you MUST run both `npm run biome:check` and `npm run typecheck` to confirm that your changes didn't break anything before marking the task as finished.
+
+**Why**: The frontend application is particularly sensitive to type errors and formatting issues that can break the build or cause runtime errors. These checks must pass before considering the work complete.
+
+**Required Steps**:
+1. After making changes to web code, run `npm run biome:check`
+2. Then run `npm run typecheck`
+3. Fix any errors or warnings that appear
+4. Only mark the task as complete when both commands pass successfully
+
+**Note**: These checks ensure code quality, type safety, and that existing functionality continues to work correctly.
 
 ---
 > Source: [bayesimpact/bayes-platform](https://github.com/bayesimpact/bayes-platform) — distributed by [TomeVault](https://tomevault.io).
