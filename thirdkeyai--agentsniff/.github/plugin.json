@@ -1,0 +1,9 @@
+{
+  "name": "thirdkeyai--agentsniff",
+  "displayName": "agentsniff",
+  "description": "Detect AI agents operating on your network through passive monitoring, active probing, protocol detection, and behavioral analysis. ",
+  "version": "1.0.0",
+  "author": "ThirdKeyAI",
+  "homepage": "https://github.com/ThirdKeyAI/agentsniff",
+  "skills": []
+}
