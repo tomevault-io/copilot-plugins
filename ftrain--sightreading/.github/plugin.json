@@ -1,0 +1,9 @@
+{
+  "name": "ftrain--sightreading",
+  "displayName": "sightreading",
+  "description": "Piano sight reading practice app with MIDI input, progressive difficulty, and real-time feedback",
+  "version": "1.0.0",
+  "author": "ftrain",
+  "homepage": "https://github.com/ftrain/sightreading",
+  "skills": []
+}
