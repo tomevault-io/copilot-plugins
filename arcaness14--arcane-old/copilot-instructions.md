@@ -1,25 +1,26 @@
-## ss14-tests
+## arcane-old
 
 > <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
----
-description: Test-layer selection and authoring rules for SS14 content and integration coverage.
-globs:
-  - Content.Tests/**/*.cs
-  - Content.IntegrationTests/**/*.cs
-alwaysApply: false
----
+# Gemini Repo Instructions
 
-Read these skills before editing matching files:
+Follow [AGENTS.md](AGENTS.md) as the primary repository instruction file for this SS14 fork.
 
-- @.agents/skills/ss14-tests-authoring/SKILL.md
-- @.agents/skills/ss14-naming-conventions/SKILL.md
-- @.agents/skills/ss14-upstream-maintenance/SKILL.md
+Before editing:
 
-- Prefer the smallest test layer that covers the risk.
-- Keep test additions focused on the changed behavior.
+- Read `.agents/rules/`
+- Read every relevant skill under `.agents/skills/`
+- Prefer the nearest subtree `AGENTS.md` when one exists for the touched files
+
+Core expectations:
+
+- Keep components data-only and behavior in systems.
+- Use `On... -> Try... -> Can... -> Do...` for gameplay actions.
+- Prefer `Entity<T?>`, `ProtoId<T>`, `EntProtoId`, and localized strings.
+- Avoid `RobustToolbox/` edits unless engine work is explicitly required.
+- Use prediction and localization as first-pass design constraints, not cleanup.
 
 ---
 > Source: [ArcaneSS14/arcane-old](https://github.com/ArcaneSS14/arcane-old) — distributed by [TomeVault](https://tomevault.io).
