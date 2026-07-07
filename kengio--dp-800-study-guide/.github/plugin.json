@@ -1,0 +1,9 @@
+{
+  "name": "kengio--dp-800-study-guide",
+  "displayName": "dp-800-study-guide",
+  "description": "Open-source community study guide for Microsoft DP-800: Developing AI-Enabled Database Solutions. Aligned to the March 2026 official blueprint. Covers SQL Server 2025, Azure SQL, Microsoft Fabric, vec",
+  "version": "1.0.0",
+  "author": "kengio",
+  "homepage": "https://github.com/kengio/dp-800-study-guide",
+  "skills": []
+}
