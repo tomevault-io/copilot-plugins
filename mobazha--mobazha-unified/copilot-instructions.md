@@ -1,43 +1,110 @@
-## i18n-rules
+## identity-display-rules
 
-> 国际化硬性规则 — 所有用户可见文本必须使用 i18n
+> 用户身份展示和术语抽象规范
 
 
-# 国际化规则
+# 身份展示与术语抽象规范
 
-## 严格禁止
+## 核心禁令
 
-- 禁止在 JSX 中硬编码用户可见的中文、英文或其他语言文本
-- 禁止在组件中直接写死错误提示、占位符、按钮文本
-- 禁止在条件判断中用语言分支（如 `currency === 'CNY' ? '中文' : 'English'`）
+### 禁止在 UI 中直接渲染裸 Peer ID 或区块链地址
 
 ```tsx
-// ❌ 禁止
-<Button>提交订单</Button>
-<p>No items found</p>
-placeholder="请输入搜索内容"
-{currency === 'CNY' ? '国内快递' : 'Standard Shipping'}
+// ❌ 禁止：直接渲染 peerID
+<span>{order.buyer.peerID}</span>
+<span>{product.vendorID.peerID}</span>
+<p>Seller: {seller.peerID}</p>
 
-// ✅ 必须
-<Button>{t('order.submit')}</Button>
-<p>{t('common.noItems')}</p>
-placeholder={t('search.placeholder')}
-{t(`shipping.templates.${templateKey}`)}
+// ✅ 正确：通过 formatUserName 处理
+import { formatUserName, truncateAddress } from '@mobazha/core/utils/identity';
+
+<span>{formatUserName(order.buyer)}</span>
+<span>{formatUserName(product.vendorID)}</span>
+<p>Seller: {formatUserName(seller)}</p>
+
+// ✅ 正确：区块链地址使用截断 + 复制按钮
+<AddressBadge address={payment.address} />
+// 渲染为 "0x1234...cdef" + 📋复制
 ```
 
-## 翻译 Key 规范
+### 禁止在面向用户的 UI 文案中使用以下技术术语
 
-- 使用点分隔的层级命名：`模块.功能.描述`
-- 示例：`order.status.completed`、`wallet.send.confirm`、`settings.general.title`
-- 新增 key 必须同时添加到 `packages/core/i18n/locales/en.ts`
+| 技术术语 | 用户应看到的 | 注意 |
+|---------|------------|------|
+| Escrow | "Buyer Protection" / "买家保障" | i18n key: `trust.buyerProtection` |
+| Smart Contract | 不出现 | 代码注释/变量名可以用 |
+| Peer ID | 店铺名/用户名，或 "Seller ID" / "卖家 ID" | |
+| IPFS | 不出现 | |
+| Gas Fee | "Network Fee" / "网络手续费" | i18n key: `payment.networkFee` |
+| Block Confirmation | "Confirming payment" / "支付确认中" | |
+| Moderator (争议上下文) | "Dispute Resolution" / "争议仲裁" | 仲裁者列表页可保留 Moderator |
 
-## 允许的例外
+**例外**：
+- 代码变量名、API 字段名、注释中可以使用技术术语
+- 面向技术用户的高级设置页面（如 Advanced Settings）可以保留
+- 仲裁者列表页（Moderators）作为功能名称保留
 
-- 技术性标识（如链名 "Ethereum"、"BSC"）
-- 货币代码（"BTC"、"ETH"）
-- 组件内部的 `data-testid` 值
-- `console.log` / `console.error` 的调试信息
-- 仅用于开发环境的文本
+## 生产环境数据保证
+
+- **name 是必填项**：onboarding 前端校验 + 后端 `validateProfile` 强制 `len(Name) > 0`
+- **vendorName 几乎总有值**：搜索索引从 profile 同步 name，仅历史数据或索引延迟时可能为空
+- **Fallback 是防御性编程**：面向极端边缘情况（API 故障、数据竞态、历史数据），不是常规路径
+- **E2E 截图中的 "Unknown" 是 mock 数据质量问题**（PG-007b），非生产问题
+
+## 身份展示优先级
+
+1. **可读名称**：如果有 `name` 或 `handle` 字段，优先显示
+2. **截断 ID + 前缀**：无名称时显示 `Store QmY8…tRnC` 或 `User QmBu…eer1`
+3. **完整 ID**：仅在用户主动操作时展示（点击复制、查看详情等）
+
+## Fallback 策略（上下文相关，非一刀切）
+
+**核心原则**：名称不可用时的 fallback 取决于 UI 上下文。不要盲目用空字符串替换 "Unknown"。
+Fallback 仅面向极端边缘情况，但设计时应选择比 "Unknown" 更有语义的替代。
+
+| UI 上下文 | 推荐 fallback | 说明 |
+|---------|-------------|------|
+| 商品卡片 vendorName | 空字符串 / 不渲染 | 组件有条件渲染 `vendorName && (...)`，空=隐藏该行，可接受 |
+| 通知发送者 | 空字符串 | 省略主语，只保留事件描述（"Payment received" 而非 "Unknown Payment received"） |
+| 订单列表对方名 | 角色标签 `"Seller"` / `"Buyer"` | "From: " 后面必须有内容，空字符串视觉上像 bug |
+| 订单详情资料卡 | 角色标签 `"Seller"` / `"Buyer"` / `"User"` | 结构化卡片需要可见名称 |
+| 聊天房间名 | `"Chat"` | 空名称的房间看起来损坏 |
+| 结账页卖家 | `"Seller"` | 买家需要知道向谁付款 |
+| 数据转换层（订单） | 截断 peerID → 角色标签 | peerID 几乎总存在；极端情况用角色标签兜底 |
+
+```tsx
+// ✅ 商品卡片：vendorName 为空时隐藏卖家行
+{vendorName && <span>{vendorName}</span>}
+
+// ✅ 订单数据转换：peerID 截断 → 角色标签兜底
+name: formatUserName({ name: handle, peerID }, { fallback: 'Seller' })
+
+// ✅ 通知：无名称时只显示事件
+<span>{handle || ''}</span> {t('notifications.order.paymentReceived')}
+
+// ❌ 错误：所有地方统一用空字符串
+name: formatUserName(..., { fallback: '' })  // 订单列表显示 "From: " 后面空白
+```
+
+## 通知消息规范
+
+```tsx
+// ❌ 禁止："Unknown Payment received" / "Unknown Notification"
+// ✅ 正确："Payment received for order #QmOrder0" / "Order has been shipped"
+
+// 通知标题不应包含 "Unknown" 前缀
+// 如果发送者名称不可用，直接省略主语，用事件描述即可
+```
+
+## 审查检查项
+
+修改涉及用户信息展示的组件时：
+
+- [ ] 是否使用了 `formatUserName()` 而非直接渲染 peerID？
+- [ ] 区块链地址是否使用了 `truncateAddress()` + 复制功能？
+- [ ] 面向用户的文案中是否有 Escrow/Gas/IPFS 等技术术语？
+- [ ] 通知消息是否有 "Unknown" 前缀？
+- [ ] 新增的用户可见文案是否使用了 `t()` i18n 函数？
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
