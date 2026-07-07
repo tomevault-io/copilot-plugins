@@ -1,47 +1,51 @@
-## conventional-commits
+## pull-request-template
 
-> Require scoped conventional commits with detailed bullet-point bodies via heredocs.
+> Require repo PR templates when creating or updating pull requests.
 
 
-# Conventional commits
+# Pull request templates
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) for every commit:
+Before creating or materially updating a pull request, check the repository for a PR template and use it as the body structure.
 
-```
-<type>(<scope>): <short imperative summary>
-```
+## Find the template first
 
-- Prefer explicit scopes tied to changed areas in this repo, such as `workflow`, `auth`, `reviewer`, `applicant`, `docs`, `deployment`, `tests`, or `migrations`.
-- If staged files span unrelated concerns, split them into separate scoped commits.
-- Keep the subject line imperative, concise, and without a trailing period.
+Search these paths in order until one exists:
 
-## Commit body
+1. `.github/PULL_REQUEST_TEMPLATE.md`
+2. `.github/pull_request_template.md`
+3. `.github/PULL_REQUEST_TEMPLATE/*.md` (use the default template if multiple)
+4. `docs/pull_request_template.md`
+5. `PULL_REQUEST_TEMPLATE.md` at the repository root
 
-Every commit must include a body with detailed bullet points that explain:
+Read the template file before drafting the PR body. Do not invent a custom layout when the repo defines its own sections.
 
-- what problem is being solved or why the change is needed
-- what was implemented or changed
-- impact, risk, migration notes, or test coverage when relevant
+## Fill the template faithfully
 
-Body bullets must start with `- ` and be specific. Do not use placeholder bullets.
+- Keep every section and heading from the template.
+- Replace placeholder comments with concrete content for the current change.
+- Mark checklist items with `[x]` only when they are true for this PR.
+- Leave optional sections in place when they do not apply; briefly note `N/A` instead of deleting template structure.
+- Preserve repo-specific notes at the bottom of the template, including Conventional Commits title guidance.
 
-## Writing commit messages
+## PR scope
 
-Always pass commit messages through a heredoc so newlines are preserved and stray `\n` literals are not introduced:
+- PR titles should follow Conventional Commits.
+- A PR may contain multiple closely related vertical slices when they form one coherent review unit.
+- Do not split work into extra PRs purely for process overhead when one branch and one PR make the review clearer.
+- When a PR contains multiple slices, make the related issues, test coverage, and reviewer notes explicit in the PR body.
+
+## Create the PR with `gh`
+
+Use `gh pr create` or `gh pr edit` and pass the filled template through a heredoc body.
 
 ```bash
-git commit -m "$(cat <<'EOF'
-feat(workflow): add review start transition
-
-- add the explicit review start transition so submitted applications move into under-review intentionally
-- assign the reviewer during the transition and persist the action in the audit trail
-- cover legal and illegal review-start paths in tests so reviewer ownership is enforced by the backend
-
+gh pr create --title "feat(workflow): add application review transitions" --body "$(cat <<'EOF'
+<paste filled template here>
 EOF
 )"
 ```
 
-Do not use `-m "line1\nline2"` or other escaped-newline strings for multi-line commit messages.
+Do not push a PR body that ignores an existing repository template.
 
 ---
 > Source: [stctheproducer/open-submission-approval-workflow](https://github.com/stctheproducer/open-submission-approval-workflow) — distributed by [TomeVault](https://tomevault.io).
