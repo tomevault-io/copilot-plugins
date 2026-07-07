@@ -1,0 +1,9 @@
+{
+  "name": "iflow-mcp--douinc-mkdocs-mcp-plugin",
+  "displayName": "douinc-mkdocs-mcp-plugin",
+  "description": "Mkdocs + MCP to enhance context retrieval using repo docs",
+  "version": "1.0.0",
+  "author": "iflow-mcp",
+  "homepage": "https://github.com/iflow-mcp/douinc-mkdocs-mcp-plugin",
+  "skills": []
+}
