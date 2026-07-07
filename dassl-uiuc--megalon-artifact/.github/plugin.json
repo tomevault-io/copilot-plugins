@@ -1,0 +1,9 @@
+{
+  "name": "dassl-uiuc--megalon-artifact",
+  "displayName": "MEGALON-artifact",
+  "description": "artifact of paper MEGALON: Efficient Data Sharing for Partly Coherent CXL Memory",
+  "version": "1.0.0",
+  "author": "dassl-uiuc",
+  "homepage": "https://github.com/dassl-uiuc/MEGALON-artifact",
+  "skills": []
+}
