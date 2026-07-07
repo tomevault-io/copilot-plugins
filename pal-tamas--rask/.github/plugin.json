@@ -1,0 +1,9 @@
+{
+  "name": "pal-tamas--rask",
+  "displayName": "rask",
+  "description": "Live web apps in C# \u2014 server-rendered over WebSocket or client-side via WebAssembly, one codebase. No .razor, no JS.",
+  "version": "1.0.0",
+  "author": "pal-tamas",
+  "homepage": "https://github.com/pal-tamas/rask",
+  "skills": []
+}
