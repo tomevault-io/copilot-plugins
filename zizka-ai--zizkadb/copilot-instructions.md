@@ -1,0 +1,28 @@
+## backend-dashboard-contract
+
+> Backend contract the ZizkaDB dashboard depends on — invariants to preserve and KB to keep in sync
+
+
+# Backend ↔ Dashboard Contract
+
+The dashboard (`dashboard/`) is a client of this FastAPI backend. Before changing these files, check how the dashboard consumes them: `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` — endpoint map (§17.3), auth model (§17.2), backend state machine (§18), data model (§21).
+
+## Contracts the dashboard relies on (do not break silently)
+- **`verify-otp` response shape** (`core/api/auth.py`): `{access_token, token_type, requires_plan_selection, requires_checkout, has_access, plan}`. Signup/login always get `has_access: true`, `requires_checkout: false` (no payment gate).
+- **`billing_status_payload` shape** (`core/services/billing.py`): `{enforced, has_access, requires_plan_selection, requires_checkout, subscription_status, trial_ends_at, plan, trial_days?}`. Consumed by `TenantPlanBanner`. Always returns `has_access: true`, `enforced: false`.
+- **Trial activation** (`core/services/auth.py`): on OTP verify, users get `plan=pro` (if unset), `subscription_status=trialing`, `trial_ends_at=+30d`. Startup backfill converts legacy `pending_checkout` → `trialing`.
+- **Auth resolution** (`core/api/deps.py::get_tenant`): JWT vs API key vs dev key; `assert_agent_allowed` (403) for agent-scoped keys; account routes are JWT-only (`require_dashboard_session`). `get_tenant` does NOT check subscription status.
+- **Event schema** (`core/api/events.py`, `event_write.py`): `POST /v1/events` is written by SDKs/MCP/integrations AND read back by the dashboard. Field renames affect both sides.
+- **Route paths/prefixes** (`core/main.py`): the dashboard calls fixed `/v1/...` paths via `dashboard/lib/api.ts`. Renaming a route breaks the client.
+- **API key plan limits** (`core/services/plan_limits.py` = single source of truth; `core/services/api_keys.py::assert_and_reserve_api_key_slot`): active keys per tenant capped by plan (Pro 3 / Team 10; else unlimited). Guard runs in a per-tenant advisory-locked txn before insert. Behind kill switch `API_KEY_LIMITS_ENFORCED` (default OFF). Usage: `GET /v1/auth/api-keys/usage` → `{plan, limit, used, unlimited, at_limit}`.
+- **Demo requests** (`core/api/demo_requests.py`): public `POST /v1/demo-requests` — no auth; optional `position`, allowlisted `source` (`enterprise`|`landing`|`newsletter`, else 422); honeypot `botcheck` → 400; 8/hr/IP in-memory rate limit. Admin: `GET /v1/admin/demo-requests` returns `position` + `source`. Dashboard: `lib/demo.ts`, Enterprise form sends `source: 'enterprise'`.
+
+## Data model
+Schema in `core/db/schema.sql` + `migrations/002-007` + runtime DDL in `core/db/connection.py`. Plan/trial state lives on `users` (`stripe_*` columns retained but unused). Qdrant `agent_events` is 1536-dim COSINE; embeddings are dual-written to Postgres `events.embedding` + Qdrant. See §21.
+
+## Keep the KB in sync
+If you change any contract above, a route, the billing/auth logic, or the DB schema, update `dashboard/DASHBOARD_KNOWLEDGE_BASE.md` (§17.3, §18, §21) in the same change — and the matching `dashboard/lib/api.ts` types/callers if the response shape changed.
+
+---
+> Source: [Zizka-ai/ZizkaDB](https://github.com/Zizka-ai/ZizkaDB) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-06 -->
