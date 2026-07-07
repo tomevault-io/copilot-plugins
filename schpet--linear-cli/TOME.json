@@ -4,7 +4,7 @@
   "repo": "linear-cli",
   "description": "linear without leaving the command line: list, start, and create PRs for linear issues. agent friendly. ",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,21 @@
       "path": ".claude/skills/release",
       "github_url": "https://github.com/schpet/linear-cli/tree/main/.claude/skills/release",
       "description": ""
+    },
+    {
+      "name": "linear-cli",
+      "path": "skills/linear-cli/SKILL.md",
+      "github_url": "https://github.com/schpet/linear-cli/tree/main/skills/linear-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linear-cli",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/schpet/linear-cli/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/schpet/linear-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T23:30:20Z"
+  "distributed_at": "2026-07-07T15:05:16Z"
 }
