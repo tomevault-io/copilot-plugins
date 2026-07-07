@@ -7,11 +7,11 @@ Easy-Access is a self-hosted remote file management platform. Access, manage, an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [PiroAmmar/easy-access](https://github.com/PiroAmmar/easy-access).
+Original source: `AGENTS.md` in [PiroAmmar/easy-access](https://github.com/PiroAmmar/easy-access).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
