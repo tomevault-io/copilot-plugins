@@ -1,0 +1,9 @@
+{
+  "name": "blueskyxn--cpa-core-lts",
+  "displayName": "CPA-Core-LTS",
+  "description": "CLIProxyAPI LTS distribution with usage statistics retained.",
+  "version": "1.0.0",
+  "author": "BlueSkyXN",
+  "homepage": "https://github.com/BlueSkyXN/CPA-Core-LTS",
+  "skills": []
+}
