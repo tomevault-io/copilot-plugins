@@ -1,380 +1,310 @@
-## deeplink-handler-guidelines
+## e2e-testing-guidelines
 
-> Guide for creating new deeplink handlers in MetaMask Mobile. Covers file locations, handler patterns, routing, testing, and common pitfalls.
+> 1. **Test Coverage is Critical**: Higher coverage creates more confidence and helps identify bugs effectively.
 
+# MetaMask Mobile E2E Testing Guidelines
 
-# Creating New Deeplink Handlers
+## Core Principles
 
-This guide walks you through adding new deeplink handlers to MetaMask Mobile. Follow these steps exactly to ensure your handler integrates correctly with the existing architecture.
+1. **Test Coverage is Critical**: Higher coverage creates more confidence and helps identify bugs effectively.
+2. **Tests Should Be Reliable**: Tests should consistently produce the same results and be resilient to minor system changes.
+3. **Tests Should Provide Fast Feedback**: Optimize for quick execution and clear failure messages.
+4. **Tests Should Be Easy to Debug**: When a test fails, it should be clear what functionality is broken.
+5. **Tests Should Be Maintainable**: Structure tests for easy maintenance as the application evolves.
 
-## Quick Reference
+## Test Naming Conventions
 
-| File | Purpose |
-|------|---------|
-| `app/constants/deeplinks.ts` | Define action constants |
-| `app/core/DeeplinkManager/handlers/legacy/handleUniversalLink.ts` | Add to SUPPORTED_ACTIONS enum and switch statement |
-| `app/core/DeeplinkManager/handlers/legacy/handleYourAction.ts` | Your handler implementation |
-| `app/core/DeeplinkManager/handlers/legacy/__tests__/handleYourAction.test.ts` | Unit tests |
+### DO:
+- Use clear, descriptive names that communicate the purpose of the test
+- Name tests based on what they verify (e.g., `adds Bob to the address book`)
+- Keep names concise but informative
 
-## Step 1: Define the Action Constant
+### DON'T:
+- Use the prefix 'should' (e.g., `should add Bob to the address book`)
+- Include multiple behaviors with 'and' in a single test name
+- Use vague or generic names
 
-Add your action to the `ACTIONS` enum in `app/constants/deeplinks.ts`:
+## Test Organization - MANDATORY
 
-```typescript
-export enum ACTIONS {
-  // ... existing actions
-  YOUR_NEW_ACTION = 'your-new-action',  // URL path: /your-new-action
-}
+- Organize tests into folders based on features and scenarios
+- Each feature team should own one or more folders of tests
+- Follow the same organization pattern as the extension team for consistency
+- Place tests in logical feature directories:
+  ```
+  e2e/specs/<feature-name>/<e2e-test-name.spec.ts>
+  e2e/specs/tokens/import/import-erc1155.spec.ts
+  e2e/specs/settings/clear-activity.spec.ts
+  e2e/specs/ppom/ppom-blockaid-alert-erc20-approval.spec.ts
+  ```
+
+## Framework Architecture
+
+### Core Classes:
+
+- **`Assertions`** - Enhanced assertions with auto-retry and detailed error messages
+- **`Gestures`** - Robust user interactions with configurable element state checking
+- **`Matchers`** - Type-safe element selectors with flexible options
+- **`Utilities`** - Core utilities with specialized element state checking
+
+### Key Features:
+
+- ✅ **Auto-retry** - Handles flaky network/UI conditions
+- ✅ **Configurable element state checking** - Control visibility, enabled, and stability checks per interaction
+- ✅ **Performance optimization** - Stability checking disabled by default for better performance
+- ✅ **Better error messages** - Descriptive errors with retry context and timing
+- ✅ **Type safety** - Full TypeScript support with IntelliSense
+
+## Test Atomicity and Coupling
+
+### When to Isolate Tests:
+- Testing specific functionality of a single component or feature
+- When you need to pinpoint exact failure causes
+- For basic unit-level behaviors
+
+### When to Combine Tests:
+- For multi-step user flows that represent real user behavior
+- When testing how different parts of the application work together
+- When the setup for multiple tests is time-consuming and identical
+
+### Guidelines:
+- Each test should run with a dedicated browser and mock services
+- Use the `withFixtures` function to create test prerequisites and clean up afterward
+- Avoid shared mocks and services between tests when possible
+- Consider the "fail-fast" philosophy - if an initial step fails, subsequent steps may not need to run
+
+## Controlling State
+
+### Best Practices:
+- Control application state programmatically rather than through UI interactions
+- Use fixtures to set up test prerequisites instead of UI steps
+- Minimize UI interactions to reduce potential breaking points
+- Improve test stability by reducing timing and synchronization issues
+
+### Example:
+```javascript
+// GOOD: Use fixture to set up prerequisites
+new FixtureBuilder()
+  .withAddressBookControllerContactBob()
+  .withTokensControllerERC20()
+  .build();
+
+// Then test only the essential steps:
+// Login
+// Send TST
+// Assertion
+
+// BAD: Building all state through UI
+new FixtureBuilder().build();
+// Login
+// Add Contact
+// Open test dapp
+// Connect to test dapp
+// Deploy TST
+// Add TST to wallet
+// Send TST
+// Assertion
 ```
 
-**Important**: The enum value becomes the URL path segment (e.g., `https://link.metamask.io/your-new-action`).
+## Framework Best Practices
 
-Also add a prefix entry if needed:
+### Page Object Model (POM) Pattern
+- ALWAYS use the Page Object Model pattern for organizing test code
+- Move all element selectors to Page Objects or dedicated selector files
+- Access UI elements through Page Object methods, not directly in test specs
 
+#### Page Object Structure Example:
 ```typescript
-export const PREFIXES = {
-  // ... existing prefixes
-  [ACTIONS.YOUR_NEW_ACTION]: '',
-};
-```
+import { LoginPageSelectors } from './LoginPage.selectors';
 
-## Step 2: Create the Handler File
-
-Create `app/core/DeeplinkManager/handlers/legacy/handleYourAction.ts`:
-
-```typescript
-import NavigationService from '../../../NavigationService';
-import Routes from '../../../../constants/navigation/Routes';
-import DevLogger from '../../../SDKConnect/utils/DevLogger';
-
-interface HandleYourActionParams {
-  actionPath: string;
-}
-
-/**
- * Interface for parsed navigation parameters
- * Document all supported URL parameters here
- */
-interface YourActionNavigationParams {
-  someParam?: string;
-  anotherParam?: string;
-}
-
-/**
- * Parse URL parameters into typed navigation parameters
- */
-const parseNavigationParams = (
-  actionPath: string,
-): YourActionNavigationParams => {
-  const urlParams = new URLSearchParams(
-    actionPath.includes('?') ? actionPath.split('?')[1] : '',
-  );
-
-  return {
-    someParam: urlParams.get('someParam') || undefined,
-    anotherParam: urlParams.get('anotherParam') || undefined,
-  };
-};
-
-/**
- * Your action deeplink handler
- *
- * Supported URL formats:
- * - https://link.metamask.io/your-new-action
- * - https://link.metamask.io/your-new-action?someParam=value
- * - https://link.metamask.io/your-new-action?someParam=value&anotherParam=value2
- *
- * @param params Object containing the action path
- */
-export const handleYourAction = async ({
-  actionPath,
-}: HandleYourActionParams) => {
-  DevLogger.log(
-    '[handleYourAction] Starting deeplink handling with path:',
-    actionPath,
-  );
-
-  try {
-    const navParams = parseNavigationParams(actionPath);
-    DevLogger.log('[handleYourAction] Parsed parameters:', navParams);
-
-    // Navigate to your screen with parsed parameters
-    NavigationService.navigation.navigate(Routes.YOUR_SCREEN, {
-      someParam: navParams.someParam,
-      anotherParam: navParams.anotherParam,
-    });
-  } catch (error) {
-    DevLogger.log('Failed to handle your action deeplink:', error);
-    // Fallback navigation on error - typically wallet home
-    NavigationService.navigation.navigate(Routes.WALLET.HOME);
+class LoginPage {
+  // Getter pattern for elements
+  get emailInput() {
+    return Matchers.getElementByID(LoginPageSelectors.EMAIL_INPUT);
   }
-};
-```
+  get passwordInput() {
+    return Matchers.getElementByID(LoginPageSelectors.PASSWORD_INPUT);
+  }
+  get loginButton() {
+    return Matchers.getElementByID(LoginPageSelectors.LOGIN_BUTTON);
+  }
 
-### Handler Pattern Requirements
-
-1. **Always use `DevLogger.log`** for debugging (not `console.log`)
-2. **Always wrap in try/catch** with fallback navigation
-3. **Define TypeScript interfaces** for params and navigation
-4. **Document supported URL formats** in TSDoc comments
-5. **Parse URLSearchParams** from the path (it includes the `?` prefix)
-
-## Step 3: Add to SUPPORTED_ACTIONS
-
-In `app/core/DeeplinkManager/handlers/legacy/handleUniversalLink.ts`:
-
-### 3a. Import your handler
-
-```typescript
-import { handleYourAction } from './handleYourAction';
-```
-
-### 3b. Add to SUPPORTED_ACTIONS enum
-
-```typescript
-enum SUPPORTED_ACTIONS {
-  // ... existing actions
-  YOUR_NEW_ACTION = ACTIONS.YOUR_NEW_ACTION,
-}
-```
-
-### 3c. Add switch case (CRITICAL!)
-
-Add a case in the switch statement (around line 254+):
-
-```typescript
-switch (action) {
-  // ... existing cases
-  case SUPPORTED_ACTIONS.YOUR_NEW_ACTION: {
-    handleYourAction({
-      actionPath: actionBasedRampPath,
+  // Public methods for actions
+  async login(email: string, password: string): Promise<void> {
+    await Gestures.typeText(this.emailInput, email, {
+      description: 'enter email',
     });
-    break;
+    await Gestures.typeText(this.passwordInput, password, {
+      description: 'enter password',
+    });
+    await Gestures.tap(this.loginButton, { description: 'tap login button' });
+  }
+
+  // Public methods for verifications
+  async verifyLoginError(expectedError: string): Promise<void> {
+    await Assertions.expectTextDisplayed(expectedError, {
+      description: 'login error should be displayed',
+    });
   }
 }
+
+export default new LoginPage();
 ```
 
-> ⚠️ **CRITICAL**: Forgetting this step is a common bug! Your action will be in SUPPORTED_ACTIONS (passing validation) but will silently do nothing without the switch case.
+### Proper Waiting and Assertions
+- NEVER use `TestHelpers.delay()` - it creates flaky tests and slows down test execution
+- ALWAYS use proper waiting with Assertions from the framework:
+  ```javascript
+  // DON'T:
+  TestHelpers.delay(1000);
+  
+  // DO:
+  Assertions.expectElementToBeVisible(element, {
+    description: 'element should be visible'
+  });
+  ```
 
-## Step 4: Write Unit Tests
+### Framework Imports - MANDATORY
+- ALWAYS import framework utilities from `e2e/framework/index.ts`, not from individual utility files
+- Use the centralized framework exports for consistency and maintainability
 
-Create `app/core/DeeplinkManager/handlers/legacy/__tests__/handleYourAction.test.ts`:
+### Element State Checking Configuration
+- **Default behavior**: `checkVisibility: true`, `checkEnabled: true`, `checkStability: false`
+- **Performance optimization**: Stability checking disabled by default for better performance
+- **When to enable stability**: Complex animations, moving screens, carousel components
+- **When to disable checks**: Loading states, temporarily disabled elements
 
 ```typescript
-import { handleYourAction } from '../handleYourAction';
-import NavigationService from '../../../../NavigationService';
-import Routes from '../../../../../constants/navigation/Routes';
+// Default: checks visibility + enabled, skips stability
+await Gestures.tap(button, { description: 'tap button' });
 
-jest.mock('../../../../NavigationService', () => ({
-  navigation: {
-    navigate: jest.fn(),
-  },
-}));
+// Enable stability for animated elements
+await Gestures.tap(carouselItem, {
+  checkStability: true,
+  description: 'tap carousel item',
+});
 
-jest.mock('../../../../SDKConnect/utils/DevLogger', () => ({
-  log: jest.fn(),
-}));
-
-describe('handleYourAction', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('navigates to YOUR_SCREEN with no parameters', async () => {
-    await handleYourAction({ actionPath: '' });
-
-    expect(NavigationService.navigation.navigate).toHaveBeenCalledWith(
-      Routes.YOUR_SCREEN,
-      expect.objectContaining({}),
-    );
-  });
-
-  it('navigates with someParam parameter', async () => {
-    await handleYourAction({ actionPath: '?someParam=testValue' });
-
-    expect(NavigationService.navigation.navigate).toHaveBeenCalledWith(
-      Routes.YOUR_SCREEN,
-      expect.objectContaining({
-        someParam: 'testValue',
-      }),
-    );
-  });
-
-  it('navigates with multiple parameters', async () => {
-    await handleYourAction({ 
-      actionPath: '?someParam=value1&anotherParam=value2' 
-    });
-
-    expect(NavigationService.navigation.navigate).toHaveBeenCalledWith(
-      Routes.YOUR_SCREEN,
-      expect.objectContaining({
-        someParam: 'value1',
-        anotherParam: 'value2',
-      }),
-    );
-  });
-
-  it('falls back to WALLET.HOME on error', async () => {
-    // Force an error by mocking navigate to throw
-    (NavigationService.navigation.navigate as jest.Mock)
-      .mockImplementationOnce(() => {
-        throw new Error('Navigation failed');
-      });
-
-    await handleYourAction({ actionPath: '?someParam=test' });
-
-    // Second call should be fallback
-    expect(NavigationService.navigation.navigate).toHaveBeenLastCalledWith(
-      Routes.WALLET.HOME,
-    );
-  });
+// Skip checks for loading/processing elements
+await Gestures.tap(processingButton, {
+  checkVisibility: false,
+  checkEnabled: false,
+  description: 'tap processing button',
 });
 ```
 
-Run tests with: `yarn jest app/core/DeeplinkManager/handlers/legacy/__tests__/handleYourAction.test.ts --no-coverage`
+### Prohibited Patterns in Test Specs - MANDATORY
+The following patterns are prohibited in test specs:
 
-## Step 5: Optional Configurations
+1. **Direct Element Selection**
+   ```javascript
+   // DON'T:
+   element(by.id('some-id')).tap();
+   
+   // DO:
+   SomePage.tapOnSomeElement();
+   ```
 
-### Whitelist Action (Skip Interstitial Modal)
+2. **Direct By Selectors**
+   ```javascript
+   // DON'T:
+   by.text('Submit');
+   
+   // DO:
+   // Define in page object:
+   static get submitButton() {
+     return Matchers.getByText('Submit');
+   }
+   ```
 
-If your action needs to bypass the security interstitial (like WalletConnect does):
+3. **Direct waitFor Calls**
+   ```javascript
+   // DON'T:
+   await waitFor(element).toBeVisible().withTimeout(2000);
+   
+   // DO:
+   await Assertions.expectElementToBeVisible(element);
+   ```
+
+## Handling Flaky Tests
+
+### Common Issues and Solutions
+
+#### "Element not enabled" Errors
+- **Cause**: Element exists but is not interactive (disabled/loading state)
+- **Solution**: Use `checkEnabled: false` to bypass enabled state validation
 
 ```typescript
-// In handleUniversalLink.ts
-const WHITELISTED_ACTIONS: SUPPORTED_ACTIONS[] = [
-  SUPPORTED_ACTIONS.WC,
-  SUPPORTED_ACTIONS.ENABLE_CARD_BUTTON,
-  SUPPORTED_ACTIONS.YOUR_NEW_ACTION,  // Add here
-];
+// Skip enabled check for temporarily disabled elements
+await Gestures.tap(loadingButton, {
+  checkEnabled: false,
+  description: 'tap button during loading',
+});
 ```
 
-> ⚠️ **Security Warning**: Only whitelist actions that have their own security mechanisms or don't access sensitive data.
-
-### Whitelist Specific URLs
-
-If only specific URL patterns should bypass the interstitial:
+#### "Element moving/animating" Errors
+- **Cause**: UI animations interfering with interactions
+- **Solution**: Enable stability checking for that specific interaction
 
 ```typescript
-// In handleUniversalLink.ts
-const interstitialWhitelistUrls = [
-  `${PROTOCOLS.HTTPS}://${AppConstants.MM_IO_UNIVERSAL_LINK_HOST}/${SUPPORTED_ACTIONS.PERPS_ASSET}`,
-  `${PROTOCOLS.HTTPS}://${AppConstants.MM_IO_UNIVERSAL_LINK_HOST}/${SUPPORTED_ACTIONS.YOUR_NEW_ACTION}`,
-] as const;
+await Gestures.tap(animatedButton, {
+  checkStability: true, // Wait for animations to complete
+  description: 'tap animated button',
+});
 ```
 
-### Handle in metamask:// Protocol
-
-If your action should also work with `metamask://your-new-action`, it will automatically work since `parseDeeplink.ts` converts `metamask://` to `https://link.metamask.io/`.
-
-## Common Pitfalls
-
-### ❌ Missing Switch Case
+#### Handling Flaky Navigation/Tap Issues
+When elements sometimes don't respond to taps, use a higher-level retry pattern:
 
 ```typescript
-// Action is in SUPPORTED_ACTIONS but NO case handler
-enum SUPPORTED_ACTIONS {
-  YOUR_ACTION = ACTIONS.YOUR_ACTION,  // ✅ Defined
+async tapOpenAllTabsButton(): Promise<void> {
+  return Utilities.executeWithRetry(
+    async () => {
+      await Gestures.waitAndTap(this.tabsButton, {
+        timeout: 2000  // Short timeout for individual action
+      });
+
+      await Assertions.expectElementToBeVisible(this.tabsNumber, {
+        timeout: 2000  // Short timeout for verification
+      });
+    },
+    {
+      timeout: 30000,  // Longer overall timeout for retries
+      description: 'tap open all tabs button and verify navigation',
+      elemDescription: 'Open All Tabs Button',
+    }
+  );
 }
-
-switch (action) {
-  // ❌ No case for YOUR_ACTION - silently does nothing!
-}
 ```
 
-### ❌ Wrong Path Parsing
+## Code Review Checklist - MANDATORY
 
-```typescript
-// WRONG - actionPath already includes the ?
-const urlParams = new URLSearchParams(actionPath);
+Before submitting E2E tests, ensure:
 
-// CORRECT - split on ? first
-const urlParams = new URLSearchParams(
-  actionPath.includes('?') ? actionPath.split('?')[1] : '',
-);
-```
+- [ ] No usage of `TestHelpers.delay()` or `setTimeout()`
+- [ ] All assertions have descriptive `description` parameters
+- [ ] All gestures have descriptive `description` parameters
+- [ ] Appropriate timeouts for operations (not magic numbers)
+- [ ] Page Object pattern used for complex interactions
+- [ ] Element selectors defined once and reused
+- [ ] Framework configuration used appropriately
+- [ ] Error handling for expected failure scenarios
+- [ ] Tests work on both iOS and Android platforms
 
-### ❌ Forgetting Fallback Navigation
+## Debugging Failed Tests
 
-```typescript
-// WRONG - no try/catch
-export const handleYourAction = async ({ actionPath }) => {
-  const params = parseParams(actionPath);  // Could throw!
-  NavigationService.navigation.navigate(Routes.YOUR_SCREEN, params);
-};
+- Write tests that provide clear failure messages
+- Include enough context in assertions to understand what failed
+- Use descriptive selectors that won't break with minor UI changes
+- Capture screenshots or logs at failure points when possible
+- Use descriptive `description` parameters in all assertions and gestures
 
-// CORRECT - always have fallback
-export const handleYourAction = async ({ actionPath }) => {
-  try {
-    const params = parseParams(actionPath);
-    NavigationService.navigation.navigate(Routes.YOUR_SCREEN, params);
-  } catch (error) {
-    DevLogger.log('Failed:', error);
-    NavigationService.navigation.navigate(Routes.WALLET.HOME);
-  }
-};
-```
+## Maintenance Guidelines
 
-### ❌ Using console.log Instead of DevLogger
-
-```typescript
-// WRONG - won't appear in dev builds correctly
-console.log('handling deeplink');
-
-// CORRECT
-DevLogger.log('[handleYourAction] handling deeplink');
-```
-
-## Testing Deeplinks Manually
-
-### iOS Simulator
-
-```bash
-xcrun simctl openurl booted "https://link-test.metamask.io/your-new-action?someParam=test"
-```
-
-### Android Emulator
-
-```bash
-adb shell am start -W -a android.intent.action.VIEW \
-  -d "https://link-test.metamask.io/your-new-action?someParam=test" \
-  io.metamask.debug
-```
-
-### Using metamask:// Scheme
-
-```bash
-# iOS
-xcrun simctl openurl booted "metamask://your-new-action?someParam=test"
-
-# Android
-adb shell am start -W -a android.intent.action.VIEW \
-  -d "metamask://your-new-action?someParam=test" \
-  io.metamask.debug
-```
-
-## Checklist Before PR
-
-- [ ] Action added to `ACTIONS` enum in `app/constants/deeplinks.ts`
-- [ ] Prefix added to `PREFIXES` (if needed)
-- [ ] Handler file created in `handlers/legacy/`
-- [ ] Handler imported in `handleUniversalLink.ts`
-- [ ] Action added to `SUPPORTED_ACTIONS` enum
-- [ ] Switch case added for action (most commonly forgotten!)
-- [ ] Unit tests written and passing
-- [ ] Documentation updated in `docs/readme/deeplinking.md`
-- [ ] Test URLs documented in `docs/deeplink-test-urls.md`
-
-## References
-
-- [Main Deeplink Documentation](../../docs/readme/deeplinking.md)
-- [Visual Flow Diagrams](../../docs/readme/deeplinking-diagrams.md)
-- [Test URLs Reference](../../docs/deeplink-test-urls.md)
-- [Deeplink Constants](../../app/constants/deeplinks.ts)
-- [Universal Link Handler](../../app/core/DeeplinkManager/handlers/legacy/handleUniversalLink.ts)
-
-@app/constants/deeplinks.ts
-@app/core/DeeplinkManager/handlers/legacy/handleUniversalLink.ts
-@docs/readme/deeplinking.md
+- Review and update tests when features change
+- Delete tests for removed features
+- Keep test files focused on specific features
+- Extract common setup into helper functions or fixtures
+- Document complex test setups with comments
+- Avoid non-extendable logic for specific fixtures - make fixtures reusable
 
 ---
 > Source: [granjacours410-source/supreme-disco](https://github.com/granjacours410-source/supreme-disco) — distributed by [TomeVault](https://tomevault.io).
