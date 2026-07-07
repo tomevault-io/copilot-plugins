@@ -1,31 +1,181 @@
-## typescript-rules
+## visual-check-rules
 
-> TypeScript 规范 - 所有 TypeScript 文件应用
+> 页面完成后自动视觉检查规范
 
 
-# TypeScript 规范
+# 页面可视化检查规范
 
-## 项目约定
+## 触发时机
 
-- 对象类型用 `interface`，联合类型/工具类型用 `type`
-- **禁止 `any`**，使用 `unknown` + 类型守卫
-- 所有函数参数和返回值必须有类型
-- 使用 `import type` 导入纯类型
-- 使用 `interface` 定义组件 Props 并添加 JSDoc
+当以下条件**任一**满足时，AI 必须主动执行可视化截图检查：
 
-```typescript
-// ✅ 类型导入
-import type { Product, Order } from './types';
-import { fetchProducts, type Product } from './products';
+1. **新页面/组件完成**：新增或大幅修改了 page/component 并涉及 UI 变更
+2. **交互流程完成**：完成了涉及多步骤用户交互的功能（如购物车流程、结账流程）
+3. **用户要求**：用户说"截图检查"、"视觉检查"、"看看效果"、"验证页面"
 
-// ✅ Props 定义
-interface ButtonProps {
-  /** 按钮文本 */
-  children: React.ReactNode;
-  onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'ghost';
+## 执行方法
+
+使用 puppeteer-core 在本机 Chrome 中截图，然后用 Read 工具读取图片分析。
+
+### 脚本模板
+
+在 `/tmp/` 下创建 `.mjs` 脚本，遵循以下模式：
+
+```javascript
+import puppeteer from '/tmp/node_modules/puppeteer-core/lib/esm/puppeteer/puppeteer-core.js';
+
+const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const SCREENSHOT_DIR = '/tmp/visual-check-screenshots';
+
+// 根据实际场景选择端口：
+// - localhost:3000 = hosted 模式 (SaaS)
+// - localhost:3002 = standalone 模式 (独立站)
+const BASE_URL = 'http://localhost:3002';
+
+async function run() {
+  const { mkdirSync } = await import('fs');
+  mkdirSync(SCREENSHOT_DIR, { recursive: true });
+
+  const browser = await puppeteer.launch({
+    executablePath: CHROME_PATH,
+    headless: 'new',
+    args: ['--no-sandbox', '--window-size=1440,900'],
+    defaultViewport: { width: 1440, height: 900 },
+  });
+
+  const page = await browser.newPage();
+
+  try {
+    // Desktop 截图...
+    // Mobile 截图（375x812 = iPhone SE/13 mini）...
+  } finally {
+    await browser.close();
+  }
 }
+
+run().catch(console.error);
 ```
+
+### 前置条件
+
+- puppeteer-core 安装在 `/tmp/node_modules/`（首次需 `cd /tmp && npm install puppeteer-core`）
+- 前端 dev server 正在运行（检查 terminals 或 `curl -s -o /dev/null -w '%{http_code}' http://localhost:3002`）
+- 如果需要登录状态，脚本中添加 Cookie 注入或 localStorage 设置
+
+### 截图命名规范
+
+`{序号}-{视口}-{页面/动作}.png`，例如：
+- `01-desktop-homepage.png`
+- `02-desktop-product-detail.png`
+- `03-desktop-after-add-to-cart.png`
+- `04-mobile-product-detail.png`
+
+## 分析检查清单
+
+读取截图后，按以下维度审查：
+
+### 1. 布局与间距
+- [ ] 组件对齐正确，无明显错位
+- [ ] 间距符合 4px/8px 网格系统
+- [ ] 无内容溢出或被截断
+
+### 2. 颜色与主题
+- [ ] 使用了正确的 design tokens（bg-primary, bg-destructive 等）
+- [ ] 同类元素颜色一致（如所有 badge 同色）
+- [ ] 暗色/亮色主题下可读性良好
+
+### 3. 交互反馈
+- [ ] 按钮点击后有状态变化（loading / success / disabled）
+- [ ] Badge 数量实时更新
+- [ ] 空状态有引导（不是空白页）
+
+### 4. 移动端适配
+- [ ] 触控目标 >= 44x44px
+- [ ] 文字可读（>=14px body, >=12px caption）
+- [ ] 底部导航栏不遮挡内容
+- [ ] 无水平滚动
+
+### 5. 匿名用户体验（独立站关键）
+- [ ] 公共页面（首页、商品、购物车）无需登录即可访问
+- [ ] 购物车图标对所有用户可见
+- [ ] 需要登录的操作有明确提示而非强制跳转
+
+### 6. 电商 UX 规范
+- [ ] 价格显示格式一致（$X.XX）
+- [ ] 库存/可用性清晰标注
+- [ ] CTA 按钮突出（Add to Cart 用主色）
+- [ ] 商品图片有 fallback（图片加载失败时显示占位符）
+
+## 报告格式
+
+分析完成后，输出以下格式的报告：
+
+```
+## 可视化检查报告
+
+### 通过项
+- [描述]
+
+### 需改进
+- **[优先级]** [问题描述] — [建议修复方式]
+
+### 后续优化（非阻塞）
+- [描述]
+```
+
+## Playwright 视觉回归测试（E2E）
+
+除了 puppeteer 临时截图检查外，项目有正式的 Playwright 视觉回归测试：
+
+### 测试文件
+
+| 文件 | 用途 |
+|---|---|
+| `apps/web/e2e/desktop-visual.spec.ts` | 桌面端视觉回归（1280×720） |
+| `apps/web/e2e/mobile-visual.spec.ts` | 移动端视觉回归（Pixel 5） |
+| `apps/web/e2e/ux-audit.spec.ts` | 桌面端 UX 审计（深度检查） |
+| `apps/web/e2e/mobile-ux-audit.spec.ts` | 移动端 UX 审计（深度检查） |
+
+### 测试分组
+
+测试分为两组，确保公开和已登录页面都有覆盖：
+
+- **Public Pages** — 无需登录：首页、市场、搜索、登录页、仲裁者列表
+- **Authenticated Pages** — 需登录态：购物车、结账、订单、钱包、设置、聊天等
+
+### E2E Fixtures
+
+| 文件 | 职责 |
+|---|---|
+| `e2e/fixtures/auth.ts` | `performCasdoorLogin` + `completeOnboardingIfNeeded` + `loginAndSetup` |
+| `e2e/fixtures/mock-api-routes.ts` | Mock API 响应（订单/通知/搜索/商品详情/地址等），确保页面有数据 |
+| `e2e/fixtures/seed-visual-data.ts` | 创建测试商品 + 注入购物车 localStorage 数据 |
+
+### 运行命令
+
+```bash
+# 桌面端视觉测试
+pnpm --filter @mobazha/web exec playwright test desktop-visual --project=chromium
+
+# 移动端视觉测试
+pnpm --filter @mobazha/web exec playwright test mobile-visual --project="Mobile Chrome"
+
+# 更新快照
+pnpm --filter @mobazha/web exec playwright test desktop-visual --update-snapshots
+```
+
+### Mock API 最佳实践
+
+- Mock 函数使用 `(route, request)` 签名，仅拦截 GET 请求
+- 非 GET 请求 `return route.fallback()` 让其通过
+- Mock 数据定义在 `mock-api-routes.ts` 顶部，方便维护
+
+## 已知约束
+
+- Headless Chrome 中模态框/Drawer 动画可能需要额外等待（`sleep(1000)`）
+- Sheet/Dialog 组件需要先关闭上层模态框才能交互
+- 截图不包含鼠标 hover 状态，需单独测试
+- 脚本运行需要 `required_permissions: ["all"]`
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
