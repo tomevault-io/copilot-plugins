@@ -1,0 +1,44 @@
+{
+  "name": "trend-viewer",
+  "owner": "xazingatrend",
+  "repo": "trend-viewer",
+  "description": "\uc720\ud29c\ube0c, \ub9b4\uc2a4, X, \uc2a4\ub808\ub4dc, \ud2f1\ud1a1, AI \ub274\uc2a4\ub97c \ud55c \ud654\uba74\uc5d0\uc11c \ubcf4\ub294 \ub85c\uceec \ud2b8\ub80c\ub4dc \uad00\uc81c\ud310. Python stdlib only.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xazingatrend/trend-viewer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T14:31:03Z"
+}
