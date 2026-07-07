@@ -1,0 +1,44 @@
+{
+  "name": "xime-wayland",
+  "owner": "ximeiorg",
+  "repo": "xime-wayland",
+  "description": "\u4e00\u4e2a\u5f00\u7bb1\u5373\u7528\u7684 Linux \u8f93\u5165\u6cd5,\u57fa\u4e8e Rime \u4e0e Rust \u5b9e\u73b0\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ximeiorg/xime-wayland",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T00:50:35Z"
+}
