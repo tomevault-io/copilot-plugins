@@ -1,0 +1,9 @@
+{
+  "name": "aliceljy--telegram-ai-bridge",
+  "displayName": "telegram-ai-bridge",
+  "description": "Heterogeneous AI agents (Claude Code + Codex + Gemini) collaborating in Telegram groups over A2A-TG \u2014 a generation-counted envelope protocol. Self-hosted.",
+  "version": "1.0.0",
+  "author": "AliceLJY",
+  "homepage": "https://github.com/AliceLJY/telegram-ai-bridge",
+  "skills": []
+}
