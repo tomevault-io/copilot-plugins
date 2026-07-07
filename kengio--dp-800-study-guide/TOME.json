@@ -1,0 +1,44 @@
+{
+  "name": "dp-800-study-guide",
+  "owner": "kengio",
+  "repo": "dp-800-study-guide",
+  "description": "Open-source community study guide for Microsoft DP-800: Developing AI-Enabled Database Solutions. Aligned to the March 2026 official blueprint. Covers SQL Server 2025, Azure SQL, Microsoft Fabric, vector search, RAG, MCP, and more.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kengio/dp-800-study-guide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T07:31:11Z"
+}
