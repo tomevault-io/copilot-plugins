@@ -1,0 +1,9 @@
+{
+  "name": "mruwnik--media-server",
+  "displayName": "media-server",
+  "description": "My Raspberry Pi setup",
+  "version": "1.0.0",
+  "author": "mruwnik",
+  "homepage": "https://github.com/mruwnik/media-server",
+  "skills": []
+}
