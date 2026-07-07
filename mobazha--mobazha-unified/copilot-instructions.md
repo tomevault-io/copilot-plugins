@@ -1,146 +1,195 @@
-## store-sections-rules
+## theme-rules
 
-> Store Section 组件开发规范 — PG-201 Section-based 店铺品牌化的实施约束
+> UI 主题适配规则 - 创建或修改 UI 组件时应用
 
 
-# Store Section 组件开发规范
+# UI 主题适配规则
 
-> 设计文档：`docs/features/PG-201_STORE_BRANDING_DESIGN.md`（v2.1，权威来源）
+## 核心原则
 
-## 类型安全
+在 Tailwind CSS 项目中，**禁止使用硬编码颜色**，必须使用主题变量以确保浅色/深色模式自动适配。
 
-### Discriminated Union（必须遵守）
+## 禁止使用的硬编码颜色
 
-`StoreSection` 使用 discriminated union，`type` 字段决定 `props` 类型。
+以下颜色类名视为"硬编码颜色"，应替换为主题变量：
 
-```typescript
-// ✅ 正确：类型严格绑定
-export type StoreSection =
-  | { id: string; type: 'hero'; props: HeroSectionProps; visible: boolean; layout?: SectionLayout }
-  | { id: string; type: 'faq';  props: FaqSectionProps;  visible: boolean; layout?: SectionLayout };
+### 文字颜色（禁止）
+- `text-slate-*`, `text-gray-*`, `text-zinc-*`, `text-neutral-*`, `text-stone-*`
+- `text-emerald-*`, `text-green-*`, `text-teal-*`
+- `text-blue-*`, `text-indigo-*`, `text-violet-*`, `text-purple-*`
 
-// ❌ 禁止：props 为 any 或 Record<string, unknown>
-interface StoreSection {
-  type: string;
-  props: Record<string, unknown>;  // 丢失类型安全
-}
-```
+### 背景颜色（禁止）
+- `bg-slate-*`, `bg-gray-*`, `bg-zinc-*`, `bg-neutral-*`, `bg-stone-*`
+- `bg-emerald-*`, `bg-green-*`, `bg-teal-*`
+- 其他非主题色的背景
 
-### 新增 Section 类型
+### 边框颜色（禁止）
+- `border-slate-*`, `border-gray-*`, `border-emerald-*` 等
 
-添加新 Section 类型时必须同步修改 4 处：
+## 推荐使用的主题变量
 
-1. `packages/core/types/storeConfig.ts` — 添加 Props 接口 + union 分支
-2. `store-sections/SectionRenderer.tsx` — `SectionSwitch` 添加 case
-3. `store-sections/registry.ts` — 添加元数据（名称、图标、缩略图、默认 props）
-4. `store-editor/SectionPicker.tsx` — 确认新 Section 出现在添加列表中
+### 文字颜色
+| 用途 | 推荐类名 |
+|-----|---------|
+| 主要文字 | `text-foreground` |
+| 次要/辅助文字 | `text-muted-foreground` |
+| 强调/链接/价格 | `text-primary` |
+| 禁用/淡化文字 | `text-muted-foreground/50` 或 `text-muted-foreground/70` |
 
-## SSR 兼容性
+### 背景颜色
+| 用途 | 推荐类名 |
+|-----|---------|
+| 页面背景 | `bg-background` |
+| 卡片/容器背景 | `bg-card` |
+| 次要背景/hover | `bg-muted` |
+| 强调背景 | `bg-primary` |
+| 强调背景（浅） | `bg-primary/10` 或 `bg-primary/20` |
 
-### Server Component 优先
+### 边框颜色
+| 用途 | 推荐类名 |
+|-----|---------|
+| 普通边框 | `border-border` |
+| 强调边框 | `border-primary` 或 `border-primary/30` |
+| 淡化边框 | `border-muted-foreground/40` |
 
-`SectionRenderer` 是 Server Component，Section 内容必须出现在服务端渲染的 HTML 中（SEO 不可回退）。
+### 交互状态
+| 用途 | 推荐类名 |
+|-----|---------|
+| 链接 hover | `hover:text-primary` |
+| 背景 hover | `hover:bg-muted` 或 `hover:bg-primary/10` |
+| 按钮主色 | `bg-primary text-primary-foreground` |
+| 按钮 hover | `hover:bg-primary/90` |
 
-```typescript
-// ✅ 默认：Section 组件是 Server Component（不加 'use client'）
-export function HeroSection({ title, subtitle, ...props }: HeroSectionProps) {
-  return <section>...</section>;
-}
+### 表面层级（Elevation）
+| 层级 | 类名 | 使用场景 |
+|------|------|---------|
+| 底层 | `bg-background` | 页面背景 |
+| 卡片层 | `bg-card` | 卡片、对话框、弹出面板 |
+| 悬浮层 | `bg-muted` | 下拉菜单、Tooltip、Popover |
+| 强调层 | `bg-primary/10` | 选中状态、高亮区域、活跃标签 |
+| 操作层 | `bg-primary` | 主按钮、CTA 区域 |
 
-// ✅ 例外：需要 DOM API 或浏览器交互的 Section 标记 'use client'
-'use client';
-export function RichTextSection({ content }: RichTextSectionProps) {
-  const clean = DOMPurify.sanitize(content);  // DOMPurify 需要 DOM
-  return <div dangerouslySetInnerHTML={{ __html: clean }} />;
-}
-```
+### 语义颜色
+| 用途 | 推荐类名 | 说明 |
+|-----|---------|------|
+| 错误/删除 | `text-destructive`, `bg-destructive` | 删除确认、表单错误 |
+| 警告 | `text-amber-*`, `bg-amber-*` | 需配合 `dark:` 变体确保对比度 |
+| 成功 | `text-success`, `bg-success/10` | 订单完成、支付成功、验证通过 |
+| 信息 | `text-info`, `bg-info/10` | 提示、帮助文本、状态说明 |
+| 在线状态 | `bg-primary` | 替代 `bg-emerald-500` |
 
-### 需要标记 `'use client'` 的 Section
+### 色彩层级选择
+| 需求 | 选择 | 示例场景 |
+|------|------|---------|
+| 核心操作/品牌色 | `primary` | CTA 按钮、价格、链接、选中态 |
+| 辅助信息/次要操作 | `secondary` | 次要按钮、标签、徽章 |
+| 装饰/点缀 | `accent` | 特殊标记、渐变装饰 |
+| 文字层级 | `foreground` > `muted-foreground` > `muted-foreground/50` | 标题 > 正文 > 辅助说明 |
 
-| Section | 原因 |
-|---|---|
-| `RichTextSection` | DOMPurify 需要 DOM |
-| `GallerySection` | Lightbox 交互 |
-| `AnnouncementBarSection` | dismissible 状态（sessionStorage） |
-| `SectionBlock` | layout.backgroundColor 动态样式可用 Server Component 处理 |
+## 修复示例
 
-### P2 Section 懒加载
-
-低优先级 Section 使用 `Suspense` + `lazy()` 减少主 bundle 体积：
-
-```typescript
-// SectionSwitch 中
-case 'gallery': return <Suspense fallback={<SectionSkeleton />}><GallerySection {...section.props} /></Suspense>;
-```
-
-## 主题变量使用
-
-### 使用 `--store-*` 变量
-
-Section 组件运行在 `StoreThemeProvider` 子树中，必须使用 `--store-*` CSS 变量：
-
+### ❌ 错误写法
 ```tsx
-// ✅ 使用 store 变量
-<h2 style={{ color: 'var(--store-on-primary)', fontFamily: 'var(--store-font)' }}>Title</h2>
-<div className="bg-[var(--store-primary)] rounded-[var(--store-radius)]">Content</div>
-
-// ❌ 禁止：全局主题变量
-<h2 className="text-primary">Title</h2>
-
-// ❌ 禁止：硬编码颜色
-<div className="bg-emerald-500">Content</div>
+<p className="text-slate-500">描述文字</p>
+<button className="bg-emerald-500 text-white">提交</button>
+<span className="text-emerald-600">${price}</span>
+<div className="border-slate-300">卡片</div>
+<input className="border-slate-300 dark:border-slate-600" />
 ```
 
-### 可用 CSS 变量
+### ✅ 正确写法
+```tsx
+<p className="text-muted-foreground">描述文字</p>
+<button className="bg-primary text-primary-foreground">提交</button>
+<span className="text-primary">${price}</span>
+<div className="border-border">卡片</div>
+<input className="border-border" />
+```
 
-| 变量 | 用途 |
-|---|---|
-| `--store-primary` | 卖家品牌主色 |
-| `--store-secondary` | 辅助色 |
-| `--store-accent` | 强调色 |
-| `--store-on-primary` | primary 上的可读文字色（WCAG AA 自动计算） |
-| `--store-on-secondary` | secondary 上的可读文字色 |
-| `--store-on-accent` | accent 上的可读文字色 |
-| `--store-font` | 卖家选择的 font-family |
-| `--store-radius` | 圆角 px 值 |
+## 特殊情况
 
-### 允许例外
+### 允许保留的设计性颜色
+1. **Hero 区块**的装饰性/氛围性色彩（渐变、光晕、强调色）必须使用 `--hero-*` CSS 变量（参见 `brand-theme-rules.mdc`），不允许硬编码颜色；深色背景上的 `text-white`/`bg-white/*`/`border-white/*` 属于可见性例外，允许使用
+2. **Store Section 组件**（`store-sections/` 目录）使用 `--store-*` CSS 变量（由 `StoreThemeProvider` 注入），包括 `var(--store-primary/secondary/accent/on-*/font/radius)`。这些变量来自卖家的 `StoreConfig.theme`，是运行时动态值，不是全局主题变量。详见 `brand-theme-rules.mdc`
+3. **登录页面**等专门的深色主题页面
+4. **星级评分**的金色 `text-amber-500`（语义明确）
+5. **深色背景区域**的 `text-white` / `text-white/*`（文字可见性需求）
 
-- `text-white` / `bg-white/*`：在 Hero 等深色背景区域
-- Tailwind 布局类（flex/grid/spacing/sizing）：不涉及颜色的工具类
+### 深色背景区域的文字颜色
+在 Hero、登录页等深色背景区域，文字颜色应使用 `text-white` 及其透明度变体，而不是 `text-slate-*`：
+```tsx
+// ✅ 正确：深色背景区域
+<p className="text-white">主要文字</p>
+<p className="text-white/80">次要文字</p>
+<p className="text-white/60">辅助文字</p>
 
-## store-tabs 系统 Section
+// ❌ 错误：不要在深色背景使用 slate
+<p className="text-slate-300">次要文字</p>
+<p className="text-slate-400">辅助文字</p>
+```
 
-- **不可删除**：编辑器中隐藏删除按钮
-- **不出现在添加列表**：`SectionPicker` 排除 `store-tabs` 类型
-- **可排序可隐藏**：卖家可以拖拽调整位置或 toggle visible
-- **默认包含**：`DEFAULT_STORE_CONFIG` 中始终包含 `store-tabs`
+### 警告/提示框的处理
+警告框可以使用 `amber` 颜色，但需要同时配置深色模式以确保对比度：
+```tsx
+// ✅ 正确：深色模式对比度足够
+<div className="bg-amber-100 dark:bg-amber-900/40 border-amber-300 dark:border-amber-700 rounded-lg p-3">
+  <p className="text-amber-800 dark:text-amber-200 font-medium">警告文字</p>
+</div>
+```
 
-## 安全约束
+### 渐变背景
+使用主题色的渐变：
+```tsx
+// ✅ 正确
+<div className="bg-gradient-to-br from-primary/10 to-primary/5">内容</div>
 
-| 约束 | 实现方式 |
-|---|---|
-| XSS | `RichTextSection` 使用 DOMPurify sanitize |
-| 图片来源 | 仅接受 IPFS hash 或 `/v1/media/` 路径 |
-| Section 数量 | 编辑器最多 20 个 + 后端校验 |
-| JSON 大小 | StoreConfig 总计最大 100KB |
-| 对比度安全 | `--store-on-*` 使用 sRGB 线性化计算（`sRGBtoLinear`） |
+// ❌ 错误
+<div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5">内容</div>
+```
 
-## 悬空引用处理
+## 复选框/开关组件
+```tsx
+// ✅ 正确
+className={`rounded border-2 ${
+  checked ? 'bg-primary border-primary' : 'border-muted-foreground/40'
+}`}
 
-`FeaturedProducts` 的 `productSlugs` 和 `Collections` 的 `collectionIDs` 可能指向已删除资源：
+// ❌ 错误
+className={`rounded border-2 ${
+  checked ? 'bg-emerald-500 border-emerald-500' : 'border-slate-300'
+}`}
+```
 
-- **渲染时**：自动过滤不存在的 slug/ID，只渲染有效的
-- **编辑器提示**：当有效数量 < 原始数量 50% 时，显示"部分商品已下架，建议更新精选"
-- **不自动修改 config**：避免在买家浏览时触发写操作
+## 检查方法
 
-## 代码审查检查项
+使用以下命令检查硬编码颜色：
+```bash
+# 检查所有硬编码颜色
+grep -rE "text-slate-|bg-slate-|text-emerald-|bg-emerald-|text-gray-|bg-gray-|border-slate-|border-emerald-|border-gray-" apps/web/src/
 
-- [ ] 新 Section 同步修改了 4 处（types + SectionSwitch + registry + SectionPicker）
-- [ ] 使用 `--store-*` 变量而非全局主题色或硬编码颜色
-- [ ] 需要 DOM API 的组件标记了 `'use client'`
-- [ ] 图片 URL 校验为 IPFS hash 或 `/v1/media/` 路径
-- [ ] Props 有默认值（编辑器创建新 Section 时从 registry 获取）
+# 统计各文件的问题数量
+grep -rEc "text-slate-|bg-slate-|text-emerald-|bg-emerald-" apps/web/src/ | grep -v ":0$"
+```
+
+## 修复优先级
+
+1. **P0（必须修复）**: 核心页面
+   - 首页、商品详情、店铺页面、购物车、结账、订单
+
+2. **P1（应该修复）**: 次要页面
+   - 设置、钱包、通知、个人中心、搜索
+
+3. **P2（建议修复）**: 边缘功能
+   - 仲裁、OTC、Marketplace 管理等
+
+## Code Review 检查项
+
+- [ ] 没有使用 `text-slate-*`, `text-gray-*`, `text-emerald-*` 等硬编码文字颜色
+- [ ] 没有使用 `bg-slate-*`, `bg-gray-*`, `bg-emerald-*` 等硬编码背景颜色
+- [ ] 没有使用 `border-slate-*`, `border-emerald-*` 等硬编码边框颜色
+- [ ] 警告/提示框配置了正确的深色模式变体
+- [ ] 渐变背景使用主题变量
+- [ ] 交互状态（hover/focus）使用主题变量
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
