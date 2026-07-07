@@ -50214,6 +50214,11 @@
       "description": "glossary-page-template"
     },
     {
+      "name": "innei--kansoku",
+      "source": "./innei--kansoku",
+      "description": "Personal US market observatory with trading records, agent skills, and realtime charts"
+    },
+    {
       "name": "sk-wang--slio-git",
       "source": "./sk-wang--slio-git",
       "description": "A fast, native Git GUI inspired by Intellij Idea and Meld. Built with Rust + Iced."
@@ -239444,6 +239449,26 @@
       "description": "Reusable agents, commands, and permission templates for Claude Code"
     },
     {
+      "name": "project-monai--physiotwin4d",
+      "source": "./project-monai--physiotwin4d",
+      "description": "Generate anatomic models in Omniverse with physiological motion derived from medical images."
+    },
+    {
+      "name": "xingwangzhe--friendlinks",
+      "source": "./xingwangzhe--friendlinks",
+      "description": "\u63a2\u7d22\u6d69\u701a\u7684\u535a\u5ba2\u5b87\u5b99\uff0c\u5bfb\u627e\u5f7c\u6b64\u4e4b\u95f4\u7684\u8054\u7cfb\u3002\u6bcf\u4e2a\u8282\u70b9\u662f\u4e00\u4e2a\u535a\u5ba2\uff0c\u6bcf\u6761\u8fde\u7ebf\u662f\u4e00\u6bb5\u53cb\u94fe\u5173\u7cfb\u3002"
+    },
+    {
+      "name": "project-monai--physiotwin4d",
+      "source": "./project-monai--physiotwin4d",
+      "description": "Generate anatomic models in Omniverse with physiological motion derived from medical images."
+    },
+    {
+      "name": "fazer-ai--n8n-nodes-chatwoot",
+      "source": "./fazer-ai--n8n-nodes-chatwoot",
+      "description": "n8n-nodes-chatwoot"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -259877,6 +259902,11 @@
       "name": "x-school-academy--ai-dev-swarm",
       "source": "./x-school-academy--ai-dev-swarm",
       "description": "A swarm of AI developers building your product"
+    },
+    {
+      "name": "ftrain--sightreading",
+      "source": "./ftrain--sightreading",
+      "description": "Piano sight reading practice app with MIDI input, progressive difficulty, and real-time feedback"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -383967,6 +383997,161 @@
       "name": "aidencullo--personal-website",
       "source": "./aidencullo--personal-website",
       "description": "Modern personal portfolio website built with Astro"
+    },
+    {
+      "name": "marceloterra1983--profitdll",
+      "source": "./marceloterra1983--profitdll",
+      "description": "PROFITDLL"
+    },
+    {
+      "name": "marceloterra1983--profitdll",
+      "source": "./marceloterra1983--profitdll",
+      "description": "PROFITDLL"
+    },
+    {
+      "name": "xuzone8888--tiktok-ai-mcn",
+      "source": "./xuzone8888--tiktok-ai-mcn",
+      "description": "tiktok-ai-mcn"
+    },
+    {
+      "name": "lauramartinussi-png--escondidinhodeolimpia",
+      "source": "./lauramartinussi-png--escondidinhodeolimpia",
+      "description": "escondidinhodeolimpia"
+    },
+    {
+      "name": "theseeker713--myceliainteractive",
+      "source": "./theseeker713--myceliainteractive",
+      "description": "myceliainteractive"
+    },
+    {
+      "name": "lsj5031--neuralwhisper",
+      "source": "./lsj5031--neuralwhisper",
+      "description": "Cyberpunk-styled web frontend (React + Vite) for audio transcription, UI for faster-whisper-server."
+    },
+    {
+      "name": "sanketn26--luminate",
+      "source": "./sanketn26--luminate",
+      "description": "luminate"
+    },
+    {
+      "name": "marceloterra1983--profitdll",
+      "source": "./marceloterra1983--profitdll",
+      "description": "PROFITDLL"
+    },
+    {
+      "name": "marceloterra1983--profitdll",
+      "source": "./marceloterra1983--profitdll",
+      "description": "PROFITDLL"
+    },
+    {
+      "name": "ausathdzil--openblog",
+      "source": "./ausathdzil--openblog",
+      "description": "openblog"
+    },
+    {
+      "name": "chaizaa--keystrokes-dynamic",
+      "source": "./chaizaa--keystrokes-dynamic",
+      "description": "Keystrokes-Dynamic"
+    },
+    {
+      "name": "huajie06--dotfiles",
+      "source": "./huajie06--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "junhocpa--docs",
+      "source": "./junhocpa--docs",
+      "description": "docs"
+    },
+    {
+      "name": "entertechschool--code-301-guide",
+      "source": "./entertechschool--code-301-guide",
+      "description": "Code 301 - Fullstack Software Development by Enter Tech School"
+    },
+    {
+      "name": "iida-project--iida-civic-plaza",
+      "source": "./iida-project--iida-civic-plaza",
+      "description": "iida-civic-plaza"
+    },
+    {
+      "name": "dream-anchor--ristorantestoria-de",
+      "source": "./dream-anchor--ristorantestoria-de",
+      "description": "ristorantestoria.de"
+    },
+    {
+      "name": "aenoriss--merlin",
+      "source": "./aenoriss--merlin",
+      "description": "An AI study assistant that answers only from the uploaded course documents. RAG with TF-IDF and rank fusion."
+    },
+    {
+      "name": "simokassab--vene",
+      "source": "./simokassab--vene",
+      "description": "vene"
+    },
+    {
+      "name": "pavanshyamendra--sweetone-artha",
+      "source": "./pavanshyamendra--sweetone-artha",
+      "description": "sweetone-artha"
+    },
+    {
+      "name": "courtneyr-dev--link-extension-for-xfn",
+      "source": "./courtneyr-dev--link-extension-for-xfn",
+      "description": "WordPress plugin that extends the Gutenberg link interface with XFN (XHTML Friends Network) relationship options"
+    },
+    {
+      "name": "grantrb95--freight-ops",
+      "source": "./grantrb95--freight-ops",
+      "description": "H-4 Strategic Solutions \u2014 public Python tooling for freight operations (MCP helpers, scripts, notebooks)."
+    },
+    {
+      "name": "portugal-business--website2025",
+      "source": "./portugal-business--website2025",
+      "description": "website2025"
+    },
+    {
+      "name": "nkhil--podcounter",
+      "source": "./nkhil--podcounter",
+      "description": "podcounter"
+    },
+    {
+      "name": "lex-fmt--comms",
+      "source": "./lex-fmt--comms",
+      "description": "comms"
+    },
+    {
+      "name": "denisyu-1--articulate-demo",
+      "source": "./denisyu-1--articulate-demo",
+      "description": "Demo project with articulate package usage"
+    },
+    {
+      "name": "pavneets956-design--ai-shop",
+      "source": "./pavneets956-design--ai-shop",
+      "description": "AI Shop - Marketplace with AI Sales Agent"
+    },
+    {
+      "name": "elpresidentepiff--velo-oracle-prime",
+      "source": "./elpresidentepiff--velo-oracle-prime",
+      "description": "V\u00c9L\u00d8 PRIME - Autonomous Behavioral Prediction Engine with Playbooks E, F, G. The future of prediction is behavioral."
+    },
+    {
+      "name": "bellbird-bakery--worktree-manager",
+      "source": "./bellbird-bakery--worktree-manager",
+      "description": "git worktree task manager."
+    },
+    {
+      "name": "huajie06--dotfiles",
+      "source": "./huajie06--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "entertechschool--code-301-guide",
+      "source": "./entertechschool--code-301-guide",
+      "description": "Code 301 - Fullstack Software Development by Enter Tech School"
+    },
+    {
+      "name": "dream-anchor--ristorantestoria-de",
+      "source": "./dream-anchor--ristorantestoria-de",
+      "description": "ristorantestoria.de"
     }
   ]
 }
