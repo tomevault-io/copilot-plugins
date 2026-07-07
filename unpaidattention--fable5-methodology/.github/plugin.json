@@ -1,0 +1,9 @@
+{
+  "name": "unpaidattention--fable5-methodology",
+  "displayName": "fable5-methodology",
+  "description": "A transferable, self-enforcing software-engineering methodology for AI coding agents \u2014 playbook, skills, contracted subagents, lifecycle hooks, and evals.",
+  "version": "1.0.0",
+  "author": "UnpaidAttention",
+  "homepage": "https://github.com/UnpaidAttention/fable5-methodology",
+  "skills": []
+}
