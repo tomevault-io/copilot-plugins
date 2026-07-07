@@ -1,0 +1,44 @@
+{
+  "name": "sage",
+  "owner": "PsYcGoD",
+  "repo": "sage",
+  "description": "\ud83e\udde0S.A.G.E - Smart Agent Guidance Engine for AI coding assistants. by\u26a1 PsYc+GoD AI&ML \ud83e\udd16",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PsYcGoD/sage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T12:35:14Z"
+}
