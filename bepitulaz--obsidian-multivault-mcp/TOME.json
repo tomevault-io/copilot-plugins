@@ -4,7 +4,7 @@
   "repo": "obsidian-multivault-mcp",
   "description": "Multi-vault and multiuser Obsidian MCP",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bepitulaz/obsidian-multivault-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T12:33:35Z"
+  "distributed_at": "2026-07-07T12:35:49Z"
 }
