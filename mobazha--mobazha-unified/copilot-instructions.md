@@ -1,114 +1,77 @@
-## currency-safety-rules
+## dual-entry-point-guard
 
-> 货币与价格安全规范 — 防止 100x 显示错误
+> Guard dual entry points (Next.js layout.tsx + Vite main.tsx) Provider tree consistency
 
 
-# 货币与价格安全规范
+# 双入口 Provider 树守护
 
-## 价格单位约定
+## 背景
 
-- **最小单位（minimal unit）**：后端 API 和 `Price.amount` 存储的都是最小单位整数（如美分、聪）
-- **标准单位（standard unit）**：用户看到的显示值（如 $49.00、0.001 BTC）
-- `formatPrice(amount, code)` 期望 **标准单位**
-- `renderPairedPrice(amount, code)` 默认期望 **最小单位**（`isMinimalUnit: true`）
-- `fromMinimalUnit(amount, code)` 将最小单位转换为标准单位
+应用有两个入口点，共享相同的 Provider 树（通过 `OuterProviders` 组件）：
 
-## 禁止规则
+| 文件 | 用途 | 何时使用 |
+|---|---|---|
+| `apps/web/src/app/layout.tsx` | Next.js 生产 + SSR | 生产构建、`next dev` |
+| `apps/web/src/main.tsx` | Vite 开发 + TMA 调试 | `pnpm dev --filter @mobazha/web`、SSH 隧道 TMA 调试 |
+| `apps/web/src/components/OuterProviders.tsx` | 共享外层 Provider 树 | 被上述两者引用 |
 
-### 1. 禁止对最小单位调用 formatPrice
+## 关键约束
 
-```tsx
-// ❌ product.item.price 是最小单位
-formatPrice(product.item.price, currency)
+### 1. 路由无关的 Provider 必须放在 `OuterProviders.tsx`
 
-// ✅ 先转换或使用 renderPairedPrice
-formatPrice(fromMinimalUnit(price, currency), currency)
-renderPairedPrice(price, currency)
-```
+以下 Provider 只在 `OuterProviders.tsx` 中维护，layout.tsx 和 main.tsx 不直接导入：
 
-### 2. 禁止对标准单位传 isMinimalUnit: true
-
-```tsx
-// ❌ 已经是标准单位却当最小单位处理
-renderPairedPrice(standardAmount, currency, { isMinimalUnit: true })
-
-// ✅ 明确指定
-renderPairedPrice(standardAmount, currency, { isMinimalUnit: false })
-```
-
-### 3. 禁止无货币代码的金额显示
+- `ThemeProvider`
+- `TGMiniAppProvider`
+- `DiscordActivityProvider`
+- `ServiceWorkerProvider`
+- `AppKitProvider`
+- `CurrencyProvider`
 
 ```tsx
-// ❌ 缺少货币代码
-<span>${amount}</span>
-
-// ✅ 使用格式化函数
-<span>{renderPairedPrice(amount, currencyCode)}</span>
-```
-
-### 4. 禁止静默 USD fallback — UI 必须可见
-
-**前端 console.warn 无人会看，禁止用来处理缺失货币。**
-
-```tsx
-// ❌ 静默 fallback（问题永远不会被发现）
-const code = item.currency?.code || 'USD';
-// ❌ console.warn 同样无效
-if (!code) console.warn('[price] Missing currency');
-const code = rawCode || 'USD';
-
-// ✅ 正确：传 undefined，让 UI 组件显示"—"
-currency={product.price?.currency?.code}
-
-// ✅ 正确：数据解析层返回 undefined（不 fallback）
-export function parsePriceFields(price) {
-  return { currencyCode: price.currency?.code }; // 可能是 undefined
+// ✅ 正确：在 OuterProviders.tsx 中添加新 Provider
+export function OuterProviders({ children }) {
+  return (
+    <ThemeProvider>
+      <TGMiniAppProvider>
+        <NewProvider> {/* 新增 Provider 在这里 */}
+          ...
+        </NewProvider>
+      </TGMiniAppProvider>
+    </ThemeProvider>
+  );
 }
+
+// ❌ 错误：只在 layout.tsx 中添加，忘记 main.tsx
+// 这会导致 Vite 开发环境缺少 Provider，TMA 调试时出现难以追踪的 bug
 ```
 
-### 5. 禁止 console.warn IIFE 模式
+### 2. 路由相关的 Provider 分别放置
 
-```tsx
-// ❌ 丑陋、无效、不可维护
-currency={(() => {
-  const c = product.price?.currency?.code;
-  if (!c) console.warn('[price] Missing currency');
-  return c || 'USD';
-})()}
+以下组件因依赖路由上下文，需要各入口自行处理：
 
-// ✅ 直接传值，缺失时 ProductCard 显示"—"
-currency={product.price?.currency?.code}
-```
+- `QueryProvider` / `QueryClientProvider`（配置可能不同）
+- `AuthProvider`（位于路由内部）
+- `ProductModalProvider`、`PaymentSelectorProvider`（位于路由内部）
 
-## 类型规范
+### 3. 修改时的检查清单
 
-- `ProductCardProps.currency` 是 **optional** (`string | undefined`)
-  - 有值：正常格式化价格
-  - `undefined`：显示 "—"（价格不可用），UI 可见地暴露数据问题
-- `parsePriceFields()` 返回 `currencyCode: string | undefined`（不 fallback）
-- `CartItem.listing.price` 类型为 `Price`，包含 `currency: { code, divisibility }`
-- `divisibility` 是软要求：推荐提供，但可通过 `getCurrencyDecimals(code)` 推断
+修改 `OuterProviders.tsx` 时：
+- [ ] 确认 Provider 顺序正确（后层可能依赖先层的 Context）
+- [ ] layout.tsx 和 main.tsx 都使用 `<OuterProviders>` 包裹
 
-## 数据层 vs UI 层职责
+修改 layout.tsx 或 main.tsx 添加新 Provider 时：
+- [ ] 问自己：这个 Provider 是路由无关的吗？如果是 → 放入 `OuterProviders.tsx`
+- [ ] 问自己：另一个入口是否也需要这个 Provider？
 
-| 层 | 缺失货币时的行为 |
-|---|---|
-| `parsePriceFields` | 返回 `currencyCode: undefined` |
-| `fetchStoreListings` | `price.currency.code` 为空字符串 |
-| `ProductCard` | 显示 "—" |
-| `NotificationCard/Dropdown` | 显示 "—" |
-| `orderTransform`（订单数据） | fallback 到 `'USD'`（订单必须有货币，缺失是后端 bug） |
-| `cart.ts`（购物车汇总） | fallback 到 `'USD'`（运行时必须有值） |
+## 历史教训
 
-## 审查检查项
-
-修改涉及价格显示的组件时：
-
-- [ ] `formatPrice` 的输入是否为标准单位？
-- [ ] `renderPairedPrice` 的 `isMinimalUnit` 参数是否与实际单位匹配？
-- [ ] 货币代码是否从数据源获取而非硬编码？
-- [ ] 缺失货币时是否让 UI 显示"—"，而非静默 fallback 到 USD？
-- [ ] 是否有 console.warn IIFE 模式需要清理？
+2026-03 `TGMiniAppProvider` 只在 `layout.tsx`（Next.js）中存在，`main.tsx`（Vite）中遗漏：
+- `useTGMiniApp()` 在 Vite 开发环境始终返回 `isAvailable: false`
+- TG 原生 BackButton 完全失效 → 被误判为"不可靠"→ 整个 hook 被删除
+- Create Account 按钮无响应 → 花费大量时间排查
+- **根因**：两个入口点的 Provider 树不同步
+- **解决**：提取 `OuterProviders` 共享组件，作为 Provider 的单一来源
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
