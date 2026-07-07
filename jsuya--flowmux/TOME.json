@@ -4,7 +4,7 @@
   "repo": "flowmux",
   "description": "FlowMux \u2014 Agent Workflow Multiplexer Terminal. Go with the agents' flow.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JSUYA/flowmux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T01:19:36Z"
+  "distributed_at": "2026-07-07T01:25:01Z"
 }
