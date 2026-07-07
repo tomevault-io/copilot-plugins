@@ -4,7 +4,7 @@
   "repo": "ai-dev-swarm",
   "description": "A swarm of AI developers building your product",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/X-School-Academy/ai-dev-swarm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T18:32:59Z"
+  "distributed_at": "2026-07-07T18:35:16Z"
 }
