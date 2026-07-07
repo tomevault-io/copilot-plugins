@@ -1,0 +1,9 @@
+{
+  "name": "millionco--react-grab-bench",
+  "displayName": "react-grab-bench",
+  "description": "Evaluating coding agents on React.js tasks",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/react-grab-bench",
+  "skills": []
+}
