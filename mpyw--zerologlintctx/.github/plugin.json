@@ -1,0 +1,9 @@
+{
+  "name": "mpyw--zerologlintctx",
+  "displayName": "zerologlintctx",
+  "description": "Go linter that checks zerolog context propagation (.Ctx(ctx))",
+  "version": "1.0.0",
+  "author": "mpyw",
+  "homepage": "https://github.com/mpyw/zerologlintctx",
+  "skills": []
+}
