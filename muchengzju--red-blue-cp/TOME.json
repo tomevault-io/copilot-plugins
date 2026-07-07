@@ -4,7 +4,7 @@
   "repo": "red-blue-cp",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MuChengZJU/red-blue-cp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T00:49:35Z"
+  "distributed_at": "2026-07-07T00:59:37Z"
 }
