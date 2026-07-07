@@ -1,0 +1,9 @@
+{
+  "name": "thomaschristory--netbox-super-cli",
+  "displayName": "netbox-super-cli",
+  "description": "Dynamic NetBox CLI generated from the live OpenAPI schema.",
+  "version": "1.0.0",
+  "author": "thomaschristory",
+  "homepage": "https://github.com/thomaschristory/netbox-super-cli",
+  "skills": []
+}
