@@ -1,110 +1,109 @@
-## identity-display-rules
+## migration-rules
 
-> 用户身份展示和术语抽象规范
+> 迁移开发规则 - 创建或修改 mobazha-unified 前端代码时应用
 
 
-# 身份展示与术语抽象规范
+# 迁移开发规则
 
-## 核心禁令
+## 核心目标
 
-### 禁止在 UI 中直接渲染裸 Peer ID 或区块链地址
+**优先级排序**:
+1. **用户体验** - 响应式设计、流畅交互、现代 UI
+2. **功能完整** - 与原 RN 功能对齐，无遗漏
+3. **代码质量** - 可维护、可测试、TypeScript 类型安全
 
-```tsx
-// ❌ 禁止：直接渲染 peerID
-<span>{order.buyer.peerID}</span>
-<span>{product.vendorID.peerID}</span>
-<p>Seller: {seller.peerID}</p>
+## 迁移原则
 
-// ✅ 正确：通过 formatUserName 处理
-import { formatUserName, truncateAddress } from '@mobazha/core/utils/identity';
+### 1. 增量迁移
 
-<span>{formatUserName(order.buyer)}</span>
-<span>{formatUserName(product.vendorID)}</span>
-<p>Seller: {formatUserName(seller)}</p>
+每次迁移聚焦单一模块或功能，便于验证和回滚。
 
-// ✅ 正确：区块链地址使用截断 + 复制按钮
-<AddressBadge address={payment.address} />
-// 渲染为 "0x1234...cdef" + 📋复制
+**迁移顺序**:
+```
+Core Services → Stores → Hooks → UI Components → Pages
 ```
 
-### 禁止在面向用户的 UI 文案中使用以下技术术语
+### 2. 功能对齐检查
 
-| 技术术语 | 用户应看到的 | 注意 |
-|---------|------------|------|
-| Escrow | "Buyer Protection" / "买家保障" | i18n key: `trust.buyerProtection` |
-| Smart Contract | 不出现 | 代码注释/变量名可以用 |
-| Peer ID | 店铺名/用户名，或 "Seller ID" / "卖家 ID" | |
-| IPFS | 不出现 | |
-| Gas Fee | "Network Fee" / "网络手续费" | i18n key: `payment.networkFee` |
-| Block Confirmation | "Confirming payment" / "支付确认中" | |
-| Moderator (争议上下文) | "Dispute Resolution" / "争议仲裁" | 仲裁者列表页可保留 Moderator |
+迁移时必须参考：
+- 源文件 (`mobazha-mobile/`) 的完整功能
+- `docs/features/` 中的功能规格文档
+- `docs/migrations/status.md` 中的迁移状态
 
-**例外**：
-- 代码变量名、API 字段名、注释中可以使用技术术语
-- 面向技术用户的高级设置页面（如 Advanced Settings）可以保留
-- 仲裁者列表页（Moderators）作为功能名称保留
+### 3. TypeScript 优先
 
-## 生产环境数据保证
+- 所有新代码必须使用 TypeScript
+- 迁移时同步添加类型定义
+- 避免使用 `any`，必要时使用 `unknown` 并进行类型收窄
 
-- **name 是必填项**：onboarding 前端校验 + 后端 `validateProfile` 强制 `len(Name) > 0`
-- **vendorName 几乎总有值**：搜索索引从 profile 同步 name，仅历史数据或索引延迟时可能为空
-- **Fallback 是防御性编程**：面向极端边缘情况（API 故障、数据竞态、历史数据），不是常规路径
-- **E2E 截图中的 "Unknown" 是 mock 数据质量问题**（PG-007b），非生产问题
+## 文件命名规范
 
-## 身份展示优先级
+```
+packages/core/
+├── services/
+│   └── matrixService.ts      # 服务：camelCase
+├── stores/
+│   └── userStore.ts          # Store：camelCase + Store 后缀
+├── hooks/
+│   └── useProducts.ts        # Hook：use 前缀 + PascalCase
+└── types/
+    └── product.ts            # 类型：camelCase
 
-1. **可读名称**：如果有 `name` 或 `handle` 字段，优先显示
-2. **截断 ID + 前缀**：无名称时显示 `Store QmY8…tRnC` 或 `User QmBu…eer1`
-3. **完整 ID**：仅在用户主动操作时展示（点击复制、查看详情等）
-
-## Fallback 策略（上下文相关，非一刀切）
-
-**核心原则**：名称不可用时的 fallback 取决于 UI 上下文。不要盲目用空字符串替换 "Unknown"。
-Fallback 仅面向极端边缘情况，但设计时应选择比 "Unknown" 更有语义的替代。
-
-| UI 上下文 | 推荐 fallback | 说明 |
-|---------|-------------|------|
-| 商品卡片 vendorName | 空字符串 / 不渲染 | 组件有条件渲染 `vendorName && (...)`，空=隐藏该行，可接受 |
-| 通知发送者 | 空字符串 | 省略主语，只保留事件描述（"Payment received" 而非 "Unknown Payment received"） |
-| 订单列表对方名 | 角色标签 `"Seller"` / `"Buyer"` | "From: " 后面必须有内容，空字符串视觉上像 bug |
-| 订单详情资料卡 | 角色标签 `"Seller"` / `"Buyer"` / `"User"` | 结构化卡片需要可见名称 |
-| 聊天房间名 | `"Chat"` | 空名称的房间看起来损坏 |
-| 结账页卖家 | `"Seller"` | 买家需要知道向谁付款 |
-| 数据转换层（订单） | 截断 peerID → 角色标签 | peerID 几乎总存在；极端情况用角色标签兜底 |
-
-```tsx
-// ✅ 商品卡片：vendorName 为空时隐藏卖家行
-{vendorName && <span>{vendorName}</span>}
-
-// ✅ 订单数据转换：peerID 截断 → 角色标签兜底
-name: formatUserName({ name: handle, peerID }, { fallback: 'Seller' })
-
-// ✅ 通知：无名称时只显示事件
-<span>{handle || ''}</span> {t('notifications.order.paymentReceived')}
-
-// ❌ 错误：所有地方统一用空字符串
-name: formatUserName(..., { fallback: '' })  // 订单列表显示 "From: " 后面空白
+packages/ui/
+├── components/
+│   └── ProductCard/          # 组件：PascalCase 目录
+│       ├── index.tsx
+│       ├── ProductCard.tsx
+│       └── ProductCard.test.tsx
+└── layouts/
+    └── AppLayout.tsx         # 布局：PascalCase
 ```
 
-## 通知消息规范
+## 响应式设计要求
 
-```tsx
-// ❌ 禁止："Unknown Payment received" / "Unknown Notification"
-// ✅ 正确："Payment received for order #QmOrder0" / "Order has been shipped"
+### 断点定义
 
-// 通知标题不应包含 "Unknown" 前缀
-// 如果发送者名称不可用，直接省略主语，用事件描述即可
+```typescript
+const BREAKPOINTS = {
+  mobile: 0,      // < 768px
+  tablet: 768,    // 768-1023px
+  desktop: 1024,  // 1024-1439px
+  large: 1440,    // >= 1440px
+};
 ```
 
-## 审查检查项
+### 必须测试的视口
 
-修改涉及用户信息展示的组件时：
+- Mobile: 375x667 (iPhone SE)
+- Tablet: 768x1024 (iPad)
+- Desktop: 1440x900
 
-- [ ] 是否使用了 `formatUserName()` 而非直接渲染 peerID？
-- [ ] 区块链地址是否使用了 `truncateAddress()` + 复制功能？
-- [ ] 面向用户的文案中是否有 Escrow/Gas/IPFS 等技术术语？
-- [ ] 通知消息是否有 "Unknown" 前缀？
-- [ ] 新增的用户可见文案是否使用了 `t()` i18n 函数？
+## 验证流程
+
+每次修改后运行：
+
+```bash
+# 快速验证
+pnpm validate:quick
+
+# 完整验证 (提交前)
+pnpm validate
+```
+
+## 迁移状态更新
+
+完成迁移后，更新 `docs/migrations/status.md`。
+
+## 相关规则
+
+- **[code-reuse-rules.mdc](./code-reuse-rules.mdc)** - 代码复用与架构一致性规则（必读）
+- **[component-rules.mdc](./component-rules.mdc)** - 组件开发规则
+- **[mobile-ux-rules.mdc](./mobile-ux-rules.mdc)** - 移动端用户体验规则
+- **[desktop-ux-rules.mdc](./desktop-ux-rules.mdc)** - 桌面端用户体验规则
+
+---
+
+**注意**: 此规则会随项目进展动态调整。
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
