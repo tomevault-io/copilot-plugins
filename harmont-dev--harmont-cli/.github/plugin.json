@@ -1,0 +1,9 @@
+{
+  "name": "harmont-dev--harmont-cli",
+  "displayName": "harmont-cli",
+  "description": "Command-line client for the Harmont CI platform",
+  "version": "1.0.0",
+  "author": "harmont-dev",
+  "homepage": "https://github.com/harmont-dev/harmont-cli",
+  "skills": []
+}
