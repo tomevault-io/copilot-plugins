@@ -1,0 +1,9 @@
+{
+  "name": "grovetools--hooks",
+  "displayName": "hooks",
+  "description": "Claude hooks integration for Grove ecosystem",
+  "version": "1.0.0",
+  "author": "grovetools",
+  "homepage": "https://github.com/grovetools/hooks",
+  "skills": []
+}
