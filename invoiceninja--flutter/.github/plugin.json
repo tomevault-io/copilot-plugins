@@ -1,0 +1,9 @@
+{
+  "name": "invoiceninja--flutter",
+  "displayName": "flutter",
+  "description": "Invoice Ninja: Desktop/mobile admin portal built with Flutter",
+  "version": "1.0.0",
+  "author": "invoiceninja",
+  "homepage": "https://github.com/invoiceninja/flutter",
+  "skills": []
+}
