@@ -1,0 +1,9 @@
+{
+  "name": "jai2500--persistworld",
+  "displayName": "PersistWorld",
+  "description": "Code for \"Persistent Robot World Models: Stabilizing Multi-Step Rollouts via Reinforcement Learning\"",
+  "version": "1.0.0",
+  "author": "Jai2500",
+  "homepage": "https://github.com/Jai2500/PersistWorld",
+  "skills": []
+}
