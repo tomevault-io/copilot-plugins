@@ -1,0 +1,9 @@
+{
+  "name": "ec-jrc--aloha",
+  "displayName": "aloha",
+  "description": "Aloha (AI Logical Orchestrator Hub for Agents) is a centralized hub to manage and interconnect data, tools and agents leveraging the MCP and A2A protocols",
+  "version": "1.0.0",
+  "author": "ec-jrc",
+  "homepage": "https://github.com/ec-jrc/aloha",
+  "skills": []
+}
