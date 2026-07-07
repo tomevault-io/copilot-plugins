@@ -1,0 +1,9 @@
+{
+  "name": "smithersai--webui",
+  "displayName": "webui",
+  "description": "A skill + CLI that lets agents render React + MDX in a browser window \u2014 for plans, diffs, decisions, dashboards, anywhere markdown-in-terminal goes lossy.",
+  "version": "1.0.0",
+  "author": "smithersai",
+  "homepage": "https://github.com/smithersai/webui",
+  "skills": []
+}
