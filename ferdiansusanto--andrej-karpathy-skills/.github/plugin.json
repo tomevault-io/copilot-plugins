@@ -1,0 +1,9 @@
+{
+  "name": "ferdiansusanto--andrej-karpathy-skills",
+  "displayName": "andrej-karpathy-skills",
+  "description": "\ud83e\udde9 Enhance Claude Code behavior with clear guidelines inspired by Andrej Karpathy's insights on common pitfalls in LLM coding practices.",
+  "version": "1.0.0",
+  "author": "ferdiansusanto",
+  "homepage": "https://github.com/ferdiansusanto/andrej-karpathy-skills",
+  "skills": []
+}
