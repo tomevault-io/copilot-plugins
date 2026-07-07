@@ -1,0 +1,9 @@
+{
+  "name": "robot-head--crabka",
+  "displayName": "crabka",
+  "description": "A Rust reimplementation of Apache Kafka. Apache 2.0, derivative work. Beta",
+  "version": "1.0.0",
+  "author": "robot-head",
+  "homepage": "https://github.com/robot-head/crabka",
+  "skills": []
+}
