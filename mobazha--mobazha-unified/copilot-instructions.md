@@ -1,63 +1,42 @@
-## code-reuse-rules
+## codegraph
 
-> 代码复用与架构一致性规则 - 确保跨平台统一客户端的代码质量
+> CodeGraph MCP usage guide — when to use which tool
 
+<!-- CODEGRAPH_START -->
+## CodeGraph
 
-# 代码复用与架构一致性规则
+This project has a CodeGraph MCP server (`codegraph_*` tools) configured. CodeGraph is a tree-sitter-parsed knowledge graph of every symbol, edge, and file. Reads are sub-millisecond and return structural information grep cannot.
 
-## 核心原则
+### When to prefer codegraph over native search
 
-1. **单一数据源** - 相同逻辑只存在一处
-2. **分层架构** - 业务逻辑与 UI 分离
-3. **复用优先** - 使用 `@mobazha/core` 中的共享代码
+Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
 
-## 架构分层
+| Question | Tool |
+|---|---|
+| "Where is X defined?" / "Find symbol named X" | `codegraph_search` |
+| "What calls function Y?" | `codegraph_callers` |
+| "What does Y call?" | `codegraph_callees` |
+| "How does X reach/become Y? / trace the flow from X to Y" | `codegraph_trace` (one call = the whole path, incl. callback/React/JSX dynamic hops) |
+| "What would break if I changed Z?" | `codegraph_impact` |
+| "Show me Y's signature / source / docstring" | `codegraph_node` |
+| "Give me focused context for a task/area" | `codegraph_context` |
+| "See several related symbols' source at once" | `codegraph_explore` |
+| "What files exist under path/" | `codegraph_files` |
+| "Is the index healthy?" | `codegraph_status` |
 
-```
-apps/web          → UI 组件层（纯展示，通过 props 接收数据）
-                     ↑ 使用
-@mobazha/core     → hooks → utils/transforms → types → services/api
-```
+### Rules of thumb
 
-## 严格禁止
+- **Answer directly — don't delegate exploration.** For "how does X work" / architecture questions, answer with 2-3 codegraph calls: `codegraph_context` first, then ONE `codegraph_explore` for the source of the symbols it surfaces. For a specific **flow** ("how does X reach Y") start with `codegraph_trace` from→to — one call returns the whole path with dynamic hops bridged — then ONE `codegraph_explore` for the bodies; don't rebuild the path with `codegraph_search` + `codegraph_callers`. Codegraph IS the pre-built index, so spawning a separate file-reading sub-task/agent — or running a grep + read loop — repeats work codegraph already did and costs more for the same answer.
+- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
+- **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
+- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
+- **Don't loop `codegraph_node` over many symbols** — one `codegraph_explore` call returns several symbols' source grouped in a single capped call, while each separate node/Read call re-reads the whole context and costs far more.
+- **Index lag — check the staleness banner, don't guess a wait.** When a codegraph response starts with "⚠️ Some files referenced below were edited since the last index sync…", the listed files are pending re-index — Read those specific files for accurate content. Files NOT in that banner are fresh and codegraph is authoritative for them. `codegraph_status` also lists pending files under "Pending sync".
 
-1. **禁止在 `apps/` 中定义业务类型**（Props 除外）→ 移到 `@mobazha/core/types/`
-2. **禁止在 `apps/` 中定义转换函数** → 移到 `@mobazha/core/utils/transforms/`
-3. **禁止 UI 组件直接调用 API** → 使用 hooks
-4. **禁止业务逻辑在多处实现** → 合并到 core
+### If `.codegraph/` doesn't exist
 
-```tsx
-// ❌ 错误
-interface DisplayOrder { ... }  // 应在 @mobazha/core/types/
-function transformCoreOrder() { ... }  // 应在 @mobazha/core/utils/
-const order = await ordersApi.getOrder(id);  // 应使用 hooks
-
-// ✅ 正确
-import type { DisplayOrder } from '@mobazha/core';
-import { transformCoreOrder } from '@mobazha/core';
-const { displayOrder } = useOrderDetail(orderId, viewingContext);
-```
-
-## 代码位置规范
-
-| 类别 | 位置 |
-|------|------|
-| API/UI 类型 | `packages/core/types/` |
-| 数据转换 | `packages/core/utils/transforms/` |
-| 状态映射 | `packages/core/utils/` |
-| API 调用 | `packages/core/services/api/` |
-| 业务 Hooks | `packages/core/hooks/` |
-| 组件 Props | 组件文件内 |
-
-## 检查清单
-
-- [ ] `apps/` 中无 `interface`/`type` 定义（Props 除外）
-- [ ] `apps/` 中无 `transform*`/`map*` 函数
-- [ ] 组件不直接调用 `xxxApi.*`
-- [ ] 无重复业务逻辑
-- [ ] 上下文（如 `viewingContext`）正确传递
-
-**记住**：如果你在复制粘贴代码，停下来思考是否应该提取到 `@mobazha/core`。
+The MCP server returns "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialized. Want me to run `codegraph init -i` to build the index?"*
+<!-- CODEGRAPH_END -->
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
