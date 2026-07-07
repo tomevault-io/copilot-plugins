@@ -1,22 +1,42 @@
-## ss14-core
+## ss14-csharp
 
 > <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 ---
-description: Core SS14 Orion repo guidance, skill routing, and validation rules.
-alwaysApply: true
+description: C# ECS, events, prediction, and upstream-maintenance rules for SS14 gameplay code.
+globs:
+  - Content.Shared/**/*.cs
+  - Content.Server/**/*.cs
+  - Content.Client/**/*.cs
+  - Content.Goobstation.Shared/**/*.cs
+  - Content.Goobstation.Server/**/*.cs
+  - Content.Goobstation.Client/**/*.cs
+  - Content.Goobstation.Common/**/*.cs
+  - Content.Goobstation.Maths/**/*.cs
+  - Content.Goobstation.UIKit/**/*.cs
+  - Content.Server.Database/**/*.cs
+  - Content.Shared.Database/**/*.cs
+  - Content.Tests/**/*.cs
+  - Content.IntegrationTests/**/*.cs
+alwaysApply: false
 ---
 
-Apply @AGENTS.md
-Apply @.agents/rules/ss14-skill-preflight-and-refresh.md
-Apply @.agents/rules/ss14-engine-boundaries.md
-Apply @.agents/rules/ss14-localization-required.md
-Apply @.agents/rules/ss14-testing-and-validation.md
+Apply @.agents/rules/ss14-interaction-flow.md
+Apply @.agents/rules/ss14-csharp-style.md
 
-- Use `.agents/skills/` as the canonical project skill set.
-- Keep changes inside content boundaries unless the task explicitly requires engine work.
+Read these skills before editing matching files:
+
+- @.agents/skills/ss14-naming-conventions/SKILL.md
+- @.agents/skills/ss14-upstream-maintenance/SKILL.md
+- @.agents/skills/ss14-ecs-components/SKILL.md
+- @.agents/skills/ss14-ecs-entities/SKILL.md
+- @.agents/skills/ss14-ecs-systems/SKILL.md
+- @.agents/skills/ss14-events/SKILL.md
+- @.agents/skills/ss14-prediction/SKILL.md
+- @.agents/skills/ss14-netcode/SKILL.md
+- @.agents/skills/ss14-localization-code/SKILL.md
 
 ---
 > Source: [ArcaneSS14/arcane-old](https://github.com/ArcaneSS14/arcane-old) — distributed by [TomeVault](https://tomevault.io).
