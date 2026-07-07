@@ -7,11 +7,11 @@ A distributed, low-latency, and high-performance AI unified gateway based on Clo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Tokinx/one-api-workers](https://github.com/Tokinx/one-api-workers).
+Original source: `CLAUDE.md` in [Tokinx/one-api-workers](https://github.com/Tokinx/one-api-workers).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
