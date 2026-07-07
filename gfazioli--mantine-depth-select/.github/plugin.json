@@ -1,0 +1,9 @@
+{
+  "name": "gfazioli--mantine-depth-select",
+  "displayName": "mantine-depth-select",
+  "description": "A 3D stack select component inspired by macOS Time Machine for React applications built with Mantine. Navigate through stacked cards with perspective transforms and smooth transitions.",
+  "version": "1.0.0",
+  "author": "gfazioli",
+  "homepage": "https://github.com/gfazioli/mantine-depth-select",
+  "skills": []
+}
