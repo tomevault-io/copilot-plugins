@@ -1,0 +1,14 @@
+{
+  "name": "pivyme--suiperpower",
+  "displayName": "suiperpower",
+  "description": "Build something meaningful, on Sui. A superpower for AI coding agents (Claude Code, Codex, Cursor, Grok Build) to ship real products on Sui.",
+  "version": "1.0.0",
+  "author": "pivyme",
+  "homepage": "https://github.com/pivyme/suiperpower",
+  "skills": [
+    {
+      "name": "build-ai-agent",
+      "description": ""
+    }
+  ]
+}
