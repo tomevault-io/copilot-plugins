@@ -1,0 +1,9 @@
+{
+  "name": "smos--cert-drawer",
+  "displayName": "cert-drawer",
+  "description": "Certifcate Inventory - Search, expiry and automation",
+  "version": "1.0.0",
+  "author": "smos",
+  "homepage": "https://github.com/smos/cert-drawer",
+  "skills": []
+}
