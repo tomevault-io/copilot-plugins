@@ -4,7 +4,7 @@
   "repo": "privacy-deidentification",
   "description": "Local privacy-first document de-identification and redaction system.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rubennati/privacy-deidentification",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T16:48:37Z"
+  "distributed_at": "2026-07-07T16:49:13Z"
 }
