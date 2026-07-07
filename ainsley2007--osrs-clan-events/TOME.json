@@ -4,7 +4,7 @@
   "repo": "osrs-clan-events",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ainsley2007/osrs-clan-events",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T16:39:15Z"
+  "distributed_at": "2026-07-07T17:19:17Z"
 }
