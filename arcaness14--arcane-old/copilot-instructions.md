@@ -1,42 +1,26 @@
-## ss14-csharp
+## ss14-resources
 
 > <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 ---
-description: C# ECS, events, prediction, and upstream-maintenance rules for SS14 gameplay code.
+description: Prototype, localization, and resource rules for SS14 content data.
 globs:
-  - Content.Shared/**/*.cs
-  - Content.Server/**/*.cs
-  - Content.Client/**/*.cs
-  - Content.Goobstation.Shared/**/*.cs
-  - Content.Goobstation.Server/**/*.cs
-  - Content.Goobstation.Client/**/*.cs
-  - Content.Goobstation.Common/**/*.cs
-  - Content.Goobstation.Maths/**/*.cs
-  - Content.Goobstation.UIKit/**/*.cs
-  - Content.Server.Database/**/*.cs
-  - Content.Shared.Database/**/*.cs
-  - Content.Tests/**/*.cs
-  - Content.IntegrationTests/**/*.cs
+  - Resources/**/*.yml
+  - Resources/**/*.ftl
+  - Resources/**/*.json
 alwaysApply: false
 ---
-
-Apply @.agents/rules/ss14-interaction-flow.md
-Apply @.agents/rules/ss14-csharp-style.md
 
 Read these skills before editing matching files:
 
 - @.agents/skills/ss14-naming-conventions/SKILL.md
 - @.agents/skills/ss14-upstream-maintenance/SKILL.md
-- @.agents/skills/ss14-ecs-components/SKILL.md
-- @.agents/skills/ss14-ecs-entities/SKILL.md
-- @.agents/skills/ss14-ecs-systems/SKILL.md
-- @.agents/skills/ss14-events/SKILL.md
-- @.agents/skills/ss14-prediction/SKILL.md
-- @.agents/skills/ss14-netcode/SKILL.md
-- @.agents/skills/ss14-localization-code/SKILL.md
+- @.agents/skills/ss14-ecs-prototypes/SKILL.md
+- @.agents/skills/ss14-localization-strings/SKILL.md
+- @.agents/skills/ss14-prototypes-locale/SKILL.md
+- @.agents/skills/ss14-graphics-generic-visualizer-appearance/SKILL.md
 
 ---
 > Source: [ArcaneSS14/arcane-old](https://github.com/ArcaneSS14/arcane-old) — distributed by [TomeVault](https://tomevault.io).
