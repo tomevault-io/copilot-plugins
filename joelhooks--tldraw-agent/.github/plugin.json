@@ -1,0 +1,9 @@
+{
+  "name": "joelhooks--tldraw-agent",
+  "displayName": "tldraw-agent",
+  "description": "\ud83c\udfa8 Generate diagrams from text. CLI, MCP, library \u2014 works anywhere.",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/tldraw-agent",
+  "skills": []
+}
