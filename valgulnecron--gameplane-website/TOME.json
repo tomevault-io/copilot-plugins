@@ -4,7 +4,7 @@
   "repo": "gameplane-website",
   "description": "Marketing + docs website for Gameplane \u2014 Kubernetes-native game server control panel",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ValgulNecron/gameplane-website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T17:05:51Z"
+  "distributed_at": "2026-07-07T17:08:01Z"
 }
