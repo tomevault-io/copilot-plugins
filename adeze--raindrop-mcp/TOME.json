@@ -4,7 +4,7 @@
   "repo": "raindrop-mcp",
   "description": "Raindrop MCP Server",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,45 @@
       "path": ".github/skills/publishing",
       "github_url": "https://github.com/adeze/raindrop-mcp/tree/main/.github/skills/publishing",
       "description": ""
+    },
+    {
+      "name": "raindrop-mcp",
+      "path": ".github/skills/publishing/SKILL.md",
+      "github_url": "https://github.com/adeze/raindrop-mcp/tree/main/.github/skills/publishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "raindrop-mcp",
+      "path": ".github/skills/mcp-testing/SKILL.md",
+      "github_url": "https://github.com/adeze/raindrop-mcp/tree/main/.github/skills/mcp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "raindrop-mcp",
+      "path": ".github/skills/dxt-packaging/SKILL.md",
+      "github_url": "https://github.com/adeze/raindrop-mcp/tree/main/.github/skills/dxt-packaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "raindrop-mcp",
+      "path": ".github/skills/mcp-inspector/SKILL.md",
+      "github_url": "https://github.com/adeze/raindrop-mcp/tree/main/.github/skills/mcp-inspector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "raindrop-mcp",
+      "path": ".github/skills/mcp-refactoring/SKILL.md",
+      "github_url": "https://github.com/adeze/raindrop-mcp/tree/main/.github/skills/mcp-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "raindrop-mcp",
+      "path": ".github/skills/mcp-development/SKILL.md",
+      "github_url": "https://github.com/adeze/raindrop-mcp/tree/main/.github/skills/mcp-development/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/adeze/raindrop-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T05:30:20Z"
+  "distributed_at": "2026-07-07T00:05:41Z"
 }
