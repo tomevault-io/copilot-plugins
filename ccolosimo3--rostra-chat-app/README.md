@@ -7,11 +7,11 @@ Real-time chat app using WebSockets, FastAPI, TypeScript/React, and PostgreSQL.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ccolosimo3/rostra-chat-app](https://github.com/ccolosimo3/rostra-chat-app).
+Original source: `CLAUDE.md` in [ccolosimo3/rostra-chat-app](https://github.com/ccolosimo3/rostra-chat-app).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
