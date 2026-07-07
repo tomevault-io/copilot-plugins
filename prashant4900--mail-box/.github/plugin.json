@@ -1,0 +1,9 @@
+{
+  "name": "prashant4900--mail-box",
+  "displayName": "mail-box",
+  "description": "A modern, self-hosted email client and management platform built on Next.js (App Router), Prisma, and Cloudflare Email Routing.",
+  "version": "1.0.0",
+  "author": "Prashant4900",
+  "homepage": "https://github.com/Prashant4900/mail-box",
+  "skills": []
+}
