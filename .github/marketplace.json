@@ -14649,6 +14649,11 @@
       "description": "hue"
     },
     {
+      "name": "schpet--linear-cli",
+      "source": "./schpet--linear-cli",
+      "description": "linear without leaving the command line: list, start, and create PRs for linear issues. agent friendly. "
+    },
+    {
       "name": "caliber-ai-org--ai-setup",
       "source": "./caliber-ai-org--ai-setup",
       "description": "Continuously sync your AI setups with one command. Codebase tailor suited agent skills, MCPs and config files for Claude Code, Cursor, and Codex."
@@ -239342,6 +239347,21 @@
       "name": "chamals3n4--openats",
       "source": "./chamals3n4--openats",
       "description": "Open source applicant tracking system."
+    },
+    {
+      "name": "xazingatrend--trend-viewer",
+      "source": "./xazingatrend--trend-viewer",
+      "description": "\uc720\ud29c\ube0c, \ub9b4\uc2a4, X, \uc2a4\ub808\ub4dc, \ud2f1\ud1a1, AI \ub274\uc2a4\ub97c \ud55c \ud654\uba74\uc5d0\uc11c \ubcf4\ub294 \ub85c\uceec \ud2b8\ub80c\ub4dc \uad00\uc81c\ud310. Python stdlib only."
+    },
+    {
+      "name": "thenativeweb--esdm",
+      "source": "./thenativeweb--esdm",
+      "description": "Event-Sourced Domain Modeling language."
+    },
+    {
+      "name": "actaclad--plumbline",
+      "source": "./actaclad--plumbline",
+      "description": "The reliability & architecture analyzer for LLM and agentic systems. By ActaClad."
     },
     {
       "name": "ocrbase-hq--ocrbase",
