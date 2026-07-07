@@ -1,0 +1,9 @@
+{
+  "name": "pixelsncodes--lumen",
+  "displayName": "lumen",
+  "description": "A free wavetable synthesizer that plays images. C++/JUCE, VST3 + Windows standalone.",
+  "version": "1.0.0",
+  "author": "pixelsncodes",
+  "homepage": "https://github.com/pixelsncodes/lumen",
+  "skills": []
+}
