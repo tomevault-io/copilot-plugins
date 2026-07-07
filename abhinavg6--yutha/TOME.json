@@ -1,0 +1,44 @@
+{
+  "name": "yutha",
+  "owner": "abhinavg6",
+  "repo": "yutha",
+  "description": "Open-source infrastructure for groups of AI agents \u2014 identity, capability, accountability, and norms. Framework-agnostic.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/abhinavg6/yutha",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T00:58:00Z"
+}
