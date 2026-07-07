@@ -4,7 +4,7 @@
   "repo": "warden-mcp",
   "description": "\ud83d\udd10 Streamable HTTP + stdio MCP server for Vaultwarden/Bitwarden",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/icoretech/warden-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T08:38:17Z"
+  "distributed_at": "2026-07-07T08:39:56Z"
 }
