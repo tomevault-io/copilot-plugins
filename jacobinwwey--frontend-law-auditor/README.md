@@ -7,13 +7,13 @@ Human-centered frontend quality gate and theory-based UX audit skill with measur
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Jacobinwwey/frontend-law-auditor](https://github.com/Jacobinwwey/frontend-law-auditor).
+Original source: `CLAUDE.md` in [Jacobinwwey/frontend-law-auditor](https://github.com/Jacobinwwey/frontend-law-auditor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
