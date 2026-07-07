@@ -1,26 +1,31 @@
-## ss14-resources
+## ss14-shared
 
 > <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 ---
-description: Prototype, localization, and resource rules for SS14 content data.
+description: Shared SS14 rules for replicated state, shared events, localization identifiers, and prediction-aware gameplay code.
 globs:
-  - Resources/**/*.yml
-  - Resources/**/*.ftl
-  - Resources/**/*.json
+  - Content.Shared/**/*.cs
+  - Content.Goobstation.Shared/**/*.cs
+  - Content.Goobstation.Common/**/*.cs
+  - Content.Goobstation.Maths/**/*.cs
+  - Content.Shared.Database/**/*.cs
 alwaysApply: false
 ---
 
+Apply @.agents/rules/ss14-csharp-style.md
+
 Read these skills before editing matching files:
 
-- @.agents/skills/ss14-naming-conventions/SKILL.md
-- @.agents/skills/ss14-upstream-maintenance/SKILL.md
-- @.agents/skills/ss14-ecs-prototypes/SKILL.md
-- @.agents/skills/ss14-localization-strings/SKILL.md
-- @.agents/skills/ss14-prototypes-locale/SKILL.md
-- @.agents/skills/ss14-graphics-generic-visualizer-appearance/SKILL.md
+- @.agents/skills/ss14-ecs-components/SKILL.md
+- @.agents/skills/ss14-ecs-entities/SKILL.md
+- @.agents/skills/ss14-ecs-systems/SKILL.md
+- @.agents/skills/ss14-events/SKILL.md
+- @.agents/skills/ss14-prediction/SKILL.md
+- @.agents/skills/ss14-netcode/SKILL.md
+- @.agents/skills/ss14-localization-code/SKILL.md
 
 ---
 > Source: [ArcaneSS14/arcane-old](https://github.com/ArcaneSS14/arcane-old) — distributed by [TomeVault](https://tomevault.io).
