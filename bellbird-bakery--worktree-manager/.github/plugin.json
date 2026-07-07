@@ -1,0 +1,9 @@
+{
+  "name": "bellbird-bakery--worktree-manager",
+  "displayName": "worktree-manager",
+  "description": "git worktree task manager.",
+  "version": "1.0.0",
+  "author": "bellbird-bakery",
+  "homepage": "https://github.com/bellbird-bakery/worktree-manager",
+  "skills": []
+}
