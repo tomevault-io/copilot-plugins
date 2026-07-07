@@ -4,7 +4,7 @@
   "repo": "open-submission-approval-workflow",
   "description": "Workflow-first application submission and approval system for applicants and reviewers",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stctheproducer/open-submission-approval-workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T16:35:58Z"
+  "distributed_at": "2026-07-07T16:43:05Z"
 }
