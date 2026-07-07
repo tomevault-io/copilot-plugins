@@ -1,0 +1,9 @@
+{
+  "name": "loki495--homie",
+  "displayName": "homie",
+  "description": "A self-hosted, configurable homepage/dashboard for home lab services",
+  "version": "1.0.0",
+  "author": "loki495",
+  "homepage": "https://github.com/loki495/homie",
+  "skills": []
+}
