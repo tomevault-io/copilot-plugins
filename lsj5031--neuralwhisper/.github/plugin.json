@@ -1,0 +1,9 @@
+{
+  "name": "lsj5031--neuralwhisper",
+  "displayName": "NeuralWhisper",
+  "description": "Cyberpunk-styled web frontend (React + Vite) for audio transcription, UI for faster-whisper-server.",
+  "version": "1.0.0",
+  "author": "lsj5031",
+  "homepage": "https://github.com/lsj5031/NeuralWhisper",
+  "skills": []
+}
