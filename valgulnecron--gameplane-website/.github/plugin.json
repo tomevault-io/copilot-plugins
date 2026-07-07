@@ -1,0 +1,9 @@
+{
+  "name": "valgulnecron--gameplane-website",
+  "displayName": "gameplane-website",
+  "description": "Marketing + docs website for Gameplane \u2014 Kubernetes-native game server control panel",
+  "version": "1.0.0",
+  "author": "ValgulNecron",
+  "homepage": "https://github.com/ValgulNecron/gameplane-website",
+  "skills": []
+}
