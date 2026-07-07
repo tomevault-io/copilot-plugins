@@ -1,0 +1,9 @@
+{
+  "name": "frenck--probatio",
+  "displayName": "probatio",
+  "description": "\u2696\ufe0f Probatio. A modern, maintained data validation library for Python. Clean-room, MIT-licensed, drop-in reimplementation of voluptuous.",
+  "version": "1.0.0",
+  "author": "frenck",
+  "homepage": "https://github.com/frenck/probatio",
+  "skills": []
+}
