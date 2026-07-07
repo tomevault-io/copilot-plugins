@@ -1,0 +1,9 @@
+{
+  "name": "flarestarter--flarestarter",
+  "displayName": "flarestarter",
+  "description": "A full-stack, edge-native SaaS starter built with TanStack Start + Cloudflare Workers  | \u57fa\u4e8e TanStack Start + Cloudflare Workers \u6784\u5efa\u7684\u5168\u6808\u3001\u8fb9\u7f18\u539f\u751f SaaS \u8d77\u6b65\u6a21\u677f ",
+  "version": "1.0.0",
+  "author": "FlareStarter",
+  "homepage": "https://github.com/FlareStarter/flarestarter",
+  "skills": []
+}
