@@ -1,0 +1,44 @@
+{
+  "name": "ai-for-modern-cpp",
+  "owner": "thecompez",
+  "repo": "ai-for-modern-cpp",
+  "description": "A template repository for guiding AI coding agents to write safe, modern C++20/23/26 code using modules, concepts, modern CMake, Core Guidelines, tests, and repeatable build-test-review loops.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thecompez/ai-for-modern-cpp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T01:03:49Z"
+}
