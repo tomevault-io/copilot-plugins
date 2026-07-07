@@ -1,0 +1,9 @@
+{
+  "name": "v-vabyo--telegram-drive-storage",
+  "displayName": "Telegram-Drive-Storage",
+  "description": "A modern, multi-user SaaS cloud storage application that leverages the Telegram MTProto API to provide unlimited, isolated, and secure file storage using Next.js.",
+  "version": "1.0.0",
+  "author": "v-vabyo",
+  "homepage": "https://github.com/v-vabyo/Telegram-Drive-Storage",
+  "skills": []
+}
