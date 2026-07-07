@@ -1,0 +1,9 @@
+{
+  "name": "harmony-ai-solutions--harmony-ai-app",
+  "displayName": "harmony-ai-app",
+  "description": "Android frontend for Harmony Link with limited standalone capability",
+  "version": "1.0.0",
+  "author": "harmony-ai-solutions",
+  "homepage": "https://github.com/harmony-ai-solutions/harmony-ai-app",
+  "skills": []
+}
