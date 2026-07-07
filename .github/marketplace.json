@@ -27444,6 +27444,11 @@
       "description": "Compoder is an open-source AI-powered component code generation engine that integrates modern frontend tech stacks with various AI model capabilities. You can customize Compoder to create AI-powered c"
     },
     {
+      "name": "velornlabs--velorn",
+      "source": "./velornlabs--velorn",
+      "description": "AI-native video editing built around real creative timelines, generative workflows, and local agent control."
+    },
+    {
       "name": "tzachbon--smart-ralph",
       "source": "./tzachbon--smart-ralph",
       "description": "Spec-driven development with smart compaction. Claude Code plugin combining Ralph Wiggum loop with structured specification workflow."
@@ -103374,6 +103379,11 @@
       "description": "A native GUI HTTP client written in Rust"
     },
     {
+      "name": "liushin--openjellyfish",
+      "source": "./liushin--openjellyfish",
+      "description": "A easy and light agent management system for small companies/groups to build up own agent services"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -155964,6 +155974,11 @@
       "description": "Open-source commerce frontend for storefronts, marketplaces, checkout, and seller management."
     },
     {
+      "name": "robodojo-benchmark--robodojo",
+      "source": "./robodojo-benchmark--robodojo",
+      "description": "RoboDojo"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -190244,6 +190259,11 @@
       "description": "An embeddable visual workflow editor for the web. Powered by AI when you want it, plain logic when you don't."
     },
     {
+      "name": "tronghieu--agent-skills",
+      "source": "./tronghieu--agent-skills",
+      "description": "An agentic skills framework"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -203907,6 +203927,11 @@
       "name": "qa-aman--next-leap-claude-code",
       "source": "./qa-aman--next-leap-claude-code",
       "description": "Workshop workspace for Claude Code for PMs course - AI-powered meeting assistant (MeetFlow) product context"
+    },
+    {
+      "name": "amjadjibon--memsh",
+      "source": "./amjadjibon--memsh",
+      "description": "memsh - virtual in-memory shell"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -239049,6 +239074,51 @@
       "description": "Solidity fuzzing tooling lives here."
     },
     {
+      "name": "kengio--dp-800-study-guide",
+      "source": "./kengio--dp-800-study-guide",
+      "description": "Open-source community study guide for Microsoft DP-800: Developing AI-Enabled Database Solutions. Aligned to the March 2026 official blueprint. Covers SQL Server 2025, Azure SQL, Microsoft Fabric, vec"
+    },
+    {
+      "name": "gfazioli--mantine-depth-select",
+      "source": "./gfazioli--mantine-depth-select",
+      "description": "A 3D stack select component inspired by macOS Time Machine for React applications built with Mantine. Navigate through stacked cards with perspective transforms and smooth transitions."
+    },
+    {
+      "name": "rahamanbinujit--claude-design-engine",
+      "source": "./rahamanbinujit--claude-design-engine",
+      "description": "Your AI Creative Director. 190+ design styles, AI photo generation, self-reviewing quality system, and 4K pixel-perfect export. Design social media posts, carousels, YouTube thumbnails, websites, and "
+    },
+    {
+      "name": "mingye-lu--agenticcrawler",
+      "source": "./mingye-lu--agenticcrawler",
+      "description": "acrawl \u2014 LLM-powered web crawler. Describe what you want in plain English, get structured data back. Single Rust binary, 25 providers, MCP server built-in."
+    },
+    {
+      "name": "abhilashi--sovereign-dna",
+      "source": "./abhilashi--sovereign-dna",
+      "description": "Your genome, your device. Fully local DNA analysis \u2014 no cloud, no telemetry."
+    },
+    {
+      "name": "yixiaoer888--yixiaoer-skill",
+      "source": "./yixiaoer888--yixiaoer-skill",
+      "description": "openClaw \u63d2\u4ef6\u6267\u884c\u89c4\u8303\u3002\u7528\u4e8e\u8681\u5c0f\u4e8c\u767b\u5f55\u3001\u56e2\u961f\u4e0e\u8d26\u53f7\u67e5\u8be2\u3001\u7d20\u6750\u4e0a\u4f20\u3001\u6587\u7ae0/\u56fe\u6587/\u89c6\u9891\u53d1\u5e03\u4e0e\u53d1\u5e03\u8bb0\u5f55\u67e5\u8be2\u7684\u6807\u51c6\u6d41\u7a0b\u4e0e\u53c2\u6570\u7ea6\u675f\u3002"
+    },
+    {
+      "name": "402md--x402-wallet-for-claude-desktop",
+      "source": "./402md--x402-wallet-for-claude-desktop",
+      "description": "Claude Desktop extension that signs x402 USDC payments on Stellar (Soroban) and Base (EVM)."
+    },
+    {
+      "name": "dandandujie--notype",
+      "source": "./dandandujie--notype",
+      "description": "notype"
+    },
+    {
+      "name": "jai2500--persistworld",
+      "source": "./jai2500--persistworld",
+      "description": "Code for \"Persistent Robot World Models: Stabilizing Multi-Step Rollouts via Reinforcement Learning\""
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -259382,6 +259452,11 @@
       "name": "piacerex--notex",
       "source": "./piacerex--notex",
       "description": "notex"
+    },
+    {
+      "name": "heyito--moo",
+      "source": "./heyito--moo",
+      "description": "Git versions files. moo versions the machine."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -382607,6 +382682,16 @@
       "name": "isaicastillo13--wedding-invitation-app",
       "source": "./isaicastillo13--wedding-invitation-app",
       "description": "wedding-invitation-app"
+    },
+    {
+      "name": "benjaminnh--moto-ocr",
+      "source": "./benjaminnh--moto-ocr",
+      "description": "OCR tool for motorcycle insurance policy recognition and commission settlement"
+    },
+    {
+      "name": "eugenc--fabco-trading",
+      "source": "./eugenc--fabco-trading",
+      "description": "fabco_trading"
     }
   ]
 }
