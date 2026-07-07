@@ -4,7 +4,7 @@
   "repo": "website",
   "description": "The Beam Bots homepage",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/beam-bots/website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T20:42:56Z"
+  "distributed_at": "2026-07-07T20:50:13Z"
 }
