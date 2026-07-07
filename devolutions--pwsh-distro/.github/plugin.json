@@ -1,0 +1,9 @@
+{
+  "name": "devolutions--pwsh-distro",
+  "displayName": "pwsh-distro",
+  "description": "Devolutions PowerShell distribution",
+  "version": "1.0.0",
+  "author": "Devolutions",
+  "homepage": "https://github.com/Devolutions/pwsh-distro",
+  "skills": []
+}
