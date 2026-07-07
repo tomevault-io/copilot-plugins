@@ -1,0 +1,9 @@
+{
+  "name": "novasplace--csm",
+  "displayName": "CSM",
+  "description": "Cross-Session Memory (CSM) \u2014 a continuity runtime that turns raw tool events into durable beliefs. Full pipeline: work journal \u2192 compaction \u2192 experience packets \u2192 candidate scanning \u2192 belief promotion",
+  "version": "1.0.0",
+  "author": "NovasPlace",
+  "homepage": "https://github.com/NovasPlace/CSM",
+  "skills": []
+}
