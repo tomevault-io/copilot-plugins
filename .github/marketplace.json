@@ -190294,6 +190294,11 @@
       "description": "An agentic skills framework"
     },
     {
+      "name": "denzi-gh--crashwoc-decomp-gc",
+      "source": "./denzi-gh--crashwoc-decomp-gc",
+      "description": "This is a WIP decompilation of Crash Bandicoot: The Wrath of Cortex for GameCube."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -203967,6 +203972,16 @@
       "name": "cyrusnuevodia--capn-hook",
       "source": "./cyrusnuevodia--capn-hook",
       "description": "Dynamic memory for coding agents: chart discoveries as you explore, cache-bust when files change"
+    },
+    {
+      "name": "thirdkeyai--agentsniff",
+      "source": "./thirdkeyai--agentsniff",
+      "description": "Detect AI agents operating on your network through passive monitoring, active probing, protocol detection, and behavioral analysis. "
+    },
+    {
+      "name": "thirdkeyai--agentsniff",
+      "source": "./thirdkeyai--agentsniff",
+      "description": "Detect AI agents operating on your network through passive monitoring, active probing, protocol detection, and behavioral analysis. "
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -239229,6 +239244,41 @@
       "description": "Markdown to PDF converter with Mermaid diagrams, LaTeX math, themes, and batch conversion. CLI + WASM."
     },
     {
+      "name": "prashant4900--mail-box",
+      "source": "./prashant4900--mail-box",
+      "description": "A modern, self-hosted email client and management platform built on Next.js (App Router), Prisma, and Cloudflare Email Routing."
+    },
+    {
+      "name": "ahil-ns--marketing-agent-teams",
+      "source": "./ahil-ns--marketing-agent-teams",
+      "description": "AI Agent Teams for multi-app social media marketing \u2014 automated trend research, content creation, optimization, publishing, and analytics across TikTok, Instagram, YouTube, Facebook, Reddit, X, and Pi"
+    },
+    {
+      "name": "vercel-labs--streaming-demo",
+      "source": "./vercel-labs--streaming-demo",
+      "description": "streaming-demo"
+    },
+    {
+      "name": "angel121954--fluxaredsocial",
+      "source": "./angel121954--fluxaredsocial",
+      "description": "Fluxa es una red social open source orientada a desarrolladores de software, dise\u00f1ada para compartir avances de proyectos, ideas y conocimiento dentro de una comunidad profesional. Implementada con La"
+    },
+    {
+      "name": "gowaru--gowaru-nuvio-providers",
+      "source": "./gowaru--gowaru-nuvio-providers",
+      "description": "An collection of French streaming plugins for the Nuvio"
+    },
+    {
+      "name": "tykeal--homeassistant-local-akuvox",
+      "source": "./tykeal--homeassistant-local-akuvox",
+      "description": "Local control of Akuvox intercoms for Home Assistant"
+    },
+    {
+      "name": "aliceljy--telegram-ai-bridge",
+      "source": "./aliceljy--telegram-ai-bridge",
+      "description": "Heterogeneous AI agents (Claude Code + Codex + Gemini) collaborating in Telegram groups over A2A-TG \u2014 a generation-counted envelope protocol. Self-hosted."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -259587,6 +259637,21 @@
       "name": "devolutions--pwsh-distro",
       "source": "./devolutions--pwsh-distro",
       "description": "Devolutions PowerShell distribution"
+    },
+    {
+      "name": "rornic--zweig",
+      "source": "./rornic--zweig",
+      "description": "Throw ballast overboard! \u2702\ufe0f Skill that refines all forms of writing like Stefan Zweig in The World of Yesterday."
+    },
+    {
+      "name": "herry423--biocsswitch",
+      "source": "./herry423--biocsswitch",
+      "description": "BioCSSwitch biomedical research extensions for CSSwitch and Claude Science local workflows"
+    },
+    {
+      "name": "rornic--zweig",
+      "source": "./rornic--zweig",
+      "description": "Throw ballast overboard! \u2702\ufe0f Skill that refines all forms of writing like Stefan Zweig in The World of Yesterday."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -382827,6 +382892,11 @@
       "name": "cloudbridgeuy--ralph",
       "source": "./cloudbridgeuy--ralph",
       "description": "My take on the ralph loop"
+    },
+    {
+      "name": "iflow-mcp--douinc-mkdocs-mcp-plugin",
+      "source": "./iflow-mcp--douinc-mkdocs-mcp-plugin",
+      "description": "Mkdocs + MCP to enhance context retrieval using repo docs"
     }
   ]
 }
