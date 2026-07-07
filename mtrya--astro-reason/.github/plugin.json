@@ -1,0 +1,9 @@
+{
+  "name": "mtrya--astro-reason",
+  "displayName": "astro-reason",
+  "description": "Evaluating LLM agents' capabilities on space mission planning tasks.",
+  "version": "1.0.0",
+  "author": "Mtrya",
+  "homepage": "https://github.com/Mtrya/astro-reason",
+  "skills": []
+}
