@@ -7,11 +7,11 @@ Detect AI agents operating on your network through passive monitoring, active pr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ThirdKeyAI/agentsniff](https://github.com/ThirdKeyAI/agentsniff).
+Original source: `AGENTS.md` in [ThirdKeyAI/agentsniff](https://github.com/ThirdKeyAI/agentsniff).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
