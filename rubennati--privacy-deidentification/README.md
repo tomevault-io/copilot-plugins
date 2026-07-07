@@ -7,11 +7,11 @@ Local privacy-first document de-identification and redaction system.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rubennati/privacy-deidentification](https://github.com/rubennati/privacy-deidentification).
+Original source: `AGENTS.md` in [rubennati/privacy-deidentification](https://github.com/rubennati/privacy-deidentification).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
