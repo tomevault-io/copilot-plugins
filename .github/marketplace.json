@@ -166184,6 +166184,11 @@
       "description": "Minimal Go agent framework for LLM tool-calling loops (v1.0, stable). Typed tools, parallel execution, three hooks, streaming progress, snapshot resume, prompt caching across iterations. Anthropic Cla"
     },
     {
+      "name": "sarvamai--sarvam-mcp",
+      "source": "./sarvamai--sarvam-mcp",
+      "description": "Official Sarvam MCP server"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -173042,6 +173047,11 @@
       "name": "sbogomolov--reflector-cpp",
       "source": "./sbogomolov--reflector-cpp",
       "description": "mDNS, SSDP/DIAL, WoL reflector"
+    },
+    {
+      "name": "taotao9125--light-agent",
+      "source": "./taotao9125--light-agent",
+      "description": "light-agent"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -190044,6 +190054,11 @@
       "description": "myfAInances"
     },
     {
+      "name": "tahash--wayflow",
+      "source": "./tahash--wayflow",
+      "description": "An embeddable visual workflow editor for the web. Powered by AI when you want it, plain logic when you don't."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -203687,6 +203702,16 @@
       "name": "wise-claw--wise-tui",
       "source": "./wise-claw--wise-tui",
       "description": "AI cockpit, developing a new paradigm"
+    },
+    {
+      "name": "unpaidattention--fable5-methodology",
+      "source": "./unpaidattention--fable5-methodology",
+      "description": "A transferable, self-enforcing software-engineering methodology for AI coding agents \u2014 playbook, skills, contracted subagents, lifecycle hooks, and evals."
+    },
+    {
+      "name": "nmxmxh--foundation",
+      "source": "./nmxmxh--foundation",
+      "description": "A different approach to software and ai. An opinionated full stack framework delivering native performance and graphics to web experiences."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -238714,6 +238739,26 @@
       "description": "Live options analysis"
     },
     {
+      "name": "weibaohui--ntd",
+      "source": "./weibaohui--ntd",
+      "description": "AI \u9a71\u52a8\u7684\u4efb\u52a1\u5f15\u64ce"
+    },
+    {
+      "name": "xuliuzhe--nexora",
+      "source": "./xuliuzhe--nexora",
+      "description": "\u4e00\u4e2a\u591aagent\u5408\u4f5c\u5e73\u53f0"
+    },
+    {
+      "name": "weibaohui--ntd",
+      "source": "./weibaohui--ntd",
+      "description": "AI \u9a71\u52a8\u7684\u4efb\u52a1\u5f15\u64ce"
+    },
+    {
+      "name": "aronprins--clio-kb",
+      "source": "./aronprins--clio-kb",
+      "description": "Named after Clio \u2014 the Greek Muse of history and record-keeping. She was the keeper of knowledge, the one who made sure nothing worth remembering was lost. Clio KB does the same for your docs."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -259007,6 +259052,41 @@
       "name": "wq19901103wq--wechat-mac-rpa",
       "source": "./wq19901103wq--wechat-mac-rpa",
       "description": "\u57fa\u4e8e\u591a\u6a21\u6001\u89c6\u89c9\u611f\u77e5\u4e0e LLM Agent \u7684 macOS \u5fae\u4fe1\u81ea\u52a8\u5316\u6846\u67b6 | Visual RPA for WeChat"
+    },
+    {
+      "name": "svenshi--luci-app-oxidns",
+      "source": "./svenshi--luci-app-oxidns",
+      "description": "luci-app-oxidns is the LuCI management app for OxiDNS on OpenWrt"
+    },
+    {
+      "name": "sosintops--exploratores",
+      "source": "./sosintops--exploratores",
+      "description": "Modular browser-based OSINT toolkit \u2014 curated search tools, PII Redactor, multi-country IBAN analysis and embedded CyberChef. No backend required."
+    },
+    {
+      "name": "johnku2011--boilerplates-with-ai-skills",
+      "source": "./johnku2011--boilerplates-with-ai-skills",
+      "description": "boilerplates-with-ai-skills"
+    },
+    {
+      "name": "skyeshark--eidoverse-video",
+      "source": "./skyeshark--eidoverse-video",
+      "description": "Video-production toolkit for AI agents: Deno + WebGPU + three.js/TSL render engine with VRM character locomotion, simulations, effects, and a full audio pipeline \u2014 real-time GPU rendering with minimal"
+    },
+    {
+      "name": "novasplace--csm",
+      "source": "./novasplace--csm",
+      "description": "Cross-Session Memory (CSM) \u2014 a continuity runtime that turns raw tool events into durable beliefs. Full pipeline: work journal \u2192 compaction \u2192 experience packets \u2192 candidate scanning \u2192 belief promotion"
+    },
+    {
+      "name": "monzikwastaken--framegen",
+      "source": "./monzikwastaken--framegen",
+      "description": "Real-time neural frame interpolation in the browser: hand-written WGSL runtime on raw WebGPU, 2.9 MB model, 2x-6x any <video> at 3-4 ms per frame. Chrome extension."
+    },
+    {
+      "name": "sakayori-iroha-168--software-teamwork",
+      "source": "./sakayori-iroha-168--software-teamwork",
+      "description": "Software_Teamwork"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -382212,6 +382292,21 @@
       "name": "rizwanyaqoob--physicalai-humanoidrobotics",
       "source": "./rizwanyaqoob--physicalai-humanoidrobotics",
       "description": "PhysicalAI-HumanoidRobotics"
+    },
+    {
+      "name": "bilalhaneefq--dl-onboarding",
+      "source": "./bilalhaneefq--dl-onboarding",
+      "description": "dl-onboarding"
+    },
+    {
+      "name": "schen126--cogs-125-nodejs",
+      "source": "./schen126--cogs-125-nodejs",
+      "description": "cogs-125-nodejs"
+    },
+    {
+      "name": "isaicastillo13--wedding-invitation-app",
+      "source": "./isaicastillo13--wedding-invitation-app",
+      "description": "wedding-invitation-app"
     }
   ]
 }
