@@ -1,200 +1,60 @@
-## professional-grade-rules
+## security-rules
 
-> Professional Grade 路线图执行规范 — PG Tier 0~3 触发词协议、代码约束、验收标准
+> 安全开发硬性规则 — 涉及资金、加密、用户数据的前端代码必须遵循
 
 
-# Professional Grade 路线图执行规范
+# 安全开发规则
 
-## 背景
+## XSS 防护
 
-Mobazha 正从 P2P 交易工具进化为 Web3 Shopify 专业电商平台。
-路线图文档：`docs/PROFESSIONAL_GRADE_ROADMAP.md`
-
-## 当前阶段
-
-- **Tier 0**：交易闭环修复（PG-001 ~ PG-005）✅ 已完成
-- **Tier 0.5**：反馈驱动体验打磨（PG-006 ~ PG-009）✅ 已完成
-- **Tier 1**：Admin 分离 + AI 商品助手 + 移动端卖家（PG-101 ~ PG-111）✅ 已完成
-- **Tier 2**：差异化竞争力（PG-201 ~ PG-206）— PG-201/202/203 ✅ 已完成；**PG-204~206 待执行** ← 当前
-- **Tier 3**：规模化 + AI 分析/营销（PG-301 ~ PG-305）⏳ 待规划
-
-## 核心设计原则
-
-### 独立站优先
-- V1 主场景是独立站：买家通过社交链接到达卖家的独立站购物
-- 独立站首页 = 品牌着陆页，不是 marketplace 列表
-- 店内搜索优先于全局跨店搜索
-- SEO + OG 标签是独立站被发现的生命线
-- 买家不感知 SaaS 平台的存在
-
-### AI-First + Mobile-First
-- 每个功能实现时先问"AI 能在这里做什么"，至少预留 AI 接口和 UI 占位
-- AI 基础设施在 PG-110 首次建立（`AIGenerateButton`、`AIStreamingText`、后端代理）
-- TG Mini App 是移动端主入口，交易流程必须在 TG 内流畅完成
-- 所有 Storefront 页面验收必须在 375px 宽度手机上通过
-
-### 产品体验贯穿要求
-- **Crypto 支付 UX**：余额预检、gas 透明、交易等待 UI、失败恢复
-- **法币等价**：所有价格旁标注法币等价
-- **术语抽象**：用人话替代技术术语（"买家保障"不是"Escrow"）
-- **买卖沟通**：确保聊天入口在商品和订单页面可见
-- **浏览无需登录**：结账时才要求登录
-
-> 完整设计指导见 Roadmap Section 4.7
-
-## 触发词协议
-
-当用户说以下触发词时，AI 执行对应协议：
-
-### "继续专业化"、"下一个 PG 任务"、"Professional Grade"、"V1"、"发布"
-
-1. 读取 `docs/PROFESSIONAL_GRADE_ROADMAP.md` Section 9 — 找到第一个 ⏳ 的任务
-2. 读取该任务在 Section 3 中的详细描述
-3. 如果涉及 Desktop 迁移，读取 Section 2.2 的参考文件列表
-4. 告知用户待执行任务摘要和预估工作量
-5. 按对应 Tier 的 skill 文件执行
-6. 完成后更新 Section 9 进度表
-
-### "修复交易闭环"、"Tier 0"、"PG-00"
-
-1. 读取 `docs/PROFESSIONAL_GRADE_ROADMAP.md` Section 3 → Tier 0
-2. 找到第一个未完成的 PG-00x 任务（PG-001 ~ PG-005）
-3. 读取 `.cursor/skills/pg-tier0-transaction-loop/SKILL.md`
-4. 按 skill 指南执行（注意 AI 增强层标注）
-
-### "反馈打磨"、"体验打磨"、"消灭 Unknown"、"身份人性化"、"PG-006"~"PG-009"
-
-1. 读取 `docs/features/feedback-polish.md` — 完整任务规格
-2. 读取 `docs/PROFESSIONAL_GRADE_ROADMAP.md` Section 9 → Tier 0.5 进度
-3. 找到第一个 ⏳ 的任务
-4. 读取 `.cursor/skills/pg-feedback-polish/SKILL.md`
-5. 按 skill 指南执行
-6. 完成后更新 Section 9 进度表
-
-### "Admin 分离"、"Tier 1"、"PG-10"、"AI 商品"
-
-1. 读取 `docs/PROFESSIONAL_GRADE_ROADMAP.md` Section 3 → Tier 1 + Section 5 架构 + Section 6 AI 策略
-2. 找到第一个未完成的 PG-10x 任务（PG-101 ~ PG-111）
-3. 读取 `.cursor/skills/pg-tier1-admin-storefront/SKILL.md`
-4. 按 skill 指南执行（PG-110 建立 AI 基础设施，供后续 Tier 复用）
-
-### "差异化"、"AI Store Builder"、"Tier 2"、"PG-20"、"AI 客服"
-
-1. 读取 `docs/PROFESSIONAL_GRADE_ROADMAP.md` Section 3 → Tier 2 + Section 6 AI 策略 + Section 7 Store Builder
-2. 找到第一个未完成的 PG-20x 任务（PG-201 ~ PG-206）
-3. 读取 `.cursor/skills/pg-tier2-differentiation/SKILL.md`
-4. 按 skill 指南执行
-
-### "规模化"、"Tier 3"、"PG-30"
-
-1. 读取 `docs/PROFESSIONAL_GRADE_ROADMAP.md` Section 3 → Tier 3
-2. 找到第一个未完成的 PG-30x 任务
-3. 告知用户待执行任务
-
-## 代码规范约束
-
-修改 `mobazha-unified` 代码时必须遵守：
-
-1. **Admin 路由前缀**：所有卖家管理页使用 `/admin/` 前缀
-2. **Layout 区分**：Admin 页面用 `AdminLayout`，Storefront 用现有 Layout
-3. **组件复用**：Admin 和 Storefront 共享底层组件（ProductCard、OrderCard 等），通过 props 区分行为
-4. **历史项目参考**：Desktop 和 Mobile App 只参考业务逻辑和用户意图，交互和 API 按最佳体验重新设计（详见 Roadmap Section 8.1a）
-5. **不在 Admin 中显示买家操作**：Admin 视图不显示 Add to Cart / Buy Now
-6. **不在 Storefront 中暴露管理功能**：非卖家不可见编辑/删除操作
-7. **UX 驱动 API**：产品未上线，如果理想 UX 需要新 API 或修改现有 API，直接设计并记录到对应 PG 任务中
-
-## Store Section 组件规范（PG-201）
-
-修改 `store-sections/` 和 `store-editor/` 目录时必须遵守：
-
-1. **类型安全**：`StoreSection` 使用 Discriminated Union，每种 type 严格绑定 Props，禁止 `Record<string, unknown>`
-2. **SSR 兼容**：`SectionRenderer` 是 Server Component。需要 DOM API 的 Section（如 `RichTextSection`）必须标记 `'use client'`
-3. **主题变量**：Section 组件使用 `var(--store-primary/secondary/accent/on-*/font/radius)` CSS 变量，不使用 Tailwind 主题色或硬编码颜色
-4. **store-tabs 不可删除**：系统级 Section，可排序可隐藏但编辑器不允许删除，不出现在"添加 Section"列表中
-5. **Section 数量**：编辑器限制最多 20 个 sections
-6. **图片来源**：仅接受 IPFS hash（`Qm.../bafy...`）或本站 `/v1/media/` 路径
-7. **设计文档**：`docs/features/PG-201_STORE_BRANDING_DESIGN.md`（v2.1，权威 Schema 来源）
-
-## Admin Layout 规范
+- 禁止直接使用 `dangerouslySetInnerHTML`，必须通过 `sanitizeHtml()` (`packages/core/utils/htmlUtils.ts`)
+- 禁止 `eval()`、`new Function()`、`document.write()`
+- 用户输入拼接到 URL 时必须使用 `encodeURIComponent()`
 
 ```tsx
-// AdminLayout 侧边栏导航项
-const adminNavItems = [
-  { icon: 'LayoutDashboard', label: t('admin.nav.dashboard'), path: '/admin' },
-  { icon: 'Package', label: t('admin.nav.products'), path: '/admin/products' },
-  { icon: 'ShoppingCart', label: t('admin.nav.orders'), path: '/admin/orders' },
-  { icon: 'BarChart3', label: t('admin.nav.analytics'), path: '/admin/analytics' },
-  { icon: 'Settings', label: t('admin.nav.settings'), path: '/admin/settings' },
-];
+// ❌ 禁止
+<div dangerouslySetInnerHTML={{ __html: userContent }} />
+
+// ✅ 必须
+import { sanitizeHtml } from '@mobazha/core';
+<div dangerouslySetInnerHTML={{ __html: sanitizeHtml(userContent) }} />
 ```
 
-## 卖家身份判断
+## 金额与精度
+
+- 金额计算必须使用 `BigNumber`（`bignumber.js`），禁止原生浮点运算
+- 禁止 `toFixed()` 用于计算（仅允许用于最终显示）
+- 链上金额必须使用 `toMinimalUnit()` / `fromMinimalUnit()` 转换
 
 ```tsx
-// ProductDetail 中判断是否为自己的商品
-const { profile } = useUserStore();
-const isOwnProduct = product?.vendorID?.peerID === profile?.peerID;
+// ❌ 禁止
+const total = price * quantity;
+const fee = amount.toFixed(2);
 
-// Store 页面判断是否为自己的店铺（已有）
-const isOwnStore = isAuthenticated && currentUserProfile?.peerID === peerId;
+// ✅ 必须
+import BigNumber from 'bignumber.js';
+const total = new BigNumber(price).times(quantity);
 ```
 
-## 移动端实施策略（Platform View）
+## 密钥与敏感数据
 
-操作型关键页面采用"同路由、分视图"模式（详见 Roadmap Section 4.7 第 7 条、Section 5b）：
+- 禁止在 `localStorage` / `sessionStorage` 存储私钥、助记词、API 密钥
+- 禁止在前端代码中硬编码合约地址以外的任何密钥
+- 助记词操作仅通过后端 API（`wallet.getMnemonic()` / `wallet.restoreWallet()`）
+- 日志中禁止输出敏感数据（私钥、助记词、token）
 
-- **分视图页面**：Checkout、Search、ProductDetail → `XxxDesktop.tsx` + `XxxMobile.tsx`
-- **路由页面**是 thin shell：`usePlatform()` → 分发到桌面/移动端视图
-- **业务逻辑共享**：通过 hooks（`useCheckout`、`useProductDetail`）复用，视图层只负责 UI
-- **TG Mini App**：使用移动端视图 + TG 增强（MainButton/BackButton/HapticFeedback），不是第三套视图
-- **浏览型页面**（列表、内容页、政策页）：响应式即可
+## 地址与输入验证
 
-## 验收标准（每个 PG 任务）
+- 链上地址必须使用 `ethers.getAddress()` 进行规范化和校验
+- 用户输入的地址在提交前必须调用 `validateAddress()` API
+- 金额输入必须验证：非负、非 NaN、不超过余额、精度合规
 
-1. **功能验收** — 核心能力全部可用
-2. **移动端验收** — 375px 宽度可用。分视图页面验证 Mobile 视图；响应式页面验证断点适配
-3. **TG Mini App** — 关键交易流在 TG Mini App 环境下可用（MainButton、BackButton 正常）
-4. **AI 增强** — 如任务有 AI 标注（🤖），AI 功能可用或至少预留接口
-5. **i18n + 主题 + 无障碍 + 类型安全** — 常规标准
-6. **骨架屏** — 数据加载有 Skeleton
+## 智能合约交互
 
-## 反馈驱动打磨（Tier 0.5 — 2026-02-26）
-
-基于用户反馈新增的体验打磨任务（`feedbacks/feedbacks_2026.2.26.md`）：
-
-- **PG-006**：身份人性化 + 术语抽象 — 消灭所有 "Unknown" 和裸 Peer ID
-- **PG-007b**：E2E 数据质量 + 图片 Fallback — 让截图能"说服人"
-- **PG-008**：登录页品牌化 — Casdoor logo/主题/隐藏第三方品牌
-- **PG-009**：独立站首页差异化 — `isStandalone` 模式展示卖家品牌着陆页
-
-身份展示必须遵守 `.cursor/rules/identity-display-rules.mdc` 规范。
-详细规格见 `docs/features/feedback-polish.md`。
-
-## 已完成的基础设施（v17 UX 审计 — 2026-02-26）
-
-本轮 UX 审计建立了视觉测试和移动端质量的基础设施：
-
-- **视觉回归测试**：`desktop-visual.spec.ts` + `mobile-visual.spec.ts`，分 Public/Authenticated 双组
-- **E2E Fixtures**：`mock-api-routes.ts`（API mock）、`seed-visual-data.ts`（测试数据）、`auth.ts`（登录）
-- **移动端 Footer**：桌面 Footer `hidden md:block`，移动端由 MobileNav 替代
-- **Settings 布局统一**：列表管理型页面全宽，表单配置型 SettingsSection 两列
-- **product-groups i18n**：全页面国际化
-- **ProductCard dropdown**：hover-only 下拉菜单（`@media(hover:hover)`），移动端不显示
-
-后续 PG 任务实现的页面应在 `desktop-visual.spec.ts` 和 `mobile-visual.spec.ts` 中补充对应截图。
-
-## 动态调整
-
-- 路线图是指导框架，任务范围和执行顺序可根据实际情况弹性调整
-- AI 增强如基础设施未就绪，先交付核心功能，AI 作为后续迭代补齐
-- V1/V1.1 版本边界灵活：提前完成可合入，受阻可拆分
-- 新发现的需求在 Section 9 追加新 PG-xxx 行即可纳入追踪
-
-## 进度更新
-
-每个 PG 任务完成后，更新两处：
-1. `docs/PROFESSIONAL_GRADE_ROADMAP.md` Section 9 — 状态改为 ✅ + 日期
-2. 如涉及新页面/组件，更新 `docs/migrations/status.md`
+- 合约调用前必须检查钱包连接状态和正确的链
+- 交易发送前必须做 gas 估算（`estimateGas()`）
+- 所有合约操作必须有 try/catch 错误处理
+- Escrow 操作必须二次确认（UI 层面）
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
