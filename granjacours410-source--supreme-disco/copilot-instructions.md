@@ -1,130 +1,160 @@
-## pr-creation-guidelines
+## ui-development-guidelines
 
-> Pull Request (PR) Creation Guidelines. Use these rules when creating pull requests
+> UI Development Guidelines
 
 
-# MetaMask Mobile Pull Request Guidelines
+# MetaMask Mobile React Native UI Development Guidelines
 
-Follow these rules when creating PRs to ensure consistent quality and smooth reviews.
+## Core Principle
 
-## Core Principles
+Always prioritize @metamask/design-system-react-native components and Tailwind CSS patterns over custom implementations.
 
-Small focused PRs • Clear titles/descriptions • Complete template • Correct labels • Branch naming
+## Component Hierarchy (STRICT ORDER)
 
-## 1. PR Title Requirements
+1. **FIRST**: Use `@metamask/design-system-react-native` components
+2. **SECOND**: Use `app/component-library` components only if design system lacks the component
+3. **LAST RESORT**: Custom components with StyleSheet (avoid unless absolutely necessary)
 
-**Format**: `<type>[optional scope]: <description>` (Conventional Commits)
+## Required Imports for React Native
 
-**Types**: feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert
-
-**Examples**:
-
-| ✅ Good | ❌ Bad |
-|---------|--------|
-| `feat: add NFT gallery to collectibles tab` | `Add some stuff` |
-| `fix: resolve wallet connection timeout on cold start` | `fixing bug` |
-| `refactor: extract transaction formatter into utility` | `refactor code` |
-| `test: add e2e spec for onboarding SRP import flow` | `tests` |
-| `docs: update contributing guide with design-system usage` | `update docs` |
-| `chore: bump react-native to 0.74.5` | `upgrade rn` |
-
-**Rules**: Use imperative mode • Keep concise (<72 chars) • Be specific
-
-## 2. PR Template Compliance
-
-Use `.github/pull-request-template.md` - fill ALL sections:
-
-- **Description**: What changed and why (context, constraints, trade-offs)
-- **Changelog**: User-facing summary in past participle (`Added`, `Fixed`) OR `CHANGELOG entry: null`
-- **Related issues**: `Fixes: #NUMBER`, `Closes: #NUMBER`, or `Refs: #NUMBER`
-- **Manual testing**: test cases desciption using Gherkin syntax (see sample in template)
-- **Screenshots/Recordings**: Required for UI changes (before/after)
-- **Pre-merge checklist**: Ensure all items checked, even if thye don't apply, it shows that you thought about the specific item.
-
-## 3. Required Labels and Assignment
-
-**PR Assignment**: Assignee is the one who is in charge of making the PR move forward to merge. It's usually the author, but can be delegated.
-
-**Team Label** (REQUIRED - merge will be blocked if missing):
-- Must have one: `team-*` label OR `external-contributor`
-
-**Blocking Labels** (these WILL prevent merge):
-- `needs-qa` - QA validation required
-- `need-ux-ds-review` - UX/Design System review needed  
-- `blocked` - Blocked by external dependency
-- `stale` - PR is stale and needs attention
-- `DO-NOT-MERGE` - Explicit block
-
-**DO**:
-- ✅ Assign to person responsible for moving PR forward (usually author)
-- ✅ Add team label (required for merge)
-- ✅ Remove blocking labels when resolved
-
-**DON'T**:
-- ❌ Leave unassigned
-- ❌ Use deprecated labels
-
-## 4. Branch Naming
-
-**Format**: `<type>/<issue-number>_<short-kebab-description>` (include issue number when applicable)
-
-**Examples**: 
-- `fix/1234_wallet-connection-issue` - with issue number
-- `feat/5678_add-nft-gallery` - with issue number
-- `chore/update-linting-config` - no issue (maintenance work)
-- `refactor/migrate-util-to-ts` - no issue (internal improvement)
-
-**Rules**: Lowercase • Kebab-case • Include issue number when fixing/implementing • Match PR type • Keep description short
-
-## 5. PR Best Practices
-
-- Submit as **Draft** initially for CI
-- Mark "Ready for review" only after:
-  - Manually tested by yourself first
-  - Assigned to yourself
-  - Template complete
-  - Lint/tests/type-checks pass
-  - Screenshots attached (if UI)
-  - Labels applied
-- Target `main` branch
-- Keep focused (single feature/fix)
-- Include tests (unit/Component-view/e2e)
-- Update TSDoc when relevant
-
-**⚠️ Force Push Policy**:
-- **DO NOT use force push** (`git push --force`) once first review is done
-- Force push breaks GitHub's "changes since last review" feature
-- Reviewers must re-review entire PR instead of just new changes
-- If you need to clean history, do it BEFORE requesting first review
-- After first review: use regular commits, squash on merge if needed
-
-**DO**: Assign yourself • Keep diff small • Include testing steps • Update docs/changelog • Regular push after reviews
-
-**DON'T**: Leave unassigned • Skip template • Push unrelated changes • Force push after first review
-
-## GitHub CLI Example
-
-```bash
-# Create PR with auto team detection
-gh pr create \
-  --title "feat: add NFT gallery to collectibles tab" \
-  --assignee @me \
-  --draft
+```tsx
+// ALWAYS prefer these imports
+import { useTailwind } from '@metamask/design-system-twrnc-preset';
+import {
+  Box,
+  Text,
+  Button,
+  ButtonBase,
+  Icon,
+  TextVariant,
+  BoxFlexDirection,
+  BoxAlignItems,
+  BoxJustifyContent,
+  // ... other design system components
+} from '@metamask/design-system-react-native';
 ```
+
+## Styling Rules (ENFORCE STRICTLY)
+
+### ✅ ALWAYS DO:
+
+- Use `const tw = useTailwind();` hook instead of importing twrnc directly
+- Use `Box` component instead of `View`
+- Use `Text` component with variants instead of raw Text with styles
+- Use `twClassName` prop for static styles
+- Use `tw.style()` function for interactive/dynamic styles
+- Use design system color tokens: `bg-default`, `text-primary`, `border-muted`
+- Use component props first: `variant`, `color`, `size`, etc.
+
+### ❌ NEVER SUGGEST:
+
+- `import tw from 'twrnc'` (use useTailwind hook instead)
+- `StyleSheet.create()` (use Tailwind classes)
+- Raw `View` or `Text` components (use Box/Text from design system)
+- Arbitrary color values like `bg-[#3B82F6]` or `text-[#000000]`
+- Inline style objects unless for dynamic values
+- Mixing multiple styling approaches unnecessarily
+
+## Code Pattern Templates
+
+### Basic Container:
+
+```tsx
+const MyComponent = () => {
+  const tw = useTailwind();
+
+  return (
+    <Box twClassName="w-full bg-default p-4">
+      <Text variant={TextVariant.HeadingMd}>Title</Text>
+    </Box>
+  );
+};
+```
+
+### Flex Layout:
+
+```tsx
+<Box
+  flexDirection={BoxFlexDirection.Row}
+  alignItems={BoxAlignItems.Center}
+  justifyContent={BoxJustifyContent.Between}
+  twClassName="gap-3"
+>
+```
+
+### Interactive Element:
+
+```tsx
+<ButtonBase
+  twClassName="h-20 flex-1 rounded-lg bg-muted px-0 py-4"
+  style={({ pressed }) =>
+    tw.style(
+      'w-full flex-row items-center justify-center',
+      pressed && 'bg-pressed',
+    )
+  }
+>
+  <Text fontWeight={FontWeight.Medium}>Button Text</Text>
+</ButtonBase>
+```
+
+### Pressable with Tailwind:
+
+```tsx
+<Pressable
+  style={({ pressed }) =>
+    tw.style(
+      'w-full flex-row items-center justify-between px-4 py-2',
+      pressed && 'bg-pressed',
+    )
+  }
+>
+```
+
+## Component Conversion Guide
+
+| DON'T Use                            | USE Instead                            |
+| ------------------------------------ | -------------------------------------- |
+| `<View>`                             | `<Box>`                                |
+| `<Text style={...}>`                 | `<Text variant={TextVariant.BodyMd}>`  |
+| `StyleSheet.create()`                | `twClassName="..."`                    |
+| `style={{ backgroundColor: 'red' }}` | `twClassName="bg-error-default"`       |
+| `flexDirection: 'row'`               | `flexDirection={BoxFlexDirection.Row}` |
+| Manual padding/margin                | `twClassName="p-4 m-2"`                |
+
+## Error Prevention
+
+When you see these patterns, IMMEDIATELY suggest alternatives:
+
+- Any `import tw from 'twrnc'` → `import { useTailwind } from '@metamask/design-system-twrnc-preset'`
+- Any `View` component → `Box` from design system
+- Any `StyleSheet` usage → Tailwind classes
+- Any arbitrary color values → Design system tokens
+- Any manual flex properties → Box component props + twClassName
+
+## Design System Priority
+
+Before suggesting any UI solution:
+
+1. Check if `@metamask/design-system-react-native` has the component
+2. Use component's built-in props (variant, color, size)
+3. Add layout/spacing with `twClassName`
+4. Add interactions with `tw.style()`
+5. Only suggest component-library or custom components if design system lacks it
+
+## Reference Examples
+
+Always reference the patterns from `app/component-library/components/design-system.stories.tsx` for proper usage examples.
 
 ## Enforcement
 
-- PRs must use template with all sections complete
-- PRs must be assigned
-- Titles must follow Conventional Commits
-- Blocking labels must be resolved before asking for review
-- Non-compliant PRs converted to Draft with comment
+- REJECT any code suggestions that use StyleSheet.create()
+- REJECT raw View/Text usage when Box/Text components exist
+- REQUIRE useTailwind hook for all Tailwind usage
+- REQUIRE design system components as first choice
+- ENFORCE design token usage over arbitrary values
 
-## References
-
-- Conventional Commits: https://www.conventionalcommits.org/
-- PR Template: `.github/pull-request-template.md`
-- E2E framework: `e2e/`
+@app/component-library/components/design-system.stories.tsx
 
 ---
 > Source: [granjacours410-source/supreme-disco](https://github.com/granjacours410-source/supreme-disco) — distributed by [TomeVault](https://tomevault.io).
