@@ -1,0 +1,28 @@
+# intent-system
+
+> Source: [J-Tech-Japan/intent-system](https://github.com/J-Tech-Japan/intent-system) — distributed by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [J-Tech-Japan/intent-system](https://github.com/J-Tech-Japan/intent-system).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/J-Tech-Japan/intent-system](https://github.com/J-Tech-Japan/intent-system)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install J-Tech-Japan/intent-system
+```
+Source: [github.com/J-Tech-Japan/intent-system](https://github.com/J-Tech-Japan/intent-system).
+
+<!-- genome:d-i-p -->
