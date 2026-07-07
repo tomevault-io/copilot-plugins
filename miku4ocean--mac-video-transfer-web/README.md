@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [miku4ocean/mac-video-transfer-web](https://github.com/miku4ocean/mac-video-transfer-web).
+Original source: `CLAUDE.md` in [miku4ocean/mac-video-transfer-web](https://github.com/miku4ocean/mac-video-transfer-web).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
