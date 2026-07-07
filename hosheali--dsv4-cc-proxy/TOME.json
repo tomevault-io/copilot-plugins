@@ -1,0 +1,44 @@
+{
+  "name": "dsv4-cc-proxy",
+  "owner": "HosheaLi",
+  "repo": "dsv4-cc-proxy",
+  "description": "Anthropic API \u517c\u5bb9\u6027\u4ee3\u7406 \u2014 \u4fee\u590d DeepSeek V4 \u7684 3 \u4e2a\u4e0d\u517c\u5bb9\u95ee\u9898\uff0c\u8ba9 Claude Code \u7a33\u5b9a\u8fd0\u884c\u3002Make DeepSeek V4 work flawlessly with Claude Code.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HosheaLi/dsv4-cc-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T00:49:03Z"
+}
