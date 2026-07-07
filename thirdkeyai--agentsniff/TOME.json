@@ -4,7 +4,7 @@
   "repo": "agentsniff",
   "description": "Detect AI agents operating on your network through passive monitoring, active probing, protocol detection, and behavioral analysis. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ThirdKeyAI/agentsniff",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-07T10:31:11Z"
+  "distributed_at": "2026-07-07T10:32:21Z"
 }
