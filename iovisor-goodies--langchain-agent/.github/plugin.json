@@ -1,0 +1,9 @@
+{
+  "name": "iovisor-goodies--langchain-agent",
+  "displayName": "langchain-agent",
+  "description": "langchain-agent",
+  "version": "1.0.0",
+  "author": "iovisor-goodies",
+  "homepage": "https://github.com/iovisor-goodies/langchain-agent",
+  "skills": []
+}
