@@ -1,0 +1,9 @@
+{
+  "name": "tronghieu--agent-skills",
+  "displayName": "agent-skills",
+  "description": "An agentic skills framework",
+  "version": "1.0.0",
+  "author": "tronghieu",
+  "homepage": "https://github.com/tronghieu/agent-skills",
+  "skills": []
+}
