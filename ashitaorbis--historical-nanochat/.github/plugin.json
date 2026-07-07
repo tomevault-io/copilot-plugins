@@ -1,0 +1,9 @@
+{
+  "name": "ashitaorbis--historical-nanochat",
+  "displayName": "historical-nanochat",
+  "description": "Time-locked language models trained on pre-cutoff historical texts using Karpathy's nanochat pipeline",
+  "version": "1.0.0",
+  "author": "AshitaOrbis",
+  "homepage": "https://github.com/AshitaOrbis/historical-nanochat",
+  "skills": []
+}
