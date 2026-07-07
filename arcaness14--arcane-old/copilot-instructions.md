@@ -1,32 +1,26 @@
-## ss14-ui
+## arcane-old
 
 > <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
----
-description: UI, XAML, BUI, and predicted client-state rules for SS14 client work.
-globs:
-  - Content.Client/**/*.cs
-  - Content.Client/**/*.xaml
-  - Content.Client/**/*.xaml.cs
-  - Content.Goobstation.Client/**/*.cs
-  - Content.Goobstation.Client/**/*.xaml
-  - Content.Goobstation.Client/**/*.xaml.cs
-  - Content.Goobstation.UIKit/**/*.cs
-  - Content.Goobstation.UIKit/**/*.xaml
-  - Content.Goobstation.UIKit/**/*.xaml.cs
-alwaysApply: false
----
+# Gemini Repo Instructions
 
-Read these skills before editing matching files:
+Follow [AGENTS.md](AGENTS.md) as the primary repository instruction file for this SS14 fork.
 
-- @.agents/skills/ss14-naming-conventions/SKILL.md
-- @.agents/skills/ss14-upstream-maintenance/SKILL.md
-- @.agents/skills/ss14-prediction/SKILL.md
-- @.agents/skills/ss14-localization-strings/SKILL.md
-- @.agents/skills/ss14-localization-code/SKILL.md
-- @.agents/skills/ss14-ui-bui/SKILL.md
+Before editing:
+
+- Read `.agents/rules/`
+- Read every relevant skill under `.agents/skills/`
+- Prefer the nearest subtree `AGENTS.md` when one exists for the touched files
+
+Core expectations:
+
+- Keep components data-only and behavior in systems.
+- Use `On... -> Try... -> Can... -> Do...` for gameplay actions.
+- Prefer `Entity<T?>`, `ProtoId<T>`, `EntProtoId`, and localized strings.
+- Avoid `RobustToolbox/` edits unless engine work is explicitly required.
+- Use prediction and localization as first-pass design constraints, not cleanup.
 
 ---
 > Source: [ArcaneSS14/arcane-old](https://github.com/ArcaneSS14/arcane-old) — distributed by [TomeVault](https://tomevault.io).
