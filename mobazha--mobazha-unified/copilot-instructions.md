@@ -1,291 +1,43 @@
-## fiat-payment-rules
+## i18n-rules
 
-> 完整设计位于 hosting 仓库：`docs/FIAT_PAYMENT_DESIGN.md`（v1.1）
+> 国际化硬性规则 — 所有用户可见文本必须使用 i18n
 
-# 法币支付前端开发规范
 
-## 设计文档
+# 国际化规则
 
-完整设计位于 hosting 仓库：`docs/FIAT_PAYMENT_DESIGN.md`（v1.1）
+## 严格禁止
 
-> 多仓库开发时，设计文档在 hosting 仓库中。
-> 路径：`~/go/src/github.com/mobazha/mobazha_hosting/docs/FIAT_PAYMENT_DESIGN.md`
-
-## 核心原则
-
-1. **PCI DSS 合规**：前端不触碰卡号数据，全部通过 Stripe Elements / PayPal JS SDK
-2. **Provider 抽象**：统一 FiatPaymentForm 组件，内部根据 provider 切换
-3. **动态支付方式**：从后端查询卖家启用的支付方式，不硬编码
-4. **法币优先展示**：Checkout 中法币选项在上，加密货币在下
-5. **部署模式感知**：卖家设置页根据 SaaS/独立站模式显示不同 UI
-
-## SDK 依赖
-
-```bash
-# Stripe
-npm install @stripe/stripe-js @stripe/react-stripe-js
-
-# PayPal
-npm install @paypal/react-paypal-js
-```
-
-## 组件结构
-
-```
-apps/web/src/components/Payment/
-  FiatPaymentSection.tsx      — 法币支付编排（创建会话 → Stripe/PayPal 分发 → 成功/重试）
-  StripePaymentForm.tsx       — Stripe PaymentElement + 3DS/SCA + dark mode
-  PayPalPaymentForm.tsx       — PayPal Buttons + 显式 capture
-  PaymentCryptoSelector.tsx   — 支付方式选择器（法币 + 加密共存）
-  PaymentMethodBadges.tsx     — 商品详情页支付方式徽章（i18n）
-  PaymentDrawer.tsx           — 桌面端支付抽屉（含 availableFiatProviders）
-
-apps/web/src/app/checkout/payment-method/
-  page.tsx                    — 移动端支付方式选择页（含法币选项 + URL 参数传递）
-
-apps/web/src/app/admin/settings/integrations/
-  PaymentProvidersSection.tsx — 卖家支付配置（SaaS OAuth + 独立站 API Key + 错误反馈）
-
-apps/web/src/hooks/
-  usePaymentSelector.tsx      — 支付方式状态管理（paymentCategory + fiatProvider）
-
-packages/core/
-  types/fiat.ts               — 法币支付 TS 类型
-  services/api/fiat.ts        — 法币 API 服务
-  hooks/useFiatProviders.ts   — 获取卖家启用的法币 Provider
-  hooks/useFiatPayment.ts     — 法币支付会话生命周期管理
-  config/apiPaths.ts          — NODE_API.FIAT_* + HOSTING_API.FIAT_* 常量
-```
-
-## 部署模式检测
-
-```typescript
-// 使用 isStandaloneMode() 判断（基于 NEXT_PUBLIC_AUTH_MODE 环境变量）
-import { isStandaloneMode } from '../utils/env';
-
-// ✅ PaymentProvidersSection 根据模式显示不同 UI
-// SaaS 模式：OAuth "Connect" 按钮
-// 独立站模式：API Key 输入表单（Secret Key / Publishable Key / Webhook Secret）
-{isStandaloneMode()
-  ? <ApiKeyForm provider={provider} onSave={handleSave} />
-  : <OAuthConnectButton provider={provider} />
-}
-
-// ❌ 禁止硬编码模式
-const isSaaS = true;
-```
-
-## API 调用规范
-
-```typescript
-// ✅ 使用 apiPaths 常量 + fiatApi 服务
-import { NODE_API } from '../../config/apiPaths';
-import { fiatApi } from '../services/api/fiat';
-
-// 获取卖家启用的 Provider
-const providers = await fiatApi.getProviders(vendorPeerID);
-
-// 创建支付会话
-const session = await fiatApi.createPayment('stripe', {
-  providerID: 'stripe', orderID, amount, currency, returnURL, cancelURL
-});
-
-// 捕获支付（PayPal 需要显式调用）
-await fiatApi.capturePayment('paypal', sessionID);
-
-// ❌ 禁止硬编码路径
-const session = await fetch(`${getGatewayUrl()}/fiat/stripe/payments`);
-```
-
-### apiPaths 常量速查
-
-```typescript
-// Node API
-NODE_API.FIAT_PROVIDERS             // '/fiat/providers'
-NODE_API.FIAT_PROVIDER_STATUS(p)    // `/fiat/${p}/status`
-NODE_API.FIAT_CREATE_PAYMENT(p)     // `/fiat/${p}/payments`
-NODE_API.FIAT_CAPTURE_PAYMENT(p,s)  // `/fiat/${p}/payments/${s}/capture`
-NODE_API.FIAT_PROVIDER_CONFIG       // '/fiat/config'
-NODE_API.FIAT_PROVIDER_CONFIG_BY_ID(p) // `/fiat/config/${p}`
-
-// Hosting API (SaaS 入驻)
-HOSTING_API.FIAT_ONBOARDING_START(p)  // `/platform/v1/integrations/fiat/${p}/onboarding`
-HOSTING_API.FIAT_ONBOARDING_STATUS(p) // `/platform/v1/integrations/fiat/${p}/status`
-```
-
-## 支付方式选择
-
-```typescript
-// ✅ 使用 useFiatProviders hook 动态获取
-const { providers, isLoading } = useFiatProviders(vendorPeerID);
-
-// ✅ PaymentCryptoSelector 同时展示法币和加密选项
-<PaymentCryptoSelector
-  availableFiatProviders={providers}
-  paymentCategory={paymentCategory}
-  selectedFiatProvider={selectedFiatProvider}
-  onSelectFiat={(provider) => setSelectedFiatProvider(provider)}
-/>
-
-// ❌ 禁止在前端硬编码可用支付方式
-```
-
-## 支付流程简化
-
-```typescript
-// 买家支付只需 2 步 API 调用（Webhook 自动完成剩余）：
-
-// Step 1: 创建订单
-const order = await authFetch(NODE_API.ORDERS, {
-  method: 'POST',
-  body: { pricingCoin: 'USD', fiatProvider: 'stripe', method: 'FIAT', ... }
-});
-
-// Step 2: useFiatPayment hook 管理支付会话生命周期
-const { createSession, status, session } = useFiatPayment({
-  provider: 'stripe',
-  orderID: order.id,
-  amount, currency, returnURL,
-  onSuccess: () => { /* 导航到成功页 */ },
-  onError: (err) => { /* 显示错误 */ },
-});
-await createSession();
-
-// Step 3: FiatPaymentSection 根据 provider 渲染 Stripe/PayPal 组件
-// Stripe: PaymentElement + confirmPayment
-// PayPal: PayPalButtons + capturePayment
-
-// Step 4: Webhook 自动完成 → WebSocket 推送 orderFunded 事件
-// 前端通过 usePaymentSelector 状态更新显示成功
-```
-
-## Stripe 集成
+- 禁止在 JSX 中硬编码用户可见的中文、英文或其他语言文本
+- 禁止在组件中直接写死错误提示、占位符、按钮文本
+- 禁止在条件判断中用语言分支（如 `currency === 'CNY' ? '中文' : 'English'`）
 
 ```tsx
-// StripePaymentForm.tsx
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+// ❌ 禁止
+<Button>提交订单</Button>
+<p>No items found</p>
+placeholder="请输入搜索内容"
+{currency === 'CNY' ? '国内快递' : 'Standard Shipping'}
 
-// ✅ 使用 PaymentElement（自动支持 Card + Apple Pay + Google Pay）
-<Elements stripe={stripePromise} options={{ clientSecret: session.stripe.clientSecret }}>
-  <PaymentElement />
-</Elements>
-
-// ❌ 禁止使用 CardElement（只支持卡）
-// ❌ 禁止收集卡号
+// ✅ 必须
+<Button>{t('order.submit')}</Button>
+<p>{t('common.noItems')}</p>
+placeholder={t('search.placeholder')}
+{t(`shipping.templates.${templateKey}`)}
 ```
 
-## PayPal 集成
+## 翻译 Key 规范
 
-```tsx
-// PayPalPaymentForm.tsx
-import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+- 使用点分隔的层级命名：`模块.功能.描述`
+- 示例：`order.status.completed`、`wallet.send.confirm`、`settings.general.title`
+- 新增 key 必须同时添加到 `packages/core/i18n/locales/en.ts`
 
-<PayPalScriptProvider options={{ clientId: session.paypal.clientID }}>
-  <PayPalButtons
-    createOrder={async () => {
-      const session = await createFiatPayment({
-        providerID: 'paypal', orderID, currency
-      });
-      return session.paypal.orderID;
-    }}
-    onApprove={async (data) => {
-      await captureFiatPayment(data.orderID);
-      // Webhook 自动完成后续
-    }}
-  />
-</PayPalScriptProvider>
-```
+## 允许的例外
 
-## 支付超时处理
-
-```typescript
-// ✅ 展示超时倒计时
-<RateLockBanner expiresAt={session.expiresAt} />
-
-// ✅ 过期后禁用支付、提示重试
-if (isExpired(session.expiresAt)) {
-  showToast({ type: 'warning', message: t('payment.sessionExpired') });
-  // 重新创建 PaymentSession
-}
-```
-
-## 汇率展示
-
-```typescript
-// ✅ 跨币种时显示汇率锁定信息
-{needsCurrencyConversion && (
-  <RateLockBanner
-    fromCurrency={listing.pricingCurrency}
-    toCurrency={paymentCurrency}
-    rate={rateLock.rates[fromCurrency][toCurrency]}
-    expiresAt={rateLock.expiresAt}
-  />
-)}
-
-// ✅ 显示双价格：商品原价 + 支付币种价格
-<PriceDisplay
-  originalAmount={listing.price}
-  originalCurrency={listing.pricingCurrency}
-  paymentAmount={convertedAmount}
-  paymentCurrency={paymentCurrency}
-/>
-```
-
-## 卖家设置页
-
-```
-SaaS 模式：
-  - "Connect Stripe" / "Connect PayPal" 按钮 → OAuth 跳转
-  - 显示连接状态 + 账户信息
-  - "Disconnect" 按钮（检查进行中订单）
-
-独立站模式：
-  - API Keys 输入表单（Stripe: pk/sk/whsec; PayPal: client_id/secret/webhook_id）
-  - "Verify" 按钮验证配置有效性
-  - "Save" 保存配置
-  - 密钥显示脱敏（sk_live_****xxx）
-```
-
-## 错误处理
-
-```typescript
-// ✅ 支付失败展示友好提示
-try {
-  const { error } = await stripe.confirmPayment({ ... });
-  if (error) {
-    showToast({ type: 'error', message: t('payment.failed', { reason: error.message }) });
-  }
-} catch (err) {
-  showToast({ type: 'error', message: t('payment.unexpectedError') });
-}
-
-// ❌ 禁止展示原始技术错误
-alert(error.raw_message);
-```
-
-## i18n 键名
-
-```
-payment.selectMethod         — "Choose Payment Method"
-payment.creditCard           — "Credit / Debit Card"
-payment.paypal               — "PayPal"
-payment.orPayWithCrypto      — "or pay with crypto"
-payment.processing           — "Processing payment..."
-payment.succeeded            — "Payment successful"
-payment.failed               — "Payment failed: {reason}"
-payment.sessionExpired       — "Payment session expired, please try again"
-payment.connectStripe        — "Connect Stripe"
-payment.connectPayPal        — "Connect PayPal"
-payment.connected            — "Connected"
-payment.notConnected         — "Not Connected"
-payment.disconnect           — "Disconnect"
-payment.disconnectWarning    — "Please complete pending orders before disconnecting"
-payment.rateLocked           — "Rate locked for {time}"
-payment.rateExpired          — "Rate expired, refreshing..."
-payment.viewReceipt          — "View Receipt"
-payment.requestRefund        — "Request Refund"
-```
+- 技术性标识（如链名 "Ethereum"、"BSC"）
+- 货币代码（"BTC"、"ETH"）
+- 组件内部的 `data-testid` 值
+- `console.log` / `console.error` 的调试信息
+- 仅用于开发环境的文本
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
