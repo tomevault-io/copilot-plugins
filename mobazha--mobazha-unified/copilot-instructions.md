@@ -1,51 +1,114 @@
-## currency-rules
+## currency-safety-rules
 
-> 货币格式化与显示规范 - 涉及价格、金额、货币相关代码时应用
+> 货币与价格安全规范 — 防止 100x 显示错误
 
 
-# 货币格式化规范
+# 货币与价格安全规范
 
-## 严格禁止
+## 价格单位约定
 
-1. **禁止硬编码货币符号**（`$`、`€`、`¥`）
-2. **禁止在 `apps/` 定义格式化/单位转换函数**
-3. **禁止硬编码小数位** `.toFixed(2)`
-4. **禁止手动 `Math.pow(10, divisibility)` 转换**
+- **最小单位（minimal unit）**：后端 API 和 `Price.amount` 存储的都是最小单位整数（如美分、聪）
+- **标准单位（standard unit）**：用户看到的显示值（如 $49.00、0.001 BTC）
+- `formatPrice(amount, code)` 期望 **标准单位**
+- `renderPairedPrice(amount, code)` 默认期望 **最小单位**（`isMinimalUnit: true`）
+- `fromMinimalUnit(amount, code)` 将最小单位转换为标准单位
 
-## 必须使用
+## 禁止规则
 
-```tsx
-import { useCurrency, fromMinimalUnit } from '@mobazha/core';
-
-const { formatPrice, renderPairedPrice, formatLocalPrice } = useCurrency();
-
-formatPrice(199.00, 'USD')                    // "$199.00" — 始终标准单位
-renderPairedPrice(19900, 'USD')               // "$199.00 (¥1,372.31)" — 默认最小单位
-renderPairedPrice(199, 'USD', { isMinimalUnit: false }) // 显式标准单位
-fromMinimalUnit(19900, 'USD')                 // 19900 → 199.00
-```
-
-## API 速查
-
-| 场景 | 函数 |
-|------|------|
-| 带符号价格 | `formatPrice(amount, currency)` |
-| 配对价格 | `renderPairedPrice(amount, currency)` |
-| 本地货币 | `formatLocalPrice(amount, fromCurrency)` |
-| 单位转换 | `fromMinimalUnit()` / `toMinimalUnit()` |
-| 货币符号 | `getCurrencySymbol(code)` |
-| RWA 价格 | `formatRwaPrice(price, currency)` |
-
-## 复合代币码
-
-新增代币/链只更新 `packages/core/data/tokens.ts`，`currencies.ts` 自动推导。
+### 1. 禁止对最小单位调用 formatPrice
 
 ```tsx
-// ❌ 手动在 currencies.ts 添加
-// ✅ 在 tokens.ts 的 TOKENS 数组添加
+// ❌ product.item.price 是最小单位
+formatPrice(product.item.price, currency)
+
+// ✅ 先转换或使用 renderPairedPrice
+formatPrice(fromMinimalUnit(price, currency), currency)
+renderPairedPrice(price, currency)
 ```
 
-数据层存储货币代码（`'USD'`），不存储符号（`'$'`）。
+### 2. 禁止对标准单位传 isMinimalUnit: true
+
+```tsx
+// ❌ 已经是标准单位却当最小单位处理
+renderPairedPrice(standardAmount, currency, { isMinimalUnit: true })
+
+// ✅ 明确指定
+renderPairedPrice(standardAmount, currency, { isMinimalUnit: false })
+```
+
+### 3. 禁止无货币代码的金额显示
+
+```tsx
+// ❌ 缺少货币代码
+<span>${amount}</span>
+
+// ✅ 使用格式化函数
+<span>{renderPairedPrice(amount, currencyCode)}</span>
+```
+
+### 4. 禁止静默 USD fallback — UI 必须可见
+
+**前端 console.warn 无人会看，禁止用来处理缺失货币。**
+
+```tsx
+// ❌ 静默 fallback（问题永远不会被发现）
+const code = item.currency?.code || 'USD';
+// ❌ console.warn 同样无效
+if (!code) console.warn('[price] Missing currency');
+const code = rawCode || 'USD';
+
+// ✅ 正确：传 undefined，让 UI 组件显示"—"
+currency={product.price?.currency?.code}
+
+// ✅ 正确：数据解析层返回 undefined（不 fallback）
+export function parsePriceFields(price) {
+  return { currencyCode: price.currency?.code }; // 可能是 undefined
+}
+```
+
+### 5. 禁止 console.warn IIFE 模式
+
+```tsx
+// ❌ 丑陋、无效、不可维护
+currency={(() => {
+  const c = product.price?.currency?.code;
+  if (!c) console.warn('[price] Missing currency');
+  return c || 'USD';
+})()}
+
+// ✅ 直接传值，缺失时 ProductCard 显示"—"
+currency={product.price?.currency?.code}
+```
+
+## 类型规范
+
+- `ProductCardProps.currency` 是 **optional** (`string | undefined`)
+  - 有值：正常格式化价格
+  - `undefined`：显示 "—"（价格不可用），UI 可见地暴露数据问题
+- `parsePriceFields()` 返回 `currencyCode: string | undefined`（不 fallback）
+- `CartItem.listing.price` 类型为 `Price`，包含 `currency: { code, divisibility }`
+- `divisibility` 是软要求：推荐提供，但可通过 `getCurrencyDecimals(code)` 推断
+
+## 数据层 vs UI 层职责
+
+| 层 | 缺失货币时的行为 |
+|---|---|
+| `parsePriceFields` | 返回 `currencyCode: undefined` |
+| `fetchStoreListings` | `price.currency.code` 为空字符串 |
+| `ProductCard` | 显示 "—" |
+| `NotificationCard/Dropdown` | 显示 "—" |
+| `orderTransform`（订单数据） | fallback 到 `'USD'`（订单必须有货币，缺失是后端 bug） |
+| `cart.ts`（购物车汇总） | fallback 到 `'USD'`（运行时必须有值） |
+
+## 审查检查项
+
+修改涉及价格显示的组件时：
+
+- [ ] `formatPrice` 的输入是否为标准单位？
+- [ ] `renderPairedPrice` 的 `isMinimalUnit` 参数是否与实际单位匹配？
+- [ ] 货币代码是否从数据源获取而非硬编码？
+- [ ] 缺失货币时是否让 UI 显示"—"，而非静默 fallback 到 USD？
+- [ ] 是否有 console.warn IIFE 模式需要清理？
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
