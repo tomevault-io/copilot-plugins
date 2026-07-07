@@ -1,0 +1,9 @@
+{
+  "name": "zizka-ai--zizkadb",
+  "displayName": "ZizkaDB",
+  "description": "Operational database for AI agents , causal lineage (why()), semantic memory, live dashboards, MCP + Python/TypeScript SDK. Self-host or use db.zizka.ai.",
+  "version": "1.0.0",
+  "author": "Zizka-ai",
+  "homepage": "https://github.com/Zizka-ai/ZizkaDB",
+  "skills": []
+}
