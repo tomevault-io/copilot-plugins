@@ -1,0 +1,9 @@
+{
+  "name": "beam-bots--website",
+  "displayName": "website",
+  "description": "The Beam Bots homepage",
+  "version": "1.0.0",
+  "author": "beam-bots",
+  "homepage": "https://github.com/beam-bots/website",
+  "skills": []
+}
