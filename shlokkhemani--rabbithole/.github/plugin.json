@@ -1,0 +1,9 @@
+{
+  "name": "shlokkhemani--rabbithole",
+  "displayName": "rabbithole",
+  "description": "An infinite canvas for learning \u2014 select text, ask, and answers branch out as documents. MCP server for Claude Code, Codex, and any agent.",
+  "version": "1.0.0",
+  "author": "shlokkhemani",
+  "homepage": "https://github.com/shlokkhemani/rabbithole",
+  "skills": []
+}
