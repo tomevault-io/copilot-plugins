@@ -1,0 +1,9 @@
+{
+  "name": "ayhammouda--mentor",
+  "displayName": "mentor",
+  "description": "Claude skill for official-first, dependency-ordered learning paths for technical topics.",
+  "version": "1.0.0",
+  "author": "ayhammouda",
+  "homepage": "https://github.com/ayhammouda/mentor",
+  "skills": []
+}
