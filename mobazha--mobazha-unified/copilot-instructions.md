@@ -1,42 +1,70 @@
-## codegraph
+## component-rules
 
-> CodeGraph MCP usage guide — when to use which tool
+> 组件开发规则 - 创建或修改 UI 组件时应用
 
-<!-- CODEGRAPH_START -->
-## CodeGraph
 
-This project has a CodeGraph MCP server (`codegraph_*` tools) configured. CodeGraph is a tree-sitter-parsed knowledge graph of every symbol, edge, and file. Reads are sub-millisecond and return structural information grep cannot.
+# 组件开发规则
 
-### When to prefer codegraph over native search
+## UI 组件库选择
 
-Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
+| 场景 | 使用 |
+|------|------|
+| 表单控件、对话框、Toast | `@/components/ui` (shadcn/ui) |
+| 业务卡片、布局组件 | `@mobazha/ui` |
 
-| Question | Tool |
-|---|---|
-| "Where is X defined?" / "Find symbol named X" | `codegraph_search` |
-| "What calls function Y?" | `codegraph_callers` |
-| "What does Y call?" | `codegraph_callees` |
-| "How does X reach/become Y? / trace the flow from X to Y" | `codegraph_trace` (one call = the whole path, incl. callback/React/JSX dynamic hops) |
-| "What would break if I changed Z?" | `codegraph_impact` |
-| "Show me Y's signature / source / docstring" | `codegraph_node` |
-| "Give me focused context for a task/area" | `codegraph_context` |
-| "See several related symbols' source at once" | `codegraph_explore` |
-| "What files exist under path/" | `codegraph_files` |
-| "Is the index healthy?" | `codegraph_status` |
+优先使用 shadcn/ui 替代 @mobazha/ui。
 
-### Rules of thumb
+## 组件基本要求
 
-- **Answer directly — don't delegate exploration.** For "how does X work" / architecture questions, answer with 2-3 codegraph calls: `codegraph_context` first, then ONE `codegraph_explore` for the source of the symbols it surfaces. For a specific **flow** ("how does X reach Y") start with `codegraph_trace` from→to — one call returns the whole path with dynamic hops bridged — then ONE `codegraph_explore` for the bodies; don't rebuild the path with `codegraph_search` + `codegraph_callers`. Codegraph IS the pre-built index, so spawning a separate file-reading sub-task/agent — or running a grep + read loop — repeats work codegraph already did and costs more for the same answer.
-- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
-- **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
-- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
-- **Don't loop `codegraph_node` over many symbols** — one `codegraph_explore` call returns several symbols' source grouped in a single capped call, while each separate node/Read call re-reads the whole context and costs far more.
-- **Index lag — check the staleness banner, don't guess a wait.** When a codegraph response starts with "⚠️ Some files referenced below were edited since the last index sync…", the listed files are pending re-index — Read those specific files for accurate content. Files NOT in that banner are fresh and codegraph is authoritative for them. `codegraph_status` also lists pending files under "Pending sync".
+- 使用 `memo` 包装接收对象 props 的组件
+- 使用 `useCallback` 包装传给子组件的回调
+- 使用 `cn()` 合并类名，使用设计 Token 不硬编码颜色
+- 添加 `aria-label`、`alt`、`data-testid`
+- 所有可点击元素满足 44px 最小触摸目标
 
-### If `.codegraph/` doesn't exist
+## 响应式写法
 
-The MCP server returns "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialized. Want me to run `codegraph init -i` to build the index?"*
-<!-- CODEGRAPH_END -->
+```tsx
+// 移动端紧凑，桌面端正常
+<Card className="p-3 md:p-4">
+  <h2 className="text-base md:text-lg">标题</h2>
+  <p className="text-sm md:text-base">内容</p>
+</Card>
+
+// 网格响应
+<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+```
+
+## 关键间距
+
+- 卡片内边距：桌面 `p-4`，移动 `p-3`
+- 图标与文字：`gap-2`
+- 内容不紧贴卡片边界
+
+## 微交互反馈
+
+- 按钮操作后必须有视觉反馈（成功 toast / 按钮状态变化 / 图标动画）
+- 收藏/取消收藏需要即时的图标状态变化
+- 加入购物车需有明确的确认提示（toast 或 badge 动画）
+- 表单提交成功/失败必须有视觉反馈，不能静默
+
+## 表单验证
+
+- 首次验证时机：`on blur`（用户离开输入框时）
+- 后续验证时机：`on change`（首次错误后实时更新）
+- 错误消息显示在输入框下方，使用 `text-destructive`
+- 提交按钮在表单无效时应 `disabled` 或显示错误摘要
+- 移动端输入框应设置 `inputMode`（如 `numeric`、`email`）和 `enterKeyHint`
+
+## 动效与可访问性
+
+- 所有动画必须使用 `transition-*` 或项目工具类（`touch-feedback` 等）
+- 必须支持 `prefers-reduced-motion`：关键动画提供静态替代
+- 禁止纯装饰性的持续动画（如无限旋转的装饰元素）
+
+> 详细间距表、测试示例、交互模式请参考 `.cursor/skills/component-dev/` skill。
+> 移动端/桌面端 UX 规范请参考 `.cursor/skills/mobile-ux-guide/` 和 `.cursor/skills/desktop-ux-guide/`。
+> 动效系统请参考 `.cursor/skills/motion-design/` skill。
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
