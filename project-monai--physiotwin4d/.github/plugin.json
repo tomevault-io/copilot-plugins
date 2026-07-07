@@ -1,0 +1,9 @@
+{
+  "name": "project-monai--physiotwin4d",
+  "displayName": "physiotwin4d",
+  "description": "Generate anatomic models in Omniverse with physiological motion derived from medical images.",
+  "version": "1.0.0",
+  "author": "Project-MONAI",
+  "homepage": "https://github.com/Project-MONAI/physiotwin4d",
+  "skills": []
+}
