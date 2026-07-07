@@ -1,89 +1,61 @@
-## no-browser-dialogs
+## pm2-worktree-guard
 
-> 禁止使用浏览器原生对话框 - 创建或修改前端文件时应用
+> **Phase PM-2 (Guest Checkout) 的所有实施工作必须在 git worktree 分支上执行**，禁止在主分支（main）上直接修改。
 
+# PM-2 Guest Checkout Worktree 工作区约束
 
-# 禁止浏览器原生对话框
+## 强制规则
 
-## 严格禁止
+**Phase PM-2 (Guest Checkout) 的所有实施工作必须在 git worktree 分支上执行**，禁止在主分支（main）上直接修改。
 
-禁止使用 `window.alert()`、`window.confirm()`、`window.prompt()` 及其无前缀形式 `alert()`、`confirm()`、`prompt()`。
+## Worktree 路径映射
 
-**原因**：
-- 阻塞主线程，用户体验差
-- 在移动端 WebView 中样式不一致、可能不可用
-- 不支持 i18n（按钮文本由浏览器决定）
-- 不支持自定义样式和品牌一致性
+| 仓库 | 主分支路径 | Worktree 路径 | 分支名 |
+|------|-----------|--------------|--------|
+| mobazha_hosting | `~/go/src/github.com/mobazha/mobazha_hosting` | `~/go/src/github.com/mobazha/mobazha_hosting-pm2` | `feat/pm2-guest-checkout` |
+| mobazha | `~/go/src/github.com/mobazha/mobazha` | `~/go/src/github.com/mobazha/mobazha-pm2` | `feat/pm2-guest-checkout` |
+| mobazha-unified | `~/dev/openbazaar/mobazha-unified` | `~/dev/openbazaar/mobazha-unified-pm2` | `feat/pm2-guest-checkout` |
 
-## 替代方案
+## 检查清单
 
-### 通知/提示 → `useToast`
+执行 PM-2 相关任务前，**必须**确认：
 
-```tsx
-// ❌ 禁止
-window.alert('操作成功');
-window.alert('文件太大');
+- [ ] 当前工作目录在 `-pm2` 后缀的 worktree 路径下
+- [ ] `git branch --show-current` 输出 `feat/pm2-guest-checkout`
+- [ ] 不在主仓库路径下执行写操作
 
-// ✅ 必须使用 toast
-import { useToast } from '@/components/ui/use-toast';
+## 禁止行为
 
-const { toast } = useToast();
+```bash
+# ❌ 禁止：在主分支路径下修改 PM-2 相关文件
+cd ~/go/src/github.com/mobazha/mobazha
+vim internal/core/guest_order_app_service.go
 
-// 成功提示
-toast({
-  title: t('common.success'),
-  description: t('listing.createSuccess'),
-  variant: 'success',
-});
-
-// 错误提示
-toast({
-  title: t('common.error'),
-  description: t('listing.digital.fileTooLarge'),
-  variant: 'destructive',
-});
+# ✅ 正确：在 worktree 路径下修改
+cd ~/go/src/github.com/mobazha/mobazha-pm2
+vim internal/core/guest_order_app_service.go
 ```
 
-### 确认操作 → `AlertDialog`
+## 编译与测试命令（使用 worktree 路径）
 
-```tsx
-// ❌ 禁止
-if (window.confirm('确定删除？')) { ... }
+```bash
+# 编译 mobazha
+bash -c 'source ~/.gvm/scripts/gvm && gvm use go1.26.1 && cd ~/go/src/github.com/mobazha/mobazha-pm2 && CGO_ENABLED=1 go build -tags goolm ./...'
 
-// ✅ 必须使用 AlertDialog
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+# 编译 hosting
+bash -c 'source ~/.gvm/scripts/gvm && gvm use go1.26.1 && cd ~/go/src/github.com/mobazha/mobazha_hosting-pm2 && CGO_ENABLED=1 go build -tags goolm -o /tmp/hosting .'
+
+# 前端
+cd ~/dev/openbazaar/mobazha-unified-pm2 && pnpm install && pnpm build
 ```
 
-### 用户输入 → `Dialog` + 表单
+## 文档更新
 
-```tsx
-// ❌ 禁止
-const url = window.prompt('请输入 URL');
+`docs/PROGRESS.md` 和 `docs/TECH_DEBT.md` 等进度追踪文档的更新**在 worktree 上进行**，合并到 main 时随 PR 一起合入。
 
-// ✅ 必须使用自定义 Dialog
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-// 在 Dialog 内部使用 Input 组件收集用户输入
-```
+## 触发词
 
-## 允许的例外
-
-- `console.log` / `console.error` 中的调试信息（不属于对话框）
-- 仅在开发环境的临时调试代码（必须在提交前移除）
+当用户说 "PM-2"、"Guest Checkout"、"guest checkout"、"匿名支付"、"匿名下单" 时，AI 必须先确认是否在正确的 worktree 路径下再执行。
 
 ---
 > Source: [mobazha/mobazha-unified](https://github.com/mobazha/mobazha-unified) — distributed by [TomeVault](https://tomevault.io).
