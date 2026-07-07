@@ -1,0 +1,9 @@
+{
+  "name": "obris-dev--openmagpie",
+  "displayName": "openmagpie",
+  "description": "Open-source, self-hostable social listening tool that surfaces the conversations that matter to you, so you can join in while they're active.",
+  "version": "1.0.0",
+  "author": "obris-dev",
+  "homepage": "https://github.com/obris-dev/openmagpie",
+  "skills": []
+}
