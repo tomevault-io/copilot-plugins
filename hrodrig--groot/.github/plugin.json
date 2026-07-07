@@ -1,0 +1,9 @@
+{
+  "name": "hrodrig--groot",
+  "displayName": "groot",
+  "description": "GROOT \u2014 Kubernetes cluster diagnostics CLI  Collect nodes, events, pod logs, describes and more with one command.  Fast, parallel, configurable, and outputs a clean .tar.gz archive.  Perfect for incid",
+  "version": "1.0.0",
+  "author": "hrodrig",
+  "homepage": "https://github.com/hrodrig/groot",
+  "skills": []
+}
