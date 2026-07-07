@@ -1,0 +1,44 @@
+{
+  "name": "damon-ade",
+  "owner": "per-simmons",
+  "repo": "damon-ade",
+  "description": "ADE \u2014 an agentic development environment for macOS. A roster of persistent coding agents, each with its own repo, runtime CLI, and memory.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/per-simmons/damon-ade",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-07T09:31:48Z"
+}
