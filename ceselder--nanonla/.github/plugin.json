@@ -1,0 +1,9 @@
+{
+  "name": "ceselder--nanonla",
+  "displayName": "nanoNLA",
+  "description": "minimal implementation of Natural Language Autoencoders (Anthropic, 2026)",
+  "version": "1.0.0",
+  "author": "ceselder",
+  "homepage": "https://github.com/ceselder/nanoNLA",
+  "skills": []
+}
