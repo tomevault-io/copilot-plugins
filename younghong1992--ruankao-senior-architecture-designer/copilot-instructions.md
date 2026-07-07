@@ -1,0 +1,44 @@
+## ruankao-senior-architecture-designer
+
+> 涉及教材类 Markdown 的清洗、返修、复核、结构整理时，除本文件外，还必须遵循根目录的 [教材Markdown清洗与校对标准.md](教材Markdown清洗与校对标准.md)。
+
+# 项目规范：软考高级系统架构设计师备考资料
+
+## 清洗与校对标准
+
+涉及教材类 Markdown 的清洗、返修、复核、结构整理时，除本文件外，还必须遵循根目录的 [教材Markdown清洗与校对标准.md](教材Markdown清洗与校对标准.md)。
+
+该标准文件是本项目关于“清洗规则 + 校对规则”的统一基线，适用于后续人工或 AI 对清洗版目录的持续维护。
+
+## 知识库懒加载结构
+
+教材/资料提取采用 **INDEX + 按需加载** 模式，遵循以下规范：
+
+### 目录结构
+```
+<资料名>/
+├── INDEX.md          # 索引文件（始终加载，包含章节列表和摘要）
+├── 第01章-xxx.md     # 每章一个独立文件
+├── 第02章-xxx.md
+└── ...
+```
+
+### INDEX.md 规范
+- 必须包含：章节编号、标题、对应文件路径
+- 可包含：简要内容摘要、关键词、原书页码范围
+- 索引文件控制在 200 行以内，确保上下文窗口友好
+- 读取资料时 **先读 INDEX.md**，再按需读取具体章节文件
+
+### 章节文件规范
+- 文件名格式：`第XX章-标题.md`（两位数字编号，标题简短）
+- 每个文件独立可读，开头包含章节标题层级
+- 内容保留原文结构：标题层级（# / ## / ###）、表格、列表
+
+### 加载策略
+- **不要一次性读取所有章节文件**
+- 通过 INDEX.md 定位目标章节，仅读取需要的文件
+- 跨章节查询时，分别读取相关章节后综合回答
+
+---
+> Source: [YoungHong1992/ruankao-senior-architecture-designer](https://github.com/YoungHong1992/ruankao-senior-architecture-designer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-07 -->
