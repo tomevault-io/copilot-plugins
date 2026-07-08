@@ -4,7 +4,7 @@
   "repo": "INFOrmula-cc-",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AllStreets/INFOrmula-cc-",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T04:53:55Z"
+  "distributed_at": "2026-07-08T04:57:34Z"
 }
