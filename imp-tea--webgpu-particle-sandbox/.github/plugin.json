@@ -1,0 +1,9 @@
+{
+  "name": "imp-tea--webgpu-particle-sandbox",
+  "displayName": "webgpu-particle-sandbox",
+  "description": "A gpu based particle simulation.",
+  "version": "1.0.0",
+  "author": "imp-tea",
+  "homepage": "https://github.com/imp-tea/webgpu-particle-sandbox",
+  "skills": []
+}
