@@ -61729,6 +61729,11 @@
       "description": "Raw microphone recordings into broadcast-ready audio in one command. No configuration, and no surprises \ud83d\udde3\ufe0f"
     },
     {
+      "name": "cla-code-community--candidate",
+      "source": "./cla-code-community--candidate",
+      "description": "Simplifique sua busca por emprego. Todas as oportunidades do mercado reunidas em uma plataforma inteligente e automatizada."
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -126897,6 +126902,11 @@
       "name": "citarreikee--aguild",
       "source": "./citarreikee--aguild",
       "description": "AGuild"
+    },
+    {
+      "name": "vaaibhavmishra--ytmusicstats",
+      "source": "./vaaibhavmishra--ytmusicstats",
+      "description": "Analyze your youtube music listening history"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -204474,6 +204484,11 @@
       "description": "Prometheus is a Slack bot that lets community members take responsibility for keeping high traffic channels tidy and welcoming"
     },
     {
+      "name": "taruma--shotbase",
+      "source": "./taruma--shotbase",
+      "description": "An open-source tool designed to manage, organize, and streamline your entire AI filmmaking asset workflow."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -240059,6 +240074,26 @@
       "description": "Algorithmic chiptune tracker"
     },
     {
+      "name": "tonwed--gpt-upi",
+      "source": "./tonwed--gpt-upi",
+      "description": "Next.js + PostgreSQL UPI scanner/order hub with Telegram login, worker dashboard, wallets, and admin tools"
+    },
+    {
+      "name": "rigpalabs--fathom",
+      "source": "./rigpalabs--fathom",
+      "description": "Low-latency market data infrastructure \u2014 real-time L2 order book streaming from 4 exchanges via WebSocket \u2192 NATS \u2192 Parquet. Rust, single binary."
+    },
+    {
+      "name": "markus41--claude-m",
+      "source": "./markus41--claude-m",
+      "description": "Claude Microsoft plugins"
+    },
+    {
+      "name": "sensible-analytics--stock-scanner",
+      "source": "./sensible-analytics--stock-scanner",
+      "description": "\ud83d\udcc8 Professional momentum stock scanner using Qullamaggie methodology - 20-point scoring with live Yahoo Finance data"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -260584,6 +260619,21 @@
       "description": "quark"
     },
     {
+      "name": "roots-and-fruit--skills",
+      "source": "./roots-and-fruit--skills",
+      "description": "Cursor agent skills for Roots & Fruit marketing and product development"
+    },
+    {
+      "name": "fredgis--fabricatlas",
+      "source": "./fredgis--fabricatlas",
+      "description": "FabricAtlas"
+    },
+    {
+      "name": "zhiweio--eaglerag",
+      "source": "./zhiweio--eaglerag",
+      "description": "Search knowledge by what documents mean and how they look \u2014 not one or the other."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -264842,6 +264892,11 @@
       "name": "rs-nocsi--codex-cua-mcp",
       "source": "./rs-nocsi--codex-cua-mcp",
       "description": "MCP server wrapping Codex Computer Use \u2014 bring Codex Computer Use to any MCP-compatible agent."
+    },
+    {
+      "name": "zhu1li--li-code",
+      "source": "./zhu1li--li-code",
+      "description": "li-code"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -386552,6 +386607,466 @@
       "name": "punp1n--delitos-violentos-propiedad-chile",
       "source": "./punp1n--delitos-violentos-propiedad-chile",
       "description": "En este proyecto estudiamos los cambios de frecuencia de delitos violentos y no violentos contra la propiedad en Chile a partir de registros administrativos y encuestas de victimizaci\u00f3n."
+    },
+    {
+      "name": "happybigmtn--autodev",
+      "source": "./happybigmtn--autodev",
+      "description": "autodev"
+    },
+    {
+      "name": "displayxr--displayxr-unreal",
+      "source": "./displayxr--displayxr-unreal",
+      "description": "Unreal Engine plugin for DisplayXR"
+    },
+    {
+      "name": "simplekile--monofxsuite",
+      "source": "./simplekile--monofxsuite",
+      "description": "MonoFXSuite"
+    },
+    {
+      "name": "bluremi--commute-buddy",
+      "source": "./bluremi--commute-buddy",
+      "description": "commute-buddy"
+    },
+    {
+      "name": "mts-services--drorange0-2-26",
+      "source": "./mts-services--drorange0-2-26",
+      "description": "drorange0_2_26"
+    },
+    {
+      "name": "shraweg--inims-dashboard",
+      "source": "./shraweg--inims-dashboard",
+      "description": "inims-dashboard"
+    },
+    {
+      "name": "kraibse--slate-project-manager",
+      "source": "./kraibse--slate-project-manager",
+      "description": "Project manager for everyday creative tasks like Photoshop, Blender, Development projects."
+    },
+    {
+      "name": "ursudavid--wine-website",
+      "source": "./ursudavid--wine-website",
+      "description": "wine-website"
+    },
+    {
+      "name": "husw725--kidguard",
+      "source": "./husw725--kidguard",
+      "description": "\u5c0f\u670b\u53cb\u505a\u9898\u89e3\u9501\u624b\u673a"
+    },
+    {
+      "name": "xcode0003--rustresortmain",
+      "source": "./xcode0003--rustresortmain",
+      "description": "rustresortmain"
+    },
+    {
+      "name": "sandy-brook-devworks-llc--sandy-brook-labs",
+      "source": "./sandy-brook-devworks-llc--sandy-brook-labs",
+      "description": "Landing site for Sandy Brook DevWorks Lab Projects"
+    },
+    {
+      "name": "mts-services--drorange0-2-26",
+      "source": "./mts-services--drorange0-2-26",
+      "description": "drorange0_2_26"
+    },
+    {
+      "name": "ether-moon--knowledge-distillery",
+      "source": "./ether-moon--knowledge-distillery",
+      "description": "A system that delivers only verified knowledge to AI coding agents. 3-layer architecture with structural air gap."
+    },
+    {
+      "name": "boris-hbx--ergouweb",
+      "source": "./boris-hbx--ergouweb",
+      "description": "ergouWeb"
+    },
+    {
+      "name": "tollara--tollara-sdk",
+      "source": "./tollara--tollara-sdk",
+      "description": "tollara-sdk"
+    },
+    {
+      "name": "not1sam--not1sam-github-io",
+      "source": "./not1sam--not1sam-github-io",
+      "description": "The place where i show my demented nature"
+    },
+    {
+      "name": "rirtir--rirtir-github-io",
+      "source": "./rirtir--rirtir-github-io",
+      "description": "rirtir.github.io"
+    },
+    {
+      "name": "tollara--tollara-sdk",
+      "source": "./tollara--tollara-sdk",
+      "description": "tollara-sdk"
+    },
+    {
+      "name": "bjzgcai--ai-history-show",
+      "source": "./bjzgcai--ai-history-show",
+      "description": "AI history show"
+    },
+    {
+      "name": "konstantinniedermann--olivalle-webshop",
+      "source": "./konstantinniedermann--olivalle-webshop",
+      "description": "Webshop f\u00fcr Olivalle \u2013 Verkauf von Oliven\u00f6l"
+    },
+    {
+      "name": "tollara--tollara-sdk",
+      "source": "./tollara--tollara-sdk",
+      "description": "tollara-sdk"
+    },
+    {
+      "name": "gavelino--gavelino-github-io",
+      "source": "./gavelino--gavelino-github-io",
+      "description": "Personal Webpage"
+    },
+    {
+      "name": "travw--scripts",
+      "source": "./travw--scripts",
+      "description": "scripts"
+    },
+    {
+      "name": "tollara--tollara-sdk",
+      "source": "./tollara--tollara-sdk",
+      "description": "tollara-sdk"
+    },
+    {
+      "name": "projectedanx--tactiledialectician",
+      "source": "./projectedanx--tactiledialectician",
+      "description": "A neuro-symbolic executor and symbol disambiguation engine for STEM workflows."
+    },
+    {
+      "name": "thibaultmathieu--app-familiale-routines",
+      "source": "./thibaultmathieu--app-familiale-routines",
+      "description": "App familiale de routines quotidiennes \u2014 React, TypeScript, Vite, PWA"
+    },
+    {
+      "name": "tollara--tollara-sdk",
+      "source": "./tollara--tollara-sdk",
+      "description": "tollara-sdk"
+    },
+    {
+      "name": "larsonrogers--ai-agent-starter-pack",
+      "source": "./larsonrogers--ai-agent-starter-pack",
+      "description": "Starter pack for vibe coding"
+    },
+    {
+      "name": "macsymgit--research",
+      "source": "./macsymgit--research",
+      "description": "research"
+    },
+    {
+      "name": "tollara--tollara-sdk",
+      "source": "./tollara--tollara-sdk",
+      "description": "tollara-sdk"
+    },
+    {
+      "name": "cjlozanodev--mi-transistor",
+      "source": "./cjlozanodev--mi-transistor",
+      "description": "project to listen to the radio"
+    },
+    {
+      "name": "leonfpontes--senhas",
+      "source": "./leonfpontes--senhas",
+      "description": "Senhas"
+    },
+    {
+      "name": "nathanjohnpayne--device-source-of-truth",
+      "source": "./nathanjohnpayne--device-source-of-truth",
+      "description": "Disney Streaming device catalog for partner inventory, specs, deployments, telemetry, and ADK version tracking."
+    },
+    {
+      "name": "quarterssa--quarters-website",
+      "source": "./quarterssa--quarters-website",
+      "description": "Quarters-Website"
+    },
+    {
+      "name": "spirovanni--arcana-pulse",
+      "source": "./spirovanni--arcana-pulse",
+      "description": "Arcana Credit Union as the institution, Arcana Pulse as the consumer app, and arcanacu.org as the web home."
+    },
+    {
+      "name": "nathanjohnpayne--device-source-of-truth",
+      "source": "./nathanjohnpayne--device-source-of-truth",
+      "description": "Disney Streaming device catalog for partner inventory, specs, deployments, telemetry, and ADK version tracking."
+    },
+    {
+      "name": "harrisonwolf--geo-map-v2",
+      "source": "./harrisonwolf--geo-map-v2",
+      "description": "Real-estate analytics pipeline: hashed canonical ledger, immutable snapshots, read-only serving. ~1:1 code-to-test."
+    },
+    {
+      "name": "davekjohn--djcylow-react",
+      "source": "./davekjohn--djcylow-react",
+      "description": "djcylow.com in React"
+    },
+    {
+      "name": "nathanjohnpayne--device-source-of-truth",
+      "source": "./nathanjohnpayne--device-source-of-truth",
+      "description": "Disney Streaming device catalog for partner inventory, specs, deployments, telemetry, and ADK version tracking."
+    },
+    {
+      "name": "wealdly--justquest",
+      "source": "./wealdly--justquest",
+      "description": "Quest Automation, my way."
+    },
+    {
+      "name": "joevandevusse--ankiprepper",
+      "source": "./joevandevusse--ankiprepper",
+      "description": "Make CSV files ready to be Anki decks"
+    },
+    {
+      "name": "globalscoreagent--global-score-indexer",
+      "source": "./globalscoreagent--global-score-indexer",
+      "description": "global-score-indexer"
+    },
+    {
+      "name": "gideonlangenhoven--admin",
+      "source": "./gideonlangenhoven--admin",
+      "description": "Admin"
+    },
+    {
+      "name": "kartikeya23--maa-app",
+      "source": "./kartikeya23--maa-app",
+      "description": "A web application for tracking hospital admission claims under the MAA health insurance scheme. Supports CSV ingestion, claim browsing with filters, and Excel report generation."
+    },
+    {
+      "name": "didierisonline-cell--aladiah-ai-spark",
+      "source": "./didierisonline-cell--aladiah-ai-spark",
+      "description": "aladiah-ai-spark"
+    },
+    {
+      "name": "mettyoung--deconstruct-chinese",
+      "source": "./mettyoung--deconstruct-chinese",
+      "description": "deconstruct-chinese"
+    },
+    {
+      "name": "chromium0308--zenemic",
+      "source": "./chromium0308--zenemic",
+      "description": "Event organisation app"
+    },
+    {
+      "name": "anya-awazi--real-cargofind",
+      "source": "./anya-awazi--real-cargofind",
+      "description": "transportation of Cargos"
+    },
+    {
+      "name": "mshirel--song-history",
+      "source": "./mshirel--song-history",
+      "description": "song-history"
+    },
+    {
+      "name": "surajrandhari--ccog",
+      "source": "./surajrandhari--ccog",
+      "description": "ccog"
+    },
+    {
+      "name": "slindelow--growth-agent",
+      "source": "./slindelow--growth-agent",
+      "description": "Growth engine: PQL scoring, referral-loop automation, and anomaly detection for product-led growth"
+    },
+    {
+      "name": "carlitolamar1989--velonyx-portfolio",
+      "source": "./carlitolamar1989--velonyx-portfolio",
+      "description": "Velonyx Systems \u2014 Premium digital solutions portfolio & demo showcase sites"
+    },
+    {
+      "name": "gadots--prodemundial",
+      "source": "./gadots--prodemundial",
+      "description": "ProdeMundial"
+    },
+    {
+      "name": "drmowinckels--dotfiles",
+      "source": "./drmowinckels--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "sabihismail--jyazo-screenshot-swift",
+      "source": "./sabihismail--jyazo-screenshot-swift",
+      "description": "Swift Equivalent of Jyazo (screenshotting app)"
+    },
+    {
+      "name": "alanisboeing--next-keycloak-starter",
+      "source": "./alanisboeing--next-keycloak-starter",
+      "description": "Template front-end Next.js com autentica\u00e7\u00e3o Keycloak (PKCE), design system shadcn/ui e arquitetura AI-ready para desenvolvimento \u00e1gil."
+    },
+    {
+      "name": "sunmanofficial189--claude-hq",
+      "source": "./sunmanofficial189--claude-hq",
+      "description": "\ud83d\udd27 The ultimate agentic command center \u2014 a curated arsenal of GitHub repos, MCP servers, custom skills, and automation tools that Claude autonomously selects and activates based on task requirements."
+    },
+    {
+      "name": "lukesantossz--tweet-sentiment-analysis",
+      "source": "./lukesantossz--tweet-sentiment-analysis",
+      "description": "A Natural Language Processing (NLP) project focused on Exploratory Data Analysis (EDA) and sentiment classification of Twitter data using Machine Learning."
+    },
+    {
+      "name": "tyevco--cads",
+      "source": "./tyevco--cads",
+      "description": "cads"
+    },
+    {
+      "name": "pedrfelip--zed-config",
+      "source": "./pedrfelip--zed-config",
+      "description": "zed-config"
+    },
+    {
+      "name": "wtlinnertz--aieos-business-process-kit",
+      "source": "./wtlinnertz--aieos-business-process-kit",
+      "description": "Layer 15 \u2014 Process impact assessment, transition planning, and readiness confirmation. Ship the process change, not just the code."
+    },
+    {
+      "name": "johnpevien--pickle-point",
+      "source": "./johnpevien--pickle-point",
+      "description": "A pickleball tournament management app"
+    },
+    {
+      "name": "the-anonymous-aspirant--aspirant-monitor",
+      "source": "./the-anonymous-aspirant--aspirant-monitor",
+      "description": "System metrics sidecar for the Aspirant platform"
+    },
+    {
+      "name": "chazu--procyon-park",
+      "source": "./chazu--procyon-park",
+      "description": "procyon-park"
+    },
+    {
+      "name": "pw-tf--baby-tracker",
+      "source": "./pw-tf--baby-tracker",
+      "description": "baby-tracker"
+    },
+    {
+      "name": "juntotechnologies--cit-site",
+      "source": "./juntotechnologies--cit-site",
+      "description": "cit-site"
+    },
+    {
+      "name": "roomi-fields--bpscript",
+      "source": "./roomi-fields--bpscript",
+      "description": "A modern, research-driven language for the Bol Processor (BP3) \u2014 Bernard Bel's gradable, bidirectional music grammar (context-free to context-sensitive and beyond). Typed temporal primitives, compiles"
+    },
+    {
+      "name": "morrifeldman--hangboard",
+      "source": "./morrifeldman--hangboard",
+      "description": "hangboard"
+    },
+    {
+      "name": "masakari3794--smec",
+      "source": "./masakari3794--smec",
+      "description": "SMEC"
+    },
+    {
+      "name": "nanohype--cloudgov",
+      "source": "./nanohype--cloudgov",
+      "description": "AWS security & cost CLI \u2014 IAM least-privilege, cost anomalies, posture, drift, compliance, and resource hygiene, plus a Kubernetes RBAC scanner."
+    },
+    {
+      "name": "luvidal--edictus-sns",
+      "source": "./luvidal--edictus-sns",
+      "description": "edictus-sns"
+    },
+    {
+      "name": "lokixshrishi--theshriks1",
+      "source": "./lokixshrishi--theshriks1",
+      "description": "theshriks1"
+    },
+    {
+      "name": "terracenter--sge-deploy",
+      "source": "./terracenter--sge-deploy",
+      "description": "sge-deploy"
+    },
+    {
+      "name": "mattpanyor--new-horizons-app",
+      "source": "./mattpanyor--new-horizons-app",
+      "description": "new-horizons-app"
+    },
+    {
+      "name": "pazthor--dotfiles",
+      "source": "./pazthor--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "lemmingtons--homesafe-franchise-form",
+      "source": "./lemmingtons--homesafe-franchise-form",
+      "description": "HomeSafe Inspections Franchise Application Form"
+    },
+    {
+      "name": "pullagurasalmanraj--candlesticks",
+      "source": "./pullagurasalmanraj--candlesticks",
+      "description": "candlesticks"
+    },
+    {
+      "name": "sasinduyomal--cinescope-b07",
+      "source": "./sasinduyomal--cinescope-b07",
+      "description": "EpicLearn-React.js and Next.js Master Course"
+    },
+    {
+      "name": "dejoyjm--nrithyaholics-online-class",
+      "source": "./dejoyjm--nrithyaholics-online-class",
+      "description": "NrithyaHolics Online Dance Platform"
+    },
+    {
+      "name": "theazizltaief--theazizltaief-github-io",
+      "source": "./theazizltaief--theazizltaief-github-io",
+      "description": "theazizltaief.github.io"
+    },
+    {
+      "name": "adilio--threatdex",
+      "source": "./adilio--threatdex",
+      "description": "ThreatDex - Know your adversaries. The APT trading card encyclopedia. Gotta know \u2018em all!"
+    },
+    {
+      "name": "nepick1227--dev",
+      "source": "./nepick1227--dev",
+      "description": "dev"
+    },
+    {
+      "name": "androidua--couchlobsters-website",
+      "source": "./androidua--couchlobsters-website",
+      "description": "couchlobsters podcast website"
+    },
+    {
+      "name": "italofelipe--auraxis-platform",
+      "source": "./italofelipe--auraxis-platform",
+      "description": "auraxis-platform"
+    },
+    {
+      "name": "vorkosigan76--magazine-processing",
+      "source": "./vorkosigan76--magazine-processing",
+      "description": "magazine_processing"
+    },
+    {
+      "name": "pangkik--rainarddistor-portfolio",
+      "source": "./pangkik--rainarddistor-portfolio",
+      "description": "rainarddistor-portfolio"
+    },
+    {
+      "name": "babon55--chinabox-admin",
+      "source": "./babon55--chinabox-admin",
+      "description": "chinabox-admin"
+    },
+    {
+      "name": "dinhtqse--swd392-finalproject-historytalk",
+      "source": "./dinhtqse--swd392-finalproject-historytalk",
+      "description": "SWD392_FinalProject_HistoryTalk"
+    },
+    {
+      "name": "alfaedge-crm--deloitte",
+      "source": "./alfaedge-crm--deloitte",
+      "description": "deloitte"
+    },
+    {
+      "name": "warizi--rally",
+      "source": "./warizi--rally",
+      "description": "workflow rally"
+    },
+    {
+      "name": "birko--birko-backgroundjobs-tests",
+      "source": "./birko--birko-backgroundjobs-tests",
+      "description": "Birko.BackgroundJobs.Tests"
+    },
+    {
+      "name": "jasonw404--inkpi",
+      "source": "./jasonw404--inkpi",
+      "description": "InkPi"
     }
   ]
 }
