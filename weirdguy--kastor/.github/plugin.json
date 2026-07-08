@@ -1,0 +1,9 @@
+{
+  "name": "weirdguy--kastor",
+  "displayName": "kastor",
+  "description": "Declarative language and toolchain for AI agents: define agents, tools and prompts in HCL, then compile to frameworks or manage them on hosted platforms with plan/apply semantics.",
+  "version": "1.0.0",
+  "author": "weirdGuy",
+  "homepage": "https://github.com/weirdGuy/kastor",
+  "skills": []
+}
