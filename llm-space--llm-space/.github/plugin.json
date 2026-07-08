@@ -1,0 +1,9 @@
+{
+  "name": "llm-space--llm-space",
+  "displayName": "llm-space",
+  "description": "A workbench for prompt and agent development \u2014 build, trace, debug, evaluate, and manage, all in one place.",
+  "version": "1.0.0",
+  "author": "llm-space",
+  "homepage": "https://github.com/llm-space/llm-space",
+  "skills": []
+}
