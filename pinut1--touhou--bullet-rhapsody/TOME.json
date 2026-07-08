@@ -4,7 +4,7 @@
   "repo": "TouHou_-Bullet_Rhapsody",
   "description": "Touhou_Bullet_Rhapsody_V01",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pinut1/TouHou_-Bullet_Rhapsody",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T13:37:11Z"
+  "distributed_at": "2026-07-08T18:17:45Z"
 }
