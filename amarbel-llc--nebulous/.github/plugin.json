@@ -1,0 +1,9 @@
+{
+  "name": "amarbel-llc--nebulous",
+  "displayName": "nebulous",
+  "description": "NewsBlur MCP server and Web Capture Archive Protocol orchestrator \u2014 local-first feed/story index, plus URL preservation into a content-addressed blob store via chrest + madder",
+  "version": "1.0.0",
+  "author": "amarbel-llc",
+  "homepage": "https://github.com/amarbel-llc/nebulous",
+  "skills": []
+}
