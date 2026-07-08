@@ -4,7 +4,7 @@
   "repo": "agent-comms",
   "description": "Universal inter-agent communication bus. File-based JSONL. Zero dependencies.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BFlinkDesign/agent-comms",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T13:46:28Z"
+  "distributed_at": "2026-07-08T16:28:42Z"
 }
