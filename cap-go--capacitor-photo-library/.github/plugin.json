@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-photo-library",
+  "displayName": "capacitor-photo-library",
+  "description": "Capacitor plugin Displays photo gallery as web page, or boring native screen which you cannot modify but require no authorization",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-photo-library",
+  "skills": []
+}
