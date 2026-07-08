@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sloppycoder/linux-vm-provisioner](https://github.com/sloppycoder/linux-vm-provisioner).
+Original source: `CLAUDE.md` in [sloppycoder/linux-vm-provisioner](https://github.com/sloppycoder/linux-vm-provisioner).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
