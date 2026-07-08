@@ -1,0 +1,9 @@
+{
+  "name": "pdugan20--claudelint",
+  "displayName": "claudelint",
+  "description": "A linter for Claude Code projects. Validates CLAUDE.md files, skills, settings, hooks, MCP servers, and plugins.",
+  "version": "1.0.0",
+  "author": "pdugan20",
+  "homepage": "https://github.com/pdugan20/claudelint",
+  "skills": []
+}
