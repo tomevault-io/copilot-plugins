@@ -4,7 +4,7 @@
   "repo": "boss-resume-filter",
   "description": "BOSS\u76f4\u8058\u5019\u9009\u4eba\u81ea\u52a8\u7b5b\u9009\u5de5\u5177\uff1a\u81ea\u52a8\u6eda\u52a8\u83b7\u53d6\u3001\u667a\u80fd\u8bc4\u5206\u5339\u914d\u3001\u81ea\u52a8\u6253\u62db\u547c\u3001Excel\u5bfc\u51fa\uff0c\u652f\u6301\u56fe\u5f62\u754c\u9762\u548c\u547d\u4ee4\u884c\u4e24\u79cd\u6a21\u5f0f",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yaoyouzhong/boss-resume-filter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T01:08:24Z"
+  "distributed_at": "2026-07-08T01:16:20Z"
 }
