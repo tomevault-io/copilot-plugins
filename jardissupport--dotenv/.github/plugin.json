@@ -1,0 +1,9 @@
+{
+  "name": "jardissupport--dotenv",
+  "displayName": "dotenv",
+  "description": "Environment file loader with cascading overrides, variable interpolation, type casting, and include directives",
+  "version": "1.0.0",
+  "author": "jardisSupport",
+  "homepage": "https://github.com/jardisSupport/dotenv",
+  "skills": []
+}
