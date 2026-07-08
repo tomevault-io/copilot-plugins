@@ -7,13 +7,13 @@ A Kubernetes operator for managing bootc nodes
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [bootc-dev/bootc-operator](https://github.com/bootc-dev/bootc-operator).
+Original source: `AGENTS.md` in [bootc-dev/bootc-operator](https://github.com/bootc-dev/bootc-operator).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
