@@ -1,0 +1,9 @@
+{
+  "name": "cotta-dev--retri",
+  "displayName": "retri",
+  "description": "Automate SSH log collection across servers and network devices \u2014 a lightweight Tera Term alternative",
+  "version": "1.0.0",
+  "author": "cotta-dev",
+  "homepage": "https://github.com/cotta-dev/retri",
+  "skills": []
+}
