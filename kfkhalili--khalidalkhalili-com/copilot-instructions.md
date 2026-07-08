@@ -1,33 +1,32 @@
-## digital-garden-project
+## do-not-edit-plugin-managed
 
-> Digital Garden project structure, component slots, and embeddable widgets
+> Never change Digital Garden plugin–managed content and generated files
 
 
-# Digital Garden Project Context
+# Do Not Edit Plugin-Managed Paths
 
-This repo is an **Eleventy** site used with the [Obsidian Digital Garden](https://github.com/oleeskild/obsidian-digital-garden) plugin. Note content is published from Obsidian into `src/site/notes/`; do not edit those files (see rule **do-not-edit-plugin-managed**).
+**Never create, edit, or delete files in these paths.** They are owned by the [Obsidian Digital Garden](https://github.com/oleeskild/obsidian-digital-garden) plugin or generated at build time. See [dg-docs.ole.dev](https://dg-docs.ole.dev).
 
-## Custom components (two patterns)
+## 1. Note content — `src/site/notes/`
 
-**1. Slot components (every page or by namespace)**  
-Path: `src/site/_includes/components/user/<namespace>/<slot>/`  
-- Namespaces: `index` (home only), `notes` (note pages only), `common` (all pages).  
-- Slots: `head`, `header`, `beforeContent`, `afterContent`, `footer`.  
-- Add a `.njk` file in the right slot folder (e.g. `common/afterContent/my-widget.njk`); it is included automatically. Dynamics are built in `_data/dynamics.js` from this directory tree.
+- All note files (`.md`, `.canvas`) and the notes index (`notes.json`, `notes.11tydata.js`) are published or maintained by the plugin from your Obsidian vault.
+- **Do not** create, edit, or delete anything under `src/site/notes/`.
+- To change note content: edit in Obsidian and publish again. To change how notes are rendered: change layouts, includes, or helpers outside `src/site/notes/`.
 
-**2. Embeddable widgets (only where the author puts them in a note)**  
-To add a widget that appears only where the user writes a code fence in a note:  
-- Put the widget HTML/JS in `src/site/_includes/snippets/<name>.njk`.  
-- In `.eleventy.js`: add a **fence rule** (in the markdown-it `fence` handler) that returns a placeholder, e.g. `<div data-dg-embed="<name>"></div>` when the fence info is your widget name.  
-- In `.eleventy.js`: add a **transform** that finds `[data-dg-embed="<name>"]`, reads the snippet file, and sets `placeholder.innerHTML = snippetHtml`.  
-- In Obsidian the user writes ` ```<name>``` ` in the note; the transform injects the snippet at that spot.
+## 2. Generated theme CSS — `src/site/styles/_theme.*.css`
 
-Example: the Technical Debt Simulator is `snippets/tech-debt-sim.njk`, fence `tech-debt-sim`, transform `embed-tech-debt-sim`.
+- These files are **generated** by `get-theme.js` from the `THEME` URL (e.g. in `.env`) and are overwritten on each build.
+- **Do not** edit `_theme.*.css`. Customize appearance via:
+  - [CSS Customization](https://dg-docs.ole.dev/advanced/css-customization/): `src/site/styles/custom-style.scss` or `src/site/styles/user/*.scss`
+  - CSS variables listed in the main README
 
-## Build and layout
+## 3. Plugin config (edit with care)
 
-- Input: `src/site`. Output: `dist`. Notes use layout `layouts/note.njk` (or `index.njk` for garden entry).  
-- To change how note content is rendered, edit layouts, includes, or filters/transforms in `.eleventy.js`; never edit files under `src/site/notes/`.
+- **`.env`** — Used for `THEME` and other build/deploy settings. Avoid changing keys the plugin or `get-theme.js` rely on; add new keys only when needed for your setup.
+
+---
+
+When a task would require editing a plugin-managed path, suggest editing in Obsidian, changing template/layout code elsewhere, or overriding styles in `custom-style.scss` / `src/site/styles/user/` instead.
 
 ---
 > Source: [kfkhalili/khalidalkhalili.com](https://github.com/kfkhalili/khalidalkhalili.com) — distributed by [TomeVault](https://tomevault.io).
