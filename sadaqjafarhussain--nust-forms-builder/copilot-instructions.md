@@ -1,334 +1,235 @@
-## formbricks-architecture
+## github-actions-security
 
-> - `apps/web/` - Main Next.js web application
+> Security best practices and guidelines for writing GitHub Actions and workflows
 
-# Formbricks Architecture & Patterns
 
-## Monorepo Structure
+# GitHub Actions Security Best Practices
 
-### Apps Directory
-- `apps/web/` - Main Next.js web application
-- `packages/` - Shared packages and utilities
+## Required Security Measures
 
-### Key Directories in Web App
-```
-apps/web/
-├── app/                    # Next.js 13+ app directory
-│   ├── (app)/             # Main application routes
-│   ├── (auth)/            # Authentication routes
-│   ├── api/               # API routes
-├── components/            # Shared components
-├── lib/                   # Utility functions and services
-└── modules/               # Feature-specific modules
+### 1. Set Minimum GITHUB_TOKEN Permissions
+
+Always explicitly set the minimum required permissions for GITHUB_TOKEN:
+
+```yaml
+permissions:
+  contents: read
+  # Only add additional permissions if absolutely necessary:
+  # pull-requests: write  # for commenting on PRs
+  # issues: write         # for creating/updating issues
+  # checks: write         # for publishing check results
 ```
 
-## Routing Patterns
+### 2. Add Harden-Runner as First Step
 
-### App Router Structure
-The application uses Next.js 13+ app router with route groups:
+For **every job** on `ubuntu-latest`, add Harden-Runner as the first step:
 
-```
-(app)/environments/[environmentId]/
-├── surveys/[surveyId]/
-│   ├── (analysis)/        # Analysis views
-│   │   ├── responses/     # Response management
-│   │   ├── summary/       # Survey summary
-│   │   └── hooks/         # Analysis-specific hooks
-│   ├── edit/              # Survey editing
-│   └── settings/          # Survey settings
+```yaml
+- name: Harden the runner
+  uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
+  with:
+    egress-policy: audit # or 'block' for stricter security
 ```
 
-### Dynamic Routes
-- `[environmentId]` - Environment-specific routes
-- `[surveyId]` - Survey-specific routes
+### 3. Pin Actions to Full Commit SHA
 
-## Service Layer Pattern
+**Always** pin third-party actions to their full commit SHA, not tags:
 
-### Service Organization
-Services are organized by domain in `apps/web/lib/`:
+```yaml
+# ❌ BAD - uses mutable tag
+- uses: actions/checkout@v4
 
-```typescript
-// Example: Response service
-// apps/web/lib/response/service.ts
-export const getResponseCountAction = async ({
-  surveyId,
-  filterCriteria,
-}: {
-  surveyId: string;
-  filterCriteria: any;
-}) => {
-  // Service implementation
-};
+# ✅ GOOD - pinned to immutable commit SHA
+- uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 ```
 
-### Action Pattern
-Server actions follow a consistent pattern:
+### 4. Secure Variable Handling
 
-```typescript
-// Action wrapper for service calls
-export const getResponseCountAction = async (params) => {
-  try {
-    const result = await responseService.getCount(params);
-    return { data: result };
-  } catch (error) {
-    return { error: error.message };
-  }
-};
+Prevent command injection by properly quoting variables:
+
+```yaml
+# ❌ BAD - potential command injection
+run: echo "Processing ${{ inputs.user_input }}"
+
+# ✅ GOOD - properly quoted
+env:
+  USER_INPUT: ${{ inputs.user_input }}
+run: echo "Processing ${USER_INPUT}"
 ```
 
-## Context Patterns
+Use `${VARIABLE}` syntax in shell scripts instead of `$VARIABLE`.
 
-### Provider Structure
-Context providers follow a consistent pattern:
+### 5. Environment Variables for Secrets
 
-```typescript
-// Provider component
-export const ResponseFilterProvider = ({ children }: { children: React.ReactNode }) => {
-  const [selectedFilter, setSelectedFilter] = useState(defaultFilter);
-  
-  const value = {
-    selectedFilter,
-    setSelectedFilter,
-    // ... other state and methods
-  };
+Store sensitive data in environment variables, not inline:
 
-  return (
-    <ResponseFilterContext.Provider value={value}>
-      {children}
-    </ResponseFilterContext.Provider>
-  );
-};
+```yaml
+# ❌ BAD
+run: curl -H "Authorization: Bearer ${{ secrets.TOKEN }}" api.example.com
 
-// Hook for consuming context
-export const useResponseFilter = () => {
-  const context = useContext(ResponseFilterContext);
-  if (!context) {
-    throw new Error('useResponseFilter must be used within ResponseFilterProvider');
-  }
-  return context;
-};
+# ✅ GOOD
+env:
+  API_TOKEN: ${{ secrets.TOKEN }}
+run: curl -H "Authorization: Bearer ${API_TOKEN}" api.example.com
 ```
 
-### Context Composition
-Multiple contexts are often composed together:
+## Workflow Structure Best Practices
 
-```typescript
-// Layout component with multiple providers
-export default function AnalysisLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <ResponseFilterProvider>
-      <ResponseCountProvider>
-        {children}
-      </ResponseCountProvider>
-    </ResponseFilterProvider>
-  );
-}
+### Required Workflow Elements
+
+```yaml
+name: "Descriptive Workflow Name"
+
+on:
+  # Define specific triggers
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Always set explicit permissions
+permissions:
+  contents: read
+
+jobs:
+  job-name:
+    name: "Descriptive Job Name"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # tune per job; standardize repo-wide
+
+    # Set job-level permissions if different from workflow level
+    permissions:
+      contents: read
+
+    steps:
+      # Always start with Harden-Runner on ubuntu-latest
+      - name: Harden the runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      # Pin all actions to commit SHA
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 ```
 
-## Component Patterns
+### Input Validation for Actions
 
-### Page Components
-Page components are located in the app directory and follow this pattern:
+For composite actions, always validate inputs:
 
-```typescript
-// apps/web/app/(app)/environments/[environmentId]/surveys/[surveyId]/(analysis)/responses/page.tsx
-export default function ResponsesPage() {
-  return (
-    <div>
-      <ResponsesTable />
-      <ResponsesPagination />
-    </div>
-  );
-}
+```yaml
+inputs:
+  user_input:
+    description: "User provided input"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate input
+      shell: bash
+      run: |
+        # Harden shell and validate input format/content before use
+        set -euo pipefail
+
+        USER_INPUT="${{ inputs.user_input }}"
+
+        if [[ ! "${USER_INPUT}" =~ ^[A-Za-z0-9._-]+$ ]]; then
+          echo "❌ Invalid input format"
+          exit 1
+        fi
 ```
 
-### Component Organization
-- **Pages** - Route components in app directory
-- **Components** - Reusable UI components
-- **Modules** - Feature-specific components and logic
+## Docker Security in Actions
 
-### Shared Components
-Common components are in `apps/web/components/`:
-- UI components (buttons, inputs, modals)
-- Layout components (headers, sidebars)
-- Data display components (tables, charts)
+### Pin Docker Images to Digests
 
-## Hook Patterns
+```yaml
+# ❌ BAD - mutable tag
+container: node:18
 
-### Custom Hook Structure
-Custom hooks follow consistent patterns:
-
-```typescript
-export const useResponseCount = ({ 
-  survey, 
-  initialCount 
-}: {
-  survey: TSurvey;
-  initialCount?: number;
-}) => {
-  const [responseCount, setResponseCount] = useState(initialCount ?? 0);
-  const [isLoading, setIsLoading] = useState(false);
-  
-  // Hook logic...
-  
-  return {
-    responseCount,
-    isLoading,
-    refetch,
-  };
-};
+# ✅ GOOD - pinned to digest
+container: node:18@sha256:a1ba21bf0c92931d02a8416f0a54daad66cb36a85d6a37b82dfe1604c4c09cad
 ```
 
-### Hook Dependencies
-- Use context hooks for shared state
-- Implement proper cleanup with AbortController
-- Optimize dependency arrays to prevent unnecessary re-renders
+## Common Patterns
 
-## Data Fetching Patterns
+### Secure File Operations
 
-### Server Actions
-The app uses Next.js server actions for data fetching:
+```yaml
+- name: Process files securely
+  shell: bash
+  env:
+    FILE_PATH: ${{ inputs.file_path }}
+  run: |
+    set -euo pipefail  # Fail on errors, undefined vars, pipe failures
 
-```typescript
-// Server action
-export async function getResponsesAction(params: GetResponsesParams) {
-  const responses = await getResponses(params);
-  return { data: responses };
-}
-
-// Client usage
-const { data } = await getResponsesAction(params);
+    # Use absolute paths and validate
+    SAFE_PATH=$(realpath "${FILE_PATH}")
+    if [[ "$SAFE_PATH" != "${GITHUB_WORKSPACE}"/* ]]; then
+      echo "❌ Path outside workspace"
+      exit 1
+    fi
 ```
 
-### Error Handling
-Consistent error handling across the application:
+### Artifact Handling
 
-```typescript
-try {
-  const result = await apiCall();
-  return { data: result };
-} catch (error) {
-  console.error("Operation failed:", error);
-  return { error: error.message };
-}
+```yaml
+- name: Upload artifacts securely
+  uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
+  with:
+    name: build-artifacts
+    path: |
+      dist/
+      !dist/**/*.log  # Exclude sensitive files
+    retention-days: 30
 ```
 
-## Type Safety
+### GHCR authentication for pulls/scans
 
-### Type Organization
-Types are organized in packages:
-- `@formbricks/types` - Shared type definitions
-- Local types in component/hook files
+```yaml
+# Minimal permissions required for GHCR pulls/scans
+permissions:
+  contents: read
+  packages: read
 
-### Common Types
-```typescript
-import { TSurvey } from "@formbricks/types/surveys/types";
-import { TResponse } from "@formbricks/types/responses";
-import { TEnvironment } from "@formbricks/types/environment";
+steps:
+  - name: Log in to GitHub Container Registry
+    uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
+    with:
+      registry: ghcr.io
+      username: ${{ github.actor }}
+      password: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## State Management
+## Security Checklist
 
-### Local State
-- Use `useState` for component-specific state
-- Use `useReducer` for complex state logic
-- Use refs for mutable values that don't trigger re-renders
+- [ ] Minimum GITHUB_TOKEN permissions set
+- [ ] Harden-Runner added to all ubuntu-latest jobs
+- [ ] All third-party actions pinned to commit SHA
+- [ ] Input validation implemented for custom actions
+- [ ] Variables properly quoted in shell scripts
+- [ ] Secrets stored in environment variables
+- [ ] Docker images pinned to digests (if used)
+- [ ] Error handling with `set -euo pipefail`
+- [ ] File paths validated and sanitized
+- [ ] No sensitive data in logs or outputs
+- [ ] GHCR login performed before pulls/scans (packages: read)
+- [ ] Job timeouts configured (`timeout-minutes`)
 
-### Global State
-- React Context for feature-specific shared state
-- URL state for filters and pagination
-- Server state through server actions
+## Recommended Additional Workflows
 
-## Performance Considerations
+Consider adding these security-focused workflows to your repository:
 
-### Code Splitting
-- Dynamic imports for heavy components
-- Route-based code splitting with app router
-- Lazy loading for non-critical features
+1. **CodeQL Analysis** - Static Application Security Testing (SAST)
+2. **Dependency Review** - Scan for vulnerable dependencies in PRs
+3. **Dependabot Configuration** - Automated dependency updates
 
-### Caching Strategy
-- Server-side caching for database queries
-- Client-side caching with React Query (where applicable)
-- Static generation for public pages
+## Resources
 
-## Testing Strategy
-
-### Test Organization
-```
-component/
-├── Component.tsx
-├── Component.test.tsx
-└── hooks/
-    ├── useHook.ts
-    └── useHook.test.tsx
-```
-
-### Test Patterns
-- Unit tests for utilities and services
-- Integration tests for components with context
-- Hook tests with proper mocking
-
-## Build & Deployment
-
-### Build Process
-- TypeScript compilation
-- Next.js build optimization
-- Asset optimization and bundling
-
-### Environment Configuration
-- Environment-specific configurations
-- Feature flags for gradual rollouts
-- Database connection management
-
-## Security Patterns
-
-### Authentication
-- Session-based authentication
-- Environment-based access control
-- API route protection
-
-### Data Validation
-- Input validation on both client and server
-- Type-safe API contracts
-- Sanitization of user inputs
-
-## Monitoring & Observability
-
-### Error Tracking
-- Client-side error boundaries
-- Server-side error logging
-- Performance monitoring
-
-### Analytics
-- User interaction tracking
-- Performance metrics
-- Database query monitoring
-
-## Best Practices Summary
-
-### Code Organization
-- ✅ Follow the established directory structure
-- ✅ Use consistent naming conventions
-- ✅ Separate concerns (UI, logic, data)
-- ✅ Keep components focused and small
-
-### Performance
-- ✅ Implement proper loading states
-- ✅ Use AbortController for async operations
-- ✅ Optimize database queries
-- ✅ Implement proper caching strategies
-
-### Type Safety
-- ✅ Use TypeScript throughout
-- ✅ Define proper interfaces for props
-- ✅ Use type guards for runtime validation
-- ✅ Leverage shared type packages
-
-### Testing
-- ✅ Write tests for critical functionality
-- ✅ Mock external dependencies properly
-- ✅ Test error scenarios and edge cases
-- ✅ Maintain good test coverage
+- [GitHub Security Hardening Guide](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
+- [Step Security Harden-Runner](https://github.com/step-security/harden-runner)
+- [Secure-Repo Best Practices](https://github.com/step-security/secure-repo)
 
 ---
 > Source: [SadaqJafarHussain/NUST-Forms-Builder](https://github.com/SadaqJafarHussain/NUST-Forms-Builder) — distributed by [TomeVault](https://tomevault.io).
