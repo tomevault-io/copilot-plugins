@@ -1,0 +1,9 @@
+{
+  "name": "adilio--threatdex",
+  "displayName": "threatdex",
+  "description": "ThreatDex - Know your adversaries. The APT trading card encyclopedia. Gotta know \u2018em all!",
+  "version": "1.0.0",
+  "author": "adilio",
+  "homepage": "https://github.com/adilio/threatdex",
+  "skills": []
+}
