@@ -1,0 +1,9 @@
+{
+  "name": "georgebnunes--supabase-auth-poc",
+  "displayName": "supabase-auth-poc",
+  "description": "This is a proof of concept using Supabase - specially using Auth module",
+  "version": "1.0.0",
+  "author": "georgebnunes",
+  "homepage": "https://github.com/georgebnunes/supabase-auth-poc",
+  "skills": []
+}
