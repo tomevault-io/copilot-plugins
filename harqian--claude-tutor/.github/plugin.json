@@ -1,0 +1,9 @@
+{
+  "name": "harqian--claude-tutor",
+  "displayName": "claude-tutor",
+  "description": "Claude Code plugin: a self-tutoring system with socratic, drill, and exam-sim modes",
+  "version": "1.0.0",
+  "author": "harqian",
+  "homepage": "https://github.com/harqian/claude-tutor",
+  "skills": []
+}
