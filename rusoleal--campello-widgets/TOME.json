@@ -4,7 +4,7 @@
   "repo": "campello_widgets",
   "description": "A C++20 widgets library inspired by Flutter widgets.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rusoleal/campello_widgets",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T07:15:36Z"
+  "distributed_at": "2026-07-08T07:34:35Z"
 }
