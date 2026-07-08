@@ -1,0 +1,9 @@
+{
+  "name": "pluginslab--wp-agentic-kit",
+  "displayName": "wp-agentic-kit",
+  "description": "Starter kit for agentic WordPress development. CLAUDE.md/AGENTS.md templates, the wordpress-development skill, curated MCP servers, sub-agents, hooks. Companion to WordCamp Portugal 2026.",
+  "version": "1.0.0",
+  "author": "pluginslab",
+  "homepage": "https://github.com/pluginslab/wp-agentic-kit",
+  "skills": []
+}
