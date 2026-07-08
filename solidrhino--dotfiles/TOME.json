@@ -1,0 +1,44 @@
+{
+  "name": "dotfiles",
+  "owner": "SolidRhino",
+  "repo": "dotfiles",
+  "description": "Cross-platform dotfiles managed with chezmoi \u2014 fish shell, Neovim/LazyVim, and automated macOS/Linux setup",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SolidRhino/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T13:49:38Z"
+}
