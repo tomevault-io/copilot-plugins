@@ -4,7 +4,7 @@
   "repo": "emoji",
   "description": "\ud83d\udd0d Emoji Search: browse and copy emoji to your clipboard",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/remarkablemark/emoji",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T13:34:14Z"
+  "distributed_at": "2026-07-08T15:59:57Z"
 }
