@@ -1,0 +1,9 @@
+{
+  "name": "zubax--holoso",
+  "displayName": "holoso",
+  "description": "Simple high-level synthesis of portable Verilog directly from idiomatic imperative Python for numerical/DSP-heavy applications. Not an HDL.",
+  "version": "1.0.0",
+  "author": "Zubax",
+  "homepage": "https://github.com/Zubax/holoso",
+  "skills": []
+}
