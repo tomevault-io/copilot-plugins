@@ -1,0 +1,9 @@
+{
+  "name": "cedie99--zentra",
+  "displayName": "Zentra",
+  "description": "Zentra analyzes any GitHub repository and tells you whether your code is ready for production. Paste a repo URL, get a health score, security findings, architecture issues, and an AI-written verdict \u2014",
+  "version": "1.0.0",
+  "author": "Cedie99",
+  "homepage": "https://github.com/Cedie99/Zentra",
+  "skills": []
+}
