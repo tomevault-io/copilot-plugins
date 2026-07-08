@@ -1,0 +1,9 @@
+{
+  "name": "g1m1et--slack-comment-viewer",
+  "displayName": "slack-comment-viewer",
+  "description": "Chrome extension that overlays Slack channel messages on any web page (Niconico-style flow / ticker)",
+  "version": "1.0.0",
+  "author": "g1m1et",
+  "homepage": "https://github.com/g1m1et/slack-comment-viewer",
+  "skills": []
+}
