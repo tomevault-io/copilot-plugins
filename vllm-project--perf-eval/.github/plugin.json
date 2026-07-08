@@ -1,0 +1,9 @@
+{
+  "name": "vllm-project--perf-eval",
+  "displayName": "perf-eval",
+  "description": "Performance benchmark & accuracy evaluation for vLLM",
+  "version": "1.0.0",
+  "author": "vllm-project",
+  "homepage": "https://github.com/vllm-project/perf-eval",
+  "skills": []
+}
