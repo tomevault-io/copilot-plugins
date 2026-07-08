@@ -1,0 +1,9 @@
+{
+  "name": "matracey--lucide-icons-mcp-server",
+  "displayName": "lucide-icons-mcp-server",
+  "description": "MCP server for Lucide Icons \u2014 search docs, props, and code examples from any AI coding assistant",
+  "version": "1.0.0",
+  "author": "matracey",
+  "homepage": "https://github.com/matracey/lucide-icons-mcp-server",
+  "skills": []
+}
