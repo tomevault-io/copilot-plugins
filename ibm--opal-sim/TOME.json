@@ -1,0 +1,44 @@
+{
+  "name": "opal-sim",
+  "owner": "IBM",
+  "repo": "opal-sim",
+  "description": "Opal (O.P.A.L. - Open simulator Platform for distributed AI and LLM workflows) is an LLM platform-level simulator written purely in Python. It can be used to explore policies, deployment configurations, optimizations, and what-if scenarios for scalable, distributed inference services like llm-d.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/IBM/opal-sim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T01:15:17Z"
+}
