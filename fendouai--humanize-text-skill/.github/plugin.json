@@ -1,0 +1,9 @@
+{
+  "name": "fendouai--humanize-text-skill",
+  "displayName": "humanize-text-skill",
+  "description": "Free AI Humanizer: Humanize AI Text Online",
+  "version": "1.0.0",
+  "author": "fendouai",
+  "homepage": "https://github.com/fendouai/humanize-text-skill",
+  "skills": []
+}
