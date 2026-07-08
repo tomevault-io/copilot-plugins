@@ -1,0 +1,9 @@
+{
+  "name": "acolomba--pi-claude-marketplace",
+  "displayName": "pi-claude-marketplace",
+  "description": "Access Claude plugin marketplaces from Pi Coding Agent.",
+  "version": "1.0.0",
+  "author": "acolomba",
+  "homepage": "https://github.com/acolomba/pi-claude-marketplace",
+  "skills": []
+}
