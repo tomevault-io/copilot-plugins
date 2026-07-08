@@ -4,7 +4,7 @@
   "repo": "orderflow",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anildev26/orderflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T06:59:55Z"
+  "distributed_at": "2026-07-08T07:09:11Z"
 }
