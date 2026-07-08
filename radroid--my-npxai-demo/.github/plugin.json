@@ -1,0 +1,9 @@
+{
+  "name": "radroid--my-npxai-demo",
+  "displayName": "my-npxai-demo",
+  "description": "Portfolio demo for NPX Innovation \u2014 RAG chat over CNSC regulatory documents and a shift turnover generator, built with Next.js + assistant-ui + Supabase pgvector + OpenAI.",
+  "version": "1.0.0",
+  "author": "radroid",
+  "homepage": "https://github.com/radroid/my-npxai-demo",
+  "skills": []
+}
