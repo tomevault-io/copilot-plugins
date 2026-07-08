@@ -7,11 +7,11 @@ SIWA, Sign in with Avalanche for ICP, the Internet Computer. Build cross chain A
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [irken-empire/ic-siwa](https://github.com/irken-empire/ic-siwa).
+Original source: `CLAUDE.md` in [irken-empire/ic-siwa](https://github.com/irken-empire/ic-siwa).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
