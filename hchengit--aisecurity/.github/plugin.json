@@ -1,0 +1,9 @@
+{
+  "name": "hchengit--aisecurity",
+  "displayName": "AISecurity",
+  "description": "General AI Security Layer for use with OpenClaw or other AI Agent(s) Framework",
+  "version": "1.0.0",
+  "author": "hchengit",
+  "homepage": "https://github.com/hchengit/AISecurity",
+  "skills": []
+}
