@@ -4,7 +4,7 @@
   "repo": "data-ai-reference",
   "description": "Reference repo for the Kyle Chalmers Data & AI YouTube channel \u2014 Claude Code + AI templates, QC patterns, and per-video example projects for reproducible analytics work.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kyle-chalmers/data-ai-reference",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T06:39:46Z"
+  "distributed_at": "2026-07-08T06:55:03Z"
 }
