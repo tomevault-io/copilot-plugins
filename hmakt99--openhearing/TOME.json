@@ -1,0 +1,44 @@
+{
+  "name": "OpenHearing",
+  "owner": "HMAKT99",
+  "repo": "OpenHearing",
+  "description": "Free, open-source hearing assistance for Android \u2014 take a hearing check (or enter professional results), build a per-ear sound profile, and amplify speech in real time through any earbuds. Presets, profiles, experimental media EQ. Fully offline: no accounts, ads, or trackers. Not a medical device. Alpha APK on Releases.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HMAKT99/OpenHearing",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T02:43:42Z"
+}
