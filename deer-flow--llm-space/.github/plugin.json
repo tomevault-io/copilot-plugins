@@ -1,0 +1,9 @@
+{
+  "name": "deer-flow--llm-space",
+  "displayName": "llm-space",
+  "description": "A desktop app for agent builders \u2014 prototype your next agent ideas, inspect every step of your harness execution, debug failures, and evaluate performance, all in one place.",
+  "version": "1.0.0",
+  "author": "deer-flow",
+  "homepage": "https://github.com/deer-flow/llm-space",
+  "skills": []
+}
