@@ -1,0 +1,9 @@
+{
+  "name": "gixsy95--abap-wiki",
+  "displayName": "abap_wiki",
+  "description": "Agent-driven SAP/ABAP knowledge base engine that turns S/4HANA custom objects into citable Markdown/Obsidian context for humans and AI agents.",
+  "version": "1.0.0",
+  "author": "Gixsy95",
+  "homepage": "https://github.com/Gixsy95/abap_wiki",
+  "skills": []
+}
