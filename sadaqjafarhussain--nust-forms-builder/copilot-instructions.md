@@ -1,218 +1,179 @@
-## storybook-component-migration
+## storybook-create-new-story
 
-> Migrate deprecated UI components to a unified component
+> Create a story in Storybook for a given component
 
-# Component Migration Automation Rule
 
-## Overview
-This rule automates the migration of deprecated components to new component systems in React/TypeScript codebases.
+# Formbricks Storybook Stories
 
-## Trigger
-When the user requests component migration (e.g., "migrate [DeprecatedComponent] to [NewComponent]" or "component migration").
+## When generating Storybook stories for Formbricks components:
 
-## Process
+### 1. **File Structure**
+- Create `stories.tsx` (not `.stories.tsx`) in component directory
+- Use exact import: `import { Meta, StoryObj } from "@storybook/react-vite";`
+- Import component from `"./index"`
 
-### Step 1: Discovery and Planning
-1. **Identify migration parameters:**
-   - Ask user for deprecated component name (e.g., "Modal")
-   - Ask user for new component name(s) (e.g., "Dialog")
-   - Ask for any components to exclude (e.g., "ModalWithTabs")
-   - Ask for specific import paths if needed
+### 2. **Story Structure Template**
+```tsx
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { ComponentName } from "./index";
 
-2. **Scan codebase** for deprecated components:
-   - Search for `import.*[DeprecatedComponent]` patterns
-   - Exclude specified components that should not be migrated
-   - List all found components with file paths
-   - Present numbered list to user for confirmation
+// For complex components with configurable options
+// consider this as an example the options need to reflect the props types
+interface StoryOptions {
+  showIcon: boolean;
+  numberOfElements: number;
+  customLabels: string[];
+}
 
-### Step 2: Component-by-Component Migration
-For each component, follow this exact sequence:
+type StoryProps = React.ComponentProps<typeof ComponentName> & StoryOptions;
 
-#### 2.1 Component Migration
-- **Import changes:**
-  - Ask user to provide the new import structure
-  - Example transformation pattern:
-  ```typescript
-  // FROM:
-  import { [DeprecatedComponent] } from "@/components/ui/[DeprecatedComponent]"
+const meta: Meta<StoryProps> = {
+  title: "UI/ComponentName",
+  component: ComponentName,
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+    controls: { sort: "alpha", exclude: [] },
+    docs: {
+      description: {
+        component: "The **ComponentName** component provides [description].",
+      },
+    },
+  },
+  argTypes: {
+    // Organize in exactly these categories: Behavior, Appearance, Content
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof ComponentName> & { args: StoryOptions };
+```
+
+### 3. **ArgTypes Organization**
+Organize ALL argTypes into exactly three categories:
+- **Behavior**: disabled, variant, onChange, etc.
+- **Appearance**: size, color, layout, styling, etc.  
+- **Content**: text, icons, numberOfElements, etc.
+
+Format:
+```tsx
+argTypes: {
+  propName: {
+    control: "select" | "boolean" | "text" | "number",
+    options: ["option1", "option2"], // for select
+    description: "Clear description",
+    table: {
+      category: "Behavior" | "Appearance" | "Content",
+      type: { summary: "string" },
+      defaultValue: { summary: "default" },
+    },
+    order: 1,
+  },
+}
+```
+
+### 4. **Required Stories**
+Every component must include:
+- `Default`: Most common use case
+- `Disabled`: If component supports disabled state
+- `WithIcon`: If component supports icons
+- Variant stories for each variant (Primary, Secondary, Error, etc.)
+- Edge case stories (ManyElements, LongText, CustomStyling)
+
+### 5. **Story Format**
+```tsx
+export const Default: Story = {
+  args: {
+    // Props with realistic values
+  },
+};
+
+export const EdgeCase: Story = {
+  args: { /* ... */ },
+  parameters: {
+    docs: {
+      description: {
+        story: "Use this when [specific scenario].",
+      },
+    },
+  },
+};
+```
+
+### 6. **Dynamic Content Pattern**
+For components with dynamic content, create render function:
+```tsx
+const renderComponent = (args: StoryProps) => {
+  const { numberOfElements, showIcon, customLabels } = args;
   
-  // TO:
-  import {
-    [NewComponent],
-    [NewComponentPart1],
-    [NewComponentPart2],
-    // ... other parts
-  } from "@/components/ui/[NewComponent]"
-  ```
-
-- **Props transformation:**
-  - Ask user for prop mapping rules (e.g., `open` → `open`, `setOpen` → `onOpenChange`)
-  - Ask for props to remove (e.g., `noPadding`, `closeOnOutsideClick`, `size`)
-  - Apply transformations based on user specifications
-
-- **Structure transformation:**
-  - Ask user for the new component structure pattern
-  - Apply the transformation maintaining all functionality
-  - Preserve all existing logic, state management, and event handlers
-
-#### 2.2 Wait for User Approval
-- Present the migration changes
-- Wait for explicit user approval before proceeding
-- If rejected, ask for specific feedback and iterate
-#### 2.3 Re-read and Apply Additional Changes
-- Re-read the component file to capture any user modifications
-- Apply any additional improvements the user made
-- Ensure all changes are incorporated
-
-#### 2.4 Test File Updates
-- **Find corresponding test file** (same name with `.test.tsx` or `.test.ts`)
-- **Update test mocks:**
-  - Ask user for new component mock structure
-  - Replace old component mocks with new ones
-  - Example pattern:
-  ```typescript
-  // Add to test setup:
-  jest.mock("@/components/ui/[NewComponent]", () => ({
-    [NewComponent]: ({ children, [props] }: any) => ([mock implementation]),
-    [NewComponentPart1]: ({ children }: any) => <div data-testid="[new-component-part1]">{children}</div>,
-    [NewComponentPart2]: ({ children }: any) => <div data-testid="[new-component-part2]">{children}</div>,
-    // ... other parts
+  // Generate dynamic content
+  const elements = Array.from({ length: numberOfElements }, (_, i) => ({
+    id: `element-${i}`,
+    label: customLabels[i] || `Element ${i + 1}`,
+    icon: showIcon ? <IconComponent /> : undefined,
   }));
-  ```
-- **Update test expectations:**
-  - Change test IDs from old component to new component
-  - Update any component-specific assertions
-  - Ensure all new component parts used in the component are mocked
+  
+  return <ComponentName {...args} elements={elements} />;
+};
 
-#### 2.5 Run Tests and Optimize
-- Execute `Node package manager test -- ComponentName.test.tsx`
-- Fix any failing tests
-- Optimize code quality (imports, formatting, etc.)
-- Re-run tests until all pass
-- **Maximum 3 iterations** - if still failing, ask user for guidance
-
-#### 2.6 Wait for Final Approval
-- Present test results and any optimizations made
-- Wait for user approval of the complete migration
-- If rejected, iterate based on feedback
-
-#### 2.7 Git Commit
-- Run: `git add .`
-- Run: `git commit -m "migrate [ComponentName] from [DeprecatedComponent] to [NewComponent]"`
-- Confirm commit was successful
-
-### Step 3: Final Report Generation
-After all components are migrated, generate a comprehensive GitHub PR report:
-
-#### PR Title
-```
-feat: migrate [DeprecatedComponent] components to [NewComponent] system
+export const Dynamic: Story = {
+  render: renderComponent,
+  args: {
+    numberOfElements: 3,
+    showIcon: true,
+    customLabels: ["First", "Second", "Third"],
+  },
+};
 ```
 
-#### PR Description Template
-```markdown
-## 🔄 [DeprecatedComponent] to [NewComponent] Migration
+### 7. **State Management**
+For interactive components:
+```tsx
+import { useState } from "react";
 
-### Overview
-Migrated [X] [DeprecatedComponent] components to the new [NewComponent] component system to modernize the UI architecture and improve consistency.
+const ComponentWithState = (args: any) => {
+  const [value, setValue] = useState(args.defaultValue);
+  
+  return (
+    <ComponentName
+      {...args}
+      value={value}
+      onChange={(newValue) => {
+        setValue(newValue);
+        args.onChange?.(newValue);
+      }}
+    />
+  );
+};
 
-### Components Migrated
-[List each component with file path]
-
-### Technical Changes
-- **Imports:** Replaced `[DeprecatedComponent]` with `[NewComponent], [NewComponentParts...]`
-- **Props:** [List prop transformations]
-- **Structure:** Implemented proper [NewComponent] component hierarchy
-- **Styling:** [Describe styling changes]
-- **Tests:** Updated all test mocks and expectations
-
-### Migration Pattern
-```typescript
-// Before
-<[DeprecatedComponent] [oldProps]>
-  [oldStructure]
-</[DeprecatedComponent]>
-
-// After
-<[NewComponent] [newProps]>
-  [newStructure]
-</[NewComponent]>
+export const Interactive: Story = {
+  render: ComponentWithState,
+  args: { defaultValue: "initial" },
+};
 ```
 
-### Testing
-- ✅ All existing tests updated and passing
-- ✅ Component functionality preserved
-- ✅ UI/UX behavior maintained
+### 8. **Quality Requirements**
+- Include component description in parameters.docs
+- Add story documentation for non-obvious use cases
+- Test edge cases (overflow, empty states, many elements)
+- Ensure no TypeScript errors
+- Use realistic prop values
+- Include at least 3-5 story variants
+- Example values need to be in the context of survey application
 
-### How to Test This PR
-1. **Functional Testing:**
-   - Navigate to each migrated component's usage
-   - Verify [component] opens and closes correctly
-   - Test all interactive elements within [components]
-   - Confirm styling and layout are preserved
+### 9. **Naming Conventions**
+- **Story titles**: "UI/ComponentName"
+- **Story exports**: PascalCase (Default, WithIcon, ManyElements)
+- **Categories**: "Behavior", "Appearance", "Content" (exact spelling)
+- **Props**: camelCase matching component props
 
-2. **Automated Testing:**
-   ```bash
-   Node package manager test
-   ```
+### 10. **Special Cases**
+- **Generic components**: Remove `component` from meta if type conflicts
+- **Form components**: Include Invalid, WithValue stories
+- **Navigation**: Include ManyItems stories
+- **Modals, Dropdowns and Popups **: Include trigger and content structure
 
-3. **Visual Testing:**
-   - Check that all [components] maintain proper styling
-   - Verify responsive behavior
-   - Test keyboard navigation and accessibility
-
-### Breaking Changes
-[List any breaking changes or state "None - this is a drop-in replacement maintaining all existing functionality."]
-
-### Notes
-- [Any excluded components] were preserved as they already use [NewComponent] internally
-- All form validation and complex state management preserved
-- Enhanced code quality with better imports and formatting
-```
-
-## Special Considerations
-
-### Excluded Components
-- **DO NOT MIGRATE** components specified by user as exclusions
-- They may already use the new component internally or have other reasons
-- Inform user these are skipped and why
-
-### Complex Components
-- Preserve all existing functionality (forms, validation, state management)
-- Maintain prop interfaces
-- Keep all event handlers and callbacks
-- Preserve accessibility features
-
-### Test Coverage
-- Ensure all new component parts are mocked when used
-- Mock all new component parts that appear in the component
-- Update test IDs from old component to new component
-- Maintain all existing test scenarios
-
-### Error Handling
-- If tests fail after 3 iterations, stop and ask user for guidance
-- If component is too complex, ask user for specific guidance
-- If unsure about functionality preservation, ask for clarification
-
-### Migration Patterns
-- Always ask user for specific migration patterns before starting
-- Confirm import structures, prop mappings, and component hierarchies
-- Adapt to different component architectures (simple replacements, complex restructuring, etc.)
-
-## Success Criteria
-- All deprecated components successfully migrated to new components
-- All tests passing
-- No functionality lost
-- Code quality maintained or improved
-- User approval on each component
-- Successful git commits for each migration
-- Comprehensive PR report generated
-
-## Usage Examples
-- "migrate Modal to Dialog"
-- "migrate Button to NewButton" 
-- "migrate Card to ModernCard"
-- "component migration" (will prompt for details) 
+## Generate stories that are comprehensive, well-documented, and reflect all component states and edge cases. 
 
 ---
 > Source: [SadaqJafarHussain/NUST-Forms-Builder](https://github.com/SadaqJafarHussain/NUST-Forms-Builder) — distributed by [TomeVault](https://tomevault.io).
