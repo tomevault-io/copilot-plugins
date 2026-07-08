@@ -1,0 +1,9 @@
+{
+  "name": "avifenesh--signbridge",
+  "displayName": "signbridge",
+  "description": "Real-time ASL signing overlay for Telegram calls \u2014 open source Android app for deaf users",
+  "version": "1.0.0",
+  "author": "avifenesh",
+  "homepage": "https://github.com/avifenesh/signbridge",
+  "skills": []
+}
