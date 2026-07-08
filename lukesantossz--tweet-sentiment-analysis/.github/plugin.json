@@ -1,0 +1,9 @@
+{
+  "name": "lukesantossz--tweet-sentiment-analysis",
+  "displayName": "tweet-sentiment-analysis",
+  "description": "A Natural Language Processing (NLP) project focused on Exploratory Data Analysis (EDA) and sentiment classification of Twitter data using Machine Learning.",
+  "version": "1.0.0",
+  "author": "LukeSantossz",
+  "homepage": "https://github.com/LukeSantossz/tweet-sentiment-analysis",
+  "skills": []
+}
