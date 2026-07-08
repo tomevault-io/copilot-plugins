@@ -7,11 +7,11 @@ Free AI Humanizer: Humanize AI Text Online
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fendouai/humanize-text-skill](https://github.com/fendouai/humanize-text-skill).
+Original source: `CLAUDE.md` in [fendouai/humanize-text-skill](https://github.com/fendouai/humanize-text-skill).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
