@@ -1,0 +1,9 @@
+{
+  "name": "irken-empire--ic-siwa",
+  "displayName": "ic-siwa",
+  "description": "SIWA, Sign in with Avalanche for ICP, the Internet Computer. Build cross chain Avalanche apps on ICP!",
+  "version": "1.0.0",
+  "author": "irken-empire",
+  "homepage": "https://github.com/irken-empire/ic-siwa",
+  "skills": []
+}
