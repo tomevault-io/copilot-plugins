@@ -1,0 +1,9 @@
+{
+  "name": "danman60--qa-agent",
+  "displayName": "qa-agent",
+  "description": "Checklist-driven, LLM-powered webapp tester with live dashboard. Playwright Python API, local LLM support.",
+  "version": "1.0.0",
+  "author": "danman60",
+  "homepage": "https://github.com/danman60/qa-agent",
+  "skills": []
+}
