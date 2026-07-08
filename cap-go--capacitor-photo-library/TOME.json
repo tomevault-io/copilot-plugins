@@ -1,0 +1,44 @@
+{
+  "name": "capacitor-photo-library",
+  "owner": "Cap-go",
+  "repo": "capacitor-photo-library",
+  "description": "Capacitor plugin Displays photo gallery as web page, or boring native screen which you cannot modify but require no authorization",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cap-go/capacitor-photo-library",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T09:52:41Z"
+}
