@@ -1,0 +1,44 @@
+{
+  "name": "abap_wiki",
+  "owner": "Gixsy95",
+  "repo": "abap_wiki",
+  "description": "Agent-driven SAP/ABAP knowledge base engine that turns S/4HANA custom objects into citable Markdown/Obsidian context for humans and AI agents.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Gixsy95/abap_wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T17:33:35Z"
+}
