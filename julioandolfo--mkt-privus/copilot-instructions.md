@@ -1,43 +1,53 @@
-## docker-deployment
+## laravel-conventions
 
-> Configuracao Docker e deploy via Coolify
+> Convencoes Laravel para o projeto MKT Privus
 
 
-# Docker e Deploy (Coolify)
+# Convencoes Laravel
 
-## Servicos Docker Compose
-- **app**: Laravel + PHP 8.3-FPM + Nginx
-- **worker**: Laravel Horizon (filas)
-- **scheduler**: Laravel Scheduler (cron)
-- **reverb**: Laravel Reverb (WebSocket)
-- **mysql**: MySQL 8.0
-- **redis**: Redis 7 Alpine
-- **minio**: MinIO (storage S3-compativel)
-- **meilisearch**: Meilisearch (busca full-text)
+## Estrutura de Pastas
+- `app/Models/` - Eloquent models
+- `app/Services/` - Logica de negocio (AI, Social, Analytics, Blog, Content)
+- `app/Jobs/` - Queue jobs (publicacao, sync analytics, geracao de conteudo)
+- `app/Http/Controllers/` - Controllers Inertia (retornam Inertia::render)
+- `app/Http/Requests/` - Form Requests para validacao
+- `app/Actions/` - Acoes atomicas reutilizaveis
+- `app/Enums/` - PHP Enums
+- `app/DTOs/` - Data Transfer Objects
 
-## Variaveis de Ambiente
-- Chaves de API de IA ficam em `.env` (OPENAI_API_KEY, GEMINI_API_KEY, ANTHROPIC_API_KEY)
-- Credenciais de redes sociais ficam em `.env`
-- NUNCA commitar `.env` - usar `.env.example` como template
-- Coolify injeta variaveis via interface
+## Padroes de Codigo
+- Usar PHP 8.3 features: typed properties, enums, match, named arguments, readonly
+- Controllers devem ser enxutos - delegar logica para Services
+- Sempre usar Form Requests para validacao
+- Usar Eloquent scopes para queries reutilizaveis
+- Usar Resources/DTOs para transformar dados para o frontend
+- Jobs devem implementar `ShouldQueue` e ter `tries` e `backoff` definidos
+- Usar `DB::transaction()` para operacoes criticas
 
-## Volumes Persistentes
-- MySQL: `mysql_data:/var/lib/mysql`
-- MinIO: `minio_data:/data`
-- Redis: `redis_data:/data`
-- Meilisearch: `meilisearch_data:/meili_data`
+## Multi-tenant por Marca
+- A maioria das tabelas tem `brand_id` como foreign key
+- Usar Global Scope ou middleware para filtrar por marca ativa
+- Marca ativa e armazenada na sessao do usuario
+- Verificar permissao do usuario na marca antes de qualquer operacao
 
-## Health Checks
-- Todos os servicos devem ter health check configurado
-- App: `curl -f http://localhost/health`
-- MySQL: `mysqladmin ping`
-- Redis: `redis-cli ping`
+## AI Gateway Pattern
+```php
+// Usar o AIGateway para abstrair modelos de IA
+$gateway = app(AIGateway::class);
+$response = $gateway->chat(
+    model: AIModel::GPT4o,
+    messages: $messages,
+    brandContext: $brand->getAIContext()
+);
+```
 
-## Build
-- Multi-stage build para otimizar imagem
-- Composer install com `--no-dev` em producao
-- npm run build para assets Vue
-- Cachear config, routes e views em producao
+## Naming Conventions
+- Models: singular PascalCase (`Post`, `Brand`, `CustomMetric`)
+- Controllers: plural PascalCase + Controller (`PostsController`, `BrandsController`)
+- Services: PascalCase + Service (`OpenAIService`, `InstagramService`)
+- Jobs: PascalCase + Job (`PublishPostJob`, `SyncAnalyticsJob`)
+- Migrations: snake_case descritivo (`create_posts_table`, `add_brand_id_to_users`)
+- Enums: PascalCase (`PostStatus`, `SocialPlatform`, `AIModel`)
 
 ---
 > Source: [julioandolfo/mkt-privus](https://github.com/julioandolfo/mkt-privus) — distributed by [TomeVault](https://tomevault.io).
