@@ -1,0 +1,9 @@
+{
+  "name": "aws--n8n-nodes-agentcore",
+  "displayName": "n8n-nodes-agentcore",
+  "description": "n8n-nodes-agentcore",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/n8n-nodes-agentcore",
+  "skills": []
+}
