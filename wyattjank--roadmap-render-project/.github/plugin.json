@@ -1,0 +1,9 @@
+{
+  "name": "wyattjank--roadmap-render-project",
+  "displayName": "Roadmap-Render-Project",
+  "description": "Python render script that will allow easy to update csv to generate a roadmap in both xlsx and drawio formats",
+  "version": "1.0.0",
+  "author": "wyattjank",
+  "homepage": "https://github.com/wyattjank/Roadmap-Render-Project",
+  "skills": []
+}
