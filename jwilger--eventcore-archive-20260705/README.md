@@ -7,11 +7,11 @@ Moved to https://git.johnwilger.com/jwilger/eventcore because my home lab has be
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jwilger/eventcore-archive-20260705](https://github.com/jwilger/eventcore-archive-20260705).
+Original source: `AGENTS.md` in [jwilger/eventcore-archive-20260705](https://github.com/jwilger/eventcore-archive-20260705).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
