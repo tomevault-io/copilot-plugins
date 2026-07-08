@@ -4,7 +4,7 @@
   "repo": "Rally",
   "description": "workflow rally",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/warizi/Rally",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T12:32:01Z"
+  "distributed_at": "2026-07-08T16:06:01Z"
 }
