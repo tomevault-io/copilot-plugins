@@ -1,154 +1,334 @@
-## eks-alb-optimization
+## formbricks-architecture
 
-> This project uses AWS EKS with Application Load Balancer (ALB) for the Formbricks application. The infrastructure has been optimized to minimize ELB 502/504 errors through careful configuration of connection handling, health checks, and pod lifecycle management.
+> - `apps/web/` - Main Next.js web application
 
-# EKS & ALB Optimization Guide for Error Reduction
+# Formbricks Architecture & Patterns
 
-## Infrastructure Overview
+## Monorepo Structure
 
-This project uses AWS EKS with Application Load Balancer (ALB) for the Formbricks application. The infrastructure has been optimized to minimize ELB 502/504 errors through careful configuration of connection handling, health checks, and pod lifecycle management.
+### Apps Directory
+- `apps/web/` - Main Next.js web application
+- `packages/` - Shared packages and utilities
 
-## Key Infrastructure Files
-
-### Terraform Configuration
-- **Main Infrastructure**: [infra/terraform/main.tf](mdc:infra/terraform/main.tf) - EKS cluster, VPC, Karpenter, and core AWS resources
-- **Monitoring**: [infra/terraform/cloudwatch.tf](mdc:infra/terraform/cloudwatch.tf) - CloudWatch alarms for 502/504 error tracking and alerting
-- **Database**: [infra/terraform/rds.tf](mdc:infra/terraform/rds.tf) - Aurora PostgreSQL configuration
-
-### Helm Configuration
-- **Production**: [infra/formbricks-cloud-helm/values.yaml.gotmpl](mdc:infra/formbricks-cloud-helm/values.yaml.gotmpl) - Optimized ALB and pod configurations
-- **Staging**: [infra/formbricks-cloud-helm/values-staging.yaml.gotmpl](mdc:infra/formbricks-cloud-helm/values-staging.yaml.gotmpl) - Staging environment with spot instances
-- **Deployment**: [infra/formbricks-cloud-helm/helmfile.yaml.gotmpl](mdc:infra/formbricks-cloud-helm/helmfile.yaml.gotmpl) - Multi-environment Helm releases
-
-## ALB Optimization Patterns
-
-### Connection Handling Optimizations
-```yaml
-# Key ALB annotations for reducing 502/504 errors
-alb.ingress.kubernetes.io/load-balancer-attributes: |
-  idle_timeout.timeout_seconds=120,
-  connection_logs.s3.enabled=false,
-  access_logs.s3.enabled=false
-
-alb.ingress.kubernetes.io/target-group-attributes: |
-  deregistration_delay.timeout_seconds=30,
-  stickiness.enabled=false,
-  load_balancing.algorithm.type=least_outstanding_requests,
-  target_group_health.dns_failover.minimum_healthy_targets.count=1
+### Key Directories in Web App
+```
+apps/web/
+├── app/                    # Next.js 13+ app directory
+│   ├── (app)/             # Main application routes
+│   ├── (auth)/            # Authentication routes
+│   ├── api/               # API routes
+├── components/            # Shared components
+├── lib/                   # Utility functions and services
+└── modules/               # Feature-specific modules
 ```
 
-### Health Check Configuration
-- **Interval**: 15 seconds for faster detection of unhealthy targets
-- **Timeout**: 5 seconds to prevent false positives
-- **Thresholds**: 2 healthy, 3 unhealthy for balanced responsiveness
-- **Path**: `/health` endpoint optimized for < 100ms response time
+## Routing Patterns
 
-## Pod Lifecycle Management
+### App Router Structure
+The application uses Next.js 13+ app router with route groups:
 
-### Graceful Shutdown Pattern
-```yaml
-# PreStop hook to allow connection draining
-lifecycle:
-  preStop:
-    exec:
-      command: ["/bin/sh", "-c", "sleep 15"]
-
-# Termination grace period for complete cleanup
-terminationGracePeriodSeconds: 45
+```
+(app)/environments/[environmentId]/
+├── surveys/[surveyId]/
+│   ├── (analysis)/        # Analysis views
+│   │   ├── responses/     # Response management
+│   │   ├── summary/       # Survey summary
+│   │   └── hooks/         # Analysis-specific hooks
+│   ├── edit/              # Survey editing
+│   └── settings/          # Survey settings
 ```
 
-### Health Probe Strategy
-- **Startup Probe**: 5s initial delay, 5s interval, max 60s startup time
-- **Readiness Probe**: 10s delay, 10s interval for traffic readiness
-- **Liveness Probe**: 30s delay, 30s interval for container health
+### Dynamic Routes
+- `[environmentId]` - Environment-specific routes
+- `[surveyId]` - Survey-specific routes
 
-### Rolling Update Configuration
-```yaml
-strategy:
-  type: RollingUpdate
-  rollingUpdate:
-    maxUnavailable: 25%  # Maintain capacity during updates
-    maxSurge: 50%        # Allow faster rollouts
+## Service Layer Pattern
+
+### Service Organization
+Services are organized by domain in `apps/web/lib/`:
+
+```typescript
+// Example: Response service
+// apps/web/lib/response/service.ts
+export const getResponseCountAction = async ({
+  surveyId,
+  filterCriteria,
+}: {
+  surveyId: string;
+  filterCriteria: any;
+}) => {
+  // Service implementation
+};
 ```
 
-## Karpenter Node Management
+### Action Pattern
+Server actions follow a consistent pattern:
 
-### Node Lifecycle Optimization
-- **Startup Taints**: Prevent traffic during node initialization
-- **Graceful Shutdown**: 30s grace period for pod eviction
-- **Consolidation Delay**: 60s to reduce unnecessary churn
-- **Eviction Policies**: Configured for smooth pod migrations
+```typescript
+// Action wrapper for service calls
+export const getResponseCountAction = async (params) => {
+  try {
+    const result = await responseService.getCount(params);
+    return { data: result };
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+```
 
-### Instance Selection
-- **Families**: c8g, c7g, m8g, m7g, r8g, r7g (ARM64 Graviton)
-- **Sizes**: 2, 4, 8 vCPUs for cost optimization
-- **Bottlerocket AMI**: Enhanced security and performance
+## Context Patterns
 
-## Monitoring & Alerting
+### Provider Structure
+Context providers follow a consistent pattern:
 
-### Critical ALB Metrics
-1. **ELB 502 Errors**: Threshold 20 over 5 minutes
-2. **ELB 504 Errors**: Threshold 15 over 5 minutes  
-3. **Target Connection Errors**: Threshold 50 over 5 minutes
-4. **4XX Errors**: Threshold 100 over 10 minutes (client issues)
+```typescript
+// Provider component
+export const ResponseFilterProvider = ({ children }: { children: React.ReactNode }) => {
+  const [selectedFilter, setSelectedFilter] = useState(defaultFilter);
+  
+  const value = {
+    selectedFilter,
+    setSelectedFilter,
+    // ... other state and methods
+  };
 
-### Expected Improvements
-- **60-80% reduction** in ELB 502 errors
-- **Faster recovery** during pod restarts
-- **Better connection reuse** efficiency
-- **Improved autoscaling** responsiveness
+  return (
+    <ResponseFilterContext.Provider value={value}>
+      {children}
+    </ResponseFilterContext.Provider>
+  );
+};
 
-## Deployment Patterns
+// Hook for consuming context
+export const useResponseFilter = () => {
+  const context = useContext(ResponseFilterContext);
+  if (!context) {
+    throw new Error('useResponseFilter must be used within ResponseFilterProvider');
+  }
+  return context;
+};
+```
 
-### Infrastructure Updates
-1. **Terraform First**: Apply infrastructure changes via [infra/deploy-improvements.sh](mdc:infra/deploy-improvements.sh)
-2. **Helm Second**: Deploy application configurations
-3. **Verification**: Check pod status, endpoints, and ALB health
-4. **Monitoring**: Watch CloudWatch metrics for 24-48 hours
+### Context Composition
+Multiple contexts are often composed together:
 
-### Environment-Specific Configurations
-- **Production**: On-demand instances, stricter resource limits
-- **Staging**: Spot instances, rate limiting disabled, relaxed resources
+```typescript
+// Layout component with multiple providers
+export default function AnalysisLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <ResponseFilterProvider>
+      <ResponseCountProvider>
+        {children}
+      </ResponseCountProvider>
+    </ResponseFilterProvider>
+  );
+}
+```
 
-## Troubleshooting Patterns
+## Component Patterns
 
-### 502 Error Investigation
-1. Check pod readiness and health probe status
-2. Verify ALB target group health
-3. Review deregistration timing during deployments
-4. Monitor connection pool utilization
+### Page Components
+Page components are located in the app directory and follow this pattern:
 
-### 504 Error Analysis  
-1. Check application response times
-2. Verify timeout configurations (ALB: 120s, App: aligned)
-3. Review database query performance
-4. Monitor resource utilization during traffic spikes
+```typescript
+// apps/web/app/(app)/environments/[environmentId]/surveys/[surveyId]/(analysis)/responses/page.tsx
+export default function ResponsesPage() {
+  return (
+    <div>
+      <ResponsesTable />
+      <ResponsesPagination />
+    </div>
+  );
+}
+```
 
-### Connection Error Patterns
-1. Verify Karpenter node lifecycle timing
-2. Check pod termination grace periods
-3. Review ALB connection draining settings
-4. Monitor cluster autoscaling events
+### Component Organization
+- **Pages** - Route components in app directory
+- **Components** - Reusable UI components
+- **Modules** - Feature-specific components and logic
 
-## Best Practices
+### Shared Components
+Common components are in `apps/web/components/`:
+- UI components (buttons, inputs, modals)
+- Layout components (headers, sidebars)
+- Data display components (tables, charts)
 
-### When Making Changes
-- **Test in staging first** with same configurations
-- **Monitor metrics** for 24-48 hours after changes
-- **Use gradual rollouts** with proper health checks
-- **Maintain ALB timeout alignment** across all layers
+## Hook Patterns
 
-### Performance Optimization
-- **Health endpoint** should respond < 100ms consistently  
-- **Connection pooling** aligned with ALB idle timeouts
-- **Resource requests/limits** tuned for consistent performance
-- **Graceful shutdown** implemented in application code
+### Custom Hook Structure
+Custom hooks follow consistent patterns:
 
-### Monitoring Strategy
-- **Real-time alerts** for error rate spikes
-- **Trend analysis** for connection patterns
-- **Capacity planning** based on LCU usage
-- **4XX pattern analysis** for client behavior insights
+```typescript
+export const useResponseCount = ({ 
+  survey, 
+  initialCount 
+}: {
+  survey: TSurvey;
+  initialCount?: number;
+}) => {
+  const [responseCount, setResponseCount] = useState(initialCount ?? 0);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // Hook logic...
+  
+  return {
+    responseCount,
+    isLoading,
+    refetch,
+  };
+};
+```
+
+### Hook Dependencies
+- Use context hooks for shared state
+- Implement proper cleanup with AbortController
+- Optimize dependency arrays to prevent unnecessary re-renders
+
+## Data Fetching Patterns
+
+### Server Actions
+The app uses Next.js server actions for data fetching:
+
+```typescript
+// Server action
+export async function getResponsesAction(params: GetResponsesParams) {
+  const responses = await getResponses(params);
+  return { data: responses };
+}
+
+// Client usage
+const { data } = await getResponsesAction(params);
+```
+
+### Error Handling
+Consistent error handling across the application:
+
+```typescript
+try {
+  const result = await apiCall();
+  return { data: result };
+} catch (error) {
+  console.error("Operation failed:", error);
+  return { error: error.message };
+}
+```
+
+## Type Safety
+
+### Type Organization
+Types are organized in packages:
+- `@formbricks/types` - Shared type definitions
+- Local types in component/hook files
+
+### Common Types
+```typescript
+import { TSurvey } from "@formbricks/types/surveys/types";
+import { TResponse } from "@formbricks/types/responses";
+import { TEnvironment } from "@formbricks/types/environment";
+```
+
+## State Management
+
+### Local State
+- Use `useState` for component-specific state
+- Use `useReducer` for complex state logic
+- Use refs for mutable values that don't trigger re-renders
+
+### Global State
+- React Context for feature-specific shared state
+- URL state for filters and pagination
+- Server state through server actions
+
+## Performance Considerations
+
+### Code Splitting
+- Dynamic imports for heavy components
+- Route-based code splitting with app router
+- Lazy loading for non-critical features
+
+### Caching Strategy
+- Server-side caching for database queries
+- Client-side caching with React Query (where applicable)
+- Static generation for public pages
+
+## Testing Strategy
+
+### Test Organization
+```
+component/
+├── Component.tsx
+├── Component.test.tsx
+└── hooks/
+    ├── useHook.ts
+    └── useHook.test.tsx
+```
+
+### Test Patterns
+- Unit tests for utilities and services
+- Integration tests for components with context
+- Hook tests with proper mocking
+
+## Build & Deployment
+
+### Build Process
+- TypeScript compilation
+- Next.js build optimization
+- Asset optimization and bundling
+
+### Environment Configuration
+- Environment-specific configurations
+- Feature flags for gradual rollouts
+- Database connection management
+
+## Security Patterns
+
+### Authentication
+- Session-based authentication
+- Environment-based access control
+- API route protection
+
+### Data Validation
+- Input validation on both client and server
+- Type-safe API contracts
+- Sanitization of user inputs
+
+## Monitoring & Observability
+
+### Error Tracking
+- Client-side error boundaries
+- Server-side error logging
+- Performance monitoring
+
+### Analytics
+- User interaction tracking
+- Performance metrics
+- Database query monitoring
+
+## Best Practices Summary
+
+### Code Organization
+- ✅ Follow the established directory structure
+- ✅ Use consistent naming conventions
+- ✅ Separate concerns (UI, logic, data)
+- ✅ Keep components focused and small
+
+### Performance
+- ✅ Implement proper loading states
+- ✅ Use AbortController for async operations
+- ✅ Optimize database queries
+- ✅ Implement proper caching strategies
+
+### Type Safety
+- ✅ Use TypeScript throughout
+- ✅ Define proper interfaces for props
+- ✅ Use type guards for runtime validation
+- ✅ Leverage shared type packages
+
+### Testing
+- ✅ Write tests for critical functionality
+- ✅ Mock external dependencies properly
+- ✅ Test error scenarios and edge cases
+- ✅ Maintain good test coverage
 
 ---
 > Source: [SadaqJafarHussain/NUST-Forms-Builder](https://github.com/SadaqJafarHussain/NUST-Forms-Builder) — distributed by [TomeVault](https://tomevault.io).
