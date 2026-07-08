@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-router-next",
+  "owner": "xiaoliu10",
+  "repo": "claude-code-router-next",
+  "description": "Use Claude Code and Codex as the foundation for coding infrastructure, allowing you to decide how to interact with the model with flexible routing and configuration. \u4e2d\u6587\u7248\uff1a \u4ee5 Claude Code \u548c Codex \u4f5c\u4e3a\u7f16\u7a0b\u57fa\u7840\u8bbe\u65bd\u7684\u57fa\u77f3\uff0c\u81ea\u4e3b\u9009\u62e9\u4ea4\u4e92\u7684\u6a21\u578b\u4e0e\u63d0\u4f9b\u5546\uff0c\u5e76\u4eab\u6709\u7075\u6d3b\u7684\u8def\u7531\u4e0e\u914d\u7f6e\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaoliu10/claude-code-router-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T01:12:38Z"
+}
