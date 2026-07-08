@@ -1,0 +1,9 @@
+{
+  "name": "zzackllack--anibridge",
+  "displayName": "AniBridge",
+  "description": "FastAPI service that bridges streaming catalogues (AniWorld, Serienstream/s.to, Megakino) to automation tools. It exposes a fake Torznab feed and a fake qBittorrent-compatible API so that applications",
+  "version": "1.0.0",
+  "author": "Zzackllack",
+  "homepage": "https://github.com/Zzackllack/AniBridge",
+  "skills": []
+}
