@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shuigedeng/taotao-cloud-project](https://github.com/shuigedeng/taotao-cloud-project).
+Original source: `AGENTS.md` in [shuigedeng/taotao-cloud-project](https://github.com/shuigedeng/taotao-cloud-project).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -20,7 +20,7 @@ Original source: `CLAUDE.md` in [shuigedeng/taotao-cloud-project](https://github
 - [taotao-cloud-project](https://github.com/shuigedeng/taotao-cloud-project/tree/main/.claude/skills/ttc-event-storming/SKILL.md)
 - [taotao-cloud-project](https://github.com/shuigedeng/taotao-cloud-project/tree/main/.claude/skills/ttc-crud-generator/SKILL.md)
 
-From [shuigedeng/taotao-cloud-project](https://github.com/shuigedeng/taotao-cloud-project) — a repo with 355+ stars on GitHub.
+From [shuigedeng/taotao-cloud-project](https://github.com/shuigedeng/taotao-cloud-project) — a repo with 0+ stars on GitHub.
 
 ---
 
