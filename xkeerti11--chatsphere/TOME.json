@@ -4,7 +4,7 @@
   "repo": "chatsphere",
   "description": "chat  app ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xkeerti11/chatsphere",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T06:35:44Z"
+  "distributed_at": "2026-07-08T06:36:15Z"
 }
