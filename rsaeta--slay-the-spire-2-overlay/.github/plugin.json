@@ -1,0 +1,9 @@
+{
+  "name": "rsaeta--slay-the-spire-2-overlay",
+  "displayName": "slay-the-spire-2-overlay",
+  "description": "Chrome extension that identifies Slay the Spire 2 game elements on YouTube via local ML inference",
+  "version": "1.0.0",
+  "author": "rsaeta",
+  "homepage": "https://github.com/rsaeta/slay-the-spire-2-overlay",
+  "skills": []
+}
