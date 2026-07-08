@@ -1,0 +1,9 @@
+{
+  "name": "wallarm--ingress-nextgen",
+  "displayName": "ingress-nextgen",
+  "description": "Kubernetes Ingress controller with integrated Wallarm services - NextGen",
+  "version": "1.0.0",
+  "author": "wallarm",
+  "homepage": "https://github.com/wallarm/ingress-nextgen",
+  "skills": []
+}
