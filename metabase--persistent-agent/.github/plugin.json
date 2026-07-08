@@ -1,0 +1,9 @@
+{
+  "name": "metabase--persistent-agent",
+  "displayName": "persistent-agent",
+  "description": "persistent-agent",
+  "version": "1.0.0",
+  "author": "metabase",
+  "homepage": "https://github.com/metabase/persistent-agent",
+  "skills": []
+}
