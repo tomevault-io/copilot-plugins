@@ -4,7 +4,7 @@
   "repo": "ytmusicstats",
   "description": "Analyze your youtube music listening history",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vaaibhavmishra/ytmusicstats",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T12:00:19Z"
+  "distributed_at": "2026-07-08T14:00:10Z"
 }
