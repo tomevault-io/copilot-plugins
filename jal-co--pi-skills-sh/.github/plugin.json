@@ -1,0 +1,9 @@
+{
+  "name": "jal-co--pi-skills-sh",
+  "displayName": "pi-skills-sh",
+  "description": "Browse, install & manage skills.sh skills from inside pi",
+  "version": "1.0.0",
+  "author": "jal-co",
+  "homepage": "https://github.com/jal-co/pi-skills-sh",
+  "skills": []
+}
