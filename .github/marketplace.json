@@ -19504,6 +19504,11 @@
       "description": "promkit"
     },
     {
+      "name": "railspulse-org--rails-pulse",
+      "source": "./railspulse-org--rails-pulse",
+      "description": "Rails Pulse is a comprehensive performance monitoring and debugging gem that provides insights into your Rails application's health."
+    },
+    {
       "name": "aitytech--agentkits-marketing",
       "source": "./aitytech--agentkits-marketing",
       "description": "Enterprise-grade AI marketing automation for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills"
@@ -46872,6 +46877,11 @@
       "name": "constantinpape--torch-em",
       "source": "./constantinpape--torch-em",
       "description": "torch-em"
+    },
+    {
+      "name": "fendouai--humanize-text-skill",
+      "source": "./fendouai--humanize-text-skill",
+      "description": "Free AI Humanizer: Humanize AI Text Online"
     },
     {
       "name": "fendouai--humanize-text-skill",
@@ -95834,6 +95844,11 @@
       "description": "Local-first memory governance for AI agents: shared, reviewable, auditable memory via SQLite and MCP."
     },
     {
+      "name": "ballerina-nutcracker--ballerina",
+      "source": "./ballerina-nutcracker--ballerina",
+      "description": "Native Ballerina Interpreter"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -97297,6 +97312,16 @@
       "name": "lihan0705--hindsight-lite",
       "source": "./lihan0705--hindsight-lite",
       "description": "Hindsight-lite: Agent Memory That  Learns lightweight version. Get inspired by hindsight.vectorize.io"
+    },
+    {
+      "name": "brendanlefebvre--supersync-koplugin",
+      "source": "./brendanlefebvre--supersync-koplugin",
+      "description": "Full metadata sync for KOreader via user's own cloud storage"
+    },
+    {
+      "name": "brendanlefebvre--supersync-koplugin",
+      "source": "./brendanlefebvre--supersync-koplugin",
+      "description": "Full metadata sync for KOreader via user's own cloud storage"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -156304,6 +156329,11 @@
       "description": "langchain"
     },
     {
+      "name": "mawantha5336--langchain",
+      "source": "./mawantha5336--langchain",
+      "description": "langchain"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -161162,6 +161192,11 @@
       "name": "qiskit-community--qcode-discovery",
       "source": "./qiskit-community--qcode-discovery",
       "description": "Discovering bivariate bicycle (BB) and perturbed bivariate bicycle (PBB) quantum LDPC codes via LLM-guided evolutionary search."
+    },
+    {
+      "name": "cogeto--cogeto",
+      "source": "./cogeto--cogeto",
+      "description": "Private, EU-hosted AI memory that you can inspect, correct, and prove deleted - with human-approved agents on top."
     },
     {
       "name": "cogeto--cogeto",
@@ -166742,6 +166777,16 @@
       "name": "steipete--nameplate",
       "source": "./steipete--nameplate",
       "description": "Brand every Mac in your fleet \u2014 colored frame, name tag, watermark, and connect splash as click-through overlays. Never wonder which Mac you remoted into again."
+    },
+    {
+      "name": "ahren09--sara",
+      "source": "./ahren09--sara",
+      "description": "Official Implementation for the ACL 2026 paper \"SARA: Selective and Adaptive Retrieval-augmented Generation with Context Compression\""
+    },
+    {
+      "name": "weirdguy--kastor",
+      "source": "./weirdguy--kastor",
+      "description": "Declarative language and toolchain for AI agents: define agents, tools and prompts in HCL, then compile to frameworks or manage them on hosted platforms with plan/apply semantics."
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -181497,6 +181542,11 @@
       "name": "app-builders-club--mvp-builder",
       "source": "./app-builders-club--mvp-builder",
       "description": "Document-Driven Development framework for Claude Code \u2014 structured specs, TDD cycles, feedback loops, and skills system"
+    },
+    {
+      "name": "radiumcoders--isometric-github-contributions",
+      "source": "./radiumcoders--isometric-github-contributions",
+      "description": "Isometric-Github-Contributions"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -204577,6 +204627,16 @@
       "name": "zeenix--pixel8",
       "source": "./zeenix--pixel8",
       "description": "a Rust-based PICO-8-like fantasy console"
+    },
+    {
+      "name": "jviall--rekordbox-edit",
+      "source": "./jviall--rekordbox-edit",
+      "description": "A command-line tool for bulk operations on your Rekordbox library"
+    },
+    {
+      "name": "jviall--rekordbox-edit",
+      "source": "./jviall--rekordbox-edit",
+      "description": "A command-line tool for bulk operations on your Rekordbox library"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -240259,6 +240319,36 @@
       "description": "claude-code-collections"
     },
     {
+      "name": "deer-flow--llm-space",
+      "source": "./deer-flow--llm-space",
+      "description": "A desktop app for agent builders \u2014 prototype your next agent ideas, inspect every step of your harness execution, debug failures, and evaluate performance, all in one place."
+    },
+    {
+      "name": "kbediako--codex-termux-pocket",
+      "source": "./kbediako--codex-termux-pocket",
+      "description": "Codex CLI tweaked for Android/Termux (self-update + build version)"
+    },
+    {
+      "name": "sxzz--kevins-journey",
+      "source": "./sxzz--kevins-journey",
+      "description": "Kevin's travel footprints visualized on a map."
+    },
+    {
+      "name": "zhound420--d365fo-claude-connector",
+      "source": "./zhound420--d365fo-claude-connector",
+      "description": "MCP server for Microsoft Dynamics 365 Finance & Operations - enables AI assistants to explore metadata, query data, and execute sandboxed code"
+    },
+    {
+      "name": "makomakogo--novel-proofer",
+      "source": "./makomakogo--novel-proofer",
+      "description": "\u8272\u60c5\u5c0f\u8bf4\u6821\u5bf9\u683c\u5f0f\u5316\u5de5\u5177\uff0c\u5145\u5206\u5229\u7528\u767d\u5ad6\u7684ai\u989d\u5ea6\uff0c\u7eaf vibe coding \u4ea7\u7269"
+    },
+    {
+      "name": "n2ns--n2n-nexus",
+      "source": "./n2ns--n2n-nexus",
+      "description": "Local-first MCP coordination hub. One local daemon serves multiple AI assistants across IDEs \u2014 shared meetings, tasks, messages, and project registry. Works with Claude, Cursor, VS Code, Zed."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -260857,6 +260947,61 @@
       "name": "squerne--open-career-skills",
       "source": "./squerne--open-career-skills",
       "description": "Claude Code skills for the job hunt that refuse to invent facts about you: CV optimizer, STAR story bank, 360Brew LinkedIn planner, cover letters, mock interviews. By JobMentis."
+    },
+    {
+      "name": "xiaosen2026--flowcanva",
+      "source": "./xiaosen2026--flowcanva",
+      "description": "\u65e0\u9650\u753b\u5e03 AI \u521b\u4f5c\u5e73\u53f0 \u2014 \u53ef\u89c6\u5316\u8282\u70b9\u7f16\u6392\uff0c\u4e32\u8054 LLM/\u56fe\u7247/\u89c6\u9891/ComfyUI \u591a\u6a21\u6001 AI \u7ba1\u7ebf"
+    },
+    {
+      "name": "gheat1--navitui",
+      "source": "./gheat1--navitui",
+      "description": "\u266a A fast, animated TUI player for Navidrome \u2014 cover art in the terminal, playback via mpv, themes via ricekit"
+    },
+    {
+      "name": "yuriipalam--codex-status-bar",
+      "source": "./yuriipalam--codex-status-bar",
+      "description": "A compact macOS menu bar companion for Codex: live status icons, elapsed timers, active and unread sessions, usage indicators, and approval/input alerts."
+    },
+    {
+      "name": "gixsy95--abap-wiki",
+      "source": "./gixsy95--abap-wiki",
+      "description": "Agent-driven SAP/ABAP knowledge base engine that turns S/4HANA custom objects into citable Markdown/Obsidian context for humans and AI agents."
+    },
+    {
+      "name": "mentallyquill--recursion",
+      "source": "./mentallyquill--recursion",
+      "description": "A Recursive Multi-Step Thinking Extension for SillyTavern"
+    },
+    {
+      "name": "slashbinslashnoname--slashnode",
+      "source": "./slashbinslashnoname--slashnode",
+      "description": "Self-hosting OS for your own server \u2014 200+ one-click apps (Bitcoin, Lightning, AI, media, productivity) on a single Go binary, with Tor + automatic HTTPS."
+    },
+    {
+      "name": "seth-peters--treebox",
+      "source": "./seth-peters--treebox",
+      "description": "Isolated, ready-to-run git worktrees for coding agents - host-native or docker-sandboxed."
+    },
+    {
+      "name": "jvuori--zmux",
+      "source": "./jvuori--zmux",
+      "description": "The convenience of Zellij, but in tmux"
+    },
+    {
+      "name": "slibbinas--tinymakerwifi",
+      "source": "./slibbinas--tinymakerwifi",
+      "description": "Modified original TinyMaker code, that enables model upload directly from PrusaSlicer via WiFi"
+    },
+    {
+      "name": "mikaelhug--silo",
+      "source": "./mikaelhug--silo",
+      "description": "Fast, native, open-source launcher for running Windows Steam games on Apple Silicon Macs."
+    },
+    {
+      "name": "mormor83--terraducktel",
+      "source": "./mormor83--terraducktel",
+      "description": "Self-hosted Terraform & Helm orchestration - plan, gate, apply, and track drift, no SaaS required"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -388677,6 +388822,11 @@
       "name": "apscreativas--conciliacion-bancaria",
       "source": "./apscreativas--conciliacion-bancaria",
       "description": "conciliacion-bancaria"
+    },
+    {
+      "name": "hector14mv--whisper-translate",
+      "source": "./hector14mv--whisper-translate",
+      "description": "Voice-to-text translation app using local Whisper for transcription and LLM APIs for translation. Built with Tauri 2 (Rust) + React + TypeScript."
     }
   ]
 }
