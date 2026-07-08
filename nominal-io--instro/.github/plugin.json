@@ -1,0 +1,9 @@
+{
+  "name": "nominal-io--instro",
+  "displayName": "instro",
+  "description": "Nominal's open-source library for hardware test instrumentation",
+  "version": "1.0.0",
+  "author": "nominal-io",
+  "homepage": "https://github.com/nominal-io/instro",
+  "skills": []
+}
