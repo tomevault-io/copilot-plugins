@@ -1,0 +1,9 @@
+{
+  "name": "linuxmatters--jive-vocals",
+  "displayName": "jive-vocals",
+  "description": "Raw microphone recordings into broadcast-ready audio in one command. No configuration, and no surprises \ud83d\udde3\ufe0f",
+  "version": "1.0.0",
+  "author": "linuxmatters",
+  "homepage": "https://github.com/linuxmatters/jive-vocals",
+  "skills": []
+}
