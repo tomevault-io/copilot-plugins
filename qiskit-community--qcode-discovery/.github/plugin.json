@@ -1,0 +1,9 @@
+{
+  "name": "qiskit-community--qcode-discovery",
+  "displayName": "qcode-discovery",
+  "description": "Discovering bivariate bicycle (BB) and perturbed bivariate bicycle (PBB) quantum LDPC codes via LLM-guided evolutionary search.",
+  "version": "1.0.0",
+  "author": "qiskit-community",
+  "homepage": "https://github.com/qiskit-community/qcode-discovery",
+  "skills": []
+}
