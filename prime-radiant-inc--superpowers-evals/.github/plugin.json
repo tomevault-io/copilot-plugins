@@ -1,0 +1,9 @@
+{
+  "name": "prime-radiant-inc--superpowers-evals",
+  "displayName": "superpowers-evals",
+  "description": "Behavioral eval lab (Quorum) for the superpowers project that drives real coding-agent CLIs (Claude, Codex, Gemini, Kimi, and more) through a QA agent and grades them on workflow compliance against sc",
+  "version": "1.0.0",
+  "author": "prime-radiant-inc",
+  "homepage": "https://github.com/prime-radiant-inc/superpowers-evals",
+  "skills": []
+}
