@@ -1,0 +1,9 @@
+{
+  "name": "schoppllc--terminalcontrol",
+  "displayName": "Terminalcontrol",
+  "description": "A grid of real terminals in one browser window \u2014 run a Claude in every box; when one needs you, it glows, dings, and jumps to the top bar.",
+  "version": "1.0.0",
+  "author": "schoppllc",
+  "homepage": "https://github.com/schoppllc/Terminalcontrol",
+  "skills": []
+}
