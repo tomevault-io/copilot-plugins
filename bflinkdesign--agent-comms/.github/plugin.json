@@ -1,0 +1,9 @@
+{
+  "name": "bflinkdesign--agent-comms",
+  "displayName": "agent-comms",
+  "description": "Universal inter-agent communication bus. File-based JSONL. Zero dependencies.",
+  "version": "1.0.0",
+  "author": "BFlinkDesign",
+  "homepage": "https://github.com/BFlinkDesign/agent-comms",
+  "skills": []
+}
