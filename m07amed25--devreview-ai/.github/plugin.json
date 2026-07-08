@@ -1,0 +1,9 @@
+{
+  "name": "m07amed25--devreview-ai",
+  "displayName": "DevReview-AI",
+  "description": "Automated code reviews powered by AI. Catch bugs, security issues, and code quality problems instantly directly in your GitHub pull requests.",
+  "version": "1.0.0",
+  "author": "m07amed25",
+  "homepage": "https://github.com/m07amed25/DevReview-AI",
+  "skills": []
+}
