@@ -1,0 +1,9 @@
+{
+  "name": "latentwill--ideonomy-skill",
+  "displayName": "ideonomy-skill",
+  "description": "A Claude Code skill for expanding ideas via Patrick Gunkel's ideonomy, synthesized from Grace Kind's essays. Picks a different combination of operators, organons, and dimension-prompts each invocation",
+  "version": "1.0.0",
+  "author": "latentwill",
+  "homepage": "https://github.com/latentwill/ideonomy-skill",
+  "skills": []
+}
