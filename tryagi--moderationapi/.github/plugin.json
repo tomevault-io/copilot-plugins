@@ -1,0 +1,9 @@
+{
+  "name": "tryagi--moderationapi",
+  "displayName": "ModerationAPI",
+  "description": "C# SDK for the ModerationAPI -- multi-modal content moderation for text, images, video, and audio",
+  "version": "1.0.0",
+  "author": "tryAGI",
+  "homepage": "https://github.com/tryAGI/ModerationAPI",
+  "skills": []
+}
