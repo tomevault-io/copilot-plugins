@@ -1,0 +1,9 @@
+{
+  "name": "samuelfrench--claude-indicator",
+  "displayName": "claude-indicator",
+  "description": "Translucent desktop widget showing Claude Code Max subscription usage limits",
+  "version": "1.0.0",
+  "author": "samuelfrench",
+  "homepage": "https://github.com/samuelfrench/claude-indicator",
+  "skills": []
+}
