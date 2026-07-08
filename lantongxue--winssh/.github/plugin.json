@@ -1,0 +1,9 @@
+{
+  "name": "lantongxue--winssh",
+  "displayName": "winssh",
+  "description": "WinSSH \u662f\u4e00\u4e2a\u57fa\u4e8e Electron\u3001React \u548c TypeScript \u7684\u8de8\u5e73\u53f0\u684c\u9762 SSH \u5de5\u4f5c\u53f0\u3002",
+  "version": "1.0.0",
+  "author": "lantongxue",
+  "homepage": "https://github.com/lantongxue/winssh",
+  "skills": []
+}
