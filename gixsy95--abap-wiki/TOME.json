@@ -4,7 +4,7 @@
   "repo": "abap_wiki",
   "description": "Agent-driven SAP/ABAP knowledge base engine that turns S/4HANA custom objects into citable Markdown/Obsidian context for humans and AI agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Gixsy95/abap_wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T17:33:35Z"
+  "distributed_at": "2026-07-08T19:34:52Z"
 }
