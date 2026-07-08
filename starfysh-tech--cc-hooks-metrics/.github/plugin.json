@@ -1,0 +1,9 @@
+{
+  "name": "starfysh-tech--cc-hooks-metrics",
+  "displayName": "cc-hooks-metrics",
+  "description": "SQLite-backed telemetry and analytics for Claude Code hooks",
+  "version": "1.0.0",
+  "author": "starfysh-tech",
+  "homepage": "https://github.com/starfysh-tech/cc-hooks-metrics",
+  "skills": []
+}
