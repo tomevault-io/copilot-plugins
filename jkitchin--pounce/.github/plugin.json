@@ -1,0 +1,9 @@
+{
+  "name": "jkitchin--pounce",
+  "displayName": "pounce",
+  "description": "Pure-Rust port of Ipopt (NLP/IPM solver)",
+  "version": "1.0.0",
+  "author": "jkitchin",
+  "homepage": "https://github.com/jkitchin/pounce",
+  "skills": []
+}
