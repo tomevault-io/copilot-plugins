@@ -1,0 +1,9 @@
+{
+  "name": "interhyp--git-hubby",
+  "displayName": "git-hubby",
+  "description": "A Kubernetes operator for managing GitHub organizations and repositories as code using Custom Resource Definitions (CRDs).",
+  "version": "1.0.0",
+  "author": "Interhyp",
+  "homepage": "https://github.com/Interhyp/git-hubby",
+  "skills": []
+}
