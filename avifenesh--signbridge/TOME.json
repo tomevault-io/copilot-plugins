@@ -4,7 +4,7 @@
   "repo": "signbridge",
   "description": "Real-time ASL signing overlay for Telegram calls \u2014 open source Android app for deaf users",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/avifenesh/signbridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T05:09:10Z"
+  "distributed_at": "2026-07-08T05:21:18Z"
 }
