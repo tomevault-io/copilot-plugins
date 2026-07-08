@@ -7,11 +7,11 @@ Brand every Mac in your fleet — colored frame, name tag, watermark, and connec
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [steipete/Nameplate](https://github.com/steipete/Nameplate).
+Original source: `AGENTS.md` in [steipete/Nameplate](https://github.com/steipete/Nameplate).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
