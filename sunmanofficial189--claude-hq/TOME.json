@@ -4,7 +4,7 @@
   "repo": "CLAUDE-HQ",
   "description": "\ud83d\udd27 The ultimate agentic command center \u2014 a curated arsenal of GitHub repos, MCP servers, custom skills, and automation tools that Claude autonomously selects and activates based on task requirements.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SUNMANOFFICIAL189/CLAUDE-HQ",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T10:27:22Z"
+  "distributed_at": "2026-07-08T12:12:59Z"
 }
