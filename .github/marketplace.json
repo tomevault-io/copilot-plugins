@@ -204464,6 +204464,16 @@
       "description": "Servidor MCP para buscar productos, comparar precios y armar la mejor lista de compra en supermercados chilenos (Jumbo, Santa Isabel, Unimarc, Tottus, Lider) desde Claude o ChatGPT. 100% local."
     },
     {
+      "name": "cap-go--capacitor-photo-library",
+      "source": "./cap-go--capacitor-photo-library",
+      "description": "Capacitor plugin Displays photo gallery as web page, or boring native screen which you cannot modify but require no authorization"
+    },
+    {
+      "name": "hackclub--prometheus",
+      "source": "./hackclub--prometheus",
+      "description": "Prometheus is a Slack bot that lets community members take responsibility for keeping high traffic channels tidy and welcoming"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -240004,6 +240014,51 @@
       "description": "persistent-agent"
     },
     {
+      "name": "bootc-dev--bootc-operator",
+      "source": "./bootc-dev--bootc-operator",
+      "description": "A Kubernetes operator for managing bootc nodes"
+    },
+    {
+      "name": "slok--gosimov",
+      "source": "./slok--gosimov",
+      "description": "Simple AI agent library in go (general usage but focused on infra/platform tooling automation)"
+    },
+    {
+      "name": "11cookies11--embedded-loop-demo",
+      "source": "./11cookies11--embedded-loop-demo",
+      "description": "embedded-loop-demo"
+    },
+    {
+      "name": "jal-co--pi-skills-sh",
+      "source": "./jal-co--pi-skills-sh",
+      "description": "Browse, install & manage skills.sh skills from inside pi"
+    },
+    {
+      "name": "iptoux--localvoice",
+      "source": "./iptoux--localvoice",
+      "description": "Offline-first desktop voice dictation app with local Whisper transcription, custom dictionary, and zero telemetry."
+    },
+    {
+      "name": "bootc-dev--bootc-operator",
+      "source": "./bootc-dev--bootc-operator",
+      "description": "A Kubernetes operator for managing bootc nodes"
+    },
+    {
+      "name": "iptoux--localvoice",
+      "source": "./iptoux--localvoice",
+      "description": "Offline-first desktop voice dictation app with local Whisper transcription, custom dictionary, and zero telemetry."
+    },
+    {
+      "name": "velesnitski--yt-mcp",
+      "source": "./velesnitski--yt-mcp",
+      "description": "YouTrack MCP server for Claude Code"
+    },
+    {
+      "name": "thejustinwalsh--zzfx-studio",
+      "source": "./thejustinwalsh--zzfx-studio",
+      "description": "Algorithmic chiptune tracker"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -260504,6 +260559,31 @@
       "description": "Orchestrating Mathematical Reasoning Agents with Fact-Graph Memory"
     },
     {
+      "name": "llm-space--llm-space",
+      "source": "./llm-space--llm-space",
+      "description": "A workbench for prompt and agent development \u2014 build, trace, debug, evaluate, and manage, all in one place."
+    },
+    {
+      "name": "xboot--xstar",
+      "source": "./xboot--xstar",
+      "description": "A portable embedded system framework for writing cross-platform firmware and applications"
+    },
+    {
+      "name": "zmr0zhangmouren--dot-net-code-security-audit-platform",
+      "source": "./zmr0zhangmouren--dot-net-code-security-audit-platform",
+      "description": "Self-hosted white-box .NET security audit platform. Loads 38 audit Skills via OpenAI Agents SDK, runs BullMQ + Redis scan pipeline, persists to SQLite-backed Vulnerability Library with Markdown report"
+    },
+    {
+      "name": "kotbehemot53--amiga-space-invaders",
+      "source": "./kotbehemot53--amiga-space-invaders",
+      "description": "A vibe-coded clone of the Space Invaders for the Amiga 500"
+    },
+    {
+      "name": "ackotech--quark",
+      "source": "./ackotech--quark",
+      "description": "quark"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -264752,6 +264832,16 @@
       "name": "supergillis--superdash",
       "source": "./supergillis--superdash",
       "description": "Home Assistant kiosk app for Android tablets"
+    },
+    {
+      "name": "lidonghaofirst--mineradio-lx",
+      "source": "./lidonghaofirst--mineradio-lx",
+      "description": "Mineradio with LX Music custom source support"
+    },
+    {
+      "name": "rs-nocsi--codex-cua-mcp",
+      "source": "./rs-nocsi--codex-cua-mcp",
+      "description": "MCP server wrapping Codex Computer Use \u2014 bring Codex Computer Use to any MCP-compatible agent."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -386017,6 +386107,451 @@
       "name": "henrymyos--fantasy-disc-golf",
       "source": "./henrymyos--fantasy-disc-golf",
       "description": "fantasy-disc-golf"
+    },
+    {
+      "name": "famousmaster206--maths-basis-phoenix",
+      "source": "./famousmaster206--maths-basis-phoenix",
+      "description": "MATHS-BASIS-Phoenix"
+    },
+    {
+      "name": "phibao--gotham-court",
+      "source": "./phibao--gotham-court",
+      "description": "Decentralized AI-Powered Dispute Resolution on GenLayer."
+    },
+    {
+      "name": "nitishdola--dmo-audit",
+      "source": "./nitishdola--dmo-audit",
+      "description": "dmo-audit"
+    },
+    {
+      "name": "mshirel--song-history",
+      "source": "./mshirel--song-history",
+      "description": "song-history"
+    },
+    {
+      "name": "danza0--fluently",
+      "source": "./danza0--fluently",
+      "description": "fluently"
+    },
+    {
+      "name": "whoamaiii--whoamiiiport",
+      "source": "./whoamaiii--whoamiiiport",
+      "description": "whoamiiiport"
+    },
+    {
+      "name": "sakaricky--pumpapp",
+      "source": "./sakaricky--pumpapp",
+      "description": "Full stack web app to manage petrol station and convenience store"
+    },
+    {
+      "name": "sunmanofficial189--claude-hq",
+      "source": "./sunmanofficial189--claude-hq",
+      "description": "\ud83d\udd27 The ultimate agentic command center \u2014 a curated arsenal of GitHub repos, MCP servers, custom skills, and automation tools that Claude autonomously selects and activates based on task requirements."
+    },
+    {
+      "name": "sunmanofficial189--claude-hq",
+      "source": "./sunmanofficial189--claude-hq",
+      "description": "\ud83d\udd27 The ultimate agentic command center \u2014 a curated arsenal of GitHub repos, MCP servers, custom skills, and automation tools that Claude autonomously selects and activates based on task requirements."
+    },
+    {
+      "name": "pjsvis--just-silo",
+      "source": "./pjsvis--just-silo",
+      "description": "Directory-based skill pattern for AI agents. Mount a silo, just harvest."
+    },
+    {
+      "name": "ux-almaz--tektonika",
+      "source": "./ux-almaz--tektonika",
+      "description": "tektonika"
+    },
+    {
+      "name": "sakaricky--pumpapp",
+      "source": "./sakaricky--pumpapp",
+      "description": "Full stack web app to manage petrol station and convenience store"
+    },
+    {
+      "name": "wendell04--pm",
+      "source": "./wendell04--pm",
+      "description": "PM"
+    },
+    {
+      "name": "chingleel17--sessionhub",
+      "source": "./chingleel17--sessionhub",
+      "description": "SessionHub"
+    },
+    {
+      "name": "charlesannibal--3dmodelgenerator",
+      "source": "./charlesannibal--3dmodelgenerator",
+      "description": "A local app that enables you to upload images and generate a 3d model."
+    },
+    {
+      "name": "sakaricky--pumpapp",
+      "source": "./sakaricky--pumpapp",
+      "description": "Full stack web app to manage petrol station and convenience store"
+    },
+    {
+      "name": "quarterssa--quarters-website",
+      "source": "./quarterssa--quarters-website",
+      "description": "Quarters-Website"
+    },
+    {
+      "name": "matthewdavi--tanstack-db-ag-grid-worker",
+      "source": "./matthewdavi--tanstack-db-ag-grid-worker",
+      "description": "a mess I made where you run wasm sqlite in a worker and it renders to ag grid "
+    },
+    {
+      "name": "n0kitz--settler7-1",
+      "source": "./n0kitz--settler7-1",
+      "description": "Settler7_1"
+    },
+    {
+      "name": "sakaricky--pumpapp",
+      "source": "./sakaricky--pumpapp",
+      "description": "Full stack web app to manage petrol station and convenience store"
+    },
+    {
+      "name": "nanami-git--maldi-nn",
+      "source": "./nanami-git--maldi-nn",
+      "description": "Deep learning tools and models for MALDI-TOF mass spectra analysis"
+    },
+    {
+      "name": "dilip90--leadbroker",
+      "source": "./dilip90--leadbroker",
+      "description": "All leads at once"
+    },
+    {
+      "name": "sakaricky--pumpapp",
+      "source": "./sakaricky--pumpapp",
+      "description": "Full stack web app to manage petrol station and convenience store"
+    },
+    {
+      "name": "sarrahgandhi--wedding",
+      "source": "./sarrahgandhi--wedding",
+      "description": "wedding"
+    },
+    {
+      "name": "appswifts--swiftsai-app",
+      "source": "./appswifts--swiftsai-app",
+      "description": "Social Media Scheduler"
+    },
+    {
+      "name": "sakaricky--pumpapp",
+      "source": "./sakaricky--pumpapp",
+      "description": "Full stack web app to manage petrol station and convenience store"
+    },
+    {
+      "name": "shimizu--r3f-webgpu-template",
+      "source": "./shimizu--r3f-webgpu-template",
+      "description": "React Three Fiber + WebGPU\u306e\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8"
+    },
+    {
+      "name": "nicolasdebras--botdiscord",
+      "source": "./nicolasdebras--botdiscord",
+      "description": "botDiscord"
+    },
+    {
+      "name": "ruzveld83--dotfiles",
+      "source": "./ruzveld83--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "jgbarberena--altura",
+      "source": "./jgbarberena--altura",
+      "description": "Altura SF"
+    },
+    {
+      "name": "chanakya-net--intelibill",
+      "source": "./chanakya-net--intelibill",
+      "description": "intelibill"
+    },
+    {
+      "name": "precisa-saude--fhir-brasil",
+      "source": "./precisa-saude--fhir-brasil",
+      "description": "Brazilian FHIR R4 toolkit \u2014 biomarker definitions, reference ranges, clinical calculators"
+    },
+    {
+      "name": "mo-101--idimikang-main",
+      "source": "./mo-101--idimikang-main",
+      "description": "IdimIkang-main"
+    },
+    {
+      "name": "lerugray--wargame-design-book",
+      "source": "./lerugray--wargame-design-book",
+      "description": "A Contemporary Guide to Wargame Design \u2014 free online book by Ray Weiss"
+    },
+    {
+      "name": "mb-bbux--react-go-workflow",
+      "source": "./mb-bbux--react-go-workflow",
+      "description": "Visual workflow builder for designing, scheduling, and monitoring automated workflows with a drag-and-drop canvas. Built with React, Go, and PostgreSQL."
+    },
+    {
+      "name": "maycolmoreno--invtics",
+      "source": "./maycolmoreno--invtics",
+      "description": "Prime"
+    },
+    {
+      "name": "taekyoleen-oss--life-matrix-flow-new",
+      "source": "./taekyoleen-oss--life-matrix-flow-new",
+      "description": "life-matrix-flow-new"
+    },
+    {
+      "name": "chaipipatmc--rehab-atlas",
+      "source": "./chaipipatmc--rehab-atlas",
+      "description": "Rehab-Atlas"
+    },
+    {
+      "name": "barkinsagan--activation-steering",
+      "source": "./barkinsagan--activation-steering",
+      "description": "Activation-Steering"
+    },
+    {
+      "name": "tschin-futschi--motordev",
+      "source": "./tschin-futschi--motordev",
+      "description": "\u57fa\u4e8eSTM32\u6d4b\u8bd5\u677f\u7684\u9a6c\u8fbe\u6d4b\u8bd5\u7528\u4e0a\u4f4d\u673a"
+    },
+    {
+      "name": "christopherlandaverde--minerio-tutor",
+      "source": "./christopherlandaverde--minerio-tutor",
+      "description": "private miniero tutor."
+    },
+    {
+      "name": "robert-kung--voice-agent-platform",
+      "source": "./robert-kung--voice-agent-platform",
+      "description": "LiveKit-based voice agent platform \u2014 profile-driven multi-agent management, visual conversation-graph orchestration, multi-model runtime"
+    },
+    {
+      "name": "d-2300--1-kiokuso-hp-lp",
+      "source": "./d-2300--1-kiokuso-hp-lp",
+      "description": "1-kiokuso-hp-lp"
+    },
+    {
+      "name": "anzisheng--spring",
+      "source": "./anzisheng--spring",
+      "description": "spring"
+    },
+    {
+      "name": "hchengit--aisecurity",
+      "source": "./hchengit--aisecurity",
+      "description": "General AI Security Layer for use with OpenClaw or other AI Agent(s) Framework"
+    },
+    {
+      "name": "gnol86--fenriq-com",
+      "source": "./gnol86--fenriq-com",
+      "description": "fenriq.com"
+    },
+    {
+      "name": "pjsvis--just-silo",
+      "source": "./pjsvis--just-silo",
+      "description": "Directory-based skill pattern for AI agents. Mount a silo, just harvest."
+    },
+    {
+      "name": "theweeezel--galavant-user-dashboard",
+      "source": "./theweeezel--galavant-user-dashboard",
+      "description": "Galavant \u2014 walk-to-earn user dashboard on Bitcoin via OPNet"
+    },
+    {
+      "name": "aazucena--ac-wedding",
+      "source": "./aazucena--ac-wedding",
+      "description": "ac_wedding"
+    },
+    {
+      "name": "jackscarter4-cmyk--claude-code",
+      "source": "./jackscarter4-cmyk--claude-code",
+      "description": "swing coach"
+    },
+    {
+      "name": "matthewdavi--tanstack-db-ag-grid-worker",
+      "source": "./matthewdavi--tanstack-db-ag-grid-worker",
+      "description": "a mess I made where you run wasm sqlite in a worker and it renders to ag grid "
+    },
+    {
+      "name": "sandy-brook-devworks-llc--sandy-brook-labs",
+      "source": "./sandy-brook-devworks-llc--sandy-brook-labs",
+      "description": "Landing site for Sandy Brook DevWorks Lab Projects"
+    },
+    {
+      "name": "jordanbmcgowen--playground-showcase",
+      "source": "./jordanbmcgowen--playground-showcase",
+      "description": "Personal landing page showcasing AI-powered web projects"
+    },
+    {
+      "name": "boris-hbx--ergouweb",
+      "source": "./boris-hbx--ergouweb",
+      "description": "ergouWeb"
+    },
+    {
+      "name": "slax-lab--slax-home",
+      "source": "./slax-lab--slax-home",
+      "description": "slax-home"
+    },
+    {
+      "name": "haryunio--law-solver",
+      "source": "./haryunio--law-solver",
+      "description": "A simple solving app for custom questions"
+    },
+    {
+      "name": "nanami-git--maldi-nn",
+      "source": "./nanami-git--maldi-nn",
+      "description": "Deep learning tools and models for MALDI-TOF mass spectra analysis"
+    },
+    {
+      "name": "sanjaysudhakar-abs--ps360",
+      "source": "./sanjaysudhakar-abs--ps360",
+      "description": "PS360"
+    },
+    {
+      "name": "han43seong--s1000d-rag-android",
+      "source": "./han43seong--s1000d-rag-android",
+      "description": "\uc644\uc804 \uc624\ud504\ub77c\uc778 \uc628\ub514\ubc14\uc774\uc2a4 RAG \uc571 \u2014 ONNX int8 \uc784\ubca0\ub529 + llama.cpp, Galaxy Tab \uc2e4\uae30\uae30 \ub3d9\uc791"
+    },
+    {
+      "name": "vinidosite7--tiotrack",
+      "source": "./vinidosite7--tiotrack",
+      "description": "TIOtrack"
+    },
+    {
+      "name": "shimizu--r3f-webgpu-template",
+      "source": "./shimizu--r3f-webgpu-template",
+      "description": "React Three Fiber + WebGPU\u306e\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8"
+    },
+    {
+      "name": "leonfpontes--senhas",
+      "source": "./leonfpontes--senhas",
+      "description": "Senhas"
+    },
+    {
+      "name": "gabinoxcreator--sttotem",
+      "source": "./gabinoxcreator--sttotem",
+      "description": "STTotem"
+    },
+    {
+      "name": "spirovanni--arcana-pulse",
+      "source": "./spirovanni--arcana-pulse",
+      "description": "Arcana Credit Union as the institution, Arcana Pulse as the consumer app, and arcanacu.org as the web home."
+    },
+    {
+      "name": "kosta-equipt--equipt-dashboard",
+      "source": "./kosta-equipt--equipt-dashboard",
+      "description": "Can be done, should be done. "
+    },
+    {
+      "name": "await-d--openawork",
+      "source": "./await-d--openawork",
+      "description": "OpenAWork"
+    },
+    {
+      "name": "mogorman-a11y--mise",
+      "source": "./mogorman-a11y--mise",
+      "description": "mise"
+    },
+    {
+      "name": "jusmejr93--surpry",
+      "source": "./jusmejr93--surpry",
+      "description": "surpry"
+    },
+    {
+      "name": "matteopolak--portfolio",
+      "source": "./matteopolak--portfolio",
+      "description": "A website for my portfolio"
+    },
+    {
+      "name": "heckspoiler--frontend",
+      "source": "./heckspoiler--frontend",
+      "description": "frontend"
+    },
+    {
+      "name": "erik27ux--storyloom",
+      "source": "./erik27ux--storyloom",
+      "description": "An app to create and share stories"
+    },
+    {
+      "name": "bobeenlee--bbl-ai-lab",
+      "source": "./bobeenlee--bbl-ai-lab",
+      "description": "bbl-ai-lab"
+    },
+    {
+      "name": "by20999--memory-gallery",
+      "source": "./by20999--memory-gallery",
+      "description": "Memory-gallery"
+    },
+    {
+      "name": "mshirel--song-history",
+      "source": "./mshirel--song-history",
+      "description": "song-history"
+    },
+    {
+      "name": "muyuq--pytots-web",
+      "source": "./muyuq--pytots-web",
+      "description": "\u9762\u5411 Python \u5f00\u53d1\u8005\u7684 TypeScript \u5b66\u4e60\u5e73\u53f0"
+    },
+    {
+      "name": "solomonsolutionsllc--solomon-solutions-web",
+      "source": "./solomonsolutionsllc--solomon-solutions-web",
+      "description": "Solomon Solutions parent company website - solomonsolutions.tech"
+    },
+    {
+      "name": "famatyyk--ctoai",
+      "source": "./famatyyk--ctoai",
+      "description": "CTOAi"
+    },
+    {
+      "name": "zilbervlad--boston-pie-academy",
+      "source": "./zilbervlad--boston-pie-academy",
+      "description": "boston-pie-academy"
+    },
+    {
+      "name": "sunmanofficial189--claude-hq",
+      "source": "./sunmanofficial189--claude-hq",
+      "description": "\ud83d\udd27 The ultimate agentic command center \u2014 a curated arsenal of GitHub repos, MCP servers, custom skills, and automation tools that Claude autonomously selects and activates based on task requirements."
+    },
+    {
+      "name": "minikot88--das",
+      "source": "./minikot88--das",
+      "description": "das"
+    },
+    {
+      "name": "gnol86--fenriq-com",
+      "source": "./gnol86--fenriq-com",
+      "description": "fenriq.com"
+    },
+    {
+      "name": "masakari3794--smec",
+      "source": "./masakari3794--smec",
+      "description": "SMEC"
+    },
+    {
+      "name": "theweeezel--galavant-user-dashboard",
+      "source": "./theweeezel--galavant-user-dashboard",
+      "description": "Galavant \u2014 walk-to-earn user dashboard on Bitcoin via OPNet"
+    },
+    {
+      "name": "pazthor--dotfiles",
+      "source": "./pazthor--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "neel-krishnaswami--nanocn",
+      "source": "./neel-krishnaswami--nanocn",
+      "description": "Tiny implementation of a CN+Fulminate-style refinement type system"
+    },
+    {
+      "name": "mrpeel--cricketbattingtracker",
+      "source": "./mrpeel--cricketbattingtracker",
+      "description": "CricketBattingTracker"
+    },
+    {
+      "name": "chonghg22--maeil-quiz-flutter",
+      "source": "./chonghg22--maeil-quiz-flutter",
+      "description": "maeil_quiz_flutter"
+    },
+    {
+      "name": "vorkosigan76--magazine-processing",
+      "source": "./vorkosigan76--magazine-processing",
+      "description": "magazine_processing"
+    },
+    {
+      "name": "punp1n--delitos-violentos-propiedad-chile",
+      "source": "./punp1n--delitos-violentos-propiedad-chile",
+      "description": "En este proyecto estudiamos los cambios de frecuencia de delitos violentos y no violentos contra la propiedad en Chile a partir de registros administrativos y encuestas de victimizaci\u00f3n."
     }
   ]
 }
