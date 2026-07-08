@@ -1,0 +1,9 @@
+{
+  "name": "ivapo--repokai",
+  "displayName": "RepoKai",
+  "description": "A viewer for own GitHub repositories with basic features - GUI and TUI application.",
+  "version": "1.0.0",
+  "author": "Ivapo",
+  "homepage": "https://github.com/Ivapo/RepoKai",
+  "skills": []
+}
