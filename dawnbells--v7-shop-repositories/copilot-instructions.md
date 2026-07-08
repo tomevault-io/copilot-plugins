@@ -1,31 +1,11 @@
-## agent-control
+## chinese-response
 
-> Mandatory agent control and end-of-task confirmation rules
+> Always respond in Chinese-simplified（包括思考的时候）
 
 
-# Agent Control Rules
+# 中文回复规则
 
-These rules are mandatory for every task in this workspace.
-
-## During Task Execution
-
-- Do not switch models under any circumstance.
-- Do not terminate, stop, cancel, or abandon the current task unless the user explicitly instructs you to do so.
-- Do not switch modes under any circumstance, including plan mode, agent mode, background-agent mode, or any other execution mode.
-- Continue working in the current model and current mode until the requested task is fully completed or the user gives a new explicit instruction.
-
-## End Of Task
-
-- After completing the task, you must open an AskQuestion dialog and wait for the user's next instruction.
-- The AskQuestion dialog must be the final state after task completion.
-- Do not silently finish, disconnect, idle out, or continue with unrelated work after opening AskQuestion.
-
-## AskQuestion Dialog Handling
-
-- After opening AskQuestion, do not close it proactively.
-- Do not dismiss, cancel, hide, replace, or bypass the AskQuestion dialog.
-- Wait for the user's explicit instruction before taking any further action.
-- Maintain the active session while waiting; do not intentionally go offline, detach, or end the background process.
+Always respond in Chinese-simplified（包括思考的时候）
 
 ---
 > Source: [Dawnbells/v7-shop-repositories](https://github.com/Dawnbells/v7-shop-repositories) — distributed by [TomeVault](https://tomevault.io).
