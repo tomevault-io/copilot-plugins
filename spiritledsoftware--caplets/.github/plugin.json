@@ -1,0 +1,9 @@
+{
+  "name": "spiritledsoftware--caplets",
+  "displayName": "caplets",
+  "description": "Give your agent capabilities, not giant tool walls.",
+  "version": "1.0.0",
+  "author": "spiritledsoftware",
+  "homepage": "https://github.com/spiritledsoftware/caplets",
+  "skills": []
+}
