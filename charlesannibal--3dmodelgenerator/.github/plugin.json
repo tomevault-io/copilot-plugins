@@ -1,0 +1,9 @@
+{
+  "name": "charlesannibal--3dmodelgenerator",
+  "displayName": "3DmodelGenerator",
+  "description": "A local app that enables you to upload images and generate a 3d model.",
+  "version": "1.0.0",
+  "author": "CharlesAnnibal",
+  "homepage": "https://github.com/CharlesAnnibal/3DmodelGenerator",
+  "skills": []
+}
