@@ -1,47 +1,43 @@
-## ai-services
+## database-conventions
 
-> Convencoes para servicos de IA e integracoes com APIs externas
+> Convencoes de banco de dados e models
 
 
-# Servicos de IA e Integracoes
+# Convencoes de Banco de Dados
 
-## AI Gateway Pattern
-- Toda comunicacao com modelos de IA passa pelo `AIGateway`
-- O Gateway abstrai o modelo especifico e oferece interface uniforme
-- Logs de uso sao registrados em `ai_usage_logs` (modelo, tokens, custo, usuario, marca)
+## Multi-tenant por Marca
+- Maioria das tabelas possui `brand_id` (unsignedBigInteger, foreign key para `brands`)
+- Indices compostos incluem `brand_id` como primeiro campo
+- Soft deletes em tabelas criticas (posts, articles, brands)
 
-## Modelos Suportados
-- **OpenAI**: GPT-4o, GPT-4o-mini, DALL-E 3
-- **Google**: Gemini 2.0 Flash, Gemini 2.0 Pro
-- **Anthropic**: Claude 3.5 Sonnet, Claude 3.5 Haiku
-- **Imagens**: DALL-E 3, Stability AI
+## Naming
+- Tabelas: plural snake_case (`posts`, `custom_metrics`, `chat_conversations`)
+- Foreign keys: singular_snake_case_id (`brand_id`, `user_id`, `post_id`)
+- Pivot tables: singular ordenado alfabeticamente (`brand_user`, `post_platform`)
+- Timestamps: sempre incluir `created_at` e `updated_at`
 
-## Contexto de Marca
-- Toda chamada de IA deve incluir o contexto da marca ativa no system prompt
-- Contexto inclui: tom de voz, segmento, publico-alvo, palavras-chave, cores
-- O metodo `Brand::getAIContext()` retorna o contexto formatado
+## Models
+- Sempre definir `$fillable` ou `$guarded`
+- Usar casts para tipos complexos (JSON, enum, datetime)
+- Definir relationships com return type hints
+- Usar Enums do PHP para status e tipos
 
-## Tratamento de Erros
-- Retry automatico com backoff exponencial (3 tentativas)
-- Fallback para modelo alternativo quando possivel
-- Log detalhado de erros com request/response
-- Rate limiting por modelo e por usuario
-
-## Streaming (Chat)
-- Usar Server-Sent Events (SSE) para streaming de respostas
-- Endpoint dedicado para streaming: `/api/chat/stream`
-- Frontend consome via `EventSource` ou `fetch` com `ReadableStream`
-
-## Integracoes de Redes Sociais
-- Cada plataforma tem seu proprio Service (`InstagramService`, `TikTokService`, etc.)
-- Publicacao sempre via Queue Jobs (nunca sincrona)
-- Tokens OAuth sao renovados automaticamente
-- Erros de publicacao geram notificacao ao usuario
-
-## Integracoes de Analytics
-- Sync de dados e feito via scheduled jobs (a cada 6h ou diariamente)
-- Dados sao normalizados para formato padrao antes de salvar
-- Manter historico de snapshots para comparacao entre periodos
+## Tabelas Principais
+- `users` - Usuarios do sistema
+- `brands` - Marcas/empresas gerenciadas
+- `brand_user` - Pivot usuario-marca com role
+- `posts` - Posts de redes sociais
+- `post_media` - Midias dos posts
+- `post_schedules` - Agendamentos
+- `chat_conversations` - Conversas de chat
+- `chat_messages` - Mensagens do chat
+- `articles` - Artigos de blog
+- `link_pages` - Paginas de bio link
+- `analytics_connections` - Conexoes com plataformas
+- `metrics_snapshots` - Dados coletados de analytics
+- `custom_metrics` - Metricas customizadas
+- `custom_metric_entries` - Entradas de metricas manuais
+- `ai_usage_logs` - Log de uso de IA
 
 ---
 > Source: [julioandolfo/mkt-privus](https://github.com/julioandolfo/mkt-privus) — distributed by [TomeVault](https://tomevault.io).
