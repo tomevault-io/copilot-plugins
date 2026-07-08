@@ -1,16 +1,33 @@
-## lint-and-checks
+## react-patterns
 
-> Run lints and formatting checks after coding; fix any issues before finishing.
+> React patterns — functional components, arrow + destructuring, hooks
 
 
-# Lint and checks after coding
+# React patterns
 
-- **After you finish implementing or editing code**, always run the project’s lint and format checks and fix any reported issues.
-- From the repo root, run:
-  - `pnpm lint` — runs ESLint and TypeScript checks in all workspace packages (api, web, shared).
-  - `pnpm format` — runs Prettier and formats the codebase (or `pnpm format:check` to only verify).
-- Fix any lint errors and apply formatting so the branch stays clean and the build stays green.
-- Do not consider the task complete until these commands succeed and any new issues introduced by your changes are resolved.
+- Use **functional components only** (no class components).
+- Use arrow function components with destructured props where applicable.
+- Define a **Props type** for each component: `Props` or `ComponentNameProps` interface.
+
+```tsx
+// ❌ Avoid
+function UserCard(props) {
+  return <div>{props.name}</div>;
+}
+
+// ✅ Prefer
+interface UserCardProps {
+  name: string;
+  onSave: () => void;
+}
+const UserCard = ({ name, onSave }: UserCardProps) => (
+  <div>{name}</div>
+);
+```
+
+- Extract reusable logic into **custom hooks** (e.g. `useAuth`, `useProducts`), not duplicated or heavy logic inside components.
+- Name components and component files in **PascalCase** when one component per file.
+- Custom hooks must start with `use` and follow Rules of Hooks (only at top level, not in conditionals).
 
 ---
 > Source: [SakaRicky/PumpApp](https://github.com/SakaRicky/PumpApp) — distributed by [TomeVault](https://tomevault.io).
