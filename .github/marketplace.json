@@ -166609,6 +166609,21 @@
       "description": "Liminate is a prose-as-syntax language designed from the human end."
     },
     {
+      "name": "steipete--nameplate",
+      "source": "./steipete--nameplate",
+      "description": "Brand every Mac in your fleet \u2014 colored frame, name tag, watermark, and connect splash as click-through overlays. Never wonder which Mac you remoted into again."
+    },
+    {
+      "name": "wassermanproductions--motion-previs-studio",
+      "source": "./wassermanproductions--motion-previs-studio",
+      "description": "Open-source desktop app for AI-film motion, depth, pose, and camera-move previsualization."
+    },
+    {
+      "name": "steipete--nameplate",
+      "source": "./steipete--nameplate",
+      "description": "Brand every Mac in your fleet \u2014 colored frame, name tag, watermark, and connect splash as click-through overlays. Never wonder which Mac you remoted into again."
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -204342,6 +204357,36 @@
       "name": "krokoko--cairn",
       "source": "./krokoko--cairn",
       "description": "AI readiness & verification toolkit \u2014 measure how ready your codebase is for autonomous AI coding   agents, and get a roadmap to autonomy. Plugins for Claude Code, Cursor, Codex."
+    },
+    {
+      "name": "mahmoudilyan--marmoui",
+      "source": "./mahmoudilyan--marmoui",
+      "description": "The AI agentic designer \u2014 open-source React design system + MCP that lets Claude, Codex, Cursor & Gemini build production UI in minutes. No AI slop."
+    },
+    {
+      "name": "mahmoudilyan--marmoui",
+      "source": "./mahmoudilyan--marmoui",
+      "description": "The AI agentic designer \u2014 open-source React design system + MCP that lets Claude, Codex, Cursor & Gemini build production UI in minutes. No AI slop."
+    },
+    {
+      "name": "mahmoudilyan--marmoui",
+      "source": "./mahmoudilyan--marmoui",
+      "description": "The AI agentic designer \u2014 open-source React design system + MCP that lets Claude, Codex, Cursor & Gemini build production UI in minutes. No AI slop."
+    },
+    {
+      "name": "jungjaehoon-lifegamez--mama",
+      "source": "./jungjaehoon-lifegamez--mama",
+      "description": "Local-first operating memory for AI coding agents - Claude Code, Codex, and any MCP client. Tracks decisions and their evolution. SQLite + on-device embeddings, no cloud."
+    },
+    {
+      "name": "mahmoudilyan--marmoui",
+      "source": "./mahmoudilyan--marmoui",
+      "description": "The AI agentic designer \u2014 open-source React design system + MCP that lets Claude, Codex, Cursor & Gemini build production UI in minutes. No AI slop."
+    },
+    {
+      "name": "jungjaehoon-lifegamez--mama",
+      "source": "./jungjaehoon-lifegamez--mama",
+      "description": "Local-first operating memory for AI coding agents - Claude Code, Codex, and any MCP client. Tracks decisions and their evolution. SQLite + on-device embeddings, no cloud."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -260284,6 +260329,11 @@
       "description": "windows\u684c\u9762\u5e94\u7528\uff1a\u5f55\u5236\u7cfb\u7edf\u58f0\u97f3\uff0c\u672c\u5730ASR\u8f6c\u5f55\uff0cLLM\u751f\u6210\u603b\u7ed3"
     },
     {
+      "name": "ralbuque--pynkaro",
+      "source": "./ralbuque--pynkaro",
+      "description": "Assistente Pynkaro das Gal\u00e1xias"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -264477,6 +264527,56 @@
       "name": "jackblk--dota-bootbreaker-auto",
       "source": "./jackblk--dota-bootbreaker-auto",
       "description": "auto play the minigame bootbreaker in dota2"
+    },
+    {
+      "name": "chemistrywow31--s-team",
+      "source": "./chemistrywow31--s-team",
+      "description": " Not one AI making a deck \u2014 a whole studio that ships it. Sources verified, layouts machine-gated (no \"trust me, looks fine\"), styles are reusable contracts. HTML \u00b7 PPTX \u00b7 PDF \u00b7 Web POC."
+    },
+    {
+      "name": "schoppllc--terminalcontrol",
+      "source": "./schoppllc--terminalcontrol",
+      "description": "A grid of real terminals in one browser window \u2014 run a Claude in every box; when one needs you, it glows, dings, and jumps to the top bar."
+    },
+    {
+      "name": "hmakt99--openhearing",
+      "source": "./hmakt99--openhearing",
+      "description": "Free, open-source hearing assistance for Android \u2014 take a hearing check (or enter professional results), build a per-ear sound profile, and amplify speech in real time through any earbuds. Presets, pr"
+    },
+    {
+      "name": "zesty0wl--mac-performance-monitor",
+      "source": "./zesty0wl--mac-performance-monitor",
+      "description": "A diagnostic performance logging utility for macOS: logs CPU, memory, GPU, network, and battery from the menu bar to help detect and diagnose performance issues. Free, open source, no telemetry."
+    },
+    {
+      "name": "mark3labs--msbd",
+      "source": "./mark3labs--msbd",
+      "description": "Microsandbox REST host \u2014 fast, hardware-isolated microVMs over HTTP"
+    },
+    {
+      "name": "chemistrywow31--s-team",
+      "source": "./chemistrywow31--s-team",
+      "description": " Not one AI making a deck \u2014 a whole studio that ships it. Sources verified, layouts machine-gated (no \"trust me, looks fine\"), styles are reusable contracts. HTML \u00b7 PPTX \u00b7 PDF \u00b7 Web POC."
+    },
+    {
+      "name": "yaoyue123--viddub",
+      "source": "./yaoyue123--viddub",
+      "description": "YouTube \u89c6\u9891\u81ea\u52a8\u4e2d\u6587\u914d\u97f3 + \u591a\u5e73\u53f0\u53d1\u5e03\u5de5\u5177 \u2014 \u4e0b\u8f7d\u3001\u8f6c\u5199\u3001\u7ffb\u8bd1\u3001\u914d\u97f3\u3001\u5408\u6210\u3001\u53d1\u5e03\u5168\u81ea\u52a8\u7ba1\u7ebf\u3002Automatically dub YouTube videos into Chinese and publish to Bilibili/Douyin/Kuaishou \u2014 end-to-end pipeline: download, STT, translate, TTS, compose,"
+    },
+    {
+      "name": "myatsumon253--charm-and-crumb",
+      "source": "./myatsumon253--charm-and-crumb",
+      "description": "Customized clay jewelry website"
+    },
+    {
+      "name": "alex-j4096--branch-scribe",
+      "source": "./alex-j4096--branch-scribe",
+      "description": "BranchScribe \u662f\u4e00\u4e2a\u57fa\u4e8eLLM\u7684\u975e\u7ebf\u6027\u6545\u4e8b\u521b\u4f5c\u5de5\u5177"
+    },
+    {
+      "name": "jade2-fff--mineradio-for-linux",
+      "source": "./jade2-fff--mineradio-for-linux",
+      "description": "Mineradio \u7684 Linux \u79fb\u690d\u7248 \u2014 \u6c89\u6d78\u5f0f\u684c\u9762\u97f3\u4e50\u64ad\u653e\u5668\u3002\u6574\u7406\u6e90\u7801\u67b6\u6784\uff0c\u9002\u5408\u65b0\u4ebavibecoding\uff0c\u5b9e\u65f6\u8ddf\u8fdb\u7248\u672c\u66f4\u65b0"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -384682,6 +384782,161 @@
       "name": "rsaeta--slay-the-spire-2-overlay",
       "source": "./rsaeta--slay-the-spire-2-overlay",
       "description": "Chrome extension that identifies Slay the Spire 2 game elements on YouTube via local ML inference"
+    },
+    {
+      "name": "nvtuyen6102000-ai--newproject-lakemacquari",
+      "source": "./nvtuyen6102000-ai--newproject-lakemacquari",
+      "description": "NewProject_LakeMacquari"
+    },
+    {
+      "name": "xwm1782379277--vibecode-01",
+      "source": "./xwm1782379277--vibecode-01",
+      "description": "VibeCode 01 - \u524d\u7aef + \u540e\u7aef\u9879\u76ee"
+    },
+    {
+      "name": "cedie99--zentra",
+      "source": "./cedie99--zentra",
+      "description": "Zentra analyzes any GitHub repository and tells you whether your code is ready for production. Paste a repo URL, get a health score, security findings, architecture issues, and an AI-written verdict \u2014"
+    },
+    {
+      "name": "medere-tech--agent-hubspot-liste-top-cliqueur",
+      "source": "./medere-tech--agent-hubspot-liste-top-cliqueur",
+      "description": "Cet agent permet de r\u00e9cup\u00e8rer toutes les campagnes email des 90 derniers jours + les clics par contact et la cr\u00e9ation de liste HubSpot depuis l'app."
+    },
+    {
+      "name": "king84-web--almusanze-voting-system",
+      "source": "./king84-web--almusanze-voting-system",
+      "description": "Full-Stack ALM Voting System"
+    },
+    {
+      "name": "tonyfred-code--todo-app",
+      "source": "./tonyfred-code--todo-app",
+      "description": "todo-app"
+    },
+    {
+      "name": "tacchinimd-dot---tacchini-one-demo",
+      "source": "./tacchinimd-dot---tacchini-one-demo",
+      "description": "GLOBAL_HUB"
+    },
+    {
+      "name": "roujinwin--diypc",
+      "source": "./roujinwin--diypc",
+      "description": "DiyPC"
+    },
+    {
+      "name": "tushar-454--pmjob",
+      "source": "./tushar-454--pmjob",
+      "description": "pmjob"
+    },
+    {
+      "name": "sweb--agent-sandbox",
+      "source": "./sweb--agent-sandbox",
+      "description": "agent-sandbox"
+    },
+    {
+      "name": "georgebnunes--supabase-auth-poc",
+      "source": "./georgebnunes--supabase-auth-poc",
+      "description": "This is a proof of concept using Supabase - specially using Auth module"
+    },
+    {
+      "name": "arstrongdv--09-auth",
+      "source": "./arstrongdv--09-auth",
+      "description": "09-auth"
+    },
+    {
+      "name": "swufz--moblendz",
+      "source": "./swufz--moblendz",
+      "description": "MoBlendz"
+    },
+    {
+      "name": "harqian--claude-tutor",
+      "source": "./harqian--claude-tutor",
+      "description": "Claude Code plugin: a self-tutoring system with socratic, drill, and exam-sim modes"
+    },
+    {
+      "name": "ashish-maharana--shabridham-shala-vyara-site",
+      "source": "./ashish-maharana--shabridham-shala-vyara-site",
+      "description": "shabridham-shala-vyara-site"
+    },
+    {
+      "name": "mgccoin--oneandonlylocksmith",
+      "source": "./mgccoin--oneandonlylocksmith",
+      "description": "one and only locksmith"
+    },
+    {
+      "name": "jtgiron--portfolio",
+      "source": "./jtgiron--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "imp-tea--webgpu-particle-sandbox",
+      "source": "./imp-tea--webgpu-particle-sandbox",
+      "description": "A gpu based particle simulation."
+    },
+    {
+      "name": "diskc912--startupplatform",
+      "source": "./diskc912--startupplatform",
+      "description": "this is my startup starting platform just like y combinator let's see if it get any users"
+    },
+    {
+      "name": "tomyongji--tomyongji-back",
+      "source": "./tomyongji--tomyongji-back",
+      "description": "\ud83e\udee7 \uc6b0\ub9ac \ud559\uacfc \ud559\uc0dd\ud68c\ube44\uac00 \uad81\uae08\ud558\uba74 \ud22c\uba85\uc9c0"
+    },
+    {
+      "name": "ericki-haras--ai-book-club",
+      "source": "./ericki-haras--ai-book-club",
+      "description": "ai-book-club"
+    },
+    {
+      "name": "dewblack--terminal-capitalism",
+      "source": "./dewblack--terminal-capitalism",
+      "description": "terminal-capitalism"
+    },
+    {
+      "name": "medere-tech--agent-hubspot-liste-top-cliqueur",
+      "source": "./medere-tech--agent-hubspot-liste-top-cliqueur",
+      "description": "Cet agent permet de r\u00e9cup\u00e8rer toutes les campagnes email des 90 derniers jours + les clics par contact et la cr\u00e9ation de liste HubSpot depuis l'app."
+    },
+    {
+      "name": "parzival048--thechillexfinal",
+      "source": "./parzival048--thechillexfinal",
+      "description": "thechillexfinal"
+    },
+    {
+      "name": "mao-2001--map-image-creation",
+      "source": "./mao-2001--map-image-creation",
+      "description": "MAP_Image-Creation"
+    },
+    {
+      "name": "woxqaq--llmwiki",
+      "source": "./woxqaq--llmwiki",
+      "description": "llmwiki"
+    },
+    {
+      "name": "tonyfred-code--todo-app",
+      "source": "./tonyfred-code--todo-app",
+      "description": "todo-app"
+    },
+    {
+      "name": "jay-singh-06--accredian-clone",
+      "source": "./jay-singh-06--accredian-clone",
+      "description": "accredian-clone"
+    },
+    {
+      "name": "tugaykdmr--sunfusion",
+      "source": "./tugaykdmr--sunfusion",
+      "description": "sunfusion"
+    },
+    {
+      "name": "hiroyukifuruno--katana-ast-lint",
+      "source": "./hiroyukifuruno--katana-ast-lint",
+      "description": "katana-ast-lint"
+    },
+    {
+      "name": "hugoh--tmhi-cli",
+      "source": "./hugoh--tmhi-cli",
+      "description": "CLI to control and monitor T-Mobile Home Internet 5G gateways (Nokia, Arcadyan) - reboot, status, and signal strength"
     }
   ]
 }
