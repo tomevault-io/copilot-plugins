@@ -1,0 +1,9 @@
+{
+  "name": "startvibecoding--mothx",
+  "displayName": "mothx",
+  "description": "Ultra cost-effective terminal AI coding assistant with excellent token cache hit rate. Built in ~10K lines of Go, it uses DeepSeek by default with multiple modes and sandbox.",
+  "version": "1.0.0",
+  "author": "startvibecoding",
+  "homepage": "https://github.com/startvibecoding/mothx",
+  "skills": []
+}
