@@ -4,7 +4,7 @@
   "repo": "pickle-point",
   "description": "A pickleball tournament management app",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JohnPevien/pickle-point",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T12:15:53Z"
+  "distributed_at": "2026-07-08T14:18:55Z"
 }
