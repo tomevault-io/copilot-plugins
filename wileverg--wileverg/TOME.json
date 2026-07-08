@@ -4,7 +4,7 @@
   "repo": "wileverg",
   "description": "Building in public \ud83d\ude80",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wileverg/wileverg",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T06:42:25Z"
+  "distributed_at": "2026-07-08T07:28:13Z"
 }
