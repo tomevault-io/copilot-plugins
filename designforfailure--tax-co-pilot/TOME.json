@@ -4,7 +4,7 @@
   "repo": "Tax_Co-Pilot",
   "description": "Tax_Co-Pilot is a locally hosted, privacy-first personal tax software system designed for auditability and reproducibility.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DesignForFailure/Tax_Co-Pilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T14:26:41Z"
+  "distributed_at": "2026-07-08T18:02:13Z"
 }
