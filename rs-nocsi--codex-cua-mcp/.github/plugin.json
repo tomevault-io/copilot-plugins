@@ -1,0 +1,9 @@
+{
+  "name": "rs-nocsi--codex-cua-mcp",
+  "displayName": "codex-cua-mcp",
+  "description": "MCP server wrapping Codex Computer Use \u2014 bring Codex Computer Use to any MCP-compatible agent.",
+  "version": "1.0.0",
+  "author": "RS-Nocsi",
+  "homepage": "https://github.com/RS-Nocsi/codex-cua-mcp",
+  "skills": []
+}
