@@ -1,0 +1,9 @@
+{
+  "name": "slibbinas--tinymakerwifi",
+  "displayName": "TinyMakerWifi",
+  "description": "Modified original TinyMaker code, that enables model upload directly from PrusaSlicer via WiFi",
+  "version": "1.0.0",
+  "author": "slibbinas",
+  "homepage": "https://github.com/slibbinas/TinyMakerWifi",
+  "skills": []
+}
