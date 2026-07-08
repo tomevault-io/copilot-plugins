@@ -4,7 +4,7 @@
   "repo": "Riven",
   "description": "Study smarter with AI flashcards, notes, and mock exams. The Student OS built to help you win school.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abmbodj/Riven",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T16:14:24Z"
+  "distributed_at": "2026-07-08T18:24:23Z"
 }
