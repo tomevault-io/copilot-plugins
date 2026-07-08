@@ -4,7 +4,7 @@
   "repo": "rinku",
   "description": "where the link is the proof",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/henry-wrightman/rinku",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T16:15:41Z"
+  "distributed_at": "2026-07-08T16:26:58Z"
 }
