@@ -4,7 +4,7 @@
   "repo": "tweet-sentiment-analysis",
   "description": "A Natural Language Processing (NLP) project focused on Exploratory Data Analysis (EDA) and sentiment classification of Twitter data using Machine Learning.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LukeSantossz/tweet-sentiment-analysis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T12:13:33Z"
+  "distributed_at": "2026-07-08T14:15:24Z"
 }
