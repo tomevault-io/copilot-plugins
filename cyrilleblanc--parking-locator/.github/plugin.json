@@ -1,0 +1,9 @@
+{
+  "name": "cyrilleblanc--parking-locator",
+  "displayName": "parking-locator",
+  "description": "An open source interactive map to help you find and choose a parking spot in Grenoble, France. It shows real-time occupancy for covered car parks and tariff zones for street parking.",
+  "version": "1.0.0",
+  "author": "CyrilLeblanc",
+  "homepage": "https://github.com/CyrilLeblanc/parking-locator",
+  "skills": []
+}
