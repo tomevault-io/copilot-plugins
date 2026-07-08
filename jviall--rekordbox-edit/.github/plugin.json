@@ -1,0 +1,9 @@
+{
+  "name": "jviall--rekordbox-edit",
+  "displayName": "rekordbox-edit",
+  "description": "A command-line tool for bulk operations on your Rekordbox library",
+  "version": "1.0.0",
+  "author": "jviall",
+  "homepage": "https://github.com/jviall/rekordbox-edit",
+  "skills": []
+}
