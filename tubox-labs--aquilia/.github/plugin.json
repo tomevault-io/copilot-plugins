@@ -1,0 +1,9 @@
+{
+  "name": "tubox-labs--aquilia",
+  "displayName": "Aquilia",
+  "description": "The Python framework for teams building production APIs. Write controllers and services. Aquilia discovers everything, manages its own architecture, and deploys itself.",
+  "version": "1.0.0",
+  "author": "tubox-labs",
+  "homepage": "https://github.com/tubox-labs/Aquilia",
+  "skills": []
+}
