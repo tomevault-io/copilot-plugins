@@ -1,113 +1,72 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## auddio-addon-sdk
 
-> Use Bun instead of Node.js, npm, pnpm, or vite.
+> **Generated:** 2026-02-16
 
+# AUDDIO ADDON SDK (TypeScript) - PROJECT KNOWLEDGE BASE
 
-Default to using Bun instead of Node.js.
+**Generated:** 2026-02-16
+**Repo:** Separate GitHub repo
+**Branch:** main
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Use `bunx <package> <command>` instead of `npx <package> <command>`
-- Bun automatically loads .env, so don't use dotenv.
+## OVERVIEW
 
-## APIs
+TypeScript SDK for building Audiio addons. Provides types, interfaces, and utilities for creating addon servers that follow the Stremio addon protocol.
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+## TECH STACK
 
-## Testing
+| Layer | Technology | Notes |
+|-------|------------|-------|
+| Language | TypeScript | Type definitions |
+| Runtime | Node.js/Bun | Universal |
+| Protocol | Stremio Addon | Types and interfaces |
 
-Use `bun test` to run tests.
+## STRUCTURE
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
-
-test("hello world", () => {
-  expect(1).toBe(1);
-});
+```
+packages/auddio-addon-sdk/
+├── src/
+│   ├── types/          # TypeScript type definitions
+│   ├── protocol/       # Stremio protocol types
+│   ├── addon/          # Addon builder utilities
+│   └── index.ts        # Main exports
+├── package.json
+└── tsconfig.json
 ```
 
-## Frontend
+## EXPORTS
 
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+- `AddonManifest` - Manifest type definition
+- `AddonCatalog` - Catalog types
+- `AddonStream` - Stream types
+- `createAddon()` - Addon factory function
 
-Server:
+## ⚠️ GIT RULES (CRITICAL)
 
-```ts#index.ts
-import index from "./index.html"
+**This repo is INDEPENDENT. It has its OWN `.git` directory.**
 
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
+### Rules:
+1. **NEVER remove the `.git` folder** - This destroys connection to GitHub
+2. **NEVER commit to a different repo** - Only commit within this directory
+3. **Before committing, verify you're in the right repo**:
+   ```bash
+   cd packages/auddio-addon-sdk && git status
+   ```
 
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+### Related Repos (DO NOT MIX):
+| Directory | GitHub Repo |
+|-----------|-------------|
+| `app/` | https://github.com/ketanchoyal/audiio-app |
+| `addons/audiobook-scraper/` | Separate repo |
+| `addons/audiobook-unified-addon/` | Separate repo |
+| `addons/debrid-stream/` | Separate repo |
+| `packages/auddio-addon-sdk/` | **THIS REPO** |
+| `packages/audioio_addon_sdk_dart/` | Separate repo |
 
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
+## NOTES
 
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-import { createRoot } from "react-dom/client";
-
-// import .css files directly and it works
-import './index.css';
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
-
-```sh
-bun --hot ./index.ts
-```
-
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
+- Published to npm as `@audiio/addon-sdk`
+- Used by all addon packages
+- Keep in sync with Dart SDK (audioio_addon_sdk_dart)
 
 ---
 > Source: [ketanchoyal/auddio-addon-sdk](https://github.com/ketanchoyal/auddio-addon-sdk) — distributed by [TomeVault](https://tomevault.io).
