@@ -1,43 +1,108 @@
-## database-performance
+## database
 
-> - **NEVER** use `skip`/`offset` with `prisma.response.count()` - this causes expensive subqueries with OFFSET
+> >
 
-# Database Performance & Prisma Best Practices
 
-## Critical Performance Rules
+# Formbricks Database Schema Reference
 
-### Response Count Queries
-- **NEVER** use `skip`/`offset` with `prisma.response.count()` - this causes expensive subqueries with OFFSET
-- Always use only `where` clauses for count operations: `prisma.response.count({ where: { ... } })`
-- For pagination, separate count queries from data queries
-- Reference: [apps/web/lib/response/service.ts](mdc:apps/web/lib/response/service.ts) line 654-686
+This rule provides a reference to the Formbricks database structure. For the most up-to-date and complete schema definitions, please refer to the schema.prisma file directly.
 
-### Prisma Query Optimization
-- Use proper indexes defined in [packages/database/schema.prisma](mdc:packages/database/schema.prisma)
-- Leverage existing indexes: `@@index([surveyId, createdAt])`, `@@index([createdAt])`
-- Use cursor-based pagination for large datasets instead of offset-based
-- Cache frequently accessed data using React Cache and custom cache tags
+## Database Overview
 
-### Date Range Filtering
-- When filtering by `createdAt`, always use indexed queries
-- Combine with `surveyId` for optimal performance: `{ surveyId, createdAt: { gte: start, lt: end } }`
-- Avoid complex WHERE clauses that can't utilize indexes
+Formbricks uses PostgreSQL with Prisma ORM. The schema is designed for multi-tenancy with strong data isolation between organizations.
 
-### Count vs Data Separation
-- Always separate count queries from data fetching queries
-- Use `Promise.all()` to run count and data queries in parallel
-- Example pattern from [apps/web/modules/api/v2/management/responses/lib/response.ts](mdc:apps/web/modules/api/v2/management/responses/lib/response.ts):
-```typescript
-const [responses, totalCount] = await Promise.all([
-  prisma.response.findMany(query),
-  prisma.response.count({ where: whereClause }),
-]);
+### Core Hierarchy
+
+```
+Organization
+└── Project
+    └── Environment (production/development)
+        ├── Survey
+        ├── Contact
+        ├── ActionClass
+        └── Integration
 ```
 
-### Monitoring & Debugging
-- Monitor AWS RDS Performance Insights for problematic queries
-- Look for queries with OFFSET in count operations - these indicate performance issues
-- Use proper error handling with `DatabaseError` for Prisma exceptions
+## Schema Reference
+
+For the complete and up-to-date database schema, please refer to:
+
+- Main schema: `packages/database/schema.prisma`
+- JSON type definitions: `packages/database/json-types.ts`
+
+The schema.prisma file contains all model definitions, relationships, enums, and field types. The json-types.ts file contains TypeScript type definitions for JSON fields.
+
+## Data Access Patterns
+
+### Multi-tenancy
+
+- All data is scoped by Organization
+- Environment-level isolation for surveys and contacts
+- Project-level grouping for related surveys
+
+### Soft Deletion
+
+Some models use soft deletion patterns:
+
+- Check `isActive` fields where present
+- Use proper filtering in queries
+
+### Cascading Deletes
+
+Configured cascade relationships:
+
+- Organization deletion cascades to all child entities
+- Survey deletion removes responses, displays, triggers
+- Contact deletion removes attributes and responses
+
+## Common Query Patterns
+
+### Survey with Responses
+
+```typescript
+// Include response count and latest responses
+const survey = await prisma.survey.findUnique({
+  where: { id: surveyId },
+  include: {
+    responses: {
+      take: 10,
+      orderBy: { createdAt: "desc" },
+    },
+    _count: {
+      select: { responses: true },
+    },
+  },
+});
+```
+
+### Environment Scoping
+
+```typescript
+// Always scope by environment
+const surveys = await prisma.survey.findMany({
+  where: {
+    environmentId: environmentId,
+    // Additional filters...
+  },
+});
+```
+
+### Contact with Attributes
+
+```typescript
+const contact = await prisma.contact.findUnique({
+  where: { id: contactId },
+  include: {
+    attributes: {
+      include: {
+        attributeKey: true,
+      },
+    },
+  },
+});
+```
+
+This schema supports Formbricks' core functionality: multi-tenant survey management, user targeting, response collection, and analysis, all while maintaining strict data isolation and security.
 
 ---
 > Source: [SadaqJafarHussain/NUST-Forms-Builder](https://github.com/SadaqJafarHussain/NUST-Forms-Builder) — distributed by [TomeVault](https://tomevault.io).
