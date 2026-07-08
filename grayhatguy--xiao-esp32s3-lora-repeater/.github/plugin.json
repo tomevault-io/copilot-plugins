@@ -1,0 +1,9 @@
+{
+  "name": "grayhatguy--xiao-esp32s3-lora-repeater",
+  "displayName": "Xiao-esp32s3-lora-repeater",
+  "description": "Crossband lora repeater bridge between public Mestastic and Meshcore platforms",
+  "version": "1.0.0",
+  "author": "GrayHatGuy",
+  "homepage": "https://github.com/GrayHatGuy/Xiao-esp32s3-lora-repeater",
+  "skills": []
+}
