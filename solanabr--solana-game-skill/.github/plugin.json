@@ -1,0 +1,14 @@
+{
+  "name": "solanabr--solana-game-skill",
+  "displayName": "solana-game-skill",
+  "description": "Claude Code skills for C#, Solana Unity SDK, Solana Mobile and Playsolana Unity SDK.",
+  "version": "1.0.0",
+  "author": "solanabr",
+  "homepage": "https://github.com/solanabr/solana-game-skill",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
