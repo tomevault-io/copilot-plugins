@@ -4,7 +4,7 @@
   "repo": "addyosmani-agent-skills-zh",
   "description": "\u672c\u4ed3\u5e93\u662f addyosmani/agent-skills \u7684\u7b80\u4f53\u4e2d\u6587\u672c\u5730\u5316\u7248\u672c\u3002",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -59,5 +59,5 @@
   ],
   "source_url": "https://github.com/vinvcn/addyosmani-agent-skills-zh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-05T00:31:20Z"
+  "distributed_at": "2026-07-08T04:36:50Z"
 }
