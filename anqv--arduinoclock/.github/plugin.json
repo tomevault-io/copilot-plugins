@@ -1,0 +1,9 @@
+{
+  "name": "anqv--arduinoclock",
+  "displayName": "ArduinoClock",
+  "description": "Arduino Mega 2560 digital clock with alarm \u2014 DS3231 RTC, MAX7219 8-digit display, 4 buttons, active buzzer",
+  "version": "1.0.0",
+  "author": "Anqv",
+  "homepage": "https://github.com/Anqv/ArduinoClock",
+  "skills": []
+}
