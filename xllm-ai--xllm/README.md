@@ -7,11 +7,11 @@ A high-performance inference engine for LLM, VLM, DiT and REC models, optimized 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xLLM-AI/xllm](https://github.com/xLLM-AI/xllm).
+Original source: `CLAUDE.md` in [xLLM-AI/xllm](https://github.com/xLLM-AI/xllm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
