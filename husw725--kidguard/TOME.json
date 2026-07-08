@@ -4,7 +4,7 @@
   "repo": "KidGuard",
   "description": "\u5c0f\u670b\u53cb\u505a\u9898\u89e3\u9501\u624b\u673a",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/husw725/KidGuard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T11:36:16Z"
+  "distributed_at": "2026-07-08T17:34:08Z"
 }
