@@ -1,0 +1,28 @@
+# procyon-park
+
+> Tome by [chazu](https://github.com/chazu/procyon-park) — distributed by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [chazu/procyon-park](https://github.com/chazu/procyon-park).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [chazu/procyon-park](https://github.com/chazu/procyon-park) — a repo with 0+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install chazu/procyon-park
+```
+Source: [github.com/chazu/procyon-park](https://github.com/chazu/procyon-park).
+
+<!-- genome:t-i-s -->
