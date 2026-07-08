@@ -1,0 +1,9 @@
+{
+  "name": "storagesdk--storagesdk",
+  "displayName": "storagesdk",
+  "description": "A unified TypeScript SDK for storage with first-class support for snapshotting, forking across Tigris, Amazon S3, Cloudflare R2, GCS, Azure Blob, Vercel Blob and many more.",
+  "version": "1.0.0",
+  "author": "storagesdk",
+  "homepage": "https://github.com/storagesdk/storagesdk",
+  "skills": []
+}
