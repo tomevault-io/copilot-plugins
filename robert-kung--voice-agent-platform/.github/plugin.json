@@ -1,0 +1,9 @@
+{
+  "name": "robert-kung--voice-agent-platform",
+  "displayName": "voice-agent-platform",
+  "description": "LiveKit-based voice agent platform \u2014 profile-driven multi-agent management, visual conversation-graph orchestration, multi-model runtime",
+  "version": "1.0.0",
+  "author": "Robert-Kung",
+  "homepage": "https://github.com/Robert-Kung/voice-agent-platform",
+  "skills": []
+}
