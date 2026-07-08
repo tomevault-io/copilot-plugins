@@ -1,0 +1,9 @@
+{
+  "name": "iptoux--localvoice",
+  "displayName": "localvoice",
+  "description": "Offline-first desktop voice dictation app with local Whisper transcription, custom dictionary, and zero telemetry.",
+  "version": "1.0.0",
+  "author": "iptoux",
+  "homepage": "https://github.com/iptoux/localvoice",
+  "skills": []
+}
