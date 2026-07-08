@@ -4,7 +4,7 @@
   "repo": "magazine_processing",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Vorkosigan76/magazine_processing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T10:32:52Z"
+  "distributed_at": "2026-07-08T12:29:07Z"
 }
