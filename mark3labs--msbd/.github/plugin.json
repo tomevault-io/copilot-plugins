@@ -1,0 +1,9 @@
+{
+  "name": "mark3labs--msbd",
+  "displayName": "msbd",
+  "description": "Microsandbox REST host \u2014 fast, hardware-isolated microVMs over HTTP",
+  "version": "1.0.0",
+  "author": "mark3labs",
+  "homepage": "https://github.com/mark3labs/msbd",
+  "skills": []
+}
