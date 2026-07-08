@@ -4,7 +4,7 @@
   "repo": "maldi-nn",
   "description": "Deep learning tools and models for MALDI-TOF mass spectra analysis",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nanami-git/maldi-nn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T09:44:48Z"
+  "distributed_at": "2026-07-08T10:10:40Z"
 }
