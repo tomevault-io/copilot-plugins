@@ -1,0 +1,9 @@
+{
+  "name": "matteodante--portfolio-cockpit",
+  "displayName": "portfolio-cockpit",
+  "description": "Interactive 3D cockpit portfolio: fly between planets that open CV sections, with a streaming AI co-pilot. Vanilla Three.js + Next.js 16. MIT.",
+  "version": "1.0.0",
+  "author": "matteodante",
+  "homepage": "https://github.com/matteodante/portfolio-cockpit",
+  "skills": []
+}
