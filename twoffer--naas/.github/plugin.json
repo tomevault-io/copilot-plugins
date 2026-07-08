@@ -1,0 +1,9 @@
+{
+  "name": "twoffer--naas",
+  "displayName": "naas",
+  "description": "Normalized Adaptive Access System - Enterprise IAM modernization platform bridging LDAP, SAML, and OIDC with unified risk-based access control. Normalize once. Secure everywhere.",
+  "version": "1.0.0",
+  "author": "twoffer",
+  "homepage": "https://github.com/twoffer/naas",
+  "skills": []
+}
