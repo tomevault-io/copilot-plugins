@@ -1,0 +1,9 @@
+{
+  "name": "prekzursil--swfoc-mod-menu",
+  "displayName": "SWFOC-Mod-Menu",
+  "description": "Profile-driven SWFOC trainer/editor for base game, AOTR, and ROE with launch-context detection, save tooling, and calibration-first runtime reliability.",
+  "version": "1.0.0",
+  "author": "Prekzursil",
+  "homepage": "https://github.com/Prekzursil/SWFOC-Mod-Menu",
+  "skills": []
+}
