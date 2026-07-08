@@ -1,0 +1,9 @@
+{
+  "name": "not-elm--orzma",
+  "displayName": "orzma",
+  "description": "A terminal emulator that can render webviews directly inside the terminal, with built-in tmux integration.",
+  "version": "1.0.0",
+  "author": "not-elm",
+  "homepage": "https://github.com/not-elm/orzma",
+  "skills": []
+}
