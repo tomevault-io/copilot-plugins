@@ -4,7 +4,7 @@
   "repo": "agent-hubspot-liste-top-cliqueur",
   "description": "Cet agent permet de r\u00e9cup\u00e8rer toutes les campagnes email des 90 derniers jours + les clics par contact et la cr\u00e9ation de liste HubSpot depuis l'app.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/medere-tech/agent-hubspot-liste-top-cliqueur",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T02:33:12Z"
+  "distributed_at": "2026-07-08T02:47:31Z"
 }
