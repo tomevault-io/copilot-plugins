@@ -1,0 +1,9 @@
+{
+  "name": "jopsis--streamvault-iptv-plugin-hap",
+  "displayName": "StreamVault-IPTV-Plugin-HaP",
+  "description": "HaP packages AceServe and HTTPAceProxy into an Android APK for StreamVault and standalone IPTV players, exposing AceStream M3U/EPG playlists for local, LAN, and Cast playback.",
+  "version": "1.0.0",
+  "author": "jopsis",
+  "homepage": "https://github.com/jopsis/StreamVault-IPTV-Plugin-HaP",
+  "skills": []
+}
