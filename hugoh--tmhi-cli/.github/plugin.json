@@ -1,0 +1,9 @@
+{
+  "name": "hugoh--tmhi-cli",
+  "displayName": "tmhi-cli",
+  "description": "CLI to control and monitor T-Mobile Home Internet 5G gateways (Nokia, Arcadyan) - reboot, status, and signal strength",
+  "version": "1.0.0",
+  "author": "hugoh",
+  "homepage": "https://github.com/hugoh/tmhi-cli",
+  "skills": []
+}
