@@ -4,7 +4,7 @@
   "repo": "ic-siwa",
   "description": "SIWA, Sign in with Avalanche for ICP, the Internet Computer. Build cross chain Avalanche apps on ICP!",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/irken-empire/ic-siwa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T15:34:20Z"
+  "distributed_at": "2026-07-08T16:05:18Z"
 }
