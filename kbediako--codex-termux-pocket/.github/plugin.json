@@ -1,0 +1,9 @@
+{
+  "name": "kbediako--codex-termux-pocket",
+  "displayName": "codex-termux-pocket",
+  "description": "Codex CLI tweaked for Android/Termux (self-update + build version)",
+  "version": "1.0.0",
+  "author": "Kbediako",
+  "homepage": "https://github.com/Kbediako/codex-termux-pocket",
+  "skills": []
+}
