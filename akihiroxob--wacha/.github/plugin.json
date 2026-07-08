@@ -1,9 +1,9 @@
 {
   "name": "akihiroxob--wacha",
   "displayName": "wacha",
-  "description": "wacha",
+  "description": "Worker Aggregation and Control Hub for Agents",
   "version": "1.0.0",
   "author": "akihiroxob",
-  "homepage": "https://tomevault.io/claim/akihiroxob",
+  "homepage": "https://github.com/akihiroxob/wacha",
   "skills": []
 }
