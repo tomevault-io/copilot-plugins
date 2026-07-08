@@ -1,0 +1,9 @@
+{
+  "name": "zesty0wl--mac-performance-monitor",
+  "displayName": "mac-performance-monitor",
+  "description": "A diagnostic performance logging utility for macOS: logs CPU, memory, GPU, network, and battery from the menu bar to help detect and diagnose performance issues. Free, open source, no telemetry.",
+  "version": "1.0.0",
+  "author": "Zesty0wl",
+  "homepage": "https://github.com/Zesty0wl/mac-performance-monitor",
+  "skills": []
+}
