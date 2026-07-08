@@ -1,0 +1,44 @@
+{
+  "name": "ai_learn_project",
+  "owner": "Earth-OL-Player",
+  "repo": "ai_learn_project",
+  "description": "Agent\u5f00\u53d1\u6784\u5efa\u7684 AI Agent\u5b66\u4e60\u8def\u7ebf\u8d44\u6599\u3001\u667a\u80fd\u5237\u9898\u3001\u9762\u7ecf\u9898\u5e93\u4e00\u7ad9\u5f0fAgent\u5b66\u4e60\u5e73\u53f0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Earth-OL-Player/ai_learn_project",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T23:32:22Z"
+}
