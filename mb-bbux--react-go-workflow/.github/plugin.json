@@ -1,0 +1,9 @@
+{
+  "name": "mb-bbux--react-go-workflow",
+  "displayName": "react-go-workflow",
+  "description": "Visual workflow builder for designing, scheduling, and monitoring automated workflows with a drag-and-drop canvas. Built with React, Go, and PostgreSQL.",
+  "version": "1.0.0",
+  "author": "mb-bbux",
+  "homepage": "https://github.com/mb-bbux/react-go-workflow",
+  "skills": []
+}
