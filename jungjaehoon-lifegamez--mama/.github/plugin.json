@@ -1,0 +1,9 @@
+{
+  "name": "jungjaehoon-lifegamez--mama",
+  "displayName": "MAMA",
+  "description": "Local-first operating memory for AI coding agents - Claude Code, Codex, and any MCP client. Tracks decisions and their evolution. SQLite + on-device embeddings, no cloud.",
+  "version": "1.0.0",
+  "author": "jungjaehoon-lifegamez",
+  "homepage": "https://github.com/jungjaehoon-lifegamez/MAMA",
+  "skills": []
+}
