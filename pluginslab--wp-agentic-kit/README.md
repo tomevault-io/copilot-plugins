@@ -7,11 +7,11 @@ Starter kit for agentic WordPress development. CLAUDE.md/AGENTS.md templates, th
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pluginslab/wp-agentic-kit](https://github.com/pluginslab/wp-agentic-kit).
+Original source: `CLAUDE.md` in [pluginslab/wp-agentic-kit](https://github.com/pluginslab/wp-agentic-kit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
