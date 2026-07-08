@@ -1,0 +1,9 @@
+{
+  "name": "precisa-saude--fhir-brasil",
+  "displayName": "fhir-brasil",
+  "description": "Brazilian FHIR R4 toolkit \u2014 biomarker definitions, reference ranges, clinical calculators",
+  "version": "1.0.0",
+  "author": "Precisa-Saude",
+  "homepage": "https://github.com/Precisa-Saude/fhir-brasil",
+  "skills": []
+}
