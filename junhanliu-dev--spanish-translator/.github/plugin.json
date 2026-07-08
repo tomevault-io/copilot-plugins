@@ -1,0 +1,9 @@
+{
+  "name": "junhanliu-dev--spanish-translator",
+  "displayName": "spanish-translator",
+  "description": "Snap a menu, hear the dish \u2014 open-source Flutter translator for travelers in Spain. Spanish, Basque (Euskara) & English. Voice, OCR, GPT-4o, Whisper, native TTS.",
+  "version": "1.0.0",
+  "author": "Junhanliu-dev",
+  "homepage": "https://github.com/Junhanliu-dev/spanish-translator",
+  "skills": []
+}
