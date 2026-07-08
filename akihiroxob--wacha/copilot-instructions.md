@@ -1,109 +1,87 @@
 ## wacha
 
-> このリポジトリでは、Streamable HTTP でタスク管理用 MCP サーバを提供しています。
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS
+# CLAUDE.md
 
-## Task MCP
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-このリポジトリでは、Streamable HTTP でタスク管理用 MCP サーバを提供しています。
+## What this is
 
-このリポジトリで作業する Agent は、現在の作業状況の確認と、必要に応じたタスク状態の更新のためにこの仕組みを利用してください。
+Wacha ("Worker Aggregation and Control Hub for Agents") is an MCP server (Streamable HTTP transport) plus a React SPA web UI served by the same Hono server, for orchestrating AI agents through Project / Story / Task workflows with role-based access and review gates. See `ARCHITECTURE.md`, `DOMAIN.md`, `AGENTS.md`, and `REVIEW_POLICY.md` for the full design rationale — this file only covers what's needed to work in the code.
 
-役割ごとの運用ルールは `agent/` 配下に配置します。
+Note: `knowledge/` and `skill/` are MCP-served content for agents (via `list_skills`/`get_skill_context`), NOT development guidelines for this repo itself.
 
-- `agent/role-policy.md`
-  - role ごとの権限表と Push 対象イベント
-- `agent/manager.md`
-  - manager の責務と運用フロー
-- `agent/reviewer.md`
-  - reviewer の責務と確認観点
-- `agent/worker.md`
-  - worker の責務と作業フロー
+## Commands
 
-## 起動方法
+```bash
+npm install
+npm run start         # prestart builds the SPA into public/, then runs src/server.ts via tsx (:51743)
+npm run build         # frontend typecheck (tsc -p frontend) + vite build into public/
+npm run dev           # tsx watch (:51743) + Vite dev server (:5173, proxies /api) in parallel
+npm test              # resets .tmp/wacha-test.db, runs all tests via node --test --test-concurrency=1
+```
 
-- ローカルで起動する: `npm install && npm run start`
-- Docker Compose で起動する: `docker compose up --build`
-- デフォルトの接続先: `http://localhost:3000/mcp`
-- ヘルスチェック: `http://localhost:3000/health`
-- 永続化する SQLite ファイルのデフォルトパス: `wacha.db`
-- Docker Compose では SQLite ファイルは volume 経由で `/data/wacha.db` に保存される
-- 識別子や membership は MCP の `sessionId` ベースで扱われる
+Run a single test file directly (test DB env var is required, or tests will hit `wacha.db`):
 
-`PORT` を指定すると待ち受けポートを変更できます。
-`WACHA_DB_PATH` を指定すると SQLite の保存先を変更できます。
+```bash
+WACHA_DB_PATH=.tmp/wacha-test.db node --import tsx --test test/mcp/tool/IssueStoryTool.test.ts
+```
 
-## 使うタイミング
+There is no separate lint/typecheck script; use `npx tsc --noEmit` if you need to check types.
 
-- ある程度まとまった作業を始める前に、`list_tasks` を呼んで現在のタスク状況を確認する
-- 新しく管理対象にしたい作業がある場合は、`issue_task` を呼ぶ
-- 自分が担当するタスクを引き受ける場合は、`claim_task` を呼ぶ
-- 実装が完了しレビュー可能な状態になったら、`complete_task` を呼ぶ
-- レビュー担当として確認した場合は、`accept_task` または `reject_task` を呼ぶ
+Env vars: `PORT` (default 51743), `WACHA_DB_PATH` (default `wacha.db`). `.env` is auto-loaded if present (`src/bootstrap/loadEnv.ts`).
 
-## 利用可能な MCP Tools
+## Architecture
 
-- `list_projects`
-  - 用途: プロジェクト一覧を取得する
-  - Arguments: `{}`
-- `list_project_agents`
-  - 用途: 指定したプロジェクトの agent 一覧を取得する
-  - Arguments: `{ "projectId": string }`
-- `list_stories`
-  - 用途: 指定したプロジェクトの Story 一覧を取得する
-  - Arguments: `{ "projectId": string, "status"?: "todo" | "doing" | "done" | "canceled" }`
-- `issue_story`
-  - 用途: 新しい Story を作成する
-  - Arguments: `{ "projectId": string, "title": string, "description"?: string }`
-- `claim_story`
-  - 用途: `todo` の Story を `doing` に進める
-  - Arguments: `{ "storyId": string }`
-- `complete_story`
-  - 用途: `doing` の Story を `done` に進める
-  - Arguments: `{ "storyId": string }`
-- `cancel_story`
-  - 用途: `doing` の Story を `canceled` に進める
-  - Arguments: `{ "storyId": string }`
-- `list_tasks`
-  - 用途: 指定したプロジェクトのタスク一覧とステータス集計を取得する
-  - Arguments: `{ "projectId": string }`
-- `issue_task`
-  - 用途: 新しいタスクを作成する
-  - Arguments: `{ "title": string, "description"?: string, "projectId": string, "storyId"?: string }`
-- `claim_task`
-  - 用途: `todo` または `rejected` のタスクを現在の session に割り当て、`doing` に進める
-  - Arguments: `{ "taskId": string }`
-- `complete_task`
-  - 用途: `doing` のタスクを `in_review` に進める
-  - Arguments: `{ "taskId": string }`
-- `accept_task`
-  - 用途: `in_review` のタスクを `accepted` に進める
-  - Arguments: `{ "taskId": string }`
-- `reject_task`
-  - 用途: `in_review` のタスクを `rejected` に進める
-  - Arguments: `{ "taskId": string, "reason": string }`
-- `assign_project_role`
-  - 用途: プロジェクトに対するメンバーの役割を割り当てる
-  - Arguments: `{ "baseDir": string, "projectName": string, "description"?: string, "requestedRole"?: "manager" | "reviewer" | "worker" }`
-- `get_role_instructions`
-  - 用途: role ごとの運用ルールを取得する
-  - Arguments: `{ "role": "manager" | "reviewer" | "worker", "includeShared"?: boolean }`
+Layering and dependency direction (enforced by convention, not tooling):
 
-## レスポンス
+```
+presentation / mcp  →  application  →  domain  ←  infrastructure
+```
 
-- `list_tasks` は `summary.total`, `summary.byStatus`, `summary.lastUpdatedAt`, `tasks` を返す
-- `list_projects` は `projects` を返す
-- `list_stories` は `stories` を返す
-- それ以外の tools は、更新後の状態が分かる実行結果を返す
+- `src/domain` — models, repository *interfaces*, domain services. Must never import MCP, Hono, SQLite, or filesystem code.
+- `src/application/usecase` — one class per use case (e.g. `IssueStoryUseCase`, `ClaimTaskUseCase`). This is the unit of change; avoid grab-bag services like a generic `TaskService`.
+- `src/application/service` — cross-cutting orchestration (`SessionService`, `MembershipService`, `InstructionService`), not use-case-specific.
+- `src/infrastructure/repository` — Kysely/better-sqlite3 implementations of the domain repository interfaces; `src/infrastructure/database` holds the schema and `initializeSchema()`.
+- `src/mcp/tool` — one file per MCP tool, each exporting `{ config, execute }`. Tools are thin adapters: validate input (zod), call exactly one use case, return via `toMcpErrorResponse`/`toTextResult`. No business logic here.
+- `src/mcp/middleware/RoleGuard.ts` — `withRoleGuard(allowRoles, context, execute)` wraps a tool's `execute` to enforce `ProjectRole` checks against the caller's `sessionId`.
+- `src/mcp/createMcpServer.ts` — the single place tools are registered on the `McpServer` and wired to `withRoleGuard`. When adding a tool, register it here and add it to the role table in `agent/role-policy.md` and `AGENTS.md`.
+- `src/container.ts` — manual DI: repositories are instantiated once, use cases are constructed from them and exported as singletons. New use cases/repositories are wired here, not with a framework.
+- `src/presentation/controller/PageController.ts` — JSON API controller for the web UI (`/api/*` routes), calling the same use cases as the MCP tools. Response/request shapes are typed against `shared/apiTypes.ts`.
+- `src/app.ts` — `createApp()` builds the Hono app (static serving, `/api` routes, `/mcp`, `/health`, SPA fallback, path-branched `onError`: REST shape `{error:{message}}` for `/api`, JSON-RPC shape for everything else). `src/server.ts` only bootstraps and calls `serve()`. Tests exercise routes via `createApp().request(...)`.
+- `frontend/` — React 19 + Vite + TanStack Query + Tailwind v4 SPA. Single npm package: all deps live in the root package.json; `frontend/` only holds source, `vite.config.ts` (with `root` set to its own dir), and its own tsconfig. `vite build` emits into `public/`, which Hono serves with an `index.html` fallback for unknown GET paths. Dev: Vite on :5173 proxies `/api` to Hono. Data flow: one aggregate query per project (`useProject`, 5s polling — agents mutate state via MCP at any time) and mutations that invalidate it (`frontend/src/lib/queries.ts`).
+- `shared/apiTypes.ts` — self-contained DTO/wire types shared by server (`@shared/*` alias) and frontend. Keep it free of imports from `src/` or `frontend/`.
 
-## 運用ガイド
+Path aliases (see `tsconfig.json`): `@container`, `@application/*`, `@constants/*`, `@mcp/*`, `@domain/*`, `@repository/*` (→ `infrastructure/repository`), `@database/*` (→ `infrastructure/database`), `@bootstrap/*`, `@controller/*`, `@shared/*` (→ `../shared`). Imports use explicit `.ts` extensions (NodeNext module resolution). The frontend has its own tsconfig (`moduleResolution: bundler`, aliases `@/*` and `@shared/*`).
 
-- 重複タスクを作らないため、まず `list_tasks` を確認する
-- タスク名は短く、何をするか分かる表現にする
-- `complete_task` は本当にレビュー可能な状態になってから呼ぶ
-- 追加対応が必要な場合は、状態を曖昧にせず `reject_task` を使う
+### Identity model
+
+There are no user accounts. Agent identity and project-role membership are keyed by MCP `sessionId`. Sessions are lost on server restart; clients must re-`initialize` and re-`assign_project_role` — there is no session/role recovery logic to build.
+
+### Task/Story lifecycle
+
+```
+todo -> doing -> in_review -> wait_accept -> accepted
+                    ↓
+                 rejected
+```
+
+Roles: `manager` (planning + final accept/reject), `reviewer` (technical validation, moves `in_review` → `wait_accept` or `reject`), `worker` (execution, `claim_task`/`complete_task`). Story `doing` is driven by a worker claiming its first task, not set directly. The authoritative role/tool permission table is in `agent/role-policy.md` — update it (and `AGENTS.md`'s tool list) whenever tool access changes, since these docs are served to agents at runtime via `get_role_instructions`.
+
+Cancellation (`cancel_story`/`cancel_task`) is meant to be a non-destructive status transition with a reason left as a comment, not a hard delete — the existing delete use cases are legacy and tracked separately from this policy.
+
+### Skills vs. tools
+
+`skill/*.md` files are reusable, descriptive operating procedures for agents (served via `list_skills`/`get_skill_context`, backed by `FileSkillRepository`), distinct from MCP tools which are executable. Don't blend the two: a skill only becomes a tool once it's stable and needs to be directly invokable.
+
+## Testing conventions
+
+- Tests use Node's built-in `node:test` + `node:assert/strict`, one `test/` tree mirroring `src/`.
+- Tests that touch the DB call `initializeSchema()` and clear relevant tables in `beforeEach` (see `test/mcp/tool/IssueStoryTool.test.ts`) — order matters due to foreign keys (`task` → `project_membership`/`story` → `project`).
+- `WACHA_DB_PATH` must point at a scratch DB (`.tmp/wacha-test.db`); `npm test` handles this for you, but running a file directly requires setting it yourself.
+- `--test-concurrency=1` is intentional (shared SQLite file) — don't parallelize test runs.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/akihiroxob) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-11 -->
+> Source: [akihiroxob/wacha](https://github.com/akihiroxob/wacha) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-08 -->
