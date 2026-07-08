@@ -4,7 +4,7 @@
   "repo": "holoso",
   "description": "Simple high-level synthesis of portable Verilog directly from idiomatic imperative Python for numerical/DSP-heavy applications. Not an HDL.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Zubax/holoso",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T00:46:35Z"
+  "distributed_at": "2026-07-08T00:47:08Z"
 }
