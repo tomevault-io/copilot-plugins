@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [kolabing/kolabing-v2](https://github.com/kolabing/kolabing-v2).
+Original source: `AGENTS.md` in [kolabing/kolabing-v2](https://github.com/kolabing/kolabing-v2).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [kolabing/kolabing-v2](https://github.com/kolabing/kolabing-v2) — a repo with 0+ stars on GitHub.
