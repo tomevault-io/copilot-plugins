@@ -1,0 +1,9 @@
+{
+  "name": "mianhaziq--lknight-lms-backend",
+  "displayName": "LKnight-Lms-backend",
+  "description": "Backend API for the LKnight Learning Management System \u2014 auth, courses, and content management.",
+  "version": "1.0.0",
+  "author": "MianHaziq",
+  "homepage": "https://github.com/MianHaziq/LKnight-Lms-backend",
+  "skills": []
+}
