@@ -1,0 +1,9 @@
+{
+  "name": "sloppycoder--linux-vm-provisioner",
+  "displayName": "linux-vm-provisioner",
+  "description": "linux-vm-provisioner",
+  "version": "1.0.0",
+  "author": "sloppycoder",
+  "homepage": "https://github.com/sloppycoder/linux-vm-provisioner",
+  "skills": []
+}
