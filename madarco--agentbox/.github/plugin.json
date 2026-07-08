@@ -1,0 +1,9 @@
+{
+  "name": "madarco--agentbox",
+  "displayName": "agentbox",
+  "description": "Run multiple agents in parallel sandboxed VMs, with a single command, on your PC or in the cloud",
+  "version": "1.0.0",
+  "author": "madarco",
+  "homepage": "https://github.com/madarco/agentbox",
+  "skills": []
+}
