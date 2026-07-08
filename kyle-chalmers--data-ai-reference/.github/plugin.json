@@ -1,0 +1,9 @@
+{
+  "name": "kyle-chalmers--data-ai-reference",
+  "displayName": "data-ai-reference",
+  "description": "Reference repo for the Kyle Chalmers Data & AI YouTube channel \u2014 Claude Code + AI templates, QC patterns, and per-video example projects for reproducible analytics work.",
+  "version": "1.0.0",
+  "author": "kyle-chalmers",
+  "homepage": "https://github.com/kyle-chalmers/data-ai-reference",
+  "skills": []
+}
