@@ -1,0 +1,9 @@
+{
+  "name": "harrisonwolf--geo-map-v2",
+  "displayName": "geo-map-v2",
+  "description": "Real-estate analytics pipeline: hashed canonical ledger, immutable snapshots, read-only serving. ~1:1 code-to-test.",
+  "version": "1.0.0",
+  "author": "harrisonwolf",
+  "homepage": "https://github.com/harrisonwolf/geo-map-v2",
+  "skills": []
+}
