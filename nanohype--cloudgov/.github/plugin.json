@@ -1,0 +1,9 @@
+{
+  "name": "nanohype--cloudgov",
+  "displayName": "cloudgov",
+  "description": "AWS security & cost CLI \u2014 IAM least-privilege, cost anomalies, posture, drift, compliance, and resource hygiene, plus a Kubernetes RBAC scanner.",
+  "version": "1.0.0",
+  "author": "nanohype",
+  "homepage": "https://github.com/nanohype/cloudgov",
+  "skills": []
+}
