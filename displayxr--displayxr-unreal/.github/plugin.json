@@ -1,0 +1,9 @@
+{
+  "name": "displayxr--displayxr-unreal",
+  "displayName": "displayxr-unreal",
+  "description": "Unreal Engine plugin for DisplayXR",
+  "version": "1.0.0",
+  "author": "DisplayXR",
+  "homepage": "https://github.com/DisplayXR/displayxr-unreal",
+  "skills": []
+}
