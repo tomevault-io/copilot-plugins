@@ -1,0 +1,9 @@
+{
+  "name": "nlace-com--mcp-supermercados-cl",
+  "displayName": "mcp-supermercados-cl",
+  "description": "Servidor MCP para buscar productos, comparar precios y armar la mejor lista de compra en supermercados chilenos (Jumbo, Santa Isabel, Unimarc, Tottus, Lider) desde Claude o ChatGPT. 100% local.",
+  "version": "1.0.0",
+  "author": "NLACE-COM",
+  "homepage": "https://github.com/NLACE-COM/mcp-supermercados-cl",
+  "skills": []
+}
