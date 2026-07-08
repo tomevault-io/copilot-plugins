@@ -4,7 +4,7 @@
   "repo": "elidex",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/send/elidex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T13:39:54Z"
+  "distributed_at": "2026-07-08T16:14:59Z"
 }
