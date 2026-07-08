@@ -1,0 +1,9 @@
+{
+  "name": "ccdsky--agent-marketing-team",
+  "displayName": "agent-marketing-team",
+  "description": "An AI-powered marketing system built on Claude Code that executes full-funnel B2B campaigns \u2014 from market research through conversion optimization.",
+  "version": "1.0.0",
+  "author": "ccdsky",
+  "homepage": "https://github.com/ccdsky/agent-marketing-team",
+  "skills": []
+}
