@@ -1,0 +1,135 @@
+## agentbox
+
+> `agentbox` is an npm CLI that spins up isolated sandboxes ("boxes") for coding agents (Claude Code, Codex, others) to work in, so they can't touch the host. Five backends share one provider abstraction: **Docker** (the default — one local container per box, isolated by per-box git branch in an in-container worktree against the bind-mounted host `.git/`), **Daytona Cloud** (`--provider daytona` — a managed remote sandbox seeded from a host git bundle + per-agent credential volumes, reached via SSH-token attach and an in-sandbox bridge relay), **Hetzner Cloud** (`--provider hetzner` — a bare VPS per box, pure OpenSSH ControlMaster comms, locked-down Hetzner Cloud Firewall, baked from a one-time `agentbox prepare --provider hetzner` snapshot), **Vercel Sandbox** (`--provider vercel` — a Firecracker microVM per box, persistent snapshots, public HTTPS preview URLs; nested containers (in-box docker) now supported and baked in, no SSH, baked from a one-time `agentbox prepare --provider vercel` snapshot), and **E2B S
+
+# AgentBox — context for Claude Code
+
+`agentbox` is an npm CLI that spins up isolated sandboxes ("boxes") for coding agents (Claude Code, Codex, others) to work in, so they can't touch the host. Five backends share one provider abstraction: **Docker** (the default — one local container per box, isolated by per-box git branch in an in-container worktree against the bind-mounted host `.git/`), **Daytona Cloud** (`--provider daytona` — a managed remote sandbox seeded from a host git bundle + per-agent credential volumes, reached via SSH-token attach and an in-sandbox bridge relay), **Hetzner Cloud** (`--provider hetzner` — a bare VPS per box, pure OpenSSH ControlMaster comms, locked-down Hetzner Cloud Firewall, baked from a one-time `agentbox prepare --provider hetzner` snapshot), **Vercel Sandbox** (`--provider vercel` — a Firecracker microVM per box, persistent snapshots, public HTTPS preview URLs; nested containers (in-box docker) now supported and baked in, no SSH, baked from a one-time `agentbox prepare --provider vercel` snapshot), and **E2B Sandbox** (`--provider e2b` — a Firecracker microVM per box, SDK-only comms, public HTTPS preview URLs, persistent pause/resume; uniquely among the cloud providers, E2B builds its base template **directly from a Dockerfile** via `Template.build()` — `agentbox prepare --provider e2b` runs the build).
+
+## Architecture overview
+
+- **Boxes** — one isolated sandbox per agent run. The shape differs by provider but the abstraction is one `Provider` interface (`packages/core/src/provider.ts`):
+  - **docker**: container `agentbox-<id|name>`; `/workspace` is the in-container git worktree on branch `agentbox/<box-name>`; host's `.git/` is bind-mounted RW so commits land on the host immediately. Boxes pause/unpause for cheap context switching and survive stop/start; `destroy` wipes the container + per-box volumes. The base image (`agentbox/box:dev`) is **pulled** from GHCR on first use (tagged by build-context fingerprint, see `pullOrBuild`/`registryRefForSha` in `image.ts`) and only built locally on a pull miss; `--build` / `box.imageRegistry=""` force a local build. See [`docs/development.md`](./docs/development.md) → "Image: pull vs rebuild".
+  - **daytona** (cloud): Daytona sandbox with `/workspace` seeded from a host `git bundle create` (incl. stash + untracked carry-over for the user's local state). Lifecycle goes through the Daytona SDK; agent credentials (`~/.claude`, `~/.codex`, `~/.config/opencode`) live in shared per-org volumes seeded from the host. Host↔box comms go through a per-box bridge URL (CloudFront preview) that the host relay's `CloudBoxPoller` long-polls.
+  - **hetzner** (cloud): one Hetzner VPS per box (default `cx23` / `nbg1`). Workspace seeded the same way (git bundle + stash + untracked tar). Per-box ed25519 SSH key minted on the host into `~/.agentbox/boxes/<sandboxId>/ssh/` and injected via cloud-init. Per-box Hetzner Cloud Firewall auto-locked to the host's egress IP (multi-probe fail-loud). All comms (exec, scp, port forwards, attach) flow over one persistent `ssh -fNT -M` ControlMaster per box; `previewUrl(port)` mints `ssh -O forward` on demand. No agent credentials volume — credentials pushed via scp at create time (Hetzner has no shared-volume primitive). `agentbox prepare --provider hetzner` bakes a one-time base snapshot since Hetzner can't build images from a Dockerfile.
+  - **vercel** (cloud): one Vercel Sandbox (Firecracker microVM, Amazon Linux 2023) per box. Workspace seeded the same way (git bundle + stash + untracked tar). Boots from a Vercel snapshot baked once by `agentbox prepare --provider vercel` (no Dockerfile build). Persistent sandboxes auto-snapshot on stop and auto-resume on `Sandbox.get({ resume: true })` → pause/resume for free. Comms via the SDK: `exec` runs as `vscode` (root → `sudo -u vscode`); `previewUrl(port)` returns the public `sandbox.domain(port)` (HTTPS, no token), so the host relay's `CloudBoxPoller` reaches the in-box bridge directly. **In-box docker (DinD)** is baked into the base snapshot and `dockerd` is auto-started on create/resume (`launchDockerd:true`, via the shared `agentbox-dockerd-start`) — Vercel Sandbox now supports nested containers. **No SSH** (attach is a custom `attach-helper.js` tmux bridge over the SDK). Max 4 exposed ports, region `iad1` only. See [`docs/vercel-backlog.md`](./docs/vercel-backlog.md).
+  - **e2b** (cloud): one E2B Sandbox (Firecracker microVM, Debian 12) per box. Workspace seeded the same way (git bundle + stash + untracked tar). **Key differentiator from Vercel/Hetzner: E2B builds its base image directly from a Dockerfile** via the SDK's `Template.build()` — `agentbox prepare --provider e2b` drives the build and pins the resulting template id to `box.imageE2b`. `Sandbox.pause`/`Sandbox.connect` (auto-resume) gives free pause/resume; `Sandbox.createSnapshot` is the reusable, id-addressed checkpoint primitive (same shape as Vercel). Comms via the SDK: `exec` runs as `vscode`; `previewUrl(port)` returns the public `{port}-{sandboxId}.e2b.app` URL (HTTPS, no token; constructed locally so it doesn't wake a paused sandbox). **In-box docker (DinD)** is baked into the base template and `dockerd` auto-starts on create/resume (`launchDockerd:true`) — E2B microVMs support nested containers (full root + cap_sys_admin, verified 2026-06-23), contrary to the original "same as Vercel" assumption. **No SSH** — attach is a custom `attach-helper.cjs` SDK-streaming PTY bridge over `pty.create`. 1-hour platform session cap on the Hobby tier (the attach helper caps at 55 minutes for headroom). See [`docs/e2b_backlog.md`](./docs/e2b_backlog.md).
+- **In-box supervisor** (`@agentbox/ctl`) — reads `/workspace/agentbox.yaml` and runs the declared tasks/services under a DAG scheduler. Ships as `agentbox-ctl` inside every box (docker, daytona, hetzner, vercel, e2b).
+- **Host relay** (`@agentbox/relay`) — a host node process boxes call for things they have no credentials for (`git push`, checkpoint capture, `cp`/`download`) and to push status events. Keeps SSH keys out of the box. The cloud path drives the same relay via `CloudBoxPoller` + `executeCloudAction`.
+- **Checkpoints** — `docker commit` (+ periodic `FROM scratch` flatten) for docker; Daytona snapshots (`sb._experimental_createSnapshot`) for daytona; Hetzner `create_image` snapshots (no-pause default — matches `docker commit`) for hetzner; Vercel `sb.snapshot()` (id-addressed; stores the snapshot id in the cloud-checkpoint manifest) for vercel; E2B `Sandbox.createSnapshot` (id-addressed template, same shape as Vercel) for e2b. All flow through `provider.checkpoint.create`. `box.defaultCheckpoint` is the cross-provider fallback; `box.defaultCheckpointDocker` / `box.defaultCheckpointDaytona` / `box.defaultCheckpointHetzner` / `box.defaultCheckpointVercel` / `box.defaultCheckpointE2b` override per provider.
+- The full design — file-handling rationale, the checkpoint model, pause/resume strategy, what we explicitly rejected — lives in [`docs/architecture.md`](./docs/architecture.md) and [`docs/create-and-checkpoints.md`](./docs/create-and-checkpoints.md). Cloud-specific status lives in [`docs/daytona-backlog.md`](./docs/daytona-backlog.md), [`docs/hertzner_backlog.md`](./docs/hertzner_backlog.md), [`docs/vercel-backlog.md`](./docs/vercel-backlog.md), and [`docs/e2b_backlog.md`](./docs/e2b_backlog.md). **Read them before making non-trivial changes to the lifecycle code.**
+
+## Important notes
+
+ - You have docker and you are authorized to run docker commands, inspect containers, run commands inside containers, etc.
+ - For cloud work: the Daytona API key + org id, the Hetzner `HCLOUD_TOKEN`, the Vercel auth trio, and the E2B `E2B_API_KEY` all live in `~/.agentbox/secrets.env` (managed by the per-provider `agentbox <provider> login` commands). You may use each cloud's SDK directly to inspect / clean up sandboxes when a test leaves an orphan, or `agentbox prune --provider <name> -y` for the supported path.
+ - For hetzner-cloud work: the base-snapshot id is recorded at `~/.agentbox/hetzner-prepared.json` (written by `agentbox prepare --provider hetzner`); per-box SSH keys live under `~/.agentbox/boxes/<sandboxId>/ssh/` (private key never leaves host, dropped on `destroy`). You may use the Hetzner REST API directly via `curl -H "Authorization: Bearer $HCLOUD_TOKEN" https://api.hetzner.cloud/v1/...` to clean up orphan servers / firewalls / snapshots when a test leaves something behind. `agentbox prune --provider hetzner` is not yet wired (backlog item — the underlying `backend.list()` works).
+ - For e2b-cloud work: the base-template id is recorded at `~/.agentbox/e2b-prepared.json` (written by `agentbox prepare --provider e2b`, which drives `Template.build()` from a Dockerfile). You can use the `e2b` SDK directly (`node -e "import('e2b').then(({Sandbox})=>Sandbox.list())"`) to inspect or clean up sandboxes when a test leaves an orphan, or `agentbox prune --provider e2b -y` for the supported path.
+
+## Testing / verifying
+
+`create`, `claude`, `codex`, and `opencode` tee their progress to a file at
+`~/.agentbox/logs/<command>.log`, and `~/.agentbox/logs/latest.log` always points
+at the most recent run. The log is rotated 1-deep — the previous run is at
+`<command>.log.prev`.
+
+When verifying a change:
+
+- **Don't pick a blind long timeout.** Start the slow command in the background
+  (e.g. `node apps/cli/dist/index.js create -y -n smoke &`), then
+  `tail -f ~/.agentbox/logs/latest.log` to watch real progress. Stop waiting
+  the moment the log shows what you need (e.g. `box ... ready` or a failed
+  step). Don't sit on a 120s blocking call hoping it returns.
+- **Interactive TUIs (`dashboard`, `claude`, `codex`, `opencode`):** drive them
+  through `pnpm drive` (the PTY harness at `apps/cli/test/_harness/`).
+  `pnpm drive start --name X -- node apps/cli/dist/index.js dashboard`, then
+  `pnpm drive screen X` to read the rendered terminal and
+  `pnpm drive send X "<C-a>q"` to send keystrokes. `pnpm drive --help` and
+  `apps/cli/test/_harness/README.md` cover the surface.
+- **Typical create check:** `node apps/cli/dist/index.js create -y -n smoke &`,
+  then `tail -f ~/.agentbox/logs/create.log` until you see the BEGIN/END
+  markers for each step. If a step's END never arrives, you've found the
+  hang — inspect that step rather than killing the whole command.
+- **Test projects**: use the `examples/` directory mainly, or `../agentbox-test-repo` to test push/pull on a test repo setup on GitHub, and `../agentbox-test-repo-gh` for the same repo but with https origin using `gh` tool. Also `../express-server` can be used to test the setup wizard since it doesn't have an `agentbox.yaml` file.
+- **Use Agentbox inside Agentbox**: start a container with `agentbox claude --shared-docker-cache --carry-yes` to have a box ready with agentbox compiled and in the path and reuse docker cache for faster builds. For Images build use `docker build --network=host -t agentbox/box:dev -f apps/cli/runtime/docker/Dockerfile.box apps/cli/runtime/docker` instead of `agentbox prepare` because the box runs without `CAP_SYS_PTRACE`.
+- **Hub is a persistent daemon — always rebuild + restart it after any hub change.** `agentbox hub` (relay + Next UI on 8787) is long-lived and spawns the **standalone build**, so a running hub keeps serving stale code after you edit `apps/hub/**` or any package it imports (`@agentbox/relay`, `@agentbox/sandbox-docker`, …). On dev, rebuild the standalone and restart before verifying:
+  ```
+  pnpm --filter @agentbox/hub build:standalone
+  AGENTBOX_HUB_BIN="$PWD/apps/hub/dist-standalone/apps/hub/server.js" node apps/cli/dist/index.js hub restart
+  ```
+  The `AGENTBOX_HUB_BIN` override is load-bearing: `resolveHubServer` prefers the CLI-staged `apps/cli/runtime/hub/…/server.js` (only refreshed by a full `agentbox` CLI build) over the fresh `apps/hub/dist-standalone`, so a bare `hub restart` respawns the stale staged bundle. Rebuild the imported packages too if you touched them. Same rule as `agentbox relay restart` for relay code. For fast UI-only iteration run the hub directly with `pnpm --filter @agentbox/hub hub:dev` (`tsx watch server.ts`). Note: `public/` assets (logo, favicon) only work through `build:standalone` (which stages `public/`) or `next dev`/`next start` — never assume a static asset serves without one of these.
+
+## Conventions
+
+- **TypeScript strict, ESM, `verbatimModuleSyntax`** — always `import type { … }` for types.
+- **tsup** builds each package's `src/index.ts` → `dist/`. Don't reach into another package's `src/` from a sibling; consume via the package name.
+- **vitest** for tests, default discovery (`test/**/*.test.ts`). Keep unit tests pure — no docker, no network. Integration testing is manual for now (see README → Development).
+- **eslint + prettier**, flat config at repo root. `pnpm lint` and `pnpm format` are the commands.
+- **commander** for CLI surface; **@clack/prompts** for any interactivity. Don't add a third prompts/CLI lib.
+- **execa** for shelling out to `docker` (debuggable, no native deps). Don't introduce `dockerode` without a good reason. **One sanctioned native-dep exception**: `@homebridge/node-pty-prebuilt-multiarch` (ships ABI-stable N-API prebuilds, no end-user compiler) is used **only** by `agentbox dashboard` for the in-process terminal compositor. It is an `optionalDependencies` of `apps/cli` with a guarded dynamic import — a missing prebuild degrades `dashboard` to a clear error, never breaks the rest of the CLI.
+- **No emojis in code or output** unless explicitly requested.
+- **Comments only when the WHY is non-obvious** (a constraint, a workaround, a surprising invariant). Names should carry the WHAT.
+- **`@madarco/agentbox-provider-sdk` is published separately — rebuild + republish it when you change its interface.** The provider-plugin SDK (`packages/provider-sdk`) is a self-contained npm package that external plugins depend on; it inlines the internal `@agentbox/*` packages via tsup `noExternal`. Its public surface = the re-export list in `packages/provider-sdk/src/index.ts` **plus** the re-exported types/values from `@agentbox/core` (`Provider`/`CloudBackend`/`ProviderModule`), `@agentbox/sandbox-cloud` (`createCloudProvider`, attach/staging/checkpoint helpers), and `@agentbox/sandbox-core` (prepared-state, runtime-assets). If a change alters any of those, the shipped SDK is stale until you rebuild and **republish** it (bump its own `version`; a breaking change also bumps `SDK_API_VERSION` in that index + must be in the CLI's `SUPPORTED_SDK_API_VERSIONS`). Gate + publish per [`docs/provider-plugins.md`](./docs/provider-plugins.md) → "Publishing the SDK": `pnpm --filter @madarco/agentbox-provider-sdk pack:test` then `cd packages/provider-sdk && npm publish`. The `/release-notes` skill checks for this automatically.
+
+## AgentBox Tray (macOS menu-bar app)
+
+A native macOS **menu-bar app** lives in the sibling repo [`../agentbox-tray`](../agentbox-tray)
+(private GitHub `madarco/agentbox-tray`). It surfaces all boxes and gives one-click actions — open
+the hub, open each box's Web/VNC, start/stop, per-box git ops (`pull`/`push`/`push --host-only`/
+`checkout`/`branch`), restart services, and answer host-action approvals — without a terminal. It
+updates live over the hub's SSE stream and falls back to polling.
+
+It has **no build-time coupling** to this repo — it's a Swift Package Manager / AppKit app (Swift
+5.10, no Xcode, no external deps) that drives the two public surfaces:
+
+- **Boxes + actions** via the installed CLI, shelled through a login shell (`/bin/zsh -lc 'agentbox …'`,
+  because a GUI app has no inherited PATH). The list comes from `agentbox list -g --json` — it keeps
+  the CLI (not hub REST `/api/v1/boxes`) because only `ListedBox` carries the resolved Web/VNC URLs.
+- **Approvals + live events** via the local **Control Hub** at `127.0.0.1:8787`: REST
+  `/api/v1/approvals` (+ `…/{id}/answer`) and the SSE `/api/events` stream. **Auth split to remember
+  when changing the hub:** `/api/v1/*` uses `Authorization: Bearer <token>`, but `/api/events` reads
+  the **`agentbox_hub_token` cookie** (Bearer there 401s). Token is `~/.agentbox/hub/token`. SSE
+  events are refetch signals only (empty `data: {}`).
+
+**When you change the hub API, the SSE event/auth contract, the `agentbox list --json` shape, or any
+CLI command/flag the app uses (git/services/url/screen/start/stop/hub), update the tray app too** —
+its own [`CLAUDE.md`](../agentbox-tray/CLAUDE.md) documents exactly which surfaces it depends on. The
+app's data/action layer sits behind a `BoxSource` protocol so a future `HubAPIBoxSource` can target
+the hosted control-plane unchanged (aligns with [`docs/control-plane-roadmap.md`](./docs/control-plane-roadmap.md)).
+
+## Documentation map
+
+Each topic has a dedicated file under [`docs/`](./docs). Read the relevant one before changing that area.
+
+> **Keep the public docs in sync — every change.** The user-facing documentation
+> site lives in [`apps/web/content/docs/`](./apps/web/content/docs) (Fumadocs,
+> published at https://agent-box.sh/docs). Whenever you add or change a CLI
+> command, flag, config key, default, or provider/lifecycle behavior, update the
+> matching `.mdx` page (and `meta.json`/CLI reference) in the **same** change —
+> stale public docs are a bug. When the UI a figure shows changes, recapture it
+> per [`apps/web/images.md`](./apps/web/images.md). See [`apps/web/CLAUDE.md`](./apps/web/CLAUDE.md)
+> for the site's structure, theming, and build.
+
+- [`docs/architecture.md`](./docs/architecture.md) — the design doc: *why* the box/worktree/checkpoint model is shaped the way it is, and what was rejected.
+- [`docs/create-and-checkpoints.md`](./docs/create-and-checkpoints.md) — implementation reference for `agentbox create` (file/git handling) and the checkpoint capture/restore mechanics.
+- [`docs/repo-layout.md`](./docs/repo-layout.md) — the package tree, build wiring, and box-identifier / per-project-index resolution rules.
+- [`docs/state.md`](./docs/state.md) — where every piece of state lives: `~/.agentbox/*`, docker objects, volumes, worktrees, the box image.
+- [`docs/in-box-supervisor.md`](./docs/in-box-supervisor.md) — `@agentbox/ctl`: the DAG scheduler, tasks vs services, `ready_when`, `expose`/`WebProxy`, wire ops, config validation. The `carry:` block (host→box file copy with one-prompt host approval) is also declared at the top level of `agentbox.yaml` but is host-CLI-applied, not parsed by the supervisor — see `docs/features.md` for the schema + flags (`--carry-yes`, `--carry skip`, `AGENTBOX_CARRY_YES`, `AGENTBOX_CARRY`).
+- [`docs/host-relay.md`](./docs/host-relay.md) — `@agentbox/relay`: the host process, per-box bearer token, endpoints, registration/rehydration, in-box `agentbox-ctl git`/`open`.
+- [`docs/terminal-integration.md`](./docs/terminal-integration.md) — host-terminal attach placement (`--attach-in`/`attach.openIn` across tmux/cmux/Herdr/iTerm2), terminal-title handling, the **cmux sidebar box-status** integration (`attach.cmuxStatus` drives the workspace colour/description, not `set-status` pills) plus its gotchas (stored-but-hidden pills, socket session-auth, drive harness can't verify), and the **Herdr** integration (`attach.herdrStatus` transparently reports box agent state over Herdr's JSON-RPC socket so Herdr handles needs-input natively; an explicit `notification.show` highlights AgentBox's own host-relay approval prompts; detection runs before iTerm2) plus the **Herdr plugin** (a `agentbox list --herdr` boxes overlay, `prefix+a`/`prefix+shift+a` shortcuts, and an `agentbox://` Ctrl+click link handler → `agentbox herdr link/new`). Installable two ways from one source (`install-herdr.ts`): `herdr plugin install madarco/agentbox` (the committed repo-root `herdr-plugin.toml` + `build.sh` — at the repo root, not a subdir, so the Herdr marketplace can index it; `build.sh` runs `agentbox install herdr --plugin-keys`) or `agentbox install herdr` directly. The static manifest routes through a generated `agentbox-shim.sh` (absolute CLI path — Herdr has no reliable PATH); keybindings go in the user's `~/.config/herdr/config.toml` (Herdr ignores manifest keys); a test keeps the committed `herdr-plugin.toml`/`build.sh` in sync with the builders.
+- [`docs/features.md`](./docs/features.md) — what works today (the full CLI lifecycle) and what is not built yet.
+- [`docs/development.md`](./docs/development.md) — build + verify commands, manual end-to-end runs, the image-rebuild checklist, and assumed host environment.
+- [`docs/cloud-providers.md`](./docs/cloud-providers.md) — Daytona + Hetzner provider docs: how each cloud differs from docker, the bridge relay model, agent-credential volumes, signed preview URLs, SSH ControlMaster + per-box firewall (hetzner), known caveats.
+- [`docs/provider-plugins.md`](./docs/provider-plugins.md) — external / community providers: publish `agentbox-provider-<name>` on the public `@madarco/agentbox-provider-sdk` and `agentbox plugin add` it (registry at `~/.agentbox/plugins.json`, runtime `import()` seam, shared box-runtime via `resolveSharedRuntimeAsset`, trust-on-add + `SDK_API_VERSION` gate). Reference: [`examples/agentbox-provider-sample`](./examples/agentbox-provider-sample).
+- [`docs/cloud-create-flow.md`](./docs/cloud-create-flow.md) — step-by-step walk of `agentbox create --provider daytona`: how `.git` and workspace files get into the box (git bundle + stash + untracked tar), cloud checkpoints, the **base snapshot vs project snapshot** tiers, and the docker-auto-builds-but-daytona-doesn't asymmetry.
+- [`docs/daytona-backlog.md`](./docs/daytona-backlog.md) — what's done vs still missing on the Daytona path. Quick index of where each cloud feature actually lives.
+- [`docs/hertzner_backlog.md`](./docs/hertzner_backlog.md) — Hetzner provider build-out status: phase-by-phase progress, the live e2e smoke results, deferred follow-ups (per-project snapshot tier, `--pause` checkpoint flag, `agentbox prune --provider hetzner`, the install-script post-Chromium trace mystery). Filename uses the user-requested spelling.
+- [`docs/vercel-backlog.md`](./docs/vercel-backlog.md) — Vercel provider build-out status: why Vercel's shape differs (no Dockerfile, no containers, no SSH, persistent snapshots), phase-by-phase progress, and the live-verify checklist (user mapping, attach latency / ttyd upgrade, snapshot-vs-delete cascade, VNC on AL2023, published-CLI asset staging).
+- [`docs/e2b_backlog.md`](./docs/e2b_backlog.md) — E2B provider build-out status: how the shape maps onto `CloudBackend`, why E2B is the only cloud that builds the base **from a Dockerfile** (`Template.build()`), task-by-task progress, and shipped/deferred items.
+- [`docs/linux-host-backlog.md`](./docs/linux-host-backlog.md) — Linux (Ubuntu) **host** support: what's done (`agentbox doctor` is Linux-aware), how to test on a persistent Hetzner Ubuntu VM (`scripts/linux-dev-vm.sh` — `up`/`deploy`/`ssh`/`doctor`/`down`), and the remaining macOS-only host assumptions (browser `open`→`xdg-open`, iTerm2/AppleScript terminal spawning, OrbStack-only fast paths).
+- [`docs/control-plane-roadmap.md`](./docs/control-plane-roadmap.md) — the **Control Hub** architecture + roadmap (the forward direction; "Control Hub" / `agentbox hub` is the new name for the control-plane, renamed in milestone M1). Covers the three shifts (in-box create/bake + poll to unify the local + serverless paths; hub-anywhere/PC-first with a SQLite local hub; custody + 3-way sync), the four deployment topologies (local host, mac-mini, server/container, serverless Vercel→Cloudflare), the two capability profiles (serverless "control plane" vs full-host "control-box"), the source-of-truth constraint, the CLI rename + `hub install/update/uninstall`, and milestones M0–M8. Pairs with [`docs/control-plane-backlog.md`](./docs/control-plane-backlog.md) (what shipped).
+- [`docs/control-plane-guide.md`](./docs/control-plane-guide.md) — the **feature guide** for the hosted control plane (a.k.a. the legacy "control-box"): the one-relay-core/three-topologies model, how it works (Store seam, GitHub-App token leasing, block-vs-poll approvals, dual-mode server + bridge + CloudBoxPoller, the create-job worker, the in-box clone/relay-env/lease-and-push), and how to use it (`agentbox control-plane setup|set-url|status|add|worker` with examples). Read this before the roadmap/backlog for the high-level "what + how to use".
+
+---
+> Source: [madarco/agentbox](https://github.com/madarco/agentbox) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-07 -->
