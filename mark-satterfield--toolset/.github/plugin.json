@@ -1,0 +1,9 @@
+{
+  "name": "mark-satterfield--toolset",
+  "displayName": "toolset",
+  "description": "A curated collection of Claude Code plugins and skills",
+  "version": "1.0.0",
+  "author": "mark-satterfield",
+  "homepage": "https://github.com/mark-satterfield/toolset",
+  "skills": []
+}
