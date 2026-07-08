@@ -1,0 +1,26 @@
+# gogh
+
+> Source: [AgriciDaniel/gogh](https://github.com/AgriciDaniel/gogh) — distributed by [TomeVault](https://tomevault.io)
+
+Gogh is a source-cited Obsidian operating brain that turns six frontend design skills into one advisable stack for AI coding agents.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [AgriciDaniel/gogh](https://github.com/AgriciDaniel/gogh).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/AgriciDaniel/gogh](https://github.com/AgriciDaniel/gogh)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-q -->
