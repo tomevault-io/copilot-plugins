@@ -1,0 +1,9 @@
+{
+  "name": "projectedanx--tactiledialectician",
+  "displayName": "TactileDialectician",
+  "description": "A neuro-symbolic executor and symbol disambiguation engine for STEM workflows.",
+  "version": "1.0.0",
+  "author": "projectedanx",
+  "homepage": "https://github.com/projectedanx/TactileDialectician",
+  "skills": []
+}
