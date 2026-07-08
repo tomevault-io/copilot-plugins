@@ -1,0 +1,9 @@
+{
+  "name": "linuxmatters--jive-visualiser",
+  "displayName": "jive-visualiser",
+  "description": "Spin your podcast .wav into a groovy MP4 visualiser with spring-driven real-time audio frequencies \u2728",
+  "version": "1.0.0",
+  "author": "linuxmatters",
+  "homepage": "https://github.com/linuxmatters/jive-visualiser",
+  "skills": []
+}
