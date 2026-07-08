@@ -7,11 +7,11 @@ Behavioral eval lab (Quorum) for the superpowers project that drives real coding
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [prime-radiant-inc/superpowers-evals](https://github.com/prime-radiant-inc/superpowers-evals).
+Original source: `AGENTS.md` in [prime-radiant-inc/superpowers-evals](https://github.com/prime-radiant-inc/superpowers-evals).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
