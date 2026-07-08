@@ -1,0 +1,9 @@
+{
+  "name": "designforfailure--tax-co-pilot",
+  "displayName": "Tax_Co-Pilot",
+  "description": "Tax_Co-Pilot is a locally hosted, privacy-first personal tax software system designed for auditability and reproducibility.",
+  "version": "1.0.0",
+  "author": "DesignForFailure",
+  "homepage": "https://github.com/DesignForFailure/Tax_Co-Pilot",
+  "skills": []
+}
