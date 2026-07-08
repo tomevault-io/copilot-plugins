@@ -4,7 +4,7 @@
   "repo": "stock_scanner",
   "description": "\ud83d\udcc8 Professional momentum stock scanner using Qullamaggie methodology - 20-point scoring with live Yahoo Finance data",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sensible-Analytics/stock_scanner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T12:10:02Z"
+  "distributed_at": "2026-07-08T14:08:08Z"
 }
