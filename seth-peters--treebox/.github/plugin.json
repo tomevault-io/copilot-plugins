@@ -1,0 +1,9 @@
+{
+  "name": "seth-peters--treebox",
+  "displayName": "treebox",
+  "description": "Isolated, ready-to-run git worktrees for coding agents - host-native or docker-sandboxed.",
+  "version": "1.0.0",
+  "author": "Seth-Peters",
+  "homepage": "https://github.com/Seth-Peters/treebox",
+  "skills": []
+}
