@@ -4,7 +4,7 @@
   "repo": "fathom",
   "description": "Low-latency market data infrastructure \u2014 real-time L2 order book streaming from 4 exchanges via WebSocket \u2192 NATS \u2192 Parquet. Rust, single binary.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RigpaLabs/fathom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T12:07:35Z"
+  "distributed_at": "2026-07-08T14:05:40Z"
 }
