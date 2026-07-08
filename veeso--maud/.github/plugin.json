@@ -1,0 +1,9 @@
+{
+  "name": "veeso--maud",
+  "displayName": "maud",
+  "description": "A MDX inspired Markdown renderer for Lustre and Gleam.",
+  "version": "1.0.0",
+  "author": "veeso",
+  "homepage": "https://github.com/veeso/maud",
+  "skills": []
+}
