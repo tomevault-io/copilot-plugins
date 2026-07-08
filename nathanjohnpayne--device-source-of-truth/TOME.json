@@ -4,7 +4,7 @@
   "repo": "device-source-of-truth",
   "description": "Disney Streaming device catalog for partner inventory, specs, deployments, telemetry, and ADK version tracking.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nathanjohnpayne/device-source-of-truth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T13:48:03Z"
+  "distributed_at": "2026-07-08T16:35:42Z"
 }
