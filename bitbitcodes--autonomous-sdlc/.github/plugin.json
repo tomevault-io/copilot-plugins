@@ -1,0 +1,9 @@
+{
+  "name": "bitbitcodes--autonomous-sdlc",
+  "displayName": "autonomous-sdlc",
+  "description": "autonomous-sdlc scaffolds 40 AI agents into your project repo to execute the full software development lifecycle \u2014 from a spec to production-ready code with tests, security audit, CI/CD, and monitorin",
+  "version": "1.0.0",
+  "author": "bitbitcodes",
+  "homepage": "https://github.com/bitbitcodes/autonomous-sdlc",
+  "skills": []
+}
