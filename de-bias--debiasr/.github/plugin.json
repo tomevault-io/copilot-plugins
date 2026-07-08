@@ -1,0 +1,9 @@
+{
+  "name": "de-bias--debiasr",
+  "displayName": "debiasR",
+  "description": "Bias adjustment for mobile-phone-derived mobility data",
+  "version": "1.0.0",
+  "author": "de-bias",
+  "homepage": "https://github.com/de-bias/debiasR",
+  "skills": []
+}
