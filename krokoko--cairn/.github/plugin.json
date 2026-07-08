@@ -1,0 +1,9 @@
+{
+  "name": "krokoko--cairn",
+  "displayName": "cairn",
+  "description": "AI readiness & verification toolkit \u2014 measure how ready your codebase is for autonomous AI coding   agents, and get a roadmap to autonomy. Plugins for Claude Code, Cursor, Codex.",
+  "version": "1.0.0",
+  "author": "krokoko",
+  "homepage": "https://github.com/krokoko/cairn",
+  "skills": []
+}
