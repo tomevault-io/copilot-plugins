@@ -4,7 +4,7 @@
   "repo": "geo-map-v2",
   "description": "Real-estate analytics pipeline: hashed canonical ledger, immutable snapshots, read-only serving. ~1:1 code-to-test.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harrisonwolf/geo-map-v2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T11:54:55Z"
+  "distributed_at": "2026-07-08T13:53:29Z"
 }
