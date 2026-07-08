@@ -7,11 +7,11 @@ A pickleball tournament management app
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [JohnPevien/pickle-point](https://github.com/JohnPevien/pickle-point).
+Original source: `CLAUDE.md` in [JohnPevien/pickle-point](https://github.com/JohnPevien/pickle-point).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
