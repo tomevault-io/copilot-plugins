@@ -1,0 +1,9 @@
+{
+  "name": "organvm--public-process",
+  "displayName": "public-process",
+  "description": "Essays, case studies, methodology documentation, RSS feed, newsletter integration",
+  "version": "1.0.0",
+  "author": "organvm",
+  "homepage": "https://github.com/organvm/public-process",
+  "skills": []
+}
