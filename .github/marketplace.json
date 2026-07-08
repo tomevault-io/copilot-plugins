@@ -126909,6 +126909,11 @@
       "description": "Analyze your youtube music listening history"
     },
     {
+      "name": "vaaibhavmishra--ytmusicstats",
+      "source": "./vaaibhavmishra--ytmusicstats",
+      "description": "Analyze your youtube music listening history"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -204489,6 +204494,16 @@
       "description": "An open-source tool designed to manage, organize, and streamline your entire AI filmmaking asset workflow."
     },
     {
+      "name": "fardinlab--jpicst",
+      "source": "./fardinlab--jpicst",
+      "description": "jpicst"
+    },
+    {
+      "name": "learn57130--fable-5",
+      "source": "./learn57130--fable-5",
+      "description": "Fable 5 methodology as a Claude Code plugin: decompose by verification boundaries, verify against the world, choose next by plan-change. Ships fable-scout + fable-refuter agents."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -240094,6 +240109,46 @@
       "description": "\ud83d\udcc8 Professional momentum stock scanner using Qullamaggie methodology - 20-point scoring with live Yahoo Finance data"
     },
     {
+      "name": "fardinlab--rnail",
+      "source": "./fardinlab--rnail",
+      "description": "rnail"
+    },
+    {
+      "name": "animede--charsheet",
+      "source": "./animede--charsheet",
+      "description": "charsheet creation w/Diffusers "
+    },
+    {
+      "name": "rigpalabs--fathom",
+      "source": "./rigpalabs--fathom",
+      "description": "Low-latency market data infrastructure \u2014 real-time L2 order book streaming from 4 exchanges via WebSocket \u2192 NATS \u2192 Parquet. Rust, single binary."
+    },
+    {
+      "name": "markus41--claude-m",
+      "source": "./markus41--claude-m",
+      "description": "Claude Microsoft plugins"
+    },
+    {
+      "name": "de-bias--debiasr",
+      "source": "./de-bias--debiasr",
+      "description": "Bias adjustment for mobile-phone-derived mobility data"
+    },
+    {
+      "name": "sensible-analytics--stock-scanner",
+      "source": "./sensible-analytics--stock-scanner",
+      "description": "\ud83d\udcc8 Professional momentum stock scanner using Qullamaggie methodology - 20-point scoring with live Yahoo Finance data"
+    },
+    {
+      "name": "aeondave--malskill",
+      "source": "./aeondave--malskill",
+      "description": "Offensive oriented Skill for agentic AI"
+    },
+    {
+      "name": "veeso--maud",
+      "source": "./veeso--maud",
+      "description": "A MDX inspired Markdown renderer for Lustre and Gleam."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -260632,6 +260687,26 @@
       "name": "zhiweio--eaglerag",
       "source": "./zhiweio--eaglerag",
       "description": "Search knowledge by what documents mean and how they look \u2014 not one or the other."
+    },
+    {
+      "name": "tamdogood--parler-protocol",
+      "source": "./tamdogood--parler-protocol",
+      "description": "a secure chat protocol for AI agents"
+    },
+    {
+      "name": "mizzy--memo",
+      "source": "./mizzy--memo",
+      "description": "\u500b\u4eba\u7528\u30e1\u30e2\u30c4\u30fc\u30ebWeb\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3"
+    },
+    {
+      "name": "matteo-grella--fucina",
+      "source": "./matteo-grella--fucina",
+      "description": "CPU-first tensor/autograd runtime and LLM inference engine in pure Zig \u2014 eager execution, GGUF in and out, LoRA training on CPU, benchmarked pairwise against llama.cpp."
+    },
+    {
+      "name": "19akshansh--zachcourse",
+      "source": "./19akshansh--zachcourse",
+      "description": "An AI-Powered Personalized Learning Platform for KagglexGoogle Vibecoding Capstone Competition"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -387067,6 +387142,461 @@
       "name": "jasonw404--inkpi",
       "source": "./jasonw404--inkpi",
       "description": "InkPi"
+    },
+    {
+      "name": "m07amed25--devreview-ai",
+      "source": "./m07amed25--devreview-ai",
+      "description": "Automated code reviews powered by AI. Catch bugs, security issues, and code quality problems instantly directly in your GitHub pull requests."
+    },
+    {
+      "name": "devsetheventos--casaconstrucao",
+      "source": "./devsetheventos--casaconstrucao",
+      "description": "casaconstrucao"
+    },
+    {
+      "name": "ketanchoyal--auddio-addon-sdk",
+      "source": "./ketanchoyal--auddio-addon-sdk",
+      "description": "\"Audiio Addon SDK\""
+    },
+    {
+      "name": "sardark942--vendors-io",
+      "source": "./sardark942--vendors-io",
+      "description": "vendors.io"
+    },
+    {
+      "name": "ahwazakhtar--thesishe",
+      "source": "./ahwazakhtar--thesishe",
+      "description": "ThesisHE"
+    },
+    {
+      "name": "remarkablemark--emoji",
+      "source": "./remarkablemark--emoji",
+      "description": "\ud83d\udd0d Emoji Search: browse and copy emoji to your clipboard"
+    },
+    {
+      "name": "cayn-one--timeline-hub",
+      "source": "./cayn-one--timeline-hub",
+      "description": "Personal telegram bot for long-term storing, fetching and interacting with media via pretty UI"
+    },
+    {
+      "name": "akilharrington--ai-resume-platform",
+      "source": "./akilharrington--ai-resume-platform",
+      "description": "ai-resume-platform"
+    },
+    {
+      "name": "kfkhalili--khalidalkhalili-com",
+      "source": "./kfkhalili--khalidalkhalili-com",
+      "description": "khalidalkhalili.com"
+    },
+    {
+      "name": "pinut1--touhou--bullet-rhapsody",
+      "source": "./pinut1--touhou--bullet-rhapsody",
+      "description": "Touhou_Bullet_Rhapsody_V01"
+    },
+    {
+      "name": "daly-dai--ai-admin-pro",
+      "source": "./daly-dai--ai-admin-pro",
+      "description": "ai-admin-pro"
+    },
+    {
+      "name": "guicom--ridenrest-app",
+      "source": "./guicom--ridenrest-app",
+      "description": "ridenrest-app"
+    },
+    {
+      "name": "kfkhalili--khalidalkhalili-com",
+      "source": "./kfkhalili--khalidalkhalili-com",
+      "description": "khalidalkhalili.com"
+    },
+    {
+      "name": "send--elidex",
+      "source": "./send--elidex",
+      "description": "elidex"
+    },
+    {
+      "name": "larsonrogers--ai-agent-starter-pack",
+      "source": "./larsonrogers--ai-agent-starter-pack",
+      "description": "Starter pack for vibe coding"
+    },
+    {
+      "name": "kfkhalili--khalidalkhalili-com",
+      "source": "./kfkhalili--khalidalkhalili-com",
+      "description": "khalidalkhalili.com"
+    },
+    {
+      "name": "matracey--lucide-icons-mcp-server",
+      "source": "./matracey--lucide-icons-mcp-server",
+      "description": "MCP server for Lucide Icons \u2014 search docs, props, and code examples from any AI coding assistant"
+    },
+    {
+      "name": "cjlozanodev--mi-transistor",
+      "source": "./cjlozanodev--mi-transistor",
+      "description": "project to listen to the radio"
+    },
+    {
+      "name": "mastersoftherealm--realmsrpg-test",
+      "source": "./mastersoftherealm--realmsrpg-test",
+      "description": "Vercel/Supabase/Next.js repo for RealmsRPG-Test (private, no org)"
+    },
+    {
+      "name": "mts-services--drorange0-2-26",
+      "source": "./mts-services--drorange0-2-26",
+      "description": "drorange0_2_26"
+    },
+    {
+      "name": "amarbel-llc--nebulous",
+      "source": "./amarbel-llc--nebulous",
+      "description": "NewsBlur MCP server and Web Capture Archive Protocol orchestrator \u2014 local-first feed/story index, plus URL preservation into a content-addressed blob store via chrest + madder"
+    },
+    {
+      "name": "mastersoftherealm--realmsrpg-test",
+      "source": "./mastersoftherealm--realmsrpg-test",
+      "description": "Vercel/Supabase/Next.js repo for RealmsRPG-Test (private, no org)"
+    },
+    {
+      "name": "bflinkdesign--agent-comms",
+      "source": "./bflinkdesign--agent-comms",
+      "description": "Universal inter-agent communication bus. File-based JSONL. Zero dependencies."
+    },
+    {
+      "name": "quarterssa--quarters-website",
+      "source": "./quarterssa--quarters-website",
+      "description": "Quarters-Website"
+    },
+    {
+      "name": "mastersoftherealm--realmsrpg-test",
+      "source": "./mastersoftherealm--realmsrpg-test",
+      "description": "Vercel/Supabase/Next.js repo for RealmsRPG-Test (private, no org)"
+    },
+    {
+      "name": "nathanjohnpayne--device-source-of-truth",
+      "source": "./nathanjohnpayne--device-source-of-truth",
+      "description": "Disney Streaming device catalog for partner inventory, specs, deployments, telemetry, and ADK version tracking."
+    },
+    {
+      "name": "ahmedfadel17--vidimetrics-ai",
+      "source": "./ahmedfadel17--vidimetrics-ai",
+      "description": "VidiMetrics is an AI-driven video content orchestration and story engine backend built on .NET. It streamlines the creation of cinematic shows and multi-media assets by managing high-end generative wo"
+    },
+    {
+      "name": "mastersoftherealm--realmsrpg-test",
+      "source": "./mastersoftherealm--realmsrpg-test",
+      "description": "Vercel/Supabase/Next.js repo for RealmsRPG-Test (private, no org)"
+    },
+    {
+      "name": "solidrhino--dotfiles",
+      "source": "./solidrhino--dotfiles",
+      "description": "Cross-platform dotfiles managed with chezmoi \u2014 fish shell, Neovim/LazyVim, and automated macOS/Linux setup"
+    },
+    {
+      "name": "marange63--pnl-monitor",
+      "source": "./marange63--pnl-monitor",
+      "description": "PnL-Monitor"
+    },
+    {
+      "name": "mastersoftherealm--realmsrpg-test",
+      "source": "./mastersoftherealm--realmsrpg-test",
+      "description": "Vercel/Supabase/Next.js repo for RealmsRPG-Test (private, no org)"
+    },
+    {
+      "name": "westonwestenborg--criterion-closet-picks",
+      "source": "./westonwestenborg--criterion-closet-picks",
+      "description": "Searchable database of Criterion Collection Closet Picks episodes"
+    },
+    {
+      "name": "lucbragatto--cooperebr",
+      "source": "./lucbragatto--cooperebr",
+      "description": "Plataforma SaaS para gest\u00e3o de cooperativas de energia solar"
+    },
+    {
+      "name": "mastersoftherealm--realmsrpg-test",
+      "source": "./mastersoftherealm--realmsrpg-test",
+      "description": "Vercel/Supabase/Next.js repo for RealmsRPG-Test (private, no org)"
+    },
+    {
+      "name": "globalscoreagent--global-score-indexer",
+      "source": "./globalscoreagent--global-score-indexer",
+      "description": "global-score-indexer"
+    },
+    {
+      "name": "harrisonwolf--geo-map-v2",
+      "source": "./harrisonwolf--geo-map-v2",
+      "description": "Real-estate analytics pipeline: hashed canonical ledger, immutable snapshots, read-only serving. ~1:1 code-to-test."
+    },
+    {
+      "name": "julioandolfo--mkt-privus",
+      "source": "./julioandolfo--mkt-privus",
+      "description": "mkt-privus"
+    },
+    {
+      "name": "smartcrabai--smartcrab",
+      "source": "./smartcrabai--smartcrab",
+      "description": "macOS desktop framework for building, running, and managing AI-powered workflows"
+    },
+    {
+      "name": "techbadji--gynaeasy",
+      "source": "./techbadji--gynaeasy",
+      "description": "Saas de gestion d'un cabinet de medecin"
+    },
+    {
+      "name": "julioandolfo--mkt-privus",
+      "source": "./julioandolfo--mkt-privus",
+      "description": "mkt-privus"
+    },
+    {
+      "name": "oeig-io--repo-utils",
+      "source": "./oeig-io--repo-utils",
+      "description": "Utility scripts for managing repositories"
+    },
+    {
+      "name": "paid-llc--paid-llc-website",
+      "source": "./paid-llc--paid-llc-website",
+      "description": "paid-llc-website"
+    },
+    {
+      "name": "julioandolfo--mkt-privus",
+      "source": "./julioandolfo--mkt-privus",
+      "description": "mkt-privus"
+    },
+    {
+      "name": "chris-lawbrokr--vault",
+      "source": "./chris-lawbrokr--vault",
+      "description": "vault"
+    },
+    {
+      "name": "julioandolfo--mkt-privus",
+      "source": "./julioandolfo--mkt-privus",
+      "description": "mkt-privus"
+    },
+    {
+      "name": "julioandolfo--mkt-privus",
+      "source": "./julioandolfo--mkt-privus",
+      "description": "mkt-privus"
+    },
+    {
+      "name": "julioandolfo--mkt-privus",
+      "source": "./julioandolfo--mkt-privus",
+      "description": "mkt-privus"
+    },
+    {
+      "name": "phyberapex--hibiki",
+      "source": "./phyberapex--hibiki",
+      "description": "Electron companion app to play music in discord during a D&D session"
+    },
+    {
+      "name": "d0rbu--research-project-template",
+      "source": "./d0rbu--research-project-template",
+      "description": "Correctness-first Python boilerplate for research projects."
+    },
+    {
+      "name": "junhanliu-dev--spanish-translator",
+      "source": "./junhanliu-dev--spanish-translator",
+      "description": "Snap a menu, hear the dish \u2014 open-source Flutter translator for travelers in Spain. Spanish, Basque (Euskara) & English. Voice, OCR, GPT-4o, Whisper, native TTS."
+    },
+    {
+      "name": "prekzursil--swfoc-mod-menu",
+      "source": "./prekzursil--swfoc-mod-menu",
+      "description": "Profile-driven SWFOC trainer/editor for base game, AOTR, and ROE with launch-context detection, save tooling, and calibration-first runtime reliability."
+    },
+    {
+      "name": "majiayu000--twitter-mcp",
+      "source": "./majiayu000--twitter-mcp",
+      "description": "twitter-mcp"
+    },
+    {
+      "name": "gershonconsulting--company",
+      "source": "./gershonconsulting--company",
+      "description": "company"
+    },
+    {
+      "name": "rhrywnak--colossus-rs",
+      "source": "./rhrywnak--colossus-rs",
+      "description": "colossus-rs"
+    },
+    {
+      "name": "darkstarrd-dev--mediaplayerx",
+      "source": "./darkstarrd-dev--mediaplayerx",
+      "description": "MediaPlayerX"
+    },
+    {
+      "name": "kantecalebdesigns--sabihr",
+      "source": "./kantecalebdesigns--sabihr",
+      "description": "the place"
+    },
+    {
+      "name": "makimakisalmon--muscle-map-2d",
+      "source": "./makimakisalmon--muscle-map-2d",
+      "description": "muscle_map_2D"
+    },
+    {
+      "name": "lukesantossz--tweet-sentiment-analysis",
+      "source": "./lukesantossz--tweet-sentiment-analysis",
+      "description": "A Natural Language Processing (NLP) project focused on Exploratory Data Analysis (EDA) and sentiment classification of Twitter data using Machine Learning."
+    },
+    {
+      "name": "clarkmiyamoto--scsi",
+      "source": "./clarkmiyamoto--scsi",
+      "description": "Self Consistent Stochastic Interpolants implementation"
+    },
+    {
+      "name": "aldorodrigo--openscirank",
+      "source": "./aldorodrigo--openscirank",
+      "description": "OpenSciRank"
+    },
+    {
+      "name": "ketanchoyal--auddio-addon-sdk",
+      "source": "./ketanchoyal--auddio-addon-sdk",
+      "description": "\"Audiio Addon SDK\""
+    },
+    {
+      "name": "vente-europe--unit-economics-calculator",
+      "source": "./vente-europe--unit-economics-calculator",
+      "description": "Amazon FBA Unit Economics Calculator"
+    },
+    {
+      "name": "tonytawil--gamey",
+      "source": "./tonytawil--gamey",
+      "description": "Gamey"
+    },
+    {
+      "name": "johnpevien--pickle-point",
+      "source": "./johnpevien--pickle-point",
+      "description": "A pickleball tournament management app"
+    },
+    {
+      "name": "axunion--nitonabbc-app",
+      "source": "./axunion--nitonabbc-app",
+      "description": "nitonabbc-app"
+    },
+    {
+      "name": "chazu--procyon-park",
+      "source": "./chazu--procyon-park",
+      "description": "procyon-park"
+    },
+    {
+      "name": "sitejob-nl--nexoveranda",
+      "source": "./sitejob-nl--nexoveranda",
+      "description": "nexoveranda"
+    },
+    {
+      "name": "juntotechnologies--cit-site",
+      "source": "./juntotechnologies--cit-site",
+      "description": "cit-site"
+    },
+    {
+      "name": "wallarm--ingress-nextgen",
+      "source": "./wallarm--ingress-nextgen",
+      "description": "Kubernetes Ingress controller with integrated Wallarm services - NextGen"
+    },
+    {
+      "name": "mason72--sps-archive",
+      "source": "./mason72--sps-archive",
+      "description": "sps-archive"
+    },
+    {
+      "name": "detectivecrewze--for-you-always",
+      "source": "./detectivecrewze--for-you-always",
+      "description": "for-you-always"
+    },
+    {
+      "name": "isaacray--automatic",
+      "source": "./isaacray--automatic",
+      "description": "automatic"
+    },
+    {
+      "name": "samuelfrench--claude-indicator",
+      "source": "./samuelfrench--claude-indicator",
+      "description": "Translucent desktop widget showing Claude Code Max subscription usage limits"
+    },
+    {
+      "name": "dooers-ai--dooers-agents-server",
+      "source": "./dooers-ai--dooers-agents-server",
+      "description": "dooers-agents-server"
+    },
+    {
+      "name": "h3cz--ace-your-permit",
+      "source": "./h3cz--ace-your-permit",
+      "description": "Duolingo-style Illinois driving test prep app"
+    },
+    {
+      "name": "shan8tanu--atlas-wiki",
+      "source": "./shan8tanu--atlas-wiki",
+      "description": "Factual visa information for people holding an Indian passport, travelling to other countries."
+    },
+    {
+      "name": "designforfailure--tax-co-pilot",
+      "source": "./designforfailure--tax-co-pilot",
+      "description": "Tax_Co-Pilot is a locally hosted, privacy-first personal tax software system designed for auditability and reproducibility."
+    },
+    {
+      "name": "ismael-joffroy-chandoutis--buttercut",
+      "source": "./ismael-joffroy-chandoutis--buttercut",
+      "description": "Edit Video with Claude Code"
+    },
+    {
+      "name": "late-bloomer420--mitch",
+      "source": "./late-bloomer420--mitch",
+      "description": "miTch"
+    },
+    {
+      "name": "morrifeldman--hangboard",
+      "source": "./morrifeldman--hangboard",
+      "description": "hangboard"
+    },
+    {
+      "name": "deliciousbuding--vectorcontrol",
+      "source": "./deliciousbuding--vectorcontrol",
+      "description": "VectorControl \u662f\u4e00\u4e2a\u9762\u5411\u4e2a\u4eba\u6295\u8d44\u51b3\u7b56\u7684\u5168\u6808\u7cfb\u7edf\uff0c\u6838\u5fc3\u76ee\u6807\u662f\u628a\u201c\u6570\u636e\u83b7\u53d6 -> \u4f30\u503c\u6c47\u603b -> \u52a8\u4f5c\u5efa\u8bae -> \u6267\u884c\u8bb0\u5f55 -> \u65e5\u62a5\u590d\u76d8\u201d\u505a\u6210\u53ef\u5ba1\u8ba1\u3001\u53ef\u56de\u653e\u3001\u53ef\u90e8\u7f72\u7684\u95ed\u73af\u3002"
+    },
+    {
+      "name": "bluremi--commute-buddy",
+      "source": "./bluremi--commute-buddy",
+      "description": "commute-buddy"
+    },
+    {
+      "name": "entropiacity--entropia",
+      "source": "./entropiacity--entropia",
+      "description": "Digital State Arena"
+    },
+    {
+      "name": "alexshamrai--music-cat",
+      "source": "./alexshamrai--music-cat",
+      "description": "music-cat"
+    },
+    {
+      "name": "kfkhalili--khalidalkhalili-com",
+      "source": "./kfkhalili--khalidalkhalili-com",
+      "description": "khalidalkhalili.com"
+    },
+    {
+      "name": "marektews--gokongres",
+      "source": "./marektews--gokongres",
+      "description": "Rest API w golangu"
+    },
+    {
+      "name": "hellowkeyzj--matcha-claw",
+      "source": "./hellowkeyzj--matcha-claw",
+      "description": "Matcha-claw"
+    },
+    {
+      "name": "nsevent--path-pal-mac-app",
+      "source": "./nsevent--path-pal-mac-app",
+      "description": "path-pal-mac-app"
+    },
+    {
+      "name": "upadhyayalab--ppt-image-inserter",
+      "source": "./upadhyayalab--ppt-image-inserter",
+      "description": "Automated insertion of images into PowerPoints"
+    },
+    {
+      "name": "nanohype--cloudgov",
+      "source": "./nanohype--cloudgov",
+      "description": "AWS security & cost CLI \u2014 IAM least-privilege, cost anomalies, posture, drift, compliance, and resource hygiene, plus a Kubernetes RBAC scanner."
+    },
+    {
+      "name": "battermanz--hatchdoor",
+      "source": "./battermanz--hatchdoor",
+      "description": "Hatchdoor"
     }
   ]
 }
