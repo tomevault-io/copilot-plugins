@@ -1,0 +1,9 @@
+{
+  "name": "alyraffauf--infra",
+  "displayName": "infra",
+  "description": "Hybrid cloud cluster monorepo with Ansible, K8s, NixOS, and Terraform.",
+  "version": "1.0.0",
+  "author": "alyraffauf",
+  "homepage": "https://github.com/alyraffauf/infra",
+  "skills": []
+}
