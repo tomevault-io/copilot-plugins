@@ -7,11 +7,11 @@ GLOBAL_HUB
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tacchinimd-dot/-tacchini-one-demo-](https://github.com/tacchinimd-dot/-tacchini-one-demo-).
+Original source: `AGENTS.md` in [tacchinimd-dot/-tacchini-one-demo-](https://github.com/tacchinimd-dot/-tacchini-one-demo-).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
