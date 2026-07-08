@@ -1,0 +1,9 @@
+{
+  "name": "pjsvis--just-silo",
+  "displayName": "just-silo",
+  "description": "Directory-based skill pattern for AI agents. Mount a silo, just harvest.",
+  "version": "1.0.0",
+  "author": "pjsvis",
+  "homepage": "https://github.com/pjsvis/just-silo",
+  "skills": []
+}
