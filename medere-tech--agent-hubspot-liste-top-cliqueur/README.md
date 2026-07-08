@@ -7,11 +7,11 @@ Cet agent permet de récupèrer toutes les campagnes email des 90 derniers jours
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [medere-tech/agent-hubspot-liste-top-cliqueur](https://github.com/medere-tech/agent-hubspot-liste-top-cliqueur).
+Original source: `AGENTS.md` in [medere-tech/agent-hubspot-liste-top-cliqueur](https://github.com/medere-tech/agent-hubspot-liste-top-cliqueur).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
