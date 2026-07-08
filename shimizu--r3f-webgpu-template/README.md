@@ -7,11 +7,11 @@ React Three Fiber + WebGPUのテンプレート
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [shimizu/r3f-webgpu-template](https://github.com/shimizu/r3f-webgpu-template).
+Original source: `CLAUDE.md` in [shimizu/r3f-webgpu-template](https://github.com/shimizu/r3f-webgpu-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
