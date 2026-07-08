@@ -42674,6 +42674,11 @@
       "description": "subliminal-learning"
     },
     {
+      "name": "mugnavo--tanstarter-monorepo",
+      "source": "./mugnavo--tanstarter-monorepo",
+      "description": "Vite+ monorepo template with \ud83c\udfdd\ufe0f TanStack Start, Better Auth, Drizzle ORM, shadcn/ui"
+    },
+    {
       "name": "sd0xdev--sd0x-dev-flow",
       "source": "./sd0xdev--sd0x-dev-flow",
       "description": "The harness layer for Claude Code \u2014 a reference implementation of harness engineering with hook-enforced dual review, state-machine gates that survive context compaction, and fail-closed safety where "
@@ -166789,6 +166794,11 @@
       "description": "Declarative language and toolchain for AI agents: define agents, tools and prompts in HCL, then compile to frameworks or manage them on hosted platforms with plan/apply semantics."
     },
     {
+      "name": "armin5872--optiqra",
+      "source": "./armin5872--optiqra",
+      "description": "A powerful, AI open-source diagnostic tool  that can improve your sites SEO"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -181549,6 +181559,11 @@
       "description": "Isometric-Github-Contributions"
     },
     {
+      "name": "yazdanctx--yazdan-me",
+      "source": "./yazdanctx--yazdan-me",
+      "description": "my personal website"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -190827,6 +190842,21 @@
       "name": "gridheap-bot--hugo-trainsh",
       "source": "./gridheap-bot--hugo-trainsh",
       "description": "Hugo theme with NES/FC retro pixel style inspired by classic 8-bit RPGs"
+    },
+    {
+      "name": "jwilger--eventcore-archive-20260705",
+      "source": "./jwilger--eventcore-archive-20260705",
+      "description": "Moved to https://git.johnwilger.com/jwilger/eventcore because my home lab has better uptime than GitHub :-/"
+    },
+    {
+      "name": "aisk--mygo",
+      "source": "./aisk--mygo",
+      "description": "\u306a\u3093\u3067\u2026\u2026\u306a\u3093\u3067\u300c\uff1f\u300d\u6f14\u7b97\u5b50\u3001\u5165\u308c\u305f\u306e\uff01\uff1f"
+    },
+    {
+      "name": "jwilger--eventcore-archive-20260705",
+      "source": "./jwilger--eventcore-archive-20260705",
+      "description": "Moved to https://git.johnwilger.com/jwilger/eventcore because my home lab has better uptime than GitHub :-/"
     },
     {
       "name": "lightninglabs--lnget",
@@ -388827,6 +388857,11 @@
       "name": "hector14mv--whisper-translate",
       "source": "./hector14mv--whisper-translate",
       "description": "Voice-to-text translation app using local Whisper for transcription and LLM APIs for translation. Built with Tauri 2 (Rust) + React + TypeScript."
+    },
+    {
+      "name": "yxswya--canvas-application",
+      "source": "./yxswya--canvas-application",
+      "description": "canvas-application"
     }
   ]
 }
