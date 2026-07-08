@@ -4,7 +4,7 @@
   "repo": "cairn",
   "description": "AI readiness & verification toolkit \u2014 measure how ready your codebase is for autonomous AI coding   agents, and get a roadmap to autonomy. Plugins for Claude Code, Cursor, Codex.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/krokoko/cairn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T01:00:12Z"
+  "distributed_at": "2026-07-08T01:05:32Z"
 }
