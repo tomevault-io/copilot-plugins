@@ -7,11 +7,11 @@ AWS security & cost CLI — IAM least-privilege, cost anomalies, posture, drift,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nanohype/cloudgov](https://github.com/nanohype/cloudgov).
+Original source: `CLAUDE.md` in [nanohype/cloudgov](https://github.com/nanohype/cloudgov).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
