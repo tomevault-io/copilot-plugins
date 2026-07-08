@@ -1,0 +1,9 @@
+{
+  "name": "adamakhlaq--claude-code-toolkit",
+  "displayName": "claude-code-toolkit",
+  "description": "A browsable catalog of Claude Code building blocks \u2014 CLAUDE.md, settings, hooks, agents, and doc-writing skills \u2014 to copy into your own project and make your own.",
+  "version": "1.0.0",
+  "author": "AdamAkhlaq",
+  "homepage": "https://github.com/AdamAkhlaq/claude-code-toolkit",
+  "skills": []
+}
