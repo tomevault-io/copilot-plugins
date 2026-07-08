@@ -1,0 +1,9 @@
+{
+  "name": "zmr0zhangmouren--dot-net-code-security-audit-platform",
+  "displayName": "DOT.NET-Code-Security-Audit-Platform",
+  "description": "Self-hosted white-box .NET security audit platform. Loads 38 audit Skills via OpenAI Agents SDK, runs BullMQ + Redis scan pipeline, persists to SQLite-backed Vulnerability Library with Markdown report",
+  "version": "1.0.0",
+  "author": "ZMR0zhangmouren",
+  "homepage": "https://github.com/ZMR0zhangmouren/DOT.NET-Code-Security-Audit-Platform",
+  "skills": []
+}
