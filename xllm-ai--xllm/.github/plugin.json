@@ -1,0 +1,9 @@
+{
+  "name": "xllm-ai--xllm",
+  "displayName": "xllm",
+  "description": "A high-performance inference engine for LLM, VLM, DiT and REC models, optimized for diverse AI accelerators. It is hosted in OpenAtom Foundation.",
+  "version": "1.0.0",
+  "author": "xLLM-AI",
+  "homepage": "https://github.com/xLLM-AI/xllm",
+  "skills": []
+}
