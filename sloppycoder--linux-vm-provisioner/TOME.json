@@ -4,7 +4,7 @@
   "repo": "linux-vm-provisioner",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sloppycoder/linux-vm-provisioner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T05:03:42Z"
+  "distributed_at": "2026-07-08T05:13:59Z"
 }
