@@ -1,0 +1,9 @@
+{
+  "name": "kudima03--pure-relationalschema-storage-abstractions-serialization-system",
+  "displayName": "Pure.RelationalSchema.Storage.Abstractions.Serialization.System",
+  "description": "System.Text.Json converters for relational schema storage abstractions \u2014 ICell, IRow, IStoredTableDataSet, and IStoredSchemaDataSet.",
+  "version": "1.0.0",
+  "author": "kudima03",
+  "homepage": "https://github.com/kudima03/Pure.RelationalSchema.Storage.Abstractions.Serialization.System",
+  "skills": []
+}
