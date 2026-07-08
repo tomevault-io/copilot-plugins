@@ -1,0 +1,9 @@
+{
+  "name": "sigtrygg-space--kirby-trash",
+  "displayName": "kirby-trash",
+  "description": "Soft-delete for Kirby CMS. Adds a proper trash can with restore, permanent delete, and configurable retention.",
+  "version": "1.0.0",
+  "author": "sigtrygg-space",
+  "homepage": "https://github.com/sigtrygg-space/kirby-trash",
+  "skills": []
+}
