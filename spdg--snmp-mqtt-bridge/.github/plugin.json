@@ -1,0 +1,9 @@
+{
+  "name": "spdg--snmp-mqtt-bridge",
+  "displayName": "snmp-mqtt-bridge",
+  "description": "snmp-mqtt-bridge",
+  "version": "1.0.0",
+  "author": "SPDG",
+  "homepage": "https://github.com/SPDG/snmp-mqtt-bridge",
+  "skills": []
+}
