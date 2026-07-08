@@ -7,11 +7,11 @@ Community edition of RepoPrompt: a native macOS context engineering app for AI c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [repoprompt/repoprompt-ce](https://github.com/repoprompt/repoprompt-ce).
+Original source: `CLAUDE.md` in [repoprompt/repoprompt-ce](https://github.com/repoprompt/repoprompt-ce).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
