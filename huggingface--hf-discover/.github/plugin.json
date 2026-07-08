@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--hf-discover",
+  "displayName": "hf-discover",
+  "description": "Agentic Resource Discovery Client/Server",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/hf-discover",
+  "skills": []
+}
