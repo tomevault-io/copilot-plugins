@@ -1,0 +1,9 @@
+{
+  "name": "romanilyin--sgg-perfmeter",
+  "displayName": "sgg-perfmeter",
+  "description": "Lightweight runtime performance diagnostics and agent-readable profiling for Unity 6 URP+HDRP (FPS meter).",
+  "version": "1.0.0",
+  "author": "romanilyin",
+  "homepage": "https://github.com/romanilyin/sgg-perfmeter",
+  "skills": []
+}
