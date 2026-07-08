@@ -1,0 +1,9 @@
+{
+  "name": "n2ns--n2n-nexus",
+  "displayName": "n2n-nexus",
+  "description": "Local-first MCP coordination hub. One local daemon serves multiple AI assistants across IDEs \u2014 shared meetings, tasks, messages, and project registry. Works with Claude, Cursor, VS Code, Zed.",
+  "version": "1.0.0",
+  "author": "n2ns",
+  "homepage": "https://github.com/n2ns/n2n-nexus",
+  "skills": []
+}
