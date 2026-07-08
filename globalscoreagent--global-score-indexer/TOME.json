@@ -4,7 +4,7 @@
   "repo": "global-score-indexer",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GlobalScoreAgent/global-score-indexer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T11:57:40Z"
+  "distributed_at": "2026-07-08T13:52:55Z"
 }
