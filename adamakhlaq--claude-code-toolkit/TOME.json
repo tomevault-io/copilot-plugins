@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-toolkit",
+  "owner": "AdamAkhlaq",
+  "repo": "claude-code-toolkit",
+  "description": "A browsable catalog of Claude Code building blocks \u2014 CLAUDE.md, settings, hooks, agents, and doc-writing skills \u2014 to copy into your own project and make your own.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AdamAkhlaq/claude-code-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T15:53:45Z"
+}
