@@ -7,11 +7,11 @@ Tax_Co-Pilot is a locally hosted, privacy-first personal tax software system des
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DesignForFailure/Tax_Co-Pilot](https://github.com/DesignForFailure/Tax_Co-Pilot).
+Original source: `CLAUDE.md` in [DesignForFailure/Tax_Co-Pilot](https://github.com/DesignForFailure/Tax_Co-Pilot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
