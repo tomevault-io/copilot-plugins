@@ -1,0 +1,9 @@
+{
+  "name": "phyberapex--hibiki",
+  "displayName": "hibiki",
+  "description": "Electron companion app to play music in discord during a D&D session",
+  "version": "1.0.0",
+  "author": "PhyberApex",
+  "homepage": "https://github.com/PhyberApex/hibiki",
+  "skills": []
+}
