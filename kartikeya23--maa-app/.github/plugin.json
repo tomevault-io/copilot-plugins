@@ -1,0 +1,9 @@
+{
+  "name": "kartikeya23--maa-app",
+  "displayName": "maa-app",
+  "description": "A web application for tracking hospital admission claims under the MAA health insurance scheme. Supports CSV ingestion, claim browsing with filters, and Excel report generation.",
+  "version": "1.0.0",
+  "author": "kartikeya23",
+  "homepage": "https://github.com/kartikeya23/maa-app",
+  "skills": []
+}
