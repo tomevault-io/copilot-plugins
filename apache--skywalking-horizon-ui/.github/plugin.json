@@ -1,0 +1,9 @@
+{
+  "name": "apache--skywalking-horizon-ui",
+  "displayName": "skywalking-horizon-ui",
+  "description": "Apache SkyWalking next-generation UI (Horizon)",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/skywalking-horizon-ui",
+  "skills": []
+}
