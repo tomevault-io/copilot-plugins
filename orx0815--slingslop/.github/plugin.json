@@ -1,0 +1,9 @@
+{
+  "name": "orx0815--slingslop",
+  "displayName": "slingslop",
+  "description": "Hypermedia Driven Application (HDA) based on Apache Sling. Using HTMX / Datastar to GET component markup and to POST content via Sling's OOTB endpoints",
+  "version": "1.0.0",
+  "author": "orx0815",
+  "homepage": "https://github.com/orx0815/slingslop",
+  "skills": []
+}
