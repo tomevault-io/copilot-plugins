@@ -4,7 +4,7 @@
   "repo": "qa-agent",
   "description": "Checklist-driven, LLM-powered webapp tester with live dashboard. Playwright Python API, local LLM support.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danman60/qa-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T07:07:55Z"
+  "distributed_at": "2026-07-08T07:24:15Z"
 }
