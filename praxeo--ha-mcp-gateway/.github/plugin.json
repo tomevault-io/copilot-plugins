@@ -1,0 +1,9 @@
+{
+  "name": "praxeo--ha-mcp-gateway",
+  "displayName": "ha-mcp-gateway",
+  "description": "ha-mcp-gateway",
+  "version": "1.0.0",
+  "author": "praxeo",
+  "homepage": "https://github.com/praxeo/ha-mcp-gateway",
+  "skills": []
+}
