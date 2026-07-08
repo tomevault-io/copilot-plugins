@@ -1,0 +1,9 @@
+{
+  "name": "velesnitski--yt-mcp",
+  "displayName": "yt-mcp",
+  "description": "YouTrack MCP server for Claude Code",
+  "version": "1.0.0",
+  "author": "velesnitski",
+  "homepage": "https://github.com/velesnitski/yt-mcp",
+  "skills": []
+}
