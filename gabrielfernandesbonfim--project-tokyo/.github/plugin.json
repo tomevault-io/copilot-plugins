@@ -1,0 +1,9 @@
+{
+  "name": "gabrielfernandesbonfim--project-tokyo",
+  "displayName": "project-tokyo",
+  "description": "AI-driven development framework combining GitHub Spec Kit with Claude Code CLI. Template repo with pre-configured CI/CD, security checks, MCP contracts, and a spec-driven workflow for reproducible, se",
+  "version": "1.0.0",
+  "author": "gabrielfernandesbonfim",
+  "homepage": "https://github.com/gabrielfernandesbonfim/project-tokyo",
+  "skills": []
+}
