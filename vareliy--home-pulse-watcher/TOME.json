@@ -2,9 +2,9 @@
   "name": "home-pulse-watcher",
   "owner": "vaReliy",
   "repo": "home-pulse-watcher",
-  "description": "",
+  "description": "DIY Power Outage Notifier",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/vaReliy",
+  "source_url": "https://github.com/vaReliy/home-pulse-watcher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T00:30:51Z"
+  "distributed_at": "2026-07-08T16:28:08Z"
 }
