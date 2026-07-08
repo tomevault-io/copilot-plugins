@@ -1,0 +1,9 @@
+{
+  "name": "yuriipalam--codex-status-bar",
+  "displayName": "codex-status-bar",
+  "description": "A compact macOS menu bar companion for Codex: live status icons, elapsed timers, active and unread sessions, usage indicators, and approval/input alerts.",
+  "version": "1.0.0",
+  "author": "yuriipalam",
+  "homepage": "https://github.com/yuriipalam/codex-status-bar",
+  "skills": []
+}
