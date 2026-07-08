@@ -7,11 +7,11 @@ This is an event tracker for the Ticoblockchain event of 2026.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Gerson2102/ticoblockchain-event-tracker](https://github.com/Gerson2102/ticoblockchain-event-tracker).
+Original source: `CLAUDE.md` in [Gerson2102/ticoblockchain-event-tracker](https://github.com/Gerson2102/ticoblockchain-event-tracker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
