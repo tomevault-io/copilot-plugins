@@ -1,0 +1,9 @@
+{
+  "name": "insta-checkout--insta-checkout",
+  "displayName": "insta-checkout",
+  "description": "Monorepo with checkout and landing apps - Next.js workspace",
+  "version": "1.0.0",
+  "author": "Insta-Checkout",
+  "homepage": "https://github.com/Insta-Checkout/insta-checkout",
+  "skills": []
+}
