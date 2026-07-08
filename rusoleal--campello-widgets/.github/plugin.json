@@ -1,0 +1,9 @@
+{
+  "name": "rusoleal--campello-widgets",
+  "displayName": "campello_widgets",
+  "description": "A C++20 widgets library inspired by Flutter widgets.",
+  "version": "1.0.0",
+  "author": "rusoleal",
+  "homepage": "https://github.com/rusoleal/campello_widgets",
+  "skills": []
+}
