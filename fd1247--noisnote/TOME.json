@@ -4,7 +4,7 @@
   "repo": "NoisNote",
   "description": "windows\u684c\u9762\u5e94\u7528\uff1a\u5f55\u5236\u7cfb\u7edf\u58f0\u97f3\uff0c\u672c\u5730ASR\u8f6c\u5f55\uff0cLLM\u751f\u6210\u603b\u7ed3",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fd1247/NoisNote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T01:02:50Z"
+  "distributed_at": "2026-07-08T01:11:04Z"
 }
