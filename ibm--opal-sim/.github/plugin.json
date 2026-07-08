@@ -1,0 +1,9 @@
+{
+  "name": "ibm--opal-sim",
+  "displayName": "opal-sim",
+  "description": "Opal (O.P.A.L. - Open simulator Platform for distributed AI and LLM workflows) is an LLM platform-level simulator written purely in Python. It can be used to explore policies, deployment configuration",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/opal-sim",
+  "skills": []
+}
