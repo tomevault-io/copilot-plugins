@@ -7,11 +7,11 @@ Arcana Credit Union as the institution, Arcana Pulse as the consumer app, and ar
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Spirovanni/arcana_pulse](https://github.com/Spirovanni/arcana_pulse).
+Original source: `CLAUDE.md` in [Spirovanni/arcana_pulse](https://github.com/Spirovanni/arcana_pulse).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
