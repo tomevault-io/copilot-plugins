@@ -1,0 +1,44 @@
+{
+  "name": "ethical-alpha-audit-paper-2-threshold-justification",
+  "owner": "ethical-alpha-audit",
+  "repo": "ethical-alpha-audit-paper-2-threshold-justification",
+  "description": "Paper 2: A Threshold Justification Stack for Clinical AI Governance \u2014 Computational Sensitivity Analysis. Target: BMJ Health & Care Informatics.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ethical-alpha-audit/ethical-alpha-audit-paper-2-threshold-justification",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T06:38:20Z"
+}
