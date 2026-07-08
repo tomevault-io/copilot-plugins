@@ -1,0 +1,44 @@
+{
+  "name": "agent_part",
+  "owner": "JianFeiGan",
+  "repo": "agent_part",
+  "description": "\u591aAgent\u534f\u4f5c\u5546\u54c1\u56fe\u7247/\u89c6\u9891\u81ea\u52a8\u751f\u6210\u7cfb\u7edf \u57fa\u4e8e LangGraph \u6784\u5efa\u7684\u591aAgent\u534f\u4f5c\u7cfb\u7edf\uff0c\u5b9e\u73b0\u5546\u54c1\u8425\u9500\u89c6\u89c9\u5185\u5bb9\u7684\u81ea\u52a8\u5316\u751f\u6210\u3002  \u529f\u80fd\u7279\u6027 \ud83e\udd16 \u591aAgent\u534f\u4f5c\u67b6\u6784: 7\u4e2a\u4e13\u4e1aAgent\u534f\u540c\u5de5\u4f5c \ud83d\uddbc\ufe0f \u667a\u80fd\u56fe\u7247\u751f\u6210: \u4e3b\u56fe\u3001\u573a\u666f\u56fe\u3001\u5356\u70b9\u56fe\u81ea\u52a8\u751f\u6210 \ud83c\udfac \u89c6\u9891\u5206\u955c\u751f\u6210: \u667a\u80fd\u5206\u955c\u8bbe\u8ba1+\u89c6\u9891\u5408\u6210 \ud83c\udfa8 \u521b\u610f\u81ea\u52a8\u7b56\u5212: \u98ce\u683c\u63a8\u8350\u3001\u914d\u8272\u65b9\u6848\u8bbe\u8ba1 \u2705 \u8d28\u91cf\u81ea\u52a8\u5ba1\u6838: \u5185\u5bb9\u8d28\u91cf\u68c0\u6d4b\u3001\u5408\u89c4\u5ba1\u6838",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JianFeiGan/agent_part",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T06:51:16Z"
+}
