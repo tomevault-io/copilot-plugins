@@ -1,0 +1,9 @@
+{
+  "name": "yaoyue123--viddub",
+  "displayName": "VidDub",
+  "description": "YouTube \u89c6\u9891\u81ea\u52a8\u4e2d\u6587\u914d\u97f3 + \u591a\u5e73\u53f0\u53d1\u5e03\u5de5\u5177 \u2014 \u4e0b\u8f7d\u3001\u8f6c\u5199\u3001\u7ffb\u8bd1\u3001\u914d\u97f3\u3001\u5408\u6210\u3001\u53d1\u5e03\u5168\u81ea\u52a8\u7ba1\u7ebf\u3002Automatically dub YouTube videos into Chinese and publish to Bilibili/Douyin/Kuaishou \u2014 end-to-end pipeline: download, STT, translate, TTS, compose,",
+  "version": "1.0.0",
+  "author": "yaoyue123",
+  "homepage": "https://github.com/yaoyue123/VidDub",
+  "skills": []
+}
