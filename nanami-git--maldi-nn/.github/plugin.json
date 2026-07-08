@@ -1,0 +1,9 @@
+{
+  "name": "nanami-git--maldi-nn",
+  "displayName": "maldi-nn",
+  "description": "Deep learning tools and models for MALDI-TOF mass spectra analysis",
+  "version": "1.0.0",
+  "author": "Nanami-git",
+  "homepage": "https://github.com/Nanami-git/maldi-nn",
+  "skills": []
+}
