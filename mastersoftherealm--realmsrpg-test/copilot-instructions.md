@@ -1,29 +1,42 @@
-## realms-accessibility
+## realms-codex-data
 
-> WCAG 2.1 AA accessibility — contrast, labels, headings, images. Apply when creating or editing UI (pages, modals, components).
+> Codex / reference-data edits — owner review before database writes
 
 
-# Accessibility (RealmsRPG)
+# Codex & Reference Data (Supabase)
 
-When **creating or editing** any page, modal, or component with UI:
+Applies to **`codex_*`**, **`core_rules`**, and any bulk edits to official library reference content.
 
-1. **Contrast (light and dark):** Text must meet WCAG 2.1 AA (4.5:1 normal, 3:1 large). Use **semantic tokens**: `text-text-primary`, `text-text-secondary`. For **status colors** use the **darker** token in light mode: `text-success-700` (not `-600`), `text-danger-700` where needed; pair with `dark:text-success-400`, etc. For **Power/Martial** body text use `text-power-dark` and `text-martial-dark`. If using `text-text-muted`, add `dark:text-text-secondary`. See `src/docs/ACCESSIBILITY.md` and `src/docs/DESIGN_SYSTEM.md`.
+## Read freely; write only after review
 
-2. **Buttons:** Every button must have **discernable text**. Icon-only buttons need `aria-label` (e.g. "Show password", "Edit", "Clear history"). Do not rely only on `title` for screen readers.
+| Allowed without prior approval | Requires owner review first |
+|-------------------------------|----------------------------|
+| `SELECT` / audits / counts / previews | `UPDATE`, `INSERT`, `DELETE` on codex tables |
+| Draft SQL in `sql/*.sql` | `execute_sql` / `apply_migration` that mutates codex data |
+| Repo-only seed/CSV edits (not live DB) | Supabase MCP writes that change live reference data |
 
-3. **Form controls:** Every `<select>`, `<input>` (when not wrapped by a visible label), and custom control must have an **accessible name**: use `<label htmlFor="id">` with matching `id` on the control, or `aria-label`. For spreadsheet-style cells or toolbar inputs, use `aria-label` (e.g. "Find in spreadsheet", "Edit [column], row [n]").
+## Workflow for bulk or policy changes (tags, categories, merges, migrations)
 
-4. **Headings:** Heading levels must **increase by at most one** (no skip from `h1` to `h3`). Page title = `h1`; step or first section = `h2`; subsections = `h3`, etc.
+1. **Audit** — query or export current state; cite counts and examples.
+2. **Propose** — mapping plan, sample before/after rows, SQL file in `sql/` (no trailing `UPDATE` until approved).
+3. **Wait** — owner reviews and approves, corrects mappings, or says "apply".
+4. **Apply** — run approved SQL once; report rows affected and post-migration counts.
 
-5. **Modals:** Use `Modal` with `title` (and optional `description`). If using a custom header with no visible title, pass `titleA11y` so the dialog has an accessible name.
+Do **not** chain Phase 1 → Phase 2 → live DB in one turn without an explicit apply step from the owner.
 
-6. **Touch targets:** Interactive controls (buttons, steppers, tab triggers, list row actions) must have a minimum **44×44px** tap area. See `src/docs/MOBILE_UX.md`.
+## Explicit owner direction
 
-7. **Images:** Decorative or redundant images (e.g. dice icons next to visible "d4"/"1d6" text) must use **`alt=""`**. Meaningful images need descriptive `alt` text.
+When the owner gives a **specific correction in the current message** (e.g. "use Skill Roll not Skill Check", "apply phase 2"), implement that scope only — still prefer a preview for bulk updates when practical.
 
-8. **ESLint:** Fix any a11y violations from `eslint-plugin-jsx-a11y` (`npm run lint` or editor).
+## Terminology
 
-9. **Checklist before merging UI:** (1) No icon-only buttons without `aria-label`, (2) All selects/inputs have label or `aria-label`, (3) Heading hierarchy has no skip, (4) Modals have title or `titleA11y`, (5) Status/secondary text uses contrast-safe tokens in both light and dark mode, (6) Touch targets ≥ 44px where applicable.
+Match **`src/docs/GAME_RULES.md`** for game terms in codex fields (e.g. **Skill Roll**, not Skill Check).
+
+## After approved codex data changes
+
+- Keep `sql/` migration files in sync with what was applied.
+- Note in `src/docs/ai/AI_CHANGELOG.md` when reference data meaningfully changes.
+- Re-export or align `scripts/seed-data/` / `codex_csv/` if those remain parity sources (ask if unsure).
 
 ---
 > Source: [MastersoftheRealm/RealmsRPG-Test](https://github.com/MastersoftheRealm/RealmsRPG-Test) — distributed by [TomeVault](https://tomevault.io).
