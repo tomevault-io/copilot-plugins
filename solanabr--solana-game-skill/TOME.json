@@ -1,0 +1,51 @@
+{
+  "name": "solana-game-skill",
+  "owner": "solanabr",
+  "repo": "solana-game-skill",
+  "description": "Claude Code skills for C#, Solana Unity SDK, Solana Mobile and Playsolana Unity SDK.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill",
+      "path": "skill",
+      "github_url": "https://github.com/solanabr/solana-game-skill/tree/main/skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/solanabr/solana-game-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T15:30:35Z"
+}
