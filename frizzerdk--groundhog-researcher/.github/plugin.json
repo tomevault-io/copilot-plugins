@@ -1,0 +1,9 @@
+{
+  "name": "frizzerdk--groundhog-researcher",
+  "displayName": "groundhog-researcher",
+  "description": "LLM-powered iterative function optimization. Define how to score your code, and the groundhog iterates overnight.",
+  "version": "1.0.0",
+  "author": "frizzerdk",
+  "homepage": "https://github.com/frizzerdk/groundhog-researcher",
+  "skills": []
+}
