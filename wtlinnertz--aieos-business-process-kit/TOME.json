@@ -1,0 +1,44 @@
+{
+  "name": "aieos-business-process-kit",
+  "owner": "wtlinnertz",
+  "repo": "aieos-business-process-kit",
+  "description": "Layer 15 \u2014 Process impact assessment, transition planning, and readiness confirmation. Ship the process change, not just the code.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wtlinnertz/aieos-business-process-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T12:15:17Z"
+}
