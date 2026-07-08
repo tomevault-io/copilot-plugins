@@ -1,4 +1,4 @@
-## laravel-boost
+## kolabing-v2
 
 > <laravel-boost-guidelines>
 
