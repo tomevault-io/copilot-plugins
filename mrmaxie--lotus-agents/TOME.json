@@ -1,0 +1,57 @@
+{
+  "name": "lotus-agents",
+  "owner": "MrMaxie",
+  "repo": "lotus-agents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lotus-linear-init",
+      "path": "lotus-linear/lotus-linear-init",
+      "github_url": "https://github.com/MrMaxie/lotus-agents/tree/main/lotus-linear/lotus-linear-init",
+      "description": ""
+    },
+    {
+      "name": "lotus-init",
+      "path": "lotus-local/lotus-init",
+      "github_url": "https://github.com/MrMaxie/lotus-agents/tree/main/lotus-local/lotus-init",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MrMaxie/lotus-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T04:30:33Z"
+}
