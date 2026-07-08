@@ -1,0 +1,9 @@
+{
+  "name": "the-anonymous-aspirant--aspirant-monitor",
+  "displayName": "aspirant-monitor",
+  "description": "System metrics sidecar for the Aspirant platform",
+  "version": "1.0.0",
+  "author": "the-anonymous-aspirant",
+  "homepage": "https://github.com/the-anonymous-aspirant/aspirant-monitor",
+  "skills": []
+}
