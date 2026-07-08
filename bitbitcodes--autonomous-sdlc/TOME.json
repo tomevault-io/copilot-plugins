@@ -1,0 +1,44 @@
+{
+  "name": "autonomous-sdlc",
+  "owner": "bitbitcodes",
+  "repo": "autonomous-sdlc",
+  "description": "autonomous-sdlc scaffolds 40 AI agents into your project repo to execute the full software development lifecycle \u2014 from a spec to production-ready code with tests, security audit, CI/CD, and monitoring.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bitbitcodes/autonomous-sdlc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T23:39:14Z"
+}
