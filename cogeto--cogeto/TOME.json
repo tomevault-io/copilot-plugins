@@ -4,7 +4,7 @@
   "repo": "cogeto",
   "description": "Private, EU-hosted AI memory that you can inspect, correct, and prove deleted - with human-approved agents on top.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Cogeto/cogeto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T17:40:29Z"
+  "distributed_at": "2026-07-08T19:42:55Z"
 }
