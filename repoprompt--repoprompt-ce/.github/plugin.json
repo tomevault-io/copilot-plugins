@@ -1,0 +1,9 @@
+{
+  "name": "repoprompt--repoprompt-ce",
+  "displayName": "repoprompt-ce",
+  "description": "Community edition of RepoPrompt: a native macOS context engineering app for AI coding agents, with an MCP CLI.",
+  "version": "1.0.0",
+  "author": "repoprompt",
+  "homepage": "https://github.com/repoprompt/repoprompt-ce",
+  "skills": []
+}
