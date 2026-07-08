@@ -1,0 +1,9 @@
+{
+  "name": "hackclub--prometheus",
+  "displayName": "prometheus",
+  "description": "Prometheus is a Slack bot that lets community members take responsibility for keeping high traffic channels tidy and welcoming",
+  "version": "1.0.0",
+  "author": "hackclub",
+  "homepage": "https://github.com/hackclub/prometheus",
+  "skills": []
+}
