@@ -1,0 +1,9 @@
+{
+  "name": "opencoredev--login-with-chatgpt",
+  "displayName": "login-with-chatgpt",
+  "description": "A simple SDK that lets your users log in with their ChatGPT account.",
+  "version": "1.0.0",
+  "author": "opencoredev",
+  "homepage": "https://github.com/opencoredev/login-with-chatgpt",
+  "skills": []
+}
