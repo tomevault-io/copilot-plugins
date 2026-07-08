@@ -1,0 +1,9 @@
+{
+  "name": "globalscoreagent--global-score-indexer",
+  "displayName": "global-score-indexer",
+  "description": "global-score-indexer",
+  "version": "1.0.0",
+  "author": "GlobalScoreAgent",
+  "homepage": "https://github.com/GlobalScoreAgent/global-score-indexer",
+  "skills": []
+}
