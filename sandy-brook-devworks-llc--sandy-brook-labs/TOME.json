@@ -4,7 +4,7 @@
   "repo": "sandy-brook-labs",
   "description": "Landing site for Sandy Brook DevWorks Lab Projects",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sandy-Brook-DevWorks-LLC/sandy-brook-labs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T10:07:10Z"
+  "distributed_at": "2026-07-08T11:37:15Z"
 }
