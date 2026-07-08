@@ -7,11 +7,11 @@ A Natural Language Processing (NLP) project focused on Exploratory Data Analysis
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LukeSantossz/tweet-sentiment-analysis](https://github.com/LukeSantossz/tweet-sentiment-analysis).
+Original source: `CLAUDE.md` in [LukeSantossz/tweet-sentiment-analysis](https://github.com/LukeSantossz/tweet-sentiment-analysis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
