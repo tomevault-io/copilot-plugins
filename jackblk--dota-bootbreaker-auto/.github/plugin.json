@@ -1,0 +1,9 @@
+{
+  "name": "jackblk--dota-bootbreaker-auto",
+  "displayName": "dota-bootbreaker-auto",
+  "description": "auto play the minigame bootbreaker in dota2",
+  "version": "1.0.0",
+  "author": "jackblk",
+  "homepage": "https://github.com/jackblk/dota-bootbreaker-auto",
+  "skills": []
+}
