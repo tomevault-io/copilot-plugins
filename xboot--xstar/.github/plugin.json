@@ -1,0 +1,9 @@
+{
+  "name": "xboot--xstar",
+  "displayName": "xstar",
+  "description": "A portable embedded system framework for writing cross-platform firmware and applications",
+  "version": "1.0.0",
+  "author": "xboot",
+  "homepage": "https://github.com/xboot/xstar",
+  "skills": []
+}
