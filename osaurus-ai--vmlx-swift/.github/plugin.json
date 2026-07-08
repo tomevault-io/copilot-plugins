@@ -1,0 +1,9 @@
+{
+  "name": "osaurus-ai--vmlx-swift",
+  "displayName": "vmlx-swift",
+  "description": "Unified Swift MLX inference stack for fast, local, multimodal AI on Apple Silicon.",
+  "version": "1.0.0",
+  "author": "osaurus-ai",
+  "homepage": "https://github.com/osaurus-ai/vmlx-swift",
+  "skills": []
+}
