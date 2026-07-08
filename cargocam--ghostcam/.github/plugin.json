@@ -1,0 +1,9 @@
+{
+  "name": "cargocam--ghostcam",
+  "displayName": "ghostcam",
+  "description": "Real-time camera surveillance system",
+  "version": "1.0.0",
+  "author": "cargocam",
+  "homepage": "https://github.com/cargocam/ghostcam",
+  "skills": []
+}
