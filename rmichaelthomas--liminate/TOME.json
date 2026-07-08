@@ -4,7 +4,7 @@
   "repo": "liminate",
   "description": "Liminate is a prose-as-syntax language designed from the human end.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rmichaelthomas/liminate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T00:54:23Z"
+  "distributed_at": "2026-07-08T00:54:53Z"
 }
