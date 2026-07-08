@@ -4,7 +4,7 @@
   "repo": "hibiki",
   "description": "Electron companion app to play music in discord during a D&D session",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PhyberApex/hibiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T14:04:35Z"
+  "distributed_at": "2026-07-08T18:13:53Z"
 }
