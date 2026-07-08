@@ -1,0 +1,44 @@
+{
+  "name": "S-Team",
+  "owner": "chemistrywow31",
+  "repo": "S-Team",
+  "description": " Not one AI making a deck \u2014 a whole studio that ships it. Sources verified, layouts machine-gated (no \"trust me, looks fine\"), styles are reusable contracts. HTML \u00b7 PPTX \u00b7 PDF \u00b7 Web POC.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chemistrywow31/S-Team",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T02:41:32Z"
+}
