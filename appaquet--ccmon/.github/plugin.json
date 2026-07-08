@@ -1,0 +1,9 @@
+{
+  "name": "appaquet--ccmon",
+  "displayName": "ccmon",
+  "description": "Real-time dashboard for your Claude Code sessions",
+  "version": "1.0.0",
+  "author": "appaquet",
+  "homepage": "https://github.com/appaquet/ccmon",
+  "skills": []
+}
