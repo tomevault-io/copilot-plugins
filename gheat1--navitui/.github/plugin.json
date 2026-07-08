@@ -1,0 +1,9 @@
+{
+  "name": "gheat1--navitui",
+  "displayName": "NaviTui",
+  "description": "\u266a A fast, animated TUI player for Navidrome \u2014 cover art in the terminal, playback via mpv, themes via ricekit",
+  "version": "1.0.0",
+  "author": "Gheat1",
+  "homepage": "https://github.com/Gheat1/NaviTui",
+  "skills": []
+}
