@@ -1,0 +1,9 @@
+{
+  "name": "solidrhino--dotfiles",
+  "displayName": "dotfiles",
+  "description": "Cross-platform dotfiles managed with chezmoi \u2014 fish shell, Neovim/LazyVim, and automated macOS/Linux setup",
+  "version": "1.0.0",
+  "author": "SolidRhino",
+  "homepage": "https://github.com/SolidRhino/dotfiles",
+  "skills": []
+}
