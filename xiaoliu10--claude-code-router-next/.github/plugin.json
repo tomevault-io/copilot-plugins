@@ -1,0 +1,9 @@
+{
+  "name": "xiaoliu10--claude-code-router-next",
+  "displayName": "claude-code-router-next",
+  "description": "Use Claude Code and Codex as the foundation for coding infrastructure, allowing you to decide how to interact with the model with flexible routing and configuration. \u4e2d\u6587\u7248\uff1a \u4ee5 Claude Code \u548c Codex \u4f5c\u4e3a\u7f16\u7a0b\u57fa\u7840\u8bbe",
+  "version": "1.0.0",
+  "author": "xiaoliu10",
+  "homepage": "https://github.com/xiaoliu10/claude-code-router-next",
+  "skills": []
+}
