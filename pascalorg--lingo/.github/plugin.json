@@ -1,0 +1,9 @@
+{
+  "name": "pascalorg--lingo",
+  "displayName": "lingo",
+  "description": "Make forms easier, LLM tools safer. Natural-language quantities, units, dates & ranges parsed into canonical values \u2014 zero dependencies, two-way.",
+  "version": "1.0.0",
+  "author": "pascalorg",
+  "homepage": "https://github.com/pascalorg/lingo",
+  "skills": []
+}
