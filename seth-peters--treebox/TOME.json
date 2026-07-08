@@ -4,7 +4,7 @@
   "repo": "treebox",
   "description": "Isolated, ready-to-run git worktrees for coding agents - host-native or docker-sandboxed.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Seth-Peters/treebox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T17:34:43Z"
+  "distributed_at": "2026-07-08T19:37:13Z"
 }
