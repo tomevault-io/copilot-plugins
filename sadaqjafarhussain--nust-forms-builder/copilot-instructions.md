@@ -1,179 +1,324 @@
-## storybook-create-new-story
+## testing-patterns
 
-> Create a story in Storybook for a given component
+> From the **root directory** (formbricks/):
 
+# Testing Patterns & Best Practices
 
-# Formbricks Storybook Stories
+## Running Tests
 
-## When generating Storybook stories for Formbricks components:
+### Test Commands
+From the **root directory** (formbricks/):
+- `npm test` - Run all tests across all packages (recommended for CI/full testing)
+- `npm run test:coverage` - Run all tests with coverage reports
+- `npm run test:e2e` - Run end-to-end tests with Playwright
 
-### 1. **File Structure**
-- Create `stories.tsx` (not `.stories.tsx`) in component directory
-- Use exact import: `import { Meta, StoryObj } from "@storybook/react-vite";`
-- Import component from `"./index"`
+From the **apps/web directory** (apps/web/):
+- `npm run test` - Run only web app tests (fastest for development)
+- `npm run test:coverage` - Run web app tests with coverage
+- `npm run test -- <file-pattern>` - Run specific test files
 
-### 2. **Story Structure Template**
-```tsx
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { ComponentName } from "./index";
+### Examples
+```bash
+# Run all tests from root (takes ~3 minutes, runs 790 test files with 5334+ tests)
+npm test
 
-// For complex components with configurable options
-// consider this as an example the options need to reflect the props types
-interface StoryOptions {
-  showIcon: boolean;
-  numberOfElements: number;
-  customLabels: string[];
-}
+# Run specific test file from apps/web (fastest for development)
+npm run test -- modules/cache/lib/service.test.ts
 
-type StoryProps = React.ComponentProps<typeof ComponentName> & StoryOptions;
+# Run tests matching pattern from apps/web  
+npm run test -- modules/ee/license-check/lib/license.test.ts
 
-const meta: Meta<StoryProps> = {
-  title: "UI/ComponentName",
-  component: ComponentName,
-  tags: ["autodocs"],
-  parameters: {
-    layout: "centered",
-    controls: { sort: "alpha", exclude: [] },
-    docs: {
-      description: {
-        component: "The **ComponentName** component provides [description].",
-      },
-    },
-  },
-  argTypes: {
-    // Organize in exactly these categories: Behavior, Appearance, Content
-  },
-};
+# Run with coverage from root
+npm run test:coverage
 
-export default meta;
-type Story = StoryObj<typeof ComponentName> & { args: StoryOptions };
+# Run specific test with watch mode from apps/web (for development)
+npm run test -- --watch modules/cache/lib/service.test.ts
+
+# Run tests for a specific directory from apps/web
+npm run test -- modules/cache/
 ```
 
-### 3. **ArgTypes Organization**
-Organize ALL argTypes into exactly three categories:
-- **Behavior**: disabled, variant, onChange, etc.
-- **Appearance**: size, color, layout, styling, etc.  
-- **Content**: text, icons, numberOfElements, etc.
+### Performance Tips
+- **For development**: Use `apps/web` directory commands to run only web app tests
+- **For CI/validation**: Use root directory commands to run all packages
+- **For specific features**: Use file patterns to target specific test files
+- **For debugging**: Use `--watch` mode for continuous testing during development
 
-Format:
-```tsx
-argTypes: {
-  propName: {
-    control: "select" | "boolean" | "text" | "number",
-    options: ["option1", "option2"], // for select
-    description: "Clear description",
-    table: {
-      category: "Behavior" | "Appearance" | "Content",
-      type: { summary: "string" },
-      defaultValue: { summary: "default" },
-    },
-    order: 1,
-  },
-}
+### Test File Organization
+- Place test files in the **same directory** as the source file
+- Use `.test.ts` for utility/service tests (Node environment)
+- Use `.test.tsx` for React component tests (jsdom environment)
+
+## Test File Naming & Environment
+
+### File Extensions
+- Use `.test.tsx` for React component/hook tests (runs in jsdom environment)
+- Use `.test.ts` for utility/service tests (runs in Node environment)
+- The vitest config uses `environmentMatchGlobs` to automatically set jsdom for `.tsx` files
+
+### Test Structure
+```typescript
+// Import the mocked functions first
+import { useHook } from "@/path/to/hook";
+import { serviceFunction } from "@/path/to/service";
+import { renderHook, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, test, vi } from "vitest";
+
+// Mock dependencies
+vi.mock("@/path/to/hook", () => ({
+  useHook: vi.fn(),
+}));
+
+describe("ComponentName", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    // Setup default mocks
+  });
+
+  test("descriptive test name", async () => {
+    // Test implementation
+  });
+});
 ```
 
-### 4. **Required Stories**
-Every component must include:
-- `Default`: Most common use case
-- `Disabled`: If component supports disabled state
-- `WithIcon`: If component supports icons
-- Variant stories for each variant (Primary, Secondary, Error, etc.)
-- Edge case stories (ManyElements, LongText, CustomStyling)
+## React Hook Testing
 
-### 5. **Story Format**
-```tsx
-export const Default: Story = {
-  args: {
-    // Props with realistic values
+### Context Mocking
+When testing hooks that use React Context:
+```typescript
+vi.mocked(useResponseFilter).mockReturnValue({
+  selectedFilter: {
+    filter: [],
+    responseStatus: "all",
   },
-};
-
-export const EdgeCase: Story = {
-  args: { /* ... */ },
-  parameters: {
-    docs: {
-      description: {
-        story: "Use this when [specific scenario].",
-      },
-    },
+  setSelectedFilter: vi.fn(),
+  selectedOptions: {
+    questionOptions: [],
+    questionFilterOptions: [],
   },
-};
+  setSelectedOptions: vi.fn(),
+  dateRange: { from: new Date(), to: new Date() },
+  setDateRange: vi.fn(),
+  resetState: vi.fn(),
+});
 ```
 
-### 6. **Dynamic Content Pattern**
-For components with dynamic content, create render function:
-```tsx
-const renderComponent = (args: StoryProps) => {
-  const { numberOfElements, showIcon, customLabels } = args;
+### Testing Async Hooks
+- Always use `waitFor` for async operations
+- Test both loading and completed states
+- Verify API calls with correct parameters
+
+```typescript
+test("fetches data on mount", async () => {
+  const { result } = renderHook(() => useHook());
   
-  // Generate dynamic content
-  const elements = Array.from({ length: numberOfElements }, (_, i) => ({
-    id: `element-${i}`,
-    label: customLabels[i] || `Element ${i + 1}`,
-    icon: showIcon ? <IconComponent /> : undefined,
-  }));
+  expect(result.current.isLoading).toBe(true);
   
-  return <ComponentName {...args} elements={elements} />;
-};
-
-export const Dynamic: Story = {
-  render: renderComponent,
-  args: {
-    numberOfElements: 3,
-    showIcon: true,
-    customLabels: ["First", "Second", "Third"],
-  },
-};
+  await waitFor(() => {
+    expect(result.current.isLoading).toBe(false);
+  });
+  
+  expect(result.current.data).toBe(expectedData);
+  expect(vi.mocked(apiCall)).toHaveBeenCalledWith(expectedParams);
+});
 ```
 
-### 7. **State Management**
-For interactive components:
-```tsx
-import { useState } from "react";
+### Testing Hook Dependencies
+To test useEffect dependencies, ensure mocks return different values:
+```typescript
+// First render
+mockGetFormattedFilters.mockReturnValue(mockFilters);
 
-const ComponentWithState = (args: any) => {
-  const [value, setValue] = useState(args.defaultValue);
-  
-  return (
-    <ComponentName
-      {...args}
-      value={value}
-      onChange={(newValue) => {
-        setValue(newValue);
-        args.onChange?.(newValue);
-      }}
-    />
-  );
-};
-
-export const Interactive: Story = {
-  render: ComponentWithState,
-  args: { defaultValue: "initial" },
-};
+// Change dependency and trigger re-render
+const newMockFilters = { ...mockFilters, finished: true };
+mockGetFormattedFilters.mockReturnValue(newMockFilters);
+rerender();
 ```
 
-### 8. **Quality Requirements**
-- Include component description in parameters.docs
-- Add story documentation for non-obvious use cases
-- Test edge cases (overflow, empty states, many elements)
-- Ensure no TypeScript errors
-- Use realistic prop values
-- Include at least 3-5 story variants
-- Example values need to be in the context of survey application
+## Performance Testing
 
-### 9. **Naming Conventions**
-- **Story titles**: "UI/ComponentName"
-- **Story exports**: PascalCase (Default, WithIcon, ManyElements)
-- **Categories**: "Behavior", "Appearance", "Content" (exact spelling)
-- **Props**: camelCase matching component props
+### Race Condition Testing
+Test AbortController implementation:
+```typescript
+test("cancels previous request when new request is made", async () => {
+  let resolveFirst: (value: any) => void;
+  let resolveSecond: (value: any) => void;
 
-### 10. **Special Cases**
-- **Generic components**: Remove `component` from meta if type conflicts
-- **Form components**: Include Invalid, WithValue stories
-- **Navigation**: Include ManyItems stories
-- **Modals, Dropdowns and Popups **: Include trigger and content structure
+  const firstPromise = new Promise((resolve) => {
+    resolveFirst = resolve;
+  });
+  const secondPromise = new Promise((resolve) => {
+    resolveSecond = resolve;
+  });
 
-## Generate stories that are comprehensive, well-documented, and reflect all component states and edge cases. 
+  vi.mocked(apiCall)
+    .mockReturnValueOnce(firstPromise as any)
+    .mockReturnValueOnce(secondPromise as any);
+
+  const { result } = renderHook(() => useHook());
+  
+  // Trigger second request
+  result.current.refetch();
+  
+  // Resolve in order - first should be cancelled
+  resolveFirst!({ data: 100 });
+  resolveSecond!({ data: 200 });
+
+  await waitFor(() => {
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  // Should have result from second request
+  expect(result.current.data).toBe(200);
+});
+```
+
+### Cleanup Testing
+```typescript
+test("cleans up on unmount", () => {
+  const abortSpy = vi.spyOn(AbortController.prototype, "abort");
+  
+  const { unmount } = renderHook(() => useHook());
+  unmount();
+  
+  expect(abortSpy).toHaveBeenCalled();
+  abortSpy.mockRestore();
+});
+```
+
+## Error Handling Testing
+
+### API Error Testing
+```typescript
+test("handles API errors gracefully", async () => {
+  const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+  vi.mocked(apiCall).mockRejectedValue(new Error("API Error"));
+
+  const { result } = renderHook(() => useHook());
+
+  await waitFor(() => {
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  expect(consoleSpy).toHaveBeenCalledWith("Error message:", expect.any(Error));
+  expect(result.current.data).toBe(fallbackValue);
+  
+  consoleSpy.mockRestore();
+});
+```
+
+### Cancelled Request Testing
+```typescript
+test("does not update state for cancelled requests", async () => {
+  const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+  let rejectFirst: (error: any) => void;
+  const firstPromise = new Promise((_, reject) => {
+    rejectFirst = reject;
+  });
+
+  vi.mocked(apiCall)
+    .mockReturnValueOnce(firstPromise as any)
+    .mockResolvedValueOnce({ data: 42 });
+
+  const { result } = renderHook(() => useHook());
+  result.current.refetch();
+
+  const abortError = new Error("Request cancelled");
+  rejectFirst!(abortError);
+
+  await waitFor(() => {
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  // Should not log error for cancelled request
+  expect(consoleSpy).not.toHaveBeenCalled();
+  consoleSpy.mockRestore();
+});
+```
+
+## Type Safety in Tests
+
+### Mock Type Assertions
+Use type assertions for edge cases:
+```typescript
+vi.mocked(apiCall).mockResolvedValue({
+  data: null as any, // For testing null handling
+});
+
+vi.mocked(apiCall).mockResolvedValue({
+  data: undefined as any, // For testing undefined handling
+});
+```
+
+### Proper Mock Typing
+Ensure mocks match the actual interface:
+```typescript
+const mockSurvey: TSurvey = {
+  id: "survey-123",
+  name: "Test Survey",
+  // ... other required properties
+} as unknown as TSurvey; // Use when partial mocking is needed
+```
+
+## Common Test Patterns
+
+### Testing State Changes
+```typescript
+test("updates state correctly", async () => {
+  const { result } = renderHook(() => useHook());
+  
+  // Initial state
+  expect(result.current.value).toBe(initialValue);
+  
+  // Trigger change
+  result.current.updateValue(newValue);
+  
+  // Verify change
+  expect(result.current.value).toBe(newValue);
+});
+```
+
+### Testing Multiple Scenarios
+```typescript
+test("handles different modes", async () => {
+  // Test regular mode
+  vi.mocked(useParams).mockReturnValue({ surveyId: "123" });
+  const { rerender } = renderHook(() => useHook());
+  
+  await waitFor(() => {
+    expect(vi.mocked(regularApi)).toHaveBeenCalled();
+  });
+  
+  rerender();
+  
+  await waitFor(() => {
+    expect(vi.mocked(sharingApi)).toHaveBeenCalled();
+  });
+});
+```
+
+## Test Organization
+
+### Comprehensive Test Coverage
+For hooks, ensure you test:
+- ✅ Initialization (with/without initial values)
+- ✅ Data fetching (success/error cases)
+- ✅ State updates and refetching
+- ✅ Dependency changes triggering effects
+- ✅ Manual actions (refetch, reset)
+- ✅ Race condition prevention
+- ✅ Cleanup on unmount
+- ✅ Mode switching (if applicable)
+- ✅ Edge cases (null/undefined data)
+
+### Test Naming
+Use descriptive test names that explain the scenario:
+- ✅ "initializes with initial count"
+- ✅ "fetches response count on mount for regular survey"
+- ✅ "cancels previous request when new request is made"
+- ❌ "test hook"
+- ❌ "it works"
 
 ---
 > Source: [SadaqJafarHussain/NUST-Forms-Builder](https://github.com/SadaqJafarHussain/NUST-Forms-Builder) — distributed by [TomeVault](https://tomevault.io).
