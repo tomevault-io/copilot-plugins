@@ -1,0 +1,9 @@
+{
+  "name": "bootc-dev--bootc-operator",
+  "displayName": "bootc-operator",
+  "description": "A Kubernetes operator for managing bootc nodes",
+  "version": "1.0.0",
+  "author": "bootc-dev",
+  "homepage": "https://github.com/bootc-dev/bootc-operator",
+  "skills": []
+}
