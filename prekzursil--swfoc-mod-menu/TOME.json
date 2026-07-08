@@ -4,7 +4,7 @@
   "repo": "SWFOC-Mod-Menu",
   "description": "Profile-driven SWFOC trainer/editor for base game, AOTR, and ROE with launch-context detection, save tooling, and calibration-first runtime reliability.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Prekzursil/SWFOC-Mod-Menu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T14:11:12Z"
+  "distributed_at": "2026-07-08T17:50:00Z"
 }
