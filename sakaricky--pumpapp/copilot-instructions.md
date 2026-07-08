@@ -1,33 +1,16 @@
-## react-patterns
+## read-docs-first
 
-> React patterns — functional components, arrow + destructuring, hooks
+> Read project documentation before attempting any task
 
 
-# React patterns
+# Read documentation first
 
-- Use **functional components only** (no class components).
-- Use arrow function components with destructured props where applicable.
-- Define a **Props type** for each component: `Props` or `ComponentNameProps` interface.
-
-```tsx
-// ❌ Avoid
-function UserCard(props) {
-  return <div>{props.name}</div>;
-}
-
-// ✅ Prefer
-interface UserCardProps {
-  name: string;
-  onSave: () => void;
-}
-const UserCard = ({ name, onSave }: UserCardProps) => (
-  <div>{name}</div>
-);
-```
-
-- Extract reusable logic into **custom hooks** (e.g. `useAuth`, `useProducts`), not duplicated or heavy logic inside components.
-- Name components and component files in **PascalCase** when one component per file.
-- Custom hooks must start with `use` and follow Rules of Hooks (only at top level, not in conditionals).
+- **Before attempting any task**, read the relevant project documentation so you understand setup, conventions, and existing patterns.
+- Check at least:
+  - **README** (root or package) — setup, scripts, architecture.
+  - **CONTRIBUTING** (if present) — workflow, branching, PR expectations.
+  - **Project-specific docs** — e.g. `docs/`, ADRs, or package READMEs for the area you’re changing.
+- Use this to avoid reimplementing existing behavior, respect project conventions, and choose the right scripts and tooling (e.g. `pnpm` vs `npm`, which DB commands to run).
 
 ---
 > Source: [SakaRicky/PumpApp](https://github.com/SakaRicky/PumpApp) — distributed by [TomeVault](https://tomevault.io).
