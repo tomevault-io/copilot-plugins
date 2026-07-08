@@ -1,0 +1,9 @@
+{
+  "name": "keyorixhq--keyorix-web",
+  "displayName": "keyorix-web",
+  "description": "Web dashboard for Keyorix \u2014 lightweight on-premise secrets manager",
+  "version": "1.0.0",
+  "author": "keyorixhq",
+  "homepage": "https://github.com/keyorixhq/keyorix-web",
+  "skills": []
+}
