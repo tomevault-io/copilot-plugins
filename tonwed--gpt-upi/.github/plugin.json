@@ -1,0 +1,9 @@
+{
+  "name": "tonwed--gpt-upi",
+  "displayName": "gpt-upi",
+  "description": "Next.js + PostgreSQL UPI scanner/order hub with Telegram login, worker dashboard, wallets, and admin tools",
+  "version": "1.0.0",
+  "author": "Tonwed",
+  "homepage": "https://github.com/Tonwed/gpt-upi",
+  "skills": []
+}
