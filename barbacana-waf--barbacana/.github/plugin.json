@@ -1,0 +1,9 @@
+{
+  "name": "barbacana-waf--barbacana",
+  "displayName": "barbacana",
+  "description": "A WAF secure by default and simple by design.",
+  "version": "1.0.0",
+  "author": "barbacana-waf",
+  "homepage": "https://github.com/barbacana-waf/barbacana",
+  "skills": []
+}
