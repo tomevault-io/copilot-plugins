@@ -1,0 +1,9 @@
+{
+  "name": "brendanlefebvre--supersync-koplugin",
+  "displayName": "supersync.koplugin",
+  "description": "Full metadata sync for KOreader via user's own cloud storage",
+  "version": "1.0.0",
+  "author": "brendanlefebvre",
+  "homepage": "https://github.com/brendanlefebvre/supersync.koplugin",
+  "skills": []
+}
