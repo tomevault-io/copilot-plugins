@@ -38994,6 +38994,11 @@
       "description": "Build production agent systems with orchestration and sandboxed execution environments using the Tensorlake SDK"
     },
     {
+      "name": "pramoddutta--qaskills",
+      "source": "./pramoddutta--qaskills",
+      "description": "QA Skills Directory QA Skills is a curated directory of testing-specific skills for AI coding agents (Claude Code, Cursor, Copilot, etc.)."
+    },
+    {
       "name": "alanma23--tinytinytpu-co",
       "source": "./alanma23--tinytinytpu-co",
       "description": "tinytinyTPU-co"
@@ -52789,11 +52794,6 @@
       "description": "sample-kolya-br-proxy"
     },
     {
-      "name": "pramoddutta--qaskills",
-      "source": "./pramoddutta--qaskills",
-      "description": "QA Skills Directory QA Skills is a curated directory of testing-specific skills for AI coding agents (Claude Code, Cursor, Copilot, etc.)."
-    },
-    {
       "name": "dkyazzentwatwa--apple-flow",
       "source": "./dkyazzentwatwa--apple-flow",
       "description": "Your Apple-Native AI Agent"
@@ -61697,6 +61697,11 @@
       "name": "documonster--documonster",
       "source": "./documonster--documonster",
       "description": "Zero-dependency TypeScript toolkit for Excel, Word, PDF, CSV, Markdown, XML & ZIP \u2014 one API across Node.js, Bun & browsers."
+    },
+    {
+      "name": "linuxmatters--jive-vocals",
+      "source": "./linuxmatters--jive-vocals",
+      "description": "Raw microphone recordings into broadcast-ready audio in one command. No configuration, and no surprises \ud83d\udde3\ufe0f"
     },
     {
       "name": "dotnet--maui-labs",
@@ -136489,6 +136494,11 @@
       "description": "Production-grade Kubernetes operator for nousresearch/hermes-agent: declarative spec, security defaults, S3 backups, OCI auto-update with rollback, SSA-based GitOps coexistence, OpenClaw migration."
     },
     {
+      "name": "iabtechlab--agentic-real-time-framework",
+      "source": "./iabtechlab--agentic-real-time-framework",
+      "description": "agentic-real-time-framework"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -156187,6 +156197,11 @@
       "name": "pluginslab--wp-agentic-kit",
       "source": "./pluginslab--wp-agentic-kit",
       "description": "Starter kit for agentic WordPress development. CLAUDE.md/AGENTS.md templates, the wordpress-development skill, curated MCP servers, sub-agents, hooks. Companion to WordCamp Portugal 2026."
+    },
+    {
+      "name": "vinvcn--addyosmani-agent-skills-zh",
+      "source": "./vinvcn--addyosmani-agent-skills-zh",
+      "description": "\u672c\u4ed3\u5e93\u662f addyosmani/agent-skills \u7684\u7b80\u4f53\u4e2d\u6587\u672c\u5730\u5316\u7248\u672c\u3002"
     },
     {
       "name": "vm--nila-code",
@@ -190632,6 +190647,16 @@
       "name": "eric8810--catcher",
       "source": "./eric8810--catcher",
       "description": "solution for mobile networking"
+    },
+    {
+      "name": "alyraffauf--infra",
+      "source": "./alyraffauf--infra",
+      "description": "Hybrid cloud cluster monorepo with Ansible, K8s, NixOS, and Terraform."
+    },
+    {
+      "name": "linuxmatters--jive-visualiser",
+      "source": "./linuxmatters--jive-visualiser",
+      "description": "Spin your podcast .wav into a groovy MP4 visualiser with spring-driven real-time audio frequencies \u2728"
     },
     {
       "name": "lightninglabs--lnget",
@@ -239874,6 +239899,36 @@
       "description": "SoloForge"
     },
     {
+      "name": "qiangyuchen1--robodojo",
+      "source": "./qiangyuchen1--robodojo",
+      "description": "RoboDojo"
+    },
+    {
+      "name": "moeleak--material-ui-rs",
+      "source": "./moeleak--material-ui-rs",
+      "description": "material-ui-rs"
+    },
+    {
+      "name": "barbacana-waf--barbacana",
+      "source": "./barbacana-waf--barbacana",
+      "description": "A WAF secure by default and simple by design."
+    },
+    {
+      "name": "ctxlint--ctxlint",
+      "source": "./ctxlint--ctxlint",
+      "description": "Ctxlint"
+    },
+    {
+      "name": "chrismccoy--claude-design-styles",
+      "source": "./chrismccoy--claude-design-styles",
+      "description": "Design Styles"
+    },
+    {
+      "name": "novusordos666--lio-the-ai-operator",
+      "source": "./novusordos666--lio-the-ai-operator",
+      "description": "Gratis Claude Code Cursus door Leon (@liogpt) \u2014 6 lessen, 6 AI agents, compleet systeem voor je business"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -260334,6 +260389,31 @@
       "description": "Assistente Pynkaro das Gal\u00e1xias"
     },
     {
+      "name": "agricidaniel--gogh",
+      "source": "./agricidaniel--gogh",
+      "description": "Gogh is a source-cited Obsidian operating brain that turns six frontend design skills into one advisable stack for AI coding agents."
+    },
+    {
+      "name": "revfactory--font-harness",
+      "source": "./revfactory--font-harness",
+      "description": "font-harness"
+    },
+    {
+      "name": "vertax42--xense-taccap-lerobot",
+      "source": "./vertax42--xense-taccap-lerobot",
+      "description": "xense-taccap-lerobot"
+    },
+    {
+      "name": "agricidaniel--gogh",
+      "source": "./agricidaniel--gogh",
+      "description": "Gogh is a source-cited Obsidian operating brain that turns six frontend design skills into one advisable stack for AI coding agents."
+    },
+    {
+      "name": "agricidaniel--gogh",
+      "source": "./agricidaniel--gogh",
+      "description": "Gogh is a source-cited Obsidian operating brain that turns six frontend design skills into one advisable stack for AI coding agents."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -264577,6 +264657,11 @@
       "name": "jade2-fff--mineradio-for-linux",
       "source": "./jade2-fff--mineradio-for-linux",
       "description": "Mineradio \u7684 Linux \u79fb\u690d\u7248 \u2014 \u6c89\u6d78\u5f0f\u684c\u9762\u97f3\u4e50\u64ad\u653e\u5668\u3002\u6574\u7406\u6e90\u7801\u67b6\u6784\uff0c\u9002\u5408\u65b0\u4ebavibecoding\uff0c\u5b9e\u65f6\u8ddf\u8fdb\u7248\u672c\u66f4\u65b0"
+    },
+    {
+      "name": "supergillis--superdash",
+      "source": "./supergillis--superdash",
+      "description": "Home Assistant kiosk app for Android tablets"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -384937,6 +385022,471 @@
       "name": "hugoh--tmhi-cli",
       "source": "./hugoh--tmhi-cli",
       "description": "CLI to control and monitor T-Mobile Home Internet 5G gateways (Nokia, Arcadyan) - reboot, status, and signal strength"
+    },
+    {
+      "name": "mrmaxie--lotus-agents",
+      "source": "./mrmaxie--lotus-agents",
+      "description": "lotus-agents"
+    },
+    {
+      "name": "tderi33--spec-compliant-kit",
+      "source": "./tderi33--spec-compliant-kit",
+      "description": "spec-compliant-kit"
+    },
+    {
+      "name": "laimozz--auction-microservice",
+      "source": "./laimozz--auction-microservice",
+      "description": "auction-microservice"
+    },
+    {
+      "name": "tderi33--spec-compliant-kit",
+      "source": "./tderi33--spec-compliant-kit",
+      "description": "spec-compliant-kit"
+    },
+    {
+      "name": "tderi33--spec-compliant-kit",
+      "source": "./tderi33--spec-compliant-kit",
+      "description": "spec-compliant-kit"
+    },
+    {
+      "name": "tderi33--spec-compliant-kit",
+      "source": "./tderi33--spec-compliant-kit",
+      "description": "spec-compliant-kit"
+    },
+    {
+      "name": "tderi33--spec-compliant-kit",
+      "source": "./tderi33--spec-compliant-kit",
+      "description": "spec-compliant-kit"
+    },
+    {
+      "name": "serviceva92-maker--deployment",
+      "source": "./serviceva92-maker--deployment",
+      "description": "repo for deployment"
+    },
+    {
+      "name": "kglikith--rentflow",
+      "source": "./kglikith--rentflow",
+      "description": "RentFlow"
+    },
+    {
+      "name": "serviceva92-maker--deployment",
+      "source": "./serviceva92-maker--deployment",
+      "description": "repo for deployment"
+    },
+    {
+      "name": "cg-dcx-shopify--headless-kwel-furnitures",
+      "source": "./cg-dcx-shopify--headless-kwel-furnitures",
+      "description": "Shopify Headless POC store - Kwel Furnitures"
+    },
+    {
+      "name": "vvoayad--squ-assistant-app",
+      "source": "./vvoayad--squ-assistant-app",
+      "description": "squ-assistant-app"
+    },
+    {
+      "name": "aissamzz--ameen-agent",
+      "source": "./aissamzz--ameen-agent",
+      "description": "ameen-agent"
+    },
+    {
+      "name": "needforgedev--word-key-quest",
+      "source": "./needforgedev--word-key-quest",
+      "description": "word_key_quest"
+    },
+    {
+      "name": "jaychristopher--improv-journal",
+      "source": "./jaychristopher--improv-journal",
+      "description": "improv-journal"
+    },
+    {
+      "name": "jaychristopher--improv-journal",
+      "source": "./jaychristopher--improv-journal",
+      "description": "improv-journal"
+    },
+    {
+      "name": "ricardo-dev-brj--castillo",
+      "source": "./ricardo-dev-brj--castillo",
+      "description": "castillo"
+    },
+    {
+      "name": "jaystay-bot--marko",
+      "source": "./jaystay-bot--marko",
+      "description": "MARKO"
+    },
+    {
+      "name": "gerson2102--ticoblockchain-event-tracker",
+      "source": "./gerson2102--ticoblockchain-event-tracker",
+      "description": "This is an event tracker for the Ticoblockchain event of 2026."
+    },
+    {
+      "name": "thewyliestcoyote--buildtestrun",
+      "source": "./thewyliestcoyote--buildtestrun",
+      "description": "Simple cli tool to help make build run differnt projects in a uniform manor "
+    },
+    {
+      "name": "cesar-wild--trafficker",
+      "source": "./cesar-wild--trafficker",
+      "description": "Trafficker \u2014 autonomous Meta Ads management system"
+    },
+    {
+      "name": "gerson2102--ticoblockchain-event-tracker",
+      "source": "./gerson2102--ticoblockchain-event-tracker",
+      "description": "This is an event tracker for the Ticoblockchain event of 2026."
+    },
+    {
+      "name": "ysnkhc--glens",
+      "source": "./ysnkhc--glens",
+      "description": "glens"
+    },
+    {
+      "name": "t8know-dev--ccshop",
+      "source": "./t8know-dev--ccshop",
+      "description": "ccshop"
+    },
+    {
+      "name": "stillianoblack--stilliano-studio",
+      "source": "./stillianoblack--stilliano-studio",
+      "description": "cutclass"
+    },
+    {
+      "name": "otavioho--circulari-back",
+      "source": "./otavioho--circulari-back",
+      "description": "circulari-back"
+    },
+    {
+      "name": "allstreets--informula-cc",
+      "source": "./allstreets--informula-cc",
+      "description": "INFOrmula-cc-"
+    },
+    {
+      "name": "matitapere--smart-voicing-chords",
+      "source": "./matitapere--smart-voicing-chords",
+      "description": "https://matitapere.github.io/smart-voicing-chords/ "
+    },
+    {
+      "name": "vinayrnani--eggubator",
+      "source": "./vinayrnani--eggubator",
+      "description": "Egg incubator with NodeMCU ESP8266"
+    },
+    {
+      "name": "camplo-qc--camplo",
+      "source": "./camplo-qc--camplo",
+      "description": "camplo"
+    },
+    {
+      "name": "jessepomeroy--admin-dashboard",
+      "source": "./jessepomeroy--admin-dashboard",
+      "description": "admin-dashboard"
+    },
+    {
+      "name": "moamenhredeen--memex",
+      "source": "./moamenhredeen--memex",
+      "description": "memex"
+    },
+    {
+      "name": "quangnguyen11111111--frontend-nextjs-restaurant-manager",
+      "source": "./quangnguyen11111111--frontend-nextjs-restaurant-manager",
+      "description": "frontend_nextjs_restaurant_manager"
+    },
+    {
+      "name": "allstreets--informula-cc",
+      "source": "./allstreets--informula-cc",
+      "description": "INFOrmula-cc-"
+    },
+    {
+      "name": "jwebdesignservice--aj-gammond",
+      "source": "./jwebdesignservice--aj-gammond",
+      "description": "AJ-Gammond"
+    },
+    {
+      "name": "frizzerdk--groundhog-researcher",
+      "source": "./frizzerdk--groundhog-researcher",
+      "description": "LLM-powered iterative function optimization. Define how to score your code, and the groundhog iterates overnight."
+    },
+    {
+      "name": "coinyak--pharmacy-inventory",
+      "source": "./coinyak--pharmacy-inventory",
+      "description": "pharmacy-inventory"
+    },
+    {
+      "name": "titesriz--aria",
+      "source": "./titesriz--aria",
+      "description": "aria"
+    },
+    {
+      "name": "ccool3974-lq--teacher-toolkit-license-protocol",
+      "source": "./ccool3974-lq--teacher-toolkit-license-protocol",
+      "description": "teacher_toolkit_license_protocol"
+    },
+    {
+      "name": "kio972--projects",
+      "source": "./kio972--projects",
+      "description": "ProjectS"
+    },
+    {
+      "name": "johnpbb--bookings",
+      "source": "./johnpbb--bookings",
+      "description": "bookings"
+    },
+    {
+      "name": "ivapo--repokai",
+      "source": "./ivapo--repokai",
+      "description": "A viewer for own GitHub repositories with basic features - GUI and TUI application."
+    },
+    {
+      "name": "cylon-skin-job--fs-dev",
+      "source": "./cylon-skin-job--fs-dev",
+      "description": "Web-based IDE for AI CLI harnesses"
+    },
+    {
+      "name": "sam-dugmore--asset-management",
+      "source": "./sam-dugmore--asset-management",
+      "description": "asset-management"
+    },
+    {
+      "name": "sloppycoder--linux-vm-provisioner",
+      "source": "./sloppycoder--linux-vm-provisioner",
+      "description": "linux-vm-provisioner"
+    },
+    {
+      "name": "slowz942--daschboard-resa-lp2p",
+      "source": "./slowz942--daschboard-resa-lp2p",
+      "description": "DASCHBOARD RESA LP2P"
+    },
+    {
+      "name": "anarkh--x",
+      "source": "./anarkh--x",
+      "description": "x"
+    },
+    {
+      "name": "armani-44--design-recruitment-draft",
+      "source": "./armani-44--design-recruitment-draft",
+      "description": "Designer Recruitment Website"
+    },
+    {
+      "name": "it-kamianets--ngx-horeca",
+      "source": "./it-kamianets--ngx-horeca",
+      "description": "Premium horeca website template with warm, elegant tones inspired by real hotel interiors. Designed for restaurants, caf\u00e9s, and hotels, it combines clean layouts, high-quality visuals, and a cozy luxu"
+    },
+    {
+      "name": "saazneupane--ouroboros-shorts-pipeline",
+      "source": "./saazneupane--ouroboros-shorts-pipeline",
+      "description": "Ouroboros-Shorts-Pipeline"
+    },
+    {
+      "name": "kfuras--koda",
+      "source": "./kfuras--koda",
+      "description": "koda"
+    },
+    {
+      "name": "amtariksha--agentforge",
+      "source": "./amtariksha--agentforge",
+      "description": "agentforge"
+    },
+    {
+      "name": "emmadevdup--family-movie-night",
+      "source": "./emmadevdup--family-movie-night",
+      "description": "Family night for super famille"
+    },
+    {
+      "name": "joubertjr--ioc-esg-municipal",
+      "source": "./joubertjr--ioc-esg-municipal",
+      "description": "IOC ESG Municipal \u2014 Plataforma SaaS B2G de gest\u00e3o ESG para munic\u00edpios brasileiros alinhada aos 17 ODS da ONU"
+    },
+    {
+      "name": "avifenesh--signbridge",
+      "source": "./avifenesh--signbridge",
+      "description": "Real-time ASL signing overlay for Telegram calls \u2014 open source Android app for deaf users"
+    },
+    {
+      "name": "coinyak--pharmacy-inventory",
+      "source": "./coinyak--pharmacy-inventory",
+      "description": "pharmacy-inventory"
+    },
+    {
+      "name": "mrgediao--mrgediao",
+      "source": "./mrgediao--mrgediao",
+      "description": "GitHub profile README for MrGeDiao"
+    },
+    {
+      "name": "ryan684--family-dashboard",
+      "source": "./ryan684--family-dashboard",
+      "description": "family-dashboard"
+    },
+    {
+      "name": "johnemmanueldagsa-eng--targetfinal",
+      "source": "./johnemmanueldagsa-eng--targetfinal",
+      "description": "walmart - Repository created from Orchids integration"
+    },
+    {
+      "name": "esaia-2026-1--esaia-code-review",
+      "source": "./esaia-2026-1--esaia-code-review",
+      "description": "esaia-code-review"
+    },
+    {
+      "name": "sixbenzene--personal-web",
+      "source": "./sixbenzene--personal-web",
+      "description": "\u521b\u5efa\u4e2a\u4eba\u7f51\u7ad9\u5b9e\u8df5"
+    },
+    {
+      "name": "ericprieur--ccgquest",
+      "source": "./ericprieur--ccgquest",
+      "description": "ccgQuest"
+    },
+    {
+      "name": "mazid07066--water-advisory-app",
+      "source": "./mazid07066--water-advisory-app",
+      "description": "water-advisory-app"
+    },
+    {
+      "name": "sloppycoder--linux-vm-provisioner",
+      "source": "./sloppycoder--linux-vm-provisioner",
+      "description": "linux-vm-provisioner"
+    },
+    {
+      "name": "shopinzip--webpage-ui",
+      "source": "./shopinzip--webpage-ui",
+      "description": "This is for the Landing Page UI for the merchant "
+    },
+    {
+      "name": "yoonsoo-ji--geomag-site-selection",
+      "source": "./yoonsoo-ji--geomag-site-selection",
+      "description": "geomag_yoons"
+    },
+    {
+      "name": "vedabene--veda-bene-app",
+      "source": "./vedabene--veda-bene-app",
+      "description": "Veda Bene App definitivo"
+    },
+    {
+      "name": "anarkh--x",
+      "source": "./anarkh--x",
+      "description": "x"
+    },
+    {
+      "name": "mengkeat--bookmark-tools",
+      "source": "./mengkeat--bookmark-tools",
+      "description": "bookmark-tools"
+    },
+    {
+      "name": "kfuras--koda",
+      "source": "./kfuras--koda",
+      "description": "koda"
+    },
+    {
+      "name": "webgawd-apex--veltro-casino",
+      "source": "./webgawd-apex--veltro-casino",
+      "description": "veltro-casino"
+    },
+    {
+      "name": "wuhoo-ai--wuhoo-skills",
+      "source": "./wuhoo-ai--wuhoo-skills",
+      "description": "wuhoo-skills"
+    },
+    {
+      "name": "xgwnje--markpad",
+      "source": "./xgwnje--markpad",
+      "description": "\u9762\u5411\u89e6\u63a7\u64cd\u4f5c\u7684\u65b0\u6807\u7b7e\u9875\u4e66\u7b7e\u9762\u677f\uff0c\u63d0\u4f9b\u5361\u7247\u5f0f\u4e66\u7b7e\u3001\u7edf\u4e00 SVG \u56fe\u6807\u548c\u56fe\u6807\u5de5\u574a"
+    },
+    {
+      "name": "emmadevdup--family-movie-night",
+      "source": "./emmadevdup--family-movie-night",
+      "description": "Family night for super famille"
+    },
+    {
+      "name": "twig-tree--twig-tree-web",
+      "source": "./twig-tree--twig-tree-web",
+      "description": "twig-tree-web"
+    },
+    {
+      "name": "sportsmario-jp--recruit-site",
+      "source": "./sportsmario-jp--recruit-site",
+      "description": "\u30b9\u30dd\u30fc\u30c4\u30de\u30ea\u30aa\u63a1\u7528\u30b5\u30a4\u30c8\uff08\u65b0\u5352\u30fb\u4e2d\u9014\u30fbSMSA\u30fb\u30a2\u30eb\u30d0\u30a4\u30c8\uff09"
+    },
+    {
+      "name": "jlexander9511--l2notas",
+      "source": "./jlexander9511--l2notas",
+      "description": "L2Notas"
+    },
+    {
+      "name": "avifenesh--signbridge",
+      "source": "./avifenesh--signbridge",
+      "description": "Real-time ASL signing overlay for Telegram calls \u2014 open source Android app for deaf users"
+    },
+    {
+      "name": "adarsh180--neet-tracker-misti",
+      "source": "./adarsh180--neet-tracker-misti",
+      "description": "neet-tracker-misti"
+    },
+    {
+      "name": "mirkanu--kidschat-admin",
+      "source": "./mirkanu--kidschat-admin",
+      "description": "kidschat-admin"
+    },
+    {
+      "name": "djsmanchanda--gremlinboard",
+      "source": "./djsmanchanda--gremlinboard",
+      "description": "GremlinBoard"
+    },
+    {
+      "name": "robotflow-labs--project-doberman",
+      "source": "./robotflow-labs--project-doberman",
+      "description": "DOBERMAN -- UAUTrack: Unified Multimodal Anti-UAV Visual Tracking"
+    },
+    {
+      "name": "rauell1--ai-cv-builder",
+      "source": "./rauell1--ai-cv-builder",
+      "description": "ai-cv-builder"
+    },
+    {
+      "name": "serialexp--locus-editor",
+      "source": "./serialexp--locus-editor",
+      "description": "locus-editor"
+    },
+    {
+      "name": "victor-dixon--projectscanner",
+      "source": "./victor-dixon--projectscanner",
+      "description": "Project inventory and repo-scanning utility for Dream.OS consolidation, portfolio mapping, and proof generation."
+    },
+    {
+      "name": "bovinemagnet--dart-pop-n-click",
+      "source": "./bovinemagnet--dart-pop-n-click",
+      "description": "Pure Dart library to detect pop and clicks in a wav file or flac file"
+    },
+    {
+      "name": "tderi33--spec-compliant-kit",
+      "source": "./tderi33--spec-compliant-kit",
+      "description": "spec-compliant-kit"
+    },
+    {
+      "name": "harry3085--readaloud",
+      "source": "./harry3085--readaloud",
+      "description": "Read Aloud study n manage App"
+    },
+    {
+      "name": "mrgediao--mrgediao",
+      "source": "./mrgediao--mrgediao",
+      "description": "GitHub profile README for MrGeDiao"
+    },
+    {
+      "name": "sasakishion0620--sawapc-shio-motioncontroller",
+      "source": "./sasakishion0620--sawapc-shio-motioncontroller",
+      "description": "sawaPC_shio_MotionController"
+    },
+    {
+      "name": "jbh1024--healthier-harness",
+      "source": "./jbh1024--healthier-harness",
+      "description": "healthier harness project "
+    },
+    {
+      "name": "anqv--arduinoclock",
+      "source": "./anqv--arduinoclock",
+      "description": "Arduino Mega 2560 digital clock with alarm \u2014 DS3231 RTC, MAX7219 8-digit display, 4 buttons, active buzzer"
+    },
+    {
+      "name": "keyorixhq--keyorix-web",
+      "source": "./keyorixhq--keyorix-web",
+      "description": "Web dashboard for Keyorix \u2014 lightweight on-premise secrets manager"
     }
   ]
 }
