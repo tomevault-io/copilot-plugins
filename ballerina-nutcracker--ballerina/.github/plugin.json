@@ -1,0 +1,9 @@
+{
+  "name": "ballerina-nutcracker--ballerina",
+  "displayName": "ballerina",
+  "description": "Native Ballerina Interpreter",
+  "version": "1.0.0",
+  "author": "ballerina-nutcracker",
+  "homepage": "https://github.com/ballerina-nutcracker/ballerina",
+  "skills": []
+}
