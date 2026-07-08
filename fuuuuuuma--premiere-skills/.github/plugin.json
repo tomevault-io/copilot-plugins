@@ -1,0 +1,9 @@
+{
+  "name": "fuuuuuuma--premiere-skills",
+  "displayName": "premiere-skills",
+  "description": "Claude Code skills for Premiere Pro: /cut (silence removal) and /srt (Japanese subtitle generation via Whisper + LLM)",
+  "version": "1.0.0",
+  "author": "fuuuuuuma",
+  "homepage": "https://github.com/fuuuuuuma/premiere-skills",
+  "skills": []
+}
