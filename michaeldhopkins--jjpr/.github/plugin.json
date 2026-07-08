@@ -1,0 +1,9 @@
+{
+  "name": "michaeldhopkins--jjpr",
+  "displayName": "jjpr",
+  "description": "Manage stacked pull requests in Jujutsu repositories",
+  "version": "1.0.0",
+  "author": "michaeldhopkins",
+  "homepage": "https://github.com/michaeldhopkins/jjpr",
+  "skills": []
+}
