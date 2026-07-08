@@ -1,0 +1,9 @@
+{
+  "name": "nix--mojito",
+  "displayName": "mojito",
+  "description": "a JS query editor and table view using Datasette",
+  "version": "1.0.0",
+  "author": "nix",
+  "homepage": "https://github.com/nix/mojito",
+  "skills": []
+}
