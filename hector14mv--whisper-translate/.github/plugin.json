@@ -1,0 +1,9 @@
+{
+  "name": "hector14mv--whisper-translate",
+  "displayName": "whisper-translate",
+  "description": "Voice-to-text translation app using local Whisper for transcription and LLM APIs for translation. Built with Tauri 2 (Rust) + React + TypeScript.",
+  "version": "1.0.0",
+  "author": "hector14mv",
+  "homepage": "https://github.com/hector14mv/whisper-translate",
+  "skills": []
+}
