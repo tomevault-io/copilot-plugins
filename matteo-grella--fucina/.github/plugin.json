@@ -1,0 +1,9 @@
+{
+  "name": "matteo-grella--fucina",
+  "displayName": "fucina",
+  "description": "CPU-first tensor/autograd runtime and LLM inference engine in pure Zig \u2014 eager execution, GGUF in and out, LoRA training on CPU, benchmarked pairwise against llama.cpp.",
+  "version": "1.0.0",
+  "author": "matteo-grella",
+  "homepage": "https://github.com/matteo-grella/fucina",
+  "skills": []
+}
