@@ -4,7 +4,7 @@
   "repo": "muscle_map_2D",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MakiMakiSalmon/muscle_map_2D",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T14:14:49Z"
+  "distributed_at": "2026-07-08T17:54:26Z"
 }
