@@ -4,7 +4,7 @@
   "repo": "eventcore-archive-20260705",
   "description": "Moved to https://git.johnwilger.com/jwilger/eventcore because my home lab has better uptime than GitHub :-/",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jwilger/eventcore-archive-20260705",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T21:32:52Z"
+  "distributed_at": "2026-07-08T21:34:32Z"
 }
