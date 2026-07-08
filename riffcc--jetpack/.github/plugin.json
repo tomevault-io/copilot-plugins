@@ -1,0 +1,9 @@
+{
+  "name": "riffcc--jetpack",
+  "displayName": "jetpack",
+  "description": "Jetpack, a spiritual successor to Jetporch and Ansible",
+  "version": "1.0.0",
+  "author": "riffcc",
+  "homepage": "https://github.com/riffcc/jetpack",
+  "skills": []
+}
