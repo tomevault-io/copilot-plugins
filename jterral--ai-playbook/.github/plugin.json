@@ -1,0 +1,9 @@
+{
+  "name": "jterral--ai-playbook",
+  "displayName": "ai-playbook",
+  "description": "A plugin marketplace of skills, agents, and instructions for AI coding tools.",
+  "version": "1.0.0",
+  "author": "jterral",
+  "homepage": "https://github.com/jterral/ai-playbook",
+  "skills": []
+}
