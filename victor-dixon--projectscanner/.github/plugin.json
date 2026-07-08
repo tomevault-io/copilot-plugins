@@ -1,0 +1,9 @@
+{
+  "name": "victor-dixon--projectscanner",
+  "displayName": "projectscanner",
+  "description": "Project inventory and repo-scanning utility for Dream.OS consolidation, portfolio mapping, and proof generation.",
+  "version": "1.0.0",
+  "author": "Victor-Dixon",
+  "homepage": "https://github.com/Victor-Dixon/projectscanner",
+  "skills": []
+}
