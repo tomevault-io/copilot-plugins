@@ -1,0 +1,30 @@
+## realms-accessibility
+
+> WCAG 2.1 AA accessibility — contrast, labels, headings, images. Apply when creating or editing UI (pages, modals, components).
+
+
+# Accessibility (RealmsRPG)
+
+When **creating or editing** any page, modal, or component with UI:
+
+1. **Contrast (light and dark):** Text must meet WCAG 2.1 AA (4.5:1 normal, 3:1 large). Use **semantic tokens**: `text-text-primary`, `text-text-secondary`. For **status colors** use the **darker** token in light mode: `text-success-700` (not `-600`), `text-danger-700` where needed; pair with `dark:text-success-400`, etc. For **Power/Martial** body text use `text-power-dark` and `text-martial-dark`. If using `text-text-muted`, add `dark:text-text-secondary`. See `src/docs/ACCESSIBILITY.md` and `src/docs/DESIGN_SYSTEM.md`.
+
+2. **Buttons:** Every button must have **discernable text**. Icon-only buttons need `aria-label` (e.g. "Show password", "Edit", "Clear history"). Do not rely only on `title` for screen readers.
+
+3. **Form controls:** Every `<select>`, `<input>` (when not wrapped by a visible label), and custom control must have an **accessible name**: use `<label htmlFor="id">` with matching `id` on the control, or `aria-label`. For spreadsheet-style cells or toolbar inputs, use `aria-label` (e.g. "Find in spreadsheet", "Edit [column], row [n]").
+
+4. **Headings:** Heading levels must **increase by at most one** (no skip from `h1` to `h3`). Page title = `h1`; step or first section = `h2`; subsections = `h3`, etc.
+
+5. **Modals:** Use `Modal` with `title` (and optional `description`). If using a custom header with no visible title, pass `titleA11y` so the dialog has an accessible name.
+
+6. **Touch targets:** Interactive controls (buttons, steppers, tab triggers, list row actions) must have a minimum **44×44px** tap area. See `src/docs/MOBILE_UX.md`.
+
+7. **Images:** Decorative or redundant images (e.g. dice icons next to visible "d4"/"1d6" text) must use **`alt=""`**. Meaningful images need descriptive `alt` text.
+
+8. **ESLint:** Fix any a11y violations from `eslint-plugin-jsx-a11y` (`npm run lint` or editor).
+
+9. **Checklist before merging UI:** (1) No icon-only buttons without `aria-label`, (2) All selects/inputs have label or `aria-label`, (3) Heading hierarchy has no skip, (4) Modals have title or `titleA11y`, (5) Status/secondary text uses contrast-safe tokens in both light and dark mode, (6) Touch targets ≥ 44px where applicable.
+
+---
+> Source: [MastersoftheRealm/RealmsRPG-Test](https://github.com/MastersoftheRealm/RealmsRPG-Test) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-08 -->
