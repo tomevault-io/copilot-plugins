@@ -1,0 +1,9 @@
+{
+  "name": "creatmanceo--ai-context-hierarchy",
+  "displayName": "ai-context-hierarchy",
+  "description": "Three-level context hierarchy for AI coding agents \u2014 featured in Graphify v5.0 roadmap. Stop re-explaining your codebase every session. Works with Claude Code, Cursor, Codex, Gemini CLI, Claude Deskto",
+  "version": "1.0.0",
+  "author": "CreatmanCEO",
+  "homepage": "https://github.com/CreatmanCEO/ai-context-hierarchy",
+  "skills": []
+}
