@@ -4,7 +4,7 @@
   "repo": "rainarddistor-portfolio",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pangkik/rainarddistor-portfolio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T12:29:42Z"
+  "distributed_at": "2026-07-08T16:00:31Z"
 }
