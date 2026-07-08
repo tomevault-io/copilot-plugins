@@ -1,0 +1,9 @@
+{
+  "name": "jvuori--zmux",
+  "displayName": "zmux",
+  "description": "The convenience of Zellij, but in tmux",
+  "version": "1.0.0",
+  "author": "jvuori",
+  "homepage": "https://github.com/jvuori/zmux",
+  "skills": []
+}
