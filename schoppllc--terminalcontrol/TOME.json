@@ -1,0 +1,44 @@
+{
+  "name": "Terminalcontrol",
+  "owner": "schoppllc",
+  "repo": "Terminalcontrol",
+  "description": "A grid of real terminals in one browser window \u2014 run a Claude in every box; when one needs you, it glows, dings, and jumps to the top bar.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/schoppllc/Terminalcontrol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T02:42:38Z"
+}
