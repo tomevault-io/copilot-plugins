@@ -1,0 +1,9 @@
+{
+  "name": "sensible-analytics--stock-scanner",
+  "displayName": "stock_scanner",
+  "description": "\ud83d\udcc8 Professional momentum stock scanner using Qullamaggie methodology - 20-point scoring with live Yahoo Finance data",
+  "version": "1.0.0",
+  "author": "Sensible-Analytics",
+  "homepage": "https://github.com/Sensible-Analytics/stock_scanner",
+  "skills": []
+}
