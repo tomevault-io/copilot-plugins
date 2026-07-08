@@ -1,0 +1,9 @@
+{
+  "name": "zhound420--d365fo-claude-connector",
+  "displayName": "D365FO-claude-connector",
+  "description": "MCP server for Microsoft Dynamics 365 Finance & Operations - enables AI assistants to explore metadata, query data, and execute sandboxed code",
+  "version": "1.0.0",
+  "author": "zhound420",
+  "homepage": "https://github.com/zhound420/D365FO-claude-connector",
+  "skills": []
+}
