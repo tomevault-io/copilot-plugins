@@ -4,7 +4,7 @@
   "repo": "winssh",
   "description": "WinSSH \u662f\u4e00\u4e2a\u57fa\u4e8e Electron\u3001React \u548c TypeScript \u7684\u8de8\u5e73\u53f0\u684c\u9762 SSH \u5de5\u4f5c\u53f0\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lantongxue/winssh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T00:39:23Z"
+  "distributed_at": "2026-07-08T00:42:59Z"
 }
