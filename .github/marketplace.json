@@ -204669,6 +204669,11 @@
       "description": "A command-line tool for bulk operations on your Rekordbox library"
     },
     {
+      "name": "riffcc--jetpack",
+      "source": "./riffcc--jetpack",
+      "description": "Jetpack, a spiritual successor to Jetporch and Ansible"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -240379,6 +240384,56 @@
       "description": "Local-first MCP coordination hub. One local daemon serves multiple AI assistants across IDEs \u2014 shared meetings, tasks, messages, and project registry. Works with Claude, Cursor, VS Code, Zed."
     },
     {
+      "name": "shipfoxhq--shipfox",
+      "source": "./shipfoxhq--shipfox",
+      "description": "shipfox"
+    },
+    {
+      "name": "liuyiwuqing--halo-theme-hydro-minim",
+      "source": "./liuyiwuqing--halo-theme-hydro-minim",
+      "description": "halo-theme-hydro-minim"
+    },
+    {
+      "name": "shipfoxhq--shipfox",
+      "source": "./shipfoxhq--shipfox",
+      "description": "shipfox"
+    },
+    {
+      "name": "human-again--orbit",
+      "source": "./human-again--orbit",
+      "description": "Mission control for AI coding agents"
+    },
+    {
+      "name": "creatmanceo--ai-context-hierarchy",
+      "source": "./creatmanceo--ai-context-hierarchy",
+      "description": "Three-level context hierarchy for AI coding agents \u2014 featured in Graphify v5.0 roadmap. Stop re-explaining your codebase every session. Works with Claude Code, Cursor, Codex, Gemini CLI, Claude Deskto"
+    },
+    {
+      "name": "leemojiang--llm-notes-all-in-one",
+      "source": "./leemojiang--llm-notes-all-in-one",
+      "description": "llm-notes-all-in-one"
+    },
+    {
+      "name": "vllm-project--perf-eval",
+      "source": "./vllm-project--perf-eval",
+      "description": "Performance benchmark & accuracy evaluation for vLLM"
+    },
+    {
+      "name": "fuuuuuuma--premiere-skills",
+      "source": "./fuuuuuuma--premiere-skills",
+      "description": "Claude Code skills for Premiere Pro: /cut (silence removal) and /srt (Japanese subtitle generation via Whisper + LLM)"
+    },
+    {
+      "name": "gaozimeng0425--nemonotch",
+      "source": "./gaozimeng0425--nemonotch",
+      "description": "An interactive floating panel for the MacBook notch area, turning the notch into a multi-purpose information hub."
+    },
+    {
+      "name": "human-again--orbit",
+      "source": "./human-again--orbit",
+      "description": "Mission control for AI coding agents"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -261032,6 +261087,21 @@
       "name": "mormor83--terraducktel",
       "source": "./mormor83--terraducktel",
       "description": "Self-hosted Terraform & Helm orchestration - plan, gate, apply, and track drift, no SaaS required"
+    },
+    {
+      "name": "pascalorg--lingo",
+      "source": "./pascalorg--lingo",
+      "description": "Make forms easier, LLM tools safer. Natural-language quantities, units, dates & ranges parsed into canonical values \u2014 zero dependencies, two-way."
+    },
+    {
+      "name": "mishahanin--heading-os",
+      "source": "./mishahanin--heading-os",
+      "description": "The operating system an executive runs their company from \u2014 research, communications, CRM, content, and operations. Claude Code is the foundation; HEADING OS is the value built on top: sovereign, secu"
+    },
+    {
+      "name": "tenor-john--obsidian-scholarium",
+      "source": "./tenor-john--obsidian-scholarium",
+      "description": "Scholarium (from Latin scholaris, \"of scholars\") is your all-in-one research workspace inside Obsidian."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -388862,6 +388932,76 @@
       "name": "yxswya--canvas-application",
       "source": "./yxswya--canvas-application",
       "description": "canvas-application"
+    },
+    {
+      "name": "0gzk--core",
+      "source": "./0gzk--core",
+      "description": "An SDK + CLI for hosting Circom/snarkjs circuit bundles on 0G Storage and generating Groth16 proofs locally"
+    },
+    {
+      "name": "latecoder10--openagent",
+      "source": "./latecoder10--openagent",
+      "description": "openagent"
+    },
+    {
+      "name": "rimpuhwe--talent-lens-fe",
+      "source": "./rimpuhwe--talent-lens-fe",
+      "description": "talent-lens-fe"
+    },
+    {
+      "name": "vt231sao--dormitorysystem",
+      "source": "./vt231sao--dormitorysystem",
+      "description": "DormitorySystem"
+    },
+    {
+      "name": "g1m1et--slack-comment-viewer",
+      "source": "./g1m1et--slack-comment-viewer",
+      "description": "Chrome extension that overlays Slack channel messages on any web page (Niconico-style flow / ticker)"
+    },
+    {
+      "name": "lorenzo1285--mlops-portfolio",
+      "source": "./lorenzo1285--mlops-portfolio",
+      "description": "End-to-end MLOps portfolio: DVC + MLflow + Airflow + Kubeflow with CGR crash severity dataset"
+    },
+    {
+      "name": "jorgegarzondeveloper--barberprosuite",
+      "source": "./jorgegarzondeveloper--barberprosuite",
+      "description": "BarberProSuite"
+    },
+    {
+      "name": "alemioma--4da-v3",
+      "source": "./alemioma--4da-v3",
+      "description": "4DA-v3"
+    },
+    {
+      "name": "naimkatiman--hydrax-app",
+      "source": "./naimkatiman--hydrax-app",
+      "description": "White-label institutional workflow platform above HydraX regulated tokenisation, trading, and custody rails."
+    },
+    {
+      "name": "districkov--doxod",
+      "source": "./districkov--doxod",
+      "description": "doxod"
+    },
+    {
+      "name": "strawberry-cow38--cow-colony-sim-attempt-4-godot",
+      "source": "./strawberry-cow38--cow-colony-sim-attempt-4-godot",
+      "description": "cow-colony-sim-attempt-4-godot"
+    },
+    {
+      "name": "radroid--my-npxai-demo",
+      "source": "./radroid--my-npxai-demo",
+      "description": "Portfolio demo for NPX Innovation \u2014 RAG chat over CNSC regulatory documents and a shift turnover generator, built with Next.js + assistant-ui + Supabase pgvector + OpenAI."
+    },
+    {
+      "name": "gabrielfernandesbonfim--project-tokyo",
+      "source": "./gabrielfernandesbonfim--project-tokyo",
+      "description": "AI-driven development framework combining GitHub Spec Kit with Claude Code CLI. Template repo with pre-configured CI/CD, security checks, MCP contracts, and a spec-driven workflow for reproducible, se"
+    },
+    {
+      "name": "sukramj--openccu-data",
+      "source": "./sukramj--openccu-data",
+      "description": "Data-extraction pipeline and source-of-truth distribution for Homematic CCU configuration metadata \u2014 parses OCCU/RaspberryMatic TCL & JS into compact, typed JSON artifacts (easymodes, translations, pr"
     }
   ]
 }
