@@ -1,0 +1,9 @@
+{
+  "name": "mikaelhug--silo",
+  "displayName": "Silo",
+  "description": "Fast, native, open-source launcher for running Windows Steam games on Apple Silicon Macs.",
+  "version": "1.0.0",
+  "author": "mikaelhug",
+  "homepage": "https://github.com/mikaelhug/Silo",
+  "skills": []
+}
