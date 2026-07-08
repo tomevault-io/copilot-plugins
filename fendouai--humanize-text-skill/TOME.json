@@ -4,7 +4,7 @@
   "repo": "humanize-text-skill",
   "description": "Free AI Humanizer: Humanize AI Text Online",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fendouai/humanize-text-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T17:39:19Z"
+  "distributed_at": "2026-07-08T19:40:38Z"
 }
