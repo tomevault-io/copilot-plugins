@@ -7,11 +7,11 @@ Liminate is a prose-as-syntax language designed from the human end.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rmichaelthomas/liminate](https://github.com/rmichaelthomas/liminate).
+Original source: `CLAUDE.md` in [rmichaelthomas/liminate](https://github.com/rmichaelthomas/liminate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
