@@ -1,108 +1,30 @@
-## database
+## documentations
 
-> >
+> Guideline for writing end-user facing documentation in the apps/docs folder
 
 
-# Formbricks Database Schema Reference
+Follow these instructions and guidelines when asked to write documentation in the apps/docs folder
 
-This rule provides a reference to the Formbricks database structure. For the most up-to-date and complete schema definitions, please refer to the schema.prisma file directly.
+Follow this structure to write the title, describtion and pick a matching icon and insert it at the top of the MDX file:
 
-## Database Overview
+---
 
-Formbricks uses PostgreSQL with Prisma ORM. The schema is designed for multi-tenancy with strong data isolation between organizations.
+title: "FEATURE NAME"
+description: "1 concise sentence to describe WHEN the feature is being used and FOR WHAT BENEFIT."
+icon: "link"
 
-### Core Hierarchy
+---
 
-```
-Organization
-└── Project
-    └── Environment (production/development)
-        ├── Survey
-        ├── Contact
-        ├── ActionClass
-        └── Integration
-```
+- Description: 1 concise sentence to describe WHEN the feature is being used and FOR WHAT BENEFIT.
+- Make ample use of the Mintlify components you can find here https://mintlify.com/docs/llms.txt - e.g. if docs describe consecutive steps, always use Mintlify Step component.
+- In all Headlines, only capitalize the current feature and nothing else, to Camel Case.
+- The page should never start with H1 headline, because it's already part of the template.
+- Tonality: Keep it concise and to the point. Avoid Jargon where possible.
+- If a feature is part of the Enterprise Edition, use this note:
 
-## Schema Reference
-
-For the complete and up-to-date database schema, please refer to:
-
-- Main schema: `packages/database/schema.prisma`
-- JSON type definitions: `packages/database/json-types.ts`
-
-The schema.prisma file contains all model definitions, relationships, enums, and field types. The json-types.ts file contains TypeScript type definitions for JSON fields.
-
-## Data Access Patterns
-
-### Multi-tenancy
-
-- All data is scoped by Organization
-- Environment-level isolation for surveys and contacts
-- Project-level grouping for related surveys
-
-### Soft Deletion
-
-Some models use soft deletion patterns:
-
-- Check `isActive` fields where present
-- Use proper filtering in queries
-
-### Cascading Deletes
-
-Configured cascade relationships:
-
-- Organization deletion cascades to all child entities
-- Survey deletion removes responses, displays, triggers
-- Contact deletion removes attributes and responses
-
-## Common Query Patterns
-
-### Survey with Responses
-
-```typescript
-// Include response count and latest responses
-const survey = await prisma.survey.findUnique({
-  where: { id: surveyId },
-  include: {
-    responses: {
-      take: 10,
-      orderBy: { createdAt: "desc" },
-    },
-    _count: {
-      select: { responses: true },
-    },
-  },
-});
-```
-
-### Environment Scoping
-
-```typescript
-// Always scope by environment
-const surveys = await prisma.survey.findMany({
-  where: {
-    environmentId: environmentId,
-    // Additional filters...
-  },
-});
-```
-
-### Contact with Attributes
-
-```typescript
-const contact = await prisma.contact.findUnique({
-  where: { id: contactId },
-  include: {
-    attributes: {
-      include: {
-        attributeKey: true,
-      },
-    },
-  },
-});
-```
-
-This schema supports Formbricks' core functionality: multi-tenant survey management, user targeting, response collection, and analysis, all while maintaining strict data isolation and security.
+<Note>
+  FEATURE NAME is part of the [Enterprise Edition](/self-hosting/advanced/license) 
+</Note>
 
 ---
 > Source: [SadaqJafarHussain/NUST-Forms-Builder](https://github.com/SadaqJafarHussain/NUST-Forms-Builder) — distributed by [TomeVault](https://tomevault.io).
