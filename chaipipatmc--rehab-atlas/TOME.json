@@ -4,7 +4,7 @@
   "repo": "Rehab-Atlas",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chaipipatmc/Rehab-Atlas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T07:30:28Z"
+  "distributed_at": "2026-07-08T09:56:34Z"
 }
