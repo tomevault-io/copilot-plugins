@@ -1,20 +1,35 @@
-## realms-project
+## realms-tasks
 
-> RealmsRPG project structure and tech stack
+> Agent task workflow - where to read tasks, how to update, feedback processing
 
 
-# RealmsRPG Project
+# Task Workflow
 
-**Stack:** Next.js (App Router), React, Tailwind, **Supabase** (PostgreSQL, Auth, Storage), **Vercel**. Database: Supabase client + raw SQL; all tables in `public`; no Prisma. **Schema source of truth:** `src/docs/SUPABASE_SCHEMA.md`.
+**Before implementing:**
+1. Read `src/docs/ai/AI_TASK_QUEUE.md` — pick highest-priority `not-started` task. **Skip `blocked` tasks and any task with `assignee:` set to a human** (e.g. TASK-353).
+2. Read `src/docs/ai/FEATURE_INDEX.md` — confirm the feature/hook/component doesn't already exist.
+3. Read `src/docs/ai/AGENT_GUIDE.md` — sources of truth, component locations.
+3. For validation, caps, tooltips, or calculations: reference `src/docs/GAME_RULES.md` (terminology, formulas, display conventions).
+4. For UI work: check `src/docs/MOBILE_UX.md`; ensure new/edited modals and pages follow mobile patterns (fullScreenOnMobile, side-scroll or collapse for dense sections, touch targets).
 
-**Key directories:**
-- `src/app/` — Routes: `(main)/` (characters, library, codex, creators), `(auth)/` (login, register)
-- `src/components/` — `ui/` (primitives), `shared/` (reusable), `character-sheet/`, `creator/`, `codex/`
-- `src/hooks/`, `src/stores/`, `src/lib/`, `src/services/`, `src/types/`
+**When implementing:**
+- Update task `status` to `in-progress`, then `done` when all acceptance criteria pass, or `partial` with `completed_work` / `remaining_work` / `follow_up_tasks`.
+- Human-only steps go in `src/docs/ai/DEVELOPER_TASK_QUEUE.md` (required actions + **DEV-V-###** build validation index).
+- For user-facing `done`/`partial`: add granular tests to `src/docs/ai/BUILD_VALIDATION.md`, set `build_validation` + `developer_test_plan` on the task, index suite in `DEVELOPER_TASK_QUEUE.md`.
+- Append entry to `src/docs/ai/AI_CHANGELOG.md`.
 
-**Deploy:** `vercel deploy` or push to connected repo — Vercel only.
+**New tasks:** Use format in `src/docs/ai/AI_REQUEST_TEMPLATE.md`. Add to `AI_TASK_QUEUE.md` with next TASK-### ID.
+**Schema/migrations:** Run SQL in Supabase Dashboard (see `src/docs/DEPLOYMENT_AND_SECRETS_SUPABASE.md`); no Prisma migrate.
 
-**Before PR:** Run `npm run build`. CI runs build + `scripts/reconcile_tasks.js`.
+**Codex / reference data:** See `.cursor/rules/realms-codex-data.mdc` — audit and draft SQL first; **do not execute codex `UPDATE`/`INSERT`/`DELETE` via MCP until the owner reviews and approves** (except a specific correction they direct in the same message).
+
+# Feedback Processing (when owner gives feedback)
+
+1. **Log:** Append raw feedback to `src/docs/ALL_FEEDBACK_CLEAN.md` under **Raw Feedback Log** (date, context, priority, text, expected behavior). Do this whether you create tasks or implement directly.
+2. **Extract:** Split into discrete actionable items (one sentence can be 2–3 items).
+3. **Cross-reference:** For each item, check `AI_TASK_QUEUE.md` (by keyword) and curated sections of `ALL_FEEDBACK_CLEAN.md`; verify in code if unsure.
+4. **Gaps:** Add new tasks to `AI_TASK_QUEUE.md` (next TASK-### ID, from `AI_REQUEST_TEMPLATE.md`) and/or curated entries; implement directly when appropriate.
+5. **Summary:** Brief checklist: item → disposition (existing task, new task, implemented, or already done).
 
 ---
 > Source: [MastersoftheRealm/RealmsRPG-Test](https://github.com/MastersoftheRealm/RealmsRPG-Test) — distributed by [TomeVault](https://tomevault.io).
