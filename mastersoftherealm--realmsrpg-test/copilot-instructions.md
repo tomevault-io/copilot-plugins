@@ -1,64 +1,79 @@
-## realms-unification
+## realmsrpg-test
 
-> UI unification - shared components, design tokens, "learn once use forever
+> You are working on RealmsRPG, a D&D Beyond–like TTRPG web app built with Next.js, React, Tailwind, **Supabase** (PostgreSQL, Auth, Storage), and **Vercel**.
 
+# RealmsRPG — Agent Instructions
 
-# UI Unification — Learn Once, Use Forever
+You are working on RealmsRPG, a D&D Beyond–like TTRPG web app built with Next.js, React, Tailwind, **Supabase** (PostgreSQL, Auth, Storage), and **Vercel**.
 
-**Principle:** If users understand filters, sorting, allocation, or creation in one place, they know it everywhere. Reuse components and patterns.
+> **Stack:** Supabase (PostgreSQL, Auth, Storage), Next.js, Vercel. No Prisma; no Firebase.
+> **Data access:** Supabase server client only (`.from()`, `.rpc()`); schema reference `src/docs/SUPABASE_SCHEMA.md`; migrations = SQL only.
 
-## Shared components (use these; do not duplicate)
+## Session Start
 
-| Need | Import from |
-|------|-------------|
-| List rows (expandable) | `@/components/shared` → GridListRow |
-| List row entity thumb (44px, click preview) | `@/components/shared` → **ListRowThumbnail**; pass via `GridListRow` **`thumbnail`** prop — resolve with `resolveListRowThumbnail` / `resolveSpeciesListRowThumbnail` from `@/lib/list-row-image.ts` (see `AGENT_GUIDE.md` § Entity card art) |
-| Click-to-enlarge any inline image | `@/components/shared` → **ExpandableImage** — species art, portraits, choice cards, list thumbs; see `AGENT_GUIDE.md` § Entity card art |
-| Guided choice card hero art | `@/components/guided-creator` → **GuidedChoiceCard** + `guided-choice-image.ts` |
-| Admin codex card art upload | `@/components/shared` → **CodexArtUploadField** + `@/lib/codex-art.ts` |
-| Sortable column headers | `@/components/shared` → ListHeader (default styling; see below) |
-| List selection modal (add-X, pick from library) | `@/components/shared` → UnifiedSelectionModal |
-| Source scope: All / Realms Library / My Library | `@/components/shared` → SourceFilter (built on SegmentedControl) |
-| Two–N option pill toggle (same look as Library / source filter) | `@/components/shared` → SegmentedControl |
-| Section headers with + | `@/components/shared` → SectionHeader |
-| Roll buttons | `@/components/shared` → RollButton |
-| +/- steppers | `@/components/shared` → ValueStepper, DecrementButton, IncrementButton |
-| Point display (spent/total) | `@/components/shared` → PointStatus |
-| Skill rows | `@/components/shared` → SkillRow |
-| Search | `@/components/ui` → SearchInput |
-| Primary nav tabs (underline, badges) | `@/components/ui` → TabNavigation |
-| Page layout | `@/components/ui` → PageContainer, PageHeader |
-| Modals, Buttons, Chips | `@/components/ui` |
-| Contextual help (optional rules / step info) | `@/components/shared` → **InfoTippy** + `public/tooltip-text.tsx` — **not** for menus/filters; see `AGENT_GUIDE.md` § Floating UI & contextual help |
-| Entity list thumb / choice-card art | **Do not** build per-page — `AGENT_GUIDE.md` § **Entity card art & list thumbnails**; `REALMS_PRODUCT_OVERVIEW.md` §5.0.3 |
+1. **Read** `src/docs/ai/AI_TASK_QUEUE.md` — focus on `not-started` / `in-progress` / `partial`; **skip `blocked` and human-assigned tasks**; human-only items in `DEVELOPER_TASK_QUEUE.md`.
+2. **Read** `src/docs/ai/AGENT_GUIDE.md` — component locations, patterns, sources of truth.
+3. **When owner gives feedback:** Log it in `src/docs/ALL_FEEDBACK_CLEAN.md` (Raw Feedback Log) and process per `.cursor/rules/realms-tasks.mdc` (extract, cross-ref queue, add tasks or implement).
+4. **Reference when needed:** see the Source-of-Truth Map below.
 
-### ListHeader in modals
+## Source-of-Truth Map (read the right doc first)
 
-Do **not** strip ListHeader chrome with `className="border-0 rounded-none bg-transparent …"` unless there is an explicit design exception. Selection and proficiency modals should match Codex/Library/sheet list headers (`bg-primary-50`, rounded bar, dark border).
+Check the canonical source for the topic instead of trusting scattered/stale docs. Each topic has **one** authority:
 
-### Segmented toggles vs TabNavigation
+| For… | Read (authority) |
+|------|------------------|
+| **Product vision, UX philosophy, onboarding/creator flow, three-layer model** | `src/docs/REALMS_PRODUCT_OVERVIEW.md` (desired experience) — pair with `src/docs/human/USER_EXPERIENCE_GOALS.md` (shipped-UX checklist) |
+| **Does this already exist?** (features, components, hooks, services) | `src/docs/ai/FEATURE_INDEX.md` → then `src/components/shared/index.ts`, `src/hooks/index.ts` |
+| DB tables / columns | `src/docs/SUPABASE_SCHEMA.md` (only) |
+| Game formulas, terminology, caps, display | `src/docs/GAME_RULES.md` |
+| Data flow, enrichment, hooks/services | `src/docs/ARCHITECTURE.md` |
+| Shared UI components & usage | `.cursor/rules/realms-unification.mdc` + `src/docs/ai/AGENT_GUIDE.md` (Unified patterns section) |
+| Design tokens / colors | `src/docs/DESIGN_SYSTEM.md` |
+| Mobile patterns | `src/docs/MOBILE_UX.md` |
+| Accessibility / contrast | `src/docs/ACCESSIBILITY.md` |
+| Open tasks | `src/docs/ai/AI_TASK_QUEUE.md` (active only) / `src/docs/ai/DEVELOPER_TASK_QUEUE.md` |
+| Task & audit history | `src/docs/ai/archive/HISTORY_INDEX.md` — not current truth; paths listed in `.cursorignore` |
+| Contextual help tooltips | `AGENT_GUIDE.md` § **Floating UI & contextual help** — when to use `InfoTippy` vs Floating UI vs Modal/Select |
+| Entity card art (list thumbnails, choice cards, click-to-enlarge, upload) | `AGENT_GUIDE.md` § **Entity card art & expandable images** + `REALMS_PRODUCT_OVERVIEW.md` §5.0.3 + `FEATURE_INDEX.md` |
+| QA build validation (step-by-step) | `src/docs/ai/BUILD_VALIDATION.md` |
+| Current remediation status & known open gaps | `src/docs/ai/REMEDIATION_STATUS_2026-06.md` |
+| UI/UX unification roadmap (design-system migration) | `src/docs/ai/UI_UNIFICATION_PLAN.md` + `VISUAL_STATE_AUDIT.md` + AGENT_GUIDE § Design-system safety net |
+| Deploy / secrets | `src/docs/DEPLOYMENT_AND_SECRETS_SUPABASE.md` |
+| Edge / CDN performance | `src/docs/PERFORMANCE_AND_EDGE.md` |
+| DB ops runbook | `src/docs/DATABASE_CONSISTENCY_CHECKLIST.md` |
+| Owner feedback log | `src/docs/ALL_FEEDBACK_CLEAN.md` |
 
-- **SegmentedControl** — compact “pill in `bg-surface-alt`” switches (Library vs Realms, codex source, modal sub-filters). Use **SourceFilter** when the options are exactly All / Realms / My Library.
-- **TabNavigation** — main category tabs (underline variant) for large tab sets (powers, techniques, codex categories). Do not replace those with SegmentedControl.
+> Rules in `.cursor/rules/` are terse pointers into these authorities — they don't duplicate the full content. If a rule and an authority disagree, trust the authority and fix the rule.
 
-## Design tokens (globals.css)
+## Core Principles
 
-Use semantic tokens, not raw colors: `bg-surface`, `bg-background`, `bg-surface-alt`, `text-text-primary`, `text-text-secondary`, `text-text-muted`, `border-border-light`, `border-border`. Exception: auth (`(auth)/`, `components/auth/`) may use `gray-*` for the dark auth shell. Outside auth, prefer tokens; migrate stray `gray-*` when editing a file.
+- **Search before you build (anti-re-implementation)** — Before writing a new component, hook, service, API route, or util, confirm it doesn't already exist: check `src/docs/ai/FEATURE_INDEX.md`, then grep `src/components/shared/index.ts`, `src/hooks/index.ts`, `src/services/index.ts`, and `src/lib/`. Many features here were accidentally rebuilt by agents who didn't know they existed.
+- **Learn once, use forever** — Reuse components (`GridListRow`, `SkillRow`, `ValueStepper`, `SectionHeader`, etc.). Consistent filters, sorting, and allocation across Library, Codex, Character Sheet, and Creators.
+- **Unification over duplication** — Before adding a component, search for existing patterns. Use design tokens (`bg-surface`, `text-text-primary`, etc.) not raw `gray-*` outside auth.
+- **Verify, don’t assume** — Docs may be stale. Inspect the codebase to confirm patterns and usage.
+- **Consider mobile on every UI change** — See `src/docs/MOBILE_UX.md` and `.cursor/rules/realms-mobile.mdc`. New pages, modals, and dense sections must follow breakpoints, full-screen modals on small viewports (`fullScreenOnMobile`), and touch targets (≥44px).
+- **Accessibility & contrast** — See `src/docs/ACCESSIBILITY.md` and `.cursor/rules/realms-accessibility.mdc`. Use semantic tokens and status colors that pass WCAG 2.1 AA in **both light and dark mode** (e.g. `text-success-700` not `text-success-600` for body text; `text-power-dark` / `text-martial-dark` for archetype body text). Every form control needs a label or `aria-label`; heading levels must not skip (h1 → h2 → h3). Modals need a title or `titleA11y`.
 
-## Search before you build (preflight — do this first)
+## Implementation
 
-Before creating **any** new component, hook, service, API route, or util, confirm it doesn't already exist:
+- Pick highest-priority `not-started` task from the queue.
+- **Verify** all acceptance criteria are fully met before marking done.
+- Verify `related_files` in the task match actual codebase paths (queue may have stale references).
+- Update task status (`in-progress` → `done`), add notes with PR link.
+- Append to `src/docs/ai/AI_CHANGELOG.md` on completion.
+- Run `npm run build` before opening a PR.
 
-1. Check `src/docs/ai/FEATURE_INDEX.md` (feature → file map).
-2. Grep the barrels: `src/components/shared/index.ts`, `src/components/ui/index.ts`, `src/hooks/index.ts`, `src/services/index.ts`.
-3. Grep `src/lib/` for calculators/formulas/utils by keyword.
-4. If something similar exists, **extend it with a prop/variant** rather than forking a parallel copy.
+## Creating New Tasks
 
-This is the main guardrail against re-implementation — the most common multi-agent failure mode in this repo (e.g. parallel `Library*Tab` vs `AdminPublic*Tab`, duplicate load hooks, duplicate official/public APIs).
+Use `src/docs/ai/AI_REQUEST_TEMPLATE.md` format. Add to `AI_TASK_QUEUE.md` with next TASK-### ID. Create tasks when audits or implementation reveal additional work.
 
-## Before adding a new component
+## Deployment & Secrets
 
-Search `src/components/shared/index.ts` and the table above. Prefer extending shared components with props/variants over creating new ones. If you duplicate `flex … p-1 rounded-lg bg-surface-alt` + multiple buttons, use **SegmentedControl** instead.
+See `src/docs/DEPLOYMENT_AND_SECRETS_SUPABASE.md` — env vars, Vercel config, Supabase keys.
+
+## Codex & reference data (owner review)
+
+Bulk or policy changes to **`codex_*`** / **`core_rules`** (tags, merges, categories, seed parity): **audit → propose SQL in `sql/` → owner reviews → then apply**. Do not push live codex writes via Supabase MCP without approval. Full workflow: `.cursor/rules/realms-codex-data.mdc`.
 
 ---
 > Source: [MastersoftheRealm/RealmsRPG-Test](https://github.com/MastersoftheRealm/RealmsRPG-Test) — distributed by [TomeVault](https://tomevault.io).
