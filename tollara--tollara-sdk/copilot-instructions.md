@@ -1,9 +1,14 @@
-## sdk-coding-rules
+## terminal-console-operations
 
-> - This project is released to the public; in the project readme.md files and comment do not mention urls to Tollara or context paths to particular services (the sdks are hardcoded to the Tollara base url and this can be overridden by myself only for testing, the public do not need to know about this function).
+> -When running PowerShell commands, always use the full path to executables
 
 
-- This project is released to the public; in the project readme.md files and comment do not mention urls to Tollara or context paths to particular services (the sdks are hardcoded to the Tollara base url and this can be overridden by myself only for testing, the public do not need to know about this function).
+-When running PowerShell commands, always use the full path to executables
+-Use .\gradlew.bat instead of .\gradlew to avoid "Open with" popup
+-For gradle commands, use the .bat extension explicitly: .\gradlew.bat :module:task
+-When running commands that might trigger file associations, use the full executable path
+-For Java compilation, use .\gradlew.bat compileJava instead of .\gradlew compileJava
+-If a command fails with "Open with" popup, retry with the .bat extension
 
 ---
 > Source: [tollara/tollara-sdk](https://github.com/tollara/tollara-sdk) — distributed by [TomeVault](https://tomevault.io).
