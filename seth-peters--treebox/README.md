@@ -7,11 +7,11 @@ Isolated, ready-to-run git worktrees for coding agents - host-native or docker-s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Seth-Peters/treebox](https://github.com/Seth-Peters/treebox).
+Original source: `CLAUDE.md` in [Seth-Peters/treebox](https://github.com/Seth-Peters/treebox).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
