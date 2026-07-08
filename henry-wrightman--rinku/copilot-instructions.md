@@ -1,41 +1,45 @@
-## rinku-protocol
+## rust-consensus
 
-> Rinku protocol conventions — dual Rust/TS impl, proof formats, versioning
+> Rust consensus, merge, and slashing code standards
 
 
-# Rinku Protocol
+# Rust Consensus Code
 
-## Dual implementation
+## Module map
 
-Protocol primitives exist in both Rust and TypeScript. Changes to shared semantics (tx hashing, merkle roots, checkpoint format, BLS aggregation) must touch both:
+| Module | Responsibility |
+|--------|----------------|
+| `consensus.rs` | Vote accumulator, BLS quorum, finality |
+| `checkpoint.rs` | Checkpoint creation and attestation |
+| `merge/` | Partition merge: conflict detection, cascade, resolution |
+| `slashing.rs` | Double-sign and liveness evidence |
+| `fast_path.rs` | Provisional acceptance (non-final) |
+| `gossip.rs` | libp2p sync, bloom filters, checkpoint propagation |
 
-- Rust: `packages/rinku-core/src/`
-- TypeScript: `packages/core/src/`
+## Required for changes
 
-Run conformance tests after changes:
-```bash
-npm run test -w @rinku/core -- src/__tests__/appendix-g-conformance.test.ts
-cargo test -p rinku-core
+1. Add or extend `#[test]` / `proptest` in the same module
+2. For merge logic: also check `tests/merge_e2e.rs`
+3. For P2P behavior: check `tests/p2p_integration.rs`
+4. Run `cargo clippy --all-targets --workspace -- -D warnings`
+
+## Patterns
+
+```rust
+// ✅ Use explicit error types
+return Err(ConsensusError::QuorumNotReached { have, need });
+
+// ❌ Don't swallow consensus failures
+let _ = vote_accumulator.try_finalize();
 ```
 
-## Consensus invariants (never break silently)
+## Security-sensitive areas
 
-- Checkpoint quorum: 66.6% stake-weighted BLS signatures
-- Merge must preserve balance conservation (see `merge/proptests.rs`)
-- Partition healing is deterministic — same inputs → same resolution
-- `GENESIS_VALIDATORS` format: `address:blsPublicKey;address:blsPublicKey`
+- `validator_identity.rs` — key persistence
+- `sync_verification.rs` — snapshot merkle verification
+- `wasm_runtime.rs` — fuel limits, import rejection
 
-## Proof profiles
-
-| Profile | Use | Package |
-|---------|-----|---------|
-| A | Merkle inclusion | `packages/core/src/compact-proof.ts` |
-| B | Checkpoint-attested | `packages/core/src/receipt.ts` |
-| C | Self-contained (offline) | `packages/core/src/self-proof.ts` |
-
-## Versioning
-
-Protocol upgrades follow `docs/VERSIONING.md`. Bump `protocolVersion` only with migration path documented.
+Never log private keys or `VALIDATOR_KEY_PASSWORD` values.
 
 ---
 > Source: [henry-wrightman/rinku](https://github.com/henry-wrightman/rinku) — distributed by [TomeVault](https://tomevault.io).
