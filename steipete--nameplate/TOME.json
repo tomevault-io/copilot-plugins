@@ -4,7 +4,7 @@
   "repo": "Nameplate",
   "description": "Brand every Mac in your fleet \u2014 colored frame, name tag, watermark, and connect splash as click-through overlays. Never wonder which Mac you remoted into again.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/steipete/Nameplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T02:37:20Z"
+  "distributed_at": "2026-07-08T02:52:15Z"
 }
