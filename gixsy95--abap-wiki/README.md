@@ -7,11 +7,11 @@ Agent-driven SAP/ABAP knowledge base engine that turns S/4HANA custom objects in
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Gixsy95/abap_wiki](https://github.com/Gixsy95/abap_wiki).
+Original source: `CLAUDE.md` in [Gixsy95/abap_wiki](https://github.com/Gixsy95/abap_wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
