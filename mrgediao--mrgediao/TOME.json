@@ -4,7 +4,7 @@
   "repo": "MrGeDiao",
   "description": "GitHub profile README for MrGeDiao",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MrGeDiao/MrGeDiao",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T05:10:14Z"
+  "distributed_at": "2026-07-08T05:27:02Z"
 }
