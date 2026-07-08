@@ -1,0 +1,9 @@
+{
+  "name": "bovinemagnet--dart-pop-n-click",
+  "displayName": "dart_pop_n_click",
+  "description": "Pure Dart library to detect pop and clicks in a wav file or flac file",
+  "version": "1.0.0",
+  "author": "bovinemagnet",
+  "homepage": "https://github.com/bovinemagnet/dart_pop_n_click",
+  "skills": []
+}
