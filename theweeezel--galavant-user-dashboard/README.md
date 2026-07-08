@@ -7,11 +7,11 @@ Galavant — walk-to-earn user dashboard on Bitcoin via OPNet
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TheWeeezel/galavant-user-dashboard](https://github.com/TheWeeezel/galavant-user-dashboard).
+Original source: `CLAUDE.md` in [TheWeeezel/galavant-user-dashboard](https://github.com/TheWeeezel/galavant-user-dashboard).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
