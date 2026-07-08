@@ -1,0 +1,9 @@
+{
+  "name": "supergillis--superdash",
+  "displayName": "superdash",
+  "description": "Home Assistant kiosk app for Android tablets",
+  "version": "1.0.0",
+  "author": "supergillis",
+  "homepage": "https://github.com/supergillis/superdash",
+  "skills": []
+}
