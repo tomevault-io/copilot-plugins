@@ -1,0 +1,9 @@
+{
+  "name": "epigraph-io--epigraph",
+  "displayName": "epigraph",
+  "description": "EpiGraph epistemic kernel \u2014 probabilistic knowledge graph with Dempster-Shafer reasoning",
+  "version": "1.0.0",
+  "author": "epigraph-io",
+  "homepage": "https://github.com/epigraph-io/epigraph",
+  "skills": []
+}
