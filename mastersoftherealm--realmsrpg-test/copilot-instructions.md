@@ -1,21 +1,20 @@
-## realms-mobile
+## realms-project
 
-> Mobile-first UI — breakpoints, modals, dense layouts, touch targets. Apply when creating or editing pages, modals, or layouts.
+> RealmsRPG project structure and tech stack
 
 
-# Mobile UX
+# RealmsRPG Project
 
-When **creating or editing** any page, modal, or layout:
+**Stack:** Next.js (App Router), React, Tailwind, **Supabase** (PostgreSQL, Auth, Storage), **Vercel**. Database: Supabase client + raw SQL; all tables in `public`; no Prisma. **Schema source of truth:** `src/docs/SUPABASE_SCHEMA.md`.
 
-1. **Read** `src/docs/MOBILE_UX.md` for breakpoints, touch targets, modal behavior, and dense-layout strategy (side-scroll vs collapse).
+**Key directories:**
+- `src/app/` — Routes: `(main)/` (characters, library, codex, creators), `(auth)/` (login, register)
+- `src/components/` — `ui/` (primitives), `shared/` (reusable), `character-sheet/`, `creator/`, `codex/`
+- `src/hooks/`, `src/stores/`, `src/lib/`, `src/services/`, `src/types/`
 
-2. **Modals:** For selection, add-X, load, recovery, level-up, settings, wizards, and other large dialogs, set **`fullScreenOnMobile`** on the `Modal` component so the modal is full-screen on viewports &lt; 768px (sticky header/footer, scrollable content).
+**Deploy:** `vercel deploy` or push to connected repo — Vercel only.
 
-3. **Dense layouts:** For pages with many sections (e.g. character sheet, encounter tracker), prefer **horizontal side-scroll** between section panels on mobile; use **Collapsible** or responsive stacking when sections are few or content is lighter.
-
-4. **Touch targets:** New interactive elements (buttons, icon buttons, steppers, tab triggers) must have a minimum size of **44×44px** on touch (use `--touch-target-min: 44px` or equivalent).
-
-5. **Checklist:** Use the **Agent checklist** in `MOBILE_UX.md` when adding or significantly changing a page or modal (responsive breakpoints, side-scroll/collapse for dense sections, list/table patterns, verification at ~360px width).
+**Before PR:** Run `npm run build`. CI runs build + `scripts/reconcile_tasks.js`.
 
 ---
 > Source: [MastersoftheRealm/RealmsRPG-Test](https://github.com/MastersoftheRealm/RealmsRPG-Test) — distributed by [TomeVault](https://tomevault.io).
