@@ -1,0 +1,44 @@
+{
+  "name": "n2n-nexus",
+  "owner": "n2ns",
+  "repo": "n2n-nexus",
+  "description": "Local-first MCP coordination hub. One local daemon serves multiple AI assistants across IDEs \u2014 shared meetings, tasks, messages, and project registry. Works with Claude, Cursor, VS Code, Zed.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/n2ns/n2n-nexus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T19:47:41Z"
+}
