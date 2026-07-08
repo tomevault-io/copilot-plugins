@@ -7,11 +7,11 @@ a mess I made where you run wasm sqlite in a worker and it renders to ag grid
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [matthewdavi/tanstack-db-ag-grid-worker](https://github.com/matthewdavi/tanstack-db-ag-grid-worker).
+Original source: `CLAUDE.md` in [matthewdavi/tanstack-db-ag-grid-worker](https://github.com/matthewdavi/tanstack-db-ag-grid-worker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
