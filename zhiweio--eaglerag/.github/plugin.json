@@ -1,0 +1,9 @@
+{
+  "name": "zhiweio--eaglerag",
+  "displayName": "EagleRAG",
+  "description": "Search knowledge by what documents mean and how they look \u2014 not one or the other.",
+  "version": "1.0.0",
+  "author": "zhiweio",
+  "homepage": "https://github.com/zhiweio/EagleRAG",
+  "skills": []
+}
