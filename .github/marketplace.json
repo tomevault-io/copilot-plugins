@@ -8989,6 +8989,11 @@
       "description": "A macOS app that provides an MCP server to your Messages, Contacts, Reminders and more"
     },
     {
+      "name": "xllm-ai--xllm",
+      "source": "./xllm-ai--xllm",
+      "description": "A high-performance inference engine for LLM, VLM, DiT and REC models, optimized for diverse AI accelerators. It is hosted in OpenAtom Foundation."
+    },
+    {
       "name": "vava-nessa--free-coding-models",
       "source": "./vava-nessa--free-coding-models",
       "description": "Find, benchmark and install in CLI 200+ FREE coding LLM models across 20+ providers in real time"
@@ -204504,6 +204509,16 @@
       "description": "Fable 5 methodology as a Claude Code plugin: decompose by verification boundaries, verify against the world, choose next by plan-change. Ships fable-scout + fable-refuter agents."
     },
     {
+      "name": "thecodedose--kdashboard",
+      "source": "./thecodedose--kdashboard",
+      "description": "kdashboard"
+    },
+    {
+      "name": "zzackllack--anibridge",
+      "source": "./zzackllack--anibridge",
+      "description": "FastAPI service that bridges streaming catalogues (AniWorld, Serienstream/s.to, Megakino) to automation tools. It exposes a fake Torznab feed and a fake qBittorrent-compatible API so that applications"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -240147,6 +240162,11 @@
       "name": "veeso--maud",
       "source": "./veeso--maud",
       "description": "A MDX inspired Markdown renderer for Lustre and Gleam."
+    },
+    {
+      "name": "solanabr--solana-game-skill",
+      "source": "./solanabr--solana-game-skill",
+      "description": "Claude Code skills for C#, Solana Unity SDK, Solana Mobile and Playsolana Unity SDK."
     },
     {
       "name": "ocrbase-hq--ocrbase",
@@ -387597,6 +387617,511 @@
       "name": "battermanz--hatchdoor",
       "source": "./battermanz--hatchdoor",
       "description": "Hatchdoor"
+    },
+    {
+      "name": "tstelzer--skills",
+      "source": "./tstelzer--skills",
+      "description": "skills"
+    },
+    {
+      "name": "sunilgupta-arch--taskflow",
+      "source": "./sunilgupta-arch--taskflow",
+      "description": "taskflow"
+    },
+    {
+      "name": "kolabing--kolabing-v2",
+      "source": "./kolabing--kolabing-v2",
+      "description": "kolabing-v2"
+    },
+    {
+      "name": "mattholden--tennis-origination",
+      "source": "./mattholden--tennis-origination",
+      "description": "tennis-origination"
+    },
+    {
+      "name": "irken-empire--ic-siwa",
+      "source": "./irken-empire--ic-siwa",
+      "description": "SIWA, Sign in with Avalanche for ICP, the Internet Computer. Build cross chain Avalanche apps on ICP!"
+    },
+    {
+      "name": "orx0815--slingslop",
+      "source": "./orx0815--slingslop",
+      "description": "Hypermedia Driven Application (HDA) based on Apache Sling. Using HTMX / Datastar to GET component markup and to POST content via Sling's OOTB endpoints"
+    },
+    {
+      "name": "lionelp-dev--mealo",
+      "source": "./lionelp-dev--mealo",
+      "description": "Application de planification de repas organis\u00e9e autour d\u2019espaces personnels et partag\u00e9s, int\u00e9grant la gestion de recettes, la planification hebdomadaire, les listes de courses synchronis\u00e9es, ainsi que"
+    },
+    {
+      "name": "dawnbells--v7-shop-repositories",
+      "source": "./dawnbells--v7-shop-repositories",
+      "description": "v7-shop-repositories"
+    },
+    {
+      "name": "kolabing--kolabing-v2",
+      "source": "./kolabing--kolabing-v2",
+      "description": "kolabing-v2"
+    },
+    {
+      "name": "kalapaja--kassette",
+      "source": "./kalapaja--kassette",
+      "description": "Kassette"
+    },
+    {
+      "name": "hipp-ai-hq--hipp-ai-website",
+      "source": "./hipp-ai-hq--hipp-ai-website",
+      "description": "Hipp AI \u2014 AI automation agency website"
+    },
+    {
+      "name": "dawnbells--v7-shop-repositories",
+      "source": "./dawnbells--v7-shop-repositories",
+      "description": "v7-shop-repositories"
+    },
+    {
+      "name": "fightingentropy--streamarena",
+      "source": "./fightingentropy--streamarena",
+      "description": "streamarena"
+    },
+    {
+      "name": "mattpanyor--new-horizons-app",
+      "source": "./mattpanyor--new-horizons-app",
+      "description": "new-horizons-app"
+    },
+    {
+      "name": "dawnbells--v7-shop-repositories",
+      "source": "./dawnbells--v7-shop-repositories",
+      "description": "v7-shop-repositories"
+    },
+    {
+      "name": "mastersoftherealm--realmsrpg-test",
+      "source": "./mastersoftherealm--realmsrpg-test",
+      "description": "Vercel/Supabase/Next.js repo for RealmsRPG-Test (private, no org)"
+    },
+    {
+      "name": "accumulator666--ai-roundtable",
+      "source": "./accumulator666--ai-roundtable",
+      "description": "ai colaberation"
+    },
+    {
+      "name": "dawnbells--v7-shop-repositories",
+      "source": "./dawnbells--v7-shop-repositories",
+      "description": "v7-shop-repositories"
+    },
+    {
+      "name": "ahwazakhtar--thesishe",
+      "source": "./ahwazakhtar--thesishe",
+      "description": "ThesisHE"
+    },
+    {
+      "name": "cargocam--ghostcam",
+      "source": "./cargocam--ghostcam",
+      "description": "Real-time camera surveillance system"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "sardark942--vendors-io",
+      "source": "./sardark942--vendors-io",
+      "description": "vendors.io"
+    },
+    {
+      "name": "starfysh-tech--cc-hooks-metrics",
+      "source": "./starfysh-tech--cc-hooks-metrics",
+      "description": "SQLite-backed telemetry and analytics for Claude Code hooks"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "pappaslandscaping--pappas-quote-backend",
+      "source": "./pappaslandscaping--pappas-quote-backend",
+      "description": "pappas-quote-backend"
+    },
+    {
+      "name": "cespeddev--portfolio",
+      "source": "./cespeddev--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "mahechahe--luup-web",
+      "source": "./mahechahe--luup-web",
+      "description": "Web aplication de LUUP"
+    },
+    {
+      "name": "appaquet--ccmon",
+      "source": "./appaquet--ccmon",
+      "description": "Real-time dashboard for your Claude Code sessions"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "organvm--public-process",
+      "source": "./organvm--public-process",
+      "description": "Essays, case studies, methodology documentation, RSS feed, newsletter integration"
+    },
+    {
+      "name": "adamakhlaq--claude-code-toolkit",
+      "source": "./adamakhlaq--claude-code-toolkit",
+      "description": "A browsable catalog of Claude Code building blocks \u2014 CLAUDE.md, settings, hooks, agents, and doc-writing skills \u2014 to copy into your own project and make your own."
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "wyattjank--roadmap-render-project",
+      "source": "./wyattjank--roadmap-render-project",
+      "description": "Python render script that will allow easy to update csv to generate a roadmap in both xlsx and drawio formats"
+    },
+    {
+      "name": "nepick1227--dev",
+      "source": "./nepick1227--dev",
+      "description": "dev"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "prismalens--prismalens-io",
+      "source": "./prismalens--prismalens-io",
+      "description": "Marketing site and documentation for PrismaLens"
+    },
+    {
+      "name": "suhaasnv--signal-acia",
+      "source": "./suhaasnv--signal-acia",
+      "description": "Signal (ACIA) \u2014 Autonomous competitive intelligence for SaaS teams. Scrapes competitor pricing (Bright Data), diffs snapshots, and uses Gemini only when change is meaningful (\u22655%). React, Vite, Expres"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "alelemos02--noglem",
+      "source": "./alelemos02--noglem",
+      "description": "Noglem"
+    },
+    {
+      "name": "italofelipe--auraxis-platform",
+      "source": "./italofelipe--auraxis-platform",
+      "description": "auraxis-platform"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "remarkablemark--emoji",
+      "source": "./remarkablemark--emoji",
+      "description": "\ud83d\udd0d Emoji Search: browse and copy emoji to your clipboard"
+    },
+    {
+      "name": "pangkik--rainarddistor-portfolio",
+      "source": "./pangkik--rainarddistor-portfolio",
+      "description": "rainarddistor-portfolio"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "kmeans4--phenofarm-mvp",
+      "source": "./kmeans4--phenofarm-mvp",
+      "description": "phenofarm-mvp"
+    },
+    {
+      "name": "narcolepticdoc--reddivault",
+      "source": "./narcolepticdoc--reddivault",
+      "description": "Reddit Vault files"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "linhngo66--personal-portfolio",
+      "source": "./linhngo66--personal-portfolio",
+      "description": "personal-portfolio"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "irken-empire--ic-siwa",
+      "source": "./irken-empire--ic-siwa",
+      "description": "SIWA, Sign in with Avalanche for ICP, the Internet Computer. Build cross chain Avalanche apps on ICP!"
+    },
+    {
+      "name": "warizi--rally",
+      "source": "./warizi--rally",
+      "description": "workflow rally"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "dongzhuoyao--lab",
+      "source": "./dongzhuoyao--lab",
+      "description": "Lab website"
+    },
+    {
+      "name": "smitharnonwattana-svg--quiz-app",
+      "source": "./smitharnonwattana-svg--quiz-app",
+      "description": "Quiz-app"
+    },
+    {
+      "name": "sadaqjafarhussain--nust-forms-builder",
+      "source": "./sadaqjafarhussain--nust-forms-builder",
+      "description": "NUST-Forms-Builder"
+    },
+    {
+      "name": "jardissupport--dotenv",
+      "source": "./jardissupport--dotenv",
+      "description": "Environment file loader with cascading overrides, variable interpolation, type casting, and include directives"
+    },
+    {
+      "name": "shaileshyadav24--legal-system-ui",
+      "source": "./shaileshyadav24--legal-system-ui",
+      "description": "legal-system-ui"
+    },
+    {
+      "name": "warofthesun--tectn-theme",
+      "source": "./warofthesun--tectn-theme",
+      "description": "Wordpress theme for TECTN.org"
+    },
+    {
+      "name": "fighting-team-tree--jobfit",
+      "source": "./fighting-team-tree--jobfit",
+      "description": "jobfit"
+    },
+    {
+      "name": "tsubasa-memo--tsubasa-memo-github-io",
+      "source": "./tsubasa-memo--tsubasa-memo-github-io",
+      "description": "tsubasa-memo.github.io"
+    },
+    {
+      "name": "henry-wrightman--rinku",
+      "source": "./henry-wrightman--rinku",
+      "description": "where the link is the proof"
+    },
+    {
+      "name": "kolabing--kolabing-v2",
+      "source": "./kolabing--kolabing-v2",
+      "description": "kolabing-v2"
+    },
+    {
+      "name": "kudima03--pure-relationalschema-storage-abstractions-serialization-system",
+      "source": "./kudima03--pure-relationalschema-storage-abstractions-serialization-system",
+      "description": "System.Text.Json converters for relational schema storage abstractions \u2014 ICell, IRow, IStoredTableDataSet, and IStoredSchemaDataSet."
+    },
+    {
+      "name": "henry-wrightman--rinku",
+      "source": "./henry-wrightman--rinku",
+      "description": "where the link is the proof"
+    },
+    {
+      "name": "abmbodj--riven",
+      "source": "./abmbodj--riven",
+      "description": "Study smarter with AI flashcards, notes, and mock exams. The Student OS built to help you win school."
+    },
+    {
+      "name": "send--elidex",
+      "source": "./send--elidex",
+      "description": "elidex"
+    },
+    {
+      "name": "henry-wrightman--rinku",
+      "source": "./henry-wrightman--rinku",
+      "description": "where the link is the proof"
+    },
+    {
+      "name": "alegosto01--vinted-scraper",
+      "source": "./alegosto01--vinted-scraper",
+      "description": "Vinted_Scraper"
+    },
+    {
+      "name": "boywithdv--swiftsampleapp",
+      "source": "./boywithdv--swiftsampleapp",
+      "description": "Nearly App(iOS)"
+    },
+    {
+      "name": "gking432--todotoday",
+      "source": "./gking432--todotoday",
+      "description": "A good to do list."
+    },
+    {
+      "name": "shusuke-appdev--ai-investing-app",
+      "source": "./shusuke-appdev--ai-investing-app",
+      "description": "AI-investing-app"
+    },
+    {
+      "name": "akihiroxob--wacha",
+      "source": "./akihiroxob--wacha",
+      "description": "Worker Aggregation and Control Hub for Agents"
+    },
+    {
+      "name": "calcena--gesbike",
+      "source": "./calcena--gesbike",
+      "description": "gesbike"
+    },
+    {
+      "name": "casagolden2026-afk--casa-golden",
+      "source": "./casagolden2026-afk--casa-golden",
+      "description": "casa-golden"
+    },
+    {
+      "name": "maylac--ai-executive-pipeline",
+      "source": "./maylac--ai-executive-pipeline",
+      "description": "ai-executive-pipeline"
+    },
+    {
+      "name": "cantara--wiki",
+      "source": "./cantara--wiki",
+      "description": "wiki"
+    },
+    {
+      "name": "jjayarajdev--clm-evaluetor",
+      "source": "./jjayarajdev--clm-evaluetor",
+      "description": "clm-evaluetor"
+    },
+    {
+      "name": "mts-services--drorange0-2-26",
+      "source": "./mts-services--drorange0-2-26",
+      "description": "drorange0_2_26"
+    },
+    {
+      "name": "seo1nk--chord-language",
+      "source": "./seo1nk--chord-language",
+      "description": "chord-language"
+    },
+    {
+      "name": "actualbeing--lanturn",
+      "source": "./actualbeing--lanturn",
+      "description": "lanturn"
+    },
+    {
+      "name": "tcoscode--betipo-formaciones-tools",
+      "source": "./tcoscode--betipo-formaciones-tools",
+      "description": "betipo-formaciones-tools"
+    },
+    {
+      "name": "nathankrupa--oversteward",
+      "source": "./nathankrupa--oversteward",
+      "description": "OverSteward"
+    },
+    {
+      "name": "arun-mishra20--workspace",
+      "source": "./arun-mishra20--workspace",
+      "description": "workspace for managing my projects"
+    },
+    {
+      "name": "dagle1997--wolf-cup",
+      "source": "./dagle1997--wolf-cup",
+      "description": "Wolf"
+    },
+    {
+      "name": "henry-wrightman--rinku",
+      "source": "./henry-wrightman--rinku",
+      "description": "where the link is the proof"
+    },
+    {
+      "name": "jumbomochi--toto-huat",
+      "source": "./jumbomochi--toto-huat",
+      "description": "Singapore Toto lottery analysis app - bias detection and higher-probability picks"
+    },
+    {
+      "name": "vareliy--home-pulse-watcher",
+      "source": "./vareliy--home-pulse-watcher",
+      "description": "DIY Power Outage Notifier"
+    },
+    {
+      "name": "bflinkdesign--agent-comms",
+      "source": "./bflinkdesign--agent-comms",
+      "description": "Universal inter-agent communication bus. File-based JSONL. Zero dependencies."
+    },
+    {
+      "name": "apscreativas--conciliacion-bancaria",
+      "source": "./apscreativas--conciliacion-bancaria",
+      "description": "conciliacion-bancaria"
+    },
+    {
+      "name": "ajaydarisi--darisi",
+      "source": "./ajaydarisi--darisi",
+      "description": "darisi"
+    },
+    {
+      "name": "gnargnarhead--gnargnarhead-github-io",
+      "source": "./gnargnarhead--gnargnarhead-github-io",
+      "description": "GNARGNARHEAD.github.io"
+    },
+    {
+      "name": "bellmentor--claude-study",
+      "source": "./bellmentor--claude-study",
+      "description": "claude_study"
+    },
+    {
+      "name": "elecodes--tendercheck-ai",
+      "source": "./elecodes--tendercheck-ai",
+      "description": "TenderCheck-AI"
+    },
+    {
+      "name": "cwmmwc--american-indian-allotment",
+      "source": "./cwmmwc--american-indian-allotment",
+      "description": "american-indian-allotment"
+    },
+    {
+      "name": "luminodevs-blip--helpero",
+      "source": "./luminodevs-blip--helpero",
+      "description": "Helpero"
+    },
+    {
+      "name": "mark-satterfield--toolset",
+      "source": "./mark-satterfield--toolset",
+      "description": "A curated collection of Claude Code plugins and skills"
+    },
+    {
+      "name": "ameforce--trip-time-service",
+      "source": "./ameforce--trip-time-service",
+      "description": "trip-time-service"
+    },
+    {
+      "name": "lehrerher--lehrer-homepage",
+      "source": "./lehrerher--lehrer-homepage",
+      "description": "lehrer-homepage"
+    },
+    {
+      "name": "nathanjohnpayne--device-source-of-truth",
+      "source": "./nathanjohnpayne--device-source-of-truth",
+      "description": "Disney Streaming device catalog for partner inventory, specs, deployments, telemetry, and ADK version tracking."
+    },
+    {
+      "name": "solidrhino--dotfiles",
+      "source": "./solidrhino--dotfiles",
+      "description": "Cross-platform dotfiles managed with chezmoi \u2014 fish shell, Neovim/LazyVim, and automated macOS/Linux setup"
     }
   ]
 }
