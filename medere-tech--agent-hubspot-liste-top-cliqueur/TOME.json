@@ -1,0 +1,44 @@
+{
+  "name": "agent-hubspot-liste-top-cliqueur",
+  "owner": "medere-tech",
+  "repo": "agent-hubspot-liste-top-cliqueur",
+  "description": "Cet agent permet de r\u00e9cup\u00e8rer toutes les campagnes email des 90 derniers jours + les clics par contact et la cr\u00e9ation de liste HubSpot depuis l'app.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/medere-tech/agent-hubspot-liste-top-cliqueur",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T02:33:12Z"
+}
