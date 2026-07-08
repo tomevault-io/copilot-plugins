@@ -1,0 +1,9 @@
+{
+  "name": "koalyptus--ls-apis",
+  "displayName": "ls-apis",
+  "description": "Public API Discovery for Humans & Agents",
+  "version": "1.0.0",
+  "author": "koalyptus",
+  "homepage": "https://github.com/koalyptus/ls-apis",
+  "skills": []
+}
