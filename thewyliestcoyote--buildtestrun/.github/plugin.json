@@ -1,0 +1,9 @@
+{
+  "name": "thewyliestcoyote--buildtestrun",
+  "displayName": "BuildTestRun",
+  "description": "Simple cli tool to help make build run differnt projects in a uniform manor ",
+  "version": "1.0.0",
+  "author": "TheWylieStCoyote",
+  "homepage": "https://github.com/TheWylieStCoyote/BuildTestRun",
+  "skills": []
+}
