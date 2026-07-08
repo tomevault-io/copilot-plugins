@@ -4,7 +4,7 @@
   "repo": "VibeAlchemist2",
   "description": "creates the vibe",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/namanbhute01-cloud/VibeAlchemist2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T06:39:19Z"
+  "distributed_at": "2026-07-08T07:14:30Z"
 }
