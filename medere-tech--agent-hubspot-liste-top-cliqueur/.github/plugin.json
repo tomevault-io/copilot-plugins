@@ -1,0 +1,9 @@
+{
+  "name": "medere-tech--agent-hubspot-liste-top-cliqueur",
+  "displayName": "agent-hubspot-liste-top-cliqueur",
+  "description": "Cet agent permet de r\u00e9cup\u00e8rer toutes les campagnes email des 90 derniers jours + les clics par contact et la cr\u00e9ation de liste HubSpot depuis l'app.",
+  "version": "1.0.0",
+  "author": "medere-tech",
+  "homepage": "https://github.com/medere-tech/agent-hubspot-liste-top-cliqueur",
+  "skills": []
+}
