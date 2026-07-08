@@ -1,0 +1,225 @@
+{
+  "name": "Skills",
+  "owner": "MengTo",
+  "repo": "Skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/gsap/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/gsap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/cobejs/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/cobejs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/vantajs/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/vantajs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/threejs/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/threejs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/globe-gl/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/globe-gl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/matterjs/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/matterjs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/webgl-laser/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/webgl-laser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/tailwindcss/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/tailwindcss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/landing-page/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/landing-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/pricing-page/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/pricing-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/masked-reveal/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/masked-reveal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/unicorn-studio/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/unicorn-studio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/skeuomorphic-ui/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/skeuomorphic-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/webgl-3d-object/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/webgl-3d-object/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/globe-particles/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/globe-particles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/container-lines/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/container-lines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/corner-diagonals/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/corner-diagonals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/media/unsplash-asset-images/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/media/unsplash-asset-images/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/progressive-blur/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/progressive-blur/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/animation-systems/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/animation-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/beautiful-shadows/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/beautiful-shadows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/dither-background/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/dither-background/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/css-alpha-masking/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/css-alpha-masking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/framed-grid-layout/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/framed-grid-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/animation-on-scroll/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/animation-on-scroll/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/css-border-gradient/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/css-border-gradient/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/staggered-word-reveal/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/staggered-word-reveal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/cinematic-scroll-storytelling/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/cinematic-scroll-storytelling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/mesh-gradient-dark-blue-clean/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/mesh-gradient-dark-blue-clean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Skills",
+      "path": "agent-skills/web-design/cinematic-gsap-lenis-motion-system/SKILL.md",
+      "github_url": "https://github.com/MengTo/Skills/tree/main/agent-skills/web-design/cinematic-gsap-lenis-motion-system/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MengTo/Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T06:31:23Z"
+}
