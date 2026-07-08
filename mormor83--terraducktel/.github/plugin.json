@@ -1,0 +1,9 @@
+{
+  "name": "mormor83--terraducktel",
+  "displayName": "terraducktel",
+  "description": "Self-hosted Terraform & Helm orchestration - plan, gate, apply, and track drift, no SaaS required",
+  "version": "1.0.0",
+  "author": "mormor83",
+  "homepage": "https://github.com/mormor83/terraducktel",
+  "skills": []
+}
