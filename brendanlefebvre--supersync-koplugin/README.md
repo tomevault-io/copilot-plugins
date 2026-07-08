@@ -7,11 +7,11 @@ Full metadata sync for KOreader via user's own cloud storage
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [brendanlefebvre/supersync.koplugin](https://github.com/brendanlefebvre/supersync.koplugin).
+Original source: `CLAUDE.md` in [brendanlefebvre/supersync.koplugin](https://github.com/brendanlefebvre/supersync.koplugin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
