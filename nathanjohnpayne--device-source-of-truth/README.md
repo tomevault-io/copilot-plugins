@@ -7,11 +7,11 @@ Disney Streaming device catalog for partner inventory, specs, deployments, telem
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nathanjohnpayne/device-source-of-truth](https://github.com/nathanjohnpayne/device-source-of-truth).
+Original source: `CLAUDE.md` in [nathanjohnpayne/device-source-of-truth](https://github.com/nathanjohnpayne/device-source-of-truth).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
