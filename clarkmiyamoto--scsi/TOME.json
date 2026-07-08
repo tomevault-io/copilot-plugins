@@ -4,7 +4,7 @@
   "repo": "scsi",
   "description": "Self Consistent Stochastic Interpolants implementation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clarkmiyamoto/scsi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T14:15:59Z"
+  "distributed_at": "2026-07-08T17:55:32Z"
 }
