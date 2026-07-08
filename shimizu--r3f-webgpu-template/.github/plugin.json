@@ -1,0 +1,9 @@
+{
+  "name": "shimizu--r3f-webgpu-template",
+  "displayName": "r3f-webgpu-template",
+  "description": "React Three Fiber + WebGPU\u306e\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8",
+  "version": "1.0.0",
+  "author": "shimizu",
+  "homepage": "https://github.com/shimizu/r3f-webgpu-template",
+  "skills": []
+}
