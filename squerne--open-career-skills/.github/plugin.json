@@ -1,0 +1,9 @@
+{
+  "name": "squerne--open-career-skills",
+  "displayName": "open-career-skills",
+  "description": "Claude Code skills for the job hunt that refuse to invent facts about you: CV optimizer, STAR story bank, 360Brew LinkedIn planner, cover letters, mock interviews. By JobMentis.",
+  "version": "1.0.0",
+  "author": "squerne",
+  "homepage": "https://github.com/squerne/open-career-skills",
+  "skills": []
+}
