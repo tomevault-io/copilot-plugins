@@ -1,44 +1,41 @@
-## ci-testing
+## rinku-protocol
 
-> CI/CD and test harness conventions for Rinku
+> Rinku protocol conventions — dual Rust/TS impl, proof formats, versioning
 
 
-# CI & Testing Harness
+# Rinku Protocol
 
-## Workflow layout
+## Dual implementation
 
-| File | Add tests here when... |
-|------|------------------------|
-| `rust.yml` | New Rust crate or feature-gated module |
-| `node.js.yml` | New TS workspace with tests |
-| `quality.yml` | New security/lint requirements |
-| `integration.yml` | New multi-node or conformance checks |
-| `network-health.yml` | New live testnet probes |
+Protocol primitives exist in both Rust and TypeScript. Changes to shared semantics (tx hashing, merkle roots, checkpoint format, BLS aggregation) must touch both:
 
-## Integration test entry points
+- Rust: `packages/rinku-core/src/`
+- TypeScript: `packages/core/src/`
 
+Run conformance tests after changes:
 ```bash
-# CI-mode 3-node test (auto-cleanup)
-bash scripts/test-local-3-nodes.sh --ci
-
-# Manual local testnet
-bash scripts/local-testnet.sh start
-bash scripts/local-testnet.sh validate
+npm run test -w @rinku/core -- src/__tests__/appendix-g-conformance.test.ts
+cargo test -p rinku-core
 ```
 
-## Adding a new validation script
+## Consensus invariants (never break silently)
 
-1. Place in `scripts/`, use `npx tsx` (not ts-node)
-2. Exit `0` on success, `1` on failure
-3. Wire into `integration.yml` or `network-health.yml`
-4. Add npm script alias in root `package.json` if user-facing
+- Checkpoint quorum: 66.6% stake-weighted BLS signatures
+- Merge must preserve balance conservation (see `merge/proptests.rs`)
+- Partition healing is deterministic — same inputs → same resolution
+- `GENESIS_VALIDATORS` format: `address:blsPublicKey;address:blsPublicKey`
 
-## CI constraints
+## Proof profiles
 
-- Integration job timeout: 25 minutes
-- Use `npm ci` not `npm install` in workflows
-- Release builds use `cargo build --release -p rinku-node` (matches `Dockerfile.fly`)
-- Never store secrets in workflow files — use GitHub Secrets
+| Profile | Use | Package |
+|---------|-----|---------|
+| A | Merkle inclusion | `packages/core/src/compact-proof.ts` |
+| B | Checkpoint-attested | `packages/core/src/receipt.ts` |
+| C | Self-contained (offline) | `packages/core/src/self-proof.ts` |
+
+## Versioning
+
+Protocol upgrades follow `docs/VERSIONING.md`. Bump `protocolVersion` only with migration path documented.
 
 ---
 > Source: [henry-wrightman/rinku](https://github.com/henry-wrightman/rinku) — distributed by [TomeVault](https://tomevault.io).
