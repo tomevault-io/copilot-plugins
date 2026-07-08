@@ -1,0 +1,44 @@
+{
+  "name": "RealmsRPG-Test",
+  "owner": "MastersoftheRealm",
+  "repo": "RealmsRPG-Test",
+  "description": "Vercel/Supabase/Next.js repo for RealmsRPG-Test (private, no org)",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MastersoftheRealm/RealmsRPG-Test",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T13:43:52Z"
+}
