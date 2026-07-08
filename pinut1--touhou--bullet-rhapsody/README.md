@@ -1,0 +1,26 @@
+# AI instruction files for TouHou_-Bullet_Rhapsody
+
+> Sourced from [Pinut1/TouHou_-Bullet_Rhapsody](https://github.com/Pinut1/TouHou_-Bullet_Rhapsody) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+Touhou_Bullet_Rhapsody_V01
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [Pinut1/TouHou_-Bullet_Rhapsody](https://github.com/Pinut1/TouHou_-Bullet_Rhapsody).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Pinut1/TouHou_-Bullet_Rhapsody](https://github.com/Pinut1/TouHou_-Bullet_Rhapsody)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-q -->
