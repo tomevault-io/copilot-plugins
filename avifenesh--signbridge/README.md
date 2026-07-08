@@ -7,11 +7,11 @@ Real-time ASL signing overlay for Telegram calls — open source Android app for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [avifenesh/signbridge](https://github.com/avifenesh/signbridge).
+Original source: `CLAUDE.md` in [avifenesh/signbridge](https://github.com/avifenesh/signbridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
