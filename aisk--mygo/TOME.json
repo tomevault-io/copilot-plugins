@@ -1,0 +1,44 @@
+{
+  "name": "mygo",
+  "owner": "aisk",
+  "repo": "mygo",
+  "description": "\u306a\u3093\u3067\u2026\u2026\u306a\u3093\u3067\u300c\uff1f\u300d\u6f14\u7b97\u5b50\u3001\u5165\u308c\u305f\u306e\uff01\uff1f",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aisk/mygo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T21:33:59Z"
+}
