@@ -1,0 +1,9 @@
+{
+  "name": "lorenzo1285--mlops-portfolio",
+  "displayName": "mlops-portfolio",
+  "description": "End-to-end MLOps portfolio: DVC + MLflow + Airflow + Kubeflow with CGR crash severity dataset",
+  "version": "1.0.0",
+  "author": "lorenzo1285",
+  "homepage": "https://github.com/lorenzo1285/mlops-portfolio",
+  "skills": []
+}
