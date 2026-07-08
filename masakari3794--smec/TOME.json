@@ -4,7 +4,7 @@
   "repo": "SMEC",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/masakari3794/SMEC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T10:29:35Z"
+  "distributed_at": "2026-07-08T12:19:59Z"
 }
