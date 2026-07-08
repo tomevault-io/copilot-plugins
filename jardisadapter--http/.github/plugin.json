@@ -1,0 +1,9 @@
+{
+  "name": "jardisadapter--http",
+  "displayName": "http",
+  "description": "PSR-18 HTTP client with cURL transport, Bearer and Basic auth, retry with exponential backoff, and minimal footprint; a building block of the open-source foundation that Jardis-generated DDD code runs",
+  "version": "1.0.0",
+  "author": "jardisAdapter",
+  "homepage": "https://github.com/jardisAdapter/http",
+  "skills": []
+}
