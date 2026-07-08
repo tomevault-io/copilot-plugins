@@ -1,0 +1,9 @@
+{
+  "name": "foryouself83--harness-tier",
+  "displayName": "harness-tier",
+  "description": "Risk-tiered workflow for Claude Code: classify each change, run matching gates, block unclassified commits \u2014 and scaffold project-specific AI harnesses.",
+  "version": "1.0.0",
+  "author": "foryouself83",
+  "homepage": "https://github.com/foryouself83/harness-tier",
+  "skills": []
+}
