@@ -1,0 +1,9 @@
+{
+  "name": "cayn-one--timeline-hub",
+  "displayName": "timeline-hub",
+  "description": "Personal telegram bot for long-term storing, fetching and interacting with media via pretty UI",
+  "version": "1.0.0",
+  "author": "cayn-one",
+  "homepage": "https://github.com/cayn-one/timeline-hub",
+  "skills": []
+}
