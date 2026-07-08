@@ -1,0 +1,9 @@
+{
+  "name": "nathanjohnpayne--device-source-of-truth",
+  "displayName": "device-source-of-truth",
+  "description": "Disney Streaming device catalog for partner inventory, specs, deployments, telemetry, and ADK version tracking.",
+  "version": "1.0.0",
+  "author": "nathanjohnpayne",
+  "homepage": "https://github.com/nathanjohnpayne/device-source-of-truth",
+  "skills": []
+}
