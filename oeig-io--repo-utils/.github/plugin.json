@@ -1,0 +1,9 @@
+{
+  "name": "oeig-io--repo-utils",
+  "displayName": "repo-utils",
+  "description": "Utility scripts for managing repositories",
+  "version": "1.0.0",
+  "author": "oeig-io",
+  "homepage": "https://github.com/oeig-io/repo-utils",
+  "skills": []
+}
