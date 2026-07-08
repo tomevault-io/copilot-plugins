@@ -1,0 +1,113 @@
+## jive-visualiser
+
+> - Initialise ffmpeg-statigo submodule and download static FFmpeg libraries: `just setup`
+
+# AGENTS.md
+
+## Setup Commands
+
+- Initialise ffmpeg-statigo submodule and download static FFmpeg libraries: `just setup`
+
+## Build and Test Commands
+
+- Build binary: `just build` (includes version from git tags)
+- Run all tests: `just test`
+- Test encoding with multiple formats: `just test-encoder` (mp3/flac/wav, mono/stereo)
+- Benchmark RGB→YUV conversion: `just bench-yuv`
+- Record demo tape: `just vhs`
+
+## Architecture (2-Pass Streaming)
+
+- **Pass 1 (Analysis):** Stream audio through FFT to find peak magnitudes, calculate optimal bar scaling
+- **Pass 2 (Rendering):** Re-stream audio, generate RGB frames, encode video+audio simultaneously
+- Memory-efficient: ~50MB footprint for 30-minute audio vs 600MB for single-pass
+
+### Key Modules
+- `cmd/jive-visualiser/main.go` - CLI entry and Pass 1 coordinator
+- `cmd/jive-visualiser/pass2.go` - Pass 2 rendering and encoding runner
+- `internal/audio/` — `StreamingReader` (reader.go) chunk-based decode, FFT analysis
+- `internal/encoder/` - ffmpeg-statigo muxer facade, video/audio helpers, RGB→YUV conversion, FIFO buffer
+- `internal/yuv/` - YCbCr coefficients, `RGBToY`/`RGBToCb`/`RGBToCr`, `ParallelRows`, `RowPool`
+- `internal/renderer/` — Frame generation, bar drawing, thumbnail
+- `internal/ui/` - Bubbletea v2 TUI state, spectrum, preview, and summary views
+- `internal/config/` — Constants (dimensions, FFT params, colours)
+- `internal/theme/` - Terminal colour theme
+- `internal/cli/` - Kong CLI helpers and styled help
+
+## FFmpeg Integration
+
+- All FFmpeg access through `third_party/ffmpeg-statigo` submodule (FFmpeg 8.0 static bindings)
+- `*.gen.go` files in submodule are auto-generated — do not edit
+- Audio decoding: `internal/audio/reader.go` — `NewStreamingReader` returns `*StreamingReader`
+- Video/audio encoding: `internal/encoder/encoder.go` exposes the public facade; `audio_encoder.go` and `video_encoder.go` own codec setup
+
+## Charm TUI (v2)
+
+- Use the Charm v2 suite: import paths are `charm.land/bubbletea/v2`, `charm.land/lipgloss/v2`, `charm.land/bubbles/v2` — NOT `github.com/charmbracelet/...`. Package names are unchanged (`tea`, `lipgloss`, `progress`)
+- `harmonica` has no v2; stays at `github.com/charmbracelet/harmonica` (direct dependency)
+- v2 API gotchas vs v1:
+  - `Model.View()` returns `tea.View`, not `string`; set `v.AltScreen = true` instead of `tea.WithAltScreen()`
+  - Key messages are `tea.KeyPressMsg`, not `tea.KeyMsg`
+  - `lipgloss.Color` returns a `color.Color`; pass it to `progress.WithColors`, not `WithGradient` or string casts
+  - Set progress width with `SetWidth()`, not the `.Width` field
+
+## Audio Processing
+
+- FFT size: 2048 samples (Hanning window)
+- 64 frequency bars with linear (uniform) frequency binning; logarithmic scaling applies to amplitude only
+- Harmonica spring peak-hold bar dynamics: each bar rises instantly to any new peak, then springs back toward the live level. Spring params: frequency `6.0`, damping `1.0`, delta `1/FPS`, gain `2.0` (replaces the amplitude lift the old CAVA integrator provided)
+- Audio frame size mismatch handled by FFmpeg's `AVAudioFifo` (in `internal/encoder/audio_encoder.go`; FFT needs 2048, AAC expects 1024)
+
+## Performance Patterns
+
+- RGB→YUV conversion in `encoder/frame.go` parallelised across CPU cores via `yuv.RowPool` (13.2× faster than swscale)
+- `convertRGBAToYUV` (YUV420P) and `convertRGBAToNV12` (NV12) in `encoder/frame.go` are intentionally kept as separate functions despite near-identical structure — the hot-path duplication avoids a callback/interface indirection that would hurt throughput; do not refactor into a shared helper (shared low-level primitives live in `internal/yuv`)
+- Frame rendering uses symmetric mirroring (draw 1/4 pixels, mirror 3×)
+- Pre-computed intensity/colour tables in `renderer/frame.go`
+- Bubbletea UI uses non-blocking goroutine channels
+
+## Code Style
+
+- British English spelling in comments and user-facing text
+- All video/audio constants centralised in `internal/config/config.go`
+- Embedded assets (fonts, images) in `internal/renderer/assets/`
+- CLI uses Kong for argument parsing with custom styled help
+
+## Testing Instructions
+
+- Test audio files in `testdata/` (LMP0.mp3, LMP0.wav, LMP0.flac variants)
+- Throwaway test code goes in `testdata/`
+- Benchmark tests: `*_bench_test.go` files
+
+## Common Tasks
+
+### Adding a new audio format
+1. FFmpeg already handles it—no decoder changes needed (unified pipeline)
+2. Add test case to `justfile` following existing patterns
+
+### Modifying visualisation
+- Bar colours/dimensions: `internal/config/config.go`
+- Bar rendering logic: `internal/renderer/frame.go` (see `Render()` method)
+- Gradient/alpha tables: pre-computed in `NewFrame()`
+
+### Changing UI output
+- Progress UI state: `internal/ui/progress.go` (handles both passes)
+- Spectrum and completion helpers: `internal/ui/spectrum.go`, `internal/ui/summary.go`
+- Message types: `AnalysisProgress`, `AnalysisComplete`, `RenderProgress`, `RenderComplete`
+- Audio profile display persists from Pass 1 through Pass 2
+- Video preview: `internal/ui/preview.go`
+
+## Releases
+
+- Do not add checksum or hash generation to the release workflow. GitHub shows SHA256 digests for release assets by default.
+
+## Environment
+
+- NixOS development shell via `flake.nix`
+- Fish shell for terminal commands
+- CGO required (`CGO_ENABLED=1` in build)
+- Go 1.26 minimum
+
+---
+> Source: [linuxmatters/jive-visualiser](https://github.com/linuxmatters/jive-visualiser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-08 -->
