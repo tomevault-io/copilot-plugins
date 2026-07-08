@@ -1,0 +1,9 @@
+{
+  "name": "terracenter--sge-deploy",
+  "displayName": "sge-deploy",
+  "description": "sge-deploy",
+  "version": "1.0.0",
+  "author": "terracenter",
+  "homepage": "https://github.com/terracenter/sge-deploy",
+  "skills": []
+}
