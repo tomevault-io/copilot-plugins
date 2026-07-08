@@ -1,0 +1,9 @@
+{
+  "name": "devolutions--devolutions-server-helm",
+  "displayName": "devolutions-server-helm",
+  "description": "Devolutions Server Helm Chart",
+  "version": "1.0.0",
+  "author": "Devolutions",
+  "homepage": "https://github.com/Devolutions/devolutions-server-helm",
+  "skills": []
+}
