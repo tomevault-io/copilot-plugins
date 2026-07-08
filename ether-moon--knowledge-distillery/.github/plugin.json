@@ -1,0 +1,9 @@
+{
+  "name": "ether-moon--knowledge-distillery",
+  "displayName": "knowledge-distillery",
+  "description": "A system that delivers only verified knowledge to AI coding agents. 3-layer architecture with structural air gap.",
+  "version": "1.0.0",
+  "author": "ether-moon",
+  "homepage": "https://github.com/ether-moon/knowledge-distillery",
+  "skills": []
+}
