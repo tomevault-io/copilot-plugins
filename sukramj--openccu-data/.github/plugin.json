@@ -1,0 +1,9 @@
+{
+  "name": "sukramj--openccu-data",
+  "displayName": "openccu-data",
+  "description": "Data-extraction pipeline and source-of-truth distribution for Homematic CCU configuration metadata \u2014 parses OCCU/RaspberryMatic TCL & JS into compact, typed JSON artifacts (easymodes, translations, pr",
+  "version": "1.0.0",
+  "author": "SukramJ",
+  "homepage": "https://github.com/SukramJ/openccu-data",
+  "skills": []
+}
