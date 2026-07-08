@@ -4,7 +4,7 @@
   "repo": "repoprompt-ce",
   "description": "Community edition of RepoPrompt: a native macOS context engineering app for AI coding agents, with an MCP CLI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/repoprompt/repoprompt-ce",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T00:30:39Z"
+  "distributed_at": "2026-07-08T00:31:10Z"
 }
