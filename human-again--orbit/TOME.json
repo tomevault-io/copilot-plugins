@@ -4,7 +4,7 @@
   "repo": "orbit",
   "description": "Mission control for AI coding agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/human-again/orbit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T22:34:34Z"
+  "distributed_at": "2026-07-08T22:39:29Z"
 }
