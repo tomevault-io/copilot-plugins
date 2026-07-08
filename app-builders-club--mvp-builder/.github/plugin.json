@@ -1,0 +1,9 @@
+{
+  "name": "app-builders-club--mvp-builder",
+  "displayName": "mvp-builder",
+  "description": "Document-Driven Development framework for Claude Code \u2014 structured specs, TDD cycles, feedback loops, and skills system",
+  "version": "1.0.0",
+  "author": "app-builders-club",
+  "homepage": "https://github.com/app-builders-club/mvp-builder",
+  "skills": []
+}
