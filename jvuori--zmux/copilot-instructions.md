@@ -1,0 +1,206 @@
+## zmux
+
+> This skill documents all file locations that must be synchronized:
+
+# Rules
+
+## Installation Script Completeness
+
+When tmux config files source other config files (e.g., `keybindings.conf` sources `lock-mode-bindings.conf`), ensure **all sourced files are copied during installation and updates**. Missing sourced files will cause "No such file or directory" errors on startup.
+
+**Action**: Always check that both `install.sh` and `update.sh` copy all configuration files that are referenced via `source-file` directives.
+
+## Script File Completeness
+
+All scripts in the `scripts/` directory that are used by keybindings, systemd service, or other components must be copied during installation and updates.
+
+**Critical scripts that must be copied**:
+
+- `systemd-tmux-start.sh` - Used by XDG autostart
+- `tmux-start.sh` - Used by WezTerm/terminal emulators
+- `swap-pane-left.sh`, `swap-pane-right.sh` - Used by move mode keybindings
+- `lock-mode-indicator.sh`, `toggle-lock-mode.sh` - Used by lock mode
+- All other helper scripts referenced in keybindings.conf
+
+## CRITICAL: Avoid Hardcoded Paths
+
+**NEVER** use absolute paths like `/home/username/...` in ANY files. This is a critical portability issue.
+
+### Configuration Files and Scripts
+
+Always use:
+
+- `~` or `$HOME` for home directory references
+- Relative paths from `~/.config/tmux/` where appropriate
+
+### Desktop Entry Files (.desktop)
+
+For XDG autostart desktop files, paths in `Exec=` must use one of these methods:
+
+1. **Wrap with shell expansion** (PREFERRED):
+
+   ```ini
+   Exec=sh -c "$HOME/.config/tmux/scripts/systemd-tmux-start.sh"
+   ```
+
+2. **Use tilde expansion** (if supported):
+   ```ini
+   Exec=~/.config/tmux/scripts/systemd-tmux-start.sh
+   ```
+
+**NEVER** use:
+
+```ini
+Exec=/home/username/.config/tmux/scripts/systemd-tmux-start.sh  # ❌ WRONG
+```
+
+### Test Files
+
+Test scripts must also use portable paths:
+
+- Use `$HOME` instead of `/home/username`
+- Use `$PWD` or `$(pwd)` for current directory
+- Example: `tmux new-session -d -s "$TEST_SESSION" -c "$HOME"`
+
+### Documentation
+
+When writing documentation or examples:
+
+- Use `~/.config/...` or `$HOME/.config/...` in examples
+- Never include actual usernames in path examples
+- If showing output, sanitize usernames to `$USER` or generic placeholders
+
+## Never Modify ~/.config Directly
+
+**NEVER** create, modify, or delete files directly in `~/.config`. All configuration files must live in this project repository and be deployed via the installation/update scripts.
+
+**Action**: Make all changes within this project directory, then run `./update.sh` to apply them to `~/.config` and verify the desired behavior.
+
+## Pane Program Save/Restore Architecture
+
+Program state is read directly from the **tmux-resurrect save file** — no separate save step needed.
+
+tmux-resurrect already captures the full command for each pane (via `/proc/<pid>/cmdline`, the same technique as `linux_procfs.sh` strategy). tmux-continuum auto-saves this file every ~15 minutes. A systemd user service (`tmux-shutdown-save.service`) runs a final resurrect save at logout/shutdown to capture any state from the last auto-save cycle.
+
+- **`scripts/restore-pane-apps.sh`** — runs on `client-attached` and after Ctrl+a Ctrl+r. Parses the resurrect `last` symlink for pane program data and re-launches each pane's program. Skips panes already running a non-shell (prevents double-restore on re-attach).
+
+The resurrect file format (tab-separated, 11 fields per `pane` line):
+```
+pane | session | window | win_active | win_flags | pane_idx | pane_title | :dir | pane_active | cmd | :full_cmd
+```
+`restore-pane-apps.sh` uses field 10 (`cmd`) and field 11 (`:full_cmd`, strip the leading colon).
+
+### Restore logic per tool type
+
+**Generic programs**: re-launched with the full saved command as-is (`vim notes.txt`, `htop`, `lazygit`, etc.).
+
+**Shells** (`bash`, `zsh`, etc.): skipped — pane is already at a prompt.
+
+**Blocklisted** (`dd`, `mkfs`, `fdisk`, `apt`, etc.): never auto-restarted.
+
+**Claude Code**: add `--continue` unless the command already contains a session flag (`--continue`, `--resume`, `--session-id`, `--from-pr`). Strip one-time flags that must not replay: `--fork-session` (would fork again) and `--worktree`/`-w` (would create another worktree). Skip non-interactive modes (`--print`/`-p`, `--bg`).
+
+**Cursor Agent / Copilot**: use the saved command as-is. Their session UUIDs live in the tool's own state and survive reboots, so `--resume=UUID` remains valid.
+
+### Adding a new tool with special restore logic
+
+Add a `case` entry in `restore-pane-apps.sh` matching the tool's `pane_current_command` value (the process basename). No save-side changes needed — the resurrect file captures all programs generically.
+
+## Key Binding Architecture: tmux vs ZLE
+
+When adding a new Ctrl+key binding that works both inside and outside tmux, there are **two separate layers** that must be kept consistent:
+
+1. **tmux layer** — `bind -n C-x switch-client -T <mode>` in `keybindings.conf`
+2. **ZLE layer** — `bindkey '^X' <widget>` generated by `setup-shell.sh` into `~/.config/zmux/shell-config`
+
+### The Core Rule
+
+**Any ZLE widget that handles a key tmux also handles must be guarded with `$TMUX`.**
+
+Inside tmux, tmux intercepts the key at the PTY level before ZLE ever sees it — so the ZLE binding is unreachable. If both layers are active simultaneously, they can race for follow-up keystrokes. A ZLE widget that does `read -k 1` (waiting for a sub-command) will consume input from the same stream tmux reads, causing unpredictable behavior.
+
+```sh
+# CORRECT: guard ZLE widgets that duplicate tmux bindings
+_zmux_configure_git_zsh() {
+    if [ -n "$TMUX" ]; then return 0; fi   # tmux handles this key, ZLE must not
+    ...
+}
+```
+
+### Disabling Conflicting ZLE Bindings
+
+For keys where only tmux should act (no shell-level fallback needed), use `bindkey -r` in the `$TMUX` branch of `_zmux_configure_keys`:
+
+```sh
+bindkey -r '^P'   # tmux owns C-p for pane mode
+bindkey -r '^O'   # tmux owns C-o for session mode
+```
+
+### How shell-config Is Installed
+
+`~/.config/zmux/shell-config` is **generated** by `setup-shell.sh`, not copied. Changes to key binding logic must be made in `setup-shell.sh`. Running `update.sh` regenerates the file on all machines.
+
+### tmux set-hook: Use -ag to Append
+
+`set-hook -g <hook>` **replaces** any existing hook of that name. When adding a second handler for the same hook (e.g., `client-attached`), always use `set-hook -ag` to append:
+
+```conf
+set-hook -g  client-attached 'refresh-client -S'           # first handler
+set-hook -ag client-attached 'run-shell -b "..."'          # appends, does not replace
+```
+
+Using `set-hook -g` for the second handler silently drops the first one.
+
+### Verification
+
+Before committing any file creation or modification:
+
+1. Search for hardcoded home directories: `grep -r "/home/[^/]*/" --include="*.sh" --include="*.desktop" --include="*.conf"`
+2. Check all generated files (especially .desktop files from heredocs)
+3. Verify variables are properly escaped in heredocs (use single quotes for literal heredocs when needed)
+
+## IMPORTANT: Keybinding and Hint Maintenance
+
+**When modifying keybindings or mode hints**, see the dedicated skill at `.claude/skills/keybinding-maintenance/SKILL.md`. 
+
+This skill documents all file locations that must be synchronized:
+- `tmux/keybindings.conf` - The actual keybinding definitions
+- `tmux/statusbar.conf` - Where mode hints are hardcoded (NOT dynamically generated from scripts)
+- `docs/keymap.md` - User-facing reference documentation
+- `scripts/get-mode-help.sh` - Hint definitions (for reference/future architecture changes)
+
+**CRITICAL**: Statusbar hints are **hardcoded in tmux/statusbar.conf** within `if-shell` blocks for each platform. Changes to hints must be made in BOTH the WSL and Linux branches to maintain consistency. See skill for verification steps and common mistakes.
+
+### Dynamic width conditionals must never be dropped
+
+The two `set -g status-right` lines in `statusbar.conf` are 500+ characters long. At the tail of each line are two `#{?#{e|>=|:#{client_width},...}` conditionals that hide the battery widget below 220 columns and time/date below 190 columns. These were accidentally dropped once (fixed in `91679fa`).
+
+**Rule**: When editing `statusbar.conf`, replace only the minimum substring that must change — never a large chunk of the line. After any edit, verify the conditionals are still present:
+
+```bash
+grep -o 'client_width' tmux/statusbar.conf | wc -l
+# Must output 4 (two conditionals × two if-shell branches)
+```
+
+If the count is less than 4, the edit dropped a conditional and must be corrected before committing.
+
+### Session label spacing must stay exact
+
+The top-row session block in `tmux/statusbar.conf` must keep this exact `status-left` pattern:
+
+- session icon
+- one space
+- `#S` (session name)
+- one trailing space before window tabs
+
+Expected form:
+
+```conf
+set -g status-left "#[fg=colour51,bold] 🖥️ #[fg=colour51,bold]#S "
+```
+
+Do not add a second space after the icon or remove the trailing space after `#S`, or the visual spacing between session label and tabs regresses.
+
+---
+> Source: [jvuori/zmux](https://github.com/jvuori/zmux) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-08 -->
