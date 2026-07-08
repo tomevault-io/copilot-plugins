@@ -1,0 +1,44 @@
+{
+  "name": "Visible-Agent-Loop-Protocol",
+  "owner": "wcqxgjy6d8-pixel",
+  "repo": "Visible-Agent-Loop-Protocol",
+  "description": "Agent says done. VALP asks for proof.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wcqxgjy6d8-pixel/Visible-Agent-Loop-Protocol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T17:35:52Z"
+}
