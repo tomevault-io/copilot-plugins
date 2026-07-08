@@ -1,0 +1,9 @@
+{
+  "name": "harrypulvirenti--fire2mqtt",
+  "displayName": "Fire2MQTT",
+  "description": "Fire TV Stick \u2192 MQTT \u2192 Home Assistant \u2014 HACS custom integration + sideloaded APK",
+  "version": "1.0.0",
+  "author": "Harrypulvirenti",
+  "homepage": "https://github.com/Harrypulvirenti/Fire2MQTT",
+  "skills": []
+}
