@@ -7,11 +7,11 @@ Local-first operating memory for AI coding agents - Claude Code, Codex, and any 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jungjaehoon-lifegamez/MAMA](https://github.com/jungjaehoon-lifegamez/MAMA).
+Original source: `AGENTS.md` in [jungjaehoon-lifegamez/MAMA](https://github.com/jungjaehoon-lifegamez/MAMA).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
