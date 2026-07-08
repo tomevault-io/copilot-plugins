@@ -1,42 +1,21 @@
-## realms-codex-data
+## realms-mobile
 
-> Codex / reference-data edits — owner review before database writes
+> Mobile-first UI — breakpoints, modals, dense layouts, touch targets. Apply when creating or editing pages, modals, or layouts.
 
 
-# Codex & Reference Data (Supabase)
+# Mobile UX
 
-Applies to **`codex_*`**, **`core_rules`**, and any bulk edits to official library reference content.
+When **creating or editing** any page, modal, or layout:
 
-## Read freely; write only after review
+1. **Read** `src/docs/MOBILE_UX.md` for breakpoints, touch targets, modal behavior, and dense-layout strategy (side-scroll vs collapse).
 
-| Allowed without prior approval | Requires owner review first |
-|-------------------------------|----------------------------|
-| `SELECT` / audits / counts / previews | `UPDATE`, `INSERT`, `DELETE` on codex tables |
-| Draft SQL in `sql/*.sql` | `execute_sql` / `apply_migration` that mutates codex data |
-| Repo-only seed/CSV edits (not live DB) | Supabase MCP writes that change live reference data |
+2. **Modals:** For selection, add-X, load, recovery, level-up, settings, wizards, and other large dialogs, set **`fullScreenOnMobile`** on the `Modal` component so the modal is full-screen on viewports &lt; 768px (sticky header/footer, scrollable content).
 
-## Workflow for bulk or policy changes (tags, categories, merges, migrations)
+3. **Dense layouts:** For pages with many sections (e.g. character sheet, encounter tracker), prefer **horizontal side-scroll** between section panels on mobile; use **Collapsible** or responsive stacking when sections are few or content is lighter.
 
-1. **Audit** — query or export current state; cite counts and examples.
-2. **Propose** — mapping plan, sample before/after rows, SQL file in `sql/` (no trailing `UPDATE` until approved).
-3. **Wait** — owner reviews and approves, corrects mappings, or says "apply".
-4. **Apply** — run approved SQL once; report rows affected and post-migration counts.
+4. **Touch targets:** New interactive elements (buttons, icon buttons, steppers, tab triggers) must have a minimum size of **44×44px** on touch (use `--touch-target-min: 44px` or equivalent).
 
-Do **not** chain Phase 1 → Phase 2 → live DB in one turn without an explicit apply step from the owner.
-
-## Explicit owner direction
-
-When the owner gives a **specific correction in the current message** (e.g. "use Skill Roll not Skill Check", "apply phase 2"), implement that scope only — still prefer a preview for bulk updates when practical.
-
-## Terminology
-
-Match **`src/docs/GAME_RULES.md`** for game terms in codex fields (e.g. **Skill Roll**, not Skill Check).
-
-## After approved codex data changes
-
-- Keep `sql/` migration files in sync with what was applied.
-- Note in `src/docs/ai/AI_CHANGELOG.md` when reference data meaningfully changes.
-- Re-export or align `scripts/seed-data/` / `codex_csv/` if those remain parity sources (ask if unsure).
+5. **Checklist:** Use the **Agent checklist** in `MOBILE_UX.md` when adding or significantly changing a page or modal (responsive breakpoints, side-scroll/collapse for dense sections, list/table patterns, verification at ~360px width).
 
 ---
 > Source: [MastersoftheRealm/RealmsRPG-Test](https://github.com/MastersoftheRealm/RealmsRPG-Test) — distributed by [TomeVault](https://tomevault.io).
