@@ -1,0 +1,9 @@
+{
+  "name": "quangdang46--openproxy",
+  "displayName": "openproxy",
+  "description": "Smart AI proxy router that connects Claude Code, Cursor, Codex, Copilot, and 50+ coding tools to 40+ AI providers with 100+ models. Saves 20-40% tokens via RTK compression, auto-fallback from subscrip",
+  "version": "1.0.0",
+  "author": "quangdang46",
+  "homepage": "https://github.com/quangdang46/openproxy",
+  "skills": []
+}
