@@ -4,7 +4,7 @@
   "repo": "auraxis-platform",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/italofelipe/auraxis-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T12:28:31Z"
+  "distributed_at": "2026-07-08T15:58:51Z"
 }
