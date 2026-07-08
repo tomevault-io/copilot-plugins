@@ -1,0 +1,44 @@
+{
+  "name": "next-keycloak-starter",
+  "owner": "alanisboeing",
+  "repo": "next-keycloak-starter",
+  "description": "Template front-end Next.js com autentica\u00e7\u00e3o Keycloak (PKCE), design system shadcn/ui e arquitetura AI-ready para desenvolvimento \u00e1gil.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alanisboeing/next-keycloak-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-08T12:12:23Z"
+}
