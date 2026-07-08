@@ -1,32 +1,43 @@
-## do-not-edit-plugin-managed
+## functional-and-typed
 
-> Never change Digital Garden plugin–managed content and generated files
+> Functional programming and strict typing; avoid any/unknown
 
 
-# Do Not Edit Plugin-Managed Paths
+# Functional Programming & Strict Typing
 
-**Never create, edit, or delete files in these paths.** They are owned by the [Obsidian Digital Garden](https://github.com/oleeskild/obsidian-digital-garden) plugin or generated at build time. See [dg-docs.ole.dev](https://dg-docs.ole.dev).
+Follow these in all code (TypeScript/JavaScript and other languages where applicable).
 
-## 1. Note content — `src/site/notes/`
+## Functional programming
 
-- All note files (`.md`, `.canvas`) and the notes index (`notes.json`, `notes.11tydata.js`) are published or maintained by the plugin from your Obsidian vault.
-- **Do not** create, edit, or delete anything under `src/site/notes/`.
-- To change note content: edit in Obsidian and publish again. To change how notes are rendered: change layouts, includes, or helpers outside `src/site/notes/`.
+- Prefer **pure functions**: same inputs → same outputs, no side effects. Do I/O and mutation at the edges.
+- Prefer **immutability**: don’t mutate existing data; return new values (e.g. new objects/arrays).
+- Prefer **declarative** style (map, filter, reduce, composition) over imperative loops where it improves clarity.
+- Keep **functions small and focused**; compose them instead of writing large procedures.
+- Avoid **shared mutable state**; pass data in and return new state.
 
-## 2. Generated theme CSS — `src/site/styles/_theme.*.css`
+## Typing (TypeScript)
 
-- These files are **generated** by `get-theme.js` from the `THEME` URL (e.g. in `.env`) and are overwritten on each build.
-- **Do not** edit `_theme.*.css`. Customize appearance via:
-  - [CSS Customization](https://dg-docs.ole.dev/advanced/css-customization/): `src/site/styles/custom-style.scss` or `src/site/styles/user/*.scss`
-  - CSS variables listed in the main README
+- Use **strict typing** everywhere. Enable strict mode and strict null checks if not already.
+- **Do not use `any`.** Use a concrete type, a generic, or a narrow union. If something is truly dynamic, type it as narrowly as possible (e.g. `Record<string, number>` or a specific interface) instead of `any`.
+- **Avoid `unknown`** unless you are immediately narrowing (type guards, assertions after checks). Prefer a concrete type or a union.
+- Prefer **explicit return types** on functions and **explicit types** on parameters and variables when the type is not trivial or obvious from context.
 
-## 3. Plugin config (edit with care)
+## Examples
 
-- **`.env`** — Used for `THEME` and other build/deploy settings. Avoid changing keys the plugin or `get-theme.js` rely on; add new keys only when needed for your setup.
+```ts
+// Prefer: pure, typed, immutable
+function addDebt(current: number, delta: number): number {
+  return Math.max(0, Math.min(100, current + delta));
+}
 
----
+// Avoid: any, mutation, side effects in “logic”
+function updateState(s: any) {
+  s.debt += 1;  // mutation
+  return s;
+}
+```
 
-When a task would require editing a plugin-managed path, suggest editing in Obsidian, changing template/layout code elsewhere, or overriding styles in `custom-style.scss` / `src/site/styles/user/` instead.
+Apply these principles in both new code and when modifying existing code.
 
 ---
 > Source: [kfkhalili/khalidalkhalili.com](https://github.com/kfkhalili/khalidalkhalili.com) — distributed by [TomeVault](https://tomevault.io).
