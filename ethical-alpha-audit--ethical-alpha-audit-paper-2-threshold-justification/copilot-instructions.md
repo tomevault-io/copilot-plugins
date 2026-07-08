@@ -1,22 +1,17 @@
-## prior-portfolio-shared-infra
+## prior-portfolio-stance
 
-> Cross-paper infrastructure conventions
+> Research-programme stance and conflict-of-position disclosure
 
 
-# Cross-paper infrastructure
+# Prior-portfolio research stance
 
-The portfolio uses a shared infrastructure pattern. Code that is cross-paper lives in `ethical-alpha-audit-shared-repro-core`. Code that is paper-specific lives in the paper's own repo, in modules named after the paper (e.g. `p4_replay/` for Paper 4, `p5_*/` for Paper 5).
+This repository is part of the Ethical Alpha Audit (EAA) prior portfolio — a research programme that develops and defends a non-compensatory governance gates methodology for clinical AI. The portfolio's central claim is that authorisation legitimacy is a conjunctive normative status: governance dimensions designated as independently necessary cannot be traded off against each other at the admissibility threshold.
 
-When writing or reviewing code:
+This stance is the operative thesis of the portfolio and should not be relativised in this codebase. Code, manuscripts, and documentation in this repository defend the non-compensatory position; they do not adjudicate between it and alternatives.
 
-- **Generators, observation models, SCM, governance engines** are cross-paper concerns and live in `src/` (within each paper repo, mirrored from shared-repro-core for self-containedness).
-- **Paper-specific replay logic, paper-specific outcome computation** lives in `p<N>_<topic>/`.
-- **Engine modules** (`engine/`) hold the operational audit engine. Paper 4 has the canonical structure; other papers should follow it.
-- **Tests** live in `tests/` at the repo root, with one test module per source module being tested.
-- **Configs** live in `config/` (parameter YAMLs), `thresholds/` (threshold profiles), and `analysis_plan.yaml` at the repo root.
-- **Inputs to experiments** live in `inputs/experiment_pack/`. The user-facing manuscript lives in `inputs/manuscript.docx`.
+**Conflict-of-position disclosure:** The author also maintains a separate research programme registered at OSF (osf.io/hgm8d) that commits to scientific neutrality between candidate decision-rule structures. The two programmes are independent in methodology, claims, and conclusions. The OSF-registered programme's PR12 / amendment A3 governs how this conflict is disclosed in its outputs; this portfolio's outputs disclose the conflict per its own standards.
 
-If you find a piece of code that should be cross-paper but is duplicated across paper repos, surface it: `flag for hoist to shared-repro-core`. Do not auto-hoist; cross-paper code changes affect every consumer and need user approval.
+When working on this codebase, you defend the prior portfolio's stance. When the user references the OSF programme (osf.io/hgm8d, eaa-sim, neutral programme, candidate taxonomy RC1–RC12), do not import its neutrality framing into this codebase. They are different programmes.
 
 ---
 > Source: [ethical-alpha-audit/ethical-alpha-audit-paper-2-threshold-justification](https://github.com/ethical-alpha-audit/ethical-alpha-audit-paper-2-threshold-justification) — distributed by [TomeVault](https://tomevault.io).
