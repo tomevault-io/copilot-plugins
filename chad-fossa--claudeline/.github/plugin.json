@@ -1,0 +1,9 @@
+{
+  "name": "chad-fossa--claudeline",
+  "displayName": "claudeline",
+  "description": "A rich statusline for Claude Code. Context window progress, API usage limits with reset times, and git integration.",
+  "version": "1.0.0",
+  "author": "chad-fossa",
+  "homepage": "https://github.com/chad-fossa/claudeline",
+  "skills": []
+}
