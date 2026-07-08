@@ -1,0 +1,9 @@
+{
+  "name": "slindelow--growth-agent",
+  "displayName": "growth-agent",
+  "description": "Growth engine: PQL scoring, referral-loop automation, and anomaly detection for product-led growth",
+  "version": "1.0.0",
+  "author": "slindelow",
+  "homepage": "https://github.com/slindelow/growth-agent",
+  "skills": []
+}
