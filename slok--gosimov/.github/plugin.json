@@ -1,0 +1,9 @@
+{
+  "name": "slok--gosimov",
+  "displayName": "gosimov",
+  "description": "Simple AI agent library in go (general usage but focused on infra/platform tooling automation)",
+  "version": "1.0.0",
+  "author": "slok",
+  "homepage": "https://github.com/slok/gosimov",
+  "skills": []
+}
