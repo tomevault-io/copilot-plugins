@@ -1,0 +1,9 @@
+{
+  "name": "ctfysh--craft-of-research",
+  "displayName": "craft-of-research",
+  "description": "A Socratic research-guide skill distilled from The Craft of Research (5th Edition).",
+  "version": "1.0.0",
+  "author": "ctfysh",
+  "homepage": "https://github.com/ctfysh/craft-of-research",
+  "skills": []
+}
