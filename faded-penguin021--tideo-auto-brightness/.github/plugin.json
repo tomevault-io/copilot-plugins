@@ -1,0 +1,9 @@
+{
+  "name": "faded-penguin021--tideo-auto-brightness",
+  "displayName": "Tideo-Auto-Brightness",
+  "description": "Native Android Kotlin port of Advanced Auto Brightness.  A glass box replacement for Android's adaptive brightness. Replaces opaque ML with deterministic math. Features live graphing, auto curve fitti",
+  "version": "1.0.0",
+  "author": "faded-penguin021",
+  "homepage": "https://github.com/faded-penguin021/Tideo-Auto-Brightness",
+  "skills": []
+}
