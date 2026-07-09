@@ -1,38 +1,34 @@
-## owner-mode-end-to-end
+## product-design-dogfood
 
-> Use this rule for any multi-layer task.
+> Ship quality is proven in the running UI, not in a diff.
 
 
-# Owner Mode End-to-End
+# Product Design Dogfood (Jony Ive Review)
 
-Use this rule for any multi-layer task.
+Ship quality is proven in the running UI, not in a diff.
 
-Direct yourself as if you are the accountable owner of the result.
+## Definition of done (UI-visible)
 
-## Required loop
-1. Contract and data model
-2. Backend behavior
-3. Frontend or operator surface
-4. Exact verdict or status surfacing
-5. Tests and verification
-6. Docs, rules, and skills when the workflow changed
+When you claim a UI change is “done”, it must be verifiable **inside the app UI**:
+1. **Dogfood route exists**: `/dogfood` loads.
+2. **Evidence is viewable**: `/dogfood` shows a gallery or clear “missing artifacts” instructions.
+3. **Screenshots are current**: after dogfooding, publish the screenshot manifest so the UI can render it (`npm run dogfood:publish` or `npm run dogfood:full:local`).
 
-## Protocol
-- Do not stop after one layer.
-- Prefer canonical substrates over parallel systems.
-- Prefer derived views over duplicate persistence.
-- Keep states bounded and exact.
-- Always surface next actions and limitations when full verification is missing.
+## Dogfood protocol (route-by-route)
 
-## Verification floor
-1. codegen when needed
-2. `npx tsc --noEmit`
-3. targeted deterministic tests
-4. `npm run build`
-5. `npm run dogfood:verify:smoke` when the UI changed
+For every route/screen touched (and adjacent screens with shared layout):
+- **First-impression clarity**: can a new user explain what to do in 5 seconds?
+- **Hierarchy**: one primary action; secondary actions are visually quiet.
+- **Typography**: headings are not shouting; body text is readable; no gray-on-black mush.
+- **Spacing**: consistent rhythm; avoid random padding/margins; align baselines.
+- **States**: empty/loading/error states look intentional (not a blank white card).
+- **Interactions**: focus rings, keyboard navigation, hover/press states, scroll containment.
 
-## Canonical reference
-`docs/agents/OWNER_MODE_END_TO_END.md`
+## Mandatory mindset
+
+Follow `analyst_diagnostic`:
+- Diagnose the **root cause** (render path, data ownership, stored vs computed).
+- Fix the cause so the bug becomes **impossible**, not merely hidden.
 
 ---
 > Source: [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — distributed by [TomeVault](https://tomevault.io).
