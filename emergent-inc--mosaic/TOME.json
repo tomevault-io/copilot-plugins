@@ -4,7 +4,7 @@
   "repo": "mosaic",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/emergent-inc/mosaic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T07:31:26Z"
+  "distributed_at": "2026-07-09T07:32:04Z"
 }
