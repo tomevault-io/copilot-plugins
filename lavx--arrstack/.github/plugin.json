@@ -1,0 +1,9 @@
+{
+  "name": "lavx--arrstack",
+  "displayName": "arrstack",
+  "description": "Single-binary TUI installer that sets up and auto-wires a 12-service media stack (Sonarr, Radarr, Bazarr+, Jellyfin, Jellyseerr, Prowlarr, qBittorrent, Tdarr, Trailarr, FlareSolverr) on a clean Linux ",
+  "version": "1.0.0",
+  "author": "LavX",
+  "homepage": "https://github.com/LavX/arrstack",
+  "skills": []
+}
