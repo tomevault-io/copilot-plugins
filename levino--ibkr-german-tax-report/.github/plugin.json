@@ -1,0 +1,9 @@
+{
+  "name": "levino--ibkr-german-tax-report",
+  "displayName": "ibkr-german-tax-report",
+  "description": "A cli tool to create tax reports for German tax reporting of trading based on IBKR trading reports.",
+  "version": "1.0.0",
+  "author": "levino",
+  "homepage": "https://github.com/levino/ibkr-german-tax-report",
+  "skills": []
+}
