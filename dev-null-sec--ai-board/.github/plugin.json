@@ -1,0 +1,9 @@
+{
+  "name": "dev-null-sec--ai-board",
+  "displayName": "ai-board",
+  "description": "\u7ed9 AI agent \u7528\u7684\u672c\u5730\u8ba1\u5212\u770b\u677f CLI",
+  "version": "1.0.0",
+  "author": "dev-null-sec",
+  "homepage": "https://github.com/dev-null-sec/ai-board",
+  "skills": []
+}
