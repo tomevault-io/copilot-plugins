@@ -7,11 +7,11 @@ AI assistant for international trade — 20 B2B skills (lead gen, OSINT, email, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chefroger/smart-trade-ai](https://github.com/chefroger/smart-trade-ai).
+Original source: `AGENTS.md` in [chefroger/smart-trade-ai](https://github.com/chefroger/smart-trade-ai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
