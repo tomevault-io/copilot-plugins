@@ -1,0 +1,9 @@
+{
+  "name": "automoxcommunity--automox-mcp",
+  "displayName": "automox-mcp",
+  "description": "An MCP server implementation for Automox",
+  "version": "1.0.0",
+  "author": "AutomoxCommunity",
+  "homepage": "https://github.com/AutomoxCommunity/automox-mcp",
+  "skills": []
+}
