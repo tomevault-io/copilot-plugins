@@ -4,7 +4,7 @@
   "repo": "agent-sandbox",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/mattolson/agent-sandbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T11:57:41Z"
+  "distributed_at": "2026-07-09T11:58:21Z"
 }
