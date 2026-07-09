@@ -1,0 +1,9 @@
+{
+  "name": "proof--proof-vc-common",
+  "displayName": "proof-vc-common",
+  "description": "A digital passport. Verified once, usable everywhere.",
+  "version": "1.0.0",
+  "author": "proof",
+  "homepage": "https://github.com/proof/proof-vc-common",
+  "skills": []
+}
