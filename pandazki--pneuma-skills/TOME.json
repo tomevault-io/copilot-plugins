@@ -2,9 +2,9 @@
   "name": "pneuma-skills",
   "owner": "pandazki",
   "repo": "pneuma-skills",
-  "description": "Co-creation infrastructure for humans and code agents \u2014 visual environment, skills, continuous learning, and distribution.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,141 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "pneuma-skills",
+      "path": "modes/doc/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/doc/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/kami/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/kami/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/draw/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/draw/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/slide/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/slide/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/cosmos/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/cosmos/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/evolve/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/evolve/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/diagram/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/diagram/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/webcraft/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/webcraft/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/remotion/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/remotion/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/gridboard/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/gridboard/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/illustrate/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/illustrate/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/mode-maker/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/mode-maker/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/project-tidy/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/project-tidy/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": ".claude/skills/create-mode/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/.claude/skills/create-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/project-evolve/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/project-evolve/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/project-onboard/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/project-onboard/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/mode-maker/seed/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/mode-maker/seed/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "plugins/obsidian-memory/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/plugins/obsidian-memory/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/_shared/skills/pneuma-project/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/_shared/skills/pneuma-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/_shared/skills/pneuma-session/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/_shared/skills/pneuma-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/_shared/skills/pneuma-preferences/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/_shared/skills/pneuma-preferences/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "path": "modes/wordtaste/skill/SKILL.md",
+      "github_url": "https://github.com/pandazki/pneuma-skills/tree/main/modes/wordtaste/skill/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/pandazki/pneuma-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T05:30:31Z"
+  "distributed_at": "2026-07-09T01:28:55Z"
 }
