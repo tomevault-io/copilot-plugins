@@ -7,11 +7,11 @@ A simple and flexible deep learning framework based on PyTorch and YAML configur
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fideus-labs/KonfAI](https://github.com/fideus-labs/KonfAI).
+Original source: `AGENTS.md` in [fideus-labs/KonfAI](https://github.com/fideus-labs/KonfAI).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
