@@ -1,0 +1,44 @@
+{
+  "name": "Flipper-Zero-meets-M5Stack-Cardputer",
+  "owner": "ElicoftZ",
+  "repo": "Flipper-Zero-meets-M5Stack-Cardputer",
+  "description": "The Flipper zero on M5Stack Cardputer ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ElicoftZ/Flipper-Zero-meets-M5Stack-Cardputer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T20:31:10Z"
+}
