@@ -205359,6 +205359,11 @@
       "description": "Secure P2P File Transfer Tool"
     },
     {
+      "name": "benanil--cengine",
+      "source": "./benanil--cengine",
+      "description": "C Game Engine"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -241199,6 +241204,16 @@
       "description": "Scans Reddit for relevant posts to comment on and makes suggestions for comments. Also collects posts that can be replicated on Reddit or LinkedIn. Also collects the list of subreddits with domain rel"
     },
     {
+      "name": "automoxcommunity--automox-mcp",
+      "source": "./automoxcommunity--automox-mcp",
+      "description": "An MCP server implementation for Automox"
+    },
+    {
+      "name": "s2005--uv-skill",
+      "source": "./s2005--uv-skill",
+      "description": "simplify usage of uv lib in Python projects"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262019,6 +262034,51 @@
       "description": "Native Android Kotlin port of Advanced Auto Brightness.  A glass box replacement for Android's adaptive brightness. Replaces opaque ML with deterministic math. Features live graphing, auto curve fitti"
     },
     {
+      "name": "deepgram--deepgram-java-sdk",
+      "source": "./deepgram--deepgram-java-sdk",
+      "description": "deepgram-java-sdk"
+    },
+    {
+      "name": "altans--collie",
+      "source": "./altans--collie",
+      "description": "PWA to manage \ud83d\udc11 herdr on the go. Tailnet accessible, push notifications, quick actions and more."
+    },
+    {
+      "name": "vrcorp--telephotos",
+      "source": "./vrcorp--telephotos",
+      "description": "TelePhotos"
+    },
+    {
+      "name": "sslab-gatech--crsbench",
+      "source": "./sslab-gatech--crsbench",
+      "description": "Cyber Reasoning System Benchmark Suite"
+    },
+    {
+      "name": "taoyadev--creepjs",
+      "source": "./taoyadev--creepjs",
+      "description": "Educational browser fingerprinting platform with privacy-first approach"
+    },
+    {
+      "name": "npatsakula--svod",
+      "source": "./npatsakula--svod",
+      "description": "Tensor runtime."
+    },
+    {
+      "name": "team-deepiri--deepiri-emotion",
+      "source": "./team-deepiri--deepiri-emotion",
+      "description": "Deepiri's Desktop IDE and Coding Assistant TUI"
+    },
+    {
+      "name": "sslab-gatech--crsbench",
+      "source": "./sslab-gatech--crsbench",
+      "description": "Cyber Reasoning System Benchmark Suite"
+    },
+    {
+      "name": "taoyadev--creepjs",
+      "source": "./taoyadev--creepjs",
+      "description": "Educational browser fingerprinting platform with privacy-first approach"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -266352,6 +266412,16 @@
       "name": "sanjardeveloper--hawor-improved",
       "source": "./sanjardeveloper--hawor-improved",
       "description": "Improved HaWoR fork: temporally stable, lower-jitter egocentric hand pose via zero-lag smoothing + bone canonicalization (no retraining)"
+    },
+    {
+      "name": "s2mon123--ai-cae-automation",
+      "source": "./s2mon123--ai-cae-automation",
+      "description": "In order to better adapt to the current Agent environment, we have organized environment configurations and provided prompt examples for mainstream software such as Abaqus, Ansys, COMSOL, Hypermesh, S"
+    },
+    {
+      "name": "klauswolfgram--relat-rios",
+      "source": "./klauswolfgram--relat-rios",
+      "description": "Relat-rios"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
