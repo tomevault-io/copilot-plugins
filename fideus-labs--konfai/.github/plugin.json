@@ -1,0 +1,9 @@
+{
+  "name": "fideus-labs--konfai",
+  "displayName": "KonfAI",
+  "description": "A simple and flexible deep learning framework based on PyTorch and YAML configuration files.",
+  "version": "1.0.0",
+  "author": "fideus-labs",
+  "homepage": "https://github.com/fideus-labs/KonfAI",
+  "skills": []
+}
