@@ -91954,6 +91954,11 @@
       "description": "Red Hat Ecosystem Engineering - Agentic Collections"
     },
     {
+      "name": "ashahrior--medical-data-visualization-3d",
+      "source": "./ashahrior--medical-data-visualization-3d",
+      "description": "Medical-Data-Visualization-3D"
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -105157,6 +105162,11 @@
       "name": "kmgowda--sbk",
       "source": "./kmgowda--sbk",
       "description": "SBK"
+    },
+    {
+      "name": "ztomer--zonetilerwm",
+      "source": "./ztomer--zonetilerwm",
+      "description": "ZoneTilerWM"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -156534,6 +156544,11 @@
       "description": "\u8df3\u86db\u5148\u751f\u7684 AIGC \u521b\u4f5c\u65b9\u6cd5\u8bba\u516c\u5f00\u77e5\u8bc6\u5e93\uff0c\u6c89\u6dc0 AI \u56fe\u50cf\u3001\u89c6\u9891\u3001\u97f3\u4e50\u3001\u89d2\u8272\u4e00\u81f4\u6027\u3001\u590d\u76d8\u673a\u5236\u4e0e\u4eba\u673a\u534f\u4f5c\u5de5\u4f5c\u6d41\u4e2d\u7684\u53ef\u590d\u7528 insight\u3002"
     },
     {
+      "name": "black-jl--research-project-flow",
+      "source": "./black-jl--research-project-flow",
+      "description": "Research-Project-Flow"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -205002,6 +205017,26 @@
       "name": "kunchenguid--quota-axi",
       "source": "./kunchenguid--quota-axi",
       "description": "Allow your agents to see your LLM subscription quota windows."
+    },
+    {
+      "name": "joycastle--loom",
+      "source": "./joycastle--loom",
+      "description": "\u8de8\u5de5\u5177\u4e2a\u4eba\u6210\u679c\u53f0\u8d26 CLI(git/AI\u4f1a\u8bdd/\u6587\u6863/\u6570\u636e,\u96f6\u4f9d\u8d56)"
+    },
+    {
+      "name": "joycastle--loom",
+      "source": "./joycastle--loom",
+      "description": "\u8de8\u5de5\u5177\u4e2a\u4eba\u6210\u679c\u53f0\u8d26 CLI(git/AI\u4f1a\u8bdd/\u6587\u6863/\u6570\u636e,\u96f6\u4f9d\u8d56)"
+    },
+    {
+      "name": "fluent-meaning-symbiotic--agentic-executables",
+      "source": "./fluent-meaning-symbiotic--agentic-executables",
+      "description": "Manage knowledge as apps | CLI | MCP | AI Knowledge Framework for AI Agents & Humans"
+    },
+    {
+      "name": "joycastle--loom",
+      "source": "./joycastle--loom",
+      "description": "\u8de8\u5de5\u5177\u4e2a\u4eba\u6210\u679c\u53f0\u8d26 CLI(git/AI\u4f1a\u8bdd/\u6587\u6863/\u6570\u636e,\u96f6\u4f9d\u8d56)"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -265829,11 +265864,6 @@
       "description": "Haptic Break macOS APP"
     },
     {
-      "name": "bikenomad--remotekeyboard",
-      "source": "./bikenomad--remotekeyboard",
-      "description": "RemoteKeyboard"
-    },
-    {
       "name": "microsoft--amplifier-app-openclaw",
       "source": "./microsoft--amplifier-app-openclaw",
       "description": "amplifier-app-openclaw"
@@ -265972,6 +266002,11 @@
       "name": "leap-laboratories--discovery-engine",
       "source": "./leap-laboratories--discovery-engine",
       "description": "discovery-engine"
+    },
+    {
+      "name": "bikenomad--remotekeyboard",
+      "source": "./bikenomad--remotekeyboard",
+      "description": "RemoteKeyboard"
     },
     {
       "name": "adityak74--embenx",
