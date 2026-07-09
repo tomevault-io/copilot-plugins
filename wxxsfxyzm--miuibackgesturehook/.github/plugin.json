@@ -1,0 +1,9 @@
+{
+  "name": "wxxsfxyzm--miuibackgesturehook",
+  "displayName": "MiuiBackGestureHook",
+  "description": "LSPosed module using modern Xposed API 102 for SystemUI-side MIUI back gesture research.",
+  "version": "1.0.0",
+  "author": "wxxsfxyzm",
+  "homepage": "https://github.com/wxxsfxyzm/MiuiBackGestureHook",
+  "skills": []
+}
