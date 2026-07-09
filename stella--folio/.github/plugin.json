@@ -1,0 +1,9 @@
+{
+  "name": "stella--folio",
+  "displayName": "folio",
+  "description": "Framework-neutral DOCX engine with React/Vue editors, Nuxt integration, and agent tooling",
+  "version": "1.0.0",
+  "author": "stella",
+  "homepage": "https://github.com/stella/folio",
+  "skills": []
+}
