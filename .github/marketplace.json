@@ -241219,6 +241219,21 @@
       "description": "simplify usage of uv lib in Python projects"
     },
     {
+      "name": "realmorrisliu--alan",
+      "source": "./realmorrisliu--alan",
+      "description": "An agent built to be the next computer: a local-first, end-to-end experience for acting across the digital world."
+    },
+    {
+      "name": "realmorrisliu--alan",
+      "source": "./realmorrisliu--alan",
+      "description": "An agent built to be the next computer: a local-first, end-to-end experience for acting across the digital world."
+    },
+    {
+      "name": "gridheap-bot--sketchybar-config",
+      "source": "./gridheap-bot--sketchybar-config",
+      "description": "My sketchybar configuration files"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262082,6 +262097,31 @@
       "name": "taoyadev--creepjs",
       "source": "./taoyadev--creepjs",
       "description": "Educational browser fingerprinting platform with privacy-first approach"
+    },
+    {
+      "name": "h3js--h3-rules",
+      "source": "./h3js--h3-rules",
+      "description": "[WIP] Declarative route rules for H3: Define route rules (redirect, proxy, headers, cache, basic auth, CORS) to patterns. [WIP]"
+    },
+    {
+      "name": "facetomyself--reverse-env",
+      "source": "./facetomyself--reverse-env",
+      "description": "\u9006\u5411\u5de5\u7a0b\u73af\u5883\u4e0e\u6280\u80fd\u4ed3\u5e93 \u2014 IDA Pro / jadx / apktool / radare2 / frida MCP \u5de5\u5177\u94fe"
+    },
+    {
+      "name": "traoreera--xcore",
+      "source": "./traoreera--xcore",
+      "description": "An open-source Python framework for building extensible, plugin-based applications. Fragile monoliths or overly bloated microservices? xcore offers a third way.  You write your plugin as a simple Pyth"
+    },
+    {
+      "name": "facetomyself--reverse-env",
+      "source": "./facetomyself--reverse-env",
+      "description": "\u9006\u5411\u5de5\u7a0b\u73af\u5883\u4e0e\u6280\u80fd\u4ed3\u5e93 \u2014 IDA Pro / jadx / apktool / radare2 / frida MCP \u5de5\u5177\u94fe"
+    },
+    {
+      "name": "traoreera--xcore",
+      "source": "./traoreera--xcore",
+      "description": "An open-source Python framework for building extensible, plugin-based applications. Fragile monoliths or overly bloated microservices? xcore offers a third way.  You write your plugin as a simple Pyth"
     },
     {
       "name": "cheerhuan--save-your-token",
