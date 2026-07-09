@@ -1,0 +1,9 @@
+{
+  "name": "traoreera--xcore",
+  "displayName": "xcore",
+  "description": "An open-source Python framework for building extensible, plugin-based applications. Fragile monoliths or overly bloated microservices? xcore offers a third way.  You write your plugin as a simple Pyth",
+  "version": "1.0.0",
+  "author": "traoreera",
+  "homepage": "https://github.com/traoreera/xcore",
+  "skills": []
+}
