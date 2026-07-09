@@ -1,0 +1,9 @@
+{
+  "name": "hancohogenbirk--math-trade-buddy",
+  "displayName": "math-trade-buddy",
+  "description": "Firefox extension for BGG Math Trades \u2014 generate descriptions, push to BGG, modernize OLWLG",
+  "version": "1.0.0",
+  "author": "hancohogenbirk",
+  "homepage": "https://github.com/hancohogenbirk/math-trade-buddy",
+  "skills": []
+}
