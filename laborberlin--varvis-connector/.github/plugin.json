@@ -1,0 +1,9 @@
+{
+  "name": "laborberlin--varvis-connector",
+  "displayName": "varvis-connector",
+  "description": "Python package and CLI for data retrieval from Varvis SaaS Platform API. ",
+  "version": "1.0.0",
+  "author": "LaborBerlin",
+  "homepage": "https://github.com/LaborBerlin/varvis-connector",
+  "skills": []
+}
