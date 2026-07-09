@@ -30974,6 +30974,11 @@
       "description": "systematically-improving-rag"
     },
     {
+      "name": "atraczyk--2d-engine",
+      "source": "./atraczyk--2d-engine",
+      "description": "2d-engine"
+    },
+    {
       "name": "paid-tw--skills",
       "source": "./paid-tw--skills",
       "description": "\u53f0\u7063\u7b2c\u4e09\u65b9\u91d1\u6d41 Skills for AI Agents - \u85cd\u65b0\u91d1\u6d41\u3001\u7da0\u754c\u79d1\u6280 ECPay\u3001\u7d71\u4e00\u91d1\u6d41 PAYUNi"
@@ -261499,6 +261504,11 @@
       "description": "Your AI cofounder that never forgets. Memory, execution, and a data vault for solo founders. Runs on Claude Code."
     },
     {
+      "name": "miladjoodi--remote-jobboard",
+      "source": "./miladjoodi--remote-jobboard",
+      "description": "Fullstack remote job board built with Next.js, Prisma & PostgreSQL \u2014 syncs jobs from Remotive API"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -265812,6 +265822,16 @@
       "name": "jarry126--queryforge-test2sql",
       "source": "./jarry126--queryforge-test2sql",
       "description": "\u751f\u4ea7\u7ea7\u901a\u7528 Text-to-SQL \u670d\u52a1\uff1a\u57fa\u4e8e FastAPI + LangGraph + RAG\uff0c\u5c06\u81ea\u7136\u8bed\u8a00\u8f6c\u6362\u4e3a\u5b89\u5168\u53ef\u6267\u884c\u7684 SQL\uff0c\u5185\u7f6e SQL Guard\u3001few-shot/schema \u68c0\u7d22\u3001\u9650\u6d41\u3001\u7f13\u5b58\u3001Langfuse \u8ffd\u8e2a\u3001Prometheus/Grafana \u76d1\u63a7\uff0c\u5e76\u57fa\u4e8e CSpider \u505a\u51c6\u786e\u7387\u8bc4\u6d4b\u3002"
+    },
+    {
+      "name": "tmpbin--hapticbreak",
+      "source": "./tmpbin--hapticbreak",
+      "description": "Haptic Break macOS APP"
+    },
+    {
+      "name": "bikenomad--remotekeyboard",
+      "source": "./bikenomad--remotekeyboard",
+      "description": "RemoteKeyboard"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -270607,11 +270627,6 @@
       "name": "grapaa--pgsearch",
       "source": "./grapaa--pgsearch",
       "description": "pgsearch"
-    },
-    {
-      "name": "bikenomad--remotekeyboard",
-      "source": "./bikenomad--remotekeyboard",
-      "description": "RemoteKeyboard"
     },
     {
       "name": "ttorang--web",
@@ -389492,6 +389507,61 @@
       "name": "anseonghyeon--gdgoc-about-me",
       "source": "./anseonghyeon--gdgoc-about-me",
       "description": "gdgoc \ub3d9\uc544\ub9ac \uc790\uae30\uc18c\uac1c \ud398\uc774\uc9c0"
+    },
+    {
+      "name": "dotbeeps--noms",
+      "source": "./dotbeeps--noms",
+      "description": "noms"
+    },
+    {
+      "name": "zalban95--doca",
+      "source": "./zalban95--doca",
+      "description": "DOCA"
+    },
+    {
+      "name": "twotoned--gearflow",
+      "source": "./twotoned--gearflow",
+      "description": "Everything Management Software for a Production Company"
+    },
+    {
+      "name": "dotbeeps--noms",
+      "source": "./dotbeeps--noms",
+      "description": "noms"
+    },
+    {
+      "name": "hasna--instructions",
+      "source": "./hasna--instructions",
+      "description": "AI coding agent instruction & configuration manager (formerly @hasna/configs). CLI + MCP + HTTP API (instructions-serve) + generated SDK + Dashboard."
+    },
+    {
+      "name": "hasna--instructions",
+      "source": "./hasna--instructions",
+      "description": "AI coding agent instruction & configuration manager (formerly @hasna/configs). CLI + MCP + HTTP API (instructions-serve) + generated SDK + Dashboard."
+    },
+    {
+      "name": "zero-kq--pages",
+      "source": "./zero-kq--pages",
+      "description": "Pages"
+    },
+    {
+      "name": "anysung--heatpumpdb-app",
+      "source": "./anysung--heatpumpdb-app",
+      "description": "Viewer of HVAC products in Germany"
+    },
+    {
+      "name": "cipaterson--sailings",
+      "source": "./cipaterson--sailings",
+      "description": "sailings"
+    },
+    {
+      "name": "hoshihirotaka--playmakerlablp",
+      "source": "./hoshihirotaka--playmakerlablp",
+      "description": "PlayMakerLabLP"
+    },
+    {
+      "name": "babydragon--zimo-study",
+      "source": "./babydragon--zimo-study",
+      "description": "\u6c14\u6c14\u5b66\u6821\u76f8\u5173\u7684\u5de5\u7a0b\uff0c\u4e0d\u81ea\u5df1\u7528"
     }
   ]
 }
