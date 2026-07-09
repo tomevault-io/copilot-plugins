@@ -1,0 +1,9 @@
+{
+  "name": "tommasobbianchi--shidaoslicer",
+  "displayName": "ShidaoSlicer",
+  "description": "Belt-printer fork of OrcaSlicer for 45\u00b0 inclined-belt machines (CR-30 / IdeaFormer IR3 V2 family). AGPL-3.0.",
+  "version": "1.0.0",
+  "author": "tommasobbianchi",
+  "homepage": "https://github.com/tommasobbianchi/ShidaoSlicer",
+  "skills": []
+}
