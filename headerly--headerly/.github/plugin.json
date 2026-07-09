@@ -1,0 +1,9 @@
+{
+  "name": "headerly--headerly",
+  "displayName": "headerly",
+  "description": "\ud83c\udfaf A privacy-first browser extension to quickly set, append, or remove HTTP headers.",
+  "version": "1.0.0",
+  "author": "headerly",
+  "homepage": "https://github.com/headerly/headerly",
+  "skills": []
+}
