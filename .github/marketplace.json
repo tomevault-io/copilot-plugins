@@ -240829,6 +240829,31 @@
       "description": "A powerful SDK for building intelligent, context-aware AI agents with Twilio's communication technologies."
     },
     {
+      "name": "codingstark-dev--opencode-dataset-plugin",
+      "source": "./codingstark-dev--opencode-dataset-plugin",
+      "description": "Capture OpenCode agent sessions into a local JSONL dataset, review examples in an OpenTUI terminal UI, and export to the formats LLM researchers actually use."
+    },
+    {
+      "name": "codingstark-dev--opencode-dataset-plugin",
+      "source": "./codingstark-dev--opencode-dataset-plugin",
+      "description": "Capture OpenCode agent sessions into a local JSONL dataset, review examples in an OpenTUI terminal UI, and export to the formats LLM researchers actually use."
+    },
+    {
+      "name": "shinyquagsire23--yodecomp",
+      "source": "./shinyquagsire23--yodecomp",
+      "description": "Letting Claude decompile Yoda Stories, for gits and shiggles"
+    },
+    {
+      "name": "crazytieguy--alignment-hive",
+      "source": "./crazytieguy--alignment-hive",
+      "description": "alignment-hive"
+    },
+    {
+      "name": "cgrossmeier--product-manager-llm-specific-prompts",
+      "source": "./cgrossmeier--product-manager-llm-specific-prompts",
+      "description": "Product leadership, product management, and Natural Voice writing style LLM Prompts and supporting resources"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -261542,6 +261567,16 @@
       "name": "miladjoodi--remote-jobboard",
       "source": "./miladjoodi--remote-jobboard",
       "description": "Fullstack remote job board built with Next.js, Prisma & PostgreSQL \u2014 syncs jobs from Remotive API"
+    },
+    {
+      "name": "schmidtfx--ekz-tariffs",
+      "source": "./schmidtfx--ekz-tariffs",
+      "description": "Dynamic Energy prices for EKZ"
+    },
+    {
+      "name": "commandprompt--open-pg-tde",
+      "source": "./commandprompt--open-pg-tde",
+      "description": "open_pg_tde - Transparent Data Encryption for native PostgreSQL. An open fork of Percona pg_tde, maintained by Command Prompt, Inc."
     },
     {
       "name": "cheerhuan--save-your-token",
