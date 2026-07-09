@@ -205364,6 +205364,11 @@
       "description": "C Game Engine"
     },
     {
+      "name": "jamiew--monarch-mcp",
+      "source": "./jamiew--monarch-mcp",
+      "description": "Modern MCP server for accessing Monarch Money financial data using AI agents, like Claude. Token-efficient, smart tool design, and uses latest MCP protocol features"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
