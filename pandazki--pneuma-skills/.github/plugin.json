@@ -1,9 +1,98 @@
 {
   "name": "pandazki--pneuma-skills",
   "displayName": "pneuma-skills",
-  "description": "Co-creation infrastructure for humans and code agents \u2014 visual environment, skills, continuous learning, and distribution.",
+  "description": "pneuma-skills",
   "version": "1.0.0",
   "author": "pandazki",
   "homepage": "https://github.com/pandazki/pneuma-skills",
-  "skills": []
+  "skills": [
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    },
+    {
+      "name": "pneuma-skills",
+      "description": ""
+    }
+  ]
 }
