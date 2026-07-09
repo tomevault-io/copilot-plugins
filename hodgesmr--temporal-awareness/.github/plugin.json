@@ -1,0 +1,9 @@
+{
+  "name": "hodgesmr--temporal-awareness",
+  "displayName": "temporal-awareness",
+  "description": "A Claude Code Agent Skill for temporal awareness via the date command",
+  "version": "1.0.0",
+  "author": "hodgesmr",
+  "homepage": "https://github.com/hodgesmr/temporal-awareness",
+  "skills": []
+}
