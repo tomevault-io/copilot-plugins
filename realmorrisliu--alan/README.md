@@ -7,11 +7,11 @@ An agent built to be the next computer: a local-first, end-to-end experience for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [realmorrisliu/alan](https://github.com/realmorrisliu/alan).
+Original source: `AGENTS.md` in [realmorrisliu/alan](https://github.com/realmorrisliu/alan).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
