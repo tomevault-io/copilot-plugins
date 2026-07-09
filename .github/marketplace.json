@@ -240739,6 +240739,31 @@
       "description": "Public read-only API for OpenSyria datasets, including Syrian geography, cities, districts, localities, universities, transport, releases, and source attribution."
     },
     {
+      "name": "mysterionrise--ctf-kit",
+      "source": "./mysterionrise--ctf-kit",
+      "description": "\ud83c\udff4 AI-assisted CTF challenge solver toolkit. Integrates with Claude Code, Cursor, and Copilot to help you analyze and solve CTF challenges faster."
+    },
+    {
+      "name": "hodgesmr--temporal-awareness",
+      "source": "./hodgesmr--temporal-awareness",
+      "description": "A Claude Code Agent Skill for temporal awareness via the date command"
+    },
+    {
+      "name": "hodgesmr--temporal-awareness",
+      "source": "./hodgesmr--temporal-awareness",
+      "description": "A Claude Code Agent Skill for temporal awareness via the date command"
+    },
+    {
+      "name": "matrixy--agent-registry",
+      "source": "./matrixy--agent-registry",
+      "description": "Lazy-loading system for Claude Code agents"
+    },
+    {
+      "name": "twilio--twilio-agent-connect-python",
+      "source": "./twilio--twilio-agent-connect-python",
+      "description": "A powerful SDK for building intelligent, context-aware AI agents with Twilio's communication technologies."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -261444,6 +261469,11 @@
       "description": "ANDROID SOLIDTIME APP - Easily manage your solidtime time tracking using a android tile"
     },
     {
+      "name": "krishnatejavepa--shotgun",
+      "source": "./krishnatejavepa--shotgun",
+      "description": "Your AI cofounder that never forgets. Memory, execution, and a data vault for solo founders. Runs on Claude Code."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -265712,6 +265742,51 @@
       "name": "wcqxgjy6d8-pixel--visible-agent-loop-protocol",
       "source": "./wcqxgjy6d8-pixel--visible-agent-loop-protocol",
       "description": "Agent says done. VALP asks for proof."
+    },
+    {
+      "name": "threefish-ai--hyper-git",
+      "source": "./threefish-ai--hyper-git",
+      "description": "HyperGit brings IntelliJ IDEA's powerful Git & Commit modules to VS Code, enhanced with AI-powered autonomous agents for intelligent repository management. Experience Git in a higher dimension."
+    },
+    {
+      "name": "jarry126--queryforge-test2sql",
+      "source": "./jarry126--queryforge-test2sql",
+      "description": "\u751f\u4ea7\u7ea7\u901a\u7528 Text-to-SQL \u670d\u52a1\uff1a\u57fa\u4e8e FastAPI + LangGraph + RAG\uff0c\u5c06\u81ea\u7136\u8bed\u8a00\u8f6c\u6362\u4e3a\u5b89\u5168\u53ef\u6267\u884c\u7684 SQL\uff0c\u5185\u7f6e SQL Guard\u3001few-shot/schema \u68c0\u7d22\u3001\u9650\u6d41\u3001\u7f13\u5b58\u3001Langfuse \u8ffd\u8e2a\u3001Prometheus/Grafana \u76d1\u63a7\uff0c\u5e76\u57fa\u4e8e CSpider \u505a\u51c6\u786e\u7387\u8bc4\u6d4b\u3002"
+    },
+    {
+      "name": "adnane-errazine--openvideosearch",
+      "source": "./adnane-errazine--openvideosearch",
+      "description": "OpenVideoSearch: Index your video library. Ask any question across your recordings and get grounded answers with exact timestamp citations."
+    },
+    {
+      "name": "bingquan040601--vite-plugin-vue-insight",
+      "source": "./bingquan040601--vite-plugin-vue-insight",
+      "description": "\u70b9\u51fb\u5b9a\u4f4d\u6e90\u7801\u3001\u9ad8\u4eae DOM\u3001\u67e5\u770b\u7ec4\u4ef6\u72b6\u6001\u3001\u5206\u4eab\u94fe\u63a5 \u2014 Vue 3 + Vite \u8c03\u8bd5\u52a9\u624b"
+    },
+    {
+      "name": "duckinashirt--leetmate",
+      "source": "./duckinashirt--leetmate",
+      "description": "Terminal LeetCode coach that gives hints, not answers."
+    },
+    {
+      "name": "yassworks--evalda",
+      "source": "./yassworks--evalda",
+      "description": "Open-source ML competition platform."
+    },
+    {
+      "name": "threefish-ai--hyper-git",
+      "source": "./threefish-ai--hyper-git",
+      "description": "HyperGit brings IntelliJ IDEA's powerful Git & Commit modules to VS Code, enhanced with AI-powered autonomous agents for intelligent repository management. Experience Git in a higher dimension."
+    },
+    {
+      "name": "iwalton3--cpfont-editor",
+      "source": "./iwalton3--cpfont-editor",
+      "description": "Edit and fix fonts for the Crosspoint E-Reader Firmware (not affiliated)"
+    },
+    {
+      "name": "jarry126--queryforge-test2sql",
+      "source": "./jarry126--queryforge-test2sql",
+      "description": "\u751f\u4ea7\u7ea7\u901a\u7528 Text-to-SQL \u670d\u52a1\uff1a\u57fa\u4e8e FastAPI + LangGraph + RAG\uff0c\u5c06\u81ea\u7136\u8bed\u8a00\u8f6c\u6362\u4e3a\u5b89\u5168\u53ef\u6267\u884c\u7684 SQL\uff0c\u5185\u7f6e SQL Guard\u3001few-shot/schema \u68c0\u7d22\u3001\u9650\u6d41\u3001\u7f13\u5b58\u3001Langfuse \u8ffd\u8e2a\u3001Prometheus/Grafana \u76d1\u63a7\uff0c\u5e76\u57fa\u4e8e CSpider \u505a\u51c6\u786e\u7387\u8bc4\u6d4b\u3002"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -389342,6 +389417,56 @@
       "name": "sukramj--openccu-data",
       "source": "./sukramj--openccu-data",
       "description": "Data-extraction pipeline and source-of-truth distribution for Homematic CCU configuration metadata \u2014 parses OCCU/RaspberryMatic TCL & JS into compact, typed JSON artifacts (easymodes, translations, pr"
+    },
+    {
+      "name": "hskchain--hsk-superpowers",
+      "source": "./hskchain--hsk-superpowers",
+      "description": "\u57fa\u4e8eSuperpowers\u5b9a\u5236\u7684 HashKey Chain L2 \u5f00\u53d1\u5de5\u4f5c\u6d41."
+    },
+    {
+      "name": "jbshim1-coder--kbbg-app",
+      "source": "./jbshim1-coder--kbbg-app",
+      "description": "kbbg-app"
+    },
+    {
+      "name": "rafaelmassao--usb2cps",
+      "source": "./rafaelmassao--usb2cps",
+      "description": "USB2CPS"
+    },
+    {
+      "name": "yusufjojeh--prospectiq",
+      "source": "./yusufjojeh--prospectiq",
+      "description": "ProspectIQ"
+    },
+    {
+      "name": "jbshim1-coder--kbbg-app",
+      "source": "./jbshim1-coder--kbbg-app",
+      "description": "kbbg-app"
+    },
+    {
+      "name": "hancohogenbirk--math-trade-buddy",
+      "source": "./hancohogenbirk--math-trade-buddy",
+      "description": "Firefox extension for BGG Math Trades \u2014 generate descriptions, push to BGG, modernize OLWLG"
+    },
+    {
+      "name": "izmaylovdev--ai-cv-maker",
+      "source": "./izmaylovdev--ai-cv-maker",
+      "description": "ai-cv-maker"
+    },
+    {
+      "name": "matthiasbaitsch--informatik-master",
+      "source": "./matthiasbaitsch--informatik-master",
+      "description": "informatik-master"
+    },
+    {
+      "name": "bdb-labs--aira-scanner",
+      "source": "./bdb-labs--aira-scanner",
+      "description": "AIRA is a research initiative developed by BDB Labs."
+    },
+    {
+      "name": "anseonghyeon--gdgoc-about-me",
+      "source": "./anseonghyeon--gdgoc-about-me",
+      "description": "gdgoc \ub3d9\uc544\ub9ac \uc790\uae30\uc18c\uac1c \ud398\uc774\uc9c0"
     }
   ]
 }
