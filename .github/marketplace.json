@@ -20279,6 +20279,11 @@
       "description": "A modern X11 server written from scratch in Rust."
     },
     {
+      "name": "nominal-io--instro",
+      "source": "./nominal-io--instro",
+      "description": "Nominal's open-source library for hardware test instrumentation"
+    },
+    {
       "name": "computerlovetech--agr",
       "source": "./computerlovetech--agr",
       "description": "A package manager for AI agents. Install agent skills from GitHub with a single command."
@@ -37294,6 +37299,11 @@
       "description": "woofed-crm"
     },
     {
+      "name": "earth-ol-player--ai-learn-project",
+      "source": "./earth-ol-player--ai-learn-project",
+      "description": "Agent\u5f00\u53d1\u6784\u5efa\u7684 AI Agent\u5b66\u4e60\u8def\u7ebf\u8d44\u6599\u3001\u667a\u80fd\u5237\u9898\u3001\u9762\u7ecf\u9898\u5e93\u4e00\u7ad9\u5f0fAgent\u5b66\u4e60\u5e73\u53f0"
+    },
+    {
       "name": "nexxeln--opencode-config",
       "source": "./nexxeln--opencode-config",
       "description": "my opencode config"
@@ -38567,6 +38577,16 @@
       "name": "superjj007--csswitch",
       "source": "./superjj007--csswitch",
       "description": "\u8ba9 Claude Science \u7684\u63a8\u7406\u8d70\u81ea\u9009\u7684\u7b2c\u4e09\u65b9 API\uff08DeepSeek / \u901a\u4e49\u5343\u95ee / \u4efb\u610f OpenAI \u517c\u5bb9\u7aef\u70b9\uff09\uff0c\u4fdd\u7559\u5de5\u5177\u8c03\u7528\u00b7Skill\u00b7MCP\u00b7\u4ee3\u7801\u6267\u884c\uff0c\u542b\u672c\u5730\u865a\u62df\u767b\u5f55\u8df3\u8fc7\u3002macOS \u83dc\u5355\u680f app\u3002\u4ec5\u4f9b\u4e2a\u4eba\u5b66\u4e60\u7814\u7a76\uff0c\u4f7f\u7528\u8005\u81ea\u8d1f\u98ce\u9669\u3002"
+    },
+    {
+      "name": "code2rich--jpage",
+      "source": "./code2rich--jpage",
+      "description": "jpage"
+    },
+    {
+      "name": "code2rich--jpage",
+      "source": "./code2rich--jpage",
+      "description": "jpage"
     },
     {
       "name": "atgreen--icl",
@@ -62569,6 +62589,11 @@
       "description": "Confidential is the confidential computing stack. We run your AI workloads (inference, training, agents) in hardware-encrypted Trusted Execution Environments (TEEs). You can provide on-prem security a"
     },
     {
+      "name": "romanilyin--sgg-perfmeter",
+      "source": "./romanilyin--sgg-perfmeter",
+      "description": "Lightweight runtime performance diagnostics and agent-readable profiling for Unity 6 URP+HDRP (FPS meter)."
+    },
+    {
       "name": "keep-starknet-strange--starknet-agentic",
       "source": "./keep-starknet-strange--starknet-agentic",
       "description": "Smart contracts, tools, and skills for AI agents that transact on Starknet"
@@ -68072,6 +68097,16 @@
       "name": "layernorm--overlay-web",
       "source": "./layernorm--overlay-web",
       "description": "The open source AI operating system"
+    },
+    {
+      "name": "prime-radiant-inc--superpowers-evals",
+      "source": "./prime-radiant-inc--superpowers-evals",
+      "description": "Behavioral eval lab (Quorum) for the superpowers project that drives real coding-agent CLIs (Claude, Codex, Gemini, Kimi, and more) through a QA agent and grades them on workflow compliance against sc"
+    },
+    {
+      "name": "prime-radiant-inc--superpowers-evals",
+      "source": "./prime-radiant-inc--superpowers-evals",
+      "description": "Behavioral eval lab (Quorum) for the superpowers project that drives real coding-agent CLIs (Claude, Codex, Gemini, Kimi, and more) through a QA agent and grades them on workflow compliance against sc"
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -75022,6 +75057,11 @@
       "name": "igorbarshteyn--athena",
       "source": "./igorbarshteyn--athena",
       "description": "A conversational voice-to-voice open-weights LLM-powered assistant designed to run on high-end consumer or workstation class hardware"
+    },
+    {
+      "name": "liubaicai--shelldesk",
+      "source": "./liubaicai--shelldesk",
+      "description": "A virtual remote desktop and graphical server management toolkit"
     },
     {
       "name": "bioliminal--bioliminal-mobile-application",
@@ -83922,6 +83962,11 @@
       "name": "bhalpunia--claude-canvas",
       "source": "./bhalpunia--claude-canvas",
       "description": "TUI toolkit for Claude Code - fork with iTerm2 and Apple Terminal support"
+    },
+    {
+      "name": "escoffier-labs--brigade",
+      "source": "./escoffier-labs--brigade",
+      "description": "One local source for the MCP servers, tools, and memory your AI coding agents share, synced into each tool's native config with a review gate and a receipt for every change. No daemon, no lock-in."
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -93162,6 +93207,11 @@
       "name": "r44vc0rp--ndi-bar",
       "source": "./r44vc0rp--ndi-bar",
       "description": "Easily control NDI monitor streams from your menubar. "
+    },
+    {
+      "name": "epsilondelta-ai--pi-web",
+      "source": "./epsilondelta-ai--pi-web",
+      "description": "A web UI for viewing and controlling the local pi coding agent in your browser."
     },
     {
       "name": "66reapollo2--agentsge",
@@ -103559,6 +103609,11 @@
       "description": "Pure-Rust port of Ipopt (NLP/IPM solver)"
     },
     {
+      "name": "the-good-pixel--learn-agentic-working",
+      "source": "./the-good-pixel--learn-agentic-working",
+      "description": "A practical, open-source playbook for getting real work done with AI agents \u2014 for engineers, designers, analysts, PMs, marketers, ops, anyone whose work touches a computer."
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -106669,6 +106724,11 @@
       "description": "A simple SDK that lets your users log in with their ChatGPT account."
     },
     {
+      "name": "huta0kj--vetix",
+      "source": "./huta0kj--vetix",
+      "description": "Vetix \u2014 Automated scanning, identification, and assessment of SKILL security risks."
+    },
+    {
       "name": "skywind3000--gamesample",
       "source": "./skywind3000--gamesample",
       "description": "Game Samples for GameLib"
@@ -108252,6 +108312,11 @@
       "name": "tsouza--cerberus",
       "source": "./tsouza--cerberus",
       "description": "Drop-in Prometheus / Loki / Tempo HTTP gateway for ClickHouse. Translate PromQL, LogQL, and TraceQL into optimized CH SQL \u2014 keep Grafana, swap the backend."
+    },
+    {
+      "name": "bitbitcodes--autonomous-sdlc",
+      "source": "./bitbitcodes--autonomous-sdlc",
+      "description": "autonomous-sdlc scaffolds 40 AI agents into your project repo to execute the full software development lifecycle \u2014 from a spec to production-ready code with tests, security audit, CI/CD, and monitorin"
     },
     {
       "name": "inureyes--gyeol",
@@ -114097,6 +114162,16 @@
       "name": "kyle-chalmers--data-ai-reference",
       "source": "./kyle-chalmers--data-ai-reference",
       "description": "Reference repo for the Kyle Chalmers Data & AI YouTube channel \u2014 Claude Code + AI templates, QC patterns, and per-video example projects for reproducible analytics work."
+    },
+    {
+      "name": "synthefy--synthefy-nori",
+      "source": "./synthefy--synthefy-nori",
+      "description": "Synthefy Tabular public package staging repository"
+    },
+    {
+      "name": "synthefy--synthefy-nori",
+      "source": "./synthefy--synthefy-nori",
+      "description": "Synthefy Tabular public package staging repository"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -139997,6 +140072,11 @@
       "name": "jailbrokenai--wallbreaker",
       "source": "./jailbrokenai--wallbreaker",
       "description": "wallbreaker"
+    },
+    {
+      "name": "latentwill--ideonomy-skill",
+      "source": "./latentwill--ideonomy-skill",
+      "description": "A Claude Code skill for expanding ideas via Patrick Gunkel's ideonomy, synthesized from Grace Kind's essays. Picks a different combination of operators, organons, and dimension-prompts each invocation"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
