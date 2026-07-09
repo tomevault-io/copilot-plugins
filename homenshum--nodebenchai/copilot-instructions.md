@@ -1,42 +1,39 @@
-## reexamine-performance
+## reexamine-polish
 
-> - Don't render 500 items at once — show 8-12 per group with "Show more"
+> - Replace blank areas during fetch with skeleton placeholders (gray shapes matching final layout)
 
 
-# Re-examine: Performance
+# Re-examine: Visual Polish
 
-## Progressive disclosure
-- Don't render 500 items at once — show 8-12 per group with "Show more"
-- Collapsed sections: don't render hidden children, use deferred rendering on expand
-- Store raw data in `window._data` or `data-items` attribute, render on demand via `insertAdjacentHTML`
+## Skeleton loading
+- Replace blank areas during fetch with skeleton placeholders (gray shapes matching final layout)
+- Shimmer animation: `background: linear-gradient(90deg, #2a2a3a 25%, #3a3a4a 50%, #2a2a3a 75%)`
+- `background-size: 200% 100%; animation: shimmer 1.5s infinite`
+- Respect `prefers-reduced-motion` → static gray background, no shimmer
 
-## Smart refresh
-- Polling/interval refreshes: hash the data before re-rendering
-- `simpleHash(JSON.stringify(data))` compared to `_lastDataHash` — skip if unchanged
-- Avoids DOM thrashing on 5s intervals when nothing changed
-- Use `requestAnimationFrame` for batched DOM updates
+## Staggered fade-ins
+- Cards/list items appear with slight delay cascade: 50ms, 100ms, 150ms per item
+- Use `animation-delay` or `transition-delay` — not JS setTimeout
+- Keep total cascade under 500ms (10 items max before grouping)
+- Disable under `prefers-reduced-motion`
 
-## Lazy loading
-- Images below the fold: `loading="lazy"` attribute
-- Heavy components: dynamic import / code splitting
-- IntersectionObserver for triggering loads when elements enter viewport
-- Placeholder (skeleton or blur) until loaded
+## Transitions
+- State changes (expand/collapse, show/hide) get 200-300ms ease transitions
+- Use `transition: all 0.2s ease` on the specific properties, not `all` in production
+- Hover effects: subtle scale (1.02), shadow lift, or background shift
+- Don't animate `width`/`height` — use `transform: scale()` or `max-height` for performance
 
-## String concatenation
-- Build HTML with array push + join: `const h = []; h.push('<div>'); return h.join('')`
-- Avoids O(n^2) string concatenation in loops
-- Template literals are fine for small chunks; arrays for large dynamic HTML
+## Micro-interactions
+- Button press: brief scale-down (0.97) on `:active`
+- Tooltip on hover for truncated text (CSS `text-overflow: ellipsis` + `title` attribute)
+- Copy-to-clipboard: brief "Copied!" feedback toast
+- Empty states: helpful message + action button, not just blank space
 
-## CSS performance
-- Use CSS custom properties (`:root { --gap: 1rem }`) instead of repeated values
-- Avoid `*` selectors in complex rules
-- `will-change: transform` only on elements that actually animate
-- `contain: content` on independent card/section containers
-
-## Measurement
-- Profile before optimizing — don't guess where the bottleneck is
-- Check for layout thrashing: read → write → read → write cycles
-- `getComputedStyle()` calls force synchronous layout — cache results
+## Print stylesheet
+- `@media print`: light background, dark text, visible borders
+- Hide interactive controls (buttons, search, navigation)
+- Severity badges: add borders (colors may not print)
+- Page-break-inside: avoid on cards
 
 ---
 > Source: [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — distributed by [TomeVault](https://tomevault.io).
