@@ -7,11 +7,11 @@ Capture OpenCode agent sessions into a local JSONL dataset, review examples in a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [codingstark-dev/opencode-dataset-plugin](https://github.com/codingstark-dev/opencode-dataset-plugin).
+Original source: `CLAUDE.md` in [codingstark-dev/opencode-dataset-plugin](https://github.com/codingstark-dev/opencode-dataset-plugin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
