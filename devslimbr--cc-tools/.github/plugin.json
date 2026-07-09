@@ -1,0 +1,9 @@
+{
+  "name": "devslimbr--cc-tools",
+  "displayName": "cc-tools",
+  "description": "Command-line tools for editing files while preserving integrity",
+  "version": "1.0.0",
+  "author": "devslimbr",
+  "homepage": "https://github.com/devslimbr/cc-tools",
+  "skills": []
+}
