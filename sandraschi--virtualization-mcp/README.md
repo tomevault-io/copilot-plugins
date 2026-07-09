@@ -7,13 +7,13 @@ MCP Server and Webapp for VirtualBox, Hyper-V and Windows sandbox.  VM operation
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [sandraschi/virtualization-mcp](https://github.com/sandraschi/virtualization-mcp).
+Original source: `CLAUDE.md` in [sandraschi/virtualization-mcp](https://github.com/sandraschi/virtualization-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
