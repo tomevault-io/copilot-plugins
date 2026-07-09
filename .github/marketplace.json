@@ -241244,6 +241244,61 @@
       "description": "My sketchybar configuration files"
     },
     {
+      "name": "dhanesh--manifold",
+      "source": "./dhanesh--manifold",
+      "description": "Stop discovering requirements during implementation. Manifold makes constraints visible BEFORE you write code\u2014business, technical, UX, security, operational\u2014so problems surface   in planning, not prod"
+    },
+    {
+      "name": "sandraschi--virtualization-mcp",
+      "source": "./sandraschi--virtualization-mcp",
+      "description": "MCP Server and Webapp for VirtualBox, Hyper-V and Windows sandbox.  VM operations, networking, storage, snapshots, and security features."
+    },
+    {
+      "name": "sandraschi--virtualization-mcp",
+      "source": "./sandraschi--virtualization-mcp",
+      "description": "MCP Server and Webapp for VirtualBox, Hyper-V and Windows sandbox.  VM operations, networking, storage, snapshots, and security features."
+    },
+    {
+      "name": "sandraschi--virtualization-mcp",
+      "source": "./sandraschi--virtualization-mcp",
+      "description": "MCP Server and Webapp for VirtualBox, Hyper-V and Windows sandbox.  VM operations, networking, storage, snapshots, and security features."
+    },
+    {
+      "name": "verseles--dash-for-cloudflare",
+      "source": "./verseles--dash-for-cloudflare",
+      "description": "A native dash for Cloudflare"
+    },
+    {
+      "name": "carles-abarca--docling-rs",
+      "source": "./carles-abarca--docling-rs",
+      "description": "Native Rust port of IBM's Docling document processing library. Convert PDF, DOCX, XLSX, PPTX, HTML, Markdown, and CSV to structured data for RAG applications."
+    },
+    {
+      "name": "shinpr--ai-business-planner",
+      "source": "./shinpr--ai-business-planner",
+      "description": "AI-assisted business planning in Cursor. Create market research, business plans, PRDs, prototype instructions, and pitch decks in one guided workflow\u2014using insights from your previous projects."
+    },
+    {
+      "name": "sandraschi--virtualization-mcp",
+      "source": "./sandraschi--virtualization-mcp",
+      "description": "MCP Server and Webapp for VirtualBox, Hyper-V and Windows sandbox.  VM operations, networking, storage, snapshots, and security features."
+    },
+    {
+      "name": "sandraschi--virtualization-mcp",
+      "source": "./sandraschi--virtualization-mcp",
+      "description": "MCP Server and Webapp for VirtualBox, Hyper-V and Windows sandbox.  VM operations, networking, storage, snapshots, and security features."
+    },
+    {
+      "name": "misha1302--wist2",
+      "source": "./misha1302--wist2",
+      "description": "An extensible compiler framework (UniversalToolchain) and the Wist language, allowing you to incrementally add language features through a module-based system."
+    },
+    {
+      "name": "queracomputing--ppvm",
+      "source": "./queracomputing--ppvm",
+      "description": "ppvm"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262132,6 +262187,31 @@
       "name": "traoreera--xcore",
       "source": "./traoreera--xcore",
       "description": "An open-source Python framework for building extensible, plugin-based applications. Fragile monoliths or overly bloated microservices? xcore offers a third way.  You write your plugin as a simple Pyth"
+    },
+    {
+      "name": "yeet-src--netwatch",
+      "source": "./yeet-src--netwatch",
+      "description": "Network throughput as an 80s sunset. A two-sided bar chart of live traffic over time \u2014 egress (TX) climbing up from a neon zero-axis, ingress (RX) falling down, newest sample on the right. One interfa"
+    },
+    {
+      "name": "yeet-src--netwatch",
+      "source": "./yeet-src--netwatch",
+      "description": "Network throughput as an 80s sunset. A two-sided bar chart of live traffic over time \u2014 egress (TX) climbing up from a neon zero-axis, ingress (RX) falling down, newest sample on the right. One interfa"
+    },
+    {
+      "name": "stella--folio",
+      "source": "./stella--folio",
+      "description": "Framework-neutral DOCX engine with React/Vue editors, Nuxt integration, and agent tooling"
+    },
+    {
+      "name": "stella--folio",
+      "source": "./stella--folio",
+      "description": "Framework-neutral DOCX engine with React/Vue editors, Nuxt integration, and agent tooling"
+    },
+    {
+      "name": "stella--folio",
+      "source": "./stella--folio",
+      "description": "Framework-neutral DOCX engine with React/Vue editors, Nuxt integration, and agent tooling"
     },
     {
       "name": "cheerhuan--save-your-token",
