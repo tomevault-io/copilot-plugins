@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--quota-axi",
+  "displayName": "quota-axi",
+  "description": "Allow your agents to see your LLM subscription quota windows.",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/quota-axi",
+  "skills": []
+}
