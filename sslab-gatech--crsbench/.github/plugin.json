@@ -1,0 +1,9 @@
+{
+  "name": "sslab-gatech--crsbench",
+  "displayName": "CRSBench",
+  "description": "Cyber Reasoning System Benchmark Suite",
+  "version": "1.0.0",
+  "author": "sslab-gatech",
+  "homepage": "https://github.com/sslab-gatech/CRSBench",
+  "skills": []
+}
