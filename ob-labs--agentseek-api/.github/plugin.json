@@ -1,0 +1,9 @@
+{
+  "name": "ob-labs--agentseek-api",
+  "displayName": "agentseek-api",
+  "description": "Run LangGraph and LangChain apps behind a FastAPI runtime with a standalone agentseek-api CLI",
+  "version": "1.0.0",
+  "author": "ob-labs",
+  "homepage": "https://github.com/ob-labs/agentseek-api",
+  "skills": []
+}
