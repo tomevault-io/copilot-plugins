@@ -1,0 +1,9 @@
+{
+  "name": "miladjoodi--remote-jobboard",
+  "displayName": "Remote-JobBoard",
+  "description": "Fullstack remote job board built with Next.js, Prisma & PostgreSQL \u2014 syncs jobs from Remotive API",
+  "version": "1.0.0",
+  "author": "MiladJoodi",
+  "homepage": "https://github.com/MiladJoodi/Remote-JobBoard",
+  "skills": []
+}
