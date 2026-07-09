@@ -1,0 +1,44 @@
+{
+  "name": "benbenjiucai-skill",
+  "owner": "lululu811",
+  "repo": "benbenjiucai-skill",
+  "description": "\u6211\u8fd9\u903b\u8f91\u4e0d\u662f\u770bk\u7ebf\uff0c\u6280\u672f\u9762\u3002\u6211\u5173\u6ce8\u7684\u662f\u884c\u4e1a\u7684\u666f\u6c14\u5ea6\u57fa\u672c\u9762\u53cd\u8f6c",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lululu811/benbenjiucai-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T00:45:26Z"
+}
