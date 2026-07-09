@@ -1,105 +1,111 @@
-## themes
+## workspace
 
-> Seldon theme and token conventions
+> Seldon workspace file format conventions
 
 
-## Seldon Themes
+## Seldon Workspace
 
-Themes package reusable visual decisions as tokens. Components reference theme tokens with `@` paths, such as `@fontSize.medium`, `@swatch.primary`, and `@font.body`.
+Workspaces are serialized design files. They store catalog rows, node entries, theme entries, and resource entries as flat maps. Runtime reducers and services may use helper shapes, but `packages/core/workspace/README.md` is the canonical reference for the saved JSON format.
 
-Use `packages/core/themes/README.md` as the canonical reference for theme shape, token cells, type safety, imports, and adding theme content.
+Use `packages/core/workspace/README.md` as the source for field names, id patterns, referential integrity, and migration behavior.
 
-Use `packages/core/properties/README.md` for the property-style tagged values used inside look token `parameters`.
+### Top-Level Shape
 
-### Stock Themes
-
-Stock theme template ids are:
-
-- `earth`
-- `highContrast`
-- `industrial`
-- `googleMaterial`
-- `popPunk`
-- `ibmCarbon`
-- `seldon`
-- `adobeSpectrum`
-- `sunsetBlue`
-- `wildberry`
-
-`seldon` is the default stock preset. A workspace always keeps a `seldon` theme entry, and it cannot be removed. Other stock themes are optional.
-
-`ThemeTemplateId` is the stock template id union. `ThemeInstanceId` equals `ThemeTemplateId`. Workspace theme refs and keys in `workspace.themes` are opaque strings at workspace boundaries until workspace theme types are aligned.
-
-### Theme Structure
-
-Theme files use fixed top-level sections in this order:
+Serialized workspaces use these top-level keys in this order:
 
 1. `metadata`
-2. `modulation`, `colorHarmony`, `fontFamily`, `matchColor`, `highContrast`, `opticalPadding`, `autoFit`
-3. `size`, `dimension`, `margin`, `padding`, `gap`, `corners`, `borderWidth`, `blur`, `spread`
-4. `fontSize`, `fontWeight`, `lineHeight`
-5. `iconSet`
-6. `swatch`
-7. `font`, `border`, `gradient`, `shadow`, `scrollbar`
+2. `boards`
+3. `nodes`
+4. `themes`
+5. `font-collections`
+6. `icon-sets`
+7. `media`
 
-`iconSet` is not a token table. It has no `TokenType`, no `@iconSet.*` reference path, no `customN` slots, and no `THEME_TOKEN_SECTIONS` entry. It selects the active icon set and default render values.
+`boards` is the catalog row index. It does not hold node properties directly. Rows point to entries in `nodes`, `themes`, `font-collections`, `icon-sets`, or `media`.
 
-### Token References
+### Mutations Through Actions
 
-Use `ValueType.THEME_ORDINAL` for ordered scales, such as `@fontSize.medium`, `@margin.compact`, and `@borderWidth.small`.
+- Change a workspace only through workspace actions and reducer handlers. Do not mutate workspace state with editor-only logic.
+- The editor fires actions. An AI agent fires the same actions. Any new mutation must be available as an action so both paths reach it.
+- Validation middleware rejects an invalid action and returns the workspace unchanged. Verification middleware checks invariants after every action.
+- Persist edits as actions and `overrides`. Do not store design state as editor side state.
 
-Use `ValueType.THEME_CATEGORICAL` for named sets, such as `@swatch.primary`, `@font.body`, `@gradient.primary`, and `@shadow.moderate`.
+### Mutation Policy By Entity
 
-Reference types live in `types/theme-reference-keys.ts`. Token id unions live in `types/theme-token-ids.ts`.
+- Operation reach depends on the target entity: board, default variant, user variant, or instance. Read the policy from `packages/core/rules/config/rules.config.ts`.
+- `Local` changes only the target. `Syncs` also applies to linked instances. `Blocked` is a no-op.
+- Default variants are locked against structural change. They accept `setProperties` and `setTheme`, but not create, insert, delete, rename, reorder, or move at index `0`.
+- Reset drops overrides so the value falls back to its template. `setProperties` and `reset` stay `Local`.
+- Deleting a `schema` instance inside the default variant hides it with `display: EXCLUDE`. Every other instance deletes, including `schema` instances in user variants.
 
-### Token Tables
+### Parallel Entry Handling
 
-Token tables use `ThemeTokenTable<TUnion, TCell>`. Reserved keys are required. `customN` keys are optional. Do not add ordinary custom slots to `theme-token-ids.ts`; only edit those unions for new reserved keys or new sections.
+- Handle component, theme, font-collection, icon-set, and media entries with parallel reducer logic.
+- When you fix or add behavior for one entry type, apply it to the others that share the pattern. Do not fix one type in isolation.
 
-Every token except `@fontFamily.*` can accept `customN` keys. `@fontFamily.*` only has fixed `primary` and `secondary` slots.
+### Catalog Rows
 
-`@swatch.swatch1` through `@swatch.swatch4` are reserved dynamic palette slots, not custom slots.
+`boards` rows may have these `type` values:
 
-`computeTheme` injects cleared looks that stock themes do not author: `@font.normal`, `@border.none`, and `@shadow.none`. Each sets every facet to `EMPTY` and appears in the look picker like a stock look. The `@gradient.*` section has no cleared look.
+- `component`
+- `playground`
+- `theme`
+- `font-collection`
+- `icon-set`
+- `media`
 
-### Token Types
+Component and playground rows reference `nodes`. Theme rows reference `themes`. Resource rows reference their matching resource map.
 
-Theme token cells use `TokenType`:
+The first item in every row's `variants` list is the default variant. Default rows must stay aligned with the catalog. Change the shipped default through `overrides`, not by changing default structure.
 
-- `MODULATED` for scale steps against `modulation.parameters.baseSize` and `modulation.parameters.ratio`.
-- `EXACT` for fixed numeric values with units.
-- `DYNAMIC_SWATCH` for palette roles resolved from `colorHarmony` by `computeTheme`. The roles are `white`, `gray`, `black`, `primary`, and `swatch1` through `swatch4`. Do not hand-author the eight palette colors. Switching base color or harmony retunes the whole palette.
-- `SWATCH` for explicit color values.
-- `FONT_FAMILY` for `fontFamily.primary` and `fontFamily.secondary`.
-- `OPTION` for discrete option keys.
-- `LOOK` for compound recipes under `font`, `border`, `gradient`, `shadow`, and `scrollbar`.
+### Nodes
 
-Look token `parameters` contain property-style tagged values. Resolving an `@<scope>.<key>` reference into CSS values is property-side work in `helpers/resolution`, not the themes module.
+`nodes` is a flat map for component and playground nodes only. It does not store themes, icon sets, font collections, or media.
 
-### Materialization
+Node entries use:
 
-Use `computeTheme(stockTheme)` to normalize a full theme object and resolve dynamic swatches into a `ComputedTheme`.
+- `type`: `"default"`, `"variant"`, or `"instance"`
+- `template`: `catalog:{ComponentId}` or `node:{nodeId}`
+- `overrides`: property values layered over the template
+- `theme`: a theme entry id string or `null`
 
-Use `instantiateTheme(templateId, overrides, STOCK_THEMES_BY_ID)` to derive a theme from a stock template and overrides. Empty overrides skip the merge and compute the base theme.
+Default nodes use `template: catalog:{ComponentId}`. Variant and instance nodes may use `template: node:{nodeId}`. Instance nodes may also use `template: catalog:{ComponentId}` when they point straight to a catalog schema.
 
-Import `instantiateTheme`, `normalizeThemeInput`, `getDynamicSwatchColors`, `getPalette`, and colorspace helpers from `@seldon/core/themes/compute`. Import `computeTheme`, `normalizeTheme`, `THEMES_BY_ID`, `STOCK_THEMES_BY_ID`, and `defaultTheme` from `@seldon/core/themes`.
+Only write property keys in `overrides` when the referenced template exposes those properties. Unknown override keys are ignored by merge logic.
 
-Workspace files store raw theme authoring state only. Computed theme rows come from read-side selectors such as `computeWorkspaceThemes` and `getComputedTheme`; they are not persisted.
+### Themes
 
-The editor renders from the computed theme. Only the factory emits CSS variable swatch refs such as `--sdn-*` during export. Do not define theme tokens as CSS variables in core, and do not add editor logic that depends on those variables.
+`themes` is a flat map for theme entries.
 
-High Contrast is a computed color, not a stored theme token. Property-side resolution derives it from the effective background up the parent chain. A transparent or `NONE` background makes the resolver continue up.
+Theme entries use:
 
-### Adding Themes And Tokens
+- `type`: `"default"` or `"variant"`
+- `template`: `catalog:{ThemeTemplateId}` or `theme:{themeId}`
+- `overrides`: token values layered over the template
 
-When adding a stock theme:
+Default themes use `template: catalog:{ThemeTemplateId}`. Variant themes use `template: theme:{themeId}`.
 
-1. Add the id to `ThemeTemplateId` in `types/theme-id.ts`.
-2. Create the stock file under `catalog/` with every section from `packages/core/themes/README.md`.
-3. Register it in `catalog/index.ts` by adding the import and including it in `STOCK_THEMES`.
-4. Do not edit token id unions unless adding reserved keys or sections.
+### Integrity Rules
 
-When adding a new token kind or section, update the matching types, values, constants, schemas, exports, and section ordering described in `packages/core/themes/README.md`.
+When editing workspace code or docs:
+
+- Keep catalog row `variants` references in the map required by the row `type`.
+- Use `children` only for `component` and `playground` row trees.
+- Keep theme, font collection, icon set, and media `variants` entries as `{ "id" }` only.
+- Keep template references in `{prefix}:{suffix}` form.
+- Reject template prefixes that are not valid for the entry type.
+- Keep component and playground child graphs acyclic.
+- Keep theme template graphs acyclic.
+- Keep top-level map keys unique.
+- Resolve every id in `variants` and nested `children` to a key in the map for the board `type`: `component` and `playground` to `nodes`, `theme` to `themes`, `font-collection` to `font-collections`, `icon-set` to `icon-sets`, `media` to `media`.
+- Resolve every `template` suffix to a key in the map implied by its prefix.
+- After a delete, remove or repoint references so no id dangles. Remove node rows that reference nothing.
+
+### Naming And Migration
+
+Use camelCase catalog ids and component keys. Use id patterns from `packages/core/workspace/README.md`, such as `component-{componentKey}-{suffix}`, `playground-{componentKey}-{suffix}`, and `theme-{componentKey}-{suffix}`.
+
+`metadata.version` is the migration counter. It is separate from the file format specification version. The migration middleware lives in `packages/core/workspace/middleware/migration/middleware.ts`. The v0 baseline ships no migration steps.
 
 ---
 > Source: [SeldonDigital/seldon](https://github.com/SeldonDigital/seldon) — distributed by [TomeVault](https://tomevault.io).
