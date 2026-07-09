@@ -1,0 +1,14 @@
+{
+  "name": "funky-eyes--best-copilot",
+  "displayName": "best-copilot",
+  "description": "Best Team for GitHub Copilot & Claude Code & Codex Workflow with Multi-Agent Collaboration, Long-Term Memory, and Self-Evolution.",
+  "version": "1.0.0",
+  "author": "funky-eyes",
+  "homepage": "https://github.com/funky-eyes/best-copilot",
+  "skills": [
+    {
+      "name": "repo-init-official",
+      "description": ""
+    }
+  ]
+}
