@@ -1,0 +1,9 @@
+{
+  "name": "hasna--instructions",
+  "displayName": "instructions",
+  "description": "AI coding agent instruction & configuration manager (formerly @hasna/configs). CLI + MCP + HTTP API (instructions-serve) + generated SDK + Dashboard.",
+  "version": "1.0.0",
+  "author": "hasna",
+  "homepage": "https://github.com/hasna/instructions",
+  "skills": []
+}
