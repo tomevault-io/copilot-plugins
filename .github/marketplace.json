@@ -191434,6 +191434,11 @@
       "description": "Belt-printer fork of OrcaSlicer for 45\u00b0 inclined-belt machines (CR-30 / IdeaFormer IR3 V2 family). AGPL-3.0."
     },
     {
+      "name": "sahir619--fable-method",
+      "source": "./sahir619--fable-method",
+      "description": "The Fable Workflow: how Claude Fable 5 worked, distilled into skills any model can run, with the eval that keeps it honest. Think / act / prove."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
