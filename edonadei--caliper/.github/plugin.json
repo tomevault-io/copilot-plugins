@@ -1,0 +1,9 @@
+{
+  "name": "edonadei--caliper",
+  "displayName": "caliper",
+  "description": "Local-first eval harness for Claude Code, Codex, Hermes and Pi skills",
+  "version": "1.0.0",
+  "author": "edonadei",
+  "homepage": "https://github.com/edonadei/caliper",
+  "skills": []
+}
