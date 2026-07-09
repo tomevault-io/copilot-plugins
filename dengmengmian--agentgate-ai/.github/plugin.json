@@ -1,0 +1,9 @@
+{
+  "name": "dengmengmian--agentgate-ai",
+  "displayName": "agentgate-ai",
+  "description": "\u4e00\u4e2a\u672c\u5730 AI \u7f51\u5173\uff0c\u7edf\u4e00\u7ba1\u7406\u6a21\u578b\u8bf7\u6c42 \u00b7 Local AI gateway for any AI client \u2014 route, convert, fail over, and trace requests across 26 providers.",
+  "version": "1.0.0",
+  "author": "dengmengmian",
+  "homepage": "https://github.com/dengmengmian/agentgate-ai",
+  "skills": []
+}
