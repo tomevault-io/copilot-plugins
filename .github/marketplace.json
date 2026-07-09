@@ -205054,6 +205054,51 @@
       "description": "\u8de8\u5de5\u5177\u4e2a\u4eba\u6210\u679c\u53f0\u8d26 CLI(git/AI\u4f1a\u8bdd/\u6587\u6863/\u6570\u636e,\u96f6\u4f9d\u8d56)"
     },
     {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
+      "name": "seldondigital--seldon",
+      "source": "./seldondigital--seldon",
+      "description": "Seldon \u00b7 Core, Factory, and Editor"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -261592,6 +261637,31 @@
       "name": "commandprompt--open-pg-tde",
       "source": "./commandprompt--open-pg-tde",
       "description": "open_pg_tde - Transparent Data Encryption for native PostgreSQL. An open fork of Percona pg_tde, maintained by Command Prompt, Inc."
+    },
+    {
+      "name": "noirbright--codexhub",
+      "source": "./noirbright--codexhub",
+      "description": "CodexHub"
+    },
+    {
+      "name": "ather-techie--ai-agents-design-patterns",
+      "source": "./ather-techie--ai-agents-design-patterns",
+      "description": "20 runnable LLM agent design patterns in Python, benchmarked, traced, offline-compatible. ReAct, multi-agent, constitutional AI, and more."
+    },
+    {
+      "name": "openaisec--miko",
+      "source": "./openaisec--miko",
+      "description": "Miko"
+    },
+    {
+      "name": "mc7yxyyq96-sketch--hi-code",
+      "source": "./mc7yxyyq96-sketch--hi-code",
+      "description": "Hi Code \u2014 \u672c\u5730\u4f18\u5148\u7684\u684c\u9762\u7f16\u7801 Agent \u5de5\u4f5c\u53f0 \u00b7 a local-first desktop coding agent workbench for any OpenAI-compatible model"
+    },
+    {
+      "name": "mc7yxyyq96-sketch--hi-code",
+      "source": "./mc7yxyyq96-sketch--hi-code",
+      "description": "Hi Code \u2014 \u672c\u5730\u4f18\u5148\u7684\u684c\u9762\u7f16\u7801 Agent \u5de5\u4f5c\u53f0 \u00b7 a local-first desktop coding agent workbench for any OpenAI-compatible model"
     },
     {
       "name": "cheerhuan--save-your-token",
