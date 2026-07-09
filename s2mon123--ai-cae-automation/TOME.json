@@ -1,0 +1,44 @@
+{
+  "name": "AI_CAE_Automation",
+  "owner": "S2mon123",
+  "repo": "AI_CAE_Automation",
+  "description": "In order to better adapt to the current Agent environment, we have organized environment configurations and provided prompt examples for mainstream software such as Abaqus, Ansys, COMSOL, Hypermesh, Solidworks, and CAD. In addition, this also covers Agent\u2011driven content for electrical\u2011related tools like CAXA and PCschematic. Continuously updating\u2026",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/S2mon123/AI_CAE_Automation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T14:33:08Z"
+}
