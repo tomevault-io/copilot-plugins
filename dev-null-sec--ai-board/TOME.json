@@ -1,0 +1,44 @@
+{
+  "name": "ai-board",
+  "owner": "dev-null-sec",
+  "repo": "ai-board",
+  "description": "\u7ed9 AI agent \u7528\u7684\u672c\u5730\u8ba1\u5212\u770b\u677f CLI",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dev-null-sec/ai-board",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T00:31:19Z"
+}
