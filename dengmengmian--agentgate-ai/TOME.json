@@ -1,0 +1,44 @@
+{
+  "name": "agentgate-ai",
+  "owner": "dengmengmian",
+  "repo": "agentgate-ai",
+  "description": "\u4e00\u4e2a\u672c\u5730 AI \u7f51\u5173\uff0c\u7edf\u4e00\u7ba1\u7406\u6a21\u578b\u8bf7\u6c42 \u00b7 Local AI gateway for any AI client \u2014 route, convert, fail over, and trace requests across 26 providers.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dengmengmian/agentgate-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T00:40:50Z"
+}
