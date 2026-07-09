@@ -1,0 +1,24 @@
+# 2d-engine
+
+> Tome by [atraczyk](https://github.com/atraczyk/2d-engine) — distributed by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [atraczyk/2d-engine](https://github.com/atraczyk/2d-engine).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/atraczyk/2d-engine](https://github.com/atraczyk/2d-engine)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-p -->
