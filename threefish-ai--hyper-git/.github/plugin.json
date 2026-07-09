@@ -1,0 +1,9 @@
+{
+  "name": "threefish-ai--hyper-git",
+  "displayName": "hyper-git",
+  "description": "HyperGit brings IntelliJ IDEA's powerful Git & Commit modules to VS Code, enhanced with AI-powered autonomous agents for intelligent repository management. Experience Git in a higher dimension.",
+  "version": "1.0.0",
+  "author": "ThreeFish-AI",
+  "homepage": "https://github.com/ThreeFish-AI/hyper-git",
+  "skills": []
+}
