@@ -1,0 +1,9 @@
+{
+  "name": "sahir619--fable-method",
+  "displayName": "fable-method",
+  "description": "The Fable Workflow: how Claude Fable 5 worked, distilled into skills any model can run, with the eval that keeps it honest. Think / act / prove.",
+  "version": "1.0.0",
+  "author": "Sahir619",
+  "homepage": "https://github.com/Sahir619/fable-method",
+  "skills": []
+}
