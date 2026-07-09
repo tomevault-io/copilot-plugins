@@ -1,0 +1,9 @@
+{
+  "name": "programmerzamannow--oltp-olap-demo",
+  "displayName": "oltp-olap-demo",
+  "description": "OLTP to OLAP Demo with Debezium",
+  "version": "1.0.0",
+  "author": "ProgrammerZamanNow",
+  "homepage": "https://github.com/ProgrammerZamanNow/oltp-olap-demo",
+  "skills": []
+}
