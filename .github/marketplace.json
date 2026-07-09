@@ -151754,6 +151754,21 @@
       "description": "GraphRag-MCP-Platform"
     },
     {
+      "name": "animaios--animalavd",
+      "source": "./animaios--animalavd",
+      "description": "eBPF-based scx_lavd scheduler fork with a native Rust daemon for Hyprland window focus tracking & real-time interactive latency boosting."
+    },
+    {
+      "name": "imchine--fintech-solution",
+      "source": "./imchine--fintech-solution",
+      "description": "FinTech AI Solution for SMEs to calculate financial values"
+    },
+    {
+      "name": "wxxsfxyzm--miuibackgesturehook",
+      "source": "./wxxsfxyzm--miuibackgesturehook",
+      "description": "LSPosed module using modern Xposed API 102 for SystemUI-side MIUI back gesture research."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -156547,6 +156562,11 @@
       "name": "black-jl--research-project-flow",
       "source": "./black-jl--research-project-flow",
       "description": "Research-Project-Flow"
+    },
+    {
+      "name": "korayteacher--fintech-advisor",
+      "source": "./korayteacher--fintech-advisor",
+      "description": "ai fintech financial advisor for your portfolio"
     },
     {
       "name": "vm--nila-code",
