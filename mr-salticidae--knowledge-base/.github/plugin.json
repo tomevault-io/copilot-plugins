@@ -1,0 +1,9 @@
+{
+  "name": "mr-salticidae--knowledge-base",
+  "displayName": "knowledge-base",
+  "description": "\u8df3\u86db\u5148\u751f\u7684 AIGC \u521b\u4f5c\u65b9\u6cd5\u8bba\u516c\u5f00\u77e5\u8bc6\u5e93\uff0c\u6c89\u6dc0 AI \u56fe\u50cf\u3001\u89c6\u9891\u3001\u97f3\u4e50\u3001\u89d2\u8272\u4e00\u81f4\u6027\u3001\u590d\u76d8\u673a\u5236\u4e0e\u4eba\u673a\u534f\u4f5c\u5de5\u4f5c\u6d41\u4e2d\u7684\u53ef\u590d\u7528 insight\u3002",
+  "version": "1.0.0",
+  "author": "Mr-Salticidae",
+  "homepage": "https://github.com/Mr-Salticidae/knowledge-base",
+  "skills": []
+}
