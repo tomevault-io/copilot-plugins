@@ -4,7 +4,7 @@
   "repo": "usagepal",
   "description": "Track all your AI coding subscriptions from your menu bar. Open-source fork of OpenUsage. macOS, Rust + Tauri.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Halloweedev/usagepal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T00:54:44Z"
+  "distributed_at": "2026-07-09T00:58:28Z"
 }
