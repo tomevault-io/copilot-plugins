@@ -1,90 +1,43 @@
-## engineering
+## markdown
 
-> TypeScript engineering guidance for Seldon
+> Markdown writing style for Seldon docs
 
 
-## Engineering Guidance
+## Markdown Style
 
-Use the local code first. Follow nearby patterns, public APIs, and domain rules before adding a new abstraction.
+When writing or editing Markdown files:
 
-### TypeScript
+- Use active language and straightforward descriptions.
+- Avoid parentheticals, semicolons, and em dash sentences.
+- Use simple grammar. Prefer short sentences. Split any sentence that carries more than one idea.
+- Avoid jargon. Use terminology from `GLOSSARY.md` and do not invent new terms.
+- Use one term for each concept. Do not swap between near synonyms unless `GLOSSARY.md` defines both.
+- Avoid metaphors unless the glossary uses that wording. Skip casual metaphors for technical behavior.
+- Avoid overly specific notation when simple wording is clearer. For example, write `a schema`, not `the one schema`.
+- Prefer `Note:` and `Important:` callouts only when the reader must stop. Otherwise use a plain sentence.
+- Avoid stock phrases like `source of truth`, `canonical`, and `authoritative` unless the doc states a real ownership rule.
+- When explaining a data shape, show the smallest valid example before long prose or large tables.
+- Prefer `X does Y` over `X is used to Y`. Prefer `Use X to Y` over `It is important to use X`. Prefer concrete subjects over vague ones like `the thing that`.
+- Markdown is hand-formatted. Prettier does not format Markdown. `*.md` is listed in `.prettierignore`.
+- Keep tables compact. Use a single space around cell content. Do not pad cells to align columns, because no formatter will fix them.
 
-- Prefer named exports and pure functions for shared TypeScript modules.
-- Use classes only when matching existing code or when stateful encapsulation is justified.
-- Use descriptive names. Do not force auxiliary verbs on every variable.
-- Avoid `any` in production code unless the boundary is unknown data, migration, legacy compatibility, or a narrow type escape.
-- Allow enums where they are already part of the public or serialized API. Do not apply a blanket `avoid enums` rule.
-- All comments should be about current behavior, not legacy, deprecated, past behavior, or anything that is not relevant going forward. 
-- Do not add comments that are obvious or referential to markdown files. 
-- Add JSDocs as needed.
-- In `*.schema.ts` files, inline every property and `overrides` object literal at its child. Do not hoist shared schema values into a module `const` and reuse it. The only module-level values are the `schema` export and its `exportConfig`. See `.cursor/rules/components.mdc`.
+### Editing Existing Docs
 
-### Naming
+- Match the document's existing voice and structure when you edit it. Do not impose a new style on a rewrite.
+- Update the affected doc in the same change as the code. Check that examples and field names still match the code.
+- When you move, rename, or delete a file or heading, update every link that points to it. Use relative links inside the repo.
+- Keep one doc per topic. When you consolidate, move content into the main doc and delete the duplicate.
 
-- Match the local filename convention of the area you are editing.
-- Most general TypeScript modules use lowercase kebab-case, such as `set-node-properties.ts`.
-- Component schema files use `PascalCase.schema.ts`.
-- Service and helper modules keep their existing suffix-based names, such as `theme.service.ts` and `workspace-mutation.helper.ts`.
-- Match exported reducer handler names to their file names in camelCase verb+noun form, such as `set-node-properties.ts` -> `setNodeProperties`.
-- Group workspace reducer handlers by action verb, such as `add/`, `remove/`, `set/`, `reset/`, `insert/`, `move/`, `reorder/`, and `duplicate/`. Use support folders such as `shared/`, `normalize/`, and `stubs/` only when the file is not a direct action handler and matches the existing structure.
-- Avoid `handle*` prefixes for reducer handlers unless nearby code already uses that pattern.
+### Before Answering
 
-### Change Scope
+Before giving Markdown text, check the draft for:
 
-- Keep edits scoped to the requested behavior.
-- Avoid unrelated refactors, formatting churn, and metadata changes.
-- Add abstractions only when they reduce real duplication or match an established local pattern.
-
-### Package Boundaries
-
-- Put behavior and data in `core`. The editor consumes `core` and must not special-case or re-implement core logic.
-- Keep export concerns in the `factory`. CSS variable refs and language-specific output belong to factory export, not to `core` or the editor.
-- When a value or ordering looks wrong in the editor, fix it in `core` so every consumer gets the same result. Do not patch it in the editor.
-- Persist user edits as workspace actions and reducers. Do not store design state as editor-only side state.
-
-### Consistency Over Special Cases
-
-- Follow existing patterns. A new case should behave the same way as its siblings. A new compound property behaves like other compound properties.
-- Do not add special code or special casing when a general pattern already exists.
-- Prefer the simplest change that fits the existing model. Do not over-complicate a fix.
-
-### Tests And Migrations
-
-- Do not add or update tests unless explicitly asked.
-- Do not add or update migrations unless explicitly asked.
-
-### Debugging And Regressions
-
-- When something that worked breaks, first find the specific recent change that caused it. Prefer the smallest targeted fix over a broad refactor.
-- Do not keep code that breaks existing behavior. If a change regresses atomic, shorthand, or compound behavior, revert that part.
-- Do not spiral into deep rewrites for a small regression.
-
-### Verification
-
-- After changes, run `tsc` across the whole repo and resolve all type errors before reporting done.
-- Keep all imports valid and remove dead or redundant code touched by the change.
-
-### Workflow
-
-- Analyze and report a plan before editing. Wait for approval before making file changes.
-
-### Version Control
-
-- Run inspection commands freely, such as `git status`, `git diff`, `git log`, and `git stash`.
-- Never run a command that changes the working tree, switches or edits a branch, or opens a PR without asking first. This covers `git commit`, `git push`, `git reset`, `git restore`, `git checkout`, `git switch`, `git branch`, `git merge`, `git rebase`, and `gh pr create`.
-
-### Framework Guidance
-
-Keep React, Next.js, Web Vitals, image, and URL-state guidance out of this global rule. App-code framework rules live in file-scoped rules.
-
-### JSX Authoring (Always Enforced)
-
-Important: When you edit any `.tsx` file under `packages/editor/`, you MUST follow `.cursor/rules/editor-jsx.mdc`. The core rule, repeated here so it is always in scope:
-
-- Returned JSX holds element tags and identifier references only. Compute nothing inside the returned JSX.
-- No expressions in returned JSX. This covers ternaries, `&&`, `||`, comparisons, computed objects or arrays, inline `style` objects, template literals, inline arrow or function handlers, and helper or function calls that build a value, such as `comboboxField={buildFieldStateProps({ selected })}`.
-- Hoist every JSX value into a named `const`, `useMemo`, or `useCallback` above the `return`, then reference the identifier. Write `const comboboxField = buildFieldStateProps({ selected })`, then `comboboxField={comboboxField}`.
-- Bare literal slot enablers stay inline. A positional `{}`, `null`, or `undefined` that only turns a slot on or off carries no logic.
+- Undefined jargon. Use only terms from `GLOSSARY.md`.
+- Overly specific wording. Write `a property`, not `one property` or `the one property`.
+- Parentheticals, semicolons, and em dash sentences. These should never be used.
+- Long sentences that carry more than one idea. Write simple active sentences.
+- Near synonyms for the same concept. Never use these.
+- Casual metaphors or invented wording. Avoid conceptual or marketing speak.
 
 ---
 > Source: [SeldonDigital/seldon](https://github.com/SeldonDigital/seldon) — distributed by [TomeVault](https://tomevault.io).
