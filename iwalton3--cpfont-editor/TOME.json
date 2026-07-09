@@ -1,0 +1,44 @@
+{
+  "name": "cpfont-editor",
+  "owner": "iwalton3",
+  "repo": "cpfont-editor",
+  "description": "Edit and fix fonts for the Crosspoint E-Reader Firmware (not affiliated)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iwalton3/cpfont-editor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T02:37:07Z"
+}
