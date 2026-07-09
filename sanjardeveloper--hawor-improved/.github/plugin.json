@@ -1,0 +1,9 @@
+{
+  "name": "sanjardeveloper--hawor-improved",
+  "displayName": "HaWoR-improved",
+  "description": "Improved HaWoR fork: temporally stable, lower-jitter egocentric hand pose via zero-lag smoothing + bone canonicalization (no retraining)",
+  "version": "1.0.0",
+  "author": "SanjarDeveloper",
+  "homepage": "https://github.com/SanjarDeveloper/HaWoR-improved",
+  "skills": []
+}
