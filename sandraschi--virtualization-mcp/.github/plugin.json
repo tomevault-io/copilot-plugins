@@ -1,0 +1,9 @@
+{
+  "name": "sandraschi--virtualization-mcp",
+  "displayName": "virtualization-mcp",
+  "description": "MCP Server and Webapp for VirtualBox, Hyper-V and Windows sandbox.  VM operations, networking, storage, snapshots, and security features.",
+  "version": "1.0.0",
+  "author": "sandraschi",
+  "homepage": "https://github.com/sandraschi/virtualization-mcp",
+  "skills": []
+}
