@@ -1,0 +1,9 @@
+{
+  "name": "anysung--heatpumpdb-app",
+  "displayName": "heatpumpdb-app",
+  "description": "Viewer of HVAC products in Germany",
+  "version": "1.0.0",
+  "author": "anysung",
+  "homepage": "https://github.com/anysung/heatpumpdb-app",
+  "skills": []
+}
