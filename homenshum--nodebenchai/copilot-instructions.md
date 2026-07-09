@@ -1,51 +1,42 @@
-## agent-run-verdict-workflow
+## agentic-reliability
 
-> Use this rule whenever a change affects agent runs, task sessions, execution traces, proof packs, verified results, citations, or operator-facing workflow UI.
+> Agentic Systems Reliability — 8-point checklist for agent-facing infrastructure
 
 
-# Agent Run Verdict Workflow
+# Agentic Systems Reliability
 
-Use this rule whenever a change affects agent runs, task sessions, execution traces, proof packs, verified results, citations, or operator-facing workflow UI.
+Every tool response must be honest, every resource bounded, every failure surfaced. Agents trust tool output literally.
 
-## Required workflow sections
-1. **Contract + data model wiring**
-2. **Backend issue context enrichment**
-3. **Frontend live workflow panels**
-4. **Verdict exactness UI surfacing**
-5. **Tests + verification**
+## 8-Point Mandatory Checklist (run on ALL backend/infra code)
 
-## Protocol
-- Extend the existing NodeBench harness. Do not build a parallel agent platform.
-- Start at the contract layer: session shape, verdict shape, UI shape.
-- Prefer deriving verdict state from existing session and trace metadata before adding new persistence.
-- Enrich backend context from decisions, verification checks, evidence, approvals, source refs, and drift.
-- Put the operator summary above the raw trace drill-down.
-- Keep verdicts bounded and exact: `verified`, `provisionally_verified`, `needs_review`, `awaiting_approval`, `failed`, `in_progress`.
-- Always surface open issues and next actions when the run is not fully verified.
+1. **BOUND** — Every in-memory collection (Map, Array, Set) has MAX + eviction on insert
+2. **HONEST_STATUS** — No 2xx on failure paths. 502 for backend down, 504 for timeout, 500 for unhandled
+3. **HONEST_SCORES** — No hardcoded `passed: true` or score floors. Default `false`/`0`/`"UNKNOWN"` when not evaluated
+4. **TIMEOUT** — AbortController + checkBudget() gates between async stages. Return 504 on expiry
+5. **SSRF** — URL validation (protocol + hostname blocklist) before every fetch with agent/user input
+6. **BOUND_READ** — ReadableStream with MAX_BYTES + cancel on overflow for all external response bodies
+7. **ERROR_BOUNDARY** — asyncHandler wrapper or try/catch on every async route handler
+8. **DETERMINISTIC** — stableStringify (sorted keys) for all content-addressed hashing
 
-## Progressive disclosure requirement
-If the run is expected to resolve tool usage itself, prefer using or surfacing:
-- `discover_tools`
-- `smart_select_tools`
-- `get_tool_quick_ref`
-- `get_workflow_chain`
-- `findTools`
+## Why Agents Amplify Bugs
+- Agents call tools in tight loops → unbounded Maps OOM in minutes not hours
+- Agents parse status codes literally → fake 201 becomes false belief in reasoning chain
+- Agents generate URLs from reasoning → SSRF via hallucinated internal addresses
+- Inflated evidence scores → agents skip verification on bad data
 
-## Verification floor
-1. `npx convex codegen`
-2. `npx tsc --noEmit`
-3. targeted tests for derivation and UI
-4. `npm run build`
-5. `npm run dogfood:verify:smoke` when the UI changed
+## Severity
+- **P0**: Crash, SSRF, false decisions from fake data → fix immediately
+- **P1**: Degraded data, no crash → fix same session
+- **P2**: Suboptimal but safe → fix when touched
 
-## Anti-patterns
-- Treating `completed` as equivalent to `verified`
-- Shipping a verdict badge with no evidence logic
-- Hiding next actions in raw traces
-- Stopping after one layer when the workflow spans contract, backend, UI, and verification
-
-## Canonical reference
-`docs/agents/AGENT_RUN_VERDICT_WORKFLOW.md`
+## What to Grep For
+- `new Map()` without MAX constant in same file
+- `res.status(2` in catch/fallback branches
+- `passed: true` with "caller should validate" comments
+- `await response.text()` on external fetches
+- `fetch(variable)` without URL validation
+- `async (req, res) =>` without error handling
+- `JSON.stringify(obj)` → `createHash` without sorted keys
 
 ---
 > Source: [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — distributed by [TomeVault](https://tomevault.io).
