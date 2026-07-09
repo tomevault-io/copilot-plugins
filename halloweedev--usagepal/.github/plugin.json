@@ -1,0 +1,9 @@
+{
+  "name": "halloweedev--usagepal",
+  "displayName": "usagepal",
+  "description": "Track all your AI coding subscriptions from your menu bar. Open-source fork of OpenUsage. macOS, Rust + Tauri.",
+  "version": "1.0.0",
+  "author": "Halloweedev",
+  "homepage": "https://github.com/Halloweedev/usagepal",
+  "skills": []
+}
