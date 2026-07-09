@@ -1,0 +1,9 @@
+{
+  "name": "lancedb--liteparse-lancedb-pdf-qa",
+  "displayName": "liteparse-lancedb-pdf-qa",
+  "description": "Turn messy, visual PDF reports into a local, inspectable multimodal evidence store in LanceDB",
+  "version": "1.0.0",
+  "author": "lancedb",
+  "homepage": "https://github.com/lancedb/liteparse-lancedb-pdf-qa",
+  "skills": []
+}
