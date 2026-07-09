@@ -1,0 +1,9 @@
+{
+  "name": "kim-em--hex-dev",
+  "displayName": "hex-dev",
+  "description": "Verified computational algebra in Lean 4 \u2014 polynomial factoring, LLL, and friends",
+  "version": "1.0.0",
+  "author": "kim-em",
+  "homepage": "https://github.com/kim-em/hex-dev",
+  "skills": []
+}
