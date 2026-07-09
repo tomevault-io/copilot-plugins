@@ -1,0 +1,9 @@
+{
+  "name": "paradedb--drizzle-paradedb",
+  "displayName": "drizzle-paradedb",
+  "description": "Official extension to Drizzle for use with ParadeDB",
+  "version": "1.0.0",
+  "author": "paradedb",
+  "homepage": "https://github.com/paradedb/drizzle-paradedb",
+  "skills": []
+}
