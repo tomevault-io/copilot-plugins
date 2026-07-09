@@ -1,0 +1,9 @@
+{
+  "name": "travofoz--cdp-ninja",
+  "displayName": "cdp-ninja",
+  "description": "\ud83e\udd77 Lightweight Chrome DevTools Protocol bridge for browser debugging and security testing",
+  "version": "1.0.0",
+  "author": "travofoz",
+  "homepage": "https://github.com/travofoz/cdp-ninja",
+  "skills": []
+}
