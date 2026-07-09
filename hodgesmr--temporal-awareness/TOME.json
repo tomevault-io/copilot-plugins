@@ -4,7 +4,7 @@
   "repo": "temporal-awareness",
   "description": "A Claude Code Agent Skill for temporal awareness via the date command",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hodgesmr/temporal-awareness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T02:34:05Z"
+  "distributed_at": "2026-07-09T02:38:08Z"
 }
