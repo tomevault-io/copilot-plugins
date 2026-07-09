@@ -1,0 +1,9 @@
+{
+  "name": "jholhewres--anchored",
+  "displayName": "anchored",
+  "description": "Persistent cross-tool memory for AI coding agents. Single binary. Zero dependencies.",
+  "version": "1.0.0",
+  "author": "jholhewres",
+  "homepage": "https://github.com/jholhewres/anchored",
+  "skills": []
+}
