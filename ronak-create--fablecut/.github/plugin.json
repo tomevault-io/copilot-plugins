@@ -1,0 +1,9 @@
+{
+  "name": "ronak-create--fablecut",
+  "displayName": "FableCut",
+  "description": "Zero-dependency browser video editor that AI agents can drive \u2014 JSON timeline, MCP + REST, live-reloading UI",
+  "version": "1.0.0",
+  "author": "ronak-create",
+  "homepage": "https://github.com/ronak-create/FableCut",
+  "skills": []
+}
