@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--automerge-r",
+  "displayName": "automerge-r",
+  "description": "R Bindings for the Automerge CRDT Library",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/automerge-r",
+  "skills": []
+}
