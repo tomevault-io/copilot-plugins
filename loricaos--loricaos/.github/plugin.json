@@ -1,0 +1,9 @@
+{
+  "name": "loricaos--loricaos",
+  "displayName": "LoricaOS",
+  "description": "A capability-secured operating system built on the Aegis kernel.",
+  "version": "1.0.0",
+  "author": "LoricaOS",
+  "homepage": "https://github.com/LoricaOS/LoricaOS",
+  "skills": []
+}
