@@ -4,7 +4,7 @@
   "repo": "netwatch",
   "description": "Network throughput as an 80s sunset. A two-sided bar chart of live traffic over time \u2014 egress (TX) climbing up from a neon zero-axis, ingress (RX) falling down, newest sample on the right. One interface or all of them, sampled straight from the kernel's byte counters.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yeet-src/netwatch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T18:30:36Z"
+  "distributed_at": "2026-07-09T18:31:14Z"
 }
