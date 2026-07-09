@@ -1,0 +1,9 @@
+{
+  "name": "jorge-huxley--intervalssync",
+  "displayName": "intervalssync",
+  "description": "Sync iGPSPORT and Bryton activities with Intervals.icu, and send planned workouts back to your cycling computer.",
+  "version": "1.0.0",
+  "author": "jorge-huxley",
+  "homepage": "https://github.com/jorge-huxley/intervalssync",
+  "skills": []
+}
