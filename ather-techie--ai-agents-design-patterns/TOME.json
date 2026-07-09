@@ -1,0 +1,44 @@
+{
+  "name": "ai-agents-design-patterns",
+  "owner": "ather-techie",
+  "repo": "ai-agents-design-patterns",
+  "description": "20 runnable LLM agent design patterns in Python, benchmarked, traced, offline-compatible. ReAct, multi-agent, constitutional AI, and more.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ather-techie/ai-agents-design-patterns",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T08:31:06Z"
+}
