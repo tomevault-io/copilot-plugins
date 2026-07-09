@@ -1,0 +1,9 @@
+{
+  "name": "yeet-src--netwatch",
+  "displayName": "netwatch",
+  "description": "Network throughput as an 80s sunset. A two-sided bar chart of live traffic over time \u2014 egress (TX) climbing up from a neon zero-axis, ingress (RX) falling down, newest sample on the right. One interfa",
+  "version": "1.0.0",
+  "author": "yeet-src",
+  "homepage": "https://github.com/yeet-src/netwatch",
+  "skills": []
+}
