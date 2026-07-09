@@ -1,0 +1,9 @@
+{
+  "name": "codingstark-dev--opencode-dataset-plugin",
+  "displayName": "opencode-dataset-plugin",
+  "description": "Capture OpenCode agent sessions into a local JSONL dataset, review examples in an OpenTUI terminal UI, and export to the formats LLM researchers actually use.",
+  "version": "1.0.0",
+  "author": "codingstark-dev",
+  "homepage": "https://github.com/codingstark-dev/opencode-dataset-plugin",
+  "skills": []
+}
