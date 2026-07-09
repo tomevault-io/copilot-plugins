@@ -1,0 +1,9 @@
+{
+  "name": "the-open-engine--opcore",
+  "displayName": "opcore",
+  "description": "The robustness engine for AI coding agents. A local Rust code graph gives an agent repo-wide understanding, a validation gate that runs before an edit lands, and safe symbol-aware edits. Deep on TypeS",
+  "version": "1.0.0",
+  "author": "the-open-engine",
+  "homepage": "https://github.com/the-open-engine/opcore",
+  "skills": []
+}
