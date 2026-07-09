@@ -1,0 +1,9 @@
+{
+  "name": "jarry126--queryforge-test2sql",
+  "displayName": "queryforge-test2sql",
+  "description": "\u751f\u4ea7\u7ea7\u901a\u7528 Text-to-SQL \u670d\u52a1\uff1a\u57fa\u4e8e FastAPI + LangGraph + RAG\uff0c\u5c06\u81ea\u7136\u8bed\u8a00\u8f6c\u6362\u4e3a\u5b89\u5168\u53ef\u6267\u884c\u7684 SQL\uff0c\u5185\u7f6e SQL Guard\u3001few-shot/schema \u68c0\u7d22\u3001\u9650\u6d41\u3001\u7f13\u5b58\u3001Langfuse \u8ffd\u8e2a\u3001Prometheus/Grafana \u76d1\u63a7\uff0c\u5e76\u57fa\u4e8e CSpider \u505a\u51c6\u786e\u7387\u8bc4\u6d4b\u3002",
+  "version": "1.0.0",
+  "author": "jarry126",
+  "homepage": "https://github.com/jarry126/queryforge-test2sql",
+  "skills": []
+}
