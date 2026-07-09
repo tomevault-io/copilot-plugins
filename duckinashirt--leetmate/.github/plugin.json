@@ -1,0 +1,9 @@
+{
+  "name": "duckinashirt--leetmate",
+  "displayName": "leetmate",
+  "description": "Terminal LeetCode coach that gives hints, not answers.",
+  "version": "1.0.0",
+  "author": "DuckInAShirt",
+  "homepage": "https://github.com/DuckInAShirt/leetmate",
+  "skills": []
+}
