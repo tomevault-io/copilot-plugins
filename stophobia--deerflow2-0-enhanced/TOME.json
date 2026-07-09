@@ -1,0 +1,159 @@
+{
+  "name": "deerflow2.0-enhanced",
+  "owner": "stophobia",
+  "repo": "deerflow2.0-enhanced",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/bootstrap/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/find-skills/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/surprise-me/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/surprise-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/data-analysis/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/report-to-ppt/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/report-to-ppt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/deep-research/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/multi-language/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/multi-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/ppt-generation/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/ppt-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/paper-research/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/paper-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/frontend-design/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/company-research/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/company-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/image-generation/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/image-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/video-generation/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/video-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/podcast-generation/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/podcast-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/consulting-analysis/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/consulting-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/chart-visualization/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/chart-visualization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/github-deep-research/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/github-deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deerflow2.0-enhanced",
+      "path": "skills/public/vercel-deploy-claimable/SKILL.md",
+      "github_url": "https://github.com/stophobia/deerflow2.0-enhanced/tree/main/skills/public/vercel-deploy-claimable/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/stophobia/deerflow2.0-enhanced",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T09:54:36Z"
+}
