@@ -4,7 +4,7 @@
   "repo": "loom",
   "description": "\u8de8\u5de5\u5177\u4e2a\u4eba\u6210\u679c\u53f0\u8d26 CLI(git/AI\u4f1a\u8bdd/\u6587\u6863/\u6570\u636e,\u96f6\u4f9d\u8d56)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joycastle/loom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T05:30:45Z"
+  "distributed_at": "2026-07-09T05:32:22Z"
 }
