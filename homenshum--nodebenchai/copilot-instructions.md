@@ -1,104 +1,85 @@
-## dogfood-verification
+## gemini-qa-loop
 
-> Every UI change MUST be visually verified in the running app before declaring done. Code-level changes without visual confirmation are unverified assumptions. But verification is not just "does it render?" — it's "does it belong?"
+> Continuous dogfood loop using Gemini 3 Flash vision to score and fix UI/UX issues automatically.
 
 
-# Dogfood Verification Protocol — Product Design Review
+# Gemini QA Loop — Automated UI/UX Quality Gate
 
-Every UI change MUST be visually verified in the running app before declaring done. Code-level changes without visual confirmation are unverified assumptions. But verification is not just "does it render?" — it's "does it belong?"
+Continuous dogfood loop using Gemini 3 Flash vision to score and fix UI/UX issues automatically.
 
-## Mindset: Analyst, Not Junior Dev
+## Pipeline Steps (in order)
 
-Guide yourself like an analyst diagnosing root cause, not a junior dev slapping on a bandaid. Before touching code:
+```bash
+# 1. Build production bundle
+npx vite build
 
-1. **Form a hypothesis** — What is actually wrong? "It looks broken" is not a hypothesis. "The date picker generates UTC dates but the data is keyed by local dates" is.
-2. **Trace the render path** — Which component ACTUALLY renders on screen? Follow: sidebar item → view key → MainLayout switch → lazy import → component file. Don't assume — the component you grep for may not be the one the user sees.
-3. **Identify the data layer** — Is this Convex backend (needs `convex deploy`), React frontend (needs `vite build`), stored DB records (needs migration), or MCP tools (needs `tsc`)? Changing the wrong layer wastes a cycle.
-4. **Ask "why" before "what"** — If a gauge shows 0%, don't change the label. Ask why it's 0%. Missing data? Wrong query? Unconfigured system? Each has a different fix.
+# 2. Ensure preview server is running (port 4173)
+npx vite preview --host 127.0.0.1 --port 4173 &
 
-## Jony Ive Product Design Critique
+# 3. Capture screenshots via e2e test
+BASE_URL=http://127.0.0.1:4173 npx playwright test tests/e2e/full-ui-dogfood.spec.ts --project=chromium --workers=1
 
-After verifying it renders, apply the design critique. Every element must earn its place:
+# 4. Publish screenshots to public/dogfood/
+npm run dogfood:publish
 
-### Does it communicate or decorate?
-- Every stat must drive a decision. If a number doesn't change behavior, it's decoration — remove it.
-- "14 threads" means nothing without context. "14 threads (3 escalating)" drives action.
-- Streak counters, "free runs today", total counts without trends — vanity. Remove.
+# 5. Record walkthrough video
+node scripts/ui/recordDogfoodWalkthrough.mjs --baseURL http://127.0.0.1:4173 --publish static
 
-### Does it respect the user's time?
-- Empty states: "No data yet. Run: `npm run local:sync`" gives agency. "Nothing here" wastes time.
-- Loading states: skeleton shimmer, not blank void. User should never stare at white.
-- Error states: what went wrong + what to do about it. Never just "Error".
+# 6. Run Gemini QA (sends screenshots + video to Gemini 3 Flash for scoring)
+BASE_URL=http://127.0.0.1:4173 node scripts/ui/runDogfoodGeminiQa.mjs
 
-### Does the language earn trust?
-- Replace jargon: "Act I/II/III" → "Quick Pulse / Analysis / Deep Dive"
-- Replace internal labels: "Orchestrator" → "Agent", "Trajectory" → "History"
-- Test: would a non-technical person understand this label in 2 seconds?
+# 7. Read results
+# Score + summary printed to stdout
+# Full JSON: .tmp/dogfood-gemini-qa/screens-qa.json and video-qa.json
+# History: public/dogfood/qa-results.json
+```
 
-### Does it survive edge cases?
-- Grammar: "1 items" → "1 item". Always handle singular/plural.
-- Timezone: `toISOString().slice(0,10)` returns UTC, not local. This WILL mismatch.
-- Zero state: What happens with 0 items? 1 item? 10,000 items?
-- First-run: What does a new user see before any data exists?
+## Scoring Formula
 
-### Does it reduce, not accumulate?
-- Prefer 3-5 tabs maximum per view
-- Before adding a new tab: try accordion, inline section, or progressive disclosure
-- If removing an element loses no function, remove it
-- If two sections serve the same purpose, combine them
+```
+Score = 100 - (P1_count × 6) - (P2_count × 2) - (P3_count × 1)
+```
 
-## Verification Checklist
+- **P1**: Major polish (low contrast, missing focus state, misleading UI) — 6 pts each
+- **P2**: Minor polish (spacing, inconsistent styling, empty state copy) — 2 pts each
+- **P3**: Nit (alignment, minor label wording) — 1 pt each
 
-## One-command dogfood capture (recommended)
+## Fix Strategy Per Severity
 
-Runs a full Scribe-like dogfood session locally and makes it UI-verifiable at `/dogfood`:
+### P1 Fixes (highest ROI — each fix recovers 6 points)
+- **Low contrast text**: Check dark mode. Use `dark:text-gray-300` minimum.
+- **Missing focus styling**: Add `focus-visible:ring-2 focus-visible:ring-blue-500`.
+- **Missing visual hierarchy**: Add left border accent, font weight differentiation, size stepping.
+- **Poor empty states**: Add icon + descriptive copy + CTA button.
+- **Misleading labels**: Show exact price/data, add tooltips.
 
-- `npm run dogfood:full:local` (screenshots + publish + how-to + video)
-- `npm run dogfood:full:local:play` (same, then opens the video)
+### P2 Fixes (each recovers 2 points)
+- **Spacing**: Standardize gaps. **Date formats**: Use `month: 'short'`. **Icon contrast**: `dark:bg-indigo-500/25` min.
 
-### Before writing any fix
-1. Reproduce the exact failure. Screenshot it.
-2. Trace upstream: symptom → intermediate state → root cause.
-3. Confirm your fix addresses the root cause, not just the symptom.
-4. Check if the same root cause exists elsewhere.
+## Loop Protocol
 
-### After writing a fix
-1. **Build**: `npx vite build` (frontend) or `npx convex deploy` (backend) or `npx tsc` (MCP)
-2. **Navigate**: Use Playwright or manual browser to reach the EXACT page
-3. **Screenshot**: Capture at 1440x900. Compare before/after.
-4. **Edge-case sweep**: Test with 0 items, 1 item, and the singular/plural boundary
-5. **Design critique**: Run through the Ive checklist above. Does every pixel earn its place?
-6. **Make it UI-verifiable**: Publish the latest evidence so `/dogfood` can render it (`npm run dogfood:publish` or `npm run dogfood:full:local`).
+```
+while score < target:
+    1. Read .tmp/dogfood-gemini-qa/screens-qa.json and video-qa.json
+    2. Fix all P1s first (highest ROI), then easy P2s
+    3. npx vite build && run e2e + publish + record + Gemini QA
+    4. Read new score
+    5. If 3 consecutive rounds without improvement → change strategy
+```
 
-## Red Flags You're Bandaiding
+## Gemini Noise
 
-- Adding `try/catch` that swallows errors without understanding them
-- Adding `?.` optional chaining to mask `undefined` instead of finding why it's undefined
-- Changing "0/7 healthy" to "7 scheduled" — hides a monitoring signal
-- Fixing text in an empty state instead of addressing why it's empty
-- Changing a generation constant but not migrating existing stored data
-- "It works now" without understanding why it didn't before
-- Editing a component that isn't reachable from the user's navigation path
+Expect ±8 point variance between identical builds. Track P1 count (more stable than total score). Cross-check before fixing — Gemini sometimes hallucinates issues.
 
-## Layered Deployment Model
+## Key Files
 
-| Layer | Changes to | Deployed via | Visible when |
-|-------|-----------|-------------|--------------|
-| React components | `.tsx` in `src/` | `vite build` | Preview server restarted |
-| Convex functions | `.ts` in `convex/` | `npx convex deploy` | Backend redeployed |
-| Convex schema | `convex/schema.ts` | `npx convex deploy` | Backend redeployed |
-| MCP tools | `packages/mcp-local/` | `npx tsc` in package | MCP server restarted |
-| Stored data | DB records | Data migration or mutation | After migration runs |
-| Dashboard HTML | `briefHtml.ts` / `html.ts` | Inline — restart server | Server restarted |
-
-## Navigation Map (Common Gotchas)
-
-- Sidebar "Industry Updates" → `industry-updates` view → `IndustryUpdatesPanel` (NOT `PublicSignalsLog`)
-- Sidebar "Agent Templates" → `agent-marketplace` view → `AgentMarketplace` (NOT `AgentsHub`)
-- Sidebar "Recommendations" → `document-recommendations` view → `DocumentRecommendations`
-- `AgentsHub` with `AutonomousOperationsPanel` → `agents` view (top nav / Research mode)
-- `PublicSignalsLog` → `signals` view (Research mode)
-- Local Dashboard → `http://127.0.0.1:6275` (MCP server auto-starts)
+| File | Purpose |
+|------|---------|
+| `convex/domains/dogfood/screenshotQa.ts` | Screenshot QA (Gemini 3 Flash + fallback chain) |
+| `convex/domains/dogfood/videoQa.ts` | Video QA (Gemini 3 Flash + fallback chain) |
+| `scripts/ui/runDogfoodGeminiQa.mjs` | QA pipeline orchestrator |
+| `.tmp/dogfood-gemini-qa/*.json` | Latest QA results |
+| `shared/llm/modelCatalog.ts` | Model catalog with Gemini 3 defaults |
 
 ---
 > Source: [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — distributed by [TomeVault](https://tomevault.io).
