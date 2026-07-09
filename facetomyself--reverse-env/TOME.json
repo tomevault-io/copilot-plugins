@@ -1,0 +1,44 @@
+{
+  "name": "reverse_ENV",
+  "owner": "Facetomyself",
+  "repo": "reverse_ENV",
+  "description": "\u9006\u5411\u5de5\u7a0b\u73af\u5883\u4e0e\u6280\u80fd\u4ed3\u5e93 \u2014 IDA Pro / jadx / apktool / radare2 / frida MCP \u5de5\u5177\u94fe",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Facetomyself/reverse_ENV",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T16:31:32Z"
+}
