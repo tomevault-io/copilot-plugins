@@ -7,11 +7,11 @@ The robustness engine for AI coding agents. A local Rust code graph gives an age
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [the-open-engine/opcore](https://github.com/the-open-engine/opcore).
+Original source: `AGENTS.md` in [the-open-engine/opcore](https://github.com/the-open-engine/opcore).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
