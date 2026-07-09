@@ -1,0 +1,9 @@
+{
+  "name": "ather-techie--ai-agents-design-patterns",
+  "displayName": "ai-agents-design-patterns",
+  "description": "20 runnable LLM agent design patterns in Python, benchmarked, traced, offline-compatible. ReAct, multi-agent, constitutional AI, and more.",
+  "version": "1.0.0",
+  "author": "ather-techie",
+  "homepage": "https://github.com/ather-techie/ai-agents-design-patterns",
+  "skills": []
+}
