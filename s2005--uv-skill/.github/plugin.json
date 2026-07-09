@@ -1,0 +1,9 @@
+{
+  "name": "s2005--uv-skill",
+  "displayName": "uv-skill",
+  "description": "simplify usage of uv lib in Python projects",
+  "version": "1.0.0",
+  "author": "s2005",
+  "homepage": "https://github.com/s2005/uv-skill",
+  "skills": []
+}
