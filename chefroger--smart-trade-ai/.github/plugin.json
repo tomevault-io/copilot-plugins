@@ -1,0 +1,9 @@
+{
+  "name": "chefroger--smart-trade-ai",
+  "displayName": "smart-trade-ai",
+  "description": "AI assistant for international trade \u2014 20 B2B skills (lead gen, OSINT, email, docs, compliance). End-to-end customer development pipeline. Runs locally. \u5916\u8d38\u4e1a\u52a1\u5458 AI \u52a9\u624b\u3002",
+  "version": "1.0.0",
+  "author": "chefroger",
+  "homepage": "https://github.com/chefroger/smart-trade-ai",
+  "skills": []
+}
