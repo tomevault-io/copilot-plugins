@@ -1,85 +1,35 @@
-## gemini-qa-loop
+## flywheel-continuous
 
-> Continuous dogfood loop using Gemini 3 Flash vision to score and fix UI/UX issues automatically.
+> When in flywheel mode, operate as a continuous improvement loop.
 
 
-# Gemini QA Loop — Automated UI/UX Quality Gate
+# Flywheel Continuous Improvement
 
-Continuous dogfood loop using Gemini 3 Flash vision to score and fix UI/UX issues automatically.
+When in flywheel mode, operate as a continuous improvement loop.
 
-## Pipeline Steps (in order)
+## Protocol
+1. **Launch** - Start dev server, capture baseline state, publish a trajectory link in-app within 60 seconds.
+2. **Poll** - Every 60 seconds, check logs, console, and visual state.
+3. **Diagnose** - At each checkpoint, immediately seek issues. Do a 5-whys root-cause chain before any fix.
+4. **Fix** - Apply a minimal targeted fix that makes the failure mode impossible, not just hidden.
+5. **Dogfood** - Verify the fix end-to-end in the UI and capture evidence (screenshots + walkthrough video).
+6. **Iterate** - Return to step 2. Never ask "should I continue?" - just keep going until verified.
+7. **Adapt** - After 3 consecutive failures on the same issue, change strategy (instrumentation, isolation, or rollback).
+8. **Document** - Log every iteration: symptom, root cause, fix, verification result, and what to watch next.
 
-```bash
-# 1. Build production bundle
-npx vite build
+## Motion Safety (Seizure / Flash Policy)
+- Avoid high-contrast flashes and large-area pulses/fades.
+- Prefer stable backgrounds and subtle loading states; default to non-animated skeletons for full-viewport surfaces.
+- Always honor `prefers-reduced-motion` and ship a UI toggle when motion is used.
 
-# 2. Ensure preview server is running (port 4173)
-npx vite preview --host 127.0.0.1 --port 4173 &
+## Anti-patterns
+- Band-aids: swallowing errors, `as any`, masking with `?.`, retry loops without idempotency.
+- Declaring done without dogfood artifacts and deterministic verification.
 
-# 3. Capture screenshots via e2e test
-BASE_URL=http://127.0.0.1:4173 npx playwright test tests/e2e/full-ui-dogfood.spec.ts --project=chromium --workers=1
-
-# 4. Publish screenshots to public/dogfood/
-npm run dogfood:publish
-
-# 5. Record walkthrough video
-node scripts/ui/recordDogfoodWalkthrough.mjs --baseURL http://127.0.0.1:4173 --publish static
-
-# 6. Run Gemini QA (sends screenshots + video to Gemini 3 Flash for scoring)
-BASE_URL=http://127.0.0.1:4173 node scripts/ui/runDogfoodGeminiQa.mjs
-
-# 7. Read results
-# Score + summary printed to stdout
-# Full JSON: .tmp/dogfood-gemini-qa/screens-qa.json and video-qa.json
-# History: public/dogfood/qa-results.json
-```
-
-## Scoring Formula
-
-```
-Score = 100 - (P1_count × 6) - (P2_count × 2) - (P3_count × 1)
-```
-
-- **P1**: Major polish (low contrast, missing focus state, misleading UI) — 6 pts each
-- **P2**: Minor polish (spacing, inconsistent styling, empty state copy) — 2 pts each
-- **P3**: Nit (alignment, minor label wording) — 1 pt each
-
-## Fix Strategy Per Severity
-
-### P1 Fixes (highest ROI — each fix recovers 6 points)
-- **Low contrast text**: Check dark mode. Use `dark:text-gray-300` minimum.
-- **Missing focus styling**: Add `focus-visible:ring-2 focus-visible:ring-blue-500`.
-- **Missing visual hierarchy**: Add left border accent, font weight differentiation, size stepping.
-- **Poor empty states**: Add icon + descriptive copy + CTA button.
-- **Misleading labels**: Show exact price/data, add tooltips.
-
-### P2 Fixes (each recovers 2 points)
-- **Spacing**: Standardize gaps. **Date formats**: Use `month: 'short'`. **Icon contrast**: `dark:bg-indigo-500/25` min.
-
-## Loop Protocol
-
-```
-while score < target:
-    1. Read .tmp/dogfood-gemini-qa/screens-qa.json and video-qa.json
-    2. Fix all P1s first (highest ROI), then easy P2s
-    3. npx vite build && run e2e + publish + record + Gemini QA
-    4. Read new score
-    5. If 3 consecutive rounds without improvement → change strategy
-```
-
-## Gemini Noise
-
-Expect ±8 point variance between identical builds. Track P1 count (more stable than total score). Cross-check before fixing — Gemini sometimes hallucinates issues.
-
-## Key Files
-
-| File | Purpose |
-|------|---------|
-| `convex/domains/dogfood/screenshotQa.ts` | Screenshot QA (Gemini 3 Flash + fallback chain) |
-| `convex/domains/dogfood/videoQa.ts` | Video QA (Gemini 3 Flash + fallback chain) |
-| `scripts/ui/runDogfoodGeminiQa.mjs` | QA pipeline orchestrator |
-| `.tmp/dogfood-gemini-qa/*.json` | Latest QA results |
-| `shared/llm/modelCatalog.ts` | Model catalog with Gemini 3 defaults |
+## Standards
+- Target: industry-standard UI performance + product design polish.
+- Every route loads without jank, no layout shift, and fast interaction response.
+- All interactive elements have focus rings, aria labels, and keyboard support.
 
 ---
 > Source: [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — distributed by [TomeVault](https://tomevault.io).
