@@ -1,0 +1,44 @@
+{
+  "name": "ds4-simplicio-apple-v6",
+  "owner": "wesleysimplicio",
+  "repo": "ds4-simplicio-apple-v6",
+  "description": "Ultra-fast 100% on-device Universal State Runtime for LLMs on Apple Silicon (M1\u2013M5). DeepSeekV4/others on Mac M3 48gb RAM. Powered by MLX + Metal + ANE \u2014 extreme local inference, zero cloud, built for AI agents.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wesleysimplicio/ds4-simplicio-apple-v6",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T00:45:58Z"
+}
