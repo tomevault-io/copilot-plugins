@@ -1,47 +1,35 @@
-## deep-read-audit
+## flywheel-continuous
 
-> Deep-read audit protocol — full end-to-end reads only, parallel subagents, numbered findings
+> When in flywheel mode, operate as a continuous improvement loop.
 
 
-# Deep-Read Audit Protocol
+# Flywheel Continuous Improvement
 
-When collocating across tools, prompts, skills, or rules — NEVER edit from a section-level read. Full end-to-end reads only.
+When in flywheel mode, operate as a continuous improvement loop.
 
 ## Protocol
+1. **Launch** - Start dev server, capture baseline state, publish a trajectory link in-app within 60 seconds.
+2. **Poll** - Every 60 seconds, check logs, console, and visual state.
+3. **Diagnose** - At each checkpoint, immediately seek issues. Do a 5-whys root-cause chain before any fix.
+4. **Fix** - Apply a minimal targeted fix that makes the failure mode impossible, not just hidden.
+5. **Dogfood** - Verify the fix end-to-end in the UI and capture evidence (screenshots + walkthrough video).
+6. **Iterate** - Return to step 2. Never ask "should I continue?" - just keep going until verified.
+7. **Adapt** - After 3 consecutive failures on the same issue, change strategy (instrumentation, isolation, or rollback).
+8. **Document** - Log every iteration: symptom, root cause, fix, verification result, and what to watch next.
 
-1. **Categorize** — Group all target files into 4-6 non-overlapping categories by domain
-2. **Parallel subagents** — Launch one Explore subagent per category, all simultaneously
-3. **Full reads required** — Each subagent reads EVERY file in its category end-to-end. No partial reads, no grep-only
-4. **Numbered findings** — Each finding must include:
-   - `[N] FILE:LINE` — exact location
-   - `"exact quote of relevant code/text"` — verbatim from the file
-   - `ISSUE:` — description of duplication, obscurity, or centralization need
-5. **Wait for all** — Do not synthesize until ALL subagents complete
-6. **Synthesize** — Produce a single consolidated report with:
-   - P0 (extract immediately), P1 (fix this sprint), P2 (next sprint)
-   - Estimated impact per tier
-   - Proposed module paths for centralized code
-
-## What to look for
-- Duplicated helper functions across files
-- Overlapping tool/rule descriptions that confuse discovery
-- Shared patterns that should be centralized (DB setup, ID generation, timestamps, fetch wrappers)
-- Inconsistent naming conventions (params, response shapes, error formats)
-- Tools/rules that do similar things in different files
-- Hardcoded values that should be shared constants
-- Stale/deprecated code still callable
-- Instructions duplicated across CLAUDE.md, .claude/rules/, .cursor/rules/
+## Motion Safety (Seizure / Flash Policy)
+- Avoid high-contrast flashes and large-area pulses/fades.
+- Prefer stable backgrounds and subtle loading states; default to non-animated skeletons for full-viewport surfaces.
+- Always honor `prefers-reduced-motion` and ship a UI toggle when motion is used.
 
 ## Anti-patterns
-- Reading only the first 50 lines and inferring the rest
-- Grepping for keywords instead of reading full context
-- Editing before the audit completes
-- Skipping large files (72KB+ agent files are WHERE the duplication hides)
+- Band-aids: swallowing errors, `as any`, masking with `?.`, retry loops without idempotency.
+- Declaring done without dogfood artifacts and deterministic verification.
 
-## Related rules
-- `analyst_diagnostic` — root cause before fix
-- `reexamine_process` — orchestrator for when/how to re-examine
-- `completion_traceability` — cite back to original request
+## Standards
+- Target: industry-standard UI performance + product design polish.
+- Every route loads without jank, no layout shift, and fast interaction response.
+- All interactive elements have focus rings, aria labels, and keyboard support.
 
 ---
 > Source: [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — distributed by [TomeVault](https://tomevault.io).
