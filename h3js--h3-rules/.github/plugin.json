@@ -1,0 +1,9 @@
+{
+  "name": "h3js--h3-rules",
+  "displayName": "h3-rules",
+  "description": "[WIP] Declarative route rules for H3: Define route rules (redirect, proxy, headers, cache, basic auth, CORS) to patterns. [WIP]",
+  "version": "1.0.0",
+  "author": "h3js",
+  "homepage": "https://github.com/h3js/h3-rules",
+  "skills": []
+}
