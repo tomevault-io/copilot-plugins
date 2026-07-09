@@ -1,0 +1,9 @@
+{
+  "name": "open-syria--datasets-api",
+  "displayName": "datasets-api",
+  "description": "Public read-only API for OpenSyria datasets, including Syrian geography, cities, districts, localities, universities, transport, releases, and source attribution.",
+  "version": "1.0.0",
+  "author": "Open-Syria",
+  "homepage": "https://github.com/Open-Syria/datasets-api",
+  "skills": []
+}
