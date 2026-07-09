@@ -1,0 +1,9 @@
+{
+  "name": "twilio--twilio-agent-connect-python",
+  "displayName": "twilio-agent-connect-python",
+  "description": "A powerful SDK for building intelligent, context-aware AI agents with Twilio's communication technologies.",
+  "version": "1.0.0",
+  "author": "twilio",
+  "homepage": "https://github.com/twilio/twilio-agent-connect-python",
+  "skills": []
+}
