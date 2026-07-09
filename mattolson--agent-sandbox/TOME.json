@@ -2,8 +2,8 @@
   "name": "agent-sandbox",
   "owner": "mattolson",
   "repo": "agent-sandbox",
-  "description": "Secure local dev environment for AI agent collaboration",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agent-sandbox",
+      "path": ".agents/skills/plan/SKILL.md",
+      "github_url": "https://github.com/mattolson/agent-sandbox/tree/main/.agents/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "path": ".agents/skills/add-agent/SKILL.md",
+      "github_url": "https://github.com/mattolson/agent-sandbox/tree/main/.agents/skills/add-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "path": ".agents/skills/plan-task/SKILL.md",
+      "github_url": "https://github.com/mattolson/agent-sandbox/tree/main/.agents/skills/plan-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "path": ".agents/skills/plan-project/SKILL.md",
+      "github_url": "https://github.com/mattolson/agent-sandbox/tree/main/.agents/skills/plan-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "path": ".agents/skills/plan-milestone/SKILL.md",
+      "github_url": "https://github.com/mattolson/agent-sandbox/tree/main/.agents/skills/plan-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "path": "images/base/skills/operating-in-agent-sandbox/SKILL.md",
+      "github_url": "https://github.com/mattolson/agent-sandbox/tree/main/images/base/skills/operating-in-agent-sandbox/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/mattolson/agent-sandbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T19:40:55Z"
+  "distributed_at": "2026-07-09T11:57:41Z"
 }
