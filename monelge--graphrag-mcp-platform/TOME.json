@@ -4,7 +4,7 @@
   "repo": "GraphRag-MCP-Platform",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/monelge/GraphRag-MCP-Platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T00:33:30Z"
+  "distributed_at": "2026-07-09T00:42:23Z"
 }
