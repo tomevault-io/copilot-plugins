@@ -1,0 +1,9 @@
+{
+  "name": "mfittko--dev-loops",
+  "displayName": "dev-loops",
+  "description": "Shared Pi workflow infrastructure for reusable local and remote development loops",
+  "version": "1.0.0",
+  "author": "mfittko",
+  "homepage": "https://github.com/mfittko/dev-loops",
+  "skills": []
+}
