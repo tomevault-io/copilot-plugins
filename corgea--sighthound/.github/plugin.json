@@ -1,0 +1,9 @@
+{
+  "name": "corgea--sighthound",
+  "displayName": "Sighthound",
+  "description": "Corgea's rule-based SAST scanner",
+  "version": "1.0.0",
+  "author": "Corgea",
+  "homepage": "https://github.com/Corgea/Sighthound",
+  "skills": []
+}
