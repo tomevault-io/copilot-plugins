@@ -1,0 +1,9 @@
+{
+  "name": "bingquan040601--vite-plugin-vue-insight",
+  "displayName": "vite-plugin-vue-insight",
+  "description": "\u70b9\u51fb\u5b9a\u4f4d\u6e90\u7801\u3001\u9ad8\u4eae DOM\u3001\u67e5\u770b\u7ec4\u4ef6\u72b6\u6001\u3001\u5206\u4eab\u94fe\u63a5 \u2014 Vue 3 + Vite \u8c03\u8bd5\u52a9\u624b",
+  "version": "1.0.0",
+  "author": "bingquan040601",
+  "homepage": "https://github.com/bingquan040601/vite-plugin-vue-insight",
+  "skills": []
+}
