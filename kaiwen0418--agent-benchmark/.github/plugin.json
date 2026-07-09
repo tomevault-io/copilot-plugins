@@ -1,0 +1,9 @@
+{
+  "name": "kaiwen0418--agent-benchmark",
+  "displayName": "agent-benchmark",
+  "description": "AgentBench is an interactive benchmarking platform for tool-using AI agents.  Connect your own agent, run practical tasks, and watch every action unfold in real time. With reproducible environments, f",
+  "version": "1.0.0",
+  "author": "Kaiwen0418",
+  "homepage": "https://github.com/Kaiwen0418/agent-benchmark",
+  "skills": []
+}
