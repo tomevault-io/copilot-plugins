@@ -4,7 +4,7 @@
   "repo": "folio",
   "description": "Framework-neutral DOCX engine with React/Vue editors, Nuxt integration, and agent tooling",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stella/folio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T18:34:35Z"
+  "distributed_at": "2026-07-09T18:35:00Z"
 }
