@@ -7,11 +7,11 @@ Educational browser fingerprinting platform with privacy-first approach
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [taoyadev/creepjs](https://github.com/taoyadev/creepjs).
+Original source: `CLAUDE.md` in [taoyadev/creepjs](https://github.com/taoyadev/creepjs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
