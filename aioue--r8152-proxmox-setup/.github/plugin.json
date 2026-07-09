@@ -1,0 +1,9 @@
+{
+  "name": "aioue--r8152-proxmox-setup",
+  "displayName": "r8152_proxmox_setup",
+  "description": "One-shot installer for Realtek r8152 DKMS on Proxmox VE 9 (Secure Boot aware)",
+  "version": "1.0.0",
+  "author": "aioue",
+  "homepage": "https://github.com/aioue/r8152_proxmox_setup",
+  "skills": []
+}
