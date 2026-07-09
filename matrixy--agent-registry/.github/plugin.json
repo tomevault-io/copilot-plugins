@@ -1,0 +1,9 @@
+{
+  "name": "matrixy--agent-registry",
+  "displayName": "Agent-Registry",
+  "description": "Lazy-loading system for Claude Code agents",
+  "version": "1.0.0",
+  "author": "MaTriXy",
+  "homepage": "https://github.com/MaTriXy/Agent-Registry",
+  "skills": []
+}
