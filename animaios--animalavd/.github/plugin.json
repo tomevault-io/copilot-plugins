@@ -1,0 +1,9 @@
+{
+  "name": "animaios--animalavd",
+  "displayName": "animalavd",
+  "description": "eBPF-based scx_lavd scheduler fork with a native Rust daemon for Hyprland window focus tracking & real-time interactive latency boosting.",
+  "version": "1.0.0",
+  "author": "animaios",
+  "homepage": "https://github.com/animaios/animalavd",
+  "skills": []
+}
