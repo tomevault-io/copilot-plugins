@@ -4,7 +4,7 @@
   "repo": "manifold",
   "description": "Stop discovering requirements during implementation. Manifold makes constraints visible BEFORE you write code\u2014business, technical, UX, security, operational\u2014so problems surface   in planning, not production.",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -83,5 +83,5 @@
   ],
   "source_url": "https://github.com/dhanesh/manifold",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T22:32:35Z"
+  "distributed_at": "2026-07-09T18:03:51Z"
 }
