@@ -1,0 +1,9 @@
+{
+  "name": "whatdiraciscooking--std-module",
+  "displayName": "std_module",
+  "description": "Wrapper module for the C++ Standard Library",
+  "version": "1.0.0",
+  "author": "whatDiracIsCooking",
+  "homepage": "https://github.com/whatDiracIsCooking/std_module",
+  "skills": []
+}
