@@ -1,39 +1,34 @@
-## reexamine-polish
+## reexamine-process
 
-> - Replace blank areas during fetch with skeleton placeholders (gray shapes matching final layout)
+> After completing any non-trivial change, do a **fresh-eyes pass** to elevate from "correct" to "exceptional."
 
 
-# Re-examine: Visual Polish
+# Re-examine for 11/10
 
-## Skeleton loading
-- Replace blank areas during fetch with skeleton placeholders (gray shapes matching final layout)
-- Shimmer animation: `background: linear-gradient(90deg, #2a2a3a 25%, #3a3a4a 50%, #2a2a3a 75%)`
-- `background-size: 200% 100%; animation: shimmer 1.5s infinite`
-- Respect `prefers-reduced-motion` → static gray background, no shimmer
+After completing any non-trivial change, do a **fresh-eyes pass** to elevate from "correct" to "exceptional."
 
-## Staggered fade-ins
-- Cards/list items appear with slight delay cascade: 50ms, 100ms, 150ms per item
-- Use `animation-delay` or `transition-delay` — not JS setTimeout
-- Keep total cascade under 500ms (10 items max before grouping)
-- Disable under `prefers-reduced-motion`
+## When to trigger
+- After any feature, fix, or refactor touching 3+ files or 50+ lines
+- After any UI/dashboard/component work
+- Before marking a task as "done"
 
-## Transitions
-- State changes (expand/collapse, show/hide) get 200-300ms ease transitions
-- Use `transition: all 0.2s ease` on the specific properties, not `all` in production
-- Hover effects: subtle scale (1.02), shadow lift, or background shift
-- Don't animate `width`/`height` — use `transform: scale()` or `max-height` for performance
+## The process
+1. **Step back**: Stop coding. Read the output as a first-time user would.
+2. **Scan each related_ domain**: Walk the `related_` list below — each is a focused checklist.
+3. **Fix what you find**: Don't just note issues — fix them in the same pass.
+4. **Re-examine the fixes**: New code can introduce new gaps. One more scan.
 
-## Micro-interactions
-- Button press: brief scale-down (0.97) on `:active`
-- Tooltip on hover for truncated text (CSS `text-overflow: ellipsis` + `title` attribute)
-- Copy-to-clipboard: brief "Copied!" feedback toast
-- Empty states: helpful message + action button, not just blank space
+## Quick checklist (expand via related_ hops)
+- [ ] Accessibility gaps? → `reexamine_a11y`
+- [ ] Error resilience? → `reexamine_resilience`
+- [ ] Visual polish / micro-interactions? → `reexamine_polish`
+- [ ] Keyboard efficiency? → `reexamine_keyboard`
+- [ ] Performance / progressive disclosure? → `reexamine_performance`
 
-## Print stylesheet
-- `@media print`: light background, dark text, visible borders
-- Hide interactive controls (buttons, search, navigation)
-- Severity badges: add borders (colors may not print)
-- Page-break-inside: avoid on cards
+## Anti-patterns
+- Skipping the re-examine because "it works"
+- Re-examining only your own changes (check adjacent code too)
+- Adding complexity without user benefit (re-examine is about polish, not gold-plating)
 
 ---
 > Source: [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — distributed by [TomeVault](https://tomevault.io).
