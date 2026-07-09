@@ -1,0 +1,44 @@
+{
+  "name": "ksana",
+  "owner": "amanayayatu-tech",
+  "repo": "ksana",
+  "description": "\u4e00\u4e2a\u672c\u5730\u5316\u7684\u539f\u751f\u4eba\u5de5\u667a\u80fd\u6295\u8d44\u7814\u7a76\u548c\u51b3\u7b56\u7cfb\u7edf\u3002\u5b83\u7684\u8bbe\u8ba1\u7406\u5ff5\u662f\u4f5c\u4e3a\u4e00\u4e2a\u79c1\u4eba\u6295\u8d44\u59d4\u5458\u4f1a\uff0c\u800c\u4e0d\u662f\u4e00\u4e2a\u901a\u7528\u7684\u80a1\u7968\u7b5b\u9009\u5668\u3001\u6295\u8d44\u7ec4\u5408\u7ecf\u7406\u6216\u81ea\u52a8\u4ea4\u6613\u673a\u5668\u4eba\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/amanayayatu-tech/ksana",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T00:41:53Z"
+}
