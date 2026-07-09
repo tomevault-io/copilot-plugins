@@ -1,0 +1,9 @@
+{
+  "name": "jupyter-ai-contrib--jupyter-ai-jupyternaut",
+  "displayName": "jupyter-ai-jupyternaut",
+  "description": "Package which provides the Jupyternaut, the default AI persona, in Jupyter AI",
+  "version": "1.0.0",
+  "author": "jupyter-ai-contrib",
+  "homepage": "https://github.com/jupyter-ai-contrib/jupyter-ai-jupyternaut",
+  "skills": []
+}
