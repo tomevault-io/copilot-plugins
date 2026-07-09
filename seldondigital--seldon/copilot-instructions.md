@@ -1,42 +1,105 @@
-## testing
+## themes
 
-> Unit testing conventions for Seldon packages
+> Seldon theme and token conventions
 
 
-## Seldon Testing
+## Seldon Themes
 
-Vitest is the test runner for the repo. The project moved fully off `bun test`. Do not import from `bun:test`.
+Themes package reusable visual decisions as tokens. Components reference theme tokens with `@` paths, such as `@fontSize.medium`, `@swatch.primary`, and `@font.body`.
 
-### Running Tests
+Use `packages/core/themes/README.md` as the canonical reference for theme shape, token cells, type safety, imports, and adding theme content.
 
-- Run all tests from the repo root with `npm test`.
-- Watch mode is `npm run test:watch`. Coverage is `npm run coverage`.
-- A single package runs through its own script, such as `npm test --workspace @seldon/core`.
-- Coverage is enabled for `core` and `factory`. The editor has no Vitest setup yet.
+Use `packages/core/properties/README.md` for the property-style tagged values used inside look token `parameters`.
 
-### Test Files
+### Stock Themes
 
-- Co-locate a test next to its source as `X.test.ts`.
-- Use explicit imports: `import { describe, expect, it } from "vitest"`. Globals are off.
-- Batch trivial type guards from one folder into a single spec.
+Stock theme template ids are:
 
-### No Shared Fixtures
+- `earth`
+- `highContrast`
+- `industrial`
+- `googleMaterial`
+- `popPunk`
+- `ibmCarbon`
+- `seldon`
+- `adobeSpectrum`
+- `sunsetBlue`
+- `wildberry`
 
-Do not add a shared fixture module or golden JSON files. Hand-maintained copies of workspace, theme, or property shapes drift when `core` changes. Use one of three scoped patterns instead.
+`seldon` is the default stock preset. A workspace always keeps a `seldon` theme entry, and it cannot be removed. Other stock themes are optional.
 
-1. Pure functions: build inputs as inline literals inside each test. Do not construct a `Workspace`.
-2. Behavior over real state: build inputs through the real `core` API at the top of the test so inputs track `core` automatically. Use `createEmptyWorkspace()`, then `addComponent` and `addVariant`. Resolve schemas with `getComponentSchema(id)`. Use stock themes from `STOCK_THEMES_BY_ID` or `THEMES_BY_ID`.
-3. Narrow config or gate tests: a small inline node literal kept local to the test is fine. The rules contract test follows this pattern.
+`ThemeTemplateId` is the stock template id union. `ThemeInstanceId` equals `ThemeTemplateId`. Workspace theme refs and keys in `workspace.themes` are opaque strings at workspace boundaries until workspace theme types are aligned.
 
-If a snapshot is ever justified, use a small `toMatchInlineSnapshot`. Never write a file snapshot.
+### Theme Structure
 
-### Resolution Note
+Theme files use fixed top-level sections in this order:
 
-The package Vitest configs alias `@seldon/core` to the package source. Node-style package exports do not resolve directory-index files such as `components/catalog/index.ts`, so the alias is required for subpath imports to load in tests.
+1. `metadata`
+2. `modulation`, `colorHarmony`, `fontFamily`, `matchColor`, `highContrast`, `opticalPadding`, `autoFit`
+3. `size`, `dimension`, `margin`, `padding`, `gap`, `corners`, `borderWidth`, `blur`, `spread`
+4. `fontSize`, `fontWeight`, `lineHeight`
+5. `iconSet`
+6. `swatch`
+7. `font`, `border`, `gradient`, `shadow`, `scrollbar`
 
-### Adding Tests Is Opt-In
+`iconSet` is not a token table. It has no `TokenType`, no `@iconSet.*` reference path, no `customN` slots, and no `THEME_TOKEN_SECTIONS` entry. It selects the active icon set and default render values.
 
-Follow `engineering.mdc`. Do not add or update tests unless the task explicitly asks for it.
+### Token References
+
+Use `ValueType.THEME_ORDINAL` for ordered scales, such as `@fontSize.medium`, `@margin.compact`, and `@borderWidth.small`.
+
+Use `ValueType.THEME_CATEGORICAL` for named sets, such as `@swatch.primary`, `@font.body`, `@gradient.primary`, and `@shadow.moderate`.
+
+Reference types live in `types/theme-reference-keys.ts`. Token id unions live in `types/theme-token-ids.ts`.
+
+### Token Tables
+
+Token tables use `ThemeTokenTable<TUnion, TCell>`. Reserved keys are required. `customN` keys are optional. Do not add ordinary custom slots to `theme-token-ids.ts`; only edit those unions for new reserved keys or new sections.
+
+Every token except `@fontFamily.*` can accept `customN` keys. `@fontFamily.*` only has fixed `primary` and `secondary` slots.
+
+`@swatch.swatch1` through `@swatch.swatch4` are reserved dynamic palette slots, not custom slots.
+
+`computeTheme` injects cleared looks that stock themes do not author: `@font.normal`, `@border.none`, and `@shadow.none`. Each sets every facet to `EMPTY` and appears in the look picker like a stock look. The `@gradient.*` section has no cleared look.
+
+### Token Types
+
+Theme token cells use `TokenType`:
+
+- `MODULATED` for scale steps against `modulation.parameters.baseSize` and `modulation.parameters.ratio`.
+- `EXACT` for fixed numeric values with units.
+- `DYNAMIC_SWATCH` for palette roles resolved from `colorHarmony` by `computeTheme`. The roles are `white`, `gray`, `black`, `primary`, and `swatch1` through `swatch4`. Do not hand-author the eight palette colors. Switching base color or harmony retunes the whole palette.
+- `SWATCH` for explicit color values.
+- `FONT_FAMILY` for `fontFamily.primary` and `fontFamily.secondary`.
+- `OPTION` for discrete option keys.
+- `LOOK` for compound recipes under `font`, `border`, `gradient`, `shadow`, and `scrollbar`.
+
+Look token `parameters` contain property-style tagged values. Resolving an `@<scope>.<key>` reference into CSS values is property-side work in `helpers/resolution`, not the themes module.
+
+### Materialization
+
+Use `computeTheme(stockTheme)` to normalize a full theme object and resolve dynamic swatches into a `ComputedTheme`.
+
+Use `instantiateTheme(templateId, overrides, STOCK_THEMES_BY_ID)` to derive a theme from a stock template and overrides. Empty overrides skip the merge and compute the base theme.
+
+Import `instantiateTheme`, `normalizeThemeInput`, `getDynamicSwatchColors`, `getPalette`, and colorspace helpers from `@seldon/core/themes/compute`. Import `computeTheme`, `normalizeTheme`, `THEMES_BY_ID`, `STOCK_THEMES_BY_ID`, and `defaultTheme` from `@seldon/core/themes`.
+
+Workspace files store raw theme authoring state only. Computed theme rows come from read-side selectors such as `computeWorkspaceThemes` and `getComputedTheme`; they are not persisted.
+
+The editor renders from the computed theme. Only the factory emits CSS variable swatch refs such as `--sdn-*` during export. Do not define theme tokens as CSS variables in core, and do not add editor logic that depends on those variables.
+
+High Contrast is a computed color, not a stored theme token. Property-side resolution derives it from the effective background up the parent chain. A transparent or `NONE` background makes the resolver continue up.
+
+### Adding Themes And Tokens
+
+When adding a stock theme:
+
+1. Add the id to `ThemeTemplateId` in `types/theme-id.ts`.
+2. Create the stock file under `catalog/` with every section from `packages/core/themes/README.md`.
+3. Register it in `catalog/index.ts` by adding the import and including it in `STOCK_THEMES`.
+4. Do not edit token id unions unless adding reserved keys or sections.
+
+When adding a new token kind or section, update the matching types, values, constants, schemas, exports, and section ordering described in `packages/core/themes/README.md`.
 
 ---
 > Source: [SeldonDigital/seldon](https://github.com/SeldonDigital/seldon) — distributed by [TomeVault](https://tomevault.io).
