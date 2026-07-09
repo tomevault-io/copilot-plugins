@@ -1,0 +1,44 @@
+{
+  "name": "ShidaoSlicer",
+  "owner": "tommasobbianchi",
+  "repo": "ShidaoSlicer",
+  "description": "Belt-printer fork of OrcaSlicer for 45\u00b0 inclined-belt machines (CR-30 / IdeaFormer IR3 V2 family). AGPL-3.0.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tommasobbianchi/ShidaoSlicer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-09T00:56:20Z"
+}
