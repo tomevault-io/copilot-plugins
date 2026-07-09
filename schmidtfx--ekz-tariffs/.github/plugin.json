@@ -1,0 +1,9 @@
+{
+  "name": "schmidtfx--ekz-tariffs",
+  "displayName": "ekz-tariffs",
+  "description": "Dynamic Energy prices for EKZ",
+  "version": "1.0.0",
+  "author": "schmidtfx",
+  "homepage": "https://github.com/schmidtfx/ekz-tariffs",
+  "skills": []
+}
