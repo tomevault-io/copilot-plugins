@@ -1,0 +1,9 @@
+{
+  "name": "bdb-labs--aira-scanner",
+  "displayName": "aira-scanner",
+  "description": "AIRA is a research initiative developed by BDB Labs.",
+  "version": "1.0.0",
+  "author": "BDB-Labs",
+  "homepage": "https://github.com/BDB-Labs/aira-scanner",
+  "skills": []
+}
