@@ -4,7 +4,7 @@
   "repo": "opcore",
   "description": "The robustness engine for AI coding agents. A local Rust code graph gives an agent repo-wide understanding, a validation gate that runs before an edit lands, and safe symbol-aware edits. Deep on TypeScript, useful on Rust, local and deterministic.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/the-open-engine/opcore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T20:33:28Z"
+  "distributed_at": "2026-07-09T20:35:38Z"
 }
