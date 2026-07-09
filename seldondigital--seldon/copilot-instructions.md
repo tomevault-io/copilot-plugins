@@ -1,28 +1,144 @@
-## components-catalog
+## components
 
-> Sync the components catalog index, constants, and component id from component schema files. Use when invoking @components-catalog or when asked to sync or verify the component catalog.
+> Seldon component schema conventions
 
 
-# Components Catalog
+## Seldon Components
 
-Use this rule only when the user explicitly invokes `@components-catalog` or asks to sync or verify the component catalog.
+Components are catalog schemas, not workspace state. A schema declares identity, hierarchy level, default `Properties`, and optional composition trees. Workspaces own variants, instances, user edits, ids, and runtime state.
 
-- Treat all `.schema.ts` files under `packages/core/components/catalog/` as the source of truth.
-- Sync `packages/core/components/catalog/index.ts`, the `packages/core/components/constants/` index, and `packages/core/components/types/component-id.ts` to match the schema files under `catalog/`, namely `boards/`, `screens/`, `modules/`, `parts/`, `elements/`, `primitives/`, and `frames/`.
-- For each schema file, ensure `catalog/index.ts` includes the `schema` import, the matching `exportConfig` import, exactly one entry in the correct level array, and exactly one entry in `exportConfigById`.
-- Remove stale imports and stale array or map entries for schema files that no longer exist.
-- Keep the level buckets in `catalog/index.ts` limited to `frames`, `primitives`, `elements`, `parts`, `modules`, `screens`, and `boards`.
-- Derive component ids and names from the schema files only. Do not invent components or aliases.
-- Update `packages/core/components/types/component-id.ts` directly so `ComponentId` stays aligned with the schema ids and catalog.
-- Do not change schema contents when doing catalog sync unless the user explicitly asks for schema edits too.
-- Sync the affected files directly. Do not instruct the user to run a catalog generator.
-- Treat four artifacts as one set that must agree: the schema file, its `ComponentId` enum entry in `types/component-id.ts`, its `schema` and `exportConfig` imports plus level-array entry in `catalog/index.ts`, and its `exportConfigById` entry. Every schema has all four. Every entry in any of the four has a matching schema file. Remove orphans in either direction.
-- A `ComponentId` value equals the schema `id` in camelCase. The enum key is the SCREAMING_SNAKE_CASE form. Sync aligns membership only. It does not rename an id. To rename, change the schema `id`, update every reference, then sync.
-- Place each `exportConfigById` entry under the comment group that matches the schema's level, and put the schema in the level array that matches its `level`. For example, an element belongs in the `elements` array and the Elements group, not under Primitives.
-- Import aliases follow the component, not the filename: `schema as <component>Schema` and `exportConfig as <component>ExportConfig`. The component name can differ from the filename, such as `Card.schema` imported as `cardStackedSchema`.
-- After syncing, verify every `component` referenced in each schema's `default.children` and `variants[].children` resolves to a `ComponentId` with a catalog entry. A missing child surfaces at runtime as `Schema <id> not found` or `Register for <id> not found`.
-- After syncing, typecheck `@seldon/core`. Confirm `ComponentId` values stay unique and that `getComponentSchema` and `getComponentExportConfig` resolve for every id.
-- If you find mismatches you cannot resolve safely, stop and report them clearly.
+Use `packages/core/components/README.md` for schema shapes, hierarchy, composition, and child-tree rules.
+
+Use `packages/core/properties/README.md` for property shapes, value types, theme references, and property ordering.
+
+### Hierarchy
+
+- `screen` may contain anything.
+- `module` may contain modules, parts, elements, primitives, and frames.
+- `part` may contain parts, elements, primitives, and frames.
+- `element` may contain elements, primitives, and frames.
+- `primitive` has no `default`, `variants`, or children.
+- `frame` is the cross-level container and may appear anywhere.
+- Choose the level by what the component composes, not by its name. A container of parts is a module or part. A leaf with no children is a primitive.
+
+### Schema Shapes
+
+All schemas share `id`, `name`, `intent`, `icon`, `tags`, and `properties`.
+
+Schemas may set an optional `layout` meta of type `ComponentLayout`. When absent it means `FLEXBOX`. Set `layout: ComponentLayout.GRID` to make the component a CSS grid container, which scopes its LAYOUT properties to the grid vocabulary (columns, rows, item placement) instead of the flexbox vocabulary (orientation, wrapChildren).
+
+Primitives use `level: ComponentLevel.PRIMITIVE` and stop there.
+
+Complex schemas use `default: { children: [...] }` for the canonical tree and may use `variants: [...]` for alternate trees. A variant may also define root `overrides`. Composition trees should be fully flattened. Keep intermediate schemas only when they are reusable across multiple parents.
+
+Author schemas with `as const satisfies ComponentSchema` so TypeScript validates the shape while preserving literal property and option values.
+
+### Schema Files And Folders
+
+- Use one schema file per component family. Name it `X.schema.ts` after the family default.
+- Put the default tree in `default` and alternate trees in `variants`. Do not keep a separate file per variant.
+- When consolidating, move each old variant schema into the family file as a variant, then delete the old file.
+- Place schema files directly at the root of their level folder, such as `elements/` or `parts/`. Use a subfolder only for a genuine grouping, such as `tables/` or `cards/`.
+- Use `Button.schema.ts` as the reference for a family with multiple variants.
+
+### Properties
+
+Schema properties use the same shapes as the properties system:
+
+- atomic values use `{ type: ValueType, value: ... }`
+- compound values are objects of tagged sub-values
+- shorthand values are objects of tagged side or corner values
+- layered paint values are arrays of compound layers
+
+Properties absent from a schema are not part of that component's vocabulary and cannot be set or overridden for that component.
+
+Use these value types in schemas:
+
+- `EMPTY` for exposed but unset properties.
+- `INHERIT` to take the parent value.
+- `EXACT` for literals.
+- `OPTION` for fixed enum-style choices.
+- `THEME_CATEGORICAL` for named token sets like swatches and font families.
+- `THEME_ORDINAL` for ordered token scales like sizes and spacing.
+- `COMPUTED` for values resolved from another property at compute time.
+
+Follow property ordering from `PROPERTY_DISPLAY_ORDER`: attributes, layout, appearance, typography, effects, accessibility. Accessibility properties (`role`, `aria*`) come last, after effects. Within compounds, follow the facet order in `packages/core/properties/README.md`.
+
+### Children And Overrides
+
+Complex schemas declare children inside `default.children` and optional `variants[i].children`. Each child entry is a `SchemaChild` record.
+
+```typescript
+default: {
+  children: [
+    {
+      component: Seldon.ComponentId.BUTTON,
+      overrides: {
+        buttonSize: {
+          type: Sdn.ValueType.THEME_ORDINAL,
+          value: "@fontSize.medium",
+        },
+      },
+      children: [
+        {
+          component: Seldon.ComponentId.TEXT,
+          variant: "label",
+          overrides: {
+            content: { type: Sdn.ValueType.EXACT, value: "Add" },
+          },
+        },
+      ],
+    },
+  ],
+},
+variants: [
+  {
+    id: "secondary",
+    label: "Secondary",
+    intent: "Alternate button for a lower-emphasis action.",
+    children: [
+      {
+        component: Seldon.ComponentId.BUTTON,
+        children: [
+          {
+            component: Seldon.ComponentId.TEXT,
+            variant: "label",
+            overrides: {
+              content: { type: Sdn.ValueType.EXACT, value: "Cancel" },
+            },
+          },
+        ],
+      },
+    ],
+  },
+],
+```
+
+Use `overrides` in component schemas. Overrides must use full typed property values and are matched against the target child schema. Unknown override keys are dropped by merge logic. Do not invent child properties that the referenced schema does not expose.
+
+Inline every `overrides` object literal at its child. Do not hoist an `overrides` block into a module `const` and reference it from children. Repeat the literal for each child even when several children share the same values. Schema files read as flat, self-contained data, and a shared const both hides the per-child values and makes every child point at the same object reference. This applies to child `overrides`, variant root `overrides`, and any nested property object inside them. The only module-level values a schema file declares are the `schema` export and its `exportConfig`.
+
+When a child uses a family variant, set `variant: "<variantId>"` to point at it. After consolidating or removing a schema, update every reference to the new family id and variant, and remove the old `ComponentId` entries. Renaming a schema does not rename its `ComponentId`. Change the id only when you intend to update all references.
+
+Use `@token.id` for theme references, e.g. `@swatch.primary`, `@size.medium`, `@font.body`. 
+
+Use `#property.path` for computed-property inputs, e.g. `#parent.buttonSize`.
+
+### Catalog Access
+
+Use `getComponentSchema(id)` from `@seldon/core/components/catalog` when resolving a schema by id. Do not reach into per-level catalog arrays unless you specifically need to iterate a level bucket.
+
+### Adding Components
+
+When adding a component:
+
+1. Pick the correct level and folder.
+2. Start from a sibling schema at the same level and follow its authoring pattern.
+3. Author the schema with `as const satisfies ComponentSchema`.
+4. Add `exportConfig`.
+5. Keep property keys and compound facets in documented order from `packages/core/properties/README.md`.
+6. Update `packages/core/components/catalog/index.ts` afterwards to include new components.
+7. Sync the catalog by invoking `@components-catalog`. It updates `packages/core/components/catalog/index.ts`, `packages/core/components/constants/index.ts`, and `packages/core/components/types/component-id.ts` from the schema files. Do not rely on a generation script.
 
 ---
 > Source: [SeldonDigital/seldon](https://github.com/SeldonDigital/seldon) — distributed by [TomeVault](https://tomevault.io).
