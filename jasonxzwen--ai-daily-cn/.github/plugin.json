@@ -1,0 +1,9 @@
+{
+  "name": "jasonxzwen--ai-daily-cn",
+  "displayName": "ai-daily-cn",
+  "description": "Automated Chinese AI daily publisher that turns structured agent-generated reports into searchable, archived GitHub Pages HTML pages.",
+  "version": "1.0.0",
+  "author": "JasonxzWen",
+  "homepage": "https://github.com/JasonxzWen/ai-daily-cn",
+  "skills": []
+}
