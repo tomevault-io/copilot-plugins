@@ -1,0 +1,14 @@
+{
+  "name": "mysterionrise--ctf-kit",
+  "displayName": "ctf-kit",
+  "description": "\ud83c\udff4 AI-assisted CTF challenge solver toolkit. Integrates with Claude Code, Cursor, and Copilot to help you analyze and solve CTF challenges faster.",
+  "version": "1.0.0",
+  "author": "MysterionRise",
+  "homepage": "https://github.com/MysterionRise/ctf-kit",
+  "skills": [
+    {
+      "name": "team-solve",
+      "description": ""
+    }
+  ]
+}
