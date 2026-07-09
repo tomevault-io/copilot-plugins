@@ -1,104 +1,47 @@
-## dogfood-verification
+## deep-read-audit
 
-> Every UI change MUST be visually verified in the running app before declaring done. Code-level changes without visual confirmation are unverified assumptions. But verification is not just "does it render?" — it's "does it belong?"
+> Deep-read audit protocol — full end-to-end reads only, parallel subagents, numbered findings
 
 
-# Dogfood Verification Protocol — Product Design Review
+# Deep-Read Audit Protocol
 
-Every UI change MUST be visually verified in the running app before declaring done. Code-level changes without visual confirmation are unverified assumptions. But verification is not just "does it render?" — it's "does it belong?"
+When collocating across tools, prompts, skills, or rules — NEVER edit from a section-level read. Full end-to-end reads only.
 
-## Mindset: Analyst, Not Junior Dev
+## Protocol
 
-Guide yourself like an analyst diagnosing root cause, not a junior dev slapping on a bandaid. Before touching code:
+1. **Categorize** — Group all target files into 4-6 non-overlapping categories by domain
+2. **Parallel subagents** — Launch one Explore subagent per category, all simultaneously
+3. **Full reads required** — Each subagent reads EVERY file in its category end-to-end. No partial reads, no grep-only
+4. **Numbered findings** — Each finding must include:
+   - `[N] FILE:LINE` — exact location
+   - `"exact quote of relevant code/text"` — verbatim from the file
+   - `ISSUE:` — description of duplication, obscurity, or centralization need
+5. **Wait for all** — Do not synthesize until ALL subagents complete
+6. **Synthesize** — Produce a single consolidated report with:
+   - P0 (extract immediately), P1 (fix this sprint), P2 (next sprint)
+   - Estimated impact per tier
+   - Proposed module paths for centralized code
 
-1. **Form a hypothesis** — What is actually wrong? "It looks broken" is not a hypothesis. "The date picker generates UTC dates but the data is keyed by local dates" is.
-2. **Trace the render path** — Which component ACTUALLY renders on screen? Follow: sidebar item → view key → MainLayout switch → lazy import → component file. Don't assume — the component you grep for may not be the one the user sees.
-3. **Identify the data layer** — Is this Convex backend (needs `convex deploy`), React frontend (needs `vite build`), stored DB records (needs migration), or MCP tools (needs `tsc`)? Changing the wrong layer wastes a cycle.
-4. **Ask "why" before "what"** — If a gauge shows 0%, don't change the label. Ask why it's 0%. Missing data? Wrong query? Unconfigured system? Each has a different fix.
+## What to look for
+- Duplicated helper functions across files
+- Overlapping tool/rule descriptions that confuse discovery
+- Shared patterns that should be centralized (DB setup, ID generation, timestamps, fetch wrappers)
+- Inconsistent naming conventions (params, response shapes, error formats)
+- Tools/rules that do similar things in different files
+- Hardcoded values that should be shared constants
+- Stale/deprecated code still callable
+- Instructions duplicated across CLAUDE.md, .claude/rules/, .cursor/rules/
 
-## Jony Ive Product Design Critique
+## Anti-patterns
+- Reading only the first 50 lines and inferring the rest
+- Grepping for keywords instead of reading full context
+- Editing before the audit completes
+- Skipping large files (72KB+ agent files are WHERE the duplication hides)
 
-After verifying it renders, apply the design critique. Every element must earn its place:
-
-### Does it communicate or decorate?
-- Every stat must drive a decision. If a number doesn't change behavior, it's decoration — remove it.
-- "14 threads" means nothing without context. "14 threads (3 escalating)" drives action.
-- Streak counters, "free runs today", total counts without trends — vanity. Remove.
-
-### Does it respect the user's time?
-- Empty states: "No data yet. Run: `npm run local:sync`" gives agency. "Nothing here" wastes time.
-- Loading states: skeleton shimmer, not blank void. User should never stare at white.
-- Error states: what went wrong + what to do about it. Never just "Error".
-
-### Does the language earn trust?
-- Replace jargon: "Act I/II/III" → "Quick Pulse / Analysis / Deep Dive"
-- Replace internal labels: "Orchestrator" → "Agent", "Trajectory" → "History"
-- Test: would a non-technical person understand this label in 2 seconds?
-
-### Does it survive edge cases?
-- Grammar: "1 items" → "1 item". Always handle singular/plural.
-- Timezone: `toISOString().slice(0,10)` returns UTC, not local. This WILL mismatch.
-- Zero state: What happens with 0 items? 1 item? 10,000 items?
-- First-run: What does a new user see before any data exists?
-
-### Does it reduce, not accumulate?
-- Prefer 3-5 tabs maximum per view
-- Before adding a new tab: try accordion, inline section, or progressive disclosure
-- If removing an element loses no function, remove it
-- If two sections serve the same purpose, combine them
-
-## Verification Checklist
-
-## One-command dogfood capture (recommended)
-
-Runs a full Scribe-like dogfood session locally and makes it UI-verifiable at `/dogfood`:
-
-- `npm run dogfood:full:local` (screenshots + publish + how-to + video)
-- `npm run dogfood:full:local:play` (same, then opens the video)
-
-### Before writing any fix
-1. Reproduce the exact failure. Screenshot it.
-2. Trace upstream: symptom → intermediate state → root cause.
-3. Confirm your fix addresses the root cause, not just the symptom.
-4. Check if the same root cause exists elsewhere.
-
-### After writing a fix
-1. **Build**: `npx vite build` (frontend) or `npx convex deploy` (backend) or `npx tsc` (MCP)
-2. **Navigate**: Use Playwright or manual browser to reach the EXACT page
-3. **Screenshot**: Capture at 1440x900. Compare before/after.
-4. **Edge-case sweep**: Test with 0 items, 1 item, and the singular/plural boundary
-5. **Design critique**: Run through the Ive checklist above. Does every pixel earn its place?
-6. **Make it UI-verifiable**: Publish the latest evidence so `/dogfood` can render it (`npm run dogfood:publish` or `npm run dogfood:full:local`).
-
-## Red Flags You're Bandaiding
-
-- Adding `try/catch` that swallows errors without understanding them
-- Adding `?.` optional chaining to mask `undefined` instead of finding why it's undefined
-- Changing "0/7 healthy" to "7 scheduled" — hides a monitoring signal
-- Fixing text in an empty state instead of addressing why it's empty
-- Changing a generation constant but not migrating existing stored data
-- "It works now" without understanding why it didn't before
-- Editing a component that isn't reachable from the user's navigation path
-
-## Layered Deployment Model
-
-| Layer | Changes to | Deployed via | Visible when |
-|-------|-----------|-------------|--------------|
-| React components | `.tsx` in `src/` | `vite build` | Preview server restarted |
-| Convex functions | `.ts` in `convex/` | `npx convex deploy` | Backend redeployed |
-| Convex schema | `convex/schema.ts` | `npx convex deploy` | Backend redeployed |
-| MCP tools | `packages/mcp-local/` | `npx tsc` in package | MCP server restarted |
-| Stored data | DB records | Data migration or mutation | After migration runs |
-| Dashboard HTML | `briefHtml.ts` / `html.ts` | Inline — restart server | Server restarted |
-
-## Navigation Map (Common Gotchas)
-
-- Sidebar "Industry Updates" → `industry-updates` view → `IndustryUpdatesPanel` (NOT `PublicSignalsLog`)
-- Sidebar "Agent Templates" → `agent-marketplace` view → `AgentMarketplace` (NOT `AgentsHub`)
-- Sidebar "Recommendations" → `document-recommendations` view → `DocumentRecommendations`
-- `AgentsHub` with `AutonomousOperationsPanel` → `agents` view (top nav / Research mode)
-- `PublicSignalsLog` → `signals` view (Research mode)
-- Local Dashboard → `http://127.0.0.1:6275` (MCP server auto-starts)
+## Related rules
+- `analyst_diagnostic` — root cause before fix
+- `reexamine_process` — orchestrator for when/how to re-examine
+- `completion_traceability` — cite back to original request
 
 ---
 > Source: [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — distributed by [TomeVault](https://tomevault.io).
