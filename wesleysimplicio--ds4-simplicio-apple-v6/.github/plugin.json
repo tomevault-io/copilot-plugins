@@ -1,0 +1,9 @@
+{
+  "name": "wesleysimplicio--ds4-simplicio-apple-v6",
+  "displayName": "ds4-simplicio-apple-v6",
+  "description": "Ultra-fast 100% on-device Universal State Runtime for LLMs on Apple Silicon (M1\u2013M5). DeepSeekV4/others on Mac M3 48gb RAM. Powered by MLX + Metal + ANE \u2014 extreme local inference, zero cloud, built for",
+  "version": "1.0.0",
+  "author": "wesleysimplicio",
+  "homepage": "https://github.com/wesleysimplicio/ds4-simplicio-apple-v6",
+  "skills": []
+}
