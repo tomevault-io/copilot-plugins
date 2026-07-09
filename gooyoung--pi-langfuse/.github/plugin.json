@@ -1,0 +1,9 @@
+{
+  "name": "gooyoung--pi-langfuse",
+  "displayName": "pi-langfuse",
+  "description": "langfuse extension for pi-coding-agent",
+  "version": "1.0.0",
+  "author": "gooyoung",
+  "homepage": "https://github.com/gooyoung/pi-langfuse",
+  "skills": []
+}
