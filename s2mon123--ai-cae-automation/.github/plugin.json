@@ -1,0 +1,9 @@
+{
+  "name": "s2mon123--ai-cae-automation",
+  "displayName": "AI_CAE_Automation",
+  "description": "In order to better adapt to the current Agent environment, we have organized environment configurations and provided prompt examples for mainstream software such as Abaqus, Ansys, COMSOL, Hypermesh, S",
+  "version": "1.0.0",
+  "author": "S2mon123",
+  "homepage": "https://github.com/S2mon123/AI_CAE_Automation",
+  "skills": []
+}
