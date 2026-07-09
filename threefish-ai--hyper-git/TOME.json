@@ -4,7 +4,7 @@
   "repo": "hyper-git",
   "description": "HyperGit brings IntelliJ IDEA's powerful Git & Commit modules to VS Code, enhanced with AI-powered autonomous agents for intelligent repository management. Experience Git in a higher dimension.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ThreeFish-AI/hyper-git",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T02:31:28Z"
+  "distributed_at": "2026-07-09T02:36:38Z"
 }
