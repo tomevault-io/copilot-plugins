@@ -4,7 +4,7 @@
   "repo": "NodeBenchAI",
   "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change later. Five-surface app + deep-work Workspace, Convex state, and a hosted public research MCP (npx nodebench-mcp).",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HomenShum/NodeBenchAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T10:40:12Z"
+  "distributed_at": "2026-07-09T10:40:39Z"
 }
