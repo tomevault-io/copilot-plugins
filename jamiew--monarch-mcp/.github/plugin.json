@@ -1,0 +1,9 @@
+{
+  "name": "jamiew--monarch-mcp",
+  "displayName": "monarch-mcp",
+  "description": "Modern MCP server for accessing Monarch Money financial data using AI agents, like Claude. Token-efficient, smart tool design, and uses latest MCP protocol features",
+  "version": "1.0.0",
+  "author": "jamiew",
+  "homepage": "https://github.com/jamiew/monarch-mcp",
+  "skills": []
+}
