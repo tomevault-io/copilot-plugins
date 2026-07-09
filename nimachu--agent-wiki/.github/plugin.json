@@ -1,0 +1,9 @@
+{
+  "name": "nimachu--agent-wiki",
+  "displayName": "agent-wiki",
+  "description": "Zero-cost, beginner-friendly local Markdown knowledge base for AI agents. Capture sources, preserve evidence and images, synthesize wiki pages, search, lint, and view an on-demand graph.",
+  "version": "1.0.0",
+  "author": "NimaChu",
+  "homepage": "https://github.com/NimaChu/agent-wiki",
+  "skills": []
+}
