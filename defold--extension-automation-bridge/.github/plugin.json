@@ -1,0 +1,9 @@
+{
+  "name": "defold--extension-automation-bridge",
+  "displayName": "extension-automation-bridge",
+  "description": "Debug-only native extension for inspecting a running Defold game and sending input from local automation clients such as Codex",
+  "version": "1.0.0",
+  "author": "defold",
+  "homepage": "https://github.com/defold/extension-automation-bridge",
+  "skills": []
+}
