@@ -36649,6 +36649,16 @@
       "description": "baba-is-auto"
     },
     {
+      "name": "mattolson--agent-sandbox",
+      "source": "./mattolson--agent-sandbox",
+      "description": "agent-sandbox"
+    },
+    {
+      "name": "mattolson--agent-sandbox",
+      "source": "./mattolson--agent-sandbox",
+      "description": "agent-sandbox"
+    },
+    {
       "name": "peiiii--nextclaw",
       "source": "./peiiii--nextclaw",
       "description": "NextClaw: Your omnipotent personal assistant, residing above the digital realm. Basically Ultra-Lightweight OpenClaw Pro Max."
@@ -241169,6 +241179,21 @@
       "description": "dotfiles"
     },
     {
+      "name": "laborberlin--varvis-connector",
+      "source": "./laborberlin--varvis-connector",
+      "description": "Python package and CLI for data retrieval from Varvis SaaS Platform API. "
+    },
+    {
+      "name": "kim-em--hex-dev",
+      "source": "./kim-em--hex-dev",
+      "description": "Verified computational algebra in Lean 4 \u2014 polynomial factoring, LLL, and friends"
+    },
+    {
+      "name": "dograh-hq--reddit-scanner",
+      "source": "./dograh-hq--reddit-scanner",
+      "description": "Scans Reddit for relevant posts to comment on and makes suggestions for comments. Also collects posts that can be replicated on Reddit or LinkedIn. Also collects the list of subreddits with domain rel"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -261964,6 +261989,31 @@
       "description": "An introduction and explanation of the incredible CMA-ES optimization algorithm."
     },
     {
+      "name": "hakkazuu--ccemaphore",
+      "source": "./hakkazuu--ccemaphore",
+      "description": "ccemaphore"
+    },
+    {
+      "name": "jorge-huxley--intervalssync",
+      "source": "./jorge-huxley--intervalssync",
+      "description": "Sync iGPSPORT and Bryton activities with Intervals.icu, and send planned workouts back to your cycling computer."
+    },
+    {
+      "name": "lavx--arrstack",
+      "source": "./lavx--arrstack",
+      "description": "Single-binary TUI installer that sets up and auto-wires a 12-service media stack (Sonarr, Radarr, Bazarr+, Jellyfin, Jellyseerr, Prowlarr, qBittorrent, Tdarr, Trailarr, FlareSolverr) on a clean Linux "
+    },
+    {
+      "name": "jholhewres--anchored",
+      "source": "./jholhewres--anchored",
+      "description": "Persistent cross-tool memory for AI coding agents. Single binary. Zero dependencies."
+    },
+    {
+      "name": "faded-penguin021--tideo-auto-brightness",
+      "source": "./faded-penguin021--tideo-auto-brightness",
+      "description": "Native Android Kotlin port of Advanced Auto Brightness.  A glass box replacement for Android's adaptive brightness. Replaces opaque ML with deterministic math. Features live graphing, auto curve fitti"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -266292,6 +266342,11 @@
       "name": "dginovker--open-bfme",
       "source": "./dginovker--open-bfme",
       "description": "Open Source, 1:1 binary swappable recreation of the Lord of the Rings, Battle for Middle-Earth"
+    },
+    {
+      "name": "sanjardeveloper--hawor-improved",
+      "source": "./sanjardeveloper--hawor-improved",
+      "description": "Improved HaWoR fork: temporally stable, lower-jitter egocentric hand pose via zero-lag smoothing + bone canonicalization (no retraining)"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
