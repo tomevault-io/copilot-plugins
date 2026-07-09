@@ -18104,6 +18104,21 @@
       "description": "Symlinker"
     },
     {
+      "name": "stophobia--deerflow2-0-enhanced",
+      "source": "./stophobia--deerflow2-0-enhanced",
+      "description": "deerflow2.0-enhanced"
+    },
+    {
+      "name": "stophobia--deerflow2-0-enhanced",
+      "source": "./stophobia--deerflow2-0-enhanced",
+      "description": "deerflow2.0-enhanced"
+    },
+    {
+      "name": "stophobia--deerflow2-0-enhanced",
+      "source": "./stophobia--deerflow2-0-enhanced",
+      "description": "deerflow2.0-enhanced"
+    },
+    {
       "name": "astronomer--airflow-ai-sdk",
       "source": "./astronomer--airflow-ai-sdk",
       "description": "An SDK for working with LLMs and AI Agents from Apache Airflow, based on Pydantic AI"
@@ -167059,6 +167074,211 @@
       "description": "Ultra-fast 100% on-device Universal State Runtime for LLMs on Apple Silicon (M1\u2013M5). DeepSeekV4/others on Mac M3 48gb RAM. Powered by MLX + Metal + ANE \u2014 extreme local inference, zero cloud, built for"
     },
     {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
+      "name": "homenshum--nodebenchai",
+      "source": "./homenshum--nodebenchai",
+      "description": "Entity intelligence for any company, market, or question \u2014 not a chatbot that answers once, but a system that synthesizes with sources, turns each run into a reusable artifact, and watches for change "
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -205119,6 +205339,11 @@
       "description": "Seldon \u00b7 Core, Factory, and Editor"
     },
     {
+      "name": "jdefrancesco--wormzy",
+      "source": "./jdefrancesco--wormzy",
+      "description": "Secure P2P File Transfer Tool"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -240934,6 +241159,16 @@
       "description": "Product leadership, product management, and Natural Voice writing style LLM Prompts and supporting resources"
     },
     {
+      "name": "flyryan--dify-a2a-plugin",
+      "source": "./flyryan--dify-a2a-plugin",
+      "description": "A2A (Agent-to-Agent) protocol plugin for Dify - enables cross-agent communication"
+    },
+    {
+      "name": "ikhwan-satrio--dotfiles",
+      "source": "./ikhwan-satrio--dotfiles",
+      "description": "dotfiles"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -261684,6 +261919,51 @@
       "description": "Hi Code \u2014 \u672c\u5730\u4f18\u5148\u7684\u684c\u9762\u7f16\u7801 Agent \u5de5\u4f5c\u53f0 \u00b7 a local-first desktop coding agent workbench for any OpenAI-compatible model"
     },
     {
+      "name": "aixiaoxiang--xx-skills",
+      "source": "./aixiaoxiang--xx-skills",
+      "description": "\u7528\u597d AI Agent\uff0c\u628a\u60f3\u6cd5\u505a\u6210\u4e0a\u7ebf\u7684\u4ea7\u54c1 \u2014 \u9762\u5411\u521d\u5b66\u8005\uff0c16 \u4e2a skill \u8986\u76d6\u60f3\u6e05\u695a/\u505a\u51fa\u6765/\u8dd1\u8d77\u6765\u4e09\u9636\u6bb5"
+    },
+    {
+      "name": "aixiaoxiang--xx-skills",
+      "source": "./aixiaoxiang--xx-skills",
+      "description": "\u7528\u597d AI Agent\uff0c\u628a\u60f3\u6cd5\u505a\u6210\u4e0a\u7ebf\u7684\u4ea7\u54c1 \u2014 \u9762\u5411\u521d\u5b66\u8005\uff0c16 \u4e2a skill \u8986\u76d6\u60f3\u6e05\u695a/\u505a\u51fa\u6765/\u8dd1\u8d77\u6765\u4e09\u9636\u6bb5"
+    },
+    {
+      "name": "software-engineering-guide--software-engineering-guide",
+      "source": "./software-engineering-guide--software-engineering-guide",
+      "description": "Software Engineering Guide"
+    },
+    {
+      "name": "loricaos--loricaos",
+      "source": "./loricaos--loricaos",
+      "description": "A capability-secured operating system built on the Aegis kernel."
+    },
+    {
+      "name": "aixiaoxiang--xx-skills",
+      "source": "./aixiaoxiang--xx-skills",
+      "description": "\u7528\u597d AI Agent\uff0c\u628a\u60f3\u6cd5\u505a\u6210\u4e0a\u7ebf\u7684\u4ea7\u54c1 \u2014 \u9762\u5411\u521d\u5b66\u8005\uff0c16 \u4e2a skill \u8986\u76d6\u60f3\u6e05\u695a/\u505a\u51fa\u6765/\u8dd1\u8d77\u6765\u4e09\u9636\u6bb5"
+    },
+    {
+      "name": "innate-labs--ai-dress-up",
+      "source": "./innate-labs--ai-dress-up",
+      "description": "\u4e00\u6b3e\u79fb\u52a8\u7aef AI \u7a7f\u642d\u52a9\u624b\u2014\u2014\u62cd\u5f20\u7167\u5c31\u80fd\u628a\u8863\u670d\u81ea\u52a8\u62a0\u56fe\u5b58\u8fdb\u7535\u5b50\u8863\u6a71,\u518d\u7528\u865a\u62df\u8bd5\u7a7f\u770b\u771f\u5b9e\u4e0a\u8eab\u6548\u679c,\u8ba9 AI \u5e2e\u4f60\u642d\u914d\u6bcf\u5929\u7a7f\u4ec0\u4e48\u3002"
+    },
+    {
+      "name": "innate-labs--ai-dress-up",
+      "source": "./innate-labs--ai-dress-up",
+      "description": "\u4e00\u6b3e\u79fb\u52a8\u7aef AI \u7a7f\u642d\u52a9\u624b\u2014\u2014\u62cd\u5f20\u7167\u5c31\u80fd\u628a\u8863\u670d\u81ea\u52a8\u62a0\u56fe\u5b58\u8fdb\u7535\u5b50\u8863\u6a71,\u518d\u7528\u865a\u62df\u8bd5\u7a7f\u770b\u771f\u5b9e\u4e0a\u8eab\u6548\u679c,\u8ba9 AI \u5e2e\u4f60\u642d\u914d\u6bcf\u5929\u7a7f\u4ec0\u4e48\u3002"
+    },
+    {
+      "name": "posit-dev--automerge-r",
+      "source": "./posit-dev--automerge-r",
+      "description": "R Bindings for the Automerge CRDT Library"
+    },
+    {
+      "name": "dicklesworthstone--cmaes-explainer",
+      "source": "./dicklesworthstone--cmaes-explainer",
+      "description": "An introduction and explanation of the incredible CMA-ES optimization algorithm."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -266002,6 +266282,16 @@
       "name": "tmpbin--hapticbreak",
       "source": "./tmpbin--hapticbreak",
       "description": "Haptic Break macOS APP"
+    },
+    {
+      "name": "rainsunye--open3d-agent",
+      "source": "./rainsunye--open3d-agent",
+      "description": "Open3D-Agent"
+    },
+    {
+      "name": "dginovker--open-bfme",
+      "source": "./dginovker--open-bfme",
+      "description": "Open Source, 1:1 binary swappable recreation of the Lord of the Rings, Battle for Middle-Earth"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
