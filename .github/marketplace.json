@@ -63054,6 +63054,16 @@
       "description": "A unified TypeScript SDK for storage with first-class support for snapshotting, forking across Tigris, Amazon S3, Cloudflare R2, GCS, Azure Blob, Vercel Blob and many more."
     },
     {
+      "name": "magic-resume--magic-resume",
+      "source": "./magic-resume--magic-resume",
+      "description": "Open-source AI career platform that helps users build, optimize, analyze, and tailor resumes with intelligent job matching, ATS optimization, and career guidance."
+    },
+    {
+      "name": "magic-resume--magic-resume",
+      "source": "./magic-resume--magic-resume",
+      "description": "Open-source AI career platform that helps users build, optimize, analyze, and tailor resumes with intelligent job matching, ATS optimization, and career guidance."
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -174219,6 +174229,16 @@
       "description": "mosaic"
     },
     {
+      "name": "fideus-labs--konfai",
+      "source": "./fideus-labs--konfai",
+      "description": "A simple and flexible deep learning framework based on PyTorch and YAML configuration files."
+    },
+    {
+      "name": "fideus-labs--konfai",
+      "source": "./fideus-labs--konfai",
+      "description": "A simple and flexible deep learning framework based on PyTorch and YAML configuration files."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -191462,6 +191482,11 @@
       "name": "mem0ai--openmemory",
       "source": "./mem0ai--openmemory",
       "description": "Open-source CLI & TUI to port AI coding sessions across Claude Code, Codex, and OpenCode."
+    },
+    {
+      "name": "akitaonrails--github-visualize",
+      "source": "./akitaonrails--github-visualize",
+      "description": "Web Interface to have a pretty animated visualization of you GitHub repos"
     },
     {
       "name": "lightninglabs--lnget",
