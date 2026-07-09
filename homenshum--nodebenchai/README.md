@@ -7,15 +7,15 @@ Entity intelligence for any company, market, or question — not a chatbot that 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI).
+Original source: `.cursor/rules/*.mdc` in [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [HomenShum/NodeBenchAI](https://github.com/HomenShum/NodeBenchAI) — a repo with 14+ stars on GitHub.
 
