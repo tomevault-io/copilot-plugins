@@ -1,21 +1,90 @@
-## editor-jsx
+## engineering
 
-> JSX authoring rules for the editor app
+> TypeScript engineering guidance for Seldon
 
 
-## Editor JSX Authoring
+## Engineering Guidance
 
-Important: This is a hard rule. No exceptions. Resolve every JSX value before the `return`. Returned JSX holds element tags and identifier references only. Nothing is computed inside returned JSX.
+Use the local code first. Follow nearby patterns, public APIs, and domain rules before adding a new abstraction.
 
-A helper or function call inside a JSX prop is a violation, even a short one. `comboboxField={buildFieldStateProps({ selected })}` is wrong. Hoist it: `const comboboxField = buildFieldStateProps({ selected })`, then `comboboxField={comboboxField}`.
+### TypeScript
 
-- Do not write expressions inside returned JSX. This covers ternaries, `&&`, `||`, comparisons, computed objects or arrays, inline `style` objects, function calls that build a value, template literals, and inline arrow or function handlers.
-- Hoist each value into a named `const`, `useCallback`, or `useMemo` above the `return`.
-- A conditional element tree becomes a named constant. Write `const childrenSection = hasChildren ? <Children /> : null`, then render `{childrenSection}`.
-- Resolve lists before the `return`. Precompute the array into a `const`, or extract a child component. A `.map` callback passes identifier or item-field props only, and computes nothing inline.
-- Event handlers are named functions or `useCallback` values. Do not define an arrow handler inside a JSX prop.
+- Prefer named exports and pure functions for shared TypeScript modules.
+- Use classes only when matching existing code or when stateful encapsulation is justified.
+- Use descriptive names. Do not force auxiliary verbs on every variable.
+- Avoid `any` in production code unless the boundary is unknown data, migration, legacy compatibility, or a narrow type escape.
+- Allow enums where they are already part of the public or serialized API. Do not apply a blanket `avoid enums` rule.
+- All comments should be about current behavior, not legacy, deprecated, past behavior, or anything that is not relevant going forward. 
+- Do not add comments that are obvious or referential to markdown files. 
+- Add JSDocs as needed.
+- In `*.schema.ts` files, inline every property and `overrides` object literal at its child. Do not hoist shared schema values into a module `const` and reuse it. The only module-level values are the `schema` export and its `exportConfig`. See `.cursor/rules/components.mdc`.
 
-Bare literal slot enablers stay inline. A positional `{}`, `null`, or `undefined` that turns a generated slot on or off carries no logic, so it does not need a name.
+### Naming
+
+- Match the local filename convention of the area you are editing.
+- Most general TypeScript modules use lowercase kebab-case, such as `set-node-properties.ts`.
+- Component schema files use `PascalCase.schema.ts`.
+- Service and helper modules keep their existing suffix-based names, such as `theme.service.ts` and `workspace-mutation.helper.ts`.
+- Match exported reducer handler names to their file names in camelCase verb+noun form, such as `set-node-properties.ts` -> `setNodeProperties`.
+- Group workspace reducer handlers by action verb, such as `add/`, `remove/`, `set/`, `reset/`, `insert/`, `move/`, `reorder/`, and `duplicate/`. Use support folders such as `shared/`, `normalize/`, and `stubs/` only when the file is not a direct action handler and matches the existing structure.
+- Avoid `handle*` prefixes for reducer handlers unless nearby code already uses that pattern.
+
+### Change Scope
+
+- Keep edits scoped to the requested behavior.
+- Avoid unrelated refactors, formatting churn, and metadata changes.
+- Add abstractions only when they reduce real duplication or match an established local pattern.
+
+### Package Boundaries
+
+- Put behavior and data in `core`. The editor consumes `core` and must not special-case or re-implement core logic.
+- Keep export concerns in the `factory`. CSS variable refs and language-specific output belong to factory export, not to `core` or the editor.
+- When a value or ordering looks wrong in the editor, fix it in `core` so every consumer gets the same result. Do not patch it in the editor.
+- Persist user edits as workspace actions and reducers. Do not store design state as editor-only side state.
+
+### Consistency Over Special Cases
+
+- Follow existing patterns. A new case should behave the same way as its siblings. A new compound property behaves like other compound properties.
+- Do not add special code or special casing when a general pattern already exists.
+- Prefer the simplest change that fits the existing model. Do not over-complicate a fix.
+
+### Tests And Migrations
+
+- Do not add or update tests unless explicitly asked.
+- Do not add or update migrations unless explicitly asked.
+
+### Debugging And Regressions
+
+- When something that worked breaks, first find the specific recent change that caused it. Prefer the smallest targeted fix over a broad refactor.
+- Do not keep code that breaks existing behavior. If a change regresses atomic, shorthand, or compound behavior, revert that part.
+- Do not spiral into deep rewrites for a small regression.
+
+### Verification
+
+- After changes, run `tsc` across the whole repo and resolve all type errors before reporting done.
+- Keep all imports valid and remove dead or redundant code touched by the change.
+
+### Workflow
+
+- Analyze and report a plan before editing. Wait for approval before making file changes.
+
+### Version Control
+
+- Run inspection commands freely, such as `git status`, `git diff`, `git log`, and `git stash`.
+- Never run a command that changes the working tree, switches or edits a branch, or opens a PR without asking first. This covers `git commit`, `git push`, `git reset`, `git restore`, `git checkout`, `git switch`, `git branch`, `git merge`, `git rebase`, and `gh pr create`.
+
+### Framework Guidance
+
+Keep React, Next.js, Web Vitals, image, and URL-state guidance out of this global rule. App-code framework rules live in file-scoped rules.
+
+### JSX Authoring (Always Enforced)
+
+Important: When you edit any `.tsx` file under `packages/editor/`, you MUST follow `.cursor/rules/editor-jsx.mdc`. The core rule, repeated here so it is always in scope:
+
+- Returned JSX holds element tags and identifier references only. Compute nothing inside the returned JSX.
+- No expressions in returned JSX. This covers ternaries, `&&`, `||`, comparisons, computed objects or arrays, inline `style` objects, template literals, inline arrow or function handlers, and helper or function calls that build a value, such as `comboboxField={buildFieldStateProps({ selected })}`.
+- Hoist every JSX value into a named `const`, `useMemo`, or `useCallback` above the `return`, then reference the identifier. Write `const comboboxField = buildFieldStateProps({ selected })`, then `comboboxField={comboboxField}`.
+- Bare literal slot enablers stay inline. A positional `{}`, `null`, or `undefined` that only turns a slot on or off carries no logic.
 
 ---
 > Source: [SeldonDigital/seldon](https://github.com/SeldonDigital/seldon) — distributed by [TomeVault](https://tomevault.io).
