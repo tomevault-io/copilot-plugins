@@ -1,0 +1,9 @@
+{
+  "name": "commandprompt--open-pg-tde",
+  "displayName": "open_pg_tde",
+  "description": "open_pg_tde - Transparent Data Encryption for native PostgreSQL. An open fork of Percona pg_tde, maintained by Command Prompt, Inc.",
+  "version": "1.0.0",
+  "author": "commandprompt",
+  "homepage": "https://github.com/commandprompt/open_pg_tde",
+  "skills": []
+}
