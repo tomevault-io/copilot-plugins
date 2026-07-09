@@ -1,0 +1,9 @@
+{
+  "name": "rin2yh--pumlv",
+  "displayName": "pumlv",
+  "description": "A Go-based local PlantUML preview server. Renders in the browser without Java/Docker, with auto-reload on file save.",
+  "version": "1.0.0",
+  "author": "rin2yh",
+  "homepage": "https://github.com/rin2yh/pumlv",
+  "skills": []
+}
