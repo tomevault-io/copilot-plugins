@@ -1,0 +1,9 @@
+{
+  "name": "carles-abarca--docling-rs",
+  "displayName": "docling-rs",
+  "description": "Native Rust port of IBM's Docling document processing library. Convert PDF, DOCX, XLSX, PPTX, HTML, Markdown, and CSV to structured data for RAG applications.",
+  "version": "1.0.0",
+  "author": "carles-abarca",
+  "homepage": "https://github.com/carles-abarca/docling-rs",
+  "skills": []
+}
