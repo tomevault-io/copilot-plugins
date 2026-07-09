@@ -1,119 +1,42 @@
-## properties
+## testing
 
-> Seldon property value conventions
+> Unit testing conventions for Seldon packages
 
 
-## Seldon Properties
+## Seldon Testing
 
-Properties define component appearance and behavior. They flow from catalog defaults through workspace overrides and theme tokens into computed values for rendering and export.
+Vitest is the test runner for the repo. The project moved fully off `bun test`. Do not import from `bun:test`.
 
-Use `packages/core/properties/README.md` as the canonical reference for property shapes, value types, categories, merge behavior, path rules, and adding property content.
+### Running Tests
 
-### Property Shapes
+- Run all tests from the repo root with `npm test`.
+- Watch mode is `npm run test:watch`. Coverage is `npm run coverage`.
+- A single package runs through its own script, such as `npm test --workspace @seldon/core`.
+- Coverage is enabled for `core` and `factory`. The editor has no Vitest setup yet.
 
-Properties use three primary shapes:
+### Test Files
 
-- `atomic`: one stored value is one style decision, such as `color`, `gap`, `opacity`, or `display`.
-- `compound`: related facets live under one property, such as `border.color`, `border.width`, `font.size`, or `board.width`.
-- `shorthand`: one property controls parallel fields, such as `margin.top`, `padding.left`, or `corners.topLeft`.
+- Co-locate a test next to its source as `X.test.ts`.
+- Use explicit imports: `import { describe, expect, it } from "vitest"`. Globals are off.
+- Batch trivial type guards from one folder into a single spec.
 
-Layered paint properties are stored as arrays of compound layers:
+### No Shared Fixtures
 
-- `background[]`
-- `shadow[]`
+Do not add a shared fixture module or golden JSON files. Hand-maintained copies of workspace, theme, or property shapes drift when `core` changes. Use one of three scoped patterns instead.
 
-Layer index `0` is topmost. Treat these as ordered stacks. Do not model them as single compound objects. Gradients are not a separate node stack. A gradient paints through a `background[]` layer with `kind: gradient`.
+1. Pure functions: build inputs as inline literals inside each test. Do not construct a `Workspace`.
+2. Behavior over real state: build inputs through the real `core` API at the top of the test so inputs track `core` automatically. Use `createEmptyWorkspace()`, then `addComponent` and `addVariant`. Resolve schemas with `getComponentSchema(id)`. Use stock themes from `STOCK_THEMES_BY_ID` or `THEMES_BY_ID`.
+3. Narrow config or gate tests: a small inline node literal kept local to the test is fine. The rules contract test follows this pattern.
 
-### Value Types
+If a snapshot is ever justified, use a small `toMatchInlineSnapshot`. Never write a file snapshot.
 
-Use the current `ValueType` set:
+### Resolution Note
 
-- `EMPTY` for unset values.
-- `INHERIT` for explicit parent inheritance.
-- `EXACT` for concrete values.
-- `OPTION` for fixed choices.
-- `COMPUTED` for values derived from other properties.
-- `THEME_CATEGORICAL` for named theme token sets, such as `@swatch.*` and `@font.*`.
-- `THEME_ORDINAL` for ordered theme scales, such as `@fontSize.*`, `@margin.*`, and `@borderWidth.*`.
+The package Vitest configs alias `@seldon/core` to the package source. Node-style package exports do not resolve directory-index files such as `components/catalog/index.ts`, so the alias is required for subpath imports to load in tests.
 
-Do not use `PRESET` as a value type. Preset-like choices use `ValueType.OPTION`, or theme references such as `@border.hairline`, `@font.body`, and `@gradient.primary` where the property supports them.
+### Adding Tests Is Opt-In
 
-### EMPTY, INHERIT, And None
-
-- `EMPTY` means unset. It resolves to the platform or default value. Author it as `{ type: ValueType.EMPTY, value: null }`.
-- Prefer `EMPTY` over `INHERIT` when both produce the same result. Use `INHERIT` only when a property must take the parent value on purpose.
-- `None` is an explicit choice, not the same as `EMPTY`. Author it with `ValueType.OPTION` and a `*.NONE` value, such as `Gap.NONE`.
-- `None` means an explicit absence the user selected. `EMPTY` means the value is unset and falls back to a default. Do not conflate them.
-- For default layered paint, prefer a cleared look such as `@shadow.none` or `@border.none` over a bare `preset: EMPTY` where the property supports it.
-
-### Theme References Over Literals
-
-- Prefer `@token` references and variant styles over hardcoded literals for color, spacing, corners, and shadows.
-- Author theme references with a single prefix, such as `@fontSize.xxlarge`. Never double the prefix, such as `@fontSize.@fontSize.xxlarge`.
-
-### Categories And Ordering
-
-Use `PROPERTY_DISPLAY_ORDER` and `properties/constants/property-display.ts` for category order:
-
-1. Attributes
-2. Layout
-3. Appearance
-4. Typography
-5. Effects
-6. Accessibility
-
-Accessibility properties (`role`, `aria*`) come last, after effects. Behavior, motion, and data sections are documented as future areas. Do not treat them as implemented property surfaces unless code support exists.
-
-### Property Vocabulary And Visibility
-
-- A property absent from a schema is not part of that component's vocabulary. It cannot be set or overridden.
-- When a control is missing in the editor, confirm the schema exposes the property, set to `EMPTY`. Do not add editor-only property logic.
-- Change property order through `PROPERTY_DISPLAY_ORDER` in core so the editor picks it up. Do not reorder in the editor.
-
-### Compound And Layer Behavior
-
-Compound presets copy theme look parameters onto the compound. Applying a preset overwrites every parameter the preset defines. Any parameter not mentioned by the preset is set to `EMPTY`.
-
-If a user changes a compound sub-field by hand, treat the compound as custom until it matches a named preset again.
-
-For layered paint, merge by layer slot when `mergeSubProperties` is enabled. Preserve ordering and treat missing layer facets like missing compound facets.
-
-### Merge And Serialization
-
-Use `mergeProperties(base, patch, options)` for two property snapshots. Pass the earlier or broader source first and the newer or narrower source second. Chain calls when combining defaults, variants, and instances.
-
-Workspace files store raw authoring state only. Node entries persist `template` and `overrides`. Effective merged properties and `ValueType.COMPUTED` results come from read-side compute selectors and are not persisted back into the workspace file.
-
-### Paths And References
-
-Authoritative property key unions live in `types/property-keys.ts`. They cover top-level keys, compound facet names, shorthand sides, and the layered paint keys `background` and `shadow`.
-
-Runtime lookup paths used by `findInObject` are dot-separated, such as `background.0.color`. Schemas do not author computed source paths. Each compute function derives its own source. `getBasedOnValue` resolves an explicit path such as `#self.background.color` or `#parent.buttonSize`, and normalizes schema-style layered paint paths to layer `0` lookup paths.
-
-Theme references are validated by restricted theme key unions where properties opt in. Use `@` token paths that match the property type.
-
-### Debugging Property Values
-
-- When a resolved or computed value looks wrong, check the authored schema value first. Then check the compute logic.
-
-### Computed Values
-
-A computed value stores only the function: `{ type: ValueType.COMPUTED, value: ComputedFunction.X }`. Schemas do not author a `basedOn` path or a `factor`. Each compute function derives its own source at compute time, so the editor and an AI agent resolve the same stored value identically.
-
-Computed property behavior and path rules live in `packages/core/properties/compute/README.md`.
-
-The main `@seldon/core/properties` barrel does not re-export the compute pipeline. Use `@seldon/core/properties/compute` or `@seldon/core` for `computeProperties`, `getBasedOnValue`, compute engines, and compute types.
-
-### Adding Properties
-
-When adding a property:
-
-1. Add it to `types/properties.ts`.
-2. Create or update the value module under the appropriate existing `values/` subfolder, following nearby patterns. Do not assume the display category matches the filesystem path.
-3. Update compound or shorthand constants when merge and compute walkers need to know the shape.
-4. Update `PROPERTY_DISPLAY_ORDER` and `schemas/data/property-schemas.ts` together.
-5. Export new values from `values/index.ts` and constants from `constants/index.ts` when needed.
-6. Keep option enums or maps beside the value module unless a shared constant is truly needed.
+Follow `engineering.mdc`. Do not add or update tests unless the task explicitly asks for it.
 
 ---
 > Source: [SeldonDigital/seldon](https://github.com/SeldonDigital/seldon) — distributed by [TomeVault](https://tomevault.io).
