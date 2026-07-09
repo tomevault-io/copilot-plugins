@@ -4,7 +4,7 @@
   "repo": "Magic-Resume",
   "description": "Open-source AI career platform that helps users build, optimize, analyze, and tailor resumes with intelligent job matching, ATS optimization, and career guidance.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Magic-Resume/Magic-Resume",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-09T23:31:15Z"
+  "distributed_at": "2026-07-09T23:32:38Z"
 }
