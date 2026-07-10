@@ -1,0 +1,9 @@
+{
+  "name": "coding-dev-tools--engraphis",
+  "displayName": "engraphis",
+  "description": "Self-hosted AI memory engine - Ebbinghaus forgetting-curve decay, interaction-aware reinforcement, and conscious thought synthesis. Local SQLite + sentence-transformers embeddings.",
+  "version": "1.0.0",
+  "author": "Coding-Dev-Tools",
+  "homepage": "https://github.com/Coding-Dev-Tools/engraphis",
+  "skills": []
+}
