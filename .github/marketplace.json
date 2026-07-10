@@ -241559,6 +241559,26 @@
       "description": "SN74 Gittensor miner workspace for MiniRouter: router training/eval code, benchmark configs, submission artifacts, and the web competition site for improving the tiny LLM router."
     },
     {
+      "name": "gastonmorixe--elevenlabs-reader-cli",
+      "source": "./gastonmorixe--elevenlabs-reader-cli",
+      "description": "Unofficial ElevenLabs Reader CLI: create, stream, and play TTS with live karaoke"
+    },
+    {
+      "name": "ttpears--gitlab-mcp",
+      "source": "./ttpears--gitlab-mcp",
+      "description": "Community GitLab MCP Server \u2014 works with any GitLab tier (Free/Premium/Ultimate), no Duo required. GraphQL schema discovery, repo browsing, multi-client support (Claude Code, LibreChat)."
+    },
+    {
+      "name": "soulaudio--soul-player",
+      "source": "./soulaudio--soul-player",
+      "description": "Local-first music player built for privacy. No cloud uploads, no telemetry, no subscriptions. Free and open source forever, with optional paid discovery features to fund development."
+    },
+    {
+      "name": "mazin-musleh--nds-vanilla",
+      "source": "./mazin-musleh--nds-vanilla",
+      "description": "An open-source vanilla implementation of Saudi Arabia's National Design System \u2014 RTL/LTR native, plain HTML/CSS/JS, zero runtime dependencies."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262717,6 +262737,31 @@
       "name": "minkhant1996--soemind-forge",
       "source": "./minkhant1996--soemind-forge",
       "description": "Budget-aware AI agent content studio for creating videos, images, carousels, voiceovers, music, captions, and content calendars with consistent brand assets and cost control."
+    },
+    {
+      "name": "awslabs--loom",
+      "source": "./awslabs--loom",
+      "description": "Loom for AWS is an enterprise-grade platform for building, deploying, and operating AI agents on Amazon Bedrock AgentCore Runtime and AWS Strands Agents."
+    },
+    {
+      "name": "kurt-chan--ai-job-scraper",
+      "source": "./kurt-chan--ai-job-scraper",
+      "description": "ai-job-scraper"
+    },
+    {
+      "name": "saorsa-labs--communitas",
+      "source": "./saorsa-labs--communitas",
+      "description": "Communitas: A decentralized collaboration platform built on the Saorsa P2P ecosystem. Features four-word addresses, end-to-end encryption, and distributed storage"
+    },
+    {
+      "name": "emberglow-dev--emberglow-keyboard",
+      "source": "./emberglow-dev--emberglow-keyboard",
+      "description": "Your keyboard glows blue while your AI agent works and green when it's done. An ambient status light for Claude, over QMK raw HID."
+    },
+    {
+      "name": "saorsa-labs--communitas",
+      "source": "./saorsa-labs--communitas",
+      "description": "Communitas: A decentralized collaboration platform built on the Saorsa P2P ecosystem. Features four-word addresses, end-to-end encryption, and distributed storage"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -391102,6 +391147,26 @@
       "name": "lllypuk--flowra",
       "source": "./lllypuk--flowra",
       "description": "flowra"
+    },
+    {
+      "name": "itsnotaka--ungesture",
+      "source": "./itsnotaka--ungesture",
+      "description": "ungesture"
+    },
+    {
+      "name": "stoerr--webwatch",
+      "source": "./stoerr--webwatch",
+      "description": "webwatch: watching a couple of pages and send detected changes via email, LLM summarized"
+    },
+    {
+      "name": "sunlulu427--streamserve",
+      "source": "./sunlulu427--streamserve",
+      "description": "A nginx live streaming server (including scripts and other configurations..)"
+    },
+    {
+      "name": "afoxcute--bimboh",
+      "source": "./afoxcute--bimboh",
+      "description": "bimboh"
     }
   ]
 }
