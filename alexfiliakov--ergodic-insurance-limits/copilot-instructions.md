@@ -1,0 +1,36 @@
+## ergodic-insurance-limits
+
+> This project implements a framework for assessing insurance purchasing decisions and helps optimize insurance retentions and limits for businesses using ergodic theory (time-average) rather than traditional ensemble approaches. The framework aims to demonstrate how insurance transforms from a cost center to a growth enabler when analyzed through time averages.
+
+This project implements a framework for assessing insurance purchasing decisions and helps optimize insurance retentions and limits for businesses using ergodic theory (time-average) rather than traditional ensemble approaches. The framework aims to demonstrate how insurance transforms from a cost center to a growth enabler when analyzed through time averages.
+
+The model is intended to be used with public financial data to model a real business, simulate an insurance market cycle, and optimize long-term business growth by selecting the right risk management strategy.
+
+## Key Objectives
+1. Build a complete simulation framework for ergodic insurance optimization
+2. Generate compelling evidence for blog posts demonstrating ergodic advantages
+3. Provide actuaries, CFOs, and risk managers with practical Python tools for insurance decision-making
+4. Validate that optimal insurance premiums can exceed expected losses by 200-500% while enhancing growth
+
+Primary Language: Python 3.12+
+Version Control: Never commit directly to main branch - use feature branches
+Code Quality: Run formatters and linters before committing
+
+## Git Configuration
+- **User**: Alex Filiakov
+- **Email**: alexfiliakov@gmail.com
+- **Repository**: https://github.com/AlexFiliakov/Ergodic-Insurance-Limits
+
+## When Starting Work
+1. Check current git status and recent commits
+2. Run tests to ensure everything is working
+
+## Documentation Layout
+The documentation is split between three parts:
+- "ergodic_insurance\docs\tutorials\" which has the tutorials on specific important features.
+- "ergodic_insurance\docs\user_guide\" which has the Quick Start guide and a general overview of the project.
+- "ergodic_insurance\notebooks\" which provides specific and comprehensive examples of how to use the code.
+
+---
+> Source: [AlexFiliakov/Ergodic-Insurance-Limits](https://github.com/AlexFiliakov/Ergodic-Insurance-Limits) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-09 -->
