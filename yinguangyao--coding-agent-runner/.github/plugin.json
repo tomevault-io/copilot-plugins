@@ -1,0 +1,9 @@
+{
+  "name": "yinguangyao--coding-agent-runner",
+  "displayName": "coding-agent-runner",
+  "description": "ACP-friendly Node.js SDK for local coding agents: run Codex, Claude Code, Cursor, OpenCode, and Pi with streaming, abort, and session resume.",
+  "version": "1.0.0",
+  "author": "yinguangyao",
+  "homepage": "https://github.com/yinguangyao/coding-agent-runner",
+  "skills": []
+}
