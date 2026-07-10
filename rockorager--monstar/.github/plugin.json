@@ -1,0 +1,9 @@
+{
+  "name": "rockorager--monstar",
+  "displayName": "monstar",
+  "description": "wayland terminal based on libghostty. cpu rendered, like foot",
+  "version": "1.0.0",
+  "author": "rockorager",
+  "homepage": "https://github.com/rockorager/monstar",
+  "skills": []
+}
