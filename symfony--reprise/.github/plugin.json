@@ -1,0 +1,9 @@
+{
+  "name": "symfony--reprise",
+  "displayName": "reprise",
+  "description": "Integrate Vite and Rsbuild with Symfony, a reprise of Webpack Encore Bundle.",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/reprise",
+  "skills": []
+}
