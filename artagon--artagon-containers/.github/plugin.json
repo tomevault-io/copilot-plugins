@@ -1,0 +1,9 @@
+{
+  "name": "artagon--artagon-containers",
+  "displayName": "artagon-containers",
+  "description": "Hardened multi-arch OCI images for JVM workloads. JDK 25/26/Valhalla on Chainguard, Distroless, and UBI. Non-root, digest-pinned, SBOM-attested, Cosign-signed. Production-ready security-first containe",
+  "version": "1.0.0",
+  "author": "artagon",
+  "homepage": "https://github.com/artagon/artagon-containers",
+  "skills": []
+}
