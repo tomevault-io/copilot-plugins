@@ -1,0 +1,9 @@
+{
+  "name": "pdg-global--raft-rust-daemon",
+  "displayName": "raft-rust-daemon",
+  "description": "Open source rust native version of the Raft daemon.",
+  "version": "1.0.0",
+  "author": "PDG-Global",
+  "homepage": "https://github.com/PDG-Global/raft-rust-daemon",
+  "skills": []
+}
