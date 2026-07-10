@@ -241389,6 +241389,16 @@
       "description": "\ud83c\udfaf A privacy-first browser extension to quickly set, append, or remove HTTP headers."
     },
     {
+      "name": "alexfiliakov--ergodic-insurance-limits",
+      "source": "./alexfiliakov--ergodic-insurance-limits",
+      "description": "Exploring Ergodicity Economics in Insurance"
+    },
+    {
+      "name": "alexfiliakov--ergodic-insurance-limits",
+      "source": "./alexfiliakov--ergodic-insurance-limits",
+      "description": "Exploring Ergodicity Economics in Insurance"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262357,6 +262367,51 @@
       "name": "levino--ibkr-german-tax-report",
       "source": "./levino--ibkr-german-tax-report",
       "description": "A cli tool to create tax reports for German tax reporting of trading based on IBKR trading reports."
+    },
+    {
+      "name": "schubergphilis--agents-md",
+      "source": "./schubergphilis--agents-md",
+      "description": "Schuberg Philis collections of agents.md for guiding coding agents"
+    },
+    {
+      "name": "cameronwhiteside--handprint",
+      "source": "./cameronwhiteside--handprint",
+      "description": "Git for Human Decisions"
+    },
+    {
+      "name": "coding-dev-tools--engraphis",
+      "source": "./coding-dev-tools--engraphis",
+      "description": "Self-hosted AI memory engine - Ebbinghaus forgetting-curve decay, interaction-aware reinforcement, and conscious thought synthesis. Local SQLite + sentence-transformers embeddings."
+    },
+    {
+      "name": "kuangjiajia--kaitox-toolkit",
+      "source": "./kuangjiajia--kaitox-toolkit",
+      "description": "Kaitox \u2014 a personal toolkit: CLI, Obsidian plugin, Chrome extension, and agent skills. First feature: publish Markdown as X (Twitter) Article drafts."
+    },
+    {
+      "name": "kuangjiajia--kaitox-toolkit",
+      "source": "./kuangjiajia--kaitox-toolkit",
+      "description": "Kaitox \u2014 a personal toolkit: CLI, Obsidian plugin, Chrome extension, and agent skills. First feature: publish Markdown as X (Twitter) Article drafts."
+    },
+    {
+      "name": "ivanreeve--upspace",
+      "source": "./ivanreeve--upspace",
+      "description": "The official repository for the capstone project UpSpace: A Marketplace and Management Platform for Coworking Spaces."
+    },
+    {
+      "name": "ivanreeve--upspace",
+      "source": "./ivanreeve--upspace",
+      "description": "The official repository for the capstone project UpSpace: A Marketplace and Management Platform for Coworking Spaces."
+    },
+    {
+      "name": "nelgonzalez1--saas-ai-agents",
+      "source": "./nelgonzalez1--saas-ai-agents",
+      "description": "Complete AI agent collection for accelerating SaaS development - from MVP to scale"
+    },
+    {
+      "name": "ivanreeve--upspace",
+      "source": "./ivanreeve--upspace",
+      "description": "The official repository for the capstone project UpSpace: A Marketplace and Management Platform for Coworking Spaces."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -390507,6 +390562,46 @@
       "name": "zevlo--zevlo-github-io",
       "source": "./zevlo--zevlo-github-io",
       "description": "my blog"
+    },
+    {
+      "name": "artagon--artagon-containers",
+      "source": "./artagon--artagon-containers",
+      "description": "Hardened multi-arch OCI images for JVM workloads. JDK 25/26/Valhalla on Chainguard, Distroless, and UBI. Non-root, digest-pinned, SBOM-attested, Cosign-signed. Production-ready security-first containe"
+    },
+    {
+      "name": "artagon--artagon-containers",
+      "source": "./artagon--artagon-containers",
+      "description": "Hardened multi-arch OCI images for JVM workloads. JDK 25/26/Valhalla on Chainguard, Distroless, and UBI. Non-root, digest-pinned, SBOM-attested, Cosign-signed. Production-ready security-first containe"
+    },
+    {
+      "name": "namastexlabs--automagik-docs",
+      "source": "./namastexlabs--automagik-docs",
+      "description": "automagik-docs"
+    },
+    {
+      "name": "fengcunhan--aiblindcaptcha",
+      "source": "./fengcunhan--aiblindcaptcha",
+      "description": "A verification code generation and validation system that cannot be broken by any of the current large models."
+    },
+    {
+      "name": "rememberfrxst--morphicbyfrost",
+      "source": "./rememberfrxst--morphicbyfrost",
+      "description": "morphicbyfrost"
+    },
+    {
+      "name": "jacinzhang--subsonicplayer",
+      "source": "./jacinzhang--subsonicplayer",
+      "description": "An iOS audio player app for Subsonic servers built with SwiftUI"
+    },
+    {
+      "name": "artagon--artagon-containers",
+      "source": "./artagon--artagon-containers",
+      "description": "Hardened multi-arch OCI images for JVM workloads. JDK 25/26/Valhalla on Chainguard, Distroless, and UBI. Non-root, digest-pinned, SBOM-attested, Cosign-signed. Production-ready security-first containe"
+    },
+    {
+      "name": "ryoyamamura-2025--study-deepagents",
+      "source": "./ryoyamamura-2025--study-deepagents",
+      "description": "LangGraph\u306eDeepAgents\u306e\u52c9\u5f37\u7528"
     }
   ]
 }
