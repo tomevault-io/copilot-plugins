@@ -205484,6 +205484,11 @@
       "description": "SecureVibe \u2014 prevention-first security for AI-written code. Signed SKILL.md knowledge that makes AI coding assistants write secure code at generation time, plus a deterministic CI gate. Offline \u00b7 keyl"
     },
     {
+      "name": "matiassanchezcabrera--gtray",
+      "source": "./matiassanchezcabrera--gtray",
+      "description": "All your Gmail inboxes in a single macOS app \u2014 web experience intact, unread counts in the Dock"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
