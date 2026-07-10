@@ -1,51 +1,96 @@
-## stacks-development
+## typescript-patterns
 
-> This project integrates with the Stacks blockchain for wallet connection and smart contract interaction.
+> This project uses strict TypeScript configuration with modern patterns and best practices.
 
 
-# Stacks Blockchain Development
+# TypeScript Patterns
 
-This project integrates with the Stacks blockchain for wallet connection and smart contract interaction.
+This project uses strict TypeScript configuration with modern patterns and best practices.
 
-## Wallet Integration
+## Configuration
 
-- **Wallet Hook**: [hooks/wallet.ts](mdc:hooks/wallet.ts) provides `useWallet()` hook
-- **Connection Flow**: Uses `@stacks/connect` for wallet connection
-- **Session Management**: [providers/auth-session-provider.tsx](mdc:providers/auth-session-provider.tsx) manages authentication state
-- **Storage**: Uses localStorage for session persistence
+- **Strict Mode**: Enabled in [tsconfig.json](mdc:tsconfig.json)
+- **Path Mapping**: `@/` alias for clean imports
+- **Type Checking**: Strict type checking enabled
 
 ## Key Patterns
 
-### Wallet Connection
+### Environment Configuration
 ```typescript
-const { data, isConnected, connect, disconnect } = useWallet();
+// Use Zod for environment validation
+const envSchema = z.object({
+  NEXT_PUBLIC_APP_NAME: z.string().default("Stacks Next Template"),
+});
 ```
 
-### Session Management
+### Component Props
 ```typescript
-const { session, setSession, clearSession } = useAuthSession();
+// Use proper TypeScript for component props
+interface ComponentProps {
+  children: ReactNode;
+  className?: string;
+}
 ```
 
-## Stacks Dependencies
+### Hook Return Types
+```typescript
+// Define explicit return types for hooks
+export function useWallet() {
+  return {
+    data: { address: string; publicKey?: string } | null;
+    isConnected: boolean;
+    connect: () => Promise<[string, string]>;
+    disconnect: () => void;
+  };
+}
+```
 
-- `@stacks/connect` - Wallet connection library
-- `@stacks/network` - Network configuration
-- `@stacks/transactions` - Transaction building
+## Type Safety Rules
 
+1. **No `any` types** - Use proper typing or `unknown`
+2. **Explicit returns** - Define return types for functions
+3. **Interface over type** - Use interfaces for object shapes
+4. **Generic constraints** - Use proper generic constraints
+5. **Null safety** - Handle null/undefined cases explicitly
 
-## Environment Configuration
+## Import Patterns
 
-- **Client Config**: [lib/config/client.ts](mdc:lib/config/client.ts) for client-side environment variables
-- **Server Config**: [lib/config/server.ts](mdc:lib/config/server.ts) for server-side configuration
-- **Validation**: Zod schemas for environment variable validation
+```typescript
+// Prefer named imports
+import { useWallet } from "@/hooks/wallet";
+import { Button } from "@/components/ui/button";
 
-## Best Practices
+// Use type-only imports when needed
+import type { AppConfig } from "./client";
+```
 
-1. Always validate wallet connection state before making transactions
-2. Use proper error handling for wallet operations
-3. Implement proper session cleanup on disconnect
-4. Validate environment variables at startup
-5. Use TypeScript for type safety in wallet interactions
+## Error Handling
+
+```typescript
+// Use proper error types
+try {
+  const result = await operation();
+} catch (error) {
+  if (error instanceof Error) {
+    console.error(error.message);
+  }
+}
+```
+
+## Component Patterns
+
+```typescript
+// Use proper component typing
+export function Component({ 
+  children, 
+  className 
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={className}>{children}</div>;
+}
+```
 
 ---
 > Source: [Mcsavvy/stacks-next-template](https://github.com/Mcsavvy/stacks-next-template) — distributed by [TomeVault](https://tomevault.io).
