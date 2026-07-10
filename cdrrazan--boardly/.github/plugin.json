@@ -1,0 +1,9 @@
+{
+  "name": "cdrrazan--boardly",
+  "displayName": "Boardly",
+  "description": "A config-driven GitHub Action that automates GitHub Projects (v2) \u2014 sprint rollover, stale-card nudges, sub-issue gating, digests, standups, and priority sorting \u2014 all from one YAML file.",
+  "version": "1.0.0",
+  "author": "cdrrazan",
+  "homepage": "https://github.com/cdrrazan/Boardly",
+  "skills": []
+}
