@@ -1,0 +1,44 @@
+{
+  "name": "exocortex",
+  "owner": "kitelev",
+  "repo": "exocortex",
+  "description": "Cognitive infrastructure augmenting human intelligence through semantic knowledge organization, SPARQL queries, ontology-driven reasoning, and AI integration. Obsidian plugin + CLI + Core library.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kitelev/exocortex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-10T20:34:39Z"
+}
