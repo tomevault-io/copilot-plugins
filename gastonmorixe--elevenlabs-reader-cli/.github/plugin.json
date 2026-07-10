@@ -1,0 +1,9 @@
+{
+  "name": "gastonmorixe--elevenlabs-reader-cli",
+  "displayName": "elevenlabs-reader-cli",
+  "description": "Unofficial ElevenLabs Reader CLI: create, stream, and play TTS with live karaoke",
+  "version": "1.0.0",
+  "author": "gastonmorixe",
+  "homepage": "https://github.com/gastonmorixe/elevenlabs-reader-cli",
+  "skills": []
+}
