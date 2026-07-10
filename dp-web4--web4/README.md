@@ -7,11 +7,11 @@ Web4: an open standard for verifiable AI presence — LCT identity, T3/V3 trust 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dp-web4/web4](https://github.com/dp-web4/web4).
+Original source: `AGENTS.md` in [dp-web4/web4](https://github.com/dp-web4/web4).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
