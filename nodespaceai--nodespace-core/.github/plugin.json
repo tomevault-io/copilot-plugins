@@ -1,0 +1,9 @@
+{
+  "name": "nodespaceai--nodespace-core",
+  "displayName": "nodespace-core",
+  "description": "Local-first knowledge base with semantic search for AI coding assistants. Fewer tokens, faster context.",
+  "version": "1.0.0",
+  "author": "NodeSpaceAI",
+  "homepage": "https://github.com/NodeSpaceAI/nodespace-core",
+  "skills": []
+}
