@@ -1,0 +1,9 @@
+{
+  "name": "kusari-oss--mikebom",
+  "displayName": "mikebom",
+  "description": "SBOM Generator",
+  "version": "1.0.0",
+  "author": "kusari-oss",
+  "homepage": "https://github.com/kusari-oss/mikebom",
+  "skills": []
+}
