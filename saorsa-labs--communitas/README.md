@@ -7,13 +7,13 @@ Communitas: A decentralized collaboration platform built on the Saorsa P2P ecosy
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [saorsa-labs/communitas](https://github.com/saorsa-labs/communitas).
+Original source: `CLAUDE.md` in [saorsa-labs/communitas](https://github.com/saorsa-labs/communitas).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
