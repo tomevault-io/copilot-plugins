@@ -1,0 +1,9 @@
+{
+  "name": "alisa0808--vox-director",
+  "displayName": "vox-director",
+  "description": "Turn one topic into a finished Vox-style paper-collage explainer/ad video \u2014 automated end to end on Atlas Cloud + ffmpeg. An agent skill.",
+  "version": "1.0.0",
+  "author": "Alisa0808",
+  "homepage": "https://github.com/Alisa0808/vox-director",
+  "skills": []
+}
