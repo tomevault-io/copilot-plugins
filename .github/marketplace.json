@@ -241409,6 +241409,36 @@
       "description": "Exploring Ergodicity Economics in Insurance"
     },
     {
+      "name": "yinguangyao--coding-agent-runner",
+      "source": "./yinguangyao--coding-agent-runner",
+      "description": "ACP-friendly Node.js SDK for local coding agents: run Codex, Claude Code, Cursor, OpenCode, and Pi with streaming, abort, and session resume."
+    },
+    {
+      "name": "sufficiently-advanced-ai--apple-silicon-openbrain",
+      "source": "./sufficiently-advanced-ai--apple-silicon-openbrain",
+      "description": "Fully local AI memory for Apple Silicon. MCP server with semantic vector search, MLX embeddings, and LLM enrichment \u2014 no cloud APIs required."
+    },
+    {
+      "name": "beltromatti--supercodex",
+      "source": "./beltromatti--supercodex",
+      "description": "An unofficial fork of OpenAI Codex with multi-account ChatGPT and one-command local models via LM Studio. Save every plan, hop between them mid-task, fall back to a model on your own machine when you "
+    },
+    {
+      "name": "hepudding--ba-storybook",
+      "source": "./hepudding--ba-storybook",
+      "description": "\u851a\u84dd\u6863\u6848\u65e5\u8bed\u5267\u60c5\u6587\u672c\u63d0\u53d6\u5b58\u6863 + JP\u2192CN \u7ffb\u8bd1\u5bf9\u7167\u8868 + AI \u89d2\u8272\u5361\u751f\u6210 | Blue Archive story corpus, translation table & AI character card generator"
+    },
+    {
+      "name": "nais--grafana-apm-app",
+      "source": "./nais--grafana-apm-app",
+      "description": "APM for teams that already run the LGTM stack"
+    },
+    {
+      "name": "kusari-oss--mikebom",
+      "source": "./kusari-oss--mikebom",
+      "description": "SBOM Generator"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262429,6 +262459,26 @@
       "description": "Local-first memory for AI-assisted coding. Git shows what changed. Backstory shows why."
     },
     {
+      "name": "raj-glitch-max--atlas",
+      "source": "./raj-glitch-max--atlas",
+      "description": "atlas"
+    },
+    {
+      "name": "yanglongyun--one",
+      "source": "./yanglongyun--one",
+      "description": "\u4e00\u4e2a\u80fd\u64cd\u63a7\u4f60\u7535\u8111\u3001\u624b\u673a\u3001\u6d4f\u89c8\u5668\u7684\u4e2a\u4eba AI \u52a9\u7406"
+    },
+    {
+      "name": "yanglongyun--one",
+      "source": "./yanglongyun--one",
+      "description": "\u4e00\u4e2a\u80fd\u64cd\u63a7\u4f60\u7535\u8111\u3001\u624b\u673a\u3001\u6d4f\u89c8\u5668\u7684\u4e2a\u4eba AI \u52a9\u7406"
+    },
+    {
+      "name": "pdg-global--raft-rust-daemon",
+      "source": "./pdg-global--raft-rust-daemon",
+      "description": "Open source rust native version of the Raft daemon."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -266822,6 +266872,16 @@
       "name": "sundykin--fcemulator",
       "source": "./sundykin--fcemulator",
       "description": "\u57fa\u4e8eRust\u7684Fc\u6a21\u62df\u5668"
+    },
+    {
+      "name": "collyn--skey",
+      "source": "./collyn--skey",
+      "description": "skey"
+    },
+    {
+      "name": "collyn--skey",
+      "source": "./collyn--skey",
+      "description": "skey"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
