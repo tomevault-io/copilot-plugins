@@ -1,0 +1,44 @@
+{
+  "name": "AIBlindCaptcha",
+  "owner": "fengcunhan",
+  "repo": "AIBlindCaptcha",
+  "description": "A verification code generation and validation system that cannot be broken by any of the current large models.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fengcunhan/AIBlindCaptcha",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-10T00:39:46Z"
+}
