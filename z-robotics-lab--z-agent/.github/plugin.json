@@ -1,0 +1,9 @@
+{
+  "name": "z-robotics-lab--z-agent",
+  "displayName": "z-agent",
+  "description": "Z Agent \u2014 agent-orchestration runtime for Z-Lab robots: plan/route/verify/recover. NL in, verified robot behavior out. Fork of vector-os-nano, slimmed to product runtime; flagship world: Unitree Go2W ",
+  "version": "1.0.0",
+  "author": "Z-Robotics-Lab",
+  "homepage": "https://github.com/Z-Robotics-Lab/z-agent",
+  "skills": []
+}
