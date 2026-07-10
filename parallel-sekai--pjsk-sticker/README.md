@@ -7,14 +7,14 @@ A Project Sekai Sticker Maker / PJSK表情包生成器
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Parallel-SEKAI/PJSK-Sticker](https://github.com/Parallel-SEKAI/PJSK-Sticker).
+Original source: `AGENTS.md` in [Parallel-SEKAI/PJSK-Sticker](https://github.com/Parallel-SEKAI/PJSK-Sticker).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Parallel-SEKAI/PJSK-Sticker](https://github.com/Parallel-SEKAI/PJSK-Sticker)
