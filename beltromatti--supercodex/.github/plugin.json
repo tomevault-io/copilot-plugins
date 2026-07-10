@@ -1,0 +1,9 @@
+{
+  "name": "beltromatti--supercodex",
+  "displayName": "supercodex",
+  "description": "An unofficial fork of OpenAI Codex with multi-account ChatGPT and one-command local models via LM Studio. Save every plan, hop between them mid-task, fall back to a model on your own machine when you ",
+  "version": "1.0.0",
+  "author": "beltromatti",
+  "homepage": "https://github.com/beltromatti/supercodex",
+  "skills": []
+}
