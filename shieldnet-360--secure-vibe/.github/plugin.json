@@ -1,0 +1,9 @@
+{
+  "name": "shieldnet-360--secure-vibe",
+  "displayName": "secure-vibe",
+  "description": "SecureVibe \u2014 prevention-first security for AI-written code. Signed SKILL.md knowledge that makes AI coding assistants write secure code at generation time, plus a deterministic CI gate. Offline \u00b7 keyl",
+  "version": "1.0.0",
+  "author": "ShieldNet-360",
+  "homepage": "https://github.com/ShieldNet-360/secure-vibe",
+  "skills": []
+}
