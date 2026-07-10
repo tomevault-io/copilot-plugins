@@ -1,0 +1,9 @@
+{
+  "name": "s4k10503--velvet",
+  "displayName": "velvet",
+  "description": "A React-style declarative UI framework for Unity UI Toolkit \u2014 virtual DOM, reconciliation, hooks, and utility-first styling.",
+  "version": "1.0.0",
+  "author": "s4k10503",
+  "homepage": "https://github.com/s4k10503/velvet",
+  "skills": []
+}
