@@ -1,0 +1,9 @@
+{
+  "name": "badbread--crumbvms",
+  "displayName": "crumbvms",
+  "description": "A self-hosted, operator-grade network video recorder for your own security cameras. Rust backend, native desktop, Android, and web clients. AGPL-3.0-or-later.",
+  "version": "1.0.0",
+  "author": "badbread",
+  "homepage": "https://github.com/badbread/crumbvms",
+  "skills": []
+}
