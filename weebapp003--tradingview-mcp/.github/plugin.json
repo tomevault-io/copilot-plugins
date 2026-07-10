@@ -1,0 +1,9 @@
+{
+  "name": "weebapp003--tradingview-mcp",
+  "displayName": "tradingview-mcp",
+  "description": "tradingview mcp which connect claude code via chrome devtools protocol",
+  "version": "1.0.0",
+  "author": "Weebapp003",
+  "homepage": "https://github.com/Weebapp003/tradingview-mcp",
+  "skills": []
+}
