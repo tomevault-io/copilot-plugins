@@ -1,0 +1,44 @@
+{
+  "name": "Mineradio-Extended",
+  "owner": "daaimengermengzhu",
+  "repo": "Mineradio-Extended",
+  "description": "Mineradio \u6269\u5c55\u7248\uff1a\u57fa\u4e8e\u539f\u7248 Mineradio \u7684\u975e\u5b98\u65b9\u4e8c\u521b Fork\uff0c\u7ef4\u62a4\u66f4\u591a\u97f3\u6e90\u548c\u4f53\u9a8c\u6269\u5c55",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daaimengermengzhu/Mineradio-Extended",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-10T02:34:02Z"
+}
