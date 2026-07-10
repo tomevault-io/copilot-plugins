@@ -1,0 +1,9 @@
+{
+  "name": "ikhsan3adi--ruwetmeter",
+  "displayName": "RuwetMeter",
+  "description": "AI Agent buat mantau keruwetan Indonesia. Scrape berita, analisis pakai LLM. Bertanya ke chatbot RAG interaktif.",
+  "version": "1.0.0",
+  "author": "ikhsan3adi",
+  "homepage": "https://github.com/ikhsan3adi/RuwetMeter",
+  "skills": []
+}
