@@ -1,0 +1,44 @@
+{
+  "name": "web4",
+  "owner": "dp-web4",
+  "repo": "web4",
+  "description": "Web4: an open standard for verifiable AI presence \u2014 LCT identity, T3/V3 trust tensors, MRH context, ATP/ADP. Rust + Python SDKs on crates.io/PyPI.  AGPL-3.0-or-later.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dp-web4/web4",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-10T20:35:13Z"
+}
