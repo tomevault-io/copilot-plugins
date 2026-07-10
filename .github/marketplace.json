@@ -262419,6 +262419,11 @@
       "description": "The official repository for the capstone project UpSpace: A Marketplace and Management Platform for Coworking Spaces."
     },
     {
+      "name": "arpitkath--backstory",
+      "source": "./arpitkath--backstory",
+      "description": "Local-first memory for AI-assisted coding. Git shows what changed. Backstory shows why."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -266777,6 +266782,41 @@
       "name": "the-open-engine--opcore",
       "source": "./the-open-engine--opcore",
       "description": "The robustness engine for AI coding agents. A local Rust code graph gives an agent repo-wide understanding, a validation gate that runs before an edit lands, and safe symbol-aware edits. Deep on TypeS"
+    },
+    {
+      "name": "zhen469891--gbfr-ultrawide",
+      "source": "./zhen469891--gbfr-ultrawide",
+      "description": "Ultrawide (21:9/32:9) support for Granblue Fantasy Relink v2.0.2 - an ASI plugin with an installer/configurator"
+    },
+    {
+      "name": "badbread--crumbvms",
+      "source": "./badbread--crumbvms",
+      "description": "A self-hosted, operator-grade network video recorder for your own security cameras. Rust backend, native desktop, Android, and web clients. AGPL-3.0-or-later."
+    },
+    {
+      "name": "badbread--crumbvms",
+      "source": "./badbread--crumbvms",
+      "description": "A self-hosted, operator-grade network video recorder for your own security cameras. Rust backend, native desktop, Android, and web clients. AGPL-3.0-or-later."
+    },
+    {
+      "name": "zethrise--zethcode",
+      "source": "./zethrise--zethcode",
+      "description": "a CLI tool to talk with Ai Agents"
+    },
+    {
+      "name": "sundykin--fcemulator",
+      "source": "./sundykin--fcemulator",
+      "description": "\u57fa\u4e8eRust\u7684Fc\u6a21\u62df\u5668"
+    },
+    {
+      "name": "daaimengermengzhu--mineradio-extended",
+      "source": "./daaimengermengzhu--mineradio-extended",
+      "description": "Mineradio \u6269\u5c55\u7248\uff1a\u57fa\u4e8e\u539f\u7248 Mineradio \u7684\u975e\u5b98\u65b9\u4e8c\u521b Fork\uff0c\u7ef4\u62a4\u66f4\u591a\u97f3\u6e90\u548c\u4f53\u9a8c\u6269\u5c55"
+    },
+    {
+      "name": "sundykin--fcemulator",
+      "source": "./sundykin--fcemulator",
+      "description": "\u57fa\u4e8eRust\u7684Fc\u6a21\u62df\u5668"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
