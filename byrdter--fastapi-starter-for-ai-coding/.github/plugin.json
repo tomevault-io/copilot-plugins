@@ -1,0 +1,9 @@
+{
+  "name": "byrdter--fastapi-starter-for-ai-coding",
+  "displayName": "fastapi-starter-for-ai-coding",
+  "description": "Production-ready FastAPI template with vertical slice architecture, optimized for AI-assisted development.",
+  "version": "1.0.0",
+  "author": "byrdter",
+  "homepage": "https://github.com/byrdter/fastapi-starter-for-ai-coding",
+  "skills": []
+}
