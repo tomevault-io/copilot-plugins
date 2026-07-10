@@ -1,0 +1,9 @@
+{
+  "name": "wikidjon--ai-openclaw-cli",
+  "displayName": "ai-openclaw-cli",
+  "description": "openfinclaw cli | ai openclaw mcp cli which works in claude code, cursor, and 20+ ai agents via mcp",
+  "version": "1.0.0",
+  "author": "wikidjon",
+  "homepage": "https://github.com/wikidjon/ai-openclaw-cli",
+  "skills": []
+}
