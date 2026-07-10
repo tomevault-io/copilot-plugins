@@ -241654,6 +241654,36 @@
       "description": "Local-first knowledge base with semantic search for AI coding assistants. Fewer tokens, faster context."
     },
     {
+      "name": "parallel-sekai--pjsk-sticker",
+      "source": "./parallel-sekai--pjsk-sticker",
+      "description": "A Project Sekai Sticker Maker / PJSK\u8868\u60c5\u5305\u751f\u6210\u5668"
+    },
+    {
+      "name": "antoine-bouteiller--fancontrol-liquidctl",
+      "source": "./antoine-bouteiller--fancontrol-liquidctl",
+      "description": "FanControl.LiquidCtl"
+    },
+    {
+      "name": "antoine-bouteiller--fancontrol-liquidctl",
+      "source": "./antoine-bouteiller--fancontrol-liquidctl",
+      "description": "FanControl.LiquidCtl"
+    },
+    {
+      "name": "jeremylongshore--iam-local-rag",
+      "source": "./jeremylongshore--iam-local-rag",
+      "description": "\ud83e\udde0 NEXUS: Local RAG AI Agent for private document intelligence. Zero-cost, 100% local autonomous AI system with enterprise-grade performance."
+    },
+    {
+      "name": "jeremylongshore--iam-local-rag",
+      "source": "./jeremylongshore--iam-local-rag",
+      "description": "\ud83e\udde0 NEXUS: Local RAG AI Agent for private document intelligence. Zero-cost, 100% local autonomous AI system with enterprise-grade performance."
+    },
+    {
+      "name": "parallel-sekai--pjsk-sticker",
+      "source": "./parallel-sekai--pjsk-sticker",
+      "description": "A Project Sekai Sticker Maker / PJSK\u8868\u60c5\u5305\u751f\u6210\u5668"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262857,6 +262887,31 @@
       "name": "tshah-95--vean",
       "source": "./tshah-95--vean",
       "description": "vean \u2014 the agent-native video editing core: a typed document, edit algebra, and diagnostics layer (a 'language server for video') on top of MLT. AGPL-3.0."
+    },
+    {
+      "name": "symfony--reprise",
+      "source": "./symfony--reprise",
+      "description": "Integrate Vite and Rsbuild with Symfony, a reprise of Webpack Encore Bundle."
+    },
+    {
+      "name": "nathanfox--resume-as-code",
+      "source": "./nathanfox--resume-as-code",
+      "description": "resume-as-code"
+    },
+    {
+      "name": "fayazara--moondream",
+      "source": "./fayazara--moondream",
+      "description": "moondream"
+    },
+    {
+      "name": "s4k10503--velvet",
+      "source": "./s4k10503--velvet",
+      "description": "A React-style declarative UI framework for Unity UI Toolkit \u2014 virtual DOM, reconciliation, hooks, and utility-first styling."
+    },
+    {
+      "name": "opentrawl--opentrawl",
+      "source": "./opentrawl--opentrawl",
+      "description": "Local-first crawlers for your digital life. One CLI, one Mac app, agent-searchable archives."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -391262,6 +391317,21 @@
       "name": "afoxcute--bimboh",
       "source": "./afoxcute--bimboh",
       "description": "bimboh"
+    },
+    {
+      "name": "mrcoleman--learn-to-read",
+      "source": "./mrcoleman--learn-to-read",
+      "description": "learn-to-read"
+    },
+    {
+      "name": "jayhaase--teaks-site",
+      "source": "./jayhaase--teaks-site",
+      "description": "teaks-site"
+    },
+    {
+      "name": "ahmaddeeb-code--dalma---first-project",
+      "source": "./ahmaddeeb-code--dalma---first-project",
+      "description": "Created with Builder.io"
     }
   ]
 }
