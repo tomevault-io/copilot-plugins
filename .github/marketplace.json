@@ -205444,6 +205444,11 @@
       "description": "\u684c\u9762\u6574\u7406\u6536\u7eb3\u3001\u4e00\u952e\u542f\u52a8\u3001\u53ec\u5524\u526a\u5207\u677f\u3001\u641c\u7d22\u3001\u7edf\u8ba1\u7b49"
     },
     {
+      "name": "yahyashareef48--claude-usage-monitor",
+      "source": "./yahyashareef48--claude-usage-monitor",
+      "description": "claude-usage-monitor"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -262502,6 +262507,26 @@
       "name": "djienne--cross-exchange-market-making-lighter-aster",
       "source": "./djienne--cross-exchange-market-making-lighter-aster",
       "description": "A live Aster/Lighter trading stack that coordinates two strategies: taker\u2013taker arbitrage and XEMM maker/taker hedging. The top-level orchestrator supervises switching, risk state, logs, and combined "
+    },
+    {
+      "name": "ivy--dotfiles",
+      "source": "./ivy--dotfiles",
+      "description": "Agent-managed developer environment. I describe what I want, they do the rest."
+    },
+    {
+      "name": "wassermanproductions--stem-studio",
+      "source": "./wassermanproductions--stem-studio",
+      "description": "Split any married mix into Dialogue, Music & SFX \u2014 local AI stem separation for filmmakers. macOS & Linux."
+    },
+    {
+      "name": "toadoum--ai-research-skill",
+      "source": "./toadoum--ai-research-skill",
+      "description": "ai-research-skill"
+    },
+    {
+      "name": "aabrur--hypertaks-agent",
+      "source": "./aabrur--hypertaks-agent",
+      "description": "Hypertaks = \"A founder who owns a library of more than 1,400 books, knows exactly which book to consult for this issue, and has a strict SOP: intake \u2192 formulation \u2192 implementation \u2192 integration \u2192 docu"
     },
     {
       "name": "cheerhuan--save-your-token",
