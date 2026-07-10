@@ -4,7 +4,7 @@
   "repo": "soemind-forge",
   "description": "Budget-aware AI agent content studio for creating videos, images, carousels, voiceovers, music, captions, and content calendars with consistent brand assets and cost control.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/minkhant1996/soemind-forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T16:32:49Z"
+  "distributed_at": "2026-07-10T16:35:32Z"
 }
