@@ -1,0 +1,9 @@
+{
+  "name": "stoerr--webwatch",
+  "displayName": "webwatch",
+  "description": "webwatch: watching a couple of pages and send detected changes via email, LLM summarized",
+  "version": "1.0.0",
+  "author": "stoerr",
+  "homepage": "https://github.com/stoerr/webwatch",
+  "skills": []
+}
