@@ -1,0 +1,14 @@
+{
+  "name": "schubergphilis--agents-md",
+  "displayName": "agents.md",
+  "description": "Schuberg Philis collections of agents.md for guiding coding agents",
+  "version": "1.0.0",
+  "author": "schubergphilis",
+  "homepage": "https://github.com/schubergphilis/agents.md",
+  "skills": [
+    {
+      "name": "terraform",
+      "description": ""
+    }
+  ]
+}
