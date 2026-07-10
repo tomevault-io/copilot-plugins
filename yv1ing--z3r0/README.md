@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [yv1ing/Z3r0](https://github.com/yv1ing/Z3r0).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (8)
+## Bundled Skills (13)
 
 - [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/jadx/SKILL.md)
 - [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/nmap/SKILL.md)
@@ -25,6 +25,11 @@ Original source: `AGENTS.md` in [yv1ing/Z3r0](https://github.com/yv1ing/Z3r0).
 - [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/sandbox-shell/SKILL.md)
 - [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/observer-ward/SKILL.md)
 - [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/agent-browser-cli/SKILL.md)
+- [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/binwalk/SKILL.md)
+- [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/apktool/SKILL.md)
+- [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/openssl/SKILL.md)
+- [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/dns-whois/SKILL.md)
+- [Z3r0](https://github.com/yv1ing/Z3r0/tree/main/sandbox/.agents/skills/archive-file-triage/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/yv1ing/Z3r0](https://github.com/yv1ing/Z3r0)
 
