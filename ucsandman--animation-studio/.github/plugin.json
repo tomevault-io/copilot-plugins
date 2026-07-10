@@ -1,0 +1,9 @@
+{
+  "name": "ucsandman--animation-studio",
+  "displayName": "animation-studio",
+  "description": "Agent-driven animation studio for Claude Code: one /marketing command renders your product's full launch asset suite (logo reveal, demo, launch video, social clips, OG assets)",
+  "version": "1.0.0",
+  "author": "ucsandman",
+  "homepage": "https://github.com/ucsandman/animation-studio",
+  "skills": []
+}
