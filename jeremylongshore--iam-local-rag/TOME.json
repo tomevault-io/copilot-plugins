@@ -4,7 +4,7 @@
   "repo": "iam-local-rag",
   "description": "\ud83e\udde0 NEXUS: Local RAG AI Agent for private document intelligence. Zero-cost, 100% local autonomous AI system with enterprise-grade performance.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeremylongshore/iam-local-rag",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T22:36:15Z"
+  "distributed_at": "2026-07-10T22:36:49Z"
 }
