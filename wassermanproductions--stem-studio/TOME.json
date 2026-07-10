@@ -4,7 +4,7 @@
   "repo": "stem-studio",
   "description": "Split any married mix into Dialogue, Music & SFX \u2014 local AI stem separation for filmmakers. macOS & Linux.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wassermanproductions/stem-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T08:30:44Z"
+  "distributed_at": "2026-07-10T08:33:16Z"
 }
