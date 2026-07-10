@@ -1,0 +1,46 @@
+## gitlab-mcp
+
+> - Authentication model
+
+# Project rules and notes for gitlab-mcp
+
+- Authentication model
+  - Hybrid by default: shared read-only token for read tools; user PAT required for write tools.
+  - Env: GITLAB_SHARED_ACCESS_TOKEN, GITLAB_AUTH_MODE=hybrid, optional GITLAB_URL.
+  - Tools accept optional `userCredentials` with `accessToken` and optional `gitlabUrl`.
+
+- Transports
+  - Server provides stdio (default) and Streamable HTTP transport at `/` (and `/mcp` for container compatibility).
+  - LibreChat (HTTP) should use `type: streamable-http` and `url: http://HOST:PORT/`.
+  - Hosted environments may provide `PORT`; server also respects `GITLAB_MCP_PORT` and `MCP_TRANSPORT=http`.
+
+- Pagination
+  - All list/search tools support cursor-based pagination (`first`, `after`) and auto-pagination (`fetchAll`).
+  - `fetchAll` loops server-side via `fetchAllPages()` up to maxItems (default 100), returning `{ nodes, totalFetched, hasMore, pageInfo }`.
+  - Default page size: 20. Max per request: `config.maxPageSize` (default 50, env `GITLAB_MAX_PAGE_SIZE`).
+  - Sort defaults to `UPDATED_DESC` for recency bias on issues, MRs, and projects.
+  - `search_gitlab` paginates projects and issues independently when `fetchAll=true`.
+
+- GraphQL / Validation
+  - Avoid unsupported fields (e.g., `Project.defaultBranch`) across self-hosted instances; rely on introspection.
+  - Search term inputs are trimmed and empty strings are rejected for tools that require them.
+  - Issue/MR state: `all` maps to undefined; others map to GQL enums via UPPERCASE.
+
+- New discovery tools
+  - `resolve_path`: Distinguishes `group` vs `project` and lists group projects.
+  - `get_group_projects`: Lists projects within a group, supports search and pagination.
+  - `get_type_fields`: Lists fields for a given GraphQL type using introspection.
+  - `update_issue`: Schema-aware updates for issues; falls back to granular mutations when needed.
+  - `update_merge_request`: Schema-aware MR updates; supports assignees, reviewers, labels, title/description.
+
+- Error handling
+  - Read tools fall back to shared token; write tools throw if no user token is provided.
+  - Null guards ensure clearer errors when a group path is provided to project-only tools.
+
+- Maintenance
+  - Keep this file updated when adding tools, transports, or auth changes.
+  - Reviewers apply to merge requests, not issues (per GitLab GraphQL docs).
+
+---
+> Source: [ttpears/gitlab-mcp](https://github.com/ttpears/gitlab-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-10 -->
