@@ -1,0 +1,9 @@
+{
+  "name": "emberglow-dev--emberglow-keyboard",
+  "displayName": "emberglow-keyboard",
+  "description": "Your keyboard glows blue while your AI agent works and green when it's done. An ambient status light for Claude, over QMK raw HID.",
+  "version": "1.0.0",
+  "author": "emberglow-dev",
+  "homepage": "https://github.com/emberglow-dev/emberglow-keyboard",
+  "skills": []
+}
