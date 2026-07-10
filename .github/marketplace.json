@@ -241444,6 +241444,16 @@
       "description": "SBOM Generator"
     },
     {
+      "name": "vrsen--gpt-5-1-coding-agent",
+      "source": "./vrsen--gpt-5-1-coding-agent",
+      "description": "gpt-5.1-coding-agent"
+    },
+    {
+      "name": "vrsen--gpt-5-1-coding-agent",
+      "source": "./vrsen--gpt-5-1-coding-agent",
+      "description": "gpt-5.1-coding-agent"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262482,6 +262492,11 @@
       "name": "pdg-global--raft-rust-daemon",
       "source": "./pdg-global--raft-rust-daemon",
       "description": "Open source rust native version of the Raft daemon."
+    },
+    {
+      "name": "djienne--cross-exchange-market-making-lighter-aster",
+      "source": "./djienne--cross-exchange-market-making-lighter-aster",
+      "description": "A live Aster/Lighter trading stack that coordinates two strategies: taker\u2013taker arbitrage and XEMM maker/taker hedging. The top-level orchestrator supervises switching, risk state, logs, and combined "
     },
     {
       "name": "cheerhuan--save-your-token",
