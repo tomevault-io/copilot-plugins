@@ -1,0 +1,9 @@
+{
+  "name": "treygoff24--papercuts",
+  "displayName": "papercuts",
+  "description": "A tiny CLI that gives AI agents a complaint box \u2014 log the papercuts they hit during work",
+  "version": "1.0.0",
+  "author": "treygoff24",
+  "homepage": "https://github.com/treygoff24/papercuts",
+  "skills": []
+}
