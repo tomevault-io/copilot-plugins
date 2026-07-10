@@ -1,0 +1,44 @@
+{
+  "name": "z-agent",
+  "owner": "Z-Robotics-Lab",
+  "repo": "z-agent",
+  "description": "Z Agent \u2014 agent-orchestration runtime for Z-Lab robots: plan/route/verify/recover. NL in, verified robot behavior out. Fork of vector-os-nano, slimmed to product runtime; flagship world: Unitree Go2W (Isaac Sim + real).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Z-Robotics-Lab/z-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-10T12:37:17Z"
+}
