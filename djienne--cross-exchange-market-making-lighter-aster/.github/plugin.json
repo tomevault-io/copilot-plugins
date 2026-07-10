@@ -1,0 +1,9 @@
+{
+  "name": "djienne--cross-exchange-market-making-lighter-aster",
+  "displayName": "CROSS_EXCHANGE_MARKET_MAKING_LIGHTER_ASTER",
+  "description": "A live Aster/Lighter trading stack that coordinates two strategies: taker\u2013taker arbitrage and XEMM maker/taker hedging. The top-level orchestrator supervises switching, risk state, logs, and combined ",
+  "version": "1.0.0",
+  "author": "djienne",
+  "homepage": "https://github.com/djienne/CROSS_EXCHANGE_MARKET_MAKING_LIGHTER_ASTER",
+  "skills": []
+}
