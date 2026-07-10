@@ -1,0 +1,9 @@
+{
+  "name": "greygung--grokbuild-proxy",
+  "displayName": "grokbuild-proxy",
+  "description": "\u672c\u5730\u81ea\u6258\u7ba1\u7684 Grok Build \u2192 Claude Code / OpenAI \u517c\u5bb9\u4ee3\u7406 | Local self-hosted Grok Build compatibility proxy",
+  "version": "1.0.0",
+  "author": "GreyGunG",
+  "homepage": "https://github.com/GreyGunG/grokbuild-proxy",
+  "skills": []
+}
