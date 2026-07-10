@@ -1,0 +1,9 @@
+{
+  "name": "mcheemaa--mistri",
+  "displayName": "mistri",
+  "description": "The agent harness for Ruby applications. Durable sessions, streaming, human-in-the-loop approval, compaction, structured output, sub-agents, and MCP, with zero runtime dependencies.",
+  "version": "1.0.0",
+  "author": "mcheemaa",
+  "homepage": "https://github.com/mcheemaa/mistri",
+  "skills": []
+}
