@@ -1,0 +1,9 @@
+{
+  "name": "ttpears--gitlab-mcp",
+  "displayName": "gitlab-mcp",
+  "description": "Community GitLab MCP Server \u2014 works with any GitLab tier (Free/Premium/Ultimate), no Duo required. GraphQL schema discovery, repo browsing, multi-client support (Claude Code, LibreChat).",
+  "version": "1.0.0",
+  "author": "ttpears",
+  "homepage": "https://github.com/ttpears/gitlab-mcp",
+  "skills": []
+}
