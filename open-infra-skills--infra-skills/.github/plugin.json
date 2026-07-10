@@ -1,0 +1,9 @@
+{
+  "name": "open-infra-skills--infra-skills",
+  "displayName": "infra-skills",
+  "description": "Open, portable agent skills for AI infrastructure engineering.",
+  "version": "1.0.0",
+  "author": "open-infra-skills",
+  "homepage": "https://github.com/open-infra-skills/infra-skills",
+  "skills": []
+}
