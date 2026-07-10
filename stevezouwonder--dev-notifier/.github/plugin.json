@@ -1,0 +1,9 @@
+{
+  "name": "stevezouwonder--dev-notifier",
+  "displayName": "dev-notifier",
+  "description": "macOS menu-bar app that watches Jira & GitHub and shows clickable desktop notifications",
+  "version": "1.0.0",
+  "author": "SteveZouWonder",
+  "homepage": "https://github.com/SteveZouWonder/dev-notifier",
+  "skills": []
+}
