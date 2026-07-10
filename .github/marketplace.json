@@ -241519,6 +241519,26 @@
       "description": "Self-hosted agentic OS \u2014 connects Claude Code, Codex or Hermes Agent to Discord, Telegram, WhatsApp, Slack & Email. EU AI Act 2026 & GDPR compliance by architecture."
     },
     {
+      "name": "martinemde--dotfiles",
+      "source": "./martinemde--dotfiles",
+      "description": "\u2728 AI-first dotfiles with chezmoi"
+    },
+    {
+      "name": "zzliu93-debug--focusd",
+      "source": "./zzliu93-debug--focusd",
+      "description": "Windows floating island for Codex Status Indicator Light,todos, notes, clipboard history, media control, and Markdown archives."
+    },
+    {
+      "name": "deeheber--brag-doc",
+      "source": "./deeheber--brag-doc",
+      "description": "An engineering brag doc that writes itself \u2014 log daily wins in Claude Code, then generate promotion and review drafts."
+    },
+    {
+      "name": "loricaos--aegis",
+      "source": "./loricaos--aegis",
+      "description": "A capability-based x86_64/arm64 kernel built from scratch."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262617,6 +262637,46 @@
       "name": "timurrakhimzhan--unitflow",
       "source": "./timurrakhimzhan--unitflow",
       "description": "Effect-first state manager"
+    },
+    {
+      "name": "jaypokale--rdxmin",
+      "source": "./jaypokale--rdxmin",
+      "description": "Your AI talks less, builds less, says more. Like a senior dev who bills by the syllable."
+    },
+    {
+      "name": "jaypokale--rdxmin",
+      "source": "./jaypokale--rdxmin",
+      "description": "Your AI talks less, builds less, says more. Like a senior dev who bills by the syllable."
+    },
+    {
+      "name": "jaypokale--rdxmin",
+      "source": "./jaypokale--rdxmin",
+      "description": "Your AI talks less, builds less, says more. Like a senior dev who bills by the syllable."
+    },
+    {
+      "name": "jaypokale--rdxmin",
+      "source": "./jaypokale--rdxmin",
+      "description": "Your AI talks less, builds less, says more. Like a senior dev who bills by the syllable."
+    },
+    {
+      "name": "agricidaniel--fablesecondbrain",
+      "source": "./agricidaniel--fablesecondbrain",
+      "description": "Public, source-cited Fable 5, Mythos, Claude Code, and agent-operations second brain. Not affiliated with Anthropic."
+    },
+    {
+      "name": "agricidaniel--fablesecondbrain",
+      "source": "./agricidaniel--fablesecondbrain",
+      "description": "Public, source-cited Fable 5, Mythos, Claude Code, and agent-operations second brain. Not affiliated with Anthropic."
+    },
+    {
+      "name": "ucsandman--animation-studio",
+      "source": "./ucsandman--animation-studio",
+      "description": "Agent-driven animation studio for Claude Code: one /marketing command renders your product's full launch asset suite (logo reveal, demo, launch video, social clips, OG assets)"
+    },
+    {
+      "name": "agricidaniel--fablesecondbrain",
+      "source": "./agricidaniel--fablesecondbrain",
+      "description": "Public, source-cited Fable 5, Mythos, Claude Code, and agent-operations second brain. Not affiliated with Anthropic."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -390912,6 +390972,56 @@
       "name": "qdw497874677--otel-demo",
       "source": "./qdw497874677--otel-demo",
       "description": "otel_demo"
+    },
+    {
+      "name": "kryptalwork-sketch--echo",
+      "source": "./kryptalwork-sketch--echo",
+      "description": "echo"
+    },
+    {
+      "name": "ego5g--test",
+      "source": "./ego5g--test",
+      "description": "test"
+    },
+    {
+      "name": "jnuse--aifriend",
+      "source": "./jnuse--aifriend",
+      "description": "Based on rikkahub"
+    },
+    {
+      "name": "pestov-v--wallmart-clone",
+      "source": "./pestov-v--wallmart-clone",
+      "description": "wallmart-clone"
+    },
+    {
+      "name": "desned-nerte--mb-store",
+      "source": "./desned-nerte--mb-store",
+      "description": "mb-store"
+    },
+    {
+      "name": "jnuse--aifriend",
+      "source": "./jnuse--aifriend",
+      "description": "Based on rikkahub"
+    },
+    {
+      "name": "desned-nerte--mb-store",
+      "source": "./desned-nerte--mb-store",
+      "description": "mb-store"
+    },
+    {
+      "name": "gokulkrizh--screengate",
+      "source": "./gokulkrizh--screengate",
+      "description": "ScreenGate"
+    },
+    {
+      "name": "arashigaoka--jsconf-mcp-ui-demo",
+      "source": "./arashigaoka--jsconf-mcp-ui-demo",
+      "description": "Interactive chat demo using Model Context Protocol (MCP) with UI extensions"
+    },
+    {
+      "name": "jnyross--drill-press-sharpening-disc",
+      "source": "./jnyross--drill-press-sharpening-disc",
+      "description": "3D-printed bevel gear sharpening system for drill press. 2:1 gear reduction, 250mm disc, optimized for Bosch PBD 40 & Bambu Lab H2D. Expert-validated design with complete documentation and OpenSCAD fi"
     }
   ]
 }
