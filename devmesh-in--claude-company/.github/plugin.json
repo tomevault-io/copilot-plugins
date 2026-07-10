@@ -1,0 +1,9 @@
+{
+  "name": "devmesh-in--claude-company",
+  "displayName": "claude-company",
+  "description": "Highly opinionated AI software company you drop into any repo.",
+  "version": "1.0.0",
+  "author": "devmesh-in",
+  "homepage": "https://github.com/devmesh-in/claude-company",
+  "skills": []
+}
