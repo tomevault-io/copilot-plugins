@@ -174259,6 +174259,11 @@
       "description": "A simple and flexible deep learning framework based on PyTorch and YAML configuration files."
     },
     {
+      "name": "danklammer--minui-zero",
+      "source": "./danklammer--minui-zero",
+      "description": "MinUI Zero is a low-power MinUI fork for the TrimUI Brick & Smart Pro"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -241464,6 +241469,16 @@
       "description": "gpt-5.1-coding-agent"
     },
     {
+      "name": "stevezouwonder--dev-notifier",
+      "source": "./stevezouwonder--dev-notifier",
+      "description": "macOS menu-bar app that watches Jira & GitHub and shows clickable desktop notifications"
+    },
+    {
+      "name": "stevezouwonder--dev-notifier",
+      "source": "./stevezouwonder--dev-notifier",
+      "description": "macOS menu-bar app that watches Jira & GitHub and shows clickable desktop notifications"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262529,6 +262544,21 @@
       "description": "Hypertaks = \"A founder who owns a library of more than 1,400 books, knows exactly which book to consult for this issue, and has a strict SOP: intake \u2192 formulation \u2192 implementation \u2192 integration \u2192 docu"
     },
     {
+      "name": "gceico--claude-make-it-rain",
+      "source": "./gceico--claude-make-it-rain",
+      "description": "Claude Code spend tracker for your menu bar, makes it rain \ud83d\udcb8"
+    },
+    {
+      "name": "devmesh-in--claude-company",
+      "source": "./devmesh-in--claude-company",
+      "description": "Highly opinionated AI software company you drop into any repo."
+    },
+    {
+      "name": "cdrrazan--boardly",
+      "source": "./cdrrazan--boardly",
+      "description": "A config-driven GitHub Action that automates GitHub Projects (v2) \u2014 sprint rollover, stale-card nudges, sub-issue gating, digests, standups, and priority sorting \u2014 all from one YAML file."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -266932,6 +266962,11 @@
       "name": "collyn--skey",
       "source": "./collyn--skey",
       "description": "skey"
+    },
+    {
+      "name": "weebapp003--shadcn-fintech-template",
+      "source": "./weebapp003--shadcn-fintech-template",
+      "description": "shadcn fintech template which interactive cards, live ticker, spending heatmap, and more"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
