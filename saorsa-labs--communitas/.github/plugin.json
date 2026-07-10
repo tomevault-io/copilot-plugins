@@ -1,0 +1,9 @@
+{
+  "name": "saorsa-labs--communitas",
+  "displayName": "communitas",
+  "description": "Communitas: A decentralized collaboration platform built on the Saorsa P2P ecosystem. Features four-word addresses, end-to-end encryption, and distributed storage",
+  "version": "1.0.0",
+  "author": "saorsa-labs",
+  "homepage": "https://github.com/saorsa-labs/communitas",
+  "skills": []
+}
