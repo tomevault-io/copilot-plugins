@@ -1,96 +1,113 @@
-## typescript-patterns
+## ui-components
 
-> This project uses strict TypeScript configuration with modern patterns and best practices.
+> This project uses a component library built on Radix UI primitives with CVA (Class Variance Authority) for styling variants.
 
 
-# TypeScript Patterns
+# UI Components
 
-This project uses strict TypeScript configuration with modern patterns and best practices.
+This project uses a component library built on Radix UI primitives with CVA (Class Variance Authority) for styling variants.
 
-## Configuration
+## Component Architecture
 
-- **Strict Mode**: Enabled in [tsconfig.json](mdc:tsconfig.json)
-- **Path Mapping**: `@/` alias for clean imports
-- **Type Checking**: Strict type checking enabled
+### Base Components
+- **Button**: [components/ui/button.tsx](mdc:components/ui/button.tsx) - Button with variants
+- **Card**: [components/ui/card.tsx](mdc:components/ui/card.tsx) - Card component
+- **Input**: [components/ui/input.tsx](mdc:components/ui/input.tsx) - Input component
 
-## Key Patterns
-
-### Environment Configuration
-```typescript
-// Use Zod for environment validation
-const envSchema = z.object({
-  NEXT_PUBLIC_APP_NAME: z.string().default("Stacks Next Template"),
-});
-```
-
-### Component Props
-```typescript
-// Use proper TypeScript for component props
-interface ComponentProps {
-  children: ReactNode;
-  className?: string;
-}
-```
-
-### Hook Return Types
-```typescript
-// Define explicit return types for hooks
-export function useWallet() {
-  return {
-    data: { address: string; publicKey?: string } | null;
-    isConnected: boolean;
-    connect: () => Promise<[string, string]>;
-    disconnect: () => void;
-  };
-}
-```
-
-## Type Safety Rules
-
-1. **No `any` types** - Use proper typing or `unknown`
-2. **Explicit returns** - Define return types for functions
-3. **Interface over type** - Use interfaces for object shapes
-4. **Generic constraints** - Use proper generic constraints
-5. **Null safety** - Handle null/undefined cases explicitly
-
-## Import Patterns
-
-```typescript
-// Prefer named imports
-import { useWallet } from "@/hooks/wallet";
-import { Button } from "@/components/ui/button";
-
-// Use type-only imports when needed
-import type { AppConfig } from "./client";
-```
-
-## Error Handling
-
-```typescript
-// Use proper error types
-try {
-  const result = await operation();
-} catch (error) {
-  if (error instanceof Error) {
-    console.error(error.message);
-  }
-}
-```
+### Styling System
+- **Tailwind CSS**: Utility-first CSS framework
+- **CVA**: Class Variance Authority for component variants
+- **Radix UI**: Accessible component primitives
+- **Lucide React**: Icon library
 
 ## Component Patterns
 
+### Button Component
 ```typescript
-// Use proper component typing
-export function Component({ 
-  children, 
-  className 
-}: {
+// Use CVA for variant styling
+const buttonVariants = cva(
+  "base-classes",
+  {
+    variants: {
+      variant: {
+        default: "default-styles",
+        destructive: "destructive-styles",
+      },
+      size: {
+        default: "default-size",
+        sm: "small-size",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+```
+
+### Component Structure
+```typescript
+// Use proper TypeScript for component props
+interface ComponentProps extends VariantProps<typeof componentVariants> {
   children: ReactNode;
   className?: string;
-}) {
-  return <div className={className}>{children}</div>;
+}
+
+export function Component({ 
+  variant, 
+  size, 
+  className,
+  children,
+  ...props 
+}: ComponentProps) {
+  return (
+    <div 
+      className={cn(componentVariants({ variant, size, className }))}
+      {...props}
+    >
+      {children}
+    </div>
+  );
 }
 ```
+
+## Styling Guidelines
+
+1. **Use CVA for variants** - Don't use conditional classes
+2. **Consistent naming** - Use semantic variant names
+3. **Accessibility** - Include proper ARIA attributes
+4. **Responsive design** - Use Tailwind responsive prefixes
+5. **Dark mode** - Include dark mode variants
+
+## Component Composition
+
+```typescript
+// Use asChild pattern for composition
+<Button asChild>
+  <Link href="/path">Link Button</Link>
+</Button>
+```
+
+## Icon Integration
+
+```typescript
+// Use Lucide React icons
+import { ChevronDown, User } from "lucide-react";
+
+<Button>
+  <User className="mr-2 h-4 w-4" />
+  Profile
+</Button>
+```
+
+## Best Practices
+
+1. **Composition over inheritance** - Build components that compose well
+2. **Consistent API** - Use similar prop patterns across components
+3. **Accessibility first** - Include proper keyboard navigation and screen reader support
+4. **Performance** - Use React.memo for expensive components
+5. **Documentation** - Include JSDoc comments for complex components
 
 ---
 > Source: [Mcsavvy/stacks-next-template](https://github.com/Mcsavvy/stacks-next-template) — distributed by [TomeVault](https://tomevault.io).
