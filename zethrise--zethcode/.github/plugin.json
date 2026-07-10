@@ -1,0 +1,9 @@
+{
+  "name": "zethrise--zethcode",
+  "displayName": "ZethCode",
+  "description": "a CLI tool to talk with Ai Agents",
+  "version": "1.0.0",
+  "author": "ZethRise",
+  "homepage": "https://github.com/ZethRise/ZethCode",
+  "skills": []
+}
