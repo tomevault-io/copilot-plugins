@@ -1,0 +1,9 @@
+{
+  "name": "loricaos--aegis",
+  "displayName": "Aegis",
+  "description": "A capability-based x86_64/arm64 kernel built from scratch.",
+  "version": "1.0.0",
+  "author": "LoricaOS",
+  "homepage": "https://github.com/LoricaOS/Aegis",
+  "skills": []
+}
