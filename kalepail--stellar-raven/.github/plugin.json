@@ -1,0 +1,9 @@
+{
+  "name": "kalepail--stellar-raven",
+  "displayName": "stellar-raven",
+  "description": "Unified Stellar-ecosystem MCP gateway: search + execute over a unified service catalog (Cloudflare Workers + Dynamic Worker isolates).",
+  "version": "1.0.0",
+  "author": "kalepail",
+  "homepage": "https://github.com/kalepail/stellar-raven",
+  "skills": []
+}
