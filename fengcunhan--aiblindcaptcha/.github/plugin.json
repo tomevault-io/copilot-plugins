@@ -1,0 +1,9 @@
+{
+  "name": "fengcunhan--aiblindcaptcha",
+  "displayName": "AIBlindCaptcha",
+  "description": "A verification code generation and validation system that cannot be broken by any of the current large models.",
+  "version": "1.0.0",
+  "author": "fengcunhan",
+  "homepage": "https://github.com/fengcunhan/AIBlindCaptcha",
+  "skills": []
+}
