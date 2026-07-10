@@ -1,0 +1,9 @@
+{
+  "name": "arashigaoka--jsconf-mcp-ui-demo",
+  "displayName": "jsconf-mcp-ui-demo",
+  "description": "Interactive chat demo using Model Context Protocol (MCP) with UI extensions",
+  "version": "1.0.0",
+  "author": "arashigaoka",
+  "homepage": "https://github.com/arashigaoka/jsconf-mcp-ui-demo",
+  "skills": []
+}
