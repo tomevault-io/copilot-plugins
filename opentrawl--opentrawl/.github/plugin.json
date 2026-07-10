@@ -1,0 +1,9 @@
+{
+  "name": "opentrawl--opentrawl",
+  "displayName": "opentrawl",
+  "description": "Local-first crawlers for your digital life. One CLI, one Mac app, agent-searchable archives.",
+  "version": "1.0.0",
+  "author": "opentrawl",
+  "homepage": "https://github.com/opentrawl/opentrawl",
+  "skills": []
+}
