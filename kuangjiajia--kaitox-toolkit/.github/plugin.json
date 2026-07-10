@@ -1,0 +1,9 @@
+{
+  "name": "kuangjiajia--kaitox-toolkit",
+  "displayName": "kaitox-toolkit",
+  "description": "Kaitox \u2014 a personal toolkit: CLI, Obsidian plugin, Chrome extension, and agent skills. First feature: publish Markdown as X (Twitter) Article drafts.",
+  "version": "1.0.0",
+  "author": "kuangjiajia",
+  "homepage": "https://github.com/kuangjiajia/kaitox-toolkit",
+  "skills": []
+}
