@@ -7,11 +7,11 @@ Unified Stellar-ecosystem MCP gateway: search + execute over a unified service c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kalepail/stellar-raven](https://github.com/kalepail/stellar-raven).
+Original source: `AGENTS.md` in [kalepail/stellar-raven](https://github.com/kalepail/stellar-raven).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
