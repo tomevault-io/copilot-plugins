@@ -4,7 +4,7 @@
   "repo": "fcemulator",
   "description": "\u57fa\u4e8eRust\u7684Fc\u6a21\u62df\u5668",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sundykin/fcemulator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T02:33:28Z"
+  "distributed_at": "2026-07-10T02:34:47Z"
 }
