@@ -1,0 +1,9 @@
+{
+  "name": "pvoo--bigquery-mcp",
+  "displayName": "bigquery-mcp",
+  "description": "Practical MCP server for large BigQuery datasets. Supports vector search. Keep LLM context small while staying fast and allowing only safe read-only actions.",
+  "version": "1.0.0",
+  "author": "pvoo",
+  "homepage": "https://github.com/pvoo/bigquery-mcp",
+  "skills": []
+}
