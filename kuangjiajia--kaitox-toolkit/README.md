@@ -7,11 +7,11 @@ Kaitox — a personal toolkit: CLI, Obsidian plugin, Chrome extension, and agent
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kuangjiajia/kaitox-toolkit](https://github.com/kuangjiajia/kaitox-toolkit).
+Original source: `CLAUDE.md` in [kuangjiajia/kaitox-toolkit](https://github.com/kuangjiajia/kaitox-toolkit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
