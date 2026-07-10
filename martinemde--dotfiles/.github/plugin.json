@@ -1,0 +1,14 @@
+{
+  "name": "martinemde--dotfiles",
+  "displayName": "dotfiles",
+  "description": "\u2728 AI-first dotfiles with chezmoi",
+  "version": "1.0.0",
+  "author": "martinemde",
+  "homepage": "https://github.com/martinemde/dotfiles",
+  "skills": [
+    {
+      "name": "use-jj-not-git",
+      "description": ""
+    }
+  ]
+}
