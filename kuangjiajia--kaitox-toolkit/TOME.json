@@ -4,7 +4,7 @@
   "repo": "kaitox-toolkit",
   "description": "Kaitox \u2014 a personal toolkit: CLI, Obsidian plugin, Chrome extension, and agent skills. First feature: publish Markdown as X (Twitter) Article drafts.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kuangjiajia/kaitox-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T00:33:38Z"
+  "distributed_at": "2026-07-10T00:34:11Z"
 }
