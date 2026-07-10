@@ -1,0 +1,9 @@
+{
+  "name": "lyellr88--marm-memory",
+  "displayName": "marm-memory",
+  "description": "Self-hosted, local-first MCP memory server for AI agents. Sub-20ms recall at 10k memories, hybrid semantic + exact-syntax search (RAG), code & concept knowledge graphs (158 languages). All local in SQ",
+  "version": "1.0.0",
+  "author": "Lyellr88",
+  "homepage": "https://github.com/Lyellr88/marm-memory",
+  "skills": []
+}
