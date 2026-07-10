@@ -1,0 +1,9 @@
+{
+  "name": "scitex-ai--scitex-python",
+  "displayName": "scitex-python",
+  "description": "Umbrella package for SciTeX \u2014 reproducible science from raw data to manuscript",
+  "version": "1.0.0",
+  "author": "scitex-ai",
+  "homepage": "https://github.com/scitex-ai/scitex-python",
+  "skills": []
+}
