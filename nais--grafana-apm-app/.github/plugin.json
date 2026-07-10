@@ -1,0 +1,9 @@
+{
+  "name": "nais--grafana-apm-app",
+  "displayName": "grafana-apm-app",
+  "description": "APM for teams that already run the LGTM stack",
+  "version": "1.0.0",
+  "author": "nais",
+  "homepage": "https://github.com/nais/grafana-apm-app",
+  "skills": []
+}
