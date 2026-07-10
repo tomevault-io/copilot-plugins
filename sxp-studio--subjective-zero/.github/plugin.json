@@ -1,0 +1,9 @@
+{
+  "name": "sxp-studio--subjective-zero",
+  "displayName": "subjective-zero",
+  "description": "A native-macOS, agentic creative-coding & realtime-VFX harness. Describe visual ideas as prompt nodes; agents turn them into live, hot-reloading Metal nodes.",
+  "version": "1.0.0",
+  "author": "sxp-studio",
+  "homepage": "https://github.com/sxp-studio/subjective-zero",
+  "skills": []
+}
