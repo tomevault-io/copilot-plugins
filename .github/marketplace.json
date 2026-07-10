@@ -241544,6 +241544,11 @@
       "description": "A capability-based x86_64/arm64 kernel built from scratch."
     },
     {
+      "name": "mini-router--minirouter",
+      "source": "./mini-router--minirouter",
+      "description": "SN74 Gittensor miner workspace for MiniRouter: router training/eval code, benchmark configs, submission artifacts, and the web competition site for improving the tiny LLM router."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262684,6 +262689,26 @@
       "description": "Public, source-cited Fable 5, Mythos, Claude Code, and agent-operations second brain. Not affiliated with Anthropic."
     },
     {
+      "name": "minkhant1996--soemind-forge",
+      "source": "./minkhant1996--soemind-forge",
+      "description": "Budget-aware AI agent content studio for creating videos, images, carousels, voiceovers, music, captions, and content calendars with consistent brand assets and cost control."
+    },
+    {
+      "name": "truizlop--ndrstnd",
+      "source": "./truizlop--ndrstnd",
+      "description": "A companion for coding agents to help you understand large outputs"
+    },
+    {
+      "name": "mattsezgin--unofficial-clay-cli",
+      "source": "./mattsezgin--unofficial-clay-cli",
+      "description": "Run Clay from your terminal or AI agent - 50 commands, declarative playbooks, community workflow templates with a voted leaderboard, and safety gates. Unofficial, not affiliated with Clay."
+    },
+    {
+      "name": "minkhant1996--soemind-forge",
+      "source": "./minkhant1996--soemind-forge",
+      "description": "Budget-aware AI agent content studio for creating videos, images, carousels, voiceovers, music, captions, and content calendars with consistent brand assets and cost control."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -267107,6 +267132,11 @@
       "name": "boltai--inka",
       "source": "./boltai--inka",
       "description": "Native Android AI journal for BOOX Note Air tablets"
+    },
+    {
+      "name": "rockorager--monstar",
+      "source": "./rockorager--monstar",
+      "description": "wayland terminal based on libghostty. cpu rendered, like foot"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -391027,6 +391057,41 @@
       "name": "jnyross--drill-press-sharpening-disc",
       "source": "./jnyross--drill-press-sharpening-disc",
       "description": "3D-printed bevel gear sharpening system for drill press. 2:1 gear reduction, 250mm disc, optimized for Bosch PBD 40 & Bambu Lab H2D. Expert-validated design with complete documentation and OpenSCAD fi"
+    },
+    {
+      "name": "dreffed--aetherlens",
+      "source": "./dreffed--aetherlens",
+      "description": "aetherlens"
+    },
+    {
+      "name": "mcsavvy--stacks-next-template",
+      "source": "./mcsavvy--stacks-next-template",
+      "description": "stacks-next-template"
+    },
+    {
+      "name": "mcsavvy--stacks-next-template",
+      "source": "./mcsavvy--stacks-next-template",
+      "description": "stacks-next-template"
+    },
+    {
+      "name": "mcsavvy--stacks-next-template",
+      "source": "./mcsavvy--stacks-next-template",
+      "description": "stacks-next-template"
+    },
+    {
+      "name": "mcsavvy--stacks-next-template",
+      "source": "./mcsavvy--stacks-next-template",
+      "description": "stacks-next-template"
+    },
+    {
+      "name": "mcsavvy--stacks-next-template",
+      "source": "./mcsavvy--stacks-next-template",
+      "description": "stacks-next-template"
+    },
+    {
+      "name": "lllypuk--flowra",
+      "source": "./lllypuk--flowra",
+      "description": "flowra"
     }
   ]
 }
