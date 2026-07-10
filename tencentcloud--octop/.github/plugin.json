@@ -1,0 +1,9 @@
+{
+  "name": "tencentcloud--octop",
+  "displayName": "Octop",
+  "description": "A smarter, self-hosted AI assistant \u2014 multi-user, multi-agent.",
+  "version": "1.0.0",
+  "author": "TencentCloud",
+  "homepage": "https://github.com/TencentCloud/Octop",
+  "skills": []
+}
