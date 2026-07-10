@@ -1,0 +1,9 @@
+{
+  "name": "mini-router--minirouter",
+  "displayName": "minirouter",
+  "description": "SN74 Gittensor miner workspace for MiniRouter: router training/eval code, benchmark configs, submission artifacts, and the web competition site for improving the tiny LLM router.",
+  "version": "1.0.0",
+  "author": "mini-router",
+  "homepage": "https://github.com/mini-router/minirouter",
+  "skills": []
+}
