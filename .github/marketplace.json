@@ -130119,6 +130119,11 @@
       "description": "tradingview mcp which connect claude code via chrome devtools protocol"
     },
     {
+      "name": "ucsandman--marketing-studio",
+      "source": "./ucsandman--marketing-studio",
+      "description": "Agent-driven marketing studio for Claude Code: one /marketing command renders your product's full launch asset suite (logo reveal, demo, launch video, social clips, OG assets)"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -205487,6 +205492,11 @@
       "name": "matiassanchezcabrera--gtray",
       "source": "./matiassanchezcabrera--gtray",
       "description": "All your Gmail inboxes in a single macOS app \u2014 web experience intact, unread counts in the Dock"
+    },
+    {
+      "name": "open-infra-skills--infra-skills",
+      "source": "./open-infra-skills--infra-skills",
+      "description": "Open, portable agent skills for AI infrastructure engineering."
     },
     {
       "name": "yschimke--compose-ai-tools",
