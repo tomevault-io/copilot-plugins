@@ -19374,6 +19374,31 @@
       "description": "Z3r0"
     },
     {
+      "name": "yv1ing--z3r0",
+      "source": "./yv1ing--z3r0",
+      "description": "Z3r0"
+    },
+    {
+      "name": "yv1ing--z3r0",
+      "source": "./yv1ing--z3r0",
+      "description": "Z3r0"
+    },
+    {
+      "name": "yv1ing--z3r0",
+      "source": "./yv1ing--z3r0",
+      "description": "Z3r0"
+    },
+    {
+      "name": "yv1ing--z3r0",
+      "source": "./yv1ing--z3r0",
+      "description": "Z3r0"
+    },
+    {
+      "name": "yv1ing--z3r0",
+      "source": "./yv1ing--z3r0",
+      "description": "Z3r0"
+    },
+    {
       "name": "apify--mcpc",
       "source": "./apify--mcpc",
       "description": "mcpc is a universal CLI client for MCP. It supports persistent sessions, stdio/HTTP, OAuth 2.1, tasks, JSON output for code mode, proxy for AI sandboxes, x402, and more."
@@ -241584,6 +241609,36 @@
       "description": "An open-source vanilla implementation of Saudi Arabia's National Design System \u2014 RTL/LTR native, plain HTML/CSS/JS, zero runtime dependencies."
     },
     {
+      "name": "pedrojok01--linux-broadcast",
+      "source": "./pedrojok01--linux-broadcast",
+      "description": "Linux virtual webcam with AI background blur/replace. Single Rust binary,    MediaPipe + RVM segmentation on CPU, native egui UI, no Python, no CUDA."
+    },
+    {
+      "name": "pvoo--bigquery-mcp",
+      "source": "./pvoo--bigquery-mcp",
+      "description": "Practical MCP server for large BigQuery datasets. Supports vector search. Keep LLM context small while staying fast and allowing only safe read-only actions."
+    },
+    {
+      "name": "kitelev--exocortex",
+      "source": "./kitelev--exocortex",
+      "description": "Cognitive infrastructure augmenting human intelligence through semantic knowledge organization, SPARQL queries, ontology-driven reasoning, and AI integration. Obsidian plugin + CLI + Core library."
+    },
+    {
+      "name": "dp-web4--web4",
+      "source": "./dp-web4--web4",
+      "description": "Web4: an open standard for verifiable AI presence \u2014 LCT identity, T3/V3 trust tensors, MRH context, ATP/ADP. Rust + Python SDKs on crates.io/PyPI.  AGPL-3.0-or-later."
+    },
+    {
+      "name": "dp-web4--web4",
+      "source": "./dp-web4--web4",
+      "description": "Web4: an open standard for verifiable AI presence \u2014 LCT identity, T3/V3 trust tensors, MRH context, ATP/ADP. Rust + Python SDKs on crates.io/PyPI.  AGPL-3.0-or-later."
+    },
+    {
+      "name": "nodespaceai--nodespace-core",
+      "source": "./nodespaceai--nodespace-core",
+      "description": "Local-first knowledge base with semantic search for AI coding assistants. Fewer tokens, faster context."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262767,6 +262822,26 @@
       "name": "saorsa-labs--communitas",
       "source": "./saorsa-labs--communitas",
       "description": "Communitas: A decentralized collaboration platform built on the Saorsa P2P ecosystem. Features four-word addresses, end-to-end encryption, and distributed storage"
+    },
+    {
+      "name": "sxp-studio--subjective-zero",
+      "source": "./sxp-studio--subjective-zero",
+      "description": "A native-macOS, agentic creative-coding & realtime-VFX harness. Describe visual ideas as prompt nodes; agents turn them into live, hot-reloading Metal nodes."
+    },
+    {
+      "name": "kalepail--stellar-raven",
+      "source": "./kalepail--stellar-raven",
+      "description": "Unified Stellar-ecosystem MCP gateway: search + execute over a unified service catalog (Cloudflare Workers + Dynamic Worker isolates)."
+    },
+    {
+      "name": "kalepail--stellar-raven",
+      "source": "./kalepail--stellar-raven",
+      "description": "Unified Stellar-ecosystem MCP gateway: search + execute over a unified service catalog (Cloudflare Workers + Dynamic Worker isolates)."
+    },
+    {
+      "name": "tshah-95--vean",
+      "source": "./tshah-95--vean",
+      "description": "vean \u2014 the agent-native video editing core: a typed document, edit algebra, and diagnostics layer (a 'language server for video') on top of MLT. AGPL-3.0."
     },
     {
       "name": "cheerhuan--save-your-token",
