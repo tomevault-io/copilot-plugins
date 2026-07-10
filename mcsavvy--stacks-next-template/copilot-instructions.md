@@ -1,87 +1,54 @@
-## code-quality
+## project-structure
 
-> This project enforces high code quality through automated tooling and consistent patterns.
+> This is a Next.js 15 template for Stacks blockchain applications with TypeScript, Tailwind CSS, and Biome for linting/formatting.
 
 
-# Code Quality Standards
+# Project Structure Guide
 
-This project enforces high code quality through automated tooling and consistent patterns.
+This is a Next.js 15 template for Stacks blockchain applications with TypeScript, Tailwind CSS, and Biome for linting/formatting.
 
-## Tooling
+## Key Directories
 
-### Linting & Formatting
-- **Biome**: Primary linter and formatter (configured in [biome.json](mdc:biome.json))
-- **TypeScript**: Strict type checking enabled
-- **Prettier**: Integrated with Biome for consistent formatting
+- **`app/`** - Next.js 15 App Router directory
+  - [layout.tsx](mdc:app/layout.tsx) - Root layout with AuthSessionProvider
+  - [page.tsx](mdc:app/page.tsx) - Home page component
+  - [globals.css](mdc:app/globals.css) - Global styles with Tailwind CSS
 
-### Scripts
-```json
-{
-  "lint": "biome check",
-  "format": "biome format --write"
-}
-```
+- **`components/`** - Reusable UI components
+  - `ui/` - Base UI components (Button, Card, Input) using Radix UI and CVA
+  - [button.tsx](mdc:components/ui/button.tsx) - Button component with variants
+  - [card.tsx](mdc:components/ui/card.tsx) - Card component
+  - [input.tsx](mdc:components/ui/input.tsx) - Input component
 
-## Code Standards
+- **`lib/`** - Utility libraries and configuration
+  - `config/` - Environment configuration with Zod validation
+  - [client.ts](mdc:lib/config/client.ts) - Client-side configuration
+  - [server.ts](mdc:lib/config/server.ts) - Server-side configuration
+  - [utils.ts](mdc:lib/utils.ts) - Utility functions
 
-### File Organization
-- **Consistent imports** - Group imports by type (external, internal, types)
-- **Export patterns** - Use named exports for components, default for pages
-- **File naming** - Use kebab-case for files, PascalCase for components
+- **`hooks/`** - Custom React hooks
+  - [wallet.ts](mdc:hooks/wallet.ts) - Stacks wallet connection hook
 
-### TypeScript Standards
-- **Strict mode** - No implicit any, strict null checks
-- **Type definitions** - Define interfaces for all data structures
-- **Generic usage** - Use generics for reusable components
-- **Error handling** - Proper error types and handling
+- **`providers/`** - React context providers
+  - [auth-session-provider.tsx](mdc:providers/auth-session-provider.tsx) - Authentication session management
 
-### React Patterns
-- **Functional components** - Use function declarations over arrow functions
-- **Hooks** - Custom hooks for reusable logic
-- **Props** - Use proper TypeScript interfaces for props
-- **State management** - Context for global state, local state for component state
 
-## Code Style
+## Key Files
 
-### Naming Conventions
-- **Variables**: camelCase (`userName`, `isConnected`)
-- **Functions**: camelCase (`connectWallet`, `handleClick`)
-- **Components**: PascalCase (`UserProfile`, `WalletButton`)
-- **Files**: kebab-case (`user-profile.tsx`, `wallet-button.tsx`)
-- **Constants**: UPPER_SNAKE_CASE (`API_URL`, `STORAGE_KEY`)
+- [package.json](mdc:package.json) - Project dependencies and scripts
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration
+- [biome.json](mdc:biome.json) - Biome linting/formatting configuration
+- [components.json](mdc:components.json) - UI components configuration
+- [next.config.ts](mdc:next.config.ts) - Next.js configuration
 
-### Import Organization
-```typescript
-// 1. External libraries
-import React from "react";
-import { useWallet } from "@stacks/connect";
+## Architecture Patterns
 
-// 2. Internal imports
-import { Button } from "@/components/ui/button";
-import { useAuthSession } from "@/providers/auth-session-provider";
-
-// 3. Type imports
-import type { AppConfig } from "@/lib/config/client";
-```
-
-### Component Structure
-```typescript
-// 1. Imports
-// 2. Types/Interfaces
-// 3. Component
-// 4. Exports
-```
-
-## Best Practices
-
-1. **Single Responsibility** - Each function/component should have one purpose
-2. **DRY Principle** - Don't repeat yourself, extract common logic
-3. **Error Boundaries** - Implement proper error handling
-4. **Performance** - Use React.memo, useMemo, useCallback appropriately
-5. **Accessibility** - Include proper ARIA attributes and keyboard navigation
-6. **Testing** - Write tests for critical functionality
-7. **Documentation** - Include JSDoc for complex functions
-8. **Security** - Validate all inputs, sanitize data
+- **App Router**: Uses Next.js 15 App Router for routing
+- **TypeScript**: Full TypeScript support with strict configuration
+- **Component Library**: Radix UI primitives with CVA for styling variants
+- **State Management**: React Context for authentication state
+- **Wallet Integration**: Stacks Connect for wallet functionality
+- **Validation**: Zod schemas for environment and data validation
 
 ---
 > Source: [Mcsavvy/stacks-next-template](https://github.com/Mcsavvy/stacks-next-template) — distributed by [TomeVault](https://tomevault.io).
