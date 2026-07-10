@@ -32949,6 +32949,11 @@
       "description": "Moongate is modern Ultima Online server built from scratch in C# with AOT compilation for high performance and nostalgic gameplay experience."
     },
     {
+      "name": "lynote-ai--humanize-text-skill",
+      "source": "./lynote-ai--humanize-text-skill",
+      "description": "Free AI Humanizer: Humanize AI Text Online"
+    },
+    {
       "name": "svkozak--pi-acp",
       "source": "./svkozak--pi-acp",
       "description": "ACP adapter for pi coding agent"
@@ -86159,6 +86164,16 @@
       "description": "\ud83d\udcc2 Modern, Keyboard-driven dual-pane file manager, built with Rust and Flutter."
     },
     {
+      "name": "litun--bloomy-linkedin-outreach",
+      "source": "./litun--bloomy-linkedin-outreach",
+      "description": "bloomy-linkedin-outreach"
+    },
+    {
+      "name": "litun--bloomy-linkedin-outreach",
+      "source": "./litun--bloomy-linkedin-outreach",
+      "description": "bloomy-linkedin-outreach"
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -130099,6 +130114,11 @@
       "description": "About  World's largest Seedream 5.0 Pro prompt library \u2014 10,000+ curated prompts with preview images, 16 languages. Dreamina Seeream AI image generation. Free & open source."
     },
     {
+      "name": "weebapp003--tradingview-mcp",
+      "source": "./weebapp003--tradingview-mcp",
+      "description": "tradingview mcp which connect claude code via chrome devtools protocol"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -133712,6 +133732,11 @@
       "name": "amanayayatu-tech--ksana",
       "source": "./amanayayatu-tech--ksana",
       "description": "\u4e00\u4e2a\u672c\u5730\u5316\u7684\u539f\u751f\u4eba\u5de5\u667a\u80fd\u6295\u8d44\u7814\u7a76\u548c\u51b3\u7b56\u7cfb\u7edf\u3002\u5b83\u7684\u8bbe\u8ba1\u7406\u5ff5\u662f\u4f5c\u4e3a\u4e00\u4e2a\u79c1\u4eba\u6295\u8d44\u59d4\u5458\u4f1a\uff0c\u800c\u4e0d\u662f\u4e00\u4e2a\u901a\u7528\u7684\u80a1\u7968\u7b5b\u9009\u5668\u3001\u6295\u8d44\u7ec4\u5408\u7ecf\u7406\u6216\u81ea\u52a8\u4ea4\u6613\u673a\u5668\u4eba\u3002"
+    },
+    {
+      "name": "greygung--grokbuild-proxy",
+      "source": "./greygung--grokbuild-proxy",
+      "description": "\u672c\u5730\u81ea\u6258\u7ba1\u7684 Grok Build \u2192 Claude Code / OpenAI \u517c\u5bb9\u4ee3\u7406 | Local self-hosted Grok Build compatibility proxy"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -205452,6 +205477,11 @@
       "name": "yahyashareef48--claude-usage-monitor",
       "source": "./yahyashareef48--claude-usage-monitor",
       "description": "claude-usage-monitor"
+    },
+    {
+      "name": "shieldnet-360--secure-vibe",
+      "source": "./shieldnet-360--secure-vibe",
+      "description": "SecureVibe \u2014 prevention-first security for AI-written code. Signed SKILL.md knowledge that makes AI coding assistants write secure code at generation time, plus a deterministic CI gate. Offline \u00b7 keyl"
     },
     {
       "name": "yschimke--compose-ai-tools",
