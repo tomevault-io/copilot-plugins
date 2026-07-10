@@ -1,0 +1,9 @@
+{
+  "name": "deeheber--brag-doc",
+  "displayName": "brag-doc",
+  "description": "An engineering brag doc that writes itself \u2014 log daily wins in Claude Code, then generate promotion and review drafts.",
+  "version": "1.0.0",
+  "author": "deeheber",
+  "homepage": "https://github.com/deeheber/brag-doc",
+  "skills": []
+}
