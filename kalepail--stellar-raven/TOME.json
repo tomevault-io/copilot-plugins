@@ -4,7 +4,7 @@
   "repo": "stellar-raven",
   "description": "Unified Stellar-ecosystem MCP gateway: search + execute over a unified service catalog (Cloudflare Workers + Dynamic Worker isolates).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kalepail/stellar-raven",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T20:31:14Z"
+  "distributed_at": "2026-07-10T20:31:59Z"
 }
