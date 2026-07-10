@@ -156624,6 +156624,11 @@
       "description": "ai fintech financial advisor for your portfolio"
     },
     {
+      "name": "tencentcloud--octop",
+      "source": "./tencentcloud--octop",
+      "description": "A smarter, self-hosted AI assistant \u2014 multi-user, multi-agent."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
