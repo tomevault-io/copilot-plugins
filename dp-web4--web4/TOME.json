@@ -4,7 +4,7 @@
   "repo": "web4",
   "description": "Web4: an open standard for verifiable AI presence \u2014 LCT identity, T3/V3 trust tensors, MRH context, ATP/ADP. Rust + Python SDKs on crates.io/PyPI.  AGPL-3.0-or-later.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dp-web4/web4",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T20:35:13Z"
+  "distributed_at": "2026-07-10T20:36:06Z"
 }
