@@ -82859,6 +82859,11 @@
       "description": "tao-skill-bank"
     },
     {
+      "name": "yusukebe--ax",
+      "source": "./yusukebe--ax",
+      "description": "The AI-era curl"
+    },
+    {
       "name": "hyhmrright--brooks-lint",
       "source": "./hyhmrright--brooks-lint",
       "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix"
