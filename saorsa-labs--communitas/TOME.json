@@ -4,7 +4,7 @@
   "repo": "communitas",
   "description": "Communitas: A decentralized collaboration platform built on the Saorsa P2P ecosystem. Features four-word addresses, end-to-end encryption, and distributed storage",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saorsa-labs/communitas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T18:36:23Z"
+  "distributed_at": "2026-07-10T18:40:45Z"
 }
