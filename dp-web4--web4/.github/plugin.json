@@ -1,0 +1,9 @@
+{
+  "name": "dp-web4--web4",
+  "displayName": "web4",
+  "description": "Web4: an open standard for verifiable AI presence \u2014 LCT identity, T3/V3 trust tensors, MRH context, ATP/ADP. Rust + Python SDKs on crates.io/PyPI.  AGPL-3.0-or-later.",
+  "version": "1.0.0",
+  "author": "dp-web4",
+  "homepage": "https://github.com/dp-web4/web4",
+  "skills": []
+}
