@@ -1,0 +1,9 @@
+{
+  "name": "pedrojok01--linux-broadcast",
+  "displayName": "linux-broadcast",
+  "description": "Linux virtual webcam with AI background blur/replace. Single Rust binary,    MediaPipe + RVM segmentation on CPU, native egui UI, no Python, no CUDA.",
+  "version": "1.0.0",
+  "author": "Pedrojok01",
+  "homepage": "https://github.com/Pedrojok01/linux-broadcast",
+  "skills": []
+}
