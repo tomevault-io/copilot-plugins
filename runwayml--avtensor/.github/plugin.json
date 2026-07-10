@@ -1,0 +1,9 @@
+{
+  "name": "runwayml--avtensor",
+  "displayName": "avtensor",
+  "description": "High-performance media decoding straight into PyTorch tensors",
+  "version": "1.0.0",
+  "author": "runwayml",
+  "homepage": "https://github.com/runwayml/avtensor",
+  "skills": []
+}
