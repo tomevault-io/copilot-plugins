@@ -1,0 +1,9 @@
+{
+  "name": "mattsezgin--unofficial-clay-cli",
+  "displayName": "unofficial-clay-cli",
+  "description": "Run Clay from your terminal or AI agent - 50 commands, declarative playbooks, community workflow templates with a voted leaderboard, and safety gates. Unofficial, not affiliated with Clay.",
+  "version": "1.0.0",
+  "author": "MattSezgin",
+  "homepage": "https://github.com/MattSezgin/unofficial-clay-cli",
+  "skills": []
+}
