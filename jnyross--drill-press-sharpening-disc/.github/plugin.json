@@ -1,0 +1,9 @@
+{
+  "name": "jnyross--drill-press-sharpening-disc",
+  "displayName": "drill-press-sharpening-disc",
+  "description": "3D-printed bevel gear sharpening system for drill press. 2:1 gear reduction, 250mm disc, optimized for Bosch PBD 40 & Bambu Lab H2D. Expert-validated design with complete documentation and OpenSCAD fi",
+  "version": "1.0.0",
+  "author": "jnyross",
+  "homepage": "https://github.com/jnyross/drill-press-sharpening-disc",
+  "skills": []
+}
