@@ -1,0 +1,9 @@
+{
+  "name": "jacinzhang--subsonicplayer",
+  "displayName": "SubsonicPlayer",
+  "description": "An iOS audio player app for Subsonic servers built with SwiftUI",
+  "version": "1.0.0",
+  "author": "jacinzhang",
+  "homepage": "https://github.com/jacinzhang/SubsonicPlayer",
+  "skills": []
+}
