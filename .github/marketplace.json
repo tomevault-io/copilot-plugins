@@ -241509,6 +241509,16 @@
       "description": "macOS menu-bar app that watches Jira & GitHub and shows clickable desktop notifications"
     },
     {
+      "name": "aureumdca--dca-vault-frontend",
+      "source": "./aureumdca--dca-vault-frontend",
+      "description": "Next.js frontend for AureumDCA \u2014 connect Freighter wallet, create DCA schedules, and track swap history"
+    },
+    {
+      "name": "corvinlabs--corvinos",
+      "source": "./corvinlabs--corvinos",
+      "description": "Self-hosted agentic OS \u2014 connects Claude Code, Codex or Hermes Agent to Discord, Telegram, WhatsApp, Slack & Email. EU AI Act 2026 & GDPR compliance by architecture."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262589,6 +262599,26 @@
       "description": "A config-driven GitHub Action that automates GitHub Projects (v2) \u2014 sprint rollover, stale-card nudges, sub-issue gating, digests, standups, and priority sorting \u2014 all from one YAML file."
     },
     {
+      "name": "ikhsan3adi--ruwetmeter",
+      "source": "./ikhsan3adi--ruwetmeter",
+      "description": "AI Agent buat mantau keruwetan Indonesia. Scrape berita, analisis pakai LLM. Bertanya ke chatbot RAG interaktif."
+    },
+    {
+      "name": "s0ld13rr--pentestcode",
+      "source": "./s0ld13rr--pentestcode",
+      "description": "PentestCode \u2014 Multi-agent AI penetration testing system with persistent engagement state, strategic coordination, and parallel autonomous operations."
+    },
+    {
+      "name": "mcheemaa--mistri",
+      "source": "./mcheemaa--mistri",
+      "description": "The agent harness for Ruby applications. Durable sessions, streaming, human-in-the-loop approval, compaction, structured output, sub-agents, and MCP, with zero runtime dependencies."
+    },
+    {
+      "name": "timurrakhimzhan--unitflow",
+      "source": "./timurrakhimzhan--unitflow",
+      "description": "Effect-first state manager"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -266997,6 +267027,21 @@
       "name": "weebapp003--shadcn-fintech-template",
       "source": "./weebapp003--shadcn-fintech-template",
       "description": "shadcn fintech template which interactive cards, live ticker, spending heatmap, and more"
+    },
+    {
+      "name": "z-robotics-lab--z-agent",
+      "source": "./z-robotics-lab--z-agent",
+      "description": "Z Agent \u2014 agent-orchestration runtime for Z-Lab robots: plan/route/verify/recover. NL in, verified robot behavior out. Fork of vector-os-nano, slimmed to product runtime; flagship world: Unitree Go2W "
+    },
+    {
+      "name": "z-robotics-lab--z-agent",
+      "source": "./z-robotics-lab--z-agent",
+      "description": "Z Agent \u2014 agent-orchestration runtime for Z-Lab robots: plan/route/verify/recover. NL in, verified robot behavior out. Fork of vector-os-nano, slimmed to product runtime; flagship world: Unitree Go2W "
+    },
+    {
+      "name": "boltai--inka",
+      "source": "./boltai--inka",
+      "description": "Native Android AI journal for BOOX Note Air tablets"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -390827,6 +390872,46 @@
       "name": "ryoyamamura-2025--study-deepagents",
       "source": "./ryoyamamura-2025--study-deepagents",
       "description": "LangGraph\u306eDeepAgents\u306e\u52c9\u5f37\u7528"
+    },
+    {
+      "name": "gusouza980--eduhub",
+      "source": "./gusouza980--eduhub",
+      "description": "eduhub"
+    },
+    {
+      "name": "gusouza980--eduhub",
+      "source": "./gusouza980--eduhub",
+      "description": "eduhub"
+    },
+    {
+      "name": "coollyninja--shipfaf",
+      "source": "./coollyninja--shipfaf",
+      "description": "shipfaf"
+    },
+    {
+      "name": "byrdter--fastapi-starter-for-ai-coding",
+      "source": "./byrdter--fastapi-starter-for-ai-coding",
+      "description": "Production-ready FastAPI template with vertical slice architecture, optimized for AI-assisted development."
+    },
+    {
+      "name": "ijhan21--compose-demo",
+      "source": "./ijhan21--compose-demo",
+      "description": "compose-demo"
+    },
+    {
+      "name": "zandman001--intent",
+      "source": "./zandman001--intent",
+      "description": "Intent"
+    },
+    {
+      "name": "qdw497874677--otel-demo",
+      "source": "./qdw497874677--otel-demo",
+      "description": "otel_demo"
+    },
+    {
+      "name": "qdw497874677--otel-demo",
+      "source": "./qdw497874677--otel-demo",
+      "description": "otel_demo"
     }
   ]
 }
