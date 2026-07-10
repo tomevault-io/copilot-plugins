@@ -4,7 +4,7 @@
   "repo": "artagon-containers",
   "description": "Hardened multi-arch OCI images for JVM workloads. JDK 25/26/Valhalla on Chainguard, Distroless, and UBI. Non-root, digest-pinned, SBOM-attested, Cosign-signed. Production-ready security-first containers for amd64/arm64.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/artagon/artagon-containers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-10T00:37:50Z"
+  "distributed_at": "2026-07-10T00:41:27Z"
 }
