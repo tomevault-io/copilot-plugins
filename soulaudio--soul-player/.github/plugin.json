@@ -1,0 +1,9 @@
+{
+  "name": "soulaudio--soul-player",
+  "displayName": "soul-player",
+  "description": "Local-first music player built for privacy. No cloud uploads, no telemetry, no subscriptions. Free and open source forever, with optional paid discovery features to fund development.",
+  "version": "1.0.0",
+  "author": "soulaudio",
+  "homepage": "https://github.com/soulaudio/soul-player",
+  "skills": []
+}
