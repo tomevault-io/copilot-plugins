@@ -1,0 +1,9 @@
+{
+  "name": "zircote--csharp-lsp",
+  "displayName": "csharp-lsp",
+  "description": "Claude Code plugin for C# development with OmniSharp LSP and dotnet format hooks",
+  "version": "1.0.0",
+  "author": "zircote",
+  "homepage": "https://github.com/zircote/csharp-lsp",
+  "skills": []
+}
