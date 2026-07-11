@@ -7,11 +7,11 @@ TypeScript SDK for confidential FHE smart contracts on Zama Protocol
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zama-ai/sdk](https://github.com/zama-ai/sdk).
+Original source: `CLAUDE.md` in [zama-ai/sdk](https://github.com/zama-ai/sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
