@@ -1,0 +1,9 @@
+{
+  "name": "ronikobrosly--rigorloop",
+  "displayName": "RigorLoop",
+  "description": "A statistically-sound agentic build framework that employs agentic loops to create code artifacts (whether a script, a skill markdown file, etc). Crucially, it splits verification data into the classi",
+  "version": "1.0.0",
+  "author": "ronikobrosly",
+  "homepage": "https://github.com/ronikobrosly/RigorLoop",
+  "skills": []
+}
