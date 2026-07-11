@@ -4,7 +4,7 @@
   "repo": "persome-core",
   "description": "Local-first macOS Runtime that turns cross-app activity into an inspectable personal model for Chat and MCP agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Persome-ai/persome-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T12:30:25Z"
+  "distributed_at": "2026-07-11T12:31:06Z"
 }
