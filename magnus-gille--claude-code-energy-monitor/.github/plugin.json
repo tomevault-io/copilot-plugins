@@ -1,0 +1,9 @@
+{
+  "name": "magnus-gille--claude-code-energy-monitor",
+  "displayName": "claude-code-energy-monitor",
+  "description": "Claude Code statusline showing real-time token usage and estimated energy consumption",
+  "version": "1.0.0",
+  "author": "Magnus-Gille",
+  "homepage": "https://github.com/Magnus-Gille/claude-code-energy-monitor",
+  "skills": []
+}
