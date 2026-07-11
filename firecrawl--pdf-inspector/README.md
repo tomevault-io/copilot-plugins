@@ -2,16 +2,14 @@
 
 > Source: [firecrawl/pdf-inspector](https://github.com/firecrawl/pdf-inspector) — distributed by [TomeVault](https://tomevault.io)
 
-Fast Rust library for PDF inspection, classification, and text extraction. Intelligently detects scanned vs text-based PDFs to enable smart routing decisions.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [firecrawl/pdf-inspector](https://github.com/firecrawl/pdf-inspector).
+Original source: `CLAUDE.md` in [firecrawl/pdf-inspector](https://github.com/firecrawl/pdf-inspector).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
