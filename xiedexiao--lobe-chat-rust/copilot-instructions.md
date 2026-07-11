@@ -1,140 +1,86 @@
-## lobe-chat-rust
+## debug-usage
 
-> This document serves as a comprehensive guide for all team members when developing LobeChat.
+> 包含添加 debug 日志请求时
 
-# LobeChat Development Guidelines
+# Debug 包使用指南
 
-This document serves as a comprehensive guide for all team members when developing LobeChat.
+本项目使用 [debug](mdc:https:/github.com/debug-js/debug) 包进行调试日志记录。使用此规则来确保团队成员统一调试日志格式。
 
-## Tech Stack
+## 基本用法
 
-Built with modern technologies:
+1. 导入 debug 包：
 
-- **Frontend**: Next.js 15, React 19, TypeScript
-- **UI Components**: Ant Design, @lobehub/ui, antd-style
-- **State Management**: Zustand, SWR
-- **Database**: PostgreSQL, PGLite, Drizzle ORM
-- **Testing**: Vitest, Testing Library
-- **Package Manager**: pnpm (monorepo structure)
-- **Build Tools**: Next.js (Turbopack in dev, Webpack in prod), Vitest
+```typescript
+import debug from 'debug';
+```
 
-## Directory Structure
+2. 创建一个命名空间的日志记录器：
 
-The project follows a well-organized monorepo structure:
+```typescript
+// 格式: lobe:[模块]:[子模块]
+const log = debug('lobe-[模块名]:[子模块名]');
+```
 
-- `apps/` - Main applications
-- `packages/` - Shared packages and libraries
-- `src/` - Main source code
-- `docs/` - Documentation
-- `.cursor/rules/` - Development rules and guidelines
+3. 使用日志记录器：
 
-## Development Workflow
+```typescript
+log('简单消息');
+log('带变量的消息: %O', object);
+log('格式化数字: %d', number);
+```
 
-### Git Workflow
+## 命名空间约定
 
-- Use rebase for git pull: `git pull --rebase`
-- Git commit messages should prefix with gitmoji
-- Git branch name format: `username/feat/feature-name`
-- Use `.github/PULL_REQUEST_TEMPLATE.md` for PR descriptions
+- 桌面应用相关: `lobe-desktop:[模块]`
+- 服务端相关: `lobe-server:[模块]`
+- 客户端相关: `lobe-client:[模块]`
+- 路由相关: `lobe-[类型]-router:[模块]`
 
-### Package Management
+## 格式说明符
 
-- Use `pnpm` as the primary package manager
-- Use `bun` to run npm scripts
-- Use `bunx` to run executable npm packages
-- Navigate to specific packages using `cd packages/<package-name>`
+- `%O` - 对象展开（推荐用于复杂对象）
+- `%o` - 对象
+- `%s` - 字符串
+- `%d` - 数字
 
-### Code Style Guidelines
+## 示例
 
-#### TypeScript
+查看 [market/index.ts](mdc:src/server/routers/edge/market/index.ts) 中的使用示例：
 
-- Follow strict TypeScript practices for type safety and code quality
-- Use proper type annotations
-- Prefer interfaces over types for object shapes
-- Use generics for reusable components
+```typescript
+import debug from 'debug';
 
-#### React Components
+const log = debug('lobe-edge-router:market');
 
-- Use functional components with hooks
-- Follow the component structure guidelines
-- Use antd-style & @lobehub/ui for styling
-- Implement proper error boundaries
+log('getAgent input: %O', input);
+```
 
-#### Database Schema
+## 启用调试
 
-- Follow Drizzle ORM naming conventions
-- Use plural snake_case for table names
-- Implement proper foreign key relationships
-- Follow the schema style guide
+要在开发时启用调试输出，需设置环境变量：
 
-### Testing Strategy
+### 在浏览器中
 
-**Required Rule**: `testing-guide/testing-guide.mdc`
+在控制台执行：
+```javascript
+localStorage.debug = 'lobe-*'
+```
 
-**Commands**:
+### 在 Node.js 环境中
 
-- Web: `bunx vitest run --silent='passed-only' '[file-path-pattern]'`
-- Packages: `cd packages/[package-name] && bunx vitest run --silent='passed-only' '[file-path-pattern]'`
+```bash
+DEBUG=lobe-* npm run dev
+# 或者
+DEBUG=lobe-* pnpm dev
+```
 
-**Important Notes**:
+### 在 Electron 应用中
 
-- Wrap file paths in single quotes to avoid shell expansion
-- Never run `bun run test` - this runs all tests and takes ~10 minutes
-- If a test fails twice, stop and ask for help
-- Always add tests for new code
+可以在主进程和渲染进程启动前设置环境变量：
 
-### Type Checking
-
-- Use `bun run type-check` to check for type errors
-- Ensure all TypeScript errors are resolved before committing
-
-### Internationalization
-
-- Add new keys to `src/locales/default/namespace.ts`
-- Translate at least `zh-CN` files for development preview
-- Use hierarchical nested objects, not flat keys
-- Don't run `pnpm i18n` manually (handled by CI)
-
-## Available Development Rules
-
-The project provides comprehensive rules in `.cursor/rules/` directory:
-
-### Core Development
-
-- `backend-architecture.mdc` - Three-layer architecture and data flow
-- `react-component.mdc` - Component patterns and UI library usage
-- `drizzle-schema-style-guide.mdc` - Database schema conventions
-- `define-database-model.mdc` - Model templates and CRUD patterns
-- `i18n.mdc` - Internationalization workflow
-
-### State Management & UI
-
-- `zustand-slice-organization.mdc` - Store organization patterns
-- `zustand-action-patterns.mdc` - Action implementation patterns
-- `packages/react-layout-kit.mdc` - Flex layout component usage
-
-### Testing & Quality
-
-- `testing-guide/testing-guide.mdc` - Comprehensive testing strategy
-- `code-review.mdc` - Code review process and standards
-
-### Desktop (Electron)
-
-- `desktop-feature-implementation.mdc` - Main/renderer process patterns
-- `desktop-local-tools-implement.mdc` - Tool integration workflow
-- `desktop-menu-configuration.mdc` - Menu system configuration
-- `desktop-window-management.mdc` - Window management patterns
-- `desktop-controller-tests.mdc` - Controller testing guide
-
-## Best Practices
-
-- **Conservative for existing code, modern approaches for new features**
-- **Code Language**: Use Chinese for files with existing Chinese comments, American English for new files
-- Always add tests for new functionality
-- Follow the established patterns in the codebase
-- Use proper error handling and logging
-- Implement proper accessibility features
-- Consider internationalization from the start
+```typescript
+process.env.DEBUG = 'lobe-*';
+```
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
