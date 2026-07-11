@@ -242209,6 +242209,21 @@
       "description": "\u7b80\u5316\u7248\u5199\u6587\u63d0\u793a\u8bcd\u7cfb\u7edf - AI\u8f85\u52a9\u5c0f\u8bf4\u521b\u4f5c\u5de5\u5177\u5957\u4ef6\uff0c\u5305\u542b\u7ed3\u6784\u5316\u63d0\u793a\u8bcd\u6a21\u677f\u548c\u89c4\u8303\u5de5\u4f5c\u6d41\u7cfb\u7edf"
     },
     {
+      "name": "u-ichi--backlog-md-hub",
+      "source": "./u-ichi--backlog-md-hub",
+      "description": "Cross-repo Backlog.md task hub with a launchd watchdog. Unofficial companion tool for Backlog.md."
+    },
+    {
+      "name": "bsv-blockchain--arcade",
+      "source": "./bsv-blockchain--arcade",
+      "description": "Next generation BSV Blockchain Transaction Broadcaster for Teranode - Codename Arcade"
+    },
+    {
+      "name": "mfsga--chimera-client",
+      "source": "./mfsga--chimera-client",
+      "description": "Aimed to be fully compatible with Mihomo"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -263602,6 +263617,21 @@
       "name": "rob0pup--cadence",
       "source": "./rob0pup--cadence",
       "description": "Next.js music player for your own library"
+    },
+    {
+      "name": "tinyhumansai--tinyflows",
+      "source": "./tinyhumansai--tinyflows",
+      "description": "Open-source Agentic workflows built using Rust"
+    },
+    {
+      "name": "xbp-europe--sagemath-mcp",
+      "source": "./xbp-europe--sagemath-mcp",
+      "description": "Sage Math MCP server for sateful sessions"
+    },
+    {
+      "name": "xbp-europe--sagemath-mcp",
+      "source": "./xbp-europe--sagemath-mcp",
+      "description": "Sage Math MCP server for sateful sessions"
     },
     {
       "name": "cheerhuan--save-your-token",
