@@ -1,0 +1,9 @@
+{
+  "name": "pperanich--dotfiles",
+  "displayName": "dotfiles",
+  "description": "Nix flake wiring together my homelab, workstations, and edge devices",
+  "version": "1.0.0",
+  "author": "pperanich",
+  "homepage": "https://github.com/pperanich/dotfiles",
+  "skills": []
+}
