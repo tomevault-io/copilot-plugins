@@ -1,0 +1,9 @@
+{
+  "name": "tinyhumansai--tinyflows",
+  "displayName": "tinyflows",
+  "description": "Open-source Agentic workflows built using Rust",
+  "version": "1.0.0",
+  "author": "tinyhumansai",
+  "homepage": "https://github.com/tinyhumansai/tinyflows",
+  "skills": []
+}
