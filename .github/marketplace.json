@@ -242284,6 +242284,11 @@
       "description": "\u221e macOS menu bar app for switching Claude Code / Claude Desktop accounts in one click \u2014 auto-fallback when you hit usage limits, auto-return on reset"
     },
     {
+      "name": "sophon--fightingnerd",
+      "source": "./sophon--fightingnerd",
+      "description": "\ud83d\udcca Frame data for Discord, Android and iOS"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -263719,6 +263724,16 @@
       "description": "Self-hosted music server: Go backend serving a vanilla JS/CSS SPA. Scans local music, streams, downloads via yt-dlp, MusicBrainz metadata."
     },
     {
+      "name": "swytchcodehq--wrekenfile-converter",
+      "source": "./swytchcodehq--wrekenfile-converter",
+      "description": "Convert OpenAPI and Postman to Wrekenfile and break down to mini-wrekenfiles for LLM context"
+    },
+    {
+      "name": "bjorn-ali-goransson--built-in-saudi",
+      "source": "./bjorn-ali-goransson--built-in-saudi",
+      "description": "built-in-saudi.com"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -268172,6 +268187,16 @@
       "name": "romshark--morpheus",
       "source": "./romshark--morpheus",
       "description": "An experimental web components UI kit"
+    },
+    {
+      "name": "nextweb4--yaml-proxy-editor",
+      "source": "./nextweb4--yaml-proxy-editor",
+      "description": "Tauri, React, and TypeScript desktop workbench for local Clash/OpenClash/Mihomo YAML editing, audit, and export."
+    },
+    {
+      "name": "muzafferkadir--nextjs-loop-engineering-starter",
+      "source": "./muzafferkadir--nextjs-loop-engineering-starter",
+      "description": "A Next.js starter showing how to run Claude Code / Codex in safe, verified loops \u2014 plan \u2192 build \u2192 report cycles with lock files, budgets, denylists, and a human merge gate baked in."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
