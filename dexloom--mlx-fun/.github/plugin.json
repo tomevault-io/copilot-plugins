@@ -1,0 +1,9 @@
+{
+  "name": "dexloom--mlx-fun",
+  "displayName": "mlx_fun",
+  "description": "Apple Silicon native MLX REAP/REAM and other local LLM fine tuning tools",
+  "version": "1.0.0",
+  "author": "dexloom",
+  "homepage": "https://github.com/dexloom/mlx_fun",
+  "skills": []
+}
