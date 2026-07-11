@@ -1,199 +1,298 @@
-## desktop-menu-configuration
+## desktop-window-management
 
-> LobeChat 桌面应用有三种主要的菜单类型：
+> LobeChat 桌面应用使用 Electron 的 `BrowserWindow` 管理应用窗口。主要的窗口管理功能包括：
 
-**桌面端菜单配置指南**
+**桌面端窗口管理指南**
 
-## 菜单系统概述
+## 窗口管理概述
 
-LobeChat 桌面应用有三种主要的菜单类型：
+LobeChat 桌面应用使用 Electron 的 `BrowserWindow` 管理应用窗口。主要的窗口管理功能包括：
 
-1. **应用菜单 (App Menu)**：显示在应用窗口顶部（macOS）或窗口标题栏（Windows/Linux）
-2. **上下文菜单 (Context Menu)**：右键点击时显示的菜单
-3. **托盘菜单 (Tray Menu)**：点击系统托盘图标显示的菜单
+1. **窗口创建和配置**
+2. **窗口状态管理**（大小、位置、最大化等）
+3. **多窗口协调**
+4. **窗口事件处理**
 
-## 菜单相关文件结构
+## 相关文件结构
 
 ```
 apps/desktop/src/main/
-├── menus/                 # 菜单定义
-│   ├── appMenu.ts         # 应用菜单配置
-│   ├── contextMenu.ts     # 上下文菜单配置
-│   └── factory.ts         # 菜单工厂函数
+├── appBrowsers.ts               # 窗口管理的核心文件
 ├── controllers/
-│   ├── MenuCtr.ts         # 菜单控制器
-│   └── TrayMenuCtr.ts     # 托盘菜单控制器
+│   └── BrowserWindowsCtr.ts     # 窗口控制器
+└── modules/
+    └── browserWindowManager.ts  # 窗口管理模块
 ```
 
-## 菜单配置流程
+## 窗口管理流程
 
-### 1. 应用菜单配置
+### 1. 窗口创建
 
-应用菜单在 `apps/desktop/src/main/menus/appMenu.ts` 中定义：
+在 `appBrowsers.ts` 或 `BrowserWindowsCtr.ts` 中定义窗口创建逻辑：
 
-1. **导入依赖**
+```typescript
+export const createMainWindow = () => {
+  const mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 800,
+    minWidth: 600,
+    minHeight: 400,
+    webPreferences: {
+      preload: path.join(__dirname, '../preload/index.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+    },
+    // 其他窗口配置项...
+  });
+
+  // 加载应用内容
+  if (isDev) {
+    mainWindow.loadURL('http://localhost:3000');
+    mainWindow.webContents.openDevTools();
+  } else {
+    mainWindow.loadFile(path.join(__dirname, '../../renderer/index.html'));
+  }
+
+  return mainWindow;
+};
+```
+
+### 2. 窗口状态管理
+
+实现窗口状态持久化保存和恢复：
+
+1. **保存窗口状态**
    ```typescript
-   import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
-   import { is } from 'electron-util';
-   ```
+   const saveWindowState = (window: BrowserWindow) => {
+     if (!window.isMinimized() && !window.isMaximized()) {
+       const position = window.getPosition();
+       const size = window.getSize();
 
-2. **定义菜单项**
-   - 使用 `MenuItemConstructorOptions` 类型定义菜单结构
-   - 每个菜单项可以包含：label, accelerator (快捷键), role, submenu, click 等属性
-
-3. **创建菜单工厂函数**
-   ```typescript
-   export const createAppMenu = (win: BrowserWindow) => {
-     const template = [
-       // 定义菜单项...
-     ];
-
-     return Menu.buildFromTemplate(template);
-   };
-   ```
-
-4. **注册菜单**
-   - 在 `MenuCtr.ts` 控制器中使用 `Menu.setApplicationMenu(menu)` 设置应用菜单
-
-### 2. 上下文菜单配置
-
-上下文菜单通常在特定元素上右键点击时显示：
-
-1. **在主进程中定义菜单模板**
-   ```typescript
-   // apps/desktop/src/main/menus/contextMenu.ts
-   export const createContextMenu = () => {
-     const template = [
-       // 定义菜单项...
-     ];
-
-     return Menu.buildFromTemplate(template);
-   };
-   ```
-
-2. **在适当的事件处理器中显示菜单**
-   ```typescript
-   const menu = createContextMenu();
-   menu.popup();
-   ```
-
-### 3. 托盘菜单配置
-
-托盘菜单在 `TrayMenuCtr.ts` 中配置：
-
-1. **创建托盘图标**
-   ```typescript
-   this.tray = new Tray(trayIconPath);
-   ```
-
-2. **定义托盘菜单**
-   ```typescript
-   const contextMenu = Menu.buildFromTemplate([
-     { label: '显示主窗口', click: this.showMainWindow },
-     { type: 'separator' },
-     { label: '退出', click: () => app.quit() },
-   ]);
-   ```
-
-3. **设置托盘菜单**
-   ```typescript
-   this.tray.setContextMenu(contextMenu);
-   ```
-
-## 多语言支持
-
-为菜单添加多语言支持：
-
-1. **导入本地化工具**
-   ```typescript
-   import { i18n } from '../locales';
-   ```
-
-2. **使用翻译函数**
-   ```typescript
-   const template = [
-     {
-       label: i18n.t('menu.file'),
-       submenu: [
-         { label: i18n.t('menu.new'), click: createNew },
-         // ...
-       ]
-     },
-     // ...
-   ];
-   ```
-
-3. **在语言切换时更新菜单**
-   在 `MenuCtr.ts` 中监听语言变化事件并重新创建菜单
-
-## 添加新菜单项流程
-
-1. **确定菜单位置**
-   - 决定添加到哪个菜单（应用菜单、上下文菜单或托盘菜单）
-   - 确定在菜单中的位置（主菜单项或子菜单项）
-
-2. **定义菜单项**
-   ```typescript
-   const newMenuItem: MenuItemConstructorOptions = {
-     label: '新功能',
-     accelerator: 'CmdOrCtrl+N',
-     click: (_, window) => {
-       // 处理点击事件
-       if (window) window.webContents.send('trigger-new-feature');
+       settings.set('windowState', {
+         x: position[0],
+         y: position[1],
+         width: size[0],
+         height: size[1],
+       });
      }
    };
    ```
 
-3. **添加到菜单模板**
-   将新菜单项添加到相应的菜单模板中
-
-4. **对于与渲染进程交互的功能**
-   - 使用 `window.webContents.send()` 发送 IPC 消息到渲染进程
-   - 在渲染进程中监听该消息并处理
-
-## 菜单项启用/禁用控制
-
-动态控制菜单项状态：
-
-1. **保存对菜单项的引用**
+2. **恢复窗口状态**
    ```typescript
-   this.menuItems = {};
-   const menu = Menu.buildFromTemplate(template);
-   this.menuItems.newFeature = menu.getMenuItemById('new-feature');
+   const restoreWindowState = (window: BrowserWindow) => {
+     const savedState = settings.get('windowState');
+
+     if (savedState) {
+       window.setBounds({
+         x: savedState.x,
+         y: savedState.y,
+         width: savedState.width,
+         height: savedState.height,
+       });
+     }
+   };
    ```
 
-2. **根据条件更新状态**
+3. **监听窗口事件**
    ```typescript
-   updateMenuState(state) {
-     if (this.menuItems.newFeature) {
-       this.menuItems.newFeature.enabled = state.canUseNewFeature;
+   window.on('close', () => saveWindowState(window));
+   window.on('moved', () => saveWindowState(window));
+   window.on('resized', () => saveWindowState(window));
+   ```
+
+### 3. 实现多窗口管理
+
+对于需要多窗口支持的功能：
+
+1. **跟踪窗口**
+   ```typescript
+   export class WindowManager {
+     private windows: Map<string, BrowserWindow> = new Map();
+
+     createWindow(id: string, options: BrowserWindowConstructorOptions) {
+       const window = new BrowserWindow(options);
+       this.windows.set(id, window);
+
+       window.on('closed', () => {
+         this.windows.delete(id);
+       });
+
+       return window;
      }
+
+     getWindow(id: string) {
+       return this.windows.get(id);
+     }
+
+     getAllWindows() {
+       return Array.from(this.windows.values());
+     }
+   }
+   ```
+
+2. **窗口间通信**
+   ```typescript
+   // 从一个窗口向另一个窗口发送消息
+   sendMessageToWindow(targetWindowId, channel, data) {
+     const targetWindow = this.getWindow(targetWindowId);
+     if (targetWindow) {
+       targetWindow.webContents.send(channel, data);
+     }
+   }
+   ```
+
+### 4. 窗口与渲染进程通信
+
+通过 IPC 实现窗口操作：
+
+1. **在主进程中注册 IPC 处理器**
+   ```typescript
+   // BrowserWindowsCtr.ts
+   @ipcClientEvent('minimizeWindow')
+   handleMinimizeWindow() {
+     const focusedWindow = BrowserWindow.getFocusedWindow();
+     if (focusedWindow) {
+       focusedWindow.minimize();
+     }
+     return { success: true };
+   }
+
+   @ipcClientEvent('maximizeWindow')
+   handleMaximizeWindow() {
+     const focusedWindow = BrowserWindow.getFocusedWindow();
+     if (focusedWindow) {
+       if (focusedWindow.isMaximized()) {
+         focusedWindow.restore();
+       } else {
+         focusedWindow.maximize();
+       }
+     }
+     return { success: true };
+   }
+
+   @ipcClientEvent('closeWindow')
+   handleCloseWindow() {
+     const focusedWindow = BrowserWindow.getFocusedWindow();
+     if (focusedWindow) {
+       focusedWindow.close();
+     }
+     return { success: true };
+   }
+   ```
+
+2. **在渲染进程中调用**
+   ```typescript
+   // src/services/electron/windowService.ts
+   import { dispatch } from '@lobechat/electron-client-ipc';
+
+   export const windowService = {
+     minimize: () => dispatch('minimizeWindow'),
+     maximize: () => dispatch('maximizeWindow'),
+     close: () => dispatch('closeWindow'),
+   };
+   ```
+
+### 5. 自定义窗口控制 (无边框窗口)
+
+对于自定义窗口标题栏：
+
+1. **创建无边框窗口**
+   ```typescript
+   const window = new BrowserWindow({
+     frame: false,
+     titleBarStyle: 'hidden',
+     // 其他选项...
+   });
+   ```
+
+2. **在渲染进程中实现拖拽区域**
+   ```css
+   /* CSS */
+   .titlebar {
+     -webkit-app-region: drag;
+   }
+
+   .titlebar-button {
+     -webkit-app-region: no-drag;
    }
    ```
 
 ## 最佳实践
 
-1. **使用标准角色**
-   - 尽可能使用 Electron 预定义的角色（如 `role: 'copy'`）以获得本地化和一致的行为
+1. **性能考虑**
+   - 避免创建过多窗口
+   - 使用 `show: false` 创建窗口，在内容加载完成后再显示，避免白屏
 
-2. **平台特定菜单**
-   - 使用 `process.platform` 检查为不同平台提供不同菜单
+2. **安全性**
+   - 始终设置适当的 `webPreferences` 确保安全
    ```typescript
-   if (process.platform === 'darwin') {
-     template.unshift({ role: 'appMenu' });
+   webPreferences: {
+     preload: path.join(__dirname, '../preload/index.js'),
+     contextIsolation: true,
+     nodeIntegration: false,
+     sandbox: true,
    }
    ```
 
-3. **快捷键冲突**
-   - 避免与系统快捷键冲突
-   - 使用 `CmdOrCtrl` 代替 `Ctrl` 以支持 macOS 和 Windows/Linux
+3. **跨平台兼容性**
+   - 考虑不同操作系统的窗口行为差异
+   - 使用 `process.platform` 为不同平台提供特定实现
 
-4. **保持菜单简洁**
-   - 避免过多嵌套的子菜单
-   - 将相关功能分组在一起
+4. **崩溃恢复**
+   - 监听 `webContents.on('crashed')` 事件处理崩溃
+   - 提供崩溃恢复选项
 
-5. **添加分隔符**
-   - 使用 `{ type: 'separator' }` 在逻辑上分隔不同组的菜单项
+5. **内存管理**
+   - 确保窗口关闭时清理所有相关资源
+   - 使用 `window.on('closed')` 而不是 `window.on('close')` 进行最终清理
+
+## 示例：创建设置窗口
+
+```typescript
+// apps/desktop/src/main/controllers/BrowserWindowsCtr.ts
+
+@ipcClientEvent('openSettings')
+handleOpenSettings() {
+  // 检查设置窗口是否已经存在
+  if (this.settingsWindow && !this.settingsWindow.isDestroyed()) {
+    // 如果窗口已存在，将其置于前台
+    this.settingsWindow.focus();
+    return { success: true };
+  }
+
+  // 创建新窗口
+  this.settingsWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    title: 'Settings',
+    parent: this.mainWindow, // 设置父窗口，使其成为模态窗口
+    modal: true,
+    webPreferences: {
+      preload: path.join(__dirname, '../preload/index.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+    },
+  });
+
+  // 加载设置页面
+  if (isDev) {
+    this.settingsWindow.loadURL('http://localhost:3000/settings');
+  } else {
+    this.settingsWindow.loadFile(
+      path.join(__dirname, '../../renderer/index.html'),
+      { hash: 'settings' }
+    );
+  }
+
+  // 监听窗口关闭事件
+  this.settingsWindow.on('closed', () => {
+    this.settingsWindow = null;
+  });
+
+  return { success: true };
+}
+```
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
