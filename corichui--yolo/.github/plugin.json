@@ -1,0 +1,9 @@
+{
+  "name": "corichui--yolo",
+  "displayName": "yolo",
+  "description": "YOLO \u2014 a reasoning-first, feature-aware workflow framework for Claude Code. Git is the source of truth; status is derived, never stored.",
+  "version": "1.0.0",
+  "author": "CoriChui",
+  "homepage": "https://github.com/CoriChui/yolo",
+  "skills": []
+}
