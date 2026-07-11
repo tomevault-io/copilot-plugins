@@ -241749,6 +241749,81 @@
       "description": "Rust client crate for the Letta REST API"
     },
     {
+      "name": "abilityai--abilities",
+      "source": "./abilityai--abilities",
+      "description": "High-quality Claude Code plugins from Ability.ai"
+    },
+    {
+      "name": "dicklesworthstone--franken-networkx",
+      "source": "./dicklesworthstone--franken-networkx",
+      "description": "Memory-safe clean-room Rust reimplementation of NetworkX with deterministic graph semantics, differential conformance, and RaptorQ-backed durability."
+    },
+    {
+      "name": "deusmaximus--rmm-skills",
+      "source": "./deusmaximus--rmm-skills",
+      "description": "Claude AI Skills for generating production-ready RMM scripts (PowerShell, macOS, Linux) targeting NinjaOne, Action1, and other endpoint management platforms."
+    },
+    {
+      "name": "zama-ai--sdk",
+      "source": "./zama-ai--sdk",
+      "description": "TypeScript SDK for confidential FHE smart contracts on Zama Protocol"
+    },
+    {
+      "name": "zama-ai--sdk",
+      "source": "./zama-ai--sdk",
+      "description": "TypeScript SDK for confidential FHE smart contracts on Zama Protocol"
+    },
+    {
+      "name": "alberto-codes--docvet",
+      "source": "./alberto-codes--docvet",
+      "description": "Comprehensive docstring quality vetting for Python projects"
+    },
+    {
+      "name": "dexloom--mlx-fun",
+      "source": "./dexloom--mlx-fun",
+      "description": "Apple Silicon native MLX REAP/REAM and other local LLM fine tuning tools"
+    },
+    {
+      "name": "jganoff--wsp",
+      "source": "./jganoff--wsp",
+      "description": "Multi-repo workspace manager"
+    },
+    {
+      "name": "alberto-codes--docvet",
+      "source": "./alberto-codes--docvet",
+      "description": "Comprehensive docstring quality vetting for Python projects"
+    },
+    {
+      "name": "magnus-gille--claude-code-energy-monitor",
+      "source": "./magnus-gille--claude-code-energy-monitor",
+      "description": "Claude Code statusline showing real-time token usage and estimated energy consumption"
+    },
+    {
+      "name": "jganoff--wsp",
+      "source": "./jganoff--wsp",
+      "description": "Multi-repo workspace manager"
+    },
+    {
+      "name": "workato-devs--wk",
+      "source": "./workato-devs--wk",
+      "description": "Fast, single-binary CLI (Go) for managing Workato recipes, connections, and workspaces. Pull, push, diff, and validate from your terminal. Extensible via plugins \u2014 linters, recipe skills, custom workf"
+    },
+    {
+      "name": "trejon-888--claude-creatives",
+      "source": "./trejon-888--claude-creatives",
+      "description": "AI-Powered Visual Content Creation for Claude Code \u2014 3 skills for thumbnails, carousels, and document posts"
+    },
+    {
+      "name": "dcc-bs--docling-pp-doc-layout",
+      "source": "./dcc-bs--docling-pp-doc-layout",
+      "description": "Docling plugin to integrate PP-DocLayout-V3 model into docling to enhance layout detection capabilities"
+    },
+    {
+      "name": "doctorslimm--docx-js-editor",
+      "source": "./doctorslimm--docx-js-editor",
+      "description": "WYSIWIG js DOCX editor"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -262987,6 +263062,16 @@
       "name": "stackhawk--stackhawk-mcp",
       "source": "./stackhawk--stackhawk-mcp",
       "description": "stackhawk-mcp"
+    },
+    {
+      "name": "irumhahn--pdp-maker-30",
+      "source": "./irumhahn--pdp-maker-30",
+      "description": "\ud55c\uc774\ub8f8\uc758 \uc0c1\uc138\ud398\uc774\uc9c0 \ub9c8\ubc95\uc0ac 3.0"
+    },
+    {
+      "name": "irumhahn--pdp-maker-30",
+      "source": "./irumhahn--pdp-maker-30",
+      "description": "\ud55c\uc774\ub8f8\uc758 \uc0c1\uc138\ud398\uc774\uc9c0 \ub9c8\ubc95\uc0ac 3.0"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -391567,6 +391652,86 @@
       "name": "xiedexiao--lobe-chat-rust",
       "source": "./xiedexiao--lobe-chat-rust",
       "description": "\u540e\u7aef\u4f7f\u7528rust\u91cd\u6784"
+    },
+    {
+      "name": "yashpatel3645--suppliersync-pro",
+      "source": "./yashpatel3645--suppliersync-pro",
+      "description": "suppliersync-pro"
+    },
+    {
+      "name": "lucawetherall--precentor",
+      "source": "./lucawetherall--precentor",
+      "description": "precentor"
+    },
+    {
+      "name": "laziduri--brillianceaiwebsite",
+      "source": "./laziduri--brillianceaiwebsite",
+      "description": "website for brilliance"
+    },
+    {
+      "name": "seo-love--brand-prompt-compare",
+      "source": "./seo-love--brand-prompt-compare",
+      "description": "brand-prompt-compare"
+    },
+    {
+      "name": "eakeur--claude-github-agent-template",
+      "source": "./eakeur--claude-github-agent-template",
+      "description": "Claude Code GitHub Actions \u2014 coding agent workflows for Go/AWS/Supabase stacks"
+    },
+    {
+      "name": "codeblackwell--prove",
+      "source": "./codeblackwell--prove",
+      "description": "Portfolio Reasoning Over Verified Evidence - Your resume says you know Python. PROVE shows the code. Ingests repos via tree-sitter \u2192 Sonnet classification \u2192 Voyage embeddings \u2192 Neo4j knowledge graph. "
+    },
+    {
+      "name": "jeffkit--hitl-mcp",
+      "source": "./jeffkit--hitl-mcp",
+      "description": "Human-in-the-Loop MCP Server for WeCom (\u4f01\u4e1a\u5fae\u4fe1)"
+    },
+    {
+      "name": "rrwebsolution--agriculture-backend",
+      "source": "./rrwebsolution--agriculture-backend",
+      "description": "agriculture_backend"
+    },
+    {
+      "name": "pleme-io--oto",
+      "source": "./pleme-io--oto",
+      "description": "oto library"
+    },
+    {
+      "name": "jeffkit--hitl-mcp",
+      "source": "./jeffkit--hitl-mcp",
+      "description": "Human-in-the-Loop MCP Server for WeCom (\u4f01\u4e1a\u5fae\u4fe1)"
+    },
+    {
+      "name": "pperanich--dotfiles",
+      "source": "./pperanich--dotfiles",
+      "description": "Nix flake wiring together my homelab, workstations, and edge devices"
+    },
+    {
+      "name": "praneeth-goparaju--batterup",
+      "source": "./praneeth-goparaju--batterup",
+      "description": "Mobile-first PWA for managing batter/food orders, customers, products, delivery routing, and analytics. Built with vanilla JS and Firebase."
+    },
+    {
+      "name": "biblcontentofficial-art--youtube-analysis",
+      "source": "./biblcontentofficial-art--youtube-analysis",
+      "description": "youtube-analysis"
+    },
+    {
+      "name": "pleme-io--oto",
+      "source": "./pleme-io--oto",
+      "description": "oto library"
+    },
+    {
+      "name": "netronteknoloji--ogrencibilgisistemi",
+      "source": "./netronteknoloji--ogrencibilgisistemi",
+      "description": "OgrenciBilgiSistemi"
+    },
+    {
+      "name": "direc-business-technologies-inc--vcca",
+      "source": "./direc-business-technologies-inc--vcca",
+      "description": "Vertical Cleaner Clean Architecture"
     }
   ]
 }
