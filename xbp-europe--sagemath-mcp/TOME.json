@@ -4,7 +4,7 @@
   "repo": "sagemath-mcp",
   "description": "Sage Math MCP server for sateful sessions",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XBP-Europe/sagemath-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T16:32:39Z"
+  "distributed_at": "2026-07-11T16:33:11Z"
 }
