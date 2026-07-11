@@ -1,178 +1,60 @@
-## backend-architecture
+## code-review
 
-> 本指南旨在阐述 LobeChat 项目的后端分层架构，重点介绍各核心目录的职责以及它们之间的协作方式。
+> How to code review
 
 
-# LobeChat 后端技术架构指南
+# Role Description
 
-本指南旨在阐述 LobeChat 项目的后端分层架构，重点介绍各核心目录的职责以及它们之间的协作方式。
+- You are a senior full-stack engineer skilled in performance optimization, security, and design systems.
+- You excel at reviewing code and providing constructive feedback.
+- Your task is to review submitted Git diffs **in Chinese** and return a structured review report.
+- Review style: concise, direct, focused on what matters most, with actionable suggestions.
 
-## 目录结构映射
+## Before the Review
 
-```
-src/
-├── server/
-│   ├── routers/          # tRPC API 路由定义
-│   └── services/         # 业务逻辑服务层
-│       └── */impls/      # 平台特定实现
-├── database/
-│   ├── models/           # 数据模型 (单表 CRUD)
-│   ├── repositories/     # 仓库层 (复杂查询/聚合)
-│   └── schemas/          # Drizzle ORM 表定义
-└── services/             # 客户端服务 (调用 tRPC 或直接访问 Model)
-```
+Gather the modified code and context. Please strictly follow the process below:
 
-## 核心架构分层
+1. Use `read_file` to read [package.json](mdc:package.json)
+2. Use terminal to run command `git diff HEAD | cat` to obtain the diff and list the changed files. If you recieived empty result, run the same command once more.
+3. Use `read_file` to open each changed file.
+4. Use `read_file` to read [rules-attach.mdc](mdc:.cursor/rules/rules-attach.mdc). Even if you think it's unnecessary, you must read it.
+5. combine changed files, step3 and `agent_requestable_workspace_rules`, list the rules which need to read
+6. Use `read_file` to read the rules list in step 5
 
-LobeChat 的后端设计注重模块化、可测试性和灵活性，以适应不同的运行环境（如浏览器端 PGLite、服务端远程 PostgreSQL 以及 Electron 桌面应用）。
+## Review
 
-其主要分层如下：
+### Code Style
 
-1.  客户端服务层 (`src/services`):
-    - 位于 src/services/。
-    - 这是客户端业务逻辑的核心层，负责封装各种业务操作和数据处理逻辑。
-    - 环境适配: 根据不同的运行环境，服务层会选择合适的数据访问方式：
-      - 本地数据库模式: 直接调用 `Model` 层进行数据操作，适用于浏览器 PGLite 和本地 Electron 应用。
-      - 远程数据库模式: 通过 `tRPC` 客户端调用服务端 API，适用于需要云同步的场景。
-    - 类型转换: 对于简单的数据类型转换，直接在此层进行类型断言，如 `this.pluginModel.query() as Promise<LobeTool[]>`
-    - 每个服务模块通常包含 `client.ts`（本地模式）、`server.ts`（远程模式）和 `type.ts`（接口定义）文件，在实现时应该确保本地模式和远程模式业务逻辑实现一致，只是数据库不同。
+read [typescript.mdc](mdc:.cursor/rules/typescript.mdc) for the consolidated project code style and optimization rules.
 
-2.  API 接口层 (`TRPC`):
-    - 位于 src/server/routers/
-    - 使用 `tRPC` 构建类型安全的 API。Router 根据运行时环境（如 Edge Functions, Node.js Lambda）进行组织。
-    - 负责接收客户端请求，并将其路由到相应的 `Service` 层进行处理。
-    - 新建 lambda 端点时可以参考 src/server/routers/lambda/\_template.ts
+### Code Optimization
 
-3.  仓库层 (`Repositories`):
-    - 位于 src/database/repositories/。
-    - 主要处理复杂的跨表查询和数据聚合逻辑，特别是当需要从多个 `Model` 获取数据并进行组合时。
-    - 与 `Model` 层不同，`Repository` 层专注于复杂的业务查询场景，而不涉及简单的领域模型转换。
-    - 当业务逻辑涉及多表关联、复杂的数据统计或需要事务处理时，会使用 `Repository` 层。
-    - 如果数据操作简单（仅涉及单个 `Model`），则通常直接在 `src/services` 层调用 `Model` 并进行简单的类型断言。
+The optimization checklist has been consolidated into [typescript.mdc](mdc:.cursor/rules/typescript.mdc): loops, debouncing/throttling, design system components, theming tokens, concurrency with `Promise.*`, minimal DB column selection, and package reuse.
 
-4.  模型层 (`Models`):
-    - 位于 src/database/models/ (例如 src/database/models/plugin.ts 和 src/database/models/document.ts)。
-    - 提供对数据库中各个表（由 src/database/schemas/ 中的 Drizzle ORM schema 定义）的基本 CRUD (创建、读取、更新、删除) 操作和简单的查询能力。
-    - `Model` 类专注于单个数据表的直接操作，不涉及复杂的领域模型转换，这些转换通常在上层的 `src/services` 中通过类型断言完成。
-    - model（例如 Topic） 层接口经常需要从对应的 schema 层导入 NewTopic 和 TopicItem
-    - 创建新的 model 时可以参考 src/database/models/\_template.ts
+### Obvious Bugs
 
-5.  数据库 (`Database`):
-    - 客户端模式 (浏览器/PWA): 使用 PGLite (基于 WASM 的 PostgreSQL)，数据存储在用户浏览器本地。
-    - 服务端模式 (云部署): 使用远程 PostgreSQL 数据库。
-    - Electron 桌面应用:
-      - Electron 客户端会启动一个本地 Node.js 服务。
-      - 本地服务通过 `tRPC` 与 Electron 的渲染进程通信。
-      - 数据库选择依赖于是否开启云同步功能：
-        - 云同步开启: 连接到远程 PostgreSQL 数据库。
-        - 云同步关闭: 使用 PGLite (通过 Node.js 的 WASM 实现) 在本地存储数据。
+- Do not silently swallow errors in `catch` blocks; at minimum, log them.
+- Revert temporary code used only for testing (e.g., debug logs, temporary configs).
+- Remove empty handlers (e.g., an empty `onClick`).
+- Confirm the UI degrades gracefully for unauthenticated users.
+- Don't leave any debug logs in the code (except when using the `debug` module properly).
+  - When using the `debug` module, avoid `import { log } from 'debug'` as it logs directly to console. Use proper debug namespaces instead.
+- Check logs for sensitive information like api key, etc
 
-## 数据流向说明
+## After the Review: output
 
-### 浏览器/PWA 模式
-
-```
-UI (React) → Zustand action -> Client Service → Model Layer → PGLite (本地数据库)
-```
-
-### 服务端模式
-
-```
-UI (React) → Zustand action → Client Service -> TRPC Client → TRPC Routers  → Repositories/Models → Remote PostgreSQL
-```
-
-### Electron 桌面应用模式
-
-```
-UI (Electron Renderer) → Zustand action → Client Service -> TRPC Client → 本地 Node.js 服务 → TRPC Routers → Repositories/Models → PGLite/Remote PostgreSQL (取决于云同步设置)
-```
-
-## 服务层 (Server Services)
-
-- 位于 src/server/services/。
-- 核心职责是封装独立的、可复用的业务逻辑单元。这些服务应易于测试。
-- 平台差异抽象: 一个关键特性是通过其内部的 `impls` 子目录（例如 src/server/services/file/impls 包含 s3.ts 和 local.ts）来抹平不同运行环境带来的差异（例如云端使用 S3 存储，桌面版使用本地文件系统）。这使得上层（如 `tRPC` routers）无需关心底层具体实现。
-- 目标是使 `tRPC` router 层的逻辑尽可能纯粹，专注于请求处理和业务流程编排。
-- 服务可能会调用 `Repository` 层或直接调用 `Model` 层进行数据持久化和检索，也可能调用其他服务。
-
-## 最佳实践 (Best Practices)
-
-### 数据库操作封装原则
-
-**连续的数据库操作应该封装到 Model 层**
-
-当业务逻辑涉及多个相关的数据库操作时，建议将这些操作封装到 Model 层中，而不是在上层（Service 或 Router 层）中进行多次数据库调用。
-
-**优势：**
-
-- **代码复用**: Client DB 环境的 service 实现和 Server DB 的 lambda 层实现可以复用相同的 Model 方法
-- **事务一致性**: 相关的数据库操作可以在同一个方法中管理，便于维护数据一致性
-- **性能优化**: 减少数据库连接次数，提高查询效率
-- **职责清晰**: Model 层专注数据访问，上层专注业务协调
-
-**示例：**
-
-```typescript
-// ✅ 推荐：在 Model 层封装连续的数据库操作
-class GenerationBatchModel {
-  async delete(id: string): Promise<{ deletedBatch: BatchItem; thumbnailUrls: string[] }> {
-    // 1. 查询相关数据
-    const batchWithGenerations = await this.db.query.generationBatches.findFirst({...});
-
-    // 2. 收集需要处理的数据
-    const thumbnailUrls = [...];
-
-    // 3. 执行删除操作
-    const [deletedBatch] = await this.db.delete(generationBatches)...;
-
-    return { deletedBatch, thumbnailUrls };
-  }
-}
-
-// ✅ 上层使用简洁
-const { thumbnailUrls } = await model.delete(id);
-await fileService.deleteFiles(thumbnailUrls);
-```
-
-### 文件操作与数据库操作的执行顺序
-
-**删除操作原则：数据库删除在前，文件删除在后**
-
-当业务逻辑同时涉及数据库记录和文件系统操作时，应该遵循"数据库优先"的原则。
-
-**原因：**
-
-- **用户体验优先**: 如果先删除文件再删除数据库记录，可能出现文件已删除但数据库记录仍存在的情况，用户访问时会遇到文件不存在的错误
-- **影响程度较小**: 如果先删除数据库记录再删除文件，即使文件删除失败，用户也看不到这个记录，只是造成一些存储空间浪费，对用户体验影响更小
-- **数据一致性**: 数据库记录是业务逻辑的核心，应该优先保证其一致性
-
-**示例：**
-
-```typescript
-// ✅ 推荐：先删除数据库记录，再删除文件
-async deleteGeneration(id: string) {
-  // 1. 先删除数据库记录
-  const deletedGeneration = await generationModel.delete(id);
-
-  // 2. 再删除相关文件
-  if (deletedGeneration.asset?.thumbnailUrl) {
-    await fileService.deleteFile(deletedGeneration.asset.thumbnailUrl);
-  }
-}
-
-// ❌ 不推荐：先删除文件
-async deleteGeneration(id: string) {
-  const generation = await generationModel.findById(id);
-
-  // 如果这里删除成功，但后面数据库删除失败，用户会遇到访问错误
-  await fileService.deleteFile(generation.asset.thumbnailUrl);
-  await generationModel.delete(id); // 可能失败
-}
-```
-
-**创建操作原则：数据库创建在前，文件操作在后**
-
-创建操作同样应该优先处理数据库记录，确保数据的一致性和完整性。
+1. Summary
+   - Start with a brief explanation of what the change set does.
+   - Summarize the changes for each modified file (or logical group).
+2. Comments Issues
+   - List the most critical issues first.
+   - Use an ordered list, which will be convenient for me to reference later.
+   - For each issue:
+     - Mark severity tag (`❌ Must fix`, `⚠️ Should fix`, `💅 Nitpick`)
+     - Provode file path to the relevant file.
+     - Provide recommended fix
+   - End with a **git commit** command, instruct the author to run it.
+     - We use gitmoji to label commit messages, format: [emoji] <type>(<scope>): <subject>
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
