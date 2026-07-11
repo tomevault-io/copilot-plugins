@@ -1,362 +1,302 @@
-## zustand-action-patterns
+## zustand-slice-organization
 
-> 本文档详细说明了 LobeChat 项目中 Zustand Action 的组织方式、命名规范和实现模式，特别关注乐观更新与后端服务的集成。
+> 本文档描述了 LobeChat 项目中 Zustand Store 的模块化 Slice 组织方式，展示如何通过分片架构管理复杂的应用状态。
 
-# LobeChat Zustand Action 组织模式
+# LobeChat Zustand Store Slice 组织架构
 
-本文档详细说明了 LobeChat 项目中 Zustand Action 的组织方式、命名规范和实现模式，特别关注乐观更新与后端服务的集成。
+本文档描述了 LobeChat 项目中 Zustand Store 的模块化 Slice 组织方式，展示如何通过分片架构管理复杂的应用状态。
 
-## Action 类型分层
+## 顶层 Store 结构
 
-LobeChat 的 Action 采用分层架构，明确区分不同职责：
+LobeChat 的 `chat` store (`src/store/chat/`) 采用模块化的 slice 结构来组织状态和逻辑。
 
-### 1. Public Actions
-对外暴露的主要接口，供 UI 组件调用：
-- 命名：动词形式（`createTopic`, `sendMessage`, `updateTopicTitle`）
-- 职责：参数验证、流程编排、调用 internal actions
-- 示例：[src/store/chat/slices/topic/action.ts](mdc:src/store/chat/slices/topic/action.ts)
+### 关键聚合文件
+
+- `src/store/chat/initialState.ts`: 聚合所有 slice 的初始状态
+- `src/store/chat/store.ts`: 定义顶层的 `ChatStore`，组合所有 slice 的 actions
+- `src/store/chat/selectors.ts`: 统一导出所有 slice 的 selectors
+- `src/store/chat/helpers.ts`: 提供聊天相关的辅助函数
+
+### Store 聚合模式
 
 ```typescript
-// Public Action 示例
-createTopic: async () => {
-  const { activeId, internal_createTopic } = get();
-  const messages = chatSelectors.activeBaseChats(get());
-  
-  if (messages.length === 0) return;
-  
-  const topicId = await internal_createTopic({
-    sessionId: activeId,
-    title: t('defaultTitle', { ns: 'topic' }),
-    messages: messages.map((m) => m.id),
-  });
-  
-  return topicId;
-},
+// src/store/chat/initialState.ts
+import { ChatTopicState, initialTopicState } from './slices/topic/initialState';
+import { ChatMessageState, initialMessageState } from './slices/message/initialState';
+import { ChatAIChatState, initialAiChatState } from './slices/aiChat/initialState';
+
+export type ChatStoreState = ChatTopicState &
+  ChatMessageState &
+  ChatAIChatState &
+  // ...其他 slice states
+
+export const initialState: ChatStoreState = {
+  ...initialMessageState,
+  ...initialTopicState,
+  ...initialAiChatState,
+  // ...其他 initial slice states
+};
 ```
 
-### 2. Internal Actions (`internal_*`)
-内部实现细节，处理核心业务逻辑：
-- 命名：`internal_` 前缀 + 动词（`internal_createTopic`, `internal_updateMessageContent`）
-- 职责：乐观更新、服务调用、错误处理、状态同步
-- 不应该被 UI 组件直接调用
-
 ```typescript
-// Internal Action 示例 - 乐观更新模式
-internal_createTopic: async (params) => {
-  const tmpId = Date.now().toString();
-  
-  // 1. 立即更新前端状态（乐观更新）
-  get().internal_dispatchTopic(
-    { type: 'addTopic', value: { ...params, id: tmpId } },
-    'internal_createTopic',
-  );
-  get().internal_updateTopicLoading(tmpId, true);
-  
-  // 2. 调用后端服务
-  const topicId = await topicService.createTopic(params);
-  get().internal_updateTopicLoading(tmpId, false);
-  
-  // 3. 刷新数据确保一致性
-  get().internal_updateTopicLoading(topicId, true);
-  await get().refreshTopic();
-  get().internal_updateTopicLoading(topicId, false);
-  
-  return topicId;
-},
+// src/store/chat/store.ts
+import { ChatMessageAction, chatMessage } from './slices/message/action';
+import { ChatTopicAction, chatTopic } from './slices/topic/action';
+import { ChatAIChatAction, chatAiChat } from './slices/aiChat/actions';
+
+export interface ChatStoreAction
+  extends ChatMessageAction,
+    ChatTopicAction,
+    ChatAIChatAction,
+    // ...其他 slice actions
+
+const createStore: StateCreator<ChatStore, [['zustand/devtools', never]]> = (...params) => ({
+  ...initialState,
+  ...chatMessage(...params),
+  ...chatTopic(...params),
+  ...chatAiChat(...params),
+  // ...其他 slice action creators
+});
+
+export const useChatStore = createWithEqualityFn<ChatStore>()(
+  subscribeWithSelector(devtools(createStore)),
+  shallow,
+);
 ```
 
-### 3. Dispatch Methods (`internal_dispatch*`)
-专门处理状态更新的方法：
-- 命名：`internal_dispatch` + 实体名（`internal_dispatchTopic`, `internal_dispatchMessage`）
-- 职责：调用 reducer、更新 Zustand store、处理状态对比
+## 单个 Slice 的标准结构
 
-```typescript
-// Dispatch Method 示例
-internal_dispatchTopic: (payload, action) => {
-  const nextTopics = topicReducer(topicSelectors.currentTopics(get()), payload);
-  const nextMap = { ...get().topicMaps, [get().activeId]: nextTopics };
+每个 slice 位于 `src/store/chat/slices/[sliceName]/` 目录下：
 
-  if (isEqual(nextMap, get().topicMaps)) return;
-  
-  set({ topicMaps: nextMap }, false, action ?? n(`dispatchTopic/${payload.type}`));
-},
+```
+src/store/chat/slices/
+└── [sliceName]/                 # 例如 message, topic, aiChat, builtinTool
+    ├── action.ts                # 定义 actions (或者是一个 actions/ 目录)
+    ├── initialState.ts          # 定义 state 结构和初始值
+    ├── reducer.ts               # (可选) 如果使用 reducer 模式
+    ├── selectors.ts             # 定义 selectors
+    └── index.ts                 # (可选) 重新导出模块内容
 ```
 
-## 何时使用 Reducer 模式 vs. 简单 `set`
+### 文件职责说明
 
-### 使用 Reducer 模式的场景
-
-适用于复杂的数据结构管理，特别是：
-- 管理对象列表或映射（如 `messagesMap`, `topicMaps`）
-- 需要乐观更新的场景
-- 状态转换逻辑复杂
-- 需要类型安全的 action payload
+1. `initialState.ts`:
+   - 定义 slice 的 TypeScript 状态接口
+   - 提供初始状态默认值
 
 ```typescript
-// Reducer 模式示例 - 复杂消息状态管理
-export const messagesReducer = (state: ChatMessage[], payload: MessageDispatch): ChatMessage[] => {
+// 典型的 initialState.ts 结构
+export interface ChatTopicState {
+  activeTopicId?: string;
+  topicMaps: Record<string, ChatTopic[]>; // 核心数据结构
+  topicsInit: boolean;
+  topicLoadingIds: string[];
+  // ...其他状态字段
+}
+
+export const initialTopicState: ChatTopicState = {
+  activeTopicId: undefined,
+  topicMaps: {},
+  topicsInit: false,
+  topicLoadingIds: [],
+  // ...其他初始值
+};
+```
+
+2. `reducer.ts` (复杂状态使用):
+   - 定义纯函数 reducer，处理同步状态转换
+   - 使用 `immer` 确保不可变更新
+
+```typescript
+// 典型的 reducer.ts 结构
+import { produce } from 'immer';
+
+interface AddChatTopicAction {
+  type: 'addTopic';
+  value: CreateTopicParams & { id?: string };
+}
+
+interface UpdateChatTopicAction {
+  id: string;
+  type: 'updateTopic';
+  value: Partial<ChatTopic>;
+}
+
+export type ChatTopicDispatch = AddChatTopicAction | UpdateChatTopicAction;
+
+export const topicReducer = (state: ChatTopic[] = [], payload: ChatTopicDispatch): ChatTopic[] => {
   switch (payload.type) {
-    case 'updateMessage': {
+    case 'addTopic': {
       return produce(state, (draftState) => {
-        const index = draftState.findIndex((i) => i.id === payload.id);
-        if (index < 0) return;
-        draftState[index] = merge(draftState[index], { 
-          ...payload.value, 
-          updatedAt: Date.now() 
-        });
-      });
-    }
-    case 'createMessage': {
-      return produce(state, (draftState) => {
-        draftState.push({ 
-          ...payload.value, 
-          id: payload.id,
+        draftState.unshift({
+          ...payload.value,
+          id: payload.value.id ?? Date.now().toString(),
           createdAt: Date.now(),
-          updatedAt: Date.now(),
-          meta: {}
         });
       });
     }
-    // ...其他复杂状态转换
+    case 'updateTopic': {
+      return produce(state, (draftState) => {
+        const index = draftState.findIndex((topic) => topic.id === payload.id);
+        if (index !== -1) {
+          draftState[index] = { ...draftState[index], ...payload.value };
+        }
+      });
+    }
+    default:
+      return state;
   }
 };
 ```
 
-### 使用简单 `set` 的场景
-
-适用于简单状态更新：
-- 切换布尔值
-- 更新简单字符串/数字
-- 设置单一状态字段
+3. `selectors.ts`:
+   - 提供状态查询和计算函数
+   - 供 UI 组件使用的状态订阅接口
+   - 重要: 使用 `export const xxxSelectors` 模式聚合所有 selectors
 
 ```typescript
-// 简单 set 示例
-updateInputMessage: (message) => {
-  if (isEqual(message, get().inputMessage)) return;
-  set({ inputMessage: message }, false, n('updateInputMessage'));
-},
+// 典型的 selectors.ts 结构
+import { ChatStoreState } from '../../initialState';
 
-togglePortal: (open?: boolean) => {
-  set({ showPortal: open ?? !get().showPortal }, false, 'togglePortal');
-},
+const currentTopics = (s: ChatStoreState): ChatTopic[] | undefined => 
+  s.topicMaps[s.activeId];
+
+const currentActiveTopic = (s: ChatStoreState): ChatTopic | undefined => {
+  return currentTopics(s)?.find((topic) => topic.id === s.activeTopicId);
+};
+
+const getTopicById = (id: string) => (s: ChatStoreState): ChatTopic | undefined =>
+  currentTopics(s)?.find((topic) => topic.id === id);
+
+// 核心模式：使用 xxxSelectors 聚合导出
+export const topicSelectors = {
+  currentActiveTopic,
+  currentTopics,
+  getTopicById,
+  // ...其他 selectors
+};
 ```
 
-## 乐观更新实现模式
+## 特殊 Slice 组织模式
 
-乐观更新是 LobeChat 中的核心模式，用于提供流畅的用户体验：
+### 复杂 Actions 的子目录结构 (aiChat Slice)
 
-### 标准乐观更新流程
+当 slice 的 actions 过于复杂时，可以拆分到子目录：
 
+```
+src/store/chat/slices/aiChat/
+├── actions/
+│   ├── generateAIChat.ts       # AI 对话生成
+│   ├── rag.ts                  # RAG 检索增强生成
+│   ├── memory.ts               # 对话记忆管理
+│   └── index.ts                # 聚合所有 actions
+├── initialState.ts
+├── selectors.ts
+└── index.ts
+```
+
+参考：`src/store/chat/slices/aiChat/actions/`
+
+### 工具类 Slice (builtinTool)
+
+管理多种内置工具的状态：
+
+```
+src/store/chat/slices/builtinTool/
+├── actions/
+│   ├── dalle.ts                # DALL-E 图像生成
+│   ├── search.ts               # 搜索功能
+│   ├── localFile.ts            # 本地文件操作
+│   └── index.ts
+├── initialState.ts
+├── selectors.ts
+└── index.ts
+```
+
+参考：`src/store/chat/slices/builtinTool/`
+
+## 状态设计模式
+
+### 1. Map 结构用于关联数据
 ```typescript
-// 完整的乐观更新示例
-internal_updateMessageContent: async (id, content, extra) => {
-  const { internal_dispatchMessage, refreshMessages } = get();
-
-  // 1. 立即更新前端状态（乐观更新）
-  internal_dispatchMessage({
-    id,
-    type: 'updateMessage',
-    value: { content },
-  });
-
-  // 2. 调用后端服务
-  await messageService.updateMessage(id, {
-    content,
-    tools: extra?.toolCalls ? internal_transformToolCalls(extra.toolCalls) : undefined,
-    // ...其他字段
-  });
-
-  // 3. 刷新确保数据一致性
-  await refreshMessages();
-},
+// 以 sessionId 为 key，管理多个会话的数据
+topicMaps: Record<string, ChatTopic[]>
+messagesMap: Record<string, ChatMessage[]>
 ```
 
-### 创建操作的乐观更新
-
+### 2. 数组用于加载状态管理
 ```typescript
-internal_createMessage: async (message, context) => {
-  const { internal_createTmpMessage, refreshMessages, internal_toggleMessageLoading } = get();
-  
-  let tempId = context?.tempMessageId;
-  if (!tempId) {
-    // 创建临时消息用于乐观更新
-    tempId = internal_createTmpMessage(message);
-    internal_toggleMessageLoading(true, tempId);
-  }
-
-  try {
-    const id = await messageService.createMessage(message);
-    if (!context?.skipRefresh) {
-      await refreshMessages();
-    }
-    internal_toggleMessageLoading(false, tempId);
-    return id;
-  } catch (e) {
-    internal_toggleMessageLoading(false, tempId);
-    // 错误处理：更新消息错误状态
-    internal_dispatchMessage({
-      id: tempId,
-      type: 'updateMessage',
-      value: { error: { type: ChatErrorType.CreateMessageError, message: e.message } },
-    });
-  }
-},
+// 管理多个并发操作的加载状态
+messageLoadingIds: string[]
+topicLoadingIds: string[]
+chatLoadingIds: string[]
 ```
 
-### 删除操作模式（不使用乐观更新）
-
-删除操作通常不适合乐观更新，因为：
-- 删除是破坏性操作，错误恢复复杂
-- 用户对删除操作的即时反馈期望较低
-- 删除失败时恢复原状态会造成困惑
-
+### 3. 可选字段用于当前活动项
 ```typescript
-// 删除操作的标准模式 - 无乐观更新
-removeGenerationTopic: async (id: string) => {
-  const { internal_removeGenerationTopic } = get();
-  await internal_removeGenerationTopic(id);
-},
-
-internal_removeGenerationTopic: async (id: string) => {
-  // 1. 显示加载状态
-  get().internal_updateGenerationTopicLoading(id, true);
-  
-  try {
-    // 2. 直接调用后端服务
-    await generationTopicService.deleteTopic(id);
-    
-    // 3. 刷新数据获取最新状态
-    await get().refreshGenerationTopics();
-  } finally {
-    // 4. 确保清除加载状态（无论成功或失败）
-    get().internal_updateGenerationTopicLoading(id, false);
-  }
-},
+// 当前激活的实体 ID
+activeId: string
+activeTopicId?: string
+activeThreadId?: string
 ```
 
-删除操作的特点：
-- 直接调用服务，不预先更新状态
-- 依赖 loading 状态提供用户反馈
-- 操作完成后刷新整个列表确保一致性
-- 使用 `try/finally` 确保 loading 状态总是被清理
+## Slice 集成到顶层 Store
 
-## 加载状态管理模式
-
-LobeChat 使用统一的加载状态管理模式：
-
-### 数组式加载状态
-
+### 1. 状态聚合
 ```typescript
-// 在 initialState.ts 中定义
-export interface ChatMessageState {
-  messageLoadingIds: string[];      // 消息加载状态
-  messageEditingIds: string[];      // 消息编辑状态
-  chatLoadingIds: string[];         // 对话生成状态
-}
-
-// 在 action 中管理
-internal_toggleMessageLoading: (loading, id) => {
-  set({
-    messageLoadingIds: toggleBooleanList(get().messageLoadingIds, id, loading),
-  }, false, `internal_toggleMessageLoading/${loading ? 'start' : 'end'}`);
-},
+// 在 initialState.ts 中
+export type ChatStoreState = ChatTopicState &
+  ChatMessageState &
+  ChatAIChatState &
+  // ...其他 slice states
 ```
 
-### 统一的加载状态工具
-
+### 2. Action 接口聚合
 ```typescript
-// 通用的加载状态切换工具
-internal_toggleLoadingArrays: (key, loading, id, action) => {
-  const abortControllerKey = `${key}AbortController`;
-  
-  if (loading) {
-    const abortController = new AbortController();
-    set({
-      [abortControllerKey]: abortController,
-      [key]: toggleBooleanList(get()[key] as string[], id!, loading),
-    }, false, action);
-    return abortController;
-  } else {
-    set({
-      [abortControllerKey]: undefined,
-      [key]: id ? toggleBooleanList(get()[key] as string[], id, loading) : [],
-    }, false, action);
-  }
-},
+// 在 store.ts 中
+export interface ChatStoreAction
+  extends ChatMessageAction,
+    ChatTopicAction,
+    ChatAIChatAction,
+    // ...其他 slice actions
 ```
 
-## SWR 集成模式
-
-LobeChat 使用 SWR 进行数据获取和缓存管理：
-
-### Hook 式数据获取
-
+### 3. Selector 统一导出
 ```typescript
-// 在 action.ts 中定义 SWR hook
-useFetchMessages: (enable, sessionId, activeTopicId) =>
-  useClientDataSWR<ChatMessage[]>(
-    enable ? [SWR_USE_FETCH_MESSAGES, sessionId, activeTopicId] : null,
-    async ([, sessionId, topicId]) => messageService.getMessages(sessionId, topicId),
-    {
-      onSuccess: (messages, key) => {
-        const nextMap = {
-          ...get().messagesMap,
-          [messageMapKey(sessionId, activeTopicId)]: messages,
-        };
-        
-        if (get().messagesInit && isEqual(nextMap, get().messagesMap)) return;
-        
-        set({ messagesInit: true, messagesMap: nextMap }, false, n('useFetchMessages'));
-      },
-    },
-  ),
+// 在 selectors.ts 中 - 统一聚合 selectors
+export { chatSelectors } from './slices/message/selectors';
+export { topicSelectors } from './slices/topic/selectors';
+export { aiChatSelectors } from './slices/aiChat/selectors';
+
+// 每个 slice 的 selectors.ts 都使用 xxxSelectors 模式：
+// export const chatSelectors = { ... }
+// export const topicSelectors = { ... }
+// export const aiChatSelectors = { ... }
 ```
-
-### 缓存失效和刷新
-
-```typescript
-// 刷新数据的标准模式
-refreshMessages: async () => {
-  await mutate([SWR_USE_FETCH_MESSAGES, get().activeId, get().activeTopicId]);
-},
-
-refreshTopic: async () => {
-  return mutate([SWR_USE_FETCH_TOPIC, get().activeId]);
-},
-```
-
-## 命名规范总结
-
-### Action 命名模式
-- Public Actions: 动词形式，描述用户意图
-  - `createTopic`, `sendMessage`, `regenerateMessage`
-- Internal Actions: `internal_` + 动词，描述内部操作
-  - `internal_createTopic`, `internal_updateMessageContent`
-- Dispatch Methods: `internal_dispatch` + 实体名
-  - `internal_dispatchTopic`, `internal_dispatchMessage`
-- Toggle Methods: `internal_toggle` + 状态名
-  - `internal_toggleMessageLoading`, `internal_toggleChatLoading`
-
-### 状态命名模式
-- ID 数组: `[entity]LoadingIds`, `[entity]EditingIds`
-- 映射结构: `[entity]Maps`, `[entity]Map`
-- 当前激活: `active[Entity]Id`
-- 初始化标记: `[entity]sInit`
 
 ## 最佳实践
 
-1. 合理使用乐观更新：
-   - ✅ 适用：创建、更新操作（用户交互频繁）
-   - ❌ 避免：删除操作（破坏性操作，错误恢复复杂）
-2. 加载状态管理：使用统一的加载状态数组管理并发操作
-3. 类型安全：为所有 action payload 定义 TypeScript 接口
-4. SWR 集成：使用 SWR 管理数据获取和缓存失效
-5. AbortController：为长时间运行的操作提供取消能力
-6. 操作模式选择：
-   - 创建/更新：乐观更新 + 最终一致性
-   - 删除：加载状态 + 服务调用 + 数据刷新
+1. Slice 划分原则:
+   - 按功能领域划分（message, topic, aiChat 等）
+   - 每个 slice 管理相关的状态和操作
+   - 避免 slice 之间的强耦合
 
-这套 Action 组织模式确保了代码的一致性、可维护性，并提供了优秀的用户体验。
+2. 文件命名规范:
+   - 使用小驼峰命名 slice 目录
+   - 文件名使用一致的模式（action.ts, selectors.ts 等）
+   - 复杂 actions 时使用 actions/ 子目录
+
+3. 状态结构设计:
+   - 扁平化的状态结构，避免深层嵌套
+   - 使用 Map 结构管理列表数据
+   - 分离加载状态和业务数据
+
+4. 类型安全:
+   - 为每个 slice 定义清晰的 TypeScript 接口
+   - 使用 Zustand 的 StateCreator 确保类型一致性
+   - 在顶层聚合时保持类型安全
+
+这种模块化的 slice 组织方式使得大型应用的状态管理变得清晰、可维护，并且易于扩展。
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
