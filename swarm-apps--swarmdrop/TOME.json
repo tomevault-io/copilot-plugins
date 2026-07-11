@@ -4,7 +4,7 @@
   "repo": "SwarmDrop",
   "description": "\u53bb\u4e2d\u5fc3\u5316\u3001\u8de8\u7f51\u7edc\u3001\u7aef\u5230\u7aef\u52a0\u5bc6\u7684\u6587\u4ef6\u4f20\u8f93\u5de5\u5177",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/swarm-apps/SwarmDrop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T04:36:48Z"
+  "distributed_at": "2026-07-11T04:37:20Z"
 }
