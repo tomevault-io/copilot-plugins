@@ -1,0 +1,9 @@
+{
+  "name": "apokamo--kaji",
+  "displayName": "kaji",
+  "description": "Closed-loop agentic development workflows for Claude Code, Codex, and Gemini CLI.",
+  "version": "1.0.0",
+  "author": "apokamo",
+  "homepage": "https://github.com/apokamo/kaji",
+  "skills": []
+}
