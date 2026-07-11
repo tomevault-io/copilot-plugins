@@ -1,0 +1,9 @@
+{
+  "name": "craigpnnl--dnp3py",
+  "displayName": "dnp3py",
+  "description": "Pure Python DNP3 implementation (IEEE 1815-2012)",
+  "version": "1.0.0",
+  "author": "craigpnnl",
+  "homepage": "https://github.com/craigpnnl/dnp3py",
+  "skills": []
+}
