@@ -1,0 +1,9 @@
+{
+  "name": "swytchcodehq--wrekenfile-converter",
+  "displayName": "wrekenfile-converter",
+  "description": "Convert OpenAPI and Postman to Wrekenfile and break down to mini-wrekenfiles for LLM context",
+  "version": "1.0.0",
+  "author": "swytchcodehq",
+  "homepage": "https://github.com/swytchcodehq/wrekenfile-converter",
+  "skills": []
+}
