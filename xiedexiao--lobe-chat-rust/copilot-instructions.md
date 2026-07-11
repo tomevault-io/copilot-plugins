@@ -1,242 +1,174 @@
-## project-structure
+## react-component
 
-> Project directory structure overview
+> - 如果要写复杂样式的话用 antd-style ，简单的话可以用 style 属性直接写内联样式
 
 
-# LobeChat Project Structure
+# react component 编写指南
 
-## Directory Structure
+- 如果要写复杂样式的话用 antd-style ，简单的话可以用 style 属性直接写内联样式
+- 如果需要 flex 布局或者居中布局应该使用 react-layout-kit 的 Flexbox 和 Center 组件
+- 选择组件时优先顺序应该是 src/components > 安装的组件 package > lobe-ui > antd
 
-note: some files are not shown for simplicity.
+## antd-style token system
 
-```plaintext
-lobe-chat/
-├── apps/                           # Applications directory
-│   └── desktop/                    # Electron desktop application
-│       ├── src/                    # Desktop app source code
-│       └── resources/              # Desktop app resources
-├── docs/                           # Project documentation
-│   ├── development/                # Development docs
-│   ├── self-hosting/               # Self-hosting docs
-│   └── usage/                      # Usage guides
-├── locales/                        # Internationalization files (multiple locales)
-│   ├── en-US/                      # English (example)
-│   └── zh-CN/                      # Simplified Chinese (example)
-├── packages/                       # Monorepo packages directory
-│   ├── const/                      # Constants definition package
-│   ├── database/                   # Database related package
-│   ├── electron-client-ipc/        # Electron renderer ↔ main IPC client
-│   ├── electron-server-ipc/        # Electron main process IPC server
-│   ├── model-bank/                 # Built-in model presets/catalog exports
-│   ├── model-runtime/              # AI model runtime package
-│   ├── types/                      # TypeScript type definitions
-│   ├── utils/                      # Utility functions package
-│   ├── file-loaders/               # File processing packages
-│   ├── prompts/                    # AI prompt management
-│   └── web-crawler/                # Web crawling functionality
-├── public/                         # Static assets
-│   ├── icons/                      # Application icons
-│   ├── images/                     # Image resources
-│   └── screenshots/                # Application screenshots
-├── scripts/                        # Build and tool scripts
-├── src/                            # Main application source code (see below)
-├── .cursor/                        # Cursor AI configuration
-├── docker-compose/                 # Docker configuration
-├── package.json                    # Project dependencies
-├── pnpm-workspace.yaml            # pnpm monorepo configuration
-├── next.config.ts                  # Next.js configuration
-├── drizzle.config.ts              # Drizzle ORM configuration
-└── tsconfig.json                   # TypeScript configuration
+### 访问 token system 的两种方式
+
+#### 使用 antd-style 的 useTheme hook
+
+```tsx
+import { useTheme } from 'antd-style';
+
+const MyComponent = () => {
+  const theme = useTheme();
+
+  return (
+    <div
+      style={{
+        color: theme.colorPrimary,
+        backgroundColor: theme.colorBgContainer,
+        padding: theme.padding,
+        borderRadius: theme.borderRadius,
+      }}
+    >
+      使用主题 token 的组件
+    </div>
+  );
+};
 ```
 
-## Core Source Directory (`src/`)
+#### 使用 antd-style 的 createStyles
 
-```plaintext
-src/
-├── app/                            # Next.js App Router routes
-│   ├── (backend)/                  # Backend API routes
-│   │   ├── api/                    # REST API endpoints
-│   │   │   ├── auth/               # Authentication endpoints
-│   │   │   └── webhooks/           # Webhook handlers for various auth providers
-│   │   ├── middleware/             # Request middleware
-│   │   ├── oidc/                   # OpenID Connect endpoints
-│   │   ├── trpc/                   # tRPC API routes
-│   │   │   ├── async/              # Async tRPC endpoints
-│   │   │   ├── desktop/            # Desktop runtime endpoints
-│   │   │   ├── edge/               # Edge runtime endpoints
-│   │   │   ├── lambda/             # Lambda runtime endpoints
-│   │   │   └── tools/              # Tools-specific endpoints
-│   │   └── webapi/                 # Web API endpoints
-│   │       ├── chat/               # Chat-related APIs for various providers
-│   │       ├── models/             # Model management APIs
-│   │       ├── plugin/             # Plugin system APIs
-│   │       ├── stt/                # Speech-to-text APIs
-│   │       ├── text-to-image/      # Image generation APIs
-│   │       └── tts/                # Text-to-speech APIs
-│   ├── [variants]/                 # Page route variants
-│   │   ├── (main)/                 # Main application routes
-│   │   │   ├── chat/               # Chat interface and workspace
-│   │   │   ├── discover/           # Discover page (assistants, models, providers)
-│   │   │   ├── files/              # File management interface
-│   │   │   ├── image/              # Image generation interface
-│   │   │   ├── profile/            # User profile and stats
-│   │   │   ├── repos/              # Knowledge base repositories
-│   │   │   └── settings/           # Application settings
-│   │   └── @modal/                 # Modal routes
-│   └── manifest.ts                 # PWA configuration
-├── components/                     # Global shared components
-│   ├── Analytics/                  # Analytics tracking components
-│   ├── Error/                      # Error handling components
-│   └── Loading/                    # Loading state components
-├── config/                         # Application configuration
-│   ├── featureFlags/               # Feature flags & experiments
-│   └── modelProviders/             # Model provider configurations
-├── features/                       # Feature components (UI Layer)
-│   ├── AgentSetting/               # Agent configuration and management
-│   ├── ChatInput/                  # Chat input with file upload and tools
-│   ├── Conversation/               # Message display and interaction
-│   ├── FileManager/                # File upload and knowledge base
-│   └── PluginStore/                # Plugin marketplace and management
-├── hooks/                          # Custom React hooks
-├── layout/                         # Global layout components
-│   ├── AuthProvider/               # Authentication provider
-│   └── GlobalProvider/             # Global state provider
-├── libs/                           # External library integrations
-│   ├── analytics/                  # Analytics services integration
-│   ├── next-auth/                  # NextAuth.js configuration
-│   └── oidc-provider/              # OIDC provider implementation
-├── locales/                        # Internationalization resources
-│   └── default/                    # Default language definitions
-├── migrations/                     # Client-side data migrations
-├── server/                         # Server-side code
-│   ├── modules/                    # Server modules
-│   ├── routers/                    # tRPC routers
-│   └── services/                   # Server services
-├── services/                       # Service layer (per-domain, client/server split)
-│   ├── user/                       # User services
-│   │   ├── client.ts               # Client DB (PGLite) implementation
-│   │   └── server.ts               # Server DB implementation (via tRPC)
-│   ├── aiModel/                    # AI model services
-│   ├── session/                    # Session services
-│   └── message/                    # Message services
-├── store/                          # Zustand state management
-│   ├── agent/                      # Agent state
-│   ├── chat/                       # Chat state
-│   └── user/                       # User state
-├── styles/                         # Global styles
-├── tools/                          # Built-in tool system
-│   ├── artifacts/                  # Code artifacts and preview
-│   └── web-browsing/               # Web search and browsing
-├── types/                          # TypeScript type definitions
-└── utils/                          # Utility functions
-    ├── client/                     # Client-side utilities
-    └── server/                     # Server-side utilities
+```tsx
+const useStyles = createStyles(({ css, token }) => {
+  return {
+    container: css`
+      background-color: ${token.colorBgContainer};
+      border-radius: ${token.borderRadius}px;
+      padding: ${token.padding}px;
+      color: ${token.colorText};
+    `,
+    title: css`
+      font-size: ${token.fontSizeLG}px;
+      font-weight: ${token.fontWeightStrong};
+      margin-bottom: ${token.marginSM}px;
+    `,
+    content: css`
+      font-size: ${token.fontSize}px;
+      line-height: ${token.lineHeight};
+    `,
+  };
+});
+
+const Card: FC<CardProps> = ({ title, content }) => {
+  const { styles } = useStyles();
+
+  return (
+    <Flexbox className={styles.container}>
+      <div className={styles.title}>{title}</div>
+      <div className={styles.content}>{content}</div>
+    </Flexbox>
+  );
+};
 ```
 
-## Key Monorepo Packages
+### 一些你经常会忘记使用的 token
 
-```plaintext
-packages/
-├── const/                          # Global constants and configurations
-├── database/                       # Database schemas and models
-│   ├── src/models/                 # Data models (CRUD operations)
-│   ├── src/schemas/                # Drizzle database schemas
-│   ├── src/repositories/           # Complex query layer
-│   └── migrations/                 # Database migration files
-├── model-runtime/                  # AI model runtime
-│   └── src/
-│       ├── openai/                 # OpenAI provider integration
-│       ├── anthropic/              # Anthropic provider integration
-│       ├── google/                 # Google AI provider integration
-│       ├── ollama/                 # Ollama local model integration
-│       ├── types/                  # Runtime type definitions
-│       └── utils/                  # Runtime utilities
-├── types/                          # Shared TypeScript type definitions
-│   └── src/
-│       ├── agent/                  # Agent-related types
-│       ├── message/                # Message and chat types
-│       ├── user/                   # User and session types
-│       └── tool/                   # Tool and plugin types
-├── utils/                          # Shared utility functions
-│   └── src/
-│       ├── client/                 # Client-side utilities
-│       ├── server/                 # Server-side utilities
-│       ├── fetch/                  # HTTP request utilities
-│       └── tokenizer/              # Token counting utilities
-├── file-loaders/                   # File loaders (PDF, DOCX, etc.)
-├── prompts/                        # AI prompt management
-└── web-crawler/                    # Web crawling functionality
-```
+请注意使用下面的 token 而不是 css 字面值。可以访问 https://ant.design/docs/react/customize-theme-cn 了解所有 token
 
-## Architecture Map
+- 动画类
+  - token.motionDurationMid
+  - token.motionEaseInOut
+- 包围盒属性
+  - token.paddingSM
+  - token.marginLG
 
-- Presentation: `src/features`, `src/components`, `src/layout` — UI composition, global providers
-- State: `src/store` — Zustand slices, selectors, middleware
-- Client Services: `src/services/<domain>/{client|server}.ts` — client: PGLite; server: tRPC bridge
-- API Routers: `src/app/(backend)/webapi` (REST), `src/app/(backend)/trpc/{edge|lambda|async|desktop|tools}`; Lambda router triggers Async router for long-running tasks (e.g., image)
-- Server Services: `src/server/services` (business logic), `src/server/modules` (infra adapters)
-- Data Access: `packages/database/src/{schemas,models,repositories}` — Schema (Drizzle), Model (CRUD), Repository (complex queries)
-- Integrations: `src/libs` — analytics, auth, trpc, logging, runtime helpers
+## Lobe UI 包含的组件
 
-## Data Flow Architecture
+- 不知道 @lobehub/ui 的组件怎么用，有哪些属性，就自己搜下这个项目其它地方怎么用的，不要瞎猜，大部分组件都是在 antd 的基础上扩展了属性
+- 具体用法不懂可以联网搜索，例如 ActionIcon 就爬取 https://ui.lobehub.com/components/action-icon
+- 可以阅读 node_modules/@lobehub/ui/es/index.js 了解有哪些组件，每个组件的属性是什么
 
-### Unified Flow Pattern
-
-```
-UI Layer → State Management → Client Service → [Environment Branch] → Database
-   ↓              ↓               ↓                    ↓                ↓
- React         Zustand     Environment         Local/Remote        PGLite/
-Components      Store      Adaptation            Routing          PostgreSQL
-```
-
-### Environment-Specific Routing
-
-| Mode            | UI       | Service Route          | Database            |
-| --------------- | -------- | ---------------------- | ------------------- |
-| **Browser/PWA** | React    | Direct Model Access    | PGLite (Local)      |
-| **Server**      | React    | tRPC → Server Services | PostgreSQL (Remote) |
-| **Desktop**     | Electron | tRPC → Local Node.js   | PGLite/PostgreSQL\* |
-
-_\*Depends on cloud sync configuration_
-
-### Key Characteristics
-
-- **Type Safety**: End-to-end type safety via tRPC and Drizzle ORM
-- **Local/Remote Dual Mode**: PGLite enables user data ownership and local control
-
-## Quick Map
-
-- App Routes: `src/app` — UI routes (App Router) and backend routes under `(backend)`
-- Web API: `src/app/(backend)/webapi` — REST-like endpoints
-- tRPC Routers: `src/server/routers` — typed RPC endpoints by runtime
-- Client Services: `src/services` — environment-adaptive client-side business logic
-- Server Services: `src/server/services` — platform-agnostic business logic
-- Database: `packages/database` — schemas/models/repositories/migrations
-- State: `src/store` — Zustand stores and slices
-- Integrations: `src/libs` — analytics/auth/trpc/logging/runtime helpers
-- Tools: `src/tools` — built-in tool system
-
-## Common Tasks
-
-- Add Web API route: `src/app/(backend)/webapi/<module>/route.ts`
-- Add tRPC endpoint: `src/server/routers/{edge|lambda|desktop}/...`
-- Add client/server service: `src/services/<domain>/{client|server}.ts` (client: PGLite; server: tRPC)
-- Add server service: `src/server/services/<domain>`
-- Add a new model/provider: `src/config/modelProviders/<provider>.ts` + `packages/model-bank/src/aiModels/<provider>.ts` + `packages/model-runtime/src/<provider>/index.ts`
-- Add DB schema/model/repository: `packages/database/src/{schemas|models|repositories}`
-- Add Zustand slice: `src/store/<domain>/slices`
-
-## Env Modes
-
-- `NEXT_PUBLIC_CLIENT_DB`: selects client DB mode (e.g., `pglite`) vs server-backed
-- `NEXT_PUBLIC_IS_DESKTOP_APP`: enables desktop-specific routes and behavior
-- `NEXT_PUBLIC_SERVICE_MODE`: controls service routing preference (client/server)
-
-## Boundaries
-
-- Keep client logic in `src/services`; server-only logic stays in `src/server/services`
-- Don’t mix Web API (`webapi/`) with tRPC (`src/server/routers/`)
-- Place business UI under `src/features`, global reusable UI under `src/components`
+- General
+  - ActionIcon
+  - ActionIconGroup
+  - Block
+  - Button
+  - DownloadButton
+  - Icon
+- Data Display
+  - Avatar
+  - AvatarGroup
+  - GroupAvatar
+  - Collapse
+  - FileTypeIcon
+  - FluentEmoji
+  - GuideCard
+  - Highlighter
+  - Hotkey
+  - Image
+  - List
+  - Markdown
+  - SearchResultCards
+  - MaterialFileTypeIcon
+  - Mermaid
+  - Typography
+  - Text
+  - Segmented
+  - Snippet
+  - SortableList
+  - Tag
+  - Tooltip
+  - Video
+- Data Entry
+  - AutoComplete
+  - CodeEditor
+  - ColorSwatches
+  - CopyButton
+  - DatePicker
+  - EditableText
+  - EmojiPicker
+  - Form
+  - FormModal
+  - HotkeyInput
+  - ImageSelect
+  - Input
+  - SearchBar
+  - Select
+  - SliderWithInput
+  - ThemeSwitch
+- Feedback
+  - Alert
+  - Drawer
+  - Modal
+- Layout
+  - DraggablePanel
+  - DraggablePanelBody
+  - DraggablePanelContainer
+  - DraggablePanelFooter
+  - DraggablePanelHeader
+  - Footer
+  - Grid
+  - Header
+  - Layout
+  - LayoutFooter
+  - LayoutHeader
+  - LayoutMain
+  - LayoutSidebar
+  - LayoutSidebarInner
+  - LayoutToc
+  - MaskShadow
+  - ScrollShadow
+- Navigation
+  - Burger
+  - Dropdown
+  - Menu
+  - SideNav
+  - Tabs
+  - Toc
+- Theme
+  - ConfigProvider
+  - FontLoader
+  - ThemeProvider
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
