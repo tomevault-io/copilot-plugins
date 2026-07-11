@@ -1,0 +1,9 @@
+{
+  "name": "workato-devs--wk",
+  "displayName": "wk",
+  "description": "Fast, single-binary CLI (Go) for managing Workato recipes, connections, and workspaces. Pull, push, diff, and validate from your terminal. Extensible via plugins \u2014 linters, recipe skills, custom workf",
+  "version": "1.0.0",
+  "author": "workato-devs",
+  "homepage": "https://github.com/workato-devs/wk",
+  "skills": []
+}
