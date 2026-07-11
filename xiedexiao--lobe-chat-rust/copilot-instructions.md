@@ -1,298 +1,204 @@
-## desktop-window-management
+## drizzle-schema-style-guide
 
-> LobeChat 桌面应用使用 Electron 的 `BrowserWindow` 管理应用窗口。主要的窗口管理功能包括：
+> This document outlines the conventions and best practices for defining PostgreSQL Drizzle ORM schemas within the lobe-chat project.
 
-**桌面端窗口管理指南**
+# Drizzle ORM Schema Style Guide for lobe-chat
 
-## 窗口管理概述
+This document outlines the conventions and best practices for defining PostgreSQL Drizzle ORM schemas within the lobe-chat project.
 
-LobeChat 桌面应用使用 Electron 的 `BrowserWindow` 管理应用窗口。主要的窗口管理功能包括：
+## Configuration
 
-1. **窗口创建和配置**
-2. **窗口状态管理**（大小、位置、最大化等）
-3. **多窗口协调**
-4. **窗口事件处理**
+- Drizzle configuration is managed in [drizzle.config.ts](mdc:drizzle.config.ts)
+- Schema files are located in the src/database/schemas/ directory
+- Migration files are output to `src/database/migrations/`
+- The project uses `postgresql` dialect with `strict: true`
 
-## 相关文件结构
+## Helper Functions
 
-```
-apps/desktop/src/main/
-├── appBrowsers.ts               # 窗口管理的核心文件
-├── controllers/
-│   └── BrowserWindowsCtr.ts     # 窗口控制器
-└── modules/
-    └── browserWindowManager.ts  # 窗口管理模块
-```
+Commonly used column definitions, especially for timestamps, are centralized in [src/database/schemas/_helpers.ts](mdc:src/database/schemas/_helpers.ts):
+- `timestamptz(name: string)`: Creates a timestamp column with timezone
+- `createdAt()`, `updatedAt()`, `accessedAt()`: Helper functions for standard timestamp columns
+- `timestamps`: An object `{ createdAt, updatedAt, accessedAt }` for easy inclusion in table definitions
 
-## 窗口管理流程
+## Naming Conventions
 
-### 1. 窗口创建
+- **Table Names**: Use plural snake_case (e.g., `users`, `agents`, `session_groups`)
+- **Column Names**: Use snake_case (e.g., `user_id`, `created_at`, `background_color`)
 
-在 `appBrowsers.ts` 或 `BrowserWindowsCtr.ts` 中定义窗口创建逻辑：
+## Column Definitions
 
-```typescript
-export const createMainWindow = () => {
-  const mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
-    minWidth: 600,
-    minHeight: 400,
-    webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
-      contextIsolation: true,
-      nodeIntegration: false,
-    },
-    // 其他窗口配置项...
-  });
+### Primary Keys (PKs)
+- Typically `text('id')` (or `varchar('id')` for some OIDC tables)
+- Often use `.$defaultFn(() => idGenerator('table_name'))` for automatic ID generation with meaningful prefixes
+- **ID Prefix Purpose**: Makes it easy for users and developers to distinguish different entity types at a glance
+- For internal/system tables that users don't need to see, can use `uuid` or auto-increment keys
+- Composite PKs are defined using `primaryKey({ columns: [t.colA, t.colB] })`
 
-  // 加载应用内容
-  if (isDev) {
-    mainWindow.loadURL('http://localhost:3000');
-    mainWindow.webContents.openDevTools();
-  } else {
-    mainWindow.loadFile(path.join(__dirname, '../../renderer/index.html'));
-  }
+### Foreign Keys (FKs)
+- Defined using `.references(() => otherTable.id, { onDelete: 'cascade' | 'set null' | 'no action' })`
+- FK columns are usually named `related_table_singular_name_id` (e.g., `user_id` references `users.id`)
+- Most tables include a `user_id` column referencing `users.id` with `onDelete: 'cascade'`
 
-  return mainWindow;
-};
-```
+### Timestamps
+- Consistently use the `...timestamps` spread from [_helpers.ts](mdc:src/database/schemas/_helpers.ts) for `created_at`, `updated_at`, and `accessed_at` columns
 
-### 2. 窗口状态管理
+### Default Values
+- `.$defaultFn(() => expression)` for dynamic defaults (e.g., `idGenerator()`, `randomSlug()`)
+- `.default(staticValue)` for static defaults (e.g., `boolean('enabled').default(true)`)
 
-实现窗口状态持久化保存和恢复：
+### Indexes
+- Defined in the table's second argument: `pgTable('name', {...columns}, (t) => ({ indexName: indexType().on(...) }))`
+- Use `uniqueIndex()` for unique constraints and `index()` for non-unique indexes
+- Naming pattern: `table_name_column(s)_idx` or `table_name_column(s)_unique`
+- Many tables feature a `clientId: text('client_id')` column, often part of a composite unique index with `user_id`
 
-1. **保存窗口状态**
-   ```typescript
-   const saveWindowState = (window: BrowserWindow) => {
-     if (!window.isMinimized() && !window.isMaximized()) {
-       const position = window.getPosition();
-       const size = window.getSize();
+### Data Types
+- Common types: `text`, `varchar`, `jsonb`, `boolean`, `integer`, `uuid`, `pgTable`
+- For `jsonb` fields, specify the TypeScript type using `.$type<MyType>()` for better type safety
 
-       settings.set('windowState', {
-         x: position[0],
-         y: position[1],
-         width: size[0],
-         height: size[1],
-       });
-     }
-   };
-   ```
+## Zod Schemas & Type Inference
 
-2. **恢复窗口状态**
-   ```typescript
-   const restoreWindowState = (window: BrowserWindow) => {
-     const savedState = settings.get('windowState');
+- Utilize `drizzle-zod` to generate Zod schemas for validation:
+  - `createInsertSchema(tableName)`
+  - `createSelectSchema(tableName)` (less common)
+- Export inferred types: `export type NewEntity = typeof tableName.$inferInsert;` and `export type EntityItem = typeof tableName.$inferSelect;`
 
-     if (savedState) {
-       window.setBounds({
-         x: savedState.x,
-         y: savedState.y,
-         width: savedState.width,
-         height: savedState.height,
-       });
-     }
-   };
-   ```
+## Relations
 
-3. **监听窗口事件**
-   ```typescript
-   window.on('close', () => saveWindowState(window));
-   window.on('moved', () => saveWindowState(window));
-   window.on('resized', () => saveWindowState(window));
-   ```
+- Table relationships are defined centrally in [src/database/schemas/relations.ts](mdc:src/database/schemas/relations.ts) using the `relations()` utility from `drizzle-orm`
 
-### 3. 实现多窗口管理
+## Code Style & Structure
 
-对于需要多窗口支持的功能：
+- **File Organization**: Each main database entity typically has its own schema file (e.g., [user.ts](mdc:src/database/schemas/user.ts), [agent.ts](mdc:src/database/schemas/agent.ts))
+- All schemas are re-exported from [src/database/schemas/index.ts](mdc:src/database/schemas/index.ts)
+- **ESLint**: Files often start with `/* eslint-disable sort-keys-fix/sort-keys-fix */`
+- **Comments**: Use JSDoc-style comments to explain the purpose of tables and complex columns, fields that are self-explanatory do not require jsdoc explanations, such as id, user_id, etc.
 
-1. **跟踪窗口**
-   ```typescript
-   export class WindowManager {
-     private windows: Map<string, BrowserWindow> = new Map();
-
-     createWindow(id: string, options: BrowserWindowConstructorOptions) {
-       const window = new BrowserWindow(options);
-       this.windows.set(id, window);
-
-       window.on('closed', () => {
-         this.windows.delete(id);
-       });
-
-       return window;
-     }
-
-     getWindow(id: string) {
-       return this.windows.get(id);
-     }
-
-     getAllWindows() {
-       return Array.from(this.windows.values());
-     }
-   }
-   ```
-
-2. **窗口间通信**
-   ```typescript
-   // 从一个窗口向另一个窗口发送消息
-   sendMessageToWindow(targetWindowId, channel, data) {
-     const targetWindow = this.getWindow(targetWindowId);
-     if (targetWindow) {
-       targetWindow.webContents.send(channel, data);
-     }
-   }
-   ```
-
-### 4. 窗口与渲染进程通信
-
-通过 IPC 实现窗口操作：
-
-1. **在主进程中注册 IPC 处理器**
-   ```typescript
-   // BrowserWindowsCtr.ts
-   @ipcClientEvent('minimizeWindow')
-   handleMinimizeWindow() {
-     const focusedWindow = BrowserWindow.getFocusedWindow();
-     if (focusedWindow) {
-       focusedWindow.minimize();
-     }
-     return { success: true };
-   }
-
-   @ipcClientEvent('maximizeWindow')
-   handleMaximizeWindow() {
-     const focusedWindow = BrowserWindow.getFocusedWindow();
-     if (focusedWindow) {
-       if (focusedWindow.isMaximized()) {
-         focusedWindow.restore();
-       } else {
-         focusedWindow.maximize();
-       }
-     }
-     return { success: true };
-   }
-
-   @ipcClientEvent('closeWindow')
-   handleCloseWindow() {
-     const focusedWindow = BrowserWindow.getFocusedWindow();
-     if (focusedWindow) {
-       focusedWindow.close();
-     }
-     return { success: true };
-   }
-   ```
-
-2. **在渲染进程中调用**
-   ```typescript
-   // src/services/electron/windowService.ts
-   import { dispatch } from '@lobechat/electron-client-ipc';
-
-   export const windowService = {
-     minimize: () => dispatch('minimizeWindow'),
-     maximize: () => dispatch('maximizeWindow'),
-     close: () => dispatch('closeWindow'),
-   };
-   ```
-
-### 5. 自定义窗口控制 (无边框窗口)
-
-对于自定义窗口标题栏：
-
-1. **创建无边框窗口**
-   ```typescript
-   const window = new BrowserWindow({
-     frame: false,
-     titleBarStyle: 'hidden',
-     // 其他选项...
-   });
-   ```
-
-2. **在渲染进程中实现拖拽区域**
-   ```css
-   /* CSS */
-   .titlebar {
-     -webkit-app-region: drag;
-   }
-
-   .titlebar-button {
-     -webkit-app-region: no-drag;
-   }
-   ```
-
-## 最佳实践
-
-1. **性能考虑**
-   - 避免创建过多窗口
-   - 使用 `show: false` 创建窗口，在内容加载完成后再显示，避免白屏
-
-2. **安全性**
-   - 始终设置适当的 `webPreferences` 确保安全
-   ```typescript
-   webPreferences: {
-     preload: path.join(__dirname, '../preload/index.js'),
-     contextIsolation: true,
-     nodeIntegration: false,
-     sandbox: true,
-   }
-   ```
-
-3. **跨平台兼容性**
-   - 考虑不同操作系统的窗口行为差异
-   - 使用 `process.platform` 为不同平台提供特定实现
-
-4. **崩溃恢复**
-   - 监听 `webContents.on('crashed')` 事件处理崩溃
-   - 提供崩溃恢复选项
-
-5. **内存管理**
-   - 确保窗口关闭时清理所有相关资源
-   - 使用 `window.on('closed')` 而不是 `window.on('close')` 进行最终清理
-
-## 示例：创建设置窗口
+## Example Pattern
 
 ```typescript
-// apps/desktop/src/main/controllers/BrowserWindowsCtr.ts
+// From src/database/schemas/agent.ts
+export const agents = pgTable(
+  'agents',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => idGenerator('agents'))
+      .notNull(),
+    slug: varchar('slug', { length: 100 })
+      .$defaultFn(() => randomSlug(4))
+      .unique(),
+    userId: text('user_id')
+      .references(() => users.id, { onDelete: 'cascade' })
+      .notNull(),
+    clientId: text('client_id'),
+    chatConfig: jsonb('chat_config').$type<LobeAgentChatConfig>(),
+    ...timestamps,
+  },
+  // return array instead of object, the object style is deprecated
+  (t) => [
+    uniqueIndex('client_id_user_id_unique').on(t.clientId, t.userId),
+  ],
+);
 
-@ipcClientEvent('openSettings')
-handleOpenSettings() {
-  // 检查设置窗口是否已经存在
-  if (this.settingsWindow && !this.settingsWindow.isDestroyed()) {
-    // 如果窗口已存在，将其置于前台
-    this.settingsWindow.focus();
-    return { success: true };
-  }
-
-  // 创建新窗口
-  this.settingsWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    title: 'Settings',
-    parent: this.mainWindow, // 设置父窗口，使其成为模态窗口
-    modal: true,
-    webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
-      contextIsolation: true,
-      nodeIntegration: false,
-    },
-  });
-
-  // 加载设置页面
-  if (isDev) {
-    this.settingsWindow.loadURL('http://localhost:3000/settings');
-  } else {
-    this.settingsWindow.loadFile(
-      path.join(__dirname, '../../renderer/index.html'),
-      { hash: 'settings' }
-    );
-  }
-
-  // 监听窗口关闭事件
-  this.settingsWindow.on('closed', () => {
-    this.settingsWindow = null;
-  });
-
-  return { success: true };
-}
+export const insertAgentSchema = createInsertSchema(agents);
+export type NewAgent = typeof agents.$inferInsert;
+export type AgentItem = typeof agents.$inferSelect;
 ```
+
+## Common Patterns
+
+### 1. userId + clientId Pattern (Legacy)
+Some existing tables include both fields for different purposes:
+
+```typescript
+// Example from agents table (legacy pattern)
+userId: text('user_id')
+  .references(() => users.id, { onDelete: 'cascade' })
+  .notNull(),
+clientId: text('client_id'),
+
+// Usually with a composite unique index
+clientIdUnique: uniqueIndex('agents_client_id_user_id_unique').on(t.clientId, t.userId),
+```
+
+- **`userId`**: Server-side user association, ensures data belongs to specific user
+- **`clientId`**: Unique key for import/export operations, supports data migration between instances
+- **Current Status**: New tables should NOT include `clientId` unless specifically needed for import/export functionality
+- **Note**: This pattern is being phased out for new features to simplify the schema
+
+### 2. Junction Tables (Many-to-Many Relationships)
+Use composite primary keys for relationship tables:
+
+```typescript
+// Example: agents_knowledge_bases (from agent.ts)
+export const agentsKnowledgeBases = pgTable(
+  'agents_knowledge_bases',
+  {
+    agentId: text('agent_id').references(() => agents.id, { onDelete: 'cascade' }).notNull(),
+    knowledgeBaseId: text('knowledge_base_id').references(() => knowledgeBases.id, { onDelete: 'cascade' }).notNull(),
+    userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+    enabled: boolean('enabled').default(true),
+    ...timestamps,
+  },
+  (t) => [
+    primaryKey({ columns: [t.agentId, t.knowledgeBaseId] }),
+  ],
+);
+```
+
+**Pattern**: `{entity1}Id` + `{entity2}Id` as composite PK, plus `userId` for ownership
+
+### 3. OIDC Tables Special Patterns
+OIDC tables use `varchar` IDs instead of `text` with custom generators:
+
+```typescript
+// Example from oidc.ts
+export const oidcAuthorizationCodes = pgTable('oidc_authorization_codes', {
+  id: varchar('id', { length: 255 }).primaryKey(), // varchar not text
+  data: jsonb('data').notNull(),
+  expiresAt: timestamptz('expires_at').notNull(),
+  // ... other fields
+});
+```
+
+**Reason**: OIDC standards expect specific ID formats and lengths
+
+### 4. File Processing with Async Tasks
+File-related tables reference async task IDs for background processing:
+
+```typescript
+// Example from files table
+export const files = pgTable('files', {
+  // ... other fields
+  chunkTaskId: uuid('chunk_task_id').references(() => asyncTasks.id, { onDelete: 'set null' }),
+  embeddingTaskId: uuid('embedding_task_id').references(() => asyncTasks.id, { onDelete: 'set null' }),
+  // ...
+});
+```
+
+**Purpose**: 
+- Track file chunking progress (breaking files into smaller pieces)
+- Track embedding generation progress (converting text to vectors)
+- Allow querying task status and handling failures
+
+### 5. Slug Pattern (Legacy)
+Some entities include auto-generated slugs - this is legacy code:
+
+```typescript
+slug: varchar('slug', { length: 100 })
+  .$defaultFn(() => randomSlug(4))
+  .unique(),
+
+// Often with composite unique constraint
+slugUserIdUnique: uniqueIndex('slug_user_id_unique').on(t.slug, t.userId),
+```
+
+**Current usage**: Only used to identify default agents/sessions (legacy pattern)
+**Future refactor**: Will likely be replaced with `isDefault: boolean()` field
+**Note**: Avoid using slugs for new features - prefer explicit boolean flags for status tracking
+
+By following these guidelines, maintain consistency, type safety, and maintainability across database schema definitions.
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
