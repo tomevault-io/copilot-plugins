@@ -242249,6 +242249,16 @@
       "description": "Aimed to be fully compatible with Mihomo"
     },
     {
+      "name": "137458--tieba-lite-harmony",
+      "source": "./137458--tieba-lite-harmony",
+      "description": "\u8d34\u5427lite \u00b7 HarmonyOS NEXT \u79fb\u690d\u7248"
+    },
+    {
+      "name": "gridheap-dev--sketchybar-config",
+      "source": "./gridheap-dev--sketchybar-config",
+      "description": "My sketchybar configuration files"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -263659,6 +263669,26 @@
       "description": "Sage Math MCP server for sateful sessions"
     },
     {
+      "name": "zistar001--esp-handheld",
+      "source": "./zistar001--esp-handheld",
+      "description": "ESP-Handheld"
+    },
+    {
+      "name": "bradautomates--focus-group",
+      "source": "./bradautomates--focus-group",
+      "description": "Clone your customers from real sales-call transcripts and run them as a standing focus group \u2014 /focus-group Agent Skill for Claude Code, Codex, Cursor, and more"
+    },
+    {
+      "name": "d-liya--capybara-2d-engine",
+      "source": "./d-liya--capybara-2d-engine",
+      "description": "capybara_2d_engine"
+    },
+    {
+      "name": "d-liya--capybara-2d-engine",
+      "source": "./d-liya--capybara-2d-engine",
+      "description": "capybara_2d_engine"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -268107,6 +268137,11 @@
       "name": "ovid--claude-context",
       "source": "./ovid--claude-context",
       "description": "Let Claude Code understand how much context its using."
+    },
+    {
+      "name": "romshark--morpheus",
+      "source": "./romshark--morpheus",
+      "description": "An experimental web components UI kit"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
