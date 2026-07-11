@@ -4,7 +4,7 @@
   "repo": "supa_architecture",
   "description": "Architectural library for Supa Flutter applications",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/supavn/supa_architecture",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T00:35:28Z"
+  "distributed_at": "2026-07-11T00:41:51Z"
 }
