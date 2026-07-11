@@ -7,14 +7,14 @@ Research-backed agent skills for premium image, video, audio, voice, and generat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [calesthio/generative-media-skills](https://github.com/calesthio/generative-media-skills).
+Original source: `GEMINI.md` in [calesthio/generative-media-skills](https://github.com/calesthio/generative-media-skills).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/calesthio/generative-media-skills](https://github.com/calesthio/generative-media-skills)
