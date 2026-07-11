@@ -1,186 +1,178 @@
-## add-provider-doc
+## backend-architecture
 
-> Complete guide for adding a new AI provider documentation to LobeChat
+> 本指南旨在阐述 LobeChat 项目的后端分层架构，重点介绍各核心目录的职责以及它们之间的协作方式。
 
 
-# Adding New AI Provider Documentation
+# LobeChat 后端技术架构指南
 
-This document provides a step-by-step guide for adding documentation for a new AI provider to LobeChat, based on the complete workflow used for adding providers like BFL (Black Forest Labs) and FAL.
+本指南旨在阐述 LobeChat 项目的后端分层架构，重点介绍各核心目录的职责以及它们之间的协作方式。
 
-## Overview
+## 目录结构映射
 
-Adding a new provider requires creating both user-facing documentation and technical configuration files. The process involves:
-
-1. Creating usage documentation (EN + CN)
-2. Adding environment variable documentation (EN + CN)
-3. Updating Docker configuration files
-4. Updating .env.example file
-5. Preparing image resources
-
-## Step 1: Create Provider Usage Documentation
-
-Create user-facing documentation that explains how to use the new provider.
-
-### Required Files
-
-Create both English and Chinese versions:
-- `docs/usage/providers/{provider-name}.mdx` (English)
-- `docs/usage/providers/{provider-name}.zh-CN.mdx` (Chinese)
-
-### Documentation Structure
-
-Follow the structure and format used in existing provider documentation. For reference, see:
-- `docs/usage/providers/fal.mdx` (English template)
-- `docs/usage/providers/fal.zh-CN.mdx` (Chinese template)
-
-### Key Requirements
-
-- **Images**: Prepare 5-6 screenshots showing the process
-- **Cover Image**: Create or obtain a cover image for the provider
-- **Accurate URLs**: Use real registration and dashboard URLs
-- **Service Type**: Specify whether it's for image generation, text generation, etc.
-- **Pricing Warning**: Include pricing information callout
-
-### Important Notes
-
-- **🔒 API Key Security**: Never include real API keys in documentation. Always use placeholder format (e.g., `bfl-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`)
-- **🖼️ Image Hosting**: Use LobeHub's CDN for all images: `hub-apac-1.lobeobjects.space`
-
-## Step 2: Update Environment Variables Documentation
-
-Add the new provider's environment variables to the self-hosting documentation.
-
-### Files to Update
-
-- `docs/self-hosting/environment-variables/model-provider.mdx` (English)
-- `docs/self-hosting/environment-variables/model-provider.zh-CN.mdx` (Chinese)
-
-### Content to Add
-
-Add two sections for each provider:
-
-```markdown
-### `{PROVIDER}_API_KEY`
-
-- Type: Required
-- Description: This is the API key you applied for in the {Provider Name} service.
-- Default: -
-- Example: `{api-key-format-example}`
-
-### `{PROVIDER}_MODEL_LIST`
-
-- Type: Optional
-- Description: Used to control the {Provider Name} model list. Use `+` to add a model, `-` to hide a model, and `model_name=display_name` to customize the display name of a model. Separate multiple entries with commas. The definition syntax follows the same rules as other providers' model lists.
-- Default: `-`
-- Example: `-all,+{model-id-1},+{model-id-2}={display-name}`
-
-The above example disables all models first, then enables `{model-id-1}` and `{model-id-2}` (displayed as `{display-name}`).
-
-[model-list]: /docs/self-hosting/advanced/model-list
+```
+src/
+├── server/
+│   ├── routers/          # tRPC API 路由定义
+│   └── services/         # 业务逻辑服务层
+│       └── */impls/      # 平台特定实现
+├── database/
+│   ├── models/           # 数据模型 (单表 CRUD)
+│   ├── repositories/     # 仓库层 (复杂查询/聚合)
+│   └── schemas/          # Drizzle ORM 表定义
+└── services/             # 客户端服务 (调用 tRPC 或直接访问 Model)
 ```
 
-### Important Notes
+## 核心架构分层
 
-- **API Key Format**: Use proper UUID format for examples (e.g., `12345678-1234-1234-1234-123456789abc`)
-- **Real Model IDs**: Use actual model IDs from the codebase, not placeholders
-- **Consistent Naming**: Follow the pattern `{PROVIDER}_API_KEY` and `{PROVIDER}_MODEL_LIST`
+LobeChat 的后端设计注重模块化、可测试性和灵活性，以适应不同的运行环境（如浏览器端 PGLite、服务端远程 PostgreSQL 以及 Electron 桌面应用）。
 
-## Step 3: Update Docker Configuration Files
+其主要分层如下：
 
-Add environment variables to all Docker configuration files to ensure the provider works in containerized deployments.
+1.  客户端服务层 (`src/services`):
+    - 位于 src/services/。
+    - 这是客户端业务逻辑的核心层，负责封装各种业务操作和数据处理逻辑。
+    - 环境适配: 根据不同的运行环境，服务层会选择合适的数据访问方式：
+      - 本地数据库模式: 直接调用 `Model` 层进行数据操作，适用于浏览器 PGLite 和本地 Electron 应用。
+      - 远程数据库模式: 通过 `tRPC` 客户端调用服务端 API，适用于需要云同步的场景。
+    - 类型转换: 对于简单的数据类型转换，直接在此层进行类型断言，如 `this.pluginModel.query() as Promise<LobeTool[]>`
+    - 每个服务模块通常包含 `client.ts`（本地模式）、`server.ts`（远程模式）和 `type.ts`（接口定义）文件，在实现时应该确保本地模式和远程模式业务逻辑实现一致，只是数据库不同。
 
-### Files to Update
+2.  API 接口层 (`TRPC`):
+    - 位于 src/server/routers/
+    - 使用 `tRPC` 构建类型安全的 API。Router 根据运行时环境（如 Edge Functions, Node.js Lambda）进行组织。
+    - 负责接收客户端请求，并将其路由到相应的 `Service` 层进行处理。
+    - 新建 lambda 端点时可以参考 src/server/routers/lambda/\_template.ts
 
-All Dockerfile variants must be updated:
-- `Dockerfile`
-- `Dockerfile.database`
-- `Dockerfile.pglite`
+3.  仓库层 (`Repositories`):
+    - 位于 src/database/repositories/。
+    - 主要处理复杂的跨表查询和数据聚合逻辑，特别是当需要从多个 `Model` 获取数据并进行组合时。
+    - 与 `Model` 层不同，`Repository` 层专注于复杂的业务查询场景，而不涉及简单的领域模型转换。
+    - 当业务逻辑涉及多表关联、复杂的数据统计或需要事务处理时，会使用 `Repository` 层。
+    - 如果数据操作简单（仅涉及单个 `Model`），则通常直接在 `src/services` 层调用 `Model` 并进行简单的类型断言。
 
-### Changes Required
+4.  模型层 (`Models`):
+    - 位于 src/database/models/ (例如 src/database/models/plugin.ts 和 src/database/models/document.ts)。
+    - 提供对数据库中各个表（由 src/database/schemas/ 中的 Drizzle ORM schema 定义）的基本 CRUD (创建、读取、更新、删除) 操作和简单的查询能力。
+    - `Model` 类专注于单个数据表的直接操作，不涉及复杂的领域模型转换，这些转换通常在上层的 `src/services` 中通过类型断言完成。
+    - model（例如 Topic） 层接口经常需要从对应的 schema 层导入 NewTopic 和 TopicItem
+    - 创建新的 model 时可以参考 src/database/models/\_template.ts
 
-Add the new provider's environment variables at the **end** of the ENV section, just before the final line:
+5.  数据库 (`Database`):
+    - 客户端模式 (浏览器/PWA): 使用 PGLite (基于 WASM 的 PostgreSQL)，数据存储在用户浏览器本地。
+    - 服务端模式 (云部署): 使用远程 PostgreSQL 数据库。
+    - Electron 桌面应用:
+      - Electron 客户端会启动一个本地 Node.js 服务。
+      - 本地服务通过 `tRPC` 与 Electron 的渲染进程通信。
+      - 数据库选择依赖于是否开启云同步功能：
+        - 云同步开启: 连接到远程 PostgreSQL 数据库。
+        - 云同步关闭: 使用 PGLite (通过 Node.js 的 WASM 实现) 在本地存储数据。
 
-```dockerfile
-# Previous providers...
-    # 302.AI
-    AI302_API_KEY="" AI302_MODEL_LIST="" \
-    # {New Provider 1}
-    {PROVIDER1}_API_KEY="" {PROVIDER1}_MODEL_LIST="" \
-    # {New Provider 2}
-    {PROVIDER2}_API_KEY="" {PROVIDER2}_MODEL_LIST=""
+## 数据流向说明
+
+### 浏览器/PWA 模式
+
+```
+UI (React) → Zustand action -> Client Service → Model Layer → PGLite (本地数据库)
 ```
 
-### Important Rules
+### 服务端模式
 
-- **Position**: Add new providers at the **end** of the list
-- **Ordering**: When adding multiple providers, use alphabetical order (e.g., FAL before BFL)
-- **Consistency**: Maintain identical ordering across all Dockerfile variants
-- **Format**: Follow the pattern `{PROVIDER}_API_KEY="" {PROVIDER}_MODEL_LIST="" \`
-
-## Step 4: Update .env.example File
-
-Add example configuration entries to help users understand how to configure the provider locally.
-
-### File to Update
-
-- `.env.example`
-
-### Content to Add
-
-Add new sections before the "Market Service" section:
-
-```bash
-### {Provider Name} ###
-
-# {PROVIDER}_API_KEY={provider-prefix}-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+UI (React) → Zustand action → Client Service -> TRPC Client → TRPC Routers  → Repositories/Models → Remote PostgreSQL
 ```
 
-### Format Guidelines
+### Electron 桌面应用模式
 
-- **Section Header**: Use `### {Provider Name} ###` format
-- **Commented Example**: Use `#` to comment out the example
-- **Key Format**: Use appropriate prefix for the provider (e.g., `bfl-`, `fal-`, `sk-`)
-- **Position**: Add before the Market Service section
-- **Spacing**: Maintain consistent spacing with existing entries
+```
+UI (Electron Renderer) → Zustand action → Client Service -> TRPC Client → 本地 Node.js 服务 → TRPC Routers → Repositories/Models → PGLite/Remote PostgreSQL (取决于云同步设置)
+```
 
-## Step 5: Image Resources
+## 服务层 (Server Services)
 
-Prepare all necessary image resources for the documentation.
+- 位于 src/server/services/。
+- 核心职责是封装独立的、可复用的业务逻辑单元。这些服务应易于测试。
+- 平台差异抽象: 一个关键特性是通过其内部的 `impls` 子目录（例如 src/server/services/file/impls 包含 s3.ts 和 local.ts）来抹平不同运行环境带来的差异（例如云端使用 S3 存储，桌面版使用本地文件系统）。这使得上层（如 `tRPC` routers）无需关心底层具体实现。
+- 目标是使 `tRPC` router 层的逻辑尽可能纯粹，专注于请求处理和业务流程编排。
+- 服务可能会调用 `Repository` 层或直接调用 `Model` 层进行数据持久化和检索，也可能调用其他服务。
 
-### Required Images
+## 最佳实践 (Best Practices)
 
-1. **Cover Image**: Provider logo or branded image
-2. **API Dashboard Screenshots**: 3-4 screenshots showing API key creation process
-3. **LobeChat Configuration Screenshots**: 2-3 screenshots showing provider setup in LobeChat
+### 数据库操作封装原则
 
-### Image Guidelines
+**连续的数据库操作应该封装到 Model 层**
 
-- **Quality**: Use high-resolution screenshots
-- **Consistency**: Maintain consistent styling across all screenshots
-- **Privacy**: Remove or blur any sensitive information
-- **Format**: Use PNG format for screenshots
-- **Hosting**: Use LobeHub's CDN (`hub-apac-1.lobeobjects.space`) for all images
+当业务逻辑涉及多个相关的数据库操作时，建议将这些操作封装到 Model 层中，而不是在上层（Service 或 Router 层）中进行多次数据库调用。
 
-## Checklist
+**优势：**
 
-Before submitting your provider documentation:
+- **代码复用**: Client DB 环境的 service 实现和 Server DB 的 lambda 层实现可以复用相同的 Model 方法
+- **事务一致性**: 相关的数据库操作可以在同一个方法中管理，便于维护数据一致性
+- **性能优化**: 减少数据库连接次数，提高查询效率
+- **职责清晰**: Model 层专注数据访问，上层专注业务协调
 
-- [ ] Created both English and Chinese usage documentation
-- [ ] Added environment variable documentation (EN + CN)
-- [ ] Updated all 3 Dockerfile variants with consistent ordering
-- [ ] Updated .env.example with proper key format
-- [ ] Prepared all required screenshots and images
-- [ ] Used actual model IDs from the codebase
-- [ ] Verified no real API keys are included in documentation
-- [ ] Used LobeHub CDN for all image hosting
-- [ ] Tested the documentation for clarity and accuracy
+**示例：**
 
-## Reference
+```typescript
+// ✅ 推荐：在 Model 层封装连续的数据库操作
+class GenerationBatchModel {
+  async delete(id: string): Promise<{ deletedBatch: BatchItem; thumbnailUrls: string[] }> {
+    // 1. 查询相关数据
+    const batchWithGenerations = await this.db.query.generationBatches.findFirst({...});
 
-This guide was created based on the implementation of BFL (Black Forest Labs) provider documentation. For a complete example, refer to:
-- Commits: `d2da03e1a` (documentation) and `6a2e95868` (environment variables)
-- Files: `docs/usage/providers/bfl.mdx`, `docs/usage/providers/bfl.zh-CN.mdx`
-- PR: Current branch `tj/feat/bfl-docs`
+    // 2. 收集需要处理的数据
+    const thumbnailUrls = [...];
+
+    // 3. 执行删除操作
+    const [deletedBatch] = await this.db.delete(generationBatches)...;
+
+    return { deletedBatch, thumbnailUrls };
+  }
+}
+
+// ✅ 上层使用简洁
+const { thumbnailUrls } = await model.delete(id);
+await fileService.deleteFiles(thumbnailUrls);
+```
+
+### 文件操作与数据库操作的执行顺序
+
+**删除操作原则：数据库删除在前，文件删除在后**
+
+当业务逻辑同时涉及数据库记录和文件系统操作时，应该遵循"数据库优先"的原则。
+
+**原因：**
+
+- **用户体验优先**: 如果先删除文件再删除数据库记录，可能出现文件已删除但数据库记录仍存在的情况，用户访问时会遇到文件不存在的错误
+- **影响程度较小**: 如果先删除数据库记录再删除文件，即使文件删除失败，用户也看不到这个记录，只是造成一些存储空间浪费，对用户体验影响更小
+- **数据一致性**: 数据库记录是业务逻辑的核心，应该优先保证其一致性
+
+**示例：**
+
+```typescript
+// ✅ 推荐：先删除数据库记录，再删除文件
+async deleteGeneration(id: string) {
+  // 1. 先删除数据库记录
+  const deletedGeneration = await generationModel.delete(id);
+
+  // 2. 再删除相关文件
+  if (deletedGeneration.asset?.thumbnailUrl) {
+    await fileService.deleteFile(deletedGeneration.asset.thumbnailUrl);
+  }
+}
+
+// ❌ 不推荐：先删除文件
+async deleteGeneration(id: string) {
+  const generation = await generationModel.findById(id);
+
+  // 如果这里删除成功，但后面数据库删除失败，用户会遇到访问错误
+  await fileService.deleteFile(generation.asset.thumbnailUrl);
+  await generationModel.delete(id); // 可能失败
+}
+```
+
+**创建操作原则：数据库创建在前，文件操作在后**
+
+创建操作同样应该优先处理数据库记录，确保数据的一致性和完整性。
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
