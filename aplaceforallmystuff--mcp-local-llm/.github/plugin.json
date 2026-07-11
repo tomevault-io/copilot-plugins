@@ -1,0 +1,9 @@
+{
+  "name": "aplaceforallmystuff--mcp-local-llm",
+  "displayName": "mcp-local-llm",
+  "description": "MCP server for delegating mechanical tasks to local LLMs via Ollama. Claude does the thinking, your local model does the grunt work.",
+  "version": "1.0.0",
+  "author": "aplaceforallmystuff",
+  "homepage": "https://github.com/aplaceforallmystuff/mcp-local-llm",
+  "skills": []
+}
