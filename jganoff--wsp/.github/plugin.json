@@ -1,0 +1,9 @@
+{
+  "name": "jganoff--wsp",
+  "displayName": "wsp",
+  "description": "Multi-repo workspace manager",
+  "version": "1.0.0",
+  "author": "jganoff",
+  "homepage": "https://github.com/jganoff/wsp",
+  "skills": []
+}
