@@ -4,7 +4,7 @@
   "repo": "kaji",
   "description": "Closed-loop agentic development workflows for Claude Code, Codex, and Gemini CLI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/apokamo/kaji",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T10:37:42Z"
+  "distributed_at": "2026-07-11T10:38:12Z"
 }
