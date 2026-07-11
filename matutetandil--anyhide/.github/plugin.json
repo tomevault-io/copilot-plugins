@@ -1,0 +1,9 @@
+{
+  "name": "matutetandil--anyhide",
+  "displayName": "anyhide",
+  "description": "Hide any data in any file. Steganography tool that never modifies the carrier - transmits only encrypted positions. X25519 + ChaCha20 with forward secrecy.",
+  "version": "1.0.0",
+  "author": "matutetandil",
+  "homepage": "https://github.com/matutetandil/anyhide",
+  "skills": []
+}
