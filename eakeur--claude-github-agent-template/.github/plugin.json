@@ -1,0 +1,9 @@
+{
+  "name": "eakeur--claude-github-agent-template",
+  "displayName": "claude-github-agent-template",
+  "description": "Claude Code GitHub Actions \u2014 coding agent workflows for Go/AWS/Supabase stacks",
+  "version": "1.0.0",
+  "author": "eakeur",
+  "homepage": "https://github.com/eakeur/claude-github-agent-template",
+  "skills": []
+}
