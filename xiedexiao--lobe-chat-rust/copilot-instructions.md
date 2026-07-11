@@ -1,82 +1,199 @@
-## desktop-local-tools-implement
+## desktop-menu-configuration
 
-> 1.  **定义工具接口 (Manifest):**
+> LobeChat 桌面应用有三种主要的菜单类型：
 
-**新增桌面端工具流程:**
+**桌面端菜单配置指南**
 
-1.  **定义工具接口 (Manifest):**
-    *   **文件:** `src/tools/[tool_category]/index.ts` (例如: `src/tools/local-files/index.ts`)
-    *   **操作:**
-        *   在 `ApiName` 对象（例如 `LocalFilesApiName`）中添加一个新的、唯一的 API 名称。
-        *   在 `Manifest` 对象（例如 `LocalFilesManifest`）的 `api` 数组中，新增一个对象来定义新工具的接口。
-        *   **关键字段:**
-            *   `name`: 使用上一步定义的 API 名称。
-            *   `description`: 清晰描述工具的功能，供 Agent 理解和向用户展示。
-            *   `parameters`: 使用 JSON Schema 定义工具所需的输入参数。
-                *   `type`: 通常是 'object'。
-                *   `properties`: 定义每个参数的名称、`description`、`type` (string, number, boolean, array, etc.)，使用英文。
-                *   `required`: 一个字符串数组，列出必须提供的参数名称。
+## 菜单系统概述
 
-2.  **定义相关类型:**
-    *   **文件 1:** `packages/electron-client-ipc/src/types.ts` (或类似的共享 IPC 类型文件)
-        *   **操作:** 定义传递给 IPC 事件的参数类型接口 (例如: `RenameLocalFileParams`, `MoveLocalFileParams`)。确保与 Manifest 中定义的 `parameters` 一致。
-    *   **文件 2:** `src/tools/[tool_category]/type.ts` (例如: `src/tools/local-files/type.ts`)
-        *   **操作:** 定义此工具执行后，存储在前端 Zustand Store 中的状态类型接口 (例如: `LocalRenameFileState`, `LocalMoveFileState`)。这通常包含操作结果（成功/失败）、错误信息以及相关数据（如旧路径、新路径等）。
+LobeChat 桌面应用有三种主要的菜单类型：
 
-3.  **实现前端状态管理 (Store Action):**
-    *   **文件:** `src/store/chat/slices/builtinTool/actions/[tool_category].ts` (例如: `src/store/chat/slices/builtinTool/actions/localFile.ts`)
-    *   **操作:**
-        *   导入在步骤 2 中定义的 IPC 参数类型和状态类型。
-        *   在 Action 接口 (例如: `LocalFileAction`) 中添加新 Action 的方法签名，使用对应的 IPC 参数类型。
-        *   在 `createSlice` (例如: `localFileSlice`) 中实现该 Action 方法：
-            *   接收 `id` (消息 ID) 和 `params` (符合 IPC 参数类型)。
-            *   设置加载状态 (`toggleLocalFileLoading(id, true)`)。
-            *   调用对应的 `Service` 层方法 (见步骤 4)，传递 `params`。
-            *   使用 `try...catch` 处理 `Service` 调用可能发生的错误。
-            *   **成功时:**
-                *   调用 `updatePluginState(id, {...})` 更新插件状态，使用步骤 2 中定义的状态类型。
-                *   调用 `internal_updateMessageContent(id, JSON.stringify({...}))` 更新消息内容，通常包含成功确认信息。
-            *   **失败时:**
-                *   记录错误 (`console.error`)。
-                *   调用 `updatePluginState(id, {...})` 更新插件状态，包含错误信息。
-                *   调用 `internal_updateMessagePluginError(id, {...})` 设置消息的错误状态。
-                *   调用 `internal_updateMessageContent(id, JSON.stringify({...}))` 更新消息内容，包含错误信息。
-            *   在 `finally` 块中取消加载状态 (`toggleLocalFileLoading(id, false)`)。
-            *   返回操作是否成功 (`boolean`)。
+1. **应用菜单 (App Menu)**：显示在应用窗口顶部（macOS）或窗口标题栏（Windows/Linux）
+2. **上下文菜单 (Context Menu)**：右键点击时显示的菜单
+3. **托盘菜单 (Tray Menu)**：点击系统托盘图标显示的菜单
 
-4.  **实现 Service 层 (调用 IPC):**
-    *   **文件:** `src/services/electron/[tool_category]Service.ts` (例如: `src/services/electron/localFileService.ts`)
-    *   **操作:**
-        *   导入在步骤 2 中定义的 IPC 参数类型。
-        *   添加一个新的 `async` 方法，方法名通常与 Action 名称对应 (例如: `renameLocalFile`)。
-        *   方法接收 `params` (符合 IPC 参数类型)。
-        *   使用从 `@lobechat/electron-client-ipc` 导入的 `dispatch` (或 `invoke`) 函数，调用与 Manifest 中 `name` 字段匹配的 IPC 事件名称，并将 `params` 传递过去。
-        *   定义方法的返回类型，通常是 `Promise<{ success: boolean; error?: string }>`，与后端 Controller 返回的结构一致。
+## 菜单相关文件结构
 
-5.  **实现后端逻辑 (Controller / IPC Handler):**
-    *   **文件:** `apps/desktop/src/main/controllers/[ToolName]Ctr.ts` (例如: `apps/desktop/src/main/controllers/LocalFileCtr.ts`)
-    *   **操作:**
-        *   导入 Node.js 相关模块 (`fs`, `path` 等) 和 IPC 相关依赖 (`ipcClientEvent`, 参数类型等)。
-        *   添加一个新的 `async` 方法，方法名通常以 `handle` 开头 (例如: `handleRenameFile`)。
-        *   使用 `@ipcClientEvent('yourApiName')` 装饰器将此方法注册为对应 IPC 事件的处理器，确保 `'yourApiName'` 与 Manifest 中的 `name` 和 Service 层调用的事件名称一致。
-        *   方法的参数应解构自 Service 层传递过来的对象，类型与步骤 2 中定义的 IPC 参数类型匹配。
-        *   实现核心业务逻辑：
-            *   进行必要的输入验证。
-            *   执行文件系统操作或其他后端任务 (例如: `fs.promises.rename`)。
-            *   使用 `try...catch` 捕获执行过程中的错误。
-            *   处理特定错误码 (`error.code`) 以提供更友好的错误消息。
-        *   返回一个包含 `success` (boolean) 和可选 `error` (string) 字段的对象。
+```
+apps/desktop/src/main/
+├── menus/                 # 菜单定义
+│   ├── appMenu.ts         # 应用菜单配置
+│   ├── contextMenu.ts     # 上下文菜单配置
+│   └── factory.ts         # 菜单工厂函数
+├── controllers/
+│   ├── MenuCtr.ts         # 菜单控制器
+│   └── TrayMenuCtr.ts     # 托盘菜单控制器
+```
 
-6.  **更新 Agent 文档 (System Role):**
-    *   **文件:** `src/tools/[tool_category]/systemRole.ts` (例如: `src/tools/local-files/systemRole.ts`)
-    *   **操作:**
-        *   在 `<core_capabilities>` 部分添加新工具的简要描述。
-        *   如果需要，更新 `<workflow>`。
-        *   在 `<tool_usage_guidelines>` 部分为新工具添加详细的使用说明，解释其参数、用途和预期行为。
-        *   如有必要，更新 `<security_considerations>`。
-        *   如有必要（例如工具返回了新的数据结构或路径），更新 `<response_format>` 中的示例。
+## 菜单配置流程
 
-通过遵循这些步骤，可以系统地将新的桌面端工具集成到 LobeChat 的插件系统中。
+### 1. 应用菜单配置
+
+应用菜单在 `apps/desktop/src/main/menus/appMenu.ts` 中定义：
+
+1. **导入依赖**
+   ```typescript
+   import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
+   import { is } from 'electron-util';
+   ```
+
+2. **定义菜单项**
+   - 使用 `MenuItemConstructorOptions` 类型定义菜单结构
+   - 每个菜单项可以包含：label, accelerator (快捷键), role, submenu, click 等属性
+
+3. **创建菜单工厂函数**
+   ```typescript
+   export const createAppMenu = (win: BrowserWindow) => {
+     const template = [
+       // 定义菜单项...
+     ];
+
+     return Menu.buildFromTemplate(template);
+   };
+   ```
+
+4. **注册菜单**
+   - 在 `MenuCtr.ts` 控制器中使用 `Menu.setApplicationMenu(menu)` 设置应用菜单
+
+### 2. 上下文菜单配置
+
+上下文菜单通常在特定元素上右键点击时显示：
+
+1. **在主进程中定义菜单模板**
+   ```typescript
+   // apps/desktop/src/main/menus/contextMenu.ts
+   export const createContextMenu = () => {
+     const template = [
+       // 定义菜单项...
+     ];
+
+     return Menu.buildFromTemplate(template);
+   };
+   ```
+
+2. **在适当的事件处理器中显示菜单**
+   ```typescript
+   const menu = createContextMenu();
+   menu.popup();
+   ```
+
+### 3. 托盘菜单配置
+
+托盘菜单在 `TrayMenuCtr.ts` 中配置：
+
+1. **创建托盘图标**
+   ```typescript
+   this.tray = new Tray(trayIconPath);
+   ```
+
+2. **定义托盘菜单**
+   ```typescript
+   const contextMenu = Menu.buildFromTemplate([
+     { label: '显示主窗口', click: this.showMainWindow },
+     { type: 'separator' },
+     { label: '退出', click: () => app.quit() },
+   ]);
+   ```
+
+3. **设置托盘菜单**
+   ```typescript
+   this.tray.setContextMenu(contextMenu);
+   ```
+
+## 多语言支持
+
+为菜单添加多语言支持：
+
+1. **导入本地化工具**
+   ```typescript
+   import { i18n } from '../locales';
+   ```
+
+2. **使用翻译函数**
+   ```typescript
+   const template = [
+     {
+       label: i18n.t('menu.file'),
+       submenu: [
+         { label: i18n.t('menu.new'), click: createNew },
+         // ...
+       ]
+     },
+     // ...
+   ];
+   ```
+
+3. **在语言切换时更新菜单**
+   在 `MenuCtr.ts` 中监听语言变化事件并重新创建菜单
+
+## 添加新菜单项流程
+
+1. **确定菜单位置**
+   - 决定添加到哪个菜单（应用菜单、上下文菜单或托盘菜单）
+   - 确定在菜单中的位置（主菜单项或子菜单项）
+
+2. **定义菜单项**
+   ```typescript
+   const newMenuItem: MenuItemConstructorOptions = {
+     label: '新功能',
+     accelerator: 'CmdOrCtrl+N',
+     click: (_, window) => {
+       // 处理点击事件
+       if (window) window.webContents.send('trigger-new-feature');
+     }
+   };
+   ```
+
+3. **添加到菜单模板**
+   将新菜单项添加到相应的菜单模板中
+
+4. **对于与渲染进程交互的功能**
+   - 使用 `window.webContents.send()` 发送 IPC 消息到渲染进程
+   - 在渲染进程中监听该消息并处理
+
+## 菜单项启用/禁用控制
+
+动态控制菜单项状态：
+
+1. **保存对菜单项的引用**
+   ```typescript
+   this.menuItems = {};
+   const menu = Menu.buildFromTemplate(template);
+   this.menuItems.newFeature = menu.getMenuItemById('new-feature');
+   ```
+
+2. **根据条件更新状态**
+   ```typescript
+   updateMenuState(state) {
+     if (this.menuItems.newFeature) {
+       this.menuItems.newFeature.enabled = state.canUseNewFeature;
+     }
+   }
+   ```
+
+## 最佳实践
+
+1. **使用标准角色**
+   - 尽可能使用 Electron 预定义的角色（如 `role: 'copy'`）以获得本地化和一致的行为
+
+2. **平台特定菜单**
+   - 使用 `process.platform` 检查为不同平台提供不同菜单
+   ```typescript
+   if (process.platform === 'darwin') {
+     template.unshift({ role: 'appMenu' });
+   }
+   ```
+
+3. **快捷键冲突**
+   - 避免与系统快捷键冲突
+   - 使用 `CmdOrCtrl` 代替 `Ctrl` 以支持 macOS 和 Windows/Linux
+
+4. **保持菜单简洁**
+   - 避免过多嵌套的子菜单
+   - 将相关功能分组在一起
+
+5. **添加分隔符**
+   - 使用 `{ type: 'separator' }` 在逻辑上分隔不同组的菜单项
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
