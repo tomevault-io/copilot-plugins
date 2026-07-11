@@ -1,33 +1,64 @@
-## system-role
+## typescript
 
-> You are an expert in full-stack Web development, proficient in JavaScript, TypeScript, CSS, React, Node.js, Next.js, Postgresql, Redis, S3, all kinds of network protocols.
+> TypeScript code style and optimization guidelines
 
 
-## System Role
+# TypeScript Code Style Guide
 
-You are an expert in full-stack Web development, proficient in JavaScript, TypeScript, CSS, React, Node.js, Next.js, Postgresql, Redis, S3, all kinds of network protocols.
+## Types and Type Safety
 
-You are an LLM expert, you are familiar with all kinds of LLM models, ai agents, ai workflow, prompt engineering and context engineering.
+- Avoid explicit type annotations when TypeScript can infer types.
+- Avoid implicitly `any` variables; explicitly type when necessary (e.g., `let a: number` instead of `let a`).
+- Use the most accurate type possible (e.g., prefer `Record<PropertyKey, unknown>` over `object`).
+- Prefer `interface` over `type` for object shapes (e.g., React component props). Keep `type` for unions, intersections, and utility types.
+- Prefer `as const satisfies XyzInterface` over plain `as const` when suitable.
 
-You are an expert in Ai art. In Ai image generation, you are proficient in Stable Diffusion and ComfyUI's architectural principles, workflows, model structures, parameter configurations, training methods, and inference optimization.
+## Imports and Modules
 
-You are an expert in UI/UX design, proficient in web interaction patterns, responsive design, accessibility, and user behavior optimization. You excel at improving user retention and paid conversion rates through various interaction details.
+- When importing a directory module, prefer the explicit index path like `@/db/index` instead of `@/db`.
 
-## Problem Solving
+## Asynchronous Patterns and Concurrency
 
-- When modifying existing code, clearly describe the differences and reasons for the changes
-- Provide alternative solutions that may be better overall or superior in specific aspects
-- Provide optimization suggestions for deprecated API usage
-- Cite sources whenever possible at the end, not inline
-- When you provide multiple solutions, provide the recommended solution first, and note it as `Recommended`
-- Express uncertainty when there might not be a correct answer, instead of take action by guessing and assuming
+- Prefer `async`/`await` over callbacks or chained `.then` promises.
+- Prefer async APIs over sync ones (avoid `*Sync`).
+- Prefer promise-based variants (e.g., `import { readFile } from 'fs/promises'`) over callback-based APIs from `fs`.
+- Where safe, convert sequential async flows to concurrent ones with `Promise.all`, `Promise.race`, etc.
 
-## Code Implementation
+## Code Structure and Readability
 
-- Focus on maintainable over being performant
-- Be sure to reference file path
-- If doc links or required files are missing, ask for them before proceeding with the task rather than making assumptions
-- If you're unable to get valid result when using tools, please clearly state in the output
+- Refactor repeated logic into reusable functions.
+- Prefer object destructuring when accessing and using properties.
+- Use consistent, descriptive naming; avoid obscure abbreviations.
+- Use semantically meaningful variable, function, and class names.
+- Replace magic numbers or strings with well-named constants.
+- Keep meaningful code comments; do not remove them when applying edits. Update comments when behavior changes.
+- Ensure JSDoc comments accurately reflect the implementation.
+- Look for opportunities to simplify or modernize code with the latest JavaScript/TypeScript features where it improves clarity.
+- Defer formatting to tooling; ignore purely formatting-only issues and autofixable lint problems.
+- Respect project Prettier settings.
+
+## UI and Theming
+
+- Use components from `@lobehub/ui`, Ant Design, or existing design system components instead of raw HTML tags (e.g., `Button` vs. `button`).
+- Design for dark mode and mobile responsiveness:
+  - Use the `antd-style` token system instead of hard-coded colors.
+  - Select appropriate component variants.
+
+## Performance
+
+- Prefer `for…of` loops to index-based `for` loops when feasible.
+- Decide whether callbacks should be debounced or throttled based on UX and performance needs.
+- Reuse existing npm packages rather than reinventing the wheel (e.g., `lodash-es/omit`).
+- Query only the required columns from a database rather than selecting entire rows.
+
+## Time and Consistency
+
+- Instead of calling `Date.now()` multiple times, assign it to a constant once and reuse it to ensure consistency and improve readability.
+
+## Some logging rules
+
+- Never log user private information like api key, etc
+- Don't use `import { log } from 'debug'` to log messages, because it will directly log the message to the console.
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
