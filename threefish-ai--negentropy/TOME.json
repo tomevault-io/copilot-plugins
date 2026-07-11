@@ -4,7 +4,7 @@
   "repo": "negentropy",
   "description": "An agentic system built on a \"One Root, Five Wings\" architecture, dedicated to combating the entropy production of infomation and forging a continuously self-evolving cognitive framework.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ThreeFish-AI/negentropy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T04:38:05Z"
+  "distributed_at": "2026-07-11T04:43:48Z"
 }
