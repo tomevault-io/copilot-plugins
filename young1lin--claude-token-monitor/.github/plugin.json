@@ -1,0 +1,9 @@
+{
+  "name": "young1lin--claude-token-monitor",
+  "displayName": "claude-token-monitor",
+  "description": "Claude Code Statusline plugin with support for Anthropic native quota display and Z.ai Coding Plan quota display. Claude Code Statuline \u63d2\u4ef6\uff0c\u652f\u6301 Anthropic \u539f\u751f\u989d\u5ea6\u663e\u793a\uff0cGLM Coding Plan \u989d\u5ea6\u663e\u793a",
+  "version": "1.0.0",
+  "author": "young1lin",
+  "homepage": "https://github.com/young1lin/claude-token-monitor",
+  "skills": []
+}
