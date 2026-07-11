@@ -7,11 +7,11 @@ A review-first reference architecture for AI-assisted personal content knowledge
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mrbear1024/ai-content-kb](https://github.com/mrbear1024/ai-content-kb).
+Original source: `CLAUDE.md` in [mrbear1024/ai-content-kb](https://github.com/mrbear1024/ai-content-kb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
