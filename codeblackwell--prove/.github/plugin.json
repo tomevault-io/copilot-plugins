@@ -1,0 +1,9 @@
+{
+  "name": "codeblackwell--prove",
+  "displayName": "PROVE",
+  "description": "Portfolio Reasoning Over Verified Evidence - Your resume says you know Python. PROVE shows the code. Ingests repos via tree-sitter \u2192 Sonnet classification \u2192 Voyage embeddings \u2192 Neo4j knowledge graph. ",
+  "version": "1.0.0",
+  "author": "CodeBlackwell",
+  "homepage": "https://github.com/CodeBlackwell/PROVE",
+  "skills": []
+}
