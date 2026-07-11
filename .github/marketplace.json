@@ -241964,6 +241964,21 @@
       "description": "OldJobobo"
     },
     {
+      "name": "hyperlogue--r3",
+      "source": "./hyperlogue--r3",
+      "description": "r3 - Review. Revise. Resolve. A code review tool that runs on your machine and sparks joy \u2728 when reviewing AI-generated code and docs."
+    },
+    {
+      "name": "zhxycn--whutjwxk",
+      "source": "./zhxycn--whutjwxk",
+      "description": "\u9002\u7528\u4e8eWHUT\u65b0\u7248\u6559\u52a1\u7cfb\u7edf\u7684\u9009\u8bfe\u8f85\u52a9\u7a0b\u5e8f"
+    },
+    {
+      "name": "choochmeque--axis",
+      "source": "./choochmeque--axis",
+      "description": "A modern, cross-platform Git GUI"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -263229,6 +263244,46 @@
       "description": "The Tigris Storage SDK in Go!"
     },
     {
+      "name": "shivaydwivedi--intro-to-frontend",
+      "source": "./shivaydwivedi--intro-to-frontend",
+      "description": "Intro_to_frontend"
+    },
+    {
+      "name": "hyhmrright--jarvis",
+      "source": "./hyhmrright--jarvis",
+      "description": "Self-hosted AI OS: RAG \u00b7 multi-LLM failover \u00b7 visual Workflow Studio \u00b7 Skill Market \u00b7 multi-tenant workspaces \u00b7 sandboxed tools \u00b7 multi-channel (Slack/Discord/Telegram/Feishu) \u00b7 full observability \u2014 o"
+    },
+    {
+      "name": "avni2000--mergenb",
+      "source": "./avni2000--mergenb",
+      "description": "VSCode extension to resolve Jupyter Notebook git merge conflicts"
+    },
+    {
+      "name": "dmmulroy--lmv",
+      "source": "./dmmulroy--lmv",
+      "description": "Local Markdown Viewer - view and edit markdown files in your browser"
+    },
+    {
+      "name": "hyhmrright--jarvis",
+      "source": "./hyhmrright--jarvis",
+      "description": "Self-hosted AI OS: RAG \u00b7 multi-LLM failover \u00b7 visual Workflow Studio \u00b7 Skill Market \u00b7 multi-tenant workspaces \u00b7 sandboxed tools \u00b7 multi-channel (Slack/Discord/Telegram/Feishu) \u00b7 full observability \u2014 o"
+    },
+    {
+      "name": "young1lin--claude-token-monitor",
+      "source": "./young1lin--claude-token-monitor",
+      "description": "Claude Code Statusline plugin with support for Anthropic native quota display and Z.ai Coding Plan quota display. Claude Code Statuline \u63d2\u4ef6\uff0c\u652f\u6301 Anthropic \u539f\u751f\u989d\u5ea6\u663e\u793a\uff0cGLM Coding Plan \u989d\u5ea6\u663e\u793a"
+    },
+    {
+      "name": "dmmulroy--lmv",
+      "source": "./dmmulroy--lmv",
+      "description": "Local Markdown Viewer - view and edit markdown files in your browser"
+    },
+    {
+      "name": "zircote--csharp-lsp",
+      "source": "./zircote--csharp-lsp",
+      "description": "Claude Code plugin for C# development with OmniSharp LSP and dotnet format hooks"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -267672,6 +267727,11 @@
       "name": "panithannanti--claude-usage-widget",
       "source": "./panithannanti--claude-usage-widget",
       "description": "Claude plan usage limits as a macOS desktop widget (\u00dcbersicht) \u2014 reads Claude Code's OAuth token, polls /api/oauth/usage, auto-refreshes token"
+    },
+    {
+      "name": "ovid--claude-context",
+      "source": "./ovid--claude-context",
+      "description": "Let Claude Code understand how much context its using."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
