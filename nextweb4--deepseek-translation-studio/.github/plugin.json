@@ -1,0 +1,9 @@
+{
+  "name": "nextweb4--deepseek-translation-studio",
+  "displayName": "deepseek-translation-studio",
+  "description": "Windows Python/PySide6 translation studio for DeepSeek Web/API workflows, SRT continuation, capture, and packaging.",
+  "version": "1.0.0",
+  "author": "NextWeb4",
+  "homepage": "https://github.com/NextWeb4/deepseek-translation-studio",
+  "skills": []
+}
