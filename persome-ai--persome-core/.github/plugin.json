@@ -1,0 +1,9 @@
+{
+  "name": "persome-ai--persome-core",
+  "displayName": "persome-core",
+  "description": "Local-first macOS Runtime that turns cross-app activity into an inspectable personal model for Chat and MCP agents.",
+  "version": "1.0.0",
+  "author": "Persome-ai",
+  "homepage": "https://github.com/Persome-ai/persome-core",
+  "skills": []
+}
