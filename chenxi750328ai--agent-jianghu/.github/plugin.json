@@ -1,0 +1,26 @@
+{
+  "name": "chenxi750328ai--agent-jianghu",
+  "displayName": "agent-jianghu",
+  "description": "agent\u6c5f\u6e56 - \u591aAgent\u534f\u4f5c\u5e73\u53f0",
+  "version": "1.0.0",
+  "author": "chenxi750328ai",
+  "homepage": "https://github.com/chenxi750328ai/agent-jianghu",
+  "skills": [
+    {
+      "name": "git-commit-push",
+      "description": ""
+    },
+    {
+      "name": "jianghu-messaging",
+      "description": ""
+    },
+    {
+      "name": "jianghu-status-view",
+      "description": ""
+    },
+    {
+      "name": "member-create",
+      "description": ""
+    }
+  ]
+}
