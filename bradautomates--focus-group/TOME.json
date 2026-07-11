@@ -1,0 +1,44 @@
+{
+  "name": "focus-group",
+  "owner": "bradautomates",
+  "repo": "focus-group",
+  "description": "Clone your customers from real sales-call transcripts and run them as a standing focus group \u2014 /focus-group Agent Skill for Claude Code, Codex, Cursor, and more",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bradautomates/focus-group",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-11T18:31:42Z"
+}
