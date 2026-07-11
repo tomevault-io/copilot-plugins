@@ -242049,6 +242049,126 @@
       "description": "Hide any data in any file. Steganography tool that never modifies the carrier - transmits only encrypted positions. X25519 + ChaCha20 with forward secrecy."
     },
     {
+      "name": "persome-ai--persome-core",
+      "source": "./persome-ai--persome-core",
+      "description": "Local-first macOS Runtime that turns cross-app activity into an inspectable personal model for Chat and MCP agents."
+    },
+    {
+      "name": "persome-ai--persome-core",
+      "source": "./persome-ai--persome-core",
+      "description": "Local-first macOS Runtime that turns cross-app activity into an inspectable personal model for Chat and MCP agents."
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "marcusquinn--amazon-order-history-csv-download-mcp",
+      "source": "./marcusquinn--amazon-order-history-csv-download-mcp",
+      "description": "Download Amazon Order History As Orders & Items CSV files, plus simplified CSV file versions for importing to your accounting software. Supports Amazon United States (US), United Kingdom, Canada, Germ"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "luochen1990--flake-fhs",
+      "source": "./luochen1990--flake-fhs",
+      "description": "Nix Flake Hierarchy Standard"
+    },
+    {
+      "name": "marcusquinn--amazon-order-history-csv-download-mcp",
+      "source": "./marcusquinn--amazon-order-history-csv-download-mcp",
+      "description": "Download Amazon Order History As Orders & Items CSV files, plus simplified CSV file versions for importing to your accounting software. Supports Amazon United States (US), United Kingdom, Canada, Germ"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "marcusquinn--amazon-order-history-csv-download-mcp",
+      "source": "./marcusquinn--amazon-order-history-csv-download-mcp",
+      "description": "Download Amazon Order History As Orders & Items CSV files, plus simplified CSV file versions for importing to your accounting software. Supports Amazon United States (US), United Kingdom, Canada, Germ"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
+      "name": "omegacc91--mksaas",
+      "source": "./omegacc91--mksaas",
+      "description": "mksaas"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -263372,6 +263492,46 @@
       "name": "stefanstelzer--lean-harness-ai-sdlc",
       "source": "./stefanstelzer--lean-harness-ai-sdlc",
       "description": "LEAN and harness powered AI SDLC"
+    },
+    {
+      "name": "trivo25--code-airlock",
+      "source": "./trivo25--code-airlock",
+      "description": "Run Claude Code (or another coding agent) unattended, inside a disposable microVM, with its work committed to git so you can review everything from your host."
+    },
+    {
+      "name": "voly-codes--voly",
+      "source": "./voly-codes--voly",
+      "description": "https://voly.codes"
+    },
+    {
+      "name": "voly-codes--voly",
+      "source": "./voly-codes--voly",
+      "description": "https://voly.codes"
+    },
+    {
+      "name": "illuminated2020--agentic-wiki",
+      "source": "./illuminated2020--agentic-wiki",
+      "description": "An LLM Wiki template for a Markdown second brain operated by AI Agents.\u4e00\u4e2a\u7528\u4e8e\u6784\u5efa Markdown \u4e2a\u4eba\u7b2c\u4e8c\u5927\u8111\u7684 LLM Wiki \u6a21\u677f\uff0c\u7531 AI Agent \u64cd\u4f5c\u548c\u7ef4\u62a4\u3002"
+    },
+    {
+      "name": "illuminated2020--agentic-wiki",
+      "source": "./illuminated2020--agentic-wiki",
+      "description": "An LLM Wiki template for a Markdown second brain operated by AI Agents.\u4e00\u4e2a\u7528\u4e8e\u6784\u5efa Markdown \u4e2a\u4eba\u7b2c\u4e8c\u5927\u8111\u7684 LLM Wiki \u6a21\u677f\uff0c\u7531 AI Agent \u64cd\u4f5c\u548c\u7ef4\u62a4\u3002"
+    },
+    {
+      "name": "kbrdn1--lazycurl",
+      "source": "./kbrdn1--lazycurl",
+      "description": "A powerful Terminal User Interface (TUI) HTTP client"
+    },
+    {
+      "name": "fractaltools--ruri-ripperhook",
+      "source": "./fractaltools--ruri-ripperhook",
+      "description": "Ruri.RipperHook"
+    },
+    {
+      "name": "navali-creations--soothsayer",
+      "source": "./navali-creations--soothsayer",
+      "description": "soothsayer is a real-time stacked deck opening desktop application tracker for Path of Exile"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -392097,6 +392257,16 @@
       "name": "ordi-personal--finance-motor",
       "source": "./ordi-personal--finance-motor",
       "description": "Fork of Sure/Maybe Finance - AGPL-3.0 Licensed"
+    },
+    {
+      "name": "omermumtaz3590--todo-app-ai",
+      "source": "./omermumtaz3590--todo-app-ai",
+      "description": "Todo-App-AI"
+    },
+    {
+      "name": "shimazing--yeram-homepage",
+      "source": "./shimazing--yeram-homepage",
+      "description": "Yeram-Homepage"
     }
   ]
 }
