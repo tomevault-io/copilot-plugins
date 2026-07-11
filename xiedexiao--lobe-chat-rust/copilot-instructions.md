@@ -1,183 +1,48 @@
-## i18n
+## project-introduce
 
-> LobeChat 使用 react-i18next 进行国际化，采用良好的命名空间架构：
+> You are developing an open-source, modern-design AI chat framework: lobe chat.
 
-# LobeChat 国际化指南
 
-## 架构概览
+## Project Description
 
-LobeChat 使用 react-i18next 进行国际化，采用良好的命名空间架构：
+You are developing an open-source, modern-design AI chat framework: lobe chat.
 
-- 默认语言：中文（zh-CN），作为源语言
-- 支持语言：18 种语言，包括英语、日语、韩语、阿拉伯语等
-- 框架：react-i18next 配合 Next.js app router
-- 翻译自动化：@lobehub/i18n-cli 用于自动翻译，配置文件：.i18nrc.js
+Emoji logo: 🤯
 
-## 目录结构
+## Project Technologies Stack
 
-```
-src/locales/
-├── default/           # 源语言文件（zh-CN）
-│   ├── index.ts      # 命名空间导出
-│   ├── common.ts     # 通用翻译
-│   ├── chat.ts       # 聊天相关翻译
-│   ├── setting.ts    # 设置翻译
-│   └── ...           # 其他命名空间文件
-└── resources.ts      # 类型定义和语言配置
+read [package.json](mdc:package.json) to know all npm packages you can use.
 
-locales/               # 翻译文件
-├── en-US/            # 英语翻译
-│   ├── common.json   # 通用翻译
-│   ├── chat.json     # 聊天翻译
-│   ├── setting.json  # 设置翻译
-│   └── ...           # 其他命名空间 JSON 文件
-├── ja-JP/            # 日语翻译
-│   ├── common.json
-│   ├── chat.json
-│   └── ...
-└── ...               # 其他语言文件夹
-```
+The project uses the following technologies:
 
-## 添加新翻译的工作流程
+- pnpm as package manager
+- Next.js 15 for frontend and backend, using app router instead of pages router
+- react 19, using hooks, functional components, react server components
+- TypeScript programming language
+- antd, @lobehub/ui for component framework
+- antd-style for css-in-js framework
+- react-layout-kit for flex layout
+- react-i18next for i18n
+- lucide-react, @ant-design/icons for icons
+- @lobehub/icons for AI provider/model logo icon
+- @formkit/auto-animate for react list animation
+- zustand for global state management
+- nuqs for type-safe search params state manager
+- SWR for react data fetch
+- aHooks for react hooks library
+- dayjs for date and time library
+- lodash-es for utility library
+- fast-deep-equal for deep comparison of JavaScript objects
+- zod for data validation
+- TRPC for type safe backend
+- PGLite for client DB and PostgreSQL for backend DB
+- Drizzle ORM
+- Vitest for testing, testing-library for react component test
+- Prettier for code formatting
+- ESLint for code linting
+- Cursor AI for code editing and AI coding assistance
 
-### 1. 添加新的翻译键
-
-第一步：在 src/locales/default 目录下的相应命名空间文件中添加翻译键
-
-```typescript
-// 示例：src/locales/default/common.ts
-export default {
-    // ... 现有键
-    newFeature: {
-        title: "新功能标题",
-        description: "功能描述文案",
-        button: "操作按钮",
-    },
-};
-```
-
-第二步：如果创建新命名空间，需要在 src/locales/default/index.ts 中导出
-
-```typescript
-import newNamespace from "./newNamespace";
-
-const resources = {
-    // ... 现有命名空间
-    newNamespace,
-} as const;
-```
-
-### 2. 翻译过程
-
-开发模式：
-
-一般情况下不需要你帮我跑自动翻译工具，跑一次很久，需要的时候我会自己跑。
-但是为了立马能看到效果，还是需要先翻译 `locales/zh-CN/namespace.json`，不需要翻译其它语言。
-
-生产模式：
-
-```bash
-# 为所有语言生成翻译
-npm run i18n
-```
-
-## 在组件中使用
-
-### 基本用法
-
-```tsx
-import { useTranslation } from "react-i18next";
-
-const MyComponent = () => {
-    const { t } = useTranslation("common");
-
-    return (
-        <div>
-            <h1>{t("newFeature.title")}</h1>
-            <p>{t("newFeature.description")}</p>
-            <button>{t("newFeature.button")}</button>
-        </div>
-    );
-};
-```
-
-### 带参数的用法
-
-```tsx
-const { t } = useTranslation("common");
-
-<p>{t("welcome.message", { name: "John" })}</p>;
-
-// 对应的语言文件：
-// welcome: { message: '欢迎 {{name}} 使用!' }
-```
-
-### 多个命名空间
-
-```tsx
-const { t } = useTranslation(['common', 'chat']);
-
-<button>{t('common:save')}</button>
-<span>{t('chat:typing')}</span>
-```
-
-## 类型安全
-
-项目使用 TypeScript 实现类型安全的翻译，类型从 src/locales/resources.ts 自动生成：
-
-```typescript
-import type { DefaultResources, NS, Locales } from "@/locales/resources";
-
-// 可用类型：
-// - NS: 可用命名空间键 ('common' | 'chat' | 'setting' | ...)
-// - Locales: 支持的语言代码 ('en-US' | 'zh-CN' | 'ja-JP' | ...)
-
-const namespace: NS = "common";
-const locale: Locales = "en-US";
-```
-
-## 最佳实践
-
-### 1. 命名空间组织
-
-- common: 共享 UI 元素（按钮、标签、操作）
-- chat: 聊天特定功能
-- setting: 配置和设置
-- error: 错误消息和处理
-- [feature]: 功能特定或页面特定的命名空间
-- components: 可复用组件文案
-
-### 2. 键命名约定
-
-```typescript
-// ✅ 好：层次结构
-export default {
-    modal: {
-        confirm: {
-            title: "确认操作",
-            message: "确定要执行此操作吗？",
-            actions: {
-                confirm: "确认",
-                cancel: "取消",
-            },
-        },
-    },
-};
-
-// ❌ 避免：扁平结构
-export default {
-    modalConfirmTitle: "确认操作",
-    modalConfirmMessage: "确定要执行此操作吗？",
-};
-```
-
-## 故障排除
-
-### 缺少翻译键
-
-- 检查键是否存在于 src/locales/default/namespace.ts 中
-- 确保在组件中正确导入命名空间
-- 确保新命名空间已在 src/locales/default/index.ts 中导出
+Note: All tools and libraries used are the latest versions. The application only needs to be compatible with the latest browsers;
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
