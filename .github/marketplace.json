@@ -48264,6 +48264,11 @@
       "description": "aegis-stack"
     },
     {
+      "name": "ronikobrosly--rigorloop",
+      "source": "./ronikobrosly--rigorloop",
+      "description": "A statistically-sound agentic build framework that employs agentic loops to create code artifacts (whether a script, a skill markdown file, etc). Crucially, it splits verification data into the classi"
+    },
+    {
       "name": "akeit0--okojo",
       "source": "./akeit0--okojo",
       "description": "Okojo is an experimental low allocation managed JavaScript engine for .NET"
@@ -205627,6 +205632,16 @@
       "name": "xiaozhou26--tempmail",
       "source": "./xiaozhou26--tempmail",
       "description": "tempmail"
+    },
+    {
+      "name": "intuition-lab--personal-model",
+      "source": "./intuition-lab--personal-model",
+      "description": "Local-first macOS Runtime that turns cross-app activity into an inspectable personal model for Chat and MCP agents."
+    },
+    {
+      "name": "intuition-lab--personal-model",
+      "source": "./intuition-lab--personal-model",
+      "description": "Local-first macOS Runtime that turns cross-app activity into an inspectable personal model for Chat and MCP agents."
     },
     {
       "name": "yschimke--compose-ai-tools",
