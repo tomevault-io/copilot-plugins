@@ -1,0 +1,9 @@
+{
+  "name": "avni2000--mergenb",
+  "displayName": "MergeNB",
+  "description": "VSCode extension to resolve Jupyter Notebook git merge conflicts",
+  "version": "1.0.0",
+  "author": "Avni2000",
+  "homepage": "https://github.com/Avni2000/MergeNB",
+  "skills": []
+}
