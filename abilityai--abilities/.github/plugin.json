@@ -1,0 +1,14 @@
+{
+  "name": "abilityai--abilities",
+  "displayName": "abilities",
+  "description": "High-quality Claude Code plugins from Ability.ai",
+  "version": "1.0.0",
+  "author": "Abilityai",
+  "homepage": "https://github.com/Abilityai/abilities",
+  "skills": [
+    {
+      "name": "create-agent",
+      "description": ""
+    }
+  ]
+}
