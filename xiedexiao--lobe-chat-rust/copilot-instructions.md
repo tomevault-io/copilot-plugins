@@ -1,30 +1,34 @@
-## cursor-rules
+## cursor-ux
 
-> cursor rules writing and optimization guide
+> - When rendering file paths, use backtick wrapping instead of markdown links so they can be parsed as clickable links in Cursor IDE.
 
-当你编写或修改 Cursor Rule 时，请遵循以下准则：
 
-- 当你知道 rule 的文件名时，使用 `read_file` 而不是 `fetch_rules` 去读取它们，它们都在项目根目录的 `.cursor/rules/` 文件夹下
+# Guide to Optimize Output(Response) Rendering
 
-- 代码示例
-  - 示例应尽量精简，仅保留演示核心
-  - 删除与示例无关的导入/导出语句，但保留必要的导入
-  - 同一文件存在多个示例时，若前文已演示模块导入，后续示例可省略重复导入
-  - 无需书写 `export`
-  - 可省略与演示无关或重复的 props、配置对象属性、try/catch、CSS 等代码
-  - 删除无关注释，保留有助理解的注释
+## File Path and Code Symbol Rendering
 
-- 格式
-  - 修改前请先确认原始文档语言，并保持一致
-  - 无序列表统一使用 `-`
-  - 列表末尾的句号是多余的
-  - 非必要不使用加粗、行内代码等样式，Rule 主要供 LLM 阅读
-  - 避免中英文逐句对照。若括号内容为示例而非翻译，可保留
+- When rendering file paths, use backtick wrapping instead of markdown links so they can be parsed as clickable links in Cursor IDE.
+  - Good: `src/components/Button.tsx`
+  - Bad: [src/components/Button.tsx](src/components/Button.tsx)
 
-- Review
-  - 修正 Markdown 语法问题
-  - 纠正错别字
-  - 指出示例与说明不一致之处
+- Don't use line and column number in file path, this will make file path not clickable in Cursor IDE.
+  - Good: `src/components/Button.tsx` `10:20` (add a space between the file path and the line and column number)
+  - Bad: `src/components/Button.tsx:10:20`
+
+- When rendering functions, variables, or other code symbols, use backtick wrapping so they can be parsed as navigable links in Cursor IDE
+  - Good: The `useState` hook in `MyComponent`
+  - Bad: The useState hook in MyComponent
+
+## Markdown Render
+
+- don't use br tag to wrap in table cell
+
+## Terminal Command Output
+
+- If terminal commands don't produce output, it's likely due to paging issues. Try piping the command to `cat` to ensure full output is displayed.
+  - Good: `git show commit_hash -- file.txt | cat`
+  - Good: `git log --oneline | cat`
+  - Reason: Some git commands use pagers by default, which may prevent output from being captured properly
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
