@@ -1,0 +1,9 @@
+{
+  "name": "ovid--claude-context",
+  "displayName": "claude-context",
+  "description": "Let Claude Code understand how much context its using.",
+  "version": "1.0.0",
+  "author": "Ovid",
+  "homepage": "https://github.com/Ovid/claude-context",
+  "skills": []
+}
