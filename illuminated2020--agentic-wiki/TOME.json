@@ -1,0 +1,44 @@
+{
+  "name": "agentic-wiki",
+  "owner": "Illuminated2020",
+  "repo": "agentic-wiki",
+  "description": "An LLM Wiki template for a Markdown second brain operated by AI Agents.\u4e00\u4e2a\u7528\u4e8e\u6784\u5efa Markdown \u4e2a\u4eba\u7b2c\u4e8c\u5927\u8111\u7684 LLM Wiki \u6a21\u677f\uff0c\u7531 AI Agent \u64cd\u4f5c\u548c\u7ef4\u62a4\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Illuminated2020/agentic-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-11T12:35:24Z"
+}
