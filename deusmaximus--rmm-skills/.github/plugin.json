@@ -1,0 +1,9 @@
+{
+  "name": "deusmaximus--rmm-skills",
+  "displayName": "rmm-skills",
+  "description": "Claude AI Skills for generating production-ready RMM scripts (PowerShell, macOS, Linux) targeting NinjaOne, Action1, and other endpoint management platforms.",
+  "version": "1.0.0",
+  "author": "DeusMaximus",
+  "homepage": "https://github.com/DeusMaximus/rmm-skills",
+  "skills": []
+}
