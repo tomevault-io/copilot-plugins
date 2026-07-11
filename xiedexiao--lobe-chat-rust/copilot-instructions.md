@@ -1,60 +1,30 @@
-## code-review
+## cursor-rules
 
-> How to code review
+> cursor rules writing and optimization guide
 
+当你编写或修改 Cursor Rule 时，请遵循以下准则：
 
-# Role Description
+- 当你知道 rule 的文件名时，使用 `read_file` 而不是 `fetch_rules` 去读取它们，它们都在项目根目录的 `.cursor/rules/` 文件夹下
 
-- You are a senior full-stack engineer skilled in performance optimization, security, and design systems.
-- You excel at reviewing code and providing constructive feedback.
-- Your task is to review submitted Git diffs **in Chinese** and return a structured review report.
-- Review style: concise, direct, focused on what matters most, with actionable suggestions.
+- 代码示例
+  - 示例应尽量精简，仅保留演示核心
+  - 删除与示例无关的导入/导出语句，但保留必要的导入
+  - 同一文件存在多个示例时，若前文已演示模块导入，后续示例可省略重复导入
+  - 无需书写 `export`
+  - 可省略与演示无关或重复的 props、配置对象属性、try/catch、CSS 等代码
+  - 删除无关注释，保留有助理解的注释
 
-## Before the Review
+- 格式
+  - 修改前请先确认原始文档语言，并保持一致
+  - 无序列表统一使用 `-`
+  - 列表末尾的句号是多余的
+  - 非必要不使用加粗、行内代码等样式，Rule 主要供 LLM 阅读
+  - 避免中英文逐句对照。若括号内容为示例而非翻译，可保留
 
-Gather the modified code and context. Please strictly follow the process below:
-
-1. Use `read_file` to read [package.json](mdc:package.json)
-2. Use terminal to run command `git diff HEAD | cat` to obtain the diff and list the changed files. If you recieived empty result, run the same command once more.
-3. Use `read_file` to open each changed file.
-4. Use `read_file` to read [rules-attach.mdc](mdc:.cursor/rules/rules-attach.mdc). Even if you think it's unnecessary, you must read it.
-5. combine changed files, step3 and `agent_requestable_workspace_rules`, list the rules which need to read
-6. Use `read_file` to read the rules list in step 5
-
-## Review
-
-### Code Style
-
-read [typescript.mdc](mdc:.cursor/rules/typescript.mdc) for the consolidated project code style and optimization rules.
-
-### Code Optimization
-
-The optimization checklist has been consolidated into [typescript.mdc](mdc:.cursor/rules/typescript.mdc): loops, debouncing/throttling, design system components, theming tokens, concurrency with `Promise.*`, minimal DB column selection, and package reuse.
-
-### Obvious Bugs
-
-- Do not silently swallow errors in `catch` blocks; at minimum, log them.
-- Revert temporary code used only for testing (e.g., debug logs, temporary configs).
-- Remove empty handlers (e.g., an empty `onClick`).
-- Confirm the UI degrades gracefully for unauthenticated users.
-- Don't leave any debug logs in the code (except when using the `debug` module properly).
-  - When using the `debug` module, avoid `import { log } from 'debug'` as it logs directly to console. Use proper debug namespaces instead.
-- Check logs for sensitive information like api key, etc
-
-## After the Review: output
-
-1. Summary
-   - Start with a brief explanation of what the change set does.
-   - Summarize the changes for each modified file (or logical group).
-2. Comments Issues
-   - List the most critical issues first.
-   - Use an ordered list, which will be convenient for me to reference later.
-   - For each issue:
-     - Mark severity tag (`❌ Must fix`, `⚠️ Should fix`, `💅 Nitpick`)
-     - Provode file path to the relevant file.
-     - Provide recommended fix
-   - End with a **git commit** command, instruct the author to run it.
-     - We use gitmoji to label commit messages, format: [emoji] <type>(<scope>): <subject>
+- Review
+  - 修正 Markdown 语法问题
+  - 纠正错别字
+  - 指出示例与说明不一致之处
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
