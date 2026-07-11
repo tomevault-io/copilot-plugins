@@ -205614,6 +205614,11 @@
       "description": "Plugins for Payload built by What Works"
     },
     {
+      "name": "xiaozhou26--tempmail",
+      "source": "./xiaozhou26--tempmail",
+      "description": "tempmail"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
