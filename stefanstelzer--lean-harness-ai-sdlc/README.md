@@ -7,14 +7,14 @@ LEAN and harness powered AI SDLC
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [stefanstelzer/lean-harness-ai-sdlc](https://github.com/stefanstelzer/lean-harness-ai-sdlc).
+Original source: `AGENTS.md` in [stefanstelzer/lean-harness-ai-sdlc](https://github.com/stefanstelzer/lean-harness-ai-sdlc).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [stefanstelzer/lean-harness-ai-sdlc](https://github.com/stefanstelzer/lean-harness-ai-sdlc) — a repo with 8+ stars on GitHub.
