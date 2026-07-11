@@ -1,0 +1,9 @@
+{
+  "name": "yulong-ge--aifeedtracker",
+  "displayName": "AIFeedTracker",
+  "description": "Real-time content creator update monitor with AI-powered video summarization and Feishu bot integration.",
+  "version": "1.0.0",
+  "author": "yulong-ge",
+  "homepage": "https://github.com/yulong-ge/AIFeedTracker",
+  "skills": []
+}
