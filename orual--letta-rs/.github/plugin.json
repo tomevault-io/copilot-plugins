@@ -1,0 +1,9 @@
+{
+  "name": "orual--letta-rs",
+  "displayName": "letta-rs",
+  "description": "Rust client crate for the Letta REST API",
+  "version": "1.0.0",
+  "author": "orual",
+  "homepage": "https://github.com/orual/letta-rs",
+  "skills": []
+}
