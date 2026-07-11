@@ -4,7 +4,7 @@
   "repo": "voly",
   "description": "https://voly.codes",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/voly-codes/voly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T12:33:45Z"
+  "distributed_at": "2026-07-11T12:34:59Z"
 }
