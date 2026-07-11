@@ -1,0 +1,9 @@
+{
+  "name": "praneeth-goparaju--batterup",
+  "displayName": "batterup",
+  "description": "Mobile-first PWA for managing batter/food orders, customers, products, delivery routing, and analytics. Built with vanilla JS and Firebase.",
+  "version": "1.0.0",
+  "author": "praneeth-goparaju",
+  "homepage": "https://github.com/praneeth-goparaju/batterup",
+  "skills": []
+}
