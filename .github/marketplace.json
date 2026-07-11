@@ -205609,6 +205609,11 @@
       "description": "Humanity is an open, public-domain project exploring how humans can live together with dignity, cooperation, and long-term continuity. It combines civilizational principles with rigorous system design"
     },
     {
+      "name": "what-works-global--payload-packages",
+      "source": "./what-works-global--payload-packages",
+      "description": "Plugins for Payload built by What Works"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
