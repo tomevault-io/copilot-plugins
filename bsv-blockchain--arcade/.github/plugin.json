@@ -1,0 +1,9 @@
+{
+  "name": "bsv-blockchain--arcade",
+  "displayName": "arcade",
+  "description": "Next generation BSV Blockchain Transaction Broadcaster for Teranode - Codename Arcade",
+  "version": "1.0.0",
+  "author": "bsv-blockchain",
+  "homepage": "https://github.com/bsv-blockchain/arcade",
+  "skills": []
+}
