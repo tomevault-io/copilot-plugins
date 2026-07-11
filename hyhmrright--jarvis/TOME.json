@@ -2,9 +2,9 @@
   "name": "JARVIS",
   "owner": "hyhmrright",
   "repo": "JARVIS",
-  "description": "",
+  "description": "Self-hosted AI OS: RAG \u00b7 multi-LLM failover \u00b7 visual Workflow Studio \u00b7 Skill Market \u00b7 multi-tenant workspaces \u00b7 sandboxed tools \u00b7 multi-channel (Slack/Discord/Telegram/Feishu) \u00b7 full observability \u2014 one docker compose up",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/hyhmrright",
+  "source_url": "https://github.com/hyhmrright/JARVIS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T19:07:49Z"
+  "distributed_at": "2026-07-11T08:33:51Z"
 }
