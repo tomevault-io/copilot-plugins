@@ -1,0 +1,9 @@
+{
+  "name": "illuminated2020--agentic-wiki",
+  "displayName": "agentic-wiki",
+  "description": "An LLM Wiki template for a Markdown second brain operated by AI Agents.\u4e00\u4e2a\u7528\u4e8e\u6784\u5efa Markdown \u4e2a\u4eba\u7b2c\u4e8c\u5927\u8111\u7684 LLM Wiki \u6a21\u677f\uff0c\u7531 AI Agent \u64cd\u4f5c\u548c\u7ef4\u62a4\u3002",
+  "version": "1.0.0",
+  "author": "Illuminated2020",
+  "homepage": "https://github.com/Illuminated2020/agentic-wiki",
+  "skills": []
+}
