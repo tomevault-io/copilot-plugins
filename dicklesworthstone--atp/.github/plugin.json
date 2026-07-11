@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--atp",
+  "displayName": "atp",
+  "description": "atp \u2014 fountain-coded file transfer (RaptorQ over UDP/QUIC) that outruns tuned rsync on real networks. Verified end-to-end, fail-closed.",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/atp",
+  "skills": []
+}
