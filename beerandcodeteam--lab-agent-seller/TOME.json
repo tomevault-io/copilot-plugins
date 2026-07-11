@@ -4,7 +4,7 @@
   "repo": "lab-agent-seller",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/beerandcodeteam/lab-agent-seller",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T20:31:03Z"
+  "distributed_at": "2026-07-11T20:32:54Z"
 }
