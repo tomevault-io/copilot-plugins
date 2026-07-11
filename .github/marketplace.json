@@ -241984,6 +241984,61 @@
       "description": "A modern, cross-platform Git GUI"
     },
     {
+      "name": "fanxutherealone--wudax",
+      "source": "./fanxutherealone--wudax",
+      "description": "wudax"
+    },
+    {
+      "name": "calesthio--generative-media-skills",
+      "source": "./calesthio--generative-media-skills",
+      "description": "Research-backed agent skills for premium image, video, audio, voice, and generative media production across AI coding assistants."
+    },
+    {
+      "name": "calesthio--generative-media-skills",
+      "source": "./calesthio--generative-media-skills",
+      "description": "Research-backed agent skills for premium image, video, audio, voice, and generative media production across AI coding assistants."
+    },
+    {
+      "name": "calesthio--generative-media-skills",
+      "source": "./calesthio--generative-media-skills",
+      "description": "Research-backed agent skills for premium image, video, audio, voice, and generative media production across AI coding assistants."
+    },
+    {
+      "name": "calesthio--generative-media-skills",
+      "source": "./calesthio--generative-media-skills",
+      "description": "Research-backed agent skills for premium image, video, audio, voice, and generative media production across AI coding assistants."
+    },
+    {
+      "name": "calesthio--generative-media-skills",
+      "source": "./calesthio--generative-media-skills",
+      "description": "Research-backed agent skills for premium image, video, audio, voice, and generative media production across AI coding assistants."
+    },
+    {
+      "name": "craigpnnl--dnp3py",
+      "source": "./craigpnnl--dnp3py",
+      "description": "Pure Python DNP3 implementation (IEEE 1815-2012)"
+    },
+    {
+      "name": "jvanderberg--pcb-review",
+      "source": "./jvanderberg--pcb-review",
+      "description": "pcb_review"
+    },
+    {
+      "name": "apokamo--kaji",
+      "source": "./apokamo--kaji",
+      "description": "Closed-loop agentic development workflows for Claude Code, Codex, and Gemini CLI."
+    },
+    {
+      "name": "apokamo--kaji",
+      "source": "./apokamo--kaji",
+      "description": "Closed-loop agentic development workflows for Claude Code, Codex, and Gemini CLI."
+    },
+    {
+      "name": "matutetandil--anyhide",
+      "source": "./matutetandil--anyhide",
+      "description": "Hide any data in any file. Steganography tool that never modifies the carrier - transmits only encrypted positions. X25519 + ChaCha20 with forward secrecy."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -263287,6 +263342,26 @@
       "name": "zircote--csharp-lsp",
       "source": "./zircote--csharp-lsp",
       "description": "Claude Code plugin for C# development with OmniSharp LSP and dotnet format hooks"
+    },
+    {
+      "name": "stefanstelzer--lean-harness-ai-sdlc",
+      "source": "./stefanstelzer--lean-harness-ai-sdlc",
+      "description": "LEAN and harness powered AI SDLC"
+    },
+    {
+      "name": "stefanstelzer--lean-harness-ai-sdlc",
+      "source": "./stefanstelzer--lean-harness-ai-sdlc",
+      "description": "LEAN and harness powered AI SDLC"
+    },
+    {
+      "name": "nextweb4--deepseek-translation-studio",
+      "source": "./nextweb4--deepseek-translation-studio",
+      "description": "Windows Python/PySide6 translation studio for DeepSeek Web/API workflows, SRT continuation, capture, and packaging."
+    },
+    {
+      "name": "stefanstelzer--lean-harness-ai-sdlc",
+      "source": "./stefanstelzer--lean-harness-ai-sdlc",
+      "description": "LEAN and harness powered AI SDLC"
     },
     {
       "name": "cheerhuan--save-your-token",
