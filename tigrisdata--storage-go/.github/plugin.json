@@ -1,0 +1,9 @@
+{
+  "name": "tigrisdata--storage-go",
+  "displayName": "storage-go",
+  "description": "The Tigris Storage SDK in Go!",
+  "version": "1.0.0",
+  "author": "tigrisdata",
+  "homepage": "https://github.com/tigrisdata/storage-go",
+  "skills": []
+}
