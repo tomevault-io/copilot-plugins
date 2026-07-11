@@ -242259,6 +242259,26 @@
       "description": "My sketchybar configuration files"
     },
     {
+      "name": "jlongster--opencode-drive",
+      "source": "./jlongster--opencode-drive",
+      "description": "opencode-drive"
+    },
+    {
+      "name": "beerandcodeteam--lab-agent-seller",
+      "source": "./beerandcodeteam--lab-agent-seller",
+      "description": "lab-agent-seller"
+    },
+    {
+      "name": "beerandcodeteam--lab-agent-seller",
+      "source": "./beerandcodeteam--lab-agent-seller",
+      "description": "lab-agent-seller"
+    },
+    {
+      "name": "chussum--mobius",
+      "source": "./chussum--mobius",
+      "description": "\u221e macOS menu bar app for switching Claude Code / Claude Desktop accounts in one click \u2014 auto-fallback when you hit usage limits, auto-return on reset"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -263687,6 +263707,11 @@
       "name": "d-liya--capybara-2d-engine",
       "source": "./d-liya--capybara-2d-engine",
       "description": "capybara_2d_engine"
+    },
+    {
+      "name": "sadoway7--seekify-musicplayer",
+      "source": "./sadoway7--seekify-musicplayer",
+      "description": "Self-hosted music server: Go backend serving a vanilla JS/CSS SPA. Scans local music, streams, downloads via yt-dlp, MusicBrainz metadata."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -392427,6 +392452,41 @@
       "name": "shimazing--yeram-homepage",
       "source": "./shimazing--yeram-homepage",
       "description": "Yeram-Homepage"
+    },
+    {
+      "name": "tkaykim--yumekifanmeeting",
+      "source": "./tkaykim--yumekifanmeeting",
+      "description": "yumekifanmeeting"
+    },
+    {
+      "name": "tkaykim--yumekifanmeeting",
+      "source": "./tkaykim--yumekifanmeeting",
+      "description": "yumekifanmeeting"
+    },
+    {
+      "name": "davitpra--portafolio-2-0",
+      "source": "./davitpra--portafolio-2-0",
+      "description": "Portafolio web personal"
+    },
+    {
+      "name": "tkaykim--yumekifanmeeting",
+      "source": "./tkaykim--yumekifanmeeting",
+      "description": "yumekifanmeeting"
+    },
+    {
+      "name": "jcarley--lazyvim",
+      "source": "./jcarley--lazyvim",
+      "description": "My LazyVim setup"
+    },
+    {
+      "name": "rogabdp--calculator04",
+      "source": "./rogabdp--calculator04",
+      "description": "calculator04"
+    },
+    {
+      "name": "ramvarra--rag",
+      "source": "./ramvarra--rag",
+      "description": "rag"
     }
   ]
 }
