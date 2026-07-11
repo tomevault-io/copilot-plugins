@@ -1,0 +1,9 @@
+{
+  "name": "dotsetlabs--whogitit",
+  "displayName": "whogitit",
+  "description": "Track AI-generated code at line-level granularity. Know which lines were written by AI, modified by humans, and what prompts generated them. Git-native storage, automatic redaction, and Claude Code in",
+  "version": "1.0.0",
+  "author": "dotsetlabs",
+  "homepage": "https://github.com/dotsetlabs/whogitit",
+  "skills": []
+}
