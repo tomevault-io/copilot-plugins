@@ -1,0 +1,9 @@
+{
+  "name": "sfu-db--parseval",
+  "displayName": "ParSEval",
+  "description": "Plan-aware Test Database Generation for SQL Equivalence Evaluation",
+  "version": "1.0.0",
+  "author": "sfu-db",
+  "homepage": "https://github.com/sfu-db/ParSEval",
+  "skills": []
+}
