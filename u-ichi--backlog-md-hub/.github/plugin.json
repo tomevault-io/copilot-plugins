@@ -1,0 +1,9 @@
+{
+  "name": "u-ichi--backlog-md-hub",
+  "displayName": "backlog.md-hub",
+  "description": "Cross-repo Backlog.md task hub with a launchd watchdog. Unofficial companion tool for Backlog.md.",
+  "version": "1.0.0",
+  "author": "u-ichi",
+  "homepage": "https://github.com/u-ichi/backlog.md-hub",
+  "skills": []
+}
