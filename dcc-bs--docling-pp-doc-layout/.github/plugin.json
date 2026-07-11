@@ -1,0 +1,9 @@
+{
+  "name": "dcc-bs--docling-pp-doc-layout",
+  "displayName": "docling-pp-doc-layout",
+  "description": "Docling plugin to integrate PP-DocLayout-V3 model into docling to enhance layout detection capabilities",
+  "version": "1.0.0",
+  "author": "DCC-BS",
+  "homepage": "https://github.com/DCC-BS/docling-pp-doc-layout",
+  "skills": []
+}
