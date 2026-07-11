@@ -1,0 +1,9 @@
+{
+  "name": "what-works-global--payload-packages",
+  "displayName": "payload-packages",
+  "description": "Plugins for Payload built by What Works",
+  "version": "1.0.0",
+  "author": "what-works-global",
+  "homepage": "https://github.com/what-works-global/payload-packages",
+  "skills": []
+}
