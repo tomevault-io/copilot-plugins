@@ -7,11 +7,11 @@ An agentic system built on a "One Root, Five Wings" architecture, dedicated to c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ThreeFish-AI/negentropy](https://github.com/ThreeFish-AI/negentropy).
+Original source: `CLAUDE.md` in [ThreeFish-AI/negentropy](https://github.com/ThreeFish-AI/negentropy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
