@@ -63114,6 +63114,16 @@
       "description": "Open-source AI career platform that helps users build, optimize, analyze, and tailor resumes with intelligent job matching, ATS optimization, and career guidance."
     },
     {
+      "name": "ytgify--ytgify",
+      "source": "./ytgify--ytgify",
+      "description": "A Chrome Extension that lets you easily create custom GIFs from YouTube videos"
+    },
+    {
+      "name": "ytgify--ytgify",
+      "source": "./ytgify--ytgify",
+      "description": "A Chrome Extension that lets you easily create custom GIFs from YouTube videos"
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
