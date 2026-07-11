@@ -174399,6 +174399,11 @@
       "description": "A review-first reference architecture for AI-assisted personal content knowledge systems"
     },
     {
+      "name": "smithandrewjohn--kindalive",
+      "source": "./smithandrewjohn--kindalive",
+      "description": "kindalive"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
