@@ -1,0 +1,9 @@
+{
+  "name": "sadoway7--seekify-musicplayer",
+  "displayName": "seekify-musicplayer",
+  "description": "Self-hosted music server: Go backend serving a vanilla JS/CSS SPA. Scans local music, streams, downloads via yt-dlp, MusicBrainz metadata.",
+  "version": "1.0.0",
+  "author": "sadoway7",
+  "homepage": "https://github.com/sadoway7/seekify-musicplayer",
+  "skills": []
+}
