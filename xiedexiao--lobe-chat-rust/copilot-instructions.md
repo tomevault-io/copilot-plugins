@@ -1,204 +1,183 @@
-## drizzle-schema-style-guide
+## i18n
 
-> This document outlines the conventions and best practices for defining PostgreSQL Drizzle ORM schemas within the lobe-chat project.
+> LobeChat 使用 react-i18next 进行国际化，采用良好的命名空间架构：
 
-# Drizzle ORM Schema Style Guide for lobe-chat
+# LobeChat 国际化指南
 
-This document outlines the conventions and best practices for defining PostgreSQL Drizzle ORM schemas within the lobe-chat project.
+## 架构概览
 
-## Configuration
+LobeChat 使用 react-i18next 进行国际化，采用良好的命名空间架构：
 
-- Drizzle configuration is managed in [drizzle.config.ts](mdc:drizzle.config.ts)
-- Schema files are located in the src/database/schemas/ directory
-- Migration files are output to `src/database/migrations/`
-- The project uses `postgresql` dialect with `strict: true`
+- 默认语言：中文（zh-CN），作为源语言
+- 支持语言：18 种语言，包括英语、日语、韩语、阿拉伯语等
+- 框架：react-i18next 配合 Next.js app router
+- 翻译自动化：@lobehub/i18n-cli 用于自动翻译，配置文件：.i18nrc.js
 
-## Helper Functions
+## 目录结构
 
-Commonly used column definitions, especially for timestamps, are centralized in [src/database/schemas/_helpers.ts](mdc:src/database/schemas/_helpers.ts):
-- `timestamptz(name: string)`: Creates a timestamp column with timezone
-- `createdAt()`, `updatedAt()`, `accessedAt()`: Helper functions for standard timestamp columns
-- `timestamps`: An object `{ createdAt, updatedAt, accessedAt }` for easy inclusion in table definitions
+```
+src/locales/
+├── default/           # 源语言文件（zh-CN）
+│   ├── index.ts      # 命名空间导出
+│   ├── common.ts     # 通用翻译
+│   ├── chat.ts       # 聊天相关翻译
+│   ├── setting.ts    # 设置翻译
+│   └── ...           # 其他命名空间文件
+└── resources.ts      # 类型定义和语言配置
 
-## Naming Conventions
-
-- **Table Names**: Use plural snake_case (e.g., `users`, `agents`, `session_groups`)
-- **Column Names**: Use snake_case (e.g., `user_id`, `created_at`, `background_color`)
-
-## Column Definitions
-
-### Primary Keys (PKs)
-- Typically `text('id')` (or `varchar('id')` for some OIDC tables)
-- Often use `.$defaultFn(() => idGenerator('table_name'))` for automatic ID generation with meaningful prefixes
-- **ID Prefix Purpose**: Makes it easy for users and developers to distinguish different entity types at a glance
-- For internal/system tables that users don't need to see, can use `uuid` or auto-increment keys
-- Composite PKs are defined using `primaryKey({ columns: [t.colA, t.colB] })`
-
-### Foreign Keys (FKs)
-- Defined using `.references(() => otherTable.id, { onDelete: 'cascade' | 'set null' | 'no action' })`
-- FK columns are usually named `related_table_singular_name_id` (e.g., `user_id` references `users.id`)
-- Most tables include a `user_id` column referencing `users.id` with `onDelete: 'cascade'`
-
-### Timestamps
-- Consistently use the `...timestamps` spread from [_helpers.ts](mdc:src/database/schemas/_helpers.ts) for `created_at`, `updated_at`, and `accessed_at` columns
-
-### Default Values
-- `.$defaultFn(() => expression)` for dynamic defaults (e.g., `idGenerator()`, `randomSlug()`)
-- `.default(staticValue)` for static defaults (e.g., `boolean('enabled').default(true)`)
-
-### Indexes
-- Defined in the table's second argument: `pgTable('name', {...columns}, (t) => ({ indexName: indexType().on(...) }))`
-- Use `uniqueIndex()` for unique constraints and `index()` for non-unique indexes
-- Naming pattern: `table_name_column(s)_idx` or `table_name_column(s)_unique`
-- Many tables feature a `clientId: text('client_id')` column, often part of a composite unique index with `user_id`
-
-### Data Types
-- Common types: `text`, `varchar`, `jsonb`, `boolean`, `integer`, `uuid`, `pgTable`
-- For `jsonb` fields, specify the TypeScript type using `.$type<MyType>()` for better type safety
-
-## Zod Schemas & Type Inference
-
-- Utilize `drizzle-zod` to generate Zod schemas for validation:
-  - `createInsertSchema(tableName)`
-  - `createSelectSchema(tableName)` (less common)
-- Export inferred types: `export type NewEntity = typeof tableName.$inferInsert;` and `export type EntityItem = typeof tableName.$inferSelect;`
-
-## Relations
-
-- Table relationships are defined centrally in [src/database/schemas/relations.ts](mdc:src/database/schemas/relations.ts) using the `relations()` utility from `drizzle-orm`
-
-## Code Style & Structure
-
-- **File Organization**: Each main database entity typically has its own schema file (e.g., [user.ts](mdc:src/database/schemas/user.ts), [agent.ts](mdc:src/database/schemas/agent.ts))
-- All schemas are re-exported from [src/database/schemas/index.ts](mdc:src/database/schemas/index.ts)
-- **ESLint**: Files often start with `/* eslint-disable sort-keys-fix/sort-keys-fix */`
-- **Comments**: Use JSDoc-style comments to explain the purpose of tables and complex columns, fields that are self-explanatory do not require jsdoc explanations, such as id, user_id, etc.
-
-## Example Pattern
-
-```typescript
-// From src/database/schemas/agent.ts
-export const agents = pgTable(
-  'agents',
-  {
-    id: text('id')
-      .primaryKey()
-      .$defaultFn(() => idGenerator('agents'))
-      .notNull(),
-    slug: varchar('slug', { length: 100 })
-      .$defaultFn(() => randomSlug(4))
-      .unique(),
-    userId: text('user_id')
-      .references(() => users.id, { onDelete: 'cascade' })
-      .notNull(),
-    clientId: text('client_id'),
-    chatConfig: jsonb('chat_config').$type<LobeAgentChatConfig>(),
-    ...timestamps,
-  },
-  // return array instead of object, the object style is deprecated
-  (t) => [
-    uniqueIndex('client_id_user_id_unique').on(t.clientId, t.userId),
-  ],
-);
-
-export const insertAgentSchema = createInsertSchema(agents);
-export type NewAgent = typeof agents.$inferInsert;
-export type AgentItem = typeof agents.$inferSelect;
+locales/               # 翻译文件
+├── en-US/            # 英语翻译
+│   ├── common.json   # 通用翻译
+│   ├── chat.json     # 聊天翻译
+│   ├── setting.json  # 设置翻译
+│   └── ...           # 其他命名空间 JSON 文件
+├── ja-JP/            # 日语翻译
+│   ├── common.json
+│   ├── chat.json
+│   └── ...
+└── ...               # 其他语言文件夹
 ```
 
-## Common Patterns
+## 添加新翻译的工作流程
 
-### 1. userId + clientId Pattern (Legacy)
-Some existing tables include both fields for different purposes:
+### 1. 添加新的翻译键
 
-```typescript
-// Example from agents table (legacy pattern)
-userId: text('user_id')
-  .references(() => users.id, { onDelete: 'cascade' })
-  .notNull(),
-clientId: text('client_id'),
-
-// Usually with a composite unique index
-clientIdUnique: uniqueIndex('agents_client_id_user_id_unique').on(t.clientId, t.userId),
-```
-
-- **`userId`**: Server-side user association, ensures data belongs to specific user
-- **`clientId`**: Unique key for import/export operations, supports data migration between instances
-- **Current Status**: New tables should NOT include `clientId` unless specifically needed for import/export functionality
-- **Note**: This pattern is being phased out for new features to simplify the schema
-
-### 2. Junction Tables (Many-to-Many Relationships)
-Use composite primary keys for relationship tables:
+第一步：在 src/locales/default 目录下的相应命名空间文件中添加翻译键
 
 ```typescript
-// Example: agents_knowledge_bases (from agent.ts)
-export const agentsKnowledgeBases = pgTable(
-  'agents_knowledge_bases',
-  {
-    agentId: text('agent_id').references(() => agents.id, { onDelete: 'cascade' }).notNull(),
-    knowledgeBaseId: text('knowledge_base_id').references(() => knowledgeBases.id, { onDelete: 'cascade' }).notNull(),
-    userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
-    enabled: boolean('enabled').default(true),
-    ...timestamps,
-  },
-  (t) => [
-    primaryKey({ columns: [t.agentId, t.knowledgeBaseId] }),
-  ],
-);
+// 示例：src/locales/default/common.ts
+export default {
+    // ... 现有键
+    newFeature: {
+        title: "新功能标题",
+        description: "功能描述文案",
+        button: "操作按钮",
+    },
+};
 ```
 
-**Pattern**: `{entity1}Id` + `{entity2}Id` as composite PK, plus `userId` for ownership
-
-### 3. OIDC Tables Special Patterns
-OIDC tables use `varchar` IDs instead of `text` with custom generators:
+第二步：如果创建新命名空间，需要在 src/locales/default/index.ts 中导出
 
 ```typescript
-// Example from oidc.ts
-export const oidcAuthorizationCodes = pgTable('oidc_authorization_codes', {
-  id: varchar('id', { length: 255 }).primaryKey(), // varchar not text
-  data: jsonb('data').notNull(),
-  expiresAt: timestamptz('expires_at').notNull(),
-  // ... other fields
-});
+import newNamespace from "./newNamespace";
+
+const resources = {
+    // ... 现有命名空间
+    newNamespace,
+} as const;
 ```
 
-**Reason**: OIDC standards expect specific ID formats and lengths
+### 2. 翻译过程
 
-### 4. File Processing with Async Tasks
-File-related tables reference async task IDs for background processing:
+开发模式：
+
+一般情况下不需要你帮我跑自动翻译工具，跑一次很久，需要的时候我会自己跑。
+但是为了立马能看到效果，还是需要先翻译 `locales/zh-CN/namespace.json`，不需要翻译其它语言。
+
+生产模式：
+
+```bash
+# 为所有语言生成翻译
+npm run i18n
+```
+
+## 在组件中使用
+
+### 基本用法
+
+```tsx
+import { useTranslation } from "react-i18next";
+
+const MyComponent = () => {
+    const { t } = useTranslation("common");
+
+    return (
+        <div>
+            <h1>{t("newFeature.title")}</h1>
+            <p>{t("newFeature.description")}</p>
+            <button>{t("newFeature.button")}</button>
+        </div>
+    );
+};
+```
+
+### 带参数的用法
+
+```tsx
+const { t } = useTranslation("common");
+
+<p>{t("welcome.message", { name: "John" })}</p>;
+
+// 对应的语言文件：
+// welcome: { message: '欢迎 {{name}} 使用!' }
+```
+
+### 多个命名空间
+
+```tsx
+const { t } = useTranslation(['common', 'chat']);
+
+<button>{t('common:save')}</button>
+<span>{t('chat:typing')}</span>
+```
+
+## 类型安全
+
+项目使用 TypeScript 实现类型安全的翻译，类型从 src/locales/resources.ts 自动生成：
 
 ```typescript
-// Example from files table
-export const files = pgTable('files', {
-  // ... other fields
-  chunkTaskId: uuid('chunk_task_id').references(() => asyncTasks.id, { onDelete: 'set null' }),
-  embeddingTaskId: uuid('embedding_task_id').references(() => asyncTasks.id, { onDelete: 'set null' }),
-  // ...
-});
+import type { DefaultResources, NS, Locales } from "@/locales/resources";
+
+// 可用类型：
+// - NS: 可用命名空间键 ('common' | 'chat' | 'setting' | ...)
+// - Locales: 支持的语言代码 ('en-US' | 'zh-CN' | 'ja-JP' | ...)
+
+const namespace: NS = "common";
+const locale: Locales = "en-US";
 ```
 
-**Purpose**: 
-- Track file chunking progress (breaking files into smaller pieces)
-- Track embedding generation progress (converting text to vectors)
-- Allow querying task status and handling failures
+## 最佳实践
 
-### 5. Slug Pattern (Legacy)
-Some entities include auto-generated slugs - this is legacy code:
+### 1. 命名空间组织
+
+- common: 共享 UI 元素（按钮、标签、操作）
+- chat: 聊天特定功能
+- setting: 配置和设置
+- error: 错误消息和处理
+- [feature]: 功能特定或页面特定的命名空间
+- components: 可复用组件文案
+
+### 2. 键命名约定
 
 ```typescript
-slug: varchar('slug', { length: 100 })
-  .$defaultFn(() => randomSlug(4))
-  .unique(),
+// ✅ 好：层次结构
+export default {
+    modal: {
+        confirm: {
+            title: "确认操作",
+            message: "确定要执行此操作吗？",
+            actions: {
+                confirm: "确认",
+                cancel: "取消",
+            },
+        },
+    },
+};
 
-// Often with composite unique constraint
-slugUserIdUnique: uniqueIndex('slug_user_id_unique').on(t.slug, t.userId),
+// ❌ 避免：扁平结构
+export default {
+    modalConfirmTitle: "确认操作",
+    modalConfirmMessage: "确定要执行此操作吗？",
+};
 ```
 
-**Current usage**: Only used to identify default agents/sessions (legacy pattern)
-**Future refactor**: Will likely be replaced with `isDefault: boolean()` field
-**Note**: Avoid using slugs for new features - prefer explicit boolean flags for status tracking
+## 故障排除
 
-By following these guidelines, maintain consistency, type safety, and maintainability across database schema definitions.
+### 缺少翻译键
+
+- 检查键是否存在于 src/locales/default/namespace.ts 中
+- 确保在组件中正确导入命名空间
+- 确保新命名空间已在 src/locales/default/index.ts 中导出
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
