@@ -1,0 +1,9 @@
+{
+  "name": "bradautomates--focus-group",
+  "displayName": "focus-group",
+  "description": "Clone your customers from real sales-call transcripts and run them as a standing focus group \u2014 /focus-group Agent Skill for Claude Code, Codex, Cursor, and more",
+  "version": "1.0.0",
+  "author": "bradautomates",
+  "homepage": "https://github.com/bradautomates/focus-group",
+  "skills": []
+}
