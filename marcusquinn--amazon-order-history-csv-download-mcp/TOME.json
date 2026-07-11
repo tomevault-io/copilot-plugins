@@ -4,7 +4,7 @@
   "repo": "amazon-order-history-csv-download-mcp",
   "description": "Download Amazon Order History As Orders & Items CSV files, plus simplified CSV file versions for importing to your accounting software. Supports Amazon United States (US), United Kingdom, Canada, Germany, France, Spain, Italy, Netherlands, Japan, Australia, Mexico, India, UAE, Saudi Arabia, Ireland, Belgium",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marcusquinn/amazon-order-history-csv-download-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T12:39:13Z"
+  "distributed_at": "2026-07-11T12:41:45Z"
 }
