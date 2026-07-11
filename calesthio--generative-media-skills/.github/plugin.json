@@ -1,0 +1,9 @@
+{
+  "name": "calesthio--generative-media-skills",
+  "displayName": "generative-media-skills",
+  "description": "Research-backed agent skills for premium image, video, audio, voice, and generative media production across AI coding assistants.",
+  "version": "1.0.0",
+  "author": "calesthio",
+  "homepage": "https://github.com/calesthio/generative-media-skills",
+  "skills": []
+}
