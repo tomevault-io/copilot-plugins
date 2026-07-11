@@ -7,11 +7,11 @@ A Chrome Extension that lets you easily create custom GIFs from YouTube videos
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ytgify/ytgify](https://github.com/ytgify/ytgify).
+Original source: `CLAUDE.md` in [ytgify/ytgify](https://github.com/ytgify/ytgify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
