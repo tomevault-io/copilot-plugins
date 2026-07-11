@@ -7,11 +7,11 @@ Human-in-the-Loop MCP Server for WeCom (企业微信)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jeffkit/hitl-mcp](https://github.com/jeffkit/hitl-mcp).
+Original source: `CLAUDE.md` in [jeffkit/hitl-mcp](https://github.com/jeffkit/hitl-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
