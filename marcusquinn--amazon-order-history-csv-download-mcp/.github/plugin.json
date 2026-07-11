@@ -1,0 +1,9 @@
+{
+  "name": "marcusquinn--amazon-order-history-csv-download-mcp",
+  "displayName": "amazon-order-history-csv-download-mcp",
+  "description": "Download Amazon Order History As Orders & Items CSV files, plus simplified CSV file versions for importing to your accounting software. Supports Amazon United States (US), United Kingdom, Canada, Germ",
+  "version": "1.0.0",
+  "author": "marcusquinn",
+  "homepage": "https://github.com/marcusquinn/amazon-order-history-csv-download-mcp",
+  "skills": []
+}
