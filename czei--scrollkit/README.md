@@ -7,11 +7,11 @@ Scrolling LED Dev Kit (SLDK) - Everything you need to create a scrolling LED pro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [czei/scrollkit](https://github.com/czei/scrollkit).
+Original source: `AGENTS.md` in [czei/scrollkit](https://github.com/czei/scrollkit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
