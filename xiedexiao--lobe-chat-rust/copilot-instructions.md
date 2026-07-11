@@ -1,156 +1,82 @@
-## desktop-feature-implementation
+## desktop-local-tools-implement
 
-> 当要做 electron 相关工作时
+> 1.  **定义工具接口 (Manifest):**
 
-**桌面端新功能实现指南**
+**新增桌面端工具流程:**
 
-## 桌面端应用架构概述
+1.  **定义工具接口 (Manifest):**
+    *   **文件:** `src/tools/[tool_category]/index.ts` (例如: `src/tools/local-files/index.ts`)
+    *   **操作:**
+        *   在 `ApiName` 对象（例如 `LocalFilesApiName`）中添加一个新的、唯一的 API 名称。
+        *   在 `Manifest` 对象（例如 `LocalFilesManifest`）的 `api` 数组中，新增一个对象来定义新工具的接口。
+        *   **关键字段:**
+            *   `name`: 使用上一步定义的 API 名称。
+            *   `description`: 清晰描述工具的功能，供 Agent 理解和向用户展示。
+            *   `parameters`: 使用 JSON Schema 定义工具所需的输入参数。
+                *   `type`: 通常是 'object'。
+                *   `properties`: 定义每个参数的名称、`description`、`type` (string, number, boolean, array, etc.)，使用英文。
+                *   `required`: 一个字符串数组，列出必须提供的参数名称。
 
-LobeChat 桌面端基于 Electron 框架构建，采用主进程-渲染进程架构：
+2.  **定义相关类型:**
+    *   **文件 1:** `packages/electron-client-ipc/src/types.ts` (或类似的共享 IPC 类型文件)
+        *   **操作:** 定义传递给 IPC 事件的参数类型接口 (例如: `RenameLocalFileParams`, `MoveLocalFileParams`)。确保与 Manifest 中定义的 `parameters` 一致。
+    *   **文件 2:** `src/tools/[tool_category]/type.ts` (例如: `src/tools/local-files/type.ts`)
+        *   **操作:** 定义此工具执行后，存储在前端 Zustand Store 中的状态类型接口 (例如: `LocalRenameFileState`, `LocalMoveFileState`)。这通常包含操作结果（成功/失败）、错误信息以及相关数据（如旧路径、新路径等）。
 
-1. **主进程 (Main Process)**：
-   - 位置：`apps/desktop/src/main`
-   - 职责：控制应用生命周期、系统API交互、窗口管理、后台服务
+3.  **实现前端状态管理 (Store Action):**
+    *   **文件:** `src/store/chat/slices/builtinTool/actions/[tool_category].ts` (例如: `src/store/chat/slices/builtinTool/actions/localFile.ts`)
+    *   **操作:**
+        *   导入在步骤 2 中定义的 IPC 参数类型和状态类型。
+        *   在 Action 接口 (例如: `LocalFileAction`) 中添加新 Action 的方法签名，使用对应的 IPC 参数类型。
+        *   在 `createSlice` (例如: `localFileSlice`) 中实现该 Action 方法：
+            *   接收 `id` (消息 ID) 和 `params` (符合 IPC 参数类型)。
+            *   设置加载状态 (`toggleLocalFileLoading(id, true)`)。
+            *   调用对应的 `Service` 层方法 (见步骤 4)，传递 `params`。
+            *   使用 `try...catch` 处理 `Service` 调用可能发生的错误。
+            *   **成功时:**
+                *   调用 `updatePluginState(id, {...})` 更新插件状态，使用步骤 2 中定义的状态类型。
+                *   调用 `internal_updateMessageContent(id, JSON.stringify({...}))` 更新消息内容，通常包含成功确认信息。
+            *   **失败时:**
+                *   记录错误 (`console.error`)。
+                *   调用 `updatePluginState(id, {...})` 更新插件状态，包含错误信息。
+                *   调用 `internal_updateMessagePluginError(id, {...})` 设置消息的错误状态。
+                *   调用 `internal_updateMessageContent(id, JSON.stringify({...}))` 更新消息内容，包含错误信息。
+            *   在 `finally` 块中取消加载状态 (`toggleLocalFileLoading(id, false)`)。
+            *   返回操作是否成功 (`boolean`)。
 
-2. **渲染进程 (Renderer Process)**：
-   - 复用 Web 端代码，位于 `src` 目录
-   - 通过 IPC 与主进程通信
+4.  **实现 Service 层 (调用 IPC):**
+    *   **文件:** `src/services/electron/[tool_category]Service.ts` (例如: `src/services/electron/localFileService.ts`)
+    *   **操作:**
+        *   导入在步骤 2 中定义的 IPC 参数类型。
+        *   添加一个新的 `async` 方法，方法名通常与 Action 名称对应 (例如: `renameLocalFile`)。
+        *   方法接收 `params` (符合 IPC 参数类型)。
+        *   使用从 `@lobechat/electron-client-ipc` 导入的 `dispatch` (或 `invoke`) 函数，调用与 Manifest 中 `name` 字段匹配的 IPC 事件名称，并将 `params` 传递过去。
+        *   定义方法的返回类型，通常是 `Promise<{ success: boolean; error?: string }>`，与后端 Controller 返回的结构一致。
 
-3. **预加载脚本 (Preload)**：
-   - 位置：`apps/desktop/src/preload`
-   - 职责：安全地暴露主进程功能给渲染进程
+5.  **实现后端逻辑 (Controller / IPC Handler):**
+    *   **文件:** `apps/desktop/src/main/controllers/[ToolName]Ctr.ts` (例如: `apps/desktop/src/main/controllers/LocalFileCtr.ts`)
+    *   **操作:**
+        *   导入 Node.js 相关模块 (`fs`, `path` 等) 和 IPC 相关依赖 (`ipcClientEvent`, 参数类型等)。
+        *   添加一个新的 `async` 方法，方法名通常以 `handle` 开头 (例如: `handleRenameFile`)。
+        *   使用 `@ipcClientEvent('yourApiName')` 装饰器将此方法注册为对应 IPC 事件的处理器，确保 `'yourApiName'` 与 Manifest 中的 `name` 和 Service 层调用的事件名称一致。
+        *   方法的参数应解构自 Service 层传递过来的对象，类型与步骤 2 中定义的 IPC 参数类型匹配。
+        *   实现核心业务逻辑：
+            *   进行必要的输入验证。
+            *   执行文件系统操作或其他后端任务 (例如: `fs.promises.rename`)。
+            *   使用 `try...catch` 捕获执行过程中的错误。
+            *   处理特定错误码 (`error.code`) 以提供更友好的错误消息。
+        *   返回一个包含 `success` (boolean) 和可选 `error` (string) 字段的对象。
 
-## 添加新桌面端功能流程
+6.  **更新 Agent 文档 (System Role):**
+    *   **文件:** `src/tools/[tool_category]/systemRole.ts` (例如: `src/tools/local-files/systemRole.ts`)
+    *   **操作:**
+        *   在 `<core_capabilities>` 部分添加新工具的简要描述。
+        *   如果需要，更新 `<workflow>`。
+        *   在 `<tool_usage_guidelines>` 部分为新工具添加详细的使用说明，解释其参数、用途和预期行为。
+        *   如有必要，更新 `<security_considerations>`。
+        *   如有必要（例如工具返回了新的数据结构或路径），更新 `<response_format>` 中的示例。
 
-### 1. 确定功能需求与设计
-
-首先确定新功能的需求和设计，包括：
-- 功能描述和用例
-- 是否需要系统级API（如文件系统、网络等）
-- UI/UX设计（如必要）
-- 与现有功能的交互方式
-
-### 2. 在主进程中实现核心功能
-
-1. **创建控制器 (Controller)**
-   - 位置：`apps/desktop/src/main/controllers/`
-   - 示例：创建 `NewFeatureCtr.ts`
-   - 规范：按 `_template.ts` 模板格式实现
-   - 注册：在 `apps/desktop/src/main/controllers/index.ts` 导出
-
-2. **定义 IPC 事件处理器**
-   - 使用 `@ipcClientEvent('eventName')` 装饰器注册事件处理函数
-   - 处理函数应接收前端传递的参数并返回结果
-   - 处理可能的错误情况
-
-3. **实现业务逻辑**
-   - 可能需要调用 Electron API 或 Node.js 原生模块
-   - 对于复杂功能，可以创建专门的服务类 (`services/`)
-
-### 3. 定义 IPC 通信类型
-
-1. **在共享类型定义中添加新类型**
-   - 位置：`packages/electron-client-ipc/src/types.ts`
-   - 添加参数类型接口（如 `NewFeatureParams`）
-   - 添加返回结果类型接口（如 `NewFeatureResult`）
-
-### 4. 在渲染进程实现前端功能
-
-1. **创建服务层**
-   - 位置：`src/services/electron/`
-   - 添加服务方法调用 IPC
-   - 使用 `dispatch` 或 `invoke` 函数
-
-   ```typescript
-   // src/services/electron/newFeatureService.ts
-   import { dispatch } from '@lobechat/electron-client-ipc';
-   import { NewFeatureParams } from 'types';
-
-   export const newFeatureService = async (params: NewFeatureParams) => {
-     return dispatch('newFeatureEventName', params);
-   };
-   ```
-
-2. **实现 Store Action**
-   - 位置：`src/store/`
-   - 添加状态更新逻辑和错误处理
-
-3. **添加 UI 组件**
-   - 根据需要在适当位置添加UI组件
-   - 通过 Store 或 Service 层调用功能
-
-### 5. 如果是新增内置工具，遵循工具实现流程
-
-参考 [desktop-local-tools-implement.mdc](mdc:desktop-local-tools-implement.mdc) 了解更多关于添加内置工具的详细步骤。
-
-### 6. 添加测试
-
-1. **单元测试**
-   - 位置：`apps/desktop/src/main/controllers/__tests__/`
-   - 测试主进程组件功能
-
-2. **集成测试**
-   - 测试 IPC 通信和功能完整流程
-
-## 最佳实践
-
-1. **安全性考虑**
-   - 谨慎处理用户数据和文件系统访问
-   - 适当验证和清理输入数据
-   - 限制暴露给渲染进程的API范围
-
-2. **性能优化**
-   - 对于耗时操作，考虑使用异步方法
-   - 大型数据传输考虑分批处理
-
-3. **用户体验**
-   - 为长时间操作添加进度指示
-   - 提供适当的错误反馈
-   - 考虑操作的可撤销性
-
-4. **代码组织**
-   - 遵循项目现有的命名和代码风格约定
-   - 为新功能添加适当的文档和注释
-   - 功能模块化，避免过度耦合
-
-## 示例：实现系统通知功能
-
-```typescript
-// apps/desktop/src/main/controllers/NotificationCtr.ts
-import { BrowserWindow, Notification } from 'electron';
-import { ipcClientEvent } from 'electron-client-ipc';
-
-interface ShowNotificationParams {
-  title: string;
-  body: string;
-}
-
-export class NotificationCtr {
-  @ipcClientEvent('showNotification')
-  async handleShowNotification({ title, body }: ShowNotificationParams) {
-    try {
-      if (!Notification.isSupported()) {
-        return { success: false, error: 'Notifications not supported' };
-      }
-
-      const notification = new Notification({
-        title,
-        body,
-      });
-
-      notification.show();
-
-      return { success: true };
-    } catch (error) {
-      console.error('Failed to show notification:', error);
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
-      };
-    }
-  }
-}
-```
+通过遵循这些步骤，可以系统地将新的桌面端工具集成到 LobeChat 的插件系统中。
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
