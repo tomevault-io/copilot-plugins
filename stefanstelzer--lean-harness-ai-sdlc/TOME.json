@@ -4,7 +4,7 @@
   "repo": "lean-harness-ai-sdlc",
   "description": "LEAN and harness powered AI SDLC",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stefanstelzer/lean-harness-ai-sdlc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T10:33:53Z"
+  "distributed_at": "2026-07-11T10:35:07Z"
 }
