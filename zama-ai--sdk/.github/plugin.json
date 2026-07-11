@@ -1,0 +1,9 @@
+{
+  "name": "zama-ai--sdk",
+  "displayName": "sdk",
+  "description": "TypeScript SDK for confidential FHE smart contracts on Zama Protocol",
+  "version": "1.0.0",
+  "author": "zama-ai",
+  "homepage": "https://github.com/zama-ai/sdk",
+  "skills": []
+}
