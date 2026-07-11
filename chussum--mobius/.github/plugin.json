@@ -1,0 +1,9 @@
+{
+  "name": "chussum--mobius",
+  "displayName": "mobius",
+  "description": "\u221e macOS menu bar app for switching Claude Code / Claude Desktop accounts in one click \u2014 auto-fallback when you hit usage limits, auto-return on reset",
+  "version": "1.0.0",
+  "author": "chussum",
+  "homepage": "https://github.com/chussum/mobius",
+  "skills": []
+}
