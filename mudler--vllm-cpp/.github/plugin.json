@@ -1,0 +1,9 @@
+{
+  "name": "mudler--vllm-cpp",
+  "displayName": "vllm.cpp",
+  "description": "a community oriented 1:1 vLLM port in C++ with additional features",
+  "version": "1.0.0",
+  "author": "mudler",
+  "homepage": "https://github.com/mudler/vllm.cpp",
+  "skills": []
+}
