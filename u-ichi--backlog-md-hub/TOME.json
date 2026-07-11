@@ -1,0 +1,44 @@
+{
+  "name": "backlog.md-hub",
+  "owner": "u-ichi",
+  "repo": "backlog.md-hub",
+  "description": "Cross-repo Backlog.md task hub with a launchd watchdog. Unofficial companion tool for Backlog.md.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/u-ichi/backlog.md-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-11T16:30:30Z"
+}
