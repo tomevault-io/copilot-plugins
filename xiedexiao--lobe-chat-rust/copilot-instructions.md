@@ -1,174 +1,54 @@
-## react-component
+## rules-attach
 
-> - 如果要写复杂样式的话用 antd-style ，简单的话可以用 style 属性直接写内联样式
+> The following rules are available via `read_file` from the `.cursor/rules/` directory:
 
 
-# react component 编写指南
+# 📋 Available Rules Index
 
-- 如果要写复杂样式的话用 antd-style ，简单的话可以用 style 属性直接写内联样式
-- 如果需要 flex 布局或者居中布局应该使用 react-layout-kit 的 Flexbox 和 Center 组件
-- 选择组件时优先顺序应该是 src/components > 安装的组件 package > lobe-ui > antd
+The following rules are available via `read_file` from the `.cursor/rules/` directory:
 
-## antd-style token system
+## General
 
-### 访问 token system 的两种方式
+- `project-introduce.mdc` – Project description and tech stack
+- `cursor-rules.mdc` – Cursor rules authoring and optimization guide
+- `code-review.mdc` – How to code review
 
-#### 使用 antd-style 的 useTheme hook
+## Backend
 
-```tsx
-import { useTheme } from 'antd-style';
+- `backend-architecture.mdc` – Backend layer architecture and design guidelines
+- `define-database-model.mdc` – Database model definition guidelines
+- `drizzle-schema-style-guide.mdc` – Style guide for defining Drizzle ORM schemas
 
-const MyComponent = () => {
-  const theme = useTheme();
+## Frontend
 
-  return (
-    <div
-      style={{
-        color: theme.colorPrimary,
-        backgroundColor: theme.colorBgContainer,
-        padding: theme.padding,
-        borderRadius: theme.borderRadius,
-      }}
-    >
-      使用主题 token 的组件
-    </div>
-  );
-};
-```
+- `react-component.mdc` – React component style guide and conventions
+- `i18n.mdc` – Internationalization guide using react-i18next
+- `typescript.mdc` – TypeScript code style guide
+- `packages/react-layout-kit.mdc` – Usage guide for react-layout-kit
 
-#### 使用 antd-style 的 createStyles
+## State Management
 
-```tsx
-const useStyles = createStyles(({ css, token }) => {
-  return {
-    container: css`
-      background-color: ${token.colorBgContainer};
-      border-radius: ${token.borderRadius}px;
-      padding: ${token.padding}px;
-      color: ${token.colorText};
-    `,
-    title: css`
-      font-size: ${token.fontSizeLG}px;
-      font-weight: ${token.fontWeightStrong};
-      margin-bottom: ${token.marginSM}px;
-    `,
-    content: css`
-      font-size: ${token.fontSize}px;
-      line-height: ${token.lineHeight};
-    `,
-  };
-});
+- `zustand-action-patterns.mdc` – Recommended patterns for organizing Zustand actions
+- `zustand-slice-organization.mdc` – Best practices for structuring Zustand slices
 
-const Card: FC<CardProps> = ({ title, content }) => {
-  const { styles } = useStyles();
+## Desktop (Electron)
 
-  return (
-    <Flexbox className={styles.container}>
-      <div className={styles.title}>{title}</div>
-      <div className={styles.content}>{content}</div>
-    </Flexbox>
-  );
-};
-```
+- `desktop-feature-implementation.mdc` – Implementing new Electron desktop features
+- `desktop-controller-tests.mdc` – Desktop controller unit testing guide
+- `desktop-local-tools-implement.mdc` – Workflow to add new desktop local tools
+- `desktop-menu-configuration.mdc` – Desktop menu configuration guide
+- `desktop-window-management.mdc` – Desktop window management guide
 
-### 一些你经常会忘记使用的 token
+## Debugging
 
-请注意使用下面的 token 而不是 css 字面值。可以访问 https://ant.design/docs/react/customize-theme-cn 了解所有 token
+- `debug.mdc` – General debugging guide
+- `debug-usage.mdc` – Using the debug package and namespace conventions
 
-- 动画类
-  - token.motionDurationMid
-  - token.motionEaseInOut
-- 包围盒属性
-  - token.paddingSM
-  - token.marginLG
+## Testing
 
-## Lobe UI 包含的组件
-
-- 不知道 @lobehub/ui 的组件怎么用，有哪些属性，就自己搜下这个项目其它地方怎么用的，不要瞎猜，大部分组件都是在 antd 的基础上扩展了属性
-- 具体用法不懂可以联网搜索，例如 ActionIcon 就爬取 https://ui.lobehub.com/components/action-icon
-- 可以阅读 node_modules/@lobehub/ui/es/index.js 了解有哪些组件，每个组件的属性是什么
-
-- General
-  - ActionIcon
-  - ActionIconGroup
-  - Block
-  - Button
-  - DownloadButton
-  - Icon
-- Data Display
-  - Avatar
-  - AvatarGroup
-  - GroupAvatar
-  - Collapse
-  - FileTypeIcon
-  - FluentEmoji
-  - GuideCard
-  - Highlighter
-  - Hotkey
-  - Image
-  - List
-  - Markdown
-  - SearchResultCards
-  - MaterialFileTypeIcon
-  - Mermaid
-  - Typography
-  - Text
-  - Segmented
-  - Snippet
-  - SortableList
-  - Tag
-  - Tooltip
-  - Video
-- Data Entry
-  - AutoComplete
-  - CodeEditor
-  - ColorSwatches
-  - CopyButton
-  - DatePicker
-  - EditableText
-  - EmojiPicker
-  - Form
-  - FormModal
-  - HotkeyInput
-  - ImageSelect
-  - Input
-  - SearchBar
-  - Select
-  - SliderWithInput
-  - ThemeSwitch
-- Feedback
-  - Alert
-  - Drawer
-  - Modal
-- Layout
-  - DraggablePanel
-  - DraggablePanelBody
-  - DraggablePanelContainer
-  - DraggablePanelFooter
-  - DraggablePanelHeader
-  - Footer
-  - Grid
-  - Header
-  - Layout
-  - LayoutFooter
-  - LayoutHeader
-  - LayoutMain
-  - LayoutSidebar
-  - LayoutSidebarInner
-  - LayoutToc
-  - MaskShadow
-  - ScrollShadow
-- Navigation
-  - Burger
-  - Dropdown
-  - Menu
-  - SideNav
-  - Tabs
-  - Toc
-- Theme
-  - ConfigProvider
-  - FontLoader
-  - ThemeProvider
+- `testing-guide/testing-guide.mdc` – Comprehensive testing guide for Vitest
+- `testing-guide/electron-ipc-test.mdc` – Electron IPC interface testing strategy
+- `testing-guide/db-model-test.mdc` – Database Model testing guide
 
 ---
 > Source: [Xiedexiao/lobe-chat_rust](https://github.com/Xiedexiao/lobe-chat_rust) — distributed by [TomeVault](https://tomevault.io).
