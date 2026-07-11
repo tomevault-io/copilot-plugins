@@ -4,7 +4,7 @@
   "repo": "GitSmarter",
   "description": "A fast, dependency-free native Git client for Windows. C++20, Direct2D, direct git-internals parsing, single ~2.5 MB executable.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GSonofNun/GitSmarter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T04:32:40Z"
+  "distributed_at": "2026-07-11T04:34:46Z"
 }
