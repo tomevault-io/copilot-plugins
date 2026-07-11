@@ -1,0 +1,9 @@
+{
+  "name": "tokuhirom--rsmarisa",
+  "displayName": "rsmarisa",
+  "description": "pure rust port of the MARISA",
+  "version": "1.0.0",
+  "author": "tokuhirom",
+  "homepage": "https://github.com/tokuhirom/rsmarisa",
+  "skills": []
+}
