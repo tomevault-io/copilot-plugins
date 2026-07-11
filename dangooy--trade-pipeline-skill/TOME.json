@@ -1,0 +1,44 @@
+{
+  "name": "trade-pipeline-skill",
+  "owner": "Dangooy",
+  "repo": "trade-pipeline-skill",
+  "description": "AI \u5916\u8d38\u5355\u8bc1\u81ea\u52a8\u5316\uff08Skill \u7248\uff09\uff1a\u4e00\u4efd\u8be2\u4ef7\u5355\u81ea\u52a8\u751f\u6210\u62a5\u4ef7\u5355 / PI / CI / \u88c5\u7bb1\u5355\uff0c\u6539\u4e00\u5904\u56db\u5355\u8054\u52a8\u3002Claude Code / WorkBuddy \u53ef\u7528\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dangooy/trade-pipeline-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-11T06:31:08Z"
+}
