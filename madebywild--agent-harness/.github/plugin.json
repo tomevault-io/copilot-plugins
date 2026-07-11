@@ -1,0 +1,18 @@
+{
+  "name": "madebywild--agent-harness",
+  "displayName": "agent-harness",
+  "description": "Unified AI agent harness framework for Codex, Claude, Cursor and Copilot by wild",
+  "version": "1.0.0",
+  "author": "madebywild",
+  "homepage": "https://github.com/madebywild/agent-harness",
+  "skills": [
+    {
+      "name": "harness-prompt",
+      "description": ""
+    },
+    {
+      "name": "harness-prompt",
+      "description": ""
+    }
+  ]
+}
