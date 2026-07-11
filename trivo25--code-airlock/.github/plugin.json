@@ -1,0 +1,9 @@
+{
+  "name": "trivo25--code-airlock",
+  "displayName": "code-airlock",
+  "description": "Run Claude Code (or another coding agent) unattended, inside a disposable microVM, with its work committed to git so you can review everything from your host.",
+  "version": "1.0.0",
+  "author": "Trivo25",
+  "homepage": "https://github.com/Trivo25/code-airlock",
+  "skills": []
+}
