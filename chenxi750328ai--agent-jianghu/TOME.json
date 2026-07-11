@@ -1,0 +1,69 @@
+{
+  "name": "agent-jianghu",
+  "owner": "chenxi750328ai",
+  "repo": "agent-jianghu",
+  "description": "agent\u6c5f\u6e56 - \u591aAgent\u534f\u4f5c\u5e73\u53f0",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-commit-push",
+      "path": "agentfuture/skills/git-commit-push",
+      "github_url": "https://github.com/chenxi750328ai/agent-jianghu/tree/main/agentfuture/skills/git-commit-push",
+      "description": ""
+    },
+    {
+      "name": "jianghu-messaging",
+      "path": "agentfuture/skills/jianghu-messaging",
+      "github_url": "https://github.com/chenxi750328ai/agent-jianghu/tree/main/agentfuture/skills/jianghu-messaging",
+      "description": ""
+    },
+    {
+      "name": "jianghu-status-view",
+      "path": "agentfuture/skills/jianghu-status-view",
+      "github_url": "https://github.com/chenxi750328ai/agent-jianghu/tree/main/agentfuture/skills/jianghu-status-view",
+      "description": ""
+    },
+    {
+      "name": "member-create",
+      "path": "agentfuture/skills/member-create",
+      "github_url": "https://github.com/chenxi750328ai/agent-jianghu/tree/main/agentfuture/skills/member-create",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chenxi750328ai/agent-jianghu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-11T04:30:29Z"
+}
