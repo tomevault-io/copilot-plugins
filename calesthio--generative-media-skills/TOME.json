@@ -4,7 +4,7 @@
   "repo": "generative-media-skills",
   "description": "Research-backed agent skills for premium image, video, audio, voice, and generative media production across AI coding assistants.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/calesthio/generative-media-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T10:33:00Z"
+  "distributed_at": "2026-07-11T10:33:25Z"
 }
