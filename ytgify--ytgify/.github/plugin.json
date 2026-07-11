@@ -1,0 +1,9 @@
+{
+  "name": "ytgify--ytgify",
+  "displayName": "ytgify",
+  "description": "A Chrome Extension that lets you easily create custom GIFs from YouTube videos",
+  "version": "1.0.0",
+  "author": "ytgify",
+  "homepage": "https://github.com/ytgify/ytgify",
+  "skills": []
+}
