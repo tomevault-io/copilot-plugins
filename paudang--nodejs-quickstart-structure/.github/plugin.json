@@ -1,0 +1,9 @@
+{
+  "name": "paudang--nodejs-quickstart-structure",
+  "displayName": "nodejs-quickstart-structure",
+  "description": "Powerful Node.js Generator to scaffold production-ready Microservices using MVC or Clean Architecture. Built-in Kafka, GraphQL, Security & AI-Native Support.",
+  "version": "1.0.0",
+  "author": "paudang",
+  "homepage": "https://github.com/paudang/nodejs-quickstart-structure",
+  "skills": []
+}
