@@ -1,0 +1,9 @@
+{
+  "name": "xbp-europe--sagemath-mcp",
+  "displayName": "sagemath-mcp",
+  "description": "Sage Math MCP server for sateful sessions",
+  "version": "1.0.0",
+  "author": "XBP-Europe",
+  "homepage": "https://github.com/XBP-Europe/sagemath-mcp",
+  "skills": []
+}
