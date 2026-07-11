@@ -241944,6 +241944,21 @@
       "description": "A Home Assistant integration for the Senso4s Propane Gas Cylinder Sensor"
     },
     {
+      "name": "madhusudan-kulkarni--obsidian-speed-reader",
+      "source": "./madhusudan-kulkarni--obsidian-speed-reader",
+      "description": "Read your notes faster, one word at a time."
+    },
+    {
+      "name": "seaworld008--docker-image-proxy",
+      "source": "./seaworld008--docker-image-proxy",
+      "description": "Self-hosted Docker Hub registry mirror / pull-through cache with Docker Compose, Nginx, CDN acceleration, and Kubernetes/containerd guides."
+    },
+    {
+      "name": "oldjobobo--oldjobobo",
+      "source": "./oldjobobo--oldjobobo",
+      "description": "OldJobobo"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -263192,6 +263207,21 @@
       "name": "irumhahn--pdp-maker-30",
       "source": "./irumhahn--pdp-maker-30",
       "description": "\ud55c\uc774\ub8f8\uc758 \uc0c1\uc138\ud398\uc774\uc9c0 \ub9c8\ubc95\uc0ac 3.0"
+    },
+    {
+      "name": "dicklesworthstone--atp",
+      "source": "./dicklesworthstone--atp",
+      "description": "atp \u2014 fountain-coded file transfer (RaptorQ over UDP/QUIC) that outruns tuned rsync on real networks. Verified end-to-end, fail-closed."
+    },
+    {
+      "name": "dangooy--trade-pipeline-skill",
+      "source": "./dangooy--trade-pipeline-skill",
+      "description": "AI \u5916\u8d38\u5355\u8bc1\u81ea\u52a8\u5316\uff08Skill \u7248\uff09\uff1a\u4e00\u4efd\u8be2\u4ef7\u5355\u81ea\u52a8\u751f\u6210\u62a5\u4ef7\u5355 / PI / CI / \u88c5\u7bb1\u5355\uff0c\u6539\u4e00\u5904\u56db\u5355\u8054\u52a8\u3002Claude Code / WorkBuddy \u53ef\u7528\u3002"
+    },
+    {
+      "name": "tigrisdata--storage-go",
+      "source": "./tigrisdata--storage-go",
+      "description": "The Tigris Storage SDK in Go!"
     },
     {
       "name": "cheerhuan--save-your-token",
