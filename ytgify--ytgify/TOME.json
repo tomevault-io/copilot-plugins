@@ -4,7 +4,7 @@
   "repo": "ytgify",
   "description": "A Chrome Extension that lets you easily create custom GIFs from YouTube videos",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ytgify/ytgify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-11T11:30:25Z"
+  "distributed_at": "2026-07-11T11:30:58Z"
 }
