@@ -1,0 +1,9 @@
+{
+  "name": "intuition-lab--personal-model",
+  "displayName": "personal-model",
+  "description": "Local-first macOS Runtime that turns cross-app activity into an inspectable personal model for Chat and MCP agents.",
+  "version": "1.0.0",
+  "author": "Intuition-Lab",
+  "homepage": "https://github.com/Intuition-Lab/personal-model",
+  "skills": []
+}
