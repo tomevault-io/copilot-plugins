@@ -1,0 +1,9 @@
+{
+  "name": "nextweb4--yaml-proxy-editor",
+  "displayName": "yaml-proxy-editor",
+  "description": "Tauri, React, and TypeScript desktop workbench for local Clash/OpenClash/Mihomo YAML editing, audit, and export.",
+  "version": "1.0.0",
+  "author": "NextWeb4",
+  "homepage": "https://github.com/NextWeb4/yaml-proxy-editor",
+  "skills": []
+}
