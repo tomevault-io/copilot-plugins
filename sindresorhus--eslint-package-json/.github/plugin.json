@@ -1,0 +1,9 @@
+{
+  "name": "sindresorhus--eslint-package-json",
+  "displayName": "eslint-package-json",
+  "description": "Powerful ESLint rules for package.json",
+  "version": "1.0.0",
+  "author": "sindresorhus",
+  "homepage": "https://github.com/sindresorhus/eslint-package-json",
+  "skills": []
+}
