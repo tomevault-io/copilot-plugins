@@ -1,0 +1,9 @@
+{
+  "name": "getmunin--munin",
+  "displayName": "munin",
+  "description": "The customer platform for the agentic era. MCP-first, open source, self-hostable.",
+  "version": "1.0.0",
+  "author": "getmunin",
+  "homepage": "https://github.com/getmunin/munin",
+  "skills": []
+}
