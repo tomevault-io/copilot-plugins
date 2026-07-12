@@ -4,7 +4,7 @@
   "repo": "Saitama",
   "description": "Meshcore firmware for the Lilygo TDeck plus",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/868meshbot/Saitama",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T01:42:57Z"
+  "distributed_at": "2026-07-12T02:39:38Z"
 }
