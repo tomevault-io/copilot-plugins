@@ -1,0 +1,93 @@
+## ntut-sso-plus
+
+> This document provides essential context and technical guidelines for AI coding assistants working on the **NTUT SSO+** project.
+
+# NTUT SSO PLUS
+
+This document provides essential context and technical guidelines for AI coding assistants working on the **NTUT SSO+** project.
+
+Follow @CONTRIBUTING.md for git operation guidelines.
+
+Last updated: 2026-06-03. If stale (>7 days), verify Status section against codebase.
+
+## 🚀 Project Overview
+**NTUT SSO+** is a browser extension built with [WXT](https://wxt.dev/) and Vue 3. It simplifies the login process for Taipei Tech (NTUT) students and provides additional utilities like course material downloads.
+
+## 🛠 Tech Stack
+- **Framework:** [WXT](https://wxt.dev/) (Web Extension Toolbox)
+- **Frontend:** [Vue 3](https://vuejs.org/) (SFC with `<script setup>`)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Styling:** Vanilla CSS (stored in `.css` files and Vue `<style scoped>` blocks)
+
+## 📁 Project Structure
+All source code lives under `src/` (configured via `srcDir: 'src'` in `wxt.config.ts`). Use `@/` or `~/` aliases to import from `src/`.
+- `src/entrypoints/`: Main entrypoints for the extension.
+    - `background.ts`: Service worker handling background tasks (e.g., downloads).
+    - `popup/`: The extension popup UI (`App.vue`, `main.ts`, `index.html`, `style.css`). Includes mobile-responsive mode via `body.is-mobile` class.
+    - `*.content/`: Content scripts injected into specific domains, each as a directory with `index.ts` and associated CSS.
+    - `user-css.content/`: Custom CSS injection configuration and stylesheets.
+- `src/components/`: Shared Vue components (e.g., `Login.vue`, `MainView.vue`).
+- `src/utils/`: Shared utilities (`sso.ts`, `cryptoUtils.ts`, `constants.ts`).
+- `src/assets/`: CSS and other static assets.
+- `public/`: Static assets like icons (at project root, per WXT convention).
+- `wxt.config.ts`: Configuration for permissions, host permissions, and manifest details.
+
+## 📏 Coding Standards
+
+### General
+- **Indentation:** 
+  - 4 spaces for `.ts` and `.js` files.
+  - 2 spaces for `.vue`, `.html`, and `.css` files.
+- **Semicolons:** Required.
+- **Quotes:** Use single quotes (`'`) for strings in TypeScript/JavaScript.
+
+### Naming Conventions
+- **Files:**
+  - Vue components: `PascalCase.vue` (e.g., `MainView.vue`).
+  - TypeScript util scripts: `camelCase.ts` or `kebab-case.ts`.
+  - WXT Content Scripts: Must end with `.content.ts`.
+- **Code:**
+  - Variables/Functions: `camelCase`.
+  - Constants: `SCREAMING_SNAKE_CASE`.
+  - Types/Interfaces: `PascalCase`.
+
+### Vue Patterns
+- Always use `<script setup lang="ts">`.
+- Use CSS variables for styling to maintain theme consistency (see `src/entrypoints/popup/style.css`).
+
+## 🔌 Architecture Notes
+- **Communication:** Content scripts and the popup communicate with the background script using `browser.runtime.sendMessage`.
+- **Storage:** Use `browser.storage.local` for persisting user credentials and settings.
+- **Authentication:** SSO logic is centralized in `src/utils/sso.ts`.
+
+## 📦 Versioning
+The project now uses a **year-based versioning strategy** combined with the **Pull Request Number** for tracking changes.
+
+When a new pull request is triggered and merged, the version identifier is generated automatically in the format `vYY.NUM.0`, where:
+- `YY`: The last two digits of the current year (e.g., `2026` → `26`).
+- `NUM`: The pull request number.
+- `0`: A fixed trailing digit for the version.
+
+This mechanism ensures simplified version tracking and aligns with the project changes over time.
+
+### Version Format:
+`vYY.NUM.0`
+
+### Example:
+- Year: `2026`, Pull Request #42 → Version: `v26.42.0`
+- Year: `2026`, Pull Request #123 → Version: `v26.123.0`
+- Year: `2027`, Pull Request #1 → Version: `v27.1.0`
+
+
+## 🛠 Common Commands
+- `npm run dev`: Start development mode with hot reload for Chrome (manifest v3).
+- `npm run dev:firefox`: Start development mode with hot reload for Firefox (manifest v2). 
+- `npm run build`: Build for production (manifest v3).
+- `npm run build:firefox`: Build for production (manifest v2).
+- `npm run zip`: Package the extension for Chrome (manifest v3).
+- `npm run zip:firefox`: Package the extension for Firefox (manifest v2).
+
+---
+> Source: [NTUT-NPC/ntut-sso-plus](https://github.com/NTUT-NPC/ntut-sso-plus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-12 -->
