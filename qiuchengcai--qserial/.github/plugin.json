@@ -1,0 +1,9 @@
+{
+  "name": "qiuchengcai--qserial",
+  "displayName": "QSerial",
+  "description": "AI \u539f\u751f\u7684\u8de8\u5e73\u53f0\u7ec8\u7aef\u5de5\u5177\uff5c\u5185\u7f6e MCP \u8ba9 AI \u76f4\u63a5\u64cd\u63a7\u4e32\u53e3/SSH/Telnet \u8bbe\u5907\uff5cSerial \u00b7 SSH \u00b7 Telnet \u00b7 PTY \u00b7 SFTP \u00b7 TFTP",
+  "version": "1.0.0",
+  "author": "qiuchengcai",
+  "homepage": "https://github.com/qiuchengcai/QSerial",
+  "skills": []
+}
