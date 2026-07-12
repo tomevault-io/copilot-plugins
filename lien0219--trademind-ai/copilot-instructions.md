@@ -1,169 +1,113 @@
-## 02-backend-go-gin
+## 03-frontend-react-antd-pro
 
-> Backend coding rules for Go, Gin, GORM, modules, services, providers, errors, logs, and API shape
+> Frontend development rules for React, TypeScript, Ant Design Pro, ProTable, ProForm, API calls, and state
 
 
-# Go + Gin 后端开发规则
+# React + Ant Design Pro 前端开发规则
 
-## 后端职责
+## 技术栈
 
-Go 主服务负责：
+前端后台统一使用：
 
-- 用户认证
-- 权限控制
-- 系统配置
-- 商品草稿
-- 商品采集任务
-- AI 文本任务
-- AI 图片任务
-- 文件上传
-- 存储 Provider
-- AI Provider
-- 平台授权 Provider
-- 队列任务调度
-- 日志记录
-- API 安全控制
+- React
+- TypeScript
+- Ant Design Pro
+- Ant Design
+- ProTable
+- ProForm
 
-## 代码分层
+## 页面职责
 
-生成 Go 代码时，优先遵循：
+后台页面包括：
 
-```text
-handler → service → repository/model
-                  → provider interface
-                  → queue
-```
+- Dashboard
+- 商品中心
+- 商品采集
+- AI 工具
+- AI Prompt 配置
+- 图片管理
+- 店铺管理
+- 系统设置
+- 任务中心
+- 日志查看
 
-### Handler 规则
+## 基础规则
 
-- 只做参数绑定、参数校验、调用 service、统一响应。
-- 不写复杂业务逻辑。
-- 不直接调用第三方 SDK。
-- 不直接拼 SQL。
+- 所有页面必须使用 TypeScript。
+- 表格优先使用 ProTable。
+- 表单优先使用 ProForm。
+- 页面中不直接散写 fetch/axios 请求。
+- API 请求统一封装在 services/api 模块中。
+- 类型定义统一管理，不要到处复制接口类型。
+- 枚举、任务状态、商品状态、Provider 类型必须统一维护。
+- 前端不保存明文 API Key。
+- 前端不直接调用第三方 AI API。
+- 敏感配置展示必须脱敏。
+- 用户可见文案遵循 `docs/ui-copywriting.md` 与 `.cursor/rules/14-ui-copywriting.mdc`；术语优先引用 `copywriting.ts` / `userFriendly.ts`。
 
-### Service 规则
-
-- 负责业务流程编排。
-- 通过接口依赖 Provider。
-- 通过 repository/model 访问数据库。
-- 负责事务边界。
-- 负责任务状态更新。
-
-### Provider 规则
-
-- 每个第三方能力必须实现统一接口。
-- Provider 内部可以封装 SDK 或 HTTP Client。
-- Provider 必须设置超时。
-- Provider 错误必须包装上下文。
-
-## API 返回格式
-
-所有接口统一返回：
-
-```json
-{
-  "code": 0,
-  "message": "ok",
-  "data": {}
-}
-```
-
-失败返回：
-
-```json
-{
-  "code": 40001,
-  "message": "参数错误",
-  "data": null,
-  "traceId": "xxx"
-}
-```
-
-分页返回：
-
-```json
-{
-  "code": 0,
-  "message": "ok",
-  "data": {
-    "list": [],
-    "pagination": {
-      "page": 1,
-      "pageSize": 20,
-      "total": 100
-    }
-  }
-}
-```
-
-## 数据库约束
-
-- 字段名使用 `snake_case`。
-- 主键统一使用 `id`。
-- 所有业务表必须包含 `created_at`、`updated_at`。
-- 需要软删除的表包含 `deleted_at`。
-- 涉及租户扩展的表预留 `tenant_id`。
-- 涉及用户归属的表预留 `user_id`。
-- JSON 字段用于保存原始数据、配置、AI 输入输出时，必须明确字段语义。
-
-## 任务状态统一值
-
-异步任务状态统一使用：
+## 推荐页面结构
 
 ```text
-pending
-running
-success
-failed
-cancelled
-retrying
+admin/src/
+├── pages/
+│   ├── Dashboard/
+│   ├── Products/
+│   ├── Collect/
+│   ├── AI/
+│   ├── Stores/
+│   ├── Settings/
+│   └── Tasks/
+├── services/
+├── components/
+├── constants/
+├── types/
+├── utils/
+└── hooks/
 ```
 
-每个任务必须记录：
+## ProTable 规则
 
-- 输入参数
-- 输出结果
-- 错误原因
-- 开始时间
-- 结束时间
-- 重试次数预留
+- 列配置要清晰，优先抽成常量或 hooks。
+- 状态字段必须使用 Tag 或 Badge 展示。
+- 时间字段统一格式化。
+- 操作列放在最右侧。
+- 高风险操作必须二次确认。
+- 表格请求使用统一 API service。
 
-## 安全规则
+## ProForm 规则
 
-必须加密存储：
+- 表单字段必须有 label。
+- 必填字段必须有 rules。
+- 密钥字段使用 Password 或脱敏输入。
+- 配置表单必须提供“测试连接”按钮。
+- 保存配置后必须给出明确反馈。
 
-- AI API Key
-- 存储 Secret Key
-- 平台 App Secret
-- 店铺 Access Token
-- 店铺 Refresh Token
-- Webhook Secret
+## 前端状态展示
 
-日志中禁止输出：
+任务状态建议：
 
-- 完整 API Key
-- 完整 Token
-- 完整 Secret
-- 用户密码
-- Cookie 明文
+- pending：默认/等待中
+- running：处理中
+- success：成功
+- failed：失败
+- cancelled：已取消
+- retrying：重试中
 
-## gofmt 与 CI（强制）
+商品状态建议：
 
-CI（`.github/workflows/go.yml`）在 **`backend/`** 下执行 **`gofmt -l`**：任一只读列表非空即 **整次检查失败**。为避免反复 push 才暴露格式问题：
+- draft：草稿
+- ai_processing：AI 处理中
+- ready：可用
+- published：已发布，MVP 可预留
+- archived：已归档
 
-1. **凡新增或修改 `backend/**/*.go`，在本轮任务收尾前**，必须在仓库 **`backend`** 目录执行 **`go fmt ./...`**（Agent 须实际运行该命令并采纳其输出，不得只承诺「已按规范手写」）。
-2. **可选自检**（应与 CI 一致）：在 `backend` 下执行 **`gofmt -l .`**，输出必须为空。
-3. 以 **`gofmt` 结果为准**（缩进、换行、`import` 分组与排序等）；不要依赖手工对齐。
-4. 仅改单个包时仍建议全量 **`go fmt ./...`**，以免遗漏同次编辑中触及其它文件的格式漂移。
+## UX 规则
 
-## Go 代码质量
-
-- **格式**：见上文 **gofmt 与 CI**；**`go vet`、`go build`** 语义正确前提下，格式问题一律用 **`go fmt`** 收口。
-- 错误必须包含上下文。
-- 外部请求必须设置超时时间。
-- 日志必须带 trace_id 或 request_id。
-- 不要使用全局变量保存可变业务状态。
-- 不要在业务代码中硬编码模型名、API Base URL、Prompt、存储路径。
+- AI 生成、采集、图片处理等耗时任务必须显示进度或状态。
+- 失败任务必须展示失败原因。
+- 可重试任务必须提供重试入口。
+- 配置页必须明确提示配置用途。
+- 对开源自部署用户，默认配置要尽量开箱即用。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
