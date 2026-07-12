@@ -1,0 +1,9 @@
+{
+  "name": "josephhampton--awesome-gemini-cli-subagents",
+  "displayName": "awesome-gemini-cli-subagents",
+  "description": "A curated collection of 51 production-ready subagents for Gemini CLI. Drop them into .gemini/agents/ and let Gemini delegate the right specialist.",
+  "version": "1.0.0",
+  "author": "JosephHampton",
+  "homepage": "https://github.com/JosephHampton/awesome-gemini-cli-subagents",
+  "skills": []
+}
