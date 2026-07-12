@@ -1,0 +1,9 @@
+{
+  "name": "dougmcnabb--ptsd-gi-renderer",
+  "displayName": "ptsd-gi-renderer",
+  "description": "Decoupled texture-space renderer with progressive sky-dome GI \u2014 single-file WebGL2.",
+  "version": "1.0.0",
+  "author": "dougmcnabb",
+  "homepage": "https://github.com/dougmcnabb/ptsd-gi-renderer",
+  "skills": []
+}
