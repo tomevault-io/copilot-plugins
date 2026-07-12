@@ -1,0 +1,9 @@
+{
+  "name": "lsiswin--industrialdaq",
+  "displayName": "IndustrialDAQ",
+  "description": "\u4e00\u6b3e\u73b0\u4ee3\u5316\u7684\u5de5\u4e1a\u7ea7\u6570\u636e\u91c7\u96c6\u4e0e\u76d1\u63a7\u7ec8\u7aef (SCADA/HMI) \u7cfb\u7edf",
+  "version": "1.0.0",
+  "author": "lsiswin",
+  "homepage": "https://github.com/lsiswin/IndustrialDAQ",
+  "skills": []
+}
