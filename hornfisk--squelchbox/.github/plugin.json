@@ -1,0 +1,9 @@
+{
+  "name": "hornfisk--squelchbox",
+  "displayName": "squelchbox",
+  "description": "Emulation of Roland TB-303 Bass Line Synthesizer \u2014 hear it: https://hornfisk.github.io/squelchbox/",
+  "version": "1.0.0",
+  "author": "Hornfisk",
+  "homepage": "https://github.com/Hornfisk/squelchbox",
+  "skills": []
+}
