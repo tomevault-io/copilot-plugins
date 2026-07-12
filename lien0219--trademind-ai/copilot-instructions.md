@@ -1,113 +1,123 @@
-## trademind-ai
+## 00-project-overview
 
-> 核心方向：商品采集、商品草稿、AI 标题优化、AI 描述生成、图片处理预留、店铺授权预留、AI 客服预留、ERP 扩展预留。
+> TradeMind project identity, goals, MVP scope, and non-negotiable product direction
 
-# 贸灵 TradeMind Cursor Rules
 
-项目名称：贸灵 TradeMind
-定位：开源 AI 跨境电商运营平台。
-当前阶段：MVP / 开源基础版。
-核心方向：商品采集、商品草稿、AI 标题优化、AI 描述生成、图片处理预留、店铺授权预留、AI 客服预留、ERP 扩展预留。
+# 贸灵 TradeMind 项目总规则
 
-## 技术栈
+## 项目定位
+
+贸灵 TradeMind 是一个开源 AI 跨境电商运营平台。当前阶段不是完整 ERP，而是优先实现：
+
+- 商品采集
+- 商品草稿管理
+- AI 标题优化
+- AI 描述生成
+- AI 商品图处理预留
+- 店铺授权能力预留
+- AI 客服能力预留
+- 跨平台 ERP 扩展能力预留
+
+一句话定位：
+
+> 开源 AI 跨境电商运营平台，帮助卖家完成商品采集、AI 商品优化、图片处理、店铺授权和智能客服扩展。
+
+## 当前 MVP 闭环
+
+任何代码生成或功能设计都要优先服务这个 MVP 闭环：
+
+```text
+用户登录
+  ↓
+系统配置 AI Provider / 存储方式
+  ↓
+输入 1688 商品链接
+  ↓
+采集商品信息
+  ↓
+保存为商品草稿
+  ↓
+AI 优化标题
+  ↓
+AI 生成描述
+  ↓
+图片上传 / 图片处理
+  ↓
+形成可编辑商品草稿
+```
+
+## 当前不做的内容
+
+MVP 阶段不要主动实现以下复杂能力，除非任务明确要求：
+
+- 完整订单系统
+- 完整库存系统
+- 完整财务系统
+- 完整 WMS 仓储系统
+- 多平台自动刊登
+- AI 自动回复买家
+- 企业级多租户 SaaS
+- Kubernetes 部署
+- 自研大模型
+- 自研图片生成模型
+
+可以预留接口、表字段和 Provider 抽象，但不要过度实现。
+
+## 必须保留的后续扩展方向
+
+设计任何模块时，必须避免写死，必须保留扩展能力：
+
+- 多平台店铺授权扩展
+- 多采集源扩展
+- 多 AI Provider 扩展
+- 多图片处理 Provider 扩展
+- 多存储 Provider 扩展
+- AI Tool Calling 扩展
+- AI 客服扩展
+- 批量刊登扩展
+- 订单同步扩展
+- 自动化规则引擎扩展
+- 多租户 SaaS 扩展
+
+## 技术栈总约束
 
 - 前端后台：React + TypeScript + Ant Design Pro + Ant Design + ProTable + ProForm
 - 后端主服务：Go + Gin + GORM
-- 数据库：**PostgreSQL**（本地与默认开发）；MySQL 仅可选（`DB_DRIVER=mysql`）
-- 队列缓存：Redis
+- 数据库：**PostgreSQL**（推荐与默认）；MySQL 可选、非本地默认
+- 缓存/队列：Redis
 - 采集服务：Node.js + TypeScript + Playwright
-- AI：OpenAI-compatible Provider 优先，DeepSeek / Qwen / Doubao / Gemini / Claude / Ollama 预留
+- AI：第三方大模型 API / OpenAI-compatible Provider / 本地 Ollama 预留
 - 存储：local 优先，S3 / COS / OSS / R2 / MinIO 预留
 
-## MVP 闭环
+## 核心开发原则
 
-用户登录 → 配置 AI Provider / 存储方式 → 输入 1688 商品链接 → 采集商品信息 → 保存商品草稿 → AI 优化标题 → AI 生成描述 → 图片上传 / 图片处理 → 形成可编辑商品草稿。
+```text
+先做小闭环，再做大 ERP。
+先做 AI 商品优化，再做完整供应链。
+先做可配置，再做高级自动化。
+先做 Provider 抽象，再接具体平台。
+```
 
-## 核心原则
-
-1. 先做小闭环，再做大 ERP。
-2. 先做 AI 商品优化，再做完整供应链。
-3. 先做可配置，再做高级自动化。
-4. 先做 Provider 抽象，再接具体平台。
-5. Go 做主业务，React 做后台，Node 做采集，Redis 做队列。
-6. Provider 做扩展，Prompt 做 AI 技能。
-7. 本地存储保证开箱即用，云存储保证生产可用。
-
-## AI 工作流
-
-- 具体 AI vibe coding 流程见 `docs/ai-workflow.md`；所有 AI 工具先形成最小上下文包，再读局部代码和文档。
-- 接到需求后先改写成短执行提示词：目标、任务类型、范围边界、事实确认、实现策略、验证和沉淀。
-- 优先用搜索确认事实，不全量吞仓库，不粘贴大日志，不把无关文件塞进上下文。
-- 按上下文预算工作：启动、定位、读实现、修改验证、交付沉淀各阶段只保留会影响下一步决策的信息。
-- 重复问题、质量门槛和工具约定要写回对应 docs / pitfalls / rules，让项目在后续 AI 会话中自我成长。
-
-## 后端规则
-
-- Handler 只做参数绑定、校验、调用 service 和返回响应。
-- Service 负责编排业务流程。
-- 第三方能力必须通过 Provider 接口接入。
-- 所有外部请求必须设置超时。
-- 所有异步任务必须记录状态、输入、输出、错误原因、开始时间、结束时间。
-- 所有 API 返回结构统一：{ code, message, data }。
-- 所有敏感配置必须加密存储。
-- 日志禁止输出完整 API Key、Token、Secret、密码、Cookie。
-- **Go 格式**：修改或新增 `backend/**/*.go` 后，在 `backend` 目录执行 **`go fmt ./...`** 再提交；CI 使用 **`gofmt -l`** 检查，未格式化会失败（细则见 `.cursor/rules/02-backend-go-gin.mdc`）。
-
-## 前端规则
-
-- 所有页面使用 TypeScript。
-- 表格优先使用 ProTable。
-- 表单优先使用 ProForm。
-- API 请求统一封装，不要在页面中散写请求。
-- 状态、枚举、任务类型统一管理。
-- 敏感配置必须脱敏展示。
-- 前端不直接调用第三方 AI API。
-
-## UI 风格
-
-后台 UI 要专业、清爽、可信赖，体现 AI 科技感和跨境电商运营效率感。
-
-- 使用 Ant Design Pro 风格。
-- 主色以专业蓝为主。
-- 少量使用青色/蓝紫色表达 AI。
-- 状态使用 Tag / Badge。
-- 设置页使用分组卡片或 Tabs。
-- AI 页面建议左侧输入、右侧输出。
-- 失败状态必须展示原因和重试入口。
-- 空状态必须给出下一步动作。
-
-## AI 规则
-
-- AI 能力必须通过 AI Gateway + AI Provider。
-- Prompt 必须可配置，不能只写死在代码中。
-- AI 调用必须记录 provider、model、prompt_code、input、output、status、token_input、token_output、error_message。
-- AI 客服 MVP 阶段默认只生成建议回复，必须人工确认，不自动发送。
-- AI 图片能力必须通过 Image Provider 扩展。
-
-## 存储规则
-
-- MVP 必须支持 local storage。
-- 后期预留 S3 / COS / OSS / R2 / MinIO。
-- 业务模块不得直接依赖具体云存储 SDK。
-- 必须保存 object_key 和 public_url。
-- Secret 必须加密存储和脱敏展示。
-
-## 采集规则
-
-- 采集服务使用 Node.js + Playwright。
-- 采集服务独立于 Go 主服务。
-- 采集服务不得直接操作主业务数据库。
-- 每个采集源必须独立 Provider。
-- 输出必须统一为 source、sourceUrl、title、currency、mainImages、descriptionImages、attributes、skus、raw。
-- raw 原始数据必须保留。
+```text
+Go 做主业务。
+React 做后台。
+Node 做采集。
+Redis 做队列。
+Provider 做扩展。
+Prompt 做 AI 技能。
+本地存储保证开箱即用。
+云存储保证生产可用。
+```
 
 ## 禁止事项
 
-- 不要把模型、Prompt、API Key、存储路径、平台密钥写死。
+- 不要把第三方平台逻辑直接写进业务模块。
+- 不要把 AI 模型、API Key、Base URL 写死。
+- 不要把 Prompt 写死到业务代码中，默认 Prompt 可以内置，但必须支持后台配置。
 - 不要让前端直接调用第三方 AI API。
-- 不要把 1688/TikTok/Shopee 等平台逻辑写进核心业务层。
-- 不要在 MVP 阶段引入过重架构，如 Kubernetes、Kafka、完整微服务治理。
-- 不要默认做 AI 自动客服发送。
+- 不要在日志中输出 API Key、Token、Secret、Cookie、密码。
+- 不要在 MVP 阶段默认实现 AI 自动客服发送，必须人工确认。
+- 不要为了未来能力引入过重架构，例如 Kubernetes、Kafka、复杂微服务。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
