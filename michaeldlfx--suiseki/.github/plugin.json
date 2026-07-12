@@ -1,0 +1,9 @@
+{
+  "name": "michaeldlfx--suiseki",
+  "displayName": "suiseki",
+  "description": "a read-only cli, released as a binary, that brings pierre\u2019s diff/tree model layers and shiki themes to the terminal for polished code and diff rendering",
+  "version": "1.0.0",
+  "author": "michaeldlfx",
+  "homepage": "https://github.com/michaeldlfx/suiseki",
+  "skills": []
+}
