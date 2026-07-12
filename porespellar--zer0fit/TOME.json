@@ -4,7 +4,7 @@
   "repo": "Zer0Fit",
   "description": "Zero-shot forecasting, tabular classification, and regression via MCP \u2014 exposes Google TimesFM 2.5 and TabFM v1.0.0 to AI assistants. Just attach a CSV and describe what you want to predict.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/porespellar/Zer0Fit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T22:36:56Z"
+  "distributed_at": "2026-07-12T22:37:28Z"
 }
