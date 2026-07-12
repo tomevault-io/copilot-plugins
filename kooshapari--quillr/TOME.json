@@ -4,7 +4,7 @@
   "repo": "Quillr",
   "description": "Restored: Quillr",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KooshaPari/Quillr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T06:51:25Z"
+  "distributed_at": "2026-07-12T07:00:43Z"
 }
