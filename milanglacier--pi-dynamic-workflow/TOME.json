@@ -4,7 +4,7 @@
   "repo": "pi-dynamic-workflow",
   "description": "Dynamic workflow orchestration for pi: the LLM authors a JS orchestration script that fans out isolated pi subagent sessions. Written by Claude Fable 5.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/milanglacier/pi-dynamic-workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T18:34:30Z"
+  "distributed_at": "2026-07-12T18:36:57Z"
 }
