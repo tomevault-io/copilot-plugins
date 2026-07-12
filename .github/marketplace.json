@@ -167989,6 +167989,11 @@
       "description": "\u4ece\u6e90\u7801\u5206\u6790\u5230\u6a21\u62df\u9762\u8bd5\uff0cCapyMock \u7528 AI \u5e2e\u4f60\u62c6\u89e3\u6bcf\u4e00\u4e2a\u6c42\u804c\u73af\u8282\uff0c\u50cf\u6709\u4f4d\u8010\u5fc3\u7684\u670b\u53cb\u966a\u4f60\u51c6\u5907\uff0c\u800c\u4e0d\u662f\u51b0\u51b7\u7684\u5de5\u5177"
     },
     {
+      "name": "nextweb4--phone-record-manager",
+      "source": "./nextweb4--phone-record-manager",
+      "description": "Local Windows phone-number binding record manager built with Python, PySide6, SQLite, backups, and release packaging."
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -206662,6 +206667,16 @@
       "name": "kriss-spy--obsidian-opencode",
       "source": "./kriss-spy--obsidian-opencode",
       "description": "use opencode CLI in obsidian"
+    },
+    {
+      "name": "nextweb4--alias-cockpit",
+      "source": "./nextweb4--alias-cockpit",
+      "description": "Windows local email-alias cockpit built with .NET and WinUI for alias generation, markers, local storage, and release packaging."
+    },
+    {
+      "name": "laibulle--quant",
+      "source": "./laibulle--quant",
+      "description": "Quantitative analysis library for Elixir and Explorer"
     },
     {
       "name": "yschimke--compose-ai-tools",
