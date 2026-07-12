@@ -1,0 +1,9 @@
+{
+  "name": "chuanghiduoc--nestjs-fastify-nx",
+  "displayName": "nestjs-fastify-nx",
+  "description": "Production-grade NestJS 11 + Fastify 5 + Nx 22 monorepo boilerplate. DDD/CQRS, Better Auth cookie sessions, GraphQL (Mercurius), Socket.io, BullMQ, Prisma 7, OpenTelemetry, Sentry. Four runnable apps ",
+  "version": "1.0.0",
+  "author": "chuanghiduoc",
+  "homepage": "https://github.com/chuanghiduoc/nestjs-fastify-nx",
+  "skills": []
+}
