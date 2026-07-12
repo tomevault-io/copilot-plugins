@@ -1,0 +1,9 @@
+{
+  "name": "todbot--usb-probester",
+  "displayName": "USB_Probester",
+  "description": "Like Mac USB Prober.app, but cross-platform and up-to-date.",
+  "version": "1.0.0",
+  "author": "todbot",
+  "homepage": "https://github.com/todbot/USB_Probester",
+  "skills": []
+}
