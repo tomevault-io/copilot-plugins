@@ -7,13 +7,13 @@ A robust framework for building AI agents with multi-provider LLM support
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [BrainDAO/adk-ts](https://github.com/BrainDAO/adk-ts).
+Original source: `CLAUDE.md` in [BrainDAO/adk-ts](https://github.com/BrainDAO/adk-ts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
