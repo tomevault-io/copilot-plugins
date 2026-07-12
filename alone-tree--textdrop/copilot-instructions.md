@@ -1,0 +1,89 @@
+## textdrop
+
+> 这份文件不是产品需求文档，也不是架构冻结说明。产品事实可能变化，后续 AI 维护时必须以当前仓库内容为准。
+
+# TextDrop AI 维护工作流
+
+这份文件不是产品需求文档，也不是架构冻结说明。产品事实可能变化，后续 AI 维护时必须以当前仓库内容为准。
+
+## 开始任何修改前
+
+1. 先阅读 `产品需求.md`，确认当前产品目标、范围和明确不做的内容。
+2. 再阅读 `开发日志.md`，了解最近的实现决策、踩坑记录和待完善想法。
+3. 然后查看相关代码，不要只根据文档猜测实现状态。
+4. 如果文档、日志和代码互相矛盾，先指出矛盾并按最新用户要求处理；不要静默选择其中一个。
+5. 如果需求不清楚，先问用户；不要自行补大功能。
+
+## 修改前的定位顺序
+
+按问题类型先找对应位置：
+
+- Windows 主界面：看 `src/textdrop/gui.py`
+- 手机页面体验：看 `src/textdrop/mobile_page.py`
+- 本地 API 和服务启动：看 `src/textdrop/server.py`
+- 配置保存：看 `src/textdrop/config.py`
+- TLS/HTTPS 证书：看 `src/textdrop/tls.py`
+- 地址选择和端口探测：看 `src/textdrop/network.py`
+- 粘贴行为：看 `src/textdrop/paste.py`
+- 文案和语言：看 `src/textdrop/i18n.py`
+- 打包发布：看 `scripts/build.ps1` 和 `README.md`
+- 应用图标：看 `assets/app_icon.png` 和 `assets/app_icon.ico`
+
+先定位，再改代码；不要一上来重构。
+
+## 修改时的原则
+
+- 保持改动小而直接。
+- 优先延续当前技术栈和模块边界。
+- 不要新增云端、账号、历史记录、文件传输等大功能，除非用户明确要求。
+- 不要记录用户发送正文。
+- 不要随意改变文本处理语义；如果要 trim、改写、追加换行或自动按键，必须先确认需求。
+- 手机端输入框要尽量保持原生简单，避免破坏手机输入法、语音输入和组合输入。
+- **手机端所有错误/失败提示必须用 toast 弹窗**（`showToast`），禁止用红色内联文字（`showMessage`）。toast 深色背景白色文字，居中显示，3 秒自动消失，点击外部立即关闭。`showMessage` 仅用于清空提示，不对用户可见。
+- 涉及打包时，不要假设单文件 exe 是目标；先看 README 和开发日志里的当前发布方式。
+- **打包前必须提升版本号**：检查 `pyproject.toml`、`src/textdrop/__init__.py`、`src/textdrop/gui.py`（`APP_USER_MODEL_ID`）、`scripts/build.ps1`（`$releaseName`）和 `README.md` 中的版本引用，至少比已发布的最新版本高一个补丁号（如 `0.1.2` → `0.1.3`）。禁止直接覆盖已发布版本的产物。
+
+## 修改后必须同步
+
+根据改动类型同步文档：
+
+- 产品行为变化：更新 `产品需求.md`
+- 使用方式、打包方式、发布方式变化：更新 `README.md`
+- 踩坑、临时判断、后续想法：更新 `开发日志.md`
+- 维护流程变化：更新本文件
+
+不要把同一份产品需求复制到多个文档里。`AGENTS.md` 只写维护流程、阅读顺序和容易出错的维护规则。
+
+## 验证顺序
+
+1. 至少运行：
+
+```powershell
+.\.venv\Scripts\python.exe -m compileall src
+```
+
+2. 如果改了服务或 API，做 `/api/health` 和 `/api/send` 冒烟测试。测试发送时用 stub 替代真实粘贴，避免误触发 `Ctrl+V`。
+3. 如果改了手机页面，必须让用户或真实设备测试关键交互，尤其是：
+   - 普通打字
+   - 语音输入
+   - 键盘弹起时发送按钮位置
+   - 发送成功清空
+   - 发送失败保留
+   - 常亮按钮（HTTP 下提示不支持，HTTPS 下可激活）
+4. 如果改了打包，运行 `.\scripts\build.ps1`，并从实际产物路径启动测试。
+
+## 常见坑
+
+- PyInstaller `--windowed` 下没有正常控制台，依赖 `sys.stderr` 的日志配置可能崩溃。
+- 打包前如果 TextDrop 正在运行，Windows 可能占用 `dist` 中的 `.pyd` 或 DLL，导致删除旧产物失败。
+- 手机浏览器的键盘、语音输入和 textarea 组合行为很脆弱，少加属性、少拦截事件。
+- 地址自动选择只能做启发式判断，多网卡/VPN/虚拟网卡场景需要给用户兜底。
+- `TextDrop.exe` 如果依赖同目录资源，不要让用户单独移动 exe。
+- PyInstaller 图标需要 `.ico`。如果替换图标，优先从透明 PNG 生成多尺寸 ico，再更新打包脚本。
+- `navigator.wakeLock` 是浏览器安全 API，仅在安全上下文（HTTPS 或 localhost）下可用。HTTP 局域网访问时必然失败，需要给用户清晰的降级提示。
+- TLS 证书在应用启动时生成，使用 `cryptography` 库。修改证书生成逻辑时注意 SAN 必须覆盖所有可能的局域网地址（含 IP 和 localhost）。
+- `cryptography` 是编译型依赖，打包后约增加 5-10 MB。如果未来移除 HTTPS 功能，可同时移除此依赖。
+
+---
+> Source: [alone-tree/TextDrop](https://github.com/alone-tree/TextDrop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-12 -->
