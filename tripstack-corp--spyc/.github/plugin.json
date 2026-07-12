@@ -1,0 +1,9 @@
+{
+  "name": "tripstack-corp--spyc",
+  "displayName": "spyc",
+  "description": "A Rust TUI file commander where the AI agent in the side pane can query the file commander itself",
+  "version": "1.0.0",
+  "author": "Tripstack-Corp",
+  "homepage": "https://github.com/Tripstack-Corp/spyc",
+  "skills": []
+}
