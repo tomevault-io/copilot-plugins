@@ -1,0 +1,9 @@
+{
+  "name": "c-reichert--flowstate",
+  "displayName": "flowstate",
+  "description": "Claude Code plugin combining TDD discipline with knowledge compounding. Inspired by Superpowers, Compound Engineering, and Anthropic prompting research.",
+  "version": "1.0.0",
+  "author": "c-reichert",
+  "homepage": "https://github.com/c-reichert/flowstate",
+  "skills": []
+}
