@@ -7,11 +7,11 @@ Example project using the Blockbench MCP plugin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jasonjgardner/blockbench-mcp-project](https://github.com/jasonjgardner/blockbench-mcp-project).
+Original source: `AGENTS.md` in [jasonjgardner/blockbench-mcp-project](https://github.com/jasonjgardner/blockbench-mcp-project).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `CLAUDE.md` in [jasonjgardner/blockbench-mcp-project](https://g
 
 - [blockbench-development](https://github.com/jasonjgardner/blockbench-mcp-project/tree/main/skills/blockbench-development)
 
-From [jasonjgardner/blockbench-mcp-project](https://github.com/jasonjgardner/blockbench-mcp-project) — a repo with 10+ stars on GitHub.
+From [jasonjgardner/blockbench-mcp-project](https://github.com/jasonjgardner/blockbench-mcp-project) — a repo with 0+ stars on GitHub.
 
 ---
 
