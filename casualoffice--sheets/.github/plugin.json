@@ -1,0 +1,9 @@
+{
+  "name": "casualoffice--sheets",
+  "displayName": "sheets",
+  "description": "Open-source self-hosted web spreadsheet with .xlsx round-trip and real-time co-editing \u2014 an alternative to Google Sheets, Excel Online, and OnlyOffice you run on your own server.",
+  "version": "1.0.0",
+  "author": "CasualOffice",
+  "homepage": "https://github.com/CasualOffice/sheets",
+  "skills": []
+}
