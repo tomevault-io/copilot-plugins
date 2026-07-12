@@ -1,0 +1,9 @@
+{
+  "name": "secemp9--goal",
+  "displayName": "goal",
+  "description": "/goal port from codex to arbitrary agents and harnesses, opencode, claude code, etc",
+  "version": "1.0.0",
+  "author": "secemp9",
+  "homepage": "https://github.com/secemp9/goal",
+  "skills": []
+}
