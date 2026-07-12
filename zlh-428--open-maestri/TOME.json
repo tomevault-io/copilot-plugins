@@ -4,7 +4,7 @@
   "repo": "open-maestri",
   "description": "Open-source alternative to Maestri. Native macOS multi-agent orchestration canvas \u2014 connect, coordinate & deploy Claude Code, Codex, OpenCode, Gemini CLI agents visually.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zlh-428/open-maestri",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T02:46:22Z"
+  "distributed_at": "2026-07-12T02:56:12Z"
 }
