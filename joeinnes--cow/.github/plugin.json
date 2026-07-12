@@ -1,0 +1,9 @@
+{
+  "name": "joeinnes--cow",
+  "displayName": "cow",
+  "description": "Copy-on-write workspace manager for parallel development",
+  "version": "1.0.0",
+  "author": "joeinnes",
+  "homepage": "https://github.com/joeinnes/cow",
+  "skills": []
+}
