@@ -1,0 +1,9 @@
+{
+  "name": "soo-jeongkim--co-pymol",
+  "displayName": "co-pymol",
+  "description": "PyMOL plugin - drive PyMOL from Claude Code, Cursor, or any MCP client.",
+  "version": "1.0.0",
+  "author": "soo-jeongkim",
+  "homepage": "https://github.com/soo-jeongkim/co-pymol",
+  "skills": []
+}
