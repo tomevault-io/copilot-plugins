@@ -4,7 +4,7 @@
   "repo": "slackline",
   "description": "A single-binary Go CLI that gives AI agents a Slack identity to send messages, read channels, and stream real-time events, with admin tooling to provision new bots.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prime-radiant-inc/slackline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T08:36:21Z"
+  "distributed_at": "2026-07-12T08:38:49Z"
 }
