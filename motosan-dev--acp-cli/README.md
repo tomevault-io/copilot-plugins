@@ -7,11 +7,11 @@ Headless CLI client for the Agent Client Protocol (ACP) — Rust port of ACPX
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [motosan-dev/acp-cli](https://github.com/motosan-dev/acp-cli).
+Original source: `CLAUDE.md` in [motosan-dev/acp-cli](https://github.com/motosan-dev/acp-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
