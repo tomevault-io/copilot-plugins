@@ -1,0 +1,9 @@
+{
+  "name": "ether--etherpad-desktop",
+  "displayName": "etherpad-desktop",
+  "description": "Etherpad Desktop and Mobile App",
+  "version": "1.0.0",
+  "author": "ether",
+  "homepage": "https://github.com/ether/etherpad-desktop",
+  "skills": []
+}
