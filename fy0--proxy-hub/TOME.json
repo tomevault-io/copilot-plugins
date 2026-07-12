@@ -1,0 +1,44 @@
+{
+  "name": "proxy-hub",
+  "owner": "fy0",
+  "repo": "proxy-hub",
+  "description": "\u7b80\u5355\u6613\u7528\u7684\u4ee3\u7406\u8282\u70b9\u8f6c\u6362\u5de5\u5177 / \u4ee3\u7406\u6c60\u7ba1\u7406\u5de5\u5177\u3002  Import common proxy links and turn them into ready-to-use local SOCKS5/HTTP endpoints",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fy0/proxy-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T01:36:32Z"
+}
