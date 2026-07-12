@@ -1,0 +1,44 @@
+{
+  "name": "chahua",
+  "owner": "jin-bo",
+  "repo": "chahua",
+  "description": "\u8336\u8bdd\u5ba4 \u2014\u2014 \u591a Agent \u534f\u4f5c\u5e73\u53f0\uff08\u7531 agentao \u9a71\u52a8\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jin-bo/chahua",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T02:41:00Z"
+}
