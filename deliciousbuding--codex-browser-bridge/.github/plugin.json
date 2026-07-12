@@ -1,0 +1,9 @@
+{
+  "name": "deliciousbuding--codex-browser-bridge",
+  "displayName": "codex-browser-bridge",
+  "description": "Expose Codex Desktop's Chrome browser bridge as an MCP server for Claude Code and other agents.",
+  "version": "1.0.0",
+  "author": "DeliciousBuding",
+  "homepage": "https://github.com/DeliciousBuding/codex-browser-bridge",
+  "skills": []
+}
