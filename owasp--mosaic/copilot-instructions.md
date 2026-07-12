@@ -1,28 +1,33 @@
-## complete-ticket
+## context-management
 
-> Requires complete tickets before coding - asks clarifying questions if requirements are missing
+> Keep agent context focused across tasks and stale threads
 
 
-# Complete Ticket Requirement
+# Context Management
 
-When the user submits a ticket or task via a `.md` or `.txt` file (including `AGENTS.md`):
+## Do
 
-1. **Check** for: goal, success criteria, context, constraints — same rules as `requirements-gate.mdc`
-2. **If missing** → ask clarifying questions; offer the **Requirements template** in `requirements-gate.mdc`; do NOT code
-3. **If complete** → follow the decision tree in `multi-agent-workflow.mdc`:
-   - Trivial (typo, rename, one-liner) → implement directly
-   - Non-trivial → Plan Mode per `plan-first-workflow.mdc` or Phase 1 per `multi-agent-workflow.mdc` when both apply
-   - Wait for approval before implementation when planning is required
-4. **Never assume** missing details — see `never-assume.mdc`
+- Use `/clear` between unrelated tasks or features.
+- Reference files with `@path` instead of pasting entire file contents.
+- Use `@Past Chats` to pull in prior work instead of copy-pasting old conversations.
+- Start fresh after **2 failed corrections** on the same issue: `/clear`, then write a better prompt that incorporates what you learned.
+- Point website editors at `@docs/website.md` for file locations and shortcodes.
 
-Verification after implementation: `verifiable-goals.mdc`.
+## Don't
 
-## Coding standards (not covered elsewhere)
+- Let context accumulate across unrelated features in one long thread.
+- Describe files vaguely when an `@` reference exists.
+- Keep correcting the same mistake in a degrading context — reset instead.
 
-- **Stack:** Hugo (markdown content + HTML layouts); CSS in `static/assets/styles.css`; Node scripts for deploy helpers.
-- **Content:** Markdown with YAML front matter; layout via shortcodes in `layouts/shortcodes/`.
-- **Clean edits:** Match existing shortcode and front-matter patterns on sibling pages.
-- **Documentation:** For website tasks, follow and update `docs/website.md` when adding shortcodes or new page patterns.
+## When context is stale
+
+Signs you should `/clear` and re-prompt:
+
+- Repeated fixes on the same bug without progress
+- Agent confuses requirements from an earlier, unrelated task
+- Plan has drifted significantly from what was approved
+
+After clearing, restate: goal, approved plan (or link to `.cursor/plans/*.md`), relevant `@` files, and acceptance criteria.
 
 ---
 > Source: [OWASP/MOSAIC](https://github.com/OWASP/MOSAIC) — distributed by [TomeVault](https://tomevault.io).
