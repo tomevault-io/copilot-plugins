@@ -1,0 +1,9 @@
+{
+  "name": "kriss-spy--obsidian-opencode",
+  "displayName": "obsidian-opencode",
+  "description": "use opencode CLI in obsidian",
+  "version": "1.0.0",
+  "author": "kriss-spy",
+  "homepage": "https://github.com/kriss-spy/obsidian-opencode",
+  "skills": []
+}
