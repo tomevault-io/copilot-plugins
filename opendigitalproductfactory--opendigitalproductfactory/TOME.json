@@ -4,7 +4,7 @@
   "repo": "opendigitalproductfactory",
   "description": "This is the official open digital product factory",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenDigitalProductFactory/opendigitalproductfactory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T08:38:21Z"
+  "distributed_at": "2026-07-12T08:40:42Z"
 }
