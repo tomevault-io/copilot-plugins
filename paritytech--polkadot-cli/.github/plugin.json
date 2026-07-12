@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--polkadot-cli",
+  "displayName": "polkadot-cli",
+  "description": "polkadot-cli",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/polkadot-cli",
+  "skills": []
+}
