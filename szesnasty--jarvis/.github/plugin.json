@@ -1,0 +1,9 @@
+{
+  "name": "szesnasty--jarvis",
+  "displayName": "Jarvis",
+  "description": "Local-first knowledge system that turns notes, files, and AI chats into durable memory.",
+  "version": "1.0.0",
+  "author": "Szesnasty",
+  "homepage": "https://github.com/Szesnasty/Jarvis",
+  "skills": []
+}
