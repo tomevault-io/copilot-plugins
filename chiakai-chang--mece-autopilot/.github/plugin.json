@@ -1,0 +1,9 @@
+{
+  "name": "chiakai-chang--mece-autopilot",
+  "displayName": "MECE-Autopilot",
+  "description": "\u70ba AI Agent \u8a2d\u8a08\u7684\u81ea\u4e3b\u63a8\u7406\u5354\u5b9a\u8207 CLI \u5de5\u5177\u3002\u900f\u904e\u52d5\u614b\u6a21\u64ec MECE \u591a\u89d2\u8272\u8faf\u8ad6\u81ea\u52d5\u5206\u6790\u8907\u96dc\u6c7a\u7b56\uff0c\u4e26\u7522\u51fa\u7d50\u69cb\u5316\u67b6\u69cb\u6c7a\u7b56\u7d00\u9304 (ADR)\u3002An autonomous reasoning protocol & CLI tool for AI agents to resolve complex decisions via dynamic MECE debates and generate s",
+  "version": "1.0.0",
+  "author": "Chiakai-Chang",
+  "homepage": "https://github.com/Chiakai-Chang/MECE-Autopilot",
+  "skills": []
+}
