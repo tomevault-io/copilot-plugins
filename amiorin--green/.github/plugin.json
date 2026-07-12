@@ -1,0 +1,9 @@
+{
+  "name": "amiorin--green",
+  "displayName": "green",
+  "description": "Green ia A babashka-compatible Clojure library for building idempotent devops CLIs",
+  "version": "1.0.0",
+  "author": "amiorin",
+  "homepage": "https://github.com/amiorin/green",
+  "skills": []
+}
