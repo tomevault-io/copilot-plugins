@@ -1,0 +1,9 @@
+{
+  "name": "saltandsilicon--game-theorist",
+  "displayName": "game-theorist",
+  "description": "Game theory for strategy, negotiation, pricing, and competitive decisions. AI skill for Claude Code, Cursor, Windsurf, Codex, Gemini CLI.",
+  "version": "1.0.0",
+  "author": "saltandsilicon",
+  "homepage": "https://github.com/saltandsilicon/game-theorist",
+  "skills": []
+}
