@@ -1,0 +1,9 @@
+{
+  "name": "clawbrowser--clawbrowser",
+  "displayName": "clawbrowser",
+  "description": "Agent-native browser with fingerprint control and proxy support.",
+  "version": "1.0.0",
+  "author": "clawbrowser",
+  "homepage": "https://github.com/clawbrowser/clawbrowser",
+  "skills": []
+}
