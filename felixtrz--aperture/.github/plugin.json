@@ -1,0 +1,9 @@
+{
+  "name": "felixtrz--aperture",
+  "displayName": "aperture",
+  "description": "WebGPU-only, ECS-native 3D runtime where simulation is authoritative and rendering is a derived view.",
+  "version": "1.0.0",
+  "author": "felixtrz",
+  "homepage": "https://github.com/felixtrz/aperture",
+  "skills": []
+}
