@@ -7,11 +7,11 @@ Local-first AI desktop assistant that scrapes job boards, matches roles to your 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [saeedkolivand/ai-job-hunter-app](https://github.com/saeedkolivand/ai-job-hunter-app).
+Original source: `AGENTS.md` in [saeedkolivand/ai-job-hunter-app](https://github.com/saeedkolivand/ai-job-hunter-app).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
