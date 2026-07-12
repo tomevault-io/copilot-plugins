@@ -1,0 +1,9 @@
+{
+  "name": "yonidavidson--agentcomm",
+  "displayName": "agentcomm",
+  "description": "A tiny mailbox for AI agents \u2014 one CLI, six backends (GitHub repo, SQLite, S3, GCS, Postgres, local). The repo is the bus.",
+  "version": "1.0.0",
+  "author": "yonidavidson",
+  "homepage": "https://github.com/yonidavidson/agentcomm",
+  "skills": []
+}
