@@ -1,0 +1,9 @@
+{
+  "name": "timescale--pg-guide",
+  "displayName": "pg-guide",
+  "description": "PG guide to devops/infra engineers",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/pg-guide",
+  "skills": []
+}
