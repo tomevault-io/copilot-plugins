@@ -1,0 +1,9 @@
+{
+  "name": "spruceup-ai--spruceup",
+  "displayName": "SpruceUp",
+  "description": "A standalone system for making automated, incremental updates to a vector database",
+  "version": "1.0.0",
+  "author": "SpruceUp-ai",
+  "homepage": "https://github.com/SpruceUp-ai/SpruceUp",
+  "skills": []
+}
