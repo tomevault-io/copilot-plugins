@@ -1,0 +1,9 @@
+{
+  "name": "zig-toolbelt--zigpkg",
+  "displayName": "zigpkg",
+  "description": "A gateway to our galaxy of Zig utilities, libraries, and tools created to empower developers.",
+  "version": "1.0.0",
+  "author": "zig-toolbelt",
+  "homepage": "https://github.com/zig-toolbelt/zigpkg",
+  "skills": []
+}
