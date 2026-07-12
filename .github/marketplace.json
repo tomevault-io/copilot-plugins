@@ -244194,6 +244194,11 @@
       "description": "Modern, composable all-in-one mail server in Go with SMTP, IMAP, CalDAV, CardDAV, DKIM, SPF, DMARC, antivirus, and anti-spam"
     },
     {
+      "name": "dvucinozd--home-assistant-mqtt-voice-assistant",
+      "source": "./dvucinozd--home-assistant-mqtt-voice-assistant",
+      "description": "JC-ESP32P4-M3-DEV firmware: offline wake word, HA Assist pipeline, MQTT control, OTA updates."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -265847,6 +265852,46 @@
       "name": "milanglacier--pi-dynamic-workflow",
       "source": "./milanglacier--pi-dynamic-workflow",
       "description": "Dynamic workflow orchestration for pi: the LLM authors a JS orchestration script that fans out isolated pi subagent sessions. Written by Claude Fable 5."
+    },
+    {
+      "name": "vadale--r-ebirth",
+      "source": "./vadale--r-ebirth",
+      "description": "Make R a first-class environment for AI and data-science research \u2014 the rebirth package (Rust core embedding a patched llama.cpp)."
+    },
+    {
+      "name": "mocasus--paleo",
+      "source": "./mocasus--paleo",
+      "description": "\ud83e\uddb4 paleo \u2014 token-saving skills for LLM agents: compress output, trim context, cap budget (Claude Code / Codex / Gemini / Hermes)"
+    },
+    {
+      "name": "mocasus--paleo",
+      "source": "./mocasus--paleo",
+      "description": "\ud83e\uddb4 paleo \u2014 token-saving skills for LLM agents: compress output, trim context, cap budget (Claude Code / Codex / Gemini / Hermes)"
+    },
+    {
+      "name": "mocasus--paleo",
+      "source": "./mocasus--paleo",
+      "description": "\ud83e\uddb4 paleo \u2014 token-saving skills for LLM agents: compress output, trim context, cap budget (Claude Code / Codex / Gemini / Hermes)"
+    },
+    {
+      "name": "0xtechdean--ideation-claude",
+      "source": "./0xtechdean--ideation-claude",
+      "description": "Multi-agent startup validator using Claude CLI instances"
+    },
+    {
+      "name": "tejxn--antigravity-jailbreak",
+      "source": "./tejxn--antigravity-jailbreak",
+      "description": "Jailbreak Antigravity Modules To Do What Ever You Want."
+    },
+    {
+      "name": "eimg--helix",
+      "source": "./eimg--helix",
+      "description": "Experimental agent orchestration loop built on pi (command: helix)"
+    },
+    {
+      "name": "nextweb4--tips-prompt-manager",
+      "source": "./nextweb4--tips-prompt-manager",
+      "description": "Offline prompt engineering manager for Windows"
     },
     {
       "name": "cheerhuan--save-your-token",
