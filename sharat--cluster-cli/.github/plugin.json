@@ -1,0 +1,9 @@
+{
+  "name": "sharat--cluster-cli",
+  "displayName": "cluster-cli",
+  "description": "A fast, interactive terminal UI for monitoring Kubernetes cluster health in real-time",
+  "version": "1.0.0",
+  "author": "sharat",
+  "homepage": "https://github.com/sharat/cluster-cli",
+  "skills": []
+}
