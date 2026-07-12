@@ -1,55 +1,48 @@
-## requirements-gate
+## verifiable-goals
 
-> Stop and ask clarifying questions before coding when requirements are incomplete
+> Non-negotiable Hugo build and CI checks with evidence in handoff
 
 
-# Requirements Gate
+# Verifiable Goals
 
-If ANY of the following is missing or ambiguous, **STOP and ask clarifying questions**.
-Do NOT write, edit, or delete code until the gaps are filled.
+Agents need pass/fail checks to close the loop. Without verification, the human becomes the verification loop.
 
-| Required | What to ask |
-|----------|-------------|
-| **Clear goal** | What outcome does the user want? What problem are we solving? |
-| **Verifiable success criteria** | Which checks must pass? (Hugo build, CI, manual preview) |
-| **Context references** | Which files, pages, or prior chats apply? Prefer `@path/to/file` refs when ambiguous. |
-| **Constraints** | Out of scope, URL compatibility, no new deps, Firebase/deploy impact, etc. |
+## Required checks (site / content / layout changes)
 
-## Context references — when `@` refs are required
+Run in order unless clearly irrelevant (explain why if skipped):
 
-- **Satisfied without `@`** when the message names specific paths or pages clearly (e.g. "update the hero text on the home page in `content/mosaic/content/_index.md`").
-- **Ask for `@` refs** when multiple files could apply, the shortcode/layout pattern to mirror is unclear, or prior chat/issue context is needed.
+1. `npm run build:site` — Hugo must build with zero errors
+2. `npm run serve` — optional visual spot-check at http://localhost:3000 when layout or CSS changed
 
-## Skip the gate only when
+## Required checks (scripts / workflow changes)
 
-The request is fully specified in one sentence with obvious success criteria and unambiguous context, e.g.
-"Fix typo in README line 42" or "Change the Roadmap subtitle in `content/mosaic/content/roadmap.md`."
+1. `npm run build:site` — ensure site still builds
+2. If `scripts/set-hosting-retention.js` changed: dry-run logic review; do not run against production without credentials and explicit user request
 
-## Requirements template (offer when info is missing)
+## CI
+
+When preparing or fixing a PR: all workflow jobs must be green.
+Use `gh pr checks` or the GitHub Actions UI. Fix failures iteratively.
+
+Deploy workflows build Hugo from `content/mosaic/` and publish `public/` to Firebase Hosting.
+
+## Iterate until green
+
+- If any check fails, fix the failure and rerun from the failed step.
+- Do not hand off with failing checks unless blocked; document the blocker explicitly.
+- Before commit (when user asks): all relevant checks must pass.
+
+## Handoff evidence (mandatory)
+
+Report what you ran and the outcome — not assertions:
 
 ```
-## Task
-<One-sentence goal>
-
-## Success criteria (all must pass)
-- [ ] `npm run build:site`
-- [ ] Visual check via `npm run serve` (if layout/CSS changed)
-- [ ] CI green (`gh pr checks` or Actions UI)
-- [ ] Other: ___
-
-## Context
-- Files: @content/mosaic/content/roadmap.md
-- Pattern to mirror: @content/mosaic/content/news.md
-- Prior work: @Past Chats / issue # / PR #
-- Editing guide: @docs/website.md (for website work)
-
-## Constraints
-- In scope: ___
-- Out of scope: ___
-- Dependencies: none / explain before adding
-- Deploy: content-only / workflow / maintainer script
-- Secrets: never commit service account JSON
+npm run build:site  — passed (N pages)
+npm run serve       — checked /roadmap.html (if applicable)
+gh pr checks        — all green (if PR-related)
 ```
+
+If a check failed, show the Hugo error, the fix, and the rerun result.
 
 ---
 > Source: [OWASP/MOSAIC](https://github.com/OWASP/MOSAIC) — distributed by [TomeVault](https://tomevault.io).
