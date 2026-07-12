@@ -1,30 +1,24 @@
-## 11-local-dev-postgres
+## 12-ai-coding-doc-sync
 
-> 本地开发统一采用 PostgreSQL；环境、Docker、迁移与代码生成约束
+> AI coding and documentation sync requirements
 
 
-# 本地开发与数据库（PostgreSQL）
+# AI 编程与文档同步规则
 
-## 强制约定
-
-- **本地与仓库默认数据库为 PostgreSQL**。生成迁移、示例 DDL、`docker-compose`、`.env.example` 说明时，**以 PostgreSQL 为准**。
-- **不要**默认选用 MySQL 端口（3306）、MySQL 专用语法（`AUTO_INCREMENT`、`DATETIME` 等）或仅 MySQL 的 compose 服务，除非用户**明确**要求 MySQL。
-- 后端已通过 `DB_DRIVER` 支持 `mysql`；仅在**对接遗留库**或用户指定时使用。日常开发与文档示例不要以此为主路径。
-
-## 与环境变量对齐
-
-- 默认 **`DB_DRIVER=postgres`**，**`DB_PORT=5432`**（未设置 `DB_PORT` 时后端对 postgres 默认 5432）。
-- 本地基础设施：根目录 **`docker-compose.yml`** 提供 **PostgreSQL + Redis**；新成员 `docker compose up -d` 即可。
-
-## 编码与迁移
-
-- GORM：默认连接串与 **`gorm.io/driver/postgres`**；生成新模型/迁移时列类型优先使用 PostgreSQL 惯用类型（如 `UUID`、`TIMESTAMPTZ`、`JSONB` 视业务需要）。
-- 主键 UUID：当前模型基类使用 `char(36)`；若在 Postgres 中改为原生 `uuid`，须在迁移与规则中一次说清，并更新 `docs/PROGRESS.md`。
-
-## Cursor 行为
-
-- 实现「建表 / migration / docker / 环境说明」类任务时：**先查阅** `.env.example`、`docker-compose.yml`、`backend/internal/config`，**不要假设 MySQL**。
-- 若引入仅适用于一种数据库的写法，须在注释中标明，并优先保证 **PostgreSQL 可运行**。
+- 修改代码前先读取相关代码、配置与文档，不凭空假设脚本、端口、路径或变量。
+- 变更必须保持 **代码 / 配置 / 示例 / Docker / CI / 文档** 同步。
+- 跨模块改动先查 `docs/module-map.md`；收尾时按 `docs/task-checklist.md` 自查。
+- 跨 AI 工具的上下文控制、token 节约和经验沉淀流程见 `docs/ai-workflow.md`。
+- 新增或修改环境变量时，同步更新 `.env.example`、`docs/env.md`；Docker 也需要时同步 `.env.docker.example` 与 `docker-compose.full.yml`。
+- 新增或修改命令时，同步更新 `README.md`、`README.en.md`、`docs/development.md` 和 `package.json` 脚本说明。
+- 新增或修改 Docker 部署行为时，同步更新 `docs/docker-deployment.md`。
+- 新增 API 或改变 DTO / 返回字段时，同步 `docs/api.md`、前端 `admin/src/services`、`admin/src/types` 和相关页面。
+- 新增 Provider 时按 `docs/provider-template.md` 检查接口、配置、超时、错误处理和安全要求，并同步 `docs/provider.md`。
+- 新增异步任务、后台页面、数据库表或公共契约时，同步更新对应 `docs/`，较大变更必须更新 `docs/PROGRESS.md`。
+- 涉及分支、CI、PR 流程时，同步更新 `docs/branching.md`、`CONTRIBUTING.md` 与 PR 模板。
+- 涉及密钥、Token、授权、加密或日志安全时，同步更新 `SECURITY.md` 或相关设置文档。
+- 提交前按改动范围执行检查：后端 `go fmt ./...`，admin `pnpm build:admin`，collector `pnpm build:collector`；未执行需说明原因。
+- 详细规则见 `docs/ai-coding-rules.md`。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
