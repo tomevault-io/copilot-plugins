@@ -4,7 +4,7 @@
   "repo": "jclaw",
   "description": "Java-based Enterprise AI Harness \u2014 AI-powered automation platform built in pure Java on Abundent's fork of the Play Framework 1.x with a Nuxt frontend. Combines agent orchestration and job scheduling with no Spring, no Node.js, and no Python runtime.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tsukhani/jclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T05:28:11Z"
+  "distributed_at": "2026-07-12T05:40:38Z"
 }
