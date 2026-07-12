@@ -1,0 +1,9 @@
+{
+  "name": "casualoffice--docs",
+  "displayName": "docs",
+  "description": "Open-source self-hosted web .docx editor with real-time co-editing \u2014 an alternative to Google Docs, Microsoft Word Online, and OnlyOffice Document Server you run on your own server.",
+  "version": "1.0.0",
+  "author": "CasualOffice",
+  "homepage": "https://github.com/CasualOffice/docs",
+  "skills": []
+}
