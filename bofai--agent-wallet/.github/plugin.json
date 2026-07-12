@@ -1,0 +1,9 @@
+{
+  "name": "bofai--agent-wallet",
+  "displayName": "agent-wallet",
+  "description": "agent wallet",
+  "version": "1.0.0",
+  "author": "BofAI",
+  "homepage": "https://github.com/BofAI/agent-wallet",
+  "skills": []
+}
