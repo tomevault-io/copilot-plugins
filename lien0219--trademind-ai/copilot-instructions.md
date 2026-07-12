@@ -1,218 +1,99 @@
-## 05-ai-provider
+## 06-storage-provider
 
-> AI provider abstraction, prompt templates, AI tasks, image AI, customer service, and future Agent expansion
+> Storage provider abstraction for local storage and future S3/COS/OSS/R2/MinIO expansion
 
 
-# AI 架构与扩展规则
+# 存储 Provider 规则
 
-## AI 总原则
+## 存储目标
 
-- AI 不写死模型。
-- Prompt 不写死代码。
-- 模型可切换。
-- 输出可追踪。
-- 调用可计费或预留计费字段。
-- 工具可扩展。
-- 客服先人工确认。
-- 自动化必须可回滚。
+贸灵必须支持自部署开箱即用，所以 MVP 必须优先支持本地存储 `local`。
 
-## AI Provider 架构
+后期扩展：
 
-业务模块只能调用 AI Gateway，不直接调用具体模型 SDK。
+- s3
+- cos
+- oss
+- r2
+- minio
 
-```text
-业务模块
-  ↓
-AI Gateway
-  ↓
-AI Provider
-  ↓
-第三方模型 API / 本地模型
-```
-
-## 必须支持或预留的 Provider
-
-- openai-compatible
-- deepseek
-- qwen
-- doubao
-- gemini
-- claude
-- ollama
-
-MVP 优先实现 openai-compatible。DeepSeek、通义、豆包可以通过兼容配置接入。
-
-## AI Provider 通用接口建议
+## 存储 Provider 接口建议
 
 ```go
-type AIProvider interface {
+type StorageProvider interface {
     Name() string
-    Chat(ctx context.Context, req ChatRequest) (*ChatResponse, error)
+
+    Put(ctx context.Context, objectKey string, reader io.Reader, contentType string) (*PutObjectResult, error)
+
+    GetURL(ctx context.Context, objectKey string) (string, error)
+
+    Delete(ctx context.Context, objectKey string) error
 }
 ```
 
-```go
-type ChatRequest struct {
-    Model          string
-    Messages       []ChatMessage
-    Temperature    float64
-    MaxTokens      int
-    ResponseFormat string
-    Tools          []AIToolSchema
-}
-```
-
-```go
-type ChatResponse struct {
-    Content      string
-    Raw          any
-    InputTokens  int
-    OutputTokens int
-}
-```
-
-## AI 功能实现方式
-
-以下功能都应该基于 Prompt 模板实现：
-
-- AI 标题优化
-- AI 描述生成
-- AI 翻译
-- AI 卖点提取
-- AI 类目推荐
-- AI 客服建议回复
-
-不要为每个功能写死模型调用逻辑，应该是：
+## 本地存储配置
 
 ```text
-Prompt Template + Input Variables + AI Gateway + Output Parser
+storage.provider = local
+storage.local.path = ./data/uploads
+storage.local.public_url = http://localhost:8080/uploads
 ```
 
-## Prompt 规则
-
-Prompt 必须可配置。可以内置默认 Prompt，但后台必须可以修改。
-
-Prompt 支持变量：
+本地存储必须支持 Docker 挂载：
 
 ```text
-{{title}}
-{{category}}
-{{attributes}}
-{{language}}
-{{maxLength}}
-{{platform}}
-{{skus}}
+./data/uploads:/app/data/uploads
 ```
 
-AI 输出尽量要求 JSON，便于系统解析和应用。
-
-## AI 任务记录
-
-每次 AI 调用必须记录或预留：
-
-- task_type
-- provider
-- model
-- prompt_code
-- input
-- output
-- status
-- error_message
-- token_input
-- token_output
-- cost_amount
-- started_at
-- finished_at
-
-## AI 标题优化输出建议
-
-```json
-{
-  "optimizedTitle": "Women's Summer Slim Fit Short Sleeve Dress",
-  "keywords": ["summer dress", "women dress", "slim fit"],
-  "reason": "标题突出季节、人群、版型和核心关键词。"
-}
-```
-
-## AI 图片能力
-
-图片能力必须通过 Image Provider 扩展。
-
-MVP 只需要完成：
-
-- 图片上传
-- 图片存储
-- 图片关联商品
-- 图片任务记录
-- Image Provider 接口预留
-
-后续扩展：
-
-- 去背景
-- 换背景
-- 商品图美化
-- 场景图生成
-- 模特图生成
-- ComfyUI 工作流
-- 多平台尺寸适配
-
-## AI 客服规则
-
-MVP 阶段 AI 客服默认只生成建议回复，不自动发送。
-
-推荐流程：
+## 云存储配置示例
 
 ```text
-买家问题
-  ↓
-AI 生成建议回复
-  ↓
-人工确认
-  ↓
-复制 / 手动发送
+storage.provider = cos
+storage.cos.secret_id = xxx
+storage.cos.secret_key = xxx
+storage.cos.bucket = xxx
+storage.cos.region = ap-guangzhou
+storage.cos.public_url = https://xxx.cos.ap-guangzhou.myqcloud.com
 ```
 
-后期可扩展为：
+## 文件上传规则
 
-```text
-买家问题
-  ↓
-AI 判断意图
-  ↓
-调用工具查询订单/物流/退款
-  ↓
-生成回复
-  ↓
-人工确认或自动发送
-```
+- 文件上传必须经过后端。
+- 后端负责调用 Storage Provider。
+- 前端不得直传第三方存储，除非后期明确实现预签名 URL。
+- 文件必须记录 object_key、public_url、content_type、size。
+- 商品图片必须能关联 product_id。
 
-## Tool Calling 预留
+## 安全规则
 
-```go
-type AITool interface {
-    Name() string
-    Description() string
-    Schema() map[string]any
-    Execute(ctx context.Context, args map[string]any) (any, error)
-}
-```
+以下字段必须加密存储：
 
-预留工具：
+- secret_id
+- secret_key
+- access_key
+- access_secret
+- token
 
-- get_order_status
-- get_tracking_info
-- get_product_info
-- get_refund_policy
-- create_refund_ticket
-- send_buyer_message
+前端展示时必须脱敏。
+
+## 设置页要求
+
+存储设置页面必须包含：
+
+- 存储方式选择
+- 本地路径
+- 公开访问 URL
+- Bucket / Region / Endpoint 等云存储配置
+- Secret 字段脱敏
+- 测试连接按钮
+- 保存按钮
 
 ## 禁止事项
 
-- 不要让前端直接调用模型 API。
-- 不要把 API Key 写进前端代码。
-- 不要在日志中输出 Prompt 中的敏感信息。
-- 不要默认开启自动客服发送。
-- 不要硬编码 OpenAI、DeepSeek、通义等具体模型。
+- 不要把本地路径写死。
+- 不要把云存储密钥写死到代码或前端。
+- 不要让业务模块直接依赖 COS/OSS/S3 SDK。
+- 不要只保存 public_url，必须保留 object_key。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
