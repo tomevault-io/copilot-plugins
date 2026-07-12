@@ -1,0 +1,51 @@
+{
+  "name": "harn",
+  "owner": "burin-labs",
+  "repo": "harn",
+  "description": "Harn is a programming language and runtime for building AI agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rust-scripting",
+      "path": "conformance/tests/scenarios/skills_load_skill_roundtrip/.harn/skills/rust-scripting",
+      "github_url": "https://github.com/burin-labs/harn/tree/main/conformance/tests/scenarios/skills_load_skill_roundtrip/.harn/skills/rust-scripting",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/burin-labs/harn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T06:30:35Z"
+}
