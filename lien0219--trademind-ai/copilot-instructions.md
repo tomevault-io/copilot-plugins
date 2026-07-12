@@ -1,185 +1,157 @@
-## 08-api-db-security
+## 09-dev-workflow
 
-> API route planning, database schema conventions, settings center, encryption, secrets, logs, and task records
+> Development workflow, implementation priority, MVP milestones, coding behavior for Cursor, and documentation requirements
 
 
-# API / 数据库 / 安全规则
+# 开发流程与阶段规划规则
 
-## API 路由规划
+## 开发优先级
 
-### 认证
+按照以下顺序推进，不要跳到复杂 ERP 功能：
 
-```text
-POST /api/v1/auth/login
-POST /api/v1/auth/logout
-GET  /api/v1/auth/profile
-```
+### 第 1 阶段：项目地基
 
-### 设置
+目标：项目能启动，后台能登录，系统设置能保存。
 
-```text
-GET  /api/v1/settings
-PUT  /api/v1/settings
-POST /api/v1/settings/test-ai
-POST /api/v1/settings/test-storage
-```
+- 初始化 monorepo 项目结构
+- 搭建 Go Gin 后端
+- 搭建 React + Ant Design Pro 后台
+- 搭建 **PostgreSQL**（`docker-compose` 与本地开发默认；MySQL 非默认路径）
+- 搭建 Redis
+- 实现管理员登录
+- 实现统一 API 返回
+- 实现 settings 表
+- 实现敏感配置加密
+- 实现系统设置页面
 
-### 商品
+### 第 2 阶段：存储能力
 
-```text
-GET    /api/v1/products
-POST   /api/v1/products
-GET    /api/v1/products/:id
-PUT    /api/v1/products/:id
-DELETE /api/v1/products/:id
-POST   /api/v1/products/:id/apply-ai-title
-POST   /api/v1/products/:id/apply-ai-description
-```
+目标：用户可以选择本地存储，并完成图片上传。
 
-### 采集
+- Storage Provider 接口
+- local storage
+- 文件上传 API
+- 上传目录挂载
+- 文件列表
+- 存储设置页面
+- 存储连接测试
+- s3/cos/oss 接口预留
 
-```text
-POST /api/v1/collect/tasks
-GET  /api/v1/collect/tasks
-GET  /api/v1/collect/tasks/:id
-POST /api/v1/collect/tasks/:id/retry
-```
+### 第 3 阶段：AI 文本能力
 
-### AI
+目标：可以配置 AI Provider，并完成标题优化。
 
-```text
-POST /api/v1/ai/title-optimize
-POST /api/v1/ai/description-generate
-POST /api/v1/ai/chat
-GET  /api/v1/ai/tasks
-GET  /api/v1/ai/tasks/:id
-```
+- AI Provider 接口
+- openai-compatible Provider
+- DeepSeek / Qwen 兼容配置
+- Prompt 模板表
+- AI 设置页面
+- Prompt 编辑页面
+- AI 标题优化 API
+- AI 调用记录
+- 商品详情页一键应用 AI 标题
 
-### 文件
+### 第 4 阶段：商品草稿
 
-```text
-POST   /api/v1/files/upload
-GET    /api/v1/files
-DELETE /api/v1/files/:id
-```
+目标：商品数据可以被创建、编辑、保存。
 
-### 店铺
+- products 表
+- product_skus 表
+- product_images 表
+- 商品草稿列表
+- 商品详情编辑
+- SKU 编辑
+- 商品图片管理
+- 商品归档
 
-```text
-GET  /api/v1/stores
-POST /api/v1/stores/:platform/auth-url
-GET  /api/v1/stores/:platform/callback
-POST /api/v1/stores/:id/refresh-token
-```
+### 第 5 阶段：采集服务
 
-## Settings 配置中心
+目标：可以采集 1688 商品链接，并保存为商品草稿。
 
-所有可变能力尽量进入系统设置，不要写死在代码中。
+- Node.js + Playwright 采集服务
+- 采集任务队列
+- 1688 Provider
+- 商品结构化解析
+- raw 原始数据保存
+- 采集任务状态
+- 失败重试
+- 采集结果生成商品草稿
+- 采集任务页面
 
-设置分组：
+### 第 6 阶段：AI 描述与图片预留
 
-```text
-system
-ai
-storage
-collector
-platform
-image
-security
-queue
-```
+目标：形成更完整的 AI 商品优化能力。
 
-设置要求：
+- AI 描述生成
+- 描述 Prompt 模板
+- 图片任务表
+- Image Provider 接口
+- 图片处理任务页面
+- remove.bg / ComfyUI / OpenAI Image 接入预留
 
-- 支持前端后台编辑。
-- 支持环境变量初始化。
-- 支持敏感字段加密。
-- 支持连接测试。
-- 支持恢复默认值。
-- 支持按租户隔离预留。
+### 第 7 阶段：店铺授权预留
 
-## settings 表建议（**PostgreSQL** 方言；本地与默认迁移以此为准）
+目标：为后续真实平台打通做准备。
 
-```sql
-CREATE TABLE settings (
-  id BIGSERIAL PRIMARY KEY,
-  tenant_id BIGINT DEFAULT 0,
-  group_key VARCHAR(100) NOT NULL,
-  item_key VARCHAR(100) NOT NULL,
-  item_value TEXT,
-  value_type VARCHAR(50) DEFAULT 'string',
-  is_encrypted BOOLEAN DEFAULT FALSE,
-  remark VARCHAR(255),
-  created_at TIMESTAMPTZ,
-  updated_at TIMESTAMPTZ,
-  UNIQUE (tenant_id, group_key, item_key)
-);
-```
+- Platform Provider 接口
+- stores 表
+- 店铺列表页面
+- 平台配置页面
+- TikTok Shop 授权预留
+- Shopee 授权预留
 
-## 商品核心表
+## Cursor 生成代码时的行为规则
 
-生成数据库相关代码时，优先围绕：
+当用户要求实现功能时，优先：
 
-- products
-- product_images
-- product_skus
-- collect_tasks
-- ai_tasks
-- ai_prompts
-- ai_providers
-- settings
+1. 判断功能属于哪个阶段。
+2. 检查是否存在相关 Provider 抽象。
+3. 先补接口和类型，再补具体实现。
+4. 后端先统一返回结构和错误处理。
+5. 前端先使用 ProTable / ProForm 搭建管理页面。
+6. 涉及耗时任务时，必须走任务状态，不要同步阻塞。
+7. 涉及密钥时，必须走加密和脱敏。
+8. 涉及 AI 时，必须走 AI Gateway + Prompt 模板。
+9. 涉及存储时，必须走 Storage Provider。
+10. **修改或新增 `backend/**/*.go` 时**：收尾前在 **`backend` 目录执行 `go fmt ./...`**（与 CI `gofmt -l` 一致）；细则见 **`.cursor/rules/02-backend-go-gin.mdc`** 中 **「gofmt 与 CI」**。
 
-## 安全加密规则
+## 不要过度设计
 
-以下内容必须加密存储：
+当前项目是开源 MVP，不要默认引入：
 
-- AI API Key
-- 存储 Secret Key
-- 平台 App Secret
-- 店铺 Access Token
-- 店铺 Refresh Token
-- Webhook Secret
+- Kubernetes
+- Kafka
+- Elasticsearch
+- 完整微服务治理
+- 完整多租户计费
+- 自研大模型训练
+- 复杂工作流引擎
 
-建议：
+可以预留接口，但不要把 MVP 做重。
 
-```text
-APP_MASTER_KEY
-  ↓
-AES-GCM
-  ↓
-数据库保存密文
-```
+## 文档要求
 
-## 脱敏展示
+新增核心模块时，建议同步更新：
 
-前端展示敏感字段时必须脱敏：
+- README.md
+- docs/architecture.md
+- docs/ai-provider.md
+- docs/storage-provider.md
+- docs/collector-provider.md
+- docs/platform-provider.md
+- docs/api.md
+- docs/roadmap.md
 
-```text
-sk-****abcd
-```
+## 版本路线图
 
-## 日志禁止内容
-
-日志中禁止输出：
-
-- 完整 API Key
-- 完整 Token
-- 完整 Secret
-- 用户密码
-- Cookie 明文
-
-## 操作日志
-
-核心操作建议记录：
-
-- 登录
-- 修改系统设置
-- 修改 AI Provider
-- 修改存储配置
-- 创建采集任务
-- 重试任务
-- 应用 AI 结果
-- 删除商品或文件
+- v0.1.0：项目地基版
+- v0.2.0：AI 文本版
+- v0.3.0：商品草稿版
+- v0.4.0：采集版
+- v0.5.0：图片能力版
+- v0.6.0：店铺授权版
+- v0.7.0：AI 客服预览版
+- v1.0.0：开源稳定版
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
