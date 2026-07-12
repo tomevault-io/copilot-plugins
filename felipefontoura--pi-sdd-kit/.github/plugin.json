@@ -1,0 +1,9 @@
+{
+  "name": "felipefontoura--pi-sdd-kit",
+  "displayName": "pi-sdd-kit",
+  "description": "Spec-Driven Development skill pack for the Pi coding agent: steering docs, .status gates, EARS, and a PRD\u2192SPEC\u2192TASKS\u2192EXEC\u2192REVIEW pipeline.",
+  "version": "1.0.0",
+  "author": "felipefontoura",
+  "homepage": "https://github.com/felipefontoura/pi-sdd-kit",
+  "skills": []
+}
