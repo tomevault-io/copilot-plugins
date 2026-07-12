@@ -1,0 +1,44 @@
+{
+  "name": "macos-cua",
+  "owner": "code-yeongyu",
+  "repo": "macos-cua",
+  "description": "Native macOS computer-use control with Codex-style background per-PID mouse + scroll + keyboard via SkyLight SPIs (TypeScript + Swift helper)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/code-yeongyu/macos-cua",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T02:36:02Z"
+}
