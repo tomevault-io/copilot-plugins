@@ -1,0 +1,9 @@
+{
+  "name": "opencloudgaming--opennow-mac",
+  "displayName": "OpenNOW-Mac",
+  "description": "Custom NVIDIA GeForce NOW client built natively for M-Chip Mac's",
+  "version": "1.0.0",
+  "author": "OpenCloudGaming",
+  "homepage": "https://github.com/OpenCloudGaming/OpenNOW-Mac",
+  "skills": []
+}
