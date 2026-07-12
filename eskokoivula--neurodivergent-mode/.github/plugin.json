@@ -1,0 +1,9 @@
+{
+  "name": "eskokoivula--neurodivergent-mode",
+  "displayName": "neurodivergent-mode",
+  "description": "Claude Skill: A Neurodivergent Reasoning Engine that rejects neurotypical default frames and sees the larger system behind the obvious answer.",
+  "version": "1.0.0",
+  "author": "eskokoivula",
+  "homepage": "https://github.com/eskokoivula/neurodivergent-mode",
+  "skills": []
+}
