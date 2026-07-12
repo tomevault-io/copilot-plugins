@@ -1,0 +1,9 @@
+{
+  "name": "mariadb--skills",
+  "displayName": "skills",
+  "description": "MariaDB skills for Claude Code and AI agents - because it is not MySQL",
+  "version": "1.0.0",
+  "author": "MariaDB",
+  "homepage": "https://github.com/MariaDB/skills",
+  "skills": []
+}
