@@ -1,0 +1,9 @@
+{
+  "name": "baseintelligence--base",
+  "displayName": "base",
+  "description": "[\ud83e\udde0] Base is a Bittensor subnet enabling decentralized collaborative AI research through multiple challenges, each focused on a specific objective where miners compete and contribute innovative code.",
+  "version": "1.0.0",
+  "author": "BaseIntelligence",
+  "homepage": "https://github.com/BaseIntelligence/base",
+  "skills": []
+}
