@@ -4,7 +4,7 @@
   "repo": "unisic",
   "description": "Screenshot & screen-recorder for Linux.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/unisic/unisic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T04:52:05Z"
+  "distributed_at": "2026-07-12T04:58:13Z"
 }
