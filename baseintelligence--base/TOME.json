@@ -1,0 +1,44 @@
+{
+  "name": "base",
+  "owner": "BaseIntelligence",
+  "repo": "base",
+  "description": "[\ud83e\udde0] Base is a Bittensor subnet enabling decentralized collaborative AI research through multiple challenges, each focused on a specific objective where miners compete and contribute innovative code.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BaseIntelligence/base",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T23:32:21Z"
+}
