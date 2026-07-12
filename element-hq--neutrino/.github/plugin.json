@@ -1,0 +1,9 @@
+{
+  "name": "element-hq--neutrino",
+  "displayName": "neutrino",
+  "description": "A lightweight, embedded homeserver written in Rust.",
+  "version": "1.0.0",
+  "author": "element-hq",
+  "homepage": "https://github.com/element-hq/neutrino",
+  "skills": []
+}
