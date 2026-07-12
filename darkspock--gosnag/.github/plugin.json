@@ -1,0 +1,9 @@
+{
+  "name": "darkspock--gosnag",
+  "displayName": "gosnag",
+  "description": "Self-hosted Sentry-compatible error tracking service",
+  "version": "1.0.0",
+  "author": "darkspock",
+  "homepage": "https://github.com/darkspock/gosnag",
+  "skills": []
+}
