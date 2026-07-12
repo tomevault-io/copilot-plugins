@@ -1,0 +1,9 @@
+{
+  "name": "pkgforge-dev--appimageupdate",
+  "displayName": "AppImageUpdate",
+  "description": "Fast, bandwidth-efficient AppImage updater using zsync",
+  "version": "1.0.0",
+  "author": "pkgforge-dev",
+  "homepage": "https://github.com/pkgforge-dev/AppImageUpdate",
+  "skills": []
+}
