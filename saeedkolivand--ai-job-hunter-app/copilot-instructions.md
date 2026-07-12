@@ -1,51 +1,86 @@
-## packages
+## project
 
-> Package-specific rules for packages/ directory
+> Core architecture and coding rules for AI Job Hunter. Apply to all TypeScript/TSX files in this monorepo.
 
 
-# Package Rules
+# AI Job Hunter — Cursor Rules
 
 > Canonical rules: see `CLAUDE.md` + `.claude/skills/*` — this file is a pointer + the load-bearing subset; CLAUDE.md wins on any conflict.
 
-There are exactly five workspace packages: `@ajh/shared`, `@ajh/ui`, `@ajh/prompts`, `@ajh/translations`,
-`@ajh/test-ids`. There are no separate backend TS packages — backend logic lives in the Rust core under
-`apps/desktop/src-tauri/`, reached only via the IPC contract.
+Local-first **Tauri** desktop app (Rust core in `apps/desktop/src-tauri/`, React renderer in
+`apps/desktop/src/renderer/`). pnpm monorepo. React 19 + TypeScript strict, Tailwind v4.
+ESLint `--max-warnings 0` in CI — every warning is a build failure.
+
+---
 
 ## Path Privacy
 
 - Never expose real local file system paths, usernames, home dirs, drive letters, or temp paths.
-- Always use repository-relative paths. Sanitize absolute paths in logs, PRs, commits, and markdown.
+- Always use repository-relative paths (`apps/desktop/src/main.rs`, not an absolute path).
+- Sanitize absolute paths in logs, stack traces, PRs, commits, and markdown.
 
-## @ajh/ui (packages/ui)
-- No app logic — no Zustand, no IPC, no routing imports
-- Components import design utilities from local `./lib/cn`, `./lib/motion`
-- Stories go in `src/stories/ComponentName.stories.tsx`
-- CSS utilities use tokens from `src/css/tokens.css` — no raw values
+---
 
-## @ajh/shared (packages/shared)
-- Zero runtime dependencies except `zod`
-- No React, no Node-specific APIs
-- IPC contract is the source of truth — add here first when adding capabilities
+## Shell — prefix EVERY command with `rtk`
 
-## @ajh/prompts (packages/prompts)
-- Pure TypeScript — no imports from other packages
-- No `window`, `document`, or React references
+`rtk pnpm build` · `rtk git status` · `rtk rg foo` · `rtk fd src` · `rtk bat file.ts`.
+`rtk rg` not `grep` · `rtk fd` not `find` · `rtk bat` not `cat` · `rtk pnpm` not `npm`/`yarn`.
+Always Bash, never PowerShell. Never `find -exec`. Git Bash paths: `/c/Users/...`.
 
-## @ajh/translations (packages/translations)
-- i18next config + UI translation resources (en/de) → consumed as `@ajh/translations`
-- No app / IPC / renderer imports (the locale→main listener stays in the renderer's `@/i18n` shim)
+---
 
-## @ajh/test-ids (packages/test-ids)
-- Central nested feature-namespaced `TEST_IDS` constant map
-- Shared by production components (for `data-testid`) and tests
-- No app logic, zero deps
+## Immutable rules (ESLint-enforced — refuse if user asks to bypass)
 
-## Dependency direction
-```
-renderer → @ajh/ui, @ajh/shared, @ajh/prompts, @ajh/translations, @ajh/test-ids
-Rust core (apps/desktop/src-tauri) ← reached only via IPC (packages/shared contract)
-```
-Lower packages never import from upper packages.
+**1. No `window.api` in UI** — use service hooks from `apps/desktop/src/renderer/services/` (React Query).
+
+**2. i18n** — `import { useTranslation } from '@ajh/translations'`, never `react-i18next`. Renderer init shim is `@/i18n`.
+
+**3. Brand colors** — `text-brand`, `text-brand-soft`, `bg-brand`, `border-brand`, `ring-brand`. No `[#RRGGBB]`.
+
+**4. Motion** — `import { transition } from '@ajh/ui'` → `transition.normal` etc. No inline `{ duration, ease }` objects.
+
+**5. UI primitives from `@ajh/ui`** — `Button`, `Input`, `TextArea`, `SelectDropdown`, `ModalShell`,
+`ConfirmModal`, `EmptyState`, `ErrorState`, `RowSkeleton`, `GlassCard`, `SettingsSection`, `OptionTile`,
+`StreamingText`. `PageShell` from `@/components/layout/PageShell`. No raw `<button>`, `<select>`, `<textarea>`.
+Exception: `<input type="range|file|checkbox|radio|hidden">`.
+
+**6. Imports** — `@ajh/ui` directly, not `@/components/ui/*`. Prefer `React.ComponentProps<typeof X>`.
+
+**7. Import order** (auto-fixed by `rtk pnpm lint:fix`) — `node:*` → external → `@ajh/*` → `@/*` → relative.
+
+**8. Type imports** — always `import type` for pure types. ESLint auto-fixes.
+
+**9. Data fetching** — React Query via service hooks only. No `useState + useEffect` for remote data.
+
+**10. Package boundaries** — workspace packages are exactly five: `@ajh/shared`, `@ajh/ui`, `@ajh/prompts`,
+`@ajh/translations`, `@ajh/test-ids`. The renderer never reaches into the Rust core directly — it goes through IPC service hooks.
+
+**11. No ESLint bypass** — no `// eslint-disable`, no `@ts-ignore`. `eslint.config.mjs` scoped overrides only.
+
+---
+
+## Branch + PR workflow
+
+Never push to `main`. `rtk git checkout -b feat/name` → commit → `rtk git push -u origin <branch>` → `rtk gh pr create` → CI → user approval.
+Before starting: `rtk git fetch origin && rtk git branch -r | grep $(git branch --show-current)`.
+If branch gone: `rtk git checkout main && rtk git pull origin main`.
+
+---
+
+## New IPC capability (5 steps)
+
+1. `packages/shared/src/ipc/contracts.ts` — add signature
+2. `apps/desktop/src-tauri/src/commands.rs` — implement Tauri command
+3. `apps/desktop/src/tauri-client.ts` — wire invoke call
+4. `apps/desktop/src/renderer/services/` — create hook
+5. `services/query-client.ts` — add query key
+
+---
+
+## Commit conventions
+
+`feat:` minor · `fix:`/`perf:` patch · `BREAKING CHANGE` major · everything else: no release.
+Subject must be lowercase (commitlint `subject-case`) — lowercase acronyms too (`url`, `api`, `docx`); subject ≤ 100 chars, body lines ≤ 200. Never tag manually or edit CHANGELOG.md.
 
 ---
 > Source: [saeedkolivand/ai-job-hunter-app](https://github.com/saeedkolivand/ai-job-hunter-app) — distributed by [TomeVault](https://tomevault.io).
