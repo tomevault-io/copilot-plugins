@@ -1,0 +1,44 @@
+{
+  "name": "morphe-ai",
+  "owner": "Paresh-Maheshwari",
+  "repo": "morphe-ai",
+  "description": "Morphe's AI-powered Android APK patching workspace \u2014 multi-agent pipeline for APK analysis, target hunting, patch writing & deployment.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Paresh-Maheshwari/morphe-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T17:30:53Z"
+}
