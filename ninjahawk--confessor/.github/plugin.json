@@ -1,0 +1,9 @@
+{
+  "name": "ninjahawk--confessor",
+  "displayName": "Confessor",
+  "description": "See what your AI coding agent actually did on your computer. 100% local: every file it opened, every secret that entered its context, every sensitive-read-then-network-call. Zero dependencies, zero ne",
+  "version": "1.0.0",
+  "author": "ninjahawk",
+  "homepage": "https://github.com/ninjahawk/Confessor",
+  "skills": []
+}
