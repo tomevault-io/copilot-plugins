@@ -1,0 +1,44 @@
+{
+  "name": "AI-Toolkit",
+  "owner": "whyfail",
+  "repo": "AI-Toolkit",
+  "description": "AI-Toolkit \u662f\u4e00\u6b3e\u901a\u7528\u7684 AI \u7f16\u7a0b\u5de5\u5177\u7ba1\u7406\u5de5\u5177\uff0c\u652f\u6301\u7edf\u4e00\u7ba1\u7406 MCP \u670d\u52a1\u5668\u914d\u7f6e\u548c Skills \u6280\u80fd\u540c\u6b65\u3002\u544a\u522b\u7e41\u7410\u7684\u624b\u52a8\u7f16\u8f91\uff0c\u4e00\u4e2a\u5e94\u7528\u5373\u53ef\u7ba1\u7406\u6240\u6709 AI CLI \u5de5\u5177\u7684\u63d2\u4ef6\u670d\u52a1\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/whyfail/AI-Toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T05:29:00Z"
+}
