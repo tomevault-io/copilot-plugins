@@ -1,0 +1,9 @@
+{
+  "name": "iclawapp--iclaw",
+  "displayName": "iClaw",
+  "description": "An agent with isolated memory and isolated folders. Hand it a project and it stays inside the lines - nothing leaks in, nothing leaks out",
+  "version": "1.0.0",
+  "author": "iClawApp",
+  "homepage": "https://github.com/iClawApp/iClaw",
+  "skills": []
+}
