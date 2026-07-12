@@ -1,0 +1,9 @@
+{
+  "name": "beranradek--personal-assistant",
+  "displayName": "personal-assistant",
+  "description": "Personal AI assistant with secured sandbox, memory (markdowns and hybrid search), integrations - adapters, heartbeat proactivity and skills",
+  "version": "1.0.0",
+  "author": "beranradek",
+  "homepage": "https://github.com/beranradek/personal-assistant",
+  "skills": []
+}
