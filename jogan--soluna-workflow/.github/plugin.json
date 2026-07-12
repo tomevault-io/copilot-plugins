@@ -1,0 +1,9 @@
+{
+  "name": "jogan--soluna-workflow",
+  "displayName": "soluna-workflow",
+  "description": "A cost-conscious Codex workflow that routes planning and review through Sol, implementation through Luna, and escalates reasoning only when evidence justifies it.",
+  "version": "1.0.0",
+  "author": "Jogan",
+  "homepage": "https://github.com/Jogan/soluna-workflow",
+  "skills": []
+}
