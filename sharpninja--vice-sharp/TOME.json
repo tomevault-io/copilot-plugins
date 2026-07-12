@@ -4,7 +4,7 @@
   "repo": "vice-sharp",
   "description": ".NET 10 NativeAOT Commodore Emulator (VICE port)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sharpninja/vice-sharp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T05:22:15Z"
+  "distributed_at": "2026-07-12T05:30:46Z"
 }
