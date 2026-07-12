@@ -1,0 +1,9 @@
+{
+  "name": "martossien--transcria",
+  "displayName": "transcria",
+  "description": "Self-hosted meeting transcription portal \u2014 speech-to-text, speaker diarization, LLM-corrected transcripts, structured summaries and Word minutes, on your own GPUs. Flask + PostgreSQL, GDPR audit trail",
+  "version": "1.0.0",
+  "author": "Martossien",
+  "homepage": "https://github.com/Martossien/transcria",
+  "skills": []
+}
