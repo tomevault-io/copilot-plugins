@@ -1,0 +1,9 @@
+{
+  "name": "wenzisay--prompt-clip-web",
+  "displayName": "prompt-clip-web",
+  "description": "PromptClip\uff1aA local-first App for saving, searching, and reusing your AI prompts in Markdown files. Multi-platform support: iOS (iPhone & iPad), Web App, macOS and Windows client\uff1b\u672c\u5730\u4f18\u5148\u7684\u4e2a\u4eba Prompt \u7ba1\u7406\u5de5\u5177\u3002\u5feb\u901f",
+  "version": "1.0.0",
+  "author": "wenzisay",
+  "homepage": "https://github.com/wenzisay/prompt-clip-web",
+  "skills": []
+}
