@@ -1,0 +1,9 @@
+{
+  "name": "tgyd-helige--pi",
+  "displayName": "pi",
+  "description": "Pluggable extension packages for the Pi AI-agent runtime. Each package exposes LLM-callable tools via MCP \u2014 covering IM workspace integrations (Lark, DingTalk, WeCom), browser & computer automation, p",
+  "version": "1.0.0",
+  "author": "TGYD-helige",
+  "homepage": "https://github.com/TGYD-helige/pi",
+  "skills": []
+}
