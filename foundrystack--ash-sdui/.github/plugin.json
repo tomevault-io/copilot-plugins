@@ -1,0 +1,9 @@
+{
+  "name": "foundrystack--ash-sdui",
+  "displayName": "ash_sdui",
+  "description": "Server-Driven UI for Phoenix LiveView applications backed by Ash resources",
+  "version": "1.0.0",
+  "author": "FoundryStack",
+  "homepage": "https://github.com/FoundryStack/ash_sdui",
+  "skills": []
+}
