@@ -1,0 +1,9 @@
+{
+  "name": "yanchuk--claude-plugin-codex",
+  "displayName": "claude-plugin-codex",
+  "description": "Codex plugin that lets Codex consult local Claude Code for advice, reviews, adversarial checks, and rescue tasks.",
+  "version": "1.0.0",
+  "author": "yanchuk",
+  "homepage": "https://github.com/yanchuk/claude-plugin-codex",
+  "skills": []
+}
