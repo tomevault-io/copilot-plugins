@@ -1,0 +1,44 @@
+{
+  "name": "Engnieering_Calculative_Methods",
+  "owner": "liuchunyi-buaa",
+  "repo": "Engnieering_Calculative_Methods",
+  "description": "\u5317\u822a\u53ef\u9760\u6027\u5de5\u7a0b\u8ba1\u7b97\u65b9\u6cd5\u8bfe\u7a0b\u76f8\u5173\u4ee3\u7801\u3001\u8bfe\u4ef6\u77e5\u8bc6\u70b9\u603b\u7ed3",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liuchunyi-buaa/Engnieering_Calculative_Methods",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T03:12:50Z"
+}
