@@ -4,7 +4,7 @@
   "repo": "llm-sast-scanner",
   "description": "A SAST skill that gives AI coding agents structured vulnerability detection across 103 vulnerability classes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cujanovic/llm-sast-scanner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T05:23:31Z"
+  "distributed_at": "2026-07-12T05:32:12Z"
 }
