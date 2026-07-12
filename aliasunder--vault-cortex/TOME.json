@@ -4,7 +4,7 @@
   "repo": "vault-cortex",
   "description": "Standalone MCP server for Obsidian vaults \u2014 hybrid search, structured memory, task queries, and full vault access for any AI agent",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aliasunder/vault-cortex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T04:58:37Z"
+  "distributed_at": "2026-07-12T05:00:14Z"
 }
