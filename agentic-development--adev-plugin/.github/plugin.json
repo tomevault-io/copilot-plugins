@@ -1,0 +1,14 @@
+{
+  "name": "agentic-development--adev-plugin",
+  "displayName": "adev-plugin",
+  "description": "Agentic Development Framework plugin for Claude Code \u2014 full lifecycle methodology for AI-assisted software delivery",
+  "version": "1.0.0",
+  "author": "agentic-development",
+  "homepage": "https://github.com/agentic-development/adev-plugin",
+  "skills": [
+    {
+      "name": "adev-sync",
+      "description": ""
+    }
+  ]
+}
