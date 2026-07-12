@@ -7,11 +7,11 @@ Modern, composable all-in-one mail server in Go with SMTP, IMAP, CalDAV, CardDAV
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [btafoya/gomailserver](https://github.com/btafoya/gomailserver).
+Original source: `CLAUDE.md` in [btafoya/gomailserver](https://github.com/btafoya/gomailserver).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
