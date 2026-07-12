@@ -1,0 +1,9 @@
+{
+  "name": "moabualruz--claude-code-cli-acp",
+  "displayName": "claude-code-cli-acp",
+  "description": "ACP adapter for the real Claude Code CLI: Rust PTY bridge for Zed and other Agent Client Protocol clients.",
+  "version": "1.0.0",
+  "author": "moabualruz",
+  "homepage": "https://github.com/moabualruz/claude-code-cli-acp",
+  "skills": []
+}
