@@ -7,13 +7,13 @@ Game theory for strategy, negotiation, pricing, and competitive decisions. AI sk
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [saltandsilicon/game-theorist](https://github.com/saltandsilicon/game-theorist).
+Original source: `CLAUDE.md` in [saltandsilicon/game-theorist](https://github.com/saltandsilicon/game-theorist).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
