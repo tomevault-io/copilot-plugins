@@ -4,7 +4,7 @@
   "repo": "agentic-tech-debt",
   "description": "Every shortcut your coding agent takes, saved to your repo as it happens. Fix them when you're ready.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bcanfield/agentic-tech-debt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T03:39:20Z"
+  "distributed_at": "2026-07-12T04:44:20Z"
 }
