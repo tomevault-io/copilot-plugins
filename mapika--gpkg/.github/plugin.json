@@ -1,0 +1,9 @@
+{
+  "name": "mapika--gpkg",
+  "displayName": "gpkg",
+  "description": "GPU package manager \u2014 find prebuilt CUDA wheels, build missing ones",
+  "version": "1.0.0",
+  "author": "Mapika",
+  "homepage": "https://github.com/Mapika/gpkg",
+  "skills": []
+}
