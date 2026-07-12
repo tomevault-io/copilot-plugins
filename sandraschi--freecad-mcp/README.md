@@ -7,11 +7,11 @@ FastMCP 3.2 MCP server + webapp for FreeCAD 3d CAD and FluidX3D/Openfoam computa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sandraschi/freecad-mcp](https://github.com/sandraschi/freecad-mcp).
+Original source: `AGENTS.md` in [sandraschi/freecad-mcp](https://github.com/sandraschi/freecad-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
