@@ -1,0 +1,9 @@
+{
+  "name": "paulstaab--health-export-cli",
+  "displayName": "health-export-cli",
+  "description": "CLI tool for analyzing exported Apple Health data",
+  "version": "1.0.0",
+  "author": "paulstaab",
+  "homepage": "https://github.com/paulstaab/health-export-cli",
+  "skills": []
+}
