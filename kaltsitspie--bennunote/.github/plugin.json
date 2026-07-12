@@ -1,0 +1,9 @@
+{
+  "name": "kaltsitspie--bennunote",
+  "displayName": "BennuNote",
+  "description": "A Chrome extension that extracts subtitles and transcribes speech from Bilibili videos, with AI summarization and Feishu document sync.",
+  "version": "1.0.0",
+  "author": "KaltsitsPie",
+  "homepage": "https://github.com/KaltsitsPie/BennuNote",
+  "skills": []
+}
