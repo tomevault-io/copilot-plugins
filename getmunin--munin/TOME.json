@@ -4,7 +4,7 @@
   "repo": "munin",
   "description": "The customer platform for the agentic era. MCP-first, open source, self-hostable.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getmunin/munin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T04:55:30Z"
+  "distributed_at": "2026-07-12T04:59:13Z"
 }
