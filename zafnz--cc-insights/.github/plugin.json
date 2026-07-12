@@ -1,0 +1,9 @@
+{
+  "name": "zafnz--cc-insights",
+  "displayName": "cc-insights",
+  "description": "Claude and Codex Project Management GUI with worktrees, resuming chats, git management assistance, all designed to make many changes to projects easily.",
+  "version": "1.0.0",
+  "author": "zafnz",
+  "homepage": "https://github.com/zafnz/cc-insights",
+  "skills": []
+}
