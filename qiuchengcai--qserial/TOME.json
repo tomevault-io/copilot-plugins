@@ -1,0 +1,44 @@
+{
+  "name": "QSerial",
+  "owner": "qiuchengcai",
+  "repo": "QSerial",
+  "description": "AI \u539f\u751f\u7684\u8de8\u5e73\u53f0\u7ec8\u7aef\u5de5\u5177\uff5c\u5185\u7f6e MCP \u8ba9 AI \u76f4\u63a5\u64cd\u63a7\u4e32\u53e3/SSH/Telnet \u8bbe\u5907\uff5cSerial \u00b7 SSH \u00b7 Telnet \u00b7 PTY \u00b7 SFTP \u00b7 TFTP",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qiuchengcai/QSerial",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T03:34:04Z"
+}
