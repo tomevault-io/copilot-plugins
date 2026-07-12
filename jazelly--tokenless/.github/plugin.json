@@ -1,0 +1,9 @@
+{
+  "name": "jazelly--tokenless",
+  "displayName": "tokenless",
+  "description": "Route unnecessary AI conversations to online chatgpt, claude and gemini",
+  "version": "1.0.0",
+  "author": "jazelly",
+  "homepage": "https://github.com/jazelly/tokenless",
+  "skills": []
+}
