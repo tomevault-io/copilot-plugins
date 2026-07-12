@@ -1,0 +1,9 @@
+{
+  "name": "anatolykoptev--ox-whisper",
+  "displayName": "ox-whisper",
+  "description": "Fast multilingual speech-to-text HTTP server. 8 languages, Silero VAD, word timestamps. CPU-only, Rust + sherpa-onnx.",
+  "version": "1.0.0",
+  "author": "anatolykoptev",
+  "homepage": "https://github.com/anatolykoptev/ox-whisper",
+  "skills": []
+}
