@@ -1,0 +1,9 @@
+{
+  "name": "masterleopold--book-capture",
+  "displayName": "book-capture",
+  "description": "Claude Code plugin for capturing books from Kindle, Apple Books, or PDF \u2014 screenshot, OCR via macOS Vision + Claude agents, and structured Obsidian Markdown generation. 4 capture sources, 7 commands, ",
+  "version": "1.0.0",
+  "author": "masterleopold",
+  "homepage": "https://github.com/masterleopold/book-capture",
+  "skills": []
+}
