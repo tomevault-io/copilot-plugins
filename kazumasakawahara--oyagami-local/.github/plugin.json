@@ -1,0 +1,9 @@
+{
+  "name": "kazumasakawahara--oyagami-local",
+  "displayName": "oyagami-local",
+  "description": "\u89aa\u4ea1\u304d\u5f8c\u652f\u63f4\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9 \u2014 \u30ed\u30fc\u30ab\u30ebLLM\u7248\uff08Ollama + Neo4j + Next.js + FastAPI\uff09",
+  "version": "1.0.0",
+  "author": "kazumasakawahara",
+  "homepage": "https://github.com/kazumasakawahara/oyagami-local",
+  "skills": []
+}
