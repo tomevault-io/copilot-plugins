@@ -1,0 +1,9 @@
+{
+  "name": "mongodb-partners--multi-agent-architectural-guidance-bedrock-agentcore",
+  "displayName": "Multi-Agent-Architectural-Guidance-Bedrock-AgentCore",
+  "description": "Guidance on how to deploy agents at scale using AWS Bedrock Agentcore and MongoDB Atlas",
+  "version": "1.0.0",
+  "author": "mongodb-partners",
+  "homepage": "https://github.com/mongodb-partners/Multi-Agent-Architectural-Guidance-Bedrock-AgentCore",
+  "skills": []
+}
