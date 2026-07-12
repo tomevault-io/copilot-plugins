@@ -1,0 +1,9 @@
+{
+  "name": "tembo--agent-studio",
+  "displayName": "agent-studio",
+  "description": "Self-hosted control room for AI agents",
+  "version": "1.0.0",
+  "author": "tembo",
+  "homepage": "https://github.com/tembo/agent-studio",
+  "skills": []
+}
