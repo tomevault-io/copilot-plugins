@@ -1,99 +1,131 @@
-## 06-storage-provider
+## 07-collector-node-playwright
 
-> Storage provider abstraction for local storage and future S3/COS/OSS/R2/MinIO expansion
+> Collector service rules for Node.js, TypeScript, Playwright, source providers, task handling, and normalized product output
 
 
-# 存储 Provider 规则
+# Node.js + Playwright 采集服务规则
 
-## 存储目标
+## 采集服务定位
 
-贸灵必须支持自部署开箱即用，所以 MVP 必须优先支持本地存储 `local`。
+采集服务独立于 Go 主服务，用于处理商品页面采集、浏览器自动化和结构化解析。
 
-后期扩展：
+MVP 优先实现：
 
-- s3
-- cos
-- oss
-- r2
-- minio
+```text
+1688 单链接商品采集
+```
 
-## 存储 Provider 接口建议
+后期预留：
 
-```go
-type StorageProvider interface {
-    Name() string
+- taobao
+- pdd
+- shein
+- amazon
+- custom url
 
-    Put(ctx context.Context, objectKey string, reader io.Reader, contentType string) (*PutObjectResult, error)
+## 技术栈
 
-    GetURL(ctx context.Context, objectKey string) (string, error)
+- Node.js
+- TypeScript
+- Playwright
 
-    Delete(ctx context.Context, objectKey string) error
+## 服务边界
+
+- 采集服务不得直接操作主业务数据库。
+- 采集服务通过 Redis Queue 或内部 API 接收任务。
+- 采集完成后返回结构化 JSON。
+- Go 主服务负责保存商品草稿和任务状态。
+
+## 采集源 Provider 规则
+
+每个采集源必须独立 Provider。
+
+推荐结构：
+
+```text
+collector/src/
+├── providers/
+│   ├── source1688/
+│   ├── taobao/
+│   └── custom/
+├── browser/
+├── queue/
+├── normalizer/
+└── index.ts
+```
+
+## 统一采集输出结构
+
+无论来源是什么，最终都必须转换为：
+
+```json
+{
+  "source": "1688",
+  "sourceUrl": "",
+  "title": "",
+  "currency": "CNY",
+  "mainImages": [],
+  "descriptionImages": [],
+  "attributes": {},
+  "skus": [],
+  "raw": {}
 }
 ```
 
-## 本地存储配置
+## raw 原始数据规则
+
+必须保留 `raw` 字段，用于：
+
+- 复盘采集问题
+- 后期重新解析
+- 兼容新增字段
+- 定位平台页面结构变化
+
+## 任务状态
+
+采集任务状态统一：
 
 ```text
-storage.provider = local
-storage.local.path = ./data/uploads
-storage.local.public_url = http://localhost:8080/uploads
+pending
+running
+success
+failed
+cancelled
+retrying
 ```
 
-本地存储必须支持 Docker 挂载：
+采集失败必须返回明确错误原因，例如：
 
-```text
-./data/uploads:/app/data/uploads
-```
+- 页面加载超时
+- 商品不存在
+- 需要登录
+- 触发验证码
+- SKU 解析失败
+- 图片提取失败
 
-## 云存储配置示例
+## Playwright 规则
 
-```text
-storage.provider = cos
-storage.cos.secret_id = xxx
-storage.cos.secret_key = xxx
-storage.cos.bucket = xxx
-storage.cos.region = ap-guangzhou
-storage.cos.public_url = https://xxx.cos.ap-guangzhou.myqcloud.com
-```
+- 浏览器启动参数统一封装。
+- 页面超时时间可配置。
+- User-Agent / 代理 / Cookie 支持配置预留。
+- 不要在 Provider 里到处创建浏览器实例，优先统一管理。
+- 图片懒加载需要滚动触发。
+- 采集完成必须关闭 page/context，避免资源泄漏。
 
-## 文件上传规则
+### `page.evaluate` 注入（1688 必读）
 
-- 文件上传必须经过后端。
-- 后端负责调用 Storage Provider。
-- 前端不得直传第三方存储，除非后期明确实现预签名 URL。
-- 文件必须记录 object_key、public_url、content_type、size。
-- 商品图片必须能关联 product_id。
-
-## 安全规则
-
-以下字段必须加密存储：
-
-- secret_id
-- secret_key
-- access_key
-- access_secret
-- token
-
-前端展示时必须脱敏。
-
-## 设置页要求
-
-存储设置页面必须包含：
-
-- 存储方式选择
-- 本地路径
-- 公开访问 URL
-- Bucket / Region / Endpoint 等云存储配置
-- Secret 字段脱敏
-- 测试连接按钮
-- 保存按钮
+- **禁止** `fn.toString()` + `eval` 注入页面脚本（tsx/esbuild 会生成 `__name`，浏览器无此 helper → **`ReferenceError: __name is not defined`**）。
+- **必须**使用 Playwright 原生 `page.evaluate(fn, arg)`；函数内 helper 自包含，不引用 Node 模块或外部 closure。
+- 复杂解析：**Browser 只读 DOM/script 文本**，**Node 侧做 JSON 解析**（见 `browser-extract-1688.ts`）。
+- 完整已知坑清单：**[`docs/collector-1688-pitfalls.md`](../../docs/collector-1688-pitfalls.md)**。
 
 ## 禁止事项
 
-- 不要把本地路径写死。
-- 不要把云存储密钥写死到代码或前端。
-- 不要让业务模块直接依赖 COS/OSS/S3 SDK。
-- 不要只保存 public_url，必须保留 object_key。
+- 不要把 1688 逻辑写到核心框架中。
+- 不要直接把采集结果写数据库。
+- 不要在失败时只返回 unknown error。
+- 不要忽略 SKU、属性、图片的结构化输出。
+- 不要移除 raw 字段。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
