@@ -103949,6 +103949,11 @@
       "description": "A practical, open-source playbook for getting real work done with AI agents \u2014 for engineers, designers, analysts, PMs, marketers, ops, anyone whose work touches a computer."
     },
     {
+      "name": "jakubkrehel--skills",
+      "source": "./jakubkrehel--skills",
+      "description": "A set of agent skills that help improve different parts of a product, from animations and typography to layout and colors."
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -144039,6 +144044,11 @@
       "description": "Multi-User AI Sandboxing, Collaboration and Coding Platform"
     },
     {
+      "name": "paresh-maheshwari--morphe-ai",
+      "source": "./paresh-maheshwari--morphe-ai",
+      "description": "Morphe's AI-powered Android APK patching workspace \u2014 multi-agent pipeline for APK analysis, target hunting, patch writing & deployment."
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -183057,6 +183067,11 @@
       "name": "m0dernz--cerg",
       "source": "./m0dernz--cerg",
       "description": "An integrated cyber framework and program documents. "
+    },
+    {
+      "name": "ronglecat--grok-go",
+      "source": "./ronglecat--grok-go",
+      "description": "Local multi-account Grok gateway for Codex (API + MCP). \u672c\u5730\u591a\u8d26\u53f7 Grok \u7f51\u5173\uff0c\u9762\u5411 Codex\u3002"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
