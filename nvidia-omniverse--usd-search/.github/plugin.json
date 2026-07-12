@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--usd-search",
+  "displayName": "usd-search",
+  "description": "USD Search is a collection of cloud-native microservices that enable developers, creators, and workflow specialists to efficiently search through vast collections of OpenUSD data, images, and other as",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/usd-search",
+  "skills": []
+}
