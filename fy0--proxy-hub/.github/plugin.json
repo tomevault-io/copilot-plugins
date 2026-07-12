@@ -1,0 +1,9 @@
+{
+  "name": "fy0--proxy-hub",
+  "displayName": "proxy-hub",
+  "description": "\u7b80\u5355\u6613\u7528\u7684\u4ee3\u7406\u8282\u70b9\u8f6c\u6362\u5de5\u5177 / \u4ee3\u7406\u6c60\u7ba1\u7406\u5de5\u5177\u3002  Import common proxy links and turn them into ready-to-use local SOCKS5/HTTP endpoints",
+  "version": "1.0.0",
+  "author": "fy0",
+  "homepage": "https://github.com/fy0/proxy-hub",
+  "skills": []
+}
