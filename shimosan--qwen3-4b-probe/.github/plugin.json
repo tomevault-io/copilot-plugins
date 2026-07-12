@@ -1,0 +1,9 @@
+{
+  "name": "shimosan--qwen3-4b-probe",
+  "displayName": "qwen3_4b_probe",
+  "description": "qwen3_4b_probe",
+  "version": "1.0.0",
+  "author": "shimosan",
+  "homepage": "https://github.com/shimosan/qwen3_4b_probe",
+  "skills": []
+}
