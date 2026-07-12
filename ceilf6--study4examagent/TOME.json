@@ -4,7 +4,7 @@
   "repo": "Study4ExamAgent",
   "description": "\u5e94\u8bd5\u6559\u80b2\u590d\u4e60\u4ed3\u5e93\u7684\u51b7\u542f\u52a8\u57fa\u5efa",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ceilf6/Study4ExamAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T03:40:32Z"
+  "distributed_at": "2026-07-12T04:45:21Z"
 }
