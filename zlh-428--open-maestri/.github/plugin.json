@@ -1,0 +1,9 @@
+{
+  "name": "zlh-428--open-maestri",
+  "displayName": "open-maestri",
+  "description": "Open-source alternative to Maestri. Native macOS multi-agent orchestration canvas \u2014 connect, coordinate & deploy Claude Code, Codex, OpenCode, Gemini CLI agents visually.",
+  "version": "1.0.0",
+  "author": "zlh-428",
+  "homepage": "https://github.com/zlh-428/open-maestri",
+  "skills": []
+}
