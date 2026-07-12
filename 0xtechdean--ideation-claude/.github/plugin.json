@@ -1,0 +1,9 @@
+{
+  "name": "0xtechdean--ideation-claude",
+  "displayName": "ideation-claude",
+  "description": "Multi-agent startup validator using Claude CLI instances",
+  "version": "1.0.0",
+  "author": "0xtechdean",
+  "homepage": "https://github.com/0xtechdean/ideation-claude",
+  "skills": []
+}
