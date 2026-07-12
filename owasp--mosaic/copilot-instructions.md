@@ -1,55 +1,55 @@
-## plan-first-workflow
+## requirements-gate
 
-> Require Plan Mode and user approval before non-trivial implementation
+> Stop and ask clarifying questions before coding when requirements are incomplete
 
 
-# Plan-First Workflow
+# Requirements Gate
 
-Apply before non-trivial edits. When criteria overlap with `multi-agent-workflow.mdc` (e.g. new page, 3+ files), follow **multi-agent** Phase 1 — it is the stricter superset.
+If ANY of the following is missing or ambiguous, **STOP and ask clarifying questions**.
+Do NOT write, edit, or delete code until the gaps are filled.
 
-## Skip planning only for
+| Required | What to ask |
+|----------|-------------|
+| **Clear goal** | What outcome does the user want? What problem are we solving? |
+| **Verifiable success criteria** | Which checks must pass? (Hugo build, CI, manual preview) |
+| **Context references** | Which files, pages, or prior chats apply? Prefer `@path/to/file` refs when ambiguous. |
+| **Constraints** | Out of scope, URL compatibility, no new deps, Firebase/deploy impact, etc. |
 
-- Typos, renames, obvious single-line fixes
-- Tasks fully specified with no design choices
+## Context references — when `@` refs are required
 
-## MUST plan before implementing when ANY apply
+- **Satisfied without `@`** when the message names specific paths or pages clearly (e.g. "update the hero text on the home page in `content/mosaic/content/_index.md`").
+- **Ask for `@` refs** when multiple files could apply, the shortcode/layout pattern to mirror is unclear, or prior chat/issue context is needed.
 
-- New page, new shortcode, or new site-wide layout pattern
-- Multi-file change (3+ files) or >500 lines expected
-- Refactor of layouts/shortcodes with behavioral risk
-- Touches critical paths (deploy workflows, Firebase config, maintainer scripts, secrets)
-- Requirements have meaningful design choices
+## Skip the gate only when
 
-## Plan output MUST include
+The request is fully specified in one sentence with obvious success criteria and unambiguous context, e.g.
+"Fix typo in README line 42" or "Change the Roadmap subtitle in `content/mosaic/content/roadmap.md`."
 
-1. **Goal** — restated in one sentence
-2. **Files** — exact paths to create/modify/delete
-3. **Dependencies** — new npm packages, Hugo version, Firebase changes
-4. **Steps** — ordered implementation sequence
-5. **Content impact** — which markdown pages and menu entries change
-6. **Edge cases** — broken links, missing assets, mobile layout
-7. **Verification** — `npm run build:site`, optional `npm run serve`, CI
-8. **Risks** — what could break and how to detect it
+## Requirements template (offer when info is missing)
 
-## Approval gate
+```
+## Task
+<One-sentence goal>
 
-After presenting the plan, **wait for explicit user approval** ("proceed", "approved",
-or an edited plan confirmed by the user) before writing implementation code.
+## Success criteria (all must pass)
+- [ ] `npm run build:site`
+- [ ] Visual check via `npm run serve` (if layout/CSS changed)
+- [ ] CI green (`gh pr checks` or Actions UI)
+- [ ] Other: ___
 
-Read-only research (grep, read files, explore codebase, read `docs/website.md`) is allowed during planning.
+## Context
+- Files: @content/mosaic/content/roadmap.md
+- Pattern to mirror: @content/mosaic/content/news.md
+- Prior work: @Past Chats / issue # / PR #
+- Editing guide: @docs/website.md (for website work)
 
-Save approved plans to `.cursor/plans/<feature>.md` when scope is substantial.
-
-## Before editing (Agent Mode)
-
-- Brief plan with reasoning: goal, steps, files touched, validation approach.
-- For website work, consult `docs/website.md` for shortcodes and file locations.
-
-## While editing
-
-- Only modify code relevant to the request.
-- Never use placeholders — include complete, working content and templates.
-- **Reference patterns specifically:** e.g. mirror `@content/mosaic/content/news.md` for a new list page, or `@content/mosaic/layouts/shortcodes/card.html` for a new shortcode.
+## Constraints
+- In scope: ___
+- Out of scope: ___
+- Dependencies: none / explain before adding
+- Deploy: content-only / workflow / maintainer script
+- Secrets: never commit service account JSON
+```
 
 ---
 > Source: [OWASP/MOSAIC](https://github.com/OWASP/MOSAIC) — distributed by [TomeVault](https://tomevault.io).
