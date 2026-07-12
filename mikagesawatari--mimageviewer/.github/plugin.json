@@ -1,0 +1,9 @@
+{
+  "name": "mikagesawatari--mimageviewer",
+  "displayName": "mimageviewer",
+  "description": "Fast, GPU-accelerated image viewer for Windows 11. Supports HEIC, AVIF, RAW, AI-generated image metadata, and more.",
+  "version": "1.0.0",
+  "author": "MikageSawatari",
+  "homepage": "https://github.com/MikageSawatari/mimageviewer",
+  "skills": []
+}
