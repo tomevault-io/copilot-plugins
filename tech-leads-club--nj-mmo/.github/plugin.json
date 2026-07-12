@@ -1,0 +1,9 @@
+{
+  "name": "tech-leads-club--nj-mmo",
+  "displayName": "nj-mmo",
+  "description": "A fully playable, low-poly 3D MMORPG that runs entirely in your browser \u2014 an authoritative Colyseus server + a Three.js client",
+  "version": "1.0.0",
+  "author": "tech-leads-club",
+  "homepage": "https://github.com/tech-leads-club/nj-mmo",
+  "skills": []
+}
