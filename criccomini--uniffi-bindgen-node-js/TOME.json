@@ -4,7 +4,7 @@
   "repo": "uniffi-bindgen-node-js",
   "description": "Generate Node.js bindings for UniFFI Rust libraries, with ESM output, TypeScript declarations, and a Koffi-based runtime.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/criccomini/uniffi-bindgen-node-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T06:36:53Z"
+  "distributed_at": "2026-07-12T06:44:07Z"
 }
