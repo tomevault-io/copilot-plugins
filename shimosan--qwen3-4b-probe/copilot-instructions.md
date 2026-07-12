@@ -1,0 +1,23 @@
+## see-claude-md
+
+> Project rules pointer — defer to CLAUDE.md; critical git/safety DON'Ts inline
+
+
+# このプロジェクトのルールは CLAUDE.md に集約
+
+詳細な workflow / コーディング規約 / プロジェクト固有方針は、リポジトリルートの `CLAUDE.md` を参照（Cursor 上の AI 作業も CLAUDE.md に従う）。
+
+## 最重要（抜粋）
+- secret (`.env`, API key, token 等) を commit しない
+- マシン固有の絶対パスをハードコードしない（`~/...` や環境変数を使う）
+- 大きな成果物（build artifacts, caches, モデル重み等）を git 管理下に置かない
+
+## Git 安全規約（自律実行しない）
+以下はユーザーの明示指示があるまで実行しない: `git commit` / `git push`（`--force` は常に禁止）/ `git commit --amend` / `git rebase` / `git reset --hard` / `git restore` / `git checkout -- .` / `git clean -f[d]` / ブランチ作成・削除・リネーム。
+- stage は対象を明示（`git add .` / `-A` は使わない）。
+- フロー: `git diff`/`status` 提示 → 承認後 `git add` → commit メッセージ案 → 承認後 `git commit` → `push` は明示要求時のみ。
+- commit メッセージは簡潔・明確、prefix `add:` `update:` `fix:` `remove:`。
+
+---
+> Source: [shimosan/qwen3_4b_probe](https://github.com/shimosan/qwen3_4b_probe) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-11 -->
