@@ -85519,11 +85519,6 @@
       "description": "Spec Driven Development - claude code plugin - Sync between intent and implementation"
     },
     {
-      "name": "liangdabiao--ai-make-face-meme",
-      "source": "./liangdabiao--ai-make-face-meme",
-      "description": "\u4ee4\u4eba\u60ca\u8273\u7684\u5b9a\u683c\u52a8\u753b\u751f\u6210\u5668\uff0c\u57fa\u4e8e\u5355\u5f20\u56fe\u7247\u521b\u5efa,\u57fa\u4e8e\u6bcf\u4e2a\u59ff\u52bf\u4f7f\u7528 Gemini Nano Banana \u751f\u6210\u52a8\u753b\u5e27,\u5408\u6210gif"
-    },
-    {
       "name": "akiojin--unity-cli",
       "source": "./akiojin--unity-cli",
       "description": "Rust CLI for Unity Editor automation over Unity TCP protocol"
@@ -86347,6 +86342,11 @@
       "name": "litun--bloomy-linkedin-outreach",
       "source": "./litun--bloomy-linkedin-outreach",
       "description": "bloomy-linkedin-outreach"
+    },
+    {
+      "name": "liangdabiao--ai-make-face-meme",
+      "source": "./liangdabiao--ai-make-face-meme",
+      "description": "\u4ee4\u4eba\u60ca\u8273\u7684\u5b9a\u683c\u52a8\u753b\u751f\u6210\u5668\uff0c\u57fa\u4e8e\u5355\u5f20\u56fe\u7247\u521b\u5efa,\u57fa\u4e8e\u6bcf\u4e2a\u59ff\u52bf\u4f7f\u7528 Gemini Nano Banana \u751f\u6210\u52a8\u753b\u5e27,\u5408\u6210gif"
     },
     {
       "name": "rudrankriyam--foundation-models-framework-cli",
@@ -243689,6 +243689,106 @@
       "description": "Terminal-native AI coding agent. Written in Go."
     },
     {
+      "name": "burin-labs--harn",
+      "source": "./burin-labs--harn",
+      "description": "Harn is a programming language and runtime for building AI agents."
+    },
+    {
+      "name": "criccomini--uniffi-bindgen-node-js",
+      "source": "./criccomini--uniffi-bindgen-node-js",
+      "description": "Generate Node.js bindings for UniFFI Rust libraries, with ESM output, TypeScript declarations, and a Koffi-based runtime."
+    },
+    {
+      "name": "psycoder-sup--tian",
+      "source": "./psycoder-sup--tian",
+      "description": "tian"
+    },
+    {
+      "name": "draxo-io--spit",
+      "source": "./draxo-io--spit",
+      "description": "Free, open-source, 100% on-device voice dictation for macOS. No subscription, no cloud, no API keys."
+    },
+    {
+      "name": "smiti1642--oxvif",
+      "source": "./smiti1642--oxvif",
+      "description": "Async ONVIF client for IP cameras (Profile S/T/G) in Rust \u2014 discovery, PTZ, media, imaging & events."
+    },
+    {
+      "name": "darkspock--gosnag",
+      "source": "./darkspock--gosnag",
+      "description": "Self-hosted Sentry-compatible error tracking service"
+    },
+    {
+      "name": "dynamical-org--dynamical-catalog",
+      "source": "./dynamical-org--dynamical-catalog",
+      "description": "dynamical-catalog"
+    },
+    {
+      "name": "criccomini--uniffi-bindgen-node-js",
+      "source": "./criccomini--uniffi-bindgen-node-js",
+      "description": "Generate Node.js bindings for UniFFI Rust libraries, with ESM output, TypeScript declarations, and a Koffi-based runtime."
+    },
+    {
+      "name": "airsequel--aircsv",
+      "source": "./airsequel--aircsv",
+      "description": "macOS desktop app to view and edit CSV files"
+    },
+    {
+      "name": "psycoder-sup--tian",
+      "source": "./psycoder-sup--tian",
+      "description": "tian"
+    },
+    {
+      "name": "ombulabs--claude-code-dual-boot-skill",
+      "source": "./ombulabs--claude-code-dual-boot-skill",
+      "description": "A Claude Code skill to dual boot your Ruby application with Bundler and next_rails"
+    },
+    {
+      "name": "pkhaninejad--pacekeeper-trading-bot",
+      "source": "./pkhaninejad--pacekeeper-trading-bot",
+      "description": "pacekeeper-trading-bot"
+    },
+    {
+      "name": "zerosandonesllc--aifw",
+      "source": "./zerosandonesllc--aifw",
+      "description": "AiFw - AI-Powered Firewall for FreeBSD \u2014 No garbage collectors. Pure Rust, C, and C++ on pf. Open-source (MIT). Web UI, DHCP, DNS, NAT, VPN, geo-IP, ML threat detection."
+    },
+    {
+      "name": "appz4fun--nzbdavkodi",
+      "source": "./appz4fun--nzbdavkodi",
+      "description": "Kodi 21 addon \u2014 stream Usenet via NZBHydra2 + nzbdav WebDAV. TMDBHelper player integration, PTT filtering, auto-updates via Kodi repository."
+    },
+    {
+      "name": "pkhaninejad--pacekeeper-trading-bot",
+      "source": "./pkhaninejad--pacekeeper-trading-bot",
+      "description": "pacekeeper-trading-bot"
+    },
+    {
+      "name": "axisrobo--ea-harness",
+      "source": "./axisrobo--ea-harness",
+      "description": "ea-harness"
+    },
+    {
+      "name": "appz4fun--nzbdavkodi",
+      "source": "./appz4fun--nzbdavkodi",
+      "description": "Kodi 21 addon \u2014 stream Usenet via NZBHydra2 + nzbdav WebDAV. TMDBHelper player integration, PTT filtering, auto-updates via Kodi repository."
+    },
+    {
+      "name": "burin-labs--harn",
+      "source": "./burin-labs--harn",
+      "description": "Harn is a programming language and runtime for building AI agents."
+    },
+    {
+      "name": "masterleopold--book-capture",
+      "source": "./masterleopold--book-capture",
+      "description": "Claude Code plugin for capturing books from Kindle, Apple Books, or PDF \u2014 screenshot, OCR via macOS Vision + Claude agents, and structured Obsidian Markdown generation. 4 capture sources, 7 commands, "
+    },
+    {
+      "name": "axisrobo--ea-harness",
+      "source": "./axisrobo--ea-harness",
+      "description": "ea-harness"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -265222,6 +265322,26 @@
       "name": "teigenzhang--life-design-coach",
       "source": "./teigenzhang--life-design-coach",
       "description": "\u628a\u4efb\u610f AI \u53d8\u6210\u4f60\u7684\u4eba\u751f\u8bbe\u8ba1\u6559\u7ec3 \u00b7 \u57fa\u4e8e\u65af\u5766\u798f\u300a\u4eba\u751f\u8bbe\u8ba1\u8bfe\u300b\u65b9\u6cd5\u8bba"
+    },
+    {
+      "name": "time-series-of-india--tsoi",
+      "source": "./time-series-of-india--tsoi",
+      "description": "Charting India's public payment-system data (UPI, IMPS, NEFT, RTGS, cards) from official RBI & NPCI releases. Static site + open ETL."
+    },
+    {
+      "name": "time-series-of-india--tsoi",
+      "source": "./time-series-of-india--tsoi",
+      "description": "Charting India's public payment-system data (UPI, IMPS, NEFT, RTGS, cards) from official RBI & NPCI releases. Static site + open ETL."
+    },
+    {
+      "name": "suan-11--mea-pet-public",
+      "source": "./suan-11--mea-pet-public",
+      "description": "\u4e00\u53ea\u684c\u5ba0\uff0c\u975e\u5e38\u4e0d\u5b8c\u5584\uff0c\u4f46\u662f\u82b1\u4e86\u62111.6B tokens\u3002"
+    },
+    {
+      "name": "skvdhshuk-blip--hao-code",
+      "source": "./skvdhshuk-blip--hao-code",
+      "description": "hao-code"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -394107,6 +394227,151 @@
       "name": "ievgeniil--globetempusplus",
       "source": "./ievgeniil--globetempusplus",
       "description": "Promo website"
+    },
+    {
+      "name": "smynkr--docs",
+      "source": "./smynkr--docs",
+      "description": "docs"
+    },
+    {
+      "name": "chiakai-chang--mece-autopilot",
+      "source": "./chiakai-chang--mece-autopilot",
+      "description": "\u70ba AI Agent \u8a2d\u8a08\u7684\u81ea\u4e3b\u63a8\u7406\u5354\u5b9a\u8207 CLI \u5de5\u5177\u3002\u900f\u904e\u52d5\u614b\u6a21\u64ec MECE \u591a\u89d2\u8272\u8faf\u8ad6\u81ea\u52d5\u5206\u6790\u8907\u96dc\u6c7a\u7b56\uff0c\u4e26\u7522\u51fa\u7d50\u69cb\u5316\u67b6\u69cb\u6c7a\u7b56\u7d00\u9304 (ADR)\u3002An autonomous reasoning protocol & CLI tool for AI agents to resolve complex decisions via dynamic MECE debates and generate s"
+    },
+    {
+      "name": "danielsdgg--daleon-next",
+      "source": "./danielsdgg--daleon-next",
+      "description": "a software company"
+    },
+    {
+      "name": "ievgeniil--globetempusplus",
+      "source": "./ievgeniil--globetempusplus",
+      "description": "Promo website"
+    },
+    {
+      "name": "vega-dh-informatik-25--studentenportal",
+      "source": "./vega-dh-informatik-25--studentenportal",
+      "description": "Anwendungsprojekt Informatik - Studenten Portal "
+    },
+    {
+      "name": "ajoe734--pantheon",
+      "source": "./ajoe734--pantheon",
+      "description": "Pantheon multi-persona automated trading system"
+    },
+    {
+      "name": "kooshapari--quillr",
+      "source": "./kooshapari--quillr",
+      "description": "Restored: Quillr"
+    },
+    {
+      "name": "samlayton99--precision-mlps",
+      "source": "./samlayton99--precision-mlps",
+      "description": "Where I am housing all of my research experiments for this paper"
+    },
+    {
+      "name": "balcsida--zscaler-split-tunnel",
+      "source": "./balcsida--zscaler-split-tunnel",
+      "description": "Split tunneling for Zscaler on macOS \u2014 shell daemon + native SwiftUI menu bar app"
+    },
+    {
+      "name": "kaltsitspie--bennunote",
+      "source": "./kaltsitspie--bennunote",
+      "description": "A Chrome extension that extracts subtitles and transcribes speech from Bilibili videos, with AI summarization and Feishu document sync."
+    },
+    {
+      "name": "allsetlabs--devbot",
+      "source": "./allsetlabs--devbot",
+      "description": "devbot module"
+    },
+    {
+      "name": "toy-crane--feedme",
+      "source": "./toy-crane--feedme",
+      "description": "feedme"
+    },
+    {
+      "name": "nuniesmith--ruby",
+      "source": "./nuniesmith--ruby",
+      "description": "ruby"
+    },
+    {
+      "name": "ygtgt123--ygtgt123-github-io",
+      "source": "./ygtgt123--ygtgt123-github-io",
+      "description": "ygtgt123.github.io"
+    },
+    {
+      "name": "tspleeter--bronco-buck",
+      "source": "./tspleeter--bronco-buck",
+      "description": "bronco-buck"
+    },
+    {
+      "name": "a-1ro--ghost-and-ink",
+      "source": "./a-1ro--ghost-and-ink",
+      "description": "5 AI personas destroy your idea. Then rebuild something unexpected."
+    },
+    {
+      "name": "gwaiblade--congressintel",
+      "source": "./gwaiblade--congressintel",
+      "description": "congressintel"
+    },
+    {
+      "name": "paulstaab--health-export-cli",
+      "source": "./paulstaab--health-export-cli",
+      "description": "CLI tool for analyzing exported Apple Health data"
+    },
+    {
+      "name": "mapika--gpkg",
+      "source": "./mapika--gpkg",
+      "description": "GPU package manager \u2014 find prebuilt CUDA wheels, build missing ones"
+    },
+    {
+      "name": "gravitycomedia-droid--gymly-app",
+      "source": "./gravitycomedia-droid--gymly-app",
+      "description": "gymly-app"
+    },
+    {
+      "name": "kooshapari--quillr",
+      "source": "./kooshapari--quillr",
+      "description": "Restored: Quillr"
+    },
+    {
+      "name": "allsetlabs--devbot",
+      "source": "./allsetlabs--devbot",
+      "description": "devbot module"
+    },
+    {
+      "name": "kazumasakawahara--oyagami-local",
+      "source": "./kazumasakawahara--oyagami-local",
+      "description": "\u89aa\u4ea1\u304d\u5f8c\u652f\u63f4\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9 \u2014 \u30ed\u30fc\u30ab\u30ebLLM\u7248\uff08Ollama + Neo4j + Next.js + FastAPI\uff09"
+    },
+    {
+      "name": "howt0539--palau-trip",
+      "source": "./howt0539--palau-trip",
+      "description": "palau-trip"
+    },
+    {
+      "name": "pauly00--ai-care-report",
+      "source": "./pauly00--ai-care-report",
+      "description": "AI \uae30\ubc18 \uc0c1\ub2f4 \ub370\uc774\ud130 \uc694\uc57d \ubc0f \ub9ac\ud3ec\ud2b8 \uc790\ub3d9\ud654 \uc2dc\uc2a4\ud15c"
+    },
+    {
+      "name": "dehanos78--qvantum-content-kalender",
+      "source": "./dehanos78--qvantum-content-kalender",
+      "description": "qvantum-content-kalender"
+    },
+    {
+      "name": "ht311--tech-article-fetcher",
+      "source": "./ht311--tech-article-fetcher",
+      "description": "tech-article-fetcher"
+    },
+    {
+      "name": "strategyverse--strategyverse-website",
+      "source": "./strategyverse--strategyverse-website",
+      "description": "StrategyVerse Consulting \u2014 Strategic Public Relations Website"
+    },
+    {
+      "name": "jessieyiqichen--nous",
+      "source": "./jessieyiqichen--nous",
+      "description": "Cognitive-layer AI avatar \u2014 understands HOW you think, not just what you prefer"
     }
   ]
 }
