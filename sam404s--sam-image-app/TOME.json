@@ -4,7 +4,7 @@
   "repo": "sam-image-app",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sam404s/sam-image-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T01:15:39Z"
+  "distributed_at": "2026-07-12T01:30:48Z"
 }
