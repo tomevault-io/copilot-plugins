@@ -1,0 +1,9 @@
+{
+  "name": "opencow42--metabrain",
+  "displayName": "metaBrain",
+  "description": "A local document memory for AI agents and humans. A tool to manage large sets of MDs \ud83d\udcbd and JSON alike",
+  "version": "1.0.0",
+  "author": "OpenCow42",
+  "homepage": "https://github.com/OpenCow42/metaBrain",
+  "skills": []
+}
