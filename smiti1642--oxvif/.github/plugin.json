@@ -1,0 +1,9 @@
+{
+  "name": "smiti1642--oxvif",
+  "displayName": "oxvif",
+  "description": "Async ONVIF client for IP cameras (Profile S/T/G) in Rust \u2014 discovery, PTZ, media, imaging & events.",
+  "version": "1.0.0",
+  "author": "smiti1642",
+  "homepage": "https://github.com/smiti1642/oxvif",
+  "skills": []
+}
