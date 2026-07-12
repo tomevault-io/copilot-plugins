@@ -1,0 +1,9 @@
+{
+  "name": "time-series-of-india--tsoi",
+  "displayName": "tsoi",
+  "description": "Charting India's public payment-system data (UPI, IMPS, NEFT, RTGS, cards) from official RBI & NPCI releases. Static site + open ETL.",
+  "version": "1.0.0",
+  "author": "time-series-of-india",
+  "homepage": "https://github.com/time-series-of-india/tsoi",
+  "skills": []
+}
