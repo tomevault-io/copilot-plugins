@@ -1,0 +1,44 @@
+{
+  "name": "scicomp-research-skills",
+  "owner": "a-attia",
+  "repo": "scicomp-research-skills",
+  "description": "Agent skills + workflow templates for scientific-computing research (papers and software). Forked from Master-cai/Research-Paper-Writing-Skills; restructured to the agents.md / OpenCode SKILL.md standard; adds a literature-survey skill (BibTeX + PDF + pdftotext + survey notes) and a paper-skeleton template. Multi-client, multi-machine.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/a-attia/scicomp-research-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T04:49:35Z"
+}
