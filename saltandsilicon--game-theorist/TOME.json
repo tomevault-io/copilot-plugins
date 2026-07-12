@@ -4,7 +4,7 @@
   "repo": "game-theorist",
   "description": "Game theory for strategy, negotiation, pricing, and competitive decisions. AI skill for Claude Code, Cursor, Windsurf, Codex, Gemini CLI.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saltandsilicon/game-theorist",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T02:32:46Z"
+  "distributed_at": "2026-07-12T05:07:49Z"
 }
