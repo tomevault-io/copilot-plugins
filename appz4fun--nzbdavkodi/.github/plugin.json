@@ -1,0 +1,9 @@
+{
+  "name": "appz4fun--nzbdavkodi",
+  "displayName": "nzbdavkodi",
+  "description": "Kodi 21 addon \u2014 stream Usenet via NZBHydra2 + nzbdav WebDAV. TMDBHelper player integration, PTT filtering, auto-updates via Kodi repository.",
+  "version": "1.0.0",
+  "author": "Appz4Fun",
+  "homepage": "https://github.com/Appz4Fun/nzbdavkodi",
+  "skills": []
+}
