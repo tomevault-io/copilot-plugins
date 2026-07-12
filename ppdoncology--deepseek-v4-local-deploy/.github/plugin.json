@@ -1,0 +1,9 @@
+{
+  "name": "ppdoncology--deepseek-v4-local-deploy",
+  "displayName": "deepseek-v4-local-deploy",
+  "description": "DeepSeek V4 Pro/Flash \u672c\u5730\u90e8\u7f72\u6307\u5357\u6c47\u603b\uff1avLLM\u3001SGLang\u3001DwarfStar4\uff08Metal\uff09\u3001\u53ccDGX Spark\u6df7\u5408\u540e\u7aef",
+  "version": "1.0.0",
+  "author": "ppdoncology",
+  "homepage": "https://github.com/ppdoncology/deepseek-v4-local-deploy",
+  "skills": []
+}
