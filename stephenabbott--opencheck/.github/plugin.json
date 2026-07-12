@@ -1,0 +1,9 @@
+{
+  "name": "stephenabbott--opencheck",
+  "displayName": "opencheck",
+  "description": "Customer due diligence checks powered by the Legal Entity Identifier, open corporate data and open standards including the Beneficial Ownership Data Standard",
+  "version": "1.0.0",
+  "author": "StephenAbbott",
+  "homepage": "https://github.com/StephenAbbott/opencheck",
+  "skills": []
+}
