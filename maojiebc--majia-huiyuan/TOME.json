@@ -1,0 +1,44 @@
+{
+  "name": "majia-huiyuan",
+  "owner": "maojiebc",
+  "repo": "majia-huiyuan",
+  "description": "\u5f00\u6e90\u4f1a\u5458\u8fd0\u8425\u5bb6\u5e95\uff1a\u8fde\u9501\u4f1a\u5458\u6570\u636e\u4e2d\u53f0\u5b8c\u6574\u6837\u677f\u95f4\uff0854 \u6570\u636e\u96c6 \u00b7 25 ETL \u00b7 12 \u770b\u677f \u00b7 \u5168\u6a21\u62df\u6570\u636e\uff09+ \u9910\u996e BI \u516c\u5f0f\u5e93\uff089 \u518c 2900 \u884c\uff09+ \u83b7\u5956\u76f4\u64ad\u5b9e\u5f55\uff0834 \u9875\u63d2\u753b\u957f\u6587\uff09\u00b7 \u4e1a\u52a1/\u6570\u5206\u53cb\u597d \u00b7 AI Agent \u53cb\u597d",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/maojiebc/majia-huiyuan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T10:30:33Z"
+}
