@@ -1,0 +1,9 @@
+{
+  "name": "0xchamin--hummcode",
+  "displayName": "hummcode",
+  "description": "The Hummingbird Coding Agent \u2014 minimalist, model-agnostic, and composable. Built from first principles with tree-based memory, surgical file edits, and a rich terminal UI.",
+  "version": "1.0.0",
+  "author": "0xchamin",
+  "homepage": "https://github.com/0xchamin/hummcode",
+  "skills": []
+}
