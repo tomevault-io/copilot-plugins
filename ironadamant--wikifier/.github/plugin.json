@@ -1,0 +1,9 @@
+{
+  "name": "ironadamant--wikifier",
+  "displayName": "wikifier",
+  "description": "Agent-first, zero-dependency, self-maintaining codebase documentation & change tracking system. LLM-operated wiki with health matrix, semantic record-change, heartbeat monitor, and static dashboard.",
+  "version": "1.0.0",
+  "author": "IronAdamant",
+  "homepage": "https://github.com/IronAdamant/wikifier",
+  "skills": []
+}
