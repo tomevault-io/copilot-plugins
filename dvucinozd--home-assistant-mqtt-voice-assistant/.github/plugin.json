@@ -1,0 +1,9 @@
+{
+  "name": "dvucinozd--home-assistant-mqtt-voice-assistant",
+  "displayName": "Home-Assistant-MQTT-Voice-Assistant",
+  "description": "JC-ESP32P4-M3-DEV firmware: offline wake word, HA Assist pipeline, MQTT control, OTA updates.",
+  "version": "1.0.0",
+  "author": "dvucinozd",
+  "homepage": "https://github.com/dvucinozd/Home-Assistant-MQTT-Voice-Assistant",
+  "skills": []
+}
