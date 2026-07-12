@@ -243954,6 +243954,106 @@
       "description": "Typed Firestore libraries for server, React and React Native"
     },
     {
+      "name": "archlizheng--aipm-wiki",
+      "source": "./archlizheng--aipm-wiki",
+      "description": "\ud83e\uddf1 AI \u4ea7\u54c1\u7ecf\u7406\u5165\u95e8\u77e5\u8bc6\u5e93:\u9762\u8bd5\u9898\u5e93 \u00b7 AI \u57fa\u7840 \u00b7 \u6848\u4f8b\u62c6\u89e3 \u00b7 \u5b66\u4e60\u8def\u7ebf | \u65e0\u8bba\u662f\u96f6\u57fa\u7840\u8f6c\u884c\u8fd8\u662f\u6301\u7eed\u8fdb\u6b65,\u4e00\u4e2a\u4ed3\u5e93\u5c31\u591f\u4e86"
+    },
+    {
+      "name": "dickwu--apple-design-skill",
+      "source": "./dickwu--apple-design-skill",
+      "description": "Cross-platform UI/UX design reviewer based on Apple HIG. Works with Flutter, Tauri, Electron, React Native. Compatible with Claude Code, Cursor, Codex."
+    },
+    {
+      "name": "joseph3325--xsiam-buddy",
+      "source": "./joseph3325--xsiam-buddy",
+      "description": "Claude Code plugin for building Cortex XSIAM content: automations, XQL queries, playbooks, and documentation"
+    },
+    {
+      "name": "willz5--dit-pro",
+      "source": "./willz5--dit-pro",
+      "description": "Professional footage offloading and verification for on-set data management. ASC MHL compliant, and built natively for macOS."
+    },
+    {
+      "name": "metr0man--int-6068-group-10",
+      "source": "./metr0man--int-6068-group-10",
+      "description": "\u8be5\u9879\u76ee\u662fINT6068 - \u795e\u7ecf\u7f51\u7edc\u4e0e\u6df1\u5ea6\u5b66\u4e60\u8bfe\u7a0b\u7684\u5b66\u672f\u7814\u7a76\u9879\u76ee\uff0c\u6838\u5fc3\u76ee\u6807\u662f\u57fa\u4e8e\u5f3a\u5316\u5b66\u4e60\uff08RL\uff09\u5b9e\u73b0 3D \u65e0\u4eba\u673a\u7684\u81ea\u4e3b\u8def\u5f84\u89c4\u5212\uff0c\u5305\u542b\u4e09\u4e2a\u8fed\u4ee3\u6f14\u5316\u7684\u72ec\u7acb\u5b50\u9879\u76ee\uff0c\u6574\u4f53\u91c7\u7528\u6a21\u5757\u5316\u8bbe\u8ba1\uff0c\u7ed3\u5408\u7269\u7406\u4eff\u771f\u3001\u5f3a\u5316\u5b66\u4e60\u7b97\u6cd5\u4e0e\u6df1\u5ea6\u5b66\u4e60\u6846\u67b6\u5b8c\u6210\u65e0\u4eba\u673a\u8def\u5f84\u89c4\u5212\u7684\u8bad\u7ec3\u3001\u4eff\u771f\u4e0e\u9a8c\u8bc1\uff1a"
+    },
+    {
+      "name": "ntut-npc--ntut-sso-plus",
+      "source": "./ntut-npc--ntut-sso-plus",
+      "description": "\u5317\u79d1\u6821\u5712\u5165\u53e3 Chrome / Firefox \u64f4\u5145\u529f\u80fd"
+    },
+    {
+      "name": "asazhou923--picspeak",
+      "source": "./asazhou923--picspeak",
+      "description": "PicSpeak is an AI-powered photography critique web app that lets users upload photos and receive instant professional feedback on composition, lighting, color, and technical execution."
+    },
+    {
+      "name": "dgrauet--ltx-desktop-macos",
+      "source": "./dgrauet--ltx-desktop-macos",
+      "description": "ltx-desktop-macos"
+    },
+    {
+      "name": "knobik--yatme",
+      "source": "./knobik--yatme",
+      "description": "Yet another Tibia map editor"
+    },
+    {
+      "name": "bofai--agent-wallet",
+      "source": "./bofai--agent-wallet",
+      "description": "agent wallet"
+    },
+    {
+      "name": "dgrauet--ltx-desktop-macos",
+      "source": "./dgrauet--ltx-desktop-macos",
+      "description": "ltx-desktop-macos"
+    },
+    {
+      "name": "amrahman90--python-expert-agent",
+      "source": "./amrahman90--python-expert-agent",
+      "description": "Python Expert Agent tool for OpenCode"
+    },
+    {
+      "name": "anatolykoptev--ox-whisper",
+      "source": "./anatolykoptev--ox-whisper",
+      "description": "Fast multilingual speech-to-text HTTP server. 8 languages, Silero VAD, word timestamps. CPU-only, Rust + sherpa-onnx."
+    },
+    {
+      "name": "kaiji-z--workout-timer",
+      "source": "./kaiji-z--workout-timer",
+      "description": "\u64b8\u94c1\u8ba1\u65f6\u5668 - \u4e13\u4e1a\u5065\u8eab\u4f11\u606f\u8ba1\u65f6\u5668 Flutter App\uff0c\u4e13\u6ce8\u7ec4\u95f4\u4f11\u606f\u8ba1\u65f6\uff0c870+\u52a8\u4f5c\u5e93\uff0cAI\u8bad\u7ec3\u8ba1\u5212\uff0c\u5b8c\u5168\u514d\u8d39\u5f00\u6e90"
+    },
+    {
+      "name": "bofai--agent-wallet",
+      "source": "./bofai--agent-wallet",
+      "description": "agent wallet"
+    },
+    {
+      "name": "cornball-ai--saber",
+      "source": "./cornball-ai--saber",
+      "description": "Context engineering for R"
+    },
+    {
+      "name": "c-reichert--flowstate",
+      "source": "./c-reichert--flowstate",
+      "description": "Claude Code plugin combining TDD discipline with knowledge compounding. Inspired by Superpowers, Compound Engineering, and Anthropic prompting research."
+    },
+    {
+      "name": "dickwu--apple-design-skill",
+      "source": "./dickwu--apple-design-skill",
+      "description": "Cross-platform UI/UX design reviewer based on Apple HIG. Works with Flutter, Tauri, Electron, React Native. Compatible with Claude Code, Cursor, Codex."
+    },
+    {
+      "name": "cornball-ai--saber",
+      "source": "./cornball-ai--saber",
+      "description": "Context engineering for R"
+    },
+    {
+      "name": "joeinnes--cow",
+      "source": "./joeinnes--cow",
+      "description": "Copy-on-write workspace manager for parallel development"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -265522,6 +265622,16 @@
       "name": "marketcalls--trading-terminal",
       "source": "./marketcalls--trading-terminal",
       "description": "Terminal - Built using Claude Code (Fable 5) as Part of AI Bootcamp 2.0"
+    },
+    {
+      "name": "maojiebc--majia-huiyuan",
+      "source": "./maojiebc--majia-huiyuan",
+      "description": "\u5f00\u6e90\u4f1a\u5458\u8fd0\u8425\u5bb6\u5e95\uff1a\u8fde\u9501\u4f1a\u5458\u6570\u636e\u4e2d\u53f0\u5b8c\u6574\u6837\u677f\u95f4\uff0854 \u6570\u636e\u96c6 \u00b7 25 ETL \u00b7 12 \u770b\u677f \u00b7 \u5168\u6a21\u62df\u6570\u636e\uff09+ \u9910\u996e BI \u516c\u5f0f\u5e93\uff089 \u518c 2900 \u884c\uff09+ \u83b7\u5956\u76f4\u64ad\u5b9e\u5f55\uff0834 \u9875\u63d2\u753b\u957f\u6587\uff09\u00b7 \u4e1a\u52a1/\u6570\u5206\u53cb\u597d \u00b7 AI Agent \u53cb\u597d"
+    },
+    {
+      "name": "vibegameengine--web-starter-kit",
+      "source": "./vibegameengine--web-starter-kit",
+      "description": "web-starter-kit"
     },
     {
       "name": "cheerhuan--save-your-token",
