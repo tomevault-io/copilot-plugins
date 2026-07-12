@@ -244059,6 +244059,46 @@
       "description": "Copy-on-write workspace manager for parallel development"
     },
     {
+      "name": "dreamytalespan--codexbar-display",
+      "source": "./dreamytalespan--codexbar-display",
+      "description": "CodexBar-Display"
+    },
+    {
+      "name": "chuanghiduoc--fiber-golang-boilerplate",
+      "source": "./chuanghiduoc--fiber-golang-boilerplate",
+      "description": "Production-ready REST API boilerplate built with Go Fiber v3, PostgreSQL, sqlc, JWT auth, Google OAuth, file uploads (S3/MinIO), Redis cache, Swagger docs, Prometheus metrics, and Docker."
+    },
+    {
+      "name": "ajmwagar--pedalkernel",
+      "source": "./ajmwagar--pedalkernel",
+      "description": "Real components. Real circuits. Real tone."
+    },
+    {
+      "name": "paritytech--polkadot-cli",
+      "source": "./paritytech--polkadot-cli",
+      "description": "polkadot-cli"
+    },
+    {
+      "name": "aisk--hasuke",
+      "source": "./aisk--hasuke",
+      "description": "A simple and naive agent implemented in Haskell"
+    },
+    {
+      "name": "ajmwagar--pedalkernel",
+      "source": "./ajmwagar--pedalkernel",
+      "description": "Real components. Real circuits. Real tone."
+    },
+    {
+      "name": "burrr-ai--comwit",
+      "source": "./burrr-ai--comwit",
+      "description": "React state management for vibe coding. Pass llm.txt to Claude Code."
+    },
+    {
+      "name": "beranradek--personal-assistant",
+      "source": "./beranradek--personal-assistant",
+      "description": "Personal AI assistant with secured sandbox, memory (markdowns and hybrid search), integrations - adapters, heartbeat proactivity and skills"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -265639,6 +265679,11 @@
       "description": "web-starter-kit"
     },
     {
+      "name": "hikarioyama--qwen36-a6b",
+      "source": "./hikarioyama--qwen36-a6b",
+      "description": "qwen36-a6b"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -270112,6 +270157,11 @@
       "name": "vlongx--komari-theme-glassmorphism-three-network",
       "source": "./vlongx--komari-theme-glassmorphism-three-network",
       "description": "komari-theme-Glassmorphism-three-network"
+    },
+    {
+      "name": "shreyashkore--kexcel",
+      "source": "./shreyashkore--kexcel",
+      "description": "Pure Kotlin based excel library for Kotlin Mulitplatform"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
