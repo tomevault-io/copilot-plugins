@@ -1,0 +1,9 @@
+{
+  "name": "jakubkrehel--skills",
+  "displayName": "skills",
+  "description": "A set of agent skills that help improve different parts of a product, from animations and typography to layout and colors.",
+  "version": "1.0.0",
+  "author": "jakubkrehel",
+  "homepage": "https://github.com/jakubkrehel/skills",
+  "skills": []
+}
