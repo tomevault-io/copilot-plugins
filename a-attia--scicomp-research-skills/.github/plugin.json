@@ -1,0 +1,9 @@
+{
+  "name": "a-attia--scicomp-research-skills",
+  "displayName": "scicomp-research-skills",
+  "description": "Agent skills + workflow templates for scientific-computing research (papers and software). Forked from Master-cai/Research-Paper-Writing-Skills; restructured to the agents.md / OpenCode SKILL.md stand",
+  "version": "1.0.0",
+  "author": "a-attia",
+  "homepage": "https://github.com/a-attia/scicomp-research-skills",
+  "skills": []
+}
