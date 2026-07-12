@@ -1,0 +1,9 @@
+{
+  "name": "kompassdev--kompass",
+  "displayName": "kompass",
+  "description": "Navigate your way - manual steering, steered autonomy, or autonomously. Kompass keeps AI coding agents on course with token-efficient, composable workflows.",
+  "version": "1.0.0",
+  "author": "kompassdev",
+  "homepage": "https://github.com/kompassdev/kompass",
+  "skills": []
+}
