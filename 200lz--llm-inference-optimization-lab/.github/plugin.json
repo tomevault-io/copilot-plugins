@@ -1,0 +1,9 @@
+{
+  "name": "200lz--llm-inference-optimization-lab",
+  "displayName": "llm-inference-optimization-lab",
+  "description": "Reproducible CPU LLM inference benchmarking, profiling, and hot-path optimization with llama.cpp",
+  "version": "1.0.0",
+  "author": "200lz",
+  "homepage": "https://github.com/200lz/llm-inference-optimization-lab",
+  "skills": []
+}
