@@ -1,36 +1,55 @@
-## never-assume
+## plan-first-workflow
 
-> Verify or ask — no guessing packages, APIs, patterns, or incomplete code
+> Require Plan Mode and user approval before non-trivial implementation
 
 
-# Never Assume
+# Plan-First Workflow
 
-| Do NOT | Instead |
-|--------|---------|
-| Assume file paths, shortcode names, or menu structure | Read `docs/website.md`; grep `content/mosaic/` |
-| Add new dependencies without explanation | State why, alternatives considered, and get approval |
-| Edit `content/mosaic/public/` | Build output is generated; edit source in `content/` and `layouts/` |
-| Replace code with placeholders, TODOs, or stubs | Ship complete markdown, layouts, and styles |
-| Write incomplete page content | Finish the page or stop and explain what's blocked |
-| Commit or push unless asked | Wait for explicit user request |
-| Commit secrets (`firebase-service-account.json`, tokens) | Use gitignored local files or CI secrets only |
+Apply before non-trivial edits. When criteria overlap with `multi-agent-workflow.mdc` (e.g. new page, 3+ files), follow **multi-agent** Phase 1 — it is the stricter superset.
 
-## Scope and diff discipline
+## Skip planning only for
 
-- Minimize scope — smallest correct diff; no drive-by refactors.
-- Match surrounding naming, shortcode style, and documentation level.
-- Comments only for non-obvious Hugo/template logic.
-- Do not add markdown/docs files the user did not ask for.
-- Do not use "made with cursor" or similar in commits.
+- Typos, renames, obvious single-line fixes
+- Tasks fully specified with no design choices
 
-## MOSAIC conventions
+## MUST plan before implementing when ANY apply
 
-- Page content lives in `content/mosaic/content/*.md` only.
-- Navigation lives in `content/mosaic/data/menu.yaml`.
-- Internal links use ugly URLs: `/roadmap.html`, `/team.html`, etc.
-- Images go in `content/mosaic/static/assets/` and are referenced as `/assets/filename.ext`.
-- Use existing shortcodes before inventing new ones — see `docs/website.md`.
-- Prefer `npm run build:site` over ad-hoc Hugo invocations.
+- New page, new shortcode, or new site-wide layout pattern
+- Multi-file change (3+ files) or >500 lines expected
+- Refactor of layouts/shortcodes with behavioral risk
+- Touches critical paths (deploy workflows, Firebase config, maintainer scripts, secrets)
+- Requirements have meaningful design choices
+
+## Plan output MUST include
+
+1. **Goal** — restated in one sentence
+2. **Files** — exact paths to create/modify/delete
+3. **Dependencies** — new npm packages, Hugo version, Firebase changes
+4. **Steps** — ordered implementation sequence
+5. **Content impact** — which markdown pages and menu entries change
+6. **Edge cases** — broken links, missing assets, mobile layout
+7. **Verification** — `npm run build:site`, optional `npm run serve`, CI
+8. **Risks** — what could break and how to detect it
+
+## Approval gate
+
+After presenting the plan, **wait for explicit user approval** ("proceed", "approved",
+or an edited plan confirmed by the user) before writing implementation code.
+
+Read-only research (grep, read files, explore codebase, read `docs/website.md`) is allowed during planning.
+
+Save approved plans to `.cursor/plans/<feature>.md` when scope is substantial.
+
+## Before editing (Agent Mode)
+
+- Brief plan with reasoning: goal, steps, files touched, validation approach.
+- For website work, consult `docs/website.md` for shortcodes and file locations.
+
+## While editing
+
+- Only modify code relevant to the request.
+- Never use placeholders — include complete, working content and templates.
+- **Reference patterns specifically:** e.g. mirror `@content/mosaic/content/news.md` for a new list page, or `@content/mosaic/layouts/shortcodes/card.html` for a new shortcode.
 
 ---
 > Source: [OWASP/MOSAIC](https://github.com/OWASP/MOSAIC) — distributed by [TomeVault](https://tomevault.io).
