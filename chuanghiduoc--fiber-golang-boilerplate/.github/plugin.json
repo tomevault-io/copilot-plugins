@@ -1,0 +1,9 @@
+{
+  "name": "chuanghiduoc--fiber-golang-boilerplate",
+  "displayName": "fiber-golang-boilerplate",
+  "description": "Production-ready REST API boilerplate built with Go Fiber v3, PostgreSQL, sqlc, JWT auth, Google OAuth, file uploads (S3/MinIO), Redis cache, Swagger docs, Prometheus metrics, and Docker.",
+  "version": "1.0.0",
+  "author": "chuanghiduoc",
+  "homepage": "https://github.com/chuanghiduoc/fiber-golang-boilerplate",
+  "skills": []
+}
