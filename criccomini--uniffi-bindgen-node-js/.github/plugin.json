@@ -1,0 +1,9 @@
+{
+  "name": "criccomini--uniffi-bindgen-node-js",
+  "displayName": "uniffi-bindgen-node-js",
+  "description": "Generate Node.js bindings for UniFFI Rust libraries, with ESM output, TypeScript declarations, and a Koffi-based runtime.",
+  "version": "1.0.0",
+  "author": "criccomini",
+  "homepage": "https://github.com/criccomini/uniffi-bindgen-node-js",
+  "skills": []
+}
