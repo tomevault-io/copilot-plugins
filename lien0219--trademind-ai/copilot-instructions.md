@@ -1,19 +1,30 @@
-## 10-progress-sync
+## 11-local-dev-postgres
 
-> Keep docs/PROGRESS.md updated when completing phases, modules, or large refactors
+> 本地开发统一采用 PostgreSQL；环境、Docker、迁移与代码生成约束
 
 
-# 进度文档 PROGRESS.md
+# 本地开发与数据库（PostgreSQL）
 
-在完成以下任一情况时，**必须**更新 `docs/PROGRESS.md`：
+## 强制约定
 
-- 路线图中的一个大**阶段**（如项目地基、存储能力…）阶段性完成或调整；
-- 一个独立 **模块**（如 auth、settings、collect、admin 某条线）可交付或可演示；
-- 一次 **较大的代码修改**（架构调整、技术栈切换、公共契约变更）。
+- **本地与仓库默认数据库为 PostgreSQL**。生成迁移、示例 DDL、`docker-compose`、`.env.example` 说明时，**以 PostgreSQL 为准**。
+- **不要**默认选用 MySQL 端口（3306）、MySQL 专用语法（`AUTO_INCREMENT`、`DATETIME` 等）或仅 MySQL 的 compose 服务，除非用户**明确**要求 MySQL。
+- 后端已通过 `DB_DRIVER` 支持 `mysql`；仅在**对接遗留库**或用户指定时使用。日常开发与文档示例不要以此为主路径。
 
-更新时至少改：**当前阶段**、**已完成/未完成**、**已确认技术决策**（若有变化）、**遗留问题**、**下一步计划**、文末 **变更记录**日期与一行摘要。
+## 与环境变量对齐
 
-若未改代码仅做小修，可只更新「变更记录」或「遗留问题」中对应条目。
+- 默认 **`DB_DRIVER=postgres`**，**`DB_PORT=5432`**（未设置 `DB_PORT` 时后端对 postgres 默认 5432）。
+- 本地基础设施：根目录 **`docker-compose.yml`** 提供 **PostgreSQL + Redis**；新成员 `docker compose up -d` 即可。
+
+## 编码与迁移
+
+- GORM：默认连接串与 **`gorm.io/driver/postgres`**；生成新模型/迁移时列类型优先使用 PostgreSQL 惯用类型（如 `UUID`、`TIMESTAMPTZ`、`JSONB` 视业务需要）。
+- 主键 UUID：当前模型基类使用 `char(36)`；若在 Postgres 中改为原生 `uuid`，须在迁移与规则中一次说清，并更新 `docs/PROGRESS.md`。
+
+## Cursor 行为
+
+- 实现「建表 / migration / docker / 环境说明」类任务时：**先查阅** `.env.example`、`docker-compose.yml`、`backend/internal/config`，**不要假设 MySQL**。
+- 若引入仅适用于一种数据库的写法，须在注释中标明，并优先保证 **PostgreSQL 可运行**。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
