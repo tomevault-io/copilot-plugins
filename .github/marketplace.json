@@ -49934,6 +49934,11 @@
       "description": "site"
     },
     {
+      "name": "lillecarl--nixkube",
+      "source": "./lillecarl--nixkube",
+      "description": "CSI driver for Nixxing Kubernetes, see develop branch!"
+    },
+    {
       "name": "jetxu-llm--docmason",
       "source": "./jetxu-llm--docmason",
       "description": "DocMason is a repo-native agent that turns your complex office files into a local LLM knowledge base and your second brain. The repo is the app. Codex is the runtime."
@@ -147957,6 +147962,16 @@
       "name": "homericintelligence--odyssey",
       "source": "./homericintelligence--odyssey",
       "description": "Training framework written in Mojo"
+    },
+    {
+      "name": "mindicator--invairiant",
+      "source": "./mindicator--invairiant",
+      "description": "AI-assisted architecture-audit skill + CLI for systems where invariants must survive change (Claude Code \u00b7 Codex \u00b7 Cursor)"
+    },
+    {
+      "name": "mindicator--invairiant",
+      "source": "./mindicator--invairiant",
+      "description": "AI-assisted architecture-audit skill + CLI for systems where invariants must survive change (Claude Code \u00b7 Codex \u00b7 Cursor)"
     },
     {
       "name": "skenetechnologies--plg-skills",
