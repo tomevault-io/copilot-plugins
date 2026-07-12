@@ -4,7 +4,7 @@
   "repo": "nzbdavkodi",
   "description": "Kodi 21 addon \u2014 stream Usenet via NZBHydra2 + nzbdav WebDAV. TMDBHelper player integration, PTT filtering, auto-updates via Kodi repository.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Appz4Fun/nzbdavkodi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T06:47:18Z"
+  "distributed_at": "2026-07-12T06:48:57Z"
 }
