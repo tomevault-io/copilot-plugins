@@ -1,0 +1,107 @@
+## llm-sast-scanner
+
+> Use when asked for a *"deep parallel scan"*, *"full scan loop with all agents"*, or to run the convergence loop across subagents. This trades the single-context guarantee for parallelism: each lens gets its own convergence loop, and coverage/ledger state is reconciled at merge time. Note each lens subagent independently reads every in-scope line, so total read cost scales with the number of lenses.
+
+# SAST Security Assessment
+
+Your goal is to identify security vulnerabilities in the codebase located in the current working directory by orchestrating the `llm-sast-scanner` skill across parallel subagents — one per vulnerability lens — so each lens runs in its own isolated context.
+
+All output is written to a `.llm-sast-scanner-cache/` folder in the project root. Steps whose output file already exists **and is marked complete (the file ends with the `<!-- LLM-SAST-COMPLETE -->` sentinel)** are skipped, so this is safe to re-run after fixing issues. A file that exists **but lacks the terminal sentinel is from a crashed/partial step** and is re-run and overwritten — existence alone is never proof of completion.
+
+> **Skill resolution:** subagents invoke skills by name (`llm-sast-scanner`, `llm-sast-scanner-full-scan-loop`). Each tool loads them from its own skills directory — Claude Code from `.claude/skills/`, Cursor/Codex/agents from `.agents/skills/`. Both directories are symlinks to the single canonical skill source at the repo root, so the two runtimes always run identical skill content.
+
+---
+
+## Arguments
+
+This orchestrator forwards optional tagged arguments to the underlying skill.
+
+- `adv=critical,high,medium` (case-insensitive, comma-separated) — controls which severities go through the scanner's **Step 6: Adversarial Impact Validation**. When omitted, Step 6 is skipped. Pass the same `adv=` value to every Step 2 subagent and to the Step 3 report agent.
+
+---
+
+## Step 1: Codebase Analysis & Threat Modeling
+
+Check if `.llm-sast-scanner-cache/architecture-threat-model.md` already exists **and is current** — reuse it only when `project-memory.md`'s `last-scanned-sha` equals `git rev-parse HEAD` (stack provably unchanged). If it exists and is current, skip the analysis below (but still run the project-memory step at the end of this section). If the SHA differs (or is `unknown`, or the file is missing), **regenerate** it — the code changed, so entry points / detected stack / the stack-gated allowlist may have too, and a stale `architecture-threat-model.md` silently drops newly-applicable lenses.
+
+Otherwise, **in-session** (not as a subagent, since later steps read its output), run the `llm-sast-scanner` skill's **Step 1 (Understand Scope)** over the whole repo and write a short architecture/threat-model brief to `.llm-sast-scanner-cache/architecture-threat-model.md` covering: languages & frameworks, entry points (routes/handlers/CLI/jobs), trust boundaries, authN/authZ model, data stores, outbound calls, and the **detected stack** so later lenses can skip inapplicable reference files. Also record the **per-lens stack-gated reference allowlist** derived from the files actually present (gateable platform/language/infra references whose signals appear, plus the always-loaded language-agnostic classes), so lenses share one definition of applicable classes and drop only provably-absent stacks.
+
+**Project memory (always, even when `architecture-threat-model.md` already existed):** ensure `.llm-sast-scanner-cache/project-memory.md` exists; if absent, initialize it from the template in the base skill's **Project Memory Protocol**. This file carries cross-scan hints (confirmed findings, confirmed false-positive patterns, project security primitives, hotspots) and is consumed by every detection subagent as *hints, never authority*. Also add `.llm-sast-scanner-cache/` to the repo's `.gitignore` if not already ignored.
+
+**Wait for this step to finish before proceeding.**
+
+---
+
+## Step 2: Vulnerability Detection (Parallel)
+
+Start **one subagent per lens**, all **in parallel**. Skip any lens whose results file already exists **and ends with the `<!-- LLM-SAST-COMPLETE -->` sentinel**; a present-but-unmarked file is a crashed/partial run — re-run that lens and overwrite it.
+
+Give each subagent the same instruction pattern, substituting the lens name, class list, and results path from the table below:
+
+> Read `.llm-sast-scanner-cache/architecture-threat-model.md` for context and `.llm-sast-scanner-cache/project-memory.md` as **hints, never authority** (follow the base skill's **Project Memory Protocol**: memory may prioritize or explain known-safe patterns but must never make you skip a line or auto-dismiss a class; a false-positive entry may suppress a re-report only after you re-confirm its safe rationale in the current code). Then run the `llm-sast-scanner` skill focused on the **\<lens\>** vulnerability classes. From the skill's `references/` directory, load only your lens's reference files that are on the stack-gated allowlist in `architecture-threat-model.md` (always-load the language-agnostic classes; skip only stacks whose files are absent; when unsure, load). Follow the skill's full workflow — Source→Sink taint tracking (Step 3), business-logic/auth analysis (Step 4), Judge re-verification (Step 5), and (only if `adv=` was provided) Adversarial Impact Validation (Step 6). Report only CONFIRMED / LIKELY findings using the skill's finding format. Write all findings to the results file below. Do **not** write to `project-memory.md` (the report step is the single writer). Clean up any intermediate recon/threat/batch files for this lens when done. **As the FINAL line of the results file — only once your analysis is complete — append the completion sentinel `<!-- LLM-SAST-COMPLETE lens=<lens> -->`; it is what the resume/consolidation steps use to tell a finished lens from a crashed one, so write it ONLY when done and omit it if you stop early.**
+
+| Lens | Results file | Vulnerability classes (reference lenses) |
+|------|--------------|------------------------------------------|
+| injection | `.llm-sast-scanner-cache/injection-results.md` | SQLi, XSS, client-side prototype pollution, SSTI, SSI injection, ESI injection, NoSQLi, GraphQL injection, XXE, RCE/command injection, environment variable injection (CWE-99/454), expression-language injection, LDAP injection, XPath/XQuery injection, CSV/formula injection, log injection, prompt injection (LLM01), insecure output handling (LLM05), DOM clobbering |
+| access-auth | `.llm-sast-scanner-cache/access-auth-results.md` | IDOR, privilege escalation / missing auth (BFLA), authentication & JWT, OAuth 2.0 / OIDC misconfiguration, default credentials, hardcoded secrets (CWE-798 secret literals at rest / client-exposure model), brute force, business logic, HTTP method tampering, verification code abuse, session fixation, session puzzling, reverse-proxy access bypass, email parser differential, mass assignment, BaaS client-side authorization (Supabase RLS / Firebase Security Rules), excessive agency (LLM06), RAG / vector & embedding security (LLM08), API / REST / web-service security, webhook / integration security, MCP (Model Context Protocol) security, gRPC / gRPC-Web server-side security |
+| crypto-data | `.llm-sast-scanner-cache/crypto-data-results.md` | weak crypto/hash, information disclosure (incl. LLM02 sensitive disclosure), insecure cookie, trust boundary, client-IP / network-origin trust (XFF spoofing), shared-client cache/dedup cross-user leak, cleartext transmission, certificate/TLS validation, system prompt leakage (LLM07), privacy / data protection (PII) |
+| server-side | `.llm-sast-scanner-cache/server-side-results.md` | SSRF, path traversal/LFI/RFI, client-side path traversal, server-side prototype pollution, insecure deserialization, arbitrary file upload, JNDI injection, race conditions, insecure temp file, file permissions, batch/ETL/mainframe data-pipeline security |
+| protocol-infra | `.llm-sast-scanner-cache/protocol-infra-results.md` | CSRF, open redirect, reverse tabnabbing, HTTP request smuggling/desync, HTTP response splitting, host header poisoning, correlation/tracing header injection, CORS misconfiguration, WebSocket security (CSWSH), postMessage security, XSSI / JSONP / Reflected File Download (RFD), clickjacking, web cache deception/poisoning, denial of service (incl. LLM10 unbounded consumption), GraphQL denial of service, regex injection/ReDoS, CVE patterns, Content Security Policy (CSP) weaknesses, XS-Leaks |
+| hardening-platform | `.llm-sast-scanner-cache/hardening-platform-results.md` | output encoding, format string injection, improper input validation (semantic-type mismatch / missing format validation), ASP.NET security misconfiguration, hardcoded code/backdoor, dependency confusion, ML supply chain & data/model poisoning (LLM03/04), AI editor / agent config poisoning (repo poisoning), PHP security (incl. TYPO3 CMS — Fluid / TypoScript / Extbase; loads **both** `php_security.md` and the separate `typo3_security.md`), Android security, iOS security, Electron / desktop app security, C/C++ memory safety, smart contract security (Solidity/EVM + Solana/Anchor; loads **both** `smart_contract_security.md` and the separate `solana_smart_contract_security.md`), IaC security (Terraform/CloudFormation/ARM/Bicep/Pulumi), subdomain takeover (dangling-DNS candidate flagging in IaC/zone files), Kubernetes / cloud orchestration, CI/CD & container security, nginx / web-server configuration, supply chain security (SRI / provenance / lifecycle scripts) |
+
+**Wait for all subagents to finish before proceeding.**
+
+---
+
+## Step 3: Report Generation
+
+After all Step 2 subagents finish, skip this step only if `.llm-sast-scanner-cache/final-report.md` already exists **and ends with the `<!-- LLM-SAST-COMPLETE -->` sentinel** (a present-but-unmarked report is from a crashed run — regenerate it).
+
+Otherwise launch a single subagent:
+
+> Read all available `.llm-sast-scanner-cache/*-results.md` files and `.llm-sast-scanner-cache/architecture-threat-model.md` for context, then apply the `llm-sast-scanner` skill's **Step 7 (Report Findings)** — severity model, severity-downgrade rule, finding format, and report structure — to consolidate every finding into `.llm-sast-scanner-cache/final-report.md`, ranked by severity (Critical → Info) with exact file paths, line numbers, and concrete remediations. De-duplicate findings reported by more than one lens. As the final line of `final-report.md`, append `<!-- LLM-SAST-COMPLETE -->` once it is fully written (marks it complete for the skip check above). Finally, as the **single writer**, update `.llm-sast-scanner-cache/project-memory.md` per the base skill's **Project Memory Protocol**: append newly CONFIRMED findings (with current `git rev-parse HEAD`), record any downgraded/disputed findings as false-positive patterns with the rationale that defeated them, refresh project security primitives and hotspots, and bump `last-scanned-sha` / `last-updated`.
+
+---
+
+## Alternative: Exhaustive Convergence Audit
+
+For a deeper, line-by-line audit instead of the lens fan-out in Step 2, use the `llm-sast-scanner-full-scan-loop` skill. It comes in two modes.
+
+### Single-agent (mode=single)
+
+Run the `llm-sast-scanner-full-scan-loop` skill against the target directory in one session. It loops Steps 1–5 to convergence, verifies 100% line coverage, runs one final adversarial pass, and writes a timestamped `sast_report-<timestamp>.md`. Use this when you want the strongest convergence/coverage guarantee (a single context owns the ledger and coverage map).
+
+### Deep Mode (Parallel, default) — one loop subagent per lens
+
+Use when asked for a *"deep parallel scan"*, *"full scan loop with all agents"*, or to run the convergence loop across subagents. This trades the single-context guarantee for parallelism: each lens gets its own convergence loop, and coverage/ledger state is reconciled at merge time. Note each lens subagent independently reads every in-scope line, so total read cost scales with the number of lenses.
+
+> **Shortcut:** the `llm-sast-scanner-full-scan-loop` skill now performs this exact fan-out natively in its default `mode=parallel`. You can simply run `llm-sast-scanner-full-scan-loop <dir>` and it will execute Steps D1–D3 below itself. The steps are spelled out here so the orchestrator can drive them directly when preferred.
+
+**Step D1 — Analysis.** Reuse `.llm-sast-scanner-cache/architecture-threat-model.md` from Step 1 (run that step first if it does not exist). Ensure `.llm-sast-scanner-cache/project-memory.md` exists too (Step 1 initializes it; create it from the base skill's **Project Memory Protocol** template if missing). Also **persist the SCOPE MANIFEST** — the in-scope file list + line counts, with `.llm-sast-scanner-cache/` and `sast_report-*.md` excluded — to `.llm-sast-scanner-cache/scope-manifest.txt`; this is the ONE shared coverage denominator every lens reads and D3 reconciles against (SHA-gated like the threat model), so all six lenses provably use the identical file set + line counts.
+
+**Step D2 — Parallel convergence loops.** Start **one subagent per lens** (same six lenses and class lists as the Step 2 table), all **in parallel**. Skip any lens whose deep results file already exists **and ends with the `<!-- LLM-SAST-COMPLETE -->` sentinel** (a present-but-unmarked file is a crashed/partial lens — re-run it and overwrite). Give each subagent this instruction:
+
+> Read `.llm-sast-scanner-cache/architecture-threat-model.md` for context, `.llm-sast-scanner-cache/scope-manifest.txt` as your shared coverage denominator (use this file list + line counts as-is; do NOT rebuild your own, so every lens reconciles against ONE identical denominator; only re-enumerate per the loop's GROUND RULES if it is missing or stale), and `.llm-sast-scanner-cache/project-memory.md` as **hints, never authority** (base skill's **Project Memory Protocol** — never skip a line or auto-dismiss a class; a false-positive entry suppresses a re-report only after you re-confirm its rationale in current code). Then run the `llm-sast-scanner-full-scan-loop` skill in **`mode=single lens=<lens>`** over this repository (single-context so it does NOT fan out again), **constrained to the \<lens\> vulnerability classes** (load only the matching references from the base skill). Perform the loop's convergence phase: multi-pass Steps 1–5 (taint tracking, business-logic/auth, Judge) until convergence, with the loop's ledger + 100% line-coverage discipline applied to your lens. **Do NOT run the final Adversarial Impact Validation pass and do NOT write a timestamped report** — those are deferred to consolidation. Do **not** write to `project-memory.md` (consolidation is the single writer). Write only Judge-passed CONFIRMED / LIKELY findings, plus your final coverage result, convergence status (`converged`, or `NOT CONVERGED` — noting which forced stop, the pass-5 ceiling or the pass-10 hard cap, and the last pass's new-bug count), and pass log, to `.llm-sast-scanner-cache/deep-<lens>-results.md`. **As the FINAL line of that file, only after COVERAGE VERIFICATION passes, append the completion sentinel `<!-- LLM-SAST-COMPLETE lens=<lens> -->`** — it is what D3 uses to tell a finished lens from a crashed one; omit it if you stop early so the lens is re-run.
+
+| Lens | Deep results file |
+|------|-------------------|
+| injection | `.llm-sast-scanner-cache/deep-injection-results.md` |
+| access-auth | `.llm-sast-scanner-cache/deep-access-auth-results.md` |
+| crypto-data | `.llm-sast-scanner-cache/deep-crypto-data-results.md` |
+| server-side | `.llm-sast-scanner-cache/deep-server-side-results.md` |
+| protocol-infra | `.llm-sast-scanner-cache/deep-protocol-infra-results.md` |
+| hardening-platform | `.llm-sast-scanner-cache/deep-hardening-platform-results.md` |
+
+**Wait for all subagents to finish before proceeding.**
+
+**Step D3 — Consolidation + single adversarial pass.** Launch one subagent:
+
+> First confirm all six `.llm-sast-scanner-cache/deep-*-results.md` files exist **and each ends with the `<!-- LLM-SAST-COMPLETE -->` sentinel**; any lens that is **missing OR unmarked** is incomplete (crashed/partial) — re-run it and overwrite the file before consolidating, otherwise partial findings would merge as if the lens were exhaustive. Then **reconcile every lens against the shared denominator**: confirm each lens's coverage checklist covers the SAME file set + line counts as `.llm-sast-scanner-cache/scope-manifest.txt`; re-run any lens whose file set or line counts diverge. Then read all `.llm-sast-scanner-cache/deep-*-results.md` files and `.llm-sast-scanner-cache/architecture-threat-model.md`. Merge and de-duplicate findings across lenses (same **entry point** + `file:line` + class = one finding; **independent entry points that share a sink line stay separate** — per the base skill's *(entry point → sink)* finding-identity rule, so many routes funneling through one shared helper/DAO/render sink yield one finding **per route**, not one collapsed finding). Run the `llm-sast-scanner` skill's **Step 6 (Adversarial Impact Validation)** ONCE over the full consolidated set with the `adv=` value forwarded to this run (default `adv=critical,high,medium`), apply the STANDING / DOWNGRADED / DISPUTED / WITHDRAWN verdicts, then write a timestamped consolidated report `sast_report-<timestamp>.md` (timestamp from `date +%Y-%m-%d_%H-%M-%S`) using the skill's report structure. **Non-convergence escalation:** read each lens's convergence status from its `deep-<lens>-results.md`; if ANY lens is `NOT CONVERGED` (stopped at the pass-5 ceiling or the pass-10 hard cap), the report's **Executive Summary MUST open with a prominent warning** that the audit did not saturate and is likely INCOMPLETE for those lens(es) — name them and their last-pass new-bug counts, note that 100% coverage is not convergence, and recommend manual deep review or a re-scan; do not present a partially non-converged scan as exhaustive. Also print a combined coverage summary and per-lens pass log (including each lens's convergence status). Finally, as the **single writer**, update `.llm-sast-scanner-cache/project-memory.md` per the base skill's **Project Memory Protocol** (append newly CONFIRMED findings with current `git rev-parse HEAD`; record DOWNGRADED/DISPUTED/WITHDRAWN as false-positive patterns with their defeating rationale; refresh primitives/hotspots; bump `last-scanned-sha`/`last-updated`).
+
+---
+
+When the chosen flow is complete, tell the user where the report is (`.llm-sast-scanner-cache/final-report.md` for Step 3, or `sast_report-<timestamp>.md` for the convergence audit) and give a short summary of the highest-severity findings.
+
+---
+> Source: [cujanovic/llm-sast-scanner](https://github.com/cujanovic/llm-sast-scanner) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-12 -->
