@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "burin-labs",
   "homepage": "https://github.com/burin-labs/harn",
-  "skills": [
-    {
-      "name": "rust-scripting",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
