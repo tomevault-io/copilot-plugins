@@ -1,0 +1,9 @@
+{
+  "name": "balcsida--zscaler-split-tunnel",
+  "displayName": "zscaler-split-tunnel",
+  "description": "Split tunneling for Zscaler on macOS \u2014 shell daemon + native SwiftUI menu bar app",
+  "version": "1.0.0",
+  "author": "balcsida",
+  "homepage": "https://github.com/balcsida/zscaler-split-tunnel",
+  "skills": []
+}
