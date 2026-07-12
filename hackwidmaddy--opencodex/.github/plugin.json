@@ -1,0 +1,9 @@
+{
+  "name": "hackwidmaddy--opencodex",
+  "displayName": "OpenCodex",
+  "description": "A community-driven autonomous coding agent built for developers who want full control. OpenCodex helps you write, edit, debug, and ship code directly from your terminal or IDE using powerful AI workfl",
+  "version": "1.0.0",
+  "author": "HackWidMaddy",
+  "homepage": "https://github.com/HackWidMaddy/OpenCodex",
+  "skills": []
+}
