@@ -1,0 +1,9 @@
+{
+  "name": "porespellar--zer0fit",
+  "displayName": "Zer0Fit",
+  "description": "Zero-shot forecasting, tabular classification, and regression via MCP \u2014 exposes Google TimesFM 2.5 and TabFM v1.0.0 to AI assistants. Just attach a CSV and describe what you want to predict.",
+  "version": "1.0.0",
+  "author": "porespellar",
+  "homepage": "https://github.com/porespellar/Zer0Fit",
+  "skills": []
+}
