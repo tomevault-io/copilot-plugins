@@ -1,0 +1,9 @@
+{
+  "name": "jacquardlabs--cctx",
+  "displayName": "cctx",
+  "description": "Diagnose Claude Code sessions and OpenTelemetry agent traces: cost, failures, and CLAUDE.md fixes.",
+  "version": "1.0.0",
+  "author": "jacquardlabs",
+  "homepage": "https://github.com/jacquardlabs/cctx",
+  "skills": []
+}
