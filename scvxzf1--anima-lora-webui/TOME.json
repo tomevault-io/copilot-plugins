@@ -4,7 +4,7 @@
   "repo": "anima_lora_webui",
   "description": "Anima LoRA WebUI startup-Linux package",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/scvxzf1/anima_lora_webui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T02:49:24Z"
+  "distributed_at": "2026-07-12T02:58:16Z"
 }
