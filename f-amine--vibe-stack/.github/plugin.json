@@ -1,0 +1,9 @@
+{
+  "name": "f-amine--vibe-stack",
+  "displayName": "vibe-stack",
+  "description": "The SaaS starter where Claude writes the rest. AI-first, full-stack: Next.js 16, Better Auth, Drizzle/Postgres, tRPC, Polar billing, R2, Dokploy. Every Claude Code skill vendored. Zero-key boot.",
+  "version": "1.0.0",
+  "author": "f-amine",
+  "homepage": "https://github.com/f-amine/vibe-stack",
+  "skills": []
+}
