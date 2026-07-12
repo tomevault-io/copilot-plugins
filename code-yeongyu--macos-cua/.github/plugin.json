@@ -1,0 +1,9 @@
+{
+  "name": "code-yeongyu--macos-cua",
+  "displayName": "macos-cua",
+  "description": "Native macOS computer-use control with Codex-style background per-PID mouse + scroll + keyboard via SkyLight SPIs (TypeScript + Swift helper)",
+  "version": "1.0.0",
+  "author": "code-yeongyu",
+  "homepage": "https://github.com/code-yeongyu/macos-cua",
+  "skills": []
+}
