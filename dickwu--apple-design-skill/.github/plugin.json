@@ -1,0 +1,9 @@
+{
+  "name": "dickwu--apple-design-skill",
+  "displayName": "apple-design-skill",
+  "description": "Cross-platform UI/UX design reviewer based on Apple HIG. Works with Flutter, Tauri, Electron, React Native. Compatible with Claude Code, Cursor, Codex.",
+  "version": "1.0.0",
+  "author": "dickwu",
+  "homepage": "https://github.com/dickwu/apple-design-skill",
+  "skills": []
+}
