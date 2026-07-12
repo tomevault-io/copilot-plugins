@@ -1,0 +1,9 @@
+{
+  "name": "thekroll-ltd--fathometer",
+  "displayName": "Fathometer",
+  "description": "Self-hosted CVE triage for your root servers: Trivy scans, LLM-judged exploitability, only the findings that matter.",
+  "version": "1.0.0",
+  "author": "THEKROLL-LTD",
+  "homepage": "https://github.com/THEKROLL-LTD/Fathometer",
+  "skills": []
+}
