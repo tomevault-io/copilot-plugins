@@ -1,0 +1,9 @@
+{
+  "name": "nextweb4--folder-locker",
+  "displayName": "folder-locker",
+  "description": "Offline folder locker with AES-256-GCM encrypted containers and optional Windows ACL quick lock",
+  "version": "1.0.0",
+  "author": "NextWeb4",
+  "homepage": "https://github.com/NextWeb4/folder-locker",
+  "skills": []
+}
