@@ -1,0 +1,9 @@
+{
+  "name": "prime-radiant-inc--slackline",
+  "displayName": "slackline",
+  "description": "A single-binary Go CLI that gives AI agents a Slack identity to send messages, read channels, and stream real-time events, with admin tooling to provision new bots.",
+  "version": "1.0.0",
+  "author": "prime-radiant-inc",
+  "homepage": "https://github.com/prime-radiant-inc/slackline",
+  "skills": []
+}
