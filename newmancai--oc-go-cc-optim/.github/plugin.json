@@ -1,0 +1,9 @@
+{
+  "name": "newmancai--oc-go-cc-optim",
+  "displayName": "oc-go-cc-optim",
+  "description": "\u4e3a Claude Code \u4f18\u5316\u7684\u9ad8\u6027\u80fd Go \u4ee3\u7406\uff0c\u652f\u6301 DeepSeek v4\uff0c\u652f\u6301\u901a\u8fc7 /model \u624b\u52a8\u5207\u6362\u6a21\u578b\u53ca\u6a21\u578b\u6620\u5c04\u903b\u8f91\u3002",
+  "version": "1.0.0",
+  "author": "newmancai",
+  "homepage": "https://github.com/newmancai/oc-go-cc-optim",
+  "skills": []
+}
