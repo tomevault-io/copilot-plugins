@@ -1,131 +1,185 @@
-## 07-collector-node-playwright
+## 08-api-db-security
 
-> Collector service rules for Node.js, TypeScript, Playwright, source providers, task handling, and normalized product output
+> API route planning, database schema conventions, settings center, encryption, secrets, logs, and task records
 
 
-# Node.js + Playwright 采集服务规则
+# API / 数据库 / 安全规则
 
-## 采集服务定位
+## API 路由规划
 
-采集服务独立于 Go 主服务，用于处理商品页面采集、浏览器自动化和结构化解析。
-
-MVP 优先实现：
+### 认证
 
 ```text
-1688 单链接商品采集
+POST /api/v1/auth/login
+POST /api/v1/auth/logout
+GET  /api/v1/auth/profile
 ```
 
-后期预留：
-
-- taobao
-- pdd
-- shein
-- amazon
-- custom url
-
-## 技术栈
-
-- Node.js
-- TypeScript
-- Playwright
-
-## 服务边界
-
-- 采集服务不得直接操作主业务数据库。
-- 采集服务通过 Redis Queue 或内部 API 接收任务。
-- 采集完成后返回结构化 JSON。
-- Go 主服务负责保存商品草稿和任务状态。
-
-## 采集源 Provider 规则
-
-每个采集源必须独立 Provider。
-
-推荐结构：
+### 设置
 
 ```text
-collector/src/
-├── providers/
-│   ├── source1688/
-│   ├── taobao/
-│   └── custom/
-├── browser/
-├── queue/
-├── normalizer/
-└── index.ts
+GET  /api/v1/settings
+PUT  /api/v1/settings
+POST /api/v1/settings/test-ai
+POST /api/v1/settings/test-storage
 ```
 
-## 统一采集输出结构
-
-无论来源是什么，最终都必须转换为：
-
-```json
-{
-  "source": "1688",
-  "sourceUrl": "",
-  "title": "",
-  "currency": "CNY",
-  "mainImages": [],
-  "descriptionImages": [],
-  "attributes": {},
-  "skus": [],
-  "raw": {}
-}
-```
-
-## raw 原始数据规则
-
-必须保留 `raw` 字段，用于：
-
-- 复盘采集问题
-- 后期重新解析
-- 兼容新增字段
-- 定位平台页面结构变化
-
-## 任务状态
-
-采集任务状态统一：
+### 商品
 
 ```text
-pending
-running
-success
-failed
-cancelled
-retrying
+GET    /api/v1/products
+POST   /api/v1/products
+GET    /api/v1/products/:id
+PUT    /api/v1/products/:id
+DELETE /api/v1/products/:id
+POST   /api/v1/products/:id/apply-ai-title
+POST   /api/v1/products/:id/apply-ai-description
 ```
 
-采集失败必须返回明确错误原因，例如：
+### 采集
 
-- 页面加载超时
-- 商品不存在
-- 需要登录
-- 触发验证码
-- SKU 解析失败
-- 图片提取失败
+```text
+POST /api/v1/collect/tasks
+GET  /api/v1/collect/tasks
+GET  /api/v1/collect/tasks/:id
+POST /api/v1/collect/tasks/:id/retry
+```
 
-## Playwright 规则
+### AI
 
-- 浏览器启动参数统一封装。
-- 页面超时时间可配置。
-- User-Agent / 代理 / Cookie 支持配置预留。
-- 不要在 Provider 里到处创建浏览器实例，优先统一管理。
-- 图片懒加载需要滚动触发。
-- 采集完成必须关闭 page/context，避免资源泄漏。
+```text
+POST /api/v1/ai/title-optimize
+POST /api/v1/ai/description-generate
+POST /api/v1/ai/chat
+GET  /api/v1/ai/tasks
+GET  /api/v1/ai/tasks/:id
+```
 
-### `page.evaluate` 注入（1688 必读）
+### 文件
 
-- **禁止** `fn.toString()` + `eval` 注入页面脚本（tsx/esbuild 会生成 `__name`，浏览器无此 helper → **`ReferenceError: __name is not defined`**）。
-- **必须**使用 Playwright 原生 `page.evaluate(fn, arg)`；函数内 helper 自包含，不引用 Node 模块或外部 closure。
-- 复杂解析：**Browser 只读 DOM/script 文本**，**Node 侧做 JSON 解析**（见 `browser-extract-1688.ts`）。
-- 完整已知坑清单：**[`docs/collector-1688-pitfalls.md`](../../docs/collector-1688-pitfalls.md)**。
+```text
+POST   /api/v1/files/upload
+GET    /api/v1/files
+DELETE /api/v1/files/:id
+```
 
-## 禁止事项
+### 店铺
 
-- 不要把 1688 逻辑写到核心框架中。
-- 不要直接把采集结果写数据库。
-- 不要在失败时只返回 unknown error。
-- 不要忽略 SKU、属性、图片的结构化输出。
-- 不要移除 raw 字段。
+```text
+GET  /api/v1/stores
+POST /api/v1/stores/:platform/auth-url
+GET  /api/v1/stores/:platform/callback
+POST /api/v1/stores/:id/refresh-token
+```
+
+## Settings 配置中心
+
+所有可变能力尽量进入系统设置，不要写死在代码中。
+
+设置分组：
+
+```text
+system
+ai
+storage
+collector
+platform
+image
+security
+queue
+```
+
+设置要求：
+
+- 支持前端后台编辑。
+- 支持环境变量初始化。
+- 支持敏感字段加密。
+- 支持连接测试。
+- 支持恢复默认值。
+- 支持按租户隔离预留。
+
+## settings 表建议（**PostgreSQL** 方言；本地与默认迁移以此为准）
+
+```sql
+CREATE TABLE settings (
+  id BIGSERIAL PRIMARY KEY,
+  tenant_id BIGINT DEFAULT 0,
+  group_key VARCHAR(100) NOT NULL,
+  item_key VARCHAR(100) NOT NULL,
+  item_value TEXT,
+  value_type VARCHAR(50) DEFAULT 'string',
+  is_encrypted BOOLEAN DEFAULT FALSE,
+  remark VARCHAR(255),
+  created_at TIMESTAMPTZ,
+  updated_at TIMESTAMPTZ,
+  UNIQUE (tenant_id, group_key, item_key)
+);
+```
+
+## 商品核心表
+
+生成数据库相关代码时，优先围绕：
+
+- products
+- product_images
+- product_skus
+- collect_tasks
+- ai_tasks
+- ai_prompts
+- ai_providers
+- settings
+
+## 安全加密规则
+
+以下内容必须加密存储：
+
+- AI API Key
+- 存储 Secret Key
+- 平台 App Secret
+- 店铺 Access Token
+- 店铺 Refresh Token
+- Webhook Secret
+
+建议：
+
+```text
+APP_MASTER_KEY
+  ↓
+AES-GCM
+  ↓
+数据库保存密文
+```
+
+## 脱敏展示
+
+前端展示敏感字段时必须脱敏：
+
+```text
+sk-****abcd
+```
+
+## 日志禁止内容
+
+日志中禁止输出：
+
+- 完整 API Key
+- 完整 Token
+- 完整 Secret
+- 用户密码
+- Cookie 明文
+
+## 操作日志
+
+核心操作建议记录：
+
+- 登录
+- 修改系统设置
+- 修改 AI Provider
+- 修改存储配置
+- 创建采集任务
+- 重试任务
+- 应用 AI 结果
+- 删除商品或文件
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
