@@ -1,0 +1,9 @@
+{
+  "name": "semeton--agent-contract",
+  "displayName": "agent-contract",
+  "description": "A deterministic contract layer between humans and coding agents.",
+  "version": "1.0.0",
+  "author": "Semeton",
+  "homepage": "https://github.com/Semeton/agent-contract",
+  "skills": []
+}
