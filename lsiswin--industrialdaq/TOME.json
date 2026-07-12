@@ -1,0 +1,44 @@
+{
+  "name": "IndustrialDAQ",
+  "owner": "lsiswin",
+  "repo": "IndustrialDAQ",
+  "description": "\u4e00\u6b3e\u73b0\u4ee3\u5316\u7684\u5de5\u4e1a\u7ea7\u6570\u636e\u91c7\u96c6\u4e0e\u76d1\u63a7\u7ec8\u7aef (SCADA/HMI) \u7cfb\u7edf",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lsiswin/IndustrialDAQ",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T04:44:45Z"
+}
