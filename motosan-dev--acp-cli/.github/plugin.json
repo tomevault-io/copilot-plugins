@@ -1,0 +1,9 @@
+{
+  "name": "motosan-dev--acp-cli",
+  "displayName": "acp-cli",
+  "description": "Headless CLI client for the Agent Client Protocol (ACP) \u2014 Rust port of ACPX",
+  "version": "1.0.0",
+  "author": "motosan-dev",
+  "homepage": "https://github.com/motosan-dev/acp-cli",
+  "skills": []
+}
