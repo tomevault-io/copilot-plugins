@@ -1,0 +1,9 @@
+{
+  "name": "nextweb4--phone-record-manager",
+  "displayName": "phone-record-manager",
+  "description": "Local Windows phone-number binding record manager built with Python, PySide6, SQLite, backups, and release packaging.",
+  "version": "1.0.0",
+  "author": "NextWeb4",
+  "homepage": "https://github.com/NextWeb4/phone-record-manager",
+  "skills": []
+}
