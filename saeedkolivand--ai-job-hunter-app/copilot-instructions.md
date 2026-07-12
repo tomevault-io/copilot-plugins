@@ -1,84 +1,122 @@
-## renderer-ui
+## ai-job-hunter-app
 
-> Renderer UI rules — applies to all React components and route files
+> > Canonical rules: see `CLAUDE.md` + `.claude/skills/*` — this file is a pointer + the load-bearing subset; CLAUDE.md wins on any conflict.
 
-
-# Renderer UI Rules
+# AI Job Hunter — Copilot Instructions
 
 > Canonical rules: see `CLAUDE.md` + `.claude/skills/*` — this file is a pointer + the load-bearing subset; CLAUDE.md wins on any conflict.
 
-The renderer lives in `apps/desktop/src/renderer/` and talks to the Rust core only through IPC service hooks.
+Local-first Tauri desktop app (Rust core in `apps/desktop/src-tauri/`, React renderer in
+`apps/desktop/src/renderer/`). pnpm monorepo. React 19 + TypeScript strict, Tailwind v4.
+ESLint `--max-warnings 0` in CI — every warning fails the build.
+
+---
 
 ## Path Privacy
 
-- Never expose real local file system paths, usernames, home dirs, drive letters, or temp paths.
-- Always use repository-relative paths. Sanitize absolute paths in logs, PRs, commits, and markdown.
+- Never expose real local file system paths
+- Never output absolute Windows, macOS, or Linux paths
+- Always use repository-relative paths
 
-## Data fetching — React Query only
-Never use `useState + useEffect` for IPC data. Always use service hooks from `apps/desktop/src/renderer/services/`:
-```ts
-import { useDocuments, usePostings, useJobQueue } from '@/services';
-const { data, isLoading } = useDocuments();
-```
+❌ `C:\Users\username\project\apps\desktop\src\main.rs`
+❌ `/home/username/project/apps/api/src/server.ts`
+❌ `~/Projects/app/src/index.ts`
 
-## i18n
-```ts
-// ✅ correct
-import { useTranslation } from '@ajh/translations';
-// ❌ never
-import { useTranslation } from 'react-i18next';
-```
-The renderer init shim is `@/i18n` (owns init + the locale→main listener).
+✅ `apps/desktop/src/main.rs`
+✅ `apps/api/src/server.ts`
 
-## Motion tokens
-```ts
-// ✅ correct
-import { transition } from '@ajh/ui';
-<motion.div transition={transition.normal}>
-// ❌ never
-<motion.div transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}>
-```
+- Never expose usernames, home directories, drive letters, workspace roots, temp paths, or IDE-specific paths
+- Sanitize absolute paths in logs, stack traces, screenshots, terminal output, PRs, commits, comments, and markdown
+- Prefer repository-root-relative paths. If needed, use: `file:///app/<relative-path>`
 
-## Brand colors
-```tsx
-// ✅ correct
-className="text-brand-soft bg-brand/15 border-brand/30"
-// ❌ never
-className="text-[#c084fc] bg-[#a855f7]/15"
-```
+---
 
-## UI primitives to use
+## Shell — prefix EVERY command with `rtk`
 
-All from `@ajh/ui` directly — never from `@/components/ui/*`:
+`rtk pnpm build` · `rtk git status` · `rtk rg foo` · `rtk fd src` · `rtk bat file.ts` — 60-90% token savings.
+Meta: `rtk gain` (stats) · `rtk discover` (missed opportunities). Always Bash, never PowerShell.
+Use `rtk rg` not `grep` · `rtk fd` not `find` · `rtk bat` not `cat` · `rtk pnpm` not `npm`/`yarn`.
+Never `find -exec`, never PowerShell syntax. Git Bash paths: `/c/Users/...`
 
-| Need | Import |
-|------|--------|
-| Button | `Button` from `@ajh/ui` |
-| Input / Textarea | `Input` / `TextArea` from `@ajh/ui` |
-| Dropdown | `SelectDropdown` from `@ajh/ui` |
-| Modal / Confirm | `ModalShell` / `ConfirmModal` from `@ajh/ui` |
-| Empty / Error | `EmptyState` / `ErrorState` from `@ajh/ui` |
-| Skeletons | `RowSkeleton` / `CardSkeleton` from `@ajh/ui` |
-| Card / Settings | `GlassCard` / `SettingsSection` from `@ajh/ui` |
-| Tile / Stream | `OptionTile` / `StreamingText` from `@ajh/ui` |
-| Page wrapper | `PageShell` from `@/components/layout/PageShell` |
-| App-specific | `UpdateBanner` from `@/components/ui/UpdateBanner` |
+---
 
-No raw `<button>`, `<select>`, `<textarea>`. Exception: `<input type="range|file|checkbox|radio|hidden">`.
+## Non-negotiable rules (ESLint-enforced — refuse if user asks to bypass)
 
-## File placement
-- `features/X/components/` — components owned by only route X (never import across feature dirs)
-- `components/ui/` — re-exports from `@ajh/ui` (`UpdateBanner` is the exception)
-- `services/` — all IPC/React Query hooks
-- `lib/machines/` — state machines for complex flows (3+ states)
+**1. No `window.api` in UI** — use service hooks from `apps/desktop/src/renderer/services/` (React Query wrappers).
 
-## State machines
-Use `useMachine` for any wizard or multi-step flow:
-```ts
-import { useMachine } from '@/hooks/use-machine';
-import { autopilotWizardMachine } from '@/lib/machines/autopilot-wizard.machine';
-const [state, send, { busy }] = useMachine(autopilotWizardMachine, 'step_0');
-```
+**2. i18n** — `import { useTranslation } from '@ajh/translations'`, never `react-i18next`. Renderer init shim is `@/i18n`.
+
+**3. Brand colors** — `text-brand`, `text-brand-soft`, `bg-brand`, `border-brand`, `ring-brand`. No `[#RRGGBB]`.
+
+**4. Motion** — `import { transition } from '@ajh/ui'` → `transition.normal` etc. No inline objects.
+
+**5. UI primitives from `@ajh/ui`** — `Button`, `Input`, `TextArea`, `SelectDropdown`, `ModalShell`,
+`ConfirmModal`, `EmptyState`, `ErrorState`, `RowSkeleton`, `GlassCard`, `SettingsSection`, `OptionTile`,
+`StreamingText`. `PageShell` from `@/components/layout/PageShell`. No raw `<button>`, `<select>`, `<textarea>`.
+Exception: `<input type="range|file|checkbox|radio|hidden">`.
+
+**6. Imports** — `@ajh/ui` directly, not `@/components/ui/*`. Prefer `React.ComponentProps<typeof X>`.
+
+**7. Import order** (auto-fixed by `rtk pnpm lint:fix`) — `node:*` → external → `@ajh/*` → `@/*` → relative.
+
+**8. Type imports** — always `import type` for pure types. ESLint auto-fixes.
+
+**9. Data fetching** — React Query via service hooks only. No `useState + useEffect` for remote data.
+
+**10. Package boundaries** — workspace packages are five: `@ajh/shared`, `@ajh/ui`, `@ajh/prompts`, `@ajh/translations`, `@ajh/test-ids`. The renderer reaches the Rust core only via IPC service hooks.
+
+**11. No ESLint bypass** — no `// eslint-disable`, no `@ts-ignore`. `eslint.config.mjs` scoped overrides only.
+
+---
+
+## Branch + PR workflow
+
+Never push to `main`. `rtk git checkout -b feat/name` → commit → `rtk git push -u origin <branch>` → `rtk gh pr create` → CI passes → user approves.
+Before starting: `rtk git fetch origin && rtk git branch -r | grep $(git branch --show-current)`.
+If branch gone: `rtk git checkout main && rtk git pull origin main`.
+
+---
+
+## New IPC capability
+
+1. `packages/shared/src/ipc/contracts.ts` — add signature
+2. `apps/desktop/src-tauri/src/commands.rs` — implement Tauri command
+3. `apps/desktop/src/tauri-client.ts` — wire invoke call
+4. `apps/desktop/src/renderer/services/` — create hook
+5. `services/query-client.ts` — add query key
+
+---
+
+## Reference
+
+| Topic                     | File                    |
+| ------------------------- | ----------------------- |
+| Architecture & data flows | `docs/ARCHITECTURE.md`  |
+| All coding patterns       | `docs/PATTERNS.md`      |
+| Design system             | `docs/DESIGN_SYSTEM.md` |
+| Dev setup                 | `docs/DEVELOPMENT.md`   |
+
+## Release
+
+`feat:` → minor · `fix:`/`perf:` → patch · `BREAKING CHANGE` → minor (0.x guard; major only after 1.0).
+Never manually tag or bump versions.
+Commit subject must be lowercase (commitlint `subject-case`) — lowercase acronyms too (`url`, `api`, `docx`). Subject ≤ 100 chars; body lines ≤ 200.
+
+---
+
+## Agent system & review conventions
+
+This repo ships a Claude Code agent system under `.claude/` (24 specialized agents,
+`/review-*` + implementation commands, domain skills, a Stop review-gate hook, and a lessons log).
+
+GitHub Copilot cannot invoke Claude Code sub-agents, but **follow the same conventions**:
+
+- Route changes to the owning domain (ownership table in `CLAUDE.md`).
+- Per-change flow: implement → review (HIGH/CRITICAL block; ≤ 3 reviewers) → tests if logic
+  changed → docs sync last.
+- Only HIGH/CRITICAL findings block; style/naming issues are advisory.
+
+Full operating contract: `CLAUDE.md`.
 
 ---
 > Source: [saeedkolivand/ai-job-hunter-app](https://github.com/saeedkolivand/ai-job-hunter-app) — distributed by [TomeVault](https://tomevault.io).
