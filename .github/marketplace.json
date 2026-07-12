@@ -244124,6 +244124,31 @@
       "description": "waffle-iron"
     },
     {
+      "name": "zig-toolbelt--zigpkg",
+      "source": "./zig-toolbelt--zigpkg",
+      "description": "A gateway to our galaxy of Zig utilities, libraries, and tools created to empower developers."
+    },
+    {
+      "name": "timescale--pg-guide",
+      "source": "./timescale--pg-guide",
+      "description": "PG guide to devops/infra engineers"
+    },
+    {
+      "name": "open-obsidian-i18n--i18n-plus",
+      "source": "./open-obsidian-i18n--i18n-plus",
+      "description": "Manage translations for Obsidian plugins with hot-reload support and crowdsourced dictionaries."
+    },
+    {
+      "name": "gabry-ts--n8n-starter",
+      "source": "./gabry-ts--n8n-starter",
+      "description": "GitOps for n8n. Version your workflows. Let AI agents create and manage automations."
+    },
+    {
+      "name": "thepharmd1992--synthesia2midi",
+      "source": "./thepharmd1992--synthesia2midi",
+      "description": "Program to create MIDI files from Synthesia piano videos"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -265727,6 +265752,31 @@
       "name": "kigner--audio-cpp-webui",
       "source": "./kigner--audio-cpp-webui",
       "description": "audio.cpp with a full-task WebUI - pure C++ audio-model inference engine powered by ggml. TTS, ASR/STT, VAD, voice conversion, speaker diarization, music generation. No Python dependency."
+    },
+    {
+      "name": "jogan--soluna-workflow",
+      "source": "./jogan--soluna-workflow",
+      "description": "A cost-conscious Codex workflow that routes planning and review through Sol, implementation through Luna, and escalates reasoning only when evidence justifies it."
+    },
+    {
+      "name": "korovin-aa97--talkthrough-mcp",
+      "source": "./korovin-aa97--talkthrough-mcp",
+      "description": "MCP server: turn narrated screen recordings into agent-ready data \u2014 local Whisper transcript, scene keyframes, OCR, wall-clock anchoring. Record your screen, talk \u2014 your AI agent files the bugs."
+    },
+    {
+      "name": "smh01-mirrors--protonvpn-next-cli",
+      "source": "./smh01-mirrors--protonvpn-next-cli",
+      "description": "CLI for Proton VPN-Next"
+    },
+    {
+      "name": "tech-leads-club--nj-mmo",
+      "source": "./tech-leads-club--nj-mmo",
+      "description": "A fully playable, low-poly 3D MMORPG that runs entirely in your browser \u2014 an authoritative Colyseus server + a Three.js client"
+    },
+    {
+      "name": "korovin-aa97--talkthrough-mcp",
+      "source": "./korovin-aa97--talkthrough-mcp",
+      "description": "MCP server: turn narrated screen recordings into agent-ready data \u2014 local Whisper transcript, scene keyframes, OCR, wall-clock anchoring. Record your screen, talk \u2014 your AI agent files the bugs."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -394797,6 +394847,11 @@
       "name": "saagpatel--thought-trails",
       "source": "./saagpatel--thought-trails",
       "description": "Visualize LLM chain-of-thought as a live D3 force graph \u2014 watch reasoning emerge node by node"
+    },
+    {
+      "name": "prakashpujari--enterpriseaicontrolplane",
+      "source": "./prakashpujari--enterpriseaicontrolplane",
+      "description": "EnterpriseAIControlPlane"
     }
   ]
 }
