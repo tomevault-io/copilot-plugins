@@ -7,11 +7,11 @@ Claude and Codex Project Management GUI with worktrees, resuming chats, git mana
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zafnz/cc-insights](https://github.com/zafnz/cc-insights).
+Original source: `CLAUDE.md` in [zafnz/cc-insights](https://github.com/zafnz/cc-insights).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
