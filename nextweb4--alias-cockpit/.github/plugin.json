@@ -1,0 +1,9 @@
+{
+  "name": "nextweb4--alias-cockpit",
+  "displayName": "alias-cockpit",
+  "description": "Windows local email-alias cockpit built with .NET and WinUI for alias generation, markers, local storage, and release packaging.",
+  "version": "1.0.0",
+  "author": "NextWeb4",
+  "homepage": "https://github.com/NextWeb4/alias-cockpit",
+  "skills": []
+}
