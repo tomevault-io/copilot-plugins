@@ -1,0 +1,51 @@
+{
+  "name": "adev-plugin",
+  "owner": "agentic-development",
+  "repo": "adev-plugin",
+  "description": "Agentic Development Framework plugin for Claude Code \u2014 full lifecycle methodology for AI-assisted software delivery",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adev-sync",
+      "path": "providers/codex/skills/sync",
+      "github_url": "https://github.com/agentic-development/adev-plugin/tree/main/providers/codex/skills/sync",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agentic-development/adev-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T08:30:28Z"
+}
