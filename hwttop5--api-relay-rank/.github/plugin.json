@@ -1,0 +1,9 @@
+{
+  "name": "hwttop5--api-relay-rank",
+  "displayName": "api-relay-rank",
+  "description": "\u4e00\u4e2a AI \u4e2d\u8f6c\u7ad9\u89c2\u5bdf\u7ad9\u70b9\uff0c\u7528\u4e8e\u6c47\u603b\u548c\u5c55\u793a\u4e2d\u8f6c\u7ad9\u7684\u6392\u540d\u8bb0\u5404\u79cd\u76f8\u5173\u4fe1\u606f\u3002| An AI relay station observation site that aggregates and displays rankings of relay stations along with various related information.",
+  "version": "1.0.0",
+  "author": "hwttop5",
+  "homepage": "https://github.com/hwttop5/api-relay-rank",
+  "skills": []
+}
