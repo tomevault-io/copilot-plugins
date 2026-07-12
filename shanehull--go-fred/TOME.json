@@ -4,7 +4,7 @@
   "repo": "go-fred",
   "description": "Go client for the Federal Reserve Economic Data (FRED) API. Covers the full API: series, categories, releases, sources, tags, and GeoFRED maps.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shanehull/go-fred",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T03:38:10Z"
+  "distributed_at": "2026-07-12T04:40:03Z"
 }
