@@ -4,7 +4,7 @@
   "repo": "invAIriant",
   "description": "AI-assisted architecture-audit skill + CLI for systems where invariants must survive change (Claude Code \u00b7 Codex \u00b7 Cursor)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mindicator/invAIriant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T19:30:49Z"
+  "distributed_at": "2026-07-12T19:32:32Z"
 }
