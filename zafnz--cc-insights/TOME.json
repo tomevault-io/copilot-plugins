@@ -1,0 +1,44 @@
+{
+  "name": "cc-insights",
+  "owner": "zafnz",
+  "repo": "cc-insights",
+  "description": "Claude and Codex Project Management GUI with worktrees, resuming chats, git management assistance, all designed to make many changes to projects easily.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zafnz/cc-insights",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T14:36:03Z"
+}
