@@ -1,0 +1,9 @@
+{
+  "name": "oldantique--zotkit",
+  "displayName": "zotkit",
+  "description": "Headless Zotero library management: Web API CRUD + direct WebDAV attachment upload/download \u2014 no desktop app required",
+  "version": "1.0.0",
+  "author": "oldantique",
+  "homepage": "https://github.com/oldantique/zotkit",
+  "skills": []
+}
