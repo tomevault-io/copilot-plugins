@@ -1,0 +1,9 @@
+{
+  "name": "diamond2nv--hfpapers-crawler",
+  "displayName": "hfpapers-crawler",
+  "description": "hfpclawer = HuggingFace Papers + claw + er = \"A sharp tool that claws HF papers with precision\" \ud83e\udd9e",
+  "version": "1.0.0",
+  "author": "diamond2nv",
+  "homepage": "https://github.com/diamond2nv/hfpapers-crawler",
+  "skills": []
+}
