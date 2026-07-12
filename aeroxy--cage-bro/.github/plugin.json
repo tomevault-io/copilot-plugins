@@ -1,0 +1,9 @@
+{
+  "name": "aeroxy--cage-bro",
+  "displayName": "cage-bro",
+  "description": "A sandboxed execution environment for AI agents. Single Rust binary with browser, shell, code execution, file ops, and MCP server.",
+  "version": "1.0.0",
+  "author": "aeroxy",
+  "homepage": "https://github.com/aeroxy/cage-bro",
+  "skills": []
+}
