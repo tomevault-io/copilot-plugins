@@ -1,0 +1,9 @@
+{
+  "name": "cosmtrek--mindwalk",
+  "displayName": "mindwalk",
+  "description": "A visualization tool that replays coding-agent sessions on a 3D map of your codebase.",
+  "version": "1.0.0",
+  "author": "cosmtrek",
+  "homepage": "https://github.com/cosmtrek/mindwalk",
+  "skills": []
+}
