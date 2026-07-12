@@ -4,7 +4,7 @@
   "repo": "pacekeeper-trading-bot",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pkhaninejad/pacekeeper-trading-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T06:46:10Z"
+  "distributed_at": "2026-07-12T06:48:00Z"
 }
