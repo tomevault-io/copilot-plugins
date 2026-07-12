@@ -243804,6 +243804,131 @@
       "description": "ea-harness"
     },
     {
+      "name": "agentic-development--adev-plugin",
+      "source": "./agentic-development--adev-plugin",
+      "description": "Agentic Development Framework plugin for Claude Code \u2014 full lifecycle methodology for AI-assisted software delivery"
+    },
+    {
+      "name": "starsoul666--grok-reg-protocol-cpa",
+      "source": "./starsoul666--grok-reg-protocol-cpa",
+      "description": "\u6ce8\u518cgrok free\u8d26\u53f7\uff0c\u751f\u6210cpa\u6587\u4ef6"
+    },
+    {
+      "name": "opendigitalproductfactory--opendigitalproductfactory",
+      "source": "./opendigitalproductfactory--opendigitalproductfactory",
+      "description": "This is the official open digital product factory"
+    },
+    {
+      "name": "sharat--cluster-cli",
+      "source": "./sharat--cluster-cli",
+      "description": "A fast, interactive terminal UI for monitoring Kubernetes cluster health in real-time"
+    },
+    {
+      "name": "motosan-dev--acp-cli",
+      "source": "./motosan-dev--acp-cli",
+      "description": "Headless CLI client for the Agent Client Protocol (ACP) \u2014 Rust port of ACPX"
+    },
+    {
+      "name": "prime-radiant-inc--slackline",
+      "source": "./prime-radiant-inc--slackline",
+      "description": "A single-binary Go CLI that gives AI agents a Slack identity to send messages, read channels, and stream real-time events, with admin tooling to provision new bots."
+    },
+    {
+      "name": "sharat--cluster-cli",
+      "source": "./sharat--cluster-cli",
+      "description": "A fast, interactive terminal UI for monitoring Kubernetes cluster health in real-time"
+    },
+    {
+      "name": "therealharpaljadeja--monskills",
+      "source": "./therealharpaljadeja--monskills",
+      "description": "Set of coding assistant skills that help build fully deployed apps on Monad"
+    },
+    {
+      "name": "motosan-dev--acp-cli",
+      "source": "./motosan-dev--acp-cli",
+      "description": "Headless CLI client for the Agent Client Protocol (ACP) \u2014 Rust port of ACPX"
+    },
+    {
+      "name": "opendigitalproductfactory--opendigitalproductfactory",
+      "source": "./opendigitalproductfactory--opendigitalproductfactory",
+      "description": "This is the official open digital product factory"
+    },
+    {
+      "name": "prime-radiant-inc--slackline",
+      "source": "./prime-radiant-inc--slackline",
+      "description": "A single-binary Go CLI that gives AI agents a Slack identity to send messages, read channels, and stream real-time events, with admin tooling to provision new bots."
+    },
+    {
+      "name": "whenpoem--aiscientist",
+      "source": "./whenpoem--aiscientist",
+      "description": "An AI-driven research workflow for generating ideas, running experiments, and writing scientific papers."
+    },
+    {
+      "name": "therealharpaljadeja--monskills",
+      "source": "./therealharpaljadeja--monskills",
+      "description": "Set of coding assistant skills that help build fully deployed apps on Monad"
+    },
+    {
+      "name": "kovrichard--portable-agent-layer",
+      "source": "./kovrichard--portable-agent-layer",
+      "description": "Portable Agent Layer (PAL)"
+    },
+    {
+      "name": "opendigitalproductfactory--opendigitalproductfactory",
+      "source": "./opendigitalproductfactory--opendigitalproductfactory",
+      "description": "This is the official open digital product factory"
+    },
+    {
+      "name": "ejgallego--lean-beam",
+      "source": "./ejgallego--lean-beam",
+      "description": "Claude/Codex skill and local workflow layer for efficient interaction with Lean 4 and Monte-Carlo Tree Search."
+    },
+    {
+      "name": "mseatingtpe--readme-sunny",
+      "source": "./mseatingtpe--readme-sunny",
+      "description": "readme-sunny"
+    },
+    {
+      "name": "pkgforge-dev--appimageupdate",
+      "source": "./pkgforge-dev--appimageupdate",
+      "description": "Fast, bandwidth-efficient AppImage updater using zsync"
+    },
+    {
+      "name": "svenroth-ai--shipwright",
+      "source": "./svenroth-ai--shipwright",
+      "description": "Shipwright is the harness your AI follows. AI-powered SDLC built on Claude Code."
+    },
+    {
+      "name": "kompassdev--kompass",
+      "source": "./kompassdev--kompass",
+      "description": "Navigate your way - manual steering, steered autonomy, or autonomously. Kompass keeps AI coding agents on course with token-efficient, composable workflows."
+    },
+    {
+      "name": "acailic--agent-debugger",
+      "source": "./acailic--agent-debugger",
+      "description": "Local-first agent debugger with replay, failure memory, smart    highlights, and drift detection."
+    },
+    {
+      "name": "kovrichard--portable-agent-layer",
+      "source": "./kovrichard--portable-agent-layer",
+      "description": "Portable Agent Layer (PAL)"
+    },
+    {
+      "name": "freddy-schuetz--n8n-claw-agents",
+      "source": "./freddy-schuetz--n8n-claw-agents",
+      "description": "Expert agent personas for n8n-claw \u2014 the self-hosted AI agent system"
+    },
+    {
+      "name": "glinhard--docmost-cli",
+      "source": "./glinhard--docmost-cli",
+      "description": "This is a CLI for docmost, designed to be used primarily by Claude Code."
+    },
+    {
+      "name": "0x80--typed-firestore",
+      "source": "./0x80--typed-firestore",
+      "description": "Typed Firestore libraries for server, React and React Native"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -265357,6 +265482,21 @@
       "name": "skvdhshuk-blip--hao-code",
       "source": "./skvdhshuk-blip--hao-code",
       "description": "hao-code"
+    },
+    {
+      "name": "windward47--wan-streamer-replication",
+      "source": "./windward47--wan-streamer-replication",
+      "description": "\u5c1d\u8bd5\u590d\u73b0\u8bba\u6587Wan-Streamer\uff1ahttps://arxiv.org/abs/2606.25041"
+    },
+    {
+      "name": "techtheist--engram",
+      "source": "./techtheist--engram",
+      "description": "Engram Alpha - Inspectable graph memory for AI coding assistants"
+    },
+    {
+      "name": "marketcalls--trading-terminal",
+      "source": "./marketcalls--trading-terminal",
+      "description": "Terminal - Built using Claude Code (Fable 5) as Part of AI Bootcamp 2.0"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -394387,6 +394527,31 @@
       "name": "jessieyiqichen--nous",
       "source": "./jessieyiqichen--nous",
       "description": "Cognitive-layer AI avatar \u2014 understands HOW you think, not just what you prefer"
+    },
+    {
+      "name": "jesared--trophee",
+      "source": "./jesared--trophee",
+      "description": "trophee"
+    },
+    {
+      "name": "mugaruranelson-cmd--perlogy-website",
+      "source": "./mugaruranelson-cmd--perlogy-website",
+      "description": "Perlogy new website "
+    },
+    {
+      "name": "sgraff610--golf-strategy",
+      "source": "./sgraff610--golf-strategy",
+      "description": "golf-strategy"
+    },
+    {
+      "name": "maccracken--hisab",
+      "source": "./maccracken--hisab",
+      "description": "High Math Crate"
+    },
+    {
+      "name": "saagpatel--thought-trails",
+      "source": "./saagpatel--thought-trails",
+      "description": "Visualize LLM chain-of-thought as a live D3 force graph \u2014 watch reasoning emerge node by node"
     }
   ]
 }
