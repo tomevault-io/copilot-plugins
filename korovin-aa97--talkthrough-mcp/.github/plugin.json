@@ -1,0 +1,9 @@
+{
+  "name": "korovin-aa97--talkthrough-mcp",
+  "displayName": "talkthrough-mcp",
+  "description": "MCP server: turn narrated screen recordings into agent-ready data \u2014 local Whisper transcript, scene keyframes, OCR, wall-clock anchoring. Record your screen, talk \u2014 your AI agent files the bugs.",
+  "version": "1.0.0",
+  "author": "korovin-aa97",
+  "homepage": "https://github.com/korovin-aa97/talkthrough-mcp",
+  "skills": []
+}
