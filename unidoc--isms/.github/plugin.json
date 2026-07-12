@@ -1,0 +1,9 @@
+{
+  "name": "unidoc--isms",
+  "displayName": "isms",
+  "description": "The open-source management system built to stay alive, not rot after the audit. AI-first; documents in git, collaboration in PostgreSQL, ships as a single binary.",
+  "version": "1.0.0",
+  "author": "unidoc",
+  "homepage": "https://github.com/unidoc/isms",
+  "skills": []
+}
