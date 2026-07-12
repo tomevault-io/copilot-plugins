@@ -1,0 +1,9 @@
+{
+  "name": "open-obsidian-i18n--i18n-plus",
+  "displayName": "i18n-plus",
+  "description": "Manage translations for Obsidian plugins with hot-reload support and crowdsourced dictionaries.",
+  "version": "1.0.0",
+  "author": "open-obsidian-i18n",
+  "homepage": "https://github.com/open-obsidian-i18n/i18n-plus",
+  "skills": []
+}
