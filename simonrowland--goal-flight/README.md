@@ -7,11 +7,11 @@ Claude/Cursor plugin and scripts: long-running controller pattern to chunk and d
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [simonrowland/goal-flight](https://github.com/simonrowland/goal-flight).
+Original source: `AGENTS.md` in [simonrowland/goal-flight](https://github.com/simonrowland/goal-flight).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
