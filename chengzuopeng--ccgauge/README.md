@@ -7,11 +7,11 @@ Claude Code Dashboard — local web UI for Claude Code token usage and cost. npx
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chengzuopeng/ccgauge](https://github.com/chengzuopeng/ccgauge).
+Original source: `CLAUDE.md` in [chengzuopeng/ccgauge](https://github.com/chengzuopeng/ccgauge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
