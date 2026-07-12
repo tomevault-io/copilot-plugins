@@ -1,0 +1,9 @@
+{
+  "name": "modem-dev--podguy",
+  "displayName": "podguy",
+  "description": "Agent-driven post-production workflow for video podcasts",
+  "version": "1.0.0",
+  "author": "modem-dev",
+  "homepage": "https://github.com/modem-dev/podguy",
+  "skills": []
+}
