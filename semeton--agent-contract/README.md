@@ -7,11 +7,11 @@ A deterministic contract layer between humans and coding agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Semeton/agent-contract](https://github.com/Semeton/agent-contract).
+Original source: `AGENTS.md` in [Semeton/agent-contract](https://github.com/Semeton/agent-contract).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
