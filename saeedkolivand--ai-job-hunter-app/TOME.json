@@ -4,7 +4,7 @@
   "repo": "ai-job-hunter-app",
   "description": "Local-first AI desktop assistant that scrapes job boards, matches roles to your resume, and auto-generates resumes & cover letters. Offline with Ollama, BYO API key, or route it through an AI CLI agent (Claude Code, Codex, Gemini CLI).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saeedkolivand/ai-job-hunter-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T01:11:51Z"
+  "distributed_at": "2026-07-12T01:27:11Z"
 }
