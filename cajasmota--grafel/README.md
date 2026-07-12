@@ -7,11 +7,11 @@ Multi-repo code knowledge graphs for AI agents. Cross-repo linking, infrastructu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cajasmota/grafel](https://github.com/cajasmota/grafel).
+Original source: `AGENTS.md` in [cajasmota/grafel](https://github.com/cajasmota/grafel).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
