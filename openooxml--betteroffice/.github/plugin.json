@@ -1,0 +1,9 @@
+{
+  "name": "openooxml--betteroffice",
+  "displayName": "betteroffice",
+  "description": "Native OOXML engines in Rust - DOCX, XLSX & PPTX editing, rendering and real-time collaboration, compiled to WASM for the web.",
+  "version": "1.0.0",
+  "author": "openooxml",
+  "homepage": "https://github.com/openooxml/betteroffice",
+  "skills": []
+}
