@@ -1,0 +1,9 @@
+{
+  "name": "peternijssen--ha-dhl-nl",
+  "displayName": "ha-dhl-nl",
+  "description": "Home Assistant custom component for DHL NL",
+  "version": "1.0.0",
+  "author": "peternijssen",
+  "homepage": "https://github.com/peternijssen/ha-dhl-nl",
+  "skills": []
+}
