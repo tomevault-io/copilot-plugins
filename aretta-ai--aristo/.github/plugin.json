@@ -1,0 +1,9 @@
+{
+  "name": "aretta-ai--aristo",
+  "displayName": "aristo",
+  "description": "An SDK for verifiable intent, inline with code: one-line claims above your functions, verified at the rigor you choose and flagged when they drift. Agent-first, MIT.",
+  "version": "1.0.0",
+  "author": "aretta-ai",
+  "homepage": "https://github.com/aretta-ai/aristo",
+  "skills": []
+}
