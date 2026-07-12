@@ -1,0 +1,9 @@
+{
+  "name": "endorlabs--endor-labs-agent-kit",
+  "displayName": "endor-labs-agent-kit",
+  "description": "Endor Labs Agent Kit is the portable agent directory that lets Endor Labs intelligence run wherever developers & organizations already use agents.",
+  "version": "1.0.0",
+  "author": "endorlabs",
+  "homepage": "https://github.com/endorlabs/endor-labs-agent-kit",
+  "skills": []
+}
