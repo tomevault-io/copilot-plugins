@@ -1,0 +1,44 @@
+{
+  "name": "trademind-ai",
+  "owner": "lien0219",
+  "repo": "trademind-ai",
+  "description": "Open-source AI operations platform for cross-border commerce: product collection, drafts, AI content optimization, publishing, and order/inventory workflows.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lien0219/trademind-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T00:41:48Z"
+}
