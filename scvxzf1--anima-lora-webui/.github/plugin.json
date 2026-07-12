@@ -1,0 +1,9 @@
+{
+  "name": "scvxzf1--anima-lora-webui",
+  "displayName": "anima_lora_webui",
+  "description": "Anima LoRA WebUI startup-Linux package",
+  "version": "1.0.0",
+  "author": "scvxzf1",
+  "homepage": "https://github.com/scvxzf1/anima_lora_webui",
+  "skills": []
+}
