@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--usd-validation-nvidia",
+  "displayName": "usd-validation-nvidia",
+  "description": "An extensible framework to validate OpenUSD assets. Inspired by Pixar's usdchecker, this library extends validation capabilities with additional rules and provides automatic issue fixing.",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/usd-validation-nvidia",
+  "skills": []
+}
