@@ -1,0 +1,44 @@
+{
+  "name": "FloCafe",
+  "owner": "FreeOpenSourcePOS",
+  "repo": "FloCafe",
+  "description": "Free Open Source Cafe & Restaurant POS | Mac App Store: https://apps.apple.com/in/app/flo-cafe/id6763136018 | Microsoft Store: https://apps.microsoft.com/detail/9n1md6585p4q",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FreeOpenSourcePOS/FloCafe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T03:37:38Z"
+}
