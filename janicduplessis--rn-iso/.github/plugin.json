@@ -1,0 +1,9 @@
+{
+  "name": "janicduplessis--rn-iso",
+  "displayName": "rn-iso",
+  "description": "Isolated React Native / Expo dev environments per project or worktree \u2014 each project gets its own Metro and simulator.",
+  "version": "1.0.0",
+  "author": "janicduplessis",
+  "homepage": "https://github.com/janicduplessis/rn-iso",
+  "skills": []
+}
