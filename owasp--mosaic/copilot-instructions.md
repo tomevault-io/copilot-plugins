@@ -1,74 +1,36 @@
-## multi-agent-workflow
+## never-assume
 
-> Two-phase planning for big changes; builder must not be sole judge
+> Verify or ask — no guessing packages, APIs, patterns, or incomplete code
 
 
-# Multi-Agent Workflow (Human Plan → Agent Execute)
+# Never Assume
 
-For **big changes**, split work into two phases. Do not skip Phase 1.
+| Do NOT | Instead |
+|--------|---------|
+| Assume file paths, shortcode names, or menu structure | Read `docs/website.md`; grep `content/mosaic/` |
+| Add new dependencies without explanation | State why, alternatives considered, and get approval |
+| Edit `content/mosaic/public/` | Build output is generated; edit source in `content/` and `layouts/` |
+| Replace code with placeholders, TODOs, or stubs | Ship complete markdown, layouts, and styles |
+| Write incomplete page content | Finish the page or stop and explain what's blocked |
+| Commit or push unless asked | Wait for explicit user request |
+| Commit secrets (`firebase-service-account.json`, tokens) | Use gitignored local files or CI secrets only |
 
-## What counts as a big change
+## Scope and diff discipline
 
-- New page, new shortcode library, or new site-wide layout
-- Expected to touch **3+ files** or **>500 lines** of diff
-- Refactor of Hugo layouts/shortcodes with behavioral risk
-- Touches critical paths (deploy workflows, Firebase, maintainer scripts, secrets)
-- Incomplete requirements or meaningful product/design choices
+- Minimize scope — smallest correct diff; no drive-by refactors.
+- Match surrounding naming, shortcode style, and documentation level.
+- Comments only for non-obvious Hugo/template logic.
+- Do not add markdown/docs files the user did not ask for.
+- Do not use "made with cursor" or similar in commits.
 
-Small fixes: single-file typo, one markdown paragraph, clear one-liner → `plan-first-workflow.mdc` only.
+## MOSAIC conventions
 
-## Phase 1 — Human-led planning (no code)
-
-**Stop before editing.**
-
-1. Acknowledge this is a big change; planning comes first.
-2. Ask minimum questions: goal, pages affected, pattern to mirror, acceptance criteria, out of scope.
-3. Draft a plan: steps, `@` file paths, similar pages/shortcodes, validation plan, risks.
-4. Wait for explicit approval ("proceed", "approved", or confirmed edited plan).
-5. No commits, push, or implementation code in Phase 1. Read-only research is fine.
-
-## Phase 2 — Agent execution
-
-After approval:
-
-1. Execute per `autonomous-workflow.mdc`.
-2. Follow the approved plan; pause if material deviation is needed.
-3. Implement incrementally; verify as you go (`verifiable-goals.mdc`).
-4. Hand off with checklist including build evidence.
-
-## Builder ≠ Judge (required on substantive work)
-
-| Role | Responsibility |
-|------|----------------|
-| **Builder** | Implements approved plan |
-| **Judge** | Independent review — broken links, layout regressions, deploy impact |
-
-Invoke judge via subagent, parallel agent, or fresh context:
-
-- "Use a subagent to review this change for broken links and layout regressions."
-
-Do not mark substantive work complete without independent review or documented reason to skip.
-
-**Re-review:** Required only when judge findings change behavior, content, or deploy posture materially.
-
-## Decision tree
-
-```
-User request received
-  │
-  ├─ Missing goal / criteria / context / constraints?
-  │     └─ STOP → ask questions OR offer Requirements template (requirements-gate.mdc)
-  │
-  ├─ Typo / rename / one-sentence fix?
-  │     └─ Implement → quality checks → show evidence
-  │
-  ├─ Multi-file / new page / layout refactor / deploy path?
-  │     └─ Plan Mode → detailed plan → WAIT for approval → implement
-  │           → quality checks → subagent review → handoff with evidence
-  │
-  └─ Otherwise
-        └─ Brief plan → implement → quality checks → handoff with evidence
-```
+- Page content lives in `content/mosaic/content/*.md` only.
+- Navigation lives in `content/mosaic/data/menu.yaml`.
+- Internal links use ugly URLs: `/roadmap.html`, `/team.html`, etc.
+- Images go in `content/mosaic/static/assets/` and are referenced as `/assets/filename.ext`.
+- Use existing shortcodes before inventing new ones — see `docs/website.md`.
+- Prefer `npm run build:site` over ad-hoc Hugo invocations.
 
 ---
 > Source: [OWASP/MOSAIC](https://github.com/OWASP/MOSAIC) — distributed by [TomeVault](https://tomevault.io).
