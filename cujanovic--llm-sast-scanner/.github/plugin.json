@@ -1,0 +1,9 @@
+{
+  "name": "cujanovic--llm-sast-scanner",
+  "displayName": "llm-sast-scanner",
+  "description": "A SAST skill that gives AI coding agents structured vulnerability detection across 103 vulnerability classes.",
+  "version": "1.0.0",
+  "author": "cujanovic",
+  "homepage": "https://github.com/cujanovic/llm-sast-scanner",
+  "skills": []
+}
