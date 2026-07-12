@@ -1,0 +1,9 @@
+{
+  "name": "simonrowland--goal-flight",
+  "displayName": "goal-flight",
+  "description": "Claude/Cursor plugin and scripts: long-running controller pattern to chunk and delegate code work to cli-agents, with embedded adversarial review and RAG corpus",
+  "version": "1.0.0",
+  "author": "simonrowland",
+  "homepage": "https://github.com/simonrowland/goal-flight",
+  "skills": []
+}
