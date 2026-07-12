@@ -1,0 +1,9 @@
+{
+  "name": "thelegendtubaguy--qidi-3mf-generator",
+  "displayName": "Qidi-3MF-Generator",
+  "description": "A python script that converts an Orca gcode file into a Qidi 3MF file",
+  "version": "1.0.0",
+  "author": "thelegendtubaguy",
+  "homepage": "https://github.com/thelegendtubaguy/Qidi-3MF-Generator",
+  "skills": []
+}
