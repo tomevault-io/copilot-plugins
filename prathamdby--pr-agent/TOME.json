@@ -4,7 +4,7 @@
   "repo": "pr-agent",
   "description": "\ud83d\ude80 A self-hosted AI PR reviewer.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prathamdby/pr-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T02:59:43Z"
+  "distributed_at": "2026-07-12T03:02:59Z"
 }
