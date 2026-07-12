@@ -1,0 +1,9 @@
+{
+  "name": "ombulabs--claude-code-dual-boot-skill",
+  "displayName": "claude-code_dual-boot-skill",
+  "description": "A Claude Code skill to dual boot your Ruby application with Bundler and next_rails",
+  "version": "1.0.0",
+  "author": "ombulabs",
+  "homepage": "https://github.com/ombulabs/claude-code_dual-boot-skill",
+  "skills": []
+}
