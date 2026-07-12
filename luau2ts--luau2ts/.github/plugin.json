@@ -1,0 +1,9 @@
+{
+  "name": "luau2ts--luau2ts",
+  "displayName": "luau2ts",
+  "description": "A Luau-to-TypeScript compiler for Roblox.",
+  "version": "1.0.0",
+  "author": "Luau2TS",
+  "homepage": "https://github.com/Luau2TS/luau2ts",
+  "skills": []
+}
