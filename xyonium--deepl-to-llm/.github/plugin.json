@@ -1,0 +1,9 @@
+{
+  "name": "xyonium--deepl-to-llm",
+  "displayName": "deepl-to-llm",
+  "description": "DeepL-compatible translation API backed by an LLM - a drop-in replacement so DeepL-wired tools (Collabora Online, etc.) translate with an LLM, with zero client-side changes. Structure-preserving HTML,",
+  "version": "1.0.0",
+  "author": "xyonium",
+  "homepage": "https://github.com/xyonium/deepl-to-llm",
+  "skills": []
+}
