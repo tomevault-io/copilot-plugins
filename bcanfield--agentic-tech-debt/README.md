@@ -7,11 +7,11 @@ Every shortcut your coding agent takes, saved to your repo as it happens. Fix th
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bcanfield/agentic-tech-debt](https://github.com/bcanfield/agentic-tech-debt).
+Original source: `AGENTS.md` in [bcanfield/agentic-tech-debt](https://github.com/bcanfield/agentic-tech-debt).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
