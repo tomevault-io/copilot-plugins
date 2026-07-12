@@ -1,0 +1,9 @@
+{
+  "name": "aisk--hasuke",
+  "displayName": "hasuke",
+  "description": "A simple and naive agent implemented in Haskell",
+  "version": "1.0.0",
+  "author": "aisk",
+  "homepage": "https://github.com/aisk/hasuke",
+  "skills": []
+}
