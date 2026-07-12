@@ -1,0 +1,44 @@
+{
+  "name": "coldfront",
+  "owner": "pgEdge",
+  "repo": "coldfront",
+  "description": "BETA PRE-RELEASE - NOT FOR PRODUCTION: Transparent data tiering and partition lifecycle management for PostgreSQL. A single table spans recent rows in PostgreSQL partitions and older rows in Apache Iceberg on S3-compatible, Azure, or GCS storage; the cold tier is readable and writable through the same SQL, no app changes.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pgEdge/coldfront",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T00:56:46Z"
+}
