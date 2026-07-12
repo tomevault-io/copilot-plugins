@@ -1,0 +1,9 @@
+{
+  "name": "nextweb4--lan-file-transfer",
+  "displayName": "lan-file-transfer",
+  "description": "Local LAN file transfer desktop app with user/group permissions and audit logs.",
+  "version": "1.0.0",
+  "author": "NextWeb4",
+  "homepage": "https://github.com/NextWeb4/lan-file-transfer",
+  "skills": []
+}
