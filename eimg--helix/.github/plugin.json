@@ -1,0 +1,9 @@
+{
+  "name": "eimg--helix",
+  "displayName": "helix",
+  "description": "Experimental agent orchestration loop built on pi (command: helix)",
+  "version": "1.0.0",
+  "author": "eimg",
+  "homepage": "https://github.com/eimg/helix",
+  "skills": []
+}
