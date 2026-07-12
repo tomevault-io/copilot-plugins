@@ -1,0 +1,9 @@
+{
+  "name": "quinnjr--armybox",
+  "displayName": "armybox",
+  "description": "A #[no_std] BusyBox/Toybox clone in Rust - 291 applets, 108KB binary, 100% Toybox compatible",
+  "version": "1.0.0",
+  "author": "quinnjr",
+  "homepage": "https://github.com/quinnjr/armybox",
+  "skills": []
+}
