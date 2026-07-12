@@ -1,0 +1,9 @@
+{
+  "name": "prathamdby--pr-agent",
+  "displayName": "pr-agent",
+  "description": "\ud83d\ude80 A self-hosted AI PR reviewer.",
+  "version": "1.0.0",
+  "author": "prathamdby",
+  "homepage": "https://github.com/prathamdby/pr-agent",
+  "skills": []
+}
