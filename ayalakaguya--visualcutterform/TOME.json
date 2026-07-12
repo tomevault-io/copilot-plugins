@@ -1,0 +1,44 @@
+{
+  "name": "VisualCutterForm",
+  "owner": "AyalaKaguya",
+  "repo": "VisualCutterForm",
+  "description": "\u89c6\u89c9\u68c0\u6d4b\u5e73\u53f0\uff0c\u652f\u6301\u6d77\u5eb7\u5de5\u4e1a\u76f8\u673a\u3001OpenCV \u7b97\u5b50\u6d41\u7a0b\u7f16\u6392\u3001C# \u811a\u672c\u8fd0\u7b97\u8282\u70b9\u3001\u4e32\u53e3\u901a\u4fe1\u89e6\u53d1\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AyalaKaguya/VisualCutterForm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T04:43:09Z"
+}
