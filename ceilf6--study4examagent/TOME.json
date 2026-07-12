@@ -1,0 +1,44 @@
+{
+  "name": "Study4ExamAgent",
+  "owner": "ceilf6",
+  "repo": "Study4ExamAgent",
+  "description": "\u5e94\u8bd5\u6559\u80b2\u590d\u4e60\u4ed3\u5e93\u7684\u51b7\u542f\u52a8\u57fa\u5efa",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ceilf6/Study4ExamAgent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T03:40:32Z"
+}
