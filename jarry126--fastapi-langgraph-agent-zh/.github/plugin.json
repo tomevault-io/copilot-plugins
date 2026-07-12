@@ -1,0 +1,9 @@
+{
+  "name": "jarry126--fastapi-langgraph-agent-zh",
+  "displayName": "fastapi-langgraph-agent-zh",
+  "description": "\u751f\u4ea7\u7ea7 LangGraph + FastAPI AI Agent \u6846\u67b6\uff0c\u652f\u6301\u963f\u91cc\u4e91 Qwen / DashScope\uff0c\u542b\u4e2d\u6587\u6ce8\u91ca\u3001\u957f\u671f\u8bb0\u5fc6\u3001\u5411\u91cf\u68c0\u7d22\u5b8c\u6574\u94fe\u8def\u3002",
+  "version": "1.0.0",
+  "author": "jarry126",
+  "homepage": "https://github.com/jarry126/fastapi-langgraph-agent-zh",
+  "skills": []
+}
