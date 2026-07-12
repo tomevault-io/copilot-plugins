@@ -4,7 +4,7 @@
   "repo": "freecad-mcp",
   "description": "FastMCP 3.2 MCP server + webapp for FreeCAD 3d CAD and FluidX3D/Openfoam computational fluid dynamics extensions",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sandraschi/freecad-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T03:35:55Z"
+  "distributed_at": "2026-07-12T04:38:43Z"
 }
