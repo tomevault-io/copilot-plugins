@@ -1,0 +1,9 @@
+{
+  "name": "airsequel--aircsv",
+  "displayName": "AirCSV",
+  "description": "macOS desktop app to view and edit CSV files",
+  "version": "1.0.0",
+  "author": "Airsequel",
+  "homepage": "https://github.com/Airsequel/AirCSV",
+  "skills": []
+}
