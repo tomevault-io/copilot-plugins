@@ -7,11 +7,11 @@ PromptClip：A local-first App for saving, searching, and reusing your AI prompt
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wenzisay/prompt-clip-web](https://github.com/wenzisay/prompt-clip-web).
+Original source: `AGENTS.md` in [wenzisay/prompt-clip-web](https://github.com/wenzisay/prompt-clip-web).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
