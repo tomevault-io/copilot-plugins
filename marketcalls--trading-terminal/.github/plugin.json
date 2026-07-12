@@ -1,0 +1,9 @@
+{
+  "name": "marketcalls--trading-terminal",
+  "displayName": "trading-terminal",
+  "description": "Terminal - Built using Claude Code (Fable 5) as Part of AI Bootcamp 2.0",
+  "version": "1.0.0",
+  "author": "marketcalls",
+  "homepage": "https://github.com/marketcalls/trading-terminal",
+  "skills": []
+}
