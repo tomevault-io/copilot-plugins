@@ -4,7 +4,7 @@
   "repo": "claude-plugin-codex",
   "description": "Codex plugin that lets Codex consult local Claude Code for advice, reviews, adversarial checks, and rescue tasks.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yanchuk/claude-plugin-codex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T03:24:36Z"
+  "distributed_at": "2026-07-12T03:35:31Z"
 }
