@@ -1,123 +1,137 @@
-## 00-project-overview
+## 01-architecture
 
-> TradeMind project identity, goals, MVP scope, and non-negotiable product direction
+> TradeMind architecture layering, module boundaries, provider abstraction, and project structure
 
 
-# 贸灵 TradeMind 项目总规则
+# 架构规则
 
-## 项目定位
-
-贸灵 TradeMind 是一个开源 AI 跨境电商运营平台。当前阶段不是完整 ERP，而是优先实现：
-
-- 商品采集
-- 商品草稿管理
-- AI 标题优化
-- AI 描述生成
-- AI 商品图处理预留
-- 店铺授权能力预留
-- AI 客服能力预留
-- 跨平台 ERP 扩展能力预留
-
-一句话定位：
-
-> 开源 AI 跨境电商运营平台，帮助卖家完成商品采集、AI 商品优化、图片处理、店铺授权和智能客服扩展。
-
-## 当前 MVP 闭环
-
-任何代码生成或功能设计都要优先服务这个 MVP 闭环：
+## 推荐总体架构
 
 ```text
-用户登录
-  ↓
-系统配置 AI Provider / 存储方式
-  ↓
-输入 1688 商品链接
-  ↓
-采集商品信息
-  ↓
-保存为商品草稿
-  ↓
-AI 优化标题
-  ↓
-AI 生成描述
-  ↓
-图片上传 / 图片处理
-  ↓
-形成可编辑商品草稿
+React + Ant Design Pro
+        ↓
+Go Gin API
+        ↓
+PostgreSQL（默认；MySQL 可选）
+        ↓
+Redis Queue
+        ↓
+Node Playwright Collector
 ```
 
-## 当前不做的内容
+## Provider 扩展架构
 
-MVP 阶段不要主动实现以下复杂能力，除非任务明确要求：
-
-- 完整订单系统
-- 完整库存系统
-- 完整财务系统
-- 完整 WMS 仓储系统
-- 多平台自动刊登
-- AI 自动回复买家
-- 企业级多租户 SaaS
-- Kubernetes 部署
-- 自研大模型
-- 自研图片生成模型
-
-可以预留接口、表字段和 Provider 抽象，但不要过度实现。
-
-## 必须保留的后续扩展方向
-
-设计任何模块时，必须避免写死，必须保留扩展能力：
-
-- 多平台店铺授权扩展
-- 多采集源扩展
-- 多 AI Provider 扩展
-- 多图片处理 Provider 扩展
-- 多存储 Provider 扩展
-- AI Tool Calling 扩展
-- AI 客服扩展
-- 批量刊登扩展
-- 订单同步扩展
-- 自动化规则引擎扩展
-- 多租户 SaaS 扩展
-
-## 技术栈总约束
-
-- 前端后台：React + TypeScript + Ant Design Pro + Ant Design + ProTable + ProForm
-- 后端主服务：Go + Gin + GORM
-- 数据库：**PostgreSQL**（推荐与默认）；MySQL 可选、非本地默认
-- 缓存/队列：Redis
-- 采集服务：Node.js + TypeScript + Playwright
-- AI：第三方大模型 API / OpenAI-compatible Provider / 本地 Ollama 预留
-- 存储：local 优先，S3 / COS / OSS / R2 / MinIO 预留
-
-## 核心开发原则
+业务模块不得直接依赖具体第三方实现，必须通过 Provider 抽象接入。
 
 ```text
-先做小闭环，再做大 ERP。
-先做 AI 商品优化，再做完整供应链。
-先做可配置，再做高级自动化。
-先做 Provider 抽象，再接具体平台。
+Go Gin API
+   ├── Storage Provider
+   │     ├── local
+   │     ├── s3
+   │     ├── cos
+   │     ├── oss
+   │     └── r2
+   │
+   ├── AI Provider
+   │     ├── openai-compatible
+   │     ├── deepseek
+   │     ├── qwen
+   │     ├── doubao
+   │     ├── gemini
+   │     ├── claude
+   │     └── ollama
+   │
+   ├── Image Provider
+   │     ├── local
+   │     ├── removebg
+   │     ├── openai-image
+   │     ├── comfyui
+   │     ├── flux
+   │     └── jimeng
+   │
+   ├── Platform Provider
+   │     ├── tiktok
+   │     ├── shopee
+   │     ├── lazada
+   │     ├── shopify
+   │     └── amazon
+   │
+   └── Collector Provider
+         ├── 1688
+         ├── taobao
+         ├── pdd
+         ├── shein
+         └── custom
 ```
+
+## 推荐目录结构
 
 ```text
-Go 做主业务。
-React 做后台。
-Node 做采集。
-Redis 做队列。
-Provider 做扩展。
-Prompt 做 AI 技能。
-本地存储保证开箱即用。
-云存储保证生产可用。
+trademind/
+├── backend/
+│   ├── cmd/server/main.go
+│   ├── internal/
+│   │   ├── api/
+│   │   ├── modules/
+│   │   ├── providers/
+│   │   ├── queue/
+│   │   ├── config/
+│   │   ├── database/
+│   │   ├── logger/
+│   │   ├── encrypt/
+│   │   └── pkg/
+│   ├── migrations/
+│   └── configs/
+│
+├── admin/
+│   └── src/
+│
+├── collector/
+│   └── src/
+│
+├── docs/
+├── data/uploads/
+├── docker-compose.yml
+├── .env.example
+└── README.md
 ```
 
-## 禁止事项
+## 分层约束
 
-- 不要把第三方平台逻辑直接写进业务模块。
-- 不要把 AI 模型、API Key、Base URL 写死。
-- 不要把 Prompt 写死到业务代码中，默认 Prompt 可以内置，但必须支持后台配置。
-- 不要让前端直接调用第三方 AI API。
-- 不要在日志中输出 API Key、Token、Secret、Cookie、密码。
-- 不要在 MVP 阶段默认实现 AI 自动客服发送，必须人工确认。
-- 不要为了未来能力引入过重架构，例如 Kubernetes、Kafka、复杂微服务。
+### 后端业务层
+
+- `handler` 只处理参数、鉴权上下文、调用 service、返回结果。
+- `service` 处理业务流程，但不直接依赖具体第三方 SDK。
+- `provider` 负责第三方或本地能力适配。
+- `repository` 或 model 层负责数据库访问。
+- `queue` 负责异步任务投递和消费。
+
+### 前端后台
+
+- 页面只组织 UI，不直接散写请求。
+- API 请求统一放在 `services` 或 `api` 目录。
+- 类型定义统一放在 `types` 或对应模块目录。
+- 枚举和状态映射统一管理。
+
+### 采集服务
+
+- 采集服务独立于 Go 主服务。
+- 采集服务不得直接操作主业务数据库。
+- 采集服务通过队列或内部 API 接收任务并返回结果。
+- 每个采集源必须独立 Provider。
+
+## 设计任何新功能时必须回答
+
+生成代码前，优先考虑：
+
+1. 这个功能属于哪个模块？
+2. 是否需要异步任务？
+3. 是否涉及 Provider？
+4. 是否需要配置中心？
+5. 是否涉及敏感数据加密？
+6. 是否需要操作日志？
+7. 是否为后期多租户预留 `tenant_id`？
+8. 是否需要保留 raw 原始数据？
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
