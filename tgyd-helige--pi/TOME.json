@@ -4,7 +4,7 @@
   "repo": "pi",
   "description": "Pluggable extension packages for the Pi AI-agent runtime. Each package exposes LLM-callable tools via MCP \u2014 covering IM workspace integrations (Lark, DingTalk, WeCom), browser & computer automation, persistent memory, telemetry, task scheduling, image generation, web access, security policies, and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TGYD-helige/pi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T01:09:36Z"
+  "distributed_at": "2026-07-12T01:25:14Z"
 }
