@@ -1,0 +1,9 @@
+{
+  "name": "datazoode--quack-oauth",
+  "displayName": "quack-oauth",
+  "description": "Extensions providing OAuth and OpenID primitives for authentication and authorization for the DuckDB quack server.",
+  "version": "1.0.0",
+  "author": "DataZooDE",
+  "homepage": "https://github.com/DataZooDE/quack-oauth",
+  "skills": []
+}
