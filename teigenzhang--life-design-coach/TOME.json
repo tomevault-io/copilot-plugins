@@ -1,0 +1,44 @@
+{
+  "name": "life-design-coach",
+  "owner": "TeigenZhang",
+  "repo": "life-design-coach",
+  "description": "\u628a\u4efb\u610f AI \u53d8\u6210\u4f60\u7684\u4eba\u751f\u8bbe\u8ba1\u6559\u7ec3 \u00b7 \u57fa\u4e8e\u65af\u5766\u798f\u300a\u4eba\u751f\u8bbe\u8ba1\u8bfe\u300b\u65b9\u6cd5\u8bba",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TeigenZhang/life-design-coach",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T05:12:50Z"
+}
