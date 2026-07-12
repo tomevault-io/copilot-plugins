@@ -1,0 +1,9 @@
+{
+  "name": "tsinhzl--kiro2cc-proxy",
+  "displayName": "kiro2cc-proxy",
+  "description": "kiro\u53cd\u4ee3cc\u3002\u652f\u6301 opus4.8/4.7/4.6/sonnet5 \u7b49\u6700\u65b0\u6a21\u578b\uff0c\u652f\u6301kiro\u7f13\u5b58\uff0c\u6d41\u5f0f\u8f93\u51fa\u3002kiro2cc proxy: Anthropic Claude API \u2192 Kiro API. Supports Claude Opus 4.8 /4.7 / 4.6 / Sonnet 5, SSE streaming, cache-supported ",
+  "version": "1.0.0",
+  "author": "TsinHzl",
+  "homepage": "https://github.com/TsinHzl/kiro2cc-proxy",
+  "skills": []
+}
