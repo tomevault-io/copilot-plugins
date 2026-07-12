@@ -1,24 +1,17 @@
-## 12-ai-coding-doc-sync
+## 13-ai-workflow
 
-> AI coding and documentation sync requirements
+> AI workflow for fast, accurate, token-efficient vibe coding across tools
 
 
-# AI 编程与文档同步规则
+# AI 工作流规则
 
-- 修改代码前先读取相关代码、配置与文档，不凭空假设脚本、端口、路径或变量。
-- 变更必须保持 **代码 / 配置 / 示例 / Docker / CI / 文档** 同步。
-- 跨模块改动先查 `docs/module-map.md`；收尾时按 `docs/task-checklist.md` 自查。
-- 跨 AI 工具的上下文控制、token 节约和经验沉淀流程见 `docs/ai-workflow.md`。
-- 新增或修改环境变量时，同步更新 `.env.example`、`docs/env.md`；Docker 也需要时同步 `.env.docker.example` 与 `docker-compose.full.yml`。
-- 新增或修改命令时，同步更新 `README.md`、`README.en.md`、`docs/development.md` 和 `package.json` 脚本说明。
-- 新增或修改 Docker 部署行为时，同步更新 `docs/docker-deployment.md`。
-- 新增 API 或改变 DTO / 返回字段时，同步 `docs/api.md`、前端 `admin/src/services`、`admin/src/types` 和相关页面。
-- 新增 Provider 时按 `docs/provider-template.md` 检查接口、配置、超时、错误处理和安全要求，并同步 `docs/provider.md`。
-- 新增异步任务、后台页面、数据库表或公共契约时，同步更新对应 `docs/`，较大变更必须更新 `docs/PROGRESS.md`。
-- 涉及分支、CI、PR 流程时，同步更新 `docs/branching.md`、`CONTRIBUTING.md` 与 PR 模板。
-- 涉及密钥、Token、授权、加密或日志安全时，同步更新 `SECURITY.md` 或相关设置文档。
-- 提交前按改动范围执行检查：后端 `go fmt ./...`，admin `pnpm build:admin`，collector `pnpm build:collector`；未执行需说明原因。
-- 详细规则见 `docs/ai-coding-rules.md`。
+- 开始任务前先读 `AGENTS.md`、`docs/ai-workflow.md` 和 `docs/module-map.md` 中与当前任务相关的部分。
+- 先把用户需求改写为短执行提示词：目标、任务类型、范围边界、事实确认、实现策略、验证和沉淀。
+- 先形成最小上下文包：任务目标、改动类型、关联入口、已有实现、验证方式、风险。
+- 按上下文预算工作：先搜索和局部读取确认事实，再扩大范围；不把大文件、大日志或无关上下文塞进对话。
+- 规则文件保持短而可执行；详细解释放入 `docs/`，避免 Cursor 每次加载过多 token。
+- 重复出现的问题、质量门槛、架构决策、Prompt 模板和工具约定，应按 `docs/ai-workflow.md` 写回对应文档、pitfalls、`docs/PROGRESS.md` 或 rules。
+- 不把真实密钥、Cookie、Token、客户数据、生产数据或私密对话写入经验文档。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
