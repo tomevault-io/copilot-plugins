@@ -1,0 +1,9 @@
+{
+  "name": "sandraschi--freecad-mcp",
+  "displayName": "freecad-mcp",
+  "description": "FastMCP 3.2 MCP server + webapp for FreeCAD 3d CAD and FluidX3D/Openfoam computational fluid dynamics extensions",
+  "version": "1.0.0",
+  "author": "sandraschi",
+  "homepage": "https://github.com/sandraschi/freecad-mcp",
+  "skills": []
+}
