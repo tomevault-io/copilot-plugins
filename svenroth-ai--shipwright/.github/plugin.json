@@ -1,0 +1,9 @@
+{
+  "name": "svenroth-ai--shipwright",
+  "displayName": "shipwright",
+  "description": "Shipwright is the harness your AI follows. AI-powered SDLC built on Claude Code.",
+  "version": "1.0.0",
+  "author": "svenroth-ai",
+  "homepage": "https://github.com/svenroth-ai/shipwright",
+  "skills": []
+}
