@@ -1,0 +1,9 @@
+{
+  "name": "chengzuopeng--ccgauge",
+  "displayName": "ccgauge",
+  "description": "Claude Code Dashboard \u2014 local web UI for Claude Code token usage and cost. npx ccgauge",
+  "version": "1.0.0",
+  "author": "chengzuopeng",
+  "homepage": "https://github.com/chengzuopeng/ccgauge",
+  "skills": []
+}
