@@ -1,0 +1,9 @@
+{
+  "name": "boumouzounabrahimvall--openmini",
+  "displayName": "openmini",
+  "description": "Open-source, self-hosted mini-app runtime for React Native, ship OTA-updatable React web apps into your native app from any static file server. Hash-verified packages, CSP-locked WebViews, typed bridg",
+  "version": "1.0.0",
+  "author": "BoumouzounaBrahimVall",
+  "homepage": "https://github.com/BoumouzounaBrahimVall/openmini",
+  "skills": []
+}
