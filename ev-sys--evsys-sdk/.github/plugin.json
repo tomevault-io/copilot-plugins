@@ -1,0 +1,9 @@
+{
+  "name": "ev-sys--evsys-sdk",
+  "displayName": "evsys-sdk",
+  "description": "Infrastructure for thousands of task-specialised models that learn continuously from every interaction.",
+  "version": "1.0.0",
+  "author": "ev-sys",
+  "homepage": "https://github.com/ev-sys/evsys-sdk",
+  "skills": []
+}
