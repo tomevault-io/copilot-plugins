@@ -1,0 +1,9 @@
+{
+  "name": "pkhaninejad--service-map",
+  "displayName": "service-map",
+  "description": "An interactive visualization of inter-service dependencies",
+  "version": "1.0.0",
+  "author": "pkhaninejad",
+  "homepage": "https://github.com/pkhaninejad/service-map",
+  "skills": []
+}
