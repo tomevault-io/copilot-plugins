@@ -4,7 +4,7 @@
   "repo": "talkthrough-mcp",
   "description": "MCP server: turn narrated screen recordings into agent-ready data \u2014 local Whisper transcript, scene keyframes, OCR, wall-clock anchoring. Record your screen, talk \u2014 your AI agent files the bugs.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/korovin-aa97/talkthrough-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T16:31:23Z"
+  "distributed_at": "2026-07-12T16:36:36Z"
 }
