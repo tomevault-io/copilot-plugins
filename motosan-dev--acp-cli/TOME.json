@@ -4,7 +4,7 @@
   "repo": "acp-cli",
   "description": "Headless CLI client for the Agent Client Protocol (ACP) \u2014 Rust port of ACPX",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/motosan-dev/acp-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T08:35:12Z"
+  "distributed_at": "2026-07-12T08:37:57Z"
 }
