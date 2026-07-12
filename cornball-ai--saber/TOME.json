@@ -4,7 +4,7 @@
   "repo": "saber",
   "description": "Context engineering for R",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cornball-ai/saber",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T10:41:26Z"
+  "distributed_at": "2026-07-12T10:43:18Z"
 }
