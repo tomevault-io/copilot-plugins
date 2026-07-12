@@ -1,86 +1,84 @@
-## project
+## renderer-ui
 
-> Core architecture and coding rules for AI Job Hunter. Apply to all TypeScript/TSX files in this monorepo.
+> Renderer UI rules — applies to all React components and route files
 
 
-# AI Job Hunter — Cursor Rules
+# Renderer UI Rules
 
 > Canonical rules: see `CLAUDE.md` + `.claude/skills/*` — this file is a pointer + the load-bearing subset; CLAUDE.md wins on any conflict.
 
-Local-first **Tauri** desktop app (Rust core in `apps/desktop/src-tauri/`, React renderer in
-`apps/desktop/src/renderer/`). pnpm monorepo. React 19 + TypeScript strict, Tailwind v4.
-ESLint `--max-warnings 0` in CI — every warning is a build failure.
-
----
+The renderer lives in `apps/desktop/src/renderer/` and talks to the Rust core only through IPC service hooks.
 
 ## Path Privacy
 
 - Never expose real local file system paths, usernames, home dirs, drive letters, or temp paths.
-- Always use repository-relative paths (`apps/desktop/src/main.rs`, not an absolute path).
-- Sanitize absolute paths in logs, stack traces, PRs, commits, and markdown.
+- Always use repository-relative paths. Sanitize absolute paths in logs, PRs, commits, and markdown.
 
----
+## Data fetching — React Query only
+Never use `useState + useEffect` for IPC data. Always use service hooks from `apps/desktop/src/renderer/services/`:
+```ts
+import { useDocuments, usePostings, useJobQueue } from '@/services';
+const { data, isLoading } = useDocuments();
+```
 
-## Shell — prefix EVERY command with `rtk`
+## i18n
+```ts
+// ✅ correct
+import { useTranslation } from '@ajh/translations';
+// ❌ never
+import { useTranslation } from 'react-i18next';
+```
+The renderer init shim is `@/i18n` (owns init + the locale→main listener).
 
-`rtk pnpm build` · `rtk git status` · `rtk rg foo` · `rtk fd src` · `rtk bat file.ts`.
-`rtk rg` not `grep` · `rtk fd` not `find` · `rtk bat` not `cat` · `rtk pnpm` not `npm`/`yarn`.
-Always Bash, never PowerShell. Never `find -exec`. Git Bash paths: `/c/Users/...`.
+## Motion tokens
+```ts
+// ✅ correct
+import { transition } from '@ajh/ui';
+<motion.div transition={transition.normal}>
+// ❌ never
+<motion.div transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}>
+```
 
----
+## Brand colors
+```tsx
+// ✅ correct
+className="text-brand-soft bg-brand/15 border-brand/30"
+// ❌ never
+className="text-[#c084fc] bg-[#a855f7]/15"
+```
 
-## Immutable rules (ESLint-enforced — refuse if user asks to bypass)
+## UI primitives to use
 
-**1. No `window.api` in UI** — use service hooks from `apps/desktop/src/renderer/services/` (React Query).
+All from `@ajh/ui` directly — never from `@/components/ui/*`:
 
-**2. i18n** — `import { useTranslation } from '@ajh/translations'`, never `react-i18next`. Renderer init shim is `@/i18n`.
+| Need | Import |
+|------|--------|
+| Button | `Button` from `@ajh/ui` |
+| Input / Textarea | `Input` / `TextArea` from `@ajh/ui` |
+| Dropdown | `SelectDropdown` from `@ajh/ui` |
+| Modal / Confirm | `ModalShell` / `ConfirmModal` from `@ajh/ui` |
+| Empty / Error | `EmptyState` / `ErrorState` from `@ajh/ui` |
+| Skeletons | `RowSkeleton` / `CardSkeleton` from `@ajh/ui` |
+| Card / Settings | `GlassCard` / `SettingsSection` from `@ajh/ui` |
+| Tile / Stream | `OptionTile` / `StreamingText` from `@ajh/ui` |
+| Page wrapper | `PageShell` from `@/components/layout/PageShell` |
+| App-specific | `UpdateBanner` from `@/components/ui/UpdateBanner` |
 
-**3. Brand colors** — `text-brand`, `text-brand-soft`, `bg-brand`, `border-brand`, `ring-brand`. No `[#RRGGBB]`.
+No raw `<button>`, `<select>`, `<textarea>`. Exception: `<input type="range|file|checkbox|radio|hidden">`.
 
-**4. Motion** — `import { transition } from '@ajh/ui'` → `transition.normal` etc. No inline `{ duration, ease }` objects.
+## File placement
+- `features/X/components/` — components owned by only route X (never import across feature dirs)
+- `components/ui/` — re-exports from `@ajh/ui` (`UpdateBanner` is the exception)
+- `services/` — all IPC/React Query hooks
+- `lib/machines/` — state machines for complex flows (3+ states)
 
-**5. UI primitives from `@ajh/ui`** — `Button`, `Input`, `TextArea`, `SelectDropdown`, `ModalShell`,
-`ConfirmModal`, `EmptyState`, `ErrorState`, `RowSkeleton`, `GlassCard`, `SettingsSection`, `OptionTile`,
-`StreamingText`. `PageShell` from `@/components/layout/PageShell`. No raw `<button>`, `<select>`, `<textarea>`.
-Exception: `<input type="range|file|checkbox|radio|hidden">`.
-
-**6. Imports** — `@ajh/ui` directly, not `@/components/ui/*`. Prefer `React.ComponentProps<typeof X>`.
-
-**7. Import order** (auto-fixed by `rtk pnpm lint:fix`) — `node:*` → external → `@ajh/*` → `@/*` → relative.
-
-**8. Type imports** — always `import type` for pure types. ESLint auto-fixes.
-
-**9. Data fetching** — React Query via service hooks only. No `useState + useEffect` for remote data.
-
-**10. Package boundaries** — workspace packages are exactly five: `@ajh/shared`, `@ajh/ui`, `@ajh/prompts`,
-`@ajh/translations`, `@ajh/test-ids`. The renderer never reaches into the Rust core directly — it goes through IPC service hooks.
-
-**11. No ESLint bypass** — no `// eslint-disable`, no `@ts-ignore`. `eslint.config.mjs` scoped overrides only.
-
----
-
-## Branch + PR workflow
-
-Never push to `main`. `rtk git checkout -b feat/name` → commit → `rtk git push -u origin <branch>` → `rtk gh pr create` → CI → user approval.
-Before starting: `rtk git fetch origin && rtk git branch -r | grep $(git branch --show-current)`.
-If branch gone: `rtk git checkout main && rtk git pull origin main`.
-
----
-
-## New IPC capability (5 steps)
-
-1. `packages/shared/src/ipc/contracts.ts` — add signature
-2. `apps/desktop/src-tauri/src/commands.rs` — implement Tauri command
-3. `apps/desktop/src/tauri-client.ts` — wire invoke call
-4. `apps/desktop/src/renderer/services/` — create hook
-5. `services/query-client.ts` — add query key
-
----
-
-## Commit conventions
-
-`feat:` minor · `fix:`/`perf:` patch · `BREAKING CHANGE` major · everything else: no release.
-Subject must be lowercase (commitlint `subject-case`) — lowercase acronyms too (`url`, `api`, `docx`); subject ≤ 100 chars, body lines ≤ 200. Never tag manually or edit CHANGELOG.md.
+## State machines
+Use `useMachine` for any wizard or multi-step flow:
+```ts
+import { useMachine } from '@/hooks/use-machine';
+import { autopilotWizardMachine } from '@/lib/machines/autopilot-wizard.machine';
+const [state, send, { busy }] = useMachine(autopilotWizardMachine, 'step_0');
+```
 
 ---
 > Source: [saeedkolivand/ai-job-hunter-app](https://github.com/saeedkolivand/ai-job-hunter-app) — distributed by [TomeVault](https://tomevault.io).
