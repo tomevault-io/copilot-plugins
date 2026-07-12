@@ -1,0 +1,44 @@
+{
+  "name": "oc-go-cc-optim",
+  "owner": "newmancai",
+  "repo": "oc-go-cc-optim",
+  "description": "\u4e3a Claude Code \u4f18\u5316\u7684\u9ad8\u6027\u80fd Go \u4ee3\u7406\uff0c\u652f\u6301 DeepSeek v4\uff0c\u652f\u6301\u901a\u8fc7 /model \u624b\u52a8\u5207\u6362\u6a21\u578b\u53ca\u6a21\u578b\u6620\u5c04\u903b\u8f91\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/newmancai/oc-go-cc-optim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T03:34:47Z"
+}
