@@ -1,0 +1,14 @@
+{
+  "name": "burin-labs--harn",
+  "displayName": "harn",
+  "description": "Harn is a programming language and runtime for building AI agents.",
+  "version": "1.0.0",
+  "author": "burin-labs",
+  "homepage": "https://github.com/burin-labs/harn",
+  "skills": [
+    {
+      "name": "rust-scripting",
+      "description": ""
+    }
+  ]
+}
