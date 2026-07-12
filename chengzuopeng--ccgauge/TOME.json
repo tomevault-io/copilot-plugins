@@ -4,7 +4,7 @@
   "repo": "ccgauge",
   "description": "Claude Code Dashboard \u2014 local web UI for Claude Code token usage and cost. npx ccgauge",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chengzuopeng/ccgauge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T00:49:08Z"
+  "distributed_at": "2026-07-12T00:49:51Z"
 }
