@@ -1,0 +1,9 @@
+{
+  "name": "tensorlakeai--openingest",
+  "displayName": "OpenIngest",
+  "description": "Production grade Document AI workflows run on Tensorlake",
+  "version": "1.0.0",
+  "author": "tensorlakeai",
+  "homepage": "https://github.com/tensorlakeai/OpenIngest",
+  "skills": []
+}
