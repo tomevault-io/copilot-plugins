@@ -4,7 +4,7 @@
   "repo": "agentcomm",
   "description": "A tiny mailbox for AI agents \u2014 one CLI, six backends (GitHub repo, SQLite, S3, GCS, Postgres, local). The repo is the bus.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yonidavidson/agentcomm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T18:30:40Z"
+  "distributed_at": "2026-07-12T18:35:33Z"
 }
