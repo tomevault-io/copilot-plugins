@@ -7,11 +7,11 @@ The npx serve of Android devices: stream and control emulators or real devices f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jiunshinn/serve-emul](https://github.com/jiunshinn/serve-emul).
+Original source: `AGENTS.md` in [jiunshinn/serve-emul](https://github.com/jiunshinn/serve-emul).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
