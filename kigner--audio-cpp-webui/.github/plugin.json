@@ -1,0 +1,9 @@
+{
+  "name": "kigner--audio-cpp-webui",
+  "displayName": "audio.cpp-webui",
+  "description": "audio.cpp with a full-task WebUI - pure C++ audio-model inference engine powered by ggml. TTS, ASR/STT, VAD, voice conversion, speaker diarization, music generation. No Python dependency.",
+  "version": "1.0.0",
+  "author": "kigner",
+  "homepage": "https://github.com/kigner/audio.cpp-webui",
+  "skills": []
+}
