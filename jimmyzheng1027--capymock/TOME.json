@@ -1,0 +1,44 @@
+{
+  "name": "CapyMock",
+  "owner": "jimmyzheng1027",
+  "repo": "CapyMock",
+  "description": "\u4ece\u6e90\u7801\u5206\u6790\u5230\u6a21\u62df\u9762\u8bd5\uff0cCapyMock \u7528 AI \u5e2e\u4f60\u62c6\u89e3\u6bcf\u4e00\u4e2a\u6c42\u804c\u73af\u8282\uff0c\u50cf\u6709\u4f4d\u8010\u5fc3\u7684\u670b\u53cb\u966a\u4f60\u51c6\u5907\uff0c\u800c\u4e0d\u662f\u51b0\u51b7\u7684\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jimmyzheng1027/CapyMock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T03:00:18Z"
+}
