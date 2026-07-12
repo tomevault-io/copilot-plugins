@@ -1,0 +1,9 @@
+{
+  "name": "btafoya--gomailserver",
+  "displayName": "gomailserver",
+  "description": "Modern, composable all-in-one mail server in Go with SMTP, IMAP, CalDAV, CardDAV, DKIM, SPF, DMARC, antivirus, and anti-spam",
+  "version": "1.0.0",
+  "author": "btafoya",
+  "homepage": "https://github.com/btafoya/gomailserver",
+  "skills": []
+}
