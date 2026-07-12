@@ -1,0 +1,44 @@
+{
+  "name": "photo-metadata-editor",
+  "owner": "NextWeb4",
+  "repo": "photo-metadata-editor",
+  "description": "Windows desktop EXIF/XMP/IPTC photo metadata editor powered by ExifTool.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NextWeb4/photo-metadata-editor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T22:38:14Z"
+}
