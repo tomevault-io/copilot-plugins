@@ -1,0 +1,9 @@
+{
+  "name": "rcourtman--presspeech",
+  "displayName": "presspeech",
+  "description": "Fast, private push-to-talk dictation for Apple Silicon Macs \u2014 local Parakeet TDT v3, no cloud or telemetry.",
+  "version": "1.0.0",
+  "author": "rcourtman",
+  "homepage": "https://github.com/rcourtman/presspeech",
+  "skills": []
+}
