@@ -1,0 +1,9 @@
+{
+  "name": "catalystbyzoho--agent-skills",
+  "displayName": "agent-skills",
+  "description": "AI agent skills for Catalyst by Zoho \u2014 enables Claude, Gemini, Cursor, Copilot, and Windsurf to write deployment-ready Catalyst code, recommend architecture, and manage infrastructure via Zoho MCP.",
+  "version": "1.0.0",
+  "author": "catalystbyzoho",
+  "homepage": "https://github.com/catalystbyzoho/agent-skills",
+  "skills": []
+}
