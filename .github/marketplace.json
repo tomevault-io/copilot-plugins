@@ -12309,6 +12309,11 @@
       "description": "The agent that remembers and learns."
     },
     {
+      "name": "kossakovsky--selfhost-ai",
+      "source": "./kossakovsky--selfhost-ai",
+      "description": "\ud83d\ude80 Self-hosted AI automation platform. Deploy n8n, Ollama, Flowise, RAG, Supabase & 30+ tools with one command. Auto HTTPS. Free Zapier/Make alternative."
+    },
+    {
       "name": "mhdzumair--mediafusion",
       "source": "./mhdzumair--mediafusion",
       "description": "MediaFusion"
@@ -43234,6 +43239,11 @@
       "description": "lailai0916.github.io"
     },
     {
+      "name": "n-zik-group--n-zik",
+      "source": "./n-zik-group--n-zik",
+      "description": "A multilingual YouTube Music frontend for Android, focused on performance, UI/UX refinements, feature expansion, and long-term support."
+    },
+    {
       "name": "chernistry--bernstein",
       "source": "./chernistry--bernstein",
       "description": "Deterministic orchestrator for 18 CLI AI coding agents. Git worktree isolation, HMAC audit trail, MCP server mode."
@@ -49082,6 +49092,31 @@
       "name": "lee101--stock-prediction",
       "source": "./lee101--stock-prediction",
       "description": "stock-prediction"
+    },
+    {
+      "name": "braindao--adk-ts",
+      "source": "./braindao--adk-ts",
+      "description": "A robust framework for building AI agents with multi-provider LLM support"
+    },
+    {
+      "name": "braindao--adk-ts",
+      "source": "./braindao--adk-ts",
+      "description": "A robust framework for building AI agents with multi-provider LLM support"
+    },
+    {
+      "name": "braindao--adk-ts",
+      "source": "./braindao--adk-ts",
+      "description": "A robust framework for building AI agents with multi-provider LLM support"
+    },
+    {
+      "name": "braindao--adk-ts",
+      "source": "./braindao--adk-ts",
+      "description": "A robust framework for building AI agents with multi-provider LLM support"
+    },
+    {
+      "name": "braindao--adk-ts",
+      "source": "./braindao--adk-ts",
+      "description": "A robust framework for building AI agents with multi-provider LLM support"
     },
     {
       "name": "lasect--pg-turret",
@@ -175049,6 +175084,11 @@
       "description": "Offline folder locker with AES-256-GCM encrypted containers and optional Windows ACL quick lock"
     },
     {
+      "name": "okasi--is-fast-internet",
+      "source": "./okasi--is-fast-internet",
+      "description": "Zero-dependency browser check for fast internet \u2014 reliable even in censored countries"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -183087,6 +183127,16 @@
       "name": "ronglecat--grok-go",
       "source": "./ronglecat--grok-go",
       "description": "Local multi-account Grok gateway for Codex (API + MCP). \u672c\u5730\u591a\u8d26\u53f7 Grok \u7f51\u5173\uff0c\u9762\u5411 Codex\u3002"
+    },
+    {
+      "name": "ruandaoverlens--businessos",
+      "source": "./ruandaoverlens--businessos",
+      "description": "BusinessOS"
+    },
+    {
+      "name": "ruandaoverlens--businessos",
+      "source": "./ruandaoverlens--businessos",
+      "description": "BusinessOS"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -192547,6 +192597,16 @@
       "name": "unisic--unisic",
       "source": "./unisic--unisic",
       "description": "Screenshot & screen-recorder for Linux."
+    },
+    {
+      "name": "porespellar--zer0fit",
+      "source": "./porespellar--zer0fit",
+      "description": "Zero-shot forecasting, tabular classification, and regression via MCP \u2014 exposes Google TimesFM 2.5 and TabFM v1.0.0 to AI assistants. Just attach a CSV and describe what you want to predict."
+    },
+    {
+      "name": "porespellar--zer0fit",
+      "source": "./porespellar--zer0fit",
+      "description": "Zero-shot forecasting, tabular classification, and regression via MCP \u2014 exposes Google TimesFM 2.5 and TabFM v1.0.0 to AI assistants. Just attach a CSV and describe what you want to predict."
     },
     {
       "name": "lightninglabs--lnget",
@@ -244199,6 +244259,56 @@
       "description": "JC-ESP32P4-M3-DEV firmware: offline wake word, HA Assist pipeline, MQTT control, OTA updates."
     },
     {
+      "name": "nextweb4--photo-metadata-editor",
+      "source": "./nextweb4--photo-metadata-editor",
+      "description": "Windows desktop EXIF/XMP/IPTC photo metadata editor powered by ExifTool."
+    },
+    {
+      "name": "nvidia-omniverse--usd-search",
+      "source": "./nvidia-omniverse--usd-search",
+      "description": "USD Search is a collection of cloud-native microservices that enable developers, creators, and workflow specialists to efficiently search through vast collections of OpenUSD data, images, and other as"
+    },
+    {
+      "name": "galdawave--fallback",
+      "source": "./galdawave--fallback",
+      "description": "Fallback keeps the GitHub context your repo work depends on available locally, even when GitHub is down or you have no internet."
+    },
+    {
+      "name": "chenyuxiaojin--cyxj-hyperframes",
+      "source": "./chenyuxiaojin--cyxj-hyperframes",
+      "description": "Open-source HTML+GSAP video projects & reusable toolkit for Claude Code tutorial videos, powered by HeyGen HyperFrames."
+    },
+    {
+      "name": "nors1993--research-skills",
+      "source": "./nors1993--research-skills",
+      "description": "Skills flow for paper and patent writing"
+    },
+    {
+      "name": "mbullhexscript--terminal-music",
+      "source": "./mbullhexscript--terminal-music",
+      "description": "Pemutar musik cli #Projectiseng"
+    },
+    {
+      "name": "alone-tree--textdrop",
+      "source": "./alone-tree--textdrop",
+      "description": "TextDrop \u662f\u4e00\u4e2a\u8f7b\u91cf\u7ea7\u8de8\u8bbe\u5907\u8f93\u5165\u5de5\u5177\u3002  \u7528\u6237\u53ef\u4ee5\u5728\u624b\u673a\u6d4f\u89c8\u5668\u4e2d\u8f93\u5165\u6587\u5b57\uff0c\u6216\u4f7f\u7528\u624b\u673a\u8f93\u5165\u6cd5\u7684\u8bed\u97f3\u8f93\u5165\u80fd\u529b\u5c06\u8bed\u97f3\u8f6c\u6210\u6587\u5b57\uff0c\u7136\u540e\u70b9\u51fb\u53d1\u9001\u6309\u94ae\uff0c\u5c06\u6587\u672c\u76f4\u63a5\u53d1\u9001\u5230 Windows \u7535\u8111\u5f53\u524d\u5149\u6807\u6240\u5728\u4f4d\u7f6e\u3002"
+    },
+    {
+      "name": "nvidia-omniverse--usd-search",
+      "source": "./nvidia-omniverse--usd-search",
+      "description": "USD Search is a collection of cloud-native microservices that enable developers, creators, and workflow specialists to efficiently search through vast collections of OpenUSD data, images, and other as"
+    },
+    {
+      "name": "hackwidmaddy--opencodex",
+      "source": "./hackwidmaddy--opencodex",
+      "description": "A community-driven autonomous coding agent built for developers who want full control. OpenCodex helps you write, edit, debug, and ship code directly from your terminal or IDE using powerful AI workfl"
+    },
+    {
+      "name": "0xchamin--hummcode",
+      "source": "./0xchamin--hummcode",
+      "description": "The Hummingbird Coding Agent \u2014 minimalist, model-agnostic, and composable. Built from first principles with tree-based memory, surgical file edits, and a rich terminal UI."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -265894,6 +266004,26 @@
       "description": "Offline prompt engineering manager for Windows"
     },
     {
+      "name": "200lz--llm-inference-optimization-lab",
+      "source": "./200lz--llm-inference-optimization-lab",
+      "description": "Reproducible CPU LLM inference benchmarking, profiling, and hot-path optimization with llama.cpp"
+    },
+    {
+      "name": "michaeldlfx--suiseki",
+      "source": "./michaeldlfx--suiseki",
+      "description": "a read-only cli, released as a binary, that brings pierre\u2019s diff/tree model layers and shiki themes to the terminal for polished code and diff rendering"
+    },
+    {
+      "name": "michaeldlfx--suiseki",
+      "source": "./michaeldlfx--suiseki",
+      "description": "a read-only cli, released as a binary, that brings pierre\u2019s diff/tree model layers and shiki themes to the terminal for polished code and diff rendering"
+    },
+    {
+      "name": "shahzaibahmad05--fintrack",
+      "source": "./shahzaibahmad05--fintrack",
+      "description": "Personal Finance tracking system with AI-based recommendations to keep your wallet heavier."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -270382,6 +270512,11 @@
       "name": "boumouzounabrahimvall--openmini",
       "source": "./boumouzounabrahimvall--openmini",
       "description": "Open-source, self-hosted mini-app runtime for React Native, ship OTA-updatable React web apps into your native app from any static file server. Hash-verified packages, CSP-locked WebViews, typed bridg"
+    },
+    {
+      "name": "ninjahawk--confessor",
+      "source": "./ninjahawk--confessor",
+      "description": "See what your AI coding agent actually did on your computer. 100% local: every file it opened, every secret that entered its context, every sensitive-read-then-network-call. Zero dependencies, zero ne"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -394987,6 +395122,31 @@
       "name": "vkvara--onlineclinicprompt",
       "source": "./vkvara--onlineclinicprompt",
       "description": "onlineClinicPrompt"
+    },
+    {
+      "name": "lucaslagrimante--agent-sync",
+      "source": "./lucaslagrimante--agent-sync",
+      "description": "agent-sync"
+    },
+    {
+      "name": "lucaslagrimante--agent-sync",
+      "source": "./lucaslagrimante--agent-sync",
+      "description": "agent-sync"
+    },
+    {
+      "name": "lucaslagrimante--agent-sync",
+      "source": "./lucaslagrimante--agent-sync",
+      "description": "agent-sync"
+    },
+    {
+      "name": "deloas--large-org-digital-platform",
+      "source": "./deloas--large-org-digital-platform",
+      "description": "large-org-digital-platform"
+    },
+    {
+      "name": "lucaslagrimante--agent-sync",
+      "source": "./lucaslagrimante--agent-sync",
+      "description": "agent-sync"
     }
   ]
 }
