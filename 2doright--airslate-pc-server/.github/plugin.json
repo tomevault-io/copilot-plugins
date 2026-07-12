@@ -1,0 +1,9 @@
+{
+  "name": "2doright--airslate-pc-server",
+  "displayName": "airslate-pc-server",
+  "description": "PC-side server for AirSlate. Receives stylus data over LAN and injects it as a virtual pen input device.",
+  "version": "1.0.0",
+  "author": "2doright",
+  "homepage": "https://github.com/2doright/airslate-pc-server",
+  "skills": []
+}
