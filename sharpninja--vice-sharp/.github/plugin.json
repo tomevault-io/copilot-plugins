@@ -1,0 +1,9 @@
+{
+  "name": "sharpninja--vice-sharp",
+  "displayName": "vice-sharp",
+  "description": ".NET 10 NativeAOT Commodore Emulator (VICE port)",
+  "version": "1.0.0",
+  "author": "sharpninja",
+  "homepage": "https://github.com/sharpninja/vice-sharp",
+  "skills": []
+}
