@@ -1,0 +1,9 @@
+{
+  "name": "crisnahine--chameleon",
+  "displayName": "chameleon",
+  "description": "Automatically analyzes your codebase to learn conventions, then guides AI-generated code to follow team idioms, architectural patterns, and best practices \u2014 keeping auto-generated code in sync with ev",
+  "version": "1.0.0",
+  "author": "crisnahine",
+  "homepage": "https://github.com/crisnahine/chameleon",
+  "skills": []
+}
