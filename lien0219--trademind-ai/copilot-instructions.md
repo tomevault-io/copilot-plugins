@@ -1,269 +1,218 @@
-## 04-ui-style
+## 05-ai-provider
 
-> UI visual style, page layout, component usage, colors, typography, spacing, empty states, and admin product experience
+> AI provider abstraction, prompt templates, AI tasks, image AI, customer service, and future Agent expansion
 
 
-# TradeMind UI 风格规则
+# AI 架构与扩展规则
 
-## 总体 UI 风格
+## AI 总原则
 
-贸灵后台的 UI 风格应体现：
+- AI 不写死模型。
+- Prompt 不写死代码。
+- 模型可切换。
+- 输出可追踪。
+- 调用可计费或预留计费字段。
+- 工具可扩展。
+- 客服先人工确认。
+- 自动化必须可回滚。
 
-```text
-专业
-清爽
-可信赖
-AI 科技感
-跨境电商运营效率感
-```
+## AI Provider 架构
 
-避免：
-
-- 花哨渐变过多
-- 大面积高饱和颜色
-- 页面信息堆满
-- 表单无分组
-- 卡片边距混乱
-- 随意使用图标和颜色
-
-## 视觉基调
-
-### 推荐主色
-
-优先使用 Ant Design 默认蓝色系作为基础，体现专业工具属性。
-
-可在品牌区域使用少量青绿色/蓝紫色点缀，体现 AI 和跨境科技感。
-
-推荐语义：
-
-- 主色：蓝色，表示稳定、系统、专业
-- 成功：绿色，表示任务成功、授权有效
-- 警告：橙色，表示配置缺失、即将过期
-- 错误：红色，表示失败、授权失效、任务异常
-- AI 点缀：蓝紫色或青色，小面积使用
-
-### 禁止
-
-- 不要为每个模块自定义一套颜色。
-- 不要使用过多渐变背景。
-- 不要用红色展示普通状态。
-- 不要用纯黑大面积背景，除非后期明确做暗色主题。
-
-## 布局规则
-
-后台页面统一采用：
+业务模块只能调用 AI Gateway，不直接调用具体模型 SDK。
 
 ```text
-页面标题
-页面说明 / 操作提示
-筛选区
-数据表格 / 内容卡片
-抽屉或弹窗编辑
+业务模块
+  ↓
+AI Gateway
+  ↓
+AI Provider
+  ↓
+第三方模型 API / 本地模型
 ```
 
-### 页面头部
+## 必须支持或预留的 Provider
 
-每个核心页面应包含：
+- openai-compatible
+- deepseek
+- qwen
+- doubao
+- gemini
+- claude
+- ollama
 
-- 标题
-- 简短说明
-- 主要操作按钮
+MVP 优先实现 openai-compatible。DeepSeek、通义、豆包可以通过兼容配置接入。
 
-示例：
+## AI Provider 通用接口建议
+
+```go
+type AIProvider interface {
+    Name() string
+    Chat(ctx context.Context, req ChatRequest) (*ChatResponse, error)
+}
+```
+
+```go
+type ChatRequest struct {
+    Model          string
+    Messages       []ChatMessage
+    Temperature    float64
+    MaxTokens      int
+    ResponseFormat string
+    Tools          []AIToolSchema
+}
+```
+
+```go
+type ChatResponse struct {
+    Content      string
+    Raw          any
+    InputTokens  int
+    OutputTokens int
+}
+```
+
+## AI 功能实现方式
+
+以下功能都应该基于 Prompt 模板实现：
+
+- AI 标题优化
+- AI 描述生成
+- AI 翻译
+- AI 卖点提取
+- AI 类目推荐
+- AI 客服建议回复
+
+不要为每个功能写死模型调用逻辑，应该是：
 
 ```text
-商品草稿
-管理采集后的商品，支持 AI 标题优化、描述生成和图片处理。
-[新建商品] [批量 AI 优化]
+Prompt Template + Input Variables + AI Gateway + Output Parser
 ```
 
-### 卡片布局
+## Prompt 规则
 
-- Dashboard 使用卡片展示关键指标。
-- 设置页使用分组卡片。
-- 商品详情页使用 Tabs 或分块卡片。
-- AI 工具页使用左右结构：左侧输入，右侧输出。
+Prompt 必须可配置。可以内置默认 Prompt，但后台必须可以修改。
 
-## 间距规则
-
-- 页面主体使用统一 padding。
-- 卡片之间保持一致间距。
-- 表单项不要过度拥挤。
-- 表格上方筛选区与表格之间留出明确间距。
-
-建议：
+Prompt 支持变量：
 
 ```text
-页面 padding：24px
-卡片间距：16px 或 24px
-表单分组间距：24px
-按钮间距：8px
+{{title}}
+{{category}}
+{{attributes}}
+{{language}}
+{{maxLength}}
+{{platform}}
+{{skus}}
 ```
 
-## 字体与文案
+AI 输出尽量要求 JSON，便于系统解析和应用。
 
-- 文案要偏产品化，不要太技术化。
-- 设置项必须解释“这个配置用来做什么”。
-- 错误提示必须让用户知道下一步怎么处理。
-- AI 相关功能要明确说明“会消耗模型额度”。
+## AI 任务记录
 
-示例：
+每次 AI 调用必须记录或预留：
 
-不要：
+- task_type
+- provider
+- model
+- prompt_code
+- input
+- output
+- status
+- error_message
+- token_input
+- token_output
+- cost_amount
+- started_at
+- finished_at
+
+## AI 标题优化输出建议
+
+```json
+{
+  "optimizedTitle": "Women's Summer Slim Fit Short Sleeve Dress",
+  "keywords": ["summer dress", "women dress", "slim fit"],
+  "reason": "标题突出季节、人群、版型和核心关键词。"
+}
+```
+
+## AI 图片能力
+
+图片能力必须通过 Image Provider 扩展。
+
+MVP 只需要完成：
+
+- 图片上传
+- 图片存储
+- 图片关联商品
+- 图片任务记录
+- Image Provider 接口预留
+
+后续扩展：
+
+- 去背景
+- 换背景
+- 商品图美化
+- 场景图生成
+- 模特图生成
+- ComfyUI 工作流
+- 多平台尺寸适配
+
+## AI 客服规则
+
+MVP 阶段 AI 客服默认只生成建议回复，不自动发送。
+
+推荐流程：
 
 ```text
-Provider Error
+买家问题
+  ↓
+AI 生成建议回复
+  ↓
+人工确认
+  ↓
+复制 / 手动发送
 ```
 
-推荐：
+后期可扩展为：
 
 ```text
-AI 服务连接失败，请检查 API Base URL、API Key 和默认模型是否正确。
+买家问题
+  ↓
+AI 判断意图
+  ↓
+调用工具查询订单/物流/退款
+  ↓
+生成回复
+  ↓
+人工确认或自动发送
 ```
 
-## 表格风格
+## Tool Calling 预留
 
-表格页面优先使用 ProTable。
-
-### 状态展示
-
-- 状态必须使用 Tag / Badge。
-- 失败状态必须可以查看失败原因。
-- 长文本要省略，详情通过 Drawer 展示。
-- 图片字段展示缩略图。
-
-### 操作列
-
-操作列保持简洁：
-
-```text
-查看 | 编辑 | AI 优化 | 更多
+```go
+type AITool interface {
+    Name() string
+    Description() string
+    Schema() map[string]any
+    Execute(ctx context.Context, args map[string]any) (any, error)
+}
 ```
 
-危险操作放入“更多”或二次确认中。
+预留工具：
 
-## 表单风格
+- get_order_status
+- get_tracking_info
+- get_product_info
+- get_refund_policy
+- create_refund_ticket
+- send_buyer_message
 
-设置类表单必须分组，例如：
+## 禁止事项
 
-```text
-AI 基础配置
-模型参数
-安全配置
-连接测试
-```
-
-敏感字段：
-
-- 使用密码输入框
-- 默认脱敏展示
-- 修改时允许重新输入
-- 不要回显完整密钥
-
-## AI 功能页面风格
-
-AI 功能页面建议采用：
-
-```text
-左侧：输入信息 / 商品信息 / 参数
-右侧：AI 输出 / 结果预览 / 应用按钮
-底部：历史记录
-```
-
-AI 任务处理中应展示：
-
-- Loading
-- 当前模型
-- 当前 Prompt
-- 任务状态
-- 失败原因
-
-AI 输出必须支持：
-
-- 复制
-- 应用到商品
-- 重新生成
-- 查看原始响应预留
-
-## 设置页面风格
-
-系统设置页面建议使用 Tabs：
-
-```text
-基础设置
-AI 设置
-Prompt 设置
-存储设置
-采集设置
-平台设置
-安全设置
-```
-
-每个设置页必须提供：
-
-- 保存按钮
-- 测试连接按钮，适用于 AI、存储、平台配置
-- 清晰说明
-- 敏感字段脱敏
-
-## 空状态
-
-所有列表页必须处理空状态。
-
-示例：
-
-```text
-暂无商品草稿
-你可以先从 1688 商品链接开始采集，或手动创建一个商品草稿。
-[开始采集]
-```
-
-## 错误状态
-
-错误信息必须可理解。
-
-采集失败示例：
-
-```text
-采集失败：页面加载超时。你可以检查链接是否有效，或稍后重试。
-```
-
-AI 失败示例：
-
-```text
-AI 标题优化失败：模型服务连接异常，请检查 AI 设置。
-```
-
-## Dashboard 指标建议
-
-Dashboard 卡片建议展示：
-
-- 商品草稿数
-- 今日采集任务
-- AI 调用次数
-- 失败任务数
-- 存储占用
-- 店铺授权状态
-
-## 品牌表达
-
-项目中文名：贸灵  
-项目英文名：TradeMind
-
-页面中可以使用：
-
-```text
-贸灵 TradeMind
-开源 AI 跨境电商运营平台
-```
-
-避免在界面中频繁出现“ERP”，当前阶段更推荐表达为：
-
-```text
-AI 跨境上货助手
-AI 商品运营工具
-AI 跨境电商运营平台
-```
+- 不要让前端直接调用模型 API。
+- 不要把 API Key 写进前端代码。
+- 不要在日志中输出 Prompt 中的敏感信息。
+- 不要默认开启自动客服发送。
+- 不要硬编码 OpenAI、DeepSeek、通义等具体模型。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
