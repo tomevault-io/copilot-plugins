@@ -1,0 +1,9 @@
+{
+  "name": "vadale--r-ebirth",
+  "displayName": "R-ebirth",
+  "description": "Make R a first-class environment for AI and data-science research \u2014 the rebirth package (Rust core embedding a patched llama.cpp).",
+  "version": "1.0.0",
+  "author": "Vadale",
+  "homepage": "https://github.com/Vadale/R-ebirth",
+  "skills": []
+}
