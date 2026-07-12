@@ -4,7 +4,7 @@
   "repo": "beagle",
   "description": "a typed programming language that emits to multiple backends",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tompassarelli/beagle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T01:26:05Z"
+  "distributed_at": "2026-07-12T01:42:24Z"
 }
