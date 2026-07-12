@@ -1,0 +1,44 @@
+{
+  "name": "dbexplain",
+  "owner": "IamWWT",
+  "repo": "dbexplain",
+  "description": "Make Databases AI-Readable \u2014 \u96f6\u4f9d\u8d56\u30019 \u79cd\u6570\u636e\u5e93\u7684 Schema \u63a2\u67e5\u4e0e\u53ea\u8bfb\u67e5\u8be2 CLI",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/IamWWT/dbexplain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T02:55:40Z"
+}
