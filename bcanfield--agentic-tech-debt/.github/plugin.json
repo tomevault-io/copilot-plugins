@@ -1,0 +1,9 @@
+{
+  "name": "bcanfield--agentic-tech-debt",
+  "displayName": "agentic-tech-debt",
+  "description": "Every shortcut your coding agent takes, saved to your repo as it happens. Fix them when you're ready.",
+  "version": "1.0.0",
+  "author": "bcanfield",
+  "homepage": "https://github.com/bcanfield/agentic-tech-debt",
+  "skills": []
+}
