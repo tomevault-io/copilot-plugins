@@ -1,0 +1,9 @@
+{
+  "name": "joseph3325--xsiam-buddy",
+  "displayName": "xsiam-buddy",
+  "description": "Claude Code plugin for building Cortex XSIAM content: automations, XQL queries, playbooks, and documentation",
+  "version": "1.0.0",
+  "author": "joseph3325",
+  "homepage": "https://github.com/joseph3325/xsiam-buddy",
+  "skills": []
+}
