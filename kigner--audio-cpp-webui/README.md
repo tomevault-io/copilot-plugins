@@ -7,11 +7,11 @@ audio.cpp with a full-task WebUI - pure C++ audio-model inference engine powered
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kigner/audio.cpp-webui](https://github.com/kigner/audio.cpp-webui).
+Original source: `CLAUDE.md` in [kigner/audio.cpp-webui](https://github.com/kigner/audio.cpp-webui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
