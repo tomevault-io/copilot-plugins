@@ -7,11 +7,11 @@ A fast, interactive terminal UI for monitoring Kubernetes cluster health in real
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sharat/cluster-cli](https://github.com/sharat/cluster-cli).
+Original source: `CLAUDE.md` in [sharat/cluster-cli](https://github.com/sharat/cluster-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
