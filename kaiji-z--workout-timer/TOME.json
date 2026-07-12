@@ -1,0 +1,44 @@
+{
+  "name": "workout-timer",
+  "owner": "Kaiji-Z",
+  "repo": "workout-timer",
+  "description": "\u64b8\u94c1\u8ba1\u65f6\u5668 - \u4e13\u4e1a\u5065\u8eab\u4f11\u606f\u8ba1\u65f6\u5668 Flutter App\uff0c\u4e13\u6ce8\u7ec4\u95f4\u4f11\u606f\u8ba1\u65f6\uff0c870+\u52a8\u4f5c\u5e93\uff0cAI\u8bad\u7ec3\u8ba1\u5212\uff0c\u5b8c\u5168\u514d\u8d39\u5f00\u6e90",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Kaiji-Z/workout-timer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-12T10:40:21Z"
+}
