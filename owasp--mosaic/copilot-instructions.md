@@ -1,33 +1,74 @@
-## context-management
+## multi-agent-workflow
 
-> Keep agent context focused across tasks and stale threads
+> Two-phase planning for big changes; builder must not be sole judge
 
 
-# Context Management
+# Multi-Agent Workflow (Human Plan → Agent Execute)
 
-## Do
+For **big changes**, split work into two phases. Do not skip Phase 1.
 
-- Use `/clear` between unrelated tasks or features.
-- Reference files with `@path` instead of pasting entire file contents.
-- Use `@Past Chats` to pull in prior work instead of copy-pasting old conversations.
-- Start fresh after **2 failed corrections** on the same issue: `/clear`, then write a better prompt that incorporates what you learned.
-- Point website editors at `@docs/website.md` for file locations and shortcodes.
+## What counts as a big change
 
-## Don't
+- New page, new shortcode library, or new site-wide layout
+- Expected to touch **3+ files** or **>500 lines** of diff
+- Refactor of Hugo layouts/shortcodes with behavioral risk
+- Touches critical paths (deploy workflows, Firebase, maintainer scripts, secrets)
+- Incomplete requirements or meaningful product/design choices
 
-- Let context accumulate across unrelated features in one long thread.
-- Describe files vaguely when an `@` reference exists.
-- Keep correcting the same mistake in a degrading context — reset instead.
+Small fixes: single-file typo, one markdown paragraph, clear one-liner → `plan-first-workflow.mdc` only.
 
-## When context is stale
+## Phase 1 — Human-led planning (no code)
 
-Signs you should `/clear` and re-prompt:
+**Stop before editing.**
 
-- Repeated fixes on the same bug without progress
-- Agent confuses requirements from an earlier, unrelated task
-- Plan has drifted significantly from what was approved
+1. Acknowledge this is a big change; planning comes first.
+2. Ask minimum questions: goal, pages affected, pattern to mirror, acceptance criteria, out of scope.
+3. Draft a plan: steps, `@` file paths, similar pages/shortcodes, validation plan, risks.
+4. Wait for explicit approval ("proceed", "approved", or confirmed edited plan).
+5. No commits, push, or implementation code in Phase 1. Read-only research is fine.
 
-After clearing, restate: goal, approved plan (or link to `.cursor/plans/*.md`), relevant `@` files, and acceptance criteria.
+## Phase 2 — Agent execution
+
+After approval:
+
+1. Execute per `autonomous-workflow.mdc`.
+2. Follow the approved plan; pause if material deviation is needed.
+3. Implement incrementally; verify as you go (`verifiable-goals.mdc`).
+4. Hand off with checklist including build evidence.
+
+## Builder ≠ Judge (required on substantive work)
+
+| Role | Responsibility |
+|------|----------------|
+| **Builder** | Implements approved plan |
+| **Judge** | Independent review — broken links, layout regressions, deploy impact |
+
+Invoke judge via subagent, parallel agent, or fresh context:
+
+- "Use a subagent to review this change for broken links and layout regressions."
+
+Do not mark substantive work complete without independent review or documented reason to skip.
+
+**Re-review:** Required only when judge findings change behavior, content, or deploy posture materially.
+
+## Decision tree
+
+```
+User request received
+  │
+  ├─ Missing goal / criteria / context / constraints?
+  │     └─ STOP → ask questions OR offer Requirements template (requirements-gate.mdc)
+  │
+  ├─ Typo / rename / one-sentence fix?
+  │     └─ Implement → quality checks → show evidence
+  │
+  ├─ Multi-file / new page / layout refactor / deploy path?
+  │     └─ Plan Mode → detailed plan → WAIT for approval → implement
+  │           → quality checks → subagent review → handoff with evidence
+  │
+  └─ Otherwise
+        └─ Brief plan → implement → quality checks → handoff with evidence
+```
 
 ---
 > Source: [OWASP/MOSAIC](https://github.com/OWASP/MOSAIC) — distributed by [TomeVault](https://tomevault.io).
