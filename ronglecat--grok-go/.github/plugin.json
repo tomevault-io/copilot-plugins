@@ -1,0 +1,9 @@
+{
+  "name": "ronglecat--grok-go",
+  "displayName": "grok-go",
+  "description": "Local multi-account Grok gateway for Codex (API + MCP). \u672c\u5730\u591a\u8d26\u53f7 Grok \u7f51\u5173\uff0c\u9762\u5411 Codex\u3002",
+  "version": "1.0.0",
+  "author": "RongleCat",
+  "homepage": "https://github.com/RongleCat/grok-go",
+  "skills": []
+}
