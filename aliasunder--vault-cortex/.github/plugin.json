@@ -1,0 +1,9 @@
+{
+  "name": "aliasunder--vault-cortex",
+  "displayName": "vault-cortex",
+  "description": "Standalone MCP server for Obsidian vaults \u2014 hybrid search, structured memory, task queries, and full vault access for any AI agent",
+  "version": "1.0.0",
+  "author": "aliasunder",
+  "homepage": "https://github.com/aliasunder/vault-cortex",
+  "skills": []
+}
