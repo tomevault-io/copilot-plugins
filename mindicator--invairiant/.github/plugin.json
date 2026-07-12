@@ -1,0 +1,9 @@
+{
+  "name": "mindicator--invairiant",
+  "displayName": "invAIriant",
+  "description": "AI-assisted architecture-audit skill + CLI for systems where invariants must survive change (Claude Code \u00b7 Codex \u00b7 Cursor)",
+  "version": "1.0.0",
+  "author": "mindicator",
+  "homepage": "https://github.com/mindicator/invAIriant",
+  "skills": []
+}
