@@ -1,20 +1,28 @@
-## autonomous-workflow
+## complete-ticket
 
-> End-to-end execution policy after plan approval
+> Requires complete tickets before coding - asks clarifying questions if requirements are missing
 
 
-# MOSAIC Autonomous Workflow
+# Complete Ticket Requirement
 
-Policy: see `AGENTS.md`. Verification: see `verifiable-goals.mdc`.
+When the user submits a ticket or task via a `.md` or `.txt` file (including `AGENTS.md`):
 
-- For big changes, wait for human plan approval (`multi-agent-workflow.mdc` Phase 1) before editing.
-- After approval, execute end-to-end unless blocked by auth/secrets, destructive actions, or material plan deviations.
-- Prefer small, safe changes; avoid unrelated refactors.
-- Use `npm run build:site` to verify Hugo output after substantive changes.
-- Run long commands in background; monitor until completion.
-- Do NOT commit or push unless explicitly asked.
-- In commits do not add "made with cursor" lines.
-- On substantive changes, recommend or run judge/subagent review before handoff.
+1. **Check** for: goal, success criteria, context, constraints — same rules as `requirements-gate.mdc`
+2. **If missing** → ask clarifying questions; offer the **Requirements template** in `requirements-gate.mdc`; do NOT code
+3. **If complete** → follow the decision tree in `multi-agent-workflow.mdc`:
+   - Trivial (typo, rename, one-liner) → implement directly
+   - Non-trivial → Plan Mode per `plan-first-workflow.mdc` or Phase 1 per `multi-agent-workflow.mdc` when both apply
+   - Wait for approval before implementation when planning is required
+4. **Never assume** missing details — see `never-assume.mdc`
+
+Verification after implementation: `verifiable-goals.mdc`.
+
+## Coding standards (not covered elsewhere)
+
+- **Stack:** Hugo (markdown content + HTML layouts); CSS in `static/assets/styles.css`; Node scripts for deploy helpers.
+- **Content:** Markdown with YAML front matter; layout via shortcodes in `layouts/shortcodes/`.
+- **Clean edits:** Match existing shortcode and front-matter patterns on sibling pages.
+- **Documentation:** For website tasks, follow and update `docs/website.md` when adding shortcodes or new page patterns.
 
 ---
 > Source: [OWASP/MOSAIC](https://github.com/OWASP/MOSAIC) — distributed by [TomeVault](https://tomevault.io).
