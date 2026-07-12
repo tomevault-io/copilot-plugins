@@ -1,0 +1,9 @@
+{
+  "name": "nextweb4--photo-metadata-editor",
+  "displayName": "photo-metadata-editor",
+  "description": "Windows desktop EXIF/XMP/IPTC photo metadata editor powered by ExifTool.",
+  "version": "1.0.0",
+  "author": "NextWeb4",
+  "homepage": "https://github.com/NextWeb4/photo-metadata-editor",
+  "skills": []
+}
