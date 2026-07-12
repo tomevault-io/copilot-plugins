@@ -1,0 +1,9 @@
+{
+  "name": "projectbluefin--server",
+  "displayName": "server",
+  "description": "The world's premier FSDK server operating system.",
+  "version": "1.0.0",
+  "author": "projectbluefin",
+  "homepage": "https://github.com/projectbluefin/server",
+  "skills": []
+}
