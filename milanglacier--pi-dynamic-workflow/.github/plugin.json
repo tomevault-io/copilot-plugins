@@ -1,0 +1,9 @@
+{
+  "name": "milanglacier--pi-dynamic-workflow",
+  "displayName": "pi-dynamic-workflow",
+  "description": "Dynamic workflow orchestration for pi: the LLM authors a JS orchestration script that fans out isolated pi subagent sessions. Written by Claude Fable 5.",
+  "version": "1.0.0",
+  "author": "milanglacier",
+  "homepage": "https://github.com/milanglacier/pi-dynamic-workflow",
+  "skills": []
+}
