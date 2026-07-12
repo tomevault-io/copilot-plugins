@@ -1,0 +1,9 @@
+{
+  "name": "fulcrologic--escapement",
+  "displayName": "escapement",
+  "description": "An agentic coding agent driven by statecharts.",
+  "version": "1.0.0",
+  "author": "fulcrologic",
+  "homepage": "https://github.com/fulcrologic/escapement",
+  "skills": []
+}
