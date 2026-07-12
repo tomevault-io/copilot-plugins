@@ -1,0 +1,9 @@
+{
+  "name": "jmischler72--mqtt-dashboard",
+  "displayName": "mqtt-dashboard",
+  "description": "A self-hostable MQTT dashboard/explorer for IoT developers.",
+  "version": "1.0.0",
+  "author": "jmischler72",
+  "homepage": "https://github.com/jmischler72/mqtt-dashboard",
+  "skills": []
+}
