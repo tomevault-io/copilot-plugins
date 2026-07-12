@@ -1,0 +1,9 @@
+{
+  "name": "cajasmota--grafel",
+  "displayName": "grafel",
+  "description": "Multi-repo code knowledge graphs for AI agents. Cross-repo linking, infrastructure topology, watcher-driven freshness.",
+  "version": "1.0.0",
+  "author": "cajasmota",
+  "homepage": "https://github.com/cajasmota/grafel",
+  "skills": []
+}
