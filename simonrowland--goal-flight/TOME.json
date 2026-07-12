@@ -4,7 +4,7 @@
   "repo": "goal-flight",
   "description": "Claude/Cursor plugin and scripts: long-running controller pattern to chunk and delegate code work to cli-agents, with embedded adversarial review and RAG corpus",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/simonrowland/goal-flight",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T02:45:14Z"
+  "distributed_at": "2026-07-12T02:55:16Z"
 }
