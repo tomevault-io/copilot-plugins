@@ -1,0 +1,9 @@
+{
+  "name": "hayaiapp--hayaitts",
+  "displayName": "HayaiTTS",
+  "description": "Offline neural TTS engine for Android. Registers system-wide, ships 186 voices via sherpa-onnx (Piper / Kokoro / Kitten / Matcha / ZipVoice / Pocket / Supertonic). Material 3 Expressive. Companion to ",
+  "version": "1.0.0",
+  "author": "HayaiApp",
+  "homepage": "https://github.com/HayaiApp/HayaiTTS",
+  "skills": []
+}
