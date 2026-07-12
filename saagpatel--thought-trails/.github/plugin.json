@@ -1,0 +1,9 @@
+{
+  "name": "saagpatel--thought-trails",
+  "displayName": "thought-trails",
+  "description": "Visualize LLM chain-of-thought as a live D3 force graph \u2014 watch reasoning emerge node by node",
+  "version": "1.0.0",
+  "author": "saagpatel",
+  "homepage": "https://github.com/saagpatel/thought-trails",
+  "skills": []
+}
