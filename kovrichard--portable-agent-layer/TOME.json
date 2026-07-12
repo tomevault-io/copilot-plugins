@@ -4,7 +4,7 @@
   "repo": "portable-agent-layer",
   "description": "Portable Agent Layer (PAL)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kovrichard/portable-agent-layer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T08:40:12Z"
+  "distributed_at": "2026-07-12T08:45:07Z"
 }
