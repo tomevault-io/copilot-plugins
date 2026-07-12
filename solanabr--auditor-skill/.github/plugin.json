@@ -1,0 +1,9 @@
+{
+  "name": "solanabr--auditor-skill",
+  "displayName": "auditor-skill",
+  "description": "Claude Code / agentic security skill for Solana programs and software. Full audit-firm lifecycle, executable PoC + fix-patch delivery, a Rust pre-scanner + cross-audit memory, 1,346 checks across 20 c",
+  "version": "1.0.0",
+  "author": "solanabr",
+  "homepage": "https://github.com/solanabr/auditor-skill",
+  "skills": []
+}
