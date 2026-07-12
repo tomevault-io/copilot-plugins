@@ -1,17 +1,35 @@
-## 13-ai-workflow
+## 14-ui-copywriting
 
-> AI workflow for fast, accurate, token-efficient vibe coding across tools
+> 用户可见文案中文化规范；禁止主界面裸英文技术词，统一术语与检查命令
 
 
-# AI 工作流规则
+# 用户可见文案中文化
 
-- 开始任务前先读 `AGENTS.md`、`docs/ai-workflow.md` 和 `docs/module-map.md` 中与当前任务相关的部分。
-- 先把用户需求改写为短执行提示词：目标、任务类型、范围边界、事实确认、实现策略、验证和沉淀。
-- 先形成最小上下文包：任务目标、改动类型、关联入口、已有实现、验证方式、风险。
-- 按上下文预算工作：先搜索和局部读取确认事实，再扩大范围；不把大文件、大日志或无关上下文塞进对话。
-- 规则文件保持短而可执行；详细解释放入 `docs/`，避免 Cursor 每次加载过多 token。
-- 重复出现的问题、质量门槛、架构决策、Prompt 模板和工具约定，应按 `docs/ai-workflow.md` 写回对应文档、pitfalls、`docs/PROGRESS.md` 或 rules。
-- 不把真实密钥、Cookie、Token、客户数据、生产数据或私密对话写入经验文档。
+## 适用范围
+
+管理端页面、组件、常量中的 **title / label / description / message / Alert / Tag / 表格列标题 / 表单 Help**；后端进入 API 响应的 **message、label、title、suggestedAction、预检项文案**。
+
+不约束：代码标识符、路由、类型名、JSON 字段键、日志、注释、`TechnicalDetails` 内原始数据。
+
+## 必须遵守
+
+1. 主界面**不得**裸写：`Worker`、`runtime`、`Provider`、`Storage`、`Stale`、`Endpoint`、`Webhook`（作名词）、`mock`、`blocked_by_*`、`Release Candidate` 等（见 `docs/ui-copywriting.md` 术语表）。
+2. 新增用户文案**优先**引用 `admin/src/constants/copywriting.ts`、`admin/src/constants/userFriendly.ts`。
+3. 状态/枚举展示用 `commonStatusLabel()`、`platformLabel()` 等映射，**禁止**直接渲染英文枚举值。
+4. 后端用户可见字符串与前端同一术语（如 Storage→存储、Token→访问令牌、SKU→规格）。
+5. 平台品牌（TikTok、Amazon SP-API）、协议（HTTPS）、云产品名（S3）可保留。
+
+## 改动后检查
+
+```bash
+pnpm check:ui-copy --strict
+```
+
+涉及大量文案时，同步更新 `docs/ui-copywriting.md` 术语表（若新增高频词）。
+
+## 详细规范
+
+完整术语表、禁止模式与 AI 工作流说明见 **`docs/ui-copywriting.md`** 与 **`docs/ai-workflow.md` § Admin 文案与 UI 规范**。
 
 ---
 > Source: [lien0219/trademind-ai](https://github.com/lien0219/trademind-ai) — distributed by [TomeVault](https://tomevault.io).
