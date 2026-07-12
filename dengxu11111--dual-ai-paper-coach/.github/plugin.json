@@ -1,0 +1,9 @@
+{
+  "name": "dengxu11111--dual-ai-paper-coach",
+  "displayName": "dual-ai-paper-coach",
+  "description": "Claude Code writes the paper. Codex CLI independently reviews it. Together they produce a submission-ready draft.",
+  "version": "1.0.0",
+  "author": "dengxu11111",
+  "homepage": "https://github.com/dengxu11111/dual-ai-paper-coach",
+  "skills": []
+}
