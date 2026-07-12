@@ -1,0 +1,9 @@
+{
+  "name": "drbearjew--roxxy",
+  "displayName": "RoxxY",
+  "description": "RDNA3-focused llama.cpp fork with packed16 K-cache FlashAttention.",
+  "version": "1.0.0",
+  "author": "DrBearJew",
+  "homepage": "https://github.com/DrBearJew/RoxxY",
+  "skills": []
+}
