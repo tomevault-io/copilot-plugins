@@ -1,0 +1,9 @@
+{
+  "name": "okasi--is-fast-internet",
+  "displayName": "is-fast-internet",
+  "description": "Zero-dependency browser check for fast internet \u2014 reliable even in censored countries",
+  "version": "1.0.0",
+  "author": "okasi",
+  "homepage": "https://github.com/okasi/is-fast-internet",
+  "skills": []
+}
