@@ -1,55 +1,51 @@
-## architecture
+## packages
 
-> Core architecture rules — applies to all files in this project
+> Package-specific rules for packages/ directory
 
 
-# Architecture Rules
+# Package Rules
 
 > Canonical rules: see `CLAUDE.md` + `.claude/skills/*` — this file is a pointer + the load-bearing subset; CLAUDE.md wins on any conflict.
 
-Local-first **Tauri** desktop app. **Tauri is the shell** — Rust core does the work, React renders.
+There are exactly five workspace packages: `@ajh/shared`, `@ajh/ui`, `@ajh/prompts`, `@ajh/translations`,
+`@ajh/test-ids`. There are no separate backend TS packages — backend logic lives in the Rust core under
+`apps/desktop/src-tauri/`, reached only via the IPC contract.
 
 ## Path Privacy
 
 - Never expose real local file system paths, usernames, home dirs, drive letters, or temp paths.
-- Always use repository-relative paths (`apps/desktop/src/main.rs`, not an absolute path).
-- Sanitize absolute paths in logs, stack traces, PRs, commits, and markdown.
+- Always use repository-relative paths. Sanitize absolute paths in logs, PRs, commits, and markdown.
 
-## Shell — prefix EVERY command with `rtk`
-`rtk pnpm build` · `rtk git status` · `rtk rg foo` · `rtk fd src` · `rtk bat file.ts`.
-`rtk rg` not `grep` · `rtk fd` not `find` · `rtk bat` not `cat`. Always Bash, never PowerShell.
-Never `find -exec`. Git Bash paths: `/c/Users/...`.
+## @ajh/ui (packages/ui)
+- No app logic — no Zustand, no IPC, no routing imports
+- Components import design utilities from local `./lib/cn`, `./lib/motion`
+- Stories go in `src/stories/ComponentName.stories.tsx`
+- CSS utilities use tokens from `src/css/tokens.css` — no raw values
 
-## Monorepo packages (five workspace packages)
-- `packages/shared` (`@ajh/shared`) — IPC contracts + Zod schemas + types. No React, no Node APIs.
-- `packages/ui` (`@ajh/ui`) — React component library + design system. No app logic (no Zustand, no IPC).
-- `packages/prompts` (`@ajh/prompts`) — AI prompt templates. Pure TypeScript, zero deps. No UI, no `window`.
-- `packages/translations` (`@ajh/translations`) — i18next config + en/de resources. No app/IPC/renderer imports.
-- `packages/test-ids` (`@ajh/test-ids`) — Central data-testid constants shared by components and tests.
+## @ajh/shared (packages/shared)
+- Zero runtime dependencies except `zod`
+- No React, no Node-specific APIs
+- IPC contract is the source of truth — add here first when adding capabilities
 
-The Rust core lives in `apps/desktop/src-tauri/`; the React renderer in `apps/desktop/src/renderer/`.
+## @ajh/prompts (packages/prompts)
+- Pure TypeScript — no imports from other packages
+- No `window`, `document`, or React references
 
-## IPC boundary
-- The renderer never calls `window.api.*` directly — it goes through service hooks.
-- Service hooks live in `apps/desktop/src/renderer/services/` (React Query wrappers over `invoke`/`listen`).
-- IPC contract is the single source of truth: `packages/shared/src/ipc/contracts.ts`.
+## @ajh/translations (packages/translations)
+- i18next config + UI translation resources (en/de) → consumed as `@ajh/translations`
+- No app / IPC / renderer imports (the locale→main listener stays in the renderer's `@/i18n` shim)
 
-## New IPC capability (5 steps)
-1. `packages/shared/src/ipc/contracts.ts` — add signature
-2. `apps/desktop/src-tauri/src/commands.rs` — implement Tauri command
-3. `apps/desktop/src/tauri-client.ts` — wire invoke call
-4. `apps/desktop/src/renderer/services/` — create hook
-5. `services/query-client.ts` — add query key
+## @ajh/test-ids (packages/test-ids)
+- Central nested feature-namespaced `TEST_IDS` constant map
+- Shared by production components (for `data-testid`) and tests
+- No app logic, zero deps
 
-## Full documentation
-- `docs/ARCHITECTURE.md` — process model, package roles, all data flows
-- `docs/PATTERNS.md` — enforced coding patterns with examples
-- `docs/DESIGN_SYSTEM.md` — color tokens, glass surfaces, motion system
-- `docs/DEVELOPMENT.md` — setup, commands, debugging, CI
-
-## Release
-`feat:` → minor, `fix:`/`perf:` → patch, `BREAKING CHANGE` → major.
-Never manually tag or edit CHANGELOG.md / version files.
+## Dependency direction
+```
+renderer → @ajh/ui, @ajh/shared, @ajh/prompts, @ajh/translations, @ajh/test-ids
+Rust core (apps/desktop/src-tauri) ← reached only via IPC (packages/shared contract)
+```
+Lower packages never import from upper packages.
 
 ---
 > Source: [saeedkolivand/ai-job-hunter-app](https://github.com/saeedkolivand/ai-job-hunter-app) — distributed by [TomeVault](https://tomevault.io).
