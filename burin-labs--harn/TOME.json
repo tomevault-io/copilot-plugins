@@ -3,8 +3,8 @@
   "owner": "burin-labs",
   "repo": "harn",
   "description": "Harn is a programming language and runtime for building AI agents.",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "rust-scripting",
-      "path": "conformance/tests/scenarios/skills_load_skill_roundtrip/.harn/skills/rust-scripting",
-      "github_url": "https://github.com/burin-labs/harn/tree/main/conformance/tests/scenarios/skills_load_skill_roundtrip/.harn/skills/rust-scripting",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/burin-labs/harn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-12T06:30:35Z"
+  "distributed_at": "2026-07-12T06:49:22Z"
 }
