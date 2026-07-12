@@ -1,0 +1,9 @@
+{
+  "name": "tompassarelli--beagle",
+  "displayName": "beagle",
+  "description": "a typed programming language that emits to multiple backends",
+  "version": "1.0.0",
+  "author": "tompassarelli",
+  "homepage": "https://github.com/tompassarelli/beagle",
+  "skills": []
+}
