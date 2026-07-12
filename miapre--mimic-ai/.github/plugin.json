@@ -1,0 +1,9 @@
+{
+  "name": "miapre--mimic-ai",
+  "displayName": "mimic-ai",
+  "description": "The design system copilot that builds Figma from HTML using your real components and tokens. Learns your system, surfaces your gaps.",
+  "version": "1.0.0",
+  "author": "miapre",
+  "homepage": "https://github.com/miapre/mimic-ai",
+  "skills": []
+}
