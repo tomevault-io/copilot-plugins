@@ -244784,6 +244784,11 @@
       "description": "A skill for Python debugging methods and best practices"
     },
     {
+      "name": "dabit3--vending-machine",
+      "source": "./dabit3--vending-machine",
+      "description": "Dispense coupons and credits based on email address"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -266639,6 +266644,31 @@
       "description": "Skill\u6863\u6848\u7ba1\u7406"
     },
     {
+      "name": "hyuunnn--ida-slides",
+      "source": "./hyuunnn--ida-slides",
+      "description": "Present live reverse-engineering with Marp/Slidev decks docked inside IDA Pro"
+    },
+    {
+      "name": "mingtheanlay--charon",
+      "source": "./mingtheanlay--charon",
+      "description": "Stop manually editing config files every time you test a different API key or endpoint. Save profiles, switch with one command."
+    },
+    {
+      "name": "jenissimo--bottleship",
+      "source": "./jenissimo--bottleship",
+      "description": "Run classic Windows games in your browser. A high-level-emulation engine that boots real x86 Windows executables and reimplements Win32, COM and DirectDraw/Direct3D on WebGPU, WebAudio and OPFS"
+    },
+    {
+      "name": "little-scale--sndj",
+      "source": "./little-scale--sndj",
+      "description": "A native music tracker for the SNES"
+    },
+    {
+      "name": "nevaberry--dioxus-maplibre",
+      "source": "./nevaberry--dioxus-maplibre",
+      "description": "dioxus-maplibre"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -271172,6 +271202,11 @@
       "name": "akitaonrails--tiktok-analysis",
       "source": "./akitaonrails--tiktok-analysis",
       "description": "Claude Fable 5 based source code analysis of TikTok app - does it leak your privacy? how?"
+    },
+    {
+      "name": "4tyone--smoothie",
+      "source": "./4tyone--smoothie",
+      "description": "Smoothie - a multimodal data compiler. Compile scattered data into a grounded, queryable bytecode (bc.v1) served by the SVM."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
