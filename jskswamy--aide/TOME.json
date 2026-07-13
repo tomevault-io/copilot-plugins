@@ -1,0 +1,75 @@
+{
+  "name": "aide",
+  "owner": "jskswamy",
+  "repo": "aide",
+  "description": "Stop babysitting your agent. One command, any agent \u2014 sandboxed, reproducible, zero decision fatigue",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "context-doctor",
+      "path": "plugins/claude-code/skills/context-doctor",
+      "github_url": "https://github.com/jskswamy/aide/tree/main/plugins/claude-code/skills/context-doctor",
+      "description": ""
+    },
+    {
+      "name": "config-review",
+      "path": "plugins/claude-code/skills/config-review",
+      "github_url": "https://github.com/jskswamy/aide/tree/main/plugins/claude-code/skills/config-review",
+      "description": ""
+    },
+    {
+      "name": "secrets-doctor",
+      "path": "plugins/claude-code/skills/secrets-doctor",
+      "github_url": "https://github.com/jskswamy/aide/tree/main/plugins/claude-code/skills/secrets-doctor",
+      "description": ""
+    },
+    {
+      "name": "setup-guide",
+      "path": "plugins/claude-code/skills/setup-guide",
+      "github_url": "https://github.com/jskswamy/aide/tree/main/plugins/claude-code/skills/setup-guide",
+      "description": ""
+    },
+    {
+      "name": "sandbox-doctor",
+      "path": "plugins/claude-code/skills/sandbox-doctor",
+      "github_url": "https://github.com/jskswamy/aide/tree/main/plugins/claude-code/skills/sandbox-doctor",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jskswamy/aide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T06:31:08Z"
+}
