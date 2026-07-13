@@ -4,7 +4,7 @@
   "repo": "Diablo-Factory",
   "description": "\u6697\u9ed1\u6d41\u6c34\u7dda\u5de5\u5ee0",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/myKOF/Diablo-Factory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T08:34:58Z"
+  "distributed_at": "2026-07-13T08:43:47Z"
 }
