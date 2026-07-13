@@ -1,0 +1,9 @@
+{
+  "name": "qianmokano--asukaplayer",
+  "displayName": "Asukaplayer",
+  "description": "Modern local-first Android video player with Compose UI, Media3 playback, indexed media library, and persistent playback state.",
+  "version": "1.0.0",
+  "author": "qianmokano",
+  "homepage": "https://github.com/qianmokano/Asukaplayer",
+  "skills": []
+}
