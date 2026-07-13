@@ -1,0 +1,9 @@
+{
+  "name": "pbanddev--comfyui-command-palette",
+  "displayName": "comfyui-command-palette",
+  "description": "ComfyUI custom node pack adding a frontend command palette (Ctrl/Cmd+K) for fast navigation, command running, node search, and template loading.",
+  "version": "1.0.0",
+  "author": "PBandDev",
+  "homepage": "https://github.com/PBandDev/comfyui-command-palette",
+  "skills": []
+}
