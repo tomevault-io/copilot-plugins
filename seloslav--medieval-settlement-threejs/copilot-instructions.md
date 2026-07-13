@@ -1,62 +1,30 @@
-## complexity-optimization
+## engineering-rigor
 
-> Optimize O(n) complexity when it appears in hot paths or user-triggered code
+> enforce core software engineering principles (clean, maintainable, scalable code)
 
 
-# Complexity Optimization
+Apply senior-level engineering rigor to every change.
 
-When writing or reviewing code, identify and fix O(n) scans that run frequently or on large collections.
+Priorities (in order):
+- **Abstraction + simplicity**: choose the simplest correct design, avoid cleverness.
+- **DRY**: don’t duplicate logic or constants, reuse utilities where it actually reduces complexity.
+- **Separation of concerns**: keep UI, domain logic, data access, and side effects cleanly separated.
+- **Modularity + composability**: build small pieces that combine cleanly.
+- **Encapsulation**: hide internals, expose minimal stable APIs.
+- **Single Responsibility**: each module/function does one job and does it well.
+- **Dependency injection**: pass dependencies in (don’t hardcode globals), make code swappable and testable.
+- **Immutability by default**: avoid mutation unless there’s a clear perf reason.
+- **Idempotency**: retries should be safe; repeated calls shouldn’t create weird state.
+- **Testability**: write code that’s easy to unit test (pure functions, small surfaces, predictable IO).
+- **Readability**: clear naming, straightforward control flow, minimal nesting.
+- **Scalability**: consider growth in data, users, and features without premature over-engineering.
+- **Performance awareness**: avoid obvious hot-path waste; measure before major optimizations.
+- **Error handling**: validate inputs, fail loudly with useful context, don’t swallow errors.
 
-## When to Optimize
-
-- **Hot paths**: Code that runs every frame, on every store update, or in frequently-called callbacks
-- **Large collections**: Loops over `people`, `buildings`, `trees`, `stones`, or other world data
-- **Repeated work**: Building the same Map/Set inside a callback instead of once via `useMemo`
-
-## Patterns
-
-### Prefer lookup over scan
-
-```typescript
-// ❌ O(n) on every recall
-const recallGroup = () => {
-  const peopleById = new Map(people.map((p) => [String(p.id), p]));
-  for (const ref of refs) {
-    const person = peopleById.get(ref.id);
-    // ...
-  }
-};
-
-// ✅ O(1) lookup; parent memoizes peopleById
-const peopleById = useMemo(
-  () => new Map(people.map((p) => [String(p.id), p])),
-  [people]
-);
-const getPersonById = useCallback((id: string) => peopleById.get(id), [peopleById]);
-```
-
-### Memoize expensive derivations
-
-```typescript
-// ❌ Rebuilds on every render
-const itemsById = new Map(items.map((i) => [i.id, i]));
-
-// ✅ Rebuild only when items change
-const itemsById = useMemo(
-  () => new Map(items.map((i) => [i.id, i])),
-  [items]
-);
-```
-
-### Defer non-critical work
-
-Use `useDeferredValue` or `requestIdleCallback` for updates that don't need immediate sync (e.g. harvest ticks, world data sync).
-
-## Apply Intelligently
-
-- User-triggered, infrequent actions (e.g. keypress recall): O(n) may be acceptable
-- Per-frame or per-tick: prefer O(1) or O(log n) lookups
-- When in doubt: add a lookup/cache if the collection is large (>100 items) or the code runs often
+When modifying existing code:
+- Preserve behavior unless the change explicitly requires otherwise.
+- Keep diffs small and localized.
+- Prefer refactors that reduce complexity and improve clarity.
 
 ---
 > Source: [SeloSlav/medieval-settlement-threejs](https://github.com/SeloSlav/medieval-settlement-threejs) — distributed by [TomeVault](https://tomevault.io).
