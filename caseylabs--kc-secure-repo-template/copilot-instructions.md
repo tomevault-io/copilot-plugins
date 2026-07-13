@@ -1,0 +1,143 @@
+## kc-secure-repo-template
+
+> Instructions for coding agents working in this repository.
+
+# AGENTS.md
+
+Instructions for coding agents working in this repository.
+
+## Project overview
+
+This repository is a secure-by-default GitHub repository template for new projects.
+
+It is intended to remain:
+
+- container-first for build, test, lint, and release
+- easy to adapt without weakening security, reproducibility, or review quality
+
+## Project defaults
+
+- Use TDD by default for new features, bug fixes, and behavior changes
+  - However, write tests for **code** only, do not write tests for written content/filenames/directory structures, etc.
+
+## Public interface
+
+Use `make help` as the source of truth for available root targets. Prefer a small stable root `Makefile` interface, with this core set when supported by the repository:
+
+```shell
+make build
+make test
+make run
+make stop
+make status
+make logs
+make clean
+make update
+make example
+```
+
+Use `make scan` for template security and workflow checks, and `make dist` for release artifact and integrity outputs when those areas are affected. Use `make k8s` for the optional Kubernetes Helm scaffold and `make k8s-test-local` only when a real kubeconfig/context is available for server-side dry-run validation. Treat specialized targets such as `make shell`, `make renovate`, `make k8s`, `make k8s-test-local`, and `make infra` as task-specific conveniences rather than the core public interface.
+
+Rules:
+
+1. Keep the root public interface condensed and easy to remember.
+2. Hide extra complexity behind `scripts/`, `config/project.cfg`, and compatibility targets when needed.
+
+## Skill routing
+
+Use a repo-local skill only when a matching skill actually exists in `.agents/skills/` and its description matches the task.
+
+Typical routing:
+
+- Use `repo-adaptation` when adapting this template or a forked repository to a real project, inspecting inserted `src/` code, or revising customization points.
+- Use `workflow-validation` when changing `Makefile`, `Dockerfile`, `scripts/`, tests, packaging manifests, CI, or release workflows.
+- Use `github-hardening` when updating GitHub-side hardening guidance or required repository settings.
+- Use `terraform-hardening` when changing or reviewing the Terraform-backed GitHub repository hardening workspace under `config/infra`.
+- Use `release-integrity` when working on SBOMs, attestations, artifact scanning, signing guidance, or release workflow safety.
+- Use `language-profile-guidance` when adding or revising optional Go, Node.js, SQL, or polyglot guidance.
+- Use `pr-draft-summary` when drafting a PR handoff after substantive repository changes.
+- Use `security-review` only when the user explicitly invokes `$security-review`; do not select it by semantic matching.
+
+If no matching skill exists, follow this file and the repository itself.
+
+## Before making changes
+
+- Read the relevant files before editing.
+- Identify the affected workflow from the repository itself before choosing checks or commands.
+- For complex, ambiguous, multi-step, or high-risk work, inspect the repository first, then make a short plan and ask clarifying questions only for unresolved intent or tradeoffs.
+- If the task depends on tool versions, commands, flags, APIs, package versions, or installation steps, verify them against the latest official documentation before acting.
+- Prefer targeted changes over broad rewrites.
+
+## Repository rules
+
+- `scripts/` contains implementation details for build, test, lint, release, and security checks.
+- `config/project.cfg` is the main customization point.
+- `Dockerfile` provides the development and CI runtime baseline.
+- `.github/workflows/` should call `make` targets instead of duplicating project logic inline.
+- `.agents/code_review.md` contains the detailed `/review` checklist; keep `AGENTS.md` focused on durable operating rules.
+- `.agents/skills/*/SKILL.md` contains task-specific agent workflows; keep skill routing in this file aligned with the actual local skills.
+- `config/infra/` and `config/k8s/` have subtree `AGENTS.md` files with local hazards and verification rules.
+- `docs/gitops-conventions.md` defines branch, PR, issue, label, commit, and release naming conventions.
+- Keep template packaging and release manifests aligned.
+- Follow the repository's existing structure, naming, and style.
+- Do not introduce new dependencies unless necessary and justified.
+- Preserve intended behavior unless the task explicitly requires a change.
+- Preserve backwards compatibility unless the task explicitly allows a breaking change.
+- Do not add broad error handling that hides failures.
+- Prefer explicit error propagation or clear surfaced failures over silent fallbacks.
+- When behavior changes, update or add the relevant tests.
+- Keep secrets, tokens, and credentials out of code, logs, fixtures, examples, and documentation.
+
+## Security and reproducibility
+
+- Build, test, lint, and release through non-root Docker-based workflows unless the task explicitly requires a host-only action.
+- Do not require host-installed language toolchains for normal use.
+- Keep Dockerfiles deterministic and easy to audit.
+- Prefer lockfiles, checksums, pinned versions, and pinned GitHub Actions where practical.
+- Verify checksums or signatures for downloads when feasible.
+- Keep generated artifacts and caches out of the Docker build context.
+- Ensure local and GitHub Actions workflows call the same `make` targets.
+
+## Verification
+
+Run the smallest relevant verification stack that gives high confidence for the files changed.
+
+Minimum expectations:
+
+- For documentation-only changes, verify that examples, commands, paths, and references still match the repository.
+- For code, test, Docker, script, packaging, CI, security, or release changes, run the relevant existing `make` targets and any directly affected checks.
+- Do not claim success without verification.
+- If a needed check cannot be run, state that clearly and explain why.
+
+## Review
+
+When reviewing changes or using `/review`:
+
+1. Read `.agents/code_review.md` first for repository-wide review criteria.
+2. Apply any more specific guidance from the closest active `AGENTS.md`.
+3. Prioritize the risks named there, especially template security, reproducibility, workflow drift, public-interface stability, and documentation accuracy.
+
+## Documentation
+
+- Update documentation when code changes materially affect setup, usage, behavior, configuration, security posture, or developer workflows.
+- Prefer short indented bullet-points when writing documentation, comments, or pull request descriptions.
+- Keep documentation changes tightly scoped to the task.
+- Ensure documentation reflects the actual workflow.
+- Avoid changing the root `README.md` unless it is factually wrong or behavior has changed; prefer focused subfolder `README.md` files for new detail.
+- When the same mistake, review comment, or workflow confusion appears more than once, propose a targeted update to `AGENTS.md` or the relevant `.agents/skills/*/SKILL.md`, and prompt the user if they want the update made.
+- Add or update a subtree `AGENTS.md` when that subtree has real local rules, hazards, or verification needs.
+- Add code comments for non-obvious workflow, security, reproducibility, or repo-adaptation decisions; be generous with your code comments, and assume the user is new to the tooling or frameworks.
+
+## Definition of done
+
+A change is done when:
+
+1. the requested change is implemented cleanly
+2. relevant documentation and workflow references are updated when behavior changes
+3. relevant checks were run, or any verification gap is clearly stated
+4. documented workflows are preserved unless intentionally revised
+5. generic template boundaries remain intact
+
+---
+> Source: [CaseyLabs/kc-secure-repo-template](https://github.com/CaseyLabs/kc-secure-repo-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-13 -->
