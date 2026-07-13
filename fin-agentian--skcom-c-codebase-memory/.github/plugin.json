@@ -1,0 +1,9 @@
+{
+  "name": "fin-agentian--skcom-c-codebase-memory",
+  "displayName": "SKCOM_C_codebase_memory",
+  "description": "\u7fa4\u76ca CapitalAPI\uff08\u7b56\u7565\u738b COM \u5143\u4ef6\uff09AI \u53ef\u8b80\u898f\u683c\u5eab + \u9810\u5efa\u77e5\u8b58\u5716\u8b5c\uff5cAI-ready spec & prebuilt code-graph for Capital Futures CapitalAPI",
+  "version": "1.0.0",
+  "author": "Fin-Agentian",
+  "homepage": "https://github.com/Fin-Agentian/SKCOM_C_codebase_memory",
+  "skills": []
+}
