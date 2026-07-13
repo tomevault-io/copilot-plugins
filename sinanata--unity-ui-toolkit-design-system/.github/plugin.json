@@ -1,0 +1,9 @@
+{
+  "name": "sinanata--unity-ui-toolkit-design-system",
+  "displayName": "unity-ui-toolkit-design-system",
+  "description": "Drop-in design system for Unity 6 UI Toolkit (UIDocument + PanelRenderer, UXML + USS): tokens, 24 components, 63 icons, mobile-responsive, dark-themed. One stylesheet, zero dependencies. Battle-tested",
+  "version": "1.0.0",
+  "author": "sinanata",
+  "homepage": "https://github.com/sinanata/unity-ui-toolkit-design-system",
+  "skills": []
+}
