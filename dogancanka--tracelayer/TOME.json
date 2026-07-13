@@ -1,0 +1,44 @@
+{
+  "name": "TraceLayer",
+  "owner": "Dogancanka",
+  "repo": "TraceLayer",
+  "description": "TraceLayer is an open-source Windows desktop overlay. It puts a paper-like, semi-transparent, always-on-top window over whatever you are working on \u2014 a browser, Revit, AutoCAD, Photoshop, anything \u2014 so you can trace, compare, and reference without switching apps",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dogancanka/TraceLayer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T18:30:38Z"
+}
