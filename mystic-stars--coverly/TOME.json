@@ -1,0 +1,44 @@
+{
+  "name": "Coverly",
+  "owner": "Mystic-Stars",
+  "repo": "Coverly",
+  "description": "\u8f7b\u5de7\u3001\u4f18\u96c5\u7684\u5c01\u9762\u8bbe\u8ba1\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mystic-Stars/Coverly",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T02:44:39Z"
+}
