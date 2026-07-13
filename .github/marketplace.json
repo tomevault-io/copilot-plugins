@@ -25569,6 +25569,11 @@
       "description": "lssh"
     },
     {
+      "name": "vrallev--app-platform",
+      "source": "./vrallev--app-platform",
+      "description": "A lightweight application framework for state and memory management suitable for Kotlin Multiplatform projects."
+    },
+    {
       "name": "davekilleen--dex",
       "source": "./davekilleen--dex",
       "description": "Your AI Chief of Staff \u2014 a personal operating system starter kit that adapts to your role. No coding required."
@@ -36312,6 +36317,11 @@
       "name": "leodip--goiabada",
       "source": "./leodip--goiabada",
       "description": "goiabada"
+    },
+    {
+      "name": "gollem-dev--gollem",
+      "source": "./gollem-dev--gollem",
+      "description": "Go framework for agentic AI app with MCP and built-in tools"
     },
     {
       "name": "jonathan-vella--azure-agentic-infraops",
@@ -244509,6 +244519,36 @@
       "description": "Greyfield"
     },
     {
+      "name": "esaruoho--apple",
+      "source": "./esaruoho--apple",
+      "description": "Apple Automation Architecture & Workflows \u2014 studying macOS automation libraries and continuing Sal Soghoian's vision"
+    },
+    {
+      "name": "jkaloger--lazyspec",
+      "source": "./jkaloger--lazyspec",
+      "description": "A little TUI for project documentation. "
+    },
+    {
+      "name": "jkaloger--lazyspec",
+      "source": "./jkaloger--lazyspec",
+      "description": "A little TUI for project documentation. "
+    },
+    {
+      "name": "qkrdkwl9090--urdf-viewer",
+      "source": "./qkrdkwl9090--urdf-viewer",
+      "description": "Browser-based URDF viewer for visualizing and controlling robot models in 3D"
+    },
+    {
+      "name": "yllvar--quant-autoresearch",
+      "source": "./yllvar--quant-autoresearch",
+      "description": "Quant Autoresearch is an autonomous framework for trading strategy evolution, adapted from the Karpathy's `autoresearch` philosophy. It treats the search for alpha as a code-evolution problem, where h"
+    },
+    {
+      "name": "qianmokano--asukaplayer",
+      "source": "./qianmokano--asukaplayer",
+      "description": "Modern local-first Android video player with Compose UI, Media3 playback, indexed media library, and persistent playback state."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270822,6 +270862,16 @@
       "name": "mystic-stars--coverly",
       "source": "./mystic-stars--coverly",
       "description": "\u8f7b\u5de7\u3001\u4f18\u96c5\u7684\u5c01\u9762\u8bbe\u8ba1\u5de5\u5177"
+    },
+    {
+      "name": "kbrmau--linkedin-resume-optimizer",
+      "source": "./kbrmau--linkedin-resume-optimizer",
+      "description": "Skill de otimiza\u00e7\u00e3o de LinkedIn e curr\u00edculo, us\u00e1vel em Claude Code, Cursor e Codex"
+    },
+    {
+      "name": "gracker--perfetto-skills",
+      "source": "./gracker--perfetto-skills",
+      "description": "Portable Agent Skill for evidence-based Perfetto trace analysis"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -395527,6 +395577,21 @@
       "name": "ahmadghoniem--my-portfolio",
       "source": "./ahmadghoniem--my-portfolio",
       "description": "my-portfolio"
+    },
+    {
+      "name": "mykof--diablo-factory",
+      "source": "./mykof--diablo-factory",
+      "description": "\u6697\u9ed1\u6d41\u6c34\u7dda\u5de5\u5ee0"
+    },
+    {
+      "name": "zyx-0314-pid--gopick-manual",
+      "source": "./zyx-0314-pid--gopick-manual",
+      "description": "gopick_manual"
+    },
+    {
+      "name": "mykof--diablo-factory",
+      "source": "./mykof--diablo-factory",
+      "description": "\u6697\u9ed1\u6d41\u6c34\u7dda\u5de5\u5ee0"
     }
   ]
 }
