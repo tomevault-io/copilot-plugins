@@ -1,0 +1,9 @@
+{
+  "name": "bronya0--ally-agent",
+  "displayName": "ally-agent",
+  "description": "A desktop AI coding assistant that works with your local projects. Ally helps you understand code, edit files, search a workspace, manage tasks, and complete development work through conversation.",
+  "version": "1.0.0",
+  "author": "Bronya0",
+  "homepage": "https://github.com/Bronya0/ally-agent",
+  "skills": []
+}
