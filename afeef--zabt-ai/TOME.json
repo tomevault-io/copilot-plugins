@@ -1,0 +1,44 @@
+{
+  "name": "zabt-ai",
+  "owner": "afeef",
+  "repo": "zabt-ai",
+  "description": "Self-hosted AI meeting intelligence \u2014 transcription (faster-whisper), speaker diarization (pyannote), and LLM summaries on infrastructure you control. An open-source, self-hostable alternative to Otter.ai / Fireflies.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/afeef/zabt-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T12:33:41Z"
+}
