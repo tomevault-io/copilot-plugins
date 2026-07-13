@@ -266044,6 +266044,21 @@
       "description": "Personal Finance tracking system with AI-based recommendations to keep your wallet heavier."
     },
     {
+      "name": "poplanguage--pop",
+      "source": "./poplanguage--pop",
+      "description": "pop"
+    },
+    {
+      "name": "flarkflarkflark--audiorestorationvst",
+      "source": "./flarkflarkflark--audiorestorationvst",
+      "description": "Audio restoration VST3/Standalone - Click removal, noise reduction, filters & EQ"
+    },
+    {
+      "name": "flarkflarkflark--audiorestorationvst",
+      "source": "./flarkflarkflark--audiorestorationvst",
+      "description": "Audio restoration VST3/Standalone - Click removal, noise reduction, filters & EQ"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
