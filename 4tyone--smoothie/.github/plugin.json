@@ -1,0 +1,9 @@
+{
+  "name": "4tyone--smoothie",
+  "displayName": "smoothie",
+  "description": "Smoothie - a multimodal data compiler. Compile scattered data into a grounded, queryable bytecode (bc.v1) served by the SVM.",
+  "version": "1.0.0",
+  "author": "4tyone",
+  "homepage": "https://github.com/4tyone/smoothie",
+  "skills": []
+}
