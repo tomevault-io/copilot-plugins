@@ -1,0 +1,9 @@
+{
+  "name": "malbruk--just-code",
+  "displayName": "just-code",
+  "description": "Just code, nothing else. A community VS Code chat extension on the Claude Agent SDK",
+  "version": "1.0.0",
+  "author": "malbruk",
+  "homepage": "https://github.com/malbruk/just-code",
+  "skills": []
+}
