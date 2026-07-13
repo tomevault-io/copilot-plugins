@@ -1,0 +1,9 @@
+{
+  "name": "alonw0--python-debugger-skill",
+  "displayName": "python-debugger-skill",
+  "description": "A skill for Python debugging methods and best practices",
+  "version": "1.0.0",
+  "author": "alonw0",
+  "homepage": "https://github.com/alonw0/python-debugger-skill",
+  "skills": []
+}
