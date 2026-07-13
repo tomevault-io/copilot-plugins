@@ -1,0 +1,26 @@
+{
+  "name": "dvnghiem--flowdeck",
+  "displayName": "FlowDeck",
+  "description": "AI-powered multi-agent workflow orchestration with built-in safety intelligence for OpenCode",
+  "version": "1.0.0",
+  "author": "DVNghiem",
+  "homepage": "https://github.com/DVNghiem/FlowDeck",
+  "skills": [
+    {
+      "name": "django-patterns",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "documentation-writer",
+      "description": ""
+    },
+    {
+      "name": "golang-patterns",
+      "description": ""
+    }
+  ]
+}
