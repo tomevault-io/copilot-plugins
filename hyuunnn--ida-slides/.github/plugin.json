@@ -1,0 +1,9 @@
+{
+  "name": "hyuunnn--ida-slides",
+  "displayName": "ida-slides",
+  "description": "Present live reverse-engineering with Marp/Slidev decks docked inside IDA Pro",
+  "version": "1.0.0",
+  "author": "hyuunnn",
+  "homepage": "https://github.com/hyuunnn/ida-slides",
+  "skills": []
+}
