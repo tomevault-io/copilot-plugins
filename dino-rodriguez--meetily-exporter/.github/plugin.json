@@ -1,0 +1,9 @@
+{
+  "name": "dino-rodriguez--meetily-exporter",
+  "displayName": "meetily-exporter",
+  "description": "Export your Meetily meeting notes as markdown",
+  "version": "1.0.0",
+  "author": "dino-rodriguez",
+  "homepage": "https://github.com/dino-rodriguez/meetily-exporter",
+  "skills": []
+}
