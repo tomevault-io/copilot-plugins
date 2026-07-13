@@ -4,7 +4,7 @@
   "repo": "Roomote",
   "description": "Your own cloud coding agent. Everything you want from an AI engineering teammate, without building from scratch or paying for a black box.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RooCodeInc/Roomote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T12:34:20Z"
+  "distributed_at": "2026-07-13T12:35:01Z"
 }
