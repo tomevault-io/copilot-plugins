@@ -1,0 +1,9 @@
+{
+  "name": "dabit3--vending-machine",
+  "displayName": "vending-machine",
+  "description": "Dispense coupons and credits based on email address",
+  "version": "1.0.0",
+  "author": "dabit3",
+  "homepage": "https://github.com/dabit3/vending-machine",
+  "skills": []
+}
