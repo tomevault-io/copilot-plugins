@@ -4,7 +4,7 @@
   "repo": "plinth",
   "description": "Plinth is an AI-native engineering toolkit for modern Java enterprise SDLC, built around reusable Commands, Agents, Skills, and MCP Servers.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jabrena/plinth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T17:30:37Z"
+  "distributed_at": "2026-07-13T17:31:12Z"
 }
