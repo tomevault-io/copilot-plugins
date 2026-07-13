@@ -1,0 +1,9 @@
+{
+  "name": "caseylabs--kc-secure-repo-template",
+  "displayName": "kc-secure-repo-template",
+  "description": "Security-hardened GitHub repository template, designed to prevent supply-chain attacks. Includes vulnerability scanning and AI agent skills.",
+  "version": "1.0.0",
+  "author": "CaseyLabs",
+  "homepage": "https://github.com/CaseyLabs/kc-secure-repo-template",
+  "skills": []
+}
