@@ -1,0 +1,9 @@
+{
+  "name": "appautomaton--latex-arxiv-skill",
+  "displayName": "latex-arxiv-SKILL",
+  "description": "A highly customizable agentic harness for arXiv-ready ML/AI review papers (and beyond). It drives agentic AI like Codex CLI and Claude Code through a gated LaTeX workflow with verified BibTeX citation",
+  "version": "1.0.0",
+  "author": "appautomaton",
+  "homepage": "https://github.com/appautomaton/latex-arxiv-SKILL",
+  "skills": []
+}
