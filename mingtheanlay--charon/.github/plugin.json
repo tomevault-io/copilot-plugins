@@ -1,0 +1,9 @@
+{
+  "name": "mingtheanlay--charon",
+  "displayName": "charon",
+  "description": "Stop manually editing config files every time you test a different API key or endpoint. Save profiles, switch with one command.",
+  "version": "1.0.0",
+  "author": "mingtheanlay",
+  "homepage": "https://github.com/mingtheanlay/charon",
+  "skills": []
+}
