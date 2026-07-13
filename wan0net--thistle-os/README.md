@@ -7,11 +7,11 @@ ThistleOS — ESP32-S3 operating system for LilyGo T-Deck Pro. Kernel, HAL, LVGL
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wan0net/thistle-os](https://github.com/wan0net/thistle-os).
+Original source: `CLAUDE.md` in [wan0net/thistle-os](https://github.com/wan0net/thistle-os).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
