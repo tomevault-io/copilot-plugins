@@ -1,0 +1,44 @@
+{
+  "name": "Diablo-Factory",
+  "owner": "myKOF",
+  "repo": "Diablo-Factory",
+  "description": "\u6697\u9ed1\u6d41\u6c34\u7dda\u5de5\u5ee0",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/myKOF/Diablo-Factory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T08:34:58Z"
+}
