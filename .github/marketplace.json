@@ -244549,6 +244549,36 @@
       "description": "Modern local-first Android video player with Compose UI, Media3 playback, indexed media library, and persistent playback state."
     },
     {
+      "name": "tcsenpai--nbus",
+      "source": "./tcsenpai--nbus",
+      "description": "Local IPC bus \u2014 pub/sub + shared state, zero config. Any app, any language."
+    },
+    {
+      "name": "tcsenpai--nbus",
+      "source": "./tcsenpai--nbus",
+      "description": "Local IPC bus \u2014 pub/sub + shared state, zero config. Any app, any language."
+    },
+    {
+      "name": "przbadu--hermes-ui",
+      "source": "./przbadu--hermes-ui",
+      "description": "Web UI for hermes, PWA installable app, extracted from hermes desktop, mobile app available."
+    },
+    {
+      "name": "stringke--ai-agents",
+      "source": "./stringke--ai-agents",
+      "description": "Claude Code \u5168\u5c40\u914d\u7f6e\u96c6\u5408\uff1aMemory\u3001Rules\u3001Skills\u3001MCP\u3002\u652f\u6301\u901a\u8fc7\u63d0\u793a\u8bcd\u5feb\u901f\u9002\u914d\u5176\u4ed6 AI \u7f16\u7801\u5de5\u5177\u3002"
+    },
+    {
+      "name": "whiteworld--codepick",
+      "source": "./whiteworld--codepick",
+      "description": "codepick"
+    },
+    {
+      "name": "nimaeskandary--go-realworld",
+      "source": "./nimaeskandary--go-realworld",
+      "description": "golang implementation of https://github.com/realworld-apps/realworld backend"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
