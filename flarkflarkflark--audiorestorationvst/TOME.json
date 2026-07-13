@@ -4,7 +4,7 @@
   "repo": "AudioRestorationVST",
   "description": "Audio restoration VST3/Standalone - Click removal, noise reduction, filters & EQ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flarkflarkflark/AudioRestorationVST",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T00:31:50Z"
+  "distributed_at": "2026-07-13T00:32:38Z"
 }
