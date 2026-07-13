@@ -1,0 +1,9 @@
+{
+  "name": "drowzeys--keys-glm5-2-quantrio-int4-int8-mixed-abliterated-c1-30toks-4x-dgx-sparks",
+  "displayName": "keys-GLM5.2-Quantrio-INT4-INT8-Mixed-Abliterated-C1-30toks-4x-DGX-Sparks",
+  "description": "GLM-5.2 Quantrio INT4/INT8 Mixed Abliterated \u2014 SPEED=1 C1\u224830 tok/s @ 128k on 4x DGX Spark. Step-by-step recipe, image bake, results.",
+  "version": "1.0.0",
+  "author": "drowzeys",
+  "homepage": "https://github.com/drowzeys/keys-GLM5.2-Quantrio-INT4-INT8-Mixed-Abliterated-C1-30toks-4x-DGX-Sparks",
+  "skills": []
+}
