@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--tiktok-analysis",
+  "displayName": "tiktok_analysis",
+  "description": "Claude Fable 5 based source code analysis of TikTok app - does it leak your privacy? how?",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/tiktok_analysis",
+  "skills": []
+}
