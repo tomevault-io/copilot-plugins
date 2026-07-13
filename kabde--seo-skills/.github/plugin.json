@@ -1,0 +1,9 @@
+{
+  "name": "kabde--seo-skills",
+  "displayName": "seo-skills",
+  "description": "SEO Blogger Toolkit pour Claude Code - 15 skills pour WordPress : audit, redaction, publication, topic clusters, E-E-A-T, schema, GEO/IA",
+  "version": "1.0.0",
+  "author": "kabde",
+  "homepage": "https://github.com/kabde/seo-skills",
+  "skills": []
+}
