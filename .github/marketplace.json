@@ -37209,6 +37209,11 @@
       "description": "\u57fa\u4e8e Python 3.11+ FastAPI \u7684\u5f02\u6b65\u97f3\u89c6\u9891\u8f6c\u5f55\u670d\u52a1\uff0c\u652f\u6301 YouTube\u3001\u5c0f\u5b87\u5b99\u3001Bilibili \u7b49\u591a\u5e73\u53f0\u89e3\u6790\uff0c\u672c\u5730\u90e8\u7f72\u53ef\u5b9e\u73b0\u8bf4\u8bdd\u4eba\u533a\u5206\u8f6c\u5f55\uff0c\u8c03\u7528 LLM \u5b8c\u6210\u6587\u672c\u667a\u80fd\u6821\u5bf9\u4e0e\u5185\u5bb9\u603b\u7ed3\uff0c\u914d\u5957\u7f51\u9875\u7aef\u67e5\u770b / \u5bfc\u51fa\u529f\u80fd\uff0c\u652f\u6301\u4f01\u4e1a\u5fae\u4fe1\u6d88\u606f\u63a8\u9001"
     },
     {
+      "name": "botirkhaltaev--pico-os",
+      "source": "./botirkhaltaev--pico-os",
+      "description": "A minimal RISC-V 32-bit OS written in Zig."
+    },
+    {
       "name": "hypothesi--mcp-server-tauri",
       "source": "./hypothesi--mcp-server-tauri",
       "description": "A Model Context Protocol (MCP) server and plugin for Tauri v2 development"
@@ -40172,6 +40177,11 @@
       "name": "tsubotax--melta-ui",
       "source": "./tsubotax--melta-ui",
       "description": "melta-ui"
+    },
+    {
+      "name": "alperefesahin--flutter-video-feed",
+      "source": "./alperefesahin--flutter-video-feed",
+      "description": "\u200bA Flutter app showcasing a smooth, TikTok-style vertical video feed with MVVM architecture and LRU-based video caching for optimal performance.\u200b"
     },
     {
       "name": "xenios-jp--xenios",
@@ -50802,6 +50812,11 @@
       "name": "fr0zon3--notion-mcp",
       "source": "./fr0zon3--notion-mcp",
       "description": "Notion mcp to connect AI agents to notion through markdown | Read and write notion markdown "
+    },
+    {
+      "name": "sahajamit--promptwright",
+      "source": "./sahajamit--promptwright",
+      "description": "Login-less, bring-your-own-key desktop agent that turns plain English into browser automation \u2014 and generates runnable Playwright, Cypress, and Selenium scripts."
     },
     {
       "name": "atuinsh--eye-declare",
@@ -168232,6 +168247,11 @@
       "name": "borb-sh--quillmark",
       "source": "./borb-sh--quillmark",
       "description": "Transform markdown into fully formatted documents"
+    },
+    {
+      "name": "mstan--megamanx4recomp",
+      "source": "./mstan--megamanx4recomp",
+      "description": "Mega Man X4 (USA, SLUS-00561) statically recompiled to a native PC executable with PSXRecomp"
     },
     {
       "name": "lucas-acc--sancho-skills",
