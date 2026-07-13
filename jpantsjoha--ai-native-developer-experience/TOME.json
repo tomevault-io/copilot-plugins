@@ -4,7 +4,7 @@
   "repo": "ai-native-developer-experience",
   "description": "Team-project AI harness bootstrap: shared operating model, skills and delivery guardrails for coherent human-agent work from day one.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jpantsjoha/ai-native-developer-experience",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T12:32:08Z"
+  "distributed_at": "2026-07-13T12:39:21Z"
 }
