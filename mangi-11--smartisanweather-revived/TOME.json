@@ -1,0 +1,44 @@
+{
+  "name": "SmartisanWeather-Revived",
+  "owner": "Mangi-11",
+  "repo": "SmartisanWeather-Revived",
+  "description": "\u9006\u5411\u590d\u6d3b\u9524\u5b50\u5929\u6c14\uff0c\u4f7f\u7528\u73b0\u4ee3 Android \u6280\u672f\u6808\u91cd\u5199\uff0c\u5e76\u66f4\u6362\u5929\u6c14\u6570\u636e\u6e90",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mangi-11/SmartisanWeather-Revived",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T20:30:37Z"
+}
