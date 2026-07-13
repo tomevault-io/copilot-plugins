@@ -1,0 +1,9 @@
+{
+  "name": "szybnev--redteam-ai-benchmark",
+  "displayName": "redteam-ai-benchmark",
+  "description": "Red Team AI Benchmark: Evaluating LLMs for authorized offensive-security tasks",
+  "version": "1.0.0",
+  "author": "szybnev",
+  "homepage": "https://github.com/szybnev/redteam-ai-benchmark",
+  "skills": []
+}
