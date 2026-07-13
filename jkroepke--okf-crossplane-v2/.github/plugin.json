@@ -1,0 +1,9 @@
+{
+  "name": "jkroepke--okf-crossplane-v2",
+  "displayName": "okf-crossplane-v2",
+  "description": "LLM-wiki in OKF (Open Knowledge Format) for Crossplane v2",
+  "version": "1.0.0",
+  "author": "jkroepke",
+  "homepage": "https://github.com/jkroepke/okf-crossplane-v2",
+  "skills": []
+}
