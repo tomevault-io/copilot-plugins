@@ -7,11 +7,11 @@ Custom watch face for Garmin Instinct 2 Solar (Monkey C / Connect IQ)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Skesov/geek-instinct](https://github.com/Skesov/geek-instinct).
+Original source: `AGENTS.md` in [Skesov/geek-instinct](https://github.com/Skesov/geek-instinct).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
