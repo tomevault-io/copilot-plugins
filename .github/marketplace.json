@@ -22459,6 +22459,11 @@
       "description": "py3-pinterest"
     },
     {
+      "name": "appautomaton--latex-arxiv-skill",
+      "source": "./appautomaton--latex-arxiv-skill",
+      "description": "A highly customizable agentic harness for arXiv-ready ML/AI review papers (and beyond). It drives agentic AI like Codex CLI and Claude Code through a gated LaTeX workflow with verified BibTeX citation"
+    },
+    {
       "name": "freepeak--db-mcp-server",
       "source": "./freepeak--db-mcp-server",
       "description": "A powerful multi-database server implementing the Model Context Protocol (MCP) to provide AI assistants with structured access to databases."
@@ -56027,6 +56032,71 @@
       "name": "chuk-development--besser-bahn",
       "source": "./chuk-development--besser-bahn",
       "description": "Better Bahn"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
+    },
+    {
+      "name": "bpowers--simlin",
+      "source": "./bpowers--simlin",
+      "description": "simlin"
     },
     {
       "name": "espennilsen--pi",
@@ -206884,6 +206954,11 @@
       "description": "A toolbox for Astro sites, started by GovSoft. Convert sites to Astro, keep them on current versions, test web and native mobile Safari via the iOS Simulator, and enforce a 100/100 PageSpeed release g"
     },
     {
+      "name": "jaksa76--microfactory",
+      "source": "./jaksa76--microfactory",
+      "description": "microfactory"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -244579,6 +244654,56 @@
       "description": "golang implementation of https://github.com/realworld-apps/realworld backend"
     },
     {
+      "name": "jpantsjoha--ai-native-developer-experience",
+      "source": "./jpantsjoha--ai-native-developer-experience",
+      "description": "Team-project AI harness bootstrap: shared operating model, skills and delivery guardrails for coherent human-agent work from day one."
+    },
+    {
+      "name": "0xnyk--unmachined",
+      "source": "./0xnyk--unmachined",
+      "description": "Anti-AI-slop agent skill: makes text read written and UI look made, not generated. Deterministic scanners + severity-tiered tell catalogs."
+    },
+    {
+      "name": "afeef--zabt-ai",
+      "source": "./afeef--zabt-ai",
+      "description": "Self-hosted AI meeting intelligence \u2014 transcription (faster-whisper), speaker diarization (pyannote), and LLM summaries on infrastructure you control. An open-source, self-hostable alternative to Otte"
+    },
+    {
+      "name": "roocodeinc--roomote",
+      "source": "./roocodeinc--roomote",
+      "description": "Your own cloud coding agent. Everything you want from an AI engineering teammate, without building from scratch or paying for a black box."
+    },
+    {
+      "name": "roocodeinc--roomote",
+      "source": "./roocodeinc--roomote",
+      "description": "Your own cloud coding agent. Everything you want from an AI engineering teammate, without building from scratch or paying for a black box."
+    },
+    {
+      "name": "jpantsjoha--ai-native-developer-experience",
+      "source": "./jpantsjoha--ai-native-developer-experience",
+      "description": "Team-project AI harness bootstrap: shared operating model, skills and delivery guardrails for coherent human-agent work from day one."
+    },
+    {
+      "name": "dino-rodriguez--meetily-exporter",
+      "source": "./dino-rodriguez--meetily-exporter",
+      "description": "Export your Meetily meeting notes as markdown"
+    },
+    {
+      "name": "fideus-labs--fidnii",
+      "source": "./fideus-labs--fidnii",
+      "description": "Render OME-Zarr images in NiiVue with progressive multi-resolution loading."
+    },
+    {
+      "name": "serithemage--ai-dlc",
+      "source": "./serithemage--ai-dlc",
+      "description": "AI-Driven Development Lifecycle (AI-DLC) \ubc29\ubc95\ub860 \ud55c\uad6d\uc5b4 \ubc88\uc5ed"
+    },
+    {
+      "name": "fideus-labs--fidnii",
+      "source": "./fideus-labs--fidnii",
+      "description": "Render OME-Zarr images in NiiVue with progressive multi-resolution loading."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -266394,6 +266519,26 @@
       "description": "Open, MIT-licensed food & nutrition science research skills for Claude Code, Codex, and MiniMax Agent \u2014 multi-agent literature/systematic review, journal-aware writing, peer review, and figures, plus "
     },
     {
+      "name": "liu463805737-collab--phoenix-agent-java",
+      "source": "./liu463805737-collab--phoenix-agent-java",
+      "description": "\u57fa\u4e8e Spring AI Alibaba 2.0 \u7684\u4f01\u4e1a\u7ea7 Agent \u5e73\u53f0\uff0c\u4e13\u6ce8\u6570\u636e\u667a\u80fd\u5206\u6790\u573a\u666f\u3002\u5185\u7f6e\u591a Agent \u534f\u4f5c\u673a\u5236\uff0c\u652f\u6301\u81ea\u7136\u8bed\u8a00\u9a71\u52a8\u7684\u6570\u636e\u67e5\u8be2\u3001\u591a\u6e90\u5f02\u6784\u6570\u636e\u6c47\u603b\u4e0e BI \u62a5\u8868\u81ea\u52a8\u751f\u6210\u3002\u5e73\u53f0\u63d0\u4f9b\u5de5\u5177\u8c03\u7528\u3001\u8bb0\u5fc6\u7ba1\u7406\u4e0e\u6d41\u7a0b\u7f16\u6392\uff0c\u53ef\u5bf9\u63a5\u5404\u7c7b\u6570\u636e\u5e93\u53ca\u6570\u4ed3\uff0c\u5b9e\u73b0\u4ece\u6570\u636e\u63a2\u7d22\u3001\u5f02\u5e38\u68c0\u6d4b\u5230\u6d1e\u5bdf\u8f93\u51fa\u7684\u5168\u94fe\u8def\u81ea\u52a8\u5316\u3002\u5177\u5907\u53ef\u6269\u5c55\u63d2\u4ef6\u4f53\u7cfb\u548c\u76d1\u63a7\u8fd0\u7ef4\u80fd\u529b\uff0c\u9002\u7528\u4e8e\u7ecf\u8425\u5206\u6790\u3001\u8fd0\u8425\u62a5\u8868\u3001\u51b3\u7b56\u652f\u6301\u7b49\u4e1a\u52a1\uff0c\u663e\u8457\u964d\u4f4e\u6570\u636e\u5206"
+    },
+    {
+      "name": "ashely-looki--mycut",
+      "source": "./ashely-looki--mycut",
+      "description": "MyCut \u2014 AI \u89c6\u9891\u526a\u8f91 Agent:\u67e5\u70ed\u70b9 \u2192 \u751f\u6210\u5927\u7eb2/\u6587\u6848 \u2192 \u672c\u5730\u4e0a\u4f20 \u2192 \u81ea\u52a8\u5207\u7247 + \u5339\u914d\u5b57\u5e55,\u4e00\u6761\u4ece\u9009\u9898\u5230\u6210\u7247\u7684\u521b\u4f5c\u95ed\u73af"
+    },
+    {
+      "name": "dalaoyuan2020--claude-science-assistant",
+      "source": "./dalaoyuan2020--claude-science-assistant",
+      "description": "CSA - Claude Science Assistant"
+    },
+    {
+      "name": "bronya0--ally-agent",
+      "source": "./bronya0--ally-agent",
+      "description": "A desktop AI coding assistant that works with your local projects. Ally helps you understand code, edit files, search a workspace, manage tasks, and complete development work through conversation."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -270907,6 +271052,16 @@
       "name": "gracker--perfetto-skills",
       "source": "./gracker--perfetto-skills",
       "description": "Portable Agent Skill for evidence-based Perfetto trace analysis"
+    },
+    {
+      "name": "malbruk--just-code",
+      "source": "./malbruk--just-code",
+      "description": "Just code, nothing else. A community VS Code chat extension on the Claude Agent SDK"
+    },
+    {
+      "name": "benitbuhner--codex-meter",
+      "source": "./benitbuhner--codex-meter",
+      "description": "An easy-to-use, open source Android client for checking and monitoring Codex usage."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
