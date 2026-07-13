@@ -1,0 +1,9 @@
+{
+  "name": "jabrena--plinth",
+  "displayName": "plinth",
+  "description": "Plinth is an AI-native engineering toolkit for modern Java enterprise SDLC, built around reusable Commands, Agents, Skills, and MCP Servers.",
+  "version": "1.0.0",
+  "author": "jabrena",
+  "homepage": "https://github.com/jabrena/plinth",
+  "skills": []
+}
