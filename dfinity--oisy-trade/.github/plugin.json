@@ -1,0 +1,9 @@
+{
+  "name": "dfinity--oisy-trade",
+  "displayName": "oisy-trade",
+  "description": "Order book DEX",
+  "version": "1.0.0",
+  "author": "dfinity",
+  "homepage": "https://github.com/dfinity/oisy-trade",
+  "skills": []
+}
