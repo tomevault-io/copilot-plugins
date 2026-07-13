@@ -1,0 +1,9 @@
+{
+  "name": "wan0net--thistle-os",
+  "displayName": "thistle-os",
+  "description": "ThistleOS \u2014 ESP32-S3 operating system for LilyGo T-Deck Pro. Kernel, HAL, LVGL UI, dynamic ELF app loading.",
+  "version": "1.0.0",
+  "author": "wan0net",
+  "homepage": "https://github.com/wan0net/thistle-os",
+  "skills": []
+}
