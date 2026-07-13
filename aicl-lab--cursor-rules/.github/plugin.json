@@ -1,0 +1,9 @@
+{
+  "name": "aicl-lab--cursor-rules",
+  "displayName": "cursor-rules",
+  "description": "Archive-grade .mdc rule library for Cursor AI \u2014 26 production-ready rules for teams seeking stable, reusable AI coding guidance",
+  "version": "1.0.0",
+  "author": "AICL-Lab",
+  "homepage": "https://github.com/AICL-Lab/cursor-rules",
+  "skills": []
+}
