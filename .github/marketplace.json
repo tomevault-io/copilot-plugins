@@ -94984,6 +94984,11 @@
       "description": "nikhilsnayak.dev"
     },
     {
+      "name": "kenjinp--hello-terrain",
+      "source": "./kenjinp--hello-terrain",
+      "description": "Realtime web terrain engine, for vast virtual worlds. Built for three.js and react-three/fiber."
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -168114,6 +168119,11 @@
       "description": "\u672c\u5730\u4ee3\u7801\u77e5\u8bc6\u56fe\u8c31\u4e0e\u8bed\u4e49\u5206\u6790\u5de5\u5177\uff0c\u9762\u5411\u9759\u6001\u542f\u53d1\u5f0f\u4ee3\u7801\u5206\u6790\u3002\u8fdb\u5316\u4e2d..."
     },
     {
+      "name": "borb-sh--quillmark",
+      "source": "./borb-sh--quillmark",
+      "description": "Transform markdown into fully formatted documents"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -175117,6 +175127,21 @@
       "name": "okasi--is-fast-internet",
       "source": "./okasi--is-fast-internet",
       "description": "Zero-dependency browser check for fast internet \u2014 reliable even in censored countries"
+    },
+    {
+      "name": "levibmackay--lydia-cli",
+      "source": "./levibmackay--lydia-cli",
+      "description": "Tessa is a local AI coding agent for the terminal \u2014 reads and edits your code, runs commands, and drives git through a local Ollama model. No API keys, no cloud, nothing leaves your machine."
+    },
+    {
+      "name": "eldergenix--durable-agent-harness",
+      "source": "./eldergenix--durable-agent-harness",
+      "description": "A research-grade harness for evaluating long-horizon AI agents, with ablatable memory, control-plane benchmarks, deterministic simulations, and pre-registered machine-graded results."
+    },
+    {
+      "name": "niall-young--canvasight",
+      "source": "./niall-young--canvasight",
+      "description": "\u7528\u4e8e\u68b3\u7406\u4efb\u52a1\u7136\u540e\u4ea4\u4ed8\u7ed9 AI \u5de5\u5177\u7684 plugin \u63d2\u4ef6"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
