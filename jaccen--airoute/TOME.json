@@ -1,0 +1,44 @@
+{
+  "name": "AIRoute",
+  "owner": "jaccen",
+  "repo": "AIRoute",
+  "description": "\u9762\u5411\u56fd\u5185\u5408\u89c4\u589e\u5f3a\u7684 AI \u7f51\u5173",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jaccen/AIRoute",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T04:31:32Z"
+}
