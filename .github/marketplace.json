@@ -35729,6 +35729,21 @@
       "description": "OddsHarvester"
     },
     {
+      "name": "alexazhou--gt-ai-gateway",
+      "source": "./alexazhou--gt-ai-gateway",
+      "description": "\u8f7b\u91cf\u9ad8\u6027\u80fd AI \u7f51\u5173\uff0c\u652f\u6301\u534f\u8bae\u8f6c\u6362\u548c\u8bf7\u6c42\u53ef\u89c6\u5316\uff0c\u4ee5\u53ca\u7f13\u5b58\u4f18\u5316\u529f\u80fd\u3002\u5e76\u53ef\u4ee5\u8fd0\u884c\u5728 Serverless\u3001Docker \u548c\u684c\u9762\u7aef\u73af\u5883"
+    },
+    {
+      "name": "alexazhou--gt-ai-gateway",
+      "source": "./alexazhou--gt-ai-gateway",
+      "description": "\u8f7b\u91cf\u9ad8\u6027\u80fd AI \u7f51\u5173\uff0c\u652f\u6301\u534f\u8bae\u8f6c\u6362\u548c\u8bf7\u6c42\u53ef\u89c6\u5316\uff0c\u4ee5\u53ca\u7f13\u5b58\u4f18\u5316\u529f\u80fd\u3002\u5e76\u53ef\u4ee5\u8fd0\u884c\u5728 Serverless\u3001Docker \u548c\u684c\u9762\u7aef\u73af\u5883"
+    },
+    {
+      "name": "alexazhou--gt-ai-gateway",
+      "source": "./alexazhou--gt-ai-gateway",
+      "description": "\u8f7b\u91cf\u9ad8\u6027\u80fd AI \u7f51\u5173\uff0c\u652f\u6301\u534f\u8bae\u8f6c\u6362\u548c\u8bf7\u6c42\u53ef\u89c6\u5316\uff0c\u4ee5\u53ca\u7f13\u5b58\u4f18\u5316\u529f\u80fd\u3002\u5e76\u53ef\u4ee5\u8fd0\u884c\u5728 Serverless\u3001Docker \u548c\u684c\u9762\u7aef\u73af\u5883"
+    },
+    {
       "name": "themattberman--meta-ads-kit",
       "source": "./themattberman--meta-ads-kit",
       "description": "Open source AI ad manager. Replace 20 min of Ads Manager with a 2-min briefing. Built with OpenClaw + social-cli."
@@ -61337,6 +61352,16 @@
       "name": "sma1lboy--kobe",
       "source": "./sma1lboy--kobe",
       "description": "The best terminal IDE for coding agents. kobe reimagines how you work with AI agents \u2014 fan out many in parallel, each isolated in its own git worktree, all from one screen. Engine-agnostic: Claude Cod"
+    },
+    {
+      "name": "herry2059--project-os-for-codex",
+      "source": "./herry2059--project-os-for-codex",
+      "description": "Open-source control plane for Codex projects: Git-backed context, visible agent progress, scoped MCP access, resumable work, and safe handoffs. Compatible with Claude Code."
+    },
+    {
+      "name": "herry2059--project-os-for-codex",
+      "source": "./herry2059--project-os-for-codex",
+      "description": "Open-source control plane for Codex projects: Git-backed context, visible agent progress, scoped MCP access, resumable work, and safe handoffs. Compatible with Claude Code."
     },
     {
       "name": "databricks--databricks-agent-skills",
