@@ -4,7 +4,7 @@
   "repo": "obsidian-brain",
   "description": "A self-evolving knowledge base for agents and humans working together on what matters. Local-first. Built for Obsidian.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Rob-Morris/obsidian-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T06:42:45Z"
+  "distributed_at": "2026-07-13T06:47:12Z"
 }
