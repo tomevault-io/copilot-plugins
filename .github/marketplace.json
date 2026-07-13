@@ -244344,6 +244344,46 @@
       "description": "The Hummingbird Coding Agent \u2014 minimalist, model-agnostic, and composable. Built from first principles with tree-based memory, surgical file edits, and a rich terminal UI."
     },
     {
+      "name": "dvnghiem--flowdeck",
+      "source": "./dvnghiem--flowdeck",
+      "description": "AI-powered multi-agent workflow orchestration with built-in safety intelligence for OpenCode"
+    },
+    {
+      "name": "nextweb4--offline-utility-suite",
+      "source": "./nextweb4--offline-utility-suite",
+      "description": "Offline folder protection and SRT subtitle utilities"
+    },
+    {
+      "name": "alexishida--moji",
+      "source": "./alexishida--moji",
+      "description": "A lightweight, clean desktop app for opening, reading, editing, and exporting Markdown files."
+    },
+    {
+      "name": "swl521--codex-game-studios",
+      "source": "./swl521--codex-game-studios",
+      "description": "Codex-Game-Studios.git"
+    },
+    {
+      "name": "kabde--seo-skills",
+      "source": "./kabde--seo-skills",
+      "description": "SEO Blogger Toolkit pour Claude Code - 15 skills pour WordPress : audit, redaction, publication, topic clusters, E-E-A-T, schema, GEO/IA"
+    },
+    {
+      "name": "michaelliv--browsemode-mono",
+      "source": "./michaelliv--browsemode-mono",
+      "description": "\ud83e\uddbe Code mode for the web. SDK + CLI driving real browsers via CDP, plus a pi extension."
+    },
+    {
+      "name": "pbanddev--comfyui-command-palette",
+      "source": "./pbanddev--comfyui-command-palette",
+      "description": "ComfyUI custom node pack adding a frontend command palette (Ctrl/Cmd+K) for fast navigation, command running, node search, and template loading."
+    },
+    {
+      "name": "kabde--seo-skills",
+      "source": "./kabde--seo-skills",
+      "description": "SEO Blogger Toolkit pour Claude Code - 15 skills pour WordPress : audit, redaction, publication, topic clusters, E-E-A-T, schema, GEO/IA"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -266074,6 +266114,41 @@
       "description": "Audio restoration VST3/Standalone - Click removal, noise reduction, filters & EQ"
     },
     {
+      "name": "plain-cms--plain",
+      "source": "./plain-cms--plain",
+      "description": "plain \u2014 a Git-native CMS: the repo is the database, static files are the API, AI is the admin. Vanilla, one dependency, under 2,500 lines."
+    },
+    {
+      "name": "omagents--omagents",
+      "source": "./omagents--omagents",
+      "description": "omagents"
+    },
+    {
+      "name": "veteranbv--inky-bird-frame",
+      "source": "./veteranbv--inky-bird-frame",
+      "description": "Location-neutral bird field-journal plates for Pimoroni Inky displays"
+    },
+    {
+      "name": "natnew--awesome-agentic-ai-security",
+      "source": "./natnew--awesome-agentic-ai-security",
+      "description": "A curated, structured, and continuously updated map of security risks, controls, benchmarks, architectures, and research for agentic, multi-agent, tool-using, self-improving AI systems. \ud83c\udf1f Star if you "
+    },
+    {
+      "name": "shanselman--pokeyforwindows",
+      "source": "./shanselman--pokeyforwindows",
+      "description": "An animated high-impact pointer for Windows screen sharing"
+    },
+    {
+      "name": "drowzeys--keys-glm5-2-quantrio-int4-int8-mixed-abliterated-c1-30toks-4x-dgx-sparks",
+      "source": "./drowzeys--keys-glm5-2-quantrio-int4-int8-mixed-abliterated-c1-30toks-4x-dgx-sparks",
+      "description": "GLM-5.2 Quantrio INT4/INT8 Mixed Abliterated \u2014 SPEED=1 C1\u224830 tok/s @ 128k on 4x DGX Spark. Step-by-step recipe, image bake, results."
+    },
+    {
+      "name": "natnew--awesome-agentic-ai-security",
+      "source": "./natnew--awesome-agentic-ai-security",
+      "description": "A curated, structured, and continuously updated map of security risks, controls, benchmarks, architectures, and research for agentic, multi-agent, tool-using, self-improving AI systems. \ud83c\udf1f Star if you "
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -270567,6 +270642,16 @@
       "name": "ninjahawk--confessor",
       "source": "./ninjahawk--confessor",
       "description": "See what your AI coding agent actually did on your computer. 100% local: every file it opened, every secret that entered its context, every sensitive-read-then-network-call. Zero dependencies, zero ne"
+    },
+    {
+      "name": "lewfkrad--hermes-agents-guide-to-the-galaxy",
+      "source": "./lewfkrad--hermes-agents-guide-to-the-galaxy",
+      "description": "Hermes Notebook: handwriting-first Kindle Scribe, BOOX, and Android stylus clients for the Hermes agent gateway, with Live Pages, offline ink, OCR, sessions, and tools."
+    },
+    {
+      "name": "mystic-stars--coverly",
+      "source": "./mystic-stars--coverly",
+      "description": "\u8f7b\u5de7\u3001\u4f18\u96c5\u7684\u5c01\u9762\u8bbe\u8ba1\u5de5\u5177"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -395197,6 +395282,51 @@
       "name": "lucaslagrimante--agent-sync",
       "source": "./lucaslagrimante--agent-sync",
       "description": "agent-sync"
+    },
+    {
+      "name": "kheefry--mlb-predictor",
+      "source": "./kheefry--mlb-predictor",
+      "description": "Mlb-Predictor"
+    },
+    {
+      "name": "skesov--geek-instinct",
+      "source": "./skesov--geek-instinct",
+      "description": "Custom watch face for Garmin Instinct 2 Solar (Monkey C / Connect IQ)"
+    },
+    {
+      "name": "jimmymilligan93-maker--woodlands-family-practice",
+      "source": "./jimmymilligan93-maker--woodlands-family-practice",
+      "description": "woodlands-family-practice"
+    },
+    {
+      "name": "eskoiv-crypto--auftragsbearbeitung",
+      "source": "./eskoiv-crypto--auftragsbearbeitung",
+      "description": "Auftragsbearbeitung"
+    },
+    {
+      "name": "skesov--geek-instinct",
+      "source": "./skesov--geek-instinct",
+      "description": "Custom watch face for Garmin Instinct 2 Solar (Monkey C / Connect IQ)"
+    },
+    {
+      "name": "shrixtacy--astronext-astrology",
+      "source": "./shrixtacy--astronext-astrology",
+      "description": "astronext-astrology"
+    },
+    {
+      "name": "johan11elm-lgtm--synaptic",
+      "source": "./johan11elm-lgtm--synaptic",
+      "description": "synaptic"
+    },
+    {
+      "name": "monagolpagon--german-learning",
+      "source": "./monagolpagon--german-learning",
+      "description": "Learn German for C-permit or Citizenship"
+    },
+    {
+      "name": "sopianggraeni3-pii--simulasi-nagarawangi",
+      "source": "./sopianggraeni3-pii--simulasi-nagarawangi",
+      "description": "Simulasi-Nagarawangi"
     }
   ]
 }
