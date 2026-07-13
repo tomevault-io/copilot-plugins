@@ -1,0 +1,9 @@
+{
+  "name": "imazen--heic",
+  "displayName": "heic",
+  "description": "Pure Rust HEIC/HEIF image decoder",
+  "version": "1.0.0",
+  "author": "imazen",
+  "homepage": "https://github.com/imazen/heic",
+  "skills": []
+}
