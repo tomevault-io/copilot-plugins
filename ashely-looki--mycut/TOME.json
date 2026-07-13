@@ -1,0 +1,44 @@
+{
+  "name": "MyCut",
+  "owner": "ashely-looki",
+  "repo": "MyCut",
+  "description": "MyCut \u2014 AI \u89c6\u9891\u526a\u8f91 Agent:\u67e5\u70ed\u70b9 \u2192 \u751f\u6210\u5927\u7eb2/\u6587\u6848 \u2192 \u672c\u5730\u4e0a\u4f20 \u2192 \u81ea\u52a8\u5207\u7247 + \u5339\u914d\u5b57\u5e55,\u4e00\u6761\u4ece\u9009\u9898\u5230\u6210\u7247\u7684\u521b\u4f5c\u95ed\u73af",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ashely-looki/MyCut",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T12:36:25Z"
+}
