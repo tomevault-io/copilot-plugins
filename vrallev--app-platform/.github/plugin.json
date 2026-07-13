@@ -1,0 +1,9 @@
+{
+  "name": "vrallev--app-platform",
+  "displayName": "app-platform",
+  "description": "A lightweight application framework for state and memory management suitable for Kotlin Multiplatform projects.",
+  "version": "1.0.0",
+  "author": "vRallev",
+  "homepage": "https://github.com/vRallev/app-platform",
+  "skills": []
+}
