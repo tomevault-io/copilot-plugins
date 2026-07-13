@@ -1,0 +1,9 @@
+{
+  "name": "sahajamit--promptwright",
+  "displayName": "promptwright",
+  "description": "Login-less, bring-your-own-key desktop agent that turns plain English into browser automation \u2014 and generates runnable Playwright, Cypress, and Selenium scripts.",
+  "version": "1.0.0",
+  "author": "sahajamit",
+  "homepage": "https://github.com/sahajamit/promptwright",
+  "skills": []
+}
