@@ -93639,6 +93639,31 @@
       "description": "PyMOL plugin - drive PyMOL from Claude Code, Cursor, or any MCP client."
     },
     {
+      "name": "seloslav--medieval-settlement-threejs",
+      "source": "./seloslav--medieval-settlement-threejs",
+      "description": "Three.js medieval settlement sandbox: procedural hills, forest, and rivers. Curved dirt roads with PBR wear blending, wooden bridges, and junctions. Place mills, quarries, reforesters, and burgage res"
+    },
+    {
+      "name": "seloslav--medieval-settlement-threejs",
+      "source": "./seloslav--medieval-settlement-threejs",
+      "description": "Three.js medieval settlement sandbox: procedural hills, forest, and rivers. Curved dirt roads with PBR wear blending, wooden bridges, and junctions. Place mills, quarries, reforesters, and burgage res"
+    },
+    {
+      "name": "seloslav--medieval-settlement-threejs",
+      "source": "./seloslav--medieval-settlement-threejs",
+      "description": "Three.js medieval settlement sandbox: procedural hills, forest, and rivers. Curved dirt roads with PBR wear blending, wooden bridges, and junctions. Place mills, quarries, reforesters, and burgage res"
+    },
+    {
+      "name": "seloslav--medieval-settlement-threejs",
+      "source": "./seloslav--medieval-settlement-threejs",
+      "description": "Three.js medieval settlement sandbox: procedural hills, forest, and rivers. Curved dirt roads with PBR wear blending, wooden bridges, and junctions. Place mills, quarries, reforesters, and burgage res"
+    },
+    {
+      "name": "seloslav--medieval-settlement-threejs",
+      "source": "./seloslav--medieval-settlement-threejs",
+      "description": "Three.js medieval settlement sandbox: procedural hills, forest, and rivers. Curved dirt roads with PBR wear blending, wooden bridges, and junctions. Place mills, quarries, reforesters, and burgage res"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -137487,6 +137512,11 @@
       "name": "sistema2d--framecode-vibework",
       "source": "./sistema2d--framecode-vibework",
       "description": "Document framework for AI-assisted development (vibe coding), with governance, traceability, and incremental technical memory."
+    },
+    {
+      "name": "floodtide--dom-docx",
+      "source": "./floodtide--dom-docx",
+      "description": "Convert semantic HTML fragments to native, editable Word documents (OOXML)"
     },
     {
       "name": "develite98--angular-best-practices",
