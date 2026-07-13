@@ -1,0 +1,9 @@
+{
+  "name": "borb-sh--quillmark",
+  "displayName": "quillmark",
+  "description": "Transform markdown into fully formatted documents",
+  "version": "1.0.0",
+  "author": "borb-sh",
+  "homepage": "https://github.com/borb-sh/quillmark",
+  "skills": []
+}
