@@ -1,0 +1,9 @@
+{
+  "name": "xueyouluo--fridge-tracker",
+  "displayName": "fridge_tracker",
+  "description": "\u9c9c\u77e5\u8d34\uff1a\u53ef\u590d\u523b\u7684 ESP32 \u58a8\u6c34\u5c4f\u98df\u6750\u4fdd\u9c9c\u63d0\u9192\u5668\uff0c\u5305\u542b H5/Node.js/SQLite \u670d\u52a1\u7aef\u3001C3/S3 \u56fa\u4ef6\u3001\u4e09\u8272/\u56db\u8272\u5c4f\u6e32\u67d3\u548c 3D \u6253\u5370\u5916\u58f3\uff0c\u652f\u6301\u516c\u5171\u6258\u7ba1\u3001\u672c\u5730\u4e0e\u81ea\u6258\u7ba1\u90e8\u7f72\u3002",
+  "version": "1.0.0",
+  "author": "xueyouluo",
+  "homepage": "https://github.com/xueyouluo/fridge_tracker",
+  "skills": []
+}
