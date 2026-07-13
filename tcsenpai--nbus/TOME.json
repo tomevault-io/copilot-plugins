@@ -4,7 +4,7 @@
   "repo": "nbus",
   "description": "Local IPC bus \u2014 pub/sub + shared state, zero config. Any app, any language.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tcsenpai/nbus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T10:31:22Z"
+  "distributed_at": "2026-07-13T10:32:08Z"
 }
