@@ -1,0 +1,9 @@
+{
+  "name": "mstan--megamanx4recomp",
+  "displayName": "MegaManX4Recomp",
+  "description": "Mega Man X4 (USA, SLUS-00561) statically recompiled to a native PC executable with PSXRecomp",
+  "version": "1.0.0",
+  "author": "mstan",
+  "homepage": "https://github.com/mstan/MegaManX4Recomp",
+  "skills": []
+}
