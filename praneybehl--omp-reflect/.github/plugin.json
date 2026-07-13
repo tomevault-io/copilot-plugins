@@ -1,0 +1,9 @@
+{
+  "name": "praneybehl--omp-reflect",
+  "displayName": "omp-reflect",
+  "description": "Activity Reflections extension for oh-my-pi: audits recent agent sessions with your active model and surfaces prompt/workflow efficiency findings in the omp stats Activity dashboard",
+  "version": "1.0.0",
+  "author": "praneybehl",
+  "homepage": "https://github.com/praneybehl/omp-reflect",
+  "skills": []
+}
