@@ -20769,6 +20769,16 @@
       "description": "Skills"
     },
     {
+      "name": "jabrena--plinth",
+      "source": "./jabrena--plinth",
+      "description": "Plinth is an AI-native engineering toolkit for modern Java enterprise SDLC, built around reusable Commands, Agents, Skills, and MCP Servers."
+    },
+    {
+      "name": "jabrena--plinth",
+      "source": "./jabrena--plinth",
+      "description": "Plinth is an AI-native engineering toolkit for modern Java enterprise SDLC, built around reusable Commands, Agents, Skills, and MCP Servers."
+    },
+    {
       "name": "samrolken--nokode",
       "source": "./samrolken--nokode",
       "description": "nokode"
@@ -140949,6 +140959,11 @@
       "description": "BPM-Tagger"
     },
     {
+      "name": "aicl-lab--cursor-rules",
+      "source": "./aicl-lab--cursor-rules",
+      "description": "Archive-grade .mdc rule library for Cursor AI \u2014 26 production-ready rules for teams seeking stable, reusable AI coding guidance"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -152597,6 +152612,11 @@
       "name": "hermes-gadget--sigurdos-tdeck",
       "source": "./hermes-gadget--sigurdos-tdeck",
       "description": "Standalone off-grid LoRa mesh messaging firmware for LilyGo T-Deck (ESP32-S3 / SX1262 / LVGL)"
+    },
+    {
+      "name": "ayagamidev--ayagami",
+      "source": "./ayagamidev--ayagami",
+      "description": "2D puppet model renderer compatible with Live2D"
     },
     {
       "name": "13point5--agent-canvas",
@@ -192794,6 +192814,11 @@
       "description": "Zero-shot forecasting, tabular classification, and regression via MCP \u2014 exposes Google TimesFM 2.5 and TabFM v1.0.0 to AI assistants. Just attach a CSV and describe what you want to predict."
     },
     {
+      "name": "aestheticsuraj234--chai-gpt-build",
+      "source": "./aestheticsuraj234--chai-gpt-build",
+      "description": "chai-gpt-build"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -207007,6 +207032,11 @@
       "name": "jaksa76--microfactory",
       "source": "./jaksa76--microfactory",
       "description": "microfactory"
+    },
+    {
+      "name": "anomalyco--opencode-drive",
+      "source": "./anomalyco--opencode-drive",
+      "description": "opencode-drive"
     },
     {
       "name": "yschimke--compose-ai-tools",
