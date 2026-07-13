@@ -1,0 +1,9 @@
+{
+  "name": "roocodeinc--roomote",
+  "displayName": "Roomote",
+  "description": "Your own cloud coding agent. Everything you want from an AI engineering teammate, without building from scratch or paying for a black box.",
+  "version": "1.0.0",
+  "author": "RooCodeInc",
+  "homepage": "https://github.com/RooCodeInc/Roomote",
+  "skills": []
+}
