@@ -1,0 +1,9 @@
+{
+  "name": "ntrnnr--zweidraehte",
+  "displayName": "zweidraehte",
+  "description": "A conformance-oriented KNX device stack in Rust: compile-time-composed, no_std/no-alloc core running on bare-metal MCUs and embedded Linux, plus an ETS product-definition DSL and .knxprod generator.",
+  "version": "1.0.0",
+  "author": "ntrnnr",
+  "homepage": "https://github.com/ntrnnr/zweidraehte",
+  "skills": []
+}
