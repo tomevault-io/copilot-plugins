@@ -1,0 +1,9 @@
+{
+  "name": "jenissimo--bottleship",
+  "displayName": "bottleship",
+  "description": "Run classic Windows games in your browser. A high-level-emulation engine that boots real x86 Windows executables and reimplements Win32, COM and DirectDraw/Direct3D on WebGPU, WebAudio and OPFS",
+  "version": "1.0.0",
+  "author": "jenissimo",
+  "homepage": "https://github.com/jenissimo/bottleship",
+  "skills": []
+}
