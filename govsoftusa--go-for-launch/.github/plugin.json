@@ -1,0 +1,9 @@
+{
+  "name": "govsoftusa--go-for-launch",
+  "displayName": "go-for-launch",
+  "description": "A toolbox for Astro sites, started by GovSoft. Convert sites to Astro, keep them on current versions, test web and native mobile Safari via the iOS Simulator, and enforce a 100/100 PageSpeed release g",
+  "version": "1.0.0",
+  "author": "govsoftusa",
+  "homepage": "https://github.com/govsoftusa/go-for-launch",
+  "skills": []
+}
