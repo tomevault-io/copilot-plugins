@@ -1,0 +1,44 @@
+{
+  "name": "thistle-os",
+  "owner": "wan0net",
+  "repo": "thistle-os",
+  "description": "ThistleOS \u2014 ESP32-S3 operating system for LilyGo T-Deck Pro. Kernel, HAL, LVGL UI, dynamic ELF app loading.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wan0net/thistle-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T06:46:17Z"
+}
