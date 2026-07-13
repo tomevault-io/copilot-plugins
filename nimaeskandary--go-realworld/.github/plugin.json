@@ -1,0 +1,9 @@
+{
+  "name": "nimaeskandary--go-realworld",
+  "displayName": "go-realworld",
+  "description": "golang implementation of https://github.com/realworld-apps/realworld backend",
+  "version": "1.0.0",
+  "author": "nimaeskandary",
+  "homepage": "https://github.com/nimaeskandary/go-realworld",
+  "skills": []
+}
