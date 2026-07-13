@@ -1,0 +1,9 @@
+{
+  "name": "sevenbt--nemo-assistant",
+  "displayName": "nemo-assistant",
+  "description": "Local-first floating desktop AI assistant for Windows \u2014 selection actions, OCR, notes, and a tool-calling agent.",
+  "version": "1.0.0",
+  "author": "SevenBT",
+  "homepage": "https://github.com/SevenBT/nemo-assistant",
+  "skills": []
+}
