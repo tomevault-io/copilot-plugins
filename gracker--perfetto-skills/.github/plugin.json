@@ -1,0 +1,9 @@
+{
+  "name": "gracker--perfetto-skills",
+  "displayName": "Perfetto-Skills",
+  "description": "Portable Agent Skill for evidence-based Perfetto trace analysis",
+  "version": "1.0.0",
+  "author": "Gracker",
+  "homepage": "https://github.com/Gracker/Perfetto-Skills",
+  "skills": []
+}
