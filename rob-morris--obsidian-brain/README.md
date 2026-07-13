@@ -7,11 +7,11 @@ A self-evolving knowledge base for agents and humans working together on what ma
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Rob-Morris/obsidian-brain](https://github.com/Rob-Morris/obsidian-brain).
+Original source: `CLAUDE.md` in [Rob-Morris/obsidian-brain](https://github.com/Rob-Morris/obsidian-brain).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
