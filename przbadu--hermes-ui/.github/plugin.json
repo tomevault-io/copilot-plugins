@@ -1,0 +1,9 @@
+{
+  "name": "przbadu--hermes-ui",
+  "displayName": "hermes-ui",
+  "description": "Web UI for hermes, PWA installable app, extracted from hermes desktop, mobile app available.",
+  "version": "1.0.0",
+  "author": "przbadu",
+  "homepage": "https://github.com/przbadu/hermes-ui",
+  "skills": []
+}
