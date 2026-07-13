@@ -1,0 +1,9 @@
+{
+  "name": "little-scale--sndj",
+  "displayName": "sndj",
+  "description": "A native music tracker for the SNES",
+  "version": "1.0.0",
+  "author": "little-scale",
+  "homepage": "https://github.com/little-scale/sndj",
+  "skills": []
+}
