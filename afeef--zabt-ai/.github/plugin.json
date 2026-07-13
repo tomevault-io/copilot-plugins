@@ -1,0 +1,9 @@
+{
+  "name": "afeef--zabt-ai",
+  "displayName": "zabt-ai",
+  "description": "Self-hosted AI meeting intelligence \u2014 transcription (faster-whisper), speaker diarization (pyannote), and LLM summaries on infrastructure you control. An open-source, self-hostable alternative to Otte",
+  "version": "1.0.0",
+  "author": "afeef",
+  "homepage": "https://github.com/afeef/zabt-ai",
+  "skills": []
+}
