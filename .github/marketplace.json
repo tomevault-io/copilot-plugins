@@ -19194,6 +19194,11 @@
       "description": "mozart"
     },
     {
+      "name": "sinanata--unity-ui-toolkit-design-system",
+      "source": "./sinanata--unity-ui-toolkit-design-system",
+      "description": "Drop-in design system for Unity 6 UI Toolkit (UIDocument + PanelRenderer, UXML + USS): tokens, 24 components, 63 icons, mobile-responsive, dark-themed. One stylesheet, zero dependencies. Battle-tested"
+    },
+    {
       "name": "cyanheads--atlas-mcp-server",
       "source": "./cyanheads--atlas-mcp-server",
       "description": "A Model Context Protocol (MCP) server for ATLAS, a Neo4j-powered task management system for LLM Agents - implementing a three-tier architecture (Projects, Tasks, Knowledge) to manage complex workflows"
@@ -48352,6 +48357,11 @@
       "name": "ronikobrosly--rigorloop",
       "source": "./ronikobrosly--rigorloop",
       "description": "A statistically-sound agentic build framework that employs agentic loops to create code artifacts (whether a script, a skill markdown file, etc). Crucially, it splits verification data into the classi"
+    },
+    {
+      "name": "dmae97--omk",
+      "source": "./dmae97--omk",
+      "description": "Evidence-gated runner for Codex, Claude Code, OpenCode, and local coding agents. Routes tasks into scoped DAG lanes with replayable artifacts."
     },
     {
       "name": "akeit0--okojo",
@@ -206822,6 +206832,11 @@
       "name": "laibulle--quant",
       "source": "./laibulle--quant",
       "description": "Quantitative analysis library for Elixir and Explorer"
+    },
+    {
+      "name": "fin-agentian--skcom-c-codebase-memory",
+      "source": "./fin-agentian--skcom-c-codebase-memory",
+      "description": "\u7fa4\u76ca CapitalAPI\uff08\u7b56\u7565\u738b COM \u5143\u4ef6\uff09AI \u53ef\u8b80\u898f\u683c\u5eab + \u9810\u5efa\u77e5\u8b58\u5716\u8b5c\uff5cAI-ready spec & prebuilt code-graph for Capital Futures CapitalAPI"
     },
     {
       "name": "yschimke--compose-ai-tools",
