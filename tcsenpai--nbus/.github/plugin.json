@@ -1,0 +1,9 @@
+{
+  "name": "tcsenpai--nbus",
+  "displayName": "nbus",
+  "description": "Local IPC bus \u2014 pub/sub + shared state, zero config. Any app, any language.",
+  "version": "1.0.0",
+  "author": "tcsenpai",
+  "homepage": "https://github.com/tcsenpai/nbus",
+  "skills": []
+}
