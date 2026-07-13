@@ -1,0 +1,55 @@
+## scafld
+
+> Work with the host agent's normal planning, editing, and testing tools. When the work appears done, call `finalize`.
+
+# scafld Agent Contract
+
+## Default Agent Flow
+
+Work with the host agent's normal planning, editing, and testing tools. When the work appears done, call `finalize`.
+
+`finalize` is the accountability surface: it records acceptance evidence, runs the independent review path, and returns either blockers or a signed receipt. The agent does not grade its own completion.
+
+## Merge Wall
+
+CI runs `scafld verify <receipt> --target <commit-ish>` against the signed receipt. This is the hard wall for merging. The Claude Stop hook is only a local affordance; it can be bypassed in subagents, piped runs, Codex, Gemini, or other hosts.
+
+## Source Checkout
+
+Inside the scafld repo, use `./bin/scafld` or `go run ./cmd/scafld`. Do not use a copied compiled binary; stale binaries can report old lifecycle state.
+
+## Human And CI Lifecycle
+
+The full CLI lifecycle remains available for operators, automation, and debugging:
+
+```bash
+scafld init
+scafld plan <task-id> --title "Title" --size small --risk low
+scafld harden <task-id>
+scafld validate <task-id>
+scafld approve <task-id>
+scafld build <task-id>
+scafld review <task-id>
+scafld complete <task-id>
+scafld verify <receipt> --target <commit-ish>
+scafld status <task-id>
+scafld handoff <task-id>
+```
+
+Use `scafld harden` to strengthen drafts before approval. Use `scafld build` to record phase evidence. Use `scafld review` when running the lifecycle directly. Use `scafld status --json` for automation.
+
+## Do Not
+
+- Close governed work without `finalize` or an explicit human decision.
+- Reconstruct lifecycle state by scraping Markdown. Use `status --json`.
+- Mutate `.scafld/core/` by hand. Use `scafld update`.
+- Treat the Stop hook as the merge wall. CI verify is the wall.
+- Cite files, commands, receipts, or review findings you have not verified.
+
+## Prompts
+
+`.scafld/prompts/*` overrides `.scafld/core/prompts/*` overrides built-ins.
+
+---
+> Source: [nilstate/scafld](https://github.com/nilstate/scafld) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-13 -->
