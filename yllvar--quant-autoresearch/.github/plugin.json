@@ -1,0 +1,9 @@
+{
+  "name": "yllvar--quant-autoresearch",
+  "displayName": "Quant-Autoresearch",
+  "description": "Quant Autoresearch is an autonomous framework for trading strategy evolution, adapted from the Karpathy's `autoresearch` philosophy. It treats the search for alpha as a code-evolution problem, where h",
+  "version": "1.0.0",
+  "author": "yllvar",
+  "homepage": "https://github.com/yllvar/Quant-Autoresearch",
+  "skills": []
+}
