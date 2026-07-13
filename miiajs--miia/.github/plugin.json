@@ -1,0 +1,9 @@
+{
+  "name": "miiajs--miia",
+  "displayName": "miia",
+  "description": "The decorator-driven HTTP framework. Build structured, type-safe APIs with decorators, dependency injection, and Koa-style middleware - powered by Web Standards. Deploy to Bun, Deno, Node.js, or any s",
+  "version": "1.0.0",
+  "author": "miiajs",
+  "homepage": "https://github.com/miiajs/miia",
+  "skills": []
+}
