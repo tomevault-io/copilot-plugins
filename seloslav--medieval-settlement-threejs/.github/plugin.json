@@ -1,0 +1,9 @@
+{
+  "name": "seloslav--medieval-settlement-threejs",
+  "displayName": "medieval-settlement-threejs",
+  "description": "Three.js medieval settlement sandbox: procedural hills, forest, and rivers. Curved dirt roads with PBR wear blending, wooden bridges, and junctions. Place mills, quarries, reforesters, and burgage res",
+  "version": "1.0.0",
+  "author": "SeloSlav",
+  "homepage": "https://github.com/SeloSlav/medieval-settlement-threejs",
+  "skills": []
+}
