@@ -1,0 +1,9 @@
+{
+  "name": "plain-cms--plain",
+  "displayName": "plain",
+  "description": "plain \u2014 a Git-native CMS: the repo is the database, static files are the API, AI is the admin. Vanilla, one dependency, under 2,500 lines.",
+  "version": "1.0.0",
+  "author": "plain-cms",
+  "homepage": "https://github.com/plain-cms/plain",
+  "skills": []
+}
