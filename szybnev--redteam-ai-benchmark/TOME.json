@@ -4,7 +4,7 @@
   "repo": "redteam-ai-benchmark",
   "description": "Red Team AI Benchmark: Evaluating LLMs for authorized offensive-security tasks",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/szybnev/redteam-ai-benchmark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-13T06:33:41Z"
+  "distributed_at": "2026-07-13T06:35:52Z"
 }
