@@ -244734,6 +244734,36 @@
       "description": "Render OME-Zarr images in NiiVue with progressive multi-resolution loading."
     },
     {
+      "name": "jiang198012--workbuddian",
+      "source": "./jiang198012--workbuddian",
+      "description": "Embed the WorkBuddy/CodeBuddy CLI as an AI chat agent inside Obsidian"
+    },
+    {
+      "name": "wangruofeng--feishu2wx",
+      "source": "./wangruofeng--feishu2wx",
+      "description": "\u98de\u4e66\u6587\u6863\u8f6c\u516c\u4f17\u53f7\u6392\u7248\u4e00\u952e\u6392\u7248\u5de5\u5177\uff0c \u79d2\u7ea7\u5b8c\u6210\u6392\u7248\uff0c\u6548\u7387\u8d77\u98de\u8fd8\u514d\u8d39\uff0c\u5feb\u6765\u4f7f\u7528\u5427~"
+    },
+    {
+      "name": "wangruofeng--feishu2wx",
+      "source": "./wangruofeng--feishu2wx",
+      "description": "\u98de\u4e66\u6587\u6863\u8f6c\u516c\u4f17\u53f7\u6392\u7248\u4e00\u952e\u6392\u7248\u5de5\u5177\uff0c \u79d2\u7ea7\u5b8c\u6210\u6392\u7248\uff0c\u6548\u7387\u8d77\u98de\u8fd8\u514d\u8d39\uff0c\u5feb\u6765\u4f7f\u7528\u5427~"
+    },
+    {
+      "name": "w1ne--kernelcad-web",
+      "source": "./w1ne--kernelcad-web",
+      "description": "Open, agent-native CAD; edit code, not click menus, make things. kernelCAD.com"
+    },
+    {
+      "name": "imazen--heic",
+      "source": "./imazen--heic",
+      "description": "Pure Rust HEIC/HEIF image decoder"
+    },
+    {
+      "name": "alonw0--python-debugger-skill",
+      "source": "./alonw0--python-debugger-skill",
+      "description": "A skill for Python debugging methods and best practices"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -266569,6 +266599,26 @@
       "description": "A desktop AI coding assistant that works with your local projects. Ally helps you understand code, edit files, search a workspace, manage tasks, and complete development work through conversation."
     },
     {
+      "name": "yan5xu--oh-my-ai-company",
+      "source": "./yan5xu--oh-my-ai-company",
+      "description": "A living atlas of AI companies, products, founders, investors, traffic signals, and research notes."
+    },
+    {
+      "name": "jkroepke--okf-crossplane-v2",
+      "source": "./jkroepke--okf-crossplane-v2",
+      "description": "LLM-wiki in OKF (Open Knowledge Format) for Crossplane v2"
+    },
+    {
+      "name": "jetbrains--thinkrail",
+      "source": "./jetbrains--thinkrail",
+      "description": "thinkrail"
+    },
+    {
+      "name": "1668999209veki-cmd--skill-archive-management",
+      "source": "./1668999209veki-cmd--skill-archive-management",
+      "description": "Skill\u6863\u6848\u7ba1\u7406"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -271092,6 +271142,16 @@
       "name": "benitbuhner--codex-meter",
       "source": "./benitbuhner--codex-meter",
       "description": "An easy-to-use, open source Android client for checking and monitoring Codex usage."
+    },
+    {
+      "name": "sevenbt--nemo-assistant",
+      "source": "./sevenbt--nemo-assistant",
+      "description": "Local-first floating desktop AI assistant for Windows \u2014 selection actions, OCR, notes, and a tool-calling agent."
+    },
+    {
+      "name": "akitaonrails--tiktok-analysis",
+      "source": "./akitaonrails--tiktok-analysis",
+      "description": "Claude Fable 5 based source code analysis of TikTok app - does it leak your privacy? how?"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
