@@ -266749,6 +266749,21 @@
       "description": "Claude Lines is a registry of custom status lines for claude code "
     },
     {
+      "name": "mangi-11--smartisanweather-revived",
+      "source": "./mangi-11--smartisanweather-revived",
+      "description": "\u9006\u5411\u590d\u6d3b\u9524\u5b50\u5929\u6c14\uff0c\u4f7f\u7528\u73b0\u4ee3 Android \u6280\u672f\u6808\u91cd\u5199\uff0c\u5e76\u66f4\u6362\u5929\u6c14\u6570\u636e\u6e90"
+    },
+    {
+      "name": "eric-maynard--riftfound",
+      "source": "./eric-maynard--riftfound",
+      "description": "A page for finding Riftbound events"
+    },
+    {
+      "name": "jagadeesh32--cello",
+      "source": "./jagadeesh32--cello",
+      "description": "cello"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
