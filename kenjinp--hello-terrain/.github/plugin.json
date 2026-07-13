@@ -1,0 +1,9 @@
+{
+  "name": "kenjinp--hello-terrain",
+  "displayName": "hello-terrain",
+  "description": "Realtime web terrain engine, for vast virtual worlds. Built for three.js and react-three/fiber.",
+  "version": "1.0.0",
+  "author": "kenjinp",
+  "homepage": "https://github.com/kenjinp/hello-terrain",
+  "skills": []
+}
