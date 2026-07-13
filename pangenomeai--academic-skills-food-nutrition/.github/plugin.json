@@ -1,0 +1,9 @@
+{
+  "name": "pangenomeai--academic-skills-food-nutrition",
+  "displayName": "academic-skills-food-nutrition",
+  "description": "Open, MIT-licensed food & nutrition science research skills for Claude Code, Codex, and MiniMax Agent \u2014 multi-agent literature/systematic review, journal-aware writing, peer review, and figures, plus ",
+  "version": "1.0.0",
+  "author": "PangenomeAI",
+  "homepage": "https://github.com/PangenomeAI/academic-skills-food-nutrition",
+  "skills": []
+}
