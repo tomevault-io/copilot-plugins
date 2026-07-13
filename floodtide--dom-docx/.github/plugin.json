@@ -1,0 +1,9 @@
+{
+  "name": "floodtide--dom-docx",
+  "displayName": "dom-docx",
+  "description": "Convert semantic HTML fragments to native, editable Word documents (OOXML)",
+  "version": "1.0.0",
+  "author": "floodtide",
+  "homepage": "https://github.com/floodtide/dom-docx",
+  "skills": []
+}
