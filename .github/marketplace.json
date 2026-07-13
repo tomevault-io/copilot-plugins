@@ -244454,6 +244454,61 @@
       "description": "cc-gifs"
     },
     {
+      "name": "jskswamy--aide",
+      "source": "./jskswamy--aide",
+      "description": "Stop babysitting your agent. One command, any agent \u2014 sandboxed, reproducible, zero decision fatigue"
+    },
+    {
+      "name": "nilstate--scafld",
+      "source": "./nilstate--scafld",
+      "description": "Deterministic protocol for multi-phase agent work."
+    },
+    {
+      "name": "aleksander-del--ruflo",
+      "source": "./aleksander-del--ruflo",
+      "description": "Forked from ruvnet/ruflo"
+    },
+    {
+      "name": "nilstate--scafld",
+      "source": "./nilstate--scafld",
+      "description": "Deterministic protocol for multi-phase agent work."
+    },
+    {
+      "name": "rob-morris--obsidian-brain",
+      "source": "./rob-morris--obsidian-brain",
+      "description": "A self-evolving knowledge base for agents and humans working together on what matters. Local-first. Built for Obsidian."
+    },
+    {
+      "name": "0xvitae--aerooverlay",
+      "source": "./0xvitae--aerooverlay",
+      "description": "Floating workspace overview panel for AeroSpace on macOS"
+    },
+    {
+      "name": "zuiho-kai--greyfield",
+      "source": "./zuiho-kai--greyfield",
+      "description": "Greyfield"
+    },
+    {
+      "name": "nida-institute--awesome-biblical-data",
+      "source": "./nida-institute--awesome-biblical-data",
+      "description": "awesome-biblical-data"
+    },
+    {
+      "name": "wan0net--thistle-os",
+      "source": "./wan0net--thistle-os",
+      "description": "ThistleOS \u2014 ESP32-S3 operating system for LilyGo T-Deck Pro. Kernel, HAL, LVGL UI, dynamic ELF app loading."
+    },
+    {
+      "name": "rob-morris--obsidian-brain",
+      "source": "./rob-morris--obsidian-brain",
+      "description": "A self-evolving knowledge base for agents and humans working together on what matters. Local-first. Built for Obsidian."
+    },
+    {
+      "name": "zuiho-kai--greyfield",
+      "source": "./zuiho-kai--greyfield",
+      "description": "Greyfield"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -266237,6 +266292,31 @@
       "name": "tcsenpai--claudeconfigurator",
       "source": "./tcsenpai--claudeconfigurator",
       "description": "Minimal desktop GUI to configure Claude Code (~/.claude): edit CLAUDE.md, skills, commands, agents, hooks, plugins, settings. Tauri 2 + Svelte 5 + CodeMirror 6."
+    },
+    {
+      "name": "praneybehl--omp-reflect",
+      "source": "./praneybehl--omp-reflect",
+      "description": "Activity Reflections extension for oh-my-pi: audits recent agent sessions with your active model and surfaces prompt/workflow efficiency findings in the omp stats Activity dashboard"
+    },
+    {
+      "name": "szybnev--redteam-ai-benchmark",
+      "source": "./szybnev--redteam-ai-benchmark",
+      "description": "Red Team AI Benchmark: Evaluating LLMs for authorized offensive-security tasks"
+    },
+    {
+      "name": "szybnev--redteam-ai-benchmark",
+      "source": "./szybnev--redteam-ai-benchmark",
+      "description": "Red Team AI Benchmark: Evaluating LLMs for authorized offensive-security tasks"
+    },
+    {
+      "name": "ntrnnr--zweidraehte",
+      "source": "./ntrnnr--zweidraehte",
+      "description": "A conformance-oriented KNX device stack in Rust: compile-time-composed, no_std/no-alloc core running on bare-metal MCUs and embedded Linux, plus an ETS product-definition DSL and .knxprod generator."
+    },
+    {
+      "name": "renatoasse--ibeia-skills",
+      "source": "./renatoasse--ibeia-skills",
+      "description": "ibeia-skills"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -395422,6 +395502,31 @@
       "name": "miiajs--miia",
       "source": "./miiajs--miia",
       "description": "The decorator-driven HTTP framework. Build structured, type-safe APIs with decorators, dependency injection, and Koa-style middleware - powered by Web Standards. Deploy to Bun, Deno, Node.js, or any s"
+    },
+    {
+      "name": "yeskim520-collab--blinkup-kr-legacy",
+      "source": "./yeskim520-collab--blinkup-kr-legacy",
+      "description": "blinkup.kr-legacy"
+    },
+    {
+      "name": "yeskim520-collab--blinkup-kr-legacy",
+      "source": "./yeskim520-collab--blinkup-kr-legacy",
+      "description": "blinkup.kr-legacy"
+    },
+    {
+      "name": "yeskim520-collab--blinkup-kr-legacy",
+      "source": "./yeskim520-collab--blinkup-kr-legacy",
+      "description": "blinkup.kr-legacy"
+    },
+    {
+      "name": "moruime--stock-foker",
+      "source": "./moruime--stock-foker",
+      "description": "stock_foker"
+    },
+    {
+      "name": "ahmadghoniem--my-portfolio",
+      "source": "./ahmadghoniem--my-portfolio",
+      "description": "my-portfolio"
     }
   ]
 }
