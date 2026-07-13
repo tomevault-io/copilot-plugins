@@ -7,11 +7,11 @@ Open-source control plane for Codex projects: Git-backed context, visible agent 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [herry2059/project-os-for-codex](https://github.com/herry2059/project-os-for-codex).
+Original source: `CLAUDE.md` in [herry2059/project-os-for-codex](https://github.com/herry2059/project-os-for-codex).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
