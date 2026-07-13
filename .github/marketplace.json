@@ -206839,6 +206839,16 @@
       "description": "\u7fa4\u76ca CapitalAPI\uff08\u7b56\u7565\u738b COM \u5143\u4ef6\uff09AI \u53ef\u8b80\u898f\u683c\u5eab + \u9810\u5efa\u77e5\u8b58\u5716\u8b5c\uff5cAI-ready spec & prebuilt code-graph for Capital Futures CapitalAPI"
     },
     {
+      "name": "xueyouluo--fridge-tracker",
+      "source": "./xueyouluo--fridge-tracker",
+      "description": "\u9c9c\u77e5\u8d34\uff1a\u53ef\u590d\u523b\u7684 ESP32 \u58a8\u6c34\u5c4f\u98df\u6750\u4fdd\u9c9c\u63d0\u9192\u5668\uff0c\u5305\u542b H5/Node.js/SQLite \u670d\u52a1\u7aef\u3001C3/S3 \u56fa\u4ef6\u3001\u4e09\u8272/\u56db\u8272\u5c4f\u6e32\u67d3\u548c 3D \u6253\u5370\u5916\u58f3\uff0c\u652f\u6301\u516c\u5171\u6258\u7ba1\u3001\u672c\u5730\u4e0e\u81ea\u6258\u7ba1\u90e8\u7f72\u3002"
+    },
+    {
+      "name": "govsoftusa--go-for-launch",
+      "source": "./govsoftusa--go-for-launch",
+      "description": "A toolbox for Astro sites, started by GovSoft. Convert sites to Astro, keep them on current versions, test web and native mobile Safari via the iOS Simulator, and enforce a 100/100 PageSpeed release g"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -244384,6 +244394,41 @@
       "description": "SEO Blogger Toolkit pour Claude Code - 15 skills pour WordPress : audit, redaction, publication, topic clusters, E-E-A-T, schema, GEO/IA"
     },
     {
+      "name": "danielcardonarojas--codemark",
+      "source": "./danielcardonarojas--codemark",
+      "description": "A semantic code bookmarking system for humans and agents"
+    },
+    {
+      "name": "jarvanstack--markdown-to-resume",
+      "source": "./jarvanstack--markdown-to-resume",
+      "description": "A local-first Markdown resume editor with live preview, customizable themes, and PDF, PNG, and HTML export."
+    },
+    {
+      "name": "crashchen--cc-gifs",
+      "source": "./crashchen--cc-gifs",
+      "description": "cc-gifs"
+    },
+    {
+      "name": "dfinity--oisy-trade",
+      "source": "./dfinity--oisy-trade",
+      "description": "Order book DEX"
+    },
+    {
+      "name": "caseylabs--kc-secure-repo-template",
+      "source": "./caseylabs--kc-secure-repo-template",
+      "description": "Security-hardened GitHub repository template, designed to prevent supply-chain attacks. Includes vulnerability scanning and AI agent skills."
+    },
+    {
+      "name": "joohw--clovapi",
+      "source": "./joohw--clovapi",
+      "description": "\u5185\u7f6e\u672c\u5730\u4ee3\u7406\uff0c\u8f7b\u677e\u7ba1\u7406 Agent API \u2014 \u5f00\u6e90 CLI \u4e0e\u684c\u9762\u7aef\uff0c\u4fdd\u5b58 profile\u3001switch \u5230 Claude Code / Codex / OpenCode \u7b49 Agent\u3002"
+    },
+    {
+      "name": "crashchen--cc-gifs",
+      "source": "./crashchen--cc-gifs",
+      "description": "cc-gifs"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -266147,6 +266192,26 @@
       "name": "natnew--awesome-agentic-ai-security",
       "source": "./natnew--awesome-agentic-ai-security",
       "description": "A curated, structured, and continuously updated map of security risks, controls, benchmarks, architectures, and research for agentic, multi-agent, tool-using, self-improving AI systems. \ud83c\udf1f Star if you "
+    },
+    {
+      "name": "jaccen--airoute",
+      "source": "./jaccen--airoute",
+      "description": "\u9762\u5411\u56fd\u5185\u5408\u89c4\u589e\u5f3a\u7684 AI \u7f51\u5173"
+    },
+    {
+      "name": "revfactory--subtitle-pro",
+      "source": "./revfactory--subtitle-pro",
+      "description": "YouTube \uc601\uc0c1\uc5d0 AssemblyAI \uc74c\uc131\uc778\uc2dd + Claude \ubc88\uc5ed\uc73c\ub85c \ud55c\uae00 \uc790\ub9c9\uc744 \uc0dd\uc131\u00b7\uc624\ubc84\ub808\uc774\ud558\ub294 \uc6f9 \uc11c\ube44\uc2a4 (\uc5d0\uc774\uc804\ud2b8 \ud558\ub124\uc2a4 \uae30\ubc18)"
+    },
+    {
+      "name": "jaccen--airoute",
+      "source": "./jaccen--airoute",
+      "description": "\u9762\u5411\u56fd\u5185\u5408\u89c4\u589e\u5f3a\u7684 AI \u7f51\u5173"
+    },
+    {
+      "name": "tcsenpai--claudeconfigurator",
+      "source": "./tcsenpai--claudeconfigurator",
+      "description": "Minimal desktop GUI to configure Claude Code (~/.claude): edit CLAUDE.md, skills, commands, agents, hooks, plugins, settings. Tauri 2 + Svelte 5 + CodeMirror 6."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -395327,6 +395392,11 @@
       "name": "sopianggraeni3-pii--simulasi-nagarawangi",
       "source": "./sopianggraeni3-pii--simulasi-nagarawangi",
       "description": "Simulasi-Nagarawangi"
+    },
+    {
+      "name": "miiajs--miia",
+      "source": "./miiajs--miia",
+      "description": "The decorator-driven HTTP framework. Build structured, type-safe APIs with decorators, dependency injection, and Koa-style middleware - powered by Web Standards. Deploy to Bun, Deno, Node.js, or any s"
     }
   ]
 }
