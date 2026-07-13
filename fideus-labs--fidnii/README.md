@@ -7,11 +7,11 @@ Render OME-Zarr images in NiiVue with progressive multi-resolution loading.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fideus-labs/fidnii](https://github.com/fideus-labs/fidnii).
+Original source: `CLAUDE.md` in [fideus-labs/fidnii](https://github.com/fideus-labs/fidnii).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
