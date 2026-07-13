@@ -1,0 +1,44 @@
+{
+  "name": "Quant-Autoresearch",
+  "owner": "yllvar",
+  "repo": "Quant-Autoresearch",
+  "description": "Quant Autoresearch is an autonomous framework for trading strategy evolution, adapted from the Karpathy's `autoresearch` philosophy. It treats the search for alpha as a code-evolution problem, where humans define the constraints (the \"Constitution\") and the AI Agent iterates on the strategy logic.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yllvar/Quant-Autoresearch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-13T08:40:45Z"
+}
