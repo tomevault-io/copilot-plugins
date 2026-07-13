@@ -1,0 +1,9 @@
+{
+  "name": "jarvanstack--markdown-to-resume",
+  "displayName": "markdown-to-resume",
+  "description": "A local-first Markdown resume editor with live preview, customizable themes, and PDF, PNG, and HTML export.",
+  "version": "1.0.0",
+  "author": "jarvanstack",
+  "homepage": "https://github.com/jarvanstack/markdown-to-resume",
+  "skills": []
+}
