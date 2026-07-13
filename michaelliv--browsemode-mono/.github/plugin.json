@@ -1,0 +1,9 @@
+{
+  "name": "michaelliv--browsemode-mono",
+  "displayName": "browsemode-mono",
+  "description": "\ud83e\uddbe Code mode for the web. SDK + CLI driving real browsers via CDP, plus a pi extension.",
+  "version": "1.0.0",
+  "author": "Michaelliv",
+  "homepage": "https://github.com/Michaelliv/browsemode-mono",
+  "skills": []
+}
