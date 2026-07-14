@@ -1,0 +1,9 @@
+{
+  "name": "jordiboehme--crystalline",
+  "displayName": "crystalline",
+  "description": "Local-first memory for AI agents: teach knowledge as Markdown Domains, capture learnings as Engrams. One Rust binary with MCP server, CLI and hybrid search.",
+  "version": "1.0.0",
+  "author": "jordiboehme",
+  "homepage": "https://github.com/jordiboehme/crystalline",
+  "skills": []
+}
