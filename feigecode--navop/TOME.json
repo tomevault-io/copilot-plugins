@@ -4,7 +4,7 @@
   "repo": "navop",
   "description": "Navop combines Navigate and Operation\u2014a unified workspace that helps developers navigate and operate databases, servers, terminals, and AI tools from one place.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/feigeCode/navop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T03:31:25Z"
+  "distributed_at": "2026-07-14T03:31:57Z"
 }
