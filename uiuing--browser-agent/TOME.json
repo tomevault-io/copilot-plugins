@@ -4,7 +4,7 @@
   "repo": "browser-agent",
   "description": "An open-source AI agent for the browser. Bring any model. It plans in the side panel, acts on real pages through tools, and verifies every claimed result against the live DOM \u2014 with guardrails and reusable skills.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uiuing/browser-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T20:31:24Z"
+  "distributed_at": "2026-07-14T20:35:21Z"
 }
