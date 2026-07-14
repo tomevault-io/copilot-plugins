@@ -1,0 +1,9 @@
+{
+  "name": "mistergamarra--pgcloner",
+  "displayName": "pgcloner",
+  "description": "Interactive Go CLI for pulling PostgreSQL dumps from remote databases via Teleport and restoring them into isolated local Docker containers",
+  "version": "1.0.0",
+  "author": "mistergamarra",
+  "homepage": "https://github.com/mistergamarra/pgcloner",
+  "skills": []
+}
