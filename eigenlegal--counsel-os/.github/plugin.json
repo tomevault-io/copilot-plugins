@@ -1,0 +1,9 @@
+{
+  "name": "eigenlegal--counsel-os",
+  "displayName": "counsel-os",
+  "description": "A legal operating system. Primitives-based legal practice tool with 4-layer knowledge system, auto-detection of applicable law, and institutional memory. For solo practitioners, law firms, and in-hous",
+  "version": "1.0.0",
+  "author": "eigenlegal",
+  "homepage": "https://github.com/eigenlegal/counsel-os",
+  "skills": []
+}
