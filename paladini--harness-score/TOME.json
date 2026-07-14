@@ -4,7 +4,7 @@
   "repo": "harness-score",
   "description": "Your AI coding agent is only as reliable as the harness around it. Measure that harness in seconds with harness-score.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paladini/harness-score",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T14:32:51Z"
+  "distributed_at": "2026-07-14T14:33:57Z"
 }
