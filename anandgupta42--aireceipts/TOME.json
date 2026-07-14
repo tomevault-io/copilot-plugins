@@ -4,7 +4,7 @@
   "repo": "aireceipts",
   "description": "Your AI coding agent just billed you. Here's the receipt. Cost receipts for Claude Code, Codex, Cursor, Gemini & opencode \u2014 no account, no upload.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anandgupta42/aireceipts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T15:30:38Z"
+  "distributed_at": "2026-07-14T15:31:16Z"
 }
