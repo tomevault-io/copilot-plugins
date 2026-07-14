@@ -1,0 +1,9 @@
+{
+  "name": "docxology--codomyrmex",
+  "displayName": "codomyrmex",
+  "description": "\ud83d\udc1c AI-native modular coding workspace \u2014 127 modules, 424 MCP tools, 21K+ zero-mock tests, multi-agent orchestration (Claude/Gemini/GPT), PAI integration",
+  "version": "1.0.0",
+  "author": "docxology",
+  "homepage": "https://github.com/docxology/codomyrmex",
+  "skills": []
+}
