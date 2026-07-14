@@ -1,0 +1,9 @@
+{
+  "name": "iantbutler01--chevalier",
+  "displayName": "chevalier",
+  "description": "Rust/TS/Py library for AI agents that feels semantically like the language, not a custom DSL. Type-driven outputs with production-ready observability and error handling.",
+  "version": "1.0.0",
+  "author": "iantbutler01",
+  "homepage": "https://github.com/iantbutler01/chevalier",
+  "skills": []
+}
