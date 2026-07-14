@@ -1,0 +1,9 @@
+{
+  "name": "srsblack--ict-knowledge-library",
+  "displayName": "ict-knowledge-library",
+  "description": "Canonical, LLM-maintainable knowledge base of every Inner Circle Trader (ICT) concept 2016\u20132026. 226 concept files, machine-readable JSON blocks, follows Karpathy's LLM Wiki pattern.",
+  "version": "1.0.0",
+  "author": "SrsBlack",
+  "homepage": "https://github.com/SrsBlack/ict-knowledge-library",
+  "skills": []
+}
