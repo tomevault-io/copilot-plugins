@@ -60069,6 +60069,11 @@
       "description": " ggml speech-to-text inference for 16+ model families"
     },
     {
+      "name": "saas-factory-labs--saas-factory",
+      "source": "./saas-factory-labs--saas-factory",
+      "description": "Enterprise-grade .NET SaaS framework for rapid B2B/B2C SaaS app development. Featuring multi-tenant architecture, automated CI/CD, and AI-driven development tooling to maximize velocity."
+    },
+    {
       "name": "mag123c--toktrack",
       "source": "./mag123c--toktrack",
       "description": "Ultra-fast token & cost tracker for LLM Token Usage (e.g. Claude Code)"
@@ -72612,6 +72617,11 @@
       "name": "abhishekbadar--portfolio",
       "source": "./abhishekbadar--portfolio",
       "description": "portfolio"
+    },
+    {
+      "name": "prometheus--prometheus-mcp",
+      "source": "./prometheus--prometheus-mcp",
+      "description": "MCP server for LLMs to interact with Prometheus"
     },
     {
       "name": "jdiegosierra--contributor-report",
@@ -162584,6 +162594,11 @@
       "description": "Anima LoRA WebUI startup-Linux package"
     },
     {
+      "name": "wvlet--uni",
+      "source": "./wvlet--uni",
+      "description": "Essential utilities, refined for Scala 3 with minimal dependencies"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -175537,6 +175552,11 @@
       "name": "pythoughts-labs--claude-architect",
       "source": "./pythoughts-labs--claude-architect",
       "description": "Architect-first delegation for Claude Code and OpenCode. A Fable/Opus session routes implementation to Codex, the OpenCode provider pool, local Pi ($0), or autonomous Pythinker, then reviews every dif"
+    },
+    {
+      "name": "lifan-builds--perks-reminder",
+      "source": "./lifan-builds--perks-reminder",
+      "description": "perks-reminder"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
