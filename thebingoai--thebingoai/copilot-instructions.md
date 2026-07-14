@@ -1,0 +1,419 @@
+## thebingoai
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+A BI platform with AI-powered dashboards, real-time chat, and multi-database connectivity. Built with FastAPI backend and Nuxt 4 frontend. Features RAG via LangGraph, multi-provider LLM support (OpenAI, Anthropic, Ollama), SSO authentication (via Bingo SSO), and Celery + Redis for async background processing.
+
+## Project Structure
+This is the community edition. It can run standalone or as a git submodule inside the enterprise repo.
+Enterprise extends community via plugins/overlays. Never assume enterprise features live on a branch.
+When used as a submodule, this repo lives at `bingo-enterprise/bingo/`.
+
+## Phase 0 Primitives
+
+These two cross-cutting helpers shipped in Phase 0 (data-platform-v1 branch). Every later phase relies on them.
+
+### `backend/auth/system_context.py` — system actor marker
+
+Background tasks (Pipeline runner, dbt subprocess, profiling) wrap code that the enterprise governance plugin (Phase G) would otherwise gate on per-user RBAC:
+
+```python
+from backend.auth.system_context import system_context, current_system_context
+
+with system_context(reason="pipeline.run", scope=owner_scope) as ctx:
+    ...  # current_system_context() returns ctx inside this block
+```
+
+Phase G reads `current_system_context()` → when set, skips RBAC and writes an `audit_events` row with `actor_user_id = NULL`. Phase 0 ships only the marker; the audit write is in Phase G.
+
+### `backend/config/feature_flags.py` — per-Org feature gates
+
+Flags live in `organizations.feature_flags` (JSONB), cached in Redis (`org:{id}:feature_flags`, TTL 60s).
+
+```python
+from backend.config.feature_flags import enabled, set_flag, requires_flag, FLAG_DISABLED
+
+enabled("org-uuid", "new_data_plane")             # bool, default False
+set_flag("org-uuid", "new_data_plane", True)       # write Postgres + bust Redis
+
+@requires_flag("new_data_plane")
+def materialize_new(org_id: str, ...):             # returns FLAG_DISABLED when flag is off
+    ...
+```
+
+Flag registry lives as `KNOWN_FLAGS` in `feature_flags.py`. Guarded by a canary test — add to the set when introducing a new flag. `org_id` is a UUID string (matches `organizations.id`).
+
+## Docker
+- Use `docker compose` (v2), not `docker-compose` (v1).
+- Redis URLs inside Docker network use service names (e.g., `redis://redis:6379`), not `localhost`.
+- Always verify compose file paths before running commands.
+
+## Git Operations
+- SSH remote URL: `git@github.com:thebingoai/thebingoai.git`
+- Always complete the full commit-and-push cycle in one go; don't stop after staging.
+- Check `git remote -v` before pushing if unsure of remote configuration.
+
+## Working Style section 
+
+### Planning vs Implementation
+When asked to implement something, proceed directly to implementation after a brief plan outline. Do not spend the entire session in planning mode unless explicitly asked for a plan only. Avoid over-engineering — prefer simple, pragmatic solutions.
+
+### File Reading
+Do not re-read files you have already read in this session. Track what you've explored and avoid redundant exploration. If you need to reference something you already read, use your memory of it.
+
+## Development Setup
+
+### Local Development (Recommended)
+
+If you also have the enterprise overlay checked out, see the enterprise `CLAUDE.md` for combined-repo docker commands.
+
+**Community standalone:**
+```bash
+# Start community only
+./start.sh
+
+# Access points:
+# - Frontend: http://localhost:3000
+# - API: http://localhost:8000
+# - API Docs: http://localhost:8000/docs
+# - Health: http://localhost:8000/health
+```
+
+Requirements:
+- Docker and Docker Compose must be installed and running
+- `.env` configured with required API keys and database URL
+
+`start.sh` (community only) auto-detects the database mode from `DATABASE_URL` in `.env`:
+- **Supabase (default)**: External DB URL → skips Docker PostgreSQL
+- **Local PostgreSQL**: `localhost` or `postgres:` URL → includes Docker PostgreSQL via override compose file
+
+
+
+### Database Setup
+
+**Option 1: Supabase (recommended)**
+1. Create a Supabase project at https://supabase.com
+2. Go to Settings > Database > Connection string > URI
+3. Set `DATABASE_URL` in `.env` to the connection pooler URI (port 6543)
+4. Optionally set `DATABASE_URL_DIRECT` to the direct connection URI (port 5432) for migrations
+
+**Option 2: Local PostgreSQL**
+1. Set `DATABASE_URL=postgresql://thebingo_user:thebingo_password@localhost:5432/thebingo` in `.env`
+2. `start.sh` will automatically include Docker PostgreSQL
+
+Migrations run automatically on startup via `alembic upgrade head` in the Dockerfile CMD. When using Supabase, set `DATABASE_URL_DIRECT` to bypass the connection pooler for migrations.
+
+### Backend Only (Docker)
+
+```bash
+# Supabase mode (no local PostgreSQL)
+docker compose -f docker/local/docker-compose.yml up -d
+
+# Local PostgreSQL mode
+docker compose -f docker/local/docker-compose.yml -f docker/local/docker-compose.postgres.yml up -d
+
+# View logs
+docker compose -f docker/local/docker-compose.yml logs -f backend
+
+# Rebuild after code changes
+docker compose -f docker/local/docker-compose.yml up --build -d
+```
+
+### Manual Setup (Advanced)
+
+```bash
+# Backend only (requires local Postgres, Redis, Qdrant)
+uvicorn backend.main:app --reload
+
+# Celery worker (in separate terminal)
+celery -A backend.tasks.upload_tasks worker --loglevel=info
+```
+
+## Architecture
+
+### Multi-Provider LLM System
+
+The system uses a **factory pattern** for LLM providers (`backend/llm/`):
+
+- `factory.py`: Provider registry and instantiation
+- `base.py`: `BaseLLMProvider` abstract class defining interface
+- `openai_provider.py`, `anthropic_provider.py`, `ollama_provider.py`: Concrete implementations
+
+**Key pattern**: All providers implement `chat()` and `chat_stream()` methods. To add a new provider:
+1. Extend `BaseLLMProvider`
+2. Register in `factory.py` via `_PROVIDERS` dict
+3. Add availability check logic in provider class
+
+Default provider set via `settings.default_llm_provider` (config.py).
+
+### LangGraph RAG Workflow
+
+The RAG system (`backend/langgraph/`) uses LangGraph for stateful conversation:
+
+**Architecture**:
+- `state.py`: Defines `ConversationState` TypedDict with `messages` using LangGraph's `add_messages` reducer for automatic history management
+- `nodes.py`: Graph nodes (retrieve, check_context, generate, generate_no_context)
+- `runner.py`: Orchestrates graph execution with checkpointing for conversation threads
+
+**Critical details**:
+- **Thread-based memory**: Each conversation has a `thread_id`. LangGraph's `MemorySaver` checkpoints state between turns
+- **State flow**: retrieve → check_context → (generate OR generate_no_context) based on whether context was found
+- **Streaming**: Currently simplified (runner.py:115-211) - runs full graph, then streams LLM response. For true streaming, would need LangGraph's native streaming support
+
+**Conversation management**:
+- Thread IDs are UUIDs stored in Redis with 7-day TTL
+- History retrieval (get_conversation_history) is currently limited - proper implementation would need checkpoint deserialization
+
+### Async Processing with Celery
+
+Upload processing (`backend/tasks/upload_tasks.py`) uses Celery for large files:
+
+**Decision logic** (in `backend/api/upload.py`):
+- Files > 100KB OR > 20 chunks → async processing
+- Smaller files → synchronous processing
+
+**Job tracking**:
+- Jobs stored in Redis via `backend/services/job_store.py`
+- Each job has: `job_id`, status (pending/running/completed/failed), progress %, chunks_processed, chunks_total
+- Frontend can poll `GET /api/jobs/{job_id}` for progress
+
+**Celery configuration**:
+- 3 separate Redis DBs: 0=cache, 1=broker, 2=results (see docker-compose.yml)
+- Max task time: 1 hour
+- Retry policy: 3 retries with exponential backoff (60s, 120s, 240s)
+
+### Configuration Management
+
+All config in `backend/config.py` using Pydantic Settings:
+
+**Critical settings**:
+- `embedding_model`: "text-embedding-3-large" (default)
+- `embedding_dimensions`: **3072** (MUST match Qdrant collection vector size)
+- `chunk_size`: 512 tokens, `chunk_overlap`: 0.2 (20%)
+- SSO settings: `sso_base_url`, `sso_publishable_key`, `sso_secret_key`, `sso_token_cache_ttl`
+
+**Validation**:
+- `chunk_overlap` validated to be 0.0-0.5
+- `default_llm_provider` validated against ("openai", "anthropic", "ollama")
+
+### Vector Storage (Qdrant)
+
+Self-hosted Qdrant instance with two collections:
+- `documents` — indexed document chunks for RAG
+- `memories` — persistent conversation memory vectors
+
+Vector size must be 3072 to match `text-embedding-3-large` embeddings.
+
+### Authentication
+
+SSO authentication via Bingo SSO (`backend/auth/`):
+- `sso.py`: Core SSO module — `validate_token()`, `logout()`, `get_config()` as plain async functions
+- `dependencies.py`: FastAPI dependency for route protection (`get_current_user`)
+- `webhooks.py`: SSO webhook handler at `/api/webhooks/sso`
+
+**Key config**: `SSO_BASE_URL`, `SSO_PUBLISHABLE_KEY` (enables Google OAuth), `SSO_SECRET_KEY` (enterprise: adds X-API-Key header). Community mode works without secret key.
+
+### API Structure
+
+All routes in `backend/api/routes.py` mounted at `/api` prefix:
+
+**Upload**: `upload.py` - handles both sync and async processing
+**Query/Search**: `query.py` - vector search + RAG
+**Chat**: `chat.py` - LangGraph-powered RAG with conversation threads
+**Jobs**: `jobs.py` - background job status
+**Health**: `health.py` - system status (Qdrant, Redis, Celery)
+
+### Frontend Integration
+
+Frontend (`frontend/`) is a **separate Nuxt 4 application** (currently in development):
+- Backend exposes REST API only (no server-side rendering of frontend)
+- Communication via HTTP/REST on port 8000 (backend) and 3000 (frontend dev server)
+- CORS configured in `backend/main.py` if needed
+
+## Key Technical Details
+
+### Embedding Pipeline
+
+1. **Chunking** (`backend/parser/markdown.py`):
+   - Splits markdown on headers first, then by token count
+   - Overlap calculated as fraction of chunk_size (e.g., 0.2 * 512 = ~102 tokens)
+
+2. **Embedding** (`backend/embedder/openai.py`):
+   - Batch processing (default: 100 chunks per batch)
+   - Uses OpenAI's `text-embedding-3-large` model
+   - Returns 3072-dimensional vectors
+
+3. **Storage**: Upserted to Qdrant with metadata
+
+### Redis Usage
+
+Redis serves **four purposes** (separate DBs):
+1. **DB 0**: Job status cache (`backend/services/job_store.py`)
+2. **DB 1**: Celery task broker (task queue)
+3. **DB 2**: Celery result backend (task results)
+4. **DB 4**: Agent mesh communication
+
+Connection strings in docker-compose.yml override `.env` when running in Docker.
+
+### Logging
+
+Structured logging via `backend/logging_config.py`:
+- Format: `YYYY-MM-DD HH:MM:SS | LEVEL | module:line | message`
+- Level controlled by `settings.log_level` (default: INFO)
+- All modules use: `logger = logging.getLogger(__name__)`
+
+## Important Patterns
+
+### Adding a New API Endpoint
+
+1. Create handler in appropriate `backend/api/*.py` file
+2. Add route in `backend/api/routes.py`
+3. Use async def for all handlers
+4. Import dependencies at function level if they're slow (e.g., LLM providers)
+
+### Adding a New LLM Provider
+
+1. Create `backend/llm/{provider}_provider.py`
+2. Extend `BaseLLMProvider`
+3. Implement `chat()` and `chat_stream()` methods
+4. Add to `_PROVIDERS` in `factory.py`
+5. Add API key to Settings if needed
+
+### Modifying Chunking Strategy
+
+Edit `backend/parser/markdown.py`:
+- `chunk_markdown()`: Main chunking logic
+- Consider chunk_size and chunk_overlap from settings
+- Maintain metadata (chunk_index, source) for traceability
+
+### Working with LangGraph State
+
+The `ConversationState` in `state.py` uses LangGraph's `add_messages` reducer:
+- **Never** manually append to messages list
+- **Do** return new messages from nodes - LangGraph merges automatically
+- Thread-based checkpointing means state persists across invocations with same thread_id
+
+## Common Pitfalls
+
+1. **Embedding dimensions mismatch**: Qdrant collection vector size MUST be 3072 for text-embedding-3-large. Changing embedding model requires recreating collections.
+
+2. **Redis connection**: Three separate DBs. Don't reuse connections across purposes (cache vs broker vs results).
+
+3. **Async vs Sync**: Upload uses sync helpers (_sync suffix) because Celery workers are synchronous. Don't use async/await in Celery tasks.
+
+4. **Namespace isolation**: Searches only return results from specified namespace. Empty namespace results ≠ error.
+
+5. **Conversation memory**: Thread IDs are UUIDs, not session IDs. Each new conversation needs new thread_id. Reusing thread_id continues conversation.
+
+## Configuration Notes
+
+### Required Environment Variables
+
+```bash
+OPENAI_API_KEY=sk-...           # Required (embeddings + LLM)
+DB_ENCRYPTION_KEY=...           # Required (Fernet key for DB password encryption)
+```
+
+### SSO Environment Variables
+
+```bash
+SSO_BASE_URL=https://sso.thebingo.ai  # SSO service URL
+SSO_PUBLISHABLE_KEY=pk_...            # Frontend key (enables Google OAuth)
+SSO_SECRET_KEY=sk_...                 # Backend key (enterprise: X-API-Key header)
+SSO_TOKEN_CACHE_TTL=300               # Token cache TTL in seconds
+SSO_WEBHOOK_SECRET=...                # Optional: webhook signature verification
+SSO_REDIS_URL=redis://localhost:6379/3  # Redis DB for token cache
+```
+
+### Optional Environment Variables
+
+```bash
+ANTHROPIC_API_KEY=...           # For Anthropic provider
+OLLAMA_BASE_URL=...             # For Ollama (default: http://localhost:11434)
+DEFAULT_LLM_PROVIDER=...        # openai|anthropic|ollama (default: openai)
+DEFAULT_LLM_MODEL=...           # Model override
+REDIS_URL=...                   # Default: redis://localhost:6379/0
+LOG_LEVEL=...                   # DEBUG|INFO|WARNING|ERROR (default: INFO)
+```
+
+## Deployment
+
+### Production Considerations
+
+1. **Qdrant**: Self-hosted or Qdrant Cloud for production
+2. **Redis**: Consider Redis Cloud or AWS ElastiCache for production
+3. **Celery**: Run multiple workers for parallel processing
+4. **Monitoring**: Enable health check endpoints (`/health`, `/api/status`)
+5. **Rate Limits**: OpenAI embedding API has rate limits - consider retry logic
+6. **CORS**: Configure allowed origins in `backend/main.py` if frontend on different domain
+
+### Docker Production
+
+- Use environment-specific `.env` files
+- Set `DEBUG=false`
+- Configure proper CORS origins
+- Use reverse proxy (nginx) for SSL termination
+- Scale Celery workers: `docker-compose up -d --scale celery-worker=3`
+
+<!-- codemap:start -->
+## Codemap — MANDATORY USAGE RULES
+
+This project has a **codemap MCP server** with pre-indexed code structure, call graphs, and relationships.
+The following rules are **NOT optional** — follow them for every task.
+
+### Before Writing New Code
+- ALWAYS call `codemap_query` to search for existing functions that do something similar
+- ALWAYS call `codemap_module` on the target directory to understand what's already there
+- If you find similar functions, reuse or extend them — do NOT create duplicates
+- For larger features, use `/codemap-find-reusable` to systematically search for reuse opportunities
+
+### Before Modifying Existing Code
+- ALWAYS call `codemap_callers` on any function you plan to change — know the blast radius
+- ALWAYS call `codemap_calls` to understand what the function depends on
+- Or use `codemap_explore` to see the full call-graph neighborhood in one call (callers + callees at configurable depth)
+- If there are >5 callers, explain the impact before proceeding
+- Use `codemap_dependencies` to trace file-level imports/dependents
+
+### Before Planning
+- Call `codemap_overview` to orient yourself in the project structure
+- Call `codemap_module` on directories relevant to the task
+- Call `codemap_query` to find existing code related to the feature
+- Use `/codemap-plan` for complex multi-step implementations
+
+### After Code Generation (completing a task)
+- Call `codemap_health` to verify the health score didn't degrade
+- Call `codemap_analyze` to check for introduced duplicates or dead code
+- If health score dropped, explain what caused the regression
+- Run `/codemap-refresh` to keep the codemap in sync with your changes
+
+### Tool Priority
+Use `codemap_*` tools **INSTEAD OF** grep/Glob/Read for:
+- Finding function/class definitions → `codemap_query` (returns clustered results — hubs first, helpers folded)
+- Understanding what calls what → `codemap_callers` / `codemap_calls`
+- Exploring call-graph neighborhood → `codemap_explore` (BFS traversal: callers + callees in one call)
+- Exploring project structure → `codemap_overview` / `codemap_module`
+- Checking code quality → `codemap_health` / `codemap_analyze`
+- Checking file dependencies → `codemap_dependencies`
+- Finding DRY violations → `codemap_structures` with type "duplicates"
+- Finding circular imports → `codemap_structures` with type "circular_deps"
+
+### Workflows (for multi-step tasks)
+- `/codemap-explore` — understand the project structure and architecture
+- `/codemap-find-reusable` — search for existing code to reuse before writing new functions
+- `/codemap-impact` — analyze blast radius before refactoring or modifying code
+- `/codemap-plan` — create an implementation plan grounded in actual code structure
+- `/codemap-analyze` — run full analysis: dead code, duplicates, circular deps
+- `/codemap-health-review` — review code quality and identify what to refactor next
+- `/codemap-refresh` — regenerate codemap when source files have changed
+- `/codemap-usage` — view MCP tool usage statistics with 5-hour interval breakdown
+<!-- codemap:end -->
+
+---
+> Source: [thebingoai/thebingoai](https://github.com/thebingoai/thebingoai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-14 -->
