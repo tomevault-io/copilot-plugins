@@ -1,0 +1,9 @@
+{
+  "name": "tristanmuzzu--parakeet-dictation",
+  "displayName": "parakeet-dictation",
+  "description": "Free, unlimited voice dictation for Windows, built for talking to your AI coding agents. Like Wispr Flow, but you don't pay and there's no word limit.",
+  "version": "1.0.0",
+  "author": "tristanmuzzu",
+  "homepage": "https://github.com/tristanmuzzu/parakeet-dictation",
+  "skills": []
+}
