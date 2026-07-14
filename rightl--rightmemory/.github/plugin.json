@@ -1,0 +1,9 @@
+{
+  "name": "rightl--rightmemory",
+  "displayName": "RightMemory",
+  "description": "Tree + graph memory for AI coding agents, backed by Git-syncable Markdown.",
+  "version": "1.0.0",
+  "author": "RightL",
+  "homepage": "https://github.com/RightL/RightMemory",
+  "skills": []
+}
