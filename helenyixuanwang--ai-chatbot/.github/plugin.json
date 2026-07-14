@@ -1,0 +1,9 @@
+{
+  "name": "helenyixuanwang--ai-chatbot",
+  "displayName": "ai-chatbot",
+  "description": "Streaming AI chat assistant built with Next.js 16, TypeScript, Tailwind CSS 4, and the Anthropic Claude API. Features real-time token streaming and multi-turn conversation history.",
+  "version": "1.0.0",
+  "author": "Helenyixuanwang",
+  "homepage": "https://github.com/Helenyixuanwang/ai-chatbot",
+  "skills": []
+}
