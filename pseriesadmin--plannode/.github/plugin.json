@@ -1,0 +1,9 @@
+{
+  "name": "pseriesadmin--plannode",
+  "displayName": "plannode",
+  "description": "Pseries internal planning tool - Node tree PRD interface",
+  "version": "1.0.0",
+  "author": "pseriesadmin",
+  "homepage": "https://github.com/pseriesadmin/plannode",
+  "skills": []
+}
