@@ -1,0 +1,9 @@
+{
+  "name": "k-krew--omen",
+  "displayName": "omen",
+  "description": "A lightweight, declarative chaos engineering operator for Kubernetes",
+  "version": "1.0.0",
+  "author": "k-krew",
+  "homepage": "https://github.com/k-krew/omen",
+  "skills": []
+}
