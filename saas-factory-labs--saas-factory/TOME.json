@@ -1,10 +1,10 @@
 {
-  "name": "Saas-Factory",
+  "name": "SaaS-Factory",
   "owner": "saas-factory-labs",
-  "repo": "Saas-Factory",
+  "repo": "SaaS-Factory",
   "description": "Enterprise-grade .NET SaaS framework for rapid B2B/B2C SaaS app development. Featuring multi-tenant architecture, automated CI/CD, and AI-driven development tooling to maximize velocity.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/saas-factory-labs/Saas-Factory",
+  "source_url": "https://github.com/saas-factory-labs/SaaS-Factory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T10:37:45Z"
+  "distributed_at": "2026-07-14T23:30:42Z"
 }
