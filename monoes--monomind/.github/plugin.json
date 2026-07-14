@@ -1,0 +1,9 @@
+{
+  "name": "monoes--monomind",
+  "displayName": "monomind",
+  "description": "Autonomous Claude Code orchestration with persistent memory, self-coordinating agent orgs, and a codebase knowledge graph.",
+  "version": "1.0.0",
+  "author": "monoes",
+  "homepage": "https://github.com/monoes/monomind",
+  "skills": []
+}
