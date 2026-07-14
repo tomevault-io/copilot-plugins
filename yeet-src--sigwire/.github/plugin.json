@@ -1,0 +1,9 @@
+{
+  "name": "yeet-src--sigwire",
+  "displayName": "sigwire",
+  "description": "tail -f for signals. Every signal any process on the box raises \u2014 who sent it, who it hit, which signal, how it was raised (kill(2), the kernel, a POSIX timer), whether the target caught it and how lo",
+  "version": "1.0.0",
+  "author": "yeet-src",
+  "homepage": "https://github.com/yeet-src/sigwire",
+  "skills": []
+}
