@@ -1,0 +1,9 @@
+{
+  "name": "dhravya--burrow",
+  "displayName": "burrow",
+  "description": "a whole dev machine in a browser tab - bun.wasm, shell, git, and local AI. phones home to nobody.",
+  "version": "1.0.0",
+  "author": "Dhravya",
+  "homepage": "https://github.com/Dhravya/burrow",
+  "skills": []
+}
