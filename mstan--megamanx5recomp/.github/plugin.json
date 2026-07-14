@@ -1,0 +1,9 @@
+{
+  "name": "mstan--megamanx5recomp",
+  "displayName": "MegaManX5Recomp",
+  "description": "Mega Man X5 (USA, SLUS-01334) statically recompiled to a native Windows executable with the PSXRecomp framework.",
+  "version": "1.0.0",
+  "author": "mstan",
+  "homepage": "https://github.com/mstan/MegaManX5Recomp",
+  "skills": []
+}
