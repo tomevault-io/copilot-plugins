@@ -245074,6 +245074,11 @@
       "description": "Find the right switch. Scrapes data-sheets and ranks FETs by power loss in a DCDC converter"
     },
     {
+      "name": "juzser--claude-status-bar-macos",
+      "source": "./juzser--claude-status-bar-macos",
+      "description": "Native macOS menu bar app showing Claude usage and Claude Code activity at a glance"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -267109,6 +267114,21 @@
       "description": "Publisher-aware full-text PDF fetcher \u2014 DOI in, PDF out via OA \u2192 publisher TDM APIs \u2192 your own institutional proxy. Download end of a paper pipeline; pair with paper-radar (discovery) and claude-paper"
     },
     {
+      "name": "misterbrookt--skill2",
+      "source": "./misterbrookt--skill2",
+      "description": "Skills for your skills: local governance for agent skill libraries."
+    },
+    {
+      "name": "arthurkatcher--grok-delegate",
+      "source": "./arthurkatcher--grok-delegate",
+      "description": "Grok Build plugin: hand work to local Claude Code or Codex as a background task"
+    },
+    {
+      "name": "pymc-labs--pymc-forecast",
+      "source": "./pymc-labs--pymc-forecast",
+      "description": "Port of numpyro_forecast"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -271697,6 +271717,11 @@
       "name": "eouzoe--good-techstack",
       "source": "./eouzoe--good-techstack",
       "description": "Your product idea. One command. Shipped."
+    },
+    {
+      "name": "jordiboehme--crystalline",
+      "source": "./jordiboehme--crystalline",
+      "description": "Local-first memory for AI agents: teach knowledge as Markdown Domains, capture learnings as Engrams. One Rust binary with MCP server, CLI and hybrid search."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
