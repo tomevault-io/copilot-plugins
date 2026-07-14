@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## hyper-code2
 
 > hyper-code2 — procedural Bun codebase with a self-extending agent at `/`.
 
