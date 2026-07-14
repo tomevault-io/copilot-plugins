@@ -1,0 +1,9 @@
+{
+  "name": "cypggs--ai-job-search-cn",
+  "displayName": "ai-job-search-cn",
+  "description": "Chinese-market job application assistant, forked and localized from MadsLorentzen/ai-job-search",
+  "version": "1.0.0",
+  "author": "cypggs",
+  "homepage": "https://github.com/cypggs/ai-job-search-cn",
+  "skills": []
+}
