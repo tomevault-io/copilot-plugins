@@ -4,7 +4,7 @@
   "repo": "sigwire",
   "description": "tail -f for signals. Every signal any process on the box raises \u2014 who sent it, who it hit, which signal, how it was raised (kill(2), the kernel, a POSIX timer), whether the target caught it and how long its handler ran, whether it tore a blocked syscall out with EINTR.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yeet-src/sigwire",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T01:37:51Z"
+  "distributed_at": "2026-07-14T01:38:24Z"
 }
