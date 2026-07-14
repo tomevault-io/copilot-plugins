@@ -1,0 +1,9 @@
+{
+  "name": "new-xp--ultrademo",
+  "displayName": "ultrademo",
+  "description": "Ultrademo is an automated demo video generator for any websites, SaaS applications, etc. - executed conveniently through a Claude Code skill.",
+  "version": "1.0.0",
+  "author": "new-xp",
+  "homepage": "https://github.com/new-xp/ultrademo",
+  "skills": []
+}
