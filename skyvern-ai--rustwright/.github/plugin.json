@@ -1,0 +1,9 @@
+{
+  "name": "skyvern-ai--rustwright",
+  "displayName": "rustwright",
+  "description": "Playwright's API on a Rust CDP engine \u2014 Chromium browser automation for Python & Node, no driver subprocess. (Alpha)",
+  "version": "1.0.0",
+  "author": "Skyvern-AI",
+  "homepage": "https://github.com/Skyvern-AI/rustwright",
+  "skills": []
+}
