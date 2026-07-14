@@ -1,21 +1,40 @@
-## ooze-kit-typography
+## ooze-stability
 
-> OozeKit Inter 11pt regular typography
+> Ooze compositor/shell stability — never freeze the main thread
 
 
-# OozeKit typography
+# Ooze Stability
 
-Default UI type for OozeKit apps and shell chrome:
+Ooze’s shell UI runs **inside** Mutter (GNOME-like). On Wayland, a compositor death ends the session. A main-thread stall feels like a freeze even when apps are still alive. Stability means: don’t freeze, don’t take the compositor down for UI bugs, soft-fail subsystems.
 
-- **Family:** Inter
-- **Size:** 11pt
-- **Weight:** 400 (regular)
+## Failure classes
 
-Do not use medium/semibold/bold in kit or app chrome CSS unless the product explicitly needs emphasis. Opt in with the `.ooze-emphasis` class (weight 600) or `OOZE_UI_FONT_EMPHASIS` for Pango.
+| Class | Example | Goal |
+|-------|---------|------|
+| Main-thread stall | Sync icon walks, Cairo reflections, `paint_to_content`, re-entrant `XSync` on click/GSettings | Never block input/render/launch |
+| Client abort | GTK `Bail out!` in Themes dropdowns | One app dies; session lives |
+| Hard compositor death | SIGSEGV in Mutter plugin | Avoid; no live Wayland respawn without killing apps |
 
-Call `ooze_theme_ensure()` once at app startup. Font tokens live in `common/ooze-font.h`.
+## Principles
 
-Terminal text (Ooze Command VTE) stays monospace — only chrome uses Inter.
+1. **Compositor main-thread budget** — Do not do unbounded icon theme walks, Cairo dock reflection rebuilds, full-stage snapshots, or synchronous `XSync` on user input / GSettings notify. Use `g_idle_add` / workers; cap work. Tag stalls with `OozeStall:`.
+2. **Appearance toggle is O(panel + wallpaper)** — `ooze_plugin_refresh_theme` must stay cheap. Regressions are P0. Never reintroduce `clutter_stage_paint_to_content` for Light↔Dark.
+3. **No assert-abort in first-party UI** — Prefer `g_warning` + empty models over patterns that fatal-abort GTK (bad `GtkDropDown` model replace). Follow Monitor/Themes `set_model` pattern.
+4. **Foreign theming is launch-scoped** — Never session-wide `GTK_THEME` or global `~/.config/gtk-4.0` WhiteSur. XSETTINGS + launch helpers only.
+5. **Settings notify hygiene** — Dock icon rebuild only on `icon-theme` (not cursor/color-scheme fan-out).
+6. **Honest Wayland limit** — Do not promise “restart Ooze without losing apps.” Promise “don’t freeze; don’t kill the compositor for UI bugs.”
+
+## Before merging compositor UI work
+
+- [ ] No new sync work on the Clutter/GSettings click path
+- [ ] Heavy icon/FS/GPU work is idle-deferred or capped
+- [ ] Appearance path does not rebuild dock icons / reflections / full menu bar
+- [ ] No `g_error` / intentional abort in shell-adjacent code
+- [ ] First-party dropdowns use empty dropdown + `gtk_drop_down_set_model` (not fragile constructors)
+
+## Phase 2 (not this slice)
+
+Plasma-style split (`ooze-shell` process vs Mutter) is a future architecture, not a drive-by refactor.
 
 ---
 > Source: [Zadagast/ooze](https://github.com/Zadagast/ooze) — distributed by [TomeVault](https://tomevault.io).
