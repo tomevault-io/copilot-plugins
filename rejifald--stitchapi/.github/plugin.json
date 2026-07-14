@@ -1,0 +1,9 @@
+{
+  "name": "rejifald--stitchapi",
+  "displayName": "StitchAPI",
+  "description": "The agent-native runtime where a typed, declarative stitch replaces fetch \u2014 for humans and agents alike.",
+  "version": "1.0.0",
+  "author": "rejifald",
+  "homepage": "https://github.com/rejifald/StitchAPI",
+  "skills": []
+}
