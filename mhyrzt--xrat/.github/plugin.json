@@ -1,0 +1,9 @@
+{
+  "name": "mhyrzt--xrat",
+  "displayName": "xrat",
+  "description": "Rust CLI/TUI proxy manager for Xray-core, V2Ray-core, and sing-box: import subscriptions,   test latency, rotate proxies, scan edge IPs, and run managed local proxy sessions.",
+  "version": "1.0.0",
+  "author": "mhyrzt",
+  "homepage": "https://github.com/mhyrzt/xrat",
+  "skills": []
+}
