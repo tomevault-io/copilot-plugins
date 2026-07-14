@@ -7,11 +7,11 @@ Runtime for coding agents. Honestly, get $ 30% more out of your Claude subscript
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lemoncrowhq/lemoncrow](https://github.com/lemoncrowhq/lemoncrow).
+Original source: `AGENTS.md` in [lemoncrowhq/lemoncrow](https://github.com/lemoncrowhq/lemoncrow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
