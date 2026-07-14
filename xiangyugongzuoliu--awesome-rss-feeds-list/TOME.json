@@ -4,7 +4,7 @@
   "repo": "awesome-rss-feeds-list",
   "description": "\ud83c\udf10 \u5168\u7f51\u6700\u5168 RSS \u8ba2\u9605\u6e90\u6c47\u603b",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xiangyugongzuoliu/awesome-rss-feeds-list",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T01:41:00Z"
+  "distributed_at": "2026-07-14T01:46:34Z"
 }
