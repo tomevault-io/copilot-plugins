@@ -1,0 +1,44 @@
+{
+  "name": "langchain4android",
+  "owner": "littleseven",
+  "repo": "langchain4android",
+  "description": "PoLang is an on-device AI agent smart photo gallery that treats the LLM as the central nervous system of the app. It serves as a living experiment for next-generation AI-first client architectures.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/littleseven/langchain4android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T18:35:20Z"
+}
