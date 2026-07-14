@@ -1,0 +1,9 @@
+{
+  "name": "happenv-com--laravel-true-modular",
+  "displayName": "laravel-true-modular",
+  "description": "Make your Laravel architecture explicit, deterministic, and analyzable. Extended Laravel Application with topological service provider ordering and enhanced lifecycle.",
+  "version": "1.0.0",
+  "author": "happenv-com",
+  "homepage": "https://github.com/happenv-com/laravel-true-modular",
+  "skills": []
+}
