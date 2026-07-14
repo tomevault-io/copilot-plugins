@@ -1,0 +1,9 @@
+{
+  "name": "chester-lang--chester2026draft",
+  "displayName": "chester2026draft",
+  "description": "Trying to make a practical possibly unsound dependently typed language with algebraic effects",
+  "version": "1.0.0",
+  "author": "chester-lang",
+  "homepage": "https://github.com/chester-lang/chester2026draft",
+  "skills": []
+}
