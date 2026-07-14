@@ -1,0 +1,508 @@
+## codomyrmex
+
+> **Version**: v1.3.0 | **Status**: Active | **Last Updated**: June 2026
+
+# Codomyrmex Agents — Repository Root
+
+**Version**: v1.3.0 | **Status**: Active | **Last Updated**: June 2026
+
+## Purpose
+
+This is the root coordination document for all AI agents operating within the Codomyrmex repository. It defines the top-level structure, surfaces, and operating contracts that govern agent interactions across the entire project.
+
+Codomyrmex is a modular coding workspace enabling AI development workflows with **130** top-level modules under `src/codomyrmex/`, plus project workspaces under `projects/` for integration builds such as Paperclip adapters. This document serves as the central navigation hub for agents working with any part of the system. Repo metrics: [docs/reference/inventory.md](docs/reference/inventory.md).
+
+## Repository Structure
+
+### Primary Surfaces
+
+The repository is organized into distinct surfaces, each with specific responsibilities:
+
+| Surface | Purpose | Documentation |
+| :--- | :--- | :--- |
+| **src/** | Core source modules implementing functionality | [src/README.md](src/README.md) |
+| **scripts/** | Maintenance and automation utilities | [scripts/README.md](scripts/README.md) |
+| **docs/** | Project documentation (about Codomyrmex) | [docs/README.md](docs/README.md) |
+| **tests/** | Test suites (unit and integration) | [tests/README.md](tests/README.md) |
+| **config/** | Configuration templates and examples | [config/README.md](config/README.md) |
+| **projects/** | Project workspace, templates, and external adapter integrations (`daf-consulting`, `hermes-paperclip-adapter`) | [projects/README.md](projects/README.md) |
+| **src/codomyrmex/examples/** | Executable examples and demos | [src/codomyrmex/examples/README.md](src/codomyrmex/examples/README.md) |
+| **scripts/sair/** | SAIR Mathematics Distillation submodule | [scripts/sair/README.md](scripts/sair/README.md) |
+
+## Key Files
+
+- `README.md` - Primary entry point for users and contributors
+- `AGENTS.md` - This file: agent coordination and navigation
+- `scripts/rasp_gap_report.py` — regenerates [docs/plans/agents-readme-gap-report.md](docs/plans/agents-readme-gap-report.md) (scoped `AGENTS.md` / `README.md` presence under `src/codomyrmex/`, `docs/`, `projects/`, `scripts/`, `config/`, `.github/`; see script docstring for excludes)
+- `scripts/doc_inventory.py` — prints repo doc metrics (module counts, workflows, optional pytest collect); output summarized in [docs/reference/inventory.md](docs/reference/inventory.md)
+- `LICENSE` - MIT License
+- `SECURITY.md` - Security policies and vulnerability reporting
+- `pyproject.toml` - Python package configuration
+- `pyproject.toml` (`[tool.pytest.ini_options]`, `[tool.coverage.*]`) — pytest and coverage configuration
+- `Makefile` - Primary build and automation tasks (`make test` applies the 40% coverage gate)
+- `justfile` - Optional [just](https://github.com/casey/just) recipes mirroring common Makefile targets
+- `index.html` - Root redirect to `/output/website/index.html` for static hosting entry
+- `uv.lock` - Python dependency lock file
+- `start_here.sh` - Interactive entry point for exploration
+- `package.json` - Root Node.js config (Playwright, docs scripts); Bun lockfiles live next to Bun projects (e.g. `src/codomyrmex/pai_pm/server/bun.lock`)
+
+## Dependencies
+
+- All dependencies are managed via `uv` (for Python) and `npm`/`yarn` (for JS/TS).
+- See `pyproject.toml` and `package.json` for explicit version constraints.
+- No direct dependencies between modular layers are permitted without interface contracts.
+
+## Development Guidelines
+
+- **Zero-Mock Policy:** All tests must use real components. No mocks. Narrow `monkeypatch.setenv`/`delenv`/`chdir` and `tmp_path` fixtures are permitted for test-input isolation — see [docs/development/testing-strategy.md § Zero-Mock Policy (clarified)](docs/development/testing-strategy.md#zero-mock-policy-clarified) and [issue #175](https://github.com/docxology/codomyrmex/issues/175).
+- **Coverage Gate:** **40%** line coverage (`[tool.coverage.report] fail_under` in `pyproject.toml`). CI and `make test` pass `--cov-fail-under=40`; plain `uv run pytest` skips coverage for speed. Experimental `meme/` is omitted from `[tool.coverage.run]` (see `pyproject.toml`). New work must not drop below the floor when measured with `--cov`.
+- **Documentation:** Maintain `AGENTS.md`, `README.md`, and `SPEC.md` parity on structural changes.
+- **Generated leaf docs:** Thousands of per-folder `AGENTS.md` / `README.md` files are produced by tooling, not by hand.
+  - **Bootstrap (inventory + signposts):** from repo root, `uv run python -m codomyrmex.documentation.scripts.bootstrap_agents_readmes` (or `uv run python scripts/documentation/bootstrap_agents_readmes.py`, same implementation). Use `--dry-run` first; use `--agents-only` to touch only `AGENTS.md`. The script skips vendor prefixes (see `codomyrmex.documentation.doc_generation_common.EXCLUDED_DOC_PREFIXES`) and **does not** rewrite trees under `docs/modules/<pkg>/` when `src/codomyrmex/<pkg>/` exists — those stay owned by module enrichment. **Hand-maintained hubs:** put `<!-- agents: curated -->` in the first lines of an `AGENTS.md`, or add prefixes to `PRESERVE_AGENTS_REL_PREFIXES` in `bootstrap_agents_readmes.py` (see [docs/development/documentation.md](docs/development/documentation.md)). `AGENTS.md` with `<!-- agents: curated -->` and `README.md` with `<!-- readme: curated -->` in the file head are not overwritten.
+  - **Lock leaf docs after bootstrap:** `uv run python -m codomyrmex.documentation.scripts.apply_curated_markers --repo-root .` prepends those markers where missing so a later bootstrap pass skips those files.
+  - **Module docs (`docs/modules/<name>/`):** `uv run python scripts/documentation/enrich_module_docs.py` refreshes README/SPEC/AGENTS from `__init__.py` and related sources. Pass **`--force-agents`** to rewrite every `docs/modules/*/AGENTS.md` even when the file is already long (for example after a wide bootstrap pass).
+  - **QA:** `uv run python src/codomyrmex/documentation/scripts/triple_check.py` (optional `--repo-root .`; defaults to cwd). Report: `output/triple_check_report.md`.
+- **Hand-pass freeze (folder README / AGENTS):** While a repo-wide manual refresh of per-directory `README.md` and `AGENTS.md` is in progress or results must be kept as-is, **do not** run `uv run python -m codomyrmex.documentation.scripts.bootstrap_agents_readmes` or `uv run python scripts/documentation/enrich_module_docs.py` on shared branches without an explicit decision. Those commands overwrite generated leaf docs; `<!-- agents: curated -->` skips `AGENTS.md` rewrites, and `<!-- readme: curated -->` skips `README.md` rewrites when present in the file head. See [docs/plans/readme_agents_hand_pass.md](docs/plans/readme_agents_hand_pass.md).
+
+## Operating Contracts
+
+### Universal Agent Protocols
+
+All agents operating within this repository must:
+
+1. **Respect Modularity**: Each module is self-contained. Changes within one module should minimize impact on others.
+
+2. **Maintain Documentation Alignment**: Code, documentation, and workflows must remain synchronized. When updating code, update corresponding documentation.
+
+3. **Follow Coding Standards**: Adhere to coding standards defined in project documentation and `.editorconfig`.
+
+4. **Use Structured Logging**: All operations must use the centralized logging system (`src/codomyrmex/logging_monitoring/`).
+
+5. **Preserve Model Context Protocol Interfaces**: MCP tool specifications must remain available and functional for sibling agents.
+
+6. **Record Telemetry**: Outcomes and metrics should be recorded in shared telemetry systems.
+
+7. **Update Task Queues**: Maintain task items for pending work and cross-agent coordination.
+
+### Surface-Specific Guidelines
+
+#### src/ - Source Code
+
+- Follow Python best practices (PEP 8)
+- Maintain test coverage at or above the **40%** project gate in `pyproject.toml`
+- Update `API_SPECIFICATION.md` when changing interfaces
+- Document MCP tools in `MCP_TOOL_SPECIFICATION.md`
+- Version changes in `CHANGELOG.md`
+
+#### scripts/ - Automation
+
+- Scripts should be idempotent where possible
+- Include usage documentation in script headers
+- Log all significant operations
+- Handle errors gracefully with informative messages
+
+#### docs/ - Documentation
+
+- Documentation is about Codomyrmex (not tools Codomyrmex provides)
+- Use clear, understated language ("show not tell")
+- Maintain navigation links between related documents
+- Keep examples current with codebase
+
+#### tests/ - Tests
+
+- Follow test-driven development (TDD) practices
+- Use real data analysis (no mock methods)
+- Organize by test type (unit, integration)
+- Include performance benchmarks where applicable
+
+## Module Discovery
+
+### Core Functional Modules
+
+Located in `src/codomyrmex/`, these modules provide the primary capabilities:
+
+**Foundation Layer**:
+
+- `logging_monitoring/` - Centralized logging system
+  - Key Classes: `Logger`, `LogAggregator`, `StructuredLogger`
+  - Key Functions: `get_logger(name: str) -> Logger`, `setup_logging(config: dict) -> None`
+- `environment_setup/` - Environment validation and setup
+  - Key Classes: `EnvironmentValidator`, `DependencyChecker`, `ConfigLoader`
+  - Key Functions: `validate_environment() -> bool`, `check_dependencies(requirements: list) -> dict`
+- `model_context_protocol/` - AI communication standards
+  - Key Classes: `MCPClient`, `ToolSpecification`, `ModelInterface`
+  - Key Functions: `register_tool(name: str, spec: dict) -> bool`, `call_tool(name: str, params: dict) -> Any`
+- `terminal_interface/` - Rich terminal interactions
+  - Key Classes: `TerminalUI`, `ProgressBar`, `InteractivePrompt`
+  - Key Functions: `display_table(data: list, headers: list) -> None`, `confirm_action(message: str) -> bool`
+
+**Core Layer**:
+
+- `agents/` - Agentic framework integrations
+  - Key Classes: `AgentInterface`, `BaseAgent`, `JulesClient`, `ClaudeClient`, `CodexClient`, `HermesClient`, `AgentOrchestrator`
+  - Key Functions: `execute(request: AgentRequest) -> AgentResponse`
+  - Key Submodules: `ai_code_editing/`, `droid/` (task management), `claude/`, `codex/`, `hermes/` (dual-backend: CLI + Ollama, session persistence, prompt templates)
+- `static_analysis/` - Code quality analysis
+  - Key Classes: `CodeAnalyzer`, `LintRunner`, `ComplexityCalculator`
+  - Key Functions: `analyze_file(filepath: str) -> dict`, `calculate_complexity(code: str) -> float`
+- `coding/` - Code interaction and sandboxing
+  - Key Submodules: `sandbox/`, `review/`, `execution/`
+  - Key Classes: `SandboxExecutor`, `CodeReviewer`, `ExecutionContext`
+  - Key Functions: `execute_code(code: str, language: str) -> ExecutionResult`, `review_code(code: str) -> dict`
+- `data_visualization/` - Charts and plots
+  - Key Classes: `PlotGenerator`, `ChartBuilder`, `DataProcessor`
+  - Key Functions: `create_plot(data: pd.DataFrame, plot_type: str) -> str`, `save_visualization(fig: Any, filepath: str) -> None`
+- `search/` - Code search and retrieval
+  - Key Classes: `SearchEngine`, `IndexBuilder`, `CodeSearcher`
+  - Key Functions: `search(query: str, corpus: list) -> list`, `build_index(path: str) -> Index`
+- `git_operations/` - Version control automation
+  - Key Classes: `GitManager`, `CommitBuilder`, `BranchManager`
+  - Key Functions: `commit_changes(message: str, files: list = None) -> str`, `create_branch(name: str) -> bool`
+- `security/` - Security scanning and threat assessment
+  - Key Submodules: `cognitive/`, `digital/`, `physical/`, `theory/`
+  - Key Classes: `SecurityScanner`, `VulnerabilityDetector`, `ComplianceChecker`, `ThreatModeler`
+  - Key Functions: `scan_codebase(path: str) -> dict`, `check_vulnerabilities(dependencies: dict) -> list`, `assess_threats(system: dict) -> ThreatAssessment`
+- `llm/` - LLM infrastructure and integration
+  - Key Submodules: `ollama/`, `outputs/`, `prompt_templates/`
+  - Key Classes: `OllamaClient`, `ModelManager`, `InferenceEngine`
+  - Key Functions: `load_model(name: str) -> bool`, `generate_text(prompt: str, model: str) -> str`
+- `performance/` - Performance monitoring
+  - Key Classes: `PerformanceProfiler`, `BenchmarkRunner`, `MetricsCollector`
+  - Key Functions: `profile_function(func: callable, *args, **kwargs) -> ProfileResult`, `run_benchmark(test_func: callable) -> dict`
+
+**Service Layer**:
+
+- `deployment/` - Deployment automation
+  - Key Classes: `DeploymentManager`, `RollbackHandler`
+  - Key Functions: `deploy(config: dict) -> DeployResult`, `rollback(deployment_id: str) -> bool`
+- `documentation/` - Documentation generation tools
+  - Key Classes: `DocGenerator`, `APIDocumenter`, `MarkdownRenderer`
+  - Key Functions: `generate_docs(source_path: str, output_path: str) -> None`, `extract_api_docs(code: str) -> dict`
+- `api/` - API infrastructure
+  - Key Submodules: `documentation/`, `standardization/`
+  - Key Classes: `OpenAPISpecGenerator`, `APIVersioner`, `RESTAPIBuilder`
+  - Key Functions: `generate_openapi_spec(routes: list) -> dict`, `version_api(api: dict) -> dict`
+- `ci_cd_automation/` - CI/CD pipeline management
+  - Key Classes: `PipelineBuilder`, `DeploymentManager`, `TestRunner`
+  - Key Functions: `create_pipeline(config: dict) -> Pipeline`, `deploy_to_environment(app: str, env: str) -> bool`
+- `containerization/` - Container management
+  - Key Classes: `DockerManager`, `ContainerOrchestrator`, `ImageBuilder`
+  - Key Functions: `build_image(dockerfile: str, tag: str) -> str`, `deploy_container(config: dict) -> bool`
+- `database_management/` - Database operations
+  - Key Classes: `DatabaseClient`, `SchemaManager`, `MigrationRunner`
+  - Key Functions: `execute_query(query: str, params: dict = None) -> list`, `run_migration(migration_file: str) -> bool`
+- `orchestrator/` - Workflow orchestration
+  - Key Classes: `WorkflowEngine`, `TaskScheduler`, `DependencyGraph`
+  - Key Functions: `execute_workflow(workflow_id: str, context: dict) -> WorkflowResult`
+- `config_management/` - Configuration management
+  - Key Classes: `ConfigManager`, `SecretHandler`, `EnvironmentLoader`
+  - Key Functions: `load_config(path: str) -> dict`, `get_secret(key: str) -> str`
+
+**Specialized Layer**:
+
+- `spatial/` - Spatial modeling (3D/4D)
+  - Key Submodules: `three_d/`, `four_d/`, `world_models/`
+  - Key Classes: `SceneBuilder`, `MeshGenerator`, `Renderer`
+  - Key Functions: `create_scene(objects: list) -> Scene`, `render_scene(scene: Scene) -> Image`
+- `physical_management/` - Physical system simulation
+  - Key Classes: `SystemMonitor`, `ResourceManager`, `PerformanceTracker`
+  - Key Functions: `get_system_info() -> dict`, `monitor_resources(interval: int) -> Iterator[dict]`
+- `system_discovery/` - System exploration and module discovery
+  - Key Classes: `ModuleScanner`, `CapabilityDetector`, `HealthChecker`
+  - Key Functions: `discover_modules() -> list`, `check_module_health(module_name: str) -> HealthStatus`
+- `cerebrum/` - Case-based reasoning and Bayesian inference
+  - Key Classes: `CerebrumEngine`, `CaseBase`, `BayesianNetwork`, `ActiveInferenceAgent`
+  - Key Functions: `reason(case: Case, context: dict) -> ReasoningResult`, `infer(network: BayesianNetwork, evidence: dict) -> InferenceResult`
+- `fpf/` - Feed-Parse-Format Pipeline
+  - Key Classes: `FPFOrchestrator`, `CombinatorEngine`, `TransformationPipeline`
+  - Key Functions: `compose(functions: list) -> ComposedFunction`, `transform(data: Any, pipeline: Pipeline) -> Any`
+- `documents/` - Document processing and management
+  - Key Classes: `DocumentProcessor`, `MetadataExtractor`, `SearchEngine`, `Transformer`
+  - Key Functions: `process_document(path: str) -> Document`, `search(query: str, corpus: list) -> list`
+- `events/` - Event system and pub/sub
+  - Key Classes: `EventBus`, `EventEmitter`, `EventHandler`
+  - Key Functions: `emit(event: Event) -> None`, `subscribe(event_type: str, handler: callable) -> None`
+- `plugin_system/` - Plugin architecture and management
+  - Key Classes: `PluginManager`, `PluginLoader`, `PluginRegistry`
+  - Key Functions: `load_plugin(path: str) -> Plugin`, `register_plugin(plugin: Plugin) -> None`
+- `tool_use/` - Tool invocation and management
+  - Key Classes: `ToolRegistry`, `ToolExecutor`
+  - Key Functions: `register_tool(name: str, tool: callable) -> None`, `execute_tool(name: str, args: dict) -> Any`
+- `utils/` - General utilities
+  - Key Functions: `ensure_directory`, `safe_write`
+- `validation/` - Input validation
+  - Key Classes: `Validator`, `Schema`
+- `templating/` - Template management
+  - Key Classes: `TemplateEngine`
+- `ide/` - IDE Integration
+  - Key Classes: `EditorInterface`
+- `cloud/` - Cloud provider integration
+  - Key Classes: `AWSClient`, `GCPClient`, `InfomaniakComputeClient`
+- `networking/` - Network utilities
+  - Key Classes: `NetworkClient`, `HTTPClient`
+- `serialization/` - Data serialization
+  - Key Classes: `Serializer`
+- `compression/` - Data compression
+  - Key Classes: `Compressor`
+- `encryption/` - Data encryption
+  - Key Classes: `Encrypter`
+- `scrape/` - Web scraping
+  - Key Classes: `Scraper`
+- `auth/` - Authentication and authorization
+  - Key Classes: `AuthManager`, `TokenHandler`
+- `cache/` - Caching infrastructure
+  - Key Classes: `CacheManager`, `CacheStrategy`
+- `collaboration/` - Team collaboration tools
+  - Key Classes: `CollaborationSession`, `SyncManager`
+- `concurrency/` - Concurrency utilities
+  - Key Classes: `AsyncExecutor`, `TaskPool`
+- `embodiment/` - Physical embodiment interfaces
+  - Key Classes: `EmbodimentInterface`, `SensorManager`
+- `evolutionary_ai/` - Evolutionary AI algorithms
+  - Key Classes: `EvolutionaryOptimizer`, `GeneticAlgorithm`
+- `feature_flags/` - Feature flag management
+  - Key Classes: `FeatureFlagManager`, `FlagEvaluator`
+- `model_ops/` - ML model operations
+  - Key Classes: `ModelManager`, `ModelRegistry`
+- `skills/` - Agent skills and capabilities
+  - Key Classes: `SkillRegistry`, `SkillExecutor`
+- `telemetry/` - Telemetry and observability
+  - Key Classes: `TelemetryClient`, `TraceManager`
+- `website/` - Website generation and management
+  - Key Classes: `WebsiteBuilder`, `PageGenerator`
+- `meme/` - Memetics & Information Dynamics *(Experimental — not yet MCP-exposed)*
+  - Key Classes: `MemeSpecific`, `NarrativeEngine`
+- `agentic_memory/` - Long-term agent memory, recall, and Obsidian vault integration
+  - Key Classes: `AgentMemory`, `VectorStoreMemory`
+  - Key Submodule: `obsidian/` — 19-module dual-mode Obsidian integration (filesystem + CLI)
+  - Key Functions: `ObsidianVault(path)`, `search_vault()`, `create_note()`, `build_link_graph()`, `parse_canvas()`
+- `audio/` - Audio processing, transcription, and streaming
+  - Key Classes: `AudioProcessor`, `Transcriber`
+  - Key Submodule: `streaming/` — WebSocket streaming pipeline with `AudioStreamServer`, `AudioStreamClient`, `CodecNegotiator`, energy-based `VAD`
+- `vision/` - Local-first visual understanding (VLM via Ollama)
+  - Key Classes: `VLMClient`, `PDFExtractor`, `AnnotationExtractor`
+  - Key Functions: `analyze_image(path) -> VLMResponse`, `extract_text(pdf_path) -> str`
+- `bio_simulation/` - Biological simulation
+  - Key Classes: `BioSimulator`
+- `crypto/` - Cryptographic utilities
+  - Key Classes: `CryptoEngine`
+- `dark/` - Dark mode utilities for PDFs and interfaces
+  - Key Classes: `DarkModeConverter`
+- `dependency_injection/` - Dependency injection framework
+  - Key Classes: `Container`, `Provider`
+- `edge_computing/` - Edge computing and IoT
+  - Key Classes: `EdgeNode`, `EdgeOrchestrator`
+- `finance/` - Financial operations and tracking
+  - Key Classes: `FinanceTracker`, `TransactionManager`
+- `formal_verification/` - Formal verification and proofs
+  - Key Classes: `Verifier`, `ProofEngine`
+- `graph_rag/` - Graph-based retrieval augmented generation
+  - Key Classes: `GraphRAG`, `KnowledgeGraph`
+- `logistics/` - Logistics-layer orchestration and scheduling
+  - Key Classes: `LogisticsPlanner`, `ShipmentTracker`
+- `maintenance/` - Documentation maintenance utilities
+  - Key Functions: `update_root_docs`, `finalize_docs`
+- `networks/` - Network topology and analysis
+  - Key Classes: `NetworkAnalyzer`, `TopologyBuilder`
+
+- `prompt_engineering/` - Prompt engineering and optimization
+  - Key Classes: `PromptOptimizer`, `PromptTemplate`
+- `quantum/` - Quantum computing interfaces
+  - Key Classes: `QuantumCircuit`, `QuantumSimulator`
+- `relations/` - Relationship management
+  - Key Classes: `RelationshipManager`
+- `simulation/` - Simulation framework
+  - Key Classes: `Simulator`, `SimulationEngine`
+- `vector_store/` - Vector storage and similarity search
+  - Key Classes: `InMemoryVectorStore`, `VectorIndex`
+- `video/` - Video processing and analysis *(Stub — exceptions only, not yet implemented)*
+  - Key Classes: `VideoProcessor`, `FrameExtractor`
+
+**Secure Cognitive Layer** *(Experimental — modules exist but are not yet MCP-exposed via the PAI bridge)*:
+
+- `identity/` - Multi-persona and bio-verification
+  - Key Classes: `IdentityManager`, `BioCognitiveVerifier`, `Persona`
+- `wallet/` - Self-custody and recovery
+  - Key Classes: `WalletManager`, `NaturalRitualRecovery`
+- `defense/` - Active defense and rabbit holes
+  - Key Classes: `ActiveDefense`, `RabbitHole`
+- `market/` - Anonymous marketplaces
+  - Key Classes: `ReverseAuction`, `DemandAggregator`
+- `privacy/` - Data minimization and mixnets
+  - Key Classes: `CrumbCleaner`, `MixnetProxy`
+
+**Development Layer**:
+
+- `module_template/` - Module creation templates and scaffolding
+  - Key Classes: `ModuleGenerator`, `TemplateRenderer`, `ScaffoldBuilder`
+  - Key Functions: `create_module(name: str, template: str) -> bool`, `generate_scaffold(config: dict) -> dict`
+
+See [docs/modules/overview.md](docs/modules/overview.md) for module documentation.
+
+## Navigation
+
+### For Users
+
+- **Start Here**: [README.md](README.md) - Project overview and quick start
+- **Getting Started**: [docs/getting-started/quickstart.md](docs/getting-started/quickstart.md)
+- **Architecture**: [docs/project/architecture.md](docs/project/architecture.md)
+- **Contributing**: [docs/project/contributing.md](docs/project/contributing.md)
+
+### For Agents
+
+- **Coding Standards**: [.editorconfig](.editorconfig)
+- **Module System**: [docs/modules/overview.md](docs/modules/overview.md)
+- **Module Relationships**: [docs/modules/relationships.md](docs/modules/relationships.md)
+- **API Reference**: [docs/reference/api.md](docs/reference/api.md)
+
+## Signposting
+
+### Document Hierarchy
+
+- **Self**: [AGENTS.md](AGENTS.md) - This document (root agent coordination)
+- **Parent**: [README.md](README.md) - Project overview and entry point
+
+### Sibling Documents (Root Level)
+
+- [README.md](README.md) - Project overview and quick start
+- [SPEC.md](SPEC.md) - Functional specification
+- [PAI.md](PAI.md) - Personal AI Infrastructure documentation
+- [SECURITY.md](SECURITY.md) - Security policies
+
+### Child AGENTS.md Files
+
+| Directory | AGENTS.md | Purpose |
+| :--- | :--- | :--- |
+| **src/** | [src/AGENTS.md](src/AGENTS.md) | Source code coordination |
+| **src/codomyrmex/** | [src/codomyrmex/AGENTS.md](src/codomyrmex/AGENTS.md) | Module coordination hub |
+| **docs/** | [docs/AGENTS.md](docs/AGENTS.md) | Documentation coordination |
+| **scripts/** | [scripts/AGENTS.md](scripts/AGENTS.md) | Automation scripts coordination |
+| **config/** | [config/AGENTS.md](config/AGENTS.md) | Configuration coordination |
+| **projects/** | [projects/AGENTS.md](projects/AGENTS.md) | Project workspace coordination |
+
+### Key Module AGENTS.md Files
+
+| Module | AGENTS.md | Layer |
+| :--- | :--- | :--- |
+| **logging_monitoring** | [src/codomyrmex/logging_monitoring/AGENTS.md](src/codomyrmex/logging_monitoring/AGENTS.md) | Foundation |
+| **environment_setup** | [src/codomyrmex/environment_setup/AGENTS.md](src/codomyrmex/environment_setup/AGENTS.md) | Foundation |
+| **model_context_protocol** | [src/codomyrmex/model_context_protocol/AGENTS.md](src/codomyrmex/model_context_protocol/AGENTS.md) | Foundation |
+| **terminal_interface** | [src/codomyrmex/terminal_interface/AGENTS.md](src/codomyrmex/terminal_interface/AGENTS.md) | Foundation |
+| **agents** | [src/codomyrmex/agents/AGENTS.md](src/codomyrmex/agents/AGENTS.md) | Core |
+| **static_analysis** | [src/codomyrmex/static_analysis/AGENTS.md](src/codomyrmex/static_analysis/AGENTS.md) | Core |
+| **coding** | [src/codomyrmex/coding/AGENTS.md](src/codomyrmex/coding/AGENTS.md) | Core |
+| **llm** | [src/codomyrmex/llm/AGENTS.md](src/codomyrmex/llm/AGENTS.md) | Core |
+| **cerebrum** | [src/codomyrmex/cerebrum/AGENTS.md](src/codomyrmex/cerebrum/AGENTS.md) | Specialized |
+| **meme** | [src/codomyrmex/meme/AGENTS.md](src/codomyrmex/meme/AGENTS.md) | Specialized |
+| **orchestrator** | [src/codomyrmex/orchestrator/AGENTS.md](src/codomyrmex/orchestrator/AGENTS.md) | Service |
+
+### For Contributors
+
+- **Development Setup**: [docs/development/environment-setup.md](docs/development/environment-setup.md)
+- **Testing Strategy**: [docs/development/testing-strategy.md](docs/development/testing-strategy.md)
+- **Documentation Guide**: [docs/development/documentation.md](docs/development/documentation.md)
+
+## Agent Coordination
+
+### Cross-Module Operations
+
+When an operation spans multiple modules:
+
+1. **Check Dependencies**: Review `docs/modules/relationships.md` for dependency graph
+2. **Coordinate Logging**: Use consistent log levels and structured data
+3. **Share Context**: Use MCP tools to pass context between agents
+4. **Update Documentation**: Ensure all affected modules' docs are updated
+
+### Conflict Resolution
+
+If conflicting guidance is found:
+
+1. **Hierarchy**: Specific overrides general (module rules > general rules)
+2. **Rationale**: Conflicts should state explicit rationale
+3. **Escalation**: Document unresolved conflicts in task items
+
+### Quality Gates
+
+Before completing significant changes:
+
+1. **Tests Pass**: All relevant tests must pass
+2. **Linting Clean**: No new linting errors
+3. **Documentation Updated**: Changes reflected in docs
+4. **AGENTS.md Current**: Module AGENTS.md reflects changes
+5. **Links Valid**: All documentation links functional
+6. **Measured, Not Assumed**: Claims about performance, coverage, or behaviour are backed by recent measurements or tests rather than guesses.
+
+## Version History
+
+- **v1.2.9** (March 2026) — Hermes 0.4.0 integration, functional Zero-Mock validation, OpenAI-compatible API support
+- **v1.2.3** (March 2026) — Codebase Health, API Freeze, Config Validation, Typed Events, Performance Profiling
+- **v1.1.8** (March 2026) — Persistent memory, Obsidian sync, multi-hop Graph RAG, active inference
+- **v1.1.7** (March 2026) — Repository-wide documentation audit and consistency sweep
+- **v1.1.6** (March 2026) — Hermes dual-backend, Gemini package migration
+- **v1.1.5** (March 2026) — Type safety diagnostics, coverage gate ratcheted to 35%
+- **v1.1.4** (March 2026) — Ruff zero, 128 modules, 595 `@mcp_tool` decorators, RASP doc compliance 128/128
+- **v1.1.0** (March 2026) — Production readiness, zero-mock hardening
+- **v1.0.7** (March 2026) — MCP expansion: 74 auto-discovered modules, ~367 tools
+- **v0.1.0** (February 2026) — Initial repository structure and agent coordination framework
+
+## Related Documentation
+
+- **[Architecture](docs/project/architecture.md)** - System architecture and design principles
+- **[Contributing](docs/project/contributing.md)** - Contributing guidelines and workflow
+
+<!-- gitnexus:start -->
+# GitNexus — Code Intelligence
+
+This project is indexed by GitNexus as **codomyrmex** (173753 symbols, 250088 relationships, 300 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+
+> Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
+
+## Always Do
+
+- **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+- **MUST run `detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows. For regression review, compare against the default branch: `detect_changes({scope: "compare", base_ref: "main"})`.
+- **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+- When exploring unfamiliar code, use `query({search_query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+- When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `context({name: "symbolName"})`.
+- For security review, `explain({target: "fileOrSymbol"})` lists taint findings (source→sink flows; needs `analyze --pdg`).
+
+## Never Do
+
+- NEVER edit a function, class, or method without first running `impact` on it.
+- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+- NEVER rename symbols with find-and-replace — use `rename` which understands the call graph.
+- NEVER commit changes without running `detect_changes()` to check affected scope.
+
+## Resources
+
+| Resource | Use for |
+|----------|---------|
+| `gitnexus://repo/codomyrmex/context` | Codebase overview, check index freshness |
+| `gitnexus://repo/codomyrmex/clusters` | All functional areas |
+| `gitnexus://repo/codomyrmex/processes` | All execution flows |
+| `gitnexus://repo/codomyrmex/process/{name}` | Step-by-step execution trace |
+
+## CLI
+
+| Task | Read this skill file |
+|------|---------------------|
+| Understand architecture / "How does X work?" | `.claude/skills/gitnexus/gitnexus-exploring/SKILL.md` |
+| Blast radius / "What breaks if I change X?" | `.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md` |
+| Trace bugs / "Why is X failing?" | `.claude/skills/gitnexus/gitnexus-debugging/SKILL.md` |
+| Rename / extract / split / refactor | `.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md` |
+| Tools, resources, schema reference | `.claude/skills/gitnexus/gitnexus-guide/SKILL.md` |
+| Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
+
+<!-- gitnexus:end -->
+
+## qmd Skill
+
+This project is configured with the `qmd` skill for local hybrid search of Markdown notes and docs.
+
+| Task | Read this skill file |
+| --- | --- |
+| Search notes, docs, or knowledge base | `.claude/skills/qmd/SKILL.md` |
+
+---
+> Source: [docxology/codomyrmex](https://github.com/docxology/codomyrmex) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-14 -->
