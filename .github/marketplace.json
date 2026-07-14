@@ -117329,6 +117329,16 @@
       "description": "sam-image-app"
     },
     {
+      "name": "anandgupta42--aireceipts",
+      "source": "./anandgupta42--aireceipts",
+      "description": "Your AI coding agent just billed you. Here's the receipt. Cost receipts for Claude Code, Codex, Cursor, Gemini & opencode \u2014 no account, no upload."
+    },
+    {
+      "name": "anandgupta42--aireceipts",
+      "source": "./anandgupta42--aireceipts",
+      "description": "Your AI coding agent just billed you. Here's the receipt. Cost receipts for Claude Code, Codex, Cursor, Gemini & opencode \u2014 no account, no upload."
+    },
+    {
       "name": "eliornl--applypilot",
       "source": "./eliornl--applypilot",
       "description": "Self-hosted, AI-powered job search companion. Paste a job posting and five AI agents run an orchestrated pipeline \u2014 analyze the role, score your fit, research the company, rewrite your resume, and wri"
@@ -168439,6 +168449,11 @@
       "description": "A lightweight Ruby gem for OKF: author, curate, and serve bundles as an interactive graph."
     },
     {
+      "name": "super-productivity--plainspace",
+      "source": "./super-productivity--plainspace",
+      "description": "A small shared workspace for tasks, notes, polls, and planning \u2014 self-hostable and touch-first"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -207322,6 +207337,11 @@
       "name": "asimons81--wp-chatgpt-publisher",
       "source": "./asimons81--wp-chatgpt-publisher",
       "description": "Finally, a way to let ChatGPT touch your WordPress site that doesn't involve handing over your API key, your admin password, or your dignity."
+    },
+    {
+      "name": "eigenlegal--counsel-os",
+      "source": "./eigenlegal--counsel-os",
+      "description": "A legal operating system. Primitives-based legal practice tool with 4-layer knowledge system, auto-detection of applicable law, and institutional memory. For solo practitioners, law firms, and in-hous"
     },
     {
       "name": "yschimke--compose-ai-tools",
