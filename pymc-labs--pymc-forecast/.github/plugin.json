@@ -1,9 +1,9 @@
 {
   "name": "pymc-labs--pymc-forecast",
-  "displayName": "pymc_forecast",
+  "displayName": "pymc-forecast",
   "description": "Port of numpyro_forecast",
   "version": "1.0.0",
   "author": "pymc-labs",
-  "homepage": "https://github.com/pymc-labs/pymc_forecast",
+  "homepage": "https://github.com/pymc-labs/pymc-forecast",
   "skills": []
 }
