@@ -1,0 +1,9 @@
+{
+  "name": "endless-creativity--elephant-php",
+  "displayName": "elephant-php",
+  "description": "Convert .docx to Markdown or semantic HTML \u2014 no external dependencies.",
+  "version": "1.0.0",
+  "author": "endless-creativity",
+  "homepage": "https://github.com/endless-creativity/elephant-php",
+  "skills": []
+}
