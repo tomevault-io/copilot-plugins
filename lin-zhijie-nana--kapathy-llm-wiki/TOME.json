@@ -4,7 +4,7 @@
   "repo": "kapathy-LLM-WIKI-",
   "description": "\u8fd9\u662f\u6211\u7684\u7b2c\u4e00\u4e2a\u9879\u76ee\uff0c\u672c\u9879\u76ee\u662f\u5bf9 Karpathy \u539f\u59cb gist\uff08karpathy/442a6bf555914893e9891c11519de94f\uff09\u7684\u4e2d\u6587\u6574\u7406\u4e0e\u6269\u5c55\uff0c\u65e8\u5728\u5e2e\u52a9\u4e2d\u6587\u7528\u6237\u7406\u89e3\u548c\u5b9e\u8df5\u8fd9\u5957\u5de5\u4f5c\u6d41",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lin-zhijie-nana/kapathy-LLM-WIKI-",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T12:46:44Z"
+  "distributed_at": "2026-07-14T12:50:27Z"
 }
