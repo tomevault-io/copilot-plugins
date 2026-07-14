@@ -1,0 +1,9 @@
+{
+  "name": "superbiche--paperclip-adapters",
+  "displayName": "paperclip-adapters",
+  "description": "External adapter pack for paperclipai/paperclip \u2014 cline, qwen, and more.",
+  "version": "1.0.0",
+  "author": "superbiche",
+  "homepage": "https://github.com/superbiche/paperclip-adapters",
+  "skills": []
+}
