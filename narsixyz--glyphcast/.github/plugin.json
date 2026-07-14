@@ -1,0 +1,9 @@
+{
+  "name": "narsixyz--glyphcast",
+  "displayName": "glyphcast",
+  "description": "Glyphcast is a browser-based ASCII studio that turns images, GIFs, and videos into customizable ASCII animations, with export options for PNG, video, React code, ZIP frames, and plain text.",
+  "version": "1.0.0",
+  "author": "narsixyz",
+  "homepage": "https://github.com/narsixyz/glyphcast",
+  "skills": []
+}
