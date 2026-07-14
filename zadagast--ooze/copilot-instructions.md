@@ -1,51 +1,41 @@
-## ooze-global-menu
+## ooze-kit-buttons
 
-> How Ooze global menus wire (native Wayland vs optional foreign AppMenu)
+> OozeKit button and toolbar control rules
 
 
-# Global menu wiring
+# OozeKit buttons
 
-Ooze is a Mutter Wayland compositor.
+Toolbar / settings controls MUST follow Spot’s Computer / Home / Favorites pattern:
 
-## Wayland GTK (Spot, Command, other org.ooze.* — always on)
+- Full-color (non-symbolic) theme icons — prefer names without `-symbolic`
+- Caption text centered **below** the icon
+- Use `ooze_button_new_labeled()` (or `ooze_button_new_toolbar()`) — never icon-only symbolic pills for app controls
+- Icon sizes come from `ooze-icons.h`: toolbar **40**, sidebar **24**, list **16**, grid **48**. Always use those constants / `ooze_icon_image_new()`.
 
-1. Compositor advertises `gtk_shell1` **GLOBAL_APP_MENU** by keeping
-   `meta_prefs_set_show_fallback_app_menu(FALSE)`.
-2. Clients export over the session bus; Mutter exposes paths on `MetaWindow`:
-   - `gtk-unique-bus-name`
-   - `gtk-menubar-object-path` (prefer) or `gtk-app-menu-object-path` (fallback)
-   - `gtk-application-object-path` / `gtk-window-object-path` for `app.*` / `win.*`
-3. Shell binds `GDBusMenuModel` + `GDBusActionGroup`.
+Do **not** use symbolic-only icon buttons for OozeKit controls. Symbolic icons are a last-resort fallback only when no color icon exists.
 
-Apps must `gtk_application_set_menubar()` once at startup and
-`gtk_application_window_set_show_menubar(..., FALSE)`.
+For left-column place lists (icon above caption, ~88px SIDEBAR surface), see `ooze-kit-sidebar.mdc` — that vertical tile column is core OozeKit language (Spot places, Command tabs).
 
-## Foreign / classic GTK3 AppMenu (OFF by default)
+## MAIN BAR (under the Ooze Gel title bar)
 
-Sync `GetMenuForWindow` / dbusmenu `GetLayout` on the compositor main thread
-freezes the session (especially Inkscape). **Do not force** `GDK_BACKEND=x11`,
-`appmenu-gtk-module`, or `Gtk/ShellShowsMenubar=1` unless debugging.
+The app’s primary command strip is `ooze_toolbar_new()` — not a one-off GTK box.
 
-Re-enable only with:
+- Compose with `ooze_toolbar_add_group()`, `ooze_toolbar_add_separator()`, `ooze_toolbar_add_spacer()`
+- Tiles: `ooze_button_new_toolbar()` only
+- Height is content-driven (grows to fit the tallest tile) — never forced via CSS `min-height` or `size_request`; `OOZE_TOOLBAR_HEIGHT` (~96) is a nominal doc reference only
+- Glass geometry (kit-owned):
+  - **Outset** `OOZE_BTN_EDGE` — air from tile allocation to glass rim
+  - **Inset** `OOZE_BTN_PAD_*` — air from glass rim to icon + caption
+- Equal tile `min-width` for Back…Applications rhythm; spacer before Search stays
+- Chrome strips stay **flush** (no outer margin) so pinlines flow; phase via `ooze_stripe_origin_y()`
+- Trailing search / accessories: CSS class `ooze-toolbar-search`
+- Do **not** invent per-app padding or icon pixel sizes — change OozeKit / `aqua-chrome.h` instead
 
-```bash
-OOZE_FOREIGN_GLOBAL_MENU=1
-```
+## Exclusive toggles
 
-Then: install `./scripts/install-appmenu.sh`, Xwayland, registrar + dbusmenu bind
-as before. Prefer registrar when `GetMenuForWindow` succeeds; wrap sync calls
-with `OozeStall:`.
+Pairs like Spot **Grid** / **Columns** are two labeled OozeKit toolbar tiles. Use `ooze_button_set_toggled()` so exactly one peer is active (clear dock-like glass plate). Do not invent icon-only segmented pills or flat blue selection boxes.
 
-Default: foreign apps keep **in-window** menus. XSETTINGS publishes
-`Gtk/ShellShowsMenubar=0` / `ShellShowsAppmenu=0`.
-
-Do not invent a second menubar path per window for Ooze GtkApplication apps —
-set the application menubar once.
-
-## Popup UX
-
-Menu popups sit above windows with a dim scrim backdrop and a clear shadow so they
-remain readable over light app surfaces.
+Spot view modes: **Grid** and **Columns** only; **Grid** is the default.
 
 ---
 > Source: [Zadagast/ooze](https://github.com/Zadagast/ooze) — distributed by [TomeVault](https://tomevault.io).
