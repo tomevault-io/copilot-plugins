@@ -245389,6 +245389,66 @@
       "description": "A Polymarket Monitoring Agent That Actually Works"
     },
     {
+      "name": "5uck1ess--cicero",
+      "source": "./5uck1ess--cicero",
+      "description": "Self-hosted voice for coding agents. Talk from any browser or a Telegram call, interrupt mid-sentence, clone any voice, and hand real work to agents that ship PRs. Local STT/TTS; real-time voice clien"
+    },
+    {
+      "name": "5uck1ess--cicero",
+      "source": "./5uck1ess--cicero",
+      "description": "Self-hosted voice for coding agents. Talk from any browser or a Telegram call, interrupt mid-sentence, clone any voice, and hand real work to agents that ship PRs. Local STT/TTS; real-time voice clien"
+    },
+    {
+      "name": "tiluckdave--hound-mcp",
+      "source": "./tiluckdave--hound-mcp",
+      "description": "The dependency bloodhound for AI coding agents. Free, no API keys."
+    },
+    {
+      "name": "littleseven--langchain4android",
+      "source": "./littleseven--langchain4android",
+      "description": "PoLang is an on-device AI agent smart photo gallery that treats the LLM as the central nervous system of the app. It serves as a living experiment for next-generation AI-first client architectures."
+    },
+    {
+      "name": "ultrathink-art--agentbrush",
+      "source": "./ultrathink-art--agentbrush",
+      "description": "Image editing toolkit for AI agents. Agent Skills compatible."
+    },
+    {
+      "name": "alexeyinwerp--boardripper",
+      "source": "./alexeyinwerp--boardripper",
+      "description": "Web-based PCB boardview viewer for board-level repair. 11 formats (BVR1/3, BRD, BDV, BDV ASC, FZ, GenCAD, Mentor Neutral, XZZ, TVW, Allegro v15-v18). GPU-accelerated, dockable panels, self-hosted via "
+    },
+    {
+      "name": "aryaminus--controlkeel",
+      "source": "./aryaminus--controlkeel",
+      "description": "Agent control plane for governed AI coding: validate changes, enforce policy gates, track findings, proofs, and evals based on your habits."
+    },
+    {
+      "name": "folknor--sluggrs",
+      "source": "./folknor--sluggrs",
+      "description": "GPU vector text rendering via the Slug algorithm \u2014 resolution-independent cryoglyph replacement for iced"
+    },
+    {
+      "name": "littleseven--langchain4android",
+      "source": "./littleseven--langchain4android",
+      "description": "PoLang is an on-device AI agent smart photo gallery that treats the LLM as the central nervous system of the app. It serves as a living experiment for next-generation AI-first client architectures."
+    },
+    {
+      "name": "cjhyy--codeshell",
+      "source": "./cjhyy--codeshell",
+      "description": "An open-source AI coding assistant for your terminal, inspired by Claude Code. Interact with your codebase directly from the command line."
+    },
+    {
+      "name": "cjhyy--codeshell",
+      "source": "./cjhyy--codeshell",
+      "description": "An open-source AI coding assistant for your terminal, inspired by Claude Code. Interact with your codebase directly from the command line."
+    },
+    {
+      "name": "dream-atelier--kl-eod-decomp",
+      "source": "./dream-atelier--kl-eod-decomp",
+      "description": "Decompilation project for \"Klonoa: Empire of Dreams\" (GBA)"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -267549,6 +267609,26 @@
       "description": "Free, unlimited voice dictation for Windows, built for talking to your AI coding agents. Like Wispr Flow, but you don't pay and there's no word limit."
     },
     {
+      "name": "ohmiler--gridgeist",
+      "source": "./ohmiler--gridgeist",
+      "description": "Gridgeist turns product intent into a rigorous visual system\u2014without the generic AI SaaS aftertaste."
+    },
+    {
+      "name": "joeynyc--honeycomb-lab",
+      "source": "./joeynyc--honeycomb-lab",
+      "description": "Honeycomb Lab \u2014 hex map + OpenAI gateway control plane for a home AI fleet"
+    },
+    {
+      "name": "zz6zz666--android-diy-sandbox",
+      "source": "./zz6zz666--android-diy-sandbox",
+      "description": "Android-DIY-Sandbox"
+    },
+    {
+      "name": "luciusmagn--autolith",
+      "source": "./luciusmagn--autolith",
+      "description": "Autolith is a self-modifiable general purpose Lisp AI agent"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -272172,6 +272252,16 @@
       "name": "kornia--vision-rt",
       "source": "./kornia--vision-rt",
       "description": "Real-time neural-vision libraries for NVIDIA Jetson Orin \u2014 Rust + TensorRT inference with GPU pre/post-processing."
+    },
+    {
+      "name": "radiumcoders--github-stars",
+      "source": "./radiumcoders--github-stars",
+      "description": "Stargazer Wall Generate a short Remotion animation of a GitHub repository\u2019s stargazers, then export it as MP4."
+    },
+    {
+      "name": "ccsonicc333--trae-flow",
+      "source": "./ccsonicc333--trae-flow",
+      "description": "\u300c\u4f7f\u7528TRAE\u521b\u5efa\u4e13\u5c5e\u4e8e\u4f60\u7684 Mac \u7075\u52a8\u5c9b\u300d"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -396982,6 +397072,21 @@
       "name": "mjodheim--mjodheim-site",
       "source": "./mjodheim--mjodheim-site",
       "description": "mjodheim-site"
+    },
+    {
+      "name": "mustaphaoujaa--propchain",
+      "source": "./mustaphaoujaa--propchain",
+      "description": "PropChain"
+    },
+    {
+      "name": "ts-taisei--bizportalclients",
+      "source": "./ts-taisei--bizportalclients",
+      "description": "BizPortalClients"
+    },
+    {
+      "name": "ts-taisei--bizportalclients",
+      "source": "./ts-taisei--bizportalclients",
+      "description": "BizPortalClients"
     }
   ]
 }
