@@ -7,11 +7,11 @@ Self-hosted voice for coding agents. Talk from any browser or a Telegram call, i
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [5uck1ess/cicero](https://github.com/5uck1ess/cicero).
+Original source: `CLAUDE.md` in [5uck1ess/cicero](https://github.com/5uck1ess/cicero).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
