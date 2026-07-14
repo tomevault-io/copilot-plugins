@@ -1,0 +1,9 @@
+{
+  "name": "juzser--claude-status-bar-macos",
+  "displayName": "claude-status-bar-macos",
+  "description": "Native macOS menu bar app showing Claude usage and Claude Code activity at a glance",
+  "version": "1.0.0",
+  "author": "juzser",
+  "homepage": "https://github.com/juzser/claude-status-bar-macos",
+  "skills": []
+}
