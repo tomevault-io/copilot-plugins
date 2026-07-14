@@ -4,7 +4,7 @@
   "repo": "ai-cost-cutter-skills",
   "description": "10 skills that cut your AI bill with proof instead of vibes. MIT, works in Claude Code, Codex, Cursor. Every skill's check is executed by CI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Neeeophytee/ai-cost-cutter-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T12:45:36Z"
+  "distributed_at": "2026-07-14T12:49:25Z"
 }
