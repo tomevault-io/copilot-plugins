@@ -1,0 +1,9 @@
+{
+  "name": "qecirc--qecirc-website",
+  "displayName": "qecirc-website",
+  "description": "QECirc \u2014 A community-driven library for quantum error correction circuits.",
+  "version": "1.0.0",
+  "author": "qecirc",
+  "homepage": "https://github.com/qecirc/qecirc-website",
+  "skills": []
+}
