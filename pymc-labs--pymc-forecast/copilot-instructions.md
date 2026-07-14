@@ -1,10 +1,10 @@
 ## pymc-forecast
 
-> Bayesian time-series forecasting toolkit for PyMC. A port of
+> Bayesian time-series forecasting toolkit for PyMC (import name: `pymc_forecast`). A port of
 
-# pymc_forecast
+# PyMC-Forecast
 
-Bayesian time-series forecasting toolkit for PyMC. A port of
+Bayesian time-series forecasting toolkit for PyMC (import name: `pymc_forecast`). A port of
 [numpyro_forecast](https://github.com/juanitorduz/numpyro_forecast), redesigned
 around PyMC idioms — see PLAN.md for the full design and the issue tracker for
 the roadmap.
@@ -29,5 +29,5 @@ the roadmap.
 - Upstream reference source (for porting): https://github.com/juanitorduz/numpyro_forecast
 
 ---
-> Source: [pymc-labs/pymc_forecast](https://github.com/pymc-labs/pymc_forecast) — distributed by [TomeVault](https://tomevault.io).
+> Source: [pymc-labs/pymc-forecast](https://github.com/pymc-labs/pymc-forecast) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:copilot_instructions:2026-07-14 -->
