@@ -4,7 +4,7 @@
   "repo": "SparkMoE",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/menachem-dadon/SparkMoE",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T02:31:30Z"
+  "distributed_at": "2026-07-14T02:32:01Z"
 }
