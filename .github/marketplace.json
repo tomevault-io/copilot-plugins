@@ -13089,6 +13089,11 @@
       "description": "nelsonlai.dev"
     },
     {
+      "name": "subtlegradient--appify-ui",
+      "source": "./subtlegradient--appify-ui",
+      "description": "Appify-UI"
+    },
+    {
       "name": "duanyytop--agents-radar",
       "source": "./duanyytop--agents-radar",
       "description": "Daily AI ecosystem digest from 10 sources (GitHub, ArXiv, HN, HuggingFace, Product Hunt, Dev.to, Lobste.rs). Bilingual ZH/EN reports via GitHub Actions."
