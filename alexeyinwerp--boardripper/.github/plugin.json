@@ -1,0 +1,9 @@
+{
+  "name": "alexeyinwerp--boardripper",
+  "displayName": "BoardRipper",
+  "description": "Web-based PCB boardview viewer for board-level repair. 11 formats (BVR1/3, BRD, BDV, BDV ASC, FZ, GenCAD, Mentor Neutral, XZZ, TVW, Allegro v15-v18). GPU-accelerated, dockable panels, self-hosted via ",
+  "version": "1.0.0",
+  "author": "AlexeyInwerp",
+  "homepage": "https://github.com/AlexeyInwerp/BoardRipper",
+  "skills": []
+}
