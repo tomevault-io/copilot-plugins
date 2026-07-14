@@ -1,0 +1,9 @@
+{
+  "name": "ambroise-leclerc--trustsc",
+  "displayName": "TrustSC",
+  "description": "Medical-device manufacturer framework in Rust \u2014 IEC 62304 Class B/C compliance modeling, Vulkan/Vulkan SC UI, zero-SOUP ML, byte-verified evidence",
+  "version": "1.0.0",
+  "author": "ambroise-leclerc",
+  "homepage": "https://github.com/ambroise-leclerc/TrustSC",
+  "skills": []
+}
