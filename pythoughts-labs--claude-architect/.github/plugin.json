@@ -1,0 +1,9 @@
+{
+  "name": "pythoughts-labs--claude-architect",
+  "displayName": "claude-architect",
+  "description": "Architect-first delegation for Claude Code and OpenCode. A Fable/Opus session routes implementation to Codex, the OpenCode provider pool, local Pi ($0), or autonomous Pythinker, then reviews every dif",
+  "version": "1.0.0",
+  "author": "Pythoughts-labs",
+  "homepage": "https://github.com/Pythoughts-labs/claude-architect",
+  "skills": []
+}
