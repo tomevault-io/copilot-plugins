@@ -1,0 +1,9 @@
+{
+  "name": "reflex-dev--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Skills for developing with Reflex",
+  "version": "1.0.0",
+  "author": "reflex-dev",
+  "homepage": "https://github.com/reflex-dev/agent-skills",
+  "skills": []
+}
