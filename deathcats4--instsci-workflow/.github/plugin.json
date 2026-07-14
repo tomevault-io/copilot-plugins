@@ -1,0 +1,9 @@
+{
+  "name": "deathcats4--instsci-workflow",
+  "displayName": "instsci-workflow",
+  "description": "Agent-friendly InstSci workflow preview for legal paper acquisition, browser evidence, and Zotero handoff",
+  "version": "1.0.0",
+  "author": "deathcats4",
+  "homepage": "https://github.com/deathcats4/instsci-workflow",
+  "skills": []
+}
