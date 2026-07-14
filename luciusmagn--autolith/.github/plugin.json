@@ -1,0 +1,9 @@
+{
+  "name": "luciusmagn--autolith",
+  "displayName": "autolith",
+  "description": "Autolith is a self-modifiable general purpose Lisp AI agent",
+  "version": "1.0.0",
+  "author": "luciusmagn",
+  "homepage": "https://github.com/luciusmagn/autolith",
+  "skills": []
+}
