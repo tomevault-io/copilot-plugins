@@ -1,0 +1,9 @@
+{
+  "name": "konstruktoid--ansible-collection-hardening",
+  "displayName": "ansible-collection-hardening",
+  "description": "Ansible collection for Linux server hardening focused on systemd-based distributions including AlmaLinux, Debian, and Ubuntu.",
+  "version": "1.0.0",
+  "author": "konstruktoid",
+  "homepage": "https://github.com/konstruktoid/ansible-collection-hardening",
+  "skills": []
+}
