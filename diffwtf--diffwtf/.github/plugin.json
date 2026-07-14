@@ -1,0 +1,9 @@
+{
+  "name": "diffwtf--diffwtf",
+  "displayName": "diffwtf",
+  "description": "Fast, private diffs in your browser. Rust \u2192 WebAssembly diff engine, 100% client-side.",
+  "version": "1.0.0",
+  "author": "diffwtf",
+  "homepage": "https://github.com/diffwtf/diffwtf",
+  "skills": []
+}
