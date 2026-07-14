@@ -1,0 +1,44 @@
+{
+  "name": "TeeForge-CD",
+  "owner": "mcxiaochenn",
+  "repo": "TeeForge-CD",
+  "description": "Android TEE \u9690\u85cf\u73af\u5883\u4e00\u4f53\u5316\u5de5\u5177\u6a21\u5757\uff08KernelSU / Magisk\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mcxiaochenn/TeeForge-CD",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T19:31:38Z"
+}
