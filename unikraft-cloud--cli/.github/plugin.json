@@ -1,0 +1,9 @@
+{
+  "name": "unikraft-cloud--cli",
+  "displayName": "cli",
+  "description": "Unikraft CLI",
+  "version": "1.0.0",
+  "author": "unikraft-cloud",
+  "homepage": "https://github.com/unikraft-cloud/cli",
+  "skills": []
+}
