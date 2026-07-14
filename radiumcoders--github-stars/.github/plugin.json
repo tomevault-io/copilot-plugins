@@ -1,0 +1,9 @@
+{
+  "name": "radiumcoders--github-stars",
+  "displayName": "github-stars",
+  "description": "Stargazer Wall Generate a short Remotion animation of a GitHub repository\u2019s stargazers, then export it as MP4.",
+  "version": "1.0.0",
+  "author": "radiumcoders",
+  "homepage": "https://github.com/radiumcoders/github-stars",
+  "skills": []
+}
