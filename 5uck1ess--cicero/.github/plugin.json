@@ -1,0 +1,9 @@
+{
+  "name": "5uck1ess--cicero",
+  "displayName": "cicero",
+  "description": "Self-hosted voice for coding agents. Talk from any browser or a Telegram call, interrupt mid-sentence, clone any voice, and hand real work to agents that ship PRs. Local STT/TTS; real-time voice clien",
+  "version": "1.0.0",
+  "author": "5uck1ess",
+  "homepage": "https://github.com/5uck1ess/cicero",
+  "skills": []
+}
