@@ -7,63 +7,7 @@
   "homepage": "https://github.com/tomevault-io/companyos",
   "skills": [
     {
-      "name": "adversarial-test",
-      "description": ""
-    },
-    {
-      "name": "changelog",
-      "description": ""
-    },
-    {
-      "name": "decision-memo",
-      "description": ""
-    },
-    {
-      "name": "diagnose-before-acting",
-      "description": ""
-    },
-    {
-      "name": "first-time-action-gate",
-      "description": ""
-    },
-    {
-      "name": "hard-evidence-under-pushback",
-      "description": ""
-    },
-    {
-      "name": "incident-recovery",
-      "description": ""
-    },
-    {
-      "name": "memory-write",
-      "description": ""
-    },
-    {
-      "name": "multi-target-publish",
-      "description": ""
-    },
-    {
-      "name": "pre-ship-adversary",
-      "description": ""
-    },
-    {
-      "name": "session-debrief",
-      "description": ""
-    },
-    {
-      "name": "strategic-realignment",
-      "description": ""
-    },
-    {
-      "name": "vocabulary-check",
-      "description": ""
-    },
-    {
-      "name": "docs-write.md",
-      "description": ""
-    },
-    {
-      "name": "grill-me.md",
+      "name": "SKILL.md",
       "description": ""
     },
     {
@@ -71,19 +15,295 @@
       "description": ""
     },
     {
-      "name": "morning-brief.md",
+      "name": "SKILL.md",
       "description": ""
     },
     {
-      "name": "roadmap-item.md",
+      "name": "SKILL.md",
       "description": ""
     },
     {
-      "name": "to-prd.md",
+      "name": "SKILL.md",
       "description": ""
     },
     {
-      "name": "tomevault-design.md",
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
       "description": ""
     }
   ]
