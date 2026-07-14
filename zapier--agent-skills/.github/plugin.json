@@ -1,0 +1,9 @@
+{
+  "name": "zapier--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent skills for working with Zapier, maintained by Zapier teams. Indexed by skills.sh.",
+  "version": "1.0.0",
+  "author": "zapier",
+  "homepage": "https://github.com/zapier/agent-skills",
+  "skills": []
+}
