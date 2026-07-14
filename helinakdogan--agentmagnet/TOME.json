@@ -1,0 +1,44 @@
+{
+  "name": "agentmagnet",
+  "owner": "helinakdogan",
+  "repo": "agentmagnet",
+  "description": "Give your AI a memory. Drop-in learning layer for any LLM \u2014 no retraining, no RAG setup.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/helinakdogan/agentmagnet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T01:43:00Z"
+}
