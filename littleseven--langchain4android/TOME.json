@@ -4,7 +4,7 @@
   "repo": "langchain4android",
   "description": "PoLang is an on-device AI agent smart photo gallery that treats the LLM as the central nervous system of the app. It serves as a living experiment for next-generation AI-first client architectures.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/littleseven/langchain4android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T18:35:20Z"
+  "distributed_at": "2026-07-14T18:39:22Z"
 }
