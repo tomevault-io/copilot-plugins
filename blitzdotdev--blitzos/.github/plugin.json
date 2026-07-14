@@ -1,9 +1,9 @@
 {
   "name": "blitzdotdev--blitzos",
-  "displayName": "BlitzOS",
-  "description": "BlitzOS is one place to run your agents. ",
+  "displayName": "blitzos",
+  "description": "BlitzOS \u2014 warm-start context for your Claude Code / Codex cloud sessions. One command builds a company-context repo so cloud sessions boot knowing your whole codebase. If you want to set this up for y",
   "version": "1.0.0",
   "author": "blitzdotdev",
-  "homepage": "https://github.com/blitzdotdev/BlitzOS",
+  "homepage": "https://github.com/blitzdotdev/blitzos",
   "skills": []
 }
