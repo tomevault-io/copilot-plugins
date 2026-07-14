@@ -1,0 +1,9 @@
+{
+  "name": "fristovic--snitch",
+  "displayName": "snitch",
+  "description": "Snitch is a deterministic prose claim verifier for AI coding agents for macOS.",
+  "version": "1.0.0",
+  "author": "fristovic",
+  "homepage": "https://github.com/fristovic/snitch",
+  "skills": []
+}
