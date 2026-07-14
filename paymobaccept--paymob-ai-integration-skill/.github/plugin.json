@@ -1,0 +1,9 @@
+{
+  "name": "paymobaccept--paymob-ai-integration-skill",
+  "displayName": "Paymob-AI-Integration-Skill",
+  "description": "Official Paymob payment integration skill for Claude Code \u2014 Intention API, HMAC, mobile wallets, BNPLs, Apple Pay across Node.js, Python, PHP, Flutter and more",
+  "version": "1.0.0",
+  "author": "PaymobAccept",
+  "homepage": "https://github.com/PaymobAccept/Paymob-AI-Integration-Skill",
+  "skills": []
+}
