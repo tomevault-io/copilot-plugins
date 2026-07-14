@@ -1,0 +1,9 @@
+{
+  "name": "nextreport--engine",
+  "displayName": "engine",
+  "description": "NextReport Engine - Modern, web-native, UX-first reporting engine, Reporting DSL, schema-driven, Design. Render. Automate documents instantly",
+  "version": "1.0.0",
+  "author": "nextreport",
+  "homepage": "https://github.com/nextreport/engine",
+  "skills": []
+}
