@@ -207344,6 +207344,11 @@
       "description": "A legal operating system. Primitives-based legal practice tool with 4-layer knowledge system, auto-detection of applicable law, and institutional memory. For solo practitioners, law firms, and in-hous"
     },
     {
+      "name": "kamune-org--kamune",
+      "source": "./kamune-org--kamune",
+      "description": "Communication over untrusted networks"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -245259,6 +245264,106 @@
       "description": "NextReport Engine - Modern, web-native, UX-first reporting engine, Reporting DSL, schema-driven, Design. Render. Automate documents instantly"
     },
     {
+      "name": "khr898--ntfsmac",
+      "source": "./khr898--ntfsmac",
+      "description": "NTFS read/write on Apple Silicon macOS \u2014 no kernel extension, no SIP modification."
+    },
+    {
+      "name": "bojue--copy-web-page",
+      "source": "./bojue--copy-web-page",
+      "description": "\u4e0b\u8f7d\u7f51\u9875\uff0c\u5b8c\u6574\u590d\u5236\u7f51\u9875\u6837\u5f0f"
+    },
+    {
+      "name": "khr898--ntfsmac",
+      "source": "./khr898--ntfsmac",
+      "description": "NTFS read/write on Apple Silicon macOS \u2014 no kernel extension, no SIP modification."
+    },
+    {
+      "name": "pixel-point--toolcraft",
+      "source": "./pixel-point--toolcraft",
+      "description": "A starter kit and UI library for building custom design apps with AI."
+    },
+    {
+      "name": "mighty840--orca",
+      "source": "./mighty840--orca",
+      "description": "Container + Wasm orchestrator with AI ops \u2014 fills the gap between Coolify and Kubernetes"
+    },
+    {
+      "name": "qecirc--qecirc-website",
+      "source": "./qecirc--qecirc-website",
+      "description": "QECirc \u2014 A community-driven library for quantum error correction circuits."
+    },
+    {
+      "name": "zapier--agent-skills",
+      "source": "./zapier--agent-skills",
+      "description": "Agent skills for working with Zapier, maintained by Zapier teams. Indexed by skills.sh."
+    },
+    {
+      "name": "bugsterapp--sow",
+      "source": "./bugsterapp--sow",
+      "description": "sow"
+    },
+    {
+      "name": "reflex-dev--agent-skills",
+      "source": "./reflex-dev--agent-skills",
+      "description": "Skills for developing with Reflex"
+    },
+    {
+      "name": "konstruktoid--ansible-collection-hardening",
+      "source": "./konstruktoid--ansible-collection-hardening",
+      "description": "Ansible collection for Linux server hardening focused on systemd-based distributions including AlmaLinux, Debian, and Ubuntu."
+    },
+    {
+      "name": "lepus-apps--lepus",
+      "source": "./lepus-apps--lepus",
+      "description": "Build desktop with a web frontend."
+    },
+    {
+      "name": "soyeb-jim285--hyprfm",
+      "source": "./soyeb-jim285--hyprfm",
+      "description": "A lightweight Qt6/QML file manager for Hyprland"
+    },
+    {
+      "name": "mighty840--orca",
+      "source": "./mighty840--orca",
+      "description": "Container + Wasm orchestrator with AI ops \u2014 fills the gap between Coolify and Kubernetes"
+    },
+    {
+      "name": "hanmaxiao--leafer-react",
+      "source": "./hanmaxiao--leafer-react",
+      "description": "leafer-react"
+    },
+    {
+      "name": "zapier--agent-skills",
+      "source": "./zapier--agent-skills",
+      "description": "Agent skills for working with Zapier, maintained by Zapier teams. Indexed by skills.sh."
+    },
+    {
+      "name": "openpcb-app--openpcb",
+      "source": "./openpcb-app--openpcb",
+      "description": "Simple software for designing PCBs."
+    },
+    {
+      "name": "k-krew--omen",
+      "source": "./k-krew--omen",
+      "description": "A lightweight, declarative chaos engineering operator for Kubernetes"
+    },
+    {
+      "name": "shiyucheng2018--polily",
+      "source": "./shiyucheng2018--polily",
+      "description": "A Polymarket Monitoring Agent That Actually Works"
+    },
+    {
+      "name": "openpcb-app--openpcb",
+      "source": "./openpcb-app--openpcb",
+      "description": "Simple software for designing PCBs."
+    },
+    {
+      "name": "shiyucheng2018--polily",
+      "source": "./shiyucheng2018--polily",
+      "description": "A Polymarket Monitoring Agent That Actually Works"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -267389,6 +267494,36 @@
       "description": "a whole dev machine in a browser tab - bun.wasm, shell, git, and local AI. phones home to nobody."
     },
     {
+      "name": "encod3d-sec--claudebrain",
+      "source": "./encod3d-sec--claudebrain",
+      "description": "Karpathy Based LLM harness for PenetrationTesting / Bugbounty"
+    },
+    {
+      "name": "radioo--573renderer",
+      "source": "./radioo--573renderer",
+      "description": "573Renderer"
+    },
+    {
+      "name": "btahir--ironsheet",
+      "source": "./btahir--ironsheet",
+      "description": "The lossless TypeScript engine for editing real XLSX and XLSM files \u2014 patch cells, formulas, charts, and macros without corrupting the workbook."
+    },
+    {
+      "name": "paradigms-of-intelligence--morpho",
+      "source": "./paradigms-of-intelligence--morpho",
+      "description": "morpho"
+    },
+    {
+      "name": "iuryescano--refactoring-ui",
+      "source": "./iuryescano--refactoring-ui",
+      "description": "Agent Skill inspired by Refactoring UI by Steve Schoger and Adam Wathan"
+    },
+    {
+      "name": "tristanmuzzu--parakeet-dictation",
+      "source": "./tristanmuzzu--parakeet-dictation",
+      "description": "Free, unlimited voice dictation for Windows, built for talking to your AI coding agents. Like Wispr Flow, but you don't pay and there's no word limit."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -272007,6 +272142,11 @@
       "name": "paladini--harness-score",
       "source": "./paladini--harness-score",
       "description": "Your AI coding agent is only as reliable as the harness around it. Measure that harness in seconds with harness-score."
+    },
+    {
+      "name": "kornia--vision-rt",
+      "source": "./kornia--vision-rt",
+      "description": "Real-time neural-vision libraries for NVIDIA Jetson Orin \u2014 Rust + TensorRT inference with GPU pre/post-processing."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -396807,6 +396947,16 @@
       "name": "nex50792--api-billing-platform",
       "source": "./nex50792--api-billing-platform",
       "description": "API\u8ab2\u91d1\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0"
+    },
+    {
+      "name": "jyasuu--pg-x",
+      "source": "./jyasuu--pg-x",
+      "description": "pg_x"
+    },
+    {
+      "name": "mjodheim--mjodheim-site",
+      "source": "./mjodheim--mjodheim-site",
+      "description": "mjodheim-site"
     }
   ]
 }
