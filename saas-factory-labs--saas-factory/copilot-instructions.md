@@ -18,9 +18,9 @@ You are an architect and senior dotnet C# developer with expertise in clean arch
 
 - AppBlueprint Directory.Packages.props file at `/Code/AppBlueprint/Directory.Packages.props`
 - Directory.Build.props file at `/Code/AppBlueprint/Directory.Build.props`
-- Writerside documentation at `/Writerside/topic/README.md`
+- Documentation site content at `/docs/content/` (architecture, getting-started, development, guides)
 - Assess folder structure and project files for example to build and run each project
-- Assess the tech stack from the writerside documentation
+- Assess the tech stack from the documentation site content
 - **ALWAYS research official documentation and industry best practices**: Before implementing any architectural pattern, design decision, or technical solution, you MUST research and consult official documentation from Microsoft, relevant framework authors, or industry-standard sources. Use the `fetch_webpage` tool to retrieve authoritative guidance. This is MANDATORY for:
   - Multi-tenancy patterns and database design
   - Authentication and authorization strategies
@@ -34,219 +34,20 @@ You are an architect and senior dotnet C# developer with expertise in clean arch
   - [.NET API Browser](https://learn.microsoft.com/en-us/dotnet/api/)
   - [ASP.NET Core Documentation](https://learn.microsoft.com/en-us/aspnet/core/)
   - [Code Analysis Rules](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/)
-  - When in doubt about a coding pattern or best practice, verify against Microsoft's official guidance before implementing
-- **Environment variables MUST be UPPERCASE**: All environment variables (Doppler secrets, .env files, AppHost configuration) MUST use UPPERCASE naming with single underscores (`_`) for word separation. Examples:
-  - ✅ `LOGTO_RESOURCE`, `LOGTO_ENDPOINT`, `LOGTO_APPID`
-  - ✅ `AUTHENTICATION_PROVIDER`, `AUTHENTICATION_LOGTO_ENDPOINT`, `AUTHENTICATION_LOGTO_CLIENTID`
-  - ✅ `DATABASE_CONNECTION_STRING`, `API_BASE_URL`
-  - ❌ `Logto__Resource` (mixed case with double underscores - wrong)
-  - ❌ `Authentication__Provider` (Pascal case with double underscores - wrong)
-  - ❌ `logto_resource` (lowercase - wrong)
-  - ❌ `LOGTO__RESOURCE` (double underscores - wrong, use single underscores)
-  - **Rationale**: UPPERCASE with single underscores is the industry standard for environment variables (12-factor app methodology, Docker, Kubernetes, cloud platforms). This ensures consistency across development, staging, and production environments.
-- **Null checks and error handling**: Implement runtime null validation at trust boundaries, complementing compile-time nullable reference types. Use `ArgumentNullException.ThrowIfNull()` for guard clauses and `is null`/`is not null` for logic checks. Do not use `??` or `??=` operators. Use `ThrowIfEmpty()` for string/collection validation where appropriate.
-  - **When to add runtime guard clauses** (per [Microsoft CA1062](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1062) and [nullable reference types guidance](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references)):
-    - **Externally visible methods** (`public`/`protected`) - Can be called from unknown assemblies
-    - **Constructor parameters** - Especially for dependency injection to prevent invalid object state
-    - **After deserialization** - JSON/XML data from external sources
-    - **Database operations** - Repository methods and parameters going into DB calls (trust boundary)
-    - **Extension method `this` parameters** - Unless explicitly excluded via configuration
-    - **Critical operations** - Where null would cause data corruption, security issues, or silent failures
-  - **When to skip runtime guard clauses**:
-    - **Internal methods** - When [InternalsVisibleTo] controls callers and nullable reference types provide compile-time safety
-    - **Private methods** - The compiler already validates nullable reference types at compile-time
-    - **When null is valid** - Parameters explicitly marked with `?` that allow null as designed
-    - **After validation** - Private methods called only by public methods that already validated parameters
-    - **Performance-critical code** - Only when profiling shows measurable impact
-  - **Key insight from Microsoft**: *"Nullable reference types are a compile time feature... Library authors should include run-time checks against null argument values. The ArgumentNullException.ThrowIfNull is the preferred option for checking a parameter against null at run time."*
-  - **Examples**:
-    ```csharp
-    // ✅ Public API boundary - requires runtime validation
-    public async Task UpdateProfileAsync(string userId, string firstName)
-    {
-        ArgumentNullException.ThrowIfNull(userId);
-        ArgumentNullException.ThrowIfNull(firstName);
-        
-        var user = await LoadUserAsync(userId);
-        SaveChanges(user, firstName);
-    }
-    
-    // ✅ Private helper - no runtime check needed (compile-time safety via nullable types)
-    private async Task<UserEntity> LoadUserAsync(string userId)
-    {
-        // userId already validated by caller, compiler ensures non-null
-        return await _db.Users.FindAsync(userId);
-    }
-    
-    // ✅ Internal method - no runtime check if [InternalsVisibleTo] controls all callers
-    internal void ProcessData(string data)
-    {
-        // Trusted callers, nullable reference types provide compile-time safety
-    }
-    
-    // ✅ Critical operation - validate even in private method
-    private void DeleteAllUserData(string userId)
-    {
-        ArgumentNullException.ThrowIfNull(userId); // Critical: prevents accidental data deletion
-        _db.Users.RemoveRange(_db.Users.Where(u => u.Id == userId));
-    }
-    
-    // ❌ Over-engineering - unnecessary runtime check in private method
-    private void UpdateCache(string key)
-    {
-        ArgumentNullException.ThrowIfNull(key); // Redundant - compiler already ensures non-null
-    }
-    
-    // ✅ Database operations - validate at repository boundary
-    public async Task<UserEntity?> GetUserByIdAsync(string userId)
-    {
-        ArgumentNullException.ThrowIfNull(userId); // Prevent invalid DB queries
-        return await _dbContext.Users.FindAsync(userId);
-    }
-    
-    public async Task AddUserAsync(UserEntity user)
-    {
-        ArgumentNullException.ThrowIfNull(user); // Trust boundary - prevent adding null
-        await _dbContext.Users.AddAsync(user);
-        await _dbContext.SaveChangesAsync();
-    }
-    ```
-- **Do NOT use ConfigureAwait(false)** in async/await code. ASP.NET Core has no SynchronizationContext since .NET Core 2.0, so there is no deadlock risk. Blazor Server UI code needs to return to the synchronization context to update the UI, and using ConfigureAwait(false) would break this. Only use ConfigureAwait(false) if explicitly working with a legacy .NET Framework application with a synchronization context.
-- **Use explicit types instead of `var` when using null-coalescing operators (`??`)**: When assigning values with the null-coalescing operator, always use explicit type declarations (e.g., `string userId = ...` instead of `var userId = ...`). This improves code readability and makes the type immediately clear without needing to trace back through the expression. This is especially important for simple built-in types like `string`, `int`, `bool`, etc.
-  - **Examples**:
-    ```csharp
-    // ✅ Correct - explicit type with null-coalescing
-    string tenantId = HttpContext.Items["TenantId"]?.ToString() ?? "default-tenant";
-    string userId = User.FindFirst("sub")?.Value ?? "unknown-user";
-    string authProvider = configuration["Authentication:Provider"] ?? "JWT";
-    
-    // ❌ Incorrect - var obscures the type
-    var tenantId = HttpContext.Items["TenantId"]?.ToString() ?? "default-tenant";
-    var userId = User.FindFirst("sub")?.Value ?? "unknown-user";
-    
-    // ✅ Correct - var is fine for obvious assignments without ??
-    var person = new Person();
-    var users = await _repository.GetAllAsync();
-    ```
-- **Use Uri objects instead of strings for HttpClient methods (CA2234)**: When calling HttpClient methods like GetAsync, PostAsync, PutAsync, DeleteAsync, use `new Uri(url, UriKind.Relative)` or `new Uri(url, UriKind.Absolute)` instead of passing strings directly. This provides better type safety and makes the API contract clearer.
-  - **Examples**:
-    ```csharp
-    // ✅ Correct - using Uri objects
-    var response = await _httpClient.GetAsync(new Uri($"api/todos/{tenantId}", UriKind.Relative));
-    var result = await _httpClient.PostAsync(new Uri("https://auth.example.com/token", UriKind.Absolute), content);
-    
-    // ❌ Incorrect - using strings
-    var response = await _httpClient.GetAsync($"api/todos/{tenantId}");
-    var result = await _httpClient.PostAsync("https://auth.example.com/token", content);
-    ```
-- **Use AsSpan for string operations to avoid allocations (CA1845)**: When you need a substring or slice of a string for temporary use (like logging previews), use `AsSpan` instead of `Substring` to avoid heap allocations. Combine with `string.Concat` for building strings.
-  - **Examples**:
-    ```csharp
-    // ✅ Correct - zero-allocation using AsSpan
-    string preview = string.Concat(token.AsSpan(0, Math.Min(20, token.Length)), "...");
-    
-    // ❌ Incorrect - allocates substring on heap
-    string preview = token.Substring(0, Math.Min(20, token.Length)) + "...";
-    ```
-- **Always specify StringComparison for string operations (CA1307/CA1310)**: When using string methods like Contains, StartsWith, EndsWith, Replace, IndexOf on technical/non-user-facing strings (URLs, tokens, error messages, configuration keys, cookie names), always specify `StringComparison.Ordinal` or `StringComparison.OrdinalIgnoreCase`. This ensures culture-independent, predictable, and performant comparisons.
-  - **When to use Ordinal**:
-    - Technical identifiers (cookie names, header names, configuration keys)
-    - Error messages and diagnostic strings
-    - Token parsing and authentication strings
-    - File paths and URLs (case-sensitive)
-  - **When to use OrdinalIgnoreCase**:
-    - File extensions
-    - Protocol names (http/https)
-    - Configuration values where case shouldn't matter
-  - **When to skip StringComparison**:
-    - User-facing text that needs culture-aware comparison
-    - Natural language processing
-    - When explicitly comparing in current culture
-  - **Examples**:
-    ```csharp
-    // ✅ Correct - technical strings use Ordinal
-    if (errorMessage.Contains("JavaScript interop", StringComparison.Ordinal))
-    if (key.StartsWith(".Token.", StringComparison.Ordinal))
-    string cleaned = key.Replace(".Token.", "", StringComparison.Ordinal);
-    var correlationCookie = cookies.Keys.FirstOrDefault(k => k.Contains("Correlation", StringComparison.Ordinal));
-    
-    // ✅ Correct - case-insensitive when appropriate
-    if (fileExtension.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
-    
-    // ❌ Incorrect - missing StringComparison
-    if (errorMessage.Contains("JavaScript interop"))
-    if (key.StartsWith(".Token."))
-    ```
-- **Extract complex `if` conditions into named methods**: When an `if` condition has more than one `&&` or `||` clause, or combines unrelated checks, extract it into a private method with a name that expresses the intent. This makes the call site read like prose and isolates the logic for easier testing and maintenance.
-  - **When to extract**:
-    - Multiple `&&` / `||` operators in a single condition
-    - Conditions mixing multiple concerns (e.g. null check + business rule + expiry check)
-    - Conditions that appear more than once
-    - Conditions whose meaning is not immediately obvious from the operands alone
-  - **Naming convention**: Use positive or negative boolean names that read naturally in an `if` statement — e.g. `LooksLikeJwt`, `IsPasswordResetTokenInvalid`, `HasRequiredFirebaseConfig`.
-  - **Examples**:
-    ```csharp
-    // ❌ Complex condition inline — intent unclear
-    if (!string.IsNullOrEmpty(value) && value.Split('.').Length == 3 && value.StartsWith("ey", StringComparison.Ordinal))
-    
-    // ✅ Extracted to named method — reads like prose
-    if (LooksLikeJwt(value))
-    
-    private static bool LooksLikeJwt(string? value)
-        => !string.IsNullOrEmpty(value)
-            && value.Split('.').Length == 3
-            && value.StartsWith("ey", StringComparison.Ordinal);
-    
-    // ❌ Business rule buried in a void if-check
-    if (resetRecord is null || resetRecord.ExpireAt <= DateTime.UtcNow || resetRecord.IsUsed)
-    
-    // ✅ Named method expresses the domain rule
-    if (IsPasswordResetTokenInvalid(resetRecord))
-    
-    private static bool IsPasswordResetTokenInvalid(PasswordResetEntity? record)
-        => record is null || record.ExpireAt <= DateTime.UtcNow || record.IsUsed;
-    ```
-- **When generating or showing FluentRegex code, always include the standard regular expression string just above it**: This allows for easier testing with online regex tools and provides a standard reference for comparison.
-  - **Example**:
-    ```csharp
-    // Regex: ^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$
-    var emailRegex = new FluentRegex()
-        .StartOfLine()
-        .OneOrMore().Alphanumeric().Or().AnyOf("_.+-")
-        .Literal("@")
-        .OneOrMore().Alphanumeric().Or().Literal("-")
-        .Literal(".")
-        .OneOrMore().Alphanumeric().Or().AnyOf("-.")
-        .EndOfLine();
-    ```
-- **Remove unnecessary package references (NU1510)**: Don't explicitly reference packages that are already included in the .NET SDK or available transitively through other dependencies. This reduces maintenance burden and avoids version conflicts. Common packages to avoid:
-  - `System.Text.Json` (included in .NET 6+)
-  - `Microsoft.Extensions.*` packages when already available through `Microsoft.AspNetCore.App` or other framework references
-  - Any package already referenced by a direct dependency (transitive references)
-  - Before adding a package reference, check if it's already available transitively
-- **Keep packages updated and secure (NU1902)**: Regularly check for and fix security vulnerabilities in NuGet packages. Use `Nuget MCP server` to find latest stable versions without known vulnerabilities. Upgrade to patch security issues promptly, ensuring all packages in a family use consistent versions (e.g., all OpenTelemetry packages at 1.11.1).
-- **Prefer stable package versions over prerelease**: For production code, always use stable (non-RC, non-preview) package versions when available. Use `Nuget MCP server` with `allow_prerelease=false` to find stable releases. Only use prerelease packages when no stable version exists or when explicitly required for bleeding-edge framework features.
-- Use `dotnet format` to format the code according to the `.editorconfig` file. If you are unable to do so, please inform the user and ask for assistance.
-- Read the `.editorconfig` file to understand the coding style that need to be followed
+
+- Use `dotnet format` to format the code according to the `.editorconfig` file.
 - Do not remove commented out code unless explicitly asked to do so. If you are unsure, please ask the user for clarification.
-- Use Tunit for unit tests and integration tests, use bUnit for blazor ui tests, and FluentAssertions for assertions. Do not use other testing frameworks unless explicitly asked to do so.
-- Use `Nuget MCP server` to query correct versions of release nuget packages that do not contain known vulnerabilities - if no release version is available use the latest pre-release version instead. Ask the user before upgrading or downgrading a package.
-- Assess the Entity Framework code and use `PostgreSQL MCP server` to query the database for schema verification and data
 - Do not implement password hashing or encryption unless explicitly asked to do so. The system will use an external authentication provider for this purpose.
-- Set namespace in `.cs (c#)` files according to the folder structure that the file is placed at
-- Remove unnecessary using statements when adding or editing a file
-- Always provide clear warning to the user when deleting a file or folder such that they can assess the change
-- Focus on resolving errors - not warnings. If a warning is not relevant to the task at hand, ignore it.
-- If you are asked to check which issues are open in the repository, then use the `Github MCP server` to query the issues in the MVP Github project by using this query `{ "q": "repo:saas-factory-labs/Saas-Factory is:issue state:open" }`
-- If a bug occurs that can't be resolved then create a bug issue in the MVP Github project for the repo with the exact details of the bug by using a `Github MCP server`
-- Create unit and integration tests when making additions and modifications
-- When running in Agent Mode in Copilot edit at most 3 files in total before asking me to confirm the changes so far so you can proceed with the changes to achieve the task you were given
-- Copilot is running on a windows machine, so use Powershell commands in the command line when running commands. Do not use bash commands or any other command line interface.
-
-
+- Always provide clear warning to the user when deleting a file or folder such that they can assess the change.
+- Focus on resolving errors — not warnings. If a warning is not relevant to the task at hand, ignore it.
+- If you are asked to check which issues are open in the repository, use the `Github MCP server` with query `{ "q": "repo:saas-factory-labs/Saas-Factory is:issue state:open" }`
+- If a bug occurs that can't be resolved, create a bug issue in the MVP Github project with exact details using a `Github MCP server`.
+- Create unit and integration tests when making additions and modifications.
+- When running in Agent Mode in Copilot, edit at most 3 files in total before asking for confirmation to proceed.
+- Copilot is running on a Windows machine — use PowerShell commands. Do not use bash or `&&` to chain commands; run them separately in sequence.
 
 It is **EXTREMELY** important that you follow the instructions very carefully.
-Only do work on the AppBlueprint directory and related projects.
+Only do work on the AppBlueprint directory and related projects and ensure that Github Action workflows and Docker builds still work after code changes.
 
 **Read the following additional instructions:**
 
@@ -254,6 +55,7 @@ Only do work on the AppBlueprint directory and related projects.
 [Baseline - Clean Architecture Dependencies](.ai-rules/baseline/clean-architecture-dependencies.md) - **CRITICAL: Read this FIRST before any code changes**
 [Baseline - Entity Modeling](.ai-rules/baseline/entity-modeling.md)
 [Baseline - Code Style](.ai-rules/baseline/code-style.md)
+[Baseline - SonarCloud Quality](.ai-rules/baseline/sonarcloud-quality.md)
 [Frontend Rules](.ai-rules/frontend/README.md)
 [Infrastructure Rules](.ai-rules/infrastructure/README.md)
 [Development Workflow](.ai-rules/development-workflow/README.md)
@@ -263,7 +65,7 @@ When we learn new things that deviate from the existing rules, suggest making ch
 ## Project Structure
 
 ** The AppHost project is the entry point. Do NOT RUN THIS as it's likely already running in watch mode - only build projects to ensure they compile correctly. **
-The project structure is in the Writerside documentation at `/Writerside/topic/README.md`
+The project structure is documented at `/docs/content/development/Code-Structure.md`
 
 ## Final instructions
 
@@ -271,9 +73,9 @@ The project structure is in the Writerside documentation at `/Writerside/topic/R
 - MAKE SURE EVERYTHING COMPILES CORRECTLY BY BUILDING THE AFFECTED PROJECTS AND RUNTIME ALSO FUNCTIONS CORRECTLY BEFORE ASSESING IF THE TASK WAS COMPLETED - YOU DONT NEED TO ASK FOR PERMISSION TO BUILD THE PROJECTS - JUST DO IT, UNLESS THE SPECIFIC PROJECT OR APPHOST IS ALREADY RUNNING
 - Always ask the user for clarification if you didn't understand the task, or if you need more information about the rules.
 - Based on the changes you made - formulate a git commit message that describes the changes you made.
-- When running a project do not use "&&" in the command for example "PS C:\Development\Development-Projects\saas-factory-labs> cd C:\Development\Development-Projects\saas-factory-labs\Code\AppBlueprint\AppBlueprint.Web && dotnet build
-  " as this does not work - instead run the commands separately in sequence.
+- When running a project do not use "&&" in the command — run commands separately in sequence.
+- Remember that this repo is open sourced so make sure no secrets or sensitive information or non generic code or data is added to the codebase.
 
 ---
-> Source: [saas-factory-labs/Saas-Factory](https://github.com/saas-factory-labs/Saas-Factory) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+> Source: [saas-factory-labs/SaaS-Factory](https://github.com/saas-factory-labs/SaaS-Factory) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-14 -->
