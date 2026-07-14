@@ -117339,6 +117339,11 @@
       "description": "Your AI coding agent just billed you. Here's the receipt. Cost receipts for Claude Code, Codex, Cursor, Gemini & opencode \u2014 no account, no upload."
     },
     {
+      "name": "unikraft-cloud--cli",
+      "source": "./unikraft-cloud--cli",
+      "description": "Unikraft CLI"
+    },
+    {
       "name": "eliornl--applypilot",
       "source": "./eliornl--applypilot",
       "description": "Self-hosted, AI-powered job search companion. Paste a job posting and five AI agents run an orchestrated pipeline \u2014 analyze the role, score your fit, research the company, rewrite your resume, and wri"
@@ -245489,6 +245494,46 @@
       "description": "Decompilation project for \"Klonoa: Empire of Dreams\" (GBA)"
     },
     {
+      "name": "speedbitsinfinitytools--borgmatic-ui-community",
+      "source": "./speedbitsinfinitytools--borgmatic-ui-community",
+      "description": "A comprehensive Web UI for Borgmatic and Borg"
+    },
+    {
+      "name": "ambroise-leclerc--trustsc",
+      "source": "./ambroise-leclerc--trustsc",
+      "description": "Medical-device manufacturer framework in Rust \u2014 IEC 62304 Class B/C compliance modeling, Vulkan/Vulkan SC UI, zero-SOUP ML, byte-verified evidence"
+    },
+    {
+      "name": "skyvern-ai--rustwright",
+      "source": "./skyvern-ai--rustwright",
+      "description": "Playwright's API on a Rust CDP engine \u2014 Chromium browser automation for Python & Node, no driver subprocess. (Alpha)"
+    },
+    {
+      "name": "samin12--claude-command-center-beta",
+      "source": "./samin12--claude-command-center-beta",
+      "description": "The command center for your AI agents"
+    },
+    {
+      "name": "raulvidis--hermes-migrate",
+      "source": "./raulvidis--hermes-migrate",
+      "description": "hermes-migrate"
+    },
+    {
+      "name": "mlorentedev--hive",
+      "source": "./mlorentedev--hive",
+      "description": "Context infrastructure for AI-assisted development \u2014 on-demand Obsidian vault access via MCP"
+    },
+    {
+      "name": "fan92rus--xkeen-ui",
+      "source": "./fan92rus--xkeen-ui",
+      "description": "xkeen-ui"
+    },
+    {
+      "name": "axel10--vynody",
+      "source": "./axel10--vynody",
+      "description": "A cross-platform music player with rich functions"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -267669,6 +267714,16 @@
       "description": "Autolith is a self-modifiable general purpose Lisp AI agent"
     },
     {
+      "name": "uiuing--browser-agent",
+      "source": "./uiuing--browser-agent",
+      "description": "An open-source AI agent for the browser. Bring any model. It plans in the side panel, acts on real pages through tools, and verifies every claimed result against the live DOM \u2014 with guardrails and reu"
+    },
+    {
+      "name": "uiuing--browser-agent",
+      "source": "./uiuing--browser-agent",
+      "description": "An open-source AI agent for the browser. Bring any model. It plans in the side panel, acts on real pages through tools, and verifies every claimed result against the live DOM \u2014 with guardrails and reu"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -272302,6 +272357,11 @@
       "name": "ccsonicc333--trae-flow",
       "source": "./ccsonicc333--trae-flow",
       "description": "\u300c\u4f7f\u7528TRAE\u521b\u5efa\u4e13\u5c5e\u4e8e\u4f60\u7684 Mac \u7075\u52a8\u5c9b\u300d"
+    },
+    {
+      "name": "omartelo--lich",
+      "source": "./omartelo--lich",
+      "description": "lich"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -363044,11 +363104,6 @@
       "description": "SuperTemplate"
     },
     {
-      "name": "tomevault-io--companyos",
-      "source": "./tomevault-io--companyos",
-      "description": "companyos"
-    },
-    {
       "name": "yashchitneni--marketing-quill",
       "source": "./yashchitneni--marketing-quill",
       "description": "marketing-quill"
@@ -397127,6 +397182,66 @@
       "name": "ts-taisei--bizportalclients",
       "source": "./ts-taisei--bizportalclients",
       "description": "BizPortalClients"
+    },
+    {
+      "name": "tomevault-io--companyos",
+      "source": "./tomevault-io--companyos",
+      "description": "companyos"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
     }
   ]
 }
