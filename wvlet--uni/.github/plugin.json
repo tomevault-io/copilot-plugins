@@ -1,0 +1,9 @@
+{
+  "name": "wvlet--uni",
+  "displayName": "uni",
+  "description": "Essential utilities, refined for Scala 3 with minimal dependencies",
+  "version": "1.0.0",
+  "author": "wvlet",
+  "homepage": "https://github.com/wvlet/uni",
+  "skills": []
+}
