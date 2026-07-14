@@ -1,0 +1,9 @@
+{
+  "name": "wk42worldworld--cybercode",
+  "displayName": "cybercode",
+  "description": "\u6574\u5408 Claude Code \u7f16\u7a0b\u80fd\u529b\u4e0e Hermes Agent \u81ea\u8fdb\u5316\u80fd\u529b\u7684\u667a\u80fd\u4f53 / An AI agent combining Claude Code coding capabilities with Hermes Agent self-evolution.",
+  "version": "1.0.0",
+  "author": "wk42worldworld",
+  "homepage": "https://github.com/wk42worldworld/cybercode",
+  "skills": []
+}
