@@ -1,0 +1,9 @@
+{
+  "name": "eso--astroquery-examples",
+  "displayName": "astroquery_examples",
+  "description": "Jupyter notebooks for querying, accessing, and analyzing data from the ESO Science Archive using astroquery.eso. Includes examples for La Silla, Paranal (VLT), APEX, and ALMA datasets.",
+  "version": "1.0.0",
+  "author": "eso",
+  "homepage": "https://github.com/eso/astroquery_examples",
+  "skills": []
+}
