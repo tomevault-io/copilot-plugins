@@ -1,0 +1,9 @@
+{
+  "name": "gabeconway--opencrossing-anbernic",
+  "displayName": "OpenCrossing-Anbernic",
+  "description": "OpenCrossing: Animal Crossing running natively at ~60 fps on Anbernic handhelds \u2014 no emulator. GameCube decomp port for the H700 family (RG-34XX/35XX/28XX) via PortMaster (muOS, Knulli).",
+  "version": "1.0.0",
+  "author": "GabeConway",
+  "homepage": "https://github.com/GabeConway/OpenCrossing-Anbernic",
+  "skills": []
+}
