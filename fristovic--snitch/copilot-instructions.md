@@ -1,0 +1,35 @@
+## readme-header
+
+> Preserve branded README header (logo, centered subtitle, nav)
+
+
+# README header — hands off
+
+**Do not edit lines 1–13 of `README.md`** unless the user explicitly asks to change the logo, tagline, nav, or intro layout.
+
+Required structure (HTML, not markdown):
+
+```html
+<p align="center">
+  <img src="docs/snitch_logo.png" alt="Snitch logo" width="320">
+</p>
+
+<p align="center"><strong>Snitch watches your AI agent so you don't have to.</strong></p>
+
+<p align="center"><a href="https://snitchworks.com">snitchworks.com</a> · …</p>
+
+<p align="center"><span style="display: inline-block; max-width: 720px; text-align: justify;">…</span></p>
+```
+
+When editing `README.md` for other reasons (license, roadmap, tables, flywheel):
+
+- Change **only** the sections you were asked to change
+- Never replace the header with `**bold**` + markdown links
+- Never remove `docs/snitch_logo.png`
+- Never drop `snitchworks.com` from the nav
+
+If unsure, leave the header unchanged.
+
+---
+> Source: [fristovic/snitch](https://github.com/fristovic/snitch) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-14 -->
