@@ -1,4 +1,4 @@
-## claude-md
+## companyos
 
 > > Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
 
