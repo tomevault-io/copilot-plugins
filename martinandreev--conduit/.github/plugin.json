@@ -1,0 +1,9 @@
+{
+  "name": "martinandreev--conduit",
+  "displayName": "conduit",
+  "description": "Spec-driven orchestration for coding-agent teams: refine requirements into contracts, run isolated specialist agents in parallel, and review live diffs in a terminal TUI.",
+  "version": "1.0.0",
+  "author": "MartinAndreev",
+  "homepage": "https://github.com/MartinAndreev/conduit",
+  "skills": []
+}
