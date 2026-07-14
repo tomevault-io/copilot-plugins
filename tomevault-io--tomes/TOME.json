@@ -4,7 +4,7 @@
   "repo": "tomes",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -491,5 +491,5 @@
   ],
   "source_url": "https://github.com/tomevault-io/tomes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T20:31:41Z"
+  "distributed_at": "2026-07-14T20:32:16Z"
 }
