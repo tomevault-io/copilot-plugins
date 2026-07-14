@@ -1,0 +1,9 @@
+{
+  "name": "btahir--ironsheet",
+  "displayName": "ironsheet",
+  "description": "The lossless TypeScript engine for editing real XLSX and XLSM files \u2014 patch cells, formulas, charts, and macros without corrupting the workbook.",
+  "version": "1.0.0",
+  "author": "btahir",
+  "homepage": "https://github.com/btahir/ironsheet",
+  "skills": []
+}
