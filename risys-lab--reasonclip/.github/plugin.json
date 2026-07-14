@@ -1,0 +1,9 @@
+{
+  "name": "risys-lab--reasonclip",
+  "displayName": "ReasonCLIP",
+  "description": "[ECCV 2026] Visually Grounded Commonsense Reasoning Surpervison for CLIP-like Models",
+  "version": "1.0.0",
+  "author": "RISys-Lab",
+  "homepage": "https://github.com/RISys-Lab/ReasonCLIP",
+  "skills": []
+}
