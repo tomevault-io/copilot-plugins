@@ -4,7 +4,7 @@
   "repo": "plannode",
   "description": "Pseries internal planning tool - Node tree PRD interface",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pseriesadmin/plannode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T14:39:41Z"
+  "distributed_at": "2026-07-14T14:40:06Z"
 }
