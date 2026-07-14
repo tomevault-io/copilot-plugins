@@ -1,0 +1,9 @@
+{
+  "name": "neeeophytee--ai-cost-cutter-skills",
+  "displayName": "ai-cost-cutter-skills",
+  "description": "10 skills that cut your AI bill with proof instead of vibes. MIT, works in Claude Code, Codex, Cursor. Every skill's check is executed by CI.",
+  "version": "1.0.0",
+  "author": "Neeeophytee",
+  "homepage": "https://github.com/Neeeophytee/ai-cost-cutter-skills",
+  "skills": []
+}
