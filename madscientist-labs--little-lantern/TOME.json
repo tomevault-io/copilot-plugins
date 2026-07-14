@@ -1,0 +1,44 @@
+{
+  "name": "little-lantern",
+  "owner": "MadScientist-Labs",
+  "repo": "little-lantern",
+  "description": "A cosy, private home for your AI companion. The app lives on your computer, and the AI runs on your own API key. Little Lantern is released CC0 as a public commons artifact. Use it, fork it, adapt it, and build on it. Credit is appreciated. This is not a product, service, or company, and there is no tech support aside from the pre-written guides",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MadScientist-Labs/little-lantern",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T22:34:53Z"
+}
