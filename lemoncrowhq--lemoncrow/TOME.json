@@ -4,7 +4,7 @@
   "repo": "lemoncrow",
   "description": "Runtime for coding agents. Honestly, get $ 30% more out of your Claude subscription. A real software engineering end to end measured. 80% reduction in input/output tokens 90% reduction in tool calls.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lemoncrowhq/lemoncrow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T01:50:04Z"
+  "distributed_at": "2026-07-14T01:52:05Z"
 }
