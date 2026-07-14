@@ -1,0 +1,9 @@
+{
+  "name": "serradura--okf-gem",
+  "displayName": "okf-gem",
+  "description": "A lightweight Ruby gem for OKF: author, curate, and serve bundles as an interactive graph.",
+  "version": "1.0.0",
+  "author": "serradura",
+  "homepage": "https://github.com/serradura/okf-gem",
+  "skills": []
+}
