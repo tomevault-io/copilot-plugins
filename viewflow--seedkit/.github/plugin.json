@@ -1,0 +1,9 @@
+{
+  "name": "viewflow--seedkit",
+  "displayName": "seedkit",
+  "description": "Build any Django app \u2014 from a SaaS to a dashboard to an API \u2014 from a single sentence. An agent skill that wires packages, splits dev/prod settings, and adds CI.",
+  "version": "1.0.0",
+  "author": "viewflow",
+  "homepage": "https://github.com/viewflow/seedkit",
+  "skills": []
+}
