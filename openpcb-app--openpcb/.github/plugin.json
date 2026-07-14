@@ -1,0 +1,9 @@
+{
+  "name": "openpcb-app--openpcb",
+  "displayName": "OpenPCB",
+  "description": "Simple software for designing PCBs.",
+  "version": "1.0.0",
+  "author": "OpenPCB-app",
+  "homepage": "https://github.com/OpenPCB-app/OpenPCB",
+  "skills": []
+}
