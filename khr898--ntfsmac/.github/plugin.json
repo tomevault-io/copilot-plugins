@@ -1,0 +1,9 @@
+{
+  "name": "khr898--ntfsmac",
+  "displayName": "ntfsmac",
+  "description": "NTFS read/write on Apple Silicon macOS \u2014 no kernel extension, no SIP modification.",
+  "version": "1.0.0",
+  "author": "khr898",
+  "homepage": "https://github.com/khr898/ntfsmac",
+  "skills": []
+}
