@@ -4,7 +4,7 @@
   "repo": "vox-style-video",
   "description": "Reusable VOX-style sequential Kie.ai video workflow",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ston6919/vox-style-video",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T02:33:28Z"
+  "distributed_at": "2026-07-14T02:34:50Z"
 }
