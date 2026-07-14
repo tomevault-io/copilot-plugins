@@ -1,9 +1,9 @@
 {
   "name": "saas-factory-labs--saas-factory",
-  "displayName": "Saas-Factory",
+  "displayName": "SaaS-Factory",
   "description": "Enterprise-grade .NET SaaS framework for rapid B2B/B2C SaaS app development. Featuring multi-tenant architecture, automated CI/CD, and AI-driven development tooling to maximize velocity.",
   "version": "1.0.0",
   "author": "saas-factory-labs",
-  "homepage": "https://github.com/saas-factory-labs/Saas-Factory",
+  "homepage": "https://github.com/saas-factory-labs/SaaS-Factory",
   "skills": []
 }
