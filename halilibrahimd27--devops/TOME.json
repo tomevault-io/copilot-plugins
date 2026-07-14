@@ -1,0 +1,44 @@
+{
+  "name": "DevOps",
+  "owner": "halilibrahimd27",
+  "repo": "DevOps",
+  "description": "\ud83d\udee0\ufe0f T\u00fcrk\u00e7e DevOps \u00b7 DevSecOps \u00b7 SRE \u00b7 Platform Engineering ba\u015fucu kitab\u0131 \u2014 Kubernetes, Terraform, GitOps, FinOps, Observability, LLMOps, KVKK/GDPR. 21 konu \u00b7 125+ deep-dive \u00b7 9 cheatsheet \u00b7 25+ production-ready template \u00b7 65K+ sat\u0131r. Placeholder g\u00fcvenli, copy-paste haz\u0131r.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/halilibrahimd27/DevOps",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T21:34:46Z"
+}
