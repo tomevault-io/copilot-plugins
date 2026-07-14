@@ -1,0 +1,44 @@
+{
+  "name": "katiba360",
+  "owner": "OndiekOchieng",
+  "repo": "katiba360",
+  "description": "Katiba360 is a modern, user-friendly platform that makes the Kenyan Constitution accessible, searchable, and understandable for everyone. The project aims to empower citizens, students, and legal professionals with intuitive tools to explore, learn, and interact with constitutional content.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OndiekOchieng/katiba360",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T21:31:39Z"
+}
