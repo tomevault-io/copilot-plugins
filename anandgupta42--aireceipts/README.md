@@ -7,11 +7,11 @@ Your AI coding agent just billed you. Here's the receipt. Cost receipts for Clau
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [anandgupta42/aireceipts](https://github.com/anandgupta42/aireceipts).
+Original source: `CLAUDE.md` in [anandgupta42/aireceipts](https://github.com/anandgupta42/aireceipts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
