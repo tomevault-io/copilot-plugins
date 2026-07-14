@@ -4,7 +4,7 @@
   "repo": "argentum",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/francollamas/argentum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T04:31:52Z"
+  "distributed_at": "2026-07-14T04:36:00Z"
 }
