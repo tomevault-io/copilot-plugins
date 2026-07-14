@@ -1,0 +1,9 @@
+{
+  "name": "lazyverilog--lazyverilog",
+  "displayName": "LazyVerilog",
+  "description": "A fast, practical SystemVerilog LSP for RTL coding.",
+  "version": "1.0.0",
+  "author": "lazyverilog",
+  "homepage": "https://github.com/lazyverilog/LazyVerilog",
+  "skills": []
+}
