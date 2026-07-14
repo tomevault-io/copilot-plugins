@@ -7,11 +7,11 @@ An open-source AI agent for the browser. Bring any model. It plans in the side p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [uiuing/browser-agent](https://github.com/uiuing/browser-agent).
+Original source: `AGENTS.md` in [uiuing/browser-agent](https://github.com/uiuing/browser-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
