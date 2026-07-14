@@ -1,0 +1,9 @@
+{
+  "name": "asimons81--wp-chatgpt-publisher",
+  "displayName": "wp-chatgpt-publisher",
+  "description": "Finally, a way to let ChatGPT touch your WordPress site that doesn't involve handing over your API key, your admin password, or your dignity.",
+  "version": "1.0.0",
+  "author": "asimons81",
+  "homepage": "https://github.com/asimons81/wp-chatgpt-publisher",
+  "skills": []
+}
