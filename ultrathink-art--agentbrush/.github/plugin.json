@@ -1,0 +1,9 @@
+{
+  "name": "ultrathink-art--agentbrush",
+  "displayName": "agentbrush",
+  "description": "Image editing toolkit for AI agents. Agent Skills compatible.",
+  "version": "1.0.0",
+  "author": "ultrathink-art",
+  "homepage": "https://github.com/ultrathink-art/agentbrush",
+  "skills": []
+}
