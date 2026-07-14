@@ -1,0 +1,44 @@
+{
+  "name": "api-billing-platform",
+  "owner": "nex50792",
+  "repo": "api-billing-platform",
+  "description": "API\u8ab2\u91d1\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nex50792/api-billing-platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T14:45:44Z"
+}
