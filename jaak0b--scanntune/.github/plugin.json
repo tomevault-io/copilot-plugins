@@ -1,0 +1,9 @@
+{
+  "name": "jaak0b--scanntune",
+  "displayName": "ScanNTune",
+  "description": "Caliper-free 3D printer XY scale and skew calibration from a flatbed scan",
+  "version": "1.0.0",
+  "author": "jaak0b",
+  "homepage": "https://github.com/jaak0b/ScanNTune",
+  "skills": []
+}
