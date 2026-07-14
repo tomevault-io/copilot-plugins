@@ -4,7 +4,7 @@
   "repo": "gpt-upi-tool",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bunnies3011/gpt-upi-tool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T17:31:46Z"
+  "distributed_at": "2026-07-14T17:32:52Z"
 }
