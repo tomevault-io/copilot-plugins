@@ -1,0 +1,9 @@
+{
+  "name": "scitex-ai--emacs-claude-code",
+  "displayName": "emacs-claude-code",
+  "description": "Emacs interface for Claude Code with auto-response, vterm integration, and session management",
+  "version": "1.0.0",
+  "author": "scitex-ai",
+  "homepage": "https://github.com/scitex-ai/emacs-claude-code",
+  "skills": []
+}
