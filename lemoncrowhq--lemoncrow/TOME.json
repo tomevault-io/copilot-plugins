@@ -1,0 +1,44 @@
+{
+  "name": "lemoncrow",
+  "owner": "lemoncrowhq",
+  "repo": "lemoncrow",
+  "description": "Runtime for coding agents. Honestly, get $ 30% more out of your Claude subscription. A real software engineering end to end measured. 80% reduction in input/output tokens 90% reduction in tool calls.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lemoncrowhq/lemoncrow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T01:50:04Z"
+}
