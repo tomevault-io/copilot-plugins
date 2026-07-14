@@ -4,7 +4,7 @@
   "repo": "companyos",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -39,127 +39,457 @@
   ],
   "skills": [
     {
-      "name": "adversarial-test",
-      "path": "skills/adversarial-test.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/adversarial-test.md",
-      "description": ""
-    },
-    {
-      "name": "changelog",
-      "path": "skills/changelog.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/changelog.md",
-      "description": ""
-    },
-    {
-      "name": "decision-memo",
-      "path": "skills/decision-memo.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/decision-memo.md",
-      "description": ""
-    },
-    {
-      "name": "diagnose-before-acting",
-      "path": "skills/diagnose-before-acting.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/diagnose-before-acting.md",
-      "description": ""
-    },
-    {
-      "name": "first-time-action-gate",
-      "path": "skills/first-time-action-gate.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/first-time-action-gate.md",
-      "description": ""
-    },
-    {
-      "name": "hard-evidence-under-pushback",
-      "path": "skills/hard-evidence-under-pushback.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/hard-evidence-under-pushback.md",
-      "description": ""
-    },
-    {
-      "name": "incident-recovery",
-      "path": "skills/incident-recovery.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/incident-recovery.md",
-      "description": ""
-    },
-    {
-      "name": "memory-write",
-      "path": "skills/memory-write.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/memory-write.md",
-      "description": ""
-    },
-    {
-      "name": "multi-target-publish",
-      "path": "skills/multi-target-publish.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/multi-target-publish.md",
-      "description": ""
-    },
-    {
-      "name": "pre-ship-adversary",
-      "path": "skills/pre-ship-adversary.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/pre-ship-adversary.md",
-      "description": ""
-    },
-    {
-      "name": "session-debrief",
-      "path": "skills/session-debrief.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/session-debrief.md",
-      "description": ""
-    },
-    {
-      "name": "strategic-realignment",
-      "path": "skills/strategic-realignment.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/strategic-realignment.md",
-      "description": ""
-    },
-    {
-      "name": "vocabulary-check",
-      "path": "skills/vocabulary-check.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/vocabulary-check.md",
-      "description": ""
-    },
-    {
-      "name": "docs-write.md",
-      "path": "skills/docs-write.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/docs-write.md",
-      "description": ""
-    },
-    {
-      "name": "grill-me.md",
-      "path": "skills/grill-me.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/grill-me.md",
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/adversarial-test/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/adversarial-test/SKILL.md",
       "description": ""
     },
     {
       "name": "SKILL.md",
-      "path": "skills/improve-codebase-architecture/SKILL.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/improve-codebase-architecture/SKILL.md",
+      "path": "tomevault-io--companyos/skills/changelog/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/changelog/SKILL.md",
       "description": ""
     },
     {
-      "name": "morning-brief.md",
-      "path": "skills/morning-brief.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/morning-brief.md",
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/decision-memo/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/decision-memo/SKILL.md",
       "description": ""
     },
     {
-      "name": "roadmap-item.md",
-      "path": "skills/roadmap-item.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/roadmap-item.md",
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/diagnose-before-acting/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/diagnose-before-acting/SKILL.md",
       "description": ""
     },
     {
-      "name": "to-prd.md",
-      "path": "skills/to-prd.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/to-prd.md",
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/first-time-action-gate/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/first-time-action-gate/SKILL.md",
       "description": ""
     },
     {
-      "name": "tomevault-design.md",
-      "path": "skills/tomevault-design.md",
-      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/tomevault-design.md",
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/hard-evidence-under-pushback/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/hard-evidence-under-pushback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/incident-recovery/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/incident-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/memory-write/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/memory-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/multi-target-publish/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/multi-target-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/pre-ship-adversary/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/pre-ship-adversary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/session-debrief/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/session-debrief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/strategic-realignment/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/strategic-realignment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/vocabulary-check/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/vocabulary-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/docs-write-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/docs-write-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/grill-me-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/grill-me-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/skill-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/skill-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/morning-brief-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/morning-brief-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/roadmap-item-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/roadmap-item-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/to-prd-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/to-prd-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/tomevault-design-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--companyos/skills/tomevault-design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/typescript-coding-standards/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/typescript-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/loom-typescript/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/loom-typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/react-render-types-setup/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/react-render-types-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-data-ui-skilld/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-data-ui-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-test-utils-skilld/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-test-utils-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-skilld/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-router-skilld/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-router-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/tanstack-ai-vue-skilld/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/tanstack-ai-vue-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-i18n-skilld/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-i18n-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-form-generator/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-form-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/component-search/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/component-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/nextjs-i18n/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/nextjs-i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/stitch-design-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/stitch-design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-best-practices/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-newsletter/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-newsletter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-development/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-expert/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-expert-js/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-expert-js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/language-patterns/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/language-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/wikimind-design/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/wikimind-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/react-native/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/react-native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/migrate-ops/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/migrate-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/best-practices/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/code-exemplars-blueprint-generator/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/code-exemplars-blueprint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/port/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/port/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-ops/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-application-structure/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-application-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-integration-testing/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-integration-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-patterns/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-composable-testing/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-composable-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-composables/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-composables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-nuxt/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-nuxt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-composable-creator/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-composable-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/vue-component-generator/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/vue-component-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/clerk-vue-patterns/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/clerk-vue-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--tomes/skills/skill-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/tomevault-io--tomes/skills/skill-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/blender/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/blender/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/blog-watcher/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/blog-watcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/brave-search/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/brave-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/coding-agent/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/coding-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/csharp-avalonia/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/csharp-avalonia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/databases/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/databases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/davinci-resolve/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/davinci-resolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/exa-search/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/exa-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/game-engines/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/game-engines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/gif-search/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/gif-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/gimp/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/gimp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/github/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "phuetz--code-buddy/skills/gitlab/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/phuetz--code-buddy/skills/gitlab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "vizzly-testing--cli/skills/check-visual-tests/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/vizzly-testing--cli/skills/check-visual-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "vizzly-testing--cli/skills/debug-visual-regression/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/vizzly-testing--cli/skills/debug-visual-regression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "vizzly-testing--cli/skills/visual-testing-philosophy/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/vizzly-testing--cli/skills/visual-testing-philosophy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "vizzly-testing--cli/skills/vizzly-knowledge/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/vizzly-testing--cli/skills/vizzly-knowledge/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/tomevault-io/companyos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T08:30:07Z"
+  "distributed_at": "2026-07-14T20:25:16Z"
 }
