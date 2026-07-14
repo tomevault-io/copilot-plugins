@@ -245199,6 +245199,46 @@
       "description": "ppt-master"
     },
     {
+      "name": "teimurjan--lethe",
+      "source": "./teimurjan--lethe",
+      "description": "A memory store for LLM agents. Hybrid BM25 + dense retrieval, cross-encoder reranking, clustered retrieval-induced forgetting (RIF), and an optional LLM enrichment layer at write time."
+    },
+    {
+      "name": "niquola--hyper-code2",
+      "source": "./niquola--hyper-code2",
+      "description": "hyper-code2"
+    },
+    {
+      "name": "savageops--ix-rust",
+      "source": "./savageops--ix-rust",
+      "description": "iEx (`intelligent expressions`) is a Rust-first search framework designed to evolve beyond linear regex workflows."
+    },
+    {
+      "name": "thebingoai--thebingoai",
+      "source": "./thebingoai--thebingoai",
+      "description": "An open-source BI platform with AI-powered dashboards, real-time chat, and multi-database connectivity. FastAPI + Nuxt 4 + LangGraph."
+    },
+    {
+      "name": "niquola--hyper-code2",
+      "source": "./niquola--hyper-code2",
+      "description": "hyper-code2"
+    },
+    {
+      "name": "waynewei228--new-jarvis",
+      "source": "./waynewei228--new-jarvis",
+      "description": "Proactive AI assistant with real-time multimodal perception"
+    },
+    {
+      "name": "feichanggege--pderr-short-video-skill",
+      "source": "./feichanggege--pderr-short-video-skill",
+      "description": "PDERR \u77ed\u89c6\u9891\u6587\u6848\u5de5\u4f5c\u6d41 Skill\uff1a\u5efa\u6a21\u2192\u89c4\u5212\u2192\u62c6\u89e3\u2192\u6267\u884c\u2192\u5ba1\u67e5\u2192\u590d\u76d8\u516d\u9636\u6bb5\u95ed\u73af"
+    },
+    {
+      "name": "nextreport--engine",
+      "source": "./nextreport--engine",
+      "description": "NextReport Engine - Modern, web-native, UX-first reporting engine, Reporting DSL, schema-driven, Design. Render. Automate documents instantly"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -267309,6 +267349,26 @@
       "description": "Animal Crossing running natively at ~60 fps on Anbernic handhelds \u2014 no emulator. GameCube decomp port for the H700 family (RG-34XX/35XX) via muOS/PortMaster."
     },
     {
+      "name": "crafter-station--gh-ascii",
+      "source": "./crafter-station--gh-ascii",
+      "description": "gh-ascii"
+    },
+    {
+      "name": "gabeconway--opencrossing-anbernic",
+      "source": "./gabeconway--opencrossing-anbernic",
+      "description": "OpenCrossing: Animal Crossing running natively at ~60 fps on Anbernic handhelds \u2014 no emulator. GameCube decomp port for the H700 family (RG-34XX/35XX/28XX) via PortMaster (muOS, Knulli)."
+    },
+    {
+      "name": "iyuenan3--worklog-kit",
+      "source": "./iyuenan3--worklog-kit",
+      "description": "\u4e2a\u4eba\u9879\u76ee\u5927\u8111\u5f00\u7bb1\u6a21\u677f\uff1a\u7761\u524d\u4e00\u53e5\u8bdd\uff0c\u65e5\u8bb0\u4e0e wiki \u81ea\u52a8\u7f16\u8bd1\uff08Claude Code\uff09| Turn-key personal project-brain vault for Claude Code"
+    },
+    {
+      "name": "dhravya--burrow",
+      "source": "./dhravya--burrow",
+      "description": "a whole dev machine in a browser tab - bun.wasm, shell, git, and local AI. phones home to nobody."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -271912,6 +271972,21 @@
       "name": "neeeophytee--ai-cost-cutter-skills",
       "source": "./neeeophytee--ai-cost-cutter-skills",
       "description": "10 skills that cut your AI bill with proof instead of vibes. MIT, works in Claude Code, Codex, Cursor. Every skill's check is executed by CI."
+    },
+    {
+      "name": "paladini--harness-score",
+      "source": "./paladini--harness-score",
+      "description": "Your AI coding agent is only as reliable as the harness around it. Measure that harness in seconds with harness-score."
+    },
+    {
+      "name": "paladini--harness-score",
+      "source": "./paladini--harness-score",
+      "description": "Your AI coding agent is only as reliable as the harness around it. Measure that harness in seconds with harness-score."
+    },
+    {
+      "name": "paladini--harness-score",
+      "source": "./paladini--harness-score",
+      "description": "Your AI coding agent is only as reliable as the harness around it. Measure that harness in seconds with harness-score."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -396657,6 +396732,61 @@
       "name": "rhinos0608--pi-smartread",
       "source": "./rhinos0608--pi-smartread",
       "description": "Pi-SmartRead"
+    },
+    {
+      "name": "methaedu--school-management-app",
+      "source": "./methaedu--school-management-app",
+      "description": "school-management-app"
+    },
+    {
+      "name": "pseriesadmin--plannode",
+      "source": "./pseriesadmin--plannode",
+      "description": "Pseries internal planning tool - Node tree PRD interface"
+    },
+    {
+      "name": "pseriesadmin--plannode",
+      "source": "./pseriesadmin--plannode",
+      "description": "Pseries internal planning tool - Node tree PRD interface"
+    },
+    {
+      "name": "pseriesadmin--plannode",
+      "source": "./pseriesadmin--plannode",
+      "description": "Pseries internal planning tool - Node tree PRD interface"
+    },
+    {
+      "name": "pseriesadmin--plannode",
+      "source": "./pseriesadmin--plannode",
+      "description": "Pseries internal planning tool - Node tree PRD interface"
+    },
+    {
+      "name": "pseriesadmin--plannode",
+      "source": "./pseriesadmin--plannode",
+      "description": "Pseries internal planning tool - Node tree PRD interface"
+    },
+    {
+      "name": "pseriesadmin--plannode",
+      "source": "./pseriesadmin--plannode",
+      "description": "Pseries internal planning tool - Node tree PRD interface"
+    },
+    {
+      "name": "methaedu--school-management-app",
+      "source": "./methaedu--school-management-app",
+      "description": "school-management-app"
+    },
+    {
+      "name": "pseriesadmin--plannode",
+      "source": "./pseriesadmin--plannode",
+      "description": "Pseries internal planning tool - Node tree PRD interface"
+    },
+    {
+      "name": "alexdilorenzo--mtpdep",
+      "source": "./alexdilorenzo--mtpdep",
+      "description": "MtpDep"
+    },
+    {
+      "name": "nex50792--api-billing-platform",
+      "source": "./nex50792--api-billing-platform",
+      "description": "API\u8ab2\u91d1\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0"
     }
   ]
 }
