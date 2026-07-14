@@ -1,0 +1,9 @@
+{
+  "name": "prometheus--prometheus-mcp",
+  "displayName": "prometheus-mcp",
+  "description": "MCP server for LLMs to interact with Prometheus",
+  "version": "1.0.0",
+  "author": "prometheus",
+  "homepage": "https://github.com/prometheus/prometheus-mcp",
+  "skills": []
+}
