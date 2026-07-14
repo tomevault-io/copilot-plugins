@@ -267304,6 +267304,11 @@
       "description": "Agent-friendly InstSci workflow preview for legal paper acquisition, browser evidence, and Zotero handoff"
     },
     {
+      "name": "gabeconway--animal-crossing-anbernic",
+      "source": "./gabeconway--animal-crossing-anbernic",
+      "description": "Animal Crossing running natively at ~60 fps on Anbernic handhelds \u2014 no emulator. GameCube decomp port for the H700 family (RG-34XX/35XX) via muOS/PortMaster."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -396647,6 +396652,11 @@
       "name": "francollamas--argentum",
       "source": "./francollamas--argentum",
       "description": "argentum"
+    },
+    {
+      "name": "rhinos0608--pi-smartread",
+      "source": "./rhinos0608--pi-smartread",
+      "description": "Pi-SmartRead"
     }
   ]
 }
