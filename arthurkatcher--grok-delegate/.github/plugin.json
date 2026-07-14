@@ -1,0 +1,9 @@
+{
+  "name": "arthurkatcher--grok-delegate",
+  "displayName": "grok-delegate",
+  "description": "Grok Build plugin: hand work to local Claude Code or Codex as a background task",
+  "version": "1.0.0",
+  "author": "arthurkatcher",
+  "homepage": "https://github.com/arthurkatcher/grok-delegate",
+  "skills": []
+}
