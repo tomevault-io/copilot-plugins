@@ -1,0 +1,9 @@
+{
+  "name": "melody0709--voxtype",
+  "displayName": "VoxType",
+  "description": "Voice typing for Windows. local & cloud ASR (Seed-ASR 2.0 )\u8c46\u5305\u8bed\u97f3\u8f93\u5165\u6cd5,FireRedASR2",
+  "version": "1.0.0",
+  "author": "melody0709",
+  "homepage": "https://github.com/melody0709/VoxType",
+  "skills": []
+}
