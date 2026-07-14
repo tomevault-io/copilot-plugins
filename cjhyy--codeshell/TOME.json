@@ -4,7 +4,7 @@
   "repo": "codeshell",
   "description": "An open-source AI coding assistant for your terminal, inspired by Claude Code. Interact with your codebase directly from the command line.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cjhyy/codeshell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T18:39:46Z"
+  "distributed_at": "2026-07-14T18:40:22Z"
 }
