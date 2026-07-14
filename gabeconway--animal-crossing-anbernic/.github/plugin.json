@@ -1,0 +1,9 @@
+{
+  "name": "gabeconway--animal-crossing-anbernic",
+  "displayName": "animal-crossing-anbernic",
+  "description": "Animal Crossing running natively at ~60 fps on Anbernic handhelds \u2014 no emulator. GameCube decomp port for the H700 family (RG-34XX/35XX) via muOS/PortMaster.",
+  "version": "1.0.0",
+  "author": "GabeConway",
+  "homepage": "https://github.com/GabeConway/animal-crossing-anbernic",
+  "skills": []
+}
