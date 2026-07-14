@@ -1,0 +1,44 @@
+{
+  "name": "cargo-client",
+  "owner": "Tuvshubn",
+  "repo": "cargo-client",
+  "description": "\ud83c\udf10 \u041c\u043e\u043d\u0442\u043e\u0422\u0440\u0435\u0439\u0434 Client \u2014 Next.js 15 + MUI \u00b7 \u0421\u043e\u043b\u043e\u043d\u0433\u043e\u0441-\u041c\u043e\u043d\u0433\u043e\u043b \u043a\u0430\u0440\u0433\u043e \u0432\u044d\u0431",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Tuvshubn/cargo-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T22:42:27Z"
+}
