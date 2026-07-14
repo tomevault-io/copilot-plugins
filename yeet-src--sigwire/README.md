@@ -7,11 +7,11 @@ tail -f for signals. Every signal any process on the box raises — who sent it,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yeet-src/sigwire](https://github.com/yeet-src/sigwire).
+Original source: `CLAUDE.md` in [yeet-src/sigwire](https://github.com/yeet-src/sigwire).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
