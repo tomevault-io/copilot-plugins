@@ -1,0 +1,9 @@
+{
+  "name": "tigerless-labs--design-harness",
+  "displayName": "design-harness",
+  "description": "Feed your agent papers and half-formed ideas \u2014 it links them into a system design you can defend. Markdown keeps the record; a visual canvas makes it readable. An Agent Skill for Claude Code & any SKI",
+  "version": "1.0.0",
+  "author": "tigerless-labs",
+  "homepage": "https://github.com/tigerless-labs/design-harness",
+  "skills": []
+}
