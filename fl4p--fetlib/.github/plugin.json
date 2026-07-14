@@ -1,0 +1,9 @@
+{
+  "name": "fl4p--fetlib",
+  "displayName": "fetlib",
+  "description": "Find the right switch. Scrapes data-sheets and ranks FETs by power loss in a DCDC converter",
+  "version": "1.0.0",
+  "author": "fl4p",
+  "homepage": "https://github.com/fl4p/fetlib",
+  "skills": []
+}
