@@ -7,11 +7,11 @@ My complete Claude Code agentic workspace - 200+ curated skills, 9-agent special
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AjayIrkal23/agentic-mercy-10x](https://github.com/AjayIrkal23/agentic-mercy-10x).
+Original source: `CLAUDE.md` in [AjayIrkal23/agentic-mercy-10x](https://github.com/AjayIrkal23/agentic-mercy-10x).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
