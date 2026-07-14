@@ -1,0 +1,9 @@
+{
+  "name": "mivertowski--rustcompute",
+  "displayName": "RustCompute",
+  "description": "Persistent GPU actors for NVIDIA CUDA",
+  "version": "1.0.0",
+  "author": "mivertowski",
+  "homepage": "https://github.com/mivertowski/RustCompute",
+  "skills": []
+}
