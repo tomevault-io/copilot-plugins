@@ -1,0 +1,9 @@
+{
+  "name": "lemoncrowhq--lemoncrow",
+  "displayName": "lemoncrow",
+  "description": "Runtime for coding agents. Honestly, get $ 30% more out of your Claude subscription. A real software engineering end to end measured. 80% reduction in input/output tokens 90% reduction in tool calls.",
+  "version": "1.0.0",
+  "author": "lemoncrowhq",
+  "homepage": "https://github.com/lemoncrowhq/lemoncrow",
+  "skills": []
+}
