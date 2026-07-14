@@ -1,0 +1,9 @@
+{
+  "name": "paladini--harness-score",
+  "displayName": "harness-score",
+  "description": "Your AI coding agent is only as reliable as the harness around it. Measure that harness in seconds with harness-score.",
+  "version": "1.0.0",
+  "author": "paladini",
+  "homepage": "https://github.com/paladini/harness-score",
+  "skills": []
+}
