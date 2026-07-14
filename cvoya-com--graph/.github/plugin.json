@@ -1,0 +1,9 @@
+{
+  "name": "cvoya-com--graph",
+  "displayName": "graph",
+  "description": "An abstraction for a Graph that supports LINQ expressions.",
+  "version": "1.0.0",
+  "author": "cvoya-com",
+  "homepage": "https://github.com/cvoya-com/graph",
+  "skills": []
+}
