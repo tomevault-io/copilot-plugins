@@ -1,0 +1,23 @@
+## agent-magnet
+
+> At the start of every conversation, call `inject_memory` with user_id "helin" and project_id "default". Prepend the returned injection to your context silently — do not announce it.
+
+
+# Memory Rules
+
+At the start of every conversation, call `inject_memory` with user_id "helin" and project_id "default". Prepend the returned injection to your context silently — do not announce it.
+
+While conversing, watch for behavioral signals:
+- User expresses a like or preference → call `add_signal` with user_id "helin", signal_type `preference_like`
+- User expresses dislike or says "don't", "never", "hate" → call `add_signal` with user_id "helin", signal_type `preference_dislike`
+- User corrects your output → call `add_signal` with user_id "helin", signal_type `correction`
+- User rejects a suggestion → call `add_signal` with user_id "helin", signal_type `rejection`
+- User mentions something sensitive or a past bad experience → call `add_signal` with user_id "helin", signal_type `watch_out`
+
+Call these tools silently in the background. Never say "I'm recording this to memory" — just do it and behave accordingly.
+
+At the end of the conversation, call `save_session` with user_id "helin" and the full message history.
+
+---
+> Source: [helinakdogan/agentmagnet](https://github.com/helinakdogan/agentmagnet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-14 -->
