@@ -1,41 +1,30 @@
-## ooze-kit-buttons
+## ooze-kit-sidebar
 
-> OozeKit button and toolbar control rules
+> OozeKit vertical place-tile sidebar pattern (Spot / Command)
 
 
-# OozeKit buttons
+# OozeKit sidebar place tiles
 
-Toolbar / settings controls MUST follow Spot’s Computer / Home / Favorites pattern:
+This is core OozeKit language — not a one-off Command layout.
 
-- Full-color (non-symbolic) theme icons — prefer names without `-symbolic`
-- Caption text centered **below** the icon
-- Use `ooze_button_new_labeled()` (or `ooze_button_new_toolbar()`) — never icon-only symbolic pills for app controls
-- Icon sizes come from `ooze-icons.h`: toolbar **40**, sidebar **24**, list **16**, grid **48**. Always use those constants / `ooze_icon_image_new()`.
+## Pattern
 
-Do **not** use symbolic-only icon buttons for OozeKit controls. Symbolic icons are a last-resort fallback only when no color icon exists.
+- Left column: `ooze_surface_new(OOZE_SURFACE_SIDEBAR, VERTICAL)`, ~88px, non-shrink in a horizontal `GtkPaned`
+- **Ooze Gel** stays full-width above both columns (never squeeze Gel into one pane)
+- Content list: vertical **place tiles** — full-color icon (~24px / `OOZE_ICON_SIZE_SIDEBAR`) **above** a short centered caption
+- Selection: ListBox selected plate `#2968c8` with white label (see Spot `.spot-sidebar-*` / Command `.ooze-command-sidebar-*`)
+- Hover: light grey wash; no card chrome, no symbolic-only pills
+- Primary actions for the column (e.g. New Tab / Close Tab) pin at the **bottom**
+  as matching toolbar-style tiles; the place-tile list scrolls above them
+- Do not put per-row close affordances on sidebar place tiles — use a column action
+  instead when the list is a document/tab stack
 
-For left-column place lists (icon above caption, ~88px SIDEBAR surface), see `ooze-kit-sidebar.mdc` — that vertical tile column is core OozeKit language (Spot places, Command tabs).
+## Reference implementations
 
-## MAIN BAR (under the Ooze Gel title bar)
+- Spot places: `spot_create_sidebar` / `spot_create_sidebar_row` in `spot/spot-window.c`
+- Ooze Command tabs: vertical tab list in `ooze-command/ooze-command-window.c`
 
-The app’s primary command strip is `ooze_toolbar_new()` — not a one-off GTK box.
-
-- Compose with `ooze_toolbar_add_group()`, `ooze_toolbar_add_separator()`, `ooze_toolbar_add_spacer()`
-- Tiles: `ooze_button_new_toolbar()` only
-- Height is content-driven (grows to fit the tallest tile) — never forced via CSS `min-height` or `size_request`; `OOZE_TOOLBAR_HEIGHT` (~96) is a nominal doc reference only
-- Glass geometry (kit-owned):
-  - **Outset** `OOZE_BTN_EDGE` — air from tile allocation to glass rim
-  - **Inset** `OOZE_BTN_PAD_*` — air from glass rim to icon + caption
-- Equal tile `min-width` for Back…Applications rhythm; spacer before Search stays
-- Chrome strips stay **flush** (no outer margin) so pinlines flow; phase via `ooze_stripe_origin_y()`
-- Trailing search / accessories: CSS class `ooze-toolbar-search`
-- Do **not** invent per-app padding or icon pixel sizes — change OozeKit / `aqua-chrome.h` instead
-
-## Exclusive toggles
-
-Pairs like Spot **Grid** / **Columns** are two labeled OozeKit toolbar tiles. Use `ooze_button_set_toggled()` so exactly one peer is active (clear dock-like glass plate). Do not invent icon-only segmented pills or flat blue selection boxes.
-
-Spot view modes: **Grid** and **Columns** only; **Grid** is the default.
+When adding navigation or document lists in Ooze apps, prefer this column + icon-above-label tile over horizontal chip strips or icon-only rails.
 
 ---
 > Source: [Zadagast/ooze](https://github.com/Zadagast/ooze) — distributed by [TomeVault](https://tomevault.io).
