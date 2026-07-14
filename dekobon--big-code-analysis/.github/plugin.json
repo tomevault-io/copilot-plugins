@@ -1,0 +1,9 @@
+{
+  "name": "dekobon--big-code-analysis",
+  "displayName": "big-code-analysis",
+  "description": "Tool to report source code metrics",
+  "version": "1.0.0",
+  "author": "dekobon",
+  "homepage": "https://github.com/dekobon/big-code-analysis",
+  "skills": []
+}
