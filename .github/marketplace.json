@@ -168404,6 +168404,11 @@
       "description": "my-config"
     },
     {
+      "name": "serradura--okf-gem",
+      "source": "./serradura--okf-gem",
+      "description": "A lightweight Ruby gem for OKF: author, curate, and serve bundles as an interactive graph."
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -192987,6 +192992,21 @@
       "name": "vladkrutenyuk--three-start",
       "source": "./vladkrutenyuk--three-start",
       "description": "The missing foundation for Three.js apps"
+    },
+    {
+      "name": "feigecode--navop",
+      "source": "./feigecode--navop",
+      "description": "Navop combines Navigate and Operation\u2014a unified workspace that helps developers navigate and operate databases, servers, terminals, and AI tools from one place."
+    },
+    {
+      "name": "feigecode--navop",
+      "source": "./feigecode--navop",
+      "description": "Navop combines Navigate and Operation\u2014a unified workspace that helps developers navigate and operate databases, servers, terminals, and AI tools from one place."
+    },
+    {
+      "name": "blitzdotdev--blitzos",
+      "source": "./blitzdotdev--blitzos",
+      "description": "BlitzOS \u2014 warm-start context for your Claude Code / Codex cloud sessions. One command builds a company-context repo so cloud sessions boot knowing your whole codebase. If you want to set this up for y"
     },
     {
       "name": "lightninglabs--lnget",
