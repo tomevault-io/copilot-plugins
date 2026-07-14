@@ -1,0 +1,9 @@
+{
+  "name": "thephw--claude-meseeks",
+  "displayName": "claude-meseeks",
+  "description": "Claude Code plugin that plays a Mr. Meeseeks voice line whenever Claude is waiting for you.",
+  "version": "1.0.0",
+  "author": "thephw",
+  "homepage": "https://github.com/thephw/claude-meseeks",
+  "skills": []
+}
