@@ -1,18 +1,51 @@
-## ooze-gel-naming
+## ooze-global-menu
 
-> Call window frame / decorations Ooze Gel, not chrome
+> How Ooze global menus wire (native Wayland vs optional foreign AppMenu)
 
 
-# Ooze Gel naming
+# Global menu wiring
 
-In docs, UI copy, commit messages, and comments meant for humans:
+Ooze is a Mutter Wayland compositor.
 
-- Call the app window frame **Ooze Gel** (header bar, traffic lights, drag, resize).
-- The continuous pinline cloth across Gel title + OozeKit MAIN BAR / sidebar / status is the **Ooze Gel pinline grid** (`OOZE_PIN_STRIDE`, heights in `aqua-chrome.h`).
-- Do **not** say “window chrome”, “Gel chrome”, or “client chrome” in product language.
-- OozeKit surfaces/buttons are **OozeKit** finishes / controls — not “Ooze Gel” and not “chrome”.
+## Wayland GTK (Spot, Command, other org.ooze.* — always on)
 
-Internal compositor identifiers for *foreign*-window decorations (e.g. `MyWindowChrome`) may keep the old code names until renamed; new public wording still uses Ooze Gel for Ooze apps.
+1. Compositor advertises `gtk_shell1` **GLOBAL_APP_MENU** by keeping
+   `meta_prefs_set_show_fallback_app_menu(FALSE)`.
+2. Clients export over the session bus; Mutter exposes paths on `MetaWindow`:
+   - `gtk-unique-bus-name`
+   - `gtk-menubar-object-path` (prefer) or `gtk-app-menu-object-path` (fallback)
+   - `gtk-application-object-path` / `gtk-window-object-path` for `app.*` / `win.*`
+3. Shell binds `GDBusMenuModel` + `GDBusActionGroup`.
+
+Apps must `gtk_application_set_menubar()` once at startup and
+`gtk_application_window_set_show_menubar(..., FALSE)`.
+
+## Foreign / classic GTK3 AppMenu (OFF by default)
+
+Sync `GetMenuForWindow` / dbusmenu `GetLayout` on the compositor main thread
+freezes the session (especially Inkscape). **Do not force** `GDK_BACKEND=x11`,
+`appmenu-gtk-module`, or `Gtk/ShellShowsMenubar=1` unless debugging.
+
+Re-enable only with:
+
+```bash
+OOZE_FOREIGN_GLOBAL_MENU=1
+```
+
+Then: install `./scripts/install-appmenu.sh`, Xwayland, registrar + dbusmenu bind
+as before. Prefer registrar when `GetMenuForWindow` succeeds; wrap sync calls
+with `OozeStall:`.
+
+Default: foreign apps keep **in-window** menus. XSETTINGS publishes
+`Gtk/ShellShowsMenubar=0` / `ShellShowsAppmenu=0`.
+
+Do not invent a second menubar path per window for Ooze GtkApplication apps —
+set the application menubar once.
+
+## Popup UX
+
+Menu popups sit above windows with a dim scrim backdrop and a clear shadow so they
+remain readable over light app surfaces.
 
 ---
 > Source: [Zadagast/ooze](https://github.com/Zadagast/ooze) — distributed by [TomeVault](https://tomevault.io).
