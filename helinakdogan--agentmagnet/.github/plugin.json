@@ -1,0 +1,9 @@
+{
+  "name": "helinakdogan--agentmagnet",
+  "displayName": "agentmagnet",
+  "description": "Give your AI a memory. Drop-in learning layer for any LLM \u2014 no retraining, no RAG setup.",
+  "version": "1.0.0",
+  "author": "helinakdogan",
+  "homepage": "https://github.com/helinakdogan/agentmagnet",
+  "skills": []
+}
