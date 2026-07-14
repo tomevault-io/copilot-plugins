@@ -1,0 +1,44 @@
+{
+  "name": "trae-flow",
+  "owner": "ccsonicc333",
+  "repo": "trae-flow",
+  "description": "\u300c\u4f7f\u7528TRAE\u521b\u5efa\u4e13\u5c5e\u4e8e\u4f60\u7684 Mac \u7075\u52a8\u5c9b\u300d",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ccsonicc333/trae-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T18:37:05Z"
+}
