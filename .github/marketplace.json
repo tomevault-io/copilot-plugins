@@ -207224,6 +207224,16 @@
       "description": "Ultrademo is an automated demo video generator for any websites, SaaS applications, etc. - executed conveniently through a Claude Code skill."
     },
     {
+      "name": "mhyrzt--xrat",
+      "source": "./mhyrzt--xrat",
+      "description": "Rust CLI/TUI proxy manager for Xray-core, V2Ray-core, and sing-box: import subscriptions,   test latency, rotate proxies, scan edge IPs, and run managed local proxy sessions."
+    },
+    {
+      "name": "mhyrzt--xrat",
+      "source": "./mhyrzt--xrat",
+      "description": "Rust CLI/TUI proxy manager for Xray-core, V2Ray-core, and sing-box: import subscriptions,   test latency, rotate proxies, scan edge IPs, and run managed local proxy sessions."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -245014,6 +245024,26 @@
       "description": "[ACM MM 2026]UrbanWorld2.0: A Multimodal Agent Framework for Reality-Aligned 3D World Generation at City-Scale"
     },
     {
+      "name": "menachem-dadon--sparkmoe",
+      "source": "./menachem-dadon--sparkmoe",
+      "description": "SparkMoE"
+    },
+    {
+      "name": "menachem-dadon--sparkmoe",
+      "source": "./menachem-dadon--sparkmoe",
+      "description": "SparkMoE"
+    },
+    {
+      "name": "mstan--megamanx5recomp",
+      "source": "./mstan--megamanx5recomp",
+      "description": "Mega Man X5 (USA, SLUS-01334) statically recompiled to a native Windows executable with the PSXRecomp framework."
+    },
+    {
+      "name": "chester-lang--chester2026draft",
+      "source": "./chester-lang--chester2026draft",
+      "description": "Trying to make a practical possibly unsound dependently typed language with algebraic effects"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -266989,6 +267019,36 @@
       "description": "My dream linux desktop. \ud83d\udc38"
     },
     {
+      "name": "ajayirkal23--agentic-mercy-10x",
+      "source": "./ajayirkal23--agentic-mercy-10x",
+      "description": "My complete Claude Code agentic workspace - 200+ curated skills, 9-agent specialist mesh, 3-act /invoke orchestration, enforcement hooks. Clone + one command = full setup."
+    },
+    {
+      "name": "ston6919--vox-style-video",
+      "source": "./ston6919--vox-style-video",
+      "description": "Reusable VOX-style sequential Kie.ai video workflow"
+    },
+    {
+      "name": "ajayirkal23--agentic-mercy-10x",
+      "source": "./ajayirkal23--agentic-mercy-10x",
+      "description": "My complete Claude Code agentic workspace - 200+ curated skills, 9-agent specialist mesh, 3-act /invoke orchestration, enforcement hooks. Clone + one command = full setup."
+    },
+    {
+      "name": "ston6919--vox-style-video",
+      "source": "./ston6919--vox-style-video",
+      "description": "Reusable VOX-style sequential Kie.ai video workflow"
+    },
+    {
+      "name": "y3owk1n--nix-system-config-v2",
+      "source": "./y3owk1n--nix-system-config-v2",
+      "description": "My Personal Nix System Configuration"
+    },
+    {
+      "name": "rejifald--stitchapi",
+      "source": "./rejifald--stitchapi",
+      "description": "The agent-native runtime where a typed, declarative stitch replaces fetch \u2014 for humans and agents alike."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -271532,6 +271592,46 @@
       "name": "klarkxy--opencode-go-mgr",
       "source": "./klarkxy--opencode-go-mgr",
       "description": "opencode-go-mgr"
+    },
+    {
+      "name": "s2-streamstore--nfs-crust",
+      "source": "./s2-streamstore--nfs-crust",
+      "description": "Async NFSv4.1 client library for Rust, without an OS mount point"
+    },
+    {
+      "name": "elevatormusic--hermes-classic-gold-pack",
+      "source": "./elevatormusic--hermes-classic-gold-pack",
+      "description": "Classic Gold theme + Noir Neko pets + custom status bar for Hermes-Agent (Nous Research's desktop AI agent). One-prompt AI install."
+    },
+    {
+      "name": "yeet-src--sqlitefeed",
+      "source": "./yeet-src--sqlitefeed",
+      "description": "tail -f for SQLite. Every statement any process on the box runs against libsqlite3 \u2014 the SQL (syntax-highlighted), the values bound to its ? placeholders, the per-step latency and result code \u2014 decode"
+    },
+    {
+      "name": "yeet-src--sqlitefeed",
+      "source": "./yeet-src--sqlitefeed",
+      "description": "tail -f for SQLite. Every statement any process on the box runs against libsqlite3 \u2014 the SQL (syntax-highlighted), the values bound to its ? placeholders, the per-step latency and result code \u2014 decode"
+    },
+    {
+      "name": "jaak0b--scanntune",
+      "source": "./jaak0b--scanntune",
+      "description": "Caliper-free 3D printer XY scale and skew calibration from a flatbed scan"
+    },
+    {
+      "name": "drferdii--ferdiiskandar-com",
+      "source": "./drferdii--ferdiiskandar-com",
+      "description": "Sentra Founder Dossier \u2014 public site for dr Ferdi Iskandar, physician, hospital CEO, and founder of Sentra Artificial Intelligence"
+    },
+    {
+      "name": "irisiochan--memory-vault",
+      "source": "./irisiochan--memory-vault",
+      "description": "\u591a AI \u5171\u4eab\u8bb0\u5fc6\u5e93\u6a21\u677f\uff1aMarkdown+git \u5b58\u50a8\uff0cMCP \u63a5\u5165\uff0c\u81ea\u52a8\u6ce8\u5165/\u81ea\u4e3b\u5199\u5165/\u65f6\u95f4\u611f\u77e5/\u5168\u5e73\u53f0\u540c\u6b65"
+    },
+    {
+      "name": "a7ex-turcan--rtfm",
+      "source": "./a7ex-turcan--rtfm",
+      "description": "Cute little CLI utility to make AI agents Read The Manual"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -396252,6 +396352,11 @@
       "name": "mykof--diablo-factory",
       "source": "./mykof--diablo-factory",
       "description": "\u6697\u9ed1\u6d41\u6c34\u7dda\u5de5\u5ee0"
+    },
+    {
+      "name": "ro-fee--mazepro",
+      "source": "./ro-fee--mazepro",
+      "description": "mazepro"
     }
   ]
 }
