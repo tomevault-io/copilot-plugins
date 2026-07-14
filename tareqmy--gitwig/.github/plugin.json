@@ -1,0 +1,9 @@
+{
+  "name": "tareqmy--gitwig",
+  "displayName": "gitwig",
+  "description": "a rust based tui an alternative to sourcetree",
+  "version": "1.0.0",
+  "author": "tareqmy",
+  "homepage": "https://github.com/tareqmy/gitwig",
+  "skills": []
+}
