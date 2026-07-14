@@ -7,11 +7,11 @@ A cosy, private home for your AI companion. The app lives on your computer, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MadScientist-Labs/little-lantern](https://github.com/MadScientist-Labs/little-lantern).
+Original source: `AGENTS.md` in [MadScientist-Labs/little-lantern](https://github.com/MadScientist-Labs/little-lantern).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
