@@ -1,0 +1,9 @@
+{
+  "name": "tiluckdave--hound-mcp",
+  "displayName": "hound-mcp",
+  "description": "The dependency bloodhound for AI coding agents. Free, no API keys.",
+  "version": "1.0.0",
+  "author": "tiluckdave",
+  "homepage": "https://github.com/tiluckdave/hound-mcp",
+  "skills": []
+}
