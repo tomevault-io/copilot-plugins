@@ -1,27 +1,18 @@
-## ooze-avoid-libadwaita-defaults
+## ooze-gel-naming
 
-> Avoid shipping libadwaita apps as Ooze defaults; prefer GTK/OozeKit or custom Ooze apps
+> Call window frame / decorations Ooze Gel, not chrome
 
 
-# Avoid libadwaita as default OS apps
+# Ooze Gel naming
 
-libadwaita apps (Loupe, many modern GNOME apps) do **not** honor Ooze’s theming story:
+In docs, UI copy, commit messages, and comments meant for humans:
 
-- They ignore `GTK_THEME` / WhiteSur for traffic lights and chrome.
-- A global `~/.config/gtk-4.0` override to force Mac skins breaks **Ooze Gel** and **OozeKit**.
-- They draw their own Adwaita CSD, so they never look like first-party Ooze apps.
+- Call the app window frame **Ooze Gel** (header bar, traffic lights, drag, resize).
+- The continuous pinline cloth across Gel title + OozeKit MAIN BAR / sidebar / status is the **Ooze Gel pinline grid** (`OOZE_PIN_STRIDE`, heights in `aqua-chrome.h`).
+- Do **not** say “window chrome”, “Gel chrome”, or “client chrome” in product language.
+- OozeKit surfaces/buttons are **OozeKit** finishes / controls — not “Ooze Gel” and not “chrome”.
 
-## Policy
-
-- Do **not** ship libadwaita apps as the default handler for core desktop actions (images, files extras, etc.) when we control the choice.
-- Prefer: existing **Ooze** apps (`org.ooze.*` + Gel), plain **GTK4** (no libadwaita), or classic **GTK3** apps that respect WhiteSur via `GTK_THEME` on foreign launch.
-- **Borrowing code/ideas** from libadwaita apps is fine (algorithms, UX patterns). Do not depend on them as the branded viewer/editor unless there is no practical alternative.
-- If a third-party libadwaita app must be used temporarily, treat it as a stopgap and document that it will look like GNOME, not Ooze / WhiteSur.
-
-## Related
-
-- Ooze apps use Gel + OozeKit — not Adwaita header bars.
-- Foreign theming is launch-scoped (`GTK_THEME=WhiteSur-*`), never a session-wide gtk-4.0 symlink.
+Internal compositor identifiers for *foreign*-window decorations (e.g. `MyWindowChrome`) may keep the old code names until renamed; new public wording still uses Ooze Gel for Ooze apps.
 
 ---
 > Source: [Zadagast/ooze](https://github.com/Zadagast/ooze) — distributed by [TomeVault](https://tomevault.io).
