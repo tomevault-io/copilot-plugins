@@ -1,0 +1,9 @@
+{
+  "name": "initxy--noeta",
+  "displayName": "noeta",
+  "description": "The server-side runtime for AI agents. Durable & crash-safe (event-sourced), multi-worker scheduling, per-session sandboxing, human-in-the-loop, provider-neutral. Host agents like Claude Code on your ",
+  "version": "1.0.0",
+  "author": "initxy",
+  "homepage": "https://github.com/initxy/noeta",
+  "skills": []
+}
