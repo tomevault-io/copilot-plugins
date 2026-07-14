@@ -7,11 +7,11 @@ Container + Wasm orchestrator with AI ops — fills the gap between Coolify and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mighty840/orca](https://github.com/mighty840/orca).
+Original source: `AGENTS.md` in [mighty840/orca](https://github.com/mighty840/orca).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
