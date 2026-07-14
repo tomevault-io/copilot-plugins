@@ -1,0 +1,9 @@
+{
+  "name": "aryaminus--controlkeel",
+  "displayName": "controlkeel",
+  "description": "Agent control plane for governed AI coding: validate changes, enforce policy gates, track findings, proofs, and evals based on your habits.",
+  "version": "1.0.0",
+  "author": "aryaminus",
+  "homepage": "https://github.com/aryaminus/controlkeel",
+  "skills": []
+}
