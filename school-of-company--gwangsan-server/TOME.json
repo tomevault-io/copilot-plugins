@@ -1,0 +1,44 @@
+{
+  "name": "Gwangsan-Server",
+  "owner": "School-of-Company",
+  "repo": "Gwangsan-Server",
+  "description": "[ 3\uc138\ub300 \uc2a4\ud0c0\ud2b8\uc5c5 \ud504\ub85c\uc81d\ud2b8 | Server ] \uad11\uc0b0\uad6c \uc8fc\ubbfc \uc9c0\uc5ed\ud654\ud3d0 \uac70\ub798 \uad00\ub9ac \uc11c\ube44\uc2a4",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/School-of-Company/Gwangsan-Server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T21:33:42Z"
+}
