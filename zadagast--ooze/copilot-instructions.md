@@ -1,30 +1,21 @@
-## ooze-kit-sidebar
+## ooze-kit-typography
 
-> OozeKit vertical place-tile sidebar pattern (Spot / Command)
+> OozeKit Inter 11pt regular typography
 
 
-# OozeKit sidebar place tiles
+# OozeKit typography
 
-This is core OozeKit language — not a one-off Command layout.
+Default UI type for OozeKit apps and shell chrome:
 
-## Pattern
+- **Family:** Inter
+- **Size:** 11pt
+- **Weight:** 400 (regular)
 
-- Left column: `ooze_surface_new(OOZE_SURFACE_SIDEBAR, VERTICAL)`, ~88px, non-shrink in a horizontal `GtkPaned`
-- **Ooze Gel** stays full-width above both columns (never squeeze Gel into one pane)
-- Content list: vertical **place tiles** — full-color icon (~24px / `OOZE_ICON_SIZE_SIDEBAR`) **above** a short centered caption
-- Selection: ListBox selected plate `#2968c8` with white label (see Spot `.spot-sidebar-*` / Command `.ooze-command-sidebar-*`)
-- Hover: light grey wash; no card chrome, no symbolic-only pills
-- Primary actions for the column (e.g. New Tab / Close Tab) pin at the **bottom**
-  as matching toolbar-style tiles; the place-tile list scrolls above them
-- Do not put per-row close affordances on sidebar place tiles — use a column action
-  instead when the list is a document/tab stack
+Do not use medium/semibold/bold in kit or app chrome CSS unless the product explicitly needs emphasis. Opt in with the `.ooze-emphasis` class (weight 600) or `OOZE_UI_FONT_EMPHASIS` for Pango.
 
-## Reference implementations
+Call `ooze_theme_ensure()` once at app startup. Font tokens live in `common/ooze-font.h`.
 
-- Spot places: `spot_create_sidebar` / `spot_create_sidebar_row` in `spot/spot-window.c`
-- Ooze Command tabs: vertical tab list in `ooze-command/ooze-command-window.c`
-
-When adding navigation or document lists in Ooze apps, prefer this column + icon-above-label tile over horizontal chip strips or icon-only rails.
+Terminal text (Ooze Command VTE) stays monospace — only chrome uses Inter.
 
 ---
 > Source: [Zadagast/ooze](https://github.com/Zadagast/ooze) — distributed by [TomeVault](https://tomevault.io).
