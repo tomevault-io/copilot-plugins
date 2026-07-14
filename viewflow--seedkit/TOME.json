@@ -1,0 +1,44 @@
+{
+  "name": "seedkit",
+  "owner": "viewflow",
+  "repo": "seedkit",
+  "description": "Build any Django app \u2014 from a SaaS to a dashboard to an API \u2014 from a single sentence. An agent skill that wires packages, splits dev/prod settings, and adds CI.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/viewflow/seedkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T01:43:56Z"
+}
