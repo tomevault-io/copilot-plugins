@@ -1,0 +1,9 @@
+{
+  "name": "jbwinters--jacquard-lang",
+  "displayName": "jacquard-lang",
+  "description": "Jacquard is a small programming language designed for a regime in which most code is written by machine-learning models and reviewed by people.",
+  "version": "1.0.0",
+  "author": "jbwinters",
+  "homepage": "https://github.com/jbwinters/jacquard-lang",
+  "skills": []
+}
