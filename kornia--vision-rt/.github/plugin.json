@@ -1,0 +1,9 @@
+{
+  "name": "kornia--vision-rt",
+  "displayName": "vision-rt",
+  "description": "Real-time neural-vision libraries for NVIDIA Jetson Orin \u2014 Rust + TensorRT inference with GPU pre/post-processing.",
+  "version": "1.0.0",
+  "author": "kornia",
+  "homepage": "https://github.com/kornia/vision-rt",
+  "skills": []
+}
