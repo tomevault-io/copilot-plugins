@@ -4,7 +4,7 @@
   "repo": "semanticcache",
   "description": "A Go library for semantic caching with LRU eviction, supporting vector-based similarity search with pluggable embedding backends (local or cloud).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/botirkhaltaev/semanticcache",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-14T19:33:20Z"
+  "distributed_at": "2026-07-14T19:33:52Z"
 }
