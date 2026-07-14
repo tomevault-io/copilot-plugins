@@ -1,0 +1,44 @@
+{
+  "name": "browser-agent",
+  "owner": "uiuing",
+  "repo": "browser-agent",
+  "description": "An open-source AI agent for the browser. Bring any model. It plans in the side panel, acts on real pages through tools, and verifies every claimed result against the live DOM \u2014 with guardrails and reusable skills.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/uiuing/browser-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T20:31:24Z"
+}
