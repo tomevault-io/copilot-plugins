@@ -1,0 +1,9 @@
+{
+  "name": "yeet-src--sqlitefeed",
+  "displayName": "sqlitefeed",
+  "description": "tail -f for SQLite. Every statement any process on the box runs against libsqlite3 \u2014 the SQL (syntax-highlighted), the values bound to its ? placeholders, the per-step latency and result code \u2014 decode",
+  "version": "1.0.0",
+  "author": "yeet-src",
+  "homepage": "https://github.com/yeet-src/sqlitefeed",
+  "skills": []
+}
