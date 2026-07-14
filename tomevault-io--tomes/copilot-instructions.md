@@ -1,104 +1,56 @@
-## claude-md
+## agents-md
 
-> > > Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
+> Core CLI code lives in `src/` (commands, API client, services, auth, server, TDD, and shared utils).
 
-# claude-md
+# Repository Guidelines
 
-> > Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
+## Project Structure & Module Organization
+Core CLI code lives in `src/` (commands, API client, services, auth, server, TDD, and shared utils).  
+UI for local/static reports lives in `src/reporter/` (Vite + React).  
+Tests live in `tests/` with suites grouped by domain (`tests/commands`, `tests/server`, `tests/services`, etc.).  
+Type definition tests live in `test-d/`.  
+Framework integrations and SDK clients live in `clients/` (`storybook`, `static-site`, `vitest`, `ember`, `ruby`, `swift`).  
+Reference docs are in `docs/`, examples in `examples/`, and built artifacts output to `dist/`.
 
-## Usage
+## Build, Test, and Development Commands
+- `npm run build`: clean and compile CLI + reporter bundles into `dist/`.
+- `npm test`: run Node test runner suites with coverage enabled.
+- `npm run test:watch`: watch mode for fast local iteration.
+- `npm run test:reporter`: run Playwright reporter workflow tests.
+- `npm run test:types`: validate published type definitions with `tsd`.
+- `npm run lint` / `npm run format:check`: enforce Biome lint/format rules.
+- `npm run fix`: run formatter + safe lint fixes.
+- `npm run cli -- <args>`: run local CLI entrypoint (example: `npm run cli -- status`).
 
-Add this to your project's CLAUDE.md to activate this skill:
+## Coding Style & Naming Conventions
+Use ESM JavaScript with top-level imports. Prefer functional modules and explicit inputs/outputs over class-heavy designs.  
+Project convention: prefer `let` over `const`.  
+Biome is the source of truth: 2-space indent, single quotes, semicolons, trailing commas (`es5`), 80-char line width.  
+File names are lowercase with hyphens where needed (example: `config-service.js`); tests use `*.test.js`.
 
-```
-Read and follow the instructions in .claude/skills/claude-md/SKILL.md
-```
+## Testing Guidelines
+Primary frameworks: Node’s built-in test runner (`node --test`), Playwright (reporter E2E), and `tsd` (types).  
+Write tests around user outcomes and observable behavior; avoid mocking internal modules.  
+Mock only external boundaries (network/time/randomness).  
+No arbitrary sleeps; wait on concrete state/events.  
+There is no strict coverage percentage gate today, but changed behavior should include focused tests.
 
-Or copy the instructions below directly into your CLAUDE.md:
+## Commit & Pull Request Guidelines
+Follow existing history style: gitmoji-prefixed, action-oriented commit subjects (examples: `✨`, `🐛`, `🔧`, `🔖`, `⚡️`).  
+Keep subjects concise; include issue/PR refs when relevant (example: `(#217)`).  
+PRs should include:
+- Why the change is needed.
+- A clear summary of all meaningful diff areas.
+- A test plan with exact commands run.
+- Screenshots or terminal output for UI/reporting changes when helpful.
 
-# Operating instructions for an AI-instructed company
-
-> Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
-
-## What this company runs on
-
-Three layers:
-
-1. **Skills** at `skills/` — patterns the agent loads when the named situation arises. Don't re-invent these patterns from session memory; load the file.
-2. **A justfile** at the repo root — discoverable commands for repeatable runbooks. `just --list` shows the surface.
-3. **Constitutional documents** in `constitutions/` (operator-owned, agent-read-only) — strategy, design principles, non-goals. Agents propose amendments; operators ratify by editing the canonical file.
-
-The three layers compose. Skills inform judgment, justfile recipes execute deterministic procedures, constitutions hold the strategic invariants. Don't conflate them.
-
-## Default behaviours
-
-These are the defaults that operate underneath everything else. Project-specific overrides may extend or refine.
-
-### Diagnose before acting
-
-Under operator pressure (alert pasted, "fix this", urgency), the first move is read-only investigation, not the implied fix. The pattern lives in `skills/diagnose-before-acting.md`. The cost of pausing is small; the cost of an obvious-wrong fix is hours.
-
-### Decision memos before non-trivial proposals
-
-Anything cross-cutting, schema-touching, externally-visible, or where two valid approaches exist gets a memo first. Format in `skills/decision-memo.md`. The memo is the decision aid, not the decision.
-
-### Pre-ship adversary on every non-trivial commit
-
-Before `git commit`, run the four attacks: scope creep, failure modes, rollback, shipping-gate simulation. Two-to-three minutes. `skills/pre-ship-adversary.md`.
-
-### Vocabulary discipline on every external string
-
-Emails, landing copy, READMEs, CLI output, error messages. The list lives in your project's vocabulary file; the discipline lives in `skills/vocabulary-check.md`.
-
-### Hard evidence under pushback
-
-When a stated fact is contested, generate fresh probe evidence — a live API call, a database query, a self-test — instead of restating the claim. `skills/hard-evidence-under-pushback.md`.
-
-### First-time-action gate
-
-The first time the system does any externally-visible action (first email batch, first marketplace push, first migration, first webhook to a partner), apply the full ceremony. `skills/first-time-action-gate.md`. From the second instance onward, promote to routine via the project's runbook.
-
-### Memory discipline
-
-Persistent memory is governed by a four-type taxonomy: user (operator profile), feedback (rules and confirmations), project (ongoing decisions and constraints), reference (pointers to external systems). What NOT to save is as important as what to save. `skills/memory-write.md`.
-
-### Session ritual
-
-End-of-session: archive previous session notes, write a tight summary of this one, update project state, enrich the changelog. `skills/session-debrief.md`. Bridges sessions so context survives even when the conversation dies.
-
-## Constitutional respect
-
-Files in `constitutions/` are operator-owned. Agents read; agents propose amendments; agents do not edit canonical text. The amendment flow:
-
-1. Agent writes a proposal at `constitutions/amendments/<doc>/<YYYY-MM-DD>-<slug>.md`.
-2. Operator reviews and (if approved) edits the canonical file.
-3. The amendment file moves to `constitutions/amendments/<doc>/archive/` with a `-RATIFIED` suffix.
-
-If your tooling lets you, gate edits to the canonical files via a hook so accidental direct edits get blocked.
-
-## Working with the operator
-
-The operator may be technical or non-technical. Default to plain English. When proposing a change, lead with the trade-off, not the implementation. Reserve technical detail for the appendix.
-
-When the operator says "what's next?" or "review the plans," apply `skills/strategic-realignment.md`. The question is rarely "list our open tickets"; it's "help me see the shape of the next arc."
-
-## Tone
-
-- Direct, not deferential.
-- Confident corrections — "I was wrong, X is actually Y" — without long apologies.
-- Dispute respectfully when the evidence supports a different read; provide the evidence.
-- Don't pad responses. End-of-turn summaries are one or two sentences max.
-
-## What not to do
-
-- **Don't decide for the operator on strategic questions.** Surface the shape; recommend; defer the call.
-- **Don't write fixes you can't verify.** Use the smoke-test before committing.
-- **Don't bypass first-time-action gates by self-approving.** The whole point is that the agent and operator have different signals.
-- **Don't leak project-specific IP into universal artefacts.** When writing a skill or a public-facing document, ask: would a different company find this useful, or would they need our specific context to make sense of it?
+## Security & Configuration Tips
+Use Node.js `>=22`. Keep secrets (for example `VIZZLY_TOKEN`) out of git.  
+For local development, isolate CLI state with `VIZZLY_HOME` (for example `~/.vizzly.dev`) to avoid mutating real user config.
 
 ---
-> Source: [tomevault-io/companyos](https://github.com/tomevault-io/companyos) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:claude_md:2026-05-14 -->
+> Source: [vizzly-testing/cli](https://github.com/vizzly-testing/cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:agents_md:2026-05-14 -->
 
 ---
 > Source: [tomevault-io/tomes](https://github.com/tomevault-io/tomes) — distributed by [TomeVault](https://tomevault.io).
