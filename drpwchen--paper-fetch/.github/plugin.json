@@ -1,0 +1,9 @@
+{
+  "name": "drpwchen--paper-fetch",
+  "displayName": "paper-fetch",
+  "description": "Publisher-aware full-text PDF fetcher \u2014 DOI in, PDF out via OA \u2192 publisher TDM APIs \u2192 your own institutional proxy. Download end of a paper pipeline; pair with paper-radar (discovery) and claude-paper",
+  "version": "1.0.0",
+  "author": "drpwchen",
+  "homepage": "https://github.com/drpwchen/paper-fetch",
+  "skills": []
+}
