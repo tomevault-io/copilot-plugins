@@ -1,8 +1,8 @@
 {
-  "name": "BlitzOS",
+  "name": "blitzos",
   "owner": "blitzdotdev",
-  "repo": "BlitzOS",
-  "description": "BlitzOS is one place to run your agents. ",
+  "repo": "blitzos",
+  "description": "BlitzOS \u2014 warm-start context for your Claude Code / Codex cloud sessions. One command builds a company-context repo so cloud sessions boot knowing your whole codebase. If you want to set this up for your company, follow the link below. ",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/blitzdotdev/BlitzOS",
+  "source_url": "https://github.com/blitzdotdev/blitzos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-27T02:49:30Z"
+  "distributed_at": "2026-07-14T03:32:19Z"
 }
