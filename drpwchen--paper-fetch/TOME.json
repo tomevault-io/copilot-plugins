@@ -1,0 +1,44 @@
+{
+  "name": "paper-fetch",
+  "owner": "drpwchen",
+  "repo": "paper-fetch",
+  "description": "Publisher-aware full-text PDF fetcher \u2014 DOI in, PDF out via OA \u2192 publisher TDM APIs \u2192 your own institutional proxy. Download end of a paper pipeline; pair with paper-radar (discovery) and claude-paper-tools (reading).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/drpwchen/paper-fetch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T04:34:56Z"
+}
