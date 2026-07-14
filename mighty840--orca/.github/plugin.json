@@ -1,0 +1,9 @@
+{
+  "name": "mighty840--orca",
+  "displayName": "orca",
+  "description": "Container + Wasm orchestrator with AI ops \u2014 fills the gap between Coolify and Kubernetes",
+  "version": "1.0.0",
+  "author": "mighty840",
+  "homepage": "https://github.com/mighty840/orca",
+  "skills": []
+}
