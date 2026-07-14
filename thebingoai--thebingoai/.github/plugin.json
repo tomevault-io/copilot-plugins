@@ -1,0 +1,9 @@
+{
+  "name": "thebingoai--thebingoai",
+  "displayName": "thebingoai",
+  "description": "An open-source BI platform with AI-powered dashboards, real-time chat, and multi-database connectivity. FastAPI + Nuxt 4 + LangGraph.",
+  "version": "1.0.0",
+  "author": "thebingoai",
+  "homepage": "https://github.com/thebingoai/thebingoai",
+  "skills": []
+}
