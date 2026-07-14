@@ -1,0 +1,9 @@
+{
+  "name": "cjhyy--codeshell",
+  "displayName": "codeshell",
+  "description": "An open-source AI coding assistant for your terminal, inspired by Claude Code. Interact with your codebase directly from the command line.",
+  "version": "1.0.0",
+  "author": "cjhyy",
+  "homepage": "https://github.com/cjhyy/codeshell",
+  "skills": []
+}
