@@ -1,0 +1,28 @@
+# AI instruction files for ppt-master
+
+> Sourced from [misaka11132/ppt-master](https://github.com/misaka11132/ppt-master) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [misaka11132/ppt-master](https://github.com/misaka11132/ppt-master).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [misaka11132/ppt-master](https://github.com/misaka11132/ppt-master) — a repo with 9+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install misaka11132/ppt-master
+```
+Source: [github.com/misaka11132/ppt-master](https://github.com/misaka11132/ppt-master).
+
+<!-- genome:a-i-s -->
