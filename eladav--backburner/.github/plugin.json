@@ -1,0 +1,9 @@
+{
+  "name": "eladav--backburner",
+  "displayName": "backburner",
+  "description": "Keep your side projects moving. Backburner runs AI coding agents on your machine, controlled through GitHub issues and pull requests.",
+  "version": "1.0.0",
+  "author": "eladav",
+  "homepage": "https://github.com/eladav/backburner",
+  "skills": []
+}
