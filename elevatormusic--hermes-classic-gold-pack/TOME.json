@@ -1,0 +1,44 @@
+{
+  "name": "hermes-classic-gold-pack",
+  "owner": "Elevatormusic",
+  "repo": "hermes-classic-gold-pack",
+  "description": "Classic Gold theme + Noir Neko pets + custom status bar for Hermes-Agent (Nous Research's desktop AI agent). One-prompt AI install.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Elevatormusic/hermes-classic-gold-pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-14T02:35:16Z"
+}
