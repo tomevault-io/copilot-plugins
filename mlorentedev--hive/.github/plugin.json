@@ -1,0 +1,9 @@
+{
+  "name": "mlorentedev--hive",
+  "displayName": "hive",
+  "description": "Context infrastructure for AI-assisted development \u2014 on-demand Obsidian vault access via MCP",
+  "version": "1.0.0",
+  "author": "mlorentedev",
+  "homepage": "https://github.com/mlorentedev/hive",
+  "skills": []
+}
