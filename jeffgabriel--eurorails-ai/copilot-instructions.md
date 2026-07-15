@@ -1,125 +1,92 @@
-## phaser-perf
+## phaserrules
 
-> 1. Excessive Render Calls
+> - Phaser converts SVG files to bitmap textures at load time
 
-1. Excessive Render Calls
-javascriptCopy// PROBLEMATIC: Redrawing entire canvas on every mouse move
-this.input.on('pointermove', (pointer) => {
-    if (pointer.isDown) {
-        this.graphics.clear();
-        this.redrawEverything(); // Heavy operation on every frame
-    }
-});
-Solution: Use incremental drawing or dirty rectangle updates.
-2. Memory Leaks from Graphics Objects
-javascriptCopy// PROBLEMATIC: Creating new graphics objects without cleanup
-this.input.on('pointermove', (pointer) => {
-    let newGraphics = this.add.graphics(); // Never destroyed
-    newGraphics.fillCircle(pointer.x, pointer.y, 5);
-});
-Solution: Reuse graphics objects or properly destroy them.
-3. Unbounded Event Listeners
-javascriptCopy// PROBLEMATIC: High-frequency events without throttling
-this.input.on('pointermove', this.draw); // Fires 60+ times per second
-Solution: Implement throttling or debouncing:
-javascriptCopylet lastUpdate = 0;
-this.input.on('pointermove', (pointer) => {
-    const now = Date.now();
-    if (now - lastUpdate > 16) { // ~60fps throttle
-        this.draw(pointer);
-        lastUpdate = now;
-    }
-});
-4. Inefficient Path Building
-javascriptCopy// PROBLEMATIC: Complex path calculations on every move
-this.input.on('pointermove', (pointer) => {
-    this.graphics.lineStyle(2, 0xff0000);
-    this.graphics.strokePoints(this.allPoints); // Redraws entire path
-});
-Solution: Use line segments between points:
-javascriptCopythis.input.on('pointermove', (pointer) => {
-    if (this.lastPoint) {
-        this.graphics.lineBetween(this.lastPoint.x, this.lastPoint.y, pointer.x, pointer.y);
-    }
-    this.lastPoint = pointer;
-});
-5. Large Texture/RenderTexture Updates
-javascriptCopy// PROBLEMATIC: Updating large render textures frequently
-this.input.on('pointermove', (pointer) => {
-    this.renderTexture.draw(this.brush, pointer.x, pointer.y);
-    this.renderTexture.saveTexture('drawing'); // Heavy operation
-});
-6. Collision Detection on Every Pixel
-javascriptCopy// PROBLEMATIC: Checking collisions with all drawn elements
-this.input.on('pointermove', (pointer) => {
-    this.drawnElements.forEach(element => {
-        if (this.checkPixelCollision(pointer, element)) {
-            // Process collision
-        }
-    });
-});
-Best Practices to Avoid These Issues:
-1. Use Object Pooling
-javascriptCopyclass DrawingSystem {
-    constructor() {
-        this.brushPool = [];
-        this.activeStrokes = [];
-    }
-    
-    getBrush() {
-        return this.brushPool.pop() || this.scene.add.graphics();
-    }
-    
-    returnBrush(brush) {
-        brush.clear();
-        this.brushPool.push(brush);
-    }
-}
-2. Implement Dirty Rectangle Updates
-javascriptCopyupdateDrawing(pointer) {
-    const bounds = this.calculateDirtyRect(pointer);
-    this.renderTexture.drawFrame('brush', 0, pointer.x, pointer.y);
-    // Only update the affected area
-}
-3. Use RequestAnimationFrame Pattern
-javascriptCopyclass OptimizedDrawing {
-    constructor() {
-        this.needsUpdate = false;
-        this.pendingPoints = [];
-    }
-    
-    onPointerMove(pointer) {
-        this.pendingPoints.push({x: pointer.x, y: pointer.y});
-        if (!this.needsUpdate) {
-            this.needsUpdate = true;
-            requestAnimationFrame(() => this.processPendingDrawing());
-        }
-    }
-    
-    processPendingDrawing() {
-        // Process all pending points in one batch
-        this.drawPoints(this.pendingPoints);
-        this.pendingPoints = [];
-        this.needsUpdate = false;
-    }
-}
-4. Monitor Performance
-javascriptCopy// Add performance monitoring
-const perfMonitor = {
-    frameCount: 0,
-    lastTime: performance.now(),
-    
-    update() {
-        this.frameCount++;
-        const now = performance.now();
-        if (now - this.lastTime >= 1000) {
-            console.log(`FPS: ${this.frameCount}`);
-            this.frameCount = 0;
-            this.lastTime = now;
-        }
-    }
-};
-The key is to minimize redundant operations, batch updates when possible, and always clean up resources properly to maintain smooth performance in your Phaser drawing applications.
+# Phaser Engine Rules and Behaviors
+
+## SVG Handling in Phaser
+- Phaser converts SVG files to bitmap textures at load time
+- SVGs are not rendered as vector graphics in real-time
+- Modifying SVG files after they are loaded will not affect the in-game sprites
+- SVG modifications require a game reload to take effect
+- The main benefits of SVGs in Phaser are:
+  - Smaller file sizes for distribution
+  - Clean source files for asset management
+  - Initial high-quality conversion to textures
+
+## Best Practices for SVG Assets in Phaser
+1. **Asset Loading**
+   - SVGs should be properly sized and formatted before loading
+   - Ensure SVG viewBox and dimensions are correct in the source file
+   - Test SVG appearance before implementing in Phaser
+   - use this.load.svg for svg based images
+   - scale an svg at load time if at all possible
+
+2. **Runtime Behavior**
+   - Treat loaded SVG sprites like any other bitmap sprite
+   - Use Phaser's sprite manipulation methods for runtime changes
+   - Scale, rotate, and transform using Phaser's sprite properties
+   - Do not attempt to modify SVG properties at runtime
+
+3. **Troubleshooting Display Issues**
+   - If sprite appears incorrect, fix the source SVG file
+   - Clear browser cache and reload the game to see SVG changes
+   - Use Phaser's sprite debugging tools to check texture bounds
+   - Consider sprite scale and anchor points for positioning
+
+4. **Performance Considerations**
+   - SVGs are converted to textures only once at load time
+   - Runtime performance is identical to PNG/JPG sprites
+   - Memory usage is based on the converted texture size
+   - Choose appropriate SVG complexity for target texture resolution 
+
+
+5. **Container visibility**
+   - Containers which need to show above others should use container.setDepth(9998);
+   - Containers which should not interact with zoom or pan should use container.setScrollFactor(0);
+
+   ## UI Element and Camera Management
+
+### Container and Camera Organization
+1. **Single Source of Truth**
+   - Each UI element should be created in exactly one place
+   - Avoid creating the same UI element in multiple components
+   - Use a dedicated UI manager class to handle all UI element creation
+   - Example: Don't create settings button in both GameScene and UIManager
+
+2. **Camera Visibility**
+   - Create a separate UI camera that ignores the map container
+   - Main camera should ignore all UI containers
+   - When creating new UI elements, ensure they are added to the correct container AND properly configured for camera visibility
+   - Example:
+     ```typescript
+     // Create UI camera
+     const uiCamera = this.cameras.add(0, 0, width, height);
+     uiCamera.setScroll(0, 0);
+     uiCamera.ignore(this.mapContainer);
+
+     // Main camera ignores UI
+     this.cameras.main.ignore([this.uiContainer, this.playerHandContainer]);
+     ```
+
+3. **Container Hierarchy**
+   - Map container: For game world elements that move with the camera
+   - UI container: For fixed UI elements that stay on screen
+   - Player hand container: For player-specific UI elements
+   - Modal containers: For temporary overlays and dialogs
+
+4. **Common Pitfalls**
+   - Creating UI elements in multiple places (e.g., both scene and manager)
+   - Forgetting to set camera visibility for new UI elements
+   - Not properly cleaning up containers before adding new elements
+   - Mixing world and UI elements in the same container
+   - Not setting appropriate depth values for UI layers
+
+5. **Container Cleanup**
+   - Always clean up containers before adding new elements
+   - Use `container.removeAll(true)` to properly destroy children
+   - When switching scenes or updating UI, ensure old elements are properly destroyed
+   
 
 ---
 > Source: [jeffgabriel/eurorails_ai](https://github.com/jeffgabriel/eurorails_ai) — distributed by [TomeVault](https://tomevault.io).
