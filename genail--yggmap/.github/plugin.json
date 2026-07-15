@@ -1,0 +1,9 @@
+{
+  "name": "genail--yggmap",
+  "displayName": "yggmap",
+  "description": "A free, fully private, one-page mind-mapping web app. No accounts, no server, no tracking.",
+  "version": "1.0.0",
+  "author": "genail",
+  "homepage": "https://github.com/genail/yggmap",
+  "skills": []
+}
