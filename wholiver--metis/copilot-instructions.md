@@ -1,0 +1,120 @@
+## metis
+
+> This file is for AI coding agents contributing to Metis. Treat it as repository-level operating guidance. User and system instructions always take precedence.
+
+# Agent Development Guide
+
+This file is for AI coding agents contributing to Metis. Treat it as repository-level operating guidance. User and system instructions always take precedence.
+
+## Objective
+
+Help developers change Metis quickly without sacrificing scope control, compatibility, or verification. Prefer evidence from the repository over assumptions.
+
+## Start Every Task
+
+1. Restate the requested outcome and concrete acceptance criteria.
+2. Read `git status` and preserve unrelated user changes.
+3. Search for relevant code, tests, docs, and existing abstractions before editing.
+4. Read the nearest applicable `AGENTS.md` if a nested one exists.
+5. Identify affected modes: TUI, print, JSON, RPC, SDK, Extensions, Packages.
+6. Decide the smallest validation set that can prove the change works.
+
+If `.codegraph/` exists and its tools work, use CodeGraph before broad text search for code understanding. If the index is missing or malformed, state that once and fall back to `rg` and targeted file reads.
+
+## Repository Map
+
+| Area | Primary paths |
+| --- | --- |
+| CLI entry and mode selection | `src/main.ts`, `src/cli/`, `src/modes/` |
+| Agent session and SDK | `src/core/agent-session.ts`, `src/core/agent-session-runtime.ts`, `src/core/sdk.ts` |
+| Built-in model tools | `src/core/tools/` |
+| Extensions | `src/core/extensions/`, `docs/extensions.md`, `examples/extensions/` |
+| Package loading | `src/core/package-manager.ts`, `docs/packages.md` |
+| Dream and built-ins | `src/core/builtins/` |
+| TUI | `src/modes/interactive/`, `vendor/metis-tui/` |
+| RPC | `src/modes/rpc/`, `src/rpc-entry.ts` |
+| Public exports | `src/index.ts` |
+| Tests | `test/`, `vitest.config.ts` |
+| User documentation | `README.md`, `README.zh-CN.md`, `docs/` |
+
+Do not modify `vendor/` unless the requested behavior belongs to a vendored package. Do not edit generated `dist/` output by hand.
+
+## Implementation Loop
+
+1. **Investigate** — trace callers, state ownership, error handling, tests, and documentation.
+2. **Plan** — list files to change and checks to run. Avoid speculative rewrites.
+3. **Implement** — follow existing TypeScript and ESM patterns. Keep public types explicit.
+4. **Test** — cover success, failure, cancellation, empty input, boundaries, and regression risk.
+5. **Review** — inspect the diff for unrelated changes, stale docs, and accidental generated files.
+6. **Verify prompt fidelity** — compare the result with every original requirement and later clarification.
+
+Never report completion while a required build, test, file, or user requirement remains unfinished.
+
+## Extension Changes
+
+When adding or changing an Extension API:
+
+- inspect `src/core/extensions/types.ts`, `runner.ts`, `loader.ts`, `wrapper.ts`, and public exports;
+- preserve event ordering and document synchronous versus asynchronous behavior;
+- pass cancellation through `AbortSignal` where work can block;
+- define strict TypeBox schemas for registered tools;
+- verify behavior in `tui`, `print`, `json`, and `rpc` modes;
+- add or update a runnable example under `examples/extensions/`;
+- update `docs/extensions.md` and `docs/packages.md` when distribution changes;
+- test load, reload, shutdown, errors, state persistence, and dependency resolution.
+
+Extensions run with full user permissions. Do not weaken trust checks or add silent destructive behavior.
+
+## Public API Changes
+
+For exported types or functions:
+
+- update `src/index.ts` and relevant subpath exports;
+- check SDK and RPC consumers;
+- avoid breaking changes unless explicitly authorized;
+- document migration steps for unavoidable breaking changes;
+- add type-level and runtime coverage.
+
+## Validation Commands
+
+Run checks proportional to risk:
+
+```bash
+npm run build
+npm test
+npm test -- test/specific.test.ts
+```
+
+For docs and SVG changes also run:
+
+```bash
+git diff --check
+xmllint --noout docs/images/*.svg
+```
+
+If a command hangs, identify the exact stage and process, stop only processes started by the current task, try one safe equivalent path, and report the unresolved blocker. A timeout is not a passing result.
+
+## Git and Workspace Safety
+
+- Preserve unrelated modifications in dirty worktrees.
+- Stage explicit files when scope is mixed.
+- Do not use `git reset --hard`, discard user work, or force-push without explicit authorization.
+- Do not commit secrets, `.env`, logs, sessions, local indexes, `outputs/`, or `dist/`.
+- Use concise Conventional Commit messages.
+- Do not publish, open a PR, or change external state unless the user requested it.
+
+## Handoff
+
+Report:
+
+- outcome first;
+- files changed;
+- validation run and exact result;
+- any command that could not complete;
+- remaining user action, only when truly required.
+
+Keep the handoff concise. Do not hide uncertainty or claim tests passed when they did not run.
+
+---
+> Source: [Wholiver/metis](https://github.com/Wholiver/metis) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-15 -->
