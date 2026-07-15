@@ -1,0 +1,44 @@
+{
+  "name": "passdown",
+  "owner": "vunm-io",
+  "repo": "passdown",
+  "description": "Shift-handover workflow for AI coding agents \u2014 capture ideas into an inbox, dispatch tasks to the cheapest capable executor (any CLI agent or subagent), and hand work down between sessions, agents, and tools. Composes with superpowers and OpenSpec.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vunm-io/passdown",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T04:36:44Z"
+}
