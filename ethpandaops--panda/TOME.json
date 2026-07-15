@@ -1,0 +1,51 @@
+{
+  "name": "panda",
+  "owner": "ethpandaops",
+  "repo": "panda",
+  "description": "Your gateway to the ethPandaOps ecosystem",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "install-mcp",
+      "path": ".claude/skills/install-mcp",
+      "github_url": "https://github.com/ethpandaops/panda/tree/main/.claude/skills/install-mcp",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ethpandaops/panda",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T00:30:58Z"
+}
