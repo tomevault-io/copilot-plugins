@@ -1,0 +1,9 @@
+{
+  "name": "bemafred--sky-omega",
+  "displayName": "sky-omega",
+  "description": "Foundation for semantic-aware cognitive agents - W3C-conformant RDF/SPARQL engine",
+  "version": "1.0.0",
+  "author": "bemafred",
+  "homepage": "https://github.com/bemafred/sky-omega",
+  "skills": []
+}
