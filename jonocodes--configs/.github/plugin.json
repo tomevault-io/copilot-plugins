@@ -1,0 +1,9 @@
+{
+  "name": "jonocodes--configs",
+  "displayName": "configs",
+  "description": "mostly nix configs",
+  "version": "1.0.0",
+  "author": "jonocodes",
+  "homepage": "https://github.com/jonocodes/configs",
+  "skills": []
+}
