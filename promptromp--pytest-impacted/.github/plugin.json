@@ -1,0 +1,9 @@
+{
+  "name": "promptromp--pytest-impacted",
+  "displayName": "pytest-impacted",
+  "description": "A pytest plugin that selectively runs tests affected by codechanges via git introspection, ASL parsing, and dependency graph analysis.",
+  "version": "1.0.0",
+  "author": "promptromp",
+  "homepage": "https://github.com/promptromp/pytest-impacted",
+  "skills": []
+}
