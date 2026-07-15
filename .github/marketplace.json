@@ -24479,6 +24479,21 @@
       "description": "dryoc"
     },
     {
+      "name": "sthamann--tfpt",
+      "source": "./sthamann--tfpt",
+      "description": "Topological Fixed-Point Theory: a machine-checked discrete compiler for the Standard Model, \u03b1\u207b\u00b9, and cosmology from two axioms. Papers, verification suite (Python/Wolfram/Lean), experiments & website."
+    },
+    {
+      "name": "sthamann--tfpt",
+      "source": "./sthamann--tfpt",
+      "description": "Topological Fixed-Point Theory: a machine-checked discrete compiler for the Standard Model, \u03b1\u207b\u00b9, and cosmology from two axioms. Papers, verification suite (Python/Wolfram/Lean), experiments & website."
+    },
+    {
+      "name": "sthamann--tfpt",
+      "source": "./sthamann--tfpt",
+      "description": "Topological Fixed-Point Theory: a machine-checked discrete compiler for the Standard Model, \u03b1\u207b\u00b9, and cosmology from two axioms. Papers, verification suite (Python/Wolfram/Lean), experiments & website."
+    },
+    {
       "name": "singleton-altman--moviepilotlite",
       "source": "./singleton-altman--moviepilotlite",
       "description": "MoviePilot\u79fb\u52a8\u7aef\uff0c\u57fa\u4e8e Flutter \u5b9e\u73b0\u3002"
@@ -40372,6 +40387,16 @@
       "name": "rustzen--rustzen-admin",
       "source": "./rustzen--rustzen-admin",
       "description": "A structured monorepo for Rust full-stack admin systems, with an Axum backend, React frontend, and clear architecture boundaries."
+    },
+    {
+      "name": "devos-ing--omni-skills",
+      "source": "./devos-ing--omni-skills",
+      "description": "GetSuperpower packages a whole AI-agent workflow as one callable skill."
+    },
+    {
+      "name": "devos-ing--omni-skills",
+      "source": "./devos-ing--omni-skills",
+      "description": "GetSuperpower packages a whole AI-agent workflow as one callable skill."
     },
     {
       "name": "10xchengtu--input0",
