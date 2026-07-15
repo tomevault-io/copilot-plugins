@@ -1,0 +1,44 @@
+{
+  "name": "shelfdroid",
+  "owner": "100nandoo",
+  "repo": "shelfdroid",
+  "description": "\ud83d\udcda A 3rd-party Android client for Audiobookshelf, bringing your audiobook collection to life with seamless streaming and intuitive controls.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/100nandoo/shelfdroid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T20:31:34Z"
+}
