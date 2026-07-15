@@ -1,12 +1,20 @@
-## cursor-ai-usage
+## devops-rules
 
-> - **Rule 5.1**: Use Cursor AI for boilerplate (Flask routes, models, tests).
+> Docker, CI/CD, and environment management conventions
 
-## **5. Cursor AI-Specific Rules**
-- **Rule 5.1**: Use Cursor AI for boilerplate (Flask routes, models, tests).
-- **Rule 5.2**: Let Cursor AI suggest **Alpine.js** or **Tailwind** snippets.
-- **Rule 5.3**: Verify AI-generated SQLAlchemy queries for efficiency.
-- **Rule 5.4**: Use AI for Swagger docs generation (ensure accuracy).
+## **3. DevOps & Deployment Rules**
+### **Docker**
+- **Rule 3.1**: Ensure `Dockerfile` is optimized for production.
+- **Rule 3.2**: Use multi-stage builds to reduce image size.
+
+### **CI/CD (GitHub Actions)**
+- **Rule 3.3**: Run tests on every push (`pytest` + frontend checks).
+- **Rule 3.4**: Auto-deploy to **DigitalOcean** on `main` branch merges.
+
+### **Environment Management**
+- **Rule 3.5**: Use `.venv` for Python dependencies (`pip install -e .`).
+- **Rule 3.6**: Freeze dependencies with `pip freeze > requirements.txt`.
+- **Rule 3.7**: Include `setup.cfg` and `setup.py` for dependency management and project configuration.
 
 ---
 > Source: [Elizio/vanilla-webapp-framework](https://github.com/Elizio/vanilla-webapp-framework) — distributed by [TomeVault](https://tomevault.io).
