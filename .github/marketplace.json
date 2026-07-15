@@ -245829,6 +245829,106 @@
       "description": "A blazing fast build tool for Esp32, Teensy, Avr, Nrf, Raspberri PI, Stm, Mgm240 and more."
     },
     {
+      "name": "kaushikgopal--pi-kaush",
+      "source": "./kaushikgopal--pi-kaush",
+      "description": "Composable Pi coding agent extensions"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "luminakraft--luminakraftlauncher",
+      "source": "./luminakraft--luminakraftlauncher",
+      "description": "A modern, cross-platform Minecraft launcher built with Tauri and React. Features Microsoft authentication, modpack management, automatic updates, and multi-language support. Native builds for Windows,"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "harshadk99--flareguard",
+      "source": "./harshadk99--flareguard",
+      "description": "flareguard-cloudflare-security-audit"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "airscripts--gitfleet",
+      "source": "./airscripts--gitfleet",
+      "description": "Command every repository as one fleet."
+    },
+    {
+      "name": "fini-net--fini-coredns-example",
+      "source": "./fini-net--fini-coredns-example",
+      "description": "Coredns with dnscontrol example \ud83d\udcdb\ud83c\udf24"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "appoutlet--umami-kotlin",
+      "source": "./appoutlet--umami-kotlin",
+      "description": "An open-source Kotlin Multiplatform Library for the Umami analytics API (unofficial)"
+    },
+    {
+      "name": "tikoci--vscode-tikbook",
+      "source": "./tikoci--vscode-tikbook",
+      "description": "VSCode Notebook and Tools for RouterOS \u2014 a literate way to work with scripts & configuration"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "cap-go--capacitor-ffmpeg",
+      "source": "./cap-go--capacitor-ffmpeg",
+      "description": "Capacitor plugin to run ffmpeg locally on device"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "tikoci--vscode-tikbook",
+      "source": "./tikoci--vscode-tikbook",
+      "description": "VSCode Notebook and Tools for RouterOS \u2014 a literate way to work with scripts & configuration"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
+      "name": "vietnd69--dst-api-webdocs",
+      "source": "./vietnd69--dst-api-webdocs",
+      "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the struct"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -268084,6 +268184,56 @@
       "description": "persona-subspace"
     },
     {
+      "name": "coda0hq--open-artifacts",
+      "source": "./coda0hq--open-artifacts",
+      "description": "Open-source, self-hosted Claude Code Artifacts on Cloudflare \u2014 publish, password-protect, and auto-update shareable HTML/Markdown pages from any coding agent."
+    },
+    {
+      "name": "coda0hq--open-artifacts",
+      "source": "./coda0hq--open-artifacts",
+      "description": "Open-source, self-hosted Claude Code Artifacts on Cloudflare \u2014 publish, password-protect, and auto-update shareable HTML/Markdown pages from any coding agent."
+    },
+    {
+      "name": "isledecomp--racers-portable",
+      "source": "./isledecomp--racers-portable",
+      "description": "A work-in-progress portable version of LEGO Racers (1999)"
+    },
+    {
+      "name": "brsvh--emacs-proofread",
+      "source": "./brsvh--emacs-proofread",
+      "description": "Context-aware LLM proofreading for GNU Emacs"
+    },
+    {
+      "name": "ht426--skillseed",
+      "source": "./ht426--skillseed",
+      "description": "\u4e00\u4e2a skill \u5de5\u5382 \u2014\u2014 \u811a\u624b\u67b6\u3001\u89e6\u53d1\u6821\u9a8c\u3001\u81ea\u6211\u8fdb\u5316\u3002\u57fa\u4e8e Agent Skills \u5f00\u653e\u6807\u51c6\u3002"
+    },
+    {
+      "name": "carmelobattiato--audio-ai-assistant",
+      "source": "./carmelobattiato--audio-ai-assistant",
+      "description": "audio-ai-assistant"
+    },
+    {
+      "name": "jpricey--santorini-ai",
+      "source": "./jpricey--santorini-ai",
+      "description": "santorini-ai"
+    },
+    {
+      "name": "iwk7273--zmk-config-meteorite40",
+      "source": "./iwk7273--zmk-config-meteorite40",
+      "description": "zmk-config-meteorite40"
+    },
+    {
+      "name": "national-tutoring-observatory--sandpiper",
+      "source": "./national-tutoring-observatory--sandpiper",
+      "description": "Access the source code and main repository for the application"
+    },
+    {
+      "name": "rob-luke--risk-of-bias",
+      "source": "./rob-luke--risk-of-bias",
+      "description": "AI enabled risk of bias assessment tools"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -272742,6 +272892,16 @@
       "name": "lucasolopes--quark",
       "source": "./lucasolopes--quark",
       "description": "quark"
+    },
+    {
+      "name": "vunm-io--passdown",
+      "source": "./vunm-io--passdown",
+      "description": "Shift-handover workflow for AI coding agents \u2014 capture ideas into an inbox, dispatch tasks to the cheapest capable executor (any CLI agent or subagent), and hand work down between sessions, agents, an"
+    },
+    {
+      "name": "lpffernando--minirouter",
+      "source": "./lpffernando--minirouter",
+      "description": "Intelligent model routing gateway. Instead of blindly forwarding every request to the same model, MiniRouter evaluates task difficulty and picks the right model for the job. Simple tasks save money, c"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -397657,6 +397817,11 @@
       "name": "sivasuthanjeganathan--ai-study-buddy",
       "source": "./sivasuthanjeganathan--ai-study-buddy",
       "description": "AI-powered study assistant web app"
+    },
+    {
+      "name": "danilovichz--lawpro-v2",
+      "source": "./danilovichz--lawpro-v2",
+      "description": "lawpro_v2"
     }
   ]
 }
