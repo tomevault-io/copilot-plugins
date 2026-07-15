@@ -1,0 +1,9 @@
+{
+  "name": "finny-ai--promptix-python",
+  "displayName": "promptix-python",
+  "description": "A lightweight, powerful, local-first prompt management system that brings version control, dynamic templating, and a visual studio interface to your LLM workflows.",
+  "version": "1.0.0",
+  "author": "finny-ai",
+  "homepage": "https://github.com/finny-ai/promptix-python",
+  "skills": []
+}
