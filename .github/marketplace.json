@@ -122454,6 +122454,11 @@
       "description": "Runtime for coding agents. Honestly, get $ 30% more out of your Claude subscription. A real software engineering end to end measured. 80% reduction in input/output tokens 90% reduction in tool calls."
     },
     {
+      "name": "yaowu-ai--aida",
+      "source": "./yaowu-ai--aida",
+      "description": "AI Agent Training Platform"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -152864,6 +152869,11 @@
       "description": "Build any Django app \u2014 from a SaaS to a dashboard to an API \u2014 from a single sentence. An agent skill that wires packages, splits dev/prod settings, and adds CI."
     },
     {
+      "name": "shinjiyu--cososinspector",
+      "source": "./shinjiyu--cososinspector",
+      "description": "CososInspector"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -175629,6 +175639,21 @@
       "description": "claude code config"
     },
     {
+      "name": "alex-durango--pingfusi",
+      "source": "./alex-durango--pingfusi",
+      "description": "Clone any website pixel-perfect and polish any draft with review rounds \u2014 npx pingfusi"
+    },
+    {
+      "name": "pukeko-robotics--gaunt-sloth",
+      "source": "./pukeko-robotics--gaunt-sloth",
+      "description": "CLI AI assistant doing your code reviews"
+    },
+    {
+      "name": "pukeko-robotics--gaunt-sloth",
+      "source": "./pukeko-robotics--gaunt-sloth",
+      "description": "CLI AI assistant doing your code reviews"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -183707,6 +183732,11 @@
       "name": "ondiekochieng--katiba360",
       "source": "./ondiekochieng--katiba360",
       "description": "Katiba360 is a modern, user-friendly platform that makes the Kenyan Constitution accessible, searchable, and understandable for everyone. The project aims to empower citizens, students, and legal prof"
+    },
+    {
+      "name": "wildanniam--github-profile-console",
+      "source": "./wildanniam--github-profile-console",
+      "description": "Create an animated GitHub Profile README from a transparent portrait and structured profile data."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -193267,6 +193297,11 @@
       "name": "quixiai--quiximath",
       "source": "./quixiai--quiximath",
       "description": "QuixiMath"
+    },
+    {
+      "name": "ghhrmnzdh--tower",
+      "source": "./ghhrmnzdh--tower",
+      "description": "a control tower for your Claude agents"
     },
     {
       "name": "lightninglabs--lnget",
@@ -207602,6 +207637,21 @@
       "name": "lenxism--mockstudio",
       "source": "./lenxism--mockstudio",
       "description": "Place an image inside an elegant 3D frame, tune a cinematic look, and export a high-resolution still."
+    },
+    {
+      "name": "0x1b2c--twitter-bookmarks-downloader",
+      "source": "./0x1b2c--twitter-bookmarks-downloader",
+      "description": "A robust, self-hosted system to sync, archive, and explore your Twitter/X bookmarks locally."
+    },
+    {
+      "name": "weinstocklab--gwasplot",
+      "source": "./weinstocklab--gwasplot",
+      "description": "High Performance GWAS Plotting and Annotation"
+    },
+    {
+      "name": "weinstocklab--gwasplot",
+      "source": "./weinstocklab--gwasplot",
+      "description": "High Performance GWAS Plotting and Annotation"
     },
     {
       "name": "yschimke--compose-ai-tools",
