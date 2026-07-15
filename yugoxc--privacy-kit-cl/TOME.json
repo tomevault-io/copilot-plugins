@@ -1,0 +1,44 @@
+{
+  "name": "privacy-kit-cl",
+  "owner": "Yugoxc",
+  "repo": "privacy-kit-cl",
+  "description": "Cumplimiento Ley 21.719 (protecci\u00f3n de datos, Chile) para sistemas con IA/LLMs: enmascara PII antes de los modelos, derechos ARCOP, auditor\u00eda y ROPA. Python + Node.js, multi-canal.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yugoxc/privacy-kit-cl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T16:36:27Z"
+}
