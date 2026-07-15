@@ -4,7 +4,7 @@
   "repo": "gwasplot",
   "description": "High Performance GWAS Plotting and Annotation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/weinstocklab/gwasplot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T07:35:18Z"
+  "distributed_at": "2026-07-15T07:35:51Z"
 }
