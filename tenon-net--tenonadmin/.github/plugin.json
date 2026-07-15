@@ -1,0 +1,9 @@
+{
+  "name": "tenon-net--tenonadmin",
+  "displayName": "TenonAdmin",
+  "description": "A zero-config, extensible ASP.NET Core admin system with RBAC, data permissions, SqlSugar, and NuGet-first delivery.",
+  "version": "1.0.0",
+  "author": "Tenon-Net",
+  "homepage": "https://github.com/Tenon-Net/TenonAdmin",
+  "skills": []
+}
