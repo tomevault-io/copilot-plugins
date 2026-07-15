@@ -1,43 +1,43 @@
-## subagent-deep-sync
+## sync-maps
 
-> Launch parallel subagents when integrating new findings/scripts so every paper and website surface stays in sync
+> Use the generated content maps + audit_sync to find and verify every surface a change touches
 
 
-# Subagent deep-sync
+# Sync maps
 
-Integrating a finding touches dozens of surfaces. **Do not rely on memory or a single grep.**
+Two machine-readable maps (committed, refreshed by `bash build.sh gen`). Consult **first** before editing; audit is exit gate.
 
-**Full procedure, prompts, checklists:** skill **`tfpt-deep-sync`** (`.cursor/skills/tfpt-deep-sync/`).
+| Map | Path | Columns |
+|-----|------|---------|
+| Paper sections | `verification/docs_map.csv` | doc, section, line range, scripts cited, last_changed |
+| Mirror surfaces | `verification/website_map.csv` | website files + README + next.txt → scripts/docs |
 
-## When mandatory
+Both **GENERATED** — never hand-edit.
 
-Launch parallel subagents when **any** of:
+## Procedure (result/status/script change)
 
-- New/renamed `verification/vN_*.py`
-- Status marker upgrade/downgrade
-- Result closes/narrows/supersedes open/residual prose
-- New/moved `\veri{}` citation
-- Prediction/falsification surface changed on website
+0. **`bash build.sh gen`** before reading maps
+1. `grep <vN> docs_map.csv` → paper sections to update
+2. `grep <vN> website_map.csv` (+ doc name) → mirror files
+3. Also check README + `next.txt` for status prose even without grep hit
+4. Edit → **`bash build.sh gen`** again → `bash build.sh website` if PDFs/scripts changed
+5. **`bash build.sh audit` → AUDIT OK**
 
-**Skip** only for zero theory impact (CI, tooling, typo) with no `\veri{}`, ledger, status, or mirror touch.
+For vN modules / status moves: skill **`tfpt-deep-sync`** (parallel subagents before editing).
 
-## Parent order (abbreviated)
+Scorecard rows: skill **`tfpt-evidence-scorecard`**.
 
-1. Run script → **summarise concrete output first**
-2. `bash build.sh gen`
-3. Launch subagents in **one message** (paper · website · stale wording; +status-scope if needed)
-4. Merge checklists → apply edits coherently
-5. `bash build.sh gen` → compile/sync
-6. **`bash build.sh audit` → AUDIT OK**
+## Version
 
-Maps: `verification/docs_map.csv`, `verification/website_map.csv` — see rule **`sync-maps`**.
+Bump `\TFPTversion` only in `tex-artefacts/version.tex`; `bash build.sh website` propagates to `version.ts` + `release.ts`.
 
-## Subagents must NOT
+## Structure changes
 
-- Fabricate results or upgrade markers without ledger backing
-- Hand-edit generated files
-- Mark complete without `AUDIT OK`
-- Skip README, `next.txt`, changelog when user-visible
+New doc: `build.sh` NOTES, `make_docs_map.py` DOCS, `make_manifest.py` TEX, `tfpt_docset.tex`, `papers.ts`, `release.ts` → `bash build.sh release`.
+
+New cluster: `verification/script_clusters.csv`.
+
+Never add audit exceptions to `audit_baseline.json` (frozen, remove-only).
 
 ---
 > Source: [sthamann/tfpt](https://github.com/sthamann/tfpt) — distributed by [TomeVault](https://tomevault.io).
