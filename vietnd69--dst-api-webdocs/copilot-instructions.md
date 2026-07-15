@@ -1,152 +1,265 @@
-## dst-core-systems-structure
+## dst-scripts-documentation-structure
 
-> This rule defines the logical organization structure for the Don't Starve Together core systems documentation based on the comprehensive analysis in [core-systems-structure.md](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/core-systems-structure.md).
+> This rule defines the relationship between the [dst-scripts/](mdc:dst-api-webdocs/dst-scripts) source code directory and the [dst-api-webdocs/docs/game-scripts/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts) documentation structure, establishing standards for cross-referencing and structural consistency.
 
-# DST Core Systems Directory Structure
+# DST Scripts Documentation Structure
 
-This rule defines the logical organization structure for the Don't Starve Together core systems documentation based on the comprehensive analysis in [core-systems-structure.md](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/core-systems-structure.md).
+This rule defines the relationship between the [dst-scripts/](mdc:dst-api-webdocs/dst-scripts) source code directory and the [dst-api-webdocs/docs/game-scripts/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts) documentation structure, establishing standards for cross-referencing and structural consistency.
 
-## Core Systems Organization
+## Directory Structure Mapping
 
-The `/docs/game-scripts/core-systems/` directory is organized into 12 main categories to reflect logical learning progression and system dependencies:
+The documentation structure mirrors the source code organization with enhanced categorization for better user navigation:
 
-### 1. System Core
-**Location:** `docs/game-scripts/core-systems/system-core/`
-**Purpose:** Engine foundation and runtime systems that power the entire game
-**Contents:**
-- `engine/` - Game initialization, core functions, physics, map utilities
-- `runtime/` - Update loops and runtime execution systems
+### Core Source Categories
 
-### 2. Fundamentals
-**Location:** `docs/game-scripts/core-systems/fundamentals/`
-**Purpose:** Core programming foundation - OOP, entities, utilities, and basic systems
-**Contents:**
-- `core/` - OOP foundation, entity system, metaclass, standard components
-- `utilities/` - Math, string, vector utilities, simulation helpers
-- `actions/` - Player interaction and action systems
-- `ai-systems/` - AI brains, behavior trees, state machines
+| Source Directory | Documentation Directory | Purpose |
+|------------------|------------------------|---------|
+| [dst-scripts/components/](mdc:dst-api-webdocs/dst-scripts/components) | [docs/game-scripts/core-systems/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/core-systems) | Core game components organized by system type |
+| [dst-scripts/behaviours/](mdc:dst-api-webdocs/dst-scripts/behaviours) | [docs/game-scripts/behaviours/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/behaviours) | AI behavior definitions |
+| [dst-scripts/brains/](mdc:dst-api-webdocs/dst-scripts/brains) | [docs/game-scripts/brains/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/brains) | AI brain implementations |
+| [dst-scripts/stategraphs/](mdc:dst-api-webdocs/dst-scripts/stategraphs) | [docs/game-scripts/stategraphs/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/stategraphs) | State machine definitions |
+| [dst-scripts/prefabs/](mdc:dst-api-webdocs/dst-scripts/prefabs) | [docs/game-scripts/perfabs/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/perfabs) | Entity prefab definitions |
+| [dst-scripts/widgets/](mdc:dst-api-webdocs/dst-scripts/widgets) | [docs/game-scripts/widgets/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/widgets) | UI widget implementations |
+| [dst-scripts/screens/](mdc:dst-api-webdocs/dst-scripts/screens) | [docs/game-scripts/screens/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/screens) | Screen and UI definitions |
+| [dst-scripts/map/](mdc:dst-api-webdocs/dst-scripts/map) | [docs/game-scripts/map/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/map) | World generation and map systems |
+| [dst-scripts/util/](mdc:dst-api-webdocs/dst-scripts/util) | [docs/game-scripts/util/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/util) | Utility functions and helpers |
+| [dst-scripts/tools/](mdc:dst-api-webdocs/dst-scripts/tools) | [docs/game-scripts/tools/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/tools) | Development and debugging tools |
 
-### 3. Game Mechanics
-**Location:** `docs/game-scripts/core-systems/game-mechanics/`
-**Purpose:** Core gameplay systems that define how players interact with the game
-**Contents:**
-- `cooking/` - Recipe system, food mechanics, spiced variants
-- `crafting/` - Recipe definitions, tech tree, filtering systems
-- `containers/` - Storage and inventory systems
-- `achievements/` - Achievement system and progression tracking
-- `special-events/` - Seasonal events and limited-time content
+### Special Documentation Organization
 
-### 4. Character Systems
-**Location:** `docs/game-scripts/core-systems/character-systems/`
-**Purpose:** Player character management, customization, and progression
-**Contents:**
-- `core/` - Character utilities, profiles, death tracking
-- `customization/` - Skins, clothing, visual customization
-- `emotes/` - Player expressions and social features
-- `progression/` - Skill trees, character advancement, WX-78 modules
-- `speech/` - Character dialogue (Wilson as master template)
+#### Core Systems Categorization
+The [docs/game-scripts/core-systems/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/core-systems) directory organizes components from [dst-scripts/components/](mdc:dst-api-webdocs/dst-scripts/components) by functional categories:
 
-### 5. World Systems
-**Location:** `docs/game-scripts/core-systems/world-systems/`
-**Purpose:** World generation, terrain management, and entity systems
-**Contents:**
-- `generation/` - World generation, settings, presets, regrowth
-- `tiles-terrain/` - Ground tiles, terrain properties, noise functions
-- `entities/` - Prefab system, world entities, skin mappings
-- `ocean/` - Ocean mechanics and water systems
+```
+core-systems/
+├── character-systems/      # Character-related components
+├── data-management/        # Data persistence and file operations
+├── development-tools/      # Debugging and development utilities
+├── fundamentals/          # Core framework components
+├── game-configuration/    # Settings and configuration
+├── game-mechanics/        # Gameplay feature components
+├── localization-content/  # Translation and localization
+├── mod-support/          # Modding framework components
+├── networking-communication/ # Network and multiplayer
+├── system-core/          # Engine integration components
+├── user-interface/       # UI system components
+└── world-systems/        # World generation and management
+```
 
-### 6. Networking Communication
-**Location:** `docs/game-scripts/core-systems/networking-communication/`
-**Purpose:** Multiplayer networking, chat, and server communication
-**Contents:**
-- `networking/` - Core networking, RPC, shard management
-- `chat-commands/` - Chat system, user commands, voting
-- `multiplayer/` - Server preferences, MOTD, popup management
+#### Root-Level Script Files
+Scripts at [dst-scripts/](mdc:dst-api-webdocs/dst-scripts) root level are categorized by purpose:
 
-### 7. User Interface
-**Location:** `docs/game-scripts/core-systems/user-interface/`
-**Purpose:** UI management, input handling, and visual effects
-**Contents:**
-- `frontend/` - Core UI, data grids, loading tips, split screen
-- `input/` - Input handling, controls, haptic feedback
-- `graphics/` - Visual effects, lighting, particles, post-processing
-- `typography/` - Font system, animation easing
+| Script Category | Documentation Location | Examples |
+|----------------|----------------------|----------|
+| Character Speech | [docs/game-scripts/core-systems/character-systems/speech/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/core-systems/character-systems/speech) | `speech_*.lua` files |
+| Configuration | [docs/game-scripts/core-systems/game-configuration/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/core-systems/game-configuration) | `tuning.lua`, `worldsettings_overrides.lua` |
+| Core Utilities | [docs/game-scripts/core-systems/fundamentals/utilities/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/core-systems/fundamentals/utilities) | `util.lua`, `simutil.lua` |
+| Debug Tools | [docs/game-scripts/core-systems/development-tools/debugging/](mdc:dst-api-webdocs/dst-api-webdocs/docs/game-scripts/core-systems/development-tools/debugging) | `debugcommands.lua` |
 
-### 8. Game Configuration
-**Location:** `docs/game-scripts/core-systems/game-configuration/`
-**Purpose:** Game settings, balance, modes, and statistics
-**Contents:**
-- `settings/` - Configuration, constants, tuning, global overrides
-- `modes/` - Game modes, logic, event systems
-- `stats/` - Statistics tracking, item blacklists
+## Source Code Reference Standards
 
-### 9. Development Tools
-**Location:** `docs/game-scripts/core-systems/development-tools/`
-**Purpose:** Developer utilities, debugging, and testing tools
-**Contents:**
-- `debugging/` - Debug commands, tools, menu systems, inspection
-- `console/` - Console commands, hot reloading
-- `profiling/` - Performance monitoring, code profiling
-- `utilities/` - Development utilities, serialization, error handling
+### Function and Code References
 
-### 10. Localization Content
-**Location:** `docs/game-scripts/core-systems/localization-content/`
-**Purpose:** String management, translation, and game content
-**Contents:**
-- `strings/` - String management, localization, POT generation
-- `translation/` - Translation system, monkey curse utilities
-- `content/` - Game content, theatrical systems, guitar tabs
+When documenting functions or code patterns, always reference the actual source file:
 
-### 11. Data Management
-**Location:** `docs/game-scripts/core-systems/data-management/`
-**Purpose:** Save systems, asset management, and data utilities
-**Contents:**
-- `saves/` - Save game system, upgrades, shard management
-- `assets/` - Asset loading, JSON support, audio preloading
-- `utilities/` - Task scheduling, platform configuration, legacy redirects
+```markdown
+### FunctionName(param1, param2) {#function-name}
 
-### 12. Mod Support
-**Location:** `docs/game-scripts/core-systems/mod-support/`
-**Purpose:** Mod system and DLC support infrastructure
-**Contents:**
-- `core/` - Core mod system, registry, utilities, compatibility
-- `dlc/` - DLC support, strings, world generation
+**Source:** [dst-scripts/components/health.lua](mdc:dst-api-webdocs/dst-scripts/components/health.lua)
 
-## File Mapping Principles
+**Description:**
+[Verified description from source code implementation]
 
-### Script to Documentation Mapping
-Each Lua script in [dst-scripts/](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-scripts) that is NOT in a subdirectory gets documented in the appropriate core-systems category:
+**Example:**
+```lua
+-- Example verified against source code
+local health = inst.components.health
+health:SetVal(100)
+```
+```
 
-- **Root-level scripts** (like `actions.lua`, `cooking.lua`, `util.lua`) → Mapped to logical categories based on functionality
-- **Character speech files** (`speech_*.lua`) → `character-systems/speech/`
-- **Utility scripts** (`*util.lua`) → Appropriate utility subcategories
-- **System files** (`main.lua`, `physics.lua`) → `system-core/engine/`
+### File Path Reference Format
 
-### Content Organization Rules
+Use this format for all source code references:
 
-1. **Dependency Order**: Core systems (OOP, entities) before application systems
-2. **Learning Progression**: Basic concepts before advanced implementations  
-3. **Functional Grouping**: Related functionality clustered together
-4. **Developer Workflow**: From engine core to content creation tools
+| Reference Type | Format | Example |
+|---------------|--------|---------|
+| Direct file reference | `[filename.lua](mdc:dst-api-webdocs/dst-scripts/path/filename.lua)` | `[health.lua](mdc:dst-api-webdocs/dst-scripts/components/health.lua)` |
+| Line-specific reference | `[filename.lua:line](mdc:dst-api-webdocs/dst-scripts/path/filename.lua)` | `[health.lua:45](mdc:dst-api-webdocs/dst-scripts/components/health.lua)` |
+| Function reference | `[FunctionName in filename.lua](mdc:dst-api-webdocs/dst-scripts/path/filename.lua)` | `[SetVal in health.lua](mdc:dst-api-webdocs/dst-scripts/components/health.lua)` |
 
-### Cross-Reference Integration
+### Source Verification Workflow
 
-All documentation should use relative links to maintain connections:
-- Link between related components using `[ComponentName](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/category/component-name.md)`
-- Reference speech files as templates: `[Wilson Template](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/character-systems/speech/speech_wilson.md)`
-- Connect utilities to their usage contexts
+Before documenting any API or function:
 
-## Documentation Standards
+#### 1. Locate Source File
+```bash
+# Find the source file for a component
+find dst-scripts/ -name "*health*" -type f
 
-Each category follows the DST API documentation format defined in the workspace rules:
+# Search for specific function definitions
+grep -r "function.*SetVal" dst-scripts/ --include="*.lua"
+```
 
-- **Front matter** with appropriate metadata
-- **Version history** tracking build changes
-- **Status indicators** for API stability
-- **Cross-references** to related systems
-- **Build version tracking** (currently 676042)
+#### 2. Verify Function Signature
+```bash
+# Get exact function signature
+grep -A 5 -B 2 "function.*SetVal" dst-scripts/components/health.lua
+```
 
-This structure ensures logical navigation, clear dependencies, and maintainable organization for the comprehensive DST API documentation suite.
+#### 3. Check Usage Patterns
+```bash
+# Find real usage examples in the codebase
+grep -r "\.components\.health:SetVal" dst-scripts/ --include="*.lua"
+```
+
+#### 4. Validate Current Implementation
+- Ensure function exists in current build version (676042)
+- Verify parameter types and return values
+- Check for deprecated patterns or warnings
+
+## Documentation File Naming Conventions
+
+### Component Documentation
+For components in [dst-scripts/components/](mdc:dst-api-webdocs/dst-scripts/components):
+- Single component: `componentname.md`
+- Related components: Group under appropriate core-systems subcategory
+
+### Direct Script Documentation
+For scripts that don't fit component categorization:
+- Preserve original filename: `scriptname.md`
+- Place in appropriate functional category
+- Cross-reference original location
+
+### Index File Requirements
+Each documentation directory must include:
+- `index.md`: Overview of the category/system
+- Links to all contained modules
+- Cross-references to related source directories
+
+## Cross-Reference Patterns
+
+### From Documentation to Source Code
+
+#### Function Documentation Pattern
+```markdown
+### health:SetVal(value, cause) {#health-setval}
+
+**Source:** [dst-scripts/components/health.lua](mdc:dst-api-webdocs/dst-scripts/components/health.lua)
+**Line:** Approximately line 45-60
+
+**Description:**
+Sets the current health value for the entity.
+
+**Source Implementation:**
+```lua
+-- From dst-scripts/components/health.lua
+function Health:SetVal(val, cause)
+    local old_val = self.currenthealth
+    self.currenthealth = math.max(0, math.min(val, self.maxhealth))
+    -- ... rest of implementation
+end
+```
+```
+
+#### Component Overview Pattern
+```markdown
+# Health Component
+
+**Source File:** [dst-scripts/components/health.lua](mdc:dst-api-webdocs/dst-scripts/components/health.lua)
+**Build Version:** 676042
+**Last Verified:** 2024-XX-XX
+
+This component manages entity health, damage, and healing functionality.
+
+## Source Code Structure
+The health component is implemented in [dst-scripts/components/health.lua](mdc:dst-api-webdocs/dst-scripts/components/health.lua) and provides:
+- Health value management
+- Damage calculation and application
+- Healing mechanisms
+- Death event handling
+```
+
+### From Source Code Comments to Documentation
+
+Add documentation references in source code comments:
+```lua
+-- Health component - see docs/game-scripts/core-systems/character-systems/core/health.md
+-- for complete API documentation
+local Health = Class(function(self, inst)
+    -- implementation
+end)
+```
+
+## Verification and Maintenance
+
+### Source-Documentation Synchronization
+
+#### Regular Verification Tasks
+1. **Build Version Updates**: When DST updates, verify all source references
+2. **Function Signature Validation**: Ensure documented signatures match source
+3. **Example Testing**: Validate that code examples work with current build
+4. **Link Verification**: Check that all source file references resolve correctly
+
+#### Automated Verification Commands
+```bash
+# Verify all source file references exist
+find docs/game-scripts/ -name "*.md" -exec grep -l "mdc:dst-scripts" {} \; | \
+  xargs grep -o "mdc:dst-scripts/[^)]*" | \
+  while read ref; do
+    file=${ref#mdc:}
+    if [ ! -f "$file" ]; then
+      echo "Missing source file: $file"
+    fi
+  done
+
+# Check for functions referenced in docs that don't exist in source
+find docs/game-scripts/ -name "*.md" -exec grep -h "function.*(" {} \; | \
+  sort -u | \
+  while read func; do
+    if ! grep -r "$func" dst-scripts/ --include="*.lua" > /dev/null; then
+      echo "Function not found in source: $func"
+    fi
+  done
+```
+
+### Documentation Update Triggers
+
+Update documentation when:
+- Source files are moved or renamed
+- Function signatures change
+- New components or systems are added
+- Existing functionality is deprecated or removed
+- Build version changes affect documented behavior
+
+## Quality Assurance Checklist
+
+Before publishing documentation, verify:
+
+- [ ] **Source Reference Accuracy**: All file paths point to existing source files
+- [ ] **Function Signature Verification**: All documented functions match source implementation
+- [ ] **Code Example Validation**: All examples are tested against current source
+- [ ] **Cross-Reference Completeness**: Related source files are properly linked
+- [ ] **Build Version Consistency**: All references match current build (676042)
+- [ ] **Directory Structure Alignment**: Documentation organization reflects source organization
+- [ ] **Naming Convention Compliance**: All files follow established naming patterns
+
+## Integration with Existing Rules
+
+This rule works together with:
+- [DST API Documentation Example Accuracy](mdc:dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-api-documentation-example-accuracy.mdc): Ensures code examples match source
+- [DST API Documentation Format](mdc:dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-api-documentation-format.mdc): Provides formatting standards
+- [DST Core Systems Index Format](mdc:dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-core-systems-index-format.mdc): Defines index file structure
+- [DST API Documentation Maintenance](mdc:dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-api-documentation-maintenance.mdc): Provides update procedures
+
+## Best Practices Summary
+
+1. **Always verify against source**: Never document without checking actual implementation
+2. **Maintain bidirectional references**: Link from docs to source and reference docs in source comments
+3. **Use consistent file paths**: Follow established mdc: reference format
+4. **Update synchronously**: Keep documentation current with source code changes
+5. **Validate examples**: Test all code examples against actual source implementation
+6. **Preserve structure mapping**: Maintain logical relationship between source and documentation organization
 
 ---
 > Source: [vietnd69/dst-api-webdocs](https://github.com/vietnd69/dst-api-webdocs) — distributed by [TomeVault](https://tomevault.io).
