@@ -1,0 +1,9 @@
+{
+  "name": "l0usie--nexus-agents",
+  "displayName": "nexus-agents",
+  "description": "A distributed multi-modal agent orchestration framework implementing advanced natural language processing, computer vision, and audio processing capabilities through a microservices architecture.",
+  "version": "1.0.0",
+  "author": "l0usie",
+  "homepage": "https://github.com/l0usie/nexus-agents",
+  "skills": []
+}
