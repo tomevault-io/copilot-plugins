@@ -1,153 +1,82 @@
-## dst-api-documentation-maintenance
+## dst-api-documentation-overview
 
-> This rule defines procedures for maintaining and updating API documentation as the DST codebase evolves.
+> This document provides an overview of all rules related to documenting the Don't Starve Together (DST) API. These rules establish a consistent documentation standard for the DST Lua scripts library.
 
-# DST API Documentation Maintenance
+# DST API Documentation Rules Overview
 
-This rule defines procedures for maintaining and updating API documentation as the DST codebase evolves.
+This document provides an overview of all rules related to documenting the Don't Starve Together (DST) API. These rules establish a consistent documentation standard for the DST Lua scripts library.
 
-## Version Tracking
+## Available Documentation Rules
 
-### Build Version Format
+| Rule Name | File | Purpose |
+|-----------|------|---------|
+| Documentation Format | [dst-api-documentation-format.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-format.mdc) | Defines the general structure and format for all DST API documentation |
+| Documentation Templates | [dst-api-documentation-templates.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-templates.mdc) | Provides specific templates for different types of API modules |
+| Documentation Maintenance | [dst-api-documentation-maintenance.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-maintenance.mdc) | Explains procedures for maintaining and updating documentation |
+| Scripts Documentation Structure | [dst-scripts-documentation-structure.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-scripts-documentation-structure.mdc) | Defines the relationship between source code and documentation structure |
+| Example Accuracy | [dst-api-documentation-example-accuracy.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-example-accuracy.mdc) | Ensures all code examples are verified against actual source code |
 
-The `build_version` field in documentation front matter should always match the game build version the documentation describes.
+## Key Documentation Elements
 
-`build_version` and `updated time` are stored in `package.json`
+All DST API documentation should consistently include:
 
-Example:
-```json
-{
-  "build-version": "676042",              // Current DST scripts build number
-  "updated-time": "2025-06-21",           // Date of the latest update
-  "previous-version": "none",             // Previous build number
-  "previous-updated-time": "none"         // Date of the previous update
-}
+1. **Front matter** with metadata:
+   - `title`: Module name
+   - `description`: Brief module description
+   - `sidebar_position`: Navigation order
+   - `slug`: Custom URL path
+   - `last_updated`: Last update date (YYYY-MM-DD) are stored in `package.json`
+   - `build_version`: DST script build version (currently 676042) are stored in `package.json`
+   - `change_status`: Current status (stable/added/modified/deprecated/removed)
+
+2. **Version history** tracking all significant changes to the module
+
+3. **Status indicators** clearly marking API stability and changes
+
+4. **Usage examples** demonstrating proper implementation
+
+5. **Related module cross-references** showing connections between components
+
+6. **build version and update time** are stored in `package.json`
+
+## Documentation File Organization
+
+```
+docs/game-scripts/
+  |-- [module-category]/
+      |-- index.md           # Category overview documentation
+      |-- [module-name].md   # Specific module documentation
 ```
 
-Current documentation is based on build version: **676042**
+## Documentation Update Process
 
-### Documentation Update Workflow
+When game updates occur:
 
-1. When a new DST build is released:
-   - Update all `build_version` fields in front matter
-   - Review changed files in the update
-   - Flag affected documentation with appropriate `change_status`
+1. Review changed files in the update
+2. Update documentation with current build version
+3. Mark changed APIs with appropriate status
+4. Update version history tables
+5. Verify all examples still work
+6. Update cross-references as needed
 
-2. For each changed script file:
-   - Review the changes to determine impact on API
-   - Update corresponding documentation with new/modified/deprecated functionality
-   - Add entry to the Version History table
-   - Update `last_updated` date
+## Status Indicators
 
-## Change Status Guidelines
+The documentation uses these status indicators:
 
-Use these status markers consistently:
+- **Stable**: 🟢 Current, stable functionality
+- **Added**: ➕ New functionality in current build
+- **Modified**: 🔄 Changed from previous versions
+- **Deprecated**: ⚠️ Planned for removal
+- **Removed**: ❌ No longer available
 
-| Status | When to Use | Required Actions |
-|--------|-------------|-----------------|
-| `stable` | No significant changes | None needed |
-| `added` | New functionality | Document fully, add examples, link from related modules |
-| `modified` | Changed behavior/parameters | Document changes, update examples, highlight differences |
-| `deprecated` | Planned for removal | Note replacement functionality, add warnings |
-| `removed` | No longer available | Move documentation to archive, redirect references |
+## Next Steps
 
-## Modified API Documentation
+To start documenting the DST API:
 
-When documenting modified APIs:
-
-1. Keep the original documentation when possible
-2. Clearly mark what has changed with specific version numbers
-3. Include both old and new usage examples for comparison
-4. Add clear migration guidance for transitioning code
-
-Example:
-```markdown
-### inst.components.example:doSomething(value)
-
-**Status:** `modified in build 675312`
-
-**Description:**
-This method performs an example action.
-
-**Parameters:**
-- `value` (number): **Prior to build 675312**: Value was percentage (0-1)
-- `value` (number): **Since build 675312**: Value is now absolute amount (0-100)
-
-**Version History:**
-- Modified in build 675312: Changed parameter from relative to absolute values
-```
-
-## Deprecated API Documentation
-
-When documenting deprecated APIs:
-
-1. Add a prominent warning banner
-2. Specify when the functionality will be removed
-3. Provide clear migration path to replacement functionality
-4. Keep full documentation for backward compatibility
-
-Example:
-```markdown
-### inst.components.legacy:oldMethod()
-
-**Status:** `deprecated in build 675312`
-
-> ⚠️ **Deprecation Warning**: This method will be removed in build 690000. Use `inst.components.new:newMethod()` instead.
-
-**Description:**
-This legacy method will be removed in a future update.
-
-**Migration Example:**
-```lua
--- Old code (deprecated)
-inst.components.legacy:oldMethod()
-
--- New code (recommended)
-inst.components.new:newMethod()
-```
-```
-
-## Removed API Documentation
-
-When documenting removed APIs:
-
-1. Move documentation to archive section
-2. Create a redirect/stub in the original location
-3. Include final version where API was available
-4. Provide guidance on alternatives
-
-Example:
-```markdown
-### inst.components.removed:deletedMethod()
-
-**Status:** `removed in build 675312`
-
-> ❌ **Removed**: This method was removed in build 675312. Use `inst.components.replacement:newMethod()` instead.
-
-**Last Available:** Build 659421
-
-**Migration Path:**
-See [Replacement Method](./replacement/new-method.md) for current functionality.
-```
-
-## Documentation Quality Assurance
-
-Before committing documentation updates:
-
-1. **Verify accuracy** against current code implementation
-2. **Test code examples** in-game to confirm they work
-3. **Check cross-references** to ensure they point to correct locations
-4. **Review status tags** to ensure they accurately reflect current state
-5. **Validate build numbers** to ensure they match actual change versions
-
-## Documentation Review Checklist
-
-- [ ] All modified APIs have updated status indicators
-- [ ] Version history tables reflect actual changes
-- [ ] Code examples match current implementation
-- [ ] Cross-references are updated to reflect any moved/renamed APIs
-- [ ] New functionality is fully documented with examples
-- [ ] Build version numbers are accurate and consistent
+1. Use the [Documentation Format](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-format.mdc) rule to understand the general structure
+2. Select appropriate template from [Documentation Templates](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-templates.mdc) for your module type
+3. Follow the [Documentation Maintenance](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-maintenance.mdc) rule for updates
+4. Ensure all documentation follows consistent conventions
 
 ---
 > Source: [vietnd69/dst-api-webdocs](https://github.com/vietnd69/dst-api-webdocs) — distributed by [TomeVault](https://tomevault.io).
