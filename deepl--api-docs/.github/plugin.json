@@ -1,0 +1,9 @@
+{
+  "name": "deepl--api-docs",
+  "displayName": "api-docs",
+  "description": "Source code of the DeepL API documentation",
+  "version": "1.0.0",
+  "author": "DeepL",
+  "homepage": "https://github.com/DeepL/api-docs",
+  "skills": []
+}
