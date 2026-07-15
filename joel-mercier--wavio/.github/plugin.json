@@ -1,0 +1,9 @@
+{
+  "name": "joel-mercier--wavio",
+  "displayName": "wavio",
+  "description": "Music streaming app for Android compatible with Navidrome, Jellyfin and OpenSubsonic servers or a local library",
+  "version": "1.0.0",
+  "author": "Joel-Mercier",
+  "homepage": "https://github.com/Joel-Mercier/wavio",
+  "skills": []
+}
