@@ -1,0 +1,9 @@
+{
+  "name": "10knamesmore--mineral",
+  "displayName": "Mineral",
+  "description": "A multi-source TUI music player in Rust \u2014 ratatui frontend, pluggable channel backends, real streaming playback with lyrics & spectrum.",
+  "version": "1.0.0",
+  "author": "10knamesmore",
+  "homepage": "https://github.com/10knamesmore/Mineral",
+  "skills": []
+}
