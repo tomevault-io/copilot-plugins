@@ -1,0 +1,9 @@
+{
+  "name": "lpffernando--minirouter",
+  "displayName": "MiniRouter",
+  "description": "Intelligent model routing gateway. Instead of blindly forwarding every request to the same model, MiniRouter evaluates task difficulty and picks the right model for the job. Simple tasks save money, c",
+  "version": "1.0.0",
+  "author": "lpffernando",
+  "homepage": "https://github.com/lpffernando/MiniRouter",
+  "skills": []
+}
