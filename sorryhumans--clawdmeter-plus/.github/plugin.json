@@ -1,0 +1,9 @@
+{
+  "name": "sorryhumans--clawdmeter-plus",
+  "displayName": "clawdmeter-plus",
+  "description": "A round AMOLED desk display for your live Claude Code usage, weather, background-agent health, and a daily voice greeting. ESP32-S3 + macOS BLE daemon. Fork of Clawdmeter.",
+  "version": "1.0.0",
+  "author": "sorryhumans",
+  "homepage": "https://github.com/sorryhumans/clawdmeter-plus",
+  "skills": []
+}
