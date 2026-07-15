@@ -1,0 +1,9 @@
+{
+  "name": "pumped-fn--pumped-go",
+  "displayName": "pumped-go",
+  "description": "Carry pumped-fn concept to golang",
+  "version": "1.0.0",
+  "author": "pumped-fn",
+  "homepage": "https://github.com/pumped-fn/pumped-go",
+  "skills": []
+}
