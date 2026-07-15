@@ -1,0 +1,9 @@
+{
+  "name": "aaearon--mcp-privilege-cloud",
+  "displayName": "mcp-privilege-cloud",
+  "description": "A production-ready Model Context Protocol (MCP) server for Idira (formerly CyberArk) Privilege Cloud integration. Enables AI assistants and MCP clients to securely interact with privileged account man",
+  "version": "1.0.0",
+  "author": "aaearon",
+  "homepage": "https://github.com/aaearon/mcp-privilege-cloud",
+  "skills": []
+}
