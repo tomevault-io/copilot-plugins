@@ -7,11 +7,11 @@ Universal AI-native project workflow for Cursor, Claude Code, Codex, TRAE, Qoder
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AlanHuang168/AI-Project-Workflow](https://github.com/AlanHuang168/AI-Project-Workflow).
+Original source: `AGENTS.md` in [AlanHuang168/AI-Project-Workflow](https://github.com/AlanHuang168/AI-Project-Workflow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
