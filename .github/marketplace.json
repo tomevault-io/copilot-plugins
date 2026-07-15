@@ -193584,6 +193584,16 @@
       "description": "cotlib is a secure, high-performance Go library for parsing, validating, and generating Cursor-on-Target (CoT) XML messages.  It features a comprehensive, embedded type catalog with metadata and XSD c"
     },
     {
+      "name": "ideascoldigital--fnpm",
+      "source": "./ideascoldigital--fnpm",
+      "description": "fnpm"
+    },
+    {
+      "name": "ideascoldigital--fnpm",
+      "source": "./ideascoldigital--fnpm",
+      "description": "fnpm"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -207997,6 +208007,16 @@
       "name": "ameerthehacker--zeus",
       "source": "./ameerthehacker--zeus",
       "description": "TypeScript like compiled language"
+    },
+    {
+      "name": "metamask--snap-7715-permissions",
+      "source": "./metamask--snap-7715-permissions",
+      "description": "ERC-7715 Permissions Snap monorepo"
+    },
+    {
+      "name": "jonocodes--configs",
+      "source": "./jonocodes--configs",
+      "description": "mostly nix configs"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -246524,6 +246544,16 @@
       "description": "Factorio mod to create a feature-rich train logistics system controlled by cybernetic combinators and the circuit network. A successor to Project Cybersyn, redesigned for Factorio 2.0."
     },
     {
+      "name": "anthusai--vibe-coding-workbench",
+      "source": "./anthusai--vibe-coding-workbench",
+      "description": "A starter kit for business leaders with a vision. Transform your business ideas into functional prototypes without coding expertise. Create working software that developers can easily refine and integ"
+    },
+    {
+      "name": "bbleae--ohmyaime-server",
+      "source": "./bbleae--ohmyaime-server",
+      "description": "ohmyaime_server"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -268957,6 +268987,46 @@
       "name": "glasagent--amorphouspy",
       "source": "./glasagent--amorphouspy",
       "description": "Workflows for computing glass properties at the atomic level"
+    },
+    {
+      "name": "mohammadmaso--echowiki",
+      "source": "./mohammadmaso--echowiki",
+      "description": "Local-first LLM knowledge compiler for Obsidian. Drop notes or record voice into raw/; the Mastra wiki compiler agent turns them into a structured, interlinked wiki under wiki/."
+    },
+    {
+      "name": "crowded-libs--artboard",
+      "source": "./crowded-libs--artboard",
+      "description": "artboard"
+    },
+    {
+      "name": "memenow--persona-agent",
+      "source": "./memenow--persona-agent",
+      "description": "A Python-based API server for creating AI persona agents using Google A2A protocol and Model Context Protocol (MCP) tools integration."
+    },
+    {
+      "name": "mxcl--package-manager-manager",
+      "source": "./mxcl--package-manager-manager",
+      "description": "How many Packages would a Package Manager manage if a Package Manager could manage Package Managers?"
+    },
+    {
+      "name": "tosko4--noisegate",
+      "source": "./tosko4--noisegate",
+      "description": "Gate the noise. Keep the signal. Deterministic tool-output compaction for Hermes Agent."
+    },
+    {
+      "name": "scvxzf1--cliproxyapi-local",
+      "source": "./scvxzf1--cliproxyapi-local",
+      "description": "Local CLIProxyAPI fork with Grok free OAuth routing, usage-keeper embed, and auth list secret masking"
+    },
+    {
+      "name": "ui5-community--jsx-runtime",
+      "source": "./ui5-community--jsx-runtime",
+      "description": "JSX Runtime for UI5"
+    },
+    {
+      "name": "memenow--persona-agent",
+      "source": "./memenow--persona-agent",
+      "description": "A Python-based API server for creating AI persona agents using Google A2A protocol and Model Context Protocol (MCP) tools integration."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -398802,6 +398872,66 @@
       "name": "unohuim--dynastyiq",
       "source": "./unohuim--dynastyiq",
       "description": "dynastyiq"
+    },
+    {
+      "name": "gsinghjay--product-builder",
+      "source": "./gsinghjay--product-builder",
+      "description": "product_builder"
+    },
+    {
+      "name": "cosckoya--cosckoya",
+      "source": "./cosckoya--cosckoya",
+      "description": "My Github Profile"
+    },
+    {
+      "name": "narong-kanthanu--tmux-simpre",
+      "source": "./narong-kanthanu--tmux-simpre",
+      "description": "minimal tmux config "
+    },
+    {
+      "name": "gddickinson--ascii-art-generator",
+      "source": "./gddickinson--ascii-art-generator",
+      "description": "A powerful Python application for converting images to high-quality ASCII art with extensive customization options"
+    },
+    {
+      "name": "alextraveylan--fastauth",
+      "source": "./alextraveylan--fastauth",
+      "description": "A docker microservice for authentification with fastapi, alembic, a postgres async ddb."
+    },
+    {
+      "name": "justinecodez--ufumbuzilabs-website",
+      "source": "./justinecodez--ufumbuzilabs-website",
+      "description": "ufumbuzilabs-website"
+    },
+    {
+      "name": "poppinpixels--claudeproj01",
+      "source": "./poppinpixels--claudeproj01",
+      "description": "claudeproj01"
+    },
+    {
+      "name": "wenhq--binwh-quant-pilot",
+      "source": "./wenhq--binwh-quant-pilot",
+      "description": "This is a personal learning project focused on exploring and learning quantitative trading using Python. It includes practical examples, tools, and resources for building and testing trading strategie"
+    },
+    {
+      "name": "keisuke-yamauch1--astro-blog",
+      "source": "./keisuke-yamauch1--astro-blog",
+      "description": "astro-blog"
+    },
+    {
+      "name": "les-aventuriers-du-de--les-aventuriers-du-de-github-io",
+      "source": "./les-aventuriers-du-de--les-aventuriers-du-de-github-io",
+      "description": "les-aventuriers-du-de.github.io"
+    },
+    {
+      "name": "les-aventuriers-du-de--les-aventuriers-du-de-github-io",
+      "source": "./les-aventuriers-du-de--les-aventuriers-du-de-github-io",
+      "description": "les-aventuriers-du-de.github.io"
+    },
+    {
+      "name": "jiajunhuang1999--jiajunhuang1999-github-io",
+      "source": "./jiajunhuang1999--jiajunhuang1999-github-io",
+      "description": "jiajunhuang1999.github.io"
     }
   ]
 }
