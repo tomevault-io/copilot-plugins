@@ -4,7 +4,7 @@
   "repo": "agent-dotfiles",
   "description": "Dotfiles for AI coding agents: one versioned repo that makes any machine, running any supported harness, behave like the same agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jonhill90/agent-dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T06:44:16Z"
+  "distributed_at": "2026-07-15T06:45:04Z"
 }
