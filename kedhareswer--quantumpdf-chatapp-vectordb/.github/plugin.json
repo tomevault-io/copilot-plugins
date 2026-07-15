@@ -1,0 +1,9 @@
+{
+  "name": "kedhareswer--quantumpdf-chatapp-vectordb",
+  "displayName": "QuantumPDF_ChatApp_VectorDB",
+  "description": "QuantumPDF V1.3 enables intelligent conversations with PDF documents. Built with Next.js 15 and React 19, it uses Retrieval-Augmented Generation (RAG) to provide accurate, context-aware responses from",
+  "version": "1.0.0",
+  "author": "Kedhareswer",
+  "homepage": "https://github.com/Kedhareswer/QuantumPDF_ChatApp_VectorDB",
+  "skills": []
+}
