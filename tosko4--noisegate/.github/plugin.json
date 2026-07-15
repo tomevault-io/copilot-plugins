@@ -1,0 +1,9 @@
+{
+  "name": "tosko4--noisegate",
+  "displayName": "noisegate",
+  "description": "Gate the noise. Keep the signal. Deterministic tool-output compaction for Hermes Agent.",
+  "version": "1.0.0",
+  "author": "Tosko4",
+  "homepage": "https://github.com/Tosko4/noisegate",
+  "skills": []
+}
