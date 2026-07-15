@@ -1,0 +1,9 @@
+{
+  "name": "gin-contrib--slog",
+  "displayName": "slog",
+  "description": "Gin middleware for slog logger",
+  "version": "1.0.0",
+  "author": "gin-contrib",
+  "homepage": "https://github.com/gin-contrib/slog",
+  "skills": []
+}
