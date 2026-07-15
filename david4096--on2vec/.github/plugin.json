@@ -1,0 +1,9 @@
+{
+  "name": "david4096--on2vec",
+  "displayName": "on2vec",
+  "description": "A tool for generating embeddings of classes organized into an an ontology",
+  "version": "1.0.0",
+  "author": "david4096",
+  "homepage": "https://github.com/david4096/on2vec",
+  "skills": []
+}
