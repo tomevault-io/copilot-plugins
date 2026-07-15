@@ -1,0 +1,44 @@
+## subagent-deep-sync
+
+> Launch parallel subagents when integrating new findings/scripts so every paper and website surface stays in sync
+
+
+# Subagent deep-sync
+
+Integrating a finding touches dozens of surfaces. **Do not rely on memory or a single grep.**
+
+**Full procedure, prompts, checklists:** skill **`tfpt-deep-sync`** (`.cursor/skills/tfpt-deep-sync/`).
+
+## When mandatory
+
+Launch parallel subagents when **any** of:
+
+- New/renamed `verification/vN_*.py`
+- Status marker upgrade/downgrade
+- Result closes/narrows/supersedes open/residual prose
+- New/moved `\veri{}` citation
+- Prediction/falsification surface changed on website
+
+**Skip** only for zero theory impact (CI, tooling, typo) with no `\veri{}`, ledger, status, or mirror touch.
+
+## Parent order (abbreviated)
+
+1. Run script → **summarise concrete output first**
+2. `bash build.sh gen`
+3. Launch subagents in **one message** (paper · website · stale wording; +status-scope if needed)
+4. Merge checklists → apply edits coherently
+5. `bash build.sh gen` → compile/sync
+6. **`bash build.sh audit` → AUDIT OK**
+
+Maps: `verification/docs_map.csv`, `verification/website_map.csv` — see rule **`sync-maps`**.
+
+## Subagents must NOT
+
+- Fabricate results or upgrade markers without ledger backing
+- Hand-edit generated files
+- Mark complete without `AUDIT OK`
+- Skip README, `next.txt`, changelog when user-visible
+
+---
+> Source: [sthamann/tfpt](https://github.com/sthamann/tfpt) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-15 -->
