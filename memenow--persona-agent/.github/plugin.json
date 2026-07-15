@@ -1,0 +1,9 @@
+{
+  "name": "memenow--persona-agent",
+  "displayName": "persona-agent",
+  "description": "A Python-based API server for creating AI persona agents using Google A2A protocol and Model Context Protocol (MCP) tools integration.",
+  "version": "1.0.0",
+  "author": "memenow",
+  "homepage": "https://github.com/memenow/persona-agent",
+  "skills": []
+}
