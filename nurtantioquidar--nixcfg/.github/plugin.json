@@ -1,0 +1,9 @@
+{
+  "name": "nurtantioquidar--nixcfg",
+  "displayName": "nixcfg",
+  "description": "Nix configuration.",
+  "version": "1.0.0",
+  "author": "nurtantioquidar",
+  "homepage": "https://github.com/nurtantioquidar/nixcfg",
+  "skills": []
+}
