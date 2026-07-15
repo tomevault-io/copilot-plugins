@@ -1,0 +1,9 @@
+{
+  "name": "ccollie--valkey-timeseries",
+  "displayName": "valkey-timeseries",
+  "description": "A Timeseries data type for Valkey",
+  "version": "1.0.0",
+  "author": "ccollie",
+  "homepage": "https://github.com/ccollie/valkey-timeseries",
+  "skills": []
+}
