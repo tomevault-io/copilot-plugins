@@ -1,20 +1,30 @@
-## devops-rules
+## documentation
 
-> Docker, CI/CD, and environment management conventions
+> README how-to maintenance and in-code documentation standards
 
-## **3. DevOps & Deployment Rules**
-### **Docker**
-- **Rule 3.1**: Ensure `Dockerfile` is optimized for production.
-- **Rule 3.2**: Use multi-stage builds to reduce image size.
+## **5. Documentation Rules**
 
-### **CI/CD (GitHub Actions)**
-- **Rule 3.3**: Run tests on every push (`pytest` + frontend checks).
-- **Rule 3.4**: Auto-deploy to **DigitalOcean** on `main` branch merges.
+See [AGENTS.md](../AGENTS.md) for narrative policy. These rules are enforceable minimums.
 
-### **Environment Management**
-- **Rule 3.5**: Use `.venv` for Python dependencies (`pip install -e .`).
-- **Rule 3.6**: Freeze dependencies with `pip freeze > requirements.txt`.
-- **Rule 3.7**: Include `setup.cfg` and `setup.py` for dependency management and project configuration.
+### **README how-to maintenance (Rule 5.1)**
+- **Rule 5.1a**: `README.md` is the canonical human how-to. Keep these categories accurate and runnable:
+  1. **Project setup** — install, `.env` / `.env.example`, database init (`init_db` vs Alembic).
+  2. **Run by environment** — development (dual server), production, Docker, testing.
+  3. **Configure & operate** — OAuth redirects, **billing provider dashboards/webhooks** (see `docs/billing-configuration.md`), logs, Swagger, migrations, troubleshooting.
+- **Rule 5.1b**: Before claiming work done, scan your diff against README sync triggers in `AGENTS.md` → Documentation policy. Update matching how-to sections and `.env.example` when env vars change. Multi-step provider setup (OAuth, billing) belongs in `docs/oauth-configuration.md` or `docs/billing-configuration.md` — link from README, do not duplicate steps.
+- **Rule 5.1c**: Do not copy AGENTS recipes into README. Do not duplicate README prose in AGENTS.
+
+### **In-code documentation (Rule 5.2)**
+- **Rule 5.2a**: Every Python module (`backend/**/*.py`) starts with a one-line module docstring.
+- **Rule 5.2b**: Public Python functions and classes use Google-style docstrings and type hints on signatures.
+- **Rule 5.2c**: Every API route keeps its Flasgger Swagger YAML block (`---`); do not duplicate it in a separate docstring.
+- **Rule 5.2d**: Exported JavaScript modules (`frontend/src/**/*.js`) include a file-level JSDoc block; exported functions/objects include `@param` / `@returns` when not self-evident.
+- **Rule 5.2e**: Document new and modified code only — add module docs and document public symbols you touch in files you edit. No repo-wide retroactive pass.
+
+### **Anti-patterns (Rule 5.3)**
+- Restating the function name in a docstring.
+- README-style essays in module docstrings.
+- Claiming unimplemented features in README (e.g. DigitalOcean deploy until built).
 
 ---
 > Source: [Elizio/vanilla-webapp-framework](https://github.com/Elizio/vanilla-webapp-framework) — distributed by [TomeVault](https://tomevault.io).
