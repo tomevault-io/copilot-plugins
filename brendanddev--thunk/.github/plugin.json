@@ -1,0 +1,9 @@
+{
+  "name": "brendanddev--thunk",
+  "displayName": "thunk",
+  "description": "A local-first AI assistant CLI for coding and general automation, focused on local-first workflows, modular backends, privacy, and real coding actions.",
+  "version": "1.0.0",
+  "author": "brendanddev",
+  "homepage": "https://github.com/brendanddev/thunk",
+  "skills": []
+}
