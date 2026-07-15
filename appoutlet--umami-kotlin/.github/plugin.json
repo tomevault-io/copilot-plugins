@@ -1,0 +1,9 @@
+{
+  "name": "appoutlet--umami-kotlin",
+  "displayName": "umami-kotlin",
+  "description": "An open-source Kotlin Multiplatform Library for the Umami analytics API (unofficial)",
+  "version": "1.0.0",
+  "author": "AppOutlet",
+  "homepage": "https://github.com/AppOutlet/umami-kotlin",
+  "skills": []
+}
