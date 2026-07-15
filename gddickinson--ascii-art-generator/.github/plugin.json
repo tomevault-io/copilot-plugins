@@ -1,0 +1,9 @@
+{
+  "name": "gddickinson--ascii-art-generator",
+  "displayName": "ascii_art_generator",
+  "description": "A powerful Python application for converting images to high-quality ASCII art with extensive customization options",
+  "version": "1.0.0",
+  "author": "gddickinson",
+  "homepage": "https://github.com/gddickinson/ascii_art_generator",
+  "skills": []
+}
