@@ -1,23 +1,33 @@
-## auth-config
+## project-structure
 
-> - All API endpoints require an API key via the `Authorization: Bearer <API_KEY>` header.
+> This project is a FastAPI server providing OpenAI-compatible Text-to-Speech (TTS) and Speech-to-Text (STT) API endpoints using `mlx-audio` for Apple Silicon.
 
-# Authentication & Configuration
+# Project Structure Guide
 
-## API Key Authentication
-- All API endpoints require an API key via the `Authorization: Bearer <API_KEY>` header.
-- The key is validated in [src/security.py](mdc:src/security.py) using FastAPI dependencies.
-- The expected key is loaded from the `.env` file in the project root (not in version control).
+This project is a FastAPI server providing OpenAI-compatible Text-to-Speech (TTS) and Speech-to-Text (STT) API endpoints using `mlx-audio` for Apple Silicon.
 
-## Environment Configuration
-- `.env`: Should contain `API_KEY=your_actual_api_key`.
-- [src/security.py](mdc:src/security.py): Loads and checks the API key for each request.
+## Main Entry Points
+- [start.py](mdc:start.py): Launches the server by calling `start_server()` from [src/main.py](mdc:src/main.py).
+- [src/main.py](mdc:src/main.py): Defines the FastAPI app, API endpoints, and server startup logic.
 
-## Example Usage
-```
-curl -X POST http://localhost:8000/v1/audio/speech \
-  -H "Authorization: Bearer YOUR_API_KEY" ...
-```
+## API Endpoints
+- **POST** `/v1/audio/speech`: Text-to-Speech (TTS) endpoint. See [src/main.py](mdc:src/main.py) and [src/tts_logic.py](mdc:src/tts_logic.py).
+- **POST** `/v1/audio/transcriptions`: Speech-to-Text (STT) endpoint. See [src/main.py](mdc:src/main.py) and [src/stt_logic.py](mdc:src/stt_logic.py).
+
+## Core Logic
+- [src/tts_logic.py](mdc:src/tts_logic.py): Implements TTS generation using `mlx-audio`.
+- [src/stt_logic.py](mdc:src/stt_logic.py): Implements STT (transcription) using `mlx-audio` Whisper model.
+- [src/models.py](mdc:src/models.py): Pydantic models for request/response validation.
+- [src/security.py](mdc:src/security.py): API key authentication logic.
+
+## Configuration
+- [README.md](mdc:README.md): Project overview, setup, and API usage instructions.
+- [pyproject.toml](mdc:pyproject.toml): Project metadata and dependencies.
+- `.env`: Stores the API key for authentication (not in version control).
+
+## Usage
+- Run the server: `uv run start.py`
+- See [README.md](mdc:README.md) for detailed API usage and curl examples.
 
 ---
 > Source: [mobailabs/mac-dia-server](https://github.com/mobailabs/mac-dia-server) — distributed by [TomeVault](https://tomevault.io).
