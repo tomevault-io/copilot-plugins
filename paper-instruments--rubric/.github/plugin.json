@@ -1,0 +1,9 @@
+{
+  "name": "paper-instruments--rubric",
+  "displayName": "rubric",
+  "description": "A Python library for LLM-based evaluation using weighted rubrics.",
+  "version": "1.0.0",
+  "author": "paper-instruments",
+  "homepage": "https://github.com/paper-instruments/rubric",
+  "skills": []
+}
