@@ -1,246 +1,153 @@
-## dst-api-documentation-format
+## dst-api-documentation-maintenance
 
-> This rule defines the standardized format for documenting Don't Starve Together API scripts. Follow this format consistently when creating or updating API documentation.
+> This rule defines procedures for maintaining and updating API documentation as the DST codebase evolves.
 
-# DST API Documentation Format
+# DST API Documentation Maintenance
 
-This rule defines the standardized format for documenting Don't Starve Together API scripts. Follow this format consistently when creating or updating API documentation.
+This rule defines procedures for maintaining and updating API documentation as the DST codebase evolves.
 
-## File Structure
+## Version Tracking
 
+### Build Version Format
+
+The `build_version` field in documentation front matter should always match the game build version the documentation describes.
+
+`build_version` and `updated time` are stored in `package.json`
+
+Example:
+```json
+{
+  "build-version": "676042",              // Current DST scripts build number
+  "updated-time": "2025-06-21",           // Date of the latest update
+  "previous-version": "none",             // Previous build number
+  "previous-updated-time": "none"         // Date of the previous update
+}
 ```
-docs/game-scripts/[module-category]/
-  |-- index.md             # Overview of module category
-  |-- [specific-file].md   # Documentation for specific module/file
-```
 
-## Front Matter Template
+Current documentation is based on build version: **676042**
 
-All documentation files must include the following front matter:
+### Documentation Update Workflow
 
+1. When a new DST build is released:
+   - Update all `build_version` fields in front matter
+   - Review changed files in the update
+   - Flag affected documentation with appropriate `change_status`
+
+2. For each changed script file:
+   - Review the changes to determine impact on API
+   - Update corresponding documentation with new/modified/deprecated functionality
+   - Add entry to the Version History table
+   - Update `last_updated` date
+
+## Change Status Guidelines
+
+Use these status markers consistently:
+
+| Status | When to Use | Required Actions |
+|--------|-------------|-----------------|
+| `stable` | No significant changes | None needed |
+| `added` | New functionality | Document fully, add examples, link from related modules |
+| `modified` | Changed behavior/parameters | Document changes, update examples, highlight differences |
+| `deprecated` | Planned for removal | Note replacement functionality, add warnings |
+| `removed` | No longer available | Move documentation to archive, redirect references |
+
+## Modified API Documentation
+
+When documenting modified APIs:
+
+1. Keep the original documentation when possible
+2. Clearly mark what has changed with specific version numbers
+3. Include both old and new usage examples for comparison
+4. Add clear migration guidance for transitioning code
+
+Example:
 ```markdown
----
-id: [Id]
-title: [Module Name]
-description: [Short description of what this module/file does]
-sidebar_position: [Number]
+### inst.components.example:doSomething(value)
 
-last_updated: YYYY-MM-DD
-build_version: 676042
-change_status: stable | added | modified | deprecated | removed
----
-```
-
-## Documentation Structure
-
-### Index Files
-
-Index files should follow this structure:
-
-```markdown
----
-id: [Id]
-title: [Category Name] Overview
-sidebar_position: 1
-
-last_updated: YYYY-MM-DD
-build_version: 676042
----
-
-# [Category] API Overview
-
-## Build Information
-Current documentation based on build version: **675312**
-Last updated: **YYYY-MM-DD**
-
-## Purpose
-
-[Explanation of what this category of scripts provides to the game]
-
-## Key Concepts
-
-[Explain fundamental concepts related to this category]
-
-## Recent Changes
-
-| Build | Date | Component | Change Type | Description |
-|-------|------|-----------|-------------|-------------|
-| 675312 | 2023-11-15 | [Component A](./component-a.md) | added | Added new functionality X |
-| 675312 | 2023-11-15 | [Component B](./component-b.md) | modified | Changed parameter structure |
-| 659421 | 2023-08-22 | [Component C](./component-c.md) | deprecated | Will be removed in build 690000 |
-| 659421 | 2023-08-22 | [Component D](./component-d.md) | removed | Replaced by [Component E](./component-e.md) |
-
-## Common Usage Patterns
-
-[Brief examples of how modules in this category are typically used together]
-
-## Modules
-
-| Module | Status | Description |
-|--------|--------|-------------|
-| [ModuleName](./module-name.md) | stable | Brief description |
-| [NewModule](./new-module.md) | added in 675312 | Brief description |
-| [ChangedModule](./changed-module.md) | modified in 675312 | Brief description |
-| [DeprecatedModule](./deprecated-module.md) | deprecated in 675312 | Brief description |
-```
-
-### Module Documentation Files
-
-Module-specific files should follow this structure:
-
-```markdown
----
-id: [Id]
-title: [Module Name]
-description: [Short description of what this module/file does]
-sidebar_position: [Number]
-
-last_updated: YYYY-MM-DD
-build_version: 676042
-change_status: stable
----
-
-# [Module Name]
-
-## Version History
-| Build Version | Change Date | Change Type | Description |
-|---------------|-------------|-------------|-------------|
-| 675312 | 2023-11-15 | stable | Current version |
-| 659421 | 2023-08-22 | added | Initial implementation |
-| 642130 | 2023-06-10 | modified | Changed parameter structure |
-| 625842 | 2023-03-15 | deprecated | Will be removed in future |
-| 618753 | 2023-01-20 | removed | Functionality moved to X module |
-
-## Overview
-
-[Brief description of module purpose and functionality (2-3 sentences)]
-
-## Usage Example
-
-```lua
--- Simple example showing basic usage
-local result = SomeFunction(param1, param2)
-```
-
-## Functions
-
-### functionName(param1, param2, ...) {#function-name}
-
-**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312` | `removed in build 675312`
+**Status:** `modified in build 675312`
 
 **Description:**
-Detailed explanation of what the function does.
+This method performs an example action.
 
 **Parameters:**
-- `param1` (type): Description of parameter
-- `param2` (type): Description of parameter
-- `...`: Additional parameters explanation
+- `value` (number): **Prior to build 675312**: Value was percentage (0-1)
+- `value` (number): **Since build 675312**: Value is now absolute amount (0-100)
 
-**Returns:**
-- (return_type): Description of return value
-
-**Example:**
-```lua
-local result = functionName("example", 5)
--- result now contains...
+**Version History:**
+- Modified in build 675312: Changed parameter from relative to absolute values
 ```
 
-**Version History:**
-- Added in build 642130
-- Modified in build 659421: Changed second parameter from string to number
-- Modified in build 675312: Added optional third parameter
+## Deprecated API Documentation
 
-## Constants
+When documenting deprecated APIs:
 
-### MODULE_CONSTANT
+1. Add a prominent warning banner
+2. Specify when the functionality will be removed
+3. Provide clear migration path to replacement functionality
+4. Keep full documentation for backward compatibility
 
-**Value:** `value`
+Example:
+```markdown
+### inst.components.legacy:oldMethod()
 
-**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+**Status:** `deprecated in build 675312`
 
-**Description:** Explanation of the constant.
-
-**Version History:**
-- Added in build 625842
-- Modified in build 659421: Changed value from 10 to 15
-
-## Classes/Components
-
-### ClassName
-
-**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+> ⚠️ **Deprecation Warning**: This method will be removed in build 690000. Use `inst.components.new:newMethod()` instead.
 
 **Description:**
-What this class/component represents and its purpose.
+This legacy method will be removed in a future update.
 
-**Version History:**
-- Added in build 618753
-- Modified in build 642130: Added new methods
-
-#### Properties
-- `property1` (type): Description of property
-- `property2` (type): Description of property
-
-#### Methods
-- `method1(param1, param2)`: Description of method
-
-## Events
-
-### "eventName"
-
-**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
-
-**Parameters:**
-- `param1` (type): Description of parameter passed with event
-
-**Description:**
-When this event is triggered and how to use it.
-
-**Example:**
+**Migration Example:**
 ```lua
-inst:ListenForEvent("eventName", function(inst, data)
-    -- Response to event
-end)
+-- Old code (deprecated)
+inst.components.legacy:oldMethod()
+
+-- New code (recommended)
+inst.components.new:newMethod()
+```
 ```
 
-**Version History:**
-- Added in build 659421
-- Modified in build 675312: Added additional data parameter
+## Removed API Documentation
 
+When documenting removed APIs:
 
+1. Move documentation to archive section
+2. Create a redirect/stub in the original location
+3. Include final version where API was available
+4. Provide guidance on alternatives
+
+Example:
+```markdown
+### inst.components.removed:deletedMethod()
+
+**Status:** `removed in build 675312`
+
+> ❌ **Removed**: This method was removed in build 675312. Use `inst.components.replacement:newMethod()` instead.
+
+**Last Available:** Build 659421
+
+**Migration Path:**
+See [Replacement Method](./replacement/new-method.md) for current functionality.
 ```
 
-## Status Indicators
+## Documentation Quality Assurance
 
-Use these visual indicators for different change statuses:
+Before committing documentation updates:
 
-- **Stable**: 🟢 (green)
-- **Added**: ➕ (blue)
-- **Modified**: 🔄 (orange)
-- **Deprecated**: ⚠️ (yellow)
-- **Removed**: ❌ (red)
+1. **Verify accuracy** against current code implementation
+2. **Test code examples** in-game to confirm they work
+3. **Check cross-references** to ensure they point to correct locations
+4. **Review status tags** to ensure they accurately reflect current state
+5. **Validate build numbers** to ensure they match actual change versions
 
-## Slug Naming Convention
+## Documentation Review Checklist
 
-Follow these slug naming conventions:
-
-- Module: `[category]-[module-name]`
-- Function: `[category]-[module-name]-[function-name]`
-- Class: `[category]-[module-name]-class-[class-name]`
-
-Examples:
-- `behaviours-approach`
-- `components-health-sethealth`
-- `stategraphs-sgplayer-class-states`
-
-## Documentation Quality Guidelines
-
-1. **Accuracy**: All documentation must accurately reflect the current build version.
-2. **Completeness**: Document all public functions, properties, events, and constants.
-3. **Examples**: Include practical usage examples for all functions.
-4. **Version History**: Track all significant changes between builds.
-5. **Cross-Reference**: Link to related modules and dependencies.
-6. **Formatting**: Use consistent markdown formatting throughout.
+- [ ] All modified APIs have updated status indicators
+- [ ] Version history tables reflect actual changes
+- [ ] Code examples match current implementation
+- [ ] Cross-references are updated to reflect any moved/renamed APIs
+- [ ] New functionality is fully documented with examples
+- [ ] Build version numbers are accurate and consistent
 
 ---
 > Source: [vietnd69/dst-api-webdocs](https://github.com/vietnd69/dst-api-webdocs) — distributed by [TomeVault](https://tomevault.io).
