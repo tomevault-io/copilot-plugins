@@ -4,7 +4,7 @@
   "repo": "OpenWaters",
   "description": "An experiment in building modern marine charts. Currently alpha and not to be use for navigation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openwatersio/OpenWaters",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T06:31:04Z"
+  "distributed_at": "2026-07-15T06:34:08Z"
 }
