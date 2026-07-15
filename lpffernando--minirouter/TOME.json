@@ -1,0 +1,44 @@
+{
+  "name": "MiniRouter",
+  "owner": "lpffernando",
+  "repo": "MiniRouter",
+  "description": "Intelligent model routing gateway. Instead of blindly forwarding every request to the same model, MiniRouter evaluates task difficulty and picks the right model for the job. Simple tasks save money, complex tasks keep quality.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lpffernando/MiniRouter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T04:38:09Z"
+}
