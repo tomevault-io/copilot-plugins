@@ -1,0 +1,9 @@
+{
+  "name": "appwrite--mcp",
+  "displayName": "mcp",
+  "description": "Appwrite\u2019s MCP server. Operating your backend has never been easier.",
+  "version": "1.0.0",
+  "author": "appwrite",
+  "homepage": "https://github.com/appwrite/mcp",
+  "skills": []
+}
