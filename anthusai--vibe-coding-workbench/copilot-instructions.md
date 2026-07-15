@@ -1,0 +1,123 @@
+## vibe-coding-workbench
+
+> This is the development methodology we want you to follow when assisting users.
+
+# Vibe Coding Workbench
+
+This is the development methodology we want you to follow when assisting users.
+
+## Basic context
+
+Always look at the [README.md](mdc:README.md) file, it will tell you what's going on.
+
+## Getting started - Open Terminals
+
+If the user asks to get started, then help them start the three things they need to run next to Cursor in a web browser:
+* the app
+* Storybook
+* Majestic
+
+Try to run those directly. Encourage the user to pop out a new terminal for each one, before you run it, because they will see an option that says "Open Terminal" under the command, and if they do that then it will create a new terminal window for them with that server in it.  Let them know they have that option.
+
+After you run stuff, tell the user how to find each thing in their web browser.  Encourage them to open a new tab for each of those three servers: app, Storybook, Majestic.
+
+## Component Requirements
+
+* Structure - When creating any new component, always put it in a new folder in `components/`, named for that new component.
+* Storybook stories - Always create a Storybook file with basic Storybook stories for that new component in the same folder as the component.
+* Storybook interaction tests - After developing a new component, always suggest to the user that you should cover important functionality with Storybook interaction tests. @https://storybook.js.org/docs/7/writing-tests/interaction-testing  Suggest adding tests after every significant accomplishment, to codify that new feature and stabilize it over time.
+* JEST tests - In the same way, suggest covering important functionality with JEST testing.
+* TypeScript - All new components should be written in TypeScript (.tsx files) with proper type definitions.
+
+## Design Resources and Standards
+
+When implementing components, use these resources to maintain consistency:
+* UI Components - Reference and use components from [Shadcn UI](mdc:https:/ui.shadcn.com/docs/components/accordion)
+* Colors - Use the [Tailwind Color Palette](mdc:https:/tailwindcss.com/docs/colors) for all color values
+* Icons - Use icons from the [Lucide Icon Library](mdc:https:/lucide.dev/icons)
+* Accessibility - Ensure all components meet modern accessibility standards
+* Responsive Design - All components should work well on both desktop and mobile devices
+
+## Developer Handoff Best Practices
+
+When preparing code for developer handoff:
+* Ensure all code follows established patterns and best practices
+* Include proper TypeScript type definitions for all props and functions
+* Document any complex logic or business rules from a high level in docstrings but not line-level comments
+* Avoid line-level comments and use long, descriptive names instead.
+* Make sure all tests (Jest and Storybook) are passing
+* Keep commits focused and well-documented for easy review
+* Use clear, descriptive names for components, props, and functions
+
+## Remind the user to run tests
+
+Any time you and the user accomplish something, run the comprehensive test suite using `npm run ci`, which includes:
+1. TypeScript type checking
+2. Jest tests
+3. Storybook interaction tests
+
+Help the user address the issues immediately, rather than making a lot of changes that cause a lot of problems. Help the user follow good TDD practices.
+
+## Suggest frequent Git commits at milestones
+
+Any time you and the user accomplish something, suggest that it might be a good idea to add testing and to commit the changes to Git. Constantly remind the user that it's important to commit updates frequently because that's part of how you can 'undo' and go back if something breaks. If you go too long without committing then you can lose stuff that works when you accidentally break something, if you haven't committed it yet. So: Commit frequently.
+
+## Component Creation Guidelines
+
+When creating new components in this codebase, follow these guidelines:
+
+### Component Exports
+
+- **Always use both named and default exports** for components:
+  ```tsx
+  // Correct approach
+  const MyComponent: React.FC<MyComponentProps> = (props) => {
+    // Component implementation
+  };
+  
+  export { MyComponent };
+  export default MyComponent;
+  ```
+
+- This is necessary because:
+  1. The ContentArea component uses dynamic imports that expect default exports
+  2. Some parts of the codebase may use named imports
+  3. Using both export styles ensures maximum compatibility
+
+### Storybook Configuration
+
+- Storybook stories **must include a default export** that defines the component metadata:
+  ```tsx
+  import type { Meta, StoryObj } from '@storybook/react';
+  import MyComponent from './MyComponent';
+  
+  // This default export is required for Storybook
+  const meta: Meta<typeof MyComponent> = {
+    component: MyComponent,
+    title: 'Components/MyComponent',
+  };
+  
+  export default meta;
+  
+  // Define your stories as named exports
+  export const Default: StoryObj<typeof MyComponent> = {
+    // Story configuration
+  };
+  ```
+
+### Testing Components
+
+- When writing tests, import the component using the default export to match how it will be used in the application:
+  ```tsx
+  import MyComponent from './MyComponent';
+  
+  describe('MyComponent', () => {
+    // Test implementation
+  });
+  ```
+
+Following these guidelines will ensure components work correctly throughout the application, in Storybook, and in tests. 
+
+---
+> Source: [AnthusAI/Vibe-Coding-Workbench](https://github.com/AnthusAI/Vibe-Coding-Workbench) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-15 -->
