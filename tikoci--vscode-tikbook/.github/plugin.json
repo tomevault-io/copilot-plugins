@@ -1,0 +1,9 @@
+{
+  "name": "tikoci--vscode-tikbook",
+  "displayName": "vscode-tikbook",
+  "description": "VSCode Notebook and Tools for RouterOS \u2014 a literate way to work with scripts & configuration",
+  "version": "1.0.0",
+  "author": "tikoci",
+  "homepage": "https://github.com/tikoci/vscode-tikbook",
+  "skills": []
+}
