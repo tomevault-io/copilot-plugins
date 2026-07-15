@@ -1,0 +1,9 @@
+{
+  "name": "acesuit--equivarianttensors-jl",
+  "displayName": "EquivariantTensors.jl",
+  "description": "Tools to Build Equivariant Tensors",
+  "version": "1.0.0",
+  "author": "ACEsuit",
+  "homepage": "https://github.com/ACEsuit/EquivariantTensors.jl",
+  "skills": []
+}
