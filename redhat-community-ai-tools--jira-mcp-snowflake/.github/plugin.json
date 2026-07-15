@@ -1,0 +1,9 @@
+{
+  "name": "redhat-community-ai-tools--jira-mcp-snowflake",
+  "displayName": "jira-mcp-snowflake",
+  "description": "jira-mcp-snowflake",
+  "version": "1.0.0",
+  "author": "redhat-community-ai-tools",
+  "homepage": "https://github.com/redhat-community-ai-tools/jira-mcp-snowflake",
+  "skills": []
+}
