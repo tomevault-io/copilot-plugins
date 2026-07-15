@@ -86639,6 +86639,16 @@
       "description": "\u4ee4\u4eba\u60ca\u8273\u7684\u5b9a\u683c\u52a8\u753b\u751f\u6210\u5668\uff0c\u57fa\u4e8e\u5355\u5f20\u56fe\u7247\u521b\u5efa,\u57fa\u4e8e\u6bcf\u4e2a\u59ff\u52bf\u4f7f\u7528 Gemini Nano Banana \u751f\u6210\u52a8\u753b\u5e27,\u5408\u6210gif"
     },
     {
+      "name": "ericrhystaylor--radial-timeline",
+      "source": "./ericrhystaylor--radial-timeline",
+      "description": "Visualize longform writing projects as an interactive radial timeline that displays scenes organized by act, subplot, and narrative or chronological order for a complete view of the project."
+    },
+    {
+      "name": "ericrhystaylor--radial-timeline",
+      "source": "./ericrhystaylor--radial-timeline",
+      "description": "Visualize longform writing projects as an interactive radial timeline that displays scenes organized by act, subplot, and narrative or chronological order for a complete view of the project."
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -102477,6 +102487,11 @@
       "name": "pgedge--coldfront",
       "source": "./pgedge--coldfront",
       "description": "BETA PRE-RELEASE - NOT FOR PRODUCTION: Transparent data tiering and partition lifecycle management for PostgreSQL. A single table spans recent rows in PostgreSQL partitions and older rows in Apache Ic"
+    },
+    {
+      "name": "getprovenant--provenant",
+      "source": "./getprovenant--provenant",
+      "description": "Fast Rust scanner for licenses, copyrights, package metadata, SBOMs, and provenance data."
     },
     {
       "name": "littlebunverse--dosphere",
@@ -162764,6 +162779,16 @@
       "description": "Kirishima AI"
     },
     {
+      "name": "pulseengine--kiln",
+      "source": "./pulseengine--kiln",
+      "description": "Kiln \u2014 WebAssembly runtime for safety-critical systems. Full Component Model and WASI 0.2 support. Part of the PulseEngine toolchain."
+    },
+    {
+      "name": "pulseengine--kiln",
+      "source": "./pulseengine--kiln",
+      "description": "Kiln \u2014 WebAssembly runtime for safety-critical systems. Full Component Model and WASI 0.2 support. Part of the PulseEngine toolchain."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -175764,6 +175789,31 @@
       "description": "CLI AI assistant doing your code reviews"
     },
     {
+      "name": "agutinbaigo28--financial-agent-api",
+      "source": "./agutinbaigo28--financial-agent-api",
+      "description": "financial agent api with multi-agent framework for scalable AI systems focusing on financial intelligence, RAG pipelines, observability, and secure governance. ACP Openclaw, Gemini CLI, Opencode"
+    },
+    {
+      "name": "agutinbaigo28--financial-agent-api",
+      "source": "./agutinbaigo28--financial-agent-api",
+      "description": "financial agent api with multi-agent framework for scalable AI systems focusing on financial intelligence, RAG pipelines, observability, and secure governance. ACP Openclaw, Gemini CLI, Opencode"
+    },
+    {
+      "name": "agutinbaigo28--financial-agent-api",
+      "source": "./agutinbaigo28--financial-agent-api",
+      "description": "financial agent api with multi-agent framework for scalable AI systems focusing on financial intelligence, RAG pipelines, observability, and secure governance. ACP Openclaw, Gemini CLI, Opencode"
+    },
+    {
+      "name": "agutinbaigo28--financial-agent-api",
+      "source": "./agutinbaigo28--financial-agent-api",
+      "description": "financial agent api with multi-agent framework for scalable AI systems focusing on financial intelligence, RAG pipelines, observability, and secure governance. ACP Openclaw, Gemini CLI, Opencode"
+    },
+    {
+      "name": "agutinbaigo28--financial-agent-api",
+      "source": "./agutinbaigo28--financial-agent-api",
+      "description": "financial agent api with multi-agent framework for scalable AI systems focusing on financial intelligence, RAG pipelines, observability, and secure governance. ACP Openclaw, Gemini CLI, Opencode"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -183847,6 +183897,16 @@
       "name": "wildanniam--github-profile-console",
       "source": "./wildanniam--github-profile-console",
       "description": "Create an animated GitHub Profile README from a transparent portrait and structured profile data."
+    },
+    {
+      "name": "ironic-org--ironic",
+      "source": "./ironic-org--ironic",
+      "description": "A type-safe, modular Rust application framework built on Axum. Batteries-included: DI, controllers, middleware, guards, pipes, WebSocket gateways, scheduling, caching, and OpenAPI."
+    },
+    {
+      "name": "ironic-org--ironic",
+      "source": "./ironic-org--ironic",
+      "description": "A type-safe, modular Rust application framework built on Axum. Batteries-included: DI, controllers, middleware, guards, pipes, WebSocket gateways, scheduling, caching, and OpenAPI."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -207797,6 +207857,16 @@
       "name": "sandeco--sandeco-com-br",
       "source": "./sandeco--sandeco-com-br",
       "description": "sandeco.com.br"
+    },
+    {
+      "name": "tenon-net--tenonadmin",
+      "source": "./tenon-net--tenonadmin",
+      "description": "A zero-config, extensible ASP.NET Core admin system with RBAC, data permissions, SqlSugar, and NuGet-first delivery."
+    },
+    {
+      "name": "tenon-net--tenonadmin",
+      "source": "./tenon-net--tenonadmin",
+      "description": "A zero-config, extensible ASP.NET Core admin system with RBAC, data permissions, SqlSugar, and NuGet-first delivery."
     },
     {
       "name": "yschimke--compose-ai-tools",
