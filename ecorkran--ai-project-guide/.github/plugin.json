@@ -1,0 +1,9 @@
+{
+  "name": "ecorkran--ai-project-guide",
+  "displayName": "ai-project-guide",
+  "description": "AI Project Structure for reference.  Included with context-forge and works automatically.  Run `cf guides info` for details.",
+  "version": "1.0.0",
+  "author": "ecorkran",
+  "homepage": "https://github.com/ecorkran/ai-project-guide",
+  "skills": []
+}
