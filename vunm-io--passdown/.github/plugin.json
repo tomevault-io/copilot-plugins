@@ -1,0 +1,9 @@
+{
+  "name": "vunm-io--passdown",
+  "displayName": "passdown",
+  "description": "Shift-handover workflow for AI coding agents \u2014 capture ideas into an inbox, dispatch tasks to the cheapest capable executor (any CLI agent or subagent), and hand work down between sessions, agents, an",
+  "version": "1.0.0",
+  "author": "vunm-io",
+  "homepage": "https://github.com/vunm-io/passdown",
+  "skills": []
+}
