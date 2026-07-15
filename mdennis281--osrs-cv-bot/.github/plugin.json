@@ -1,0 +1,9 @@
+{
+  "name": "mdennis281--osrs-cv-bot",
+  "displayName": "OSRS-CV-Bot",
+  "description": "vibe coded osrs bot framework, leveraging computer vision instead of hooking into the game client",
+  "version": "1.0.0",
+  "author": "mdennis281",
+  "homepage": "https://github.com/mdennis281/OSRS-CV-Bot",
+  "skills": []
+}
