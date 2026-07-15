@@ -1,0 +1,24 @@
+## javascript
+
+> Project-specific JavaScript conventions (style/format is owned by ESLint + Prettier)
+
+
+# JavaScript conventions
+
+Formatting, semicolons, quotes, and mechanical rules (`no-var`, `prefer-const`,
+`no-eval`, `no-extend-native`) are enforced by **ESLint + Prettier** — not restated here.
+This rule only encodes choices a linter won't make for you.
+
+- `const` by default; `let` only when reassigned; never `var`.
+- Prefer `async`/`await` over `.then()` chains. Use `AbortSignal.timeout(ms)` to bound `fetch`.
+- For parallel work where partial failure is acceptable, use `Promise.allSettled` (not
+  `Promise.all`, which rejects on the first failure).
+- Treat data as immutable: `map`/`filter`/`reduce`/spread instead of mutating inputs.
+- Use `#private` class fields (not `_`-prefixed names). Use `WeakMap`/`WeakSet` for
+  object-keyed metadata so entries can be garbage-collected.
+- Never `eval()` / `new Function()` on dynamic input; never modify built-in prototypes.
+- In untyped `.js` files, type via JSDoc: `@typedef` and `/** @type {import('./types').X} */`.
+
+---
+> Source: [DVC2/cursor-agent-configs](https://github.com/DVC2/cursor-agent-configs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-15 -->
