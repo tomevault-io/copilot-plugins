@@ -67544,6 +67544,11 @@
       "description": "Open Source, Powerful, and Comprehensive Event Management Platform"
     },
     {
+      "name": "joel-mercier--wavio",
+      "source": "./joel-mercier--wavio",
+      "description": "Music streaming app for Android compatible with Navidrome, Jellyfin and OpenSubsonic servers or a local library"
+    },
+    {
       "name": "motoya0118--pavlok-cli-agent",
       "source": "./motoya0118--pavlok-cli-agent",
       "description": "CLI agent\u306bpavlok\u3092\u4f7f\u7528\u3055\u305b\u305f\u3089\u3069\u3046\u306a\u308b\u304b\u81ea\u50b7\u5b9f\u9a13"
@@ -137854,6 +137859,11 @@
       "description": "Exam AI-103: Developing AI Apps and Agents on Azure (Video) Course Repository"
     },
     {
+      "name": "animamesh--anima-use-google",
+      "source": "./animamesh--anima-use-google",
+      "description": "MCP Google AI searches using browser extension"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -141287,6 +141297,11 @@
       "name": "scitex-ai--emacs-claude-code",
       "source": "./scitex-ai--emacs-claude-code",
       "description": "Emacs interface for Claude Code with auto-response, vterm integration, and session management"
+    },
+    {
+      "name": "ossca-chromium--contributions",
+      "source": "./ossca-chromium--contributions",
+      "description": "\uc624\ud508\uc18c\uc2a4 \ucee8\ud2b8\ub9ac\ubdf0\uc158 \uc544\uce74\ub370\ubbf8"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -193494,6 +193509,11 @@
       "description": "Stream live EEG brain state (focus, calm, attention) from any EEG device into Claude and any MCP client \u2014 a real Model Context Protocol server + brain-computer interface toolkit."
     },
     {
+      "name": "davidteren--claude-desktop-export-browser",
+      "source": "./davidteren--claude-desktop-export-browser",
+      "description": "Export your Claude Desktop chats to Markdown and JSON"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -207882,6 +207902,16 @@
       "name": "tenon-net--tenonadmin",
       "source": "./tenon-net--tenonadmin",
       "description": "A zero-config, extensible ASP.NET Core admin system with RBAC, data permissions, SqlSugar, and NuGet-first delivery."
+    },
+    {
+      "name": "keros68--metrik",
+      "source": "./keros68--metrik",
+      "description": "\u672c\u5730\u4f18\u5148\u7684 AI Agent \u7528\u91cf\u7edf\u8ba1\u684c\u9762\u5e94\u7528\uff1a\u5b98\u65b9\u914d\u989d\u3001\u672c\u5730 Token\u3001\u4f30\u7b97\u6210\u672c\u4e09\u7c7b\u4e8b\u5b9e\u5206\u5f00\u5448\u73b0\uff0c\u8bfb\u4e0d\u5230\u5c31\u8bf4\u4e0d\u53ef\u7528"
+    },
+    {
+      "name": "keros68--metrik",
+      "source": "./keros68--metrik",
+      "description": "\u672c\u5730\u4f18\u5148\u7684 AI Agent \u7528\u91cf\u7edf\u8ba1\u684c\u9762\u5e94\u7528\uff1a\u5b98\u65b9\u914d\u989d\u3001\u672c\u5730 Token\u3001\u4f30\u7b97\u6210\u672c\u4e09\u7c7b\u4e8b\u5b9e\u5206\u5f00\u5448\u73b0\uff0c\u8bfb\u4e0d\u5230\u5c31\u8bf4\u4e0d\u53ef\u7528"
     },
     {
       "name": "yschimke--compose-ai-tools",
