@@ -1,0 +1,9 @@
+{
+  "name": "elevenching--buildr",
+  "displayName": "Buildr",
+  "description": "Buildr \u5c06\u7ec4\u7ec7\u7684\u5de5\u4f5c\u65b9\u5f0f\u6c89\u6dc0\u4e3a Agent \u53ef\u7528\u7684\u5171\u4eab\u5de5\u4f5c\u8d44\u4ea7\uff0c\u5e76\u8ba9\u8fd9\u4e9b\u8d44\u4ea7\u9002\u914d\u4e0d\u540c Agent runtime\u3002Buildr turns how your organization works into shared work assets for AI agents, portable across Agent runtimes.",
+  "version": "1.0.0",
+  "author": "elevenching",
+  "homepage": "https://github.com/elevenching/Buildr",
+  "skills": []
+}
