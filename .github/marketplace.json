@@ -127949,6 +127949,21 @@
       "description": "AI agent skills for Catalyst by Zoho \u2014 enables Claude, Gemini, Cursor, Copilot, and Windsurf to write deployment-ready Catalyst code, recommend architecture, and manage infrastructure via Zoho MCP."
     },
     {
+      "name": "mobailabs--mac-dia-server",
+      "source": "./mobailabs--mac-dia-server",
+      "description": "mac-dia-server"
+    },
+    {
+      "name": "mobailabs--mac-dia-server",
+      "source": "./mobailabs--mac-dia-server",
+      "description": "mac-dia-server"
+    },
+    {
+      "name": "mobailabs--mac-dia-server",
+      "source": "./mobailabs--mac-dia-server",
+      "description": "mac-dia-server"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -157687,6 +157702,11 @@
       "name": "harpercodelabs--invoice-v2",
       "source": "./harpercodelabs--invoice-v2",
       "description": "invoice-v2"
+    },
+    {
+      "name": "xkernel-org--xkernel",
+      "source": "./xkernel-org--xkernel",
+      "description": "Xkernel: Principled Performance Tunability of Operating System Kernels."
     },
     {
       "name": "vm--nila-code",
@@ -193187,6 +193207,16 @@
       "name": "eso--astroquery-examples",
       "source": "./eso--astroquery-examples",
       "description": "Jupyter notebooks for querying, accessing, and analyzing data from the ESO Science Archive using astroquery.eso. Includes examples for La Silla, Paranal (VLT), APEX, and ALMA datasets."
+    },
+    {
+      "name": "ethpandaops--panda",
+      "source": "./ethpandaops--panda",
+      "description": "Your gateway to the ethPandaOps ecosystem"
+    },
+    {
+      "name": "quixiai--quiximath",
+      "source": "./quixiai--quiximath",
+      "description": "QuixiMath"
     },
     {
       "name": "lightninglabs--lnget",
@@ -245659,6 +245689,41 @@
       "description": "Voice typing for Windows. local & cloud ASR (Seed-ASR 2.0 )\u8c46\u5305\u8bed\u97f3\u8f93\u5165\u6cd5,FireRedASR2"
     },
     {
+      "name": "xxtluuu--openclaw-sensevoice",
+      "source": "./xxtluuu--openclaw-sensevoice",
+      "description": "\u26a1 Offline speech-to-text plugin for OpenClaw \u2014 1s cold start, 228MB model, Chinese-optimized. Powered by SenseVoice + Rust + ONNX Runtime. \u79bb\u7ebf\u8bed\u97f3\u8f6c\u6587\u5b57\u63d2\u4ef6\uff0c\u79d2\u7ea7\u54cd\u5e94\uff0c\u4e2d\u6587\u4f18\u5316\uff0c\u652f\u6301\u4e2d/\u82f1/\u65e5/\u97e9/\u7ca4\u4e94\u8bed\u3002"
+    },
+    {
+      "name": "danyhug--dh-transshot",
+      "source": "./danyhug--dh-transshot",
+      "description": "\u4e00\u4e2a\u4eff Bob \u7684\u622a\u5c4f+\u7ffb\u8bd1\u4e8c\u5408\u4e00\u5de5\u5177\uff0c\u652f\u6301 macOS \u548c Windows"
+    },
+    {
+      "name": "rmarinsky--papuga",
+      "source": "./rmarinsky--papuga",
+      "description": "\u0410\u043d\u0430\u043b\u043e\u0433 \u043f\u0443\u043d\u0442\u043e\u0441\u0432\u0456\u0442\u0447\u0435\u0440\u0430, \u0456\u0437\u0456\u0447\u043d\u0430 \u0437\u0430\u043c\u0456\u043d\u0430 \u0440\u043e\u0437\u043a\u043b\u0430\u0434\u043a\u0438 \u043a\u043e\u043b\u0438 \u043f\u043e\u043c\u0438\u043b\u0438\u0432\u0441\u044f"
+    },
+    {
+      "name": "warengonzaga--contribute-now",
+      "source": "./warengonzaga--contribute-now",
+      "description": "AI-powered Git workflow automation CLI"
+    },
+    {
+      "name": "awesome-embedded-learning-studio--cfdesktop",
+      "source": "./awesome-embedded-learning-studio--cfdesktop",
+      "description": "This is a Repo that Desktop can be deployed on Any Embedded Device enable to run Qt"
+    },
+    {
+      "name": "awesome-embedded-learning-studio--cfdesktop",
+      "source": "./awesome-embedded-learning-studio--cfdesktop",
+      "description": "This is a Repo that Desktop can be deployed on Any Embedded Device enable to run Qt"
+    },
+    {
+      "name": "afoim--cf-umami",
+      "source": "./afoim--cf-umami",
+      "description": "\u7b80\u5355\u7684Cloudflare Worker\u8bbf\u95ee\u91cf\u7edf\u8ba1"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -267872,6 +267937,26 @@
       "name": "plumix-net--plumix",
       "source": "./plumix-net--plumix",
       "description": "Plumix"
+    },
+    {
+      "name": "shenseanchen--waku-agent",
+      "source": "./shenseanchen--waku-agent",
+      "description": "Waku Waku! Waku agent is your personal AI agent, on your own laptop, in code you can read in an afternoon \u2014 harness + loop + memory + eval"
+    },
+    {
+      "name": "js0980420--tooka",
+      "source": "./js0980420--tooka",
+      "description": "tooka"
+    },
+    {
+      "name": "js0980420--tooka",
+      "source": "./js0980420--tooka",
+      "description": "tooka"
+    },
+    {
+      "name": "fernanda-kipper--agent-context-template",
+      "source": "./fernanda-kipper--agent-context-template",
+      "description": "Agent-Context-Template"
     },
     {
       "name": "cheerhuan--save-your-token",
