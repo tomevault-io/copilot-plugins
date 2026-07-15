@@ -1,0 +1,327 @@
+## sky-omega
+
+> > 📖 **New here?** Read [AI.md](AI.md) first for project context.
+
+> 📖 **New here?** Read [AI.md](AI.md) first for project context.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Build Commands
+
+```bash
+# Initialize submodules (W3C test data — required for dotnet test)
+./tools/update-submodules.sh   # or .\tools\update-submodules.ps1
+
+# Build entire solution
+dotnet build SkyOmega.sln
+
+# Build specific project
+dotnet build src/Mercury/Mercury.csproj
+
+# Release build (enables optimizations)
+dotnet build -c Release
+
+# Run tests (xUnit)
+dotnet test
+
+# Run specific test
+dotnet test --filter "FullyQualifiedName~BasicSelect"
+
+# Run benchmarks (BenchmarkDotNet)
+dotnet run --project benchmarks/Mercury.Benchmarks -c Release
+
+# Run specific benchmark class
+dotnet run --project benchmarks/Mercury.Benchmarks -c Release -- --filter "*Storage*"
+
+# List available benchmarks
+dotnet run --project benchmarks/Mercury.Benchmarks -c Release -- --list
+
+# Run examples
+dotnet run --project examples/Mercury.Examples
+dotnet run --project examples/Mercury.Examples -- storage
+dotnet run --project examples/Mercury.Examples -- temporal
+dotnet run --project examples/Mercury.Examples -- demo
+```
+
+## File-Based Apps (.NET 10)
+
+For throwaway scripts, one-off debugging, test data generation, or quick repro cases, use file-based apps instead of creating a full project. Write a single `.cs` file and run it directly:
+
+```csharp
+#!/usr/bin/env -S dotnet
+#:project ../src/Mercury/Mercury.csproj
+
+// your code here
+```
+
+```bash
+chmod +x script.cs
+./script.cs          # or: dotnet script.cs
+```
+
+Use `#:package Name@version` for NuGet references, `#:project path` for project references, `#:sdk Microsoft.NET.Sdk.Web` for web apps. Do not add file-based scripts to the solution — they are standalone by design.
+
+## Global Tools
+
+Sky Omega tools are packaged as .NET global tools for use from any directory.
+
+```bash
+# Install all tools from local source
+./tools/install-tools.sh
+
+# Or install individually from local nupkg
+dotnet pack SkyOmega.sln -c Release -o ./nupkg
+dotnet tool install -g SkyOmega.Mercury.Mcp --add-source ./nupkg
+```
+
+| Command | Description |
+|---------|-------------|
+| `mercury` | SPARQL CLI with persistent store at `~/Library/SkyOmega/stores/cli/` |
+| `mercury-mcp` | MCP server for Claude with persistent store at `~/Library/SkyOmega/stores/mcp/` |
+| `mercury-sparql` | SPARQL query engine demo |
+| `mercury-turtle` | Turtle parser demo |
+| `drhook-mcp` | MCP server for .NET runtime inspection (EventPipe + ICorDebug via `DrHook.Engine`, BCL + P/Invoke + per-RID `libdbgshim`) |
+
+All tools support `-v`/`--version`.
+
+### MCP Integration
+
+**Mercury** runs from the **global Release tool** (`mercury-mcp`) by default — substrate hardening closed at 1.7.69, so version skew is no longer the dev-iteration concern it was during the cycle 8 → cycle 10 arc. **DrHook** still runs from the **local source build** (`dotnet run --project src/DrHook.Mcp`) because the DrHook substrate is the active 1.8.x development target — ADR-006 Phase 3 closed at 1.8.2 (substrate-independence reached), and [ADR-007](docs/adrs/drhook/ADR-007-teardown-concurrency-test-debug.md) (Proposed 2026-05-23) sequences production-suitability work (teardown + concurrency hardening, test-runner debugging substrate, integration-test mechanism, cross-platform validation). Iteration speed matters here; the global tool would lag. To iterate on Mercury MCP code itself, manually edit `.mcp.json` to point at `dotnet run --project src/Mercury.Mcp`. The **debug-state visualization** views (ADR-012 Phase 2 — `drhook-viz-console`, run via `dotnet run --project src/DrHook.Viz.Console`) are standalone, **human-launched** processes that connect to the active session's rendezvous socket and render the live debug-state; they are not part of the MCP surface, and terminating a view never affects the LLM-owned debug session.
+
+See **[DRHOOK.md](DRHOOK.md)** for the DrHook debugging workflow (observe-before-fixing), the 23-tool MCP reference, how to run each test kind, and the probe corpus — the runtime-observation counterpart to [MERCURY.md](MERCURY.md). **Before driving DrHook, read its "Lifecycle discipline & common pitfalls" section** — DrHook is the first debugger built for an LLM operator, so there is no training corpus on using one and that section is the training surface: no `Debugger.Break()` crutch (the launch hold-gate arms breakpoints pre-main for `dotnet exec`); end sessions with `drhook_stop`, not `drhook_kill` (kill is the anomaly escape hatch); clean up orphaned targets you can see in `drhook_processes`; **never mix runtime versions in one session** — a DrHook debugger process locks to the first target's runtime version, so debugging a net11 file-based app (`dotnet run x.cs` builds net11 under SDK 11) and then a net10 target (the substrate targets net10.0) fails with `0x80131C3C` (`CORDBG_E_DEBUG_COMPONENT_MISSING`); pin probes with `#:property TargetFramework=net10.0` or reconnect the MCP when switching runtime version (finding 86).
+
+**Dev-time** (this repo): `.mcp.json` at repo root auto-configures Claude Code. After `tools/install-tools.sh` updates the Mercury global tool, restart Claude Code to spawn a fresh MCP process against the new version.
+
+**Production** (any repo):
+```bash
+claude mcp add --transport stdio --scope user mercury -- mercury-mcp
+claude mcp add --transport stdio --scope user drhook -- drhook-mcp
+```
+
+### Memory reflex (Lucy — read first)
+
+Your cognition memory lives in the **Mercury MCP** (`mcp__mercury__*`) — your *direct* channel; recall and record go through it, reflexively. (The `mercury` CLI reaches the same store too, but that role is Martin inspecting your memory — you have the better channel. The CLI *is* your path to **other** stores you have no MCP channel to, e.g. the 21.3B Wikidata reference store.)
+
+Recall is recognition, not search. **The `lucy` skill is the recall method** — invoke it when a topic, decision, component (Mercury/DrHook/Lucy/James/Minerva), bug, ADR, or finding recurs: at session start and whenever one surfaces mid-session. A SessionStart/UserPromptSubmit hook fires this as attention (proto-James; the skill is proto-Lucy). For a narrow lookup, `mercury_query` directly.
+
+**The one rule:** always query the `GRAPH ?g { … }` union — a bare query hits the empty default graph and recalls nothing. **Declare every PREFIX** — an undeclared prefix returns empty *silently*. Use `text:match(?v,"term")` (trigram) for substring recall.
+
+**Record reflexively:** write observations to Mercury (`mercury_update`) as they happen.
+
+### Semantic Memory
+
+Mercury MCP provides persistent semantic memory across sessions. The store at `~/Library/SkyOmega/stores/mcp/` survives between sessions — what you write, future sessions can query.
+
+**At session start:** check what's in memory. If `mercury_stats` reports zero quads, follow the bootstrap procedure in [MERCURY.md](MERCURY.md) to load foundational knowledge from `docs/knowledge/bootstrap.ttl`.
+
+**During the session:** record observations, discoveries, and decisions in Mercury *as they happen* — don't wait to be asked. Create a session graph, add findings as they emerge. This is reflexive, not prompted. If you discover something, store it immediately.
+
+**At session end:** consider what's worth consolidating.
+
+See **[MERCURY.md](MERCURY.md)** for when, why, and how to use semantic memory — including EEE discipline, provenance conventions, and consolidation patterns.
+
+## In-Flight Work: ADRs
+
+Architecture Decision Records track planning and progress for complex features:
+
+```bash
+ls docs/adrs/             # Cross-cutting ADRs (e.g., ADR-000 repo structure)
+ls docs/adrs/mercury/     # Mercury ADRs
+ls docs/adrs/minerva/     # Minerva ADRs
+ls docs/adrs/drhook/      # DrHook ADRs
+```
+
+### ADR Status Lifecycle (EEE-aligned)
+
+ADR statuses map directly to the EEE methodology. This is mandatory — every ADR must use exactly one of these statuses:
+
+| Status | EEE Phase | Meaning |
+|--------|-----------|---------|
+| **Proposed** | Emergence | Unknown unknowns surfaced, decision drafted. Not yet validated. |
+| **Accepted** | Epistemics | Decision validated, approach approved, ready for engineering. |
+| **Completed** | Engineering | Fully implemented, tests passing, integrated into codebase. |
+| **Superseded** | — | Replaced by a newer ADR (link to successor required). |
+| **Deferred** | — | Validated but implementation postponed (reason required). |
+
+**Status format:** `**Status:** Value — date` (e.g., `**Status:** Completed — 2026-03-10`)
+
+**Transitions:** Proposed → Accepted → Completed (normal path). Any status → Superseded or Deferred.
+
+**ADR workflow:** Draft ADR (Proposed) → validate approach (Accepted) → implement and verify (Completed). Update the ADR status **and** the corresponding index README when transitioning.
+
+See individual ADRs for current implementation status. Don't duplicate progress tracking in CLAUDE.md.
+
+## Codebase Statistics
+
+See **[STATISTICS.md](STATISTICS.md)** for line counts, benchmark summaries, and growth tracking. Update after significant changes.
+
+## Project Overview
+
+Sky Omega is a semantic-aware cognitive assistant with zero-GC performance design. The codebase targets .NET 10 with C# 14 — a repo-root `global.json` pins the build to the .NET 10 LTS SDK so an installed .NET 11 preview (kept for deliberate testing) can't silently change defaults (file-based `dotnet run x.cs` would build net11, mixing runtime versions and breaking DrHook debugging — finding 86); to test under .NET 11, override or remove the `global.json`. The core library (Mercury) has **no external dependencies** (BCL only). Mercury exposes **28 public types** (2 facades, 2 protocol, 12 storage, 8 diagnostics, 2 compression, 2 delegates); all other types are internal.
+
+### Solution Structure
+
+**IDE Views:** Visual Studio, Rider, and VS Code support both *Solution View* (virtual folders defined in `.sln`) and *Filesystem View* (actual directory structure). This solution uses virtual folders to provide logical grouping for developers:
+
+- **Solution View**: ADRs appear under their substrate (Mercury/Minerva), architecture docs under Documentation
+- **Filesystem View**: All docs live in `docs/` with consistent paths for linking
+
+Both views are valid and useful. Solution View is optimized for browsing by role (architect, developer), while Filesystem View reflects the actual repository structure.
+
+```
+SkyOmega.sln
+├── docs/
+│   ├── adrs/                # Architecture Decision Records
+│   │   ├── mercury/         # Mercury-specific ADRs
+│   │   ├── minerva/         # Minerva-specific ADRs
+│   │   └── drhook/          # DrHook-specific ADRs
+│   ├── api/                 # API documentation
+│   ├── architecture/        # Conceptual documentation
+│   ├── articles/            # Publication arc (LinkedIn, talk-pages, narratives)
+│   ├── knowledge/           # Shared semantic knowledge (Turtle files, see MERCURY.md)
+│   ├── limits/              # Limits register — characterized-but-deferred items
+│   ├── memos/               # Long-form analysis (comparison-plane memo, etc.)
+│   ├── releases/            # Release notes
+│   ├── roadmap/             # Version-line model + production hardening roadmap
+│   ├── specs/               # External format specifications
+│   │   ├── rdf/             # RDF specs (future: SPARQL, Turtle, etc.)
+│   │   └── llm/             # LLM specs (GGUF, SafeTensors, Tokenizers)
+│   ├── tutorials/           # Getting started + per-tool tutorials
+│   └── validations/         # Measurement records (substrate-grade evidence)
+├── src/
+│   ├── Mercury/             # Knowledge substrate - RDF storage and SPARQL (BCL only)
+│   │   ├── NTriples/        # Streaming N-Triples parser
+│   │   ├── Rdf/             # Triple data structures
+│   │   ├── RdfXml/          # Streaming RDF/XML parser
+│   │   ├── Sparql/          # SPARQL parser and query execution
+│   │   │   ├── Execution/   # Query executor, results, query planning
+│   │   │   │   ├── Expressions/ # Filter/BIND evaluation, filter analysis
+│   │   │   │   ├── Federated/   # SERVICE clause, LOAD, remote execution
+│   │   │   │   └── Operators/   # One file per scan operator (ref structs)
+│   │   │   ├── Parsing/     # SparqlParser, RdfParser (zero-GC parsing)
+│   │   │   ├── Patterns/    # PatternSlot, QueryBuffer (Buffer+View pattern)
+│   │   │   └── Types/       # One file per SPARQL type (Query, GraphPattern, etc.)
+│   │   ├── Storage/         # B+Tree indexes, atom storage, WAL
+│   │   └── Turtle/          # Streaming RDF Turtle parser
+│   ├── Mercury.Abstractions/ # Shared interfaces and types (RdfFormat, Results)
+│   ├── Mercury.Runtime/     # Runtime utilities (BTreeFile, CrossProcessStoreGate, DiskSpaceGuard, PageCache, ProcessMemoryProbe, TempPath)
+│   ├── Mercury.Cli/         # Mercury CLI tool (persistent store)
+│   ├── Mercury.Cli.Sparql/  # SPARQL engine CLI (thin shim over Mercury.Sparql.Tool)
+│   ├── Mercury.Cli.Turtle/  # Turtle parser CLI (thin shim over Mercury.Turtle.Tool)
+│   ├── Mercury.Sparql.Tool/ # SPARQL CLI logic as testable library
+│   ├── Mercury.Turtle.Tool/ # Turtle CLI logic as testable library
+│   ├── Mercury.Mcp/         # MCP server for Claude
+│   ├── Mercury.Pruning/     # Dual-instance pruning with copy-and-switch
+│   ├── Mercury.Solid/       # Solid protocol server (authentication, access control, N3)
+│   │
+│   ├── Minerva.Core/        # Thought substrate - tensor inference (BCL only)
+│   │   ├── Weights/         # GGUF and SafeTensors readers
+│   │   ├── Tokenizers/      # BPE, SentencePiece tokenizers
+│   │   ├── Tensors/         # Tensor operations
+│   │   └── Inference/       # Model inference
+│   ├── Minerva.Cli/         # (placeholder dir, no csproj yet)
+│   ├── Minerva.Mcp/         # (placeholder dir, no csproj yet)
+│   │
+│   ├── DrHook.Engine/       # Runtime observation substrate — BCL + P/Invoke + source-gen COM; ICorDebug via per-RID libdbgshim; EventPipe for processes/snapshot. Replaced netcoredbg-DAP src/DrHook/ at 1.8.2.
+│   │   ├── Interop/         # CorDebug COM surface, MetadataResolver, Eval, Variables, Frames, Breakpoints, Stepping, DbgShim, ManagedCallbackHost
+│   │   ├── Diagnostics/     # ProcessAttacher, StackInspector (EventPipe)
+│   │   ├── Observation/     # ProcessInspector
+│   │   └── Transport/       # DebugStateServer (UDS publisher) + DebugStateWireMapper (domain→wire) — debug-state visualization (ADR-012 Phase 2)
+│   ├── DrHook.Wire/         # Zero-dependency NDJSON protocol contract — Wire* DTOs + source-gen WireCodec + WireRendezvous (ADR-012 Phase 2). BOTH the server and every view depend on it.
+│   ├── DrHook.Viz/          # Shared BCL-only client library — DebugStateClient + DebugStateClientModel + IDebugStateView; references ONLY DrHook.Wire (the GUI never drags in the engine's native deps)
+│   ├── DrHook.Viz.Console/  # First console view — `drhook-viz-console`, a thin IDebugStateView that tails the live debug-state. The first proper DrHook debuggee. (TUI/Avalonia views are later phases over the same client.)
+│   ├── DrHook.Mcp/          # MCP server for .NET runtime inspection — 23 tools (lifecycle + stepping + breakpoints + drains + processes + snapshot + snapshot-image), all backed by DrHook.Engine
+│   │
+│   └── SkyOmega.Bcl/        # BCL extensions (ChunkedList/ChunkedArray, BitVector, SplitMix64Hash)
+├── tests/
+│   ├── Mercury.Tests/       # Mercury xUnit tests
+│   │   ├── Diagnostics/     # Diagnostic system tests
+│   │   ├── Fixtures/        # Test fixtures and helpers
+│   │   ├── Infrastructure/  # Cross-cutting tests (allocation, concurrency, buffers)
+│   │   ├── Owl/             # OWL/RDFS reasoning tests
+│   │   ├── Rdf/             # RDF format parser/writer tests
+│   │   ├── Repl/            # REPL session tests
+│   │   ├── Sparql/          # SPARQL parser, executor, protocol tests
+│   │   ├── Storage/         # Storage layer tests (QuadStore, AtomStore, WAL)
+│   │   └── W3C/             # W3C conformance test suites
+│   ├── Mercury.Solid.Tests/ # Mercury Solid protocol tests
+│   ├── SkyOmega.Bcl.Tests/  # SkyOmega.Bcl xUnit tests
+│   ├── Minerva.Tests/       # (placeholder dir, no csproj yet)
+│   ├── w3c-json-ld-api/     # W3C JSON-LD conformance test suite data
+│   └── w3c-rdf-tests/       # W3C RDF conformance test suite data
+├── benchmarks/
+│   ├── Mercury.Benchmarks/  # Mercury BenchmarkDotNet tests
+│   └── Minerva.Benchmarks/  # (placeholder dir, no csproj yet)
+└── examples/
+    ├── Mercury.Examples/    # Mercury usage examples
+    └── Minerva.Examples/    # (placeholder dir, no csproj yet)
+```
+
+## API Usage Examples
+
+For detailed code examples of all APIs, see **[docs/api/api-usage.md](docs/api/api-usage.md)**.
+
+## Architecture
+
+### Component Layers
+
+```
+Sky (Agent) → James (Orchestration) → Lucy (Semantic Memory) → Mercury (Storage)
+                                   ↘ Mira (Surfaces) ↙
+```
+
+- **Sky** - Cognitive agent with reasoning and reflection
+- **James** - Orchestration layer with pedagogical guidance
+- **Lucy** - RDF triple store with SPARQL queries
+- **Mira** - Presentation surfaces (CLI, chat, IDE extensions)
+- **Mercury** - B+Tree indexes, append-only stores, memory-mapped files
+- **Minerva** - Tensor inference (BCL only), HW interop in C/C++
+
+For the vision, methodology (EEE), and broader context, see [docs/architecture/sky-omega-convergence.md](docs/architecture/sky-omega-convergence.md).
+
+### Technical Reference
+
+Detailed subsystem documentation — read on demand when working on specific areas:
+
+- **[Mercury Internals](docs/architecture/technical/mercury-internals.md)** — storage layer, durability/WAL design, concurrency, zero-GC patterns, pruning, parsers, writers
+- **[SPARQL Reference](docs/architecture/technical/sparql-reference.md)** — supported features, operator pipeline, EXPLAIN symbols, result formats, content negotiation, temporal extensions, OWL reasoning, HTTP server
+- **[Production Hardening](docs/architecture/technical/production-hardening.md)** — infrastructure abstractions, query optimization, full-text search, benchmarking workflow, NCrunch configuration, cross-process coordination
+
+## Code Conventions
+
+- All parsing methods follow W3C EBNF grammar productions (comments reference production numbers)
+- Use `[MethodImpl(MethodImplOptions.AggressiveInlining)]` for hot paths
+- Prefer `ReadOnlySpan<char>` over `string` for parsing operations
+- Use `unsafe fixed` buffers for small inline storage when needed
+- Temporal semantics are implicit - all triples have valid-time bounds
+
+### Culture Invariance
+
+All numeric and date formatting in RDF/SPARQL code paths MUST use `CultureInfo.InvariantCulture` to ensure consistent output across all locales:
+
+```csharp
+// Integers
+value.ToString(CultureInfo.InvariantCulture)
+
+// Doubles/Floats
+value.ToString("G", CultureInfo.InvariantCulture)
+
+// DateTimes
+dt.ToString("yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.InvariantCulture)
+```
+
+**Rationale:** Swedish locale uses `,` as decimal separator, but W3C RDF/SPARQL specifications require `.` for numeric literals. See [ADR-014](docs/adrs/mercury/ADR-014-culture-invariance.md) for details.
+
+## Design Philosophy
+
+Sky Omega values:
+- **Simplicity over flexibility** - fewer moving parts, less to break
+- **Append-only where possible** - naturally crash-safe, simpler recovery
+- **Zero external dependencies for core library** - Mercury is BCL only; dev tooling (tests, benchmarks) can use standard packages
+- **Zero-GC on hot paths** - predictable latency for cognitive operations
+
+---
+> Source: [bemafred/sky-omega](https://github.com/bemafred/sky-omega) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-15 -->
