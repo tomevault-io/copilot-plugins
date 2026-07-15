@@ -1,0 +1,9 @@
+{
+  "name": "pzarzycki--token-companion",
+  "displayName": "token-companion",
+  "description": "Local, privacy-first desktop analytics for Claude and Codex usage records already on disk.",
+  "version": "1.0.0",
+  "author": "pzarzycki",
+  "homepage": "https://github.com/pzarzycki/token-companion",
+  "skills": []
+}
