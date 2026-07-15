@@ -4,7 +4,7 @@
   "repo": "domain-experts",
   "description": "all human experts into AI agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wonsukchoi/domain-experts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T08:36:32Z"
+  "distributed_at": "2026-07-15T08:40:51Z"
 }
