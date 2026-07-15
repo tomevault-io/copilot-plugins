@@ -1,0 +1,9 @@
+{
+  "name": "wangyuahn--nori-code",
+  "displayName": "nori-code",
+  "description": "Loop-core multi-agent coding tool that orchestrates work through plan\u2192implement\u2192review cycles. The    orchestrator is read-only \u2014 it searches project memory, enforces custom rules, and delegates all c",
+  "version": "1.0.0",
+  "author": "wangyuahn",
+  "homepage": "https://github.com/wangyuahn/nori-code",
+  "skills": []
+}
