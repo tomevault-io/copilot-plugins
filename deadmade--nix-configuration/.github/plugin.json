@@ -1,0 +1,9 @@
+{
+  "name": "deadmade--nix-configuration",
+  "displayName": "nix-configuration",
+  "description": "nix-configuration",
+  "version": "1.0.0",
+  "author": "deadmade",
+  "homepage": "https://github.com/deadmade/nix-configuration",
+  "skills": []
+}
