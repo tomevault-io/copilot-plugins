@@ -1,0 +1,9 @@
+{
+  "name": "scvxzf1--cliproxyapi-local",
+  "displayName": "CLIProxyAPI-local",
+  "description": "Local CLIProxyAPI fork with Grok free OAuth routing, usage-keeper embed, and auth list secret masking",
+  "version": "1.0.0",
+  "author": "scvxzf1",
+  "homepage": "https://github.com/scvxzf1/CLIProxyAPI-local",
+  "skills": []
+}
