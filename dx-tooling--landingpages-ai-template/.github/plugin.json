@@ -1,0 +1,9 @@
+{
+  "name": "dx-tooling--landingpages-ai-template",
+  "displayName": "landingpages-ai-template",
+  "description": "A template project providing a modern Living Styleguide and the tooling required to conveniently generate great-looking Landing Pages with AI-powered IDEs like Cursor and Windsurf.",
+  "version": "1.0.0",
+  "author": "dx-tooling",
+  "homepage": "https://github.com/dx-tooling/landingpages-ai-template",
+  "skills": []
+}
