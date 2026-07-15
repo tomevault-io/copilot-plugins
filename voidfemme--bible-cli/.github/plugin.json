@@ -1,0 +1,9 @@
+{
+  "name": "voidfemme--bible-cli",
+  "displayName": "bible-cli",
+  "description": "A command line tool for retrieving Bible passages in multiple translations including Greek and Hebrew texts",
+  "version": "1.0.0",
+  "author": "voidfemme",
+  "homepage": "https://github.com/voidfemme/bible-cli",
+  "skills": []
+}
