@@ -1,0 +1,9 @@
+{
+  "name": "ask-03--snapsort",
+  "displayName": "SnapSort",
+  "description": "SnapSort is a cross-platform desktop application for offline, face-based image sorting and viewing.",
+  "version": "1.0.0",
+  "author": "ASK-03",
+  "homepage": "https://github.com/ASK-03/SnapSort",
+  "skills": []
+}
