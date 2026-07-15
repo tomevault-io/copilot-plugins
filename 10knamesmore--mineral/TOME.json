@@ -4,7 +4,7 @@
   "repo": "Mineral",
   "description": "A multi-source TUI music player in Rust \u2014 ratatui frontend, pluggable channel backends, real streaming playback with lyrics & spectrum.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/10knamesmore/Mineral",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T06:42:39Z"
+  "distributed_at": "2026-07-15T06:44:42Z"
 }
