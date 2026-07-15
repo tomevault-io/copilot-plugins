@@ -1,0 +1,9 @@
+{
+  "name": "openwatersio--openwaters",
+  "displayName": "OpenWaters",
+  "description": "An experiment in building modern marine charts. Currently alpha and not to be use for navigation.",
+  "version": "1.0.0",
+  "author": "openwatersio",
+  "homepage": "https://github.com/openwatersio/OpenWaters",
+  "skills": []
+}
