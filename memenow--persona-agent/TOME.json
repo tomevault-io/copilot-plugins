@@ -4,7 +4,7 @@
   "repo": "persona-agent",
   "description": "A Python-based API server for creating AI persona agents using Google A2A protocol and Model Context Protocol (MCP) tools integration.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/memenow/persona-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T18:36:13Z"
+  "distributed_at": "2026-07-15T18:41:28Z"
 }
