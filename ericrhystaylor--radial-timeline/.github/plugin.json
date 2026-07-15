@@ -1,9 +1,9 @@
 {
   "name": "ericrhystaylor--radial-timeline",
-  "displayName": "Radial-Timeline",
-  "description": "Radial Timeline for Obsidian creative writing projects.",
+  "displayName": "radial-timeline",
+  "description": "Visualize longform writing projects as an interactive radial timeline that displays scenes organized by act, subplot, and narrative or chronological order for a complete view of the project.",
   "version": "1.0.0",
   "author": "EricRhysTaylor",
-  "homepage": "https://github.com/EricRhysTaylor/Radial-Timeline",
+  "homepage": "https://github.com/EricRhysTaylor/radial-timeline",
   "skills": []
 }
