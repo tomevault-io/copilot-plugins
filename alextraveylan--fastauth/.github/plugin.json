@@ -1,0 +1,9 @@
+{
+  "name": "alextraveylan--fastauth",
+  "displayName": "fastauth",
+  "description": "A docker microservice for authentification with fastapi, alembic, a postgres async ddb.",
+  "version": "1.0.0",
+  "author": "AlexTraveylan",
+  "homepage": "https://github.com/AlexTraveylan/fastauth",
+  "skills": []
+}
