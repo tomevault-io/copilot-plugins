@@ -1,0 +1,9 @@
+{
+  "name": "yashraj-n--tenet",
+  "displayName": "tenet",
+  "description": "An AI agent that reads your GitHub issues so you don't have to. Comment /tenet-build, it explores the repo, ships a pull request, and reviews PRs on the side. Works while you sleep. Doesn't ask for eq",
+  "version": "1.0.0",
+  "author": "yashraj-n",
+  "homepage": "https://github.com/yashraj-n/tenet",
+  "skills": []
+}
