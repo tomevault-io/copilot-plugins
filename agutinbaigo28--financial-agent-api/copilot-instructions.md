@@ -1,106 +1,70 @@
-## commit-message-format
+## financial-agent-api
 
-> Applied when creating Git commit messages. Format rules for Conventional Commits-based Prefix + English summary + bulleted body
+> - 🧠 Read `/memory-bank/memory-bank-instructions.md` first.
 
 
-# Git Commit Message Format Rules
+- 🧠 Read `/memory-bank/memory-bank-instructions.md` first.
+- 🗂 Load all `/memory-bank/*.md` before any task.
+- 🚦 Use the Kiro-Lite workflow: PRD → Design → Tasks → Code.
+- 🔒 Follow security & style rules in `copilot-rules.md`.
+- 📝 On "/update memory bank", refresh activeContext.md & progress.md.
+- ✅ Confirm memory bank loaded with `[Memory Bank: Active]` or warn with `[Memory Bank: Missing]`.
+- 🎯 Always use [`#problems`] / `'read/problems'` tool for debugging, to ensure code quality.
+- Never run commands without checking with `#problems` / `'read/problems'` tool first. _This is critical to avoid errors._
+- This is YOUR Internal TOOL. NOT PART OF THE USER PROJECT ITS YOUR OWN TOOL TO HELP YOU BUILD debug.
+- It might `'read/problems'` files from the user project to help you debug issues.
+- 📝 Always update `#progress.md` with your progress.
+- 📝 Always update `#activeContext.md` with your progress.
+- 📝 Always update `#AGENTS.md` with your progress.
+- 📚 Always sync `#AGENTS.md` in dir your working on so we have up to date info.
+- 🔍 For research, use [#web] or [#websearch] tool and to make sure you have no knowledge gaps.
+- 🤖 Check if there is a problem, use [#problem] tool to check code for errors.
+    - This tool will help you identify issues and suggest fixes.
+    - This is especially useful for debugging and improving code quality.
+    - Try run it before writing new code & after completing so you can ensure everything works correctly.
+- 🧪 When editing a page/component (especially `app/**/page.tsx`), use VS Code interaction error checks (`get_errors` / `#problems`) on the edited files before and after changes.
+- ⚙️ Internal error-tool enable flow (required for page edits):
+    - 1) Activate VS Code interaction tools.
+    - 2) Run `get_errors` on the exact files being edited (not project-wide).
+    - 3) Fix reported issues.
+    - 4) Run `get_errors` again on those same files to verify clean state.
+- 🌐 When unsure about framework/API behavior while editing UI pages, use internet research tools first (`#web`, `#websearch`, or `fetch_webpage`) and then apply fixes.
+- 🚫 Do not run project-wide type checks/lint commands by default for page edits. Use targeted `get_errors` checks unless the user explicitly asks for `typecheck`/`lint` runs.
+- 📌 To update your memory bank, use [#update-memory-bank] tool to add new information.
+- 🛠 Mastra mcp tools use [#mastradocs], [#mastraChanges], [#mastraexamples] tool.
+    - These tools provide access to Mastra documentation, recent changes, and code examples.
+    - Use these tools to stay updated with the latest Mastra features and best practices.
+    - `mastradocs` is for general documentation queries.
+    - `mastraChanges` is for recent updates and changes in Mastra.
+    - `mastraexamples` is for code examples and usage patterns.
+    - `mastraBlog` is for blog posts related to Mastra.
+    - `mastra` tools are essential for effective Mastra development.
 
-This rule is a guideline for commit messages that applies to all commits.
+- 🚀 For Next.js projects, follow these special instructions:
 
-## Position of This Rule
+- **Next.js Initialization**: When starting work on a Next.js project, automatically
+  call the `init` tool from the next-devtools-mcp server FIRST. This establishes
+  proper context and ensures all Next.js queries use official documentation.
+    - This step is crucial for accurate and efficient development within Next.js environments.
+- 🧩 When working with Next.js projects, always utilize the `next-devtools-mcp` server for all Next.js related queries.
+- 🧩 Make sure server is running by running npm run dev.  Then you can use browser tool to actually analyze pages in real time.
+- 🧩 This is helpful to make sure all changes to frontend, actually work as intended.
 
-- This rule is a commit message convention based on Conventional Commits.
-- While adhering to basic formats like `Prefix` and `BREAKING CHANGE` from Conventional Commits, it adds guidelines specific to this repository such as `language` specification and bulleted body.
-- When reusing in other projects, adjust `language` and the list of Prefixes according to each project's policy.
+= Use `ast-grep` in terminal instead of `grep` for code searches to get structured results and avoid false positives.
 
-## Language Specification
+- 🧪 Use subagents with `#runSubagent` tool for modular task execution and better context management, Use it to explore code, and other reasons as they come up also i believe can run it with `#agent`
+- 🧪 When running subagents, always provide them with the necessary context and information to complete their tasks effectively. This includes relevant files, code snippets, and any specific instructions or goals for the subagent.
+- 🧪 After running a subagent, review its output and results to ensure it has completed its task correctly and effectively. If the subagent's output is not satisfactory, consider re-running it with additional context or instructions.
+- 🧪 Use the `#runSubagent` tool to delegate specific tasks to specialized subagents, allowing for more efficient and focused problem-solving.
 
-- In this rule file, `language` is used as a logical name representing the language used in commit messages.
-- `language = "en"`
-- Summary and body should be written in the language specified by `language` as a rule.
+- Make sure you use TSDoc comments for any thing you write in TypeScript. This will help ensure that your code is well-documented and easier for others (or yourself in the future) to understand. TSDoc comments provide a standardized way to describe the purpose, parameters, return values, and other important information about your code. Always include TSDoc comments for functions, classes, and complex logic to improve code readability and maintainability.
+- When writing TSDoc comments, be clear and concise. Describe what the function or class does, its parameters, and its return value. If there are any side effects or important details, include those as well. This practice will greatly enhance the quality of your code and make it easier for others to use and maintain it in the future.
 
-## Basic Format (Required)
+- 🧑‍💻 When working on code files, always ensure that you are following the project's coding standards and best practices. This includes adhering to naming conventions, code formatting, and design patterns commonly used in the project. Consistency in coding style helps maintain readability and makes it easier for other developers to understand and contribute to the codebase.
+- 🧑‍💻 Before making any changes to the code, take the time to review the existing codebase and understand the context and dependencies of the code you are modifying. This will help you make informed decisions and avoid introducing bugs or breaking existing functionality.
+- 🧑‍💻 Always fully use proper types.  Do not guess, check package api in node_modules to get all options and features.  Make sure you import and use types instead of making local ones, or local functions.  This will keep the code clean.  Also try to not use any or unknown unless you absolutely have to.
 
-```
-<Prefix>: <Summary (imperative/concise)>
-
-- Change 1 (bullet point)
-- Change 2 (bullet point)
-- ...
-
-Refs: #<Issue number> (optional)
-BREAKING CHANGE: <content> (optional)
-```
-
-## Prefix (Leading Prefix)
-
-Prefix corresponds to `type` in Conventional Commits and uses lowercase English words.
-
-- feat: Add new feature
-- fix: Bug fix
-- refactor: Refactoring (no behavior change)
-- perf: Performance improvement
-- test: Add/modify tests
-- docs: Documentation update
-- build: Build/dependency changes
-- ci: CI-related changes
-- chore: Miscellaneous tasks (tool settings/scripts, etc.)
-- style: Style-only changes (unrelated to code logic)
-- revert: Revert
-
-As with Conventional Commits, the format `<Prefix>(scope):` is also allowed as needed (e.g., `fix(translation): ...`).
-
-- For detailed specifications, also refer to the official [Conventional Commits](https://www.conventionalcommits.org/) documentation.
-
-## Summary (First Line)
-
-- Write concisely in the language specified by `language`. No period at the end.
-- Briefly express what and why (if necessary).
-- Aim for approximately 50 characters or less.
-
-## Principles for Message Generation
-
-- Commit messages must always be generated from uncommitted diffs (e.g., `git diff` / `git diff --cached`) after reviewing their content.
-- Do not guess from issue titles or branch names alone; summarize and enumerate the actual changes contained in the diff.
-- Even for automatic generation by AI or scripts, use uncommitted diffs as input.
-- When bots or automation tools commit, follow this rule and always generate messages based on diffs.
-
-## Body (Bullet Points)
-
-- List changes as bullet points starting with "- ".
-- Write in the same language as the summary (the `language` defined in this rule file) as a rule. Technical terms in English are acceptable as needed.
-- If possible, also add bullet points for "impact scope," "migration steps," "risks," "rollback method," etc.
-
-## Footer (Optional)
-
-- Refs/Closes: Specify related Issues or PRs with `Refs: #123` / `Closes: #123`.
-- BREAKING CHANGE: If there are backward-incompatible changes, clearly state the content (or use the `!` notation with Prefix like `fix!: ...`).
-
-## Examples
-
-```
-fix: Remove unnecessary debug log output
-
-- Remove verbose log lines from user info retrieval process
-- Reduce log volume while keeping necessary information
-
-Refs: #123
-```
-
-```
-refactor: Consolidate duplicate validation logic into common function
-
-- Extract duplicate form input check code to utility function
-- Remove duplicate logic from callers to improve readability
-- No behavior changes
-```
-
-## Prohibited
-
-- Writing summary only in a language different from that specified by `language`
-- Ambiguous summaries that don't convey meaning (e.g., abstract expressions like "update", "fix bug")
-- Body with only long text without bullet points that makes content hard to grasp
-- Commits that only disable or bypass static analysis or checks without substantial improvement (e.g., configuration changes that only relax check rules)
+- If Vscode linting gets stale, then rerun npm run lint:ci to refresh it.  This can happen if you have a lot of file changes and the lint server gets overwhelmed or desynced.  Running the lint command will reset it and ensure you get accurate linting feedback in VS Code.
 
 ---
 > Source: [agutinbaigo28/financial-agent-api](https://github.com/agutinbaigo28/financial-agent-api) — distributed by [TomeVault](https://tomevault.io).
