@@ -71384,6 +71384,11 @@
       "description": "turkey"
     },
     {
+      "name": "paper-instruments--rubric",
+      "source": "./paper-instruments--rubric",
+      "description": "A Python library for LLM-based evaluation using weighted rubrics."
+    },
+    {
       "name": "chongdashu--phaserjs-oakwoods",
       "source": "./chongdashu--phaserjs-oakwoods",
       "description": "A vibe coded implementation of an RPG platformer"
@@ -91234,6 +91239,11 @@
       "description": "DeskcommCRM \u2014 CRM operacional com IA para e-commerce brasileiro (WhatsApp/WAHA + Nuvemshop + LGPD nativo)"
     },
     {
+      "name": "mydevtools-tech--zecrypt-server",
+      "source": "./mydevtools-tech--zecrypt-server",
+      "description": "Open source Password Manager, Encrypted Data management Platform - https://app.zecrypt.io (open-source alternative to Lastpass, Dashlane)"
+    },
+    {
       "name": "agents-squads--squads-cli",
       "source": "./agents-squads--squads-cli",
       "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents."
@@ -105857,6 +105867,11 @@
       "name": "prokophapala--simplesimulationengine",
       "source": "./prokophapala--simplesimulationengine",
       "description": "SimpleSimulationEngine"
+    },
+    {
+      "name": "dqnamo--chaterface-legacy",
+      "source": "./dqnamo--chaterface-legacy",
+      "description": "chaterface-legacy"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -157764,6 +157779,11 @@
       "description": "Make voice AI better"
     },
     {
+      "name": "adamant-im--adamant-business-website",
+      "source": "./adamant-im--adamant-business-website",
+      "description": "cryptofoundry: We build and maintain self-hosted crypto software, bots, payments and infrastructure \u2014 by the engineers behind an open-source blockchain ecosystem developed since 2016"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -207682,6 +207702,31 @@
       "name": "dx-tooling--landingpages-ai-template",
       "source": "./dx-tooling--landingpages-ai-template",
       "description": "A template project providing a modern Living Styleguide and the tooling required to conveniently generate great-looking Landing Pages with AI-powered IDEs like Cursor and Windsurf."
+    },
+    {
+      "name": "loulanyue--skills",
+      "source": "./loulanyue--skills",
+      "description": "Skills for Real Engineers. Straight from my .claude directory."
+    },
+    {
+      "name": "loulanyue--skills",
+      "source": "./loulanyue--skills",
+      "description": "Skills for Real Engineers. Straight from my .claude directory."
+    },
+    {
+      "name": "alanhuang168--ai-project-workflow",
+      "source": "./alanhuang168--ai-project-workflow",
+      "description": "Universal AI-native project workflow for Cursor, Claude Code, Codex, TRAE, Qoder, CodeBuddy and other AI coding assistants."
+    },
+    {
+      "name": "alanhuang168--ai-project-workflow",
+      "source": "./alanhuang168--ai-project-workflow",
+      "description": "Universal AI-native project workflow for Cursor, Claude Code, Codex, TRAE, Qoder, CodeBuddy and other AI coding assistants."
+    },
+    {
+      "name": "sandeco--sandeco-com-br",
+      "source": "./sandeco--sandeco-com-br",
+      "description": "sandeco.com.br"
     },
     {
       "name": "yschimke--compose-ai-tools",
