@@ -1,0 +1,9 @@
+{
+  "name": "presbrey--pkg",
+  "displayName": "pkg",
+  "description": "all my new go libraries live here",
+  "version": "1.0.0",
+  "author": "presbrey",
+  "homepage": "https://github.com/presbrey/pkg",
+  "skills": []
+}
