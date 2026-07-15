@@ -1,43 +1,25 @@
-## bci-mcp
+## git-commits
 
-> Read this file before making git commits or opening PRs in this repository.
+> Git commit rules — never add Co-authored-by trailers
 
-# Agent instructions (Cursor, Claude Code, Copilot, etc.)
 
-Read this file before making git commits or opening PRs in this repository.
+# Git commits
 
-## Git commits — mandatory
+**Never add `Co-authored-by` trailers to commit messages.**
 
-**Do not add `Co-authored-by` trailers to any commit message.**
+This includes and is not limited to:
 
-Forbidden examples:
+- `Co-authored-by: Cursor <cursoragent@cursor.com>`
+- `Co-authored-by: Claude ...`
+- Any other AI or agent co-author line
 
-```
-Co-authored-by: Cursor <cursoragent@cursor.com>
-Co-authored-by: Claude Opus ... <noreply@anthropic.com>
-```
+When committing:
 
-The human author is the only author. AI assistants may help write code and commit messages, but must not be credited in git metadata.
+1. Write the commit message yourself in a HEREDOC or `-m` flag — do not rely on tooling that auto-appends co-authors.
+2. Before pushing, verify with `git log -1 --format='%B'` that no `Co-authored-by:` line is present.
+3. If one appears, amend the commit and remove it before pushing.
 
-Before every push:
-
-```bash
-git log -1 --format='%B' | rg 'Co-authored-by'
-```
-
-If that matches anything, amend the commit and remove the trailer before pushing.
-
-**Cursor injects `Co-authored-by: Cursor <cursoragent@cursor.com>` automatically.** This repo sets `core.hooksPath` to `.githooks/` so `prepare-commit-msg` strips those lines on every commit. After cloning, run:
-
-```bash
-git config core.hooksPath .githooks
-```
-
-## Other conventions
-
-- Run `ruff check src tests && python -m pytest` before PRs.
-- Docs: `pip install -e ".[docs]" && mkdocs build --strict`.
-- See [CLAUDE.md](CLAUDE.md) for architecture and package layout.
+The repository owner does not want AI tools listed as co-authors in git history.
 
 ---
 > Source: [enkhbold470/bci-mcp](https://github.com/enkhbold470/bci-mcp) — distributed by [TomeVault](https://tomevault.io).
