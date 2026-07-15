@@ -1,0 +1,9 @@
+{
+  "name": "oclb--graphld",
+  "displayName": "graphld",
+  "description": "Applications of LD graphical models to GWAS including graphREML",
+  "version": "1.0.0",
+  "author": "oclb",
+  "homepage": "https://github.com/oclb/graphld",
+  "skills": []
+}
