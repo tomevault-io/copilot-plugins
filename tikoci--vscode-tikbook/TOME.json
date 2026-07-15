@@ -4,7 +4,7 @@
   "repo": "vscode-tikbook",
   "description": "VSCode Notebook and Tools for RouterOS \u2014 a literate way to work with scripts & configuration",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tikoci/vscode-tikbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T04:41:25Z"
+  "distributed_at": "2026-07-15T04:43:35Z"
 }
