@@ -7,11 +7,11 @@ A multi-source TUI music player in Rust — ratatui frontend, pluggable channel 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [10knamesmore/Mineral](https://github.com/10knamesmore/Mineral).
+Original source: `CLAUDE.md` in [10knamesmore/Mineral](https://github.com/10knamesmore/Mineral).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
