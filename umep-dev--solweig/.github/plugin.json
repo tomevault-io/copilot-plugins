@@ -1,0 +1,9 @@
+{
+  "name": "umep-dev--solweig",
+  "displayName": "solweig",
+  "description": "Rust implementations of umep functions",
+  "version": "1.0.0",
+  "author": "UMEP-dev",
+  "homepage": "https://github.com/UMEP-dev/solweig",
+  "skills": []
+}
