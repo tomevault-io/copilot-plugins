@@ -1,0 +1,9 @@
+{
+  "name": "enkhbold470--bci-mcp",
+  "displayName": "bci-mcp",
+  "description": "Stream live EEG brain state (focus, calm, attention) from any EEG device into Claude and any MCP client \u2014 a real Model Context Protocol server + brain-computer interface toolkit.",
+  "version": "1.0.0",
+  "author": "enkhbold470",
+  "homepage": "https://github.com/enkhbold470/bci-mcp",
+  "skills": []
+}
