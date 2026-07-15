@@ -1,0 +1,9 @@
+{
+  "name": "wenhq--binwh-quant-pilot",
+  "displayName": "binwh.quant-pilot",
+  "description": "This is a personal learning project focused on exploring and learning quantitative trading using Python. It includes practical examples, tools, and resources for building and testing trading strategie",
+  "version": "1.0.0",
+  "author": "wenhq",
+  "homepage": "https://github.com/wenhq/binwh.quant-pilot",
+  "skills": []
+}
