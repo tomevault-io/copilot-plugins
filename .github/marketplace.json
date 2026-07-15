@@ -162859,6 +162859,21 @@
       "description": "Kiln \u2014 WebAssembly runtime for safety-critical systems. Full Component Model and WASI 0.2 support. Part of the PulseEngine toolchain."
     },
     {
+      "name": "ever-works--directory-web-template",
+      "source": "./ever-works--directory-web-template",
+      "description": "Open-Source Directory Website NextJs Boilerplate (part of Ever\u00ae Works\u2122 Platform) - https://ever.works"
+    },
+    {
+      "name": "keyamasabaya--codepack",
+      "source": "./keyamasabaya--codepack",
+      "description": "CLI tool to extract folder structure and file contents with a directory excluded possibility"
+    },
+    {
+      "name": "ever-works--directory-web-template",
+      "source": "./ever-works--directory-web-template",
+      "description": "Open-Source Directory Website NextJs Boilerplate (part of Ever\u00ae Works\u2122 Platform) - https://ever.works"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -168797,6 +168812,16 @@
       "name": "shulng--recatseedlogin",
       "source": "./shulng--recatseedlogin",
       "description": "ReCatSeedLogin"
+    },
+    {
+      "name": "ever-works--ever-works",
+      "source": "./ever-works--ever-works",
+      "description": "Ever\u00ae Works\u2122 - The Workshop for AI. An open agentic runtime that autonomously researches, ships and maintains content-rich websites and Git repositories - https://ever.works"
+    },
+    {
+      "name": "ever-works--ever-works",
+      "source": "./ever-works--ever-works",
+      "description": "Ever\u00ae Works\u2122 - The Workshop for AI. An open agentic runtime that autonomously researches, ships and maintains content-rich websites and Git repositories - https://ever.works"
     },
     {
       "name": "lucas-acc--sancho-skills",
