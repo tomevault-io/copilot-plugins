@@ -7,11 +7,11 @@ Open-source, self-hosted Claude Code Artifacts on Cloudflare — publish, passwo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [coda0HQ/open-artifacts](https://github.com/coda0HQ/open-artifacts).
+Original source: `AGENTS.md` in [coda0HQ/open-artifacts](https://github.com/coda0HQ/open-artifacts).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
