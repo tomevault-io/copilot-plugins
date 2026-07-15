@@ -4,7 +4,7 @@
   "repo": "shelfdroid",
   "description": "\ud83d\udcda A 3rd-party Android client for Audiobookshelf, bringing your audiobook collection to life with seamless streaming and intuitive controls.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/100nandoo/shelfdroid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T20:31:34Z"
+  "distributed_at": "2026-07-15T20:32:09Z"
 }
