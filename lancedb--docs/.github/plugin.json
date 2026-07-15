@@ -1,0 +1,9 @@
+{
+  "name": "lancedb--docs",
+  "displayName": "docs",
+  "description": "Documentation for LanceDB, the Multimodal Lakehouse for AI",
+  "version": "1.0.0",
+  "author": "lancedb",
+  "homepage": "https://github.com/lancedb/docs",
+  "skills": []
+}
