@@ -7,11 +7,11 @@ An experiment in building modern marine charts. Currently alpha and not to be us
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openwatersio/OpenWaters](https://github.com/openwatersio/OpenWaters).
+Original source: `CLAUDE.md` in [openwatersio/OpenWaters](https://github.com/openwatersio/OpenWaters).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
