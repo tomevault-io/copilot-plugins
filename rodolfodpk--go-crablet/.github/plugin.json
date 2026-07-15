@@ -1,0 +1,9 @@
+{
+  "name": "rodolfodpk--go-crablet",
+  "displayName": "go-crablet",
+  "description": "Trying to implement a DCB event store in Go",
+  "version": "1.0.0",
+  "author": "rodolfodpk",
+  "homepage": "https://github.com/rodolfodpk/go-crablet",
+  "skills": []
+}
