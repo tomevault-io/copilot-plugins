@@ -1,0 +1,9 @@
+{
+  "name": "zethrise--codelookup-skill",
+  "displayName": "CodeLookup-Skill",
+  "description": "The skill that makes the agent take a look at every side of the project!",
+  "version": "1.0.0",
+  "author": "ZethRise",
+  "homepage": "https://github.com/ZethRise/CodeLookup-Skill",
+  "skills": []
+}
