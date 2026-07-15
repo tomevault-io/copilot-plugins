@@ -7,11 +7,11 @@ An AI agent that reads your GitHub issues so you don't have to. Comment /tenet-b
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yashraj-n/tenet](https://github.com/yashraj-n/tenet).
+Original source: `AGENTS.md` in [yashraj-n/tenet](https://github.com/yashraj-n/tenet).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
