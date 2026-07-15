@@ -2,9 +2,9 @@
   "name": "pytest-impacted",
   "owner": "promptromp",
   "repo": "pytest-impacted",
-  "description": "",
+  "description": "A pytest plugin that selectively runs tests affected by codechanges via git introspection, ASL parsing, and dependency graph analysis.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -30,10 +30,15 @@
       "format": "gemini_md",
       "display": "GEMINI.md",
       "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/promptromp",
+  "source_url": "https://github.com/promptromp/pytest-impacted",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T13:59:58Z"
+  "distributed_at": "2026-07-15T08:35:34Z"
 }
