@@ -1,0 +1,9 @@
+{
+  "name": "potistudio--aexlo",
+  "displayName": "aexlo",
+  "description": "Load \"After Effects Effect Plugin (.aex)\" and render them directly without Adobe After Effects. (currently under heavy development)",
+  "version": "1.0.0",
+  "author": "potistudio",
+  "homepage": "https://github.com/potistudio/aexlo",
+  "skills": []
+}
