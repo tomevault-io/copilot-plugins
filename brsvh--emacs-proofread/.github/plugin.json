@@ -1,0 +1,9 @@
+{
+  "name": "brsvh--emacs-proofread",
+  "displayName": "emacs-proofread",
+  "description": "Context-aware LLM proofreading for GNU Emacs",
+  "version": "1.0.0",
+  "author": "brsvh",
+  "homepage": "https://github.com/brsvh/emacs-proofread",
+  "skills": []
+}
