@@ -4,7 +4,7 @@
   "repo": "les-aventuriers-du-de.github.io",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Les-Aventuriers-du-De/les-aventuriers-du-de.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T18:44:46Z"
+  "distributed_at": "2026-07-15T18:45:24Z"
 }
