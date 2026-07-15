@@ -1,0 +1,9 @@
+{
+  "name": "arklabshq--btcpay-arkade",
+  "displayName": "btcpay-arkade",
+  "description": "Arkade BTCPay Server Plugin \u2014 Accept self-custodial Bitcoin payments via Arkade",
+  "version": "1.0.0",
+  "author": "ArkLabsHQ",
+  "homepage": "https://github.com/ArkLabsHQ/btcpay-arkade",
+  "skills": []
+}
