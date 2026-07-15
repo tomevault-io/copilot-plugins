@@ -1,84 +1,95 @@
-## pr-message-format
+## test-strategy
 
-> Applied when creating Pull Requests. Format rules for Prefix + English summary + structured body (overview, changes, test content)
+> Applied when implementing or modifying test code. Rules for creating test perspective tables (equivalence partitioning/boundary values), Given/When/Then format, and coverage targets
 
 
-# PR Message Format Rules
+## Test Strategy Rules
 
-This rule is a guideline that applies to Pull Request (PR) titles and bodies.
+These rules define the testing process that must be followed when implementing or modifying test code. A test task is not considered complete unless all of the following steps are satisfied.
 
-## Position of This Rule
+---
 
-- This rule defines the PR message format in a way that aligns with the commit message convention based on Conventional Commits (`commit-message-format.md`).
-- While recommending the same style for title `Prefix` and summary as commit messages, it requires structured descriptions in the PR body such as "Overview," "Changes," and "Test Content."
-- When reusing in other projects, adjust `language` and required sections (e.g., "Technical Details") according to each project's policy.
+## 1. Test Perspective Table (Equivalence Partitioning / Boundary Values)
 
-## Language Specification
+1. Before starting any test work, you must first present a "test perspectives table" in Markdown format.
+2. The table must include at least the following columns: `Case ID`, `Input / Precondition`, `Perspective (Equivalence / Boundary)`, `Expected Result`, `Notes`.
+3. Rows must cover normal cases, error cases, and boundary value cases. For boundary values, include at minimum `0 / minimum / maximum / ±1 / empty / NULL`.
+   Boundary value candidates (0 / minimum / maximum / ±1 / empty / NULL) that have no meaning in the specification may be omitted with the reason stated in `Notes`.
+4. If you notice missing perspectives later, update the table after self-review and add necessary cases.
+5. Note that for minor modifications to existing tests (message adjustments, minor expected value corrections, etc.) where no new branches or constraints are added, creating/updating the test perspective table is optional.
 
-- In this rule file, `language` is used as a logical name representing the language used in PR messages.
-- `language = "en"`
-- Title and body should be written in the language specified by `language` as a rule.
+### Template Example
 
-## Title (First Line)
+| Case ID | Input / Precondition | Perspective (Equivalence / Boundary) | Expected Result                                | Notes |
+| ------- | -------------------- | ------------------------------------ | ---------------------------------------------- | ----- |
+| TC-N-01 | Valid input A        | Equivalence – normal                 | Processing succeeds and returns expected value | -     |
+| TC-A-01 | NULL                 | Boundary – NULL                      | Validation error (required field)              | -     |
+| ...     | ...                  | ...                                  | ...                                            | ...   |
 
-### Format (Required)
+---
+
+## 2. Test Code Implementation Policy
+
+1. Implement **all** cases listed in the above table as automated tests.
+2. **Always include failure cases equal to or more than normal cases** (validation errors, exceptions, external dependency failures, etc.).
+3. Cover the following perspectives in tests:
+    - Normal cases (main scenarios)
+    - Error cases (validation errors, exception paths)
+    - Boundary values (0, minimum, maximum, ±1, empty, NULL)
+    - Invalid type/format inputs
+    - External dependency failures (API / DB / messaging, etc. when applicable)
+    - Exception types and error messages
+4. Furthermore, aim for 100% branch coverage and design additional cases yourself as needed.
+   100% branch coverage is a target; if not reasonably achievable, at minimum cover branches with high business impact and main error paths.
+   If there are uncovered branches, state the reason and impact in `Notes` or the PR body.
+
+---
+
+## 3. Given / When / Then Comments
+
+Each test case must have the following comment format.
 
 ```text
-<Prefix>: <Summary (imperative/concise)>
+// Given: Preconditions
+// When:  Operation to execute
+// Then:  Expected result/verification
 ```
 
-- `Prefix` is recommended to use `type` from Conventional Commits, same as commit messages (e.g., `feat`, `fix`, `refactor`, `docs`, `chore`, etc.).
-- Write concisely in the language specified by `language`. No period at the end.
-- Briefly express what and why (if necessary), aiming for approximately 50 characters or less.
+Write comments directly above the test code or within steps to keep the scenario traceable for readers.
 
-## Body (Structured Format)
+---
 
-### Recommended Template
+## 4. Exception/Error Verification
 
-PR body is recommended to have the following structured sections.
+1. For cases where exceptions occur, explicitly verify the exception **type** and **message**.
+2. For validation error cases, also verify error codes and field information if available.
+3. When simulating external dependency failures, use stubs/mocks to verify that expected exceptions/retries/fallbacks are called.
 
-```markdown
-## Overview
+---
 
-Summary of what was implemented/fixed in this PR
+## 5. Execution Commands and Coverage
 
-## Changes
+1. At the end of test implementation, always document the **execution command** and **coverage acquisition method** at the end of documentation or PR body.
+    - Examples: `npm run test`, `pnpm vitest run --coverage`, `pytest --cov=...`
+2. Check branch coverage and statement coverage, aiming for 100% branch coverage (if not reasonably achievable, prioritize branches with high business impact and main error paths).
+3. Attach coverage report verification results (screenshots or summaries) where possible.
 
-- Description of change 1
-- Description of change 2
-- Description of change 3
+---
 
-## Technical Details (Optional)
+## 6. Operational Notes
 
-- Implementation details and design intentions as needed
+1. Test diffs that do not conform to this rule will be rejected in review.
+2. Even when there are no external dependencies, **use mocks to simulate failures** for failure cases.
+3. When new branches or constraints are added to the test target specification, update the test perspective table and test code simultaneously.
+4. If there are cases that are difficult to automate, clearly state the reason and alternative means, and reach agreement with reviewers.
+   Alternative means should include at minimum: target functionality and risks, manual verification procedures, expected results, and how to save logs or screenshots.
+5. As a rule, PRs containing meaningful changes to production code (feature additions, bug fixes, refactoring that may affect behavior) must always include corresponding automated test additions or updates.
+6. If adding/updating tests is reasonably difficult, clearly state the reason and alternative verification procedures (manual test procedures, etc.) in the PR body and reach agreement with reviewers.
+7. Even for refactoring not intended to change behavior, verify that the changed areas are sufficiently covered by existing tests, and add tests if insufficient.
 
-## Test Content
+---
 
-- Types of tests performed (unit tests, E2E tests, manual verification, etc.)
-- Results of main behavior verification
-
-## Related Issues
-
-- Closes #123
-- Refs #456
-```
-
-- "Overview" and "Changes" are required in principle; "Technical Details," "Test Content," and "Related Issues" may be made required according to project operation rules.
-- Write bullet points with enough granularity to understand "what," "where," and "why" changes were made.
-
-## Principles for Message Generation
-
-- PR title and body must always be generated from **actual diffs and commit history** (e.g., `git diff`, `git log`) after reviewing their content.
-- Do not guess from issue titles or branch names alone; clearly state change content, impact scope, and test content in the body.
-- Even for automatic generation by AI or scripts, use diffs, commit history, and related Issue information as input.
-- Determine Prefix and summary to align with the commit message convention (`commit-message-format.md`) (avoid semantic inconsistency between commits and PR).
-
-## Prohibited
-
-- Writing title or body only in a language different from that specified by `language`
-- Ambiguous titles that don't convey meaning (e.g., abstract expressions like "update", "fix issue", "changes")
-- Body with only unstructured long text (without section headings or bullet points, making content hard to grasp)
-- Descriptions that differ from actual diffs or intentionally omit important changes, impacts, or test results
+Follow this rule and always self-check for missing perspectives before designing and implementing tests.
 
 ---
 > Source: [agutinbaigo28/financial-agent-api](https://github.com/agutinbaigo28/financial-agent-api) — distributed by [TomeVault](https://tomevault.io).
