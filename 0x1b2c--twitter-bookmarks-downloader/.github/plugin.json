@@ -1,0 +1,9 @@
+{
+  "name": "0x1b2c--twitter-bookmarks-downloader",
+  "displayName": "twitter-bookmarks-downloader",
+  "description": "A robust, self-hosted system to sync, archive, and explore your Twitter/X bookmarks locally.",
+  "version": "1.0.0",
+  "author": "0x1b2c",
+  "homepage": "https://github.com/0x1b2c/twitter-bookmarks-downloader",
+  "skills": []
+}
