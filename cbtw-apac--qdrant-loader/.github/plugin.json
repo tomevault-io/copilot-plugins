@@ -1,0 +1,9 @@
+{
+  "name": "cbtw-apac--qdrant-loader",
+  "displayName": "qdrant-loader",
+  "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen",
+  "version": "1.0.0",
+  "author": "cbtw-apac",
+  "homepage": "https://github.com/cbtw-apac/qdrant-loader",
+  "skills": []
+}
