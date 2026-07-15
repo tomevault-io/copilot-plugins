@@ -33,5 +33,5 @@ Use these notes so Copilot stays aligned with the Radial Timeline Obsidian plugi
 - Gossamer scoring: `Gossamer1` is oldest; higher numbers are newer and appended sequentially.
 
 ---
-> Source: [EricRhysTaylor/Radial-Timeline](https://github.com/EricRhysTaylor/Radial-Timeline) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+> Source: [EricRhysTaylor/radial-timeline](https://github.com/EricRhysTaylor/radial-timeline) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-15 -->
