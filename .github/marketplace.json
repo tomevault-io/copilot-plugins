@@ -157734,6 +157734,16 @@
       "description": "Xkernel: Principled Performance Tunability of Operating System Kernels."
     },
     {
+      "name": "icelab-research--icelab-core",
+      "source": "./icelab-research--icelab-core",
+      "description": "Make voice AI better"
+    },
+    {
+      "name": "icelab-research--icelab-core",
+      "source": "./icelab-research--icelab-core",
+      "description": "Make voice AI better"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -175602,6 +175612,16 @@
       "name": "lifan-builds--perks-reminder",
       "source": "./lifan-builds--perks-reminder",
       "description": "perks-reminder"
+    },
+    {
+      "name": "kirodotdev-labs--kiro-action",
+      "source": "./kirodotdev-labs--kiro-action",
+      "description": "GitHub Action for Kiro"
+    },
+    {
+      "name": "zuojuzhang--my-claude-code-agent-config",
+      "source": "./zuojuzhang--my-claude-code-agent-config",
+      "description": "claude code config"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -207557,6 +207577,11 @@
       "name": "iantbutler01--chevalier",
       "source": "./iantbutler01--chevalier",
       "description": "Rust/TS/Py library for AI agents that feels semantically like the language, not a custom DSL. Type-driven outputs with production-ready observability and error handling."
+    },
+    {
+      "name": "irisworks--iris-core",
+      "source": "./irisworks--iris-core",
+      "description": "iris-core"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -245749,6 +245774,41 @@
       "description": "\u7b80\u5355\u7684Cloudflare Worker\u8bbf\u95ee\u91cf\u7edf\u8ba1"
     },
     {
+      "name": "parob--graphql-mcp",
+      "source": "./parob--graphql-mcp",
+      "description": "graphql-mcp"
+    },
+    {
+      "name": "keiji--android-device-integrity",
+      "source": "./keiji--android-device-integrity",
+      "description": "android-device-integrity"
+    },
+    {
+      "name": "minhmc2007--custom-super-maker",
+      "source": "./minhmc2007--custom-super-maker",
+      "description": "Easiest way to build super.img contain your favorite custom rom (Samsung)"
+    },
+    {
+      "name": "umep-dev--solweig",
+      "source": "./umep-dev--solweig",
+      "description": "Rust implementations of umep functions"
+    },
+    {
+      "name": "parob--graphql-mcp",
+      "source": "./parob--graphql-mcp",
+      "description": "graphql-mcp"
+    },
+    {
+      "name": "gin-contrib--slog",
+      "source": "./gin-contrib--slog",
+      "description": "Gin middleware for slog logger"
+    },
+    {
+      "name": "fastled--fbuild",
+      "source": "./fastled--fbuild",
+      "description": "A blazing fast build tool for Esp32, Teensy, Avr, Nrf, Raspberri PI, Stm, Mgm240 and more."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -267984,6 +268044,26 @@
       "description": "Agent-Context-Template"
     },
     {
+      "name": "wellknownmcp--cortex-gateway",
+      "source": "./wellknownmcp--cortex-gateway",
+      "description": "Federated MCP gateway: one OAuth 2.1-protected, spec-compliant MCP server in front of all your apps. Backends stay plain HTTP (~120-line contract) or proxied native MCP servers with a per-user token v"
+    },
+    {
+      "name": "windanddream--boss-auto-greeting",
+      "source": "./windanddream--boss-auto-greeting",
+      "description": "\u57fa\u4e8e\u7be1\u6539\u7334/\u6cb9\u7334\u7684boss\u76f4\u8058\u81ea\u52a8\u6253\u62db\u547c\u811a\u672c"
+    },
+    {
+      "name": "famecodeteam--hackinglinkedin",
+      "source": "./famecodeteam--hackinglinkedin",
+      "description": "How to hack LinkedIn..."
+    },
+    {
+      "name": "lu-christina--persona-subspace",
+      "source": "./lu-christina--persona-subspace",
+      "description": "persona-subspace"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -272622,6 +272702,26 @@
       "name": "omartelo--lich",
       "source": "./omartelo--lich",
       "description": "lich"
+    },
+    {
+      "name": "vagkaratzas--token-saviour",
+      "source": "./vagkaratzas--token-saviour",
+      "description": "Agent skill that routes each coding task to the most token-efficient tool per layer: serena for code reads, rtk for command output, caveman for prose, Ponytail for generated code \u2014 \u221270% tokens measure"
+    },
+    {
+      "name": "hitsub--soundcloud-extension",
+      "source": "./hitsub--soundcloud-extension",
+      "description": "soundcloud-extension"
+    },
+    {
+      "name": "anandsaini18--deadskills",
+      "source": "./anandsaini18--deadskills",
+      "description": "\ud83d\udc80 Find the agent skills you never use. Local-first analytics for Claude Code & Codex skills."
+    },
+    {
+      "name": "lucasolopes--quark",
+      "source": "./lucasolopes--quark",
+      "description": "quark"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
