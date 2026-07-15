@@ -1,0 +1,9 @@
+{
+  "name": "mxcl--package-manager-manager",
+  "displayName": "package-manager-manager",
+  "description": "How many Packages would a Package Manager manage if a Package Manager could manage Package Managers?",
+  "version": "1.0.0",
+  "author": "mxcl",
+  "homepage": "https://github.com/mxcl/package-manager-manager",
+  "skills": []
+}
