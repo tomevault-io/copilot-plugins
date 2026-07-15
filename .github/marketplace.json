@@ -90054,6 +90054,56 @@
       "description": "Thundering Herd replication and Thanos Snap durability, together at last"
     },
     {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "cbtw-apac--qdrant-loader",
+      "source": "./cbtw-apac--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -93817,6 +93867,16 @@
       "name": "seloslav--medieval-settlement-threejs",
       "source": "./seloslav--medieval-settlement-threejs",
       "description": "Three.js medieval settlement sandbox: procedural hills, forest, and rivers. Curved dirt roads with PBR wear blending, wooden bridges, and junctions. Place mills, quarries, reforesters, and burgage res"
+    },
+    {
+      "name": "plttn--tide",
+      "source": "./plttn--tide",
+      "description": "\ud83c\udf0a The ultimate Fish prompt."
+    },
+    {
+      "name": "plttn--tide",
+      "source": "./plttn--tide",
+      "description": "\ud83c\udf0a The ultimate Fish prompt."
     },
     {
       "name": "66reapollo2--agentsge",
@@ -137774,6 +137834,11 @@
       "description": "Make your Laravel architecture explicit, deterministic, and analyzable. Extended Laravel Application with topological service provider ordering and enhanced lifecycle."
     },
     {
+      "name": "timothywarner-org--ai103",
+      "source": "./timothywarner-org--ai103",
+      "description": "Exam AI-103: Developing AI Apps and Agents on Azure (Video) Course Repository"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -162692,6 +162757,11 @@
       "name": "wvlet--uni",
       "source": "./wvlet--uni",
       "description": "Essential utilities, refined for Scala 3 with minimal dependencies"
+    },
+    {
+      "name": "randileeharper--kirishima",
+      "source": "./randileeharper--kirishima",
+      "description": "Kirishima AI"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -246174,6 +246244,51 @@
       "description": "SnapSort is a cross-platform desktop application for offline, face-based image sorting and viewing."
     },
     {
+      "name": "maxxfuu--kernel-visualization",
+      "source": "./maxxfuu--kernel-visualization",
+      "description": "A kernel visualization that walks through each step of the code. "
+    },
+    {
+      "name": "harleycoops--math-to-manim-ch",
+      "source": "./harleycoops--math-to-manim-ch",
+      "description": "Create Epic Math and Physics animations from simple text prompts, now in Mandarin!"
+    },
+    {
+      "name": "lstoneyy--sonus",
+      "source": "./lstoneyy--sonus",
+      "description": "This is a spotify-downloader with a responsive web Interface completely self-hostable via docker-compose, which monitors playlists automatically."
+    },
+    {
+      "name": "sorryhumans--clawdmeter-plus",
+      "source": "./sorryhumans--clawdmeter-plus",
+      "description": "A round AMOLED desk display for your live Claude Code usage, weather, background-agent health, and a daily voice greeting. ESP32-S3 + macOS BLE daemon. Fork of Clawdmeter."
+    },
+    {
+      "name": "lancedb--docs",
+      "source": "./lancedb--docs",
+      "description": "Documentation for LanceDB, the Multimodal Lakehouse for AI"
+    },
+    {
+      "name": "deepl--api-docs",
+      "source": "./deepl--api-docs",
+      "description": "Source code of the DeepL API documentation"
+    },
+    {
+      "name": "mronlinecoder--seamlessnodejstemplate",
+      "source": "./mronlinecoder--seamlessnodejstemplate",
+      "description": "Very opinionated Node.js template"
+    },
+    {
+      "name": "lancedb--docs",
+      "source": "./lancedb--docs",
+      "description": "Documentation for LanceDB, the Multimodal Lakehouse for AI"
+    },
+    {
+      "name": "xpander-ai--apps-by-agents",
+      "source": "./xpander-ai--apps-by-agents",
+      "description": "apps-by-agents"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -268527,6 +268642,16 @@
       "name": "wonsukchoi--domain-experts",
       "source": "./wonsukchoi--domain-experts",
       "description": "all human experts into AI agents"
+    },
+    {
+      "name": "indiesoftby--defold-simplex-noise",
+      "source": "./indiesoftby--defold-simplex-noise",
+      "description": "defold-simplex-noise"
+    },
+    {
+      "name": "dealer-s-choice--dealers-choice",
+      "source": "./dealer-s-choice--dealers-choice",
+      "description": "A cross-platform, networked multiplayer poker game supporting draw, stud, and community-card variants, including Texas Hold'em and Omaha, with optional wild cards"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -398162,6 +398287,26 @@
       "name": "e-db--core",
       "source": "./e-db--core",
       "description": "core"
+    },
+    {
+      "name": "pattyalex--brand-journey-tracker",
+      "source": "./pattyalex--brand-journey-tracker",
+      "description": "brand-journey-tracker"
+    },
+    {
+      "name": "an-cheon--an-cheon-github-io",
+      "source": "./an-cheon--an-cheon-github-io",
+      "description": "An-Cheon.github.io"
+    },
+    {
+      "name": "yola1107--speaker",
+      "source": "./yola1107--speaker",
+      "description": "speaker"
+    },
+    {
+      "name": "benfreking123--custominventoryplugin",
+      "source": "./benfreking123--custominventoryplugin",
+      "description": "CustomInventoryPlugin"
     }
   ]
 }
