@@ -1,0 +1,9 @@
+{
+  "name": "airscripts--gitfleet",
+  "displayName": "gitfleet",
+  "description": "Command every repository as one fleet.",
+  "version": "1.0.0",
+  "author": "airscripts",
+  "homepage": "https://github.com/airscripts/gitfleet",
+  "skills": []
+}
