@@ -1,0 +1,14 @@
+{
+  "name": "xxtluuu--openclaw-sensevoice",
+  "displayName": "openclaw-sensevoice",
+  "description": "\u26a1 Offline speech-to-text plugin for OpenClaw \u2014 1s cold start, 228MB model, Chinese-optimized. Powered by SenseVoice + Rust + ONNX Runtime. \u79bb\u7ebf\u8bed\u97f3\u8f6c\u6587\u5b57\u63d2\u4ef6\uff0c\u79d2\u7ea7\u54cd\u5e94\uff0c\u4e2d\u6587\u4f18\u5316\uff0c\u652f\u6301\u4e2d/\u82f1/\u65e5/\u97e9/\u7ca4\u4e94\u8bed\u3002",
+  "version": "1.0.0",
+  "author": "xxtluuu",
+  "homepage": "https://github.com/xxtluuu/openclaw-sensevoice",
+  "skills": [
+    {
+      "name": "sensevoice-stt",
+      "description": ""
+    }
+  ]
+}
