@@ -1,0 +1,9 @@
+{
+  "name": "weinstocklab--gwasplot",
+  "displayName": "gwasplot",
+  "description": "High Performance GWAS Plotting and Annotation",
+  "version": "1.0.0",
+  "author": "weinstocklab",
+  "homepage": "https://github.com/weinstocklab/gwasplot",
+  "skills": []
+}
