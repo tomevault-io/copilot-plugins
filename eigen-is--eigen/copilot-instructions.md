@@ -1,0 +1,390 @@
+## eigen
+
+> Handles file CRUD, path resolution, storage key building. Three storage backends: `local` (hierarchical
+
+# AGENTS.md — Eigen Project Context
+
+Eigen is a self-hosted Google Workspace alternative. Monorepo with integrated apps sharing a single API server, UI
+library, and business logic layer.
+
+## Tech Stack
+
+- **Runtime**: Bun (server + client)
+- **Backend**: Elysia + Drizzle ORM (SQLite)
+- **Frontend**: React 19 + TypeScript + TanStack Router + TanStack Query + Eden Treaty (type-safe API client)
+- **UI**: Tailwind CSS 4 + shadcn/ui + Lucide React
+- **Auth**: better-auth (email/password, 2FA, orgs, teams)
+- **Real-time**: Yjs (collab editing), WebSocket, SSE (notifications)
+
+## Project Structure
+
+```
+apps/
+  api/          # Elysia backend (port 8000)
+  mail/         # Email client
+  drive/        # File storage
+  docs/         # Document editor (Yjs/Tiptap)
+  contacts/     # Contact management
+  calendar/     # Calendar + scheduling
+  chat/         # Real-time chat (MUD-inspired)
+  stickies/     # Kanban board (Yjs)
+  slides/       # Presentations (Yjs)
+  sheets/       # Spreadsheets (sheet engine + Yjs)
+  space/        # Team workspace
+  admin/        # Org/team admin + first-run setup wizard
+  index/        # Landing page
+
+packages/
+  lib/          # @workspace/lib — shared types, hooks, API client, SSE handlers, validation
+  ui/           # @workspace/ui — shared shadcn components, layout system
+  sheet/         # Spreadsheet engine + UI (forked from fortune-sheet/luckysheet)
+
+data/           # Runtime storage (databases, user files)
+docs/           # Architecture documentation
+```
+
+## Development
+
+```bash
+bun run serve          # All apps + API
+bun serve:mail         # Single app + API
+bun run lint           # Lint + format check (biome)
+bun run lint:fix       # Auto-fix lint + format issues
+bun run typecheck      # Type check all packages
+bun run test           # API integration tests
+bun run check          # lint + typecheck + test
+```
+
+### Critical Rules
+
+- **No AI co-author trailers in commits** — never add `Co-authored-by: Claude/Copilot/...` lines to commit
+  messages, even if your tooling defaults to it
+- **Read [CODE-STANDARDS.md](docs/CODE-STANDARDS.md) before writing code** — defines typing rules, code style,
+  common LLM mistakes with BAD/GOOD examples, and the **self-review checklist**. Must be followed before declaring
+  any task complete
+- **Read existing code before writing new code** — read 2-3 existing files in the same directory. Match their style,
+  structure, naming, and patterns exactly. New code must look like it was always there
+- **Search [SHARED-PRIMITIVES.md](docs/SHARED-PRIMITIVES.md) before building a shared hook, component, type, or
+  util** — the generated index of everything `packages/ui` + `packages/lib` export. Import what already exists;
+  if it's missing, export it from the package barrel so it gets catalogued. `bun run primitives` regenerates it
+- **Read relevant docs before planning or coding** — check `docs/` for architecture docs on the domain you're
+  touching (e.g., `docs/COMMENTS.md` before adding comment features, `docs/EXPORT.md` before changing export).
+  Don't assume you know the conventions — verify them
+- **Always run `bun run check`** after changes (lint + typecheck + test). When multiple agents run in parallel,
+  only the main agent should run check — concurrent runs cause deadlocks
+- **Code goes in the right layer** — hooks/mutations in `packages/lib/src/core/[domain]/hooks/`, shared types in
+  `packages/lib/src/types/`, shared UI in `packages/ui/`, app-specific code in `apps/`. Rule of thumb: if two or
+  more apps need it, it belongs in `packages/`. Never put `useQuery`, `useMutation`, error toasts, or `try/catch` +
+  `toast.error()` in app components — all error handling lives in hooks using `onMutationError`.
+  See [NOTIFICATIONS.md](docs/NOTIFICATIONS.md)
+- **Package dependency direction is one-way: `sheet → lib`, never the reverse.** `packages/lib` is shared
+  FE+BE; `packages/sheet` has React peer dependencies and DOM-coupled modules. If lib imported sheet,
+  the BE would transitively pull React in at module-eval time. Shared sheet types (`Cell`, `Sheet`, `Op`,
+  `CellMatrix`, `Range`, `SingleRange`, `ConditionalFormatRule`, …) live in `packages/lib/src/sheets/types.ts`;
+  the sheet package's `engine/types.ts` and `state/types.ts` re-export them. Sheet utilities that need to be importable
+  by both FE and BE (e.g. `opToPatchOnSheets`) live in `packages/lib/src/sheets/`
+- **Don't break the type chain** — types flow from Elysia route handlers → Eden Treaty → hooks → components
+  automatically. No `as any`, no `as Type` casts. Fix types at the source (add return type annotations to backend
+  handlers using shared types from `packages/lib/src/types/`). See CODE-STANDARDS.md § Typing
+- **Backend errors use `ApiError`** — `throw new ApiError(status, message)` for HTTP errors.
+  `throw new Error()` only for internal invariants (db not open, missing config)
+- **Think about every `await`** — a bare async call returns a truthy Promise (dangerous in conditionals: `if
+  (!asyncFn())` is always false). Fire-and-forget must have `.catch()`. Skip `await` when blocking would hurt
+  response time and failure is acceptable
+- **Sanitize user-provided paths** — validate against `..`, `/`, and control characters before filesystem or
+  header use. Never interpolate raw user input into HTTP headers
+- **Check existing code before writing new** — shared components in `packages/ui/src/components/layout/`
+  (`TooltipButton`, `DeleteDialog`, `EmptyState`, etc.), utilities in `packages/lib/` (`cn()`, `formatDate`,
+  shared types). Don't reinvent them. See [LAYOUT.md](docs/LAYOUT.md)
+- **One source of truth per fact** — a set, map, schema, or constant that answers a question (which
+  extensions are text-editable? which MIME is a spreadsheet? what's a valid S3 config?) lives in exactly
+  one module. Import it; never re-list its members inline "just for here." Two lists of one fact drift
+  (we shipped three disagreeing "is this text?" registries). Need a subset? Derive it from the canonical one
+- **A primitive isn't "shared" until its barrel exports it** — reusable values go through the package's
+  public entry (`@workspace/ui`, `@workspace/lib/<domain>`), reusable types through
+  `@workspace/lib/types/<domain>`. An unexported primitive is invisible to the next author, who rebuilds it.
+  The inverse is also a smell: deep-importing past a barrel (`@workspace/lib/core/…`) usually means the
+  thing you reached for should have been exported
+- **Fix broken windows** — fix pre-existing issues if the fix is straightforward
+- **Self-review before declaring done** — review your diff against the checklist in CODE-STANDARDS.md
+- **Keep docs up to date** — update `docs/` and this file when changes affect architecture
+
+## Working Method (multi-step changes)
+
+The standard way to run feature work, proven over the sheets xlsx-fidelity program (cycles 0–8)
+and the 2026-07 sheet-package cleanup program.
+Scale it to the job: a one-line fix needs none of this, a feature needs most of it, a program
+of changes needs all of it.
+
+1. **Evidence first, spec sign-off before code** — start multi-step work with an audit pass on
+   real data (a gap matrix with measured counts, not assumptions), then a written spec with
+   explicit decision points, and get sign-off BEFORE implementing. Local-only artifacts (specs,
+   audits, verification screenshots) live in gitignored `docs/superpowers/`.
+2. **Own branch per unit of work** — merge `--no-ff` to main only when verified; never push
+   without an explicit go. If the main checkout is busy (another session), work from a git
+   worktree.
+3. **TDD, red first** — a failing test before the implementation, always. Tests pin the
+   CONTRACT (full round-trips, output-level assertions), never library internals; they are the
+   committed regression net.
+4. **Delegate to subagents with complete briefs — keep the controller context small.** The
+   orchestrating session plans, briefs, reviews results, and merges; implementation, review,
+   and browser verification each run in their OWN subagent so no single context drowns in file
+   dumps. Every brief includes: required reading (this file + `docs/CODE-STANDARDS.md` + 2–3
+   sibling files in the target dir), exact file pointers and encodings, scoped test commands,
+   and the hard rules — stay strictly in scope, diagnose failures by reading source (never
+   blind-retry), never `git push`.
+5. **Independent review before merge** — a reviewer subagent that did NOT write the code, in
+   two stages: spec compliance first, then quality (bugs, edge cases, conventions). Signal over
+   volume: report only genuinely real findings; "clean" is a valid verdict.
+6. **Real-world verification is mandatory** — drive the running dev app headless against REAL
+   documents with a throwaway test user, and read the screenshots: verdicts come from pixels
+   plus behavioral probes (scroll, click, reload-persistence), not from data-shape assertions
+   alone. Data pipelines verify as closed round-trips with feature counts; pure refactors are
+   pixel-gated (byte-identical screenshots before/after); files consumed by external software
+   (xlsx, ics, eml, …) get spot-opened in the real consumer. Full recipe — test-user
+   conventions, auth cookie injection, upload/convert API, HMR workarounds — in
+   [VERIFICATION.md](docs/VERIFICATION.md).
+7. **Simplify pass after** — review the whole diff from four angles (reuse, simplification,
+   efficiency, altitude), apply what's worth it, and re-gate with the same tests/pixels.
+   Per-step reviews catch local issues; this pass catches cross-cutting drift.
+8. **Docs in the same cycle** — update the domain doc and any status/backlog before calling the
+   work done; record accepted drifts and out-of-scope decisions where the next session will
+   look for them.
+9. **Design changes go in small rounds** — one or two visual changes at a time, screenshots
+   first, a human verdict before merge.
+
+## Architecture Patterns
+
+### Backend
+
+| Concept               | Location                                     | Pattern                                                                                                    |
+|-----------------------|----------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| **Home singleton**    | `apps/api/src/lib/home/home.ts`              | Per-user instance managing DB connections + domain services. Subclasses: `UserHome`, `TeamHome`, `OrgHome` |
+| **Domain classes**    | `apps/api/src/lib/[domain]/[domain].ts`      | Business logic (Drive, Mail, Contacts, Calendar, ChatRoom)                                                 |
+| **Routes**            | `apps/api/src/routes/[domain].ts`            | Thin Elysia routers, `{auth: true}` for protected                                                          |
+| **DB schemas**        | `apps/api/src/lib/[domain]/schema.ts`        | Drizzle ORM schemas                                                                                        |
+| **DB config**         | `apps/api/src/lib/[domain]/db-config.ts`     | `DatabaseConfig` with versioned migrations                                                                 |
+| **ManagedDatabase**   | `apps/api/src/lib/core/managed-database.ts`  | WAL mode, versioning, auto-sync, dirty tracking                                                            |
+| **Collab storage**    | `apps/api/src/lib/collab/`                   | Yjs updates/snapshots in `data.db` BLOBs; zstd-compressed at the storage seam (`blob-codec.ts`), BC via zstd magic-byte sniff; live WS sync unaffected |
+| **Storage backends**  | `apps/api/src/lib/storage/`                  | Two classes — `LocalStorage` (serves both `local` + `local-key` modes) and `S3Storage`                     |
+| **Errors**            | `apps/api/src/lib/core/errors.ts`            | `throw new ApiError(status, message)`                                                                      |
+| **SSE emission**      | `apps/api/src/lib/[domain]/sse-events.ts`    | `home.broadcast(buildEvent(...))`                                                                          |
+| **Notifications**     | `apps/api/src/lib/notification-center/`      | `home.notifications.persist({...})` — per-user SQLite, broadcasts SSE; rows carry typed `details` JSON (v2 migration) for the activity-row secondary line + deep-link params; chat-derived bodies persist raw and render through `formatChatPreview` — row strings/links in [ACTIVITY-ROWS.md](docs/ACTIVITY-ROWS.md) |
+| **Auth**              | `apps/api/src/lib/auth/auth.ts`              | better-auth with org/team/2FA/API key plugins                                                              |
+| **Protocol auth**     | `apps/api/src/lib/auth/protocol-auth.ts`     | `verifyProtocolAuth()` — shared IMAP/CalDAV/WebDAV auth (app password → primary password fallback)         |
+| **WebDAV**            | `apps/api/src/lib/webdav/`                   | RFC 4918 Class 1+2 server at `/webdav/:ownerId/:mountId/*`; mirrors CalDAV layer                           |
+| **Server config**     | `apps/api/src/lib/config/server-config.ts`   | Identity + secrets written once at setup (`domain`, `orgName`, `orgId`, `secret`, `setupCompleted`)        |
+| **Server settings**   | `apps/api/src/lib/config/server-settings.ts` | Runtime-adjustable quotas, storage default (`defaults.mount.{storageType,s3Config}`), onboarding, guests   |
+| **Quota resolution**  | `apps/api/src/lib/config/quota.ts`           | `resolveUserQuotas()` — server default + team overrides (most permissive wins)                             |
+| **Quota enforcement** | `apps/api/src/lib/config/enforcement.ts`     | `getUploadMaxSize`, `enforceAvatarUpload`                                                                  |
+| **Mailer**            | `apps/api/src/lib/core/mailer.ts`            | `sendMail(OutboundMail)` — sendmail transport, skips in dev, supports replyTo/attachments                  |
+| **Environment**       | `apps/api/src/lib/config/env.ts`             | `isProduction()` — checks `PRODUCTION=1` or `NODE_ENV=production`                                         |
+| **Singleton factory** | `apps/api/src/utils/singleton.ts`            | `createAsyncSingleton()` for Home/DB instances                                                             |
+| **Home relay**        | `apps/api/src/lib/home/home-relay.ts`        | Cross-home messaging via `sendToHome()`; reads via `pull*()`. See [SCALABILITY.md](docs/SCALABILITY.md)    |
+| **Scheduler**         | `apps/api/src/lib/scheduler/`                | `scheduleInterval(name, ms, fn)` for in-process periodic jobs; register in `jobs.ts`                       |
+| **Upload pipeline**   | `apps/api/src/lib/mount/upload-queue.ts` + `lib/sync/` + `Mount` `pending_uploads` | Write-behind S3 uploads. `isRemote` mounts stage a frozen `VACUUM INTO` copy + enqueue in `metadata.db`; a per-mount `UploadQueue` drains it off the request path (per-destination concurrency limiter + self-scheduled retry/backoff); failures replay on restart/reopen. `local`/`local-key` stay synchronous. See [SYNC.md](docs/SYNC.md) |
+| **Versioning**        | `apps/api/src/lib/versioning/`               | File-level snapshots in `<container>/versions/<iso-ts>.db`. Trigger: opt-in `snapshot` config fires `ManagedDatabase.snapshotIfDue()` from `tick()`/`close()`. Mechanic in `versioning/snapshot.ts` (functions over the mount; `Mount` keeps the facades): `snapshotContainerDataDb` (self-locked on the container; save/pre-restore block, while the timer/close paths go through `trySnapshotContainerDataDb` — skip-if-contended, so a close can never park on a held container lock) and `replaceContainerDataDb` (overwrites chat data.db bytes in place). Orchestration in `versioning/restore.ts`: grab the target into the OS temp dir, pre-restore snapshot, then Yjs surgery vs chat byte-overwrite — no lock held across steps, nothing staged inside the container. Routes live in the drive router (`routes/drive.ts`): `/drive/:o/:m/file/:p/versions[/save | /:name/restore]` |
+| **Copy / move**       | `apps/api/src/lib/drive/copy-across.ts`      | Move stays in-mount (`Drive.movePath`). Copy goes anywhere: same owner+mount uses the fast same-storage `Drive.copyPath`→`Mount.copyPath` (recursive, container-aware); cross-mount/owner uses the recursive bridge `copyPathAcross` (download + `createFileFromData` per node, `createFolder` typed for containers). Containers copy safely by design — eigen-doc containers reference internal children by NAME not pathId, so a byte copy is a valid independent doc; copy flushes the live `data.db` first and skips the `versions/` snapshot folder. Route `POST /drive/:o/:m/path/:p/copy` (body `{targetOwnerId, targetMountId, targetParentId, name?}`) picks fast-path vs bridge, dedups the destination name at the route level (kept out of `Drive.copyPath` so WebDAV COPY keeps overwrite/409 semantics), and rejects copying/moving a folder into its own subtree via `Mount.isSelfOrDescendant`. Cross-mount MOVE is deferred (would change `ownerId/mountId/pathId`, breaking shares/links/history) |
+| **File history + watch** | `apps/api/src/lib/drive/history.ts`       | `FileHistory`, owned by `Mount` (`file_events` + `path_watchers` in `metadata.db`, v5). Drive mutations record typed events when an actor (`user?: User`) is threaded — no actor, no row. Watchers (read-gated, folder watches cascade via ancestor CTE) get notifications through `home-relay` with per-watcher ACL re-verification against the chain captured **before** the mutation (trash/move re-parent). Burst events (`created`/`uploaded`/`copied`) tag the parent folder; `NotificationCenter.persist({coalesce})` suppresses toast storms. Both the watcher notification and the *Recent Activity* panel phrase events through the shared `describeFileEvent` (`packages/lib/src/types/file-history.ts` → `{action, primary, secondary}` lines) — the server prefixes the actor name, the panel prepends a `UserNameCard`/"You". Collab `'edited'` rows are attributed via `CollabDocument`'s conn→user map (10-min throttle/user), except stickies boards, which skip `'edited'` entirely — every board action already records a specific `sticky-*`/comment event. Container-internal entities (per-card comment threads, attachment media inside an eigendoc/chat container) are kept out of the timeline by `FileHistory.isContainerInternal`. Client-emitted semantic events (`sticky-{added,moved,removed}` — only types carrying a card name) POST to `path/:p/history` (write-gated, allowlisted); lower-signal structural verbs (slide/sheet/doc ops) are deferred to the future in-doc-history feature, which surfaces them via the generic `'edited'` until then — see `docs/PROPOSAL_FILE_HISTORY.md`. `'commented'` is recorded by `ChatRoom.postMessage` for every eigendoc type + standalone chats. Recording a file event also broadcasts a `drive:file-history-updated` SSE event to the owner + effective-member homes (`broadcastFileHistoryUpdated` in `drive/sse-events.ts`, fire-and-forget via `sendToHome`, mirroring `broadcastCommentIndexUpdated`) that invalidates the client file-history queries, so open Activity panels refresh live (trash/move/copy keep their own inline record + drive-event broadcast). Routes: `path/:p/history` (GET/POST), `path/:p/watch` (POST/DELETE/GET), `/drive/:o/watches`. FE hooks in `packages/lib/src/core/drive/hooks/use-{file-history,watch}.ts`; UI: `RecentActivity` (drive detail), `ActivityPanel` (side panel in the four eigendoc editors via `DocumentShareCluster`'s Activity toggle, 50 events; shares `ActivityEventList` with `RecentActivity`), `WatchToggleButton` (toolbars), Watched view (`apps/drive/src/routes/_auth.watched.tsx`) |
+
+#### Drive Architecture
+
+The Drive system has four layers. When adding new features, all four need changes:
+
+```
+Route (thin handler)  →  SharedDrive (ACL wrapper)  →  Drive (business logic)  →  Mount (storage + DB)
+```
+
+- **Mount** (`apps/api/src/lib/mount/mount.ts`): Core storage operations on a single mount's `metadata.db`.
+  Handles file CRUD, path resolution, storage key building. Three storage backends: `local` (hierarchical
+  paths), `local-key` (flat UUID keys), `s3` (S3-compatible). Trash, copy, search-index and the managed
+  document-DB lifecycle live in sibling `mount/*.ts` modules (plain functions over the mount — `Mount`
+  stays the facade); versioning mechanics in `versioning/snapshot.ts`
+- **Drive** (`apps/api/src/lib/drive/drive.ts`): High-level API over multiple mounts. Handles ACL
+  propagation, collab document lifecycle, SSE emission, sharing
+- **SharedDrive** (`apps/api/src/lib/drive/sharedDrive.ts`): ACL-enforcing wrapper, composition over
+  inheritance — does NOT extend Drive. `getSharedDrive()` returns `Drive | SharedDrive`; routes can only
+  call methods present on both, so adding a public method to `Drive` without a matching `SharedDrive`
+  wrapper is a TS error at the callsite. Own-drive routes get raw Drive (no ACL overhead); cross-owner
+  routes get SharedDrive (ACL-checked).
+  **Escape hatch**: a small number of routes (`/shared/by-me`, `/shared/with-me`) need owner-only Drive
+  methods that have no meaningful ACL semantics. They `requireSelf(params.ownerId, user.id)` first and
+  then call `getDrive(user)` to obtain raw Drive — bypassing the SharedDrive surface. The drive.ts
+  class doc explains which methods are non-route-callable (annotated `// Called by:` — invoked by peer
+  lib code like collab/chat/home-relay, not from routes). If you add a route that needs one of those,
+  add a SharedDrive wrapper first, don't reach for the escape hatch
+- **Routes** (`apps/api/src/routes/drive.ts`): Thin Elysia handlers that delegate via `getSharedDrive`
+
+### Frontend
+
+| Concept            | Location                                              | Pattern                                                    |
+|--------------------|-------------------------------------------------------|------------------------------------------------------------|
+| **API client**     | `packages/lib/src/core/api.ts`                        | Eden Treaty — type-safe from Elysia definitions            |
+| **Data hooks**     | `packages/lib/src/core/[domain]/hooks/`               | TanStack Query with hierarchical query keys                |
+| **SSE handlers**   | `packages/lib/src/core/[domain]/sse-handlers.ts`      | Invalidate query cache on events                           |
+| **Shared types**   | `packages/lib/src/types/[domain].ts`                  | Used by both FE and BE                                     |
+| **Validation**     | `packages/lib/src/validation/`                        | Shared FE/BE validation                                    |
+| **Colors**         | `packages/lib/src/constants/colors.ts`                | `EIGEN_COLORS`, `EIGEN_ACCENT_COLORS`                      |
+| **Yjs utilities**  | `packages/lib/src/core/collab/yjs-utils.ts`           | `restoreYjsDoc` — server-side only (used by `CollabDocument.applySnapshotState` during version restore to replace the live Y.Doc's declared roots inside one transaction, so connected editors converge with no reload). Handles Y.Map, Y.Array, Y.Text, and Y.XmlFragment/Tiptap, with arbitrary nesting |
+| **App shell**      | `packages/ui/src/components/layout/app/app-shell.tsx` | Wraps every app (Topbar + sidebar + content)               |
+| **Provider stack** | `packages/ui/src/components/layout/app/eigen-app.tsx` | Auth → SSE → Upload → Preview → CommandPalette → Toaster   |
+| **Layout**         | `packages/ui/src/components/layout/app/column-layout.tsx` | `ColumnLayout` + `Column` with responsive mobile switching |
+| **Routing**        | `apps/[name]/src/routes/`                             | TanStack Router, file-based. `_auth.tsx` guards            |
+| **Command palette**| `packages/lib/src/core/command-palette/` + `packages/ui/src/components/layout/app/command-palette/` | `Mod+K` dialog. Lib: engine + parsers + rank + providers + commands + hooks. UI: dialog + rows + trigger pill. Mounted by `AppShell.PaletteRunner`; gated via `useOptionalCommandPalette` so apps without the provider (index/blog/support) don't crash. `doc:` scope lists in-document hits (`doc-hit` kind, `In Document` section) from the open eigendoc's `DocSearchController`, published by `DocSearchProvider` via `usePaletteDocSearch`; Enter opens the find bar pre-filled with the query and reveals the clicked match (via the published `docSearchSession.revealFromPalette`, focus stays in the doc), doc hits stay out of Top-Hit. Drive/mail hits carry `?q=` into the opened doc/email (find-bar / body highlight). See [PROPOSAL_COMMAND_PALETTE.md](docs/PROPOSAL_COMMAND_PALETTE.md) |
+| **In-document search** | `packages/lib/src/types/doc-search.ts` + `packages/lib/src/doc-search/` + `packages/ui/src/components/layout/search/` + per-app controllers (`apps/docs/.../use-doc-search-controller.ts`, `apps/sheets` adapter over `packages/sheet` `collectMatches`, `apps/slides`/`apps/stickies` scan hooks) | ⌘F find bar (+ ⌥⌘F replace on docs/sheets) inside every eigendoc editor. One shared 3-method `DocSearchController` contract (`search` pure / `highlightAll` / `reveal`, plain-data matches, self-describing ids, stale-tolerant reveal) + optional v1.5 `canReplace`/`replace`/`replaceAll` (both return the fresh post-edit match list). `DocSearchProvider` owns the find session + keybinds (⌘F/⌘G/⇧⌘G/Esc/⌥⌘F), re-searches on controller identity change, and publishes the controller to the palette `doc:` scope. Highlight visuals single-sourced as `.eigen-search-match{,-active}`/`.eigen-search-ring{,-active,-flash}`/`.eigen-search-flash` in `globals.css`. `?q=` on an eigendoc route latches once, opens the bar pre-filled + reveals the first match (mail: body highlight). Phase-2 comment search: `comments.db` v3 `comments_fts` + recomputed `recentText`, `GET /collab/:o/:m/:p/comments/search`, async `IN COMMENTS` palette section (doc: scope only; wired on docs + stickies). See [IN_DOCUMENT_SEARCH.md](docs/IN_DOCUMENT_SEARCH.md) |
+| **Search**         | `apps/api/src/lib/mail/db-config.ts` (FTS5 in mail.db v3) + `apps/api/src/lib/mail/maildb.ts` (`searchMail` JOIN) + `apps/api/src/lib/mount/search-index.ts` (`searchPaths` name + body) + `apps/api/src/lib/mount/content-reindex-queue.ts` (per-mount drain) + `apps/api/src/lib/search/extract-text.ts` + `apps/api/src/routes/search.ts` + `packages/lib/src/core/search/` | Per-scope inline FTS5. Backend: `MailDB.searchMail` does a two-pass FTS5 JOIN + Drizzle hydrate, with filter-first via `mail.db` for `from`/`to`. Frontend: `useSearch` hook. SSE handlers invalidate `searchKeys.owner` on mail mutations. **Drive content index (metadata.db v6):** `Mount.searchPaths` also queries `paths_content_fts` (external-content FTS5 over `path_content`), ranking name hits above body-only hits. The durable queue is the `contentDirty` bit on `paths` (set at the write seams: file write, container `onSync`, copy, v6 backfill); each mount's self-scheduled `ContentReindexQueue` mirrors the S3 `UploadQueue` (kick-on-mark + cap self-timer, no global poller, replays on open) and drains it via the injected `extractText` (reuses the `lib/document/` loaders + new `readStickiesContent`/`readChatContent`) for doc/slides/sheets/stickies/chat/plaintext bodies, ~100 KB cap, ≤1 re-extract per container per 2 min. See [PROPOSAL_SEARCH.md](docs/PROPOSAL_SEARCH.md) |
+| **Contact suggestions** | `packages/lib/src/core/contacts/hooks/use-contact-suggestions.ts` | Single canonical hook merging personal contacts + team members, used by mail compose, calendar share/attendees, drive share, chat @-mention, and the command palette. `ContactSuggestion` shape in `packages/lib/src/types/contact.ts` |
+| **Mail shortcuts** | `apps/mail/src/components/mail/hooks/use-mail-shortcuts.ts` + `mail-shortcuts-dialog.tsx` | Opt-in Gmail-style keyboard shortcuts (space Mail settings → `keyboardShortcuts`); `?` in Mail opens the cheat-sheet. `@tanstack/react-hotkeys` single keys + `g`/`*` chords; compose sends on ⌘/Ctrl+Enter, flagged rows show a star. See [MAIL.md](docs/MAIL.md) |
+| **Mail list + pagination** | `packages/lib/src/core/mail/hooks/use-emails.ts` + `apps/mail/src/components/mail/hooks/use-mail-list.ts` + `email-list.tsx` | `useEmails` is a keyset-paginated `useInfiniteQuery` (composite `(date, id)` cursor, page 200; route `?limit&beforeDate&beforeId`, `beforeDate` epoch-ms, index `idx_emails_mailbox_date`). Move/read/flag/delete patch the cached pages optimistically by id (`patchEmailInLists`) with `onMutate` snapshot + `onError` rollback instead of refetching the whole mailbox; the list search box hits the FTS `useSearch` endpoint scoped to the current mailbox (`filterId` passed verbatim; `Mail.search` canonicalises `inbox`→`''`). BE: `MaildirStore.listMessages` serves the DB immediately and reconciles via a fire-and-forget `syncMailbox` (blocks only on first/empty open); the cold-index loop parses in chunks of 250 and bulk-inserts each chunk in one `onConflictDoUpdate` transaction. See [MAIL.md](docs/MAIL.md) |
+| **Eigen-doc icons**| `packages/lib/src/core/eigendoc-icons.ts`             | `EIGEN_DOC_ICONS: Record<EigenDocType, LucideIcon>` — single source for the icon shown next to a doc/sheets/slides/stickies/chat row. Kept out of `types/drive.ts` so that file stays type-only on the BE side |
+| **Drive copy/move**| `packages/lib/src/core/drive/hooks/use-drive.ts`      | Right-click **Move to… / Copy to… / Duplicate** in the drive context menu (single + multi-select) via `useMovePath`/`useCopyPath`/`useDuplicatePath`, picking the destination through the reused `DriveLocationPicker` (`mode='folder'`). See **Copy / move** in the backend table |
+
+#### Page Layout Pattern
+
+Every page uses `ColumnLayout` + `Column`. The toolbar is a **separate prop**, not part of the page content.
+The `Column` renders the toolbar in a fixed `h-12` bar with `px-4 border-b`. This ensures consistent
+toolbar height across all pages.
+
+```tsx
+<ColumnLayout mobileColumn={showDetail ? 'detail' : 'list'}>
+    <Column id="list" width="flex" toolbar={<MyToolbar />}>
+        <MyContent />
+    </Column>
+    <Column id="detail" width="400px" onBack={handleBack} toolbar={<DetailToolbar />}>
+        <DetailContent />
+    </Column>
+</ColumnLayout>
+```
+
+Use `width="flex"` for a single full-width column. For a plain page title in the toolbar, use the shared
+`ToolbarTitle` component (`@workspace/ui/components/layout/toolbar`), which applies the `.eigen-toolbar-title`
+class (`text-sm font-normal text-foreground truncate` — thin, matching the breadcrumb) rather than
+hand-rolling a styled span. Richer toolbars (drive's path) compose a `BreadcrumbPage` (`font-normal`), so
+the two read at the same weight.
+
+#### Hover-Only Icons Pattern
+
+To show action icons only on row hover (like the share icon in Drive), use the Tailwind `group` +
+`invisible group-hover:visible` pattern:
+
+```tsx
+<TableRow className="eigen-list-item group">
+    <TableCell>
+        <span>Item name</span>
+        <div className="invisible group-hover:visible ml-auto">
+            <TooltipButton icon={Edit} tooltipText="Edit" className="h-7 w-7" onClick={...} />
+        </div>
+    </TableCell>
+</TableRow>
+```
+
+Use `TooltipButton` from `packages/ui/src/components/layout/toolbar/tooltip-button.tsx` for icon buttons
+with tooltips. Don't rebuild Tooltip+Button manually.
+
+If hover icons would affect row height, use `absolute` positioning so they float over the row.
+
+#### Key UI Components
+
+Before building custom UI, check these exist in `packages/ui/src/components/layout/`:
+
+| Component       | File                        | Use for                              |
+|-----------------|-----------------------------|--------------------------------------|
+| `TooltipButton` | `toolbar/tooltip-button.tsx` | Icon button with tooltip             |
+| `DeleteDialog`  | `delete/delete-dialog.tsx`   | Destructive action confirmation      |
+| `ConfirmDialog` | `confirm-dialog.tsx`         | Generic confirmation dialog          |
+| `EmptyState`    | `app/empty-state.tsx`        | "Nothing here" message with icon     |
+| `LoadingState`  | `app/loading-state.tsx`      | Centered spinner                     |
+| `ErrorState`    | `app/error-state.tsx`        | Error message display                |
+| `SearchBar`     | `search-bar/search-bar.tsx`  | Search input with icon               |
+| `FileMenu`      | `toolbar/file-menu.tsx`      | File dropdown (rename, delete, etc.) |
+| `RequestAccessView` | `app/request-access-view.tsx` | "Request access" screen for shared resources (hides sidebar) |
+
+Full component list: [LAYOUT.md](docs/LAYOUT.md)
+
+### Query Keys Pattern
+
+See [CODE-STANDARDS.md](docs/CODE-STANDARDS.md) for the canonical `driveKeys` example. **Query keys must
+always include `ownerId`** — see Common Pitfalls below. Export invalidation functions for use in SSE
+handlers + mutation `onSuccess`.
+
+### Common Pitfalls
+
+These patterns have caused bugs across multiple domains:
+
+- **Query keys must include `ownerId`** for any owner-scoped data. Without it, switching between personal and team
+  contexts serves stale cached data from the wrong owner
+- **Add a `SharedDrive` wrapper for every route-callable `Drive` method** — `getSharedDrive` returns
+  `Drive | SharedDrive`, so a `Drive` method without a matching `SharedDrive` method is unreachable from
+  routes (TS error). Add the wrapper with the appropriate permission check (`withReadPermission`,
+  `withWritePermission`, or owner check)
+- **MIME type strings must match the Eigen File Types table exactly** — use the constants, don't type them by hand.
+  `eigenslides` not `eigenslide`, `eigensheets` not `eigensheet`
+- **`validateSearch` in shared routes must extract all URL params the route uses** — missing params (like `uid`)
+  silently break detail panes for shared items
+- **Never mutate TanStack Query cache directly** — use `queryClient.setQueryData()` or `invalidateQueries()`, not
+  direct object mutation on cached data
+- **No `"use client"` directives** — this is a Vite project, not Next.js. The directive is a no-op
+- **Every authenticated route must include `:ownerId` as the second path segment** — `ownerId` identifies the Home
+  that owns the resource. For personal data it equals `user.id`; for team data it's `team_{teamId}`. This consistent
+  prefix enables future load-balancer sharding by ownerId (all requests for one Home on the same server). Routes must
+  validate that the caller has access to the specified ownerId (owns it or is a team member).
+  **Carve-out for home-independent routes**: server-wide endpoints that don't operate on a Home — first-run setup
+  (`setup.ts`), server-wide admin config (`settings.ts`, `waitlist.ts`), and unauthenticated public surfaces
+  (`public.ts`) — must NOT carry `:ownerId`. They're protected by `requireAdmin(user.id)` or their own gate, not
+  by Home ownership
+- **Never call `getHome()` for another user's data** — all cross-home interactions (where one user's action
+  touches another user's Home) must go through the relay in `home-relay.ts`: `sendToHome()` for push,
+  `pull*()` for reads. `getHome()` is fine for the current request's own home. This is the sharding seam —
+  only `home-relay.ts` changes when homes move to different servers. See [SCALABILITY.md](docs/SCALABILITY.md)
+- **Use `ColumnLayout` + `Column` with `toolbar` prop for page layout** — don't put the toolbar inside the page
+  content. The `Column` component renders the toolbar in a fixed-height bar. See Page Layout Pattern above
+- **Use existing shared components** — check `packages/ui/src/components/layout/` before building custom UI.
+  `TooltipButton`, `DeleteDialog`, `EmptyState`, etc. already exist
+- **Third copy → shared wrapper** — the "if two+ apps need it, it goes in `packages/`" rule applies to
+  *scaffolds*, not just components: route guards, `_auth.tsx` files, editor shells, loading/empty/error
+  treatments. When you're about to paste one into a *third* app, stop and extract a single guarded wrapper
+  into `packages/ui` (we have four near-identical EigenDoc editor routes and four sidebars rendering
+  loaders four ways)
+
+### SSE Pattern
+
+Backend: mutation → `home.broadcast(buildEvent())` → SSE stream
+Frontend: `useSSE` → domain handler → `queryClient.invalidateQueries()`
+Notifications: `home.notifications.persist({...})` → writes to DB + broadcasts `notification:created` SSE event → toast
+
+### Eigen File Types
+
+| Type     | MIME                        | Extension        | Storage                       |
+|----------|-----------------------------|------------------|-------------------------------|
+| Document | `application/eigendoc`      | `.eigendoc`      | Dir with `data.db` (Yjs)      |
+| Stickies | `application/eigenstickies` | `.eigenstickies` | Dir with `data.db` (Yjs)      |
+| Chat     | `application/eigenchat`     | `.eigenchat`     | Dir with `data.db` + `media/` |
+| Slides   | `application/eigenslides`   | `.eigenslides`   | Dir with `data.db` (Yjs)      |
+| Sheets   | `application/eigensheets`   | `.eigensheets`   | Dir with `data.db` (Yjs)      |
+
+### Owner ID Prefixes
+
+User = raw UUID (`a1b2c3d4-...`), Team = `team_{teamId}`. Resolution: `parseOwnerId()` in
+`packages/lib/src/types/owner.ts`. Data layout: see [STORAGE.md](docs/STORAGE.md).
+
+For iMIP (external calendar invitations), external organizers have no Eigen user ID — `organizerUserId`
+is set to `external_{email}` (e.g. `external_alice@example.com`). Same prefix convention, same
+`startsWith('external_')` detection idiom. See [CALENDAR.md](docs/CALENDAR.md#imip-email-based-calendar-invitations).
+
+## Testing
+
+Tests are in `apps/api/src/test/`. Run with `bun run test` or `bun test apps/api/src/test/[file].test.ts`.
+
+**Integration tests** (`drive.test.ts`, `calendar.test.ts`, etc.) use test helpers from `setup.ts`:
+- `getTestContext()` → returns `{ alice, bob, charlie }` test users with session tokens and API clients
+- `authedRequest(token, path, options?)` → make authenticated HTTP request
+- `driveGet/drivePost/drivePut/driveDelete` → typed drive API helpers
+- `driveGetPermission` → check read/write permissions
+
+**Unit tests** (`mount.test.ts`, `storage.test.ts`, etc.) create isolated instances with temp directories.
+
+See [TESTING.md](docs/TESTING.md) for full patterns.
+
+---
+> Source: [eigen-is/eigen](https://github.com/eigen-is/eigen) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-15 -->
