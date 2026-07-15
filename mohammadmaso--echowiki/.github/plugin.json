@@ -1,0 +1,9 @@
+{
+  "name": "mohammadmaso--echowiki",
+  "displayName": "echowiki",
+  "description": "Local-first LLM knowledge compiler for Obsidian. Drop notes or record voice into raw/; the Mastra wiki compiler agent turns them into a structured, interlinked wiki under wiki/.",
+  "version": "1.0.0",
+  "author": "mohammadmaso",
+  "homepage": "https://github.com/mohammadmaso/echowiki",
+  "skills": []
+}
