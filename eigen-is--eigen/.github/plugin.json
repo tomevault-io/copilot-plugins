@@ -1,0 +1,9 @@
+{
+  "name": "eigen-is--eigen",
+  "displayName": "eigen",
+  "description": "Your own workspace. A self-hosted, open source alternative to Google Workspace: mail, drive, docs, sheets, slides, calendar and chat.",
+  "version": "1.0.0",
+  "author": "eigen-is",
+  "homepage": "https://github.com/eigen-is/eigen",
+  "skills": []
+}
