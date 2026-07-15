@@ -1,0 +1,9 @@
+{
+  "name": "nervsystems--cotlib",
+  "displayName": "cotlib",
+  "description": "cotlib is a secure, high-performance Go library for parsing, validating, and generating Cursor-on-Target (CoT) XML messages.  It features a comprehensive, embedded type catalog with metadata and XSD c",
+  "version": "1.0.0",
+  "author": "NERVsystems",
+  "homepage": "https://github.com/NERVsystems/cotlib",
+  "skills": []
+}
