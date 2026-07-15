@@ -1,318 +1,94 @@
-## python-development
+## test-coverage
 
-> Senior-level Python development practices for jira-mcp-snowflake project with performance and scalability focus
+> Unit test coverage requirements for code changes
 
 
-# Senior Python Development Rules for jira-mcp-snowflake
+# Unit Test Coverage Requirements
 
-## Senior Engineer Mindset
+## Mandatory Testing Workflow
 
-**Think like a senior software engineer**: Always consider performance, scalability, maintainability, and long-term implications of every code change. Write code that your future self and teammates will thank you for.
+**CRITICAL**: When making ANY code changes in this project, you MUST follow this testing workflow:
 
-## Package Management - Always Use UV
+### 1. Before Making Changes
+- Run `make test` to establish baseline coverage
+- Note current coverage percentage from the terminal output
 
-This project uses [UV](https://docs.astral.sh/uv/) for Python package management. **ALWAYS** use `uv` commands instead of `pip` or other package managers:
+### 2. After Making Changes
+- **ALWAYS** run `make test` immediately after any code modification
+- Check that all tests pass AND review coverage report
+- Coverage should be maintained or improved, never decreased
 
-- **Install dependencies**: `uv sync --dev` (includes dev dependencies)
-- **Run Python scripts**: `uv run <script>` 
-- **Run tests**: `uv run pytest`
-- **Run linting**: `uv run flake8`
-- **Add new dependencies**: `uv add <package>`
-- **Add dev dependencies**: `uv add --dev <package>`
+### 3. Test Coverage Analysis
+When modifying files in [src/](mdc:src/), ensure corresponding test files exist and are updated:
 
-Reference the project configuration in [pyproject.toml](mdc:pyproject.toml) for dependency management.
+- `src/config.py` ↔ `tests/test_config.py`
+- `src/database.py` ↔ `tests/test_database.py` 
+- `src/mcp_server.py` ↔ `tests/test_mcp_server.py`
+- `src/metrics.py` ↔ `tests/test_metrics.py`
+- `src/tools.py` ↔ `tests/test_tools.py`
 
-## Python Style Guidelines (PEP 8 + Senior Best Practices)
+### 4. When to Add/Remove Tests
 
-### Code Style Standards
-- **Follow PEP 8** religiously with these project-specific extensions:
-- **Line length**: 120 characters max (configured in flake8)
-- **Imports**: Group imports (stdlib, third-party, local) with blank lines between groups
-- **Type hints**: MANDATORY for all function signatures, class attributes, and complex variables
-- **Docstrings**: Use Google-style docstrings for all public functions, classes, and modules
-- **Variable naming**: Use descriptive names that explain intent, not just what they contain
+**Add tests when:**
+- Adding new functions, methods, or classes
+- Adding new code paths or branches (if/else, try/catch)
+- Adding new public APIs or tool functions
+- Adding new configuration options
+- Adding new error handling
 
-### Code Organization
-```python
-# Good: Descriptive, intention-revealing names
-def calculate_jira_issue_metrics_for_timeframe(start_date: datetime, end_date: datetime) -> Dict[str, int]:
-    """Calculate comprehensive JIRA issue metrics for the specified timeframe."""
-    pass
+**Remove/update tests when:**
+- Removing deprecated functions or methods
+- Changing function signatures or behavior
+- Refactoring code that changes expected outputs
+- Removing features or functionality
 
-# Bad: Abbreviated, unclear names
-def calc_metrics(start, end):
-    pass
-```
+**Update tests when:**
+- Modifying existing function behavior
+- Changing return values or data structures
+- Adding new parameters to existing functions
+- Changing error handling or exception types
 
-### Type Hints and Documentation
-```python
-from typing import Dict, List, Optional, Union, Any
-from datetime import datetime
+### 5. Coverage Commands
 
-def process_jira_issues(
-    issues: List[Dict[str, Any]], 
-    filter_criteria: Optional[Dict[str, Union[str, int]]] = None
-) -> Dict[str, List[Dict[str, Any]]]:
-    """
-    Process JIRA issues with optional filtering.
-    
-    Args:
-        issues: List of JIRA issue dictionaries from Snowflake
-        filter_criteria: Optional filtering parameters
-        
-    Returns:
-        Dictionary grouped by issue status with processed issue data
-        
-    Raises:
-        ValueError: If issues list is empty or malformed
-    """
-    pass
-```
+- **Full test suite**: `make test` (linting + pytest with coverage)
+- **Tests only**: `make pytest` or `uv run pytest tests/ --cov=src --cov-report=xml --cov-report=term -v --tb=short`
+- **Linting only**: `make lint` or `uv run flake8 src/ --max-line-length=120 --ignore=E501,W503`
 
-## Performance & Scalability Guidelines
+### 6. Coverage Standards
 
-### Database Operations
-- **Connection pooling**: Always use connection pools for database operations
-- **Query optimization**: Use LIMIT clauses, proper indexing, and avoid N+1 queries
-- **Batch operations**: Process data in batches, not one-by-one
-- **Async operations**: Use `asyncio` for I/O-bound operations when possible
+- **Minimum**: Maintain existing coverage percentage
+- **Target**: Aim for >90% coverage on new code
+- **Critical**: Never commit code that reduces overall coverage
+- **Review**: Check coverage report output for uncovered lines
 
-```python
-# Good: Batch processing with connection pooling
-async def fetch_issues_batch(issue_keys: List[str], batch_size: int = 100) -> List[Dict]:
-    """Fetch issues in batches to avoid memory issues and improve performance."""
-    results = []
-    for i in range(0, len(issue_keys), batch_size):
-        batch = issue_keys[i:i + batch_size]
-        batch_results = await fetch_issues_from_db(batch)
-        results.extend(batch_results)
-    return results
+### 7. Test Quality Requirements
 
-# Bad: Individual queries
-def fetch_issues_one_by_one(issue_keys: List[str]) -> List[Dict]:
-    return [fetch_single_issue(key) for key in issue_keys]  # N+1 problem
-```
+- Tests must cover both success and error scenarios
+- Include edge cases and boundary conditions
+- Mock external dependencies (database, HTTP calls)
+- Test async functions with proper async test setup
+- Verify error messages and exception types
 
-### Memory Management
-- **Generators**: Use generators for large datasets to avoid loading everything into memory
-- **Context managers**: Always use context managers for resource management
-- **Lazy evaluation**: Defer expensive computations until actually needed
-
-```python
-# Good: Generator for memory efficiency
-def process_large_dataset(query_results: Iterator[Dict]) -> Iterator[Dict]:
-    """Process large datasets without loading everything into memory."""
-    for row in query_results:
-        yield transform_row(row)
-
-# Bad: Loading everything into memory
-def process_all_at_once(query_results: List[Dict]) -> List[Dict]:
-    return [transform_row(row) for row in query_results]  # Memory intensive
-```
-
-### Caching Strategy
-- **Implement intelligent caching** for expensive operations
-- **Cache invalidation**: Always have a clear cache invalidation strategy
-- **TTL-based caching**: Use time-based expiration for data that changes
-
-```python
-from functools import lru_cache
-from typing import Dict, Any
-import time
-
-@lru_cache(maxsize=128)
-def get_project_metadata(project_key: str) -> Dict[str, Any]:
-    """Cache project metadata as it rarely changes."""
-    return fetch_project_from_db(project_key)
-
-# For time-sensitive data, implement TTL caching
-class TTLCache:
-    def __init__(self, ttl_seconds: int = 300):
-        self.cache = {}
-        self.ttl = ttl_seconds
-    
-    def get_with_ttl(self, key: str, fetch_func) -> Any:
-        now = time.time()
-        if key in self.cache:
-            value, timestamp = self.cache[key]
-            if now - timestamp < self.ttl:
-                return value
-        
-        value = fetch_func()
-        self.cache[key] = (value, now)
-        return value
-```
-
-### Error Handling & Resilience
-- **Graceful degradation**: System should continue operating with reduced functionality
-- **Circuit breaker pattern**: Prevent cascading failures
-- **Retry logic**: Implement exponential backoff for transient failures
-- **Comprehensive logging**: Log performance metrics and errors with context
-
-```python
-import asyncio
-from typing import Optional
-import logging
-
-logger = logging.getLogger(__name__)
-
-async def resilient_database_operation(
-    query: str, 
-    params: Optional[Dict] = None,
-    max_retries: int = 3,
-    base_delay: float = 1.0
-) -> Optional[List[Dict]]:
-    """
-    Execute database operation with retry logic and circuit breaker pattern.
-    
-    Args:
-        query: SQL query to execute
-        params: Query parameters
-        max_retries: Maximum number of retry attempts
-        base_delay: Base delay for exponential backoff
-        
-    Returns:
-        Query results or None if all retries failed
-    """
-    for attempt in range(max_retries + 1):
-        try:
-            start_time = time.time()
-            result = await execute_query(query, params)
-            
-            # Log performance metrics
-            execution_time = time.time() - start_time
-            logger.info(f"Query executed successfully in {execution_time:.2f}s", 
-                       extra={"query_time": execution_time, "attempt": attempt})
-            
-            return result
-            
-        except Exception as e:
-            if attempt == max_retries:
-                logger.error(f"Database operation failed after {max_retries} retries: {e}")
-                return None
-            
-            delay = base_delay * (2 ** attempt)  # Exponential backoff
-            logger.warning(f"Database operation failed (attempt {attempt + 1}), retrying in {delay}s: {e}")
-            await asyncio.sleep(delay)
-    
-    return None
-```
-
-## Testing Requirements
-
-**MANDATORY**: After every code change, run the full test suite using:
+## Example Workflow
 
 ```bash
-make test
+# Before changes
+make test  # Note coverage: e.g., "90% coverage"
+
+# Make your code changes
+# ... edit src/tools.py ...
+
+# After changes - MANDATORY
+make test  # Verify: tests pass + coverage maintained/improved
+
+# If coverage dropped, add tests:
+# ... edit tests/test_tools.py ...
+
+# Verify again
+make test  # Should show same or better coverage
 ```
 
-This command (defined in [Makefile](mdc:Makefile)) will:
-1. Sync dependencies with `uv sync --dev`
-2. Run `flake8` linting on the `src/` directory
-3. Run `pytest` with coverage reporting
-
-### Individual Test Commands
-
-If you need to run specific parts:
-- **Linting only**: `make lint` or `uv run flake8 src/ --max-line-length=120 --ignore=E501,W503`
-- **Unit tests only**: `make pytest` or `uv run pytest tests/ --cov=src --cov-report=xml --cov-report=term -v --tb=short`
-
-### Performance Testing
-- **Benchmark critical paths**: Test performance of database queries and data processing
-- **Load testing**: Verify system behavior under expected load
-- **Memory profiling**: Monitor memory usage for large dataset operations
-
-```python
-import pytest
-import time
-from unittest.mock import patch
-
-def test_large_dataset_processing_performance():
-    """Ensure large dataset processing completes within acceptable time."""
-    large_dataset = generate_test_data(size=10000)
-    
-    start_time = time.time()
-    result = process_large_dataset(large_dataset)
-    execution_time = time.time() - start_time
-    
-    # Should process 10k records in under 5 seconds
-    assert execution_time < 5.0, f"Processing took {execution_time:.2f}s, expected < 5.0s"
-    assert len(list(result)) == 10000
-```
-
-## Code Quality Standards
-
-- **Flake8 configuration**: Max line length 120, ignoring E501 and W503
-- **Type checking**: Use `mypy` for static type checking
-- **Test coverage**: All code changes should maintain or improve test coverage (target: >90%)
-- **Code complexity**: Keep cyclomatic complexity low (max 10 per function)
-- **Security**: Follow OWASP guidelines, validate all inputs, use parameterized queries
-
-## Project Structure
-
-- **Source code**: [src/](mdc:src/) directory
-- **Tests**: [tests/](mdc:tests/) directory  
-- **Main entry point**: [src/mcp_server.py](mdc:src/mcp_server.py)
-- **Core modules**: 
-  - [src/tools.py](mdc:src/tools.py) - JIRA data access tools
-  - [src/database.py](mdc:src/database.py) - Database connections
-  - [src/config.py](mdc:src/config.py) - Configuration management
-  - [src/metrics.py](mdc:src/metrics.py) - Prometheus metrics
-
-## Senior Engineer Workflow
-
-1. **Design first**: Think through the architecture and performance implications
-2. **Write type hints and docstrings**: Document your intent before implementation
-3. **Implement with performance in mind**: Consider memory usage, database efficiency, and scalability
-4. **Write comprehensive tests**: Unit tests, integration tests, and performance tests
-5. **Run `make test`** to ensure all tests pass and code meets quality standards
-6. **Profile and benchmark**: Measure performance of critical paths
-7. **Code review mindset**: Write code as if a senior engineer will review it
-8. **Monitor and observe**: Add logging and metrics for production observability
-
-## Monitoring & Observability
-
-- **Structured logging**: Use structured logs with correlation IDs
-- **Metrics collection**: Track performance metrics, error rates, and business metrics
-- **Health checks**: Implement comprehensive health check endpoints
-- **Alerting**: Set up alerts for performance degradation and errors
-
-```python
-import structlog
-from src.metrics import QUERY_DURATION, ERROR_COUNTER
-
-logger = structlog.get_logger()
-
-async def monitored_database_operation(operation_name: str, query: str) -> Any:
-    """Execute database operation with full observability."""
-    correlation_id = generate_correlation_id()
-    
-    with QUERY_DURATION.labels(operation=operation_name).time():
-        try:
-            logger.info("Starting database operation", 
-                       operation=operation_name, 
-                       correlation_id=correlation_id)
-            
-            result = await execute_query(query)
-            
-            logger.info("Database operation completed successfully",
-                       operation=operation_name,
-                       correlation_id=correlation_id,
-                       result_count=len(result) if result else 0)
-            
-            return result
-            
-        except Exception as e:
-            ERROR_COUNTER.labels(operation=operation_name, error_type=type(e).__name__).inc()
-            logger.error("Database operation failed",
-                        operation=operation_name,
-                        correlation_id=correlation_id,
-                        error=str(e),
-                        exc_info=True)
-            raise
-```
-
-**Never skip the testing step** - it's essential for maintaining code quality and preventing regressions. Always think about the long-term maintainability and scalability of your code.
+**NEVER SKIP** the testing step - it's essential for code quality and preventing regressions.
 
 ---
 > Source: [redhat-community-ai-tools/jira-mcp-snowflake](https://github.com/redhat-community-ai-tools/jira-mcp-snowflake) — distributed by [TomeVault](https://tomevault.io).
