@@ -1,0 +1,9 @@
+{
+  "name": "mydevtools-tech--zecrypt-server",
+  "displayName": "zecrypt-server",
+  "description": "Open source Password Manager, Encrypted Data management Platform - https://app.zecrypt.io (open-source alternative to Lastpass, Dashlane)",
+  "version": "1.0.0",
+  "author": "mydevtools-tech",
+  "homepage": "https://github.com/mydevtools-tech/zecrypt-server",
+  "skills": []
+}
