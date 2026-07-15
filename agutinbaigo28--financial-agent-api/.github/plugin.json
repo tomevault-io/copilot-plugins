@@ -1,0 +1,9 @@
+{
+  "name": "agutinbaigo28--financial-agent-api",
+  "displayName": "financial-agent-api",
+  "description": "financial agent api with multi-agent framework for scalable AI systems focusing on financial intelligence, RAG pipelines, observability, and secure governance. ACP Openclaw, Gemini CLI, Opencode",
+  "version": "1.0.0",
+  "author": "agutinbaigo28",
+  "homepage": "https://github.com/agutinbaigo28/financial-agent-api",
+  "skills": []
+}
