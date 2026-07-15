@@ -1,0 +1,9 @@
+{
+  "name": "davidteren--claude-desktop-export-browser",
+  "displayName": "claude_desktop_export_browser",
+  "description": "Export your Claude Desktop chats to Markdown and JSON",
+  "version": "1.0.0",
+  "author": "davidteren",
+  "homepage": "https://github.com/davidteren/claude_desktop_export_browser",
+  "skills": []
+}
