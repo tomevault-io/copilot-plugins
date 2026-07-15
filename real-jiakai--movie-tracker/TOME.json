@@ -4,7 +4,7 @@
   "repo": "movie-tracker",
   "description": "A minimalist and elegant personal movie watching journal built with modern web technologies.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/real-jiakai/movie-tracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T22:36:33Z"
+  "distributed_at": "2026-07-15T22:37:05Z"
 }
