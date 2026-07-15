@@ -1,0 +1,44 @@
+{
+  "name": "cybersyn2",
+  "owner": "project-cybersyn",
+  "repo": "cybersyn2",
+  "description": "Factorio mod to create a feature-rich train logistics system controlled by cybernetic combinators and the circuit network. A successor to Project Cybersyn, redesigned for Factorio 2.0.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/project-cybersyn/cybersyn2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T16:41:05Z"
+}
