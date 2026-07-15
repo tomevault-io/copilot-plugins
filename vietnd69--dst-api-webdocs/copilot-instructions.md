@@ -1,82 +1,369 @@
-## dst-api-documentation-overview
+## dst-api-documentation-templates
 
-> This document provides an overview of all rules related to documenting the Don't Starve Together (DST) API. These rules establish a consistent documentation standard for the DST Lua scripts library.
+> This rule provides specific templates for documenting different types of DST script modules.
 
-# DST API Documentation Rules Overview
+# DST API Documentation Templates
 
-This document provides an overview of all rules related to documenting the Don't Starve Together (DST) API. These rules establish a consistent documentation standard for the DST Lua scripts library.
+This rule provides specific templates for documenting different types of DST script modules.
 
-## Available Documentation Rules
+## Component Template
 
-| Rule Name | File | Purpose |
-|-----------|------|---------|
-| Documentation Format | [dst-api-documentation-format.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-format.mdc) | Defines the general structure and format for all DST API documentation |
-| Documentation Templates | [dst-api-documentation-templates.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-templates.mdc) | Provides specific templates for different types of API modules |
-| Documentation Maintenance | [dst-api-documentation-maintenance.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-maintenance.mdc) | Explains procedures for maintaining and updating documentation |
-| Scripts Documentation Structure | [dst-scripts-documentation-structure.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-scripts-documentation-structure.mdc) | Defines the relationship between source code and documentation structure |
-| Example Accuracy | [dst-api-documentation-example-accuracy.mdc](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-example-accuracy.mdc) | Ensures all code examples are verified against actual source code |
+Use this template for documenting components:
 
-## Key Documentation Elements
+```markdown
+---
+id: [Id]
+title: [Component Name]
+description: Component responsible for [primary functionality]
+sidebar_position: [Number]
 
-All DST API documentation should consistently include:
+last_updated: YYYY-MM-DD
+build_version: 676042
+change_status: stable
+---
 
-1. **Front matter** with metadata:
-   - `title`: Module name
-   - `description`: Brief module description
-   - `sidebar_position`: Navigation order
-   - `slug`: Custom URL path
-   - `last_updated`: Last update date (YYYY-MM-DD) are stored in `package.json`
-   - `build_version`: DST script build version (currently 676042) are stored in `package.json`
-   - `change_status`: Current status (stable/added/modified/deprecated/removed)
+# [Component Name]
 
-2. **Version history** tracking all significant changes to the module
+## Version History
+| Build Version | Change Date | Change Type | Description |
+|---------------|-------------|-------------|-------------|
+| 675312 | 2023-11-15 | stable | Current version |
 
-3. **Status indicators** clearly marking API stability and changes
+## Overview
 
-4. **Usage examples** demonstrating proper implementation
+The `[Component Name]` component provides [primary functionality]. It is typically used on [entity types] to enable [behavior/feature].
 
-5. **Related module cross-references** showing connections between components
+## Component Properties
 
-6. **build version and update time** are stored in `package.json`
+### inst.[property_name]
 
-## Documentation File Organization
+**Type:** `[type]`
 
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Description:** [Property description]
+
+### inst.[property_name2]
+
+**Type:** `[type]`
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Description:** [Property description]
+
+## Component Methods
+
+### inst.components.[component_name]:[methodName](mdc:dst-api-webdocs/param1, param2)
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Source:** [dst-scripts/components/[component_name].lua](mdc:dst-scripts/components/[component_name].lua)
+
+**Description:**
+[Method description verified against source code]
+
+**Parameters:**
+- `param1` ([type]): [Parameter description]
+- `param2` ([type]): [Parameter description]
+
+**Returns:**
+- ([return_type]): [Return value description]
+
+**Example:**
+```lua
+local entity = TheWorld.entity
+entity.components.[component_name]:[methodName](mdc:dst-api-webdocs/"example", 5)
 ```
-docs/game-scripts/
-  |-- [module-category]/
-      |-- index.md           # Category overview documentation
-      |-- [module-name].md   # Specific module documentation
+
+## Events
+
+### "[event_name]"
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Description:**
+[When this event is triggered and what it signifies]
+
+**Parameters:**
+- `data.param1` ([type]): [Description]
+- `data.param2` ([type]): [Description]
+
+**Example:**
+```lua
+inst:ListenForEvent("[event_name]", function(inst, data)
+    -- Handle event
+end)
 ```
 
-## Documentation Update Process
+## Common Uses
 
-When game updates occur:
+[Explain common scenarios where this component is used]
 
-1. Review changed files in the update
-2. Update documentation with current build version
-3. Mark changed APIs with appropriate status
-4. Update version history tables
-5. Verify all examples still work
-6. Update cross-references as needed
+## Related Components
 
-## Status Indicators
+- [[Related Component]](./[related-component].md): [Relationship description]
+```
 
-The documentation uses these status indicators:
+## Stategraph Template
 
-- **Stable**: 🟢 Current, stable functionality
-- **Added**: ➕ New functionality in current build
-- **Modified**: 🔄 Changed from previous versions
-- **Deprecated**: ⚠️ Planned for removal
-- **Removed**: ❌ No longer available
+Use this template for documenting stategraphs:
 
-## Next Steps
+```markdown
+---
+id: [Id]
+title: [Stategraph Name]
+description: Stategraph for [entity/behavior description]
+sidebar_position: [Number]
 
-To start documenting the DST API:
+last_updated: YYYY-MM-DD
+build_version: 676042
+change_status: stable
+---
 
-1. Use the [Documentation Format](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-format.mdc) rule to understand the general structure
-2. Select appropriate template from [Documentation Templates](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-templates.mdc) for your module type
-3. Follow the [Documentation Maintenance](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-documentation-maintenance.mdc) rule for updates
-4. Ensure all documentation follows consistent conventions
+# [Stategraph Name]
+
+## Version History
+| Build Version | Change Date | Change Type | Description |
+|---------------|-------------|-------------|-------------|
+| 675312 | 2023-11-15 | stable | Current version |
+
+## Overview
+
+The `[Stategraph Name]` defines the behavior and animations for [entity type]. It controls [primary behaviors].
+
+## States
+
+### "[state_name]"
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Description:**
+[State description and purpose]
+
+**Entry Function:**
+```lua
+[Entry function code example]
+```
+
+**Timeline:**
+[Timeline events, if any]
+
+**Events:**
+[Events that can occur in this state]
+
+**Tags:**
+- `[tag1]`: [Tag purpose]
+- `[tag2]`: [Tag purpose]
+
+**Transitions:**
+- To `[next_state1]`: [Condition]
+- To `[next_state2]`: [Condition]
+
+### "[state_name2]"
+
+[Similar structure for other states]
+
+## Events
+
+### "[event_name]"
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Description:**
+[Event purpose and when it's triggered]
+
+**Handler:**
+```lua
+[Event handler code example]
+```
+
+## Common State Sequences
+
+[Describe common sequences of state transitions]
+
+## Related Stategraphs
+
+- [[Related Stategraph]](./[related-stategraph].md): [Relationship description]
+```
+
+## Brain Template
+
+Use this template for documenting brain behaviors:
+
+```markdown
+---
+id: [Id]
+title: [Brain Name]
+description: AI brain for [entity type]
+sidebar_position: [Number]
+
+last_updated: YYYY-MM-DD
+build_version: 676042
+change_status: stable
+---
+
+# [Brain Name]
+
+## Version History
+| Build Version | Change Date | Change Type | Description |
+|---------------|-------------|-------------|-------------|
+| 675312 | 2023-11-15 | stable | Current version |
+
+## Overview
+
+The `[Brain Name]` defines the AI behavior for [entity type]. It prioritizes [primary behaviors/goals].
+
+## Brain Structure
+
+```lua
+-- Brain structure example
+BrainCommon.AddNode(
+    WhileNode(function() 
+        return [condition] 
+    end, "Priority Node",
+    PriorityNode({
+        [Node examples...]
+    }))
+)
+```
+
+## Behaviors
+
+### [Behavior Name]
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Description:**
+[Behavior description and purpose]
+
+**Conditions:**
+[When this behavior activates]
+
+**Actions:**
+[What actions the entity takes]
+
+**Example:**
+```lua
+[Code example of this behavior node]
+```
+
+## Memory Variables
+
+### self.inst.[memory_var]
+
+**Type:** `[type]`
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Description:**
+[Description of what this memory variable tracks]
+
+## Target Selection
+
+[Description of how the brain selects targets]
+
+## Common Behavioral Patterns
+
+[Description of common behavior sequences]
+
+## Related Brains
+
+- [[Related Brain]](./[related-brain].md): [Relationship description]
+```
+
+## Prefab Template
+
+Use this template for documenting prefabs:
+
+```markdown
+---
+id: [Id]
+title: [Prefab Name]
+description: [Short description of this prefab's purpose]
+sidebar_position: [Number]
+
+last_updated: YYYY-MM-DD
+build_version: 676042
+change_status: stable
+---
+
+# [Prefab Name]
+
+## Version History
+| Build Version | Change Date | Change Type | Description |
+|---------------|-------------|-------------|-------------|
+| 675312 | 2023-11-15 | stable | Current version |
+
+## Overview
+
+The `[Prefab Name]` prefab represents [entity description] in the game. It [primary purpose/functionality].
+
+## Creation
+
+```lua
+-- How to spawn this prefab
+local inst = SpawnPrefab("[prefab_name]")
+```
+
+## Properties
+
+### Base Properties
+
+- **Prefab Name:** `[prefab_name]`
+- **Tags:** `[tag1]`, `[tag2]`, `[tag3]`
+- **Asset Type:** [Character/Item/Structure/etc.]
+
+### Default Components
+
+| Component | Purpose |
+|-----------|---------|
+| [`[component1]`](../components/[component1].md) | [Purpose in this prefab] |
+| [`[component2]`](../components/[component2].md) | [Purpose in this prefab] |
+| [`[component3]`](../components/[component3].md) | [Purpose in this prefab] |
+
+## Functions
+
+### [function_name](mdc:dst-api-webdocs/param1, param2)
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Source:** [dst-scripts/prefabs/[prefab_name].lua](mdc:dst-scripts/prefabs/[prefab_name].lua)
+
+**Description:**
+[Function description verified against source code]
+
+**Parameters:**
+- `param1` ([type]): [Parameter description]
+- `param2` ([type]): [Parameter description]
+
+**Example:**
+```lua
+[Example code verified against source implementation]
+```
+
+## Events
+
+### "[event_name]"
+
+**Status:** `stable` | `added in build 675312` | `modified in build 675312` | `deprecated in build 675312`
+
+**Description:**
+[Event description and when it triggers]
+
+## Stategraph
+
+This prefab uses the [[Stategraph Name]](../stategraphs/[stategraph-name].md) stategraph.
+
+## Brain
+
+This prefab uses the [[Brain Name]](../brains/[brain-name].md) brain.
+
+## Related Prefabs
+
+- [[Related Prefab]](./[related-prefab].md): [Relationship description]
+```
+
+Use these templates as starting points for documenting different types of DST script modules. Adjust as needed for specific modules while maintaining the consistent format defined in the general API documentation format rule.
 
 ---
 > Source: [vietnd69/dst-api-webdocs](https://github.com/vietnd69/dst-api-webdocs) — distributed by [TomeVault](https://tomevault.io).
