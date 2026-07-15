@@ -4,7 +4,7 @@
   "repo": "ironic",
   "description": "A type-safe, modular Rust application framework built on Axum. Batteries-included: DI, controllers, middleware, guards, pipes, WebSocket gateways, scheduling, caching, and OpenAPI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ironic-org/ironic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T11:33:11Z"
+  "distributed_at": "2026-07-15T11:34:41Z"
 }
