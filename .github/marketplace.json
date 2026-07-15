@@ -246574,6 +246574,21 @@
       "description": "ohmyaime_server"
     },
     {
+      "name": "100nandoo--shelfdroid",
+      "source": "./100nandoo--shelfdroid",
+      "description": "\ud83d\udcda A 3rd-party Android client for Audiobookshelf, bringing your audiobook collection to life with seamless streaming and intuitive controls."
+    },
+    {
+      "name": "100nandoo--shelfdroid",
+      "source": "./100nandoo--shelfdroid",
+      "description": "\ud83d\udcda A 3rd-party Android client for Audiobookshelf, bringing your audiobook collection to life with seamless streaming and intuitive controls."
+    },
+    {
+      "name": "ccollie--valkey-timeseries",
+      "source": "./ccollie--valkey-timeseries",
+      "description": "A Timeseries data type for Valkey"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269047,6 +269062,11 @@
       "name": "memenow--persona-agent",
       "source": "./memenow--persona-agent",
       "description": "A Python-based API server for creating AI persona agents using Google A2A protocol and Model Context Protocol (MCP) tools integration."
+    },
+    {
+      "name": "runceel--wsl-containers-desktop",
+      "source": "./runceel--wsl-containers-desktop",
+      "description": "wsl-containers-desktop"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -398952,6 +398972,46 @@
       "name": "jiajunhuang1999--jiajunhuang1999-github-io",
       "source": "./jiajunhuang1999--jiajunhuang1999-github-io",
       "description": "jiajunhuang1999.github.io"
+    },
+    {
+      "name": "lshdainty--porest-hr-back",
+      "source": "./lshdainty--porest-hr-back",
+      "description": "porest-hr-back"
+    },
+    {
+      "name": "sonit-ambashta1--sonit-portfolio",
+      "source": "./sonit-ambashta1--sonit-portfolio",
+      "description": "sonit-portfolio"
+    },
+    {
+      "name": "nickkania--stewardsync",
+      "source": "./nickkania--stewardsync",
+      "description": "StewardSync"
+    },
+    {
+      "name": "tommynurwantoro--myporto",
+      "source": "./tommynurwantoro--myporto",
+      "description": "myporto"
+    },
+    {
+      "name": "mattlifetech--mattlifetech-github-io",
+      "source": "./mattlifetech--mattlifetech-github-io",
+      "description": "mattlifetech.github.io"
+    },
+    {
+      "name": "brendanddev--thunk",
+      "source": "./brendanddev--thunk",
+      "description": "A local-first AI assistant CLI for coding and general automation, focused on local-first workflows, modular backends, privacy, and real coding actions."
+    },
+    {
+      "name": "whrksp126--heyvoca-admin",
+      "source": "./whrksp126--heyvoca-admin",
+      "description": "heyvoca_admin"
+    },
+    {
+      "name": "ice0622--colorfulworld",
+      "source": "./ice0622--colorfulworld",
+      "description": "colorfulworld"
     }
   ]
 }
