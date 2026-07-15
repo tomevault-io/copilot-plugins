@@ -1,0 +1,44 @@
+{
+  "name": "TenonAdmin",
+  "owner": "Tenon-Net",
+  "repo": "TenonAdmin",
+  "description": "A zero-config, extensible ASP.NET Core admin system with RBAC, data permissions, SqlSugar, and NuGet-first delivery.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Tenon-Net/TenonAdmin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T11:30:48Z"
+}
