@@ -1,0 +1,9 @@
+{
+  "name": "metamask--snap-7715-permissions",
+  "displayName": "snap-7715-permissions",
+  "description": "ERC-7715 Permissions Snap monorepo",
+  "version": "1.0.0",
+  "author": "MetaMask",
+  "homepage": "https://github.com/MetaMask/snap-7715-permissions",
+  "skills": []
+}
