@@ -1,0 +1,9 @@
+{
+  "name": "tago-io--mcp-server",
+  "displayName": "mcp-server",
+  "description": "@tago-io/mcp-server | Model Context Protocol integration for TagoIO Platform",
+  "version": "1.0.0",
+  "author": "tago-io",
+  "homepage": "https://github.com/tago-io/mcp-server",
+  "skills": []
+}
