@@ -1,0 +1,9 @@
+{
+  "name": "kirodotdev-labs--kiro-action",
+  "displayName": "kiro-action",
+  "description": "GitHub Action for Kiro",
+  "version": "1.0.0",
+  "author": "kirodotdev-labs",
+  "homepage": "https://github.com/kirodotdev-labs/kiro-action",
+  "skills": []
+}
