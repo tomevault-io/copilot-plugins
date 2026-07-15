@@ -1,0 +1,9 @@
+{
+  "name": "nvergez--orca-viz",
+  "displayName": "orca-viz",
+  "description": "See what your Orca agents are doing \u2014 the task DAG, who is working what, and the gates blocking the run.",
+  "version": "1.0.0",
+  "author": "nvergez",
+  "homepage": "https://github.com/nvergez/orca-viz",
+  "skills": []
+}
