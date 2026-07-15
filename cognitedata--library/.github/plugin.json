@@ -1,0 +1,9 @@
+{
+  "name": "cognitedata--library",
+  "displayName": "library",
+  "description": "The Cognite deployment packs \u2014 downloadable, extensible Toolkit modules that you configure and deploy with the Cognite Toolkit.",
+  "version": "1.0.0",
+  "author": "cognitedata",
+  "homepage": "https://github.com/cognitedata/library",
+  "skills": []
+}
