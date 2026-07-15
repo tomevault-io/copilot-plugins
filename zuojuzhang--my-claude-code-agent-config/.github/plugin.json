@@ -1,0 +1,9 @@
+{
+  "name": "zuojuzhang--my-claude-code-agent-config",
+  "displayName": "my_claude_code_agent_config",
+  "description": "claude code config",
+  "version": "1.0.0",
+  "author": "Zuojuzhang",
+  "homepage": "https://github.com/Zuojuzhang/my_claude_code_agent_config",
+  "skills": []
+}
