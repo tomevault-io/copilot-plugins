@@ -1,30 +1,37 @@
-## documentation
+## frontend-rules
 
-> README how-to maintenance and in-code documentation standards
+> Alpine.js SPA, Vite, and Tailwind conventions for frontend code
 
-## **5. Documentation Rules**
+## **2. Frontend Development Rules**
+### **SPA-Like Behavior**
+- **Rule 2.1**: Use **Fetch API** (`/api/...`) for dynamic data loading.
+- **Rule 2.2**: Use **Alpine.js** for view state; templates are HTML fragments bundled via Vite `?raw` imports in `js/pages.js`.
+- **Rule 2.3**: Prefer dynamic DOM updates via `loadPage()`; avoid full page reloads where possible.
 
-See [AGENTS.md](../AGENTS.md) for narrative policy. These rules are enforceable minimums.
+### **Templating**
+- **Rule 2.4**: Store view fragments in `frontend/src/templates/` (`.hbs` = Alpine HTML partials, not Handlebars-rendered).
+- **Rule 2.5**: Register pages in `frontend/src/js/pages.js`; Vite bundles templates and controllers at build time.
 
-### **README how-to maintenance (Rule 5.1)**
-- **Rule 5.1a**: `README.md` is the canonical human how-to. Keep these categories accurate and runnable:
-  1. **Project setup** — install, `.env` / `.env.example`, database init (`init_db` vs Alembic).
-  2. **Run by environment** — development (dual server), production, Docker, testing.
-  3. **Configure & operate** — OAuth redirects, **billing provider dashboards/webhooks** (see `docs/billing-configuration.md`), logs, Swagger, migrations, troubleshooting.
-- **Rule 5.1b**: Before claiming work done, scan your diff against README sync triggers in `AGENTS.md` → Documentation policy. Update matching how-to sections and `.env.example` when env vars change. Multi-step provider setup (OAuth, billing) belongs in `docs/oauth-configuration.md` or `docs/billing-configuration.md` — link from README, do not duplicate steps.
-- **Rule 5.1c**: Do not copy AGENTS recipes into README. Do not duplicate README prose in AGENTS.
+### **Interactivity (Alpine.js)**
+- **Rule 2.6**: Use Alpine.js for simple state management (`x-data`, `x-show`).
+- **Rule 2.7**: Avoid complex Alpine.js logic; delegate to Fetch API when needed.
 
-### **In-code documentation (Rule 5.2)**
-- **Rule 5.2a**: Every Python module (`backend/**/*.py`) starts with a one-line module docstring.
-- **Rule 5.2b**: Public Python functions and classes use Google-style docstrings and type hints on signatures.
-- **Rule 5.2c**: Every API route keeps its Flasgger Swagger YAML block (`---`); do not duplicate it in a separate docstring.
-- **Rule 5.2d**: Exported JavaScript modules (`frontend/src/**/*.js`) include a file-level JSDoc block; exported functions/objects include `@param` / `@returns` when not self-evident.
-- **Rule 5.2e**: Document new and modified code only — add module docs and document public symbols you touch in files you edit. No repo-wide retroactive pass.
+### **Styling (Tailwind CSS)**
+- **Rule 2.8**: Use **Tailwind utility classes** (avoid custom CSS unless necessary).
+- **Rule 2.9**: Keep responsive design in mind (`sm:`, `md:`, `lg:` prefixes).
 
-### **Anti-patterns (Rule 5.3)**
-- Restating the function name in a docstring.
-- README-style essays in module docstrings.
-- Claiming unimplemented features in README (e.g. DigitalOcean deploy until built).
+### **Performance (Vite JS)**
+- **Rule 2.10**: Lazy-load non-critical JS/CSS with Vite.
+- **Rule 2.11**: Optimize images and assets via Vite's build pipeline.
+- **Rule 2.12**: File-level JSDoc on exported modules; `@param` / `@returns` on exported functions when not self-evident. See [documentation.mdc](documentation.mdc) and `frontend/AGENTS.md`.
+
+### **SEO & discoverability**
+- **Rule 2.13**: Classify each page as `public`, `app`, or `auth` in the `pages.js` registry `seo` block; unset `visibility` inherits the fork `SEO_MODE` default.
+- **Rule 2.14**: Public pages require one `<h1>`, logical heading order, semantic landmarks (`main`, `nav`, `article`), real `<a href>` links, unique title + meta description, and critical copy in template HTML (not fetch-only).
+- **Rule 2.15**: `app` and `auth` pages use `noindex`; do not keyword-stuff UI copy.
+- **Rule 2.16**: Images require meaningful `alt` text.
+
+See `frontend/AGENTS.md` for extension recipes.
 
 ---
 > Source: [Elizio/vanilla-webapp-framework](https://github.com/Elizio/vanilla-webapp-framework) — distributed by [TomeVault](https://tomevault.io).
