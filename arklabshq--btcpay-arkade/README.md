@@ -7,11 +7,11 @@ Arkade BTCPay Server Plugin — Accept self-custodial Bitcoin payments via Arkad
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ArkLabsHQ/btcpay-arkade](https://github.com/ArkLabsHQ/btcpay-arkade).
+Original source: `CLAUDE.md` in [ArkLabsHQ/btcpay-arkade](https://github.com/ArkLabsHQ/btcpay-arkade).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
