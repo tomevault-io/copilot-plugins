@@ -1,0 +1,9 @@
+{
+  "name": "catoncat--xsearch",
+  "displayName": "xsearch",
+  "description": "One-shot structured search CLI and Agent Skill for OpenAI-compatible Grok model endpoints",
+  "version": "1.0.0",
+  "author": "catoncat",
+  "homepage": "https://github.com/catoncat/xsearch",
+  "skills": []
+}
