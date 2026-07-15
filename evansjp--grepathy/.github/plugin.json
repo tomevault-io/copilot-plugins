@@ -1,0 +1,9 @@
+{
+  "name": "evansjp--grepathy",
+  "displayName": "grepathy",
+  "description": "Your agent writes down why, in the repo, so everyone else's agents can find it without asking you.",
+  "version": "1.0.0",
+  "author": "evansjp",
+  "homepage": "https://github.com/evansjp/grepathy",
+  "skills": []
+}
