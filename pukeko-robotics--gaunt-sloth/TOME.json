@@ -4,7 +4,7 @@
   "repo": "gaunt-sloth",
   "description": "CLI AI assistant doing your code reviews",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pukeko-robotics/gaunt-sloth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T07:34:21Z"
+  "distributed_at": "2026-07-15T07:34:54Z"
 }
