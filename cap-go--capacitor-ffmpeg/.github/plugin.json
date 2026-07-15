@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-ffmpeg",
+  "displayName": "capacitor-ffmpeg",
+  "description": "Capacitor plugin to run ffmpeg locally on device",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-ffmpeg",
+  "skills": []
+}
