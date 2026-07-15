@@ -1,0 +1,9 @@
+{
+  "name": "glasagent--amorphouspy",
+  "displayName": "amorphouspy",
+  "description": "Workflows for computing glass properties at the atomic level",
+  "version": "1.0.0",
+  "author": "glasagent",
+  "homepage": "https://github.com/glasagent/amorphouspy",
+  "skills": []
+}
