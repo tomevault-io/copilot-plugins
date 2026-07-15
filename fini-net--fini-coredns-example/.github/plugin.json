@@ -1,0 +1,9 @@
+{
+  "name": "fini-net--fini-coredns-example",
+  "displayName": "fini-coredns-example",
+  "description": "Coredns with dnscontrol example \ud83d\udcdb\ud83c\udf24",
+  "version": "1.0.0",
+  "author": "fini-net",
+  "homepage": "https://github.com/fini-net/fini-coredns-example",
+  "skills": []
+}
