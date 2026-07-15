@@ -1,0 +1,9 @@
+{
+  "name": "wholiver--metis",
+  "displayName": "metis",
+  "description": "Metis coding agent CLI with read, bash, edit, write tools and session management",
+  "version": "1.0.0",
+  "author": "Wholiver",
+  "homepage": "https://github.com/Wholiver/metis",
+  "skills": []
+}
