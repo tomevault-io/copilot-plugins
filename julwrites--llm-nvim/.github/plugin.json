@@ -1,0 +1,9 @@
+{
+  "name": "julwrites--llm-nvim",
+  "displayName": "llm-nvim",
+  "description": "Neovim plugin for llm CLI",
+  "version": "1.0.0",
+  "author": "julwrites",
+  "homepage": "https://github.com/julwrites/llm-nvim",
+  "skills": []
+}
