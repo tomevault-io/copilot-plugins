@@ -1,0 +1,44 @@
+{
+  "name": "elliot-waves-auto",
+  "owner": "ESJavadex",
+  "repo": "elliot-waves-auto",
+  "description": "This is a Python-based web application for Elliott Wave analysis of financial markets. It detects wave structures (impulses and corrections), projects future price zones using Fibonacci retracements/extensions, and provides trade setup recommendations with entry, stop-loss, and take-profit levels.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ESJavadex/elliot-waves-auto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T08:31:24Z"
+}
