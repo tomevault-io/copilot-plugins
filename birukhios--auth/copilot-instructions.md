@@ -1,101 +1,49 @@
-## neon-auth
+## nextjs
 
-> Use these rules to relate your database data with your Auth users information
+> Follow these rules to write efficient Next.js code
 
-<neon_auth_guidelines>
+# Next.js guidelines
 
-  <overview>
-    These guidelines explain how to properly integrate and use Neon Auth for user authentication and management within your application.
-  </overview>
-  
-  <database_schema>
-    <schema_name>neon_auth</schema_name>
-    <primary_table>users_sync</primary_table>
-    <table_structure>
-      <column name="raw_json" type="JSONB" nullable="false" description="Complete user data in JSON format" />
-      <column name="id" type="TEXT" nullable="false" primary_key="true" description="Unique user identifier" />
-      <column name="name" type="TEXT" nullable="true" description="User's display name" />
-      <column name="email" type="TEXT" nullable="true" description="User's email address" />
-      <column name="created_at" type="TIMESTAMP WITH TIME ZONE" nullable="true" description="When the user was created" />
-      <column name="deleted_at" type="TIMESTAMP WITH TIME ZONE" nullable="true" description="When the user was deleted (if applicable)" />
-    </table_structure>
-    <indexes>
-      <index name="users_sync_deleted_at_idx" columns="deleted_at" purpose="Quickly identify deleted users" />
-    </indexes>
-    <creation_sql>
-```sql
--- Create schema if it doesn't exist
-CREATE SCHEMA IF NOT EXISTS neon_auth;
+You are an expert in TypeScript, Node.js, Next.js App Router, React, and Tailwind.
 
--- Create the users_sync table
-CREATE TABLE neon_auth.users_sync (
-    raw_json JSONB NOT NULL,
-    id TEXT NOT NULL,
-    name TEXT,
-    email TEXT,
-    created_at TIMESTAMP WITH TIME ZONE,
-    deleted_at TIMESTAMP WITH TIME ZONE,
-    PRIMARY KEY (id)
-);
+## Key Principles
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, subcomponents, helpers, static content, types.
 
--- Create index on deleted_at
-CREATE INDEX users_sync_deleted_at_idx ON neon_auth.users_sync (deleted_at);
-```
-    </creation_sql>
-  </database_schema>
-  
-  <usage>
-    <querying_users>
-      <description>How to fetch active users from Neon Auth</description>
-      <example>
-```sql
-SELECT * FROM neon_auth.users_sync WHERE deleted_at IS NULL;
-```
-      </example>
-    </querying_users>
-    
-    <relating_with_app_data>
-      <description>How to join user data with application tables</description>
-      <example>
-```sql
-SELECT 
-  t.*,
-  u.id AS user_id,
-  u.name AS user_name,
-  u.email AS user_email
-FROM 
-  public.todos t
-LEFT JOIN 
-  neon_auth.users_sync u ON t.owner = u.id
-WHERE 
-  u.deleted_at IS NULL
-ORDER BY 
-  t.id;
-```
-      </example>
-    </relating_with_app_data>
-  </usage>
-  
-  <best_practices>
-    <practice>
-      <rule>Always use LEFT JOIN when relating with neon_auth.users_sync</rule>
-      <rationale>Ensures queries work even if user records are missing</rationale>
-    </practice>
-    <practice>
-      <rule>Always filter out users with deleted_at IS NOT NULL</rule>
-      <rationale>Prevents deleted user accounts from appearing in queries</rationale>
-    </practice>
-    <practice>
-      <rule>Never create Foreign Key constraints pointing to neon_auth.users_sync</rule>
-      <rationale>User management happens externally and could break referential integrity</rationale>
-    </practice>
-    <practice>
-      <rule>Never insert users directly into the neon_auth.users_sync table</rule>
-      <rationale>User creation and management must happen through the Auth system</rationale>
-    </practice>
-  </best_practices>
+## Naming Conventions
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for components.
 
-</neon_auth_guidelines>
+## TypeScript Usage
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript interfaces.
+
+## Syntax and Formatting
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
+
+## UI and Styling
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
+
+## Performance Optimization
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+- Wrap client components in Suspense with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+
+## Key Conventions
+- Optimize Web Vitals (LCP, CLS, FID).
+- Limit 'use client':
+- Favor server components and Next.js SSR.
+- Use only for Web API access in small components.
+- Avoid for data fetching or state management.
+
+Follow Next.js docs for Data Fetching, Rendering, and Routing.
 
 ---
 > Source: [birukhios/auth](https://github.com/birukhios/auth) — distributed by [TomeVault](https://tomevault.io).
