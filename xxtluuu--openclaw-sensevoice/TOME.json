@@ -1,0 +1,51 @@
+{
+  "name": "openclaw-sensevoice",
+  "owner": "xxtluuu",
+  "repo": "openclaw-sensevoice",
+  "description": "\u26a1 Offline speech-to-text plugin for OpenClaw \u2014 1s cold start, 228MB model, Chinese-optimized. Powered by SenseVoice + Rust + ONNX Runtime. \u79bb\u7ebf\u8bed\u97f3\u8f6c\u6587\u5b57\u63d2\u4ef6\uff0c\u79d2\u7ea7\u54cd\u5e94\uff0c\u4e2d\u6587\u4f18\u5316\uff0c\u652f\u6301\u4e2d/\u82f1/\u65e5/\u97e9/\u7ca4\u4e94\u8bed\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sensevoice-stt",
+      "path": "skills/sensevoice-stt",
+      "github_url": "https://github.com/xxtluuu/openclaw-sensevoice/tree/main/skills/sensevoice-stt",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xxtluuu/openclaw-sensevoice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T00:31:42Z"
+}
