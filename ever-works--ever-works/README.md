@@ -7,11 +7,11 @@ Ever® Works™ - The Workshop for AI. An open agentic runtime that autonomously
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ever-works/ever-works](https://github.com/ever-works/ever-works).
+Original source: `CLAUDE.md` in [ever-works/ever-works](https://github.com/ever-works/ever-works).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
