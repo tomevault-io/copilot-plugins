@@ -1,0 +1,44 @@
+{
+  "name": "ever-works",
+  "owner": "ever-works",
+  "repo": "ever-works",
+  "description": "Ever\u00ae Works\u2122 - The Workshop for AI. An open agentic runtime that autonomously researches, ships and maintains content-rich websites and Git repositories - https://ever.works",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ever-works/ever-works",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T21:32:18Z"
+}
