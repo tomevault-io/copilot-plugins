@@ -4,7 +4,7 @@
   "repo": "eurorails_ai",
   "description": "AI-driven attempt at eurorails implementation",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeffgabriel/eurorails_ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T16:45:04Z"
+  "distributed_at": "2026-07-15T16:45:47Z"
 }
