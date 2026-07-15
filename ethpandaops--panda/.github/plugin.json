@@ -1,0 +1,14 @@
+{
+  "name": "ethpandaops--panda",
+  "displayName": "panda",
+  "description": "Your gateway to the ethPandaOps ecosystem",
+  "version": "1.0.0",
+  "author": "ethpandaops",
+  "homepage": "https://github.com/ethpandaops/panda",
+  "skills": [
+    {
+      "name": "install-mcp",
+      "description": ""
+    }
+  ]
+}
