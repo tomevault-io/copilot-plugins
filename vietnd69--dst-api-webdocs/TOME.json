@@ -1,0 +1,44 @@
+{
+  "name": "dst-api-webdocs",
+  "owner": "vietnd69",
+  "repo": "dst-api-webdocs",
+  "description": "Scripts code: https://github.com/vietnd69/dst-scripts This documentation provides detailed information about the Don't Starve Together (DST) scripts helping mod developers better understand the structure, components, and methods for creating mods for the game",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vietnd69/dst-api-webdocs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T04:32:51Z"
+}
