@@ -1,0 +1,9 @@
+{
+  "name": "jonhill90--agent-dotfiles",
+  "displayName": "agent-dotfiles",
+  "description": "Dotfiles for AI coding agents: one versioned repo that makes any machine, running any supported harness, behave like the same agent.",
+  "version": "1.0.0",
+  "author": "jonhill90",
+  "homepage": "https://github.com/jonhill90/agent-dotfiles",
+  "skills": []
+}
