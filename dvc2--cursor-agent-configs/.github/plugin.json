@@ -1,0 +1,9 @@
+{
+  "name": "dvc2--cursor-agent-configs",
+  "displayName": "cursor-agent-configs",
+  "description": "Copy and paste prompts for cursor agent. Free for anyone to use or add to. This repository provides a curated collection of advanced .mdc rules for Cursor IDE to optimize AI agent behavior, memory man",
+  "version": "1.0.0",
+  "author": "DVC2",
+  "homepage": "https://github.com/DVC2/cursor-agent-configs",
+  "skills": []
+}
