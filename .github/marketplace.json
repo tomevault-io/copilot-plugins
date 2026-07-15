@@ -68094,6 +68094,11 @@
       "description": "Build faster with an Agentic Workforce. Safe, secure, and compliant is now the default."
     },
     {
+      "name": "appwrite--mcp",
+      "source": "./appwrite--mcp",
+      "description": "Appwrite\u2019s MCP server. Operating your backend has never been easier."
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -144617,6 +144622,11 @@
       "name": "vladimirbrejcha--ios-ai-skills",
       "source": "./vladimirbrejcha--ios-ai-skills",
       "description": "Curated list of skills I use to build Swift iOS apps"
+    },
+    {
+      "name": "evansjp--grepathy",
+      "source": "./evansjp--grepathy",
+      "description": "Your agent writes down why, in the repo, so everyone else's agents can find it without asking you."
     },
     {
       "name": "nirholas--auto-kill-terminal",
