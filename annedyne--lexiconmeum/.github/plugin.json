@@ -1,0 +1,9 @@
+{
+  "name": "annedyne--lexiconmeum",
+  "displayName": "lexiconmeum",
+  "description": "Spring Boot backend for Latin word search and grammar, powered by typed Wiktionary/Kaikki lexical data.",
+  "version": "1.0.0",
+  "author": "annedyne",
+  "homepage": "https://github.com/annedyne/lexiconmeum",
+  "skills": []
+}
