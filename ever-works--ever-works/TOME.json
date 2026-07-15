@@ -4,7 +4,7 @@
   "repo": "ever-works",
   "description": "Ever\u00ae Works\u2122 - The Workshop for AI. An open agentic runtime that autonomously researches, ships and maintains content-rich websites and Git repositories - https://ever.works",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ever-works/ever-works",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T21:32:18Z"
+  "distributed_at": "2026-07-15T21:33:33Z"
 }
