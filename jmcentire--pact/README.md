@@ -2,22 +2,25 @@
 
 > Tome by [jmcentire](https://github.com/jmcentire/pact) — distributed by [TomeVault](https://tomevault.io)
 
-Contracts before code. Tests as law. Agents that can't cheat.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jmcentire/pact](https://github.com/jmcentire/pact).
+Original source: `AGENTS.md` in [jmcentire/pact](https://github.com/jmcentire/pact).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jmcentire/pact](https://github.com/jmcentire/pact) — a repo with 157+ stars on GitHub.
+## Bundled Skills (2)
+
+- [pact](https://github.com/jmcentire/pact/tree/main/skills/simulacrum/SKILL.md)
+- [pact](https://github.com/jmcentire/pact/tree/main/skills/pact-engineer/SKILL.md)
+
+From [jmcentire/pact](https://github.com/jmcentire/pact) — a repo with 0+ stars on GitHub.
 
 ---
 
