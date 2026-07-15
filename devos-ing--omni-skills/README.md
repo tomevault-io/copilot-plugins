@@ -7,13 +7,13 @@ GetSuperpower packages a whole AI-agent workflow as one callable skill.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [devos-ing/omni-skills](https://github.com/devos-ing/omni-skills).
+Original source: `.cursor/rules/*.mdc` in [devos-ing/omni-skills](https://github.com/devos-ing/omni-skills).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
