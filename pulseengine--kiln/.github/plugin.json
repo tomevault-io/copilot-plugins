@@ -1,0 +1,9 @@
+{
+  "name": "pulseengine--kiln",
+  "displayName": "kiln",
+  "description": "Kiln \u2014 WebAssembly runtime for safety-critical systems. Full Component Model and WASI 0.2 support. Part of the PulseEngine toolchain.",
+  "version": "1.0.0",
+  "author": "pulseengine",
+  "homepage": "https://github.com/pulseengine/kiln",
+  "skills": []
+}
