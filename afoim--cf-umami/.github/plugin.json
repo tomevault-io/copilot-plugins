@@ -1,0 +1,9 @@
+{
+  "name": "afoim--cf-umami",
+  "displayName": "cf-umami",
+  "description": "\u7b80\u5355\u7684Cloudflare Worker\u8bbf\u95ee\u91cf\u7edf\u8ba1",
+  "version": "1.0.0",
+  "author": "afoim",
+  "homepage": "https://github.com/afoim/cf-umami",
+  "skills": []
+}
