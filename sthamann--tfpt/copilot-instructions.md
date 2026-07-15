@@ -1,43 +1,103 @@
-## sync-maps
+## website-sync
 
-> Use the generated content maps + audit_sync to find and verify every surface a change touches
+> Keep the website (website/) in sync when the theory documents or the verification suite change
 
 
-# Sync maps
+# Website sync — mirror theory & verification changes into `website/`
 
-Two machine-readable maps (committed, refreshed by `bash build.sh gen`). Consult **first** before editing; audit is exit gate.
+The public site in `website/` (Next.js, static, deployed on Vercel) is a
+**mirror of the active root documents and the verification suite**. Whenever the
+theory or the scripts change, the website must be updated in the **same change**.
+Never invent numbers or claims — everything on the site is grounded in the
+documents and the ledger (the ledger wins on any disagreement).
 
-| Map | Path | Columns |
-|-----|------|---------|
-| Paper sections | `verification/docs_map.csv` | doc, section, line range, scripts cited, last_changed |
-| Mirror surfaces | `verification/website_map.csv` | website files + README + next.txt → scripts/docs |
+## What drives the site (data layer)
 
-Both **GENERATED** — never hand-edit.
+- `website/lib/papers.ts` — the **9 documents** (number 0 = `introduction`, 1–5 = the
+  numbered papers `tfpt_1_architecture_e8` … `tfpt_5_redteam`, 6–8 = the companions
+  `tfpt_horizon_readouts` ("Appendix H"), `origin_theory`, `tfpt_research_contracts` —
+  companions carry a `label` and are never shown as "Paper N"): abstract, sections,
+  `keyFormulas`, `highlights`, status.
+- `website/lib/predictions.ts` — the prediction surface. **Markers on the website use the
+  public four-class display system `[E]/[C]/[O]/[X]`** (same as the PDFs); the fine
+  per-claim types (Identity, Lattice, Formal, Numerical, Physical, Axiom) live in the
+  ledger and may be named in prose, but never as bare bracket badges.
+- `website/lib/glossary.ts` — `GlossTerm` vocabulary.
+- `website/lib/release.ts` — per-PDF version / bytes / SHA-256 (refreshed by
+  `bash build.sh website`; new PDFs still need their entry added by hand once).
+- `website/lib/version.ts` — **GENERATED** by `bash build.sh website` from
+  `tex-artefacts/version.tex` + git revision + date; shown in the site header
+  (`Navbar.tsx`). Never edit by hand.
+- `website/public/papers/*.pdf` — copies of ALL active root PDFs incl.
+  `tfpt_5_redteam.pdf` + `changelog.pdf` (copied by `bash build.sh website`).
+- `website/public/verification/*.py` + `predictions_frozen.json` — copies of
+  `verification/` (copied by `bash build.sh website`); the in-browser Pyodide
+  reproducer (`lib/pyodide.ts`, `components/Reproducer.tsx`) fetches these.
+- `website/components/VerificationDag.tsx` — dependency-graph nodes; each node lists the
+  `scripts` that verify it + its status marker.
+- `website/components/ScriptIndex.tsx` — **GENERATED** from
+  `verification/script_registry.csv` + `script_clusters.csv` via
+  `bash build.sh gen`. To add/change a script entry, edit the registry CSV and
+  regenerate — never edit the TSX data by hand.
+- `website/lib/changelog.ts` — **GENERATED** from the canonical `changelog.tex`
+  (repo root) by `verification/make_changelog_web.py` via `bash build.sh gen`.
+  Drives the public `/changelog` page (`app/changelog/page.tsx` +
+  `components/Changelog.tsx`, server-rendered, math via KaTeX). Never edit by
+  hand — to change the changelog, edit `changelog.tex` (newest first, plain
+  LaTeX) and regenerate; `audit_sync.py` fails if the mirror is stale.
+- Status markers also live in `components/StatusPyramid.tsx`, `components/orientation/StatusMatrix.tsx`,
+  and the `/verification` marker legend — keep them agreeing with the ledger.
 
-## Procedure (result/status/script change)
+## When the verification suite changes (new / renamed / removed `vN_*.py`)
 
-0. **`bash build.sh gen`** before reading maps
-1. `grep <vN> docs_map.csv` → paper sections to update
-2. `grep <vN> website_map.csv` (+ doc name) → mirror files
-3. Also check README + `next.txt` for status prose even without grep hit
-4. Edit → **`bash build.sh gen`** again → `bash build.sh website` if PDFs/scripts changed
-5. **`bash build.sh audit` → AUDIT OK**
+> Launch parallel subagents per skill **`tfpt-deep-sync`** (website + paper + stale
+> wording) before editing; parent merges checklists.
 
-For vN modules / status moves: skill **`tfpt-deep-sync`** (parallel subagents before editing).
+1. Add the script's row to `verification/script_registry.csv`, then
+   `bash build.sh gen` (regenerates `ScriptIndex.tsx` + the master TeX index).
+2. `bash build.sh website` (re-copies all `vN_*.py` + PDFs, stamps version + hashes).
+3. If it backs a DAG node, add its filename to that node's `scripts` in `VerificationDag.tsx`.
 
-Scorecard rows: skill **`tfpt-evidence-scorecard`**.
+## When the changelog changes (always — every committed change adds an entry)
 
-## Version
+1. Add the dated entry to `changelog.tex` at the repo root (newest first, plain
+   LaTeX only — no doc-specific macros), exactly as the `tfpt-workflow` rule
+   requires.
+2. `bash build.sh gen` — regenerates `website/lib/changelog.ts` (the `/changelog`
+   page data) from `changelog.tex`. Never hand-edit `lib/changelog.ts`,
+   `components/Changelog.tsx` data, or the page text to mirror an entry.
+3. `bash build.sh website` re-copies `changelog.pdf` into `public/papers/`. The
+   `/changelog` page links that PDF and is otherwise generated, so no further
+   manual website edit is needed for a changelog entry.
 
-Bump `\TFPTversion` only in `tex-artefacts/version.tex`; `bash build.sh website` propagates to `version.ts` + `release.ts`.
+## When a document changes (content or a recompiled `*.pdf`)
 
-## Structure changes
+1. `bash build.sh website` — copies the root PDFs into `website/public/papers/`,
+   refreshes bytes + SHA-256 + version/date in `lib/release.ts` and `lib/version.ts`.
+2. Update that document's entry in `lib/papers.ts` (abstract / sections / `keyFormulas` /
+   `highlights`); update `lib/predictions.ts` / `lib/glossary.ts` if a prediction or term changed.
+   `verification/website_map.csv` lists which website files mention which documents/scripts
+   (see the `sync-maps` rule).
 
-New doc: `build.sh` NOTES, `make_docs_map.py` DOCS, `make_manifest.py` TEX, `tfpt_docset.tex`, `papers.ts`, `release.ts` → `bash build.sh release`.
+## When a result or status marker changes
 
-New cluster: `verification/script_clusters.csv`.
+- A marker upgrade/downgrade must propagate to **every** website surface that shows it
+  (`VerificationDag.tsx`, `StatusPyramid.tsx`, `orientation/StatusMatrix.tsx`) so markers
+  never disagree with the ledger.
+- The `introduction` is the reading guide → the `/orientation` components mirror its
+  before/after, predictions and status card.
 
-Never add audit exceptions to `audit_baseline.json` (frozen, remove-only).
+## Gate (before done — always)
+
+- `bash build.sh audit` must end "AUDIT OK" (mirror byte-identical, release hashes
+  current, versions agree, no orphaned/unknown script references in website code).
+- `cd website && npm run build` must pass (TypeScript + all static pages generated).
+  `bash build.sh release` runs both plus the doc compile in one go.
+- Browser-check the touched page(s): `/`, `/verification`, `/papers/<slug>`, `/orientation`,
+  `/falsification`, `/changelog`. On `/verification`, click a changed script to confirm the
+  reproducer runs; on `/changelog`, confirm the newest entry rendered (math + markers).
+- The canonical repo link is `REPO_URL` in `lib/utils.ts`; the Pyodide version is pinned in
+  `lib/pyodide.ts`.
 
 ---
 > Source: [sthamann/tfpt](https://github.com/sthamann/tfpt) — distributed by [TomeVault](https://tomevault.io).
