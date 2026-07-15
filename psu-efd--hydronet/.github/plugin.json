@@ -1,0 +1,9 @@
+{
+  "name": "psu-efd--hydronet",
+  "displayName": "HydroNet",
+  "description": "Physics-informed machine learning for hydrodynamics and hydraulics modeling",
+  "version": "1.0.0",
+  "author": "psu-efd",
+  "homepage": "https://github.com/psu-efd/HydroNet",
+  "skills": []
+}
