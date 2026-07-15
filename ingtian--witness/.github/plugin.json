@@ -1,0 +1,9 @@
+{
+  "name": "ingtian--witness",
+  "displayName": "witness",
+  "description": "Local memory & self-improvement engine for Claude Code and OpenCode: captures your coding sessions and distills how your patterns, habits, and knowledge evolve over time \u2014 a person-centric growth arch",
+  "version": "1.0.0",
+  "author": "IngTian",
+  "homepage": "https://github.com/IngTian/witness",
+  "skills": []
+}
