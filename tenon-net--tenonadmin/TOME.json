@@ -4,7 +4,7 @@
   "repo": "TenonAdmin",
   "description": "A zero-config, extensible ASP.NET Core admin system with RBAC, data permissions, SqlSugar, and NuGet-first delivery.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tenon-Net/TenonAdmin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T11:30:48Z"
+  "distributed_at": "2026-07-15T11:31:22Z"
 }
