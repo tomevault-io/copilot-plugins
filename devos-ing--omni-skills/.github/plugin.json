@@ -1,0 +1,9 @@
+{
+  "name": "devos-ing--omni-skills",
+  "displayName": "omni-skills",
+  "description": "GetSuperpower packages a whole AI-agent workflow as one callable skill.",
+  "version": "1.0.0",
+  "author": "devos-ing",
+  "homepage": "https://github.com/devos-ing/omni-skills",
+  "skills": []
+}
