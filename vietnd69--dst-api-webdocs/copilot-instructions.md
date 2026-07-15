@@ -1,314 +1,152 @@
-## dst-core-systems-index-workflow
-
-> This rule defines the complete workflow for creating, updating, and maintaining index.md files within the DST core-systems documentation structure. It integrates format standards, templates, and quality assurance procedures.
-
-# DST Core Systems Index Workflow
-
-This rule defines the complete workflow for creating, updating, and maintaining index.md files within the DST core-systems documentation structure. It integrates format standards, templates, and quality assurance procedures.
-
-## Workflow Overview
-
-The core-systems index workflow consists of four main phases:
-
-1. **Analysis Phase**: Understand the system category and its components
-2. **Template Selection**: Choose appropriate format and structure
-3. **Content Development**: Create comprehensive documentation content
-4. **Quality Assurance**: Verify accuracy and integration
-
-## Phase 1: Analysis Phase
-
-### System Category Assessment
-
-Before creating any index.md file, perform these analysis steps:
-
-#### 1.1 Directory Structure Analysis
-- Examine the current directory structure using [list_dir](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs) tool
-- Identify all subdirectories and existing documentation files
-- Map the relationship between system components
-- Determine the hierarchical organization
-
-#### 1.2 Component Inventory
-```bash
-# Use these commands to understand the system structure
-find ./docs/game-scripts/core-systems/[system-category] -name "*.md" -type f
-ls -la ./docs/game-scripts/core-systems/[system-category]/
-```
-
-#### 1.3 Source Code Verification
-- Cross-reference documentation with actual source code in '/dst-scripts' reponsive directory in workspace
-- Verify component existence and current functionality
-- Check for recent changes in build version 676042
-- Identify deprecated or removed components
-
-#### 1.4 Dependency Mapping
-- Map dependencies between system categories
-- Identify integration points with other core systems
-- Document cross-system communication patterns
-- Verify API compatibility requirements
-
-### System Classification
-
-Classify the system category using this decision tree:
-
-```
-Is this the main core-systems index?
-├─ YES → Use Main Index Template
-└─ NO → Analyze system purpose
-    ├─ Character/Player focused → Character Systems Template
-    ├─ Gameplay mechanics → Game Mechanics Template  
-    ├─ Developer tools → Development Tools Template
-    └─ Technical infrastructure → Infrastructure Template
-```
-
-## Phase 2: Template Selection and Customization
-
-### 2.1 Template Selection
-
-Choose the appropriate template from [DST Core Systems Index Templates](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-core-systems-index-templates.mdc):
-
-| System Type | Template | Key Characteristics |
-|-------------|----------|-------------------|
-| Main Overview | Main Index Template | Top-level system organization |
-| Character Systems | Character Systems Template | Player/character functionality |
-| Game Mechanics | Game Mechanics Template | Gameplay features |
-| Development Tools | Development Tools Template | Developer utilities |
-| Infrastructure | Infrastructure Template | Low-level technical systems |
-
-### 2.2 Template Customization
-
-#### Front Matter Customization
-```markdown
----
-id: [system-category]-overview
-title: [System Category Name] Overview
-description: Overview of [specific system functionality] in DST API
-sidebar_position: [determined by system hierarchy]
-
-last_updated: [current date]
-build_version: 676042
-change_status: stable
-category_type: [system-type]
-system_scope: [brief functional scope]
----
-```
-
-#### Content Section Mapping
-1. **System Purpose**: Define the specific role of this system category
-2. **Architecture Overview**: Document the technical organization
-3. **Module Inventory**: List all components with current status
-4. **Integration Patterns**: Show how systems connect
-5. **Development Guidelines**: Provide implementation guidance
-
-### 2.3 Format Compliance
-
-Ensure compliance with [DST Core Systems Index Format](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-core-systems-index-format.mdc):
-
-- Use consistent heading hierarchy (H1 > H2 > H3 > H4)
-- Include required sections in specified order
-- Apply proper markdown formatting for tables and code blocks
-- Maintain cross-reference link consistency
-- Follow established terminology conventions
-
-## Phase 3: Content Development
-
-### 3.1 Content Research and Verification
-
-#### Source Code Analysis
-Use these commands to gather accurate information:
-
-```bash
-# Find relevant source files
-grep -r "component_name" scripts/ --include="*.lua"
-find scripts/ -name "*[system-name]*" -type f
-grep -r "function.*[SystemName]" scripts/ --include="*.lua"
-```
-
-#### Module Documentation Verification
-- Verify each listed module exists in the source code
-- Check component status against actual implementation
-- Validate code examples against current build (676042)
-- Confirm integration patterns with source analysis
-
-#### Cross-Reference Validation
-- Verify all internal links point to existing documentation
-- Check that cross-system references are accurate
-- Validate external links and dependencies
-- Ensure consistent terminology across documentation
-
-### 3.2 Content Writing Guidelines
-
-#### Technical Accuracy
-- All code examples must be verified against source code
-- Function signatures must match actual implementation
-- Data structures must reflect current API design
-- Integration patterns must demonstrate real functionality
-
-#### Writing Standards
-Follow [DST API Documentation Format](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-api-documentation-format.mdc):
-- Use active voice for instructions
-- Maintain professional but accessible tone
-- Include clear, tested code examples
-- Provide sufficient context for all technical concepts
-
-#### Content Organization
-- Structure information in logical progression
-- Use tables for comparative information
-- Include visual elements (code blocks, lists) for clarity
-- Maintain consistent formatting throughout
-
-### 3.3 Integration Content Development
-
-#### System Dependencies
-Document dependencies with this structure:
-```markdown
-### Required Systems
-- [System Name](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/system-path/index.md): [Technical reason for dependency]
-
-### Optional Systems
-- [System Name](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/system-path/index.md): [Enhancement provided by integration]
-```
-
-#### Cross-System Integration
-- Document how systems communicate
-- Explain shared data structures
-- Show integration code patterns
-- Identify common integration challenges
-
-## Phase 4: Quality Assurance
-
-### 4.1 Content Verification
-
-#### Accuracy Checklist
-- [ ] All module references exist in source code
-- [ ] Code examples execute successfully
-- [ ] Function signatures match implementation
-- [ ] Data structures reflect current API
-- [ ] Build version information is current (676042)
-- [ ] Change history accurately reflects system evolution
-
-#### Integration Verification
-- [ ] All internal links resolve correctly
-- [ ] Cross-references are bidirectional where appropriate
-- [ ] System dependency information is accurate
-- [ ] Integration patterns reflect real usage
-- [ ] Terminology is consistent across all index files
-
-#### Format Compliance
-- [ ] Front matter includes all required fields
-- [ ] Document structure follows template requirements
-- [ ] Markdown formatting is correct and consistent
-- [ ] Code blocks use appropriate syntax highlighting
-- [ ] Tables are properly formatted and aligned
-
-### 4.2 Cross-Documentation Testing
-
-#### Link Validation
-```bash
-# Test internal links
-find docs/ -name "*.md" -exec grep -l "](./[path]" {} \;
-
-# Verify cross-references
-grep -r "\[.*\](\.\./" docs/game-scripts/core-systems/
-```
-
-#### Content Consistency
-- Verify terminology consistency across all index files
-- Check that system descriptions align with related documentation
-- Ensure code examples use consistent patterns
-- Validate that integration information is mutual
-
-### 4.3 Performance and Usability Testing
-
-#### Navigation Testing
-- Verify that users can navigate between related systems easily
-- Test that the system hierarchy makes logical sense
-- Ensure that search functionality will work with current content
-- Validate that cross-references enhance rather than confuse navigation
-
-#### Content Usability
-- Test that code examples can be copied and used successfully
-- Verify that troubleshooting information addresses real issues
-- Ensure that development guidelines are actionable
-- Check that system overviews provide sufficient context for decision-making
-
-## Maintenance Workflow
-
-### 4.4 Ongoing Maintenance
-
-#### Build Version Updates
-When DST updates to a new build version:
-1. Update `build_version` field in front matter
-2. Review changed components in the update
-3. Update module status indicators as needed
-4. Add entries to Recent Changes table
-5. Update `last_updated` date
-
-#### Content Evolution
-Monitor for these maintenance triggers:
-- New modules added to system category
-- Existing modules modified or deprecated
-- New integration patterns discovered
-- Performance characteristics changed
-- Development best practices evolved
-
-#### Quality Monitoring
-Regular quality assurance tasks:
-- Quarterly link validation across all index files
-- Semi-annual code example verification
-- Build-based accuracy validation
-- User feedback incorporation
-
-## Integration with Documentation Standards
-
-### Related Rules
-This workflow integrates with:
-- [DST API Documentation Format](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-api-documentation-format.mdc)
-- [DST Core Systems Index Format](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-core-systems-index-format.mdc)
-- [DST Core Systems Index Templates](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-core-systems-index-templates.mdc)
-- [DST API Documentation Example Accuracy](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/.cursor/rules/dst-api-documentation-example-accuracy.mdc)
-
-### Documentation Ecosystem
-Core-systems index files serve as:
-- **Navigation Hubs**: Entry points for system exploration
-- **Architecture Guides**: High-level system understanding
-- **Integration Maps**: Cross-system relationship documentation
-- **Quality Standards**: Examples of documentation excellence
-
-## Success Metrics
-
-### Immediate Quality Indicators
-- All links resolve correctly without 404 errors
-- Code examples execute without syntax or runtime errors
-- Module inventories accurately reflect current source code
-- System descriptions enable informed decision-making
-
-### Long-term Value Indicators
-- Reduced time for developers to understand system relationships
-- Increased confidence in system integration decisions
-- Decreased support requests about system architecture
-- Improved onboarding experience for new team members
-
-### Continuous Improvement
-- Regular user feedback collection
-- Documentation usage analytics monitoring
-- Integration with development workflow feedback
-- Adaptation to evolving documentation needs
-
-## Tools and Automation
-
-### Recommended Tools
-- **Link Validation**: Use automated link checking during CI/CD
-- **Code Example Testing**: Integrate example validation in build process
-- **Content Consistency**: Use terminology checking tools
-- **Source Synchronization**: Automate module inventory updates
-
-### Automation Opportunities
-- Automated module discovery from source code
-- Build version synchronization across documentation
-- Cross-reference validation in pull requests
-- Documentation coverage reporting
-
-This workflow ensures that core-systems index.md files maintain high quality, accuracy, and usefulness throughout the documentation lifecycle.
+## dst-core-systems-structure
+
+> This rule defines the logical organization structure for the Don't Starve Together core systems documentation based on the comprehensive analysis in [core-systems-structure.md](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/core-systems-structure.md).
+
+# DST Core Systems Directory Structure
+
+This rule defines the logical organization structure for the Don't Starve Together core systems documentation based on the comprehensive analysis in [core-systems-structure.md](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/core-systems-structure.md).
+
+## Core Systems Organization
+
+The `/docs/game-scripts/core-systems/` directory is organized into 12 main categories to reflect logical learning progression and system dependencies:
+
+### 1. System Core
+**Location:** `docs/game-scripts/core-systems/system-core/`
+**Purpose:** Engine foundation and runtime systems that power the entire game
+**Contents:**
+- `engine/` - Game initialization, core functions, physics, map utilities
+- `runtime/` - Update loops and runtime execution systems
+
+### 2. Fundamentals
+**Location:** `docs/game-scripts/core-systems/fundamentals/`
+**Purpose:** Core programming foundation - OOP, entities, utilities, and basic systems
+**Contents:**
+- `core/` - OOP foundation, entity system, metaclass, standard components
+- `utilities/` - Math, string, vector utilities, simulation helpers
+- `actions/` - Player interaction and action systems
+- `ai-systems/` - AI brains, behavior trees, state machines
+
+### 3. Game Mechanics
+**Location:** `docs/game-scripts/core-systems/game-mechanics/`
+**Purpose:** Core gameplay systems that define how players interact with the game
+**Contents:**
+- `cooking/` - Recipe system, food mechanics, spiced variants
+- `crafting/` - Recipe definitions, tech tree, filtering systems
+- `containers/` - Storage and inventory systems
+- `achievements/` - Achievement system and progression tracking
+- `special-events/` - Seasonal events and limited-time content
+
+### 4. Character Systems
+**Location:** `docs/game-scripts/core-systems/character-systems/`
+**Purpose:** Player character management, customization, and progression
+**Contents:**
+- `core/` - Character utilities, profiles, death tracking
+- `customization/` - Skins, clothing, visual customization
+- `emotes/` - Player expressions and social features
+- `progression/` - Skill trees, character advancement, WX-78 modules
+- `speech/` - Character dialogue (Wilson as master template)
+
+### 5. World Systems
+**Location:** `docs/game-scripts/core-systems/world-systems/`
+**Purpose:** World generation, terrain management, and entity systems
+**Contents:**
+- `generation/` - World generation, settings, presets, regrowth
+- `tiles-terrain/` - Ground tiles, terrain properties, noise functions
+- `entities/` - Prefab system, world entities, skin mappings
+- `ocean/` - Ocean mechanics and water systems
+
+### 6. Networking Communication
+**Location:** `docs/game-scripts/core-systems/networking-communication/`
+**Purpose:** Multiplayer networking, chat, and server communication
+**Contents:**
+- `networking/` - Core networking, RPC, shard management
+- `chat-commands/` - Chat system, user commands, voting
+- `multiplayer/` - Server preferences, MOTD, popup management
+
+### 7. User Interface
+**Location:** `docs/game-scripts/core-systems/user-interface/`
+**Purpose:** UI management, input handling, and visual effects
+**Contents:**
+- `frontend/` - Core UI, data grids, loading tips, split screen
+- `input/` - Input handling, controls, haptic feedback
+- `graphics/` - Visual effects, lighting, particles, post-processing
+- `typography/` - Font system, animation easing
+
+### 8. Game Configuration
+**Location:** `docs/game-scripts/core-systems/game-configuration/`
+**Purpose:** Game settings, balance, modes, and statistics
+**Contents:**
+- `settings/` - Configuration, constants, tuning, global overrides
+- `modes/` - Game modes, logic, event systems
+- `stats/` - Statistics tracking, item blacklists
+
+### 9. Development Tools
+**Location:** `docs/game-scripts/core-systems/development-tools/`
+**Purpose:** Developer utilities, debugging, and testing tools
+**Contents:**
+- `debugging/` - Debug commands, tools, menu systems, inspection
+- `console/` - Console commands, hot reloading
+- `profiling/` - Performance monitoring, code profiling
+- `utilities/` - Development utilities, serialization, error handling
+
+### 10. Localization Content
+**Location:** `docs/game-scripts/core-systems/localization-content/`
+**Purpose:** String management, translation, and game content
+**Contents:**
+- `strings/` - String management, localization, POT generation
+- `translation/` - Translation system, monkey curse utilities
+- `content/` - Game content, theatrical systems, guitar tabs
+
+### 11. Data Management
+**Location:** `docs/game-scripts/core-systems/data-management/`
+**Purpose:** Save systems, asset management, and data utilities
+**Contents:**
+- `saves/` - Save game system, upgrades, shard management
+- `assets/` - Asset loading, JSON support, audio preloading
+- `utilities/` - Task scheduling, platform configuration, legacy redirects
+
+### 12. Mod Support
+**Location:** `docs/game-scripts/core-systems/mod-support/`
+**Purpose:** Mod system and DLC support infrastructure
+**Contents:**
+- `core/` - Core mod system, registry, utilities, compatibility
+- `dlc/` - DLC support, strings, world generation
+
+## File Mapping Principles
+
+### Script to Documentation Mapping
+Each Lua script in [dst-scripts/](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/dst-scripts) that is NOT in a subdirectory gets documented in the appropriate core-systems category:
+
+- **Root-level scripts** (like `actions.lua`, `cooking.lua`, `util.lua`) → Mapped to logical categories based on functionality
+- **Character speech files** (`speech_*.lua`) → `character-systems/speech/`
+- **Utility scripts** (`*util.lua`) → Appropriate utility subcategories
+- **System files** (`main.lua`, `physics.lua`) → `system-core/engine/`
+
+### Content Organization Rules
+
+1. **Dependency Order**: Core systems (OOP, entities) before application systems
+2. **Learning Progression**: Basic concepts before advanced implementations  
+3. **Functional Grouping**: Related functionality clustered together
+4. **Developer Workflow**: From engine core to content creation tools
+
+### Cross-Reference Integration
+
+All documentation should use relative links to maintain connections:
+- Link between related components using `[ComponentName](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/category/component-name.md)`
+- Reference speech files as templates: `[Wilson Template](mdc:dst-api-webdocs/dst-api-webdocs/dst-api-webdocs/character-systems/speech/speech_wilson.md)`
+- Connect utilities to their usage contexts
+
+## Documentation Standards
+
+Each category follows the DST API documentation format defined in the workspace rules:
+
+- **Front matter** with appropriate metadata
+- **Version history** tracking build changes
+- **Status indicators** for API stability
+- **Cross-references** to related systems
+- **Build version tracking** (currently 676042)
+
+This structure ensures logical navigation, clear dependencies, and maintainable organization for the comprehensive DST API documentation suite.
 
 ---
 > Source: [vietnd69/dst-api-webdocs](https://github.com/vietnd69/dst-api-webdocs) — distributed by [TomeVault](https://tomevault.io).
