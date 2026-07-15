@@ -4,7 +4,7 @@
   "repo": "orca-viz",
   "description": "See what your Orca agents are doing \u2014 the task DAG, who is working what, and the gates blocking the run.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nvergez/orca-viz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T08:33:58Z"
+  "distributed_at": "2026-07-15T08:37:40Z"
 }
