@@ -2,9 +2,9 @@
   "name": "pact",
   "owner": "jmcentire",
   "repo": "pact",
-  "description": "Contracts before code. Tests as law. Agents that can't cheat.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "pact",
+      "path": "skills/simulacrum/SKILL.md",
+      "github_url": "https://github.com/jmcentire/pact/tree/main/skills/simulacrum/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pact",
+      "path": "skills/pact-engineer/SKILL.md",
+      "github_url": "https://github.com/jmcentire/pact/tree/main/skills/pact-engineer/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/jmcentire/pact",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T07:50:37Z"
+  "distributed_at": "2026-07-15T16:02:05Z"
 }
