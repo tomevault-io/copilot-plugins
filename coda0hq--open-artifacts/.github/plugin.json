@@ -1,0 +1,9 @@
+{
+  "name": "coda0hq--open-artifacts",
+  "displayName": "open-artifacts",
+  "description": "Open-source, self-hosted Claude Code Artifacts on Cloudflare \u2014 publish, password-protect, and auto-update shareable HTML/Markdown pages from any coding agent.",
+  "version": "1.0.0",
+  "author": "coda0HQ",
+  "homepage": "https://github.com/coda0HQ/open-artifacts",
+  "skills": []
+}
