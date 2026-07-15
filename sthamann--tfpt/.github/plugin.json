@@ -1,0 +1,9 @@
+{
+  "name": "sthamann--tfpt",
+  "displayName": "tfpt",
+  "description": "Topological Fixed-Point Theory: a machine-checked discrete compiler for the Standard Model, \u03b1\u207b\u00b9, and cosmology from two axioms. Papers, verification suite (Python/Wolfram/Lean), experiments & website.",
+  "version": "1.0.0",
+  "author": "sthamann",
+  "homepage": "https://github.com/sthamann/tfpt",
+  "skills": []
+}
