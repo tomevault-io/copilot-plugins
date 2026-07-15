@@ -1,0 +1,9 @@
+{
+  "name": "ironic-org--ironic",
+  "displayName": "ironic",
+  "description": "A type-safe, modular Rust application framework built on Axum. Batteries-included: DI, controllers, middleware, guards, pipes, WebSocket gateways, scheduling, caching, and OpenAPI.",
+  "version": "1.0.0",
+  "author": "ironic-org",
+  "homepage": "https://github.com/ironic-org/ironic",
+  "skills": []
+}
