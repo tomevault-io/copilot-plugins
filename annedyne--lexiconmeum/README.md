@@ -7,11 +7,11 @@ Spring Boot backend for Latin word search and grammar, powered by typed Wiktiona
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [annedyne/lexiconmeum](https://github.com/annedyne/lexiconmeum).
+Original source: `AGENTS.md` in [annedyne/lexiconmeum](https://github.com/annedyne/lexiconmeum).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
