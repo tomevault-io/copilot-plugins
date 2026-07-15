@@ -1,0 +1,9 @@
+{
+  "name": "wellknownmcp--cortex-gateway",
+  "displayName": "cortex-gateway",
+  "description": "Federated MCP gateway: one OAuth 2.1-protected, spec-compliant MCP server in front of all your apps. Backends stay plain HTTP (~120-line contract) or proxied native MCP servers with a per-user token v",
+  "version": "1.0.0",
+  "author": "wellknownmcp",
+  "homepage": "https://github.com/wellknownmcp/cortex-gateway",
+  "skills": []
+}
