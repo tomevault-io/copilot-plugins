@@ -4,7 +4,7 @@
   "repo": "QuantumPDF_ChatApp_VectorDB",
   "description": "QuantumPDF V1.3 enables intelligent conversations with PDF documents. Built with Next.js 15 and React 19, it uses Retrieval-Augmented Generation (RAG) to provide accurate, context-aware responses from your documents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kedhareswer/QuantumPDF_ChatApp_VectorDB",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-15T06:39:36Z"
+  "distributed_at": "2026-07-15T06:41:55Z"
 }
