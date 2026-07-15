@@ -40729,6 +40729,11 @@
       "description": "Deterministic PineScript v6 backtest runtime. Validated trade-for-trade against TradingView."
     },
     {
+      "name": "jmcentire--pact",
+      "source": "./jmcentire--pact",
+      "description": "pact"
+    },
+    {
       "name": "kaihv--open-banking-chile",
       "source": "./kaihv--open-banking-chile",
       "description": "Open source scrapers para bancos chilenos. Obt\u00e9n tus movimientos y saldo como JSON. Contribuye con tu banco!"
@@ -105957,6 +105962,16 @@
       "name": "dqnamo--chaterface-legacy",
       "source": "./dqnamo--chaterface-legacy",
       "description": "chaterface-legacy"
+    },
+    {
+      "name": "gbeurier--nirs4all",
+      "source": "./gbeurier--nirs4all",
+      "description": "A library for Near Infrared Sprectroscopy prediction. NIRS ML. Rebuild of the Pinard package."
+    },
+    {
+      "name": "gbeurier--nirs4all",
+      "source": "./gbeurier--nirs4all",
+      "description": "A library for Near Infrared Sprectroscopy prediction. NIRS ML. Rebuild of the Pinard package."
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -193544,6 +193559,11 @@
       "description": "READ-ONLY MIRROR"
     },
     {
+      "name": "quantum-multiscale--qepy",
+      "source": "./quantum-multiscale--qepy",
+      "description": "QEpy"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -246469,6 +246489,11 @@
       "description": "Load \"After Effects Effect Plugin (.aex)\" and render them directly without Adobe After Effects. (currently under heavy development)"
     },
     {
+      "name": "project-cybersyn--cybersyn2",
+      "source": "./project-cybersyn--cybersyn2",
+      "description": "Factorio mod to create a feature-rich train logistics system controlled by cybernetic combinators and the circuit network. A successor to Project Cybersyn, redesigned for Factorio 2.0."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -268869,6 +268894,41 @@
       "description": "Local, privacy-first desktop analytics for Claude and Codex usage records already on disk."
     },
     {
+      "name": "zethrise--codelookup-skill",
+      "source": "./zethrise--codelookup-skill",
+      "description": "The skill that makes the agent take a look at every side of the project!"
+    },
+    {
+      "name": "genail--yggmap",
+      "source": "./genail--yggmap",
+      "description": "A free, fully private, one-page mind-mapping web app. No accounts, no server, no tracking."
+    },
+    {
+      "name": "ingtian--witness",
+      "source": "./ingtian--witness",
+      "description": "Local memory & self-improvement engine for Claude Code and OpenCode: captures your coding sessions and distills how your patterns, habits, and knowledge evolve over time \u2014 a person-centric growth arch"
+    },
+    {
+      "name": "david4096--on2vec",
+      "source": "./david4096--on2vec",
+      "description": "A tool for generating embeddings of classes organized into an an ontology"
+    },
+    {
+      "name": "yugoxc--privacy-kit-cl",
+      "source": "./yugoxc--privacy-kit-cl",
+      "description": "Cumplimiento Ley 21.719 (protecci\u00f3n de datos, Chile) para sistemas con IA/LLMs: enmascara PII antes de los modelos, derechos ARCOP, auditor\u00eda y ROPA. Python + Node.js, multi-canal."
+    },
+    {
+      "name": "endless1936--book-video",
+      "source": "./endless1936--book-video",
+      "description": "A natural-language workflow for creating atmospheric short book videos with AI-generated visuals, HyperFrames, GSAP animation, voiceover timing, subtitles, and BGM."
+    },
+    {
+      "name": "glasagent--amorphouspy",
+      "source": "./glasagent--amorphouspy",
+      "description": "Workflows for computing glass properties at the atomic level"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -273542,6 +273602,11 @@
       "name": "wholiver--metis",
       "source": "./wholiver--metis",
       "description": "Metis coding agent CLI with read, bash, edit, write tools and session management"
+    },
+    {
+      "name": "kevin101681--claude-code-dashboard",
+      "source": "./kevin101681--claude-code-dashboard",
+      "description": "claude-code-dashboard"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -398592,6 +398657,121 @@
       "name": "pantalasa--frontend",
       "source": "./pantalasa--frontend",
       "description": "frontend"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "captainigl00--portfolio",
+      "source": "./captainigl00--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "ecelias--paperscoutdesigndocs",
+      "source": "./ecelias--paperscoutdesigndocs",
+      "description": "PaperScoutDesignDocs"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "annedyne--lexiconmeum",
+      "source": "./annedyne--lexiconmeum",
+      "description": "Spring Boot backend for Latin word search and grammar, powered by typed Wiktionary/Kaikki lexical data."
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "victor-candeias--school-server",
+      "source": "./victor-candeias--school-server",
+      "description": "school-server"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "rollecode--lastfm-recommendations",
+      "source": "./rollecode--lastfm-recommendations",
+      "description": "A music recommender. Recommends new artists based on your listened history. Just an experiment."
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "annedyne--lexiconmeum",
+      "source": "./annedyne--lexiconmeum",
+      "description": "Spring Boot backend for Latin word search and grammar, powered by typed Wiktionary/Kaikki lexical data."
+    },
+    {
+      "name": "szucsjuan--inmobiliaria-gangi",
+      "source": "./szucsjuan--inmobiliaria-gangi",
+      "description": "inmobiliaria_gangi"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "victor-candeias--school-server",
+      "source": "./victor-candeias--school-server",
+      "description": "school-server"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "nurtantioquidar--nixcfg",
+      "source": "./nurtantioquidar--nixcfg",
+      "description": "Nix configuration."
+    },
+    {
+      "name": "cffnpwr--dotfiles",
+      "source": "./cffnpwr--dotfiles",
+      "description": "Dotfiles for cffnpwr"
+    },
+    {
+      "name": "jeffgabriel--eurorails-ai",
+      "source": "./jeffgabriel--eurorails-ai",
+      "description": "AI-driven attempt at eurorails implementation"
+    },
+    {
+      "name": "cffnpwr--dotfiles",
+      "source": "./cffnpwr--dotfiles",
+      "description": "Dotfiles for cffnpwr"
+    },
+    {
+      "name": "unohuim--dynastyiq",
+      "source": "./unohuim--dynastyiq",
+      "description": "dynastyiq"
     }
   ]
 }
