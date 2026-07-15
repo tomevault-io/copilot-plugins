@@ -1,0 +1,9 @@
+{
+  "name": "rollecode--lastfm-recommendations",
+  "displayName": "lastfm-recommendations",
+  "description": "A music recommender. Recommends new artists based on your listened history. Just an experiment.",
+  "version": "1.0.0",
+  "author": "rollecode",
+  "homepage": "https://github.com/rollecode/lastfm-recommendations",
+  "skills": []
+}
