@@ -77879,6 +77879,11 @@
       "description": "CoBridge"
     },
     {
+      "name": "l0usie--nexus-agents",
+      "source": "./l0usie--nexus-agents",
+      "description": "A distributed multi-modal agent orchestration framework implementing advanced natural language processing, computer vision, and audio processing capabilities through a microservices architecture."
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -125357,6 +125362,11 @@
       "name": "corgea--sighthound",
       "source": "./corgea--sighthound",
       "description": "Corgea's rule-based SAST scanner"
+    },
+    {
+      "name": "finny-ai--promptix-python",
+      "source": "./finny-ai--promptix-python",
+      "description": "A lightweight, powerful, local-first prompt management system that brings version control, dynamic templating, and a visual studio interface to your LLM workflows."
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -193592,6 +193602,16 @@
       "name": "ideascoldigital--fnpm",
       "source": "./ideascoldigital--fnpm",
       "description": "fnpm"
+    },
+    {
+      "name": "scalar--starter",
+      "source": "./scalar--starter",
+      "description": "Scalar Docs Starter Kit"
+    },
+    {
+      "name": "scalar--starter",
+      "source": "./scalar--starter",
+      "description": "Scalar Docs Starter Kit"
     },
     {
       "name": "lightninglabs--lnget",
