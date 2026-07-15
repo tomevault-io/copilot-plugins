@@ -7,11 +7,11 @@ Open-Source Directory Website NextJs Boilerplate (part of Ever® Works™ Platfo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ever-works/directory-web-template](https://github.com/ever-works/directory-web-template).
+Original source: `CLAUDE.md` in [ever-works/directory-web-template](https://github.com/ever-works/directory-web-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
