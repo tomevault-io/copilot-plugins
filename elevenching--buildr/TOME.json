@@ -1,0 +1,44 @@
+{
+  "name": "Buildr",
+  "owner": "elevenching",
+  "repo": "Buildr",
+  "description": "Buildr \u5c06\u7ec4\u7ec7\u7684\u5de5\u4f5c\u65b9\u5f0f\u6c89\u6dc0\u4e3a Agent \u53ef\u7528\u7684\u5171\u4eab\u5de5\u4f5c\u8d44\u4ea7\uff0c\u5e76\u8ba9\u8fd9\u4e9b\u8d44\u4ea7\u9002\u914d\u4e0d\u540c Agent runtime\u3002Buildr turns how your organization works into shared work assets for AI agents, portable across Agent runtimes.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/elevenching/Buildr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-15T06:41:23Z"
+}
