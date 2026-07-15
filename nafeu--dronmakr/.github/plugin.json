@@ -1,0 +1,9 @@
+{
+  "name": "nafeu--dronmakr",
+  "displayName": "dronmakr",
+  "description": "AI-free sample generation, drum sequencing, audio recording, processing and packaging tools, connects with your own VST/AU and sample libraries.",
+  "version": "1.0.0",
+  "author": "nafeu",
+  "homepage": "https://github.com/nafeu/dronmakr",
+  "skills": []
+}
