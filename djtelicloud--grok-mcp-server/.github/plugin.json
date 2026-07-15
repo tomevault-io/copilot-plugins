@@ -1,0 +1,9 @@
+{
+  "name": "djtelicloud--grok-mcp-server",
+  "displayName": "grok-mcp-server",
+  "description": "Local-first Grok MCP server & gateway. One shared Grok agent for Cursor, Claude Code, VS Code, Codex & Desktop. xAI API + CLI planes, Control Center.",
+  "version": "1.0.0",
+  "author": "djtelicloud",
+  "homepage": "https://github.com/djtelicloud/grok-mcp-server",
+  "skills": []
+}
