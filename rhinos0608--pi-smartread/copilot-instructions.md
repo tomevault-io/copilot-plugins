@@ -1,10 +1,10 @@
 ## agents-md
 
-> Pi-SmartRead is the Pi coding agent's code-intelligence extension — unified multi-mode file inspection, intent-based retrieval, repo mapping, symbol search, cross-file resolution, and call graph analysis. It relies on one shared sister codebase for serialized workspace-evidence contracts and serves as the RPC resolver for Pi-SmartEdit's evidence authorization.
+> Pi-SmartRead is the Pi coding agent's code-intelligence extension — unified file reading, structural file analysis (callers, inheritance, overrides, quality signals), hybrid code search (BM25 + AST symbol + semantic), repo mapping, and call graph analysis. It relies on one shared sister codebase for serialized workspace-evidence contracts and serves as the RPC resolver for Pi-SmartEdit's evidence authorization.
 
 # Agent Reference: Pi-SmartRead Sister Repos
 
-Pi-SmartRead is the Pi coding agent's code-intelligence extension — unified multi-mode file inspection, intent-based retrieval, repo mapping, symbol search, cross-file resolution, and call graph analysis. It relies on one shared sister codebase for serialized workspace-evidence contracts and serves as the RPC resolver for Pi-SmartEdit's evidence authorization.
+Pi-SmartRead is the Pi coding agent's code-intelligence extension — unified file reading, structural file analysis (callers, inheritance, overrides, quality signals), hybrid code search (BM25 + AST symbol + semantic), repo mapping, and call graph analysis. It relies on one shared sister codebase for serialized workspace-evidence contracts and serves as the RPC resolver for Pi-SmartEdit's evidence authorization.
 
 ## `/Users/rhinesharar/Pi-Workspace-Protocol`
 
@@ -16,17 +16,19 @@ Pi-SmartRead is the Pi coding agent's code-intelligence extension — unified mu
   - `src/read-many.ts` imports `canonicalizeWorkspaceRoot`, `hashSessionFilePath`, `inspectionIdFor`, `PROTOCOL_SCHEMA_VERSION`, `InspectedResource`, `WorkspaceEvidenceEnvelope` to build batch workspace-evidence envelopes from multi-file reads.
   - `src/mcp-registry.ts` imports `RPC_CHANNELS` to create the evidence resolver on the `inspectPatch` channel.
   - `src/path-evidence.ts` imports `sha256OfString` for per-file content hashing in path-mode evidence.
-  - `src/index.ts` receives evidence from the wrapped `read` tool and `inspect` tool, publishing envelopes into the shared `EvidenceResolver`.
+  - `src/index.ts` receives evidence from the wrapped `read`, `inspect`, and `grep` tools, publishing envelopes into the shared `EvidenceResolver`.
 
 ## `/Users/rhinesharar/Pi-SmartEdit`
 
 - **Package:** Pi-SmartEdit (the `edit`/`write` extension).
 - **Purpose:** Provides the `edit` and `write` tools; validates edits against workspace-evidence envelopes produced by Pi-SmartRead.
 - **What Pi-SmartRead provides for Pi-SmartEdit:**
-  - **RPC evidence resolver** (`src/workspace-evidence-resolver.ts`): Answers `resolve_evidence` RPC requests on `RPC_CHANNELS.inspectPatch`. Pi-SmartEdit's `patch.ts` sends a request with `inspectionId`/`sessionFilePath`/`workspaceRoot`, and the resolver returns the cached `WorkspaceEvidenceEnvelope`. The resolver cache is rebuilt from `tool_result` events (`pi.tool_result.inspect` and `pi.tool_result.read`) seen on the event bus — tool result details are the durable source of truth.
-  - **Inspect tool** (`src/inspect-tool.ts`, `src/inspect.ts`): Multi-mode retrieval (path/query/symbol/map) that emits `details.workspaceEvidence` envelopes consumed by patch for authorization. Path mode produces **strong** (full-file/line-range) evidence; query/symbol/map modes produce **weak** (search-match) evidence.
-  - **Read tool wrapper** (`src/index.ts:432-436`): Wraps the builtin `read` tool to emit workspace-evidence envelopes alongside every read result, making single-file reads patch-authorizable without requiring a separate `inspect` call.
-  - **Read-many batch** (`src/read-many.ts`): `read_files` aggregates per-file evidence into a single batch envelope so multi-file reads are patch-authorizable.
+  - **RPC evidence resolver** (`src/workspace-evidence-resolver.ts`): Answers `resolve_evidence` RPC requests on `RPC_CHANNELS.inspectPatch`. Pi-SmartEdit's `patch.ts` sends a request with `inspectionId`/`sessionFilePath`/`workspaceRoot`, and the resolver returns the cached `WorkspaceEvidenceEnvelope`. The resolver cache is rebuilt from `tool_result` events (`pi.tool_result.inspect`, `pi.tool_result.read`, and `pi.tool_result.grep`) seen on the event bus — tool result details are the durable source of truth.
+  - **Inspect tool** (`src/inspect-tool.ts`, `src/inspect.ts`): Two modes — directory (ranked repo map) and file (structural facts + quality signals). Directory mode returns envelope mode `map` with zero resources (no file authorization). File mode returns envelope mode `symbol` with per-referenced-symbol `coverage: "search-match"` (weak evidence; must read before editing). Query/symbol/action modes removed; use `grep` tool for code search.
+  - **Grep tool** (`src/grep-tool.ts`): Primary code search — BM25 ranking + AST symbol matching + embedding semantic fallback behind a grep-shaped interface. Returns envelope mode `query` with `coverage: "search-match"` per hit. `tool_result.grep` events feed the resolver cache.
+  - **Read tool wrapper** (`src/index.ts:432-436`, `src/hook.ts`): Owns single-file provenance plus `{ paths: [...] }` and `{ query }` dispatch. Query mode uses the shared semantic index, then reads selected files through the same evidence-emitting single-read path.
+  - **Read-many batch** (`src/read-many.ts`): Internal packing engine for multi-file/query-selected reads. `read_files` is no longer registered. Batch evidence includes only complete file blocks actually rendered; partial and omitted blocks are not authorized.
+  - **Semantic index** (`src/semantic-index.ts`, `src/semantic-index-registry.ts`): Startup-warmed, ignore-aware, model-fingerprinted SQLite vector cache with independent incremental file state. Query ranking fuses whole-corpus BM25 and embedding ranks with RRF; grep+AST is availability/error fallback only.
   - **Context hygiene** (`src/context-hygiene.ts`): Tracks read results, marks stale context after mutations. Pi-SmartEdit's edit results trigger hygiene events via the event bus.
   - **Context graph** (`src/context-graph.ts`, `src/graph-mutate.ts`): `graph_mutate` receives `breakage`/`co-change` edges (from Pi-SmartEdit's post-edit evidence pipeline or manual tool calls) and persists them via the `EdgeStore` for future graph-aware retrieval.
 
@@ -46,4 +48,4 @@ The evidence flow is: Pi-SmartRead produces envelopes → stores them in an in-m
 
 ---
 > Source: [rhinos0608/Pi-SmartRead](https://github.com/rhinos0608/Pi-SmartRead) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-14 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-16 -->
