@@ -1,0 +1,9 @@
+{
+  "name": "agentic-research--cloister",
+  "displayName": "cloister",
+  "description": "Workerd-based hypervisor with a declarative Cap'n Proto manifest. Substrate-level identity, audit, and per-bundle credential scoping. Today's primary application: hosting MCP servers behind one HTTP f",
+  "version": "1.0.0",
+  "author": "agentic-research",
+  "homepage": "https://github.com/agentic-research/cloister",
+  "skills": []
+}
