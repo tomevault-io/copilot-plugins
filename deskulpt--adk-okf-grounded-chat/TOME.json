@@ -1,0 +1,44 @@
+{
+  "name": "adk-okf-grounded-chat",
+  "owner": "deskulpt",
+  "repo": "adk-okf-grounded-chat",
+  "description": "A standalone, deterministic grounding playground for AI agents built on the Google Agent Development Kit (ADK) 2.0 and the Git-backed Open Knowledge Format (OKF) specification.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/deskulpt/adk-okf-grounded-chat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T04:33:00Z"
+}
