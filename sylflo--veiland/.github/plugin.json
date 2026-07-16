@@ -1,0 +1,9 @@
+{
+  "name": "sylflo--veiland",
+  "displayName": "veiland",
+  "description": "A Wayland screen locker with process-isolated, GPU-accelerated plugins",
+  "version": "1.0.0",
+  "author": "sylflo",
+  "homepage": "https://github.com/sylflo/veiland",
+  "skills": []
+}
