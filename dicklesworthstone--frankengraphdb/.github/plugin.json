@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankengraphdb",
+  "displayName": "frankengraphdb",
+  "description": "A blank-slate, memory-safe, ultra-high-performance property-graph database in Rust \u2014 unified MVCC/time-travel/branches/replication over a fountain-coded commit stream, WCO+factorized execution, increm",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankengraphdb",
+  "skills": []
+}
