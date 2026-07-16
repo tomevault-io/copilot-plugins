@@ -1,0 +1,9 @@
+{
+  "name": "harukitosa--claude-code-acp",
+  "displayName": "claude-code-acp",
+  "description": "ACP bridge for Claude Code CLI \u2014 use your Pro/Max subscription from any ACP-compatible editor",
+  "version": "1.0.0",
+  "author": "harukitosa",
+  "homepage": "https://github.com/harukitosa/claude-code-acp",
+  "skills": []
+}
