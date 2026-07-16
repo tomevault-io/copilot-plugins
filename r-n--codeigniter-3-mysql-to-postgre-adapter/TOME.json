@@ -1,0 +1,44 @@
+{
+  "name": "codeigniter-3-mysql-to-postgre-adapter",
+  "owner": "R-N",
+  "repo": "codeigniter-3-mysql-to-postgre-adapter",
+  "description": "Adapts your codeigniter 3 project that was built on mysql to postgresql",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/R-N/codeigniter-3-mysql-to-postgre-adapter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T02:41:50Z"
+}
