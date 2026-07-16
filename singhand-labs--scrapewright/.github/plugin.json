@@ -1,0 +1,9 @@
+{
+  "name": "singhand-labs--scrapewright",
+  "displayName": "scrapewright",
+  "description": "LLM-powered web scraping platform. Build reusable scraping services as step-graph state machines via an AI-guided wizard, expose them through a local   HTTP API. Chrome Extension (MV3) + Node.js nativ",
+  "version": "1.0.0",
+  "author": "singhand-labs",
+  "homepage": "https://github.com/singhand-labs/scrapewright",
+  "skills": []
+}
