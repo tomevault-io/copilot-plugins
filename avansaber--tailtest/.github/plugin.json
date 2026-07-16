@@ -1,0 +1,9 @@
+{
+  "name": "avansaber--tailtest",
+  "displayName": "tailtest",
+  "description": "tailtest auto-generates and runs tests for every file your AI agent edits in Claude Code. R1-R15 rule layer + adversarial test mode (V13).",
+  "version": "1.0.0",
+  "author": "avansaber",
+  "homepage": "https://github.com/avansaber/tailtest",
+  "skills": []
+}
