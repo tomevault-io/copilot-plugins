@@ -1,0 +1,9 @@
+{
+  "name": "phalla-doll--ng-number-flow",
+  "displayName": "ng-number-flow",
+  "description": "An Angular (17+ standalone) animated number component.",
+  "version": "1.0.0",
+  "author": "phalla-doll",
+  "homepage": "https://github.com/phalla-doll/ng-number-flow",
+  "skills": []
+}
