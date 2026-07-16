@@ -1,0 +1,9 @@
+{
+  "name": "aiai-go--claude",
+  "displayName": "claude",
+  "description": "Multilingual AI Coding CLI \u2014 undo, safety hooks, session resume, thinking control, 12 MCP tools & i18n (zh/en/ja/ko...) | @aiai-go/claude",
+  "version": "1.0.0",
+  "author": "aiai-go",
+  "homepage": "https://github.com/aiai-go/claude",
+  "skills": []
+}
