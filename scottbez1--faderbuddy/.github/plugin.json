@@ -1,0 +1,9 @@
+{
+  "name": "scottbez1--faderbuddy",
+  "displayName": "FaderBuddy",
+  "description": "Plug-and-play motorized faders for ESPHome and more",
+  "version": "1.0.0",
+  "author": "scottbez1",
+  "homepage": "https://github.com/scottbez1/FaderBuddy",
+  "skills": []
+}
