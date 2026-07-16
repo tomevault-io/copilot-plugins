@@ -1,0 +1,9 @@
+{
+  "name": "gethopp--gister",
+  "displayName": "gister",
+  "description": "A snippet manager based on GitHub Gists with MCP support",
+  "version": "1.0.0",
+  "author": "gethopp",
+  "homepage": "https://github.com/gethopp/gister",
+  "skills": []
+}
