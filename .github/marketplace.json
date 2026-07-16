@@ -247064,6 +247064,106 @@
       "description": "Local web UI to review AI-generated code changes and generate structured feedback prompts"
     },
     {
+      "name": "kuucheen--pixelkit",
+      "source": "./kuucheen--pixelkit",
+      "description": "A lightweight native Linux color picker and screen ruler, inspired by Microsoft PowerToys and built in Rust for Wayland and X11."
+    },
+    {
+      "name": "smekai--taskplanner",
+      "source": "./smekai--taskplanner",
+      "description": "taskplanner"
+    },
+    {
+      "name": "smekai--taskplanner",
+      "source": "./smekai--taskplanner",
+      "description": "taskplanner"
+    },
+    {
+      "name": "smekai--taskplanner",
+      "source": "./smekai--taskplanner",
+      "description": "taskplanner"
+    },
+    {
+      "name": "smekai--taskplanner",
+      "source": "./smekai--taskplanner",
+      "description": "taskplanner"
+    },
+    {
+      "name": "godotline--godot-line",
+      "source": "./godotline--godot-line",
+      "description": "godot-line"
+    },
+    {
+      "name": "smekai--taskplanner",
+      "source": "./smekai--taskplanner",
+      "description": "taskplanner"
+    },
+    {
+      "name": "takagoto--rag-learning-academy",
+      "source": "./takagoto--rag-learning-academy",
+      "description": "A structured, multi-agent Claude Code learning environment for mastering Retrieval-Augmented Generation (RAG)"
+    },
+    {
+      "name": "k4hvh--makcu",
+      "source": "./k4hvh--makcu",
+      "description": "A library to interact with MAKCU devices in Rust"
+    },
+    {
+      "name": "brandcode-studio--brandsystem-mcp",
+      "source": "./brandcode-studio--brandsystem-mcp",
+      "description": "MCP server for progressive brand governance \u2014 extract, compile, and audit brand identity systems"
+    },
+    {
+      "name": "takagoto--rag-learning-academy",
+      "source": "./takagoto--rag-learning-academy",
+      "description": "A structured, multi-agent Claude Code learning environment for mastering Retrieval-Augmented Generation (RAG)"
+    },
+    {
+      "name": "nikitos4683--nzapret",
+      "source": "./nikitos4683--nzapret",
+      "description": "Android DPI-bypass module for Magisk and KernelSU powered by nfqws2, nztg, iptables, CLI and WebUI."
+    },
+    {
+      "name": "gilles-g--lazycomposer",
+      "source": "./gilles-g--lazycomposer",
+      "description": "simple terminal UI for composer commands"
+    },
+    {
+      "name": "wjt0321--lottery-predictor",
+      "source": "./wjt0321--lottery-predictor",
+      "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e\u5386\u53f2\u6570\u636e\u7edf\u8ba1\u7684\u53cc\u8272\u7403\u5f69\u7968\u9884\u6d4b\u5de5\u5177\uff0c\u4f7f\u7528\u591a\u79cd\u7b97\u6cd5\u7b56\u7565\u751f\u6210\u53f7\u7801\u63a8\u8350\u3002\u6570\u636e\u6765\u6e90\u4e8e500\u5f69\u7968\u7f51\u7684\u771f\u5b9e\u5f00\u5956\u8bb0\u5f55\u3002"
+    },
+    {
+      "name": "moosedesign1--ddd-designdrivendevelopment",
+      "source": "./moosedesign1--ddd-designdrivendevelopment",
+      "description": "DDD is a design first Claude Code development framework designed for designers by designers. While all available frameworks like GSD (get shit done) focus on spec driven workflows, DDD closes the gap "
+    },
+    {
+      "name": "brandcode-studio--brandsystem-mcp",
+      "source": "./brandcode-studio--brandsystem-mcp",
+      "description": "MCP server for progressive brand governance \u2014 extract, compile, and audit brand identity systems"
+    },
+    {
+      "name": "harukitosa--claude-code-acp",
+      "source": "./harukitosa--claude-code-acp",
+      "description": "ACP bridge for Claude Code CLI \u2014 use your Pro/Max subscription from any ACP-compatible editor"
+    },
+    {
+      "name": "aiai-go--claude",
+      "source": "./aiai-go--claude",
+      "description": "Multilingual AI Coding CLI \u2014 undo, safety hooks, session resume, thinking control, 12 MCP tools & i18n (zh/en/ja/ko...) | @aiai-go/claude"
+    },
+    {
+      "name": "trebormc--drupal-ai-agents",
+      "source": "./trebormc--drupal-ai-agents",
+      "description": "AI agents, rules, and skills for Drupal projects"
+    },
+    {
+      "name": "wjt0321--lottery-predictor",
+      "source": "./wjt0321--lottery-predictor",
+      "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e\u5386\u53f2\u6570\u636e\u7edf\u8ba1\u7684\u53cc\u8272\u7403\u5f69\u7968\u9884\u6d4b\u5de5\u5177\uff0c\u4f7f\u7528\u591a\u79cd\u7b97\u6cd5\u7b56\u7565\u751f\u6210\u53f7\u7801\u63a8\u8350\u3002\u6570\u636e\u6765\u6e90\u4e8e500\u5f69\u7968\u7f51\u7684\u771f\u5b9e\u5f00\u5956\u8bb0\u5f55\u3002"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269757,6 +269857,31 @@
       "name": "infino-ai--code-context",
       "source": "./infino-ai--code-context",
       "description": "Local code search for AI coding agents: a CLI and MCP server with hybrid keyword + semantic search and SQL relevance-ranked aggregation over an index in plain files. No accounts, no keys, no server."
+    },
+    {
+      "name": "henriquezolini--react-bancos",
+      "source": "./henriquezolini--react-bancos",
+      "description": "\u00cdcones dos principais bancos e fintechs do Brasil como componentes React \u2014 com nome, c\u00f3digo COMPE e cor de cada banco"
+    },
+    {
+      "name": "kitlangton--behold",
+      "source": "./kitlangton--behold",
+      "description": "A local-first Markdown workspace for presenting agent work and collecting browser feedback."
+    },
+    {
+      "name": "phalla-doll--ng-number-flow",
+      "source": "./phalla-doll--ng-number-flow",
+      "description": "An Angular (17+ standalone) animated number component."
+    },
+    {
+      "name": "tobiager--transfergit",
+      "source": "./tobiager--transfergit",
+      "description": "Your GitHub, valued like a football player. Calculate your dev market value, transfer history, and get dynamic FUT-style cards for your profile README."
+    },
+    {
+      "name": "ninjahawk--xviral",
+      "source": "./ninjahawk--xviral",
+      "description": "Let AI grade your post before the algorithm does."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -400007,6 +400132,56 @@
       "name": "ai-carpentry--2026-06-26-sejong",
       "source": "./ai-carpentry--2026-06-26-sejong",
       "description": "Software Carpentry + AI workshop at Sejong University, June 26-27, 2026"
+    },
+    {
+      "name": "gustasilvadev--schoolmanager-frontend",
+      "source": "./gustasilvadev--schoolmanager-frontend",
+      "description": "Interface web para administradores e professores."
+    },
+    {
+      "name": "joyjk348--ai-learning-system",
+      "source": "./joyjk348--ai-learning-system",
+      "description": "ai_learning_system"
+    },
+    {
+      "name": "shuddi1962--kauvex",
+      "source": "./shuddi1962--kauvex",
+      "description": "kauvex"
+    },
+    {
+      "name": "nabin47--nabin47-github-io",
+      "source": "./nabin47--nabin47-github-io",
+      "description": "nabin47.github.io"
+    },
+    {
+      "name": "showtimedt--juice-masters",
+      "source": "./showtimedt--juice-masters",
+      "description": "Juice Masters - Masters Tournament Pick 'Em League Standings"
+    },
+    {
+      "name": "mojzis--logogame",
+      "source": "./mojzis--logogame",
+      "description": "Czech speech therapy word game - say words aloud to score points"
+    },
+    {
+      "name": "alainmeunierfr--job-joy",
+      "source": "./alainmeunierfr--job-joy",
+      "description": "job-joy"
+    },
+    {
+      "name": "leejjoon--retrofits",
+      "source": "./leejjoon--retrofits",
+      "description": "retrofits"
+    },
+    {
+      "name": "shiyanyx--nsmc-assistant",
+      "source": "./shiyanyx--nsmc-assistant",
+      "description": "\u5ddd\u5317\u533b\u52a9\u624b - NSMC Assistant\uff0c\u4e13\u4e3a\u5ddd\u5317\u533b\u5b66\u9662\u5b66\u751f\u8bbe\u8ba1\u7684\u5de5\u5177"
+    },
+    {
+      "name": "domuk-k--open-managed-agents",
+      "source": "./domuk-k--open-managed-agents",
+      "description": "Open-source Claude Managed Agents clone in Go. Provider-agnostic, self-hosted, single binary."
     }
   ]
 }
