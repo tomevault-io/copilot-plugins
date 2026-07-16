@@ -1,0 +1,9 @@
+{
+  "name": "yifeng-ethz--mu3e-ip-cores",
+  "displayName": "mu3e-ip-cores",
+  "description": "FPGA IP library for the Mu3e triggerless DAQ: control-plane, data-plane, timing, buffering, framing, and monitoring cores.",
+  "version": "1.0.0",
+  "author": "yifeng-ethz",
+  "homepage": "https://github.com/yifeng-ethz/mu3e-ip-cores",
+  "skills": []
+}
