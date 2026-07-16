@@ -1,0 +1,9 @@
+{
+  "name": "ragamo--herdr-flock",
+  "displayName": "herdr-flock",
+  "description": "A herdr plugin that visualizes your AI coding agents as pixel-art sheep living on a top-down farm.",
+  "version": "1.0.0",
+  "author": "ragamo",
+  "homepage": "https://github.com/ragamo/herdr-flock",
+  "skills": []
+}
