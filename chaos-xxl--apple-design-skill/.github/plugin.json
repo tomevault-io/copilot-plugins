@@ -1,0 +1,9 @@
+{
+  "name": "chaos-xxl--apple-design-skill",
+  "displayName": "apple-design-skill",
+  "description": "An open-source AI Skill that guides AI coding assistants to generate Apple-style frontend UI code. Compatible with OpenClaw and Claude Code.",
+  "version": "1.0.0",
+  "author": "chaos-xxl",
+  "homepage": "https://github.com/chaos-xxl/apple-design-skill",
+  "skills": []
+}
