@@ -122654,6 +122654,11 @@
       "description": "AI Agent Training Platform"
     },
     {
+      "name": "tree0519--codex-dream-skin-forge",
+      "source": "./tree0519--codex-dream-skin-forge",
+      "description": "\u57fa\u4e8e Fei-Away/Codex-Dream-Skin \u4e8c\u6b21\u5f00\u53d1\u7684 Codex Desktop \u4e3b\u9898\u5de5\u5177\uff0c\u65b0\u589e Windows \u591a\u4e3b\u9898\u5305\u3001\u5e94\u7528\u5185\u5207\u6362\u3001Bug \u4fee\u590d\u4e0e AI \u8f85\u52a9\u4e3b\u9898\u5236\u4f5c\u3002"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -153127,6 +153132,11 @@
       "name": "thesis-php--dic",
       "source": "./thesis-php--dic",
       "description": "dic"
+    },
+    {
+      "name": "aiwenjie777--codex-skin-switcher",
+      "source": "./aiwenjie777--codex-skin-switcher",
+      "description": "codex \u76ae\u80a4\u7ba1\u7406"
     },
     {
       "name": "13point5--agent-canvas",
@@ -184132,6 +184142,11 @@
       "name": "tdi--lazytilt",
       "source": "./tdi--lazytilt",
       "description": "Terminal UI for Tilt.dev, inspired by lazygit"
+    },
+    {
+      "name": "yusukebe--cloudflare-demos",
+      "source": "./yusukebe--cloudflare-demos",
+      "description": "Minimal Cloudflare product demos"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
