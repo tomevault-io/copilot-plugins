@@ -1,0 +1,9 @@
+{
+  "name": "tdi--lazytilt",
+  "displayName": "lazytilt",
+  "description": "Terminal UI for Tilt.dev, inspired by lazygit",
+  "version": "1.0.0",
+  "author": "tdi",
+  "homepage": "https://github.com/tdi/lazytilt",
+  "skills": []
+}
