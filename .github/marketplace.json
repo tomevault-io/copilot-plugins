@@ -137919,6 +137919,11 @@
       "description": "MCP Google AI searches using browser extension"
     },
     {
+      "name": "junnjiee--pi-exa",
+      "source": "./junnjiee--pi-exa",
+      "description": "Web search, deep research and fetch content tools for Pi Agent, powered by Exa"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -168849,6 +168854,11 @@
       "description": "Ever\u00ae Works\u2122 - The Workshop for AI. An open agentic runtime that autonomously researches, ships and maintains content-rich websites and Git repositories - https://ever.works"
     },
     {
+      "name": "sylflo--veiland",
+      "source": "./sylflo--veiland",
+      "description": "A Wayland screen locker with process-isolated, GPU-accelerated plugins"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -193694,6 +193704,11 @@
       "description": "Workerd-based hypervisor with a declarative Cap'n Proto manifest. Substrate-level identity, audit, and per-bundle credential scoping. Today's primary application: hosting MCP servers behind one HTTP f"
     },
     {
+      "name": "zinin--sketchup-mcp2",
+      "source": "./zinin--sketchup-mcp2",
+      "description": "MCP Server for SketchUp"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -208122,6 +208137,16 @@
       "name": "dicklesworthstone--frankengraphdb",
       "source": "./dicklesworthstone--frankengraphdb",
       "description": "A blank-slate, memory-safe, ultra-high-performance property-graph database in Rust \u2014 unified MVCC/time-travel/branches/replication over a fountain-coded commit stream, WCO+factorized execution, increm"
+    },
+    {
+      "name": "nxctf--nxctl",
+      "source": "./nxctf--nxctl",
+      "description": "nxctl"
+    },
+    {
+      "name": "scsfwgy--global-asset-history",
+      "source": "./scsfwgy--global-asset-history",
+      "description": "\u8de8\u8d44\u4ea7\u7c7b\u522b\uff08\u7f8e\u80a1\u3001\u6570\u5b57\u8d27\u5e01\u3001A \u80a1\uff09\u7684\u5386\u53f2\u6536\u76ca\u67e5\u8be2\u5de5\u5177\uff1ahttps://qqq.tools24.uk"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -246689,6 +246714,21 @@
       "description": "Plug-and-play motorized faders for ESPHome and more"
     },
     {
+      "name": "jp-lorenc1o--eva-brain",
+      "source": "./jp-lorenc1o--eva-brain",
+      "description": "Eva-brain"
+    },
+    {
+      "name": "yearn--risk-score",
+      "source": "./yearn--risk-score",
+      "description": "Yearn Risk Score Framework"
+    },
+    {
+      "name": "honghaoz--composeui",
+      "source": "./honghaoz--composeui",
+      "description": "Compos\u00e9UI is a Swift framework for building UI using AppKit and UIKit with declarative syntax."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269209,6 +269249,26 @@
       "description": "ultra-relay"
     },
     {
+      "name": "openbmb--staffdeck",
+      "source": "./openbmb--staffdeck",
+      "description": "Enterprise Digital Employee Platform"
+    },
+    {
+      "name": "abrahao-dev--podium-app",
+      "source": "./abrahao-dev--podium-app",
+      "description": "Infinite spatial canvas for terminal windows running AI coding agents. Wire agents together, pipe prompts, capture output to notes. Tauri + React."
+    },
+    {
+      "name": "adrianvla--mlearn",
+      "source": "./adrianvla--mlearn",
+      "description": "A cross-platform desktop application made for Super-Fast Language Learning by immersion. Watch your favourite content in your target language."
+    },
+    {
+      "name": "adrianvla--mlearn",
+      "source": "./adrianvla--mlearn",
+      "description": "A cross-platform desktop application made for Super-Fast Language Learning by immersion. Watch your favourite content in your target language."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -273887,6 +273947,31 @@
       "name": "kevin101681--claude-code-dashboard",
       "source": "./kevin101681--claude-code-dashboard",
       "description": "claude-code-dashboard"
+    },
+    {
+      "name": "use-agent-os--agent-os",
+      "source": "./use-agent-os--agent-os",
+      "description": "The Open Agent Operation System"
+    },
+    {
+      "name": "gethopp--gister",
+      "source": "./gethopp--gister",
+      "description": "A snippet manager based on GitHub Gists with MCP support"
+    },
+    {
+      "name": "use-agent-os--agent-os",
+      "source": "./use-agent-os--agent-os",
+      "description": "The Open Agent Operation System"
+    },
+    {
+      "name": "slopus--rig",
+      "source": "./slopus--rig",
+      "description": "Pi, Claude Code and Codex in one harness with features from all of them"
+    },
+    {
+      "name": "lidi1011--quota-radar",
+      "source": "./lidi1011--quota-radar",
+      "description": "macOS quota dashboard for Codex and GLM/ZAI coding plans"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -399192,6 +399277,46 @@
       "name": "benazlay--benjaminazoulay",
       "source": "./benazlay--benjaminazoulay",
       "description": "benjaminazoulay"
+    },
+    {
+      "name": "dfgg12--asterisk-wb-checker",
+      "source": "./dfgg12--asterisk-wb-checker",
+      "description": "asterisk-wb-checker"
+    },
+    {
+      "name": "nwatab--wallpaper",
+      "source": "./nwatab--wallpaper",
+      "description": "Wallpaper group visualization"
+    },
+    {
+      "name": "dadadu99tunisia--spectrum-for-us",
+      "source": "./dadadu99tunisia--spectrum-for-us",
+      "description": "\ud83c\udf08 Production e-commerce marketplace by & for the LGBTQIA+ community \u2014 Next.js, Supabase, Stripe. Live at spectrumforus.com"
+    },
+    {
+      "name": "r-n--codeigniter-3-mysql-to-postgre-adapter",
+      "source": "./r-n--codeigniter-3-mysql-to-postgre-adapter",
+      "description": "Adapts your codeigniter 3 project that was built on mysql to postgresql"
+    },
+    {
+      "name": "r-n--codeigniter-3-mysql-to-postgre-adapter",
+      "source": "./r-n--codeigniter-3-mysql-to-postgre-adapter",
+      "description": "Adapts your codeigniter 3 project that was built on mysql to postgresql"
+    },
+    {
+      "name": "peberanek--peberanek-github-io",
+      "source": "./peberanek--peberanek-github-io",
+      "description": "Personal website"
+    },
+    {
+      "name": "jdyck--tunes",
+      "source": "./jdyck--tunes",
+      "description": "tunes"
+    },
+    {
+      "name": "jdyck--tunes",
+      "source": "./jdyck--tunes",
+      "description": "tunes"
     }
   ]
 }
