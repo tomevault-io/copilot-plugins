@@ -4,7 +4,7 @@
   "repo": "cloister",
   "description": "Workerd-based hypervisor with a declarative Cap'n Proto manifest. Substrate-level identity, audit, and per-bundle credential scoping. Today's primary application: hosting MCP servers behind one HTTP face.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentic-research/cloister",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T01:32:43Z"
+  "distributed_at": "2026-07-16T01:33:15Z"
 }
