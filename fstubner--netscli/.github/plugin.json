@@ -1,0 +1,9 @@
+{
+  "name": "fstubner--netscli",
+  "displayName": "netscli",
+  "description": "A modern network scanner written in Rust. CLI, TUI, desktop app, and MCP server.",
+  "version": "1.0.0",
+  "author": "fstubner",
+  "homepage": "https://github.com/fstubner/netscli",
+  "skills": []
+}
