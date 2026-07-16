@@ -27649,6 +27649,16 @@
       "description": "AI-native video editing built around real creative timelines, generative workflows, and local agent control."
     },
     {
+      "name": "wh1isper--mcp-email-server",
+      "source": "./wh1isper--mcp-email-server",
+      "description": "IMAP and SMTP via MCP Server"
+    },
+    {
+      "name": "wh1isper--mcp-email-server",
+      "source": "./wh1isper--mcp-email-server",
+      "description": "IMAP and SMTP via MCP Server"
+    },
+    {
       "name": "tzachbon--smart-ralph",
       "source": "./tzachbon--smart-ralph",
       "description": "Spec-driven development with smart compaction. Claude Code plugin combining Ralph Wiggum loop with structured specification workflow."
