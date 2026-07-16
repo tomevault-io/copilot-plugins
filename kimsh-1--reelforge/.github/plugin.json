@@ -1,0 +1,9 @@
+{
+  "name": "kimsh-1--reelforge",
+  "displayName": "reelforge",
+  "description": "Agent-native AI video factory: one brief \u2192 narrated, subtitled, scene-editable videos (shorts & long-form). Deterministic HTML rendering, free keyless stack, Korean-first.",
+  "version": "1.0.0",
+  "author": "kimsh-1",
+  "homepage": "https://github.com/kimsh-1/reelforge",
+  "skills": []
+}
