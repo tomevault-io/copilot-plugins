@@ -1,0 +1,9 @@
+{
+  "name": "jacksonjp0311-gif--perci",
+  "displayName": "Perci",
+  "description": "Compact, local-first neuro-symbolic assistant in Rust with a 200 MiB Bitwork cognitive model, exact reasoning tools, governed memory, and integer-only inference.",
+  "version": "1.0.0",
+  "author": "jacksonjp0311-gif",
+  "homepage": "https://github.com/jacksonjp0311-gif/Perci",
+  "skills": []
+}
