@@ -4,7 +4,7 @@
   "repo": "taskplanner",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smekai/taskplanner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T22:36:31Z"
+  "distributed_at": "2026-07-16T22:37:25Z"
 }
