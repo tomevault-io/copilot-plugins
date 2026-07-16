@@ -1,0 +1,9 @@
+{
+  "name": "krayong--ccsidekick",
+  "displayName": "ccsidekick",
+  "description": "A Claude Code status line with a reactive character plus cost, git, and usage widgets. Zero token spend, local-first, MIT.",
+  "version": "1.0.0",
+  "author": "krayong",
+  "homepage": "https://github.com/krayong/ccsidekick",
+  "skills": []
+}
