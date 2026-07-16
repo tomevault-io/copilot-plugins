@@ -1,0 +1,9 @@
+{
+  "name": "bradtraversy--portdoc",
+  "displayName": "portdoc",
+  "description": "Dashboard to view and manage which ports are being used. Geared for web devleopers that run multiple web servers, docker containers, etc",
+  "version": "1.0.0",
+  "author": "bradtraversy",
+  "homepage": "https://github.com/bradtraversy/portdoc",
+  "skills": []
+}
