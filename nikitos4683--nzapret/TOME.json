@@ -1,0 +1,44 @@
+{
+  "name": "nzapret",
+  "owner": "nikitos4683",
+  "repo": "nzapret",
+  "description": "Android DPI-bypass module for Magisk and KernelSU powered by nfqws2, nztg, iptables, CLI and WebUI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nikitos4683/nzapret",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T22:40:07Z"
+}
