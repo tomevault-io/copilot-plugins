@@ -1,0 +1,9 @@
+{
+  "name": "sgk-ctrl--mac-activity-tracker",
+  "displayName": "mac-activity-tracker",
+  "description": "100% local macOS activity tracker \u2014 private biweekly productivity review from native Screen Time, browser, and CLI logs. No cloud, no telemetry.",
+  "version": "1.0.0",
+  "author": "sgk-ctrl",
+  "homepage": "https://github.com/sgk-ctrl/mac-activity-tracker",
+  "skills": []
+}
