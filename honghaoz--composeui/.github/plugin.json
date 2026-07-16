@@ -1,0 +1,9 @@
+{
+  "name": "honghaoz--composeui",
+  "displayName": "ComposeUI",
+  "description": "Compos\u00e9UI is a Swift framework for building UI using AppKit and UIKit with declarative syntax.",
+  "version": "1.0.0",
+  "author": "honghaoz",
+  "homepage": "https://github.com/honghaoz/ComposeUI",
+  "skills": []
+}
