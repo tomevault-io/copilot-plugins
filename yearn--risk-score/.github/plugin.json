@@ -1,0 +1,9 @@
+{
+  "name": "yearn--risk-score",
+  "displayName": "risk-score",
+  "description": "Yearn Risk Score Framework",
+  "version": "1.0.0",
+  "author": "yearn",
+  "homepage": "https://github.com/yearn/risk-score",
+  "skills": []
+}
