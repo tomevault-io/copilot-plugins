@@ -4,7 +4,7 @@
   "repo": "whobringwhat",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Amlac-Eniotna/whobringwhat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T14:32:23Z"
+  "distributed_at": "2026-07-16T14:33:33Z"
 }
