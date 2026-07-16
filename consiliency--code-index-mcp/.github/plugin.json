@@ -1,0 +1,9 @@
+{
+  "name": "consiliency--code-index-mcp",
+  "displayName": "Code-Index-MCP",
+  "description": "Code indexing MCP server to provide context to coding agents. ",
+  "version": "1.0.0",
+  "author": "Consiliency",
+  "homepage": "https://github.com/Consiliency/Code-Index-MCP",
+  "skills": []
+}
