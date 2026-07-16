@@ -148679,6 +148679,11 @@
       "description": "umkmcepat"
     },
     {
+      "name": "aiwenjie777--codex-skin-skill",
+      "source": "./aiwenjie777--codex-skin-skill",
+      "description": "codex \u76ae\u80a4\u7ba1\u7406"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -176039,6 +176044,11 @@
       "description": "A literary clock for Raspberry Pi + e-Paper \u2014 tells the time with 4,800+ book quotes, one for every minute of the day."
     },
     {
+      "name": "rs-4--pull-refresh-island",
+      "source": "./rs-4--pull-refresh-island",
+      "description": "pull-refresh-island"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -184147,6 +184157,11 @@
       "name": "yusukebe--cloudflare-demos",
       "source": "./yusukebe--cloudflare-demos",
       "description": "Minimal Cloudflare product demos"
+    },
+    {
+      "name": "qiu7824--zsui",
+      "source": "./qiu7824--zsui",
+      "description": "zsui"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
