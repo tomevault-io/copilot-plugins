@@ -184169,6 +184169,11 @@
       "description": "zsui"
     },
     {
+      "name": "alinebm17--trade-backtesting-engine",
+      "source": "./alinebm17--trade-backtesting-engine",
+      "description": "Trade backtesting engine for DCA (Dollar Cost Averaging) and Grid trading strategies with technical indicator support and historical market data simulation for "
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
