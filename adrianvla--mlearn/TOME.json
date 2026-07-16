@@ -4,7 +4,7 @@
   "repo": "mLearn",
   "description": "A cross-platform desktop application made for Super-Fast Language Learning by immersion. Watch your favourite content in your target language.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adrianvla/mLearn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T02:38:51Z"
+  "distributed_at": "2026-07-16T02:40:25Z"
 }
