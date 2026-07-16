@@ -1,0 +1,44 @@
+{
+  "name": "pan123next",
+  "owner": "123panNextGen",
+  "repo": "pan123next",
+  "description": "\u6765\u81ea\u7b2c\u4e09\u65b9\u7684\u4e0b\u4e00\u4ee3123\u4e91\u76d8\u5ba2\u6237\u7aef\uff0c\u89e3\u51b3\u539f\u7248\u5ba2\u6237\u7aef\u7684\u8bf8\u591a\u95ee\u9898\uff0c\u4f7f\u7528 Flutter\u548cDart\uff0c\u754c\u9762\u66f4\u7f8e\u89c2\uff0c\u529f\u80fd\u66f4\u5f3a\u5927\uff0c\u6548\u7387\u66f4\u9ad8",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/123panNextGen/pan123next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T20:38:26Z"
+}
