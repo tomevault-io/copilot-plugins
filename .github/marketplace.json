@@ -208149,6 +208149,11 @@
       "description": "\u8de8\u8d44\u4ea7\u7c7b\u522b\uff08\u7f8e\u80a1\u3001\u6570\u5b57\u8d27\u5e01\u3001A \u80a1\uff09\u7684\u5386\u53f2\u6536\u76ca\u67e5\u8be2\u5de5\u5177\uff1ahttps://qqq.tools24.uk"
     },
     {
+      "name": "teylersf--freeremotedesk",
+      "source": "./teylersf--freeremotedesk",
+      "description": "Browser-first, self-hosted remote desktop. WebRTC P2P. Runs on your own free-tier Cloudflare + Vercel accounts. Zero monthly cost. Includes AI-agent setup guide."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
