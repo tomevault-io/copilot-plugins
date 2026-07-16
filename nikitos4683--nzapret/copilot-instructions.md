@@ -1,0 +1,281 @@
+## nzapret
+
+> This repository contains the source tree for the Android `nzapret` Magisk/KernelSU module. The module bypasses DPI on Android by:
+
+# AGENTS.md
+
+## Project Summary
+
+This repository contains the source tree for the Android `nzapret` Magisk/KernelSU module. The module bypasses DPI on Android by:
+
+- installing an architecture-specific `nfqws2` binary,
+- creating IPv4/IPv6 `iptables` and `ip6tables` NFQUEUE rules,
+- launching `nfqws2` with arguments from the active profile,
+- exposing a shell CLI and a KernelSU WebUI for control and diagnostics.
+
+This is not a conventional app repository. Most behavior lives in shell scripts plus static assets and packaged data files.
+
+## Repository Map
+
+- `module.prop`
+  - Module metadata and version source for releases.
+- `customize.sh`
+  - Install-time extraction, architecture selection, binary rename, and permission setup.
+- `common.sh`
+  - Shared POSIX `sh` helpers sourced by `service.sh` and `system/bin/nzapret` (logging, network-mode, IPv6 detection, Private DNS, Android settings I/O). Sourced, not executed.
+- `service.sh`
+  - Main runtime entrypoint for boot/manual start. Rebuilds firewall state and launches `nfqws2`.
+- `uninstall.sh`
+  - Stop/cleanup logic. Used for uninstall and CLI `stop`.
+- `action.sh`
+  - Quick toggle action for Magisk/KernelSU. Delegates to the CLI.
+- `system/bin/nzapret`
+  - Main CLI for lifecycle control, diagnostics, list refresh, profile switching, and JSON output for the WebUI.
+- `profiles/*.conf`
+  - `nfqws2` argument profiles. The current tree ships `profiles/default.conf`.
+- `lists/`
+  - Hostlists used by the active profile. `list-user.txt` is shipped as an empty file in the module ZIP.
+- `payloads/*.bin`
+  - Fake TLS/QUIC payloads referenced by profiles.
+- `lua/*.lua`
+  - Upstream `nfqws2` helper libraries loaded by profiles via `--lua-init`.
+- `bin/nfqws2-*`
+  - Architecture-specific binaries. `customize.sh` renames the selected one to `bin/nfqws2` during install.
+- `bin/nztg-*`
+  - Architecture-specific Telegram MTProto proxy binaries (a static, CGO-free Go port of tg-ws-proxy; sources live on the `nztg` branch). `customize.sh` renames the selected one to `bin/nztg` during install and keeps it (not deleted alongside the other arch binaries).
+- `tgproxy.conf`
+  - Mutable Telegram proxy config (`host`, `port`, `cf_enabled`, `cf_domain`, repeated `dc=` rules). Created with original defaults on first run; not shipped; preserved across updates.
+- `.tg_secret`
+  - Mutable MTProto secret (32 hex), owned by `bin/nztg --secret-file`. Not shipped; preserved across updates.
+- `webroot/`
+  - KernelSU WebUI (`index.html`, `style.css`, `kernelsu.js`).
+- `META-INF/com/google/android/*`
+  - Installer glue for the flashable module ZIP.
+- `profiles/profile.current`
+  - Mutable active-profile pointer consumed by runtime and CLI.
+- `build.sh`
+  - Packaging helper: stages the module, normalizes text line endings to LF, removes runtime artifacts, and builds the ZIP.
+- `.github/release-notes/*.md`
+  - Versioned release bodies. A release for `module.prop` version `vX.Y.Z` requires `.github/release-notes/vX.Y.Z.md`.
+- `.github/workflows/release.yml`
+  - Manual GitHub Actions workflow that runs `bash build.sh`, requires the matching versioned release notes file, generates `update.json`, and publishes a release from `module.prop` version.
+
+## Runtime Flow
+
+1. The installer runs `customize.sh`, which unpacks the module, selects `bin/nfqws2-$ARCH`, renames it to `bin/nfqws2`, removes the unused binaries, and fixes permissions.
+2. At boot, or via a manual CLI start, `service.sh` waits for Android boot completion, ensures mutable runtime files exist, initializes Android Private DNS once, resolves the network stack mode, loads the active profile, recreates the `nzapret_out` chains in IPv4 and optionally IPv6 `mangle`, and launches `nfqws2`.
+3. `system/bin/nzapret` is the operator-facing interface. It wraps start/stop/restart, updates hostlists, switches profiles, manages Android Private DNS, exposes diagnostics, and returns JSON consumed by the WebUI.
+4. `webroot/index.html` talks to the CLI through `ksu.exec(...)`; it does not mutate module internals directly.
+
+## Critical Invariants
+
+- Keep runtime scripts compatible with Android `sh`.
+  - `service.sh`, `uninstall.sh`, `action.sh`, and `system/bin/nzapret` all use `#!/system/bin/sh`.
+  - Avoid bash-only syntax in those files.
+  - `build.sh` is the only script intentionally written for bash.
+
+- Treat the installed module path as a coordinated constant.
+  - `system/bin/nzapret` hardcodes `MODDIR="/data/adb/modules/nzapret"`.
+  - `profiles/default.conf` and `profiles/profile.current` live under `/data/adb/modules/nzapret/profiles/...`.
+  - `webroot/index.html` also shells out against `/data/adb/modules/nzapret`.
+  - Changing module ID or install path requires synchronized updates across multiple files.
+
+- Keep boot-time behavior local-only.
+  - `service.sh` should not download lists or depend on the network.
+  - List refresh belongs to `system/bin/nzapret update`.
+  - The boot service may read/write local Android global settings for Private DNS, but must guard the `settings` command and must not require external connectivity.
+
+- Profiles are both parsed and passed through.
+  - `service.sh` only parses `# profile:`, `--qnum=`, `--filter-tcp=`, and `--filter-udp=` for labels and firewall rule generation.
+  - All non-empty, non-comment profile lines are still passed directly to `nfqws2`.
+  - Every usable profile must contain one `--qnum=` and at least one `--filter-tcp=` or `--filter-udp=`.
+
+- Preserve firewall-stack semantics.
+  - There is no user-selectable network mode. The firewall stack is decided by capability alone: IPv4 rules are always created, and IPv6 rules are created whenever `ip6tables_supported` passes.
+  - Do NOT gate the IPv6 firewall on `ipv6_network_available`. That check is volatile (IPv6 comes up after boot and changes on Wi-Fi/cellular switches); gating on it caused traffic to leak past the bypass over IPv6. `ipv6_network_available` is informational only (diagnostics/`network status`).
+  - Idle IPv6 NFQUEUE rules are intentional: they cost nothing without IPv6 traffic and are already in place to protect IPv6 that appears later.
+  - `service.sh` decides this in `resolve_firewall_stack`; the CLI mirrors it in `ipv6_firewall_enabled` (= `ip6tables_supported`). Keep the two in sync.
+  - If you change IPv6 detection or network-mode behavior, update `service.sh`, `system/bin/nzapret`, WebUI status handling, diagnostics, and README together.
+
+- Preserve Android Private DNS semantics.
+  - The module default provider hostname is `xbox-dns.ru`.
+  - `service.sh` initializes Private DNS only once, tracked by `.private_dns_initialized`.
+  - If Android is already in provider-hostname mode with a valid hostname, preserve it. Otherwise the first service start sets `xbox-dns.ru`.
+  - Manual CLI/WebUI DNS changes (`off`, `auto`, `default`, or custom `hostname`) mark Private DNS initialized and must not be overwritten on later starts.
+  - Use Android global settings carefully: `private_dns_mode`, `private_dns_default_mode`, and `private_dns_specifier`. Android automatic mode is represented as `opportunistic`.
+
+- Preserve the Telegram proxy (nztgproxy) lifecycle and contract.
+  - Lifecycle is unified: `nzapret start`/`stop`/`restart` control both `nfqws2` and `nztg`. `service.sh` launches `nztg` after `nfqws2` (non-fatal — DPI must still come up); `uninstall.sh` and `stop_service` stop it (`killall nztg`).
+  - `service.sh` builds the `nztg` argument list from `tgproxy.conf` via `tg_build_args` (shared in `common.sh`). Config values are space-free and CLI-validated; the args are intentionally word-split.
+  - The proxy is client-configured, not transparently redirected: users connect via the `tg://proxy?...&secret=dd...` link (WebUI "Open in Telegram" runs `am start`). Do not add iptables redirection for Telegram.
+  - Defaults must match the reference: DC `2:149.154.167.220` and `4:149.154.167.220`, CF enabled, port 1443, host 127.0.0.1, random secret. Keep `ensure_tgproxy_conf` (`common.sh`) in sync with the Go binary defaults.
+  - The Go binary and the module are coupled: `--no-cfproxy`/`--cfproxy-domain` flags and the `gensecret`/`cftest` subcommands back the CLI `tg` commands. Rebuild `bin/nztg-*` from the `nztg` branch when the engine changes.
+
+- Preserve the CLI/WebUI JSON contract.
+  - `nzapret status --json` currently returns:
+    - `version`
+    - `active`
+    - `pid`
+    - `pid_count`
+    - `rules_v4`
+    - `rules_v6`
+    - `domain_count`
+    - `google_domain_count`
+    - `user_domain_count`
+    - `user_list_attached`
+    - `profile`
+    - `profile_label`
+    - `private_dns_available`
+    - `private_dns_initialized`
+    - `private_dns_mode`
+    - `private_dns_mode_label`
+    - `private_dns_hostname`
+    - `private_dns_label`
+    - `private_dns_default_hostname`
+    - `tg_active`
+    - `tg_pid`
+    - `tg_port`
+    - `tg_cf_enabled`
+  - `nzapret tg status --json` returns the Telegram proxy config/state (`host`, `port`, `secret`, `link`, `dc_redirects[]`, `cf_enabled`, `cf_domain`, `active`, `pid`) and is consumed by the WebUI Telegram card.
+  - `nzapret diagnose --json` and `nzapret events --json` are also consumed by the UI.
+  - If JSON schemas or command names change, update the WebUI in the same change.
+
+- Preserve release metadata flow.
+  - `module.prop` `version=` is the source for the GitHub release tag, ZIP name, required release-notes filename, and generated `update.json`.
+  - `.github/workflows/release.yml` requires `.github/release-notes/${version}.md`; do not silently generate fallback release notes.
+  - The GitHub Release body uses the same versioned release notes file via `body_path`.
+  - `update.json` `changelog` must point to the raw GitHub file URL on `main`: `https://raw.githubusercontent.com/<owner>/<repo>/refs/heads/main/.github/release-notes/${version}.md`.
+
+- Do not edit opaque artifacts casually.
+  - `bin/nfqws2-*` and `payloads/*.bin` are binary assets.
+  - Treat them as replace-only artifacts unless the task explicitly requires binary changes.
+
+- Preserve LF line endings for packaged text files.
+  - `build.sh` normalizes shell/config/web text files to LF in staging.
+  - Do not apply blanket CRLF conversions to the repo, especially not under `bin/` or `payloads/`.
+
+## Android-Specific Traps
+
+- Lifecycle changes are cross-file by default.
+  - If you change start logic in `service.sh`, also inspect `system/bin/nzapret`, `uninstall.sh`, and `action.sh`.
+  - Start/stop must remain idempotent: cleanup loops intentionally remove duplicate jump rules from both `OUTPUT` and `FORWARD`.
+
+- Firewall assumptions are explicit.
+  - The custom chain name is `nzapret_out`.
+  - IPv4 and IPv6 are both configured.
+  - `service.sh` intentionally bypasses loopback and common VPN interfaces (`lo`, `tun+`, `wg+`, `tap+`).
+
+- Runtime state is generated inside the module directory.
+  - `profiles/profile.current`, `.private_dns_initialized`, `.list_count`, `nzapret.log`, `nzapret.log.prev`, and `nzapret-events.log` are mutable artifacts.
+  - Do not hardcode assumptions that these files are committed or always present in a fresh checkout.
+  - `customize.sh` preserves `lists/list-user.txt`, `tgproxy.conf`, and `.tg_secret` across module updates from both live and staged module directories.
+
+- The update path is intentionally narrow.
+  - `system/bin/nzapret update` refreshes `lists/list-general.txt` from the hardcoded upstream URL.
+  - Empty or failed downloads must not replace a working list.
+
+- The WebUI shells out directly.
+  - Keep command strings shell-safe.
+  - Favor stable stdout formats from CLI commands that the UI parses or displays.
+  - Saving or updating hostlists must not assume a full service restart; the current runtime uses automatic reread and optional `SIGHUP`.
+  - Private DNS controls must go through `nzapret dns set ...`; do not write Android settings directly from JavaScript.
+
+## Editing Guidance
+
+### Shell And Runtime
+
+- Prefer simple POSIX/Android `sh` constructs over clever shell tricks.
+- Guard new external dependencies with `command -v` before use.
+- Keep log messages and failures actionable; the WebUI and CLI rely on them for debugging.
+- When changing cleanup or chain wiring, update verification logic everywhere it appears.
+- Shared, side-effect-free helpers (logging, network-mode, IPv6 availability, hostname validation, Private DNS, Android settings I/O) live in `common.sh`, sourced by both `service.sh` and `system/bin/nzapret`. Add new shared helpers there instead of duplicating them; keep file-specific behavior (e.g. `fail`/`require_cmd` error semantics, `ensure_*`) local to each script.
+- `common.sh` assumes the sourcing script has already defined the path constants it uses (`EVENTLOG`, `PRIVATE_DNS_INIT_FILE`, `DEFAULT_PRIVATE_DNS_HOSTNAME`). Source it after those constants. New top-level files like `common.sh` must be added to `build.sh` `MODULE_ENTRIES`.
+
+### Profiles
+
+- Keep one `nfqws2` argument per line.
+- Preserve the `# profile:` header convention for user-facing labels.
+- Use installed absolute paths inside profiles, not repo-relative paths.
+- New `profiles/*.conf` files are auto-discovered by `nzapret profile list` and the WebUI profile selector.
+
+### WebUI
+
+- `webroot/index.html` is the real app; `kernelsu.js` is only a thin bridge over `ksu.exec`.
+- The WebUI JS is split into ES modules loaded via `<script type="module">`: `app.js` is the stateful controller (owns DOM state, render, `window.*` handlers for inline `onclick`), `cli.js` owns the CLI contract (`CLI`/`MODDIR` constants, `matchJson`, `combineOutput`), `utils.js` holds pure state-free helpers, and `i18n.js` holds translations. Keep CLI command/JSON parsing in `cli.js` and add pure helpers to `utils.js` rather than the controller. New `webroot/*.js` files are packaged automatically via the `webroot` entry in `build.sh`.
+- Keep the UI aligned with actual CLI capabilities instead of adding mock controls.
+- If you add a new operator feature, prefer implementing it in the CLI first and then wiring the UI to it.
+- The runtime status card currently shows:
+  - Private DNS label
+  - Telegram status value
+  - `domain_count`
+  - `google_domain_count`
+  - `user_domain_count`
+  - `rules_v4`
+  - `rules_v6`
+- Routing Profile UI is intentionally hidden while only the default profile ships; profile CLI support still exists.
+- There is no Network Stack selector or IP-stack status row: the IPv4/IPv6 firewall stack is auto-determined and reflected only by the `rules_v4`/`rules_v6` counters. Do not add a mode toggle.
+- Event-dot colors are semantic: blue/accent for neutral events, green for enabling/successful additions, red for disabling/errors.
+- The personal list editor assumes hostlist saves do not trigger a restart.
+
+### Packaging
+
+- If you add a new top-level file or directory needed in the module ZIP, update `build.sh` `MODULE_ENTRIES`.
+- If you add a new executable script, update permission handling in `customize.sh`.
+- If you add a new text file type that must be normalized to LF before packaging, update `build.sh`.
+- Keep runtime artifacts out of the packaged ZIP, but preserve the shipped empty `lists/list-user.txt`.
+- `build.sh` must exclude generated runtime state such as `.private_dns_initialized`, `.list-user.install.bak`, logs, and `.list_count`.
+- Every releasable `module.prop` version must have a matching `.github/release-notes/<version>.md` before running the release workflow.
+
+## Verification Checklist
+
+Use the lightest safe verification available for the environment.
+
+- Desktop or CI host:
+  - Read the affected shell paths together before changing behavior.
+  - Prefer syntax and static validation over trying to execute Android runtime scripts on a non-Android host.
+  - For packaging changes, run `bash build.sh` from a Unix-like environment with `bash`, `zip`, `sed`, and `mktemp`.
+
+- Android device with the module installed:
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret status`
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret status --json`
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret network status`
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret dns status`
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret diagnose`
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret start`
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret stop`
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret restart`
+  - `sh /data/adb/modules/nzapret/system/bin/nzapret events --json --tail=30`
+
+- After runtime or profile changes, verify:
+  - exactly one `nfqws2` process is running,
+  - IPv4 jumps exist for both `OUTPUT` and `FORWARD`,
+  - IPv6 jumps exist for both `OUTPUT` and `FORWARD` whenever `ip6tables_supported` passes,
+  - `status --json` still parses,
+  - the firewall stack and Private DNS fields match the device state,
+  - the WebUI still renders runtime status, Private DNS, diagnostics, and logs.
+
+- After list update changes, verify:
+  - `list-general.txt` is not replaced by an empty file,
+  - cached domain counts refresh correctly,
+  - a running service refreshes hostlists cleanly without requiring a restart.
+
+- After packaging changes, verify:
+  - the generated ZIP contains all required module entries,
+  - executable bits are preserved for scripts and selected binaries,
+  - no runtime logs, caches, install backups, or `.private_dns_initialized` are accidentally shipped.
+
+- After release workflow changes, verify:
+  - `.github/release-notes/${version}.md` exists for the `module.prop` version,
+  - release body uses that file,
+  - generated `update.json` points `zipUrl` at the release ZIP and `changelog` at the raw GitHub `refs/heads/main/.github/release-notes/${version}.md` URL.
+
+## Safe Defaults For Agents
+
+- Prefer small, coordinated changes over broad rewrites.
+- Search the whole repo before changing shared constants like chain names, JSON fields, or module paths.
+- Do not claim a UI control or setting works unless you traced it into the CLI and runtime scripts.
+- Preserve the current CLI/WebUI contract unless the task explicitly includes both sides of the change.
+
+---
+> Source: [nikitos4683/nzapret](https://github.com/nikitos4683/nzapret) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-16 -->
