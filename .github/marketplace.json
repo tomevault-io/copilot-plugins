@@ -162989,6 +162989,11 @@
       "description": "Automate JS analysis on modern JS apps"
     },
     {
+      "name": "romarayt--raytsystem-public-os",
+      "source": "./romarayt--raytsystem-public-os",
+      "description": "Local-first agent workspace for knowledge, tasks, documents and verifiable workflows \u00b7 \u041b\u043e\u043a\u0430\u043b\u044c\u043d\u0430\u044f \u0430\u0433\u0435\u043d\u0442\u043d\u0430\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430 \u0434\u043b\u044f \u0437\u043d\u0430\u043d\u0438\u0439, \u0437\u0430\u0434\u0430\u0447 \u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u043c\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u043e\u0432 \u00b7 t.me/romarayt"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -193812,6 +193817,16 @@
       "name": "zinin--sketchup-mcp2",
       "source": "./zinin--sketchup-mcp2",
       "description": "MCP Server for SketchUp"
+    },
+    {
+      "name": "7etsuo--anvil",
+      "source": "./7etsuo--anvil",
+      "description": "Anvil \u2014 agent-native multi-genre game engine for AI coding agents"
+    },
+    {
+      "name": "fatelightx--ariaflow",
+      "source": "./fatelightx--ariaflow",
+      "description": "AriaFlow"
     },
     {
       "name": "lightninglabs--lnget",
