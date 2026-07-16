@@ -1,0 +1,9 @@
+{
+  "name": "teylersf--freeremotedesk",
+  "displayName": "freeremotedesk",
+  "description": "Browser-first, self-hosted remote desktop. WebRTC P2P. Runs on your own free-tier Cloudflare + Vercel accounts. Zero monthly cost. Includes AI-agent setup guide.",
+  "version": "1.0.0",
+  "author": "Teylersf",
+  "homepage": "https://github.com/Teylersf/freeremotedesk",
+  "skills": []
+}
