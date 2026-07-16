@@ -246819,6 +246819,11 @@
       "description": "Compact, local-first neuro-symbolic assistant in Rust with a 200 MiB Bitwork cognitive model, exact reasoning tools, governed memory, and integer-only inference."
     },
     {
+      "name": "indiesoftby--defold-zstd",
+      "source": "./indiesoftby--defold-zstd",
+      "description": "Zstandard compression API for the Defold engine."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269384,6 +269389,31 @@
       "description": "\ud83c\udf10 Node.js app that performs web-augmented generation using SearXNG and any OpenAI API compatible LLM"
     },
     {
+      "name": "peterbussch--pageledger",
+      "source": "./peterbussch--pageledger",
+      "description": "Auditable page-level run ledger for OCR and document extraction"
+    },
+    {
+      "name": "xinyang-li666--scicrucible",
+      "source": "./xinyang-li666--scicrucible",
+      "description": "\u57fa\u4e8eclaude\u7684\u79d1\u5b66\u667a\u80fd\u77e5\u8bc6\u5e93\uff1a\u4ece\u6587\u732e\u6444\u5165-\u77e5\u8bc6\u5206\u6790-\u79d1\u5b66\u8ba8\u8bba-\u5b66\u672f\u5199\u4f5c\u7684\u5168\u95ed\u73af\u3002"
+    },
+    {
+      "name": "mehrad-dm--mastermind",
+      "source": "./mehrad-dm--mastermind",
+      "description": "\u2697\ufe0f Experimental \u2014 A genius-builder brain for your AI coding tools: sharp defaults, real judgment, and the discipline to check their own work. For Claude Code, Codex, Cursor & Copilot. Just markdown; i"
+    },
+    {
+      "name": "nujovich--tracepath",
+      "source": "./nujovich--tracepath",
+      "description": "Agent Audit Stack \u2014 auditable multi-step AI agent middleware. Audit Gateway + Incident Response + Policy Evolution."
+    },
+    {
+      "name": "mehrad-dm--mastermind",
+      "source": "./mehrad-dm--mastermind",
+      "description": "\u2697\ufe0f Experimental \u2014 A genius-builder brain for your AI coding tools: sharp defaults, real judgment, and the discipline to check their own work. For Claude Code, Codex, Cursor & Copilot. Just markdown; i"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -274117,6 +274147,11 @@
       "name": "jaturapornchai--mongomodeleditor",
       "source": "./jaturapornchai--mongomodeleditor",
       "description": "mongomodeleditor"
+    },
+    {
+      "name": "forestai123456--daisy-voice-agent",
+      "source": "./forestai123456--daisy-voice-agent",
+      "description": "Daisy\uff1aAI \u8bed\u97f3\u52a9\u624b"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -399502,6 +399537,41 @@
       "name": "mint-system--kubernetes-build",
       "source": "./mint-system--kubernetes-build",
       "description": "The Mint System collection of Helm Charts."
+    },
+    {
+      "name": "krasterisk--aipbx",
+      "source": "./krasterisk--aipbx",
+      "description": "aiPBX"
+    },
+    {
+      "name": "krasterisk--aipbx",
+      "source": "./krasterisk--aipbx",
+      "description": "aiPBX"
+    },
+    {
+      "name": "krasterisk--aipbx",
+      "source": "./krasterisk--aipbx",
+      "description": "aiPBX"
+    },
+    {
+      "name": "sorokoletovdu--cv",
+      "source": "./sorokoletovdu--cv",
+      "description": "Dmitrii Sorokoletov CV"
+    },
+    {
+      "name": "sheer-rey--powerbash",
+      "source": "./sheer-rey--powerbash",
+      "description": "In order to using bash more powerful."
+    },
+    {
+      "name": "sorokoletovdu--cv",
+      "source": "./sorokoletovdu--cv",
+      "description": "Dmitrii Sorokoletov CV"
+    },
+    {
+      "name": "glslang--hevd-exp",
+      "source": "./glslang--hevd-exp",
+      "description": "HEVD exploits"
     }
   ]
 }
