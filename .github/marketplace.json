@@ -117519,6 +117519,16 @@
       "description": "Unikraft CLI"
     },
     {
+      "name": "lemoncrow-lab--lemoncrow",
+      "source": "./lemoncrow-lab--lemoncrow",
+      "description": "Faster runtime for coding agents. Make coding agents 25% faster and 30% cheaper while improving the quality."
+    },
+    {
+      "name": "lemoncrow-lab--lemoncrow",
+      "source": "./lemoncrow-lab--lemoncrow",
+      "description": "Faster runtime for coding agents. Make coding agents 25% faster and 30% cheaper while improving the quality."
+    },
+    {
       "name": "eliornl--applypilot",
       "source": "./eliornl--applypilot",
       "description": "Self-hosted, AI-powered job search companion. Paste a job posting and five AI agents run an orchestrated pipeline \u2014 analyze the role, score your fit, research the company, rewrite your resume, and wri"
@@ -134742,6 +134752,11 @@
       "name": "tswistak--battery-monitor",
       "source": "./tswistak--battery-monitor",
       "description": "Battery Monitor for Android"
+    },
+    {
+      "name": "kimsh-1--reelforge",
+      "source": "./kimsh-1--reelforge",
+      "description": "Agent-native AI video factory: one brief \u2192 narrated, subtitled, scene-editable videos (shorts & long-form). Deterministic HTML rendering, free keyless stack, Korean-first."
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -184029,6 +184044,11 @@
       "description": "Your own workspace. A self-hosted, open source alternative to Google Workspace: mail, drive, docs, sheets, slides, calendar and chat."
     },
     {
+      "name": "tdi--lazytilt",
+      "source": "./tdi--lazytilt",
+      "description": "Terminal UI for Tilt.dev, inspired by lazygit"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -193662,6 +193682,16 @@
       "name": "marketcalls--openalgo-webpage",
       "source": "./marketcalls--openalgo-webpage",
       "description": "OpenAlgo - Web Portal"
+    },
+    {
+      "name": "agentic-research--cloister",
+      "source": "./agentic-research--cloister",
+      "description": "Workerd-based hypervisor with a declarative Cap'n Proto manifest. Substrate-level identity, audit, and per-bundle credential scoping. Today's primary application: hosting MCP servers behind one HTTP f"
+    },
+    {
+      "name": "agentic-research--cloister",
+      "source": "./agentic-research--cloister",
+      "description": "Workerd-based hypervisor with a declarative Cap'n Proto manifest. Substrate-level identity, audit, and per-bundle credential scoping. Today's primary application: hosting MCP servers behind one HTTP f"
     },
     {
       "name": "lightninglabs--lnget",
@@ -208087,6 +208117,11 @@
       "name": "jonocodes--configs",
       "source": "./jonocodes--configs",
       "description": "mostly nix configs"
+    },
+    {
+      "name": "dicklesworthstone--frankengraphdb",
+      "source": "./dicklesworthstone--frankengraphdb",
+      "description": "A blank-slate, memory-safe, ultra-high-performance property-graph database in Rust \u2014 unified MVCC/time-travel/branches/replication over a fountain-coded commit stream, WCO+factorized execution, increm"
     },
     {
       "name": "yschimke--compose-ai-tools",
