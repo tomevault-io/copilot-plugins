@@ -1,0 +1,9 @@
+{
+  "name": "wh1isper--mcp-email-server",
+  "displayName": "mcp-email-server",
+  "description": "IMAP and SMTP via MCP Server",
+  "version": "1.0.0",
+  "author": "Wh1isper",
+  "homepage": "https://github.com/Wh1isper/mcp-email-server",
+  "skills": []
+}
