@@ -1,0 +1,9 @@
+{
+  "name": "infino-ai--code-context",
+  "displayName": "code-context",
+  "description": "Local code search for AI coding agents: a CLI and MCP server with hybrid keyword + semantic search and SQL relevance-ranked aggregation over an index in plain files. No accounts, no keys, no server.",
+  "version": "1.0.0",
+  "author": "infino-ai",
+  "homepage": "https://github.com/infino-ai/code-context",
+  "skills": []
+}
