@@ -1,0 +1,9 @@
+{
+  "name": "88gravessong--codex-windows-serialport-hotfix",
+  "displayName": "codex-windows-serialport-hotfix",
+  "description": "Unofficial, validated Windows workaround for OpenAI.Codex 26.707.9981.0 serialport.node delay-load crashes",
+  "version": "1.0.0",
+  "author": "88gravessong",
+  "homepage": "https://github.com/88gravessong/codex-windows-serialport-hotfix",
+  "skills": []
+}
