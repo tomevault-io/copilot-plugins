@@ -1,0 +1,9 @@
+{
+  "name": "carbeneai--forge",
+  "displayName": "Forge",
+  "description": "Open-source AI operations platform built on Claude Code. 107 skills, 27 agents, security built in. Linux / macOS / WSL.",
+  "version": "1.0.0",
+  "author": "CarbeneAI",
+  "homepage": "https://github.com/CarbeneAI/Forge",
+  "skills": []
+}
