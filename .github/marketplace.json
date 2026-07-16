@@ -269514,6 +269514,26 @@
       "description": "A Claude Code status line with a reactive character plus cost, git, and usage widgets. Zero token spend, local-first, MIT."
     },
     {
+      "name": "abhi-arya1--riff",
+      "source": "./abhi-arya1--riff",
+      "description": "An agent for my car"
+    },
+    {
+      "name": "abhi-arya1--riff",
+      "source": "./abhi-arya1--riff",
+      "description": "An agent for my car"
+    },
+    {
+      "name": "abhi-arya1--riff",
+      "source": "./abhi-arya1--riff",
+      "description": "An agent for my car"
+    },
+    {
+      "name": "lianxhcn--stata-ai",
+      "source": "./lianxhcn--stata-ai",
+      "description": "using Stata with AI-Agent"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -399702,6 +399722,16 @@
       "name": "mgfujikura--vue-components",
       "source": "./mgfujikura--vue-components",
       "description": "vue-components"
+    },
+    {
+      "name": "amlac-eniotna--whobringwhat",
+      "source": "./amlac-eniotna--whobringwhat",
+      "description": "whobringwhat"
+    },
+    {
+      "name": "amlac-eniotna--whobringwhat",
+      "source": "./amlac-eniotna--whobringwhat",
+      "description": "whobringwhat"
     }
   ]
 }
