@@ -269274,6 +269274,21 @@
       "description": "A cross-platform desktop application made for Super-Fast Language Learning by immersion. Watch your favourite content in your target language."
     },
     {
+      "name": "luodaoyi--grok-bridge-rs",
+      "source": "./luodaoyi--grok-bridge-rs",
+      "description": "grok-bridge-rs"
+    },
+    {
+      "name": "intsigsecurity--dpisr-evaluation-skill",
+      "source": "./intsigsecurity--dpisr-evaluation-skill",
+      "description": "\u57fa\u4e8e\u81ea\u884c\u6c47\u96c6\u7684\u548c\u516c\u5f00\u53ef\u83b7\u53d6\u7684\u6570\u636e\u5b89\u5168\u4e0e\u4e2a\u4eba\u4fe1\u606f\u4fdd\u62a4\u793e\u4f1a\u8d23\u4efb\u7ee9\u6548\u8bc1\u660e\u6750\u6599\uff0c\u4f9d\u636e **GB/T 46071-2025\u300a\u6570\u636e\u5b89\u5168\u6280\u672f \u6570\u636e\u5b89\u5168\u548c\u4e2a\u4eba\u4fe1\u606f\u4fdd\u62a4\u793e\u4f1a\u8d23\u4efb\u6307\u5357\u300b** \u8f85\u52a9\u7528\u6237\u8fdb\u884c\u81ea\u52a8\u8bc4\u4ef7\uff0c\u7ed9\u51fa\u81ea\u8bc4\u4ef7\u7ed3\u679c\u548c\u76f8\u5173\u6539\u8fdb\u5efa\u8bae\u3002"
+    },
+    {
+      "name": "fengjikui--peekmyagent",
+      "source": "./fengjikui--peekmyagent",
+      "description": "Local-first Agent Trace dashboard for inspecting coding-agent model requests."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -273977,6 +273992,21 @@
       "name": "lidi1011--quota-radar",
       "source": "./lidi1011--quota-radar",
       "description": "macOS quota dashboard for Codex and GLM/ZAI coding plans"
+    },
+    {
+      "name": "singhand-labs--scrapewright",
+      "source": "./singhand-labs--scrapewright",
+      "description": "LLM-powered web scraping platform. Build reusable scraping services as step-graph state machines via an AI-guided wizard, expose them through a local   HTTP API. Chrome Extension (MV3) + Node.js nativ"
+    },
+    {
+      "name": "deskulpt--adk-okf-grounded-chat",
+      "source": "./deskulpt--adk-okf-grounded-chat",
+      "description": "A standalone, deterministic grounding playground for AI agents built on the Google Agent Development Kit (ADK) 2.0 and the Git-backed Open Knowledge Format (OKF) specification."
+    },
+    {
+      "name": "ethanyoq--agent-xiaohongshu-workbench",
+      "source": "./ethanyoq--agent-xiaohongshu-workbench",
+      "description": "\u5c0f\u7ea2\u4e66\u56fe\u6587\u5185\u5bb9\u5de5\u4f5c\u53f0\uff1a\u7528 Codex Agent \u5b8c\u6210\u70ed\u70b9\u7814\u7a76\u3001\u5185\u5bb9\u62c6\u89e3\u3001\u539f\u521b\u6587\u7a3f\u3001\u53bb AI \u5473\u3001\u54c1\u724c\u914d\u56fe\u4e0e\u4eba\u5de5\u786e\u8ba4\u53d1\u5e03\u3002"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -399322,6 +399352,41 @@
       "name": "jdyck--tunes",
       "source": "./jdyck--tunes",
       "description": "tunes"
+    },
+    {
+      "name": "drthyang--rmc-phonon-dynamics",
+      "source": "./drthyang--rmc-phonon-dynamics",
+      "description": "Phonon calculations from RMC configurations ensemble."
+    },
+    {
+      "name": "ocha-dap--hdx-scraper-ophi",
+      "source": "./ocha-dap--hdx-scraper-ophi",
+      "description": "hdx-scraper-ophi"
+    },
+    {
+      "name": "taiyonawa--my-db-site",
+      "source": "./taiyonawa--my-db-site",
+      "description": "\u500b\u4eba\u30b5\u30a4\u30c8\u5236\u4f5c"
+    },
+    {
+      "name": "tkubica12--tkubica12-github-io",
+      "source": "./tkubica12--tkubica12-github-io",
+      "description": "tkubica12.github.io"
+    },
+    {
+      "name": "dhg314--ironfist-lite",
+      "source": "./dhg314--ironfist-lite",
+      "description": "a minecraft mod"
+    },
+    {
+      "name": "thesammykins--dotfiles",
+      "source": "./thesammykins--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "appscode-cloud--aceshifter",
+      "source": "./appscode-cloud--aceshifter",
+      "description": "aceshifter"
     }
   ]
 }
