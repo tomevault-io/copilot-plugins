@@ -1,0 +1,9 @@
+{
+  "name": "jparkerweb--web-augmented-generation",
+  "displayName": "web-augmented-generation",
+  "description": "\ud83c\udf10 Node.js app that performs web-augmented generation using SearXNG and any OpenAI API compatible LLM",
+  "version": "1.0.0",
+  "author": "jparkerweb",
+  "homepage": "https://github.com/jparkerweb/web-augmented-generation",
+  "skills": []
+}
