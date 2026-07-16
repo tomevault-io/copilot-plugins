@@ -1,0 +1,9 @@
+{
+  "name": "peterbussch--pageledger",
+  "displayName": "pageledger",
+  "description": "Auditable page-level run ledger for OCR and document extraction",
+  "version": "1.0.0",
+  "author": "peterbussch",
+  "homepage": "https://github.com/peterbussch/pageledger",
+  "skills": []
+}
