@@ -1,0 +1,9 @@
+{
+  "name": "deskulpt--adk-okf-grounded-chat",
+  "displayName": "adk-okf-grounded-chat",
+  "description": "A standalone, deterministic grounding playground for AI agents built on the Google Agent Development Kit (ADK) 2.0 and the Git-backed Open Knowledge Format (OKF) specification.",
+  "version": "1.0.0",
+  "author": "deskulpt",
+  "homepage": "https://github.com/deskulpt/adk-okf-grounded-chat",
+  "skills": []
+}
