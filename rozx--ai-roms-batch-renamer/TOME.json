@@ -1,0 +1,44 @@
+{
+  "name": "AI-ROMS-batch-renamer",
+  "owner": "rozx",
+  "repo": "AI-ROMS-batch-renamer",
+  "description": "\ud83c\udfae ROM AI Batch Renamer | ROM AI\u6279\u91cf\u91cd\u547d\u540d\u5de5\u5177 | \u652f\u6301\u7ec8\u7aef\u4e0e\u56fe\u5f62\u754c\u9762\uff0c\u7ed3\u5408\u672c\u5730\u522b\u540d\u6570\u636e\u5e93\u4e0e AI \u8fdb\u884c ROM \u6279\u91cf\u91cd\u547d\u540d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rozx/AI-ROMS-batch-renamer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T10:36:19Z"
+}
