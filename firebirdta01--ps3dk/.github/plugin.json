@@ -1,0 +1,9 @@
+{
+  "name": "firebirdta01--ps3dk",
+  "displayName": "PS3DK",
+  "description": "Modern open-source PlayStation 3 SDK \u2014 newer GCC, binutils, and newlib replacing the older  ps3dev baseline, with up to C++20  on PPU and up to C++17 on SPU.",
+  "version": "1.0.0",
+  "author": "FirebirdTA01",
+  "homepage": "https://github.com/FirebirdTA01/PS3DK",
+  "skills": []
+}
