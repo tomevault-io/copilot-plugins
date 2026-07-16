@@ -4,7 +4,7 @@
   "repo": "lottery-predictor",
   "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e\u5386\u53f2\u6570\u636e\u7edf\u8ba1\u7684\u53cc\u8272\u7403\u5f69\u7968\u9884\u6d4b\u5de5\u5177\uff0c\u4f7f\u7528\u591a\u79cd\u7b97\u6cd5\u7b56\u7565\u751f\u6210\u53f7\u7801\u63a8\u8350\u3002\u6570\u636e\u6765\u6e90\u4e8e500\u5f69\u7968\u7f51\u7684\u771f\u5b9e\u5f00\u5956\u8bb0\u5f55\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wjt0321/lottery-predictor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T22:41:16Z"
+  "distributed_at": "2026-07-16T22:46:40Z"
 }
