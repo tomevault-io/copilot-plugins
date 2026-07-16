@@ -1,0 +1,9 @@
+{
+  "name": "domuk-k--open-managed-agents",
+  "displayName": "open-managed-agents",
+  "description": "Open-source Claude Managed Agents clone in Go. Provider-agnostic, self-hosted, single binary.",
+  "version": "1.0.0",
+  "author": "domuk-k",
+  "homepage": "https://github.com/domuk-k/open-managed-agents",
+  "skills": []
+}
