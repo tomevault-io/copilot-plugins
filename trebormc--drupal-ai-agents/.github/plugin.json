@@ -1,0 +1,9 @@
+{
+  "name": "trebormc--drupal-ai-agents",
+  "displayName": "drupal-ai-agents",
+  "description": "AI agents, rules, and skills for Drupal projects",
+  "version": "1.0.0",
+  "author": "trebormc",
+  "homepage": "https://github.com/trebormc/drupal-ai-agents",
+  "skills": []
+}
