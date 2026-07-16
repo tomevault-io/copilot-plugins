@@ -1,0 +1,44 @@
+{
+  "name": "global_asset_history",
+  "owner": "scsfwgy",
+  "repo": "global_asset_history",
+  "description": "\u8de8\u8d44\u4ea7\u7c7b\u522b\uff08\u7f8e\u80a1\u3001\u6570\u5b57\u8d27\u5e01\u3001A \u80a1\uff09\u7684\u5386\u53f2\u6536\u76ca\u67e5\u8be2\u5de5\u5177\uff1ahttps://qqq.tools24.uk",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/scsfwgy/global_asset_history",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T02:34:45Z"
+}
