@@ -1,0 +1,9 @@
+{
+  "name": "fengjikui--peekmyagent",
+  "displayName": "peekMyAgent",
+  "description": "Local-first Agent Trace dashboard for inspecting coding-agent model requests.",
+  "version": "1.0.0",
+  "author": "fengjikui",
+  "homepage": "https://github.com/fengjikui/peekMyAgent",
+  "skills": []
+}
