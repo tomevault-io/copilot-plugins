@@ -51964,11 +51964,6 @@
       "description": "\ud83e\udd9e A Digital Life Embryo for your MCP Client. An intelligent micro-kernel with Nociception, Memory Apoptosis, and a Curiosity Drive. Evolve your AI Copilot into a sentient partner for Claude Desktop, Q"
     },
     {
-      "name": "jinzhongjia--decky-music",
-      "source": "./jinzhongjia--decky-music",
-      "description": "Steam decky plugin with music"
-    },
-    {
       "name": "areo-joe--chrome-acp",
       "source": "./areo-joe--chrome-acp",
       "description": "Connect to ACP agent in browser."
@@ -52237,6 +52232,11 @@
       "name": "kagan-sh--kagan-legacy",
       "source": "./kagan-sh--kagan-legacy",
       "description": "The Orchestration Layer for AI Coding Agents"
+    },
+    {
+      "name": "jinzhongjia--decky-music",
+      "source": "./jinzhongjia--decky-music",
+      "description": "Steam decky plugin with music"
     },
     {
       "name": "productdevbook--sumak",
@@ -101034,6 +101034,11 @@
       "description": "A fast, practical SystemVerilog LSP for RTL coding."
     },
     {
+      "name": "bushidocodes--chord-grpc",
+      "source": "./bushidocodes--chord-grpc",
+      "description": "chord-grpc"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -128187,6 +128192,11 @@
       "name": "mobailabs--mac-dia-server",
       "source": "./mobailabs--mac-dia-server",
       "description": "mac-dia-server"
+    },
+    {
+      "name": "composio-temp--chat",
+      "source": "./composio-temp--chat",
+      "description": "chat"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -162952,6 +162962,11 @@
       "name": "ever-works--directory-web-template",
       "source": "./ever-works--directory-web-template",
       "description": "Open-Source Directory Website NextJs Boilerplate (part of Ever\u00ae Works\u2122 Platform) - https://ever.works"
+    },
+    {
+      "name": "js-recon--js-recon",
+      "source": "./js-recon--js-recon",
+      "description": "Automate JS analysis on modern JS apps"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -246789,6 +246804,11 @@
       "description": "Compos\u00e9UI is a Swift framework for building UI using AppKit and UIKit with declarative syntax."
     },
     {
+      "name": "jacksonjp0311-gif--perci",
+      "source": "./jacksonjp0311-gif--perci",
+      "description": "Compact, local-first neuro-symbolic assistant in Rust with a 200 MiB Bitwork cognitive model, exact reasoning tools, governed memory, and integer-only inference."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269344,6 +269364,16 @@
       "description": "Local-first Agent Trace dashboard for inspecting coding-agent model requests."
     },
     {
+      "name": "viy1204--recruiting-copilot",
+      "source": "./viy1204--recruiting-copilot",
+      "description": "\u7ed9 HR/\u730e\u5934\u7684 AI \u62db\u8058\u5de5\u4f5c\u6d41\uff1a\u5c97\u4f4d\u6807\u51c6\u68b3\u7406\u3001Boss\u76f4\u8058+\u730e\u8058\u53cc\u901a\u9053\u5bfb\u6e90\u521d\u7b5b\u3001\u5e02\u573a\u4eba\u624d\u76d8\u70b9\u3001\u7b80\u5386\u8bc4\u4f30\u3001\u7ea6\u9762\u8bd5\u3001\u5019\u9009\u4eba\u53f0\u8d26\u4e0e\u65e5\u62a5\u3002\u914d\u5408\u4efb\u610f AI \u7f16\u7a0b\u52a9\u624b\u4f7f\u7528\u3002"
+    },
+    {
+      "name": "jparkerweb--web-augmented-generation",
+      "source": "./jparkerweb--web-augmented-generation",
+      "description": "\ud83c\udf10 Node.js app that performs web-augmented generation using SearXNG and any OpenAI API compatible LLM"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -274062,6 +274092,21 @@
       "name": "ethanyoq--agent-xiaohongshu-workbench",
       "source": "./ethanyoq--agent-xiaohongshu-workbench",
       "description": "\u5c0f\u7ea2\u4e66\u56fe\u6587\u5185\u5bb9\u5de5\u4f5c\u53f0\uff1a\u7528 Codex Agent \u5b8c\u6210\u70ed\u70b9\u7814\u7a76\u3001\u5185\u5bb9\u62c6\u89e3\u3001\u539f\u521b\u6587\u7a3f\u3001\u53bb AI \u5473\u3001\u54c1\u724c\u914d\u56fe\u4e0e\u4eba\u5de5\u786e\u8ba4\u53d1\u5e03\u3002"
+    },
+    {
+      "name": "sunlllccc--slc-trellis",
+      "source": "./sunlllccc--slc-trellis",
+      "description": "slc-trellis"
+    },
+    {
+      "name": "sunlllccc--slc-trellis",
+      "source": "./sunlllccc--slc-trellis",
+      "description": "slc-trellis"
+    },
+    {
+      "name": "jaturapornchai--mongomodeleditor",
+      "source": "./jaturapornchai--mongomodeleditor",
+      "description": "mongomodeleditor"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -399442,6 +399487,11 @@
       "name": "appscode-cloud--aceshifter",
       "source": "./appscode-cloud--aceshifter",
       "description": "aceshifter"
+    },
+    {
+      "name": "mint-system--kubernetes-build",
+      "source": "./mint-system--kubernetes-build",
+      "description": "The Mint System collection of Helm Charts."
     }
   ]
 }
