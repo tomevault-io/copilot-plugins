@@ -246894,6 +246894,11 @@
       "description": "FPGA IP library for the Mu3e triggerless DAQ: control-plane, data-plane, timing, buffering, framing, and monitoring cores."
     },
     {
+      "name": "ant-research--open-aoe",
+      "source": "./ant-research--open-aoe",
+      "description": "Open-AoE"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269539,6 +269544,21 @@
       "description": "using Stata with AI-Agent"
     },
     {
+      "name": "88gravessong--codex-windows-serialport-hotfix",
+      "source": "./88gravessong--codex-windows-serialport-hotfix",
+      "description": "Unofficial, validated Windows workaround for OpenAI.Codex 26.707.9981.0 serialport.node delay-load crashes"
+    },
+    {
+      "name": "xi-zhao--runthepaper",
+      "source": "./xi-zhao--runthepaper",
+      "description": "Open research reproduction cases: notes, runnable code, generated data, figures, and honest reproduction boundaries."
+    },
+    {
+      "name": "xposed-modules-repo--com-tianqianguai-reweibo",
+      "source": "./xposed-modules-repo--com-tianqianguai-reweibo",
+      "description": "\u5fae\u535a\u8f7b\u4eab\u7248\u7981\u6b62\u81ea\u52a8\u5237\u65b0\u3001\u6d4f\u89c8\u4f4d\u7f6e\u8bb0\u5fc6\u3001\u65b0\u542f\u52a8\u540e\u81ea\u52a8\u52a0\u8f7d\u81f3\u4e0a\u6b21\u6d4f\u89c8\u4f4d\u7f6e\u3001\u53bb\u5e7f\u544a\u3001\u53cd\u5411\u65f6\u95f4\u7ebf\u3001\u9605\u8bfb\u4f4d\u7f6e\u6062\u590d / Weibo Lite LSPosed/Xposed module for ad removal, reversed timeline, and reading-position recovery"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -274282,6 +274302,11 @@
       "name": "bp-cy--tailoragent",
       "source": "./bp-cy--tailoragent",
       "description": "TailorAgent"
+    },
+    {
+      "name": "mc3545dada--2024hvibe",
+      "source": "./mc3545dada--2024hvibe",
+      "description": "2024\u7535\u8d5bh\u9898\u7eafvibe coding\u7248\u672c\u4ed3\u5e93"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -399737,6 +399762,16 @@
       "name": "djelibeybi--home-assistant-core",
       "source": "./djelibeybi--home-assistant-core",
       "description": "home-assistant-core"
+    },
+    {
+      "name": "dewarrum--catan-vision",
+      "source": "./dewarrum--catan-vision",
+      "description": "catan-vision"
+    },
+    {
+      "name": "apetun--portfolio",
+      "source": "./apetun--portfolio",
+      "description": "portfolio"
     }
   ]
 }
