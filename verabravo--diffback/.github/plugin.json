@@ -1,0 +1,9 @@
+{
+  "name": "verabravo--diffback",
+  "displayName": "diffback",
+  "description": "Local web UI to review AI-generated code changes and generate structured feedback prompts",
+  "version": "1.0.0",
+  "author": "verabravo",
+  "homepage": "https://github.com/verabravo/diffback",
+  "skills": []
+}
