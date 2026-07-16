@@ -1,0 +1,9 @@
+{
+  "name": "k4hvh--makcu",
+  "displayName": "makcu",
+  "description": "A library to interact with MAKCU devices in Rust",
+  "version": "1.0.0",
+  "author": "K4HVH",
+  "homepage": "https://github.com/K4HVH/makcu",
+  "skills": []
+}
