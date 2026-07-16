@@ -7,11 +7,11 @@ A structured, multi-agent Claude Code learning environment for mastering Retriev
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TakaGoto/rag-learning-academy](https://github.com/TakaGoto/rag-learning-academy).
+Original source: `CLAUDE.md` in [TakaGoto/rag-learning-academy](https://github.com/TakaGoto/rag-learning-academy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
