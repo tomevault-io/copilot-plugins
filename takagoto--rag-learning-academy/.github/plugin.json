@@ -1,0 +1,9 @@
+{
+  "name": "takagoto--rag-learning-academy",
+  "displayName": "rag-learning-academy",
+  "description": "A structured, multi-agent Claude Code learning environment for mastering Retrieval-Augmented Generation (RAG)",
+  "version": "1.0.0",
+  "author": "TakaGoto",
+  "homepage": "https://github.com/TakaGoto/rag-learning-academy",
+  "skills": []
+}
