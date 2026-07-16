@@ -1,0 +1,9 @@
+{
+  "name": "indiesoftby--defold-zstd",
+  "displayName": "defold-zstd",
+  "description": "Zstandard compression API for the Defold engine.",
+  "version": "1.0.0",
+  "author": "indiesoftby",
+  "homepage": "https://github.com/indiesoftby/defold-zstd",
+  "skills": []
+}
