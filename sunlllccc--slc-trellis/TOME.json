@@ -4,7 +4,7 @@
   "repo": "slc-trellis",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SunLLLccc/slc-trellis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T06:34:28Z"
+  "distributed_at": "2026-07-16T06:35:01Z"
 }
