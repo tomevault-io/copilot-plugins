@@ -1,0 +1,9 @@
+{
+  "name": "magebyte-zero--agent-guidelines",
+  "displayName": "agent-guidelines",
+  "description": "Full-stack AI collaboration codex (CLAUDE.md / AGENTS.md / Cursor rules) distilled from Karpathy's four principles, GoMall RIPER-5, Cloudflare SDK & Overreacted.",
+  "version": "1.0.0",
+  "author": "MageByte-Zero",
+  "homepage": "https://github.com/MageByte-Zero/agent-guidelines",
+  "skills": []
+}
