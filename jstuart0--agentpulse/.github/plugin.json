@@ -1,0 +1,9 @@
+{
+  "name": "jstuart0--agentpulse",
+  "displayName": "agentpulse",
+  "description": "Real-time monitoring dashboard for AI coding agent sessions (Claude Code + Codex CLI)",
+  "version": "1.0.0",
+  "author": "jstuart0",
+  "homepage": "https://github.com/jstuart0/agentpulse",
+  "skills": []
+}
