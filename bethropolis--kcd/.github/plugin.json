@@ -1,0 +1,9 @@
+{
+  "name": "bethropolis--kcd",
+  "displayName": "kcd",
+  "description": "A lightweight, fully headless KDE Connect daemon written in Go. Perfect for minimal window managers (Sway/Hyprland), and terminal automation.",
+  "version": "1.0.0",
+  "author": "bethropolis",
+  "homepage": "https://github.com/bethropolis/kcd",
+  "skills": []
+}
