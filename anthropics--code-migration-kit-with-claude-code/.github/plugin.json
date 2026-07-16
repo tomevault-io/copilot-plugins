@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--code-migration-kit-with-claude-code",
+  "displayName": "code-migration-kit-with-claude-code",
+  "description": "Prompts, templates, and scripts for running large-scale language migrations with Claude Code",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/code-migration-kit-with-claude-code",
+  "skills": []
+}
