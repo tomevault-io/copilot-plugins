@@ -1,0 +1,9 @@
+{
+  "name": "brandcode-studio--brandsystem-mcp",
+  "displayName": "brandsystem-mcp",
+  "description": "MCP server for progressive brand governance \u2014 extract, compile, and audit brand identity systems",
+  "version": "1.0.0",
+  "author": "Brandcode-Studio",
+  "homepage": "https://github.com/Brandcode-Studio/brandsystem-mcp",
+  "skills": []
+}
