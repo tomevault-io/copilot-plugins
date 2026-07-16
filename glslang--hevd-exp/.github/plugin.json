@@ -1,0 +1,9 @@
+{
+  "name": "glslang--hevd-exp",
+  "displayName": "hevd-exp",
+  "description": "HEVD exploits",
+  "version": "1.0.0",
+  "author": "glslang",
+  "homepage": "https://github.com/glslang/hevd-exp",
+  "skills": []
+}
