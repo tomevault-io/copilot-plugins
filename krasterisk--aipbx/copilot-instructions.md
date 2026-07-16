@@ -1,36 +1,33 @@
-## backend-nestjs
+## frontend-fsd
 
-> Backend NestJS conventions for aiPBX_backend
+> Frontend FSD and UI conventions
 
 
-# Backend NestJS Rules
+# Frontend FSD Rules
 
-Repo: `aiPBX_backend` (NestJS 11, Sequelize, PostgreSQL).
+Architecture: Feature-Sliced Design (`app → pages → widgets → features → entities → shared`).
 
-Planning: canonical `.planning/` lives in sibling `aiPBX` repo; see `aiPBX_backend/.planning/README.md`.
+## UI layer
 
-## Module conventions
+- **New UI only in** `src/shared/ui/redesign/`
+- Do not add code to `shared/ui/deprecated/`
+- Prefer `redesign-v3` components over MUI where equivalents exist
 
-- Feature modules in `src/<feature>/` with `.module.ts`, `.controller.ts`, `.service.ts`
-- DTOs with `@ApiProperty` for Swagger
-- Guards: `JwtAuthGuard`, `RolesGuard`, `ApiTokenGuard` as appropriate
+## API layer
 
-## High-risk areas (require dedicated phase)
+- RTK Query endpoints in `entities/*/api/*Api.ts`, injected via `rtkApi`
+- Types in `entities/*/model/types/`
+- After backend DTO change, update matching entity types (see `intel/API-MAP.md`)
 
-- `src/ari/`, `src/rtp-udp-server/`, `src/open-ai/`, `src/non-realtime/`
-- `src/billing/`, `src/payments/`, `src/accounting/`
-- Tenant scoping: always filter by `vpbxUserId`; cache keys must include tenant id
+## i18n
 
-## Tests
+- Keys in `public/locales/{en,ru}/`
+- No hardcoded user-visible strings in components
 
-- Unit tests: `*.spec.ts` next to service
-- Run: `npm test` from `aiPBX_backend/`
-- Add test for every new service method with business logic
+## Build
 
-## API
-
-- Global prefix `/api`
-- Update `aiPBX/.planning/intel/API-MAP.md` when adding endpoints
+- Production builds use Webpack (`npm run build:prod`), not Vite
+- Env vars via `.env` / `.env.local` (see `.env.example`)
 
 ---
 > Source: [krasterisk/aiPBX](https://github.com/krasterisk/aiPBX) — distributed by [TomeVault](https://tomevault.io).
