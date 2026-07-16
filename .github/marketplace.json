@@ -246979,6 +246979,91 @@
       "description": "Real-time monitoring dashboard for AI coding agent sessions (Claude Code + Codex CLI)"
     },
     {
+      "name": "strangedaystech--arborist-metrics",
+      "source": "./strangedaystech--arborist-metrics",
+      "description": "Multi-language code complexity metrics (cognitive, cyclomatic, SLOC) powered by tree-sitter"
+    },
+    {
+      "name": "strangedaystech--arborist-metrics",
+      "source": "./strangedaystech--arborist-metrics",
+      "description": "Multi-language code complexity metrics (cognitive, cyclomatic, SLOC) powered by tree-sitter"
+    },
+    {
+      "name": "yansongwel--etf-quant",
+      "source": "./yansongwel--etf-quant",
+      "description": "\u4e2d\u56fd ETF \u91cf\u5316\u6295\u7814\u5e73\u53f0 \u2014 \u591a\u56e0\u5b50\u6a21\u578b + \u677f\u5757\u8f6e\u52a8 + \u4fe1\u53f7\u5f15\u64ce"
+    },
+    {
+      "name": "vectorinstitute--agentic-forecasting",
+      "source": "./vectorinstitute--agentic-forecasting",
+      "description": "Codebase for agentic forecasting bootcamp."
+    },
+    {
+      "name": "vinipx--cca-prep",
+      "source": "./vinipx--cca-prep",
+      "description": "Claude Certification Exam Preparation"
+    },
+    {
+      "name": "horizonrobotics--roboorchardsim",
+      "source": "./horizonrobotics--roboorchardsim",
+      "description": "RoboOrchardSim"
+    },
+    {
+      "name": "lilyydavid--ai-diagnostic-loop-mirror",
+      "source": "./lilyydavid--ai-diagnostic-loop-mirror",
+      "description": "ai-diagnostic-loop-mirror"
+    },
+    {
+      "name": "123pannextgen--pan123next",
+      "source": "./123pannextgen--pan123next",
+      "description": "\u6765\u81ea\u7b2c\u4e09\u65b9\u7684\u4e0b\u4e00\u4ee3123\u4e91\u76d8\u5ba2\u6237\u7aef\uff0c\u89e3\u51b3\u539f\u7248\u5ba2\u6237\u7aef\u7684\u8bf8\u591a\u95ee\u9898\uff0c\u4f7f\u7528 Flutter\u548cDart\uff0c\u754c\u9762\u66f4\u7f8e\u89c2\uff0c\u529f\u80fd\u66f4\u5f3a\u5927\uff0c\u6548\u7387\u66f4\u9ad8"
+    },
+    {
+      "name": "mulesoft--mulesoft-dx",
+      "source": "./mulesoft--mulesoft-dx",
+      "description": "mulesoft-dx"
+    },
+    {
+      "name": "dougchansan--pkmn-colosseum",
+      "source": "./dougchansan--pkmn-colosseum",
+      "description": "ai decompilation project for pokemon colosseum"
+    },
+    {
+      "name": "marekpal97--thinkweave",
+      "source": "./marekpal97--thinkweave",
+      "description": "thinkweave"
+    },
+    {
+      "name": "bethropolis--kcd",
+      "source": "./bethropolis--kcd",
+      "description": "A lightweight, fully headless KDE Connect daemon written in Go. Perfect for minimal window managers (Sway/Hyprland), and terminal automation."
+    },
+    {
+      "name": "strangedaystech--arborist-metrics",
+      "source": "./strangedaystech--arborist-metrics",
+      "description": "Multi-language code complexity metrics (cognitive, cyclomatic, SLOC) powered by tree-sitter"
+    },
+    {
+      "name": "robotflow-labs--project-uav-trackvla",
+      "source": "./robotflow-labs--project-uav-trackvla",
+      "description": "UAV-TRACKVLA \u2014 VLA for Embodied Aerial Tracking "
+    },
+    {
+      "name": "cadl--ax-xhs-cli",
+      "source": "./cadl--ax-xhs-cli",
+      "description": "Xiaohongshu CLI via macOS Accessibility API"
+    },
+    {
+      "name": "chaos-xxl--apple-design-skill",
+      "source": "./chaos-xxl--apple-design-skill",
+      "description": "An open-source AI Skill that guides AI coding assistants to generate Apple-style frontend UI code. Compatible with OpenClaw and Claude Code."
+    },
+    {
+      "name": "verabravo--diffback",
+      "source": "./verabravo--diffback",
+      "description": "Local web UI to review AI-generated code changes and generate structured feedback prompts"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269662,6 +269747,16 @@
       "name": "firebirdta01--ps3dk",
       "source": "./firebirdta01--ps3dk",
       "description": "Modern open-source PlayStation 3 SDK \u2014 newer GCC, binutils, and newlib replacing the older  ps3dev baseline, with up to C++20  on PPU and up to C++17 on SPU."
+    },
+    {
+      "name": "sgk-ctrl--mac-activity-tracker",
+      "source": "./sgk-ctrl--mac-activity-tracker",
+      "description": "100% local macOS activity tracker \u2014 private biweekly productivity review from native Screen Time, browser, and CLI logs. No cloud, no telemetry."
+    },
+    {
+      "name": "infino-ai--code-context",
+      "source": "./infino-ai--code-context",
+      "description": "Local code search for AI coding agents: a CLI and MCP server with hybrid keyword + semantic search and SQL relevance-ranked aggregation over an index in plain files. No accounts, no keys, no server."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -399144,11 +399239,6 @@
       "description": "argentum"
     },
     {
-      "name": "rhinos0608--pi-smartread",
-      "source": "./rhinos0608--pi-smartread",
-      "description": "Pi-SmartRead"
-    },
-    {
       "name": "methaedu--school-management-app",
       "source": "./methaedu--school-management-app",
       "description": "school-management-app"
@@ -399877,6 +399967,46 @@
       "name": "apetun--portfolio",
       "source": "./apetun--portfolio",
       "description": "portfolio"
+    },
+    {
+      "name": "wildkemo--ir-project",
+      "source": "./wildkemo--ir-project",
+      "description": "ir-project"
+    },
+    {
+      "name": "mexrona--vera",
+      "source": "./mexrona--vera",
+      "description": "vera"
+    },
+    {
+      "name": "tolkeeee-lab--sowe",
+      "source": "./tolkeeee-lab--sowe",
+      "description": "Sowe"
+    },
+    {
+      "name": "mnemcik--consigliere",
+      "source": "./mnemcik--consigliere",
+      "description": "Your trusted advisor for managing knowledge, projects, and ideas \u2014 powered by AI"
+    },
+    {
+      "name": "pomelyu--stockbook",
+      "source": "./pomelyu--stockbook",
+      "description": "StockBook"
+    },
+    {
+      "name": "joshuariley76--certipure-store",
+      "source": "./joshuariley76--certipure-store",
+      "description": "E-commerce store built with Next.js and Supabase"
+    },
+    {
+      "name": "clarabatt--the-forge",
+      "source": "./clarabatt--the-forge",
+      "description": "the-forge"
+    },
+    {
+      "name": "ai-carpentry--2026-06-26-sejong",
+      "source": "./ai-carpentry--2026-06-26-sejong",
+      "description": "Software Carpentry + AI workshop at Sejong University, June 26-27, 2026"
     }
   ]
 }
