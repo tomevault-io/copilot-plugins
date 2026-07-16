@@ -158024,6 +158024,11 @@
       "description": "An autonomous AI agent that learns your workflows. Chat-first, single binary, zero infrastructure. Built in Go."
     },
     {
+      "name": "ardhaecosystem--rudr9",
+      "source": "./ardhaecosystem--rudr9",
+      "description": "One command \u2192 full AI engineering team. Transforms Hermes Agent into a 9-role development organization with Kanban coordination, per-profile authority enforcement, and PAUL-inspired workflows."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -176017,6 +176022,11 @@
       "name": "openai--redcard",
       "source": "./openai--redcard",
       "description": "Eject yourself from work with a little help from Codex."
+    },
+    {
+      "name": "kapoorankush--litclock",
+      "source": "./kapoorankush--litclock",
+      "description": "A literary clock for Raspberry Pi + e-Paper \u2014 tells the time with 4,800+ book quotes, one for every minute of the day."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
