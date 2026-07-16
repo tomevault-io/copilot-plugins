@@ -1,0 +1,44 @@
+{
+  "name": "PS3DK",
+  "owner": "FirebirdTA01",
+  "repo": "PS3DK",
+  "description": "Modern open-source PlayStation 3 SDK \u2014 newer GCC, binutils, and newlib replacing the older  ps3dev baseline, with up to C++20  on PPU and up to C++17 on SPU.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FirebirdTA01/PS3DK",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T18:40:48Z"
+}
