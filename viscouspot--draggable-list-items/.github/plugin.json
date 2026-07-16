@@ -1,0 +1,9 @@
+{
+  "name": "viscouspot--draggable-list-items",
+  "displayName": "draggable-list-items",
+  "description": "Adds draggable list and task items to Obsidian",
+  "version": "1.0.0",
+  "author": "ViscousPot",
+  "homepage": "https://github.com/ViscousPot/draggable-list-items",
+  "skills": []
+}
