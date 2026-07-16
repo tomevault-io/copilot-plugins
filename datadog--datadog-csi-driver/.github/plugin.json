@@ -1,0 +1,9 @@
+{
+  "name": "datadog--datadog-csi-driver",
+  "displayName": "datadog-csi-driver",
+  "description": "Datadog kubernetes CSI Driver",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-csi-driver",
+  "skills": []
+}
