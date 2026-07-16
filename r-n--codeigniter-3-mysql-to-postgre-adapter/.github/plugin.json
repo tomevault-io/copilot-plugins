@@ -1,0 +1,9 @@
+{
+  "name": "r-n--codeigniter-3-mysql-to-postgre-adapter",
+  "displayName": "codeigniter-3-mysql-to-postgre-adapter",
+  "description": "Adapts your codeigniter 3 project that was built on mysql to postgresql",
+  "version": "1.0.0",
+  "author": "R-N",
+  "homepage": "https://github.com/R-N/codeigniter-3-mysql-to-postgre-adapter",
+  "skills": []
+}
