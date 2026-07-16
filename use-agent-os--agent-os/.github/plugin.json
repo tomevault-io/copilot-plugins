@@ -1,0 +1,9 @@
+{
+  "name": "use-agent-os--agent-os",
+  "displayName": "agent-os",
+  "description": "The Open Agent Operation System",
+  "version": "1.0.0",
+  "author": "use-agent-os",
+  "homepage": "https://github.com/use-agent-os/agent-os",
+  "skills": []
+}
