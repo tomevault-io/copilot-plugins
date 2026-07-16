@@ -1,0 +1,9 @@
+{
+  "name": "strangedaystech--arborist-metrics",
+  "displayName": "arborist-metrics",
+  "description": "Multi-language code complexity metrics (cognitive, cyclomatic, SLOC) powered by tree-sitter",
+  "version": "1.0.0",
+  "author": "StrangeDaysTech",
+  "homepage": "https://github.com/StrangeDaysTech/arborist-metrics",
+  "skills": []
+}
