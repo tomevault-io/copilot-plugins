@@ -246869,6 +246869,11 @@
       "description": "\ud83c\udfae ROM AI Batch Renamer | ROM AI\u6279\u91cf\u91cd\u547d\u540d\u5de5\u5177 | \u652f\u6301\u7ec8\u7aef\u4e0e\u56fe\u5f62\u754c\u9762\uff0c\u7ed3\u5408\u672c\u5730\u522b\u540d\u6570\u636e\u5e93\u4e0e AI \u8fdb\u884c ROM \u6279\u91cf\u91cd\u547d\u540d\u3002"
     },
     {
+      "name": "yifeng-ethz--mu3e-ip-cores",
+      "source": "./yifeng-ethz--mu3e-ip-cores",
+      "description": "FPGA IP library for the Mu3e triggerless DAQ: control-plane, data-plane, timing, buffering, framing, and monitoring cores."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269482,6 +269487,16 @@
       "name": "nota-github--adaptfm-quant-dflash",
       "source": "./nota-github--adaptfm-quant-dflash",
       "description": "3rd-place Solution for Efficient Qwen Competition @ ICML 2026 Workshop on AdaptFM"
+    },
+    {
+      "name": "yinsenw--pige",
+      "source": "./yinsenw--pige",
+      "description": "Local-first agent-maintained Markdown wiki note app"
+    },
+    {
+      "name": "krayong--ccsidekick",
+      "source": "./krayong--ccsidekick",
+      "description": "A Claude Code status line with a reactive character plus cost, git, and usage widgets. Zero token spend, local-first, MIT."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -399657,6 +399672,21 @@
       "name": "appreciated--vortex-crud",
       "source": "./appreciated--vortex-crud",
       "description": "Speed up the development of CRUD apps using declarative configuration"
+    },
+    {
+      "name": "mgfujikura--vue-components",
+      "source": "./mgfujikura--vue-components",
+      "description": "vue-components"
+    },
+    {
+      "name": "mgfujikura--vue-components",
+      "source": "./mgfujikura--vue-components",
+      "description": "vue-components"
+    },
+    {
+      "name": "mgfujikura--vue-components",
+      "source": "./mgfujikura--vue-components",
+      "description": "vue-components"
     }
   ]
 }
