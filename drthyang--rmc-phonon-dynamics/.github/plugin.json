@@ -1,0 +1,9 @@
+{
+  "name": "drthyang--rmc-phonon-dynamics",
+  "displayName": "rmc-phonon-dynamics",
+  "description": "Phonon calculations from RMC configurations ensemble.",
+  "version": "1.0.0",
+  "author": "drthyang",
+  "homepage": "https://github.com/drthyang/rmc-phonon-dynamics",
+  "skills": []
+}
