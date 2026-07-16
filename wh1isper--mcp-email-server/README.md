@@ -7,11 +7,11 @@ IMAP and SMTP via MCP Server
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Wh1isper/mcp-email-server](https://github.com/Wh1isper/mcp-email-server).
+Original source: `CLAUDE.md` in [Wh1isper/mcp-email-server](https://github.com/Wh1isper/mcp-email-server).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
