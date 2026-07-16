@@ -7,11 +7,11 @@ Faster runtime for coding agents. Make coding agents 25% faster and 30% cheaper 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lemoncrow-lab/lemoncrow](https://github.com/lemoncrow-lab/lemoncrow).
+Original source: `AGENTS.md` in [lemoncrow-lab/lemoncrow](https://github.com/lemoncrow-lab/lemoncrow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
