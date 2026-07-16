@@ -1,0 +1,44 @@
+{
+  "name": "DDD-DesignDrivenDevelopment",
+  "owner": "MooseDesign1",
+  "repo": "DDD-DesignDrivenDevelopment",
+  "description": "DDD is a design first Claude Code development framework designed for designers by designers. While all available frameworks like GSD (get shit done) focus on spec driven workflows, DDD closes the gap from idea>design>development and shipping.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MooseDesign1/DDD-DesignDrivenDevelopment",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T22:41:49Z"
+}
