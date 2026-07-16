@@ -1,0 +1,9 @@
+{
+  "name": "abrahao-dev--podium-app",
+  "displayName": "podium-app",
+  "description": "Infinite spatial canvas for terminal windows running AI coding agents. Wire agents together, pipe prompts, capture output to notes. Tauri + React.",
+  "version": "1.0.0",
+  "author": "abrahao-dev",
+  "homepage": "https://github.com/abrahao-dev/podium-app",
+  "skills": []
+}
