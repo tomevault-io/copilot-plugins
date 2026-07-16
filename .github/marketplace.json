@@ -51964,6 +51964,11 @@
       "description": "\ud83e\udd9e A Digital Life Embryo for your MCP Client. An intelligent micro-kernel with Nociception, Memory Apoptosis, and a Curiosity Drive. Evolve your AI Copilot into a sentient partner for Claude Desktop, Q"
     },
     {
+      "name": "jinzhongjia--decky-music",
+      "source": "./jinzhongjia--decky-music",
+      "description": "Steam decky plugin with music"
+    },
+    {
       "name": "areo-joe--chrome-acp",
       "source": "./areo-joe--chrome-acp",
       "description": "Connect to ACP agent in browser."
@@ -52542,11 +52547,6 @@
       "name": "brave--brave-search-skills",
       "source": "./brave--brave-search-skills",
       "description": "Official skills for using Brave Search API with AI coding agents."
-    },
-    {
-      "name": "jinzhongjia--decky-music",
-      "source": "./jinzhongjia--decky-music",
-      "description": "Steam decky plugin with music"
     },
     {
       "name": "hexianweb--third-person-mc",
@@ -54064,6 +54064,11 @@
       "description": "ctp2rs"
     },
     {
+      "name": "imaginevid--awesome-seedream-5-pro-prompts-and-skills",
+      "source": "./imaginevid--awesome-seedream-5-pro-prompts-and-skills",
+      "description": "About  World's largest Seedream 5.0 Pro prompt library \u2014 10,000+ curated prompts with preview images, 16 languages. Dreamina Seeream AI image generation. Free & open source."
+    },
+    {
       "name": "khanhnam-nathan--pyneat",
       "source": "./khanhnam-nathan--pyneat",
       "description": "Pyneat"
@@ -54492,6 +54497,11 @@
       "name": "yurunchen--gui-anything",
       "source": "./yurunchen--gui-anything",
       "description": "GUI-Anything is a dual-pane Flow Observer for Claude Code. It watches live JSONL sessions, visualizes exploration as timelines and flowcharts, and curates on-demand project wiki knowledge without inte"
+    },
+    {
+      "name": "bugbountywithmarco--bugbounty-disclosed-reports",
+      "source": "./bugbountywithmarco--bugbounty-disclosed-reports",
+      "description": "Public Disclosed Bug Bounty Reports formated in markdown"
     },
     {
       "name": "0xsanei--darwinia",
@@ -79419,6 +79429,41 @@
       "description": "my-chat-web"
     },
     {
+      "name": "consiliency--code-index-mcp",
+      "source": "./consiliency--code-index-mcp",
+      "description": "Code indexing MCP server to provide context to coding agents. "
+    },
+    {
+      "name": "consiliency--code-index-mcp",
+      "source": "./consiliency--code-index-mcp",
+      "description": "Code indexing MCP server to provide context to coding agents. "
+    },
+    {
+      "name": "consiliency--code-index-mcp",
+      "source": "./consiliency--code-index-mcp",
+      "description": "Code indexing MCP server to provide context to coding agents. "
+    },
+    {
+      "name": "consiliency--code-index-mcp",
+      "source": "./consiliency--code-index-mcp",
+      "description": "Code indexing MCP server to provide context to coding agents. "
+    },
+    {
+      "name": "consiliency--code-index-mcp",
+      "source": "./consiliency--code-index-mcp",
+      "description": "Code indexing MCP server to provide context to coding agents. "
+    },
+    {
+      "name": "consiliency--code-index-mcp",
+      "source": "./consiliency--code-index-mcp",
+      "description": "Code indexing MCP server to provide context to coding agents. "
+    },
+    {
+      "name": "consiliency--code-index-mcp",
+      "source": "./consiliency--code-index-mcp",
+      "description": "Code indexing MCP server to provide context to coding agents. "
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -91327,6 +91372,11 @@
       "name": "mydevtools-tech--zecrypt-server",
       "source": "./mydevtools-tech--zecrypt-server",
       "description": "Open source Password Manager, Encrypted Data management Platform - https://app.zecrypt.io (open-source alternative to Lastpass, Dashlane)"
+    },
+    {
+      "name": "khmm12--minimal-chrome-tab",
+      "source": "./khmm12--minimal-chrome-tab",
+      "description": "minimal-chrome-tab"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -208152,6 +208202,11 @@
       "name": "teylersf--freeremotedesk",
       "source": "./teylersf--freeremotedesk",
       "description": "Browser-first, self-hosted remote desktop. WebRTC P2P. Runs on your own free-tier Cloudflare + Vercel accounts. Zero monthly cost. Includes AI-agent setup guide."
+    },
+    {
+      "name": "dalang-io--sso",
+      "source": "./dalang-io--sso",
+      "description": "SSO Services"
     },
     {
       "name": "yschimke--compose-ai-tools",
