@@ -4,7 +4,7 @@
   "repo": "vortex-crud",
   "description": "Speed up the development of CRUD apps using declarative configuration",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/appreciated/vortex-crud",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T10:35:09Z"
+  "distributed_at": "2026-07-16T10:36:54Z"
 }
