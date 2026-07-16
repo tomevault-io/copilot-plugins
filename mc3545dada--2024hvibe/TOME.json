@@ -1,0 +1,44 @@
+{
+  "name": "2024hVibe",
+  "owner": "mc3545dada",
+  "repo": "2024hVibe",
+  "description": "2024\u7535\u8d5bh\u9898\u7eafvibe coding\u7248\u672c\u4ed3\u5e93",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mc3545dada/2024hVibe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-16T16:34:00Z"
+}
