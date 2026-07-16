@@ -4,7 +4,7 @@
   "repo": "rag-learning-academy",
   "description": "A structured, multi-agent Claude Code learning environment for mastering Retrieval-Augmented Generation (RAG)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TakaGoto/rag-learning-academy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-16T22:37:58Z"
+  "distributed_at": "2026-07-16T22:39:41Z"
 }
