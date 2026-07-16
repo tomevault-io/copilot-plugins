@@ -1,37 +1,36 @@
-## aipbx-core
+## backend-nestjs
 
-> Core aiPBX full-stack conventions for all agent work
+> Backend NestJS conventions for aiPBX_backend
 
 
-# aiPBX Core Rules
+# Backend NestJS Rules
 
-Planning root: `.planning/` (covers frontend + backend sibling repo).
+Repo: `aiPBX_backend` (NestJS 11, Sequelize, PostgreSQL).
 
-Before coding, read:
-- `.planning/PROJECT.md` — context and agent rules
-- `.planning/GAPS.md` — prioritized backlog
-- `.planning/intel/RISKS.md` — before touching telephony/billing
+Planning: canonical `.planning/` lives in sibling `aiPBX` repo; see `aiPBX_backend/.planning/README.md`.
 
-Backend repo: `c:/Users/Professional/WebstormProjects/aiPBX_backend` (sibling).
+## Module conventions
 
-## Definition of Done (every phase)
+- Feature modules in `src/<feature>/` with `.module.ts`, `.controller.ts`, `.service.ts`
+- DTOs with `@ApiProperty` for Swagger
+- Guards: `JwtAuthGuard`, `RolesGuard`, `ApiTokenGuard` as appropriate
 
-1. `npm run lint:ts` passes (both repos if changed)
-2. `npm run test:unit` / `npm test` passes for affected modules
-3. User-facing UI: i18n keys in `ru` + `en` minimum
-4. API changes: backend DTO + frontend entity types updated together
-5. Voice/telephony changes: manual test checklist noted in PR/plan
-6. Update `.planning/STATE.md` after phase completion
+## High-risk areas (require dedicated phase)
 
-## Scope discipline
+- `src/ari/`, `src/rtp-udp-server/`, `src/open-ai/`, `src/non-realtime/`
+- `src/billing/`, `src/payments/`, `src/accounting/`
+- Tenant scoping: always filter by `vpbxUserId`; cache keys must include tenant id
 
-- One GAP per active phase; no drive-by refactors
-- Do not touch `ari/`, `billing/`, `accounting/` without explicit phase
-- Max 1 product phase + 1 GTM task in parallel
+## Tests
 
-## Deploy
+- Unit tests: `*.spec.ts` next to service
+- Run: `npm test` from `aiPBX_backend/`
+- Add test for every new service method with business logic
 
-Production deploy requires commit tag `[deploy all]` or `[deploy:1|2|3]`. Never SSH to prod directly.
+## API
+
+- Global prefix `/api`
+- Update `aiPBX/.planning/intel/API-MAP.md` when adding endpoints
 
 ---
 > Source: [krasterisk/aiPBX](https://github.com/krasterisk/aiPBX) — distributed by [TomeVault](https://tomevault.io).
