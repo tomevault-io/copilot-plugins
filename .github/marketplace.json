@@ -208279,6 +208279,11 @@
       "description": "SSO Services"
     },
     {
+      "name": "demonrain--anytimevibe",
+      "source": "./demonrain--anytimevibe",
+      "description": "anytimevibe"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -391814,11 +391819,6 @@
       "description": "hexcore-skill"
     },
     {
-      "name": "djelibeybi--home-assistant-core",
-      "source": "./djelibeybi--home-assistant-core",
-      "description": "home-assistant-core"
-    },
-    {
       "name": "slideruleearth--sliderule-schema-server",
       "source": "./slideruleearth--sliderule-schema-server",
       "description": "JSON-only CloudFront distribution that serves SlideRule schema endpoints"
@@ -399732,6 +399732,11 @@
       "name": "amlac-eniotna--whobringwhat",
       "source": "./amlac-eniotna--whobringwhat",
       "description": "whobringwhat"
+    },
+    {
+      "name": "djelibeybi--home-assistant-core",
+      "source": "./djelibeybi--home-assistant-core",
+      "description": "home-assistant-core"
     }
   ]
 }
