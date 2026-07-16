@@ -157939,6 +157939,11 @@
       "description": "cryptofoundry: We build and maintain self-hosted crypto software, bots, payments and infrastructure \u2014 by the engineers behind an open-source blockchain ecosystem developed since 2016"
     },
     {
+      "name": "sap--astonish",
+      "source": "./sap--astonish",
+      "description": "An autonomous AI agent that learns your workflows. Chat-first, single binary, zero infrastructure. Built in Go."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -193652,6 +193657,11 @@
       "name": "oclb--graphld",
       "source": "./oclb--graphld",
       "description": "Applications of LD graphical models to GWAS including graphREML"
+    },
+    {
+      "name": "marketcalls--openalgo-webpage",
+      "source": "./marketcalls--openalgo-webpage",
+      "description": "OpenAlgo - Web Portal"
     },
     {
       "name": "lightninglabs--lnget",
@@ -246639,6 +246649,11 @@
       "description": "vibe coded osrs bot framework, leveraging computer vision instead of hooking into the game client"
     },
     {
+      "name": "scottbez1--faderbuddy",
+      "source": "./scottbez1--faderbuddy",
+      "description": "Plug-and-play motorized faders for ESPHome and more"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269142,6 +269157,21 @@
       "name": "8nobletruths--sabba",
       "source": "./8nobletruths--sabba",
       "description": "SABBA - Security Templates CLI & MCP Server for coding agents that prove every finding by running it"
+    },
+    {
+      "name": "datadog--datadog-csi-driver",
+      "source": "./datadog--datadog-csi-driver",
+      "description": "Datadog kubernetes CSI Driver"
+    },
+    {
+      "name": "ragamo--herdr-flock",
+      "source": "./ragamo--herdr-flock",
+      "description": "A herdr plugin that visualizes your AI coding agents as pixel-art sheep living on a top-down farm."
+    },
+    {
+      "name": "zerodevapp--ultra-relay",
+      "source": "./zerodevapp--ultra-relay",
+      "description": "ultra-relay"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -399107,6 +399137,26 @@
       "name": "deadmade--nix-configuration",
       "source": "./deadmade--nix-configuration",
       "description": "nix-configuration"
+    },
+    {
+      "name": "jovceo--ctofconverter",
+      "source": "./jovceo--ctofconverter",
+      "description": "ctofconverter.com"
+    },
+    {
+      "name": "noahy-schmid--deinsalon",
+      "source": "./noahy-schmid--deinsalon",
+      "description": "deinsalon"
+    },
+    {
+      "name": "iamkimseunghyun--prectxe-site",
+      "source": "./iamkimseunghyun--prectxe-site",
+      "description": "prectxe-site"
+    },
+    {
+      "name": "benazlay--benjaminazoulay",
+      "source": "./benazlay--benjaminazoulay",
+      "description": "benjaminazoulay"
     }
   ]
 }
