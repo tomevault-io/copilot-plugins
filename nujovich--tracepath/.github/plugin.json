@@ -1,0 +1,9 @@
+{
+  "name": "nujovich--tracepath",
+  "displayName": "tracepath",
+  "description": "Agent Audit Stack \u2014 auditable multi-step AI agent middleware. Audit Gateway + Incident Response + Policy Evolution.",
+  "version": "1.0.0",
+  "author": "nujovich",
+  "homepage": "https://github.com/nujovich/tracepath",
+  "skills": []
+}
