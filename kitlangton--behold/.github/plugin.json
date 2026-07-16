@@ -1,0 +1,9 @@
+{
+  "name": "kitlangton--behold",
+  "displayName": "behold",
+  "description": "A local-first Markdown workspace for presenting agent work and collecting browser feedback.",
+  "version": "1.0.0",
+  "author": "kitlangton",
+  "homepage": "https://github.com/kitlangton/behold",
+  "skills": []
+}
