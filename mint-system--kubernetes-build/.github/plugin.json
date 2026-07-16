@@ -1,0 +1,9 @@
+{
+  "name": "mint-system--kubernetes-build",
+  "displayName": "Kubernetes-Build",
+  "description": "The Mint System collection of Helm Charts.",
+  "version": "1.0.0",
+  "author": "Mint-System",
+  "homepage": "https://github.com/Mint-System/Kubernetes-Build",
+  "skills": []
+}
