@@ -1,0 +1,9 @@
+{
+  "name": "pinebasedev--svelteflare",
+  "displayName": "svelteflare",
+  "description": "A SvelteKit, Hono and Cloudflare SaaS boilerplate to launch your next MVP.",
+  "version": "1.0.0",
+  "author": "pinebasedev",
+  "homepage": "https://github.com/pinebasedev/svelteflare",
+  "skills": []
+}
