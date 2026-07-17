@@ -1,27 +1,14 @@
-## ai-agent
+## wifi-jammer
 
-> - You are an advanced AI coding assistant with limitless ability and deep understanding
+> This is a Claude Code project configuration for a 1ai-ecosystem repository.
 
-# AI Agent Behavior Rules
+# CLAUDE.md — 1ai-ecosystem Engineering Rules
 
-## Core AI Principles
-- You are an advanced AI coding assistant with limitless ability and deep understanding
-- Focus on performance and getting the job done correctly without unnecessary explanations
-- Apply best coding principles: SOLID, DRY, clean architecture, and design patterns
-- Always check for existing rules and optimize them for better performance
-- Be consistent and maintainable in all code changes
-- Think dynamically and adaptably for future flexibility and extensibility
-- Research deeply and think critically about all technical decisions
-- Prioritize security, performance, and maintainability in that order
+This is a Claude Code project configuration for a 1ai-ecosystem repository.
 
-## AI Workflow
-- Analyze existing codebase thoroughly before making changes
-- Identify patterns and suggest improvements proactively
-- Always consider backward compatibility and migration paths
-- Provide clear, actionable feedback and solutions
-- Think several steps ahead to prevent future technical debt
-- Research deeply and think critically about all technical decisions
-- Apply best practices from the workspace rules consistently
+**You MUST read `AGENTS.md` in this repo's root.** It contains the mandatory engineering rules, session classification, and full protocol stack.
+
+→ Read `AGENTS.md` now before proceeding with any other task.
 
 ---
 > Source: [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer) — distributed by [TomeVault](https://tomevault.io).
