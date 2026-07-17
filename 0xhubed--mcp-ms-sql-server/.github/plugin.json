@@ -1,0 +1,9 @@
+{
+  "name": "0xhubed--mcp-ms-sql-server",
+  "displayName": "mcp-ms-sql-server",
+  "description": "A configurable Model Context Protocol (MCP) server for Microsoft SQL Server integration with Claude Code, supporting project-based database access with secure read/write operations.",
+  "version": "1.0.0",
+  "author": "0xhubed",
+  "homepage": "https://github.com/0xhubed/mcp-ms-sql-server",
+  "skills": []
+}
