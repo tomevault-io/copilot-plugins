@@ -1,0 +1,44 @@
+{
+  "name": "Plutainer",
+  "owner": "Ayymoss",
+  "repo": "Plutainer",
+  "description": "Plutainer is a Docker image that simplifies running dedicated game servers (IW4x, AW-T7x, P-T4, P-T5, P-T6, P-IW5). It streamlines server setup and management through environment variables, automatic updater scripts, and a robust RCON healthcheck. Just bring your game files, configure the docker-compose.yml, and get your server online.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ayymoss/Plutainer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T06:38:19Z"
+}
