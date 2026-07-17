@@ -1,0 +1,44 @@
+{
+  "name": "SNS-S-S",
+  "owner": "xxx3r",
+  "repo": "SNS-S-S",
+  "description": "Python simulation framework for space-based solar-nano-sphere swarm dynamics and power-chain modeling power",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xxx3r/SNS-S-S",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T08:57:19Z"
+}
