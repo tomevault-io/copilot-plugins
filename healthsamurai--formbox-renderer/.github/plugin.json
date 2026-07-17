@@ -1,0 +1,9 @@
+{
+  "name": "healthsamurai--formbox-renderer",
+  "displayName": "formbox-renderer",
+  "description": "React renderer for HL7\u00ae FHIR\u00ae Questionnaires",
+  "version": "1.0.0",
+  "author": "HealthSamurai",
+  "homepage": "https://github.com/HealthSamurai/formbox-renderer",
+  "skills": []
+}
