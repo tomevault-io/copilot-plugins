@@ -1,89 +1,89 @@
-## database
+## fastapi
 
-> Database best practices focusing on Prisma and Supabase integration
+> FastAPI best practices and patterns for building modern Python web APIs
 
 
-# Database Best Practices
+# FastAPI Best Practices
 
-## Prisma Setup
-- Use proper schema design
+## Project Structure
+- Use proper directory structure
+- Implement proper module organization
+- Use proper dependency injection
+- Keep routes organized by domain
+- Implement proper middleware
+- Use proper configuration management
+
+## API Design
+- Use proper HTTP methods
+- Implement proper status codes
+- Use proper request/response models
+- Implement proper validation
+- Use proper error handling
+- Document APIs with OpenAPI
+
+## Models
+- Use Pydantic models
+- Implement proper validation
+- Use proper type hints
+- Keep models organized
+- Use proper inheritance
+- Implement proper serialization
+
+## Database
+- Use proper ORM (SQLAlchemy)
 - Implement proper migrations
-- Use proper relation definitions
-- Configure proper connection
-- Implement proper seeding
-- Use proper client setup
-
-## Prisma Models
-- Use proper model naming
-- Implement proper relations
-- Use proper field types
-- Define proper indexes
-- Implement proper constraints
-- Use proper enums
-
-## Prisma Queries
-- Use proper query optimization
-- Implement proper filtering
-- Use proper relations loading
-- Handle transactions properly
-- Implement proper pagination
-- Use proper aggregations
-
-## Supabase Setup
-- Configure proper project setup
-- Implement proper authentication
-- Use proper database setup
-- Configure proper storage
-- Implement proper policies
-- Use proper client setup
-
-## Supabase Security
-- Implement proper RLS policies
-- Use proper authentication
-- Configure proper permissions
-- Handle sensitive data properly
-- Implement proper backups
-- Use proper encryption
-
-## Supabase Queries
-- Use proper query optimization
-- Implement proper filtering
-- Use proper joins
-- Handle real-time properly
-- Implement proper pagination
-- Use proper functions
-
-## Database Design
-- Use proper normalization
-- Implement proper indexing
-- Use proper constraints
-- Define proper relations
-- Implement proper cascades
-- Use proper data types
-
-## Performance
 - Use proper connection pooling
-- Implement proper caching
+- Implement proper transactions
 - Use proper query optimization
-- Handle N+1 queries properly
-- Implement proper batching
-- Monitor performance metrics
+- Handle database errors properly
+
+## Authentication
+- Implement proper JWT authentication
+- Use proper password hashing
+- Implement proper role-based access
+- Use proper session management
+- Implement proper OAuth2
+- Handle authentication errors properly
 
 ## Security
-- Use proper authentication
-- Implement proper authorization
-- Handle sensitive data properly
-- Use proper encryption
-- Implement proper backups
-- Monitor security issues
+- Implement proper CORS
+- Use proper rate limiting
+- Implement proper input validation
+- Use proper security headers
+- Handle security errors properly
+- Implement proper logging
 
-## Best Practices
-- Follow database conventions
-- Use proper migrations
-- Implement proper versioning
-- Handle errors properly
-- Document schema properly
-- Monitor database health 
+## Performance
+- Use proper caching
+- Implement proper async operations
+- Use proper background tasks
+- Implement proper connection pooling
+- Use proper query optimization
+- Monitor performance metrics
+
+## Testing
+- Write proper unit tests
+- Implement proper integration tests
+- Use proper test fixtures
+- Implement proper mocking
+- Test error scenarios
+- Use proper test coverage
+
+## Deployment
+- Use proper Docker configuration
+- Implement proper CI/CD
+- Use proper environment variables
+- Implement proper logging
+- Use proper monitoring
+- Handle deployment errors properly
+
+## Documentation
+- Use proper docstrings
+- Implement proper API documentation
+- Use proper type hints
+- Keep documentation updated
+- Document error scenarios
+- Use proper versioning 
 
 ---
 > Source: [MylesThomas/betting](https://github.com/MylesThomas/betting) — distributed by [TomeVault](https://tomevault.io).
