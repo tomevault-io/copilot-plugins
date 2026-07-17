@@ -1,0 +1,9 @@
+{
+  "name": "chshzh--claude",
+  "displayName": "claude",
+  "description": "Personal collection of specialized Claude skills for Nordic nRF Connect SDK development, debugging, and workflow automation",
+  "version": "1.0.0",
+  "author": "chshzh",
+  "homepage": "https://github.com/chshzh/claude",
+  "skills": []
+}
