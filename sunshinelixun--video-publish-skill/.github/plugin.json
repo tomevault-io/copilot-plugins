@@ -1,0 +1,9 @@
+{
+  "name": "sunshinelixun--video-publish-skill",
+  "displayName": "video-publish-skill",
+  "description": "Local-first Codex skill for preparing and safely staging video publishing assets",
+  "version": "1.0.0",
+  "author": "sunshineLixun",
+  "homepage": "https://github.com/sunshineLixun/video-publish-skill",
+  "skills": []
+}
