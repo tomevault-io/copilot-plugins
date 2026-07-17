@@ -4,7 +4,7 @@
   "repo": "turso-vdbe-doom-example",
   "description": "Real Doom running on Turso's VDBE bytecode \u2014 a fork of Turso plus a small LLVM-IR-to-VDBE compiler (vdbecc).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tursodatabase/turso-vdbe-doom-example",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T02:33:21Z"
+  "distributed_at": "2026-07-17T02:36:06Z"
 }
