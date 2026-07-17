@@ -1,0 +1,44 @@
+{
+  "name": "wifi-jammer",
+  "owner": "oyi77",
+  "repo": "wifi-jammer",
+  "description": "Advanced WiFi security testing tool \u2014 10 attack types (deauth, PMKID, evil twin, channel hop), CLI/TUI/GUI, cross-platform Linux/macOS/Windows",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oyi77/wifi-jammer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T12:32:44Z"
+}
