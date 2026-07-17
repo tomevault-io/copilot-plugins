@@ -4,7 +4,7 @@
   "repo": "SkyPort",
   "description": "A multi-platform serial debugging assistant built with Flutter",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/StarSphere-1024/SkyPort",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T04:38:05Z"
+  "distributed_at": "2026-07-17T04:41:15Z"
 }
