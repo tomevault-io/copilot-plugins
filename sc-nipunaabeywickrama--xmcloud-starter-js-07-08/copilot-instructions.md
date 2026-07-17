@@ -1,332 +1,200 @@
-## sitecore
+## testing
 
-> Sitecore XM Cloud-specific rules for component development and data handling
+> Testing strategies and patterns for XM Cloud starter applications
 
 
-# Sitecore XM Cloud Starter Rules
+# Testing Patterns
 
-## XM Cloud Integration
+## Testing Strategy
 
-Environment Configuration:
-- Always use environment variables for XM Cloud endpoints and keys
-- Required variables: `SITECORE_EDGE_CONTEXT_ID`, `NEXT_PUBLIC_DEFAULT_SITE_NAME`, `NEXT_PUBLIC_SITECORE_EDGE_CONTEXT_ID`, `SITECORE_EDITING_SECRET`
-- Use `.env.remote.example` as template for environment files
-- Copy to `.env.local` for local development
+Component Testing:
+- Test component rendering with various XM Cloud field configurations
+- Mock XM Cloud services and API calls
+- Test error scenarios (missing fields, API failures)
+- Verify proper handling of editing vs. preview modes
+- Test responsive behavior and accessibility
+
+Integration Testing:
+- Test complete page rendering with XM Cloud data
+- Verify API route functionality
+- Test middleware behavior for XM Cloud integration
+- Validate environment variable handling
+- Test deployment and build processes
+
+## Testing Tools
+
+Recommended Stack:
+- **Jest** or **Vitest** for unit testing
+- **React Testing Library** for component testing
+- **MSW (Mock Service Worker)** for API mocking
+- **Playwright** or **Cypress** for E2E testing
+- **Storybook** for component documentation and testing
+
+XM Cloud Mocking:
+- Create mock data that matches XM Cloud field structures
+- Mock layout service responses
+- Simulate both connected and disconnected modes
+- Test with various content scenarios
 
 ```typescript
-// Standard environment variables for XM Cloud starters
-SITECORE_EDGE_CONTEXT_ID=your-context-id
-NEXT_PUBLIC_DEFAULT_SITE_NAME=your-site-name  
-NEXT_PUBLIC_SITECORE_EDGE_CONTEXT_ID=your-public-context-id
-SITECORE_EDITING_SECRET=your-editing-secret
-```
-
-## Component Architecture Patterns
-
-Component Structure:
-
-- Follow Locality of Behavior pattern
-- Create a tsx `ComponentName.tsx` with all varaiants of the component as well as the props
-- Export named variants: `Default`, `ThreeUp`, `Slider`, `ImageBottom`, etc. from the componenet file
-
-Prop and Interface Structure
-- Extend from `ComponentProps` from `@/lib/component-props`
-- Use specific interface for component parameters
-- Structure fields with `data.datasource` pattern
-- Include `isPageEditing` prop for variants
-
-
-```typescript
-import type React from 'react';
-import { useSitecore } from '@sitecore-content-sdk/nextjs';
-import { ComponentProps } from '@/lib/component-props';
-import { Field, ImageField } from '@sitecore-jss/sitecore-jss-nextjs';
-
-interface HeroParams {
-  [key: string]: any;
-}
-
-interface HeroFields {
-  title?: { jsonValue: Field<string> };
-  subtitle?: { jsonValue: Field<string> };
-  backgroundImage?: { jsonValue: ImageField };
-}
-
-interface HeroProps extends ComponentProps {
-  params: HeroParams;
-  fields: {
-    data: {
-      datasource: HeroFields;
-    };
-  };
-  isPageEditing?: boolean;
-}
-
-export const Default: React.FC<HeroProps> = (props) => {
-  const { page } = useSitecore();
-  const { isEditing } = page.mode;
-  return <HeroDefault {...props} isPageEditing={isEditing} />;
-};
-
-export const ImageBottom: React.FC<HeroProps> = (props) => {
-  const { page } = useSitecore();
-  const { isEditing } = page.mode;
-  return <HeroImageBottom {...props} isPageEditing={isEditing} />;
+// Mock XM Cloud field data
+const mockHeroFields = {
+  title: { value: 'Test Hero Title', editable: false },
+  subtitle: { value: 'Test Hero Subtitle', editable: false },
+  backgroundImage: {
+    value: {
+      src: '/test-image.jpg',
+      alt: 'Test Image',
+      width: 1200,
+      height: 600,
+    },
+    editable: false,
+  },
 };
 ```
 
+## Component Testing Patterns
 
-## Data Source Validation
-
-Standard Validation Pattern:
-- Always check `fields?.data?.datasource` existence
-- Use `NoDataFallback` component for missing datasources
-- Handle both editing and preview modes
-- Provide meaningful error messages
+Field Validation Testing:
+- Test components with missing fields
+- Test components with empty field values
+- Test components with various field types
+- Verify proper fallback rendering
 
 ```typescript
-import { NoDataFallback } from '@/utils/NoDataFallback';
-
-export const HeroDefault: React.FC<HeroProps> = (props) => {
-  const { fields, isPageEditing } = props;
+// Component test example
+describe('Hero Component', () => {
+  it('renders with all fields present', () => {
+    render(<Hero fields={mockHeroFields} />);
+    
+    expect(screen.getByText('Test Hero Title')).toBeInTheDocument();
+    expect(screen.getByText('Test Hero Subtitle')).toBeInTheDocument();
+    expect(screen.getByRole('img')).toHaveAttribute('alt', 'Test Image');
+  });
   
-  if (!fields?.data?.datasource) {
-    return <NoDataFallback componentName="Hero" />;
-  }
+  it('handles missing fields gracefully', () => {
+    render(<Hero fields={{}} />);
+    
+    expect(screen.getByText(/content not configured/i)).toBeInTheDocument();
+  });
+});
+```
+
+## API Testing
+
+XM Cloud API Mocking:
+- Mock layout service responses
+- Test error handling for API failures
+- Verify proper caching behavior
+- Test authentication and authorization
+
+```typescript
+// API route test example (App Router)
+import { GET } from '@/app/api/robots/route';
+
+describe('/api/robots', () => {
+  it('returns robots.txt content', async () => {
+    const response = await GET(new Request('http://localhost/api/robots'));
+    
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toContain('text/plain');
+  });
+});
+```
+
+## E2E Testing
+
+Page Testing:
+- Test complete user journeys
+- Verify XM Cloud content rendering
+- Test navigation and routing
+- Validate responsive design
+- Test accessibility compliance
+
+Performance Testing:
+- Test page load times
+- Verify image optimization
+- Test bundle size impact
+- Monitor Core Web Vitals
+
+```typescript
+// Playwright E2E test example
+test('homepage loads and displays content', async ({ page }) => {
+  await page.goto('/');
   
-  const { title, description, image } = fields.data.datasource;
+  // Wait for XM Cloud content to load
+  await page.waitForSelector('[data-testid="hero-component"]');
   
-  // Component implementation
-};
+  // Verify content is displayed
+  await expect(page.locator('h1')).toBeVisible();
+  await expect(page.locator('nav')).toBeVisible();
+});
 ```
 
-## Field Handling Patterns
+## Test Data Management
 
-Sitecore Field Components:
-- Use `@sitecore-content-sdk/nextjs` field components
-- Access field values through `jsonValue` property
-- Handle optional fields with conditional rendering
-- Use proper semantic HTML tags
+XM Cloud Test Data:
+- Create realistic test data that matches XM Cloud structures
+- Use factories for generating test data
+- Maintain test data consistency across tests
+- Update test data when XM Cloud schemas change
 
 ```typescript
-import { Text, RichText, Image } from '@sitecore-content-sdk/nextjs';
-
-// Field rendering patterns
-{title?.jsonValue && (
-  <Text
-    tag="h1"
-    field={title.jsonValue}
-    className="hero-title text-4xl font-bold"
-  />
-)}
-
-{description?.jsonValue && (
-  <RichText field={description.jsonValue} />
-)}
-
-{image?.jsonValue && (
-  <Image
-    field={image.jsonValue}
-    alt={title?.jsonValue?.value || 'Hero image'}
-    className="w-full h-auto"
-  />
-)}
+// Test data factory
+export const createMockLayoutData = (overrides = {}) => ({
+  sitecore: {
+    context: {
+      pageEditing: false,
+      language: 'en',
+      site: { name: 'test-site' },
+    },
+    route: {
+      name: 'Test Page',
+      displayName: 'Test Page',
+      fields: {},
+      placeholders: {},
+      ...overrides,
+    },
+  },
+});
 ```
 
-## Editing Mode Handling
+## Testing Commands
 
-Page Editing Support:
-- Use `useSitecore` hook to access page mode
-- Check `page.mode.isEditing` for editing state
-- Pass `isPageEditing` prop to variant components
-- Provide different rendering for editing vs. preview
+Package Scripts:
+- `npm test` - Run unit tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage report
+- `npm run test:e2e` - Run end-to-end tests
+- `npm run test:ci` - Run all tests in CI mode
 
-```typescript
-import { useSitecore } from '@sitecore-content-sdk/nextjs';
+Coverage Requirements:
+- Tests should be comprehensive enough to cover business logic and to validate that sites and componenets are working as intended
+- Ensure different rendering options and  scenarios are considered such as Design Library, Page Editor, Preview mode, Hosted Vercel Sites and Local Deployments
+- Test error scenarios and edge cases
+- Maintain test quality over quantity
 
-export const Default: React.FC<ComponentProps> = (props) => {
-  const { page } = useSitecore();
-  const { isEditing } = page.mode;
-  const isEditMode = props.isPageEditing || isEditing;
-  
-  if (isEditMode) {
-    // Simplified rendering for editing mode
-  }
-  
-  // Normal rendering
-};
-```
+## Continuous Integration
 
-## Styling and UI Patterns
+CI/CD Testing:
+- Run all tests on pull requests
+- Generate coverage reports
+- Test against multiple Node.js versions
+- Validate build processes
+- Check for accessibility violations
 
-Tailwind and Shadcn/ui:
-- Use Tailwind CSS utility classes throughout
-- Import UI components from `@/components/ui/`
-- Use `cn()` utility for conditional classes
-- Follow container query patterns with `@container` classes
-
-```typescript
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-
-<div className={cn(
-  '@container bg-primary rounded-default',
-  'relative mx-auto my-6 max-w-7xl px-4 py-16',
-  isActive && '@md:w-full'
-)}>
-```
-
-## Utility Integration
-
-Common Utilities:
-- Use `NoDataFallback` for missing datasources
-- Import image wrapper: `Default as ImageWrapper` from `@/components/image/ImageWrapper.dev`
-- Use button components: `ButtonBase` from `@/components/button-component/ButtonComponent`
-- Implement localization with `useI18n` and `dictionaryKeys`
-
-```typescript
-import { NoDataFallback } from '@/utils/NoDataFallback';
-import { Default as ImageWrapper } from '@/components/image/ImageWrapper.dev';
-import { ButtonBase } from '@/components/button-component/ButtonComponent';
-import { useI18n } from 'next-localization';
-import { dictionaryKeys } from '@/variables/dictionary';
-```
-
-## Performance Patterns
-
-Accessibility and Performance:
-- Use `'use client'` directive for client-side interactivity
-- Implement proper ARIA attributes for interactive components
-- Use React hooks like `useState`, `useEffect`, `useRef` appropriately
-- Check for `prefers-reduced-motion` when using animations
-
-```typescript
-'use client';
-
-import { useState, useEffect, useRef } from 'react';
-
-export const InteractiveComponent: React.FC<Props> = (props) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-  }, []);
-  
-  // Component implementation
-};
-```
-
-## Content SDK Import Guidelines
-
-SDK Submodule Usage:
-- **Main package**: Use for components and client-side functionality
-- **Submodules**: Only use appropriate submodules for specific contexts
-- **Server-only**: Never import `/config-cli` or `/tools` in client components
-
-### Client-Safe Imports (Components & Client Code)
-
-```typescript
-// ✅ SAFE - Client-side component usage
-import { 
-  Text, 
-  RichText, 
-  Image, 
-  Link,
-  Field, 
-  LinkField, 
-  ImageField,
-  useSitecore,
-  SitecoreProvider,
-  Placeholder 
-} from '@sitecore-content-sdk/nextjs';
-
-// ✅ SAFE - Middleware usage (edge runtime)
-import { 
-  LocalizationMiddleware,
-  RedirectsMiddleware 
-} from '@sitecore-content-sdk/nextjs/middleware';
-```
-
-### Server-Only Imports (Configuration & Build)
-
-```typescript
-// ❌ NEVER in client components
-// ✅ ONLY in server-side contexts (sitecore.config.ts, sitecore.cli.config.ts)
-import { defineConfig } from '@sitecore-content-sdk/nextjs/config';
-import { defineCliConfig } from '@sitecore-content-sdk/nextjs/config-cli';
-import { generateSites, generateMetadata, extractFiles } from '@sitecore-content-sdk/nextjs/tools';
-
-// ✅ ONLY in lib/sitecore-client.ts or server utilities
-import { SitecoreClient, GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
-```
-
-### API Route Imports (Next.js API routes)
-
-```typescript
-// ✅ SAFE - API routes only (/pages/api/ or /app/api/)
-import { SitemapMiddleware, RobotsMiddleware } from '@sitecore-content-sdk/nextjs/middleware';
-import { HealthcheckMiddleware } from '@sitecore-content-sdk/nextjs/monitoring';
-import { 
-  EditingRenderMiddleware, 
-  EditingConfigMiddleware, 
-  FEAASRenderMiddleware,
-  isDesignLibraryPreviewData 
-} from '@sitecore-content-sdk/nextjs/editing';
-
-// ✅ SAFE - Utility functions for page routes
-import { extractPath, handleEditorFastRefresh } from '@sitecore-content-sdk/nextjs/utils';
-```
-
-### Import Context Rules
-
-**Configuration Files**:
-- `sitecore.config.ts`: Use `/config` submodule
-- `sitecore.cli.config.ts`: Use `/config-cli` and `/tools` submodules
-- `next.config.js`: Do not import Content SDK directly
-
-**Component Files**:
-- React components: Main package only (`@sitecore-content-sdk/nextjs`)
-- Never import `/config-cli`, `/tools`, or `/client` in components
-
-**Server Utilities**:
-- `lib/sitecore-client.ts`: Use `/client` submodule for SitecoreClient
-- Utility files: Use appropriate submodules based on context
-
-**Page Files**:
-- Page components: Main package + `/utils` for path utilities
-- API routes: Use `/middleware`, `/editing`, `/monitoring` as needed
-
-```typescript
-// Example: Component file structure
-// ✅ CORRECT
-import { Text, useSitecore } from '@sitecore-content-sdk/nextjs';
-
-// ❌ WRONG - will cause build errors
-import { defineConfig } from '@sitecore-content-sdk/nextjs/config';
-import { SitecoreClient } from '@sitecore-content-sdk/nextjs/client';
-```
-
-## Development Patterns
-
-Component Development Workflow:
-- Follow Locality of Behavior pattern
-- Create a tsx `ComponentName.tsx` with all varaiants of the component as well as the props
-- Use kebab-case for component directories: `product-listing/`, `article-header/`
-
-Testing and Validation:
-- Test components with and without datasources
-- Verify editing mode behavior
-- Test all component variants
-- Ensure accessibility compliance
+Quality Gates:
+- All tests must pass before merging
+- Coverage thresholds must be met
+- No linting errors allowed
+- Performance budgets must be maintained
+- Security scans must pass
 
 Referenced:
-@examples/kit-nextjs-article-starter/src/components/article-header/ArticleHeader.tsx
-@examples/kit-nextjs-location-finder/src/components/hero/Hero.tsx
-@examples/kit-nextjs-product-listing/src/components/product-listing/ProductListing.tsx
-@examples/kit-nextjs-article-starter/src/lib/component-props/index.ts
-@examples/kit-nextjs-article-starter/src/utils/NoDataFallback.tsx
+@examples/kit-nextjs-article-starter/src/components/
+@examples/kit-nextjs-location-finder/src/components/
+@examples/kit-nextjs-product-listing/src/components/
+@examples/basic-nextjs/src/
 
 ---
 > Source: [sc-nipunaabeywickrama/xmcloud-starter-js-07-08](https://github.com/sc-nipunaabeywickrama/xmcloud-starter-js-07-08) — distributed by [TomeVault](https://tomevault.io).
