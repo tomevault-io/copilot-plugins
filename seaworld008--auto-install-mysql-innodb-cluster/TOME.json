@@ -1,0 +1,44 @@
+{
+  "name": "auto-install-mysql-innodb-cluster",
+  "owner": "seaworld008",
+  "repo": "auto-install-mysql-innodb-cluster",
+  "description": "Ansible \u81ea\u52a8\u5316\u90e8\u7f72\u4e0e\u8fd0\u7ef4 MySQL InnoDB Cluster\uff1a\u96c6\u6210 MySQL Router\u3001HAProxy\u3001Keepalived\u3001\u8bfb\u5199\u5206\u79bb\u3001\u6269\u7f29\u5bb9\u548c\u53ef\u9009\u5907\u4efd\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/seaworld008/auto-install-mysql-innodb-cluster",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T07:32:06Z"
+}
