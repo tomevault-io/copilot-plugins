@@ -4,7 +4,7 @@
   "repo": "premiere",
   "description": "Frame-accurate transcript editing for the live Adobe Premiere Pro timeline via Adobe MCP \u2014 every cut is verified for A/V sync, missing frames, and back-to-back packing.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shipshitshow/premiere",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T04:41:59Z"
+  "distributed_at": "2026-07-17T04:46:05Z"
 }
