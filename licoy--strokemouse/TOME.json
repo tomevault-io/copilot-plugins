@@ -1,0 +1,44 @@
+{
+  "name": "StrokeMouse",
+  "owner": "Licoy",
+  "repo": "StrokeMouse",
+  "description": "macOS \u9f20\u6807\u624b\u52bf\u81ea\u5b9a\u4e49\u5de5\u5177\u3002\u6309\u4f4f\u8be5\u624b\u52bf\u7684\u89e6\u53d1\u952e\uff08\u9ed8\u8ba4\u53f3\u952e\uff0c\u4e5f\u53ef\u4e2d\u952e / \u4fa7\u952e\uff09\u7ed8\u5236\u8f68\u8ff9\uff0c\u5339\u914d\u540e\u6267\u884c\u5feb\u6377\u952e\u3001\u6253\u5f00\u5e94\u7528\u3001\u7a97\u53e3\u64cd\u4f5c\u3001\u5a92\u4f53\u952e\u3001Shell / AppleScript \u7b49 \uff5c A macOS mouse gesture customization tool. Hold down the trigger key to execute shortcuts, open applications, shell/AppleScript, etc. after matching.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Licoy/StrokeMouse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T04:30:41Z"
+}
