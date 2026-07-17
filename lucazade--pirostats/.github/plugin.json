@@ -1,0 +1,9 @@
+{
+  "name": "lucazade--pirostats",
+  "displayName": "pirostats",
+  "description": "System stats in your KDE Plasma panel, plus a rich, paginated tooltip",
+  "version": "1.0.0",
+  "author": "lucazade",
+  "homepage": "https://github.com/lucazade/pirostats",
+  "skills": []
+}
