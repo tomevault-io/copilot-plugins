@@ -4,7 +4,7 @@
   "repo": "OpenDataset",
   "description": "Generate small, high-quality, HuggingFace-ready datasets for any domain, using any model on OpenRouter.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davidondrej/OpenDataset",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T02:36:59Z"
+  "distributed_at": "2026-07-17T02:41:12Z"
 }
