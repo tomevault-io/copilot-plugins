@@ -1,0 +1,9 @@
+{
+  "name": "tecnicalbot--mobile-agent",
+  "displayName": "mobile-agent",
+  "description": "Mobile Agent is an open-source AI agent built specifically for mobile devices that runs entirely on your phone.",
+  "version": "1.0.0",
+  "author": "TecnicalBot",
+  "homepage": "https://github.com/TecnicalBot/mobile-agent",
+  "skills": []
+}
