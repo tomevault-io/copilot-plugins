@@ -1,75 +1,56 @@
-## dataverse-security
+## launch-control
 
-> Conventions for rebuilding the Episode 8 Dataverse security model (row-level, column-level, per-agent) from a coding agent.
+> Portable guidance for coding agents (Cursor, Copilot, Claude Code, and any MCP
 
+# AGENTS.md
 
-# Dataverse security model conventions (Episode 8)
+Portable guidance for coding agents (Cursor, Copilot, Claude Code, and any MCP
+client) working in this repository. Cursor users also get
+`.cursor/rules/dataverse-security.mdc`, which mirrors the Episode 8 section below.
 
-When authoring or changing the security model, follow the ordered runbook in
-`episodes/ep-08-security/REBUILD.md` and load the `dataverse-security` skill
-(`episodes/ep-08-security/SKILL.md`) first. The runbook is the source of truth for
-the sequence and the exact prompts; this rule pins the conventions every script and
-the visualizer must honor.
+## Repository shape
 
-## Environment and identifiers
+This repo is the "Launch Control" series: each `episodes/ep-NN-*/` folder is a
+self-contained chapter with its own `README.md` (and often a `SKILL.md`). Shared
+Python lives in `scripts/python/`, authenticated through `scripts/auth.py`, which
+reads the target environment from a `.env` at the repo root. The RBAC visualizer app
+is at `apps/rbac-visualizer/`.
 
-- Resolve the target environment from `.env` at the repo root via `scripts/auth.py`.
-  Never hardcode an environment URL, tenant id, application id, user id, or UPN in
-  committed code or docs. Use placeholders (`<ENV_URL>`, `<cowork-app-user>`,
-  `<demo-user>`) in prose and resolve real values at runtime by query.
-- `seed_ep08_demo.py` is gitignored because it carries real persona UPNs. It is
-  local-only; do not commit it or move its contents into a tracked file.
+## Global conventions
 
-## Naming (must match exactly)
+- **Never hardcode secrets or environment identifiers** (environment URLs, tenant
+  ids, application ids, user ids, UPNs) in committed code or docs. Resolve them from
+  `.env` or by query at runtime. Use placeholders in prose.
+- **No em-dashes** (the `—` character) in committed prose or comments. Use a period,
+  comma, colon, semicolon, or parentheses.
+- **Idempotent scripts, dry-run first.** Setup and teardown scripts must be safe to
+  re-run and should support `--dry-run`. Preview before applying.
+- PowerShell: set `$env:PYTHONIOENCODING="utf-8"` before running Python.
 
-- Roles: `lc Member` (Business User, User depth), `lc Owner` (Business Owner, BU
-  depth), `lc Viewer` (Business Reader, read-only at BU depth), `lc Admin`
-  (Business Admin). Created in the root business unit.
-- Owner-teams: `lc Members`, `lc Owners`, `lc Viewers`, `lc Admins`, each bound to
-  the matching role.
-- Column security profile: `lc Sensitive Readers`. Masking rule: `lc_EmailMask`
-  (mask character `#`, reveals the first character and the domain).
-- Layer roles on top of `Basic User`; never strip a principal below `Basic User`.
+## Episode 8: Dataverse security model
 
-## What is secured, and what is deliberately not
+For any work on row-level, column-level, or per-agent security, the ordered rebuild
+plan is `episodes/ep-08-security/REBUILD.md` and the model lives in the
+`dataverse-security` skill (`episodes/ep-08-security/SKILL.md`). Load the skill, then
+follow the runbook step order: teardown (Step 0), build the visualizer (Step 1),
+row-level roles and teams (Step 2), persona assignment (Step 3), column-level
+security (Step 4), per-agent security (Step 5).
 
-- Column security applies to **only** the two `lc_teammember` PII columns:
-  - `lc_email`: secured **and** masked by `lc_EmailMask` (partial reveal).
-  - `lc_fullname`: secured with **pure column-level security** (no masking rule); the
-    profile read grant is revoked to hide it entirely.
-- Do **not** secure the task or launch columns (no `lc_task.lc_blockerreason`, no
-  `lc_launch.lc_risksummary`). That scope was removed; keep it out.
-- Do **not** field-secure the primary `lc_name` column (Dataverse rejects it,
-  `0x8004f501`). Real names live in the securable `lc_fullname` column; `lc_name` is a
-  non-PII ID (`TM-001` ...).
+Key invariants (full detail in the `.cursor` rule and the runbook):
 
-## Mechanics that bite
-
-- A **System Administrator bypasses column-level security** (always reads cleartext),
-  but a **masking rule masks even a sysadmin's plain read**. Cleartext behind a mask
-  returns only with `?UnMaskedData=true` plus a `Read unmasked` grant. Because of the
-  sysadmin bypass, the visualizer reads the PII table as a non-admin member of the
-  `lc Sensitive Readers` profile, so the live policy is visible.
-- Grant `canread` (`4`) and `canreadunmasked` (`0`/`1`/`3`, never `4`) in the **same**
-  payload; patching the unmask flag alone fails `0x80040203`.
-- Un-securing a column is a **PUT** on the attribute with the concrete `@odata.type`
-  plus `MSCRM.MergeLabels: true` and `Consistency: Strong`, then `PublishAllXml`. A
-  PATCH returns 405. Setting `IsSecured=false` does not delete field permissions;
-  delete them explicitly.
-- Column masking rules require a **Managed Environment**.
-
-## Script conventions
-
-- Every setup and teardown script is **idempotent** and supports `--dry-run` (or
-  defaults to dry-run, like `teardown_security.py`, which needs `--confirm` to apply).
-  Always preview before applying.
-- Set `$env:PYTHONIOENCODING="utf-8"` before running.
-- Reset to a clean slate with `teardown_security.py --confirm`.
-
-## Prose
-
-- Do not use em-dashes (the `—` character) in committed prose or comments. Use a
-  period, comma, colon, semicolon, or parentheses instead.
+- Roles `lc Member` / `lc Owner` / `lc Viewer` / `lc Admin`; owner-teams
+  `lc <role>s`; profile `lc Sensitive Readers`; masking rule `lc_EmailMask`. Layer on
+  top of `Basic User`.
+- Column security covers **only** the two `lc_teammember` PII columns: `lc_email`
+  (secured and masked) and `lc_fullname` (secured, hidden via a revoked read grant).
+  Do **not** secure task or launch columns, and do **not** field-secure the primary
+  `lc_name` (it is a non-PII ID; real names live in `lc_fullname`).
+- A System Administrator bypasses column-level security but a masking rule masks even
+  a sysadmin's plain read; the visualizer therefore reads the PII table as a non-admin
+  profile member so the live policy is visible.
+- Reset with `python scripts/python/teardown_security.py --confirm`.
+- `scripts/python/seed_ep08_demo.py` is gitignored (real persona UPNs); keep it
+  local-only.
 
 ---
 > Source: [jamesoleinik/launch-control](https://github.com/jamesoleinik/launch-control) — distributed by [TomeVault](https://tomevault.io).
