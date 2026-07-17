@@ -247634,6 +247634,91 @@
       "description": "Network analyzer tool for Dark Ages"
     },
     {
+      "name": "adrianhajdin--skew-news",
+      "source": "./adrianhajdin--skew-news",
+      "description": "Skew is a full-stack AI news platform. It scrapes real news hourly via Oxylabs, scores each for sentiment and political framing with GPT-4o, and connects related stories by meaning using pgvector."
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "koul777--public-regulation-mcp-builder",
+      "source": "./koul777--public-regulation-mcp-builder",
+      "description": "PR MCP Builder - \uacf5\uacf5\uae30\uad00 \uaddc\uc815 MCP \ube4c\ub354"
+    },
+    {
+      "name": "eumakerdev--bncc-api",
+      "source": "./eumakerdev--bncc-api",
+      "description": "bncc_api"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "outernet-foundation--placeframe",
+      "source": "./outernet-foundation--placeframe",
+      "description": "placeframe"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "blisspixel--deepr",
+      "source": "./blisspixel--deepr",
+      "description": "Open-source, multi-provider research automation with persistent experts, eval-based routing, and cost guardrails."
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "guillaumegay13--youtube-to-viral-clips",
+      "source": "./guillaumegay13--youtube-to-viral-clips",
+      "description": "AI-powered tool that automatically extracts viral moments from YouTube videos and creates engaging short clips with animated subtitles - completely free and runs locally!"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
+      "name": "lolo-desu--lolocard",
+      "source": "./lolo-desu--lolocard",
+      "description": "lolocard\u55b5"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270512,6 +270597,21 @@
       "name": "plocr--reasonix-computer-use",
       "source": "./plocr--reasonix-computer-use",
       "description": "\u4e00\u4e2a\u5b8c\u6574\u7684 Windows GUI \u81ea\u52a8\u5316 Reasonix \u63d2\u4ef6\u5305\u3002\u63d0\u4f9b\u622a\u56fe\u3001\u9f20\u6807\u3001\u952e\u76d8\u3001UI \u6811\u3001\u5e94\u7528\u53d1\u73b0\u7b49 12 \u4e2a MCP \u5de5\u5177\uff0c\u652f\u6301\u6280\u80fd\u3001\u94a9\u5b50\u548c\u8bb0\u5fc6\u7cfb\u7edf\u3002"
+    },
+    {
+      "name": "extrasmall0--dear-hiring-manager",
+      "source": "./extrasmall0--dear-hiring-manager",
+      "description": "A Claude Code plugin that fills your job applications from your profile, drafts the cover letter, and leaves Submit to you. Locally."
+    },
+    {
+      "name": "mergeos-bounties--nokaman",
+      "source": "./mergeos-bounties--nokaman",
+      "description": "NokaMan: multi-language learning ability assessment (CEFR writing samples)"
+    },
+    {
+      "name": "metalingus--tvwatchtime",
+      "source": "./metalingus--tvwatchtime",
+      "description": "A cross-platform TV & movie tracking app for the people who refused to let go of TV Time. "
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -401492,6 +401592,11 @@
       "name": "negimox--skillsense",
       "source": "./negimox--skillsense",
       "description": "Hacknation 2k25 November"
+    },
+    {
+      "name": "jineshbansal--envio-testing",
+      "source": "./jineshbansal--envio-testing",
+      "description": "envio-testing"
     }
   ]
 }
