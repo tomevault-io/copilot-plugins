@@ -1,0 +1,9 @@
+{
+  "name": "buptzyb--torch-cudagraph-debug",
+  "displayName": "torch-cudagraph-debug",
+  "description": "CUDA Graph runtime tensor debugging utilities for PyTorch",
+  "version": "1.0.0",
+  "author": "buptzyb",
+  "homepage": "https://github.com/buptzyb/torch-cudagraph-debug",
+  "skills": []
+}
