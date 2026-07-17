@@ -1,0 +1,9 @@
+{
+  "name": "plocr--reasonix-computer-use",
+  "displayName": "Reasonix-computer-use",
+  "description": "\u4e00\u4e2a\u5b8c\u6574\u7684 Windows GUI \u81ea\u52a8\u5316 Reasonix \u63d2\u4ef6\u5305\u3002\u63d0\u4f9b\u622a\u56fe\u3001\u9f20\u6807\u3001\u952e\u76d8\u3001UI \u6811\u3001\u5e94\u7528\u53d1\u73b0\u7b49 12 \u4e2a MCP \u5de5\u5177\uff0c\u652f\u6301\u6280\u80fd\u3001\u94a9\u5b50\u548c\u8bb0\u5fc6\u7cfb\u7edf\u3002",
+  "version": "1.0.0",
+  "author": "Plocr",
+  "homepage": "https://github.com/Plocr/Reasonix-computer-use",
+  "skills": []
+}
