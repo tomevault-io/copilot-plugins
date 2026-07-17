@@ -1,0 +1,9 @@
+{
+  "name": "dertrolli--card-mod-studio",
+  "displayName": "card-mod-studio",
+  "description": "Visual style editor for card-mod in Home Assistant. Color pickers, sliders, animation presets, and per-entity row styling \u2014 generates card_mod YAML automatically.",
+  "version": "1.0.0",
+  "author": "DerTrolli",
+  "homepage": "https://github.com/DerTrolli/card-mod-studio",
+  "skills": []
+}
