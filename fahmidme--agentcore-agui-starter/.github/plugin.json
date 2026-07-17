@@ -1,0 +1,9 @@
+{
+  "name": "fahmidme--agentcore-agui-starter",
+  "displayName": "agentcore-agui-starter",
+  "description": "Streaming Strands agents from Amazon Bedrock AgentCore to a Next.js CopilotKit UI over AG-UI.",
+  "version": "1.0.0",
+  "author": "fahmidme",
+  "homepage": "https://github.com/fahmidme/agentcore-agui-starter",
+  "skills": []
+}
