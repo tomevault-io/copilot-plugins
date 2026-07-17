@@ -1,0 +1,9 @@
+{
+  "name": "duwscan--hono-skeleton",
+  "displayName": "hono-skeleton",
+  "description": "Honojs + better-auth + drizzle",
+  "version": "1.0.0",
+  "author": "duwscan",
+  "homepage": "https://github.com/duwscan/hono-skeleton",
+  "skills": []
+}
