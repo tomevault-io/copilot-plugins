@@ -1,37 +1,35 @@
-## complexity-management
+## documentation
 
-> - **Cyclomatic Complexity**: Keep functions under complexity 10
+> - **Inline Comments**: Explain complex logic and business rules
 
-# Complexity Management Rules
+# Documentation Standards
 
-## Code Complexity
-- **Cyclomatic Complexity**: Keep functions under complexity 10
-- **Cognitive Complexity**: Keep methods simple and readable
-- **Nesting Depth**: Maximum 3 levels of nesting
-- **Function Length**: Keep functions under 20 lines
-- **Class Size**: Keep classes under 200 lines
-- **Module Size**: Keep modules under 500 lines
+## Code Documentation
+- **Inline Comments**: Explain complex logic and business rules
+- **API Documentation**: Comprehensive documentation for all public APIs
+- **Examples**: Include usage examples in docstrings
+- **Change Log**: Maintain detailed change log for all versions
 
-## Algorithm Complexity
-- **Time Complexity**: Document and optimize time complexity
-- **Space Complexity**: Consider memory usage in algorithms
-- **Big O Notation**: Use appropriate algorithms for data size
-- **Performance Profiling**: Profile critical paths regularly
-- **Optimization**: Optimize bottlenecks identified through profiling
+## User Documentation
+- **Installation Guide**: Step-by-step installation instructions
+- **Usage Examples**: Practical examples for common use cases
+- **Troubleshooting**: Common issues and solutions
+- **Security Guidelines**: Clear security and ethical usage guidelines
+- **API Reference**: Complete API documentation with examples
 
-## Architectural Complexity
-- **Component Count**: Limit number of components in a module
-- **Dependency Graph**: Keep dependency graph shallow and wide
-- **Interface Complexity**: Keep interfaces simple and focused
-- **Configuration Complexity**: Minimize configuration options
-- **Feature Flags**: Use feature flags for complex feature toggles
+## Docstring Standards
+- **Google Style**: Use Google style docstrings for all functions and classes
+- **Parameter Documentation**: Document all parameters with types and descriptions
+- **Return Values**: Document return types and values
+- **Examples**: Include practical usage examples
+- **Exceptions**: Document exceptions that may be raised
 
-## Cognitive Load
-- **Naming**: Use descriptive, self-documenting names
-- **Abstraction Levels**: Maintain consistent abstraction levels
-- **Mental Models**: Design for intuitive mental models
-- **Documentation**: Document complex business logic thoroughly
-- **Examples**: Provide examples for complex operations
+## Project Documentation
+- **README.md**: Keep updated with usage examples and installation
+- **API Reference**: Complete API documentation with examples
+- **Security Warnings**: Prominent security and legal disclaimers
+- **Contributing Guidelines**: Clear guidelines for contributors
+- **Changelog**: Detailed change log for all versions
 
 ---
 > Source: [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer) — distributed by [TomeVault](https://tomevault.io).
