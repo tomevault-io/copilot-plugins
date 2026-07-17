@@ -1,50 +1,49 @@
-## codequality
+## coding-princibles
 
-> Code Quality Guidelines
+> Core coding principles emphasizing functional clarity, fail-fast error handling, and readable, maintainable Python. Apply when writing or reviewing code.
 
-# Code Quality Guidelines
+# Coding Principles
 
-## Verify Information
-Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+Code should be functional, clear, concise, and easy to understand.
 
-## File-by-File Changes
-Make changes file by file and give me a chance to spot mistakes.
+Before writing any code, the codebase should be fully read and understood to prevent writing unnecessary code, incompatible code, or duplicating existing code. Always read the existing code to know what functions you have access to, libraries you have already imported, etc.
 
-## No Apologies
-Never use apologies.
+## Standard Software Engineering Principles
 
-## No Understanding Feedback
-Avoid giving feedback about understanding in comments or documentation.
+- **DRY** (Don't Repeat Yourself)
+- **Single Responsibility Principle**
 
-## No Whitespace Suggestions
-Don't suggest whitespace changes.
+## Function Guidelines
 
-## No Summaries
-Don't summarize changes made.
+- Functions should generally not exceed **30 lines** (excluding comments and documentation).
+  - If a function is growing too large, break it down into smaller, logically separated helper functions.
+- Imports must exist **outside** of functions.
+- Any function that is defined must also be subsequently called with the correct inputs to verify its validity.
 
-## No Inventions
-Don't invent changes other than what's explicitly requested.
+## Error Handling
 
-## No Unnecessary Confirmations
-Don't ask for confirmation of information already provided in the context.
+- `try` blocks are heavily discouraged.
+- We prefer errors to be **raised** so that:
+  - Key functionality underneath can be verified.
+  - Bugs can be spotted early rather than hidden.
+  - When importing a library, import it directly so we **fail fast** if there is an issue rather than hide it.
 
-## Preserve Existing Code
-Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
+Rather than “defensive programming with conditionals,” we need **fail-fast** behavior (explicitly surfacing errors rather than hiding them), done with explainable assert statements.
 
-## Single Chunk Edits
-Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
+## Code Philosophy
 
-## No Implementation Checks
-Don't ask the user to verify implementations that are visible in the provided context.
+**Code should be:**
+- Simple
+- Elegant
+- Easy to understand
+- Complete
 
-## No Unnecessary Updates
-Don't suggest updates or changes to files when there are no actual modifications needed.
+**Condition checking** is a requirement for all functions and should confirm that the inputs and outputs of each function are valid.
 
-## Provide Real File Links
-Always provide links to the real files, not x.md.
+However, we don’t want ridiculous checks such as the following, because it hides errors. Either a value should be part of `locals` or it shouldn’t, so we should not have separate logic such as:
 
-## No Current Implementation
-Don't show or discuss the current implementation unless specifically requested.
+```python
+if 'DEBUG_SIZE' in locals() and DEBUG_SIZE and len(work_order_notification_data) > DEBUG_SIZE:
 
 ---
 > Source: [MylesThomas/betting](https://github.com/MylesThomas/betting) — distributed by [TomeVault](https://tomevault.io).
