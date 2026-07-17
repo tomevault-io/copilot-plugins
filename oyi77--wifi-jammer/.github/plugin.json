@@ -1,0 +1,9 @@
+{
+  "name": "oyi77--wifi-jammer",
+  "displayName": "wifi-jammer",
+  "description": "Advanced WiFi security testing tool \u2014 10 attack types (deauth, PMKID, evil twin, channel hop), CLI/TUI/GUI, cross-platform Linux/macOS/Windows",
+  "version": "1.0.0",
+  "author": "oyi77",
+  "homepage": "https://github.com/oyi77/wifi-jammer",
+  "skills": []
+}
