@@ -4,7 +4,7 @@
   "repo": "vibesys",
   "description": "Can AI Agents Build Bespoke LLM Serving Systems?",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uw-syfi/vibesys",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T01:32:14Z"
+  "distributed_at": "2026-07-17T01:34:12Z"
 }
