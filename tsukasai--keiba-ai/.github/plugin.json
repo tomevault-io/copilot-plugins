@@ -1,0 +1,9 @@
+{
+  "name": "tsukasai--keiba-ai",
+  "displayName": "keiba-ai",
+  "description": "Japanese horse racing (\u7af6\u99ac/Keiba) AI prediction system for JRA",
+  "version": "1.0.0",
+  "author": "tsukasaI",
+  "homepage": "https://github.com/tsukasaI/keiba-ai",
+  "skills": []
+}
