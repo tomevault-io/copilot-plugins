@@ -1,0 +1,9 @@
+{
+  "name": "tursodatabase--turso-vdbe-doom-example",
+  "displayName": "turso-vdbe-doom-example",
+  "description": "Real Doom running on Turso's VDBE bytecode \u2014 a fork of Turso plus a small LLVM-IR-to-VDBE compiler (vdbecc).",
+  "version": "1.0.0",
+  "author": "tursodatabase",
+  "homepage": "https://github.com/tursodatabase/turso-vdbe-doom-example",
+  "skills": []
+}
