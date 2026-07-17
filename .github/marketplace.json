@@ -208419,6 +208419,11 @@
       "description": "Ansible \u81ea\u52a8\u5316\u90e8\u7f72\u4e0e\u8fd0\u7ef4 MySQL InnoDB Cluster\uff1a\u96c6\u6210 MySQL Router\u3001HAProxy\u3001Keepalived\u3001\u8bfb\u5199\u5206\u79bb\u3001\u6269\u7f29\u5bb9\u548c\u53ef\u9009\u5907\u4efd\u3002"
     },
     {
+      "name": "busy-app--busylib-py",
+      "source": "./busy-app--busylib-py",
+      "description": "busylib-py"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -247484,6 +247489,41 @@
       "description": "\u26a1 ZeroToken Skill \u2014 \u8ba9 Agent \u7528\u6700\u5c11\u7684 token \u505a\u6700\u51c6\u7684\u4e8b\u3002\u63d0\u793a\u8bcd\u7eaa\u5f8b\u89c4\u8303\uff1a\u538b\u7f29\u65e0\u6548\u4e0a\u4e0b\u6587\u3001\u65e0\u6548\u89e3\u91ca\u3001\u65e0\u6548\u5de5\u5177\u8c03\u7528\u3001\u65e0\u6548\u8f93\u51fa\uff0c\u51c6\u786e\u6027\u4e0d\u964d\u3002"
     },
     {
+      "name": "blakepell--mosaicuiwpf",
+      "source": "./blakepell--mosaicuiwpf",
+      "description": "Mosaic UI for WPF is a control library that seeks to provide compartmentalized controls."
+    },
+    {
+      "name": "etechlead--claude-deck",
+      "source": "./etechlead--claude-deck",
+      "description": "Monitor Claude Code task statuses on Stream Deck"
+    },
+    {
+      "name": "blakepell--mosaicuiwpf",
+      "source": "./blakepell--mosaicuiwpf",
+      "description": "Mosaic UI for WPF is a control library that seeks to provide compartmentalized controls."
+    },
+    {
+      "name": "y-aslant--pybuilder-generate",
+      "source": "./y-aslant--pybuilder-generate",
+      "description": "Python\u7a0b\u5e8f\u6253\u5305\u811a\u672c\u751f\u6210\u5de5\u5177PyBuilder-Generate\uff0c\u4e00\u4e2aPython\u7a0b\u5e8f\u8de8\u5e73\u53f0\u591a\u67b6\u6784\u6253\u5305\u5206\u53d1\u65b9\u6848"
+    },
+    {
+      "name": "moonbit-community--postgres-mbt",
+      "source": "./moonbit-community--postgres-mbt",
+      "description": "postgres client library"
+    },
+    {
+      "name": "threatflux--openai-rust-sdk",
+      "source": "./threatflux--openai-rust-sdk",
+      "description": "openai_rust_sdk"
+    },
+    {
+      "name": "threatflux--openai-rust-sdk",
+      "source": "./threatflux--openai-rust-sdk",
+      "description": "openai_rust_sdk"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270314,6 +270354,21 @@
       "description": "Local-first MCP server for WHOOP recovery, HRV & sleep \u2014 Claude, Cursor, ChatGPT ready"
     },
     {
+      "name": "foursmith--vr",
+      "source": "./foursmith--vr",
+      "description": "Watch VR like TikTok"
+    },
+    {
+      "name": "bxmaximum--bitrix-framework-skills",
+      "source": "./bxmaximum--bitrix-framework-skills",
+      "description": "AI-\u0441\u043a\u0438\u043b\u043b\u044b \u0434\u043b\u044f Bitrix Framework (D7): ORM, \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440\u044b, \u0440\u043e\u0443\u0442\u0438\u043d\u0433, \u043a\u0435\u0448, \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c. npx skills add bxmaximum/bitrix-framework-skills. \u041e\u0442\u043a\u0440\u044b\u0442\u044b\u0439 \u043f\u0440\u043e\u0435\u043a\u0442 \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u0430 BXMax."
+    },
+    {
+      "name": "vmatei2--pyrox-client",
+      "source": "./vmatei2--pyrox-client",
+      "description": "Unofficial Python client API for Hyrox race results - loading public results into DataFrames. Below is an analysis website for athletes."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -275082,6 +275137,11 @@
       "name": "davidondrej--opendataset",
       "source": "./davidondrej--opendataset",
       "description": "Generate small, high-quality, HuggingFace-ready datasets for any domain, using any model on OpenRouter."
+    },
+    {
+      "name": "aigeniusinstitute--deepthink",
+      "source": "./aigeniusinstitute--deepthink",
+      "description": "DeepThink, A Loop Engineering App Running On Desktop, and Integregate IM channels (feishu, wexin, etc.)  \u6700\u65b0\u7248\u5728 Gitcode:"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -401037,6 +401097,16 @@
       "name": "xxx3r--sns-s-s",
       "source": "./xxx3r--sns-s-s",
       "description": "Python simulation framework for space-based solar-nano-sphere swarm dynamics and power-chain modeling power"
+    },
+    {
+      "name": "phanthanhchungbyte--frontend-mentor-browser-extensions",
+      "source": "./phanthanhchungbyte--frontend-mentor-browser-extensions",
+      "description": "A project for frontend mentor which describes a UI with browser extensions."
+    },
+    {
+      "name": "phanthanhchungbyte--frontend-mentor-browser-extensions",
+      "source": "./phanthanhchungbyte--frontend-mentor-browser-extensions",
+      "description": "A project for frontend mentor which describes a UI with browser extensions."
     }
   ]
 }
