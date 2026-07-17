@@ -1,0 +1,9 @@
+{
+  "name": "adrianhajdin--skew-news",
+  "displayName": "skew_news",
+  "description": "Skew is a full-stack AI news platform. It scrapes real news hourly via Oxylabs, scores each for sentiment and political framing with GPT-4o, and connects related stories by meaning using pgvector.",
+  "version": "1.0.0",
+  "author": "adrianhajdin",
+  "homepage": "https://github.com/adrianhajdin/skew_news",
+  "skills": []
+}
