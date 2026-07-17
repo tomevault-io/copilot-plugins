@@ -1,0 +1,9 @@
+{
+  "name": "nathan-tebay--qmk-nexus",
+  "displayName": "qmk-nexus",
+  "description": "QMK Nexus brings keyboard layout, matrix wiring, keymaps, hardware features, and firmware builds into one browser-based workflow. ",
+  "version": "1.0.0",
+  "author": "nathan-tebay",
+  "homepage": "https://github.com/nathan-tebay/qmk-nexus",
+  "skills": []
+}
