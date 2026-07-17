@@ -7,11 +7,11 @@ Advanced WiFi security testing tool — 10 attack types (deauth, PMKID, evil twi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer).
+Original source: `CLAUDE.md` in [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
