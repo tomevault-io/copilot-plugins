@@ -1,0 +1,9 @@
+{
+  "name": "kanfu-panda--pdlc-skills",
+  "displayName": "pdlc-skills",
+  "description": "33 slash commands that turn Claude Code into a real PDLC workflow \u2014 PRD \u2192 TDD \u2192 implement \u2192 review \u2192 ship. Hard contracts force AI to persist artifacts, write failing tests first, and run self-checks.",
+  "version": "1.0.0",
+  "author": "kanfu-panda",
+  "homepage": "https://github.com/kanfu-panda/pdlc-skills",
+  "skills": []
+}
