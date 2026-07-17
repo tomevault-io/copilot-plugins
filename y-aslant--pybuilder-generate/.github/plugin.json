@@ -1,0 +1,9 @@
+{
+  "name": "y-aslant--pybuilder-generate",
+  "displayName": "PyBuilder-Generate",
+  "description": "Python\u7a0b\u5e8f\u6253\u5305\u811a\u672c\u751f\u6210\u5de5\u5177PyBuilder-Generate\uff0c\u4e00\u4e2aPython\u7a0b\u5e8f\u8de8\u5e73\u53f0\u591a\u67b6\u6784\u6253\u5305\u5206\u53d1\u65b9\u6848",
+  "version": "1.0.0",
+  "author": "Y-ASLant",
+  "homepage": "https://github.com/Y-ASLant/PyBuilder-Generate",
+  "skills": []
+}
