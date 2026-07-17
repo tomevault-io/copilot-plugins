@@ -247724,6 +247724,16 @@
       "description": "lolocard\u55b5"
     },
     {
+      "name": "dbisina--relay",
+      "source": "./dbisina--relay",
+      "description": "Vendor-neutral orchestrator that rotates a coding task across multiple AI coding agents"
+    },
+    {
+      "name": "dbisina--relay",
+      "source": "./dbisina--relay",
+      "description": "Vendor-neutral orchestrator that rotates a coding task across multiple AI coding agents"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270639,6 +270649,26 @@
       "description": "Apple-inspired liquid glass component library for React with comprehensive testing and Storybook documentation"
     },
     {
+      "name": "iamwavecut--orbitquant",
+      "source": "./iamwavecut--orbitquant",
+      "description": "Calibration-free OrbitQuant for transformer backbones, with Hugging Face integration and packed CUDA/Metal inference"
+    },
+    {
+      "name": "marconett--click2photon",
+      "source": "./marconett--click2photon",
+      "description": "End-to-end display latency measurement: the time from a mouse click to a visible change on screen, measured with a photodiode strapped to the monitor."
+    },
+    {
+      "name": "sealambda--quints",
+      "source": "./sealambda--quints",
+      "description": "Swiss VAT (MWST), QR-bill invoicing, and KMU statements for plain-text accounting on beancount \u2014 a deterministic CLI you can drive with an AI coding agent."
+    },
+    {
+      "name": "fdarian--whap",
+      "source": "./fdarian--whap",
+      "description": "Mocked WhatsApp Cloud API for testing integrations without using real endpoints and phone numbers"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -275412,6 +275442,16 @@
       "name": "aigeniusinstitute--deepthink",
       "source": "./aigeniusinstitute--deepthink",
       "description": "DeepThink, A Loop Engineering App Running On Desktop, and Integregate IM channels (feishu, wexin, etc.)  \u6700\u65b0\u7248\u5728 Gitcode:"
+    },
+    {
+      "name": "devindudeman--nix-android",
+      "source": "./devindudeman--nix-android",
+      "description": "nix-android"
+    },
+    {
+      "name": "devindudeman--nix-android",
+      "source": "./devindudeman--nix-android",
+      "description": "nix-android"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
