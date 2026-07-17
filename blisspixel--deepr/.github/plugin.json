@@ -1,0 +1,9 @@
+{
+  "name": "blisspixel--deepr",
+  "displayName": "deepr",
+  "description": "Open-source, multi-provider research automation with persistent experts, eval-based routing, and cost guardrails.",
+  "version": "1.0.0",
+  "author": "blisspixel",
+  "homepage": "https://github.com/blisspixel/deepr",
+  "skills": []
+}
