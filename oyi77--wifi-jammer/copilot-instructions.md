@@ -1,40 +1,37 @@
-## code-standards
+## complexity-management
 
-> - **PEP 8 Compliance**: Follow Python style guide strictly
+> - **Cyclomatic Complexity**: Keep functions under complexity 10
 
-# Code Quality Standards
+# Complexity Management Rules
 
-## Python Best Practices
-- **PEP 8 Compliance**: Follow Python style guide strictly
-  - Use snake_case for variables and functions
-  - Use PascalCase for classes
-  - Use UPPER_CASE for constants
-  - Maximum line length: 88 characters (black formatter)
-- **Type Hints**: Use type annotations for all function parameters and return values
-- **Docstrings**: Comprehensive docstrings for all public functions and classes
-  - Google style docstrings preferred
-  - Include parameter types, return types, and examples
-- **Error Handling**: Use specific exception types, not generic exceptions
+## Code Complexity
+- **Cyclomatic Complexity**: Keep functions under complexity 10
+- **Cognitive Complexity**: Keep methods simple and readable
+- **Nesting Depth**: Maximum 3 levels of nesting
+- **Function Length**: Keep functions under 20 lines
+- **Class Size**: Keep classes under 200 lines
+- **Module Size**: Keep modules under 500 lines
 
-## Code Structure
-- **Imports**: Group imports (standard library, third-party, local) with blank lines
-- **Functions**: Keep functions under 20 lines, methods under 15 lines
-- **Classes**: Keep classes focused and under 200 lines
-- **Modules**: Keep modules under 500 lines
-- **Comments**: Explain why, not what (code should be self-documenting)
+## Algorithm Complexity
+- **Time Complexity**: Document and optimize time complexity
+- **Space Complexity**: Consider memory usage in algorithms
+- **Big O Notation**: Use appropriate algorithms for data size
+- **Performance Profiling**: Profile critical paths regularly
+- **Optimization**: Optimize bottlenecks identified through profiling
 
-## Naming Conventions
-- **Descriptive Names**: Variables and functions should clearly indicate purpose
-- **Consistent Abbreviations**: Use consistent abbreviations across the codebase
-- **Avoid Magic Numbers**: Use named constants for all numeric values
-- **Boolean Names**: Use is_*, has_*, can_* prefixes for boolean variables
+## Architectural Complexity
+- **Component Count**: Limit number of components in a module
+- **Dependency Graph**: Keep dependency graph shallow and wide
+- **Interface Complexity**: Keep interfaces simple and focused
+- **Configuration Complexity**: Minimize configuration options
+- **Feature Flags**: Use feature flags for complex feature toggles
 
-## Testing Requirements
-- **Coverage Target**: Minimum 90% code coverage
-- **Test Organization**: Mirror source code structure in tests
-- **Mock Usage**: Mock external dependencies and network calls
-- **Edge Cases**: Test boundary conditions and error scenarios
-- **Performance Tests**: Test performance under various conditions
+## Cognitive Load
+- **Naming**: Use descriptive, self-documenting names
+- **Abstraction Levels**: Maintain consistent abstraction levels
+- **Mental Models**: Design for intuitive mental models
+- **Documentation**: Document complex business logic thoroughly
+- **Examples**: Provide examples for complex operations
 
 ---
 > Source: [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer) — distributed by [TomeVault](https://tomevault.io).
