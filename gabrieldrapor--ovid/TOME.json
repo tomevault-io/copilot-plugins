@@ -4,7 +4,7 @@
   "repo": "ovid",
   "description": "A bilingual Reader. Two languages, one tap.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GabrielDrapor/ovid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T05:32:30Z"
+  "distributed_at": "2026-07-17T05:33:03Z"
 }
