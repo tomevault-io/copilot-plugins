@@ -4,7 +4,7 @@
   "repo": "dotfiles",
   "description": "Maximum efficiency, minimum complexity development environment using Nix flakes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uigleki/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T08:52:40Z"
+  "distributed_at": "2026-07-17T08:54:12Z"
 }
