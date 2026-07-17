@@ -1,35 +1,40 @@
-## performance
+## project-architecture
 
-> - **Memory Efficiency**: Minimize memory allocations and garbage collection
+> - **Modular Design**: Break system into independent, testable modules
 
-# Performance Optimization Rules
+# Project Architecture Rules
 
-## Resource Management
-- **Memory Efficiency**: Minimize memory allocations and garbage collection
-- **CPU Optimization**: Use efficient algorithms and data structures
-- **Network Efficiency**: Minimize network overhead and latency
-- **Async Operations**: Use async/await for I/O-bound operations
-- **Connection Pooling**: Reuse network connections when possible
+## System Architecture
+- **Modular Design**: Break system into independent, testable modules
+- **Layered Architecture**: Separate concerns into distinct layers (UI, Business Logic, Data Access)
+- **Service-Oriented**: Use service classes for business logic operations
+- **Repository Pattern**: Abstract data access through repository interfaces
+- **Event-Driven**: Use events for loose coupling between components
 
-## Scalability Considerations
-- **Horizontal Scaling**: Design for multiple concurrent users
-- **Vertical Scaling**: Optimize for single-instance performance
-- **Resource Limits**: Implement configurable resource limits
-- **Progress Tracking**: Provide real-time progress updates
-- **Background Processing**: Handle long-running operations asynchronously
+## Component Design
+- **Single Responsibility**: Each component has one clear purpose
+- **High Cohesion**: Related functionality grouped together
+- **Low Coupling**: Minimal dependencies between components
+- **Interface Segregation**: Expose only necessary methods
+- **Dependency Injection**: Inject dependencies rather than creating them
 
-## Algorithm Optimization
-- **Time Complexity**: Document and optimize time complexity
-- **Space Complexity**: Consider memory usage in algorithms
-- **Big O Notation**: Use appropriate algorithms for data size
-- **Performance Profiling**: Profile critical paths regularly
-- **Bottleneck Identification**: Identify and optimize performance bottlenecks
+## Data Flow
+- **Unidirectional Data Flow**: Data flows in one direction through the system
+- **Immutable Data**: Prefer immutable data structures where possible
+- **State Management**: Centralized state management for complex state
+- **Event Sourcing**: Use events for state changes and audit trails
+- **Caching Strategy**: Implement appropriate caching at different levels
 
-## Network Performance
-- **Packet Efficiency**: Minimize packet overhead in WiFi attacks
-- **Rate Limiting**: Implement intelligent rate limiting for attacks
-- **Connection Management**: Efficient connection handling and cleanup
-- **Resource Monitoring**: Monitor system resources during operations
+## Code Architecture
+- **SOLID Principles**: Implement all SOLID principles strictly
+- **Design Patterns**: Use Factory, Strategy, Adapter, Observer, and Command patterns
+- **Code Organization**: Keep related functionality together, separate concerns clearly
+- **Package Structure**: Implement proper package structure with `__init__.py` files
+
+- **SOLID Principles**: Implement all SOLID principles strictly
+- **Design Patterns**: Use Factory, Strategy, Adapter, Observer, and Command patterns
+- **Code Organization**: Keep related functionality together, separate concerns clearly
+- **Package Structure**: Implement proper package structure with `__init__.py` files
 
 ---
 > Source: [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer) — distributed by [TomeVault](https://tomevault.io).
