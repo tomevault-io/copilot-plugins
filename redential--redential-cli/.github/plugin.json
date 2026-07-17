@@ -1,0 +1,9 @@
+{
+  "name": "redential--redential-cli",
+  "displayName": "redential-cli",
+  "description": "Turn private work into an NDA-safe credential that shows what you can build \u2014 and companies can trust more than a CV.",
+  "version": "1.0.0",
+  "author": "Redential",
+  "homepage": "https://github.com/Redential/redential-cli",
+  "skills": []
+}
