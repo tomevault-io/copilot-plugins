@@ -1,0 +1,9 @@
+{
+  "name": "liliang-cn--agent-go",
+  "displayName": "agent-go",
+  "description": "AI Agent SDK designed for Go developers",
+  "version": "1.0.0",
+  "author": "liliang-cn",
+  "homepage": "https://github.com/liliang-cn/agent-go",
+  "skills": []
+}
