@@ -4,7 +4,7 @@
   "repo": "portofolio-nextjs",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Alfaturachman/portofolio-nextjs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T08:33:22Z"
+  "distributed_at": "2026-07-17T08:47:22Z"
 }
