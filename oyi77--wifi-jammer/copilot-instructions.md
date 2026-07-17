@@ -1,35 +1,35 @@
-## documentation
+## performance
 
-> - **Inline Comments**: Explain complex logic and business rules
+> - **Memory Efficiency**: Minimize memory allocations and garbage collection
 
-# Documentation Standards
+# Performance Optimization Rules
 
-## Code Documentation
-- **Inline Comments**: Explain complex logic and business rules
-- **API Documentation**: Comprehensive documentation for all public APIs
-- **Examples**: Include usage examples in docstrings
-- **Change Log**: Maintain detailed change log for all versions
+## Resource Management
+- **Memory Efficiency**: Minimize memory allocations and garbage collection
+- **CPU Optimization**: Use efficient algorithms and data structures
+- **Network Efficiency**: Minimize network overhead and latency
+- **Async Operations**: Use async/await for I/O-bound operations
+- **Connection Pooling**: Reuse network connections when possible
 
-## User Documentation
-- **Installation Guide**: Step-by-step installation instructions
-- **Usage Examples**: Practical examples for common use cases
-- **Troubleshooting**: Common issues and solutions
-- **Security Guidelines**: Clear security and ethical usage guidelines
-- **API Reference**: Complete API documentation with examples
+## Scalability Considerations
+- **Horizontal Scaling**: Design for multiple concurrent users
+- **Vertical Scaling**: Optimize for single-instance performance
+- **Resource Limits**: Implement configurable resource limits
+- **Progress Tracking**: Provide real-time progress updates
+- **Background Processing**: Handle long-running operations asynchronously
 
-## Docstring Standards
-- **Google Style**: Use Google style docstrings for all functions and classes
-- **Parameter Documentation**: Document all parameters with types and descriptions
-- **Return Values**: Document return types and values
-- **Examples**: Include practical usage examples
-- **Exceptions**: Document exceptions that may be raised
+## Algorithm Optimization
+- **Time Complexity**: Document and optimize time complexity
+- **Space Complexity**: Consider memory usage in algorithms
+- **Big O Notation**: Use appropriate algorithms for data size
+- **Performance Profiling**: Profile critical paths regularly
+- **Bottleneck Identification**: Identify and optimize performance bottlenecks
 
-## Project Documentation
-- **README.md**: Keep updated with usage examples and installation
-- **API Reference**: Complete API documentation with examples
-- **Security Warnings**: Prominent security and legal disclaimers
-- **Contributing Guidelines**: Clear guidelines for contributors
-- **Changelog**: Detailed change log for all versions
+## Network Performance
+- **Packet Efficiency**: Minimize packet overhead in WiFi attacks
+- **Rate Limiting**: Implement intelligent rate limiting for attacks
+- **Connection Management**: Efficient connection handling and cleanup
+- **Resource Monitoring**: Monitor system resources during operations
 
 ---
 > Source: [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer) — distributed by [TomeVault](https://tomevault.io).
