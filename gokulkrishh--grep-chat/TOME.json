@@ -2,7 +2,7 @@
   "name": "grep.chat",
   "owner": "gokulkrishh",
   "repo": "grep.chat",
-  "description": "",
+  "description": "Choose your AI. Ask anything. Get answers that matter.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gokulkrishh/grep.chat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T06:09:24Z"
+  "distributed_at": "2026-07-17T04:32:28Z"
 }
