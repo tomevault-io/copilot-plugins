@@ -1,0 +1,9 @@
+{
+  "name": "nesdevr--minley-budget-app",
+  "displayName": "minley-budget-app",
+  "description": "Native Android budget tracker for managing accounts, transactions, recurring items, reminders, and monthly personal finance activity.",
+  "version": "1.0.0",
+  "author": "NesDevr",
+  "homepage": "https://github.com/NesDevr/minley-budget-app",
+  "skills": []
+}
