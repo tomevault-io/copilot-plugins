@@ -1,0 +1,44 @@
+{
+  "name": "Multi-Agent-Research-Assistant",
+  "owner": "larrymargerum01",
+  "repo": "Multi-Agent-Research-Assistant",
+  "description": "Developed a Multi-Agent Research Assistant that coordinates specialized AI agents to search, analyze, summarize, and synthesize information from multiple sources, delivering comprehensive, citation-backed research reports and actionable insights.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/larrymargerum01/Multi-Agent-Research-Assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T02:39:03Z"
+}
