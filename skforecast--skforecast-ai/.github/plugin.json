@@ -1,0 +1,9 @@
+{
+  "name": "skforecast--skforecast-ai",
+  "displayName": "skforecast-ai",
+  "description": "AI-assisted time series forecasting workflows built on skforecast",
+  "version": "1.0.0",
+  "author": "skforecast",
+  "homepage": "https://github.com/skforecast/skforecast-ai",
+  "skills": []
+}
