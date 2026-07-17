@@ -1,0 +1,9 @@
+{
+  "name": "dbisina--relay",
+  "displayName": "relay",
+  "description": "Vendor-neutral orchestrator that rotates a coding task across multiple AI coding agents",
+  "version": "1.0.0",
+  "author": "dbisina",
+  "homepage": "https://github.com/dbisina/relay",
+  "skills": []
+}
