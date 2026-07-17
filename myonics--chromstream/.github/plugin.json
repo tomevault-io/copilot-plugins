@@ -1,0 +1,9 @@
+{
+  "name": "myonics--chromstream",
+  "displayName": "ChromStream",
+  "description": "Python package for parsing and processing on-line gas chromatography data",
+  "version": "1.0.0",
+  "author": "MyonicS",
+  "homepage": "https://github.com/MyonicS/ChromStream",
+  "skills": []
+}
