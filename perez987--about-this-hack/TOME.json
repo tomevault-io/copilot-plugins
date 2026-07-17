@@ -1,0 +1,44 @@
+{
+  "name": "About-This-Hack",
+  "owner": "perez987",
+  "repo": "About-This-Hack",
+  "description": "Discover your hardware on macOS with this simple, user-friendly hardware info app that retains the beloved design of the classic 'About This Mac' interface, with a modern design (migrated to SwiftUI), while gaining access to a wealth of additional features.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/perez987/About-This-Hack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T08:42:36Z"
+}
