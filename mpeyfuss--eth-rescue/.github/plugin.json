@@ -1,0 +1,9 @@
+{
+  "name": "mpeyfuss--eth-rescue",
+  "displayName": "eth-rescue",
+  "description": "An interactive Ethereum CLI for recovering assets and contract control from an account whose private key or seed phrase has been compromised.",
+  "version": "1.0.0",
+  "author": "mpeyfuss",
+  "homepage": "https://github.com/mpeyfuss/eth-rescue",
+  "skills": []
+}
