@@ -1,0 +1,9 @@
+{
+  "name": "donaldmurillo--gofastr",
+  "displayName": "gofastr",
+  "description": "Declare your app once in a gofastr.yml blueprint \u2014 get a server-rendered UI, REST API, OpenAPI, MCP tools, and migrations as plain Go you own. Experimental, AI-agent-first, stdlib-first.",
+  "version": "1.0.0",
+  "author": "DonaldMurillo",
+  "homepage": "https://github.com/DonaldMurillo/gofastr",
+  "skills": []
+}
