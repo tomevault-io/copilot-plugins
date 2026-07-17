@@ -1,0 +1,9 @@
+{
+  "name": "bnema--dumber",
+  "displayName": "dumber",
+  "description": "Keyboard-driven web browser for tiling WMs, inspired by Zellij, built in Go.",
+  "version": "1.0.0",
+  "author": "bnema",
+  "homepage": "https://github.com/bnema/dumber",
+  "skills": []
+}
