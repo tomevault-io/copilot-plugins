@@ -1,0 +1,9 @@
+{
+  "name": "daffarestupratama--portfolio-web-fe",
+  "displayName": "portfolio-web-fe",
+  "description": "Frontend codebase for DIR's portfolio website, built with Next.js, TypeScript, and Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "daffarestupratama",
+  "homepage": "https://github.com/daffarestupratama/portfolio-web-fe",
+  "skills": []
+}
