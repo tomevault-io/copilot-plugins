@@ -4,7 +4,7 @@
   "repo": "clud",
   "description": "Claude & Codex CLI but with safety 3rd and God Mode always.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zackees/clud",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T04:35:24Z"
+  "distributed_at": "2026-07-17T04:37:24Z"
 }
