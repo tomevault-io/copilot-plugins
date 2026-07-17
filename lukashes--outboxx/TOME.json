@@ -4,7 +4,7 @@
   "repo": "outboxx",
   "description": "Outboxx - Lightweight PostgreSQL Change Data Capture in Zig",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lukashes/outboxx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T04:36:51Z"
+  "distributed_at": "2026-07-17T04:40:02Z"
 }
