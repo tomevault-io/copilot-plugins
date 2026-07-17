@@ -7,11 +7,11 @@ Real Doom running on Turso's VDBE bytecode — a fork of Turso plus a small LLVM
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tursodatabase/turso-vdbe-doom-example](https://github.com/tursodatabase/turso-vdbe-doom-example).
+Original source: `CLAUDE.md` in [tursodatabase/turso-vdbe-doom-example](https://github.com/tursodatabase/turso-vdbe-doom-example).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
