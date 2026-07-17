@@ -7,11 +7,11 @@ Devify is an AI-driven development platform created to accelerate R&D workflows 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cloud2ai/devify](https://github.com/cloud2ai/devify).
+Original source: `AGENTS.md` in [cloud2ai/devify](https://github.com/cloud2ai/devify).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
