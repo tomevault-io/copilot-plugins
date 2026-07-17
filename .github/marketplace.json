@@ -184219,6 +184219,11 @@
       "description": "System stats in your KDE Plasma panel, plus a rich, paginated tooltip"
     },
     {
+      "name": "donaldmurillo--gofastr",
+      "source": "./donaldmurillo--gofastr",
+      "description": "Declare your app once in a gofastr.yml blueprint \u2014 get a server-rendered UI, REST API, OpenAPI, MCP tools, and migrations as plain Go you own. Experimental, AI-agent-first, stdlib-first."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -208337,6 +208342,16 @@
       "name": "demonrain--anytimevibe",
       "source": "./demonrain--anytimevibe",
       "description": "anytimevibe"
+    },
+    {
+      "name": "davidondrej--monorepo",
+      "source": "./davidondrej--monorepo",
+      "description": "one workspace, many agents."
+    },
+    {
+      "name": "davidondrej--monorepo",
+      "source": "./davidondrej--monorepo",
+      "description": "one workspace, many agents."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -247204,6 +247219,36 @@
       "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e\u5386\u53f2\u6570\u636e\u7edf\u8ba1\u7684\u53cc\u8272\u7403\u5f69\u7968\u9884\u6d4b\u5de5\u5177\uff0c\u4f7f\u7528\u591a\u79cd\u7b97\u6cd5\u7b56\u7565\u751f\u6210\u53f7\u7801\u63a8\u8350\u3002\u6570\u636e\u6765\u6e90\u4e8e500\u5f69\u7968\u7f51\u7684\u771f\u5b9e\u5f00\u5956\u8bb0\u5f55\u3002"
     },
     {
+      "name": "tursodatabase--turso-vdbe-doom-example",
+      "source": "./tursodatabase--turso-vdbe-doom-example",
+      "description": "Real Doom running on Turso's VDBE bytecode \u2014 a fork of Turso plus a small LLVM-IR-to-VDBE compiler (vdbecc)."
+    },
+    {
+      "name": "tursodatabase--turso-vdbe-doom-example",
+      "source": "./tursodatabase--turso-vdbe-doom-example",
+      "description": "Real Doom running on Turso's VDBE bytecode \u2014 a fork of Turso plus a small LLVM-IR-to-VDBE compiler (vdbecc)."
+    },
+    {
+      "name": "cheenle--uhrr-mac",
+      "source": "./cheenle--uhrr-mac",
+      "description": "MAC OS. UHRR by BG1SB , forked "
+    },
+    {
+      "name": "leecyno1--wechat-chatlog-analysis",
+      "source": "./leecyno1--wechat-chatlog-analysis",
+      "description": "\u5fae\u4fe1\u804a\u5929\u8bb0\u5f55\u5206\u6790 API\uff1aFastAPI + SQLite(FTS5)\uff0c\u652f\u6301 chatlog \u589e\u91cf\u540c\u6b65\u3001AI \u603b\u7ed3\u4e0e\u5019\u9009\u56de\u590d\uff0c\u96c6\u6210 WeChatPadPro/n8n\u3002"
+    },
+    {
+      "name": "healthsamurai--formbox-renderer",
+      "source": "./healthsamurai--formbox-renderer",
+      "description": "React renderer for HL7\u00ae FHIR\u00ae Questionnaires"
+    },
+    {
+      "name": "wispsnow--cppgamedev",
+      "source": "./wispsnow--cppgamedev",
+      "description": "website repo of cppgamedev.cpp"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269924,6 +269969,16 @@
       "description": "Let AI grade your post before the algorithm does."
     },
     {
+      "name": "vercel-labs--wc26cup",
+      "source": "./vercel-labs--wc26cup",
+      "description": "World Cup 2026 X bot"
+    },
+    {
+      "name": "infusionvictor--warren-buffett-jr",
+      "source": "./infusionvictor--warren-buffett-jr",
+      "description": "warren-buffett-jr"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -274672,6 +274727,26 @@
       "name": "mc3545dada--2024hvibe",
       "source": "./mc3545dada--2024hvibe",
       "description": "2024\u7535\u8d5bh\u9898\u7eafvibe coding\u7248\u672c\u4ed3\u5e93"
+    },
+    {
+      "name": "davidondrej--opendataset",
+      "source": "./davidondrej--opendataset",
+      "description": "Generate small, high-quality, HuggingFace-ready datasets for any domain, using any model on OpenRouter."
+    },
+    {
+      "name": "larrymargerum01--multi-agent-research-assistant",
+      "source": "./larrymargerum01--multi-agent-research-assistant",
+      "description": "Developed a Multi-Agent Research Assistant that coordinates specialized AI agents to search, analyze, summarize, and synthesize information from multiple sources, delivering comprehensive, citation-ba"
+    },
+    {
+      "name": "aigeniusinstitute--deep-think",
+      "source": "./aigeniusinstitute--deep-think",
+      "description": "DeepThink, A Loop Engineering App Running On Desktop, and Integregate IM channels (feishu, wexin, etc.)"
+    },
+    {
+      "name": "davidondrej--opendataset",
+      "source": "./davidondrej--opendataset",
+      "description": "Generate small, high-quality, HuggingFace-ready datasets for any domain, using any model on OpenRouter."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -400222,6 +400297,156 @@
       "name": "domuk-k--open-managed-agents",
       "source": "./domuk-k--open-managed-agents",
       "description": "Open-source Claude Managed Agents clone in Go. Provider-agnostic, self-hosted, single binary."
+    },
+    {
+      "name": "erezsob--meal-planning",
+      "source": "./erezsob--meal-planning",
+      "description": "meal-planning"
+    },
+    {
+      "name": "jimeastburn--class-registration-system",
+      "source": "./jimeastburn--class-registration-system",
+      "description": "class-registration-system"
+    },
+    {
+      "name": "drakehuang81--trading-strategy",
+      "source": "./drakehuang81--trading-strategy",
+      "description": "trading-strategy"
+    },
+    {
+      "name": "lt2236465917-design--design-heist",
+      "source": "./lt2236465917-design--design-heist",
+      "description": "Codex skill for authorized high-fidelity website reconstruction"
+    },
+    {
+      "name": "octout--ai-chat-public",
+      "source": "./octout--ai-chat-public",
+      "description": "ai-chat-public"
+    },
+    {
+      "name": "artcode379--kelvrix-enara-958341",
+      "source": "./artcode379--kelvrix-enara-958341",
+      "description": "kelvrix-enara-958341"
+    },
+    {
+      "name": "manojkushwah2025--annotatar",
+      "source": "./manojkushwah2025--annotatar",
+      "description": "Annotatar"
+    },
+    {
+      "name": "emilianroger03--java-practice",
+      "source": "./emilianroger03--java-practice",
+      "description": "java-practice"
+    },
+    {
+      "name": "shruthisree07--travel",
+      "source": "./shruthisree07--travel",
+      "description": "travel"
+    },
+    {
+      "name": "fionetu--2048-ai",
+      "source": "./fionetu--2048-ai",
+      "description": "2048-ai"
+    },
+    {
+      "name": "burinboo256--openmetadata-governance-hub",
+      "source": "./burinboo256--openmetadata-governance-hub",
+      "description": "openmetadata-governance-hub"
+    },
+    {
+      "name": "veeshegrt--moneyapp",
+      "source": "./veeshegrt--moneyapp",
+      "description": "vibecoding\u5165\u95e8\u9879\u76ee"
+    },
+    {
+      "name": "ronnjoha--kaffekalkulator",
+      "source": "./ronnjoha--kaffekalkulator",
+      "description": "Kaffekalkulator"
+    },
+    {
+      "name": "kiketon007--full-stack-adonisjs-s5-enrique-reano",
+      "source": "./kiketon007--full-stack-adonisjs-s5-enrique-reano",
+      "description": "full-stack-adonisjs-s5-enrique-reano"
+    },
+    {
+      "name": "smart123-12--excel-master-academy",
+      "source": "./smart123-12--excel-master-academy",
+      "description": "excel-master-academy"
+    },
+    {
+      "name": "yostos--zenn-contents",
+      "source": "./yostos--zenn-contents",
+      "description": "Zenn \u3078\u306e\u6295\u7a3f\u8a18\u4e8b\u306e\u539f\u7a3f"
+    },
+    {
+      "name": "daffarestupratama--portfolio-web-fe",
+      "source": "./daffarestupratama--portfolio-web-fe",
+      "description": "Frontend codebase for DIR's portfolio website, built with Next.js, TypeScript, and Tailwind CSS."
+    },
+    {
+      "name": "chshzh--claude",
+      "source": "./chshzh--claude",
+      "description": "Personal collection of specialized Claude skills for Nordic nRF Connect SDK development, debugging, and workflow automation"
+    },
+    {
+      "name": "chienlu7n--chanting-tracker",
+      "source": "./chienlu7n--chanting-tracker",
+      "description": "chanting-tracker"
+    },
+    {
+      "name": "jimeastburn--class-registration-system",
+      "source": "./jimeastburn--class-registration-system",
+      "description": "class-registration-system"
+    },
+    {
+      "name": "ojbrown112--ai-study-tool-landing",
+      "source": "./ojbrown112--ai-study-tool-landing",
+      "description": "ai-study-tool-landing"
+    },
+    {
+      "name": "pearlawatsuki--tnx-for-fvtt",
+      "source": "./pearlawatsuki--tnx-for-fvtt",
+      "description": "TNX-for-FVTT"
+    },
+    {
+      "name": "pulkitsakhuja16-cell--horizon-studio",
+      "source": "./pulkitsakhuja16-cell--horizon-studio",
+      "description": "horizon-studio"
+    },
+    {
+      "name": "tom-cat-mao--myresume",
+      "source": "./tom-cat-mao--myresume",
+      "description": "myResume"
+    },
+    {
+      "name": "karindath--recettes-web",
+      "source": "./karindath--recettes-web",
+      "description": "Repo de test Forge \u2014 carnet de recettes (recettes-web)"
+    },
+    {
+      "name": "clayparrish-cyber--infrastructure",
+      "source": "./clayparrish-cyber--infrastructure",
+      "description": "infrastructure"
+    },
+    {
+      "name": "asadasivan--genai-playbooks",
+      "source": "./asadasivan--genai-playbooks",
+      "description": "genai_playbooks"
+    },
+    {
+      "name": "kon0616--brainstorm",
+      "source": "./kon0616--brainstorm",
+      "description": "brainstorm"
+    },
+    {
+      "name": "jimeastburn--class-registration-system",
+      "source": "./jimeastburn--class-registration-system",
+      "description": "class-registration-system"
+    },
+    {
+      "name": "studio4x--image-converter-hub",
+      "source": "./studio4x--image-converter-hub",
+      "description": "image-converter-hub"
     }
   ]
 }
