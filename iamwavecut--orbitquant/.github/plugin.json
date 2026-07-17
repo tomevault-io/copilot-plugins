@@ -1,0 +1,9 @@
+{
+  "name": "iamwavecut--orbitquant",
+  "displayName": "OrbitQuant",
+  "description": "Calibration-free OrbitQuant for transformer backbones, with Hugging Face integration and packed CUDA/Metal inference",
+  "version": "1.0.0",
+  "author": "iamwavecut",
+  "homepage": "https://github.com/iamwavecut/OrbitQuant",
+  "skills": []
+}
