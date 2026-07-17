@@ -7,11 +7,11 @@ Spring AI Agent 学习
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Juncai22/spring-ai-agent-learning](https://github.com/Juncai22/spring-ai-agent-learning).
+Original source: `CLAUDE.md` in [Juncai22/spring-ai-agent-learning](https://github.com/Juncai22/spring-ai-agent-learning).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
