@@ -1,93 +1,77 @@
-## grep-chat
+## cursor-rules
 
-> Git conventional commit message guidelines
+> How to add or edit Cursor rules in our project
 
 
-Use conventional commit format for clear and consistent commit messages.
+# Cursor Rules Location
 
-## Format
+How to add new cursor rules to the project,
 
-```
-<type>: <description>
-```
+0. Create .mdc for file extension
 
-## Common Types
+1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
 
-### **feat**: New Features
+   ```
+   .cursor/rules/
+   ├── your-rule-name.mdc
+   ├── another-rule.mdc
+   └── ...
+   ```
 
-```bash
-feat: add user authentication
-feat: implement dark mode toggle
-feat: add payment processing
-```
+2. Follow the naming convention:
+   - Use kebab-case for filenames
+   - Always use .mdc extension
+   - Make names descriptive of the rule's purpose
 
-### **fix**: Bug Fixes
+3. Directory structure:
 
-```bash
-fix: sidebar click issue
-fix: login form validation
-fix: memory leak in component
-```
+   ```
+   PROJECT_ROOT/
+   ├── .cursor/
+   │   └── rules/
+   │       ├── your-rule-name.mdc
+   │       └── ...
+   └── ...
+   ```
 
-### **chore**: Maintenance
+4. Never place rule files:
+   - In the project root
+   - In subdirectories outside .cursor/rules
+   - In any other location
 
-```bash
-chore: upgrade packages
-chore: update dependencies
-chore: configure build settings
-```
+5. Cursor rules have the following structure:
 
-### **refactor**: Code Restructuring
+````
+---
+description: Short description of the rule's purpose
+globs: optional/path/pattern/**/*
+alwaysApply: false
+---
+# Rule Title
 
-```bash
-refactor: sidebar for application
-refactor: user validation logic
-refactor: database queries
-```
+Main content explaining the rule with markdown formatting.
 
-### **docs**: Documentation
+1. Step-by-step instructions
+2. Code examples
+3. Guidelines
 
-```bash
-docs: update README
-docs: add API documentation
-docs: fix installation guide
-```
+Example:
+```typescript
+// Good example
+function goodExample() {
+  // Implementation following guidelines
+}
 
-### **style**: Code Formatting
+// Bad example
+function badExample() {
+  // Implementation not following guidelines
+}
+````
 
-```bash
-style: fix indentation
-style: resolve linting errors
-style: format with prettier
-```
+6. Adding rule
 
-### **test**: Testing
-
-```bash
-test: add user login tests
-test: fix failing unit tests
-test: add integration tests
-```
-
-## Examples
-
-```bash
-feat: add shopping cart functionality
-fix: resolve checkout button not working
-chore: update React to version 18
-refactor: extract reusable components
-docs: add component usage examples
-style: fix TypeScript linting warnings
-test: add form validation tests
-```
-
-## Rules
-
-- Use present tense ("add" not "added")
-- Keep descriptions under 50 characters
-- Start with lowercase after colon
-- No period at the end
+When adding a rule, if the rule file exists, make sure to add the new rule to end of file rather than replace the content of file
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/gokulkrishh) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [gokulkrishh/grep.chat](https://github.com/gokulkrishh/grep.chat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-17 -->
