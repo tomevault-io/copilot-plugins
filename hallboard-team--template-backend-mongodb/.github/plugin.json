@@ -1,0 +1,9 @@
+{
+  "name": "hallboard-team--template-backend-mongodb",
+  "displayName": "template-backend-mongodb",
+  "description": "A template with .NET and MongoDB database.",
+  "version": "1.0.0",
+  "author": "hallboard-team",
+  "homepage": "https://github.com/hallboard-team/template-backend-mongodb",
+  "skills": []
+}
