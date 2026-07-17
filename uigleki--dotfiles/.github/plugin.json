@@ -1,0 +1,9 @@
+{
+  "name": "uigleki--dotfiles",
+  "displayName": "dotfiles",
+  "description": "Maximum efficiency, minimum complexity development environment using Nix flakes.",
+  "version": "1.0.0",
+  "author": "uigleki",
+  "homepage": "https://github.com/uigleki/dotfiles",
+  "skills": []
+}
