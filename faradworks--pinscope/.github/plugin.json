@@ -1,0 +1,9 @@
+{
+  "name": "faradworks--pinscope",
+  "displayName": "Pinscope",
+  "description": "A comprehensive datasheet-backed electrical schematic reviewer",
+  "version": "1.0.0",
+  "author": "Faradworks",
+  "homepage": "https://github.com/Faradworks/Pinscope",
+  "skills": []
+}
