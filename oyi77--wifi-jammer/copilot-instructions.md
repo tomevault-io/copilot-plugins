@@ -1,40 +1,35 @@
-## project-architecture
+## security
 
-> - **Modular Design**: Break system into independent, testable modules
+> |
 
-# Project Architecture Rules
+# Security Implementation Rules
 
-## System Architecture
-- **Modular Design**: Break system into independent, testable modules
-- **Layered Architecture**: Separate concerns into distinct layers (UI, Business Logic, Data Access)
-- **Service-Oriented**: Use service classes for business logic operations
-- **Repository Pattern**: Abstract data access through repository interfaces
-- **Event-Driven**: Use events for loose coupling between components
+## Attack Safety
+- **Rate Limiting**: Implement configurable rate limits for all attacks
+- **User Consent**: Require explicit confirmation before executing attacks
+- **Target Validation**: Validate target addresses and networks before attacks
+- **Resource Limits**: Prevent resource exhaustion attacks
+- **Timeout Mechanisms**: Implement timeouts for all network operations
 
-## Component Design
-- **Single Responsibility**: Each component has one clear purpose
-- **High Cohesion**: Related functionality grouped together
-- **Low Coupling**: Minimal dependencies between components
-- **Interface Segregation**: Expose only necessary methods
-- **Dependency Injection**: Inject dependencies rather than creating them
+## Privacy Protection
+- **Data Minimization**: Only collect necessary information
+- **Secure Logging**: Log sensitive operations without exposing details
+- **Network Respect**: Respect network boundaries and policies
+- **Audit Trails**: Maintain comprehensive logs for all operations
+- **Data Cleanup**: Securely dispose of collected data
 
-## Data Flow
-- **Unidirectional Data Flow**: Data flows in one direction through the system
-- **Immutable Data**: Prefer immutable data structures where possible
-- **State Management**: Centralized state management for complex state
-- **Event Sourcing**: Use events for state changes and audit trails
-- **Caching Strategy**: Implement appropriate caching at different levels
+## Warning Systems
+- **Clear Disclaimers**: Prominent warnings about legal and ethical use
+- **Educational Purpose**: Emphasize educational/testing nature
+- **Legal Notice**: Include legal disclaimers in documentation
+- **Safety Guidelines**: Provide safety guidelines for users
 
-## Code Architecture
-- **SOLID Principles**: Implement all SOLID principles strictly
-- **Design Patterns**: Use Factory, Strategy, Adapter, Observer, and Command patterns
-- **Code Organization**: Keep related functionality together, separate concerns clearly
-- **Package Structure**: Implement proper package structure with `__init__.py` files
-
-- **SOLID Principles**: Implement all SOLID principles strictly
-- **Design Patterns**: Use Factory, Strategy, Adapter, Observer, and Command patterns
-- **Code Organization**: Keep related functionality together, separate concerns clearly
-- **Package Structure**: Implement proper package structure with `__init__.py` files
+## Project-Specific Security
+- **WiFi Attacks**: All attacks must be rate-limited and safe
+- **Platform Detection**: Robust OS and capability detection
+- **Network Scanning**: Respect privacy and network policies
+- **Audit Logging**: Comprehensive logging for all operations
+- **CLI Warnings**: Clear warnings about legal and ethical use
 
 ---
 > Source: [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer) — distributed by [TomeVault](https://tomevault.io).
