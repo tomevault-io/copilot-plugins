@@ -1,0 +1,9 @@
+{
+  "name": "bjarkebolding--spark-comfyui",
+  "displayName": "spark-comfyui",
+  "description": "One script to install, run, update, and maintain ComfyUI on the NVIDIA DGX Spark (GB10 Grace Blackwell).",
+  "version": "1.0.0",
+  "author": "bjarkebolding",
+  "homepage": "https://github.com/bjarkebolding/spark-comfyui",
+  "skills": []
+}
