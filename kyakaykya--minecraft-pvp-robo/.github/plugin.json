@@ -1,0 +1,9 @@
+{
+  "name": "kyakaykya--minecraft-pvp-robo",
+  "displayName": "Minecraft-PVP-ROBO",
+  "description": "PVP ROBO is a windows-first, no-render minecraft PvP reinforcement-learning environment",
+  "version": "1.0.0",
+  "author": "KyaKayKya",
+  "homepage": "https://github.com/KyaKayKya/Minecraft-PVP-ROBO",
+  "skills": []
+}
