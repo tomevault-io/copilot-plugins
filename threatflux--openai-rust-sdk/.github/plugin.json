@@ -1,0 +1,9 @@
+{
+  "name": "threatflux--openai-rust-sdk",
+  "displayName": "openai_rust_sdk",
+  "description": "openai_rust_sdk",
+  "version": "1.0.0",
+  "author": "ThreatFlux",
+  "homepage": "https://github.com/ThreatFlux/openai_rust_sdk",
+  "skills": []
+}
