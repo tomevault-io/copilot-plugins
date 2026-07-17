@@ -1,0 +1,9 @@
+{
+  "name": "andyrightnow--telegram-markdown-v2",
+  "displayName": "telegram-markdown-v2",
+  "description": "Transform your markdown to be ready and compatible for Telegram's MarkdownV2 parse mode",
+  "version": "1.0.0",
+  "author": "AndyRightNow",
+  "homepage": "https://github.com/AndyRightNow/telegram-markdown-v2",
+  "skills": []
+}
