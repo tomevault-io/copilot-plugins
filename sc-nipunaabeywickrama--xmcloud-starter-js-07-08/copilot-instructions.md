@@ -1,206 +1,156 @@
-## nextjs
+## project-context
 
-> Next.js specific patterns and best practices for XM Cloud starter development
+> XM Cloud Starter repository context and constraints
 
 
-# Next.js Development Patterns
+# Project Context
 
-## Configuration
+## Repository Overview
 
-Next.js Config:
-- Configure i18n for multi-language XM Cloud sites
-- Set up proper image domains for XM Cloud media
-- Implement rewrites for XM Cloud API routes
-- Configure webpack for SCSS and other assets
-- Set up proper build optimization
+This is the **XM Cloud Front End Application Starter Kits** repository containing multiple Next.js starter applications and SPA examples for Sitecore XM Cloud development.
 
-```javascript
-// next.config.js pattern
-const nextConfig = {
-  i18n: {
-    locales: ['en', 'en-CA'],
-    defaultLocale: process.env.DEFAULT_LANGUAGE || 'en',
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'edge*.**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'xmc-*.**',
-      },
-    ],
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/robots.txt',
-        destination: '/api/robots',
-      },
-      {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
-      },
-    ];
-  },
-};
+Repository Structure:
+- `/examples/` - Contains starter front-end applications (Next.js and SPA)
+- `/authoring/` - Sitecore content items, templates, and deployment configurations  
+- `/local-containers/` - Docker setup for local development environments
+- `xmcloud.build.json` - Primary configuration for XM Cloud deployment
+
+## Starter Applications
+
+Available Examples:
+- `basic-nextjs` - Simple Next.js starter with basic XM Cloud integration (App Router)
+- `basic-nextjs-pages-router` - Minimal Pages Router baseline for legacy patterns
+- `kit-nextjs-article-starter` - **Solterra & Co.** - Editorial-style template for lifestyle brands
+- `kit-nextjs-location-finder` - **Alaris** - Car brand template with location finder functionality
+- `kit-nextjs-product-listing` - **SYNC** - Product-focused template for audio gear companies
+- `kit-nextjs-skate-park` - Simple demo site showcasing component examples
+- `basic-spa` - SPA starter kit with Angular and Node proxy
+
+Each starter demonstrates:
+- Tailwind-based styling with Shadcn/ui components
+- Personalized homepage via URL parameters
+- Modular component architecture with variants
+- Localization support for English (en) and Canadian English (en-CA)
+
+## Technology Stack
+
+Core Technologies:
+- **Next.js 14+** - React framework with App Router (all starters except `basic-nextjs-pages-router`)
+- **TypeScript** - Strict type safety throughout all components
+- **Sitecore XM Cloud** - Headless content management and delivery
+- **Sitecore Content SDK** - Modern SDK for XM Cloud integration
+- **Tailwind CSS** - Utility-first CSS with container queries (@container)
+- **Shadcn/ui** - Modern component library with accessibility features
+
+Additional Libraries:
+- **Framer Motion** - Animation library for interactive components
+- **Lucide React** - Icon library for consistent iconography  
+- **next-localization** - Internationalization with dictionary support
+- **change-case** - String case transformation utilities
+
+Development Tools:
+- **Docker** - Containerized local development with Sitecore CM
+- **Node.js LTS** - JavaScript runtime environment
+- **npm** - Package management across all starter applications
+
+## Development Principles
+
+Multi-Starter Architecture:
+- Each example is a standalone application
+- Shared patterns and conventions across all starters
+- Independent deployment and development workflows
+- Common XM Cloud integration patterns
+
+Content-First Development:
+- Components are designed around Sitecore data structures
+- Field-driven rendering with proper fallbacks
+- Support for both connected and disconnected development modes
+- Proper handling of content authoring scenarios
+
+## Upstream repository, forks, and pull request scope
+
+Before you plan work that is intended as a **pull request**, determine **which repository is the target**: the **official upstream** (e.g. the public Sitecore `xmcloud-starter-js` repo) or a **user fork / private copy** the user uses as their own app.
+
+**Why this matters:** upstream maintains a **small, fixed set of starters** under `examples/` as **reference examples** that follow shared best practices—not an open collection of every vertical or use case.
+
+**Contributions to upstream (acceptable):**
+- **Improvements, bug fixes, and broadly useful features** in **existing** starters
+- **Documentation** and **shared tooling** that help those starters, consistent with the repo’s contribution rules
+
+**Do not propose or prepare pull requests to upstream** for:
+- **New example sites** or **additional** starter projects under `examples/`
+- **Bespoke extensions** of a starter for **one org’s** specific product or business requirements (those belong in a fork)
+- Changes that exist mainly to support a **single user’s** long-term product rather than a **reusable, general** improvement to the public examples
+
+**Encouraged on the user’s own fork (not as upstream PRs):**
+- **Adding more starters** or new example applications
+- **Heavily customizing** a starter for a **specific** deployment or product
+
+**Agent workflow**
+1. **Clarify the target** (ask if needed, or use remotes, repo URL, workspace context): **upstream** vs **fork/standalone** repository.
+2. If the target is **upstream**: do **not** create PRs that add **new example sites**, new `examples/*` applications, or fork-style bespoke scope; keep proposed PRs to **improvements / fixes / generally useful features** in **existing** starters.
+3. If the user works in **their own fork or template copy**: they may add starters and extend freely; align the work with **that** repository and avoid framing fork-only changes as an upstream PR.
+
+For human-readable policy, see @CONTRIBUTING.md and the [What we do not accept](CONTRIBUTING.md#what-we-do-not-accept) section.
+
+## Constraints and Guidelines
+
+Starter Independence:
+- Each starter is a standalone application. Copy shared utilities and components into the starter; do not create shared packages or symlinks across starters. Each starter can be run and maintained independently.
+
+File Organization:
+- Each starter maintains its own `src/` directory structure
+- Shared utilities should be copied, not shared (no monorepo linking)
+- Configuration files specific to each starter application
+- Independent package.json for each example
+
+Development Workflow:
+
+DMZ git flow will be implemented in the future to support better development practices, scaling, efficiency and developer productivity.
+Below is an outline of the planned workflow and processes that will be followed:
+
+- Has a shared main repo (`upstream repository`) with two key branches: `main` and `dmz`
+- Each contributor uses their own fork as their workspace
+- Feature branches are sourced from `main` but Pull Requests (PRs) with changes are merged to `dmz` branch 
+- `main` branch in the `upstream repository` is always clean (deployable, branchable and reliable). It does not accept PRs created by developers.
+- Developers should push changes to feature branches in their own fork and then create PRs to `dmz` branch in the `upstream repository`.  
+- PRs are merged by reviewers to the `dmz` branch after review and validation. Conflicts should be resolved by rebasing onto main. 
+- Once a PR has been merged into `dmz` branch the code changes are validated through an automated full build of the `dmz` branch `HEAD` in the Continous Integration server.  
+- The `dmz` branch acts as a staging/integration branch and once sevearl chnages are integrated and tested in the `dmz` branch they can be manually merged to the `main` branch using merge commits (usually at the end of 1 or 2 weeks)
+- If the build fails, the changes are or issues are found in the `dmz` branch during integration, the problamatic commits can be reverted
+
+- Each starter can be developed independently in its own directory
+- Copy `.env.remote.example` to `.env.local` for local development
+- Required environment variables: `SITECORE_EDGE_CONTEXT_ID`, `NEXT_PUBLIC_DEFAULT_SITE_NAME`, `SITECORE_EDITING_SECRET`
+- Docker containers available for full local Sitecore development stack
+
+Local Development Setup:
+```bash
+# Navigate to any starter
+cd examples/kit-nextjs-article-starter
+
+# Copy environment template
+cp .env.remote.example .env.local
+
+# Edit .env.local with your XM Cloud values
+# Install dependencies and start
+npm install
+npm run dev
 ```
 
-Environment Variables:
-- Use NEXT_PUBLIC_ prefix for client-side variables
-- Validate required environment variables at build time
-- Use different .env files for different environments
-- Never commit sensitive environment variables
-
-## App Router Pages and Routing
-
-Catch-All Routes:
-- Use `src/app/[site]/[locale]/[[...path]]/page.tsx` for XM Cloud page routing
-- Fetch layout data in the Server Component with `sitecore-client`
-- Call `notFound()` when the route does not exist
-- Use `draftMode()` and editing search params for preview and Pages Editor
-
-```typescript
-// page.tsx pattern (App Router)
-export default async function Page({ params, searchParams }: PageProps) {
-  const { site, locale, path } = await params;
-  const draft = await draftMode();
-
-  let page;
-  if (draft.isEnabled) {
-    const editingParams = await searchParams;
-    page = await client.getPreview(editingParams);
-  } else {
-    page = await client.getPage(path ?? [], { site, locale });
-  }
-
-  if (!page) {
-    notFound();
-  }
-
-  return (/* Layout + Providers */);
-}
-```
-
-Pages Router:
-- Only `examples/basic-nextjs-pages-router` uses `src/pages/[[...path]].tsx` with `getStaticProps` / `getServerSideProps`
-- Do not add Pages Router patterns to App Router starters
-
-## API Routes
-
-XM Cloud Integration:
-- Create API routes for XM Cloud services
-- Handle authentication and authorization properly
-- Implement proper error handling and logging
-- Cache responses when appropriate
-
-```typescript
-// src/app/api/robots/route.ts pattern
-import { createRobotsRouteHandler } from '@sitecore-content-sdk/nextjs/route-handler';
-
-const { GET: sitecoreGET } = createRobotsRouteHandler({ client, sites });
-
-export async function GET(request: NextRequest) {
-  return sitecoreGET(request);
-}
-```
-
-## Proxy (request pipeline)
-
-App Router starters use `src/proxy.ts` (not `src/middleware.ts`) with Content SDK proxy classes:
-- `LocaleProxy` - locale detection and routing
-- `AppRouterMultisiteProxy` - site resolution
-- `RedirectsProxy` - Sitecore redirect rules
-- `PersonalizeProxy` - personalization
-
-```typescript
-// src/proxy.ts pattern
-import { defineProxy, LocaleProxy, AppRouterMultisiteProxy } from '@sitecore-content-sdk/nextjs/proxy';
-
-export default function proxy(req: NextRequest) {
-  return defineProxy(locale, multisite, redirects, personalize).exec(req);
-}
-
-export const config = { matcher: [/* exclude api, _next, static assets */] };
-```
-
-Pages Router starter (`basic-nextjs-pages-router`) uses `src/proxy.ts` with the Pages Router multisite proxy variant.
-
-## Performance Optimization
-
-Image Optimization:
-- Always use NextImage component from ContentSDK for XM Cloud media as it supports inline editing in editor mode and uses Image component from next internally
-- Configure proper image domains and sizes
-- Implement lazy loading for below-fold images
-- Use proper alt text from XM Cloud fields
-
-Code Splitting:
-- Use dynamic imports for large components
-- Implement route-based code splitting
-- Lazy load non-critical functionality
-- Optimize bundle size with proper imports
-
-Caching:
-- Implement proper caching headers for XM Cloud content
-- Use ISR for frequently updated content
-- Cache API responses appropriately
-- Consider CDN caching strategies
-
-## Development Patterns
-
-TypeScript Integration:
-- Use proper TypeScript configuration
-- Define types for XM Cloud data structures
-- Implement proper type guards for runtime validation
-- Use strict mode for better type safety
-
-Error Handling:
-- Implement proper error boundaries
-- Handle XM Cloud API errors gracefully
-- Provide meaningful error messages to users
-- Log errors appropriately for debugging
-
-Testing:
-- Write tests for page components and API routes
-- Mock XM Cloud services in tests
-- Test error scenarios and edge cases
-- Use proper test data that matches XM Cloud structures
-
-## App Router
-
-Server Components:
-- Use Server Components for XM Cloud data fetching
-- Implement proper loading and error handling
-- Handle streaming for better user experience
-- Use Client Components only when necessary
-
-Layout Files:
-- Create proper layout hierarchy
-- Handle XM Cloud navigation and footer
-- Implement proper SEO meta tags
-- Support multi-language layouts
-
-## Deployment
-
-Build Optimization:
-- Optimize for XM Cloud deployment environment
-- Handle environment-specific configurations
-- Implement proper health checks
-- Monitor build performance and size
-
-XM Cloud Integration:
-- Configure proper rendering host settings
-- Handle XM Cloud deployment pipelines
-- Implement proper monitoring and logging
-- Support blue-green deployment patterns
+Deployment:
+- Uses `xmcloud.build.json` for rendering host configuration
+- Each starter can be enabled/disabled for deployment via `enabled` flag
+- Supports multiple rendering hosts in single repository
+- Automatic editing host creation when split deployment is disabled
+- Environment-specific configuration through XM Cloud Deploy Portal
 
 Referenced:
-@examples/kit-nextjs-article-starter/next.config.js
-@examples/basic-nextjs/src/app/[site]/[locale]/[[...path]]/page.tsx
-@examples/basic-nextjs/src/proxy.ts
-@examples/basic-nextjs/src/app/api/robots/route.ts
+@examples/
+@xmcloud.build.json
+@authoring/
+@local-containers/
+@CONTRIBUTING.md
 
 ---
 > Source: [sc-nipunaabeywickrama/xmcloud-starter-js-07-08](https://github.com/sc-nipunaabeywickrama/xmcloud-starter-js-07-08) — distributed by [TomeVault](https://tomevault.io).
