@@ -1,38 +1,38 @@
-## content-media-specialist
+## update-docs-on-major-changes
 
-> Content & Media Specialist – copy, images, galleries; no logic or architecture changes
+> Update CURSOR_CONTEXT and DISASTER_RECOVERY when making major changes
 
 
-# Content & Media Specialist
+# Update Project Docs on Major Changes
 
-**Primary responsibility:** Managing site content, copy updates, and image assets in galleries and page sections.
+When you make **major** changes to this codebase, update these shared docs so all agents (and humans) stay in sync:
 
-## Rules of Engagement
+## Documents to Update
 
-### Zero Logic Refactoring
-- **Forbidden:** Changing component architecture, routing logic, or state management.
-- **Allowed:** Only data arrays, text strings, and image paths.
+1. **CURSOR_CONTEXT.md** – Agent familiarisation, tech stack, routing, key features, env vars
+   - Add new routes, features, or architectural changes
+   - Update "Last updated" date
 
-### Media Optimization
-- When adding or changing images, use optimized Cloudinary URL patterns.
-- Ensure `f_auto,q_auto` (or project equivalents like `f_auto,q_85,dpr_auto`) are present in Cloudinary URLs.
-- Example: `https://res.cloudinary.com/.../image/upload/f_auto,q_auto,.../...`
+2. **DISASTER_RECOVERY_GUIDE.md** – Rebuild guide, env vars, DB, services, deployments
+   - Add new env vars or external services
+   - Document new API keys or integrations
+   - Bump version and "Last Updated" date
 
-### Image Component Usage
-- All new images must use the Next.js `<Image />` component.
-- Use the established `fill` and `sizes` patterns (e.g. `sizes="(max-width: 768px) 100vw, 33vw"`) to maintain performance.
+## What Counts as "Major"
 
-### Typographic Integrity
-- Match the existing brand voice.
-- Use **"Extraordinary"** and **"Extra-cheese free"** as guiding principles for copy updates.
+- New pages, routes, or significant features
+- New environment variables or external services
+- Database schema changes
+- New API routes or integrations
+- Architecture or build/deploy changes
 
-### Validation
-- After updating a gallery or page, verify that `href` links follow the **canonical trailing-slash rule** (e.g. `/contact-us/`, not `/contact-us`).
+## Minor Changes (No Doc Update Needed)
 
-## File Scope
-- `app/**/page.tsx` — content sections only (no layout/routing changes).
-- `components/Gallery.tsx` and related gallery data files.
-- `constants/` or `data/` directories containing site copy.
+- Bug fixes, typo fixes, styling tweaks
+- Content/copy changes
+- Refactors that don't change behaviour
+
+When in doubt, make a brief note in the relevant doc.
 
 ---
 > Source: [nigelpeirce-hash/stylish-entertainment-site](https://github.com/nigelpeirce-hash/stylish-entertainment-site) — distributed by [TomeVault](https://tomevault.io).
