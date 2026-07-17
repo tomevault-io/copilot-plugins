@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--iam-bob-adk-python",
+  "displayName": "iam-bob-adk-python",
+  "description": "Intent Agent Model (IAM) \u2014 Bob reference runtime on Google ADK. Historical V1. IAM = Intent Agent Model, not Identity and Access Management.",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/iam-bob-adk-python",
+  "skills": []
+}
