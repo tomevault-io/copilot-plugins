@@ -7,11 +7,11 @@ Mosaic UI for WPF is a control library that seeks to provide compartmentalized c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [blakepell/MosaicUIWpf](https://github.com/blakepell/MosaicUIWpf).
+Original source: `AGENTS.md` in [blakepell/MosaicUIWpf](https://github.com/blakepell/MosaicUIWpf).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
