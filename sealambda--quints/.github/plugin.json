@@ -1,0 +1,9 @@
+{
+  "name": "sealambda--quints",
+  "displayName": "quints",
+  "description": "Swiss VAT (MWST), QR-bill invoicing, and KMU statements for plain-text accounting on beancount \u2014 a deterministic CLI you can drive with an AI coding agent.",
+  "version": "1.0.0",
+  "author": "sealambda",
+  "homepage": "https://github.com/sealambda/quints",
+  "skills": []
+}
