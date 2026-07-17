@@ -4,7 +4,7 @@
   "repo": "itemize",
   "description": "Automatically itemize and categorize retail transactions in Monarch Money",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eshaffer321/itemize",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T06:35:47Z"
+  "distributed_at": "2026-07-17T06:36:52Z"
 }
