@@ -80264,6 +80264,11 @@
       "description": "\u4e2a\u4eba\u91d1\u878d\u6295\u8d44\u4ea4\u6613\uff0c\u9ad8\u6027\u80fd\u7684\u57fa\u7840\u6846\u67b6\u63a2\u7d22"
     },
     {
+      "name": "sergezuber--fabula-llm-5",
+      "source": "./sergezuber--fabula-llm-5",
+      "description": "Frontier models sell confidence. FABULA ships proof - an agent harness where any model is a swappable chip and every finished run mints a replayable, context-fingerprinted Proof-of-Done receipt. Runs "
+    },
+    {
       "name": "anhtester--antigravity-testing-kit",
       "source": "./anhtester--antigravity-testing-kit",
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL, WORKFLOW, RULE do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Antigravity h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
@@ -208437,6 +208442,11 @@
       "name": "busy-app--busylib-py",
       "source": "./busy-app--busylib-py",
       "description": "busylib-py"
+    },
+    {
+      "name": "vinkiyu--multiscribe-agent",
+      "source": "./vinkiyu--multiscribe-agent",
+      "description": "Multiscribe-Agent"
     },
     {
       "name": "yschimke--compose-ai-tools",
