@@ -247344,6 +247344,46 @@
       "description": "MeshBrowser - A browser to go with RServer that lets you browse web sites over Reticulum"
     },
     {
+      "name": "jloganolson--g1-poser",
+      "source": "./jloganolson--g1-poser",
+      "description": "g1-poser"
+    },
+    {
+      "name": "bnema--dumber",
+      "source": "./bnema--dumber",
+      "description": "Keyboard-driven web browser for tiling WMs, inspired by Zellij, built in Go."
+    },
+    {
+      "name": "webdriverio--desktop-mobile",
+      "source": "./webdriverio--desktop-mobile",
+      "description": "Integration services for cross-platform testing with WebdriverIO"
+    },
+    {
+      "name": "jloganolson--g1-poser",
+      "source": "./jloganolson--g1-poser",
+      "description": "g1-poser"
+    },
+    {
+      "name": "webdriverio--desktop-mobile",
+      "source": "./webdriverio--desktop-mobile",
+      "description": "Integration services for cross-platform testing with WebdriverIO"
+    },
+    {
+      "name": "eshaffer321--itemize",
+      "source": "./eshaffer321--itemize",
+      "description": "Automatically itemize and categorize retail transactions in Monarch Money"
+    },
+    {
+      "name": "eshaffer321--itemize",
+      "source": "./eshaffer321--itemize",
+      "description": "Automatically itemize and categorize retail transactions in Monarch Money"
+    },
+    {
+      "name": "andyrightnow--telegram-markdown-v2",
+      "source": "./andyrightnow--telegram-markdown-v2",
+      "description": "Transform your markdown to be ready and compatible for Telegram's MarkdownV2 parse mode"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270107,6 +270147,31 @@
       "name": "chatman-media--anastasiya-gurina",
       "source": "./chatman-media--anastasiya-gurina",
       "description": "Personal website of the artist Anastasiya Gurina"
+    },
+    {
+      "name": "magnus919--agent-skills",
+      "source": "./magnus919--agent-skills",
+      "description": "Curated collection of AI agent skills for Hermes and other agent frameworks"
+    },
+    {
+      "name": "bjarkebolding--spark-comfyui",
+      "source": "./bjarkebolding--spark-comfyui",
+      "description": "One script to install, run, update, and maintain ComfyUI on the NVIDIA DGX Spark (GB10 Grace Blackwell)."
+    },
+    {
+      "name": "mpeyfuss--eth-rescue",
+      "source": "./mpeyfuss--eth-rescue",
+      "description": "An interactive Ethereum CLI for recovering assets and contract control from an account whose private key or seed phrase has been compromised."
+    },
+    {
+      "name": "ayymoss--plutainer",
+      "source": "./ayymoss--plutainer",
+      "description": "Plutainer is a Docker image that simplifies running dedicated game servers (IW4x, AW-T7x, P-T4, P-T5, P-T6, P-IW5). It streamlines server setup and management through environment variables, automatic "
+    },
+    {
+      "name": "myonics--chromstream",
+      "source": "./myonics--chromstream",
+      "description": "Python package for parsing and processing on-line gas chromatography data"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -400642,6 +400707,61 @@
       "name": "shipshitshow--premiere",
       "source": "./shipshitshow--premiere",
       "description": "Frame-accurate transcript editing for the live Adobe Premiere Pro timeline via Adobe MCP \u2014 every cut is verified for A/V sync, missing frames, and back-to-back packing."
+    },
+    {
+      "name": "diiimodiiimo--songbird",
+      "source": "./diiimodiiimo--songbird",
+      "description": "Songbird"
+    },
+    {
+      "name": "tsukasai--keiba-ai",
+      "source": "./tsukasai--keiba-ai",
+      "description": "Japanese horse racing (\u7af6\u99ac/Keiba) AI prediction system for JRA"
+    },
+    {
+      "name": "nesdevr--minley-budget-app",
+      "source": "./nesdevr--minley-budget-app",
+      "description": "Native Android budget tracker for managing accounts, transactions, recurring items, reminders, and monthly personal finance activity."
+    },
+    {
+      "name": "carlosceballos0427--cookiesscan",
+      "source": "./carlosceballos0427--cookiesscan",
+      "description": "cookiesscan"
+    },
+    {
+      "name": "diiimodiiimo--songbird",
+      "source": "./diiimodiiimo--songbird",
+      "description": "Songbird"
+    },
+    {
+      "name": "opscale-co--nova-comments",
+      "source": "./opscale-co--nova-comments",
+      "description": "nova-comments"
+    },
+    {
+      "name": "jabez4jc--simplifyed-scripts",
+      "source": "./jabez4jc--simplifyed-scripts",
+      "description": "Simplifyed-Scripts"
+    },
+    {
+      "name": "zwickelg--izkor",
+      "source": "./zwickelg--izkor",
+      "description": "izkor"
+    },
+    {
+      "name": "jimmy-app--website",
+      "source": "./jimmy-app--website",
+      "description": "Jimmy Coach Marketing Website"
+    },
+    {
+      "name": "eleanquintero--bookmaps",
+      "source": "./eleanquintero--bookmaps",
+      "description": "bookmaps"
+    },
+    {
+      "name": "swissperiences--swissperiences",
+      "source": "./swissperiences--swissperiences",
+      "description": "Premium Swiss experiences platform"
     }
   ]
 }
