@@ -1,0 +1,44 @@
+{
+  "name": "zenn-contents",
+  "owner": "yostos",
+  "repo": "zenn-contents",
+  "description": "Zenn \u3078\u306e\u6295\u7a3f\u8a18\u4e8b\u306e\u539f\u7a3f",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yostos/zenn-contents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T02:48:34Z"
+}
