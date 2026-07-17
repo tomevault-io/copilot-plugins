@@ -1,0 +1,50 @@
+## dumber
+
+> > **Note:** This document describes conceptual architecture layers. The actual project structure uses `internal/` prefixes (e.g., `internal/application/usecase/`, `internal/application/port/`, `internal/infrastructure/`) to organize the code.
+
+# Clean Architecture
+
+## Layers
+
+> **Note:** This document describes conceptual architecture layers. The actual project structure uses `internal/` prefixes (e.g., `internal/application/usecase/`, `internal/application/port/`, `internal/infrastructure/`) to organize the code.
+
+| Layer | Contains | Depends On |
+|-------|----------|------------|
+| `app/` | Entry points, CLI/TUI, request handling | usecase |
+| `usecase/` | Business logic, orchestration | domain, boundaries |
+| `domain/` | Entities, value objects, utils | nothing |
+| `boundaries/in` | Inbound interfaces (services) | domain |
+| `boundaries/out` | Outbound interfaces (repos, clients) | domain |
+| `adapters/` | Interface implementations | boundaries, domain |
+
+## Rules
+
+- **app**: Parse input, call usecase, format output. No business logic.
+- **usecase**: All business logic. Use boundaries for I/O.
+- **domain**: Pure functions only. No I/O.
+- **boundaries**: Interfaces only. Mock with `mockery generate`.
+
+## Anti-patterns strictly forbidden
+
+```text
+❌ app doing business logic
+❌ app calling adapters directly
+❌ usecase importing adapters
+❌ domain importing anything
+```
+
+## Commands
+
+Run before committing:
+- `make lint` - golangci-lint
+- `make test` - unit tests
+- `make check` - verify build, tests, tools
+- `go fmt ./...` - format code
+
+## Misc
+
+- vendor dir is gitignored
+
+---
+> Source: [bnema/dumber](https://github.com/bnema/dumber) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-17 -->
