@@ -247594,6 +247594,36 @@
       "description": "Advanced WiFi security testing tool \u2014 10 attack types (deauth, PMKID, evil twin, channel hop), CLI/TUI/GUI, cross-platform Linux/macOS/Windows"
     },
     {
+      "name": "superdesigndev--tools-registry",
+      "source": "./superdesigndev--tools-registry",
+      "description": "Shared Skill & Secret vault for your team and agents, without leaking keys. Join community here: https://discord.gg/6mQYYfFMAn"
+    },
+    {
+      "name": "reloop-labs--reloop",
+      "source": "./reloop-labs--reloop",
+      "description": "An open-source & self-hostable AWS SES / SendGrid / Mailchimp / Resend / Loops alternative."
+    },
+    {
+      "name": "lauragift21--mcp-server-workshop",
+      "source": "./lauragift21--mcp-server-workshop",
+      "description": "Cloudflare MCP Server Workshop"
+    },
+    {
+      "name": "ewrogers--arbiter",
+      "source": "./ewrogers--arbiter",
+      "description": "Network analyzer tool for Dark Ages"
+    },
+    {
+      "name": "git-scarrow--oracle-mcp-server",
+      "source": "./git-scarrow--oracle-mcp-server",
+      "description": "[MOVED \u2192 codeberg.org/scarrow/oracle-mcp-server] MCP server for Oracle database access"
+    },
+    {
+      "name": "ewrogers--arbiter",
+      "source": "./ewrogers--arbiter",
+      "description": "Network analyzer tool for Dark Ages"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270467,6 +270497,11 @@
       "name": "liliang-cn--agent-go",
       "source": "./liliang-cn--agent-go",
       "description": "AI Agent SDK designed for Go developers"
+    },
+    {
+      "name": "plocr--reasonix-computer-use",
+      "source": "./plocr--reasonix-computer-use",
+      "description": "\u4e00\u4e2a\u5b8c\u6574\u7684 Windows GUI \u81ea\u52a8\u5316 Reasonix \u63d2\u4ef6\u5305\u3002\u63d0\u4f9b\u622a\u56fe\u3001\u9f20\u6807\u3001\u952e\u76d8\u3001UI \u6811\u3001\u5e94\u7528\u53d1\u73b0\u7b49 12 \u4e2a MCP \u5de5\u5177\uff0c\u652f\u6301\u6280\u80fd\u3001\u94a9\u5b50\u548c\u8bb0\u5fc6\u7cfb\u7edf\u3002"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -401427,6 +401462,26 @@
       "name": "salehram--armillarylab",
       "source": "./salehram--armillarylab",
       "description": "A small tool to help me plan my astrophotography sessions and target. Built with the help of AI"
+    },
+    {
+      "name": "whitestack--keep",
+      "source": "./whitestack--keep",
+      "description": "Fork of keep, for testing purposes"
+    },
+    {
+      "name": "whitestack--keep",
+      "source": "./whitestack--keep",
+      "description": "Fork of keep, for testing purposes"
+    },
+    {
+      "name": "ommenkar--backyardcafe",
+      "source": "./ommenkar--backyardcafe",
+      "description": "BackyardCafe"
+    },
+    {
+      "name": "negimox--skillsense",
+      "source": "./negimox--skillsense",
+      "description": "Hacknation 2k25 November"
     }
   ]
 }
