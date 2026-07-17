@@ -1,97 +1,169 @@
-## general
+## javascript
 
-> Core coding principles and universal standards for XM Cloud starter applications
+> JavaScript/TypeScript-specific rules, naming conventions, and layout for XM Cloud development
 
 
-# General Coding Principles
+# JavaScript/TypeScript Rules
 
-## Universal Standards
+## Naming Conventions
 
-DRY Principle:
-- Don't Repeat Yourself - extract common functionality within a starter
-- Create reusable utilities and helper functions
-- Use composition over inheritance
-- Share types and interfaces across components within the same starter
-- Apply DRY within each starter only; do not share code or packages across starters (each starter is self-contained; copy utilities as needed)
+Variables and Functions:
+- Use camelCase: `handleClick()`, `isActive`, `prefersReducedMotion`
+- Boolean variables: prefix with `is`, `has`, `can`, `should`
+- Event handlers: prefix with `handle` or `on`: `handleClick`, `handleKeyDown`
+- State variables: descriptive names like `activeIndex`, `isExpanding`
 
-SOLID Principles:
-- Single Responsibility: each function/component has one purpose
-- Open/Closed: extend functionality through composition
-- Dependency Inversion: depend on abstractions, not implementations
+Components (React):
+- Use PascalCase: `ArticleHeader`, `ProductListing`, `VerticalImageAccordion`
+- Main component files: `Hero.tsx`, `ProductListing.tsx`
+- Component directories: kebab-case like `article-header/`, `product-listing/`
 
-Code Clarity:
-- Write self-documenting code with clear intent
-- Use meaningful names that express business concepts
-- Prefer explicit over implicit behavior
-- Make dependencies and requirements obvious
+Constants and Variables:
+- Use UPPER_SNAKE_CASE: `USER_ZIPCODE`, `DEFAULT_TIMEOUT`
+- Environment variables: `SITECORE_EDGE_CONTEXT_ID`, `NEXT_PUBLIC_DEFAULT_SITE_NAME`
+- Dictionary keys: `dictionaryKeys.HERO_SubmitCTALabel`
 
-## Architecture Patterns
+File Naming Patterns:
+- Utilities: `NoDataFallback.tsx`, `date-utils.ts`
+- Main components: `ComponentName.tsx`
 
-Starter Independence:
-- Each starter under `examples/` is a standalone, self-contained application
-- Copy shared utilities and components into the starter when needed; do not create shared packages or symlinks across starters
-- This keeps each starter independently runnable and maintainable
+Types and Interfaces:
+- Component props: `HeroProps`, `ArticleHeaderProps`, `ProductListingProps`
+- Field interfaces: `ArticleHeaderFields`, `HeroFields`
+- Parameter interfaces: `ArticleHeaderParams`, `VerticalImageAccordionParams`
+- Use `{ [key: string]: any; // eslint-disable-line }` for flexible params
 
-Modular Design:
-- Organize code into focused, cohesive components
-- Minimize coupling between modules
-- Use clear interfaces between layers
-- Follow established Next.js and XM Cloud patterns consistently
+## Code Layout and Organization
 
-Data Flow:
-- Prefer unidirectional data flow
-- Validate inputs at component boundaries
-- Transform data at appropriate layers
-- Handle errors close to their source
+Directory Structure:
+```
+src/
+  components/          # React components organized by feature
+    hero/             # Component directories with variants
+      Hero.tsx        # Main component file with props and variants
+    article-header/   # Component with complex structure
+    product-listing/  # Multi-variant component
+    ui/              # Shadcn/ui components
+    image/           # Reusable image wrapper
+    button-component/ # Button variations
+  lib/                # Configuration and utilities
+    component-props/  # Shared component props
+    constants.ts      # Application constants
+    utils.ts          # Common utilities
+  utils/              # Helper functions and utilities
+    NoDataFallback.tsx # Standard fallback component
+    date-utils.ts     # Date formatting utilities
+  hooks/              # Custom React hooks
+  variables/          # Constants and dictionary keys
+  styles/             # Styling files (global CSS)
+```
 
-Testing:
-- Write testable code with minimal dependencies
-- Use dependency injection for better testability
-- Mock external services and XM Cloud APIs
-- Test behavior, not implementation details
+File Organization:
+- Component directories contain main file, variants, and props
+- Main component file should contain variants and props following the Locality of Behavior pattern
+- Using `.dev.tsx` files for variant implementations is discouraged unless maintainability becomes dificult for the componenent and seperation can not be avoided
+- Shared utilities in dedicated directories within each starter (starters are independent; copy utilities into the starter, do not share across starters)
+- Group UI components in `ui/` subdirectory
 
-## Development Standards
+## Error Handling
 
-Pull request scope (upstream vs fork):
-- If work may become a **PR** to the **official upstream** repository, read **Upstream repository, forks, and pull request scope** in `project-context` rules. Upstream welcomes **improvements, bug fixes, and broadly useful features** in **existing** starters; it does **not** accept **new example sites**, **additional** starters, or **bespoke extensions** meant for a single org—those belong in the user’s **own fork** or **template** copy. Always confirm which repository the user is targeting before planning those kinds of changes.
+API Calls:
+- Always wrap XM Cloud API calls in try/catch blocks
+- Throw custom errors with context: `XMCloudFetchError`, `ComponentRenderError`
+- Handle edge cases with guard clauses
 
-Version Control:
-- Write descriptive commit messages
-- Keep commits focused and atomic
-- Use branching strategies appropriate to team size
-- Review code before merging to dev branch
+```typescript
+async function fetchLayoutData(path: string): Promise<LayoutData> {
+  if (!path) {
+    throw new Error('Path is required for layout data fetch');
+  }
+  
+  try {
+    const response = await sitecoreLayoutService.getRouteData(path);
+    return response.sitecore.route;
+  } catch (error) {
+    throw new XMCloudFetchError(`Failed to fetch layout data for path: ${path}`, error);
+  }
+}
+```
 
-Documentation:
-- Document public APIs and component interfaces
-- Include usage examples for complex functionality
-- Keep documentation close to code
-- Update documentation with code changes
+## Security
 
-Performance:
-- Optimize for readability first, performance second
-- Profile before optimizing
-- Cache expensive operations appropriately
-- Consider memory usage and cleanup in React components
+Input Validation:
+- Sanitize user inputs before processing
+- Validate data at application boundaries
+- Use type guards for runtime type checking
+- Escape content when rendering to prevent XSS
 
-## Quality Assurance
+Environment Variables:
+- Never hardcode sensitive values in source code
+- Use environment variables for all configuration
+- Validate environment variables at application startup
+- Use different .env files for different environments
 
-Code Review:
-- Review for logic, readability, and maintainability
-- Check error handling and edge cases
-- Verify tests cover new functionality
-- Ensure documentation is updated
+```typescript
+// Environment validation example
+const requiredEnvVars = [
+  'SITECORE_EDGE_CONTEXT_ID',
+  'NEXT_PUBLIC_DEFAULT_SITE_NAME',
+  'SITECORE_EDITING_SECRET'
+];
 
-Continuous Integration:
-- All tests must pass before merging
-- Linting and formatting checks must pass
-- Build process must complete successfully
-- No breaking changes without proper migration
+requiredEnvVars.forEach(envVar => {
+  if (!process.env[envVar]) {
+    throw new Error(`Missing required environment variable: ${envVar}`);
+  }
+});
+```
+
+## Performance
+
+Optimization Patterns:
+- Cache XM Cloud API responses using React Query or similar caching solutions
+- Use React.memo for expensive components
+- Lazy-load non-critical modules: `const Component = lazy(() => import('./Component'))`
+- Use useCallback and useMemo for expensive operations
+- Implement proper loading states for data fetching
+
+Next.js Specific:
+- Use Next.js Image component for optimized images
+- Implement proper ISR (Incremental Static Regeneration) patterns
+- Use dynamic imports for code splitting
+- Optimize bundle size with proper imports
+
+TypeScript:
+- Enable strict mode in tsconfig.json
+- Prefer type assertions over any: `value as LayoutData`
+- Use discriminated unions for complex state management
+- Define proper interfaces for XM Cloud data structures
+
+## Documentation
+
+Import Patterns:
+- Use `type` imports for TypeScript types: `import type React from 'react'`
+- Import Sitecore components: `import { Text, RichText, Image, useSitecore } from '@sitecore-content-sdk/nextjs'`
+- Import utilities: `import { cn } from '@/lib/utils'`
+- Import UI components: `import { Button } from '@/components/ui/button'`
+- Import as alias for reusable components: `import { Default as ImageWrapper } from '@/components/image/ImageWrapper.dev'`
+
+```typescript
+// Standard import pattern for XM Cloud components
+'use client'; // When client-side features needed
+
+import type React from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
+import { Text, RichText, Image, useSitecore } from '@sitecore-content-sdk/nextjs';
+import { ComponentProps } from '@/lib/component-props';
+import { NoDataFallback } from '@/utils/NoDataFallback';
+import { Default as ImageWrapper } from '@/components/image/ImageWrapper.dev';
+import { ButtonBase } from '@/components/button-component/ButtonComponent';
+```
 
 Referenced:
-@examples/kit-nextjs-article-starter/src/components/
-@examples/kit-nextjs-location-finder/src/components/
-@examples/kit-nextjs-product-listing/src/components/
-@examples/basic-nextjs/src/components/
+@examples/kit-nextjs-article-starter/src/components/article-header/ArticleHeader.tsx
+@examples/kit-nextjs-product-listing/src/components/product-listing/ProductListing.tsx
+@examples/kit-nextjs-article-starter/src/utils/NoDataFallback.tsx
 
 ---
 > Source: [sc-nipunaabeywickrama/xmcloud-starter-js-07-08](https://github.com/sc-nipunaabeywickrama/xmcloud-starter-js-07-08) — distributed by [TomeVault](https://tomevault.io).
