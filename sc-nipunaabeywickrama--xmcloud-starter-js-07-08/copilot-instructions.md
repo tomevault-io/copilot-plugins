@@ -1,169 +1,206 @@
-## javascript
+## nextjs
 
-> JavaScript/TypeScript-specific rules, naming conventions, and layout for XM Cloud development
+> Next.js specific patterns and best practices for XM Cloud starter development
 
 
-# JavaScript/TypeScript Rules
+# Next.js Development Patterns
 
-## Naming Conventions
+## Configuration
 
-Variables and Functions:
-- Use camelCase: `handleClick()`, `isActive`, `prefersReducedMotion`
-- Boolean variables: prefix with `is`, `has`, `can`, `should`
-- Event handlers: prefix with `handle` or `on`: `handleClick`, `handleKeyDown`
-- State variables: descriptive names like `activeIndex`, `isExpanding`
+Next.js Config:
+- Configure i18n for multi-language XM Cloud sites
+- Set up proper image domains for XM Cloud media
+- Implement rewrites for XM Cloud API routes
+- Configure webpack for SCSS and other assets
+- Set up proper build optimization
 
-Components (React):
-- Use PascalCase: `ArticleHeader`, `ProductListing`, `VerticalImageAccordion`
-- Main component files: `Hero.tsx`, `ProductListing.tsx`
-- Component directories: kebab-case like `article-header/`, `product-listing/`
-
-Constants and Variables:
-- Use UPPER_SNAKE_CASE: `USER_ZIPCODE`, `DEFAULT_TIMEOUT`
-- Environment variables: `SITECORE_EDGE_CONTEXT_ID`, `NEXT_PUBLIC_DEFAULT_SITE_NAME`
-- Dictionary keys: `dictionaryKeys.HERO_SubmitCTALabel`
-
-File Naming Patterns:
-- Utilities: `NoDataFallback.tsx`, `date-utils.ts`
-- Main components: `ComponentName.tsx`
-
-Types and Interfaces:
-- Component props: `HeroProps`, `ArticleHeaderProps`, `ProductListingProps`
-- Field interfaces: `ArticleHeaderFields`, `HeroFields`
-- Parameter interfaces: `ArticleHeaderParams`, `VerticalImageAccordionParams`
-- Use `{ [key: string]: any; // eslint-disable-line }` for flexible params
-
-## Code Layout and Organization
-
-Directory Structure:
-```
-src/
-  components/          # React components organized by feature
-    hero/             # Component directories with variants
-      Hero.tsx        # Main component file with props and variants
-    article-header/   # Component with complex structure
-    product-listing/  # Multi-variant component
-    ui/              # Shadcn/ui components
-    image/           # Reusable image wrapper
-    button-component/ # Button variations
-  lib/                # Configuration and utilities
-    component-props/  # Shared component props
-    constants.ts      # Application constants
-    utils.ts          # Common utilities
-  utils/              # Helper functions and utilities
-    NoDataFallback.tsx # Standard fallback component
-    date-utils.ts     # Date formatting utilities
-  hooks/              # Custom React hooks
-  variables/          # Constants and dictionary keys
-  styles/             # Styling files (global CSS)
+```javascript
+// next.config.js pattern
+const nextConfig = {
+  i18n: {
+    locales: ['en', 'en-CA'],
+    defaultLocale: process.env.DEFAULT_LANGUAGE || 'en',
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'edge*.**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'xmc-*.**',
+      },
+    ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/robots.txt',
+        destination: '/api/robots',
+      },
+      {
+        source: '/sitemap.xml',
+        destination: '/api/sitemap',
+      },
+    ];
+  },
+};
 ```
 
-File Organization:
-- Component directories contain main file, variants, and props
-- Main component file should contain variants and props following the Locality of Behavior pattern
-- Using `.dev.tsx` files for variant implementations is discouraged unless maintainability becomes dificult for the componenent and seperation can not be avoided
-- Shared utilities in dedicated directories within each starter (starters are independent; copy utilities into the starter, do not share across starters)
-- Group UI components in `ui/` subdirectory
+Environment Variables:
+- Use NEXT_PUBLIC_ prefix for client-side variables
+- Validate required environment variables at build time
+- Use different .env files for different environments
+- Never commit sensitive environment variables
 
-## Error Handling
+## App Router Pages and Routing
 
-API Calls:
-- Always wrap XM Cloud API calls in try/catch blocks
-- Throw custom errors with context: `XMCloudFetchError`, `ComponentRenderError`
-- Handle edge cases with guard clauses
+Catch-All Routes:
+- Use `src/app/[site]/[locale]/[[...path]]/page.tsx` for XM Cloud page routing
+- Fetch layout data in the Server Component with `sitecore-client`
+- Call `notFound()` when the route does not exist
+- Use `draftMode()` and editing search params for preview and Pages Editor
 
 ```typescript
-async function fetchLayoutData(path: string): Promise<LayoutData> {
-  if (!path) {
-    throw new Error('Path is required for layout data fetch');
+// page.tsx pattern (App Router)
+export default async function Page({ params, searchParams }: PageProps) {
+  const { site, locale, path } = await params;
+  const draft = await draftMode();
+
+  let page;
+  if (draft.isEnabled) {
+    const editingParams = await searchParams;
+    page = await client.getPreview(editingParams);
+  } else {
+    page = await client.getPage(path ?? [], { site, locale });
   }
-  
-  try {
-    const response = await sitecoreLayoutService.getRouteData(path);
-    return response.sitecore.route;
-  } catch (error) {
-    throw new XMCloudFetchError(`Failed to fetch layout data for path: ${path}`, error);
+
+  if (!page) {
+    notFound();
   }
+
+  return (/* Layout + Providers */);
 }
 ```
 
-## Security
+Pages Router:
+- Only `examples/basic-nextjs-pages-router` uses `src/pages/[[...path]].tsx` with `getStaticProps` / `getServerSideProps`
+- Do not add Pages Router patterns to App Router starters
 
-Input Validation:
-- Sanitize user inputs before processing
-- Validate data at application boundaries
-- Use type guards for runtime type checking
-- Escape content when rendering to prevent XSS
+## API Routes
 
-Environment Variables:
-- Never hardcode sensitive values in source code
-- Use environment variables for all configuration
-- Validate environment variables at application startup
-- Use different .env files for different environments
+XM Cloud Integration:
+- Create API routes for XM Cloud services
+- Handle authentication and authorization properly
+- Implement proper error handling and logging
+- Cache responses when appropriate
 
 ```typescript
-// Environment validation example
-const requiredEnvVars = [
-  'SITECORE_EDGE_CONTEXT_ID',
-  'NEXT_PUBLIC_DEFAULT_SITE_NAME',
-  'SITECORE_EDITING_SECRET'
-];
+// src/app/api/robots/route.ts pattern
+import { createRobotsRouteHandler } from '@sitecore-content-sdk/nextjs/route-handler';
 
-requiredEnvVars.forEach(envVar => {
-  if (!process.env[envVar]) {
-    throw new Error(`Missing required environment variable: ${envVar}`);
-  }
-});
+const { GET: sitecoreGET } = createRobotsRouteHandler({ client, sites });
+
+export async function GET(request: NextRequest) {
+  return sitecoreGET(request);
+}
 ```
 
-## Performance
+## Proxy (request pipeline)
 
-Optimization Patterns:
-- Cache XM Cloud API responses using React Query or similar caching solutions
-- Use React.memo for expensive components
-- Lazy-load non-critical modules: `const Component = lazy(() => import('./Component'))`
-- Use useCallback and useMemo for expensive operations
-- Implement proper loading states for data fetching
+App Router starters use `src/proxy.ts` (not `src/middleware.ts`) with Content SDK proxy classes:
+- `LocaleProxy` - locale detection and routing
+- `AppRouterMultisiteProxy` - site resolution
+- `RedirectsProxy` - Sitecore redirect rules
+- `PersonalizeProxy` - personalization
 
-Next.js Specific:
-- Use Next.js Image component for optimized images
-- Implement proper ISR (Incremental Static Regeneration) patterns
-- Use dynamic imports for code splitting
+```typescript
+// src/proxy.ts pattern
+import { defineProxy, LocaleProxy, AppRouterMultisiteProxy } from '@sitecore-content-sdk/nextjs/proxy';
+
+export default function proxy(req: NextRequest) {
+  return defineProxy(locale, multisite, redirects, personalize).exec(req);
+}
+
+export const config = { matcher: [/* exclude api, _next, static assets */] };
+```
+
+Pages Router starter (`basic-nextjs-pages-router`) uses `src/proxy.ts` with the Pages Router multisite proxy variant.
+
+## Performance Optimization
+
+Image Optimization:
+- Always use NextImage component from ContentSDK for XM Cloud media as it supports inline editing in editor mode and uses Image component from next internally
+- Configure proper image domains and sizes
+- Implement lazy loading for below-fold images
+- Use proper alt text from XM Cloud fields
+
+Code Splitting:
+- Use dynamic imports for large components
+- Implement route-based code splitting
+- Lazy load non-critical functionality
 - Optimize bundle size with proper imports
 
-TypeScript:
-- Enable strict mode in tsconfig.json
-- Prefer type assertions over any: `value as LayoutData`
-- Use discriminated unions for complex state management
-- Define proper interfaces for XM Cloud data structures
+Caching:
+- Implement proper caching headers for XM Cloud content
+- Use ISR for frequently updated content
+- Cache API responses appropriately
+- Consider CDN caching strategies
 
-## Documentation
+## Development Patterns
 
-Import Patterns:
-- Use `type` imports for TypeScript types: `import type React from 'react'`
-- Import Sitecore components: `import { Text, RichText, Image, useSitecore } from '@sitecore-content-sdk/nextjs'`
-- Import utilities: `import { cn } from '@/lib/utils'`
-- Import UI components: `import { Button } from '@/components/ui/button'`
-- Import as alias for reusable components: `import { Default as ImageWrapper } from '@/components/image/ImageWrapper.dev'`
+TypeScript Integration:
+- Use proper TypeScript configuration
+- Define types for XM Cloud data structures
+- Implement proper type guards for runtime validation
+- Use strict mode for better type safety
 
-```typescript
-// Standard import pattern for XM Cloud components
-'use client'; // When client-side features needed
+Error Handling:
+- Implement proper error boundaries
+- Handle XM Cloud API errors gracefully
+- Provide meaningful error messages to users
+- Log errors appropriately for debugging
 
-import type React from 'react';
-import { useState, useEffect, useRef } from 'react';
-import { cn } from '@/lib/utils';
-import { Text, RichText, Image, useSitecore } from '@sitecore-content-sdk/nextjs';
-import { ComponentProps } from '@/lib/component-props';
-import { NoDataFallback } from '@/utils/NoDataFallback';
-import { Default as ImageWrapper } from '@/components/image/ImageWrapper.dev';
-import { ButtonBase } from '@/components/button-component/ButtonComponent';
-```
+Testing:
+- Write tests for page components and API routes
+- Mock XM Cloud services in tests
+- Test error scenarios and edge cases
+- Use proper test data that matches XM Cloud structures
+
+## App Router
+
+Server Components:
+- Use Server Components for XM Cloud data fetching
+- Implement proper loading and error handling
+- Handle streaming for better user experience
+- Use Client Components only when necessary
+
+Layout Files:
+- Create proper layout hierarchy
+- Handle XM Cloud navigation and footer
+- Implement proper SEO meta tags
+- Support multi-language layouts
+
+## Deployment
+
+Build Optimization:
+- Optimize for XM Cloud deployment environment
+- Handle environment-specific configurations
+- Implement proper health checks
+- Monitor build performance and size
+
+XM Cloud Integration:
+- Configure proper rendering host settings
+- Handle XM Cloud deployment pipelines
+- Implement proper monitoring and logging
+- Support blue-green deployment patterns
 
 Referenced:
-@examples/kit-nextjs-article-starter/src/components/article-header/ArticleHeader.tsx
-@examples/kit-nextjs-product-listing/src/components/product-listing/ProductListing.tsx
-@examples/kit-nextjs-article-starter/src/utils/NoDataFallback.tsx
+@examples/kit-nextjs-article-starter/next.config.js
+@examples/basic-nextjs/src/app/[site]/[locale]/[[...path]]/page.tsx
+@examples/basic-nextjs/src/proxy.ts
+@examples/basic-nextjs/src/app/api/robots/route.ts
 
 ---
 > Source: [sc-nipunaabeywickrama/xmcloud-starter-js-07-08](https://github.com/sc-nipunaabeywickrama/xmcloud-starter-js-07-08) — distributed by [TomeVault](https://tomevault.io).
