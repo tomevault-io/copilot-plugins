@@ -7,11 +7,11 @@ Vendor-neutral orchestrator that rotates a coding task across multiple AI coding
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dbisina/relay](https://github.com/dbisina/relay).
+Original source: `CLAUDE.md` in [dbisina/relay](https://github.com/dbisina/relay).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
