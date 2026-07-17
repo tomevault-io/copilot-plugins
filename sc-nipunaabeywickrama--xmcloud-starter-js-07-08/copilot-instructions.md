@@ -1,206 +1,97 @@
-## code-style
+## general
 
-> Code style, vibe-coding principles, and quality standards for XM Cloud starters
+> Core coding principles and universal standards for XM Cloud starter applications
 
 
-# Code Style
+# General Coding Principles
 
-## Vibe-Coding Principles
+## Universal Standards
 
-Core Philosophy:
-- Write clean, modular, and idiomatic code
-- Prefer declarative over imperative patterns
-- Make code readable and self-documenting
-- TypeScript-first development approach
-- Component-driven architecture with XM Cloud integration
+DRY Principle:
+- Don't Repeat Yourself - extract common functionality within a starter
+- Create reusable utilities and helper functions
+- Use composition over inheritance
+- Share types and interfaces across components within the same starter
+- Apply DRY within each starter only; do not share code or packages across starters (each starter is self-contained; copy utilities as needed)
 
-Code Organization:
-- Use modern JavaScript/TypeScript features
-- Export public types at module boundaries
-- Prefer pure functions and thin wrappers
-- No top-level side effects (except page entry points)
-- Modular architecture with clear separation of concerns
+SOLID Principles:
+- Single Responsibility: each function/component has one purpose
+- Open/Closed: extend functionality through composition
+- Dependency Inversion: depend on abstractions, not implementations
 
-## Code Quality Standards
+Code Clarity:
+- Write self-documenting code with clear intent
+- Use meaningful names that express business concepts
+- Prefer explicit over implicit behavior
+- Make dependencies and requirements obvious
 
-TypeScript Usage:
-- Enable strict mode in all projects
-- Prefer explicit types over `any`
-- Use discriminated unions for complex state
-- Export types at module boundaries for reusability
-- Define proper interfaces for XM Cloud data structures
+## Architecture Patterns
 
-Functional Programming:
-- Prefer pure functions where possible
-- Use immutable data patterns
-- Avoid side effects in business logic
-- Compose small, focused functions
-- Use React hooks appropriately
+Starter Independence:
+- Each starter under `examples/` is a standalone, self-contained application
+- Copy shared utilities and components into the starter when needed; do not create shared packages or symlinks across starters
+- This keeps each starter independently runnable and maintainable
 
-Readability:
-- Use descriptive variable and function names
-- Keep functions small and focused (single responsibility)
-- Prefer self-documenting code over extensive comments
-- Use consistent naming patterns across all starters
+Modular Design:
+- Organize code into focused, cohesive components
+- Minimize coupling between modules
+- Use clear interfaces between layers
+- Follow established Next.js and XM Cloud patterns consistently
 
-## Component Development
-
-React Best Practices:
-- Use functional components with hooks
-- Implement proper prop validation with TypeScript
-- Handle loading and error states explicitly
-- Use React.memo for performance optimization when needed
-- Follow React 18+ patterns and concurrent features
-
-XM Cloud Component Patterns:
-- Always validate field existence before rendering
-- Provide meaningful fallbacks for missing content
-- Use Sitecore field components for proper rendering
-- Handle both editing and preview modes
-- Implement proper error boundaries
-- Handle destructuring, undefined errors and null values in datasource and field values gracefully
-
-```typescript
-// Good component pattern
-import { Text, Image, useSitecore } from '@sitecore-content-sdk/nextjs';
-
-interface HeroProps {
-  fields: {
-    data?: {
-      datasource?: {
-        title?: { jsonValue?: Field };
-        subtitle?: { jsonValue?: Field };
-        backgroundImage?: { jsonValue?: Field };
-      };
-    };
-  };
-}
-
-export default function Hero({ fields }: HeroProps) {
-  const { page } = useSitecore();
-  const { isEditing } = page.mode;
-
-  if (!fields) {
-    return <div>Hero content not configured</div>;
-  }
-
-  // Handle destructuring errors with safe fallbacks
-  const { data } = fields || {};
-  const { datasource } = data || {};
-  const { title, subtitle, backgroundImage } = datasource || {};
-
-  return (
-    <section className="hero">
-      {/* Show field components in editing mode even if no content */}
-      {(title?.jsonValue?.value || isEditing) && <Text field={title?.jsonValue} tag="h1" />}
-      {(subtitle?.jsonValue?.value || isEditing) && <Text field={subtitle?.jsonValue} tag="p" />}
-      {(backgroundImage?.jsonValue?.value?.src || isEditing) && (
-        <Image field={backgroundImage?.jsonValue} />
-      )}
-    </section>
-  );
-}
-```
-
-### Safe Destructuring Examples
-
-```typescript
-// ✅ Safe destructuring with fallbacks
-const { titleRequired, descriptionOptional } = fields || {};
-
-// ✅ Safe nested destructuring
-const { data: { datasource } = {} } = fields || {};
-
-// ✅ Safe field access with optional chaining
-field={fields.data?.datasource?.title?.jsonValue}
-
-// ❌ Unsafe - can throw destructuring errors
-const { title } = fields.data.datasource; // Error if fields.data is null
-
-// ❌ Unsafe - can throw undefined errors  
-field={fields.data.datasource.title.jsonValue} // Error if any part is null/undefined
-```
-
-## Error Handling
-
-Error Strategy:
-- Fail fast with clear, actionable messages
-- Provide context in error messages
-- Use custom error classes for domain-specific errors
-- Handle edge cases explicitly with guard clauses
-- Log errors appropriately for debugging
-
-XM Cloud Error Patterns:
-- Handle missing datasource gracefully
-- Provide fallback content for failed API calls
-- Implement proper error boundaries for component failures
-- Handle both connected and disconnected mode errors
-
-Security:
-- Sanitize user inputs and XM Cloud content
-- Validate data at boundaries
-- Never log sensitive information
-- Use environment variables for all configuration
-- Implement proper CSP headers
-
-## Development Workflow
-
-Styling:
-- Use Tailwind CSS for consistent styling across starters
-- Follow utility-first CSS principles
-- Use Shadcn/ui components for common UI elements
-- Implement responsive design patterns
-- Maintain consistent design tokens
+Data Flow:
+- Prefer unidirectional data flow
+- Validate inputs at component boundaries
+- Transform data at appropriate layers
+- Handle errors close to their source
 
 Testing:
-- Write tests for component behavior, not implementation
-- Mock XM Cloud services in unit tests
-- Test error scenarios and edge cases
-- Use proper test data that matches XM Cloud structures
-- Implement integration tests for critical paths
+- Write testable code with minimal dependencies
+- Use dependency injection for better testability
+- Mock external services and XM Cloud APIs
+- Test behavior, not implementation details
 
-Imports:
-- Use relative imports for local modules
-- Group imports logically (external, internal, relative)
-- Use barrel exports (index.ts) for clean APIs
-- Avoid deep import paths
-- Use consistent import ordering
+## Development Standards
 
-Lint and Format:
-- Keep ESLint + Prettier passing at all times
-- Follow configured style rules consistently
-- Use automated formatting on save
-- Address linting warnings promptly
-- Maintain consistent code style across all starters
+Pull request scope (upstream vs fork):
+- If work may become a **PR** to the **official upstream** repository, read **Upstream repository, forks, and pull request scope** in `project-context` rules. Upstream welcomes **improvements, bug fixes, and broadly useful features** in **existing** starters; it does **not** accept **new example sites**, **additional** starters, or **bespoke extensions** meant for a single org—those belong in the user’s **own fork** or **template** copy. Always confirm which repository the user is targeting before planning those kinds of changes.
 
-## Performance Considerations
+Version Control:
+- Write descriptive commit messages
+- Keep commits focused and atomic
+- Use branching strategies appropriate to team size
+- Review code before merging to dev branch
 
-Next.js Optimization:
-- Use Next.js Image component for optimized images
-- Implement proper ISR patterns for XM Cloud content
-- Use dynamic imports for code splitting
-- Optimize bundle size with tree shaking
-- Implement proper caching strategies
+Documentation:
+- Document public APIs and component interfaces
+- Include usage examples for complex functionality
+- Keep documentation close to code
+- Update documentation with code changes
 
-React Performance:
-- Use useCallback and useMemo appropriately
-- Implement proper key props for list rendering
-- Avoid unnecessary re-renders
-- Use React.lazy for component lazy loading
-- Profile performance in development mode
+Performance:
+- Optimize for readability first, performance second
+- Profile before optimizing
+- Cache expensive operations appropriately
+- Consider memory usage and cleanup in React components
 
-XM Cloud Performance:
-- Cache XM Cloud API responses appropriately
-- Use proper loading states for content fetching
-- Implement error boundaries to prevent cascade failures
-- Consider content freshness vs. performance trade-offs
-- Use proper GraphQL query optimization
+## Quality Assurance
+
+Code Review:
+- Review for logic, readability, and maintainability
+- Check error handling and edge cases
+- Verify tests cover new functionality
+- Ensure documentation is updated
+
+Continuous Integration:
+- All tests must pass before merging
+- Linting and formatting checks must pass
+- Build process must complete successfully
+- No breaking changes without proper migration
 
 Referenced:
 @examples/kit-nextjs-article-starter/src/components/
 @examples/kit-nextjs-location-finder/src/components/
 @examples/kit-nextjs-product-listing/src/components/
-@examples/basic-nextjs/src/
+@examples/basic-nextjs/src/components/
 
 ---
 > Source: [sc-nipunaabeywickrama/xmcloud-starter-js-07-08](https://github.com/sc-nipunaabeywickrama/xmcloud-starter-js-07-08) — distributed by [TomeVault](https://tomevault.io).
