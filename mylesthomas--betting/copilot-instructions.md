@@ -1,55 +1,124 @@
-## nextjs
+## python
 
-> Next.js with TypeScript and Tailwind UI best practices
+> Python best practices and patterns for modern software development with Flask and SQLite
 
 
-# Next.js Best Practices
+# Python Best Practices
 
 ## Project Structure
-- Use the App Router directory structure
-- Place components in `app` directory for route-specific components
-- Place shared components in `components` directory
-- Place utilities and helpers in `lib` directory
-- Use lowercase with dashes for directories (e.g., `components/auth-wizard`)
+- Use src-layout with `src/your_package_name/`
+- Place tests in `tests/` directory parallel to `src/`
+- Keep configuration in `config/` or as environment variables
+- Store requirements in `pyproject.toml`
+- Place static files in `static/` directory
+- Use `templates/` for Jinja2 templates
+- Source .venv/bin/activate in scripts
 
-## Components
-- Use Server Components by default
-- Mark client components explicitly with 'use client'
-- Wrap client components in Suspense with fallback
-- Use dynamic loading for non-critical components
-- Implement proper error boundaries
-- Place static content and interfaces at file end
+## Code Style
+- Follow Black code formatting
+- Use isort for import sorting
+- Follow PEP 8 naming conventions:
+  - snake_case for functions and variables
+  - PascalCase for classes
+  - UPPER_CASE for constants
+- Maximum line length of 88 characters (Black default)
+- Use absolute imports over relative imports
+
+## Type Hints
+- Use type hints for all function parameters and returns
+- Import types from `typing` module
+- Use `Optional[Type]` instead of `Type | None`
+- Use `TypeVar` for generic types
+- Define custom types in `types.py`
+- Use `Protocol` for duck typing
+
+## Flask Structure
+- Use Flask factory pattern
+- Organize routes using Blueprints
+- Use Flask-SQLAlchemy for database
+- Implement proper error handlers
+- Use Flask-Login for authentication
+- Structure views with proper separation of concerns
+
+## Database
+- Use SQLAlchemy ORM
+- Implement database migrations with Alembic
+- Use proper connection pooling
+- Define models in separate modules
+- Implement proper relationships
+- Use proper indexing strategies
+
+## Authentication
+- Use Flask-Login for session management
+- Implement Google OAuth using Flask-OAuth
+- Hash passwords with bcrypt
+- Use proper session security
+- Implement CSRF protection
+- Use proper role-based access control
+
+## API Design
+- Use Flask-RESTful for REST APIs
+- Implement proper request validation
+- Use proper HTTP status codes
+- Handle errors consistently
+- Use proper response formats
+- Implement proper rate limiting
+
+## Testing
+- Use pytest for testing
+- Write tests for all routes
+- Use pytest-cov for coverage
+- Implement proper fixtures
+- Use proper mocking with pytest-mock
+- Test all error scenarios
+
+## Security
+- Use HTTPS in production
+- Implement proper CORS
+- Sanitize all user inputs
+- Use proper session configuration
+- Implement proper logging
+- Follow OWASP guidelines
 
 ## Performance
-- Optimize images: Use WebP format, size data, lazy loading
-- Minimize use of 'useEffect' and 'setState'
-- Favor Server Components (RSC) where possible
-- Use dynamic loading for non-critical components
-- Implement proper caching strategies
+- Use proper caching with Flask-Caching
+- Implement database query optimization
+- Use proper connection pooling
+- Implement proper pagination
+- Use background tasks for heavy operations
+- Monitor application performance
 
-## Data Fetching
-- Use Server Components for data fetching when possible
-- Implement proper error handling for data fetching
-- Use appropriate caching strategies
-- Handle loading and error states appropriately
+## Error Handling
+- Create custom exception classes
+- Use proper try-except blocks
+- Implement proper logging
+- Return proper error responses
+- Handle edge cases properly
+- Use proper error messages
 
-## Routing
-- Use the App Router conventions
-- Implement proper loading and error states for routes
-- Use dynamic routes appropriately
-- Handle parallel routes when needed
+## Documentation
+- Use Google-style docstrings
+- Document all public APIs
+- Keep README.md updated
+- Use proper inline comments
+- Generate API documentation
+- Document environment setup
 
-## Forms and Validation
-- Use Zod for form validation
-- Implement proper server-side validation
-- Handle form errors appropriately
-- Show loading states during form submission
+## Development Workflow
+- Use virtual environments (venv)
+- Implement pre-commit hooks
+- Use proper Git workflow
+- Follow semantic versioning
+- Use proper CI/CD practices
+- Implement proper logging
 
-## State Management
-- Minimize client-side state
-- Use React Context sparingly
-- Prefer server state when possible
-- Implement proper loading states 
+## Dependencies
+- Pin dependency versions
+- Use requirements.txt for production
+- Separate dev dependencies
+- Use proper package versions
+- Regularly update dependencies
+- Check for security vulnerabilities
 
 ---
 > Source: [MylesThomas/betting](https://github.com/MylesThomas/betting) — distributed by [TomeVault](https://tomevault.io).
