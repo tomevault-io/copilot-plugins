@@ -1,13 +1,33 @@
-## ai-summaries
+## backend-venv
 
-> Route all AI summary files to docs/AI_summaries
+> Backend environment setup and activation
 
 
-# AI Summary File Routing
+# Backend Env Setup
 
-All `AI_summaries` files should be stored in `docs/AI_summaries`.  
-Do not place AI summaries elsewhere.  
-Keep paths consistent and relative.
+* Venv location: `backend/.venv`
+* If missing, create it:
+
+```bash
+cd backend
+uv venv || python3 -m venv .venv
+```
+
+* Activate:
+
+```bash
+source .venv/bin/activate
+```
+
+* Install deps (also creates venv if needed):
+
+```bash
+uv sync --native-tls
+```
+
+* Use uv when installing dependencies.
+* Add deps: `uv add <pkg>` • Deactivate: `deactivate`
+  
 
 ---
 > Source: [MylesThomas/betting](https://github.com/MylesThomas/betting) — distributed by [TomeVault](https://tomevault.io).
