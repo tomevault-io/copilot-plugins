@@ -1,14 +1,40 @@
-## wifi-jammer
+## code-standards
 
-> This is a Claude Code project configuration for a 1ai-ecosystem repository.
+> - **PEP 8 Compliance**: Follow Python style guide strictly
 
-# CLAUDE.md — 1ai-ecosystem Engineering Rules
+# Code Quality Standards
 
-This is a Claude Code project configuration for a 1ai-ecosystem repository.
+## Python Best Practices
+- **PEP 8 Compliance**: Follow Python style guide strictly
+  - Use snake_case for variables and functions
+  - Use PascalCase for classes
+  - Use UPPER_CASE for constants
+  - Maximum line length: 88 characters (black formatter)
+- **Type Hints**: Use type annotations for all function parameters and return values
+- **Docstrings**: Comprehensive docstrings for all public functions and classes
+  - Google style docstrings preferred
+  - Include parameter types, return types, and examples
+- **Error Handling**: Use specific exception types, not generic exceptions
 
-**You MUST read `AGENTS.md` in this repo's root.** It contains the mandatory engineering rules, session classification, and full protocol stack.
+## Code Structure
+- **Imports**: Group imports (standard library, third-party, local) with blank lines
+- **Functions**: Keep functions under 20 lines, methods under 15 lines
+- **Classes**: Keep classes focused and under 200 lines
+- **Modules**: Keep modules under 500 lines
+- **Comments**: Explain why, not what (code should be self-documenting)
 
-→ Read `AGENTS.md` now before proceeding with any other task.
+## Naming Conventions
+- **Descriptive Names**: Variables and functions should clearly indicate purpose
+- **Consistent Abbreviations**: Use consistent abbreviations across the codebase
+- **Avoid Magic Numbers**: Use named constants for all numeric values
+- **Boolean Names**: Use is_*, has_*, can_* prefixes for boolean variables
+
+## Testing Requirements
+- **Coverage Target**: Minimum 90% code coverage
+- **Test Organization**: Mirror source code structure in tests
+- **Mock Usage**: Mock external dependencies and network calls
+- **Edge Cases**: Test boundary conditions and error scenarios
+- **Performance Tests**: Test performance under various conditions
 
 ---
 > Source: [oyi77/wifi-jammer](https://github.com/oyi77/wifi-jammer) — distributed by [TomeVault](https://tomevault.io).
