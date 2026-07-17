@@ -131224,6 +131224,16 @@
       "description": "High performance, multimodal-native engine for AI workloads."
     },
     {
+      "name": "juncai22--spring-ai-agent-learning",
+      "source": "./juncai22--spring-ai-agent-learning",
+      "description": "Spring AI Agent \u5b66\u4e60"
+    },
+    {
+      "name": "juncai22--spring-ai-agent-learning",
+      "source": "./juncai22--spring-ai-agent-learning",
+      "description": "Spring AI Agent \u5b66\u4e60"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -141502,6 +141512,11 @@
       "name": "yashraj-n--tenet",
       "source": "./yashraj-n--tenet",
       "description": "An AI agent that reads your GitHub issues so you don't have to. Comment /tenet-build, it explores the repo, ships a pull request, and reviews PRs on the side. Works while you sleep. Doesn't ask for eq"
+    },
+    {
+      "name": "faradworks--pinscope",
+      "source": "./faradworks--pinscope",
+      "description": "A comprehensive datasheet-backed electrical schematic reviewer"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
