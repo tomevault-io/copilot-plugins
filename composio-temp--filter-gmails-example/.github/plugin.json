@@ -1,0 +1,9 @@
+{
+  "name": "composio-temp--filter-gmails-example",
+  "displayName": "filter-gmails-example",
+  "description": "AI-powered Gmail inbox organizer that automatically labels your emails based on custom prompts.",
+  "version": "1.0.0",
+  "author": "composio-temp",
+  "homepage": "https://github.com/composio-temp/filter-gmails-example",
+  "skills": []
+}
