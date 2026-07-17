@@ -1,0 +1,9 @@
+{
+  "name": "davidmosiah--whoop-mcp",
+  "displayName": "whoop-mcp",
+  "description": "Local-first MCP server for WHOOP recovery, HRV & sleep \u2014 Claude, Cursor, ChatGPT ready",
+  "version": "1.0.0",
+  "author": "davidmosiah",
+  "homepage": "https://github.com/davidmosiah/whoop-mcp",
+  "skills": []
+}
