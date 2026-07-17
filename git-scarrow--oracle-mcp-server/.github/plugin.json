@@ -1,0 +1,9 @@
+{
+  "name": "git-scarrow--oracle-mcp-server",
+  "displayName": "oracle-mcp-server",
+  "description": "[MOVED \u2192 codeberg.org/scarrow/oracle-mcp-server] MCP server for Oracle database access",
+  "version": "1.0.0",
+  "author": "git-scarrow",
+  "homepage": "https://github.com/git-scarrow/oracle-mcp-server",
+  "skills": []
+}
