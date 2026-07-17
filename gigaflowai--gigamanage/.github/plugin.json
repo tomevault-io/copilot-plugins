@@ -1,0 +1,9 @@
+{
+  "name": "gigaflowai--gigamanage",
+  "displayName": "gigamanage",
+  "description": "Browse, search and resume your AI coding agent sessions \u2014 across Claude Code, Codex, and any other harness. ",
+  "version": "1.0.0",
+  "author": "GigaFlowAI",
+  "homepage": "https://github.com/GigaFlowAI/gigamanage",
+  "skills": []
+}
