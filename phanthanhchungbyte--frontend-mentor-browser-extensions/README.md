@@ -7,11 +7,11 @@ A project for frontend mentor which describes a UI with browser extensions.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [phanthanhchungbyte/Frontend-Mentor-Browser-Extensions](https://github.com/phanthanhchungbyte/Frontend-Mentor-Browser-Extensions).
+Original source: `AGENTS.md` in [phanthanhchungbyte/Frontend-Mentor-Browser-Extensions](https://github.com/phanthanhchungbyte/Frontend-Mentor-Browser-Extensions).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
