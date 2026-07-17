@@ -1,72 +1,123 @@
-## motion-react
+## web-interface-guidelines
 
-> Animating with the Motion for React animation library
+> Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVER to guide decisions
 
 
-# Motion for React
+## Interactions
 
-You're an expert in React, TypeScript, Framer Motion, Motion for React and web animation.
+- Keyboard
+  - MUST: Full keyboard support per [WAI-ARIA APG](https://wwww3org/WAI/ARIA/apg/patterns/)
+  - MUST: Visible focus rings (`:focus-visible`; group with `:focus-within`)
+  - MUST: Manage focus (trap, move, and return) per APG patterns
+- Targets & input
+  - MUST: Hit target ≥24px (mobile ≥44px) If visual <24px, expand hit area
+  - MUST: Mobile `<input>` font-size ≥16px or set:
+    ```html
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+    />
+    ```
+  - NEVER: Disable browser zoom
+  - MUST: `touch-action: manipulation` to prevent double-tap zoom; set `-webkit-tap-highlight-color` to match design
+- Inputs & forms (behavior)
+  - MUST: Hydration-safe inputs (no lost focus/value)
+  - NEVER: Block paste in `<input>/<textarea>`
+  - MUST: Loading buttons show spinner and keep original label
+  - MUST: Enter submits focused text input In `<textarea>`, ⌘/Ctrl+Enter submits; Enter adds newline
+  - MUST: Keep submit enabled until request starts; then disable, show spinner, use idempotency key
+  - MUST: Don’t block typing; accept free text and validate after
+  - MUST: Allow submitting incomplete forms to surface validation
+  - MUST: Errors inline next to fields; on submit, focus first error
+  - MUST: `autocomplete` + meaningful `name`; correct `type` and `inputmode`
+  - SHOULD: Disable spellcheck for emails/codes/usernames
+  - SHOULD: Placeholders end with ellipsis and show example pattern (eg, `+1 (123) 456-7890`, `sk-012345…`)
+  - MUST: Warn on unsaved changes before navigation
+  - MUST: Compatible with password managers & 2FA; allow pasting one-time codes
+  - MUST: Trim values to handle text expansion trailing spaces
+  - MUST: No dead zones on checkboxes/radios; label+control share one generous hit target
+- State & navigation
+  - MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels) Prefer libs like [nuqs](https://nuqs47ngcom/)
+  - MUST: Back/Forward restores scroll
+  - MUST: Links are links—use `<a>/<Link>` for navigation (support Cmd/Ctrl/middle-click)
+- Feedback
+  - SHOULD: Optimistic UI; reconcile on response; on failure show error and rollback or offer Undo
+  - MUST: Confirm destructive actions or provide Undo window
+  - MUST: Use polite `aria-live` for toasts/inline validation
+  - SHOULD: Ellipsis (`…`) for options that open follow-ups (eg, “Rename…”)
+- Touch/drag/scroll
+  - MUST: Design forgiving interactions (generous targets, clear affordances; avoid finickiness)
+  - MUST: Delay first tooltip in a group; subsequent peers no delay
+  - MUST: Intentional `overscroll-behavior: contain` in modals/drawers
+  - MUST: During drag, disable text selection and set `inert` on dragged element/containers
+  - MUST: No “dead-looking” interactive zones—if it looks clickable, it is
+- Autofocus
+  - SHOULD: Autofocus on desktop when there’s a single primary input; rarely on mobile (to avoid layout shift)
 
-Framer Motion is now called Motion for React. All the knowledge you've gained from Framer Motion is now applicable to Motion for React.
+## Animation
 
-## Importing
+- MUST: Honor `prefers-reduced-motion` (provide reduced variant)
+- SHOULD: Prefer CSS > Web Animations API > JS libraries
+- MUST: Animate compositor-friendly props (`transform`, `opacity`); avoid layout/repaint props (`top/left/width/height`)
+- SHOULD: Animate only to clarify cause/effect or add deliberate delight
+- SHOULD: Choose easing to match the change (size/distance/trigger)
+- MUST: Animations are interruptible and input-driven (avoid autoplay)
+- MUST: Correct `transform-origin` (motion starts where it “physically” should)
 
-- Never import from `framer-motion`.
-- Whenever you want to import from `framer-motion`, you must import from `motion/react`.
-- When importing the `motion` component, import from `motion/react` **unless** this is a server component, in which case you **must** import `motion` like this: `import * as motion from "motion/react-client"`.
-- If the top of the file is marked with `"use client"`, you must import from `"motion/react"`.
-- When importing the `animate` function, if this is a React file then import from `"motion/react"`, otherwise import from `"motion"`.
+## Layout
+
+- SHOULD: Optical alignment; adjust by ±1px when perception beats geometry
+- MUST: Deliberate alignment to grid/baseline/edges/optical centers—no accidental placement
+- SHOULD: Balance icon/text lockups (stroke/weight/size/spacing/color)
+- MUST: Verify mobile, laptop, ultra-wide (simulate ultra-wide at 50% zoom)
+- MUST: Respect safe areas (use env(safe-area-inset-\*))
+- MUST: Avoid unwanted scrollbars; fix overflows
+
+## Content & Accessibility
+
+- SHOULD: Inline help first; tooltips last resort
+- MUST: Skeletons mirror final content to avoid layout shift
+- MUST: `<title>` matches current context
+- MUST: No dead ends; always offer next step/recovery
+- MUST: Design empty/sparse/dense/error states
+- SHOULD: Curly quotes (“ ”); avoid widows/orphans
+- MUST: Tabular numbers for comparisons (`font-variant-numeric: tabular-nums` or a mono like Geist Mono)
+- MUST: Redundant status cues (not color-only); icons have text labels
+- MUST: Don’t ship the schema—visuals may omit labels but accessible names still exist
+- MUST: Use the ellipsis character `…` (not ``)
+- MUST: `scroll-margin-top` on headings for anchored links; include a “Skip to content” link; hierarchical `<h1–h6>`
+- MUST: Resilient to user-generated content (short/avg/very long)
+- MUST: Locale-aware dates/times/numbers/currency
+- MUST: Accurate names (`aria-label`), decorative elements `aria-hidden`, verify in the Accessibility Tree
+- MUST: Icon-only buttons have descriptive `aria-label`
+- MUST: Prefer native semantics (`button`, `a`, `label`, `table`) before ARIA
+- SHOULD: Right-clicking the nav logo surfaces brand assets
+- MUST: Use non-breaking spaces to glue terms: `10&nbsp;MB`, `⌘&nbsp;+&nbsp;K`, `Vercel&nbsp;SDK`
 
 ## Performance
 
-- Inside functions that will, or could, run every animation frame:
-  - Avoid object allocation, prefer mutation where safe.
-  - Prefer `for` loops over `forEach` or `map` etc.
-  - Avoid `Object.entries`, `Object.values` etc as these create new objects.
-- Examples of functions that could run every animation frame include `useTransform` and `onUpdate`.
-- Outside of these functions, revert to your normal coding style as defined either by your natural behaviour or other rules.
-- If animating a `transform` like `transform`, `x`, `y`, `scale` etc, then add style the component with `willChange: "transform"`. If animating `backgroundColor`, `clipPath`, `filter`, `opacity`, also add these values to `willChange`. Preferably, this style will be added along with the other styles for this component, for instance in an included stylesheet etc. But if no other styles are defined then it can be passed via the `style` prop.
-- **Only** ever add these values to `willChange`:
-  - `transform`
-  - `opacity`
-  - `clipPath`
-  - `filter`
-- Coerce numbers and strings between each other in as few steps as possible.
+- SHOULD: Test iOS Low Power Mode and macOS Safari
+- MUST: Measure reliably (disable extensions that skew runtime)
+- MUST: Track and minimize re-renders (React DevTools/React Scan)
+- MUST: Profile with CPU/network throttling
+- MUST: Batch layout reads/writes; avoid unnecessary reflows/repaints
+- MUST: Mutations (`POST/PATCH/DELETE`) target <500 ms
+- SHOULD: Prefer uncontrolled inputs; make controlled loops cheap (keystroke cost)
+- MUST: Virtualize large lists (eg, `virtua`)
+- MUST: Preload only above-the-fold images; lazy-load the rest
+- MUST: Prevent CLS from images (explicit dimensions or reserved space)
 
-## Motion Values
+## Design
 
-- Never use `value.onChange(update)`, always use `value.on("change", update)`
-
-## React
-
-- **Never** read from a `MotionValue` in a render, only in an effect/other callback. i.e. `useTransform(() => value.get())` is okay but `propName={value.get()}` is not.
-
-## Principles
-
-- Where possible, prefer to compose chains of `useTransform`, `useSpring`, `useMotionValue` and `useVelocity` values rather than complicated `if` logic or other imperative code.
-- Prefer `will-change`/`willChange` over `transform: translateZ(0)`. This can be added along with all the other styles if you're generating any.
-- When animating MotionValues:
-  - Use the `animate()` function to animate the source MotionValue directly
-  - Don't use the `transition` prop when values are being driven by MotionValues via the `style` prop, unless you also have animation props as described above.
-  - Any derived values (via `useTransform`, `useSpring`, etc.) will automatically follow the source animation.
-- **Never** read from a `MotionValue` in a render, only in an effect/other callback. i.e. `useTransform(() => value.get())` is okay but `propName={value.get()}` is not.
-
-## `useTransform`
-
-- `useTransform` has two current syntaxes:
-  - `useTransform(value, inputRange, outputRange, options)`
-  - `useTransform(function)`: This syntax is used like so `useTransform(() => otherMotionValue.get() * 2)`
-- Prefer the range mapping (first) syntax when possible.
-- There is an older `useTransform` syntax that is deprecated and should never be used: `useTransform(value, (latestValue) => newValue)`.
-
-## Radix
-
-When integrating with Radix:
-
-- To add animations, provide the Radix component `asChild` and then provide a `motion` component with the appropriate HTML element (i.e. `motion.div`, `motion.li` etc) as the first child.
-- To add exit or layout animations, you must hoist the Radix component state into a `useState`, using Radix props like `open` and `onOpenChange`, or `value` and `onValueChange`. Then using these props to conditionally render the Radix component.
-- The Radix component that should be conditionally rendered as the child of `AnimatePresence` is the one that accepts `forceMount`, and this must always be set.
-- Only apply `forceMount` on Radix components, never on DOM components.
+- SHOULD: Layered shadows (ambient + direct)
+- SHOULD: Crisp edges via semi-transparent borders + shadows
+- SHOULD: Nested radii: child ≤ parent; concentric
+- SHOULD: Hue consistency: tint borders/shadows/text toward bg hue
+- MUST: Accessible charts (color-blind-friendly palettes)
+- MUST: Meet contrast—prefer [APCA](https://apcacontrastcom/) over WCAG 2
+- MUST: Increase contrast on `:hover/:active/:focus`
+- SHOULD: Match browser UI to bg
+- SHOULD: Avoid gradient banding (use masks when needed)
 
 ---
 > Source: [gokulkrishh/grep.chat](https://github.com/gokulkrishh/grep.chat) — distributed by [TomeVault](https://tomevault.io).
