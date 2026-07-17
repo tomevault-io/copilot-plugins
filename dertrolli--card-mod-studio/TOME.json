@@ -1,0 +1,44 @@
+{
+  "name": "card-mod-studio",
+  "owner": "DerTrolli",
+  "repo": "card-mod-studio",
+  "description": "Visual style editor for card-mod in Home Assistant. Color pickers, sliders, animation presets, and per-entity row styling \u2014 generates card_mod YAML automatically.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DerTrolli/card-mod-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T08:44:03Z"
+}
