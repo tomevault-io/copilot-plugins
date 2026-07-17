@@ -1,0 +1,9 @@
+{
+  "name": "quon-org--quon-ts",
+  "displayName": "quon-ts",
+  "description": "Implementation of Quon using TypeScript",
+  "version": "1.0.0",
+  "author": "quon-org",
+  "homepage": "https://github.com/quon-org/quon-ts",
+  "skills": []
+}
