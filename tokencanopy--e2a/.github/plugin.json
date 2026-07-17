@@ -1,0 +1,9 @@
+{
+  "name": "tokencanopy--e2a",
+  "displayName": "e2a",
+  "description": "Authenticated email gateway for AI agents \u2014 SPF/DKIM verified inbound, HMAC-signed delivery, webhook + WebSocket fan-out, CLI + SDKs",
+  "version": "1.0.0",
+  "author": "tokencanopy",
+  "homepage": "https://github.com/tokencanopy/e2a",
+  "skills": []
+}
