@@ -1,0 +1,9 @@
+{
+  "name": "niobiuminc--niobium-haze",
+  "displayName": "niobium-haze",
+  "description": "CUDA like library for writing FHE programs",
+  "version": "1.0.0",
+  "author": "NiobiumInc",
+  "homepage": "https://github.com/NiobiumInc/niobium-haze",
+  "skills": []
+}
