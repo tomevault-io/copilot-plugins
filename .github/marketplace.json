@@ -125469,6 +125469,16 @@
       "description": "A lightweight, powerful, local-first prompt management system that brings version control, dynamic templating, and a visual studio interface to your LLM workflows."
     },
     {
+      "name": "cloud2ai--devify",
+      "source": "./cloud2ai--devify",
+      "description": "Devify is an AI-driven development platform created to accelerate R&D workflows and address pain points that traditionally require significant manual effort. The project was initiated to meet internal"
+    },
+    {
+      "name": "cloud2ai--devify",
+      "source": "./cloud2ai--devify",
+      "description": "Devify is an AI-driven development platform created to accelerate R&D workflows and address pain points that traditionally require significant manual effort. The project was initiated to meet internal"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -193902,6 +193912,21 @@
       "name": "yw-mall--yw-mall",
       "source": "./yw-mall--yw-mall",
       "description": "\u57fa\u4e8e go-zero \u7684\u7535\u5546\u5546\u57ce\u5fae\u670d\u52a1\u7cfb\u7edf\uff1a\u7528\u6237/\u5546\u54c1/\u8ba2\u5355/\u8d2d\u7269\u8f66/\u652f\u4ed8\uff0c\u6d3b\u52a8/\u89c4\u5219/\u5956\u52b1/\u98ce\u63a7/\u5de5\u4f5c\u6d41"
+    },
+    {
+      "name": "tmustier--pi-queue-steer",
+      "source": "./tmustier--pi-queue-steer",
+      "description": "Cursor-style visible follow-up queue with inline editing for Pi"
+    },
+    {
+      "name": "gabrieldrapor--ovid",
+      "source": "./gabrieldrapor--ovid",
+      "description": "A bilingual Reader. Two languages, one tap."
+    },
+    {
+      "name": "gabrieldrapor--ovid",
+      "source": "./gabrieldrapor--ovid",
+      "description": "A bilingual Reader. Two languages, one tap."
     },
     {
       "name": "lightninglabs--lnget",
