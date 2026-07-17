@@ -1,0 +1,44 @@
+{
+  "name": "AI-Sass-Platform",
+  "owner": "larrymargerum01",
+  "repo": "AI-Sass-Platform",
+  "description": "Built an AI SaaS Platform that enables users to access multiple AI-powered tools through a unified dashboard, including content generation, document analysis, chat assistants, and workflow automation with secure authentication and subscription management.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/larrymargerum01/AI-Sass-Platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T04:31:18Z"
+}
