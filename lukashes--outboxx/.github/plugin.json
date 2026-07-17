@@ -1,0 +1,9 @@
+{
+  "name": "lukashes--outboxx",
+  "displayName": "outboxx",
+  "description": "Outboxx - Lightweight PostgreSQL Change Data Capture in Zig",
+  "version": "1.0.0",
+  "author": "lukashes",
+  "homepage": "https://github.com/lukashes/outboxx",
+  "skills": []
+}
