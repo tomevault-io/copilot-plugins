@@ -1,61 +1,332 @@
-## safety
+## sitecore
 
-> Safety rules to prevent editing compiled artifacts and generated files
+> Sitecore XM Cloud-specific rules for component development and data handling
 
 
-# Safety Rules
+# Sitecore XM Cloud Starter Rules
 
-## Do Not Edit Compiled Artifacts
+## XM Cloud Integration
 
-Never edit compiled or generated files:
-- **Node modules**: `node_modules/` contains installed packages
-- **Build outputs**: `.next/`, `dist/`, `out/`, `build/` are generated during build
-- **Cache directories**: `.cache/`, `.sitecore/` (except component-map.ts)
-- **Lock files**: `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`
-- **Source maps**: `*.js.map`, `*.css.map`, `*.d.ts.map`
+Environment Configuration:
+- Always use environment variables for XM Cloud endpoints and keys
+- Required variables: `SITECORE_EDGE_CONTEXT_ID`, `NEXT_PUBLIC_DEFAULT_SITE_NAME`, `NEXT_PUBLIC_SITECORE_EDGE_CONTEXT_ID`, `SITECORE_EDITING_SECRET`
+- Use `.env.remote.example` as template for environment files
+- Copy to `.env.local` for local development
 
-## Do Not Edit Configuration Files
+```typescript
+// Standard environment variables for XM Cloud starters
+SITECORE_EDGE_CONTEXT_ID=your-context-id
+NEXT_PUBLIC_DEFAULT_SITE_NAME=your-site-name  
+NEXT_PUBLIC_SITECORE_EDGE_CONTEXT_ID=your-public-context-id
+SITECORE_EDITING_SECRET=your-editing-secret
+```
 
-Avoid modifying sensitive configuration:
-- **Sitecore configs**: `scjssconfig.json`, `.sitecore/user.json`
-- **Docker files**: `Dockerfile`, `docker-compose*.yml`
-- **CI/CD configs**: `.github/workflows/`, deployment configurations
+## Component Architecture Patterns
 
-## Do Not Edit Package Files
+Component Structure:
 
-Never modify package artifacts:
-- **Sitecore packages**: `*.itempackage`, `*.sicpackage`
-- **Archive files**: `*.tgz`, `*.tar.gz`, `*.zip`
-- **Binary files**: `*.exe`, `*.dll`, `*.obj`
+- Follow Locality of Behavior pattern
+- Create a tsx `ComponentName.tsx` with all varaiants of the component as well as the props
+- Export named variants: `Default`, `ThreeUp`, `Slider`, `ImageBottom`, etc. from the componenet file
 
-## Do Not Edit Environment Files
+Prop and Interface Structure
+- Extend from `ComponentProps` from `@/lib/component-props`
+- Use specific interface for component parameters
+- Structure fields with `data.datasource` pattern
+- Include `isPageEditing` prop for variants
 
-Never commit or edit sensitive environment files:
-- **Local environment**: `.env.local`, `.env.*.local`
-- **Secret files**: `*.deploysecret.config`
-- **User-specific configs**: `.sitecore/user.json`
 
-## Source Files Only
+```typescript
+import type React from 'react';
+import { useSitecore } from '@sitecore-content-sdk/nextjs';
+import { ComponentProps } from '@/lib/component-props';
+import { Field, ImageField } from '@sitecore-jss/sitecore-jss-nextjs';
 
-Focus editing on:
-- **Source code**: `.ts`, `.tsx`, `.js`, `.jsx` files in `src/`
-- **Configuration**: `next.config.js`, `tsconfig.json`, `package.json`
-- **Documentation**: `README.md`, `CONTRIBUTING.md`
-- **Styles**: `.css`, `.scss` files
-- **Component maps**: `.sitecore/component-map.ts`
+interface HeroParams {
+  [key: string]: any;
+}
 
-## When in Doubt
+interface HeroFields {
+  title?: { jsonValue: Field<string> };
+  subtitle?: { jsonValue: Field<string> };
+  backgroundImage?: { jsonValue: ImageField };
+}
 
-If unsure whether to edit a file:
-1. Check if it's in `node_modules/` - never edit
-2. Check if it's generated during build - never edit
-3. Check if it contains secrets - never edit
-4. Ask yourself: "Did I create this file?" - if no, be cautious
+interface HeroProps extends ComponentProps {
+  params: HeroParams;
+  fields: {
+    data: {
+      datasource: HeroFields;
+    };
+  };
+  isPageEditing?: boolean;
+}
+
+export const Default: React.FC<HeroProps> = (props) => {
+  const { page } = useSitecore();
+  const { isEditing } = page.mode;
+  return <HeroDefault {...props} isPageEditing={isEditing} />;
+};
+
+export const ImageBottom: React.FC<HeroProps> = (props) => {
+  const { page } = useSitecore();
+  const { isEditing } = page.mode;
+  return <HeroImageBottom {...props} isPageEditing={isEditing} />;
+};
+```
+
+
+## Data Source Validation
+
+Standard Validation Pattern:
+- Always check `fields?.data?.datasource` existence
+- Use `NoDataFallback` component for missing datasources
+- Handle both editing and preview modes
+- Provide meaningful error messages
+
+```typescript
+import { NoDataFallback } from '@/utils/NoDataFallback';
+
+export const HeroDefault: React.FC<HeroProps> = (props) => {
+  const { fields, isPageEditing } = props;
+  
+  if (!fields?.data?.datasource) {
+    return <NoDataFallback componentName="Hero" />;
+  }
+  
+  const { title, description, image } = fields.data.datasource;
+  
+  // Component implementation
+};
+```
+
+## Field Handling Patterns
+
+Sitecore Field Components:
+- Use `@sitecore-content-sdk/nextjs` field components
+- Access field values through `jsonValue` property
+- Handle optional fields with conditional rendering
+- Use proper semantic HTML tags
+
+```typescript
+import { Text, RichText, Image } from '@sitecore-content-sdk/nextjs';
+
+// Field rendering patterns
+{title?.jsonValue && (
+  <Text
+    tag="h1"
+    field={title.jsonValue}
+    className="hero-title text-4xl font-bold"
+  />
+)}
+
+{description?.jsonValue && (
+  <RichText field={description.jsonValue} />
+)}
+
+{image?.jsonValue && (
+  <Image
+    field={image.jsonValue}
+    alt={title?.jsonValue?.value || 'Hero image'}
+    className="w-full h-auto"
+  />
+)}
+```
+
+## Editing Mode Handling
+
+Page Editing Support:
+- Use `useSitecore` hook to access page mode
+- Check `page.mode.isEditing` for editing state
+- Pass `isPageEditing` prop to variant components
+- Provide different rendering for editing vs. preview
+
+```typescript
+import { useSitecore } from '@sitecore-content-sdk/nextjs';
+
+export const Default: React.FC<ComponentProps> = (props) => {
+  const { page } = useSitecore();
+  const { isEditing } = page.mode;
+  const isEditMode = props.isPageEditing || isEditing;
+  
+  if (isEditMode) {
+    // Simplified rendering for editing mode
+  }
+  
+  // Normal rendering
+};
+```
+
+## Styling and UI Patterns
+
+Tailwind and Shadcn/ui:
+- Use Tailwind CSS utility classes throughout
+- Import UI components from `@/components/ui/`
+- Use `cn()` utility for conditional classes
+- Follow container query patterns with `@container` classes
+
+```typescript
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+
+<div className={cn(
+  '@container bg-primary rounded-default',
+  'relative mx-auto my-6 max-w-7xl px-4 py-16',
+  isActive && '@md:w-full'
+)}>
+```
+
+## Utility Integration
+
+Common Utilities:
+- Use `NoDataFallback` for missing datasources
+- Import image wrapper: `Default as ImageWrapper` from `@/components/image/ImageWrapper.dev`
+- Use button components: `ButtonBase` from `@/components/button-component/ButtonComponent`
+- Implement localization with `useI18n` and `dictionaryKeys`
+
+```typescript
+import { NoDataFallback } from '@/utils/NoDataFallback';
+import { Default as ImageWrapper } from '@/components/image/ImageWrapper.dev';
+import { ButtonBase } from '@/components/button-component/ButtonComponent';
+import { useI18n } from 'next-localization';
+import { dictionaryKeys } from '@/variables/dictionary';
+```
+
+## Performance Patterns
+
+Accessibility and Performance:
+- Use `'use client'` directive for client-side interactivity
+- Implement proper ARIA attributes for interactive components
+- Use React hooks like `useState`, `useEffect`, `useRef` appropriately
+- Check for `prefers-reduced-motion` when using animations
+
+```typescript
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+
+export const InteractiveComponent: React.FC<Props> = (props) => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+  }, []);
+  
+  // Component implementation
+};
+```
+
+## Content SDK Import Guidelines
+
+SDK Submodule Usage:
+- **Main package**: Use for components and client-side functionality
+- **Submodules**: Only use appropriate submodules for specific contexts
+- **Server-only**: Never import `/config-cli` or `/tools` in client components
+
+### Client-Safe Imports (Components & Client Code)
+
+```typescript
+// ✅ SAFE - Client-side component usage
+import { 
+  Text, 
+  RichText, 
+  Image, 
+  Link,
+  Field, 
+  LinkField, 
+  ImageField,
+  useSitecore,
+  SitecoreProvider,
+  Placeholder 
+} from '@sitecore-content-sdk/nextjs';
+
+// ✅ SAFE - Middleware usage (edge runtime)
+import { 
+  LocalizationMiddleware,
+  RedirectsMiddleware 
+} from '@sitecore-content-sdk/nextjs/middleware';
+```
+
+### Server-Only Imports (Configuration & Build)
+
+```typescript
+// ❌ NEVER in client components
+// ✅ ONLY in server-side contexts (sitecore.config.ts, sitecore.cli.config.ts)
+import { defineConfig } from '@sitecore-content-sdk/nextjs/config';
+import { defineCliConfig } from '@sitecore-content-sdk/nextjs/config-cli';
+import { generateSites, generateMetadata, extractFiles } from '@sitecore-content-sdk/nextjs/tools';
+
+// ✅ ONLY in lib/sitecore-client.ts or server utilities
+import { SitecoreClient, GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
+```
+
+### API Route Imports (Next.js API routes)
+
+```typescript
+// ✅ SAFE - API routes only (/pages/api/ or /app/api/)
+import { SitemapMiddleware, RobotsMiddleware } from '@sitecore-content-sdk/nextjs/middleware';
+import { HealthcheckMiddleware } from '@sitecore-content-sdk/nextjs/monitoring';
+import { 
+  EditingRenderMiddleware, 
+  EditingConfigMiddleware, 
+  FEAASRenderMiddleware,
+  isDesignLibraryPreviewData 
+} from '@sitecore-content-sdk/nextjs/editing';
+
+// ✅ SAFE - Utility functions for page routes
+import { extractPath, handleEditorFastRefresh } from '@sitecore-content-sdk/nextjs/utils';
+```
+
+### Import Context Rules
+
+**Configuration Files**:
+- `sitecore.config.ts`: Use `/config` submodule
+- `sitecore.cli.config.ts`: Use `/config-cli` and `/tools` submodules
+- `next.config.js`: Do not import Content SDK directly
+
+**Component Files**:
+- React components: Main package only (`@sitecore-content-sdk/nextjs`)
+- Never import `/config-cli`, `/tools`, or `/client` in components
+
+**Server Utilities**:
+- `lib/sitecore-client.ts`: Use `/client` submodule for SitecoreClient
+- Utility files: Use appropriate submodules based on context
+
+**Page Files**:
+- Page components: Main package + `/utils` for path utilities
+- API routes: Use `/middleware`, `/editing`, `/monitoring` as needed
+
+```typescript
+// Example: Component file structure
+// ✅ CORRECT
+import { Text, useSitecore } from '@sitecore-content-sdk/nextjs';
+
+// ❌ WRONG - will cause build errors
+import { defineConfig } from '@sitecore-content-sdk/nextjs/config';
+import { SitecoreClient } from '@sitecore-content-sdk/nextjs/client';
+```
+
+## Development Patterns
+
+Component Development Workflow:
+- Follow Locality of Behavior pattern
+- Create a tsx `ComponentName.tsx` with all varaiants of the component as well as the props
+- Use kebab-case for component directories: `product-listing/`, `article-header/`
+
+Testing and Validation:
+- Test components with and without datasources
+- Verify editing mode behavior
+- Test all component variants
+- Ensure accessibility compliance
 
 Referenced:
-@.gitignore
-@.cursorignore
-@examples/*/package.json
+@examples/kit-nextjs-article-starter/src/components/article-header/ArticleHeader.tsx
+@examples/kit-nextjs-location-finder/src/components/hero/Hero.tsx
+@examples/kit-nextjs-product-listing/src/components/product-listing/ProductListing.tsx
+@examples/kit-nextjs-article-starter/src/lib/component-props/index.ts
+@examples/kit-nextjs-article-starter/src/utils/NoDataFallback.tsx
 
 ---
 > Source: [sc-nipunaabeywickrama/xmcloud-starter-js-07-08](https://github.com/sc-nipunaabeywickrama/xmcloud-starter-js-07-08) — distributed by [TomeVault](https://tomevault.io).
