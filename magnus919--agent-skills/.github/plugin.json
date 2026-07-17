@@ -1,0 +1,9 @@
+{
+  "name": "magnus919--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Curated collection of AI agent skills for Hermes and other agent frameworks",
+  "version": "1.0.0",
+  "author": "magnus919",
+  "homepage": "https://github.com/magnus919/agent-skills",
+  "skills": []
+}
