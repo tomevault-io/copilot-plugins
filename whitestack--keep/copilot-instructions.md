@@ -1,89 +1,20 @@
-## keep-ui-react-typescript
+## keep-ui-tests
 
-> description: Rules for writing frontend code at Keep (React + Typescript)
+> description: Rules and guidelines for writing and running React tests
 
 ---
-description: Rules for writing frontend code at Keep (React + Typescript)
-globs: keep-ui/**/*.tsx, keep-ui/**/*.ts
+description: Rules and guidelines for writing and running React tests
+globs: *.spec.tsx, *.test.tsx, *.test.ts, *.spec.ts
 ---
 
-You are an expert in TypeScript, React, Next.js, SWR, Tailwind, and UX design.
+# Writing frontend tests
 
-# Achitecture
-Use Feature-Slice Design Convention with modification: instead of `pages` and `app` we use default Next.js route-based folder structure.
+Place tests in __tests__ folder in the module, e.g. tests for file `/features/workflows/model/useWorkflows.tsx` should be `/features/workflows/models/__tests__/useWorkflows.test.tsx`
 
-Example:
-- entities/
-  - incidents/
-    - api/
-    - lib/
-    - model/
-    - ui/
+# Running frontend tests
 
-Top-level folders, called Layers: 
-- widgets
-- features
-- entities
-- shared
-
-Each layer has segments, e.g. "entities/users".
-
-Each segment has slices 
-- ui — everything related to UI display: UI components, date formatters, styles, etc.
-- api — backend interactions: request functions, data types, mappers, etc.
-- model — the data model: schemas, interfaces, stores, and business logic.
-- lib — library code that other modules on this slice need.
-- config — configuration files and feature flags.
-
-# Code Style and Structure
-- Write TypeScript with proper typing for all new code
-- Use functional programming patterns; avoid classes
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Don't use `useEffect` where you can use ref function for dom-dependent things (e.g. ref={el => ...})
-- Don't use `useState` where you can infer from props
-- Use named exports; avoid default exports
-- If you need to create new base component, first look at existing ones in `@/shared/ui`
-
-# Naming Conventions
-- Always look around the codebase for naming conventions, and follow the best practices of the environment (e.g. use `camelCase` variables in JS).
-- Use clear, yet functional names (`searchResults` vs `data`).
-- React components are PascalCase (`IncidentList`).
-- Props for components and hooks are PascalCase and end with `Props`, e.g. `WorkflowBuilderWidgetProps`, return value for hooks is PascalCase and end with `Value`, e.g. `UseIncidentActionsValue` 
-- Name the `.ts` file according to its main export: `IncidentList.ts` or `IncidentList.tsx` or `useIncidents.ts`. Pay attention to the case.
-- Avoid `index.ts`, `styles.css`, and other generic names, even if this is the only file in a directory.
-
-# Data Fetching
-- Use useSWR for fetching data, create or extend hooks in @/entities/<entity>/model/use<Entity>.ts which encapsulates fetching logic
-- Create a dedicated keys file @/entities/<entity>/lib/<entity>Keys.ts to manage SWR cache keys. Structure it as an object with methods for different operations:
-```export const entityKeys = {
-  all: "entityName",
-  list: (query: QueryParams) => [...],
-  detail: (id: string) => [...],
-  getListMatcher: () => (key: any) => boolean
-}```
-- For query-based endpoints, construct cache keys by joining parameters with "::", filtering out falsy values:
-```list: (query: QueryParams) => [
-  entityKeys.all,
-  "list",
-  query.param1,
-  query.param2
-].filter(Boolean).join("::")```
-- For create, update, delete actions:
-  - Create or extend hook in @/entities/<entity>/model/use<Entity>Actions.ts
-  - Create a dedicated revalidation hook (e.g., use<Entity>Revalidation.ts) to handle cache invalidation
-  - Revalidate both specific items and list queries after mutations
-  - Include success/error toast notifications for user feedback
-  - Handle file uploads and other complex operations within the actions hook
-
-# UI and Styling
-- Use Tailwind CSS as primary styling solution
-- For non-Tailwind cases:
-  - Use CSS with component-specific files
-  - Namespace under component class (.DropdownMenu)
-  - Follow BEM for modals (.DropdownMenu__modal)
-  - Import styles directly (import './DropdownMenu.css')
-- Replace custom CSS with Tailwind when possible
+Please run tests with command: npm run test in keep-ui folder
+For example: cd keep-ui && npm run test
 
 ---
 > Source: [whitestack/keep](https://github.com/whitestack/keep) — distributed by [TomeVault](https://tomevault.io).
