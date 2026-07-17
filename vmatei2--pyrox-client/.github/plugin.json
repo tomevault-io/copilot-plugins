@@ -1,0 +1,9 @@
+{
+  "name": "vmatei2--pyrox-client",
+  "displayName": "pyrox-client",
+  "description": "Unofficial Python client API for Hyrox race results - loading public results into DataFrames. Below is an analysis website for athletes.",
+  "version": "1.0.0",
+  "author": "vmatei2",
+  "homepage": "https://github.com/vmatei2/pyrox-client",
+  "skills": []
+}
