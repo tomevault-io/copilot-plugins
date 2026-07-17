@@ -1,0 +1,9 @@
+{
+  "name": "etechlead--claude-deck",
+  "displayName": "claude-deck",
+  "description": "Monitor Claude Code task statuses on Stream Deck",
+  "version": "1.0.0",
+  "author": "etechlead",
+  "homepage": "https://github.com/etechlead/claude-deck",
+  "skills": []
+}
