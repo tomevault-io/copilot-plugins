@@ -4,7 +4,7 @@
   "repo": "devify",
   "description": "Devify is an AI-driven development platform created to accelerate R&D workflows and address pain points that traditionally require significant manual effort. The project was initiated to meet internal demands for smarter, more efficient development processes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cloud2ai/devify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T05:31:04Z"
+  "distributed_at": "2026-07-17T05:32:08Z"
 }
