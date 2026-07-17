@@ -1,0 +1,44 @@
+{
+  "name": "FABULA-LLM-5",
+  "owner": "sergezuber",
+  "repo": "FABULA-LLM-5",
+  "description": "Frontier models sell confidence. FABULA ships proof - an agent harness where any model is a swappable chip and every finished run mints a replayable, context-fingerprinted Proof-of-Done receipt. Runs local or cloud; receipts verify either way.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sergezuber/FABULA-LLM-5",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T15:31:12Z"
+}
