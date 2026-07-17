@@ -1,0 +1,9 @@
+{
+  "name": "flowmux-ai--flowmux-terminal",
+  "displayName": "flowmux-terminal",
+  "description": "FlowMux \u2014 Agent Workflow Multiplexer Terminal. Go with the agents' flow.",
+  "version": "1.0.0",
+  "author": "flowmux-ai",
+  "homepage": "https://github.com/flowmux-ai/flowmux-terminal",
+  "skills": []
+}
