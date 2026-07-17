@@ -247399,6 +247399,81 @@
       "description": "Transform your markdown to be ready and compatible for Telegram's MarkdownV2 parse mode"
     },
     {
+      "name": "flowmux-ai--flowmux-terminal",
+      "source": "./flowmux-ai--flowmux-terminal",
+      "description": "FlowMux \u2014 Agent Workflow Multiplexer Terminal. Go with the agents' flow."
+    },
+    {
+      "name": "jamesoleinik--launch-control",
+      "source": "./jamesoleinik--launch-control",
+      "description": "Launch Control \u2014 a 12-episode LinkedIn series building a launch-management system on Microsoft Dataverse: data model, agents (declarative + autonomous + code-first), generative Power Apps page, and ag"
+    },
+    {
+      "name": "niobiuminc--niobium-haze",
+      "source": "./niobiuminc--niobium-haze",
+      "description": "CUDA like library for writing FHE programs"
+    },
+    {
+      "name": "swarajbachu--zuse",
+      "source": "./swarajbachu--zuse",
+      "description": "A repository for forkzero"
+    },
+    {
+      "name": "jwjxlxl--wolin-learn-master",
+      "source": "./jwjxlxl--wolin-learn-master",
+      "description": "wolin_learn-master"
+    },
+    {
+      "name": "kanfu-panda--pdlc-skills",
+      "source": "./kanfu-panda--pdlc-skills",
+      "description": "33 slash commands that turn Claude Code into a real PDLC workflow \u2014 PRD \u2192 TDD \u2192 implement \u2192 review \u2192 ship. Hard contracts force AI to persist artifacts, write failing tests first, and run self-checks."
+    },
+    {
+      "name": "flowmux-ai--flowmux-terminal",
+      "source": "./flowmux-ai--flowmux-terminal",
+      "description": "FlowMux \u2014 Agent Workflow Multiplexer Terminal. Go with the agents' flow."
+    },
+    {
+      "name": "sitcon-tw--flickr-photo-finder",
+      "source": "./sitcon-tw--flickr-photo-finder",
+      "description": "SITCON Flickr \u516c\u958b\u6d3b\u52d5\u7167\u7247\u7d22\u5f15\u8207\u641c\u5c0b\u5de5\u5177\uff0c\u5354\u52a9\u7c4c\u5099\u5718\u968a\u7528\u793e\u7fa4\u3001\u7db2\u7ad9\u3001\u8d0a\u52a9\u3001\u65b0\u805e\u7a3f\u8207\u6d3b\u52d5\u56de\u9867\u7b49\u771f\u5be6\u9700\u6c42\u627e\u7167\u7247\u3002"
+    },
+    {
+      "name": "buptzyb--torch-cudagraph-debug",
+      "source": "./buptzyb--torch-cudagraph-debug",
+      "description": "CUDA Graph runtime tensor debugging utilities for PyTorch"
+    },
+    {
+      "name": "swarajbachu--zuse",
+      "source": "./swarajbachu--zuse",
+      "description": "A repository for forkzero"
+    },
+    {
+      "name": "itradingai--aiwiki",
+      "source": "./itradingai--aiwiki",
+      "description": "Local Markdown knowledge base for AI assistants. Save what your AI reads, ask it later, and keep everything local."
+    },
+    {
+      "name": "barrydeen--wisp-ios",
+      "source": "./barrydeen--wisp-ios",
+      "description": "wisp-ios"
+    },
+    {
+      "name": "jwjxlxl--wolin-learn-master",
+      "source": "./jwjxlxl--wolin-learn-master",
+      "description": "wolin_learn-master"
+    },
+    {
+      "name": "jamesoleinik--launch-control",
+      "source": "./jamesoleinik--launch-control",
+      "description": "Launch Control \u2014 a 12-episode LinkedIn series building a launch-management system on Microsoft Dataverse: data model, agents (declarative + autonomous + code-first), generative Power Apps page, and ag"
+    },
+    {
+      "name": "phoenixlucky--zerotoken-skill",
+      "source": "./phoenixlucky--zerotoken-skill",
+      "description": "\u26a1 ZeroToken Skill \u2014 \u8ba9 Agent \u7528\u6700\u5c11\u7684 token \u505a\u6700\u51c6\u7684\u4e8b\u3002\u63d0\u793a\u8bcd\u7eaa\u5f8b\u89c4\u8303\uff1a\u538b\u7f29\u65e0\u6548\u4e0a\u4e0b\u6587\u3001\u65e0\u6548\u89e3\u91ca\u3001\u65e0\u6548\u5de5\u5177\u8c03\u7528\u3001\u65e0\u6548\u8f93\u51fa\uff0c\u51c6\u786e\u6027\u4e0d\u964d\u3002"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270187,6 +270262,46 @@
       "name": "myonics--chromstream",
       "source": "./myonics--chromstream",
       "description": "Python package for parsing and processing on-line gas chromatography data"
+    },
+    {
+      "name": "tecnicalbot--mobile-agent",
+      "source": "./tecnicalbot--mobile-agent",
+      "description": "Mobile Agent is an open-source AI agent built specifically for mobile devices that runs entirely on your phone."
+    },
+    {
+      "name": "mxucc--cpa-account-config-manager",
+      "source": "./mxucc--cpa-account-config-manager",
+      "description": "cpa-account-config-manager"
+    },
+    {
+      "name": "roland-luo--codex-dream-skin",
+      "source": "./roland-luo--codex-dream-skin",
+      "description": "codex\u4e3b\u9898\u76ae\u80a4\uff0cfork\u81eahttps://github.com/Fei-Away/Codex-Dream-Skin"
+    },
+    {
+      "name": "sunshinelixun--video-publish-skill",
+      "source": "./sunshinelixun--video-publish-skill",
+      "description": "Local-first Codex skill for preparing and safely staging video publishing assets"
+    },
+    {
+      "name": "nathan-tebay--qmk-nexus",
+      "source": "./nathan-tebay--qmk-nexus",
+      "description": "QMK Nexus brings keyboard layout, matrix wiring, keymaps, hardware features, and firmware builds into one browser-based workflow. "
+    },
+    {
+      "name": "perez987--about-this-hack",
+      "source": "./perez987--about-this-hack",
+      "description": "Discover your hardware on macOS with this simple, user-friendly hardware info app that retains the beloved design of the classic 'About This Mac' interface, with a modern design (migrated to SwiftUI),"
+    },
+    {
+      "name": "dertrolli--card-mod-studio",
+      "source": "./dertrolli--card-mod-studio",
+      "description": "Visual style editor for card-mod in Home Assistant. Color pickers, sliders, animation presets, and per-entity row styling \u2014 generates card_mod YAML automatically."
+    },
+    {
+      "name": "davidmosiah--whoop-mcp",
+      "source": "./davidmosiah--whoop-mcp",
+      "description": "Local-first MCP server for WHOOP recovery, HRV & sleep \u2014 Claude, Cursor, ChatGPT ready"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -400777,6 +400892,141 @@
       "name": "swissperiences--swissperiences",
       "source": "./swissperiences--swissperiences",
       "description": "Premium Swiss experiences platform"
+    },
+    {
+      "name": "rhinos0608--pi-smartread",
+      "source": "./rhinos0608--pi-smartread",
+      "description": "Pi-SmartRead"
+    },
+    {
+      "name": "alfaturachman--portofolio-nextjs",
+      "source": "./alfaturachman--portofolio-nextjs",
+      "description": "portofolio-nextjs"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "jergensturdley--terminal-explorer",
+      "source": "./jergensturdley--terminal-explorer",
+      "description": "terminal-explorer"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "source": "./sc-nipunaabeywickrama--xmcloud-starter-js-07-08",
+      "description": "xmcloud-starter-js-07-08"
+    },
+    {
+      "name": "alfaturachman--portofolio-nextjs",
+      "source": "./alfaturachman--portofolio-nextjs",
+      "description": "portofolio-nextjs"
+    },
+    {
+      "name": "bigfoot0319--zenboukei-com",
+      "source": "./bigfoot0319--zenboukei-com",
+      "description": "zenboukei.com"
+    },
+    {
+      "name": "gorgorito12--wol-traduccion-ia-gemini",
+      "source": "./gorgorito12--wol-traduccion-ia-gemini",
+      "description": "WoL traduccion IA Gemini"
+    },
+    {
+      "name": "keenansegenchuk--personal-website",
+      "source": "./keenansegenchuk--personal-website",
+      "description": "drafting my personal website to host my projects and info about me"
+    },
+    {
+      "name": "endasil--vrchat-haunted-house",
+      "source": "./endasil--vrchat-haunted-house",
+      "description": "vrchat-haunted-house"
+    },
+    {
+      "name": "uigleki--dotfiles",
+      "source": "./uigleki--dotfiles",
+      "description": "Maximum efficiency, minimum complexity development environment using Nix flakes."
+    },
+    {
+      "name": "jergensturdley--terminal-explorer",
+      "source": "./jergensturdley--terminal-explorer",
+      "description": "terminal-explorer"
+    },
+    {
+      "name": "martasolarz--mapqualityevaluator",
+      "source": "./martasolarz--mapqualityevaluator",
+      "description": "MapQualityEvaluator"
+    },
+    {
+      "name": "uigleki--dotfiles",
+      "source": "./uigleki--dotfiles",
+      "description": "Maximum efficiency, minimum complexity development environment using Nix flakes."
+    },
+    {
+      "name": "ibr0521--truckmates-com",
+      "source": "./ibr0521--truckmates-com",
+      "description": "TruckMates.com"
+    },
+    {
+      "name": "hsagency587--longkai2",
+      "source": "./hsagency587--longkai2",
+      "description": "LEZIONI DI WING CHUN"
+    },
+    {
+      "name": "erstome--folio",
+      "source": "./erstome--folio",
+      "description": "folio"
+    },
+    {
+      "name": "hallboard-team--template-backend-mongodb",
+      "source": "./hallboard-team--template-backend-mongodb",
+      "description": "A template with .NET and MongoDB database."
+    },
+    {
+      "name": "alfaturachman--portofolio-nextjs",
+      "source": "./alfaturachman--portofolio-nextjs",
+      "description": "portofolio-nextjs"
+    },
+    {
+      "name": "xxx3r--sns-s-s",
+      "source": "./xxx3r--sns-s-s",
+      "description": "Python simulation framework for space-based solar-nano-sphere swarm dynamics and power-chain modeling power"
     }
   ]
 }
