@@ -193964,6 +193964,11 @@
       "description": "A bilingual Reader. Two languages, one tap."
     },
     {
+      "name": "pinebasedev--svelteflare",
+      "source": "./pinebasedev--svelteflare",
+      "description": "A SvelteKit, Hono and Cloudflare SaaS boilerplate to launch your next MVP."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
