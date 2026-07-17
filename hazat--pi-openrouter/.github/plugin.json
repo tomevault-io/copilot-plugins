@@ -1,0 +1,9 @@
+{
+  "name": "hazat--pi-openrouter",
+  "displayName": "pi-openrouter",
+  "description": "Pi extension exposing OpenRouter server tools (advisor, subagent, fusion, web search, web fetch) as local tools with live streaming progress",
+  "version": "1.0.0",
+  "author": "HazAT",
+  "homepage": "https://github.com/HazAT/pi-openrouter",
+  "skills": []
+}
