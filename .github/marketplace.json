@@ -72714,6 +72714,11 @@
       "description": "MCP server for LLMs to interact with Prometheus"
     },
     {
+      "name": "rs-4--labs",
+      "source": "./rs-4--labs",
+      "description": "labs"
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -208392,6 +208397,16 @@
       "name": "davidondrej--monorepo",
       "source": "./davidondrej--monorepo",
       "description": "one workspace, many agents."
+    },
+    {
+      "name": "fahmidme--agentcore-agui-starter",
+      "source": "./fahmidme--agentcore-agui-starter",
+      "description": "Streaming Strands agents from Amazon Bedrock AgentCore to a Next.js CopilotKit UI over AG-UI."
+    },
+    {
+      "name": "seaworld008--auto-install-mysql-innodb-cluster",
+      "source": "./seaworld008--auto-install-mysql-innodb-cluster",
+      "description": "Ansible \u81ea\u52a8\u5316\u90e8\u7f72\u4e0e\u8fd0\u7ef4 MySQL InnoDB Cluster\uff1a\u96c6\u6210 MySQL Router\u3001HAProxy\u3001Keepalived\u3001\u8bfb\u5199\u5206\u79bb\u3001\u6269\u7f29\u5bb9\u548c\u53ef\u9009\u5907\u4efd\u3002"
     },
     {
       "name": "yschimke--compose-ai-tools",
