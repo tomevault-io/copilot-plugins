@@ -7,13 +7,13 @@ Launch Control — a 12-episode LinkedIn series building a launch-management sys
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [jamesoleinik/launch-control](https://github.com/jamesoleinik/launch-control).
+Original source: `AGENTS.md` in [jamesoleinik/launch-control](https://github.com/jamesoleinik/launch-control).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
