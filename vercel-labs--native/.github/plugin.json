@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--native",
+  "displayName": "native",
+  "description": "Toolkit for building native desktop apps",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/native",
+  "skills": []
+}
