@@ -1,0 +1,44 @@
+{
+  "name": "private-sauna-availability",
+  "owner": "eirinkan",
+  "repo": "private-sauna-availability",
+  "description": "\u798f\u5ca1\u30d7\u30e9\u30a4\u30d9\u30fc\u30c8\u30b5\u30a6\u30ca8\u65bd\u8a2d\u306e\u7a7a\u304d\u72b6\u6cc1\u3092\u4e00\u62ec\u8868\u793a\u3059\u308bWeb\u30a2\u30d7\u30ea",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eirinkan/private-sauna-availability",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T04:43:31Z"
+}
