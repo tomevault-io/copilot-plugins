@@ -1,0 +1,44 @@
+{
+  "name": "zerotoken-skill",
+  "owner": "phoenixlucky",
+  "repo": "zerotoken-skill",
+  "description": "\u26a1 ZeroToken Skill \u2014 \u8ba9 Agent \u7528\u6700\u5c11\u7684 token \u505a\u6700\u51c6\u7684\u4e8b\u3002\u63d0\u793a\u8bcd\u7eaa\u5f8b\u89c4\u8303\uff1a\u538b\u7f29\u65e0\u6548\u4e0a\u4e0b\u6587\u3001\u65e0\u6548\u89e3\u91ca\u3001\u65e0\u6548\u5de5\u5177\u8c03\u7528\u3001\u65e0\u6548\u8f93\u51fa\uff0c\u51c6\u786e\u6027\u4e0d\u964d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/phoenixlucky/zerotoken-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T08:50:52Z"
+}
