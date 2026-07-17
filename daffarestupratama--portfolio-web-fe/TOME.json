@@ -1,0 +1,44 @@
+{
+  "name": "portfolio-web-fe",
+  "owner": "daffarestupratama",
+  "repo": "portfolio-web-fe",
+  "description": "Frontend codebase for DIR's portfolio website, built with Next.js, TypeScript, and Tailwind CSS.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daffarestupratama/portfolio-web-fe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-17T02:49:07Z"
+}
