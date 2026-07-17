@@ -1,0 +1,9 @@
+{
+  "name": "guyroyse--mesh-browser",
+  "displayName": "mesh-browser",
+  "description": "MeshBrowser - A browser to go with RServer that lets you browse web sites over Reticulum",
+  "version": "1.0.0",
+  "author": "guyroyse",
+  "homepage": "https://github.com/guyroyse/mesh-browser",
+  "skills": []
+}
