@@ -247739,6 +247739,11 @@
       "description": "Vendor-neutral orchestrator that rotates a coding task across multiple AI coding agents"
     },
     {
+      "name": "0xhubed--mcp-ms-sql-server",
+      "source": "./0xhubed--mcp-ms-sql-server",
+      "description": "A configurable Model Context Protocol (MCP) server for Microsoft SQL Server integration with Claude Code, supporting project-based database access with secure read/write operations."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270672,6 +270677,11 @@
       "name": "fdarian--whap",
       "source": "./fdarian--whap",
       "description": "Mocked WhatsApp Cloud API for testing integrations without using real endpoints and phone numbers"
+    },
+    {
+      "name": "mweinbach--swift-os",
+      "source": "./mweinbach--swift-os",
+      "description": "swift-os"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -401667,6 +401677,26 @@
       "name": "jineshbansal--envio-testing",
       "source": "./jineshbansal--envio-testing",
       "description": "envio-testing"
+    },
+    {
+      "name": "umeshkumaar15--hushgram",
+      "source": "./umeshkumaar15--hushgram",
+      "description": "hushgram"
+    },
+    {
+      "name": "rocare-team--advocate-gajendar",
+      "source": "./rocare-team--advocate-gajendar",
+      "description": "advocate-gajendar"
+    },
+    {
+      "name": "asad-bukhari--shop-sales-reporting",
+      "source": "./asad-bukhari--shop-sales-reporting",
+      "description": "shop-sales-reporting"
+    },
+    {
+      "name": "duwscan--hono-skeleton",
+      "source": "./duwscan--hono-skeleton",
+      "description": "Honojs + better-auth + drizzle"
     }
   ]
 }
