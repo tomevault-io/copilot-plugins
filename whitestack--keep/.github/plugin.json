@@ -1,0 +1,9 @@
+{
+  "name": "whitestack--keep",
+  "displayName": "keep",
+  "description": "Fork of keep, for testing purposes",
+  "version": "1.0.0",
+  "author": "whitestack",
+  "homepage": "https://github.com/whitestack/keep",
+  "skills": []
+}
