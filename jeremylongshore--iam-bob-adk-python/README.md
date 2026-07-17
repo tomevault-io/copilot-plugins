@@ -7,11 +7,11 @@ Intent Agent Model (IAM) — Bob reference runtime on Google ADK. Historical V1.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jeremylongshore/iam-bob-adk-python](https://github.com/jeremylongshore/iam-bob-adk-python).
+Original source: `CLAUDE.md` in [jeremylongshore/iam-bob-adk-python](https://github.com/jeremylongshore/iam-bob-adk-python).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
