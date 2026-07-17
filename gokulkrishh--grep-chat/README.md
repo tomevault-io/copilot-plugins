@@ -2,6 +2,8 @@
 
 > Source: [gokulkrishh/grep.chat](https://github.com/gokulkrishh/grep.chat) — distributed by [TomeVault](https://tomevault.io)
 
+Choose your AI. Ask anything. Get answers that matter.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [gokulkrishh/grep.chat](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [gokulkrishh/grep.chat](https://github.com/gokulkrishh/grep.chat) — a repo with 0+ stars on GitHub.
+From [gokulkrishh/grep.chat](https://github.com/gokulkrishh/grep.chat) — a repo with 8+ stars on GitHub.
 
 ---
 
