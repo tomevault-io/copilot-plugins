@@ -4,7 +4,7 @@
   "repo": "spring-ai-agent-learning",
   "description": "Spring AI Agent \u5b66\u4e60",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Juncai22/spring-ai-agent-learning",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T11:31:07Z"
+  "distributed_at": "2026-07-17T11:31:42Z"
 }
