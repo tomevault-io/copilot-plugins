@@ -208449,6 +208449,11 @@
       "description": "Multiscribe-Agent"
     },
     {
+      "name": "hafizmhussain--pak-climint",
+      "source": "./hafizmhussain--pak-climint",
+      "description": "Pak-ClimInt"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
