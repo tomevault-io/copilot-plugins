@@ -1,0 +1,9 @@
+{
+  "name": "moonbit-community--postgres-mbt",
+  "displayName": "postgres.mbt",
+  "description": "postgres client library",
+  "version": "1.0.0",
+  "author": "moonbit-community",
+  "homepage": "https://github.com/moonbit-community/postgres.mbt",
+  "skills": []
+}
