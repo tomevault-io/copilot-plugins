@@ -1,0 +1,9 @@
+{
+  "name": "extrasmall0--dear-hiring-manager",
+  "displayName": "dear-hiring-manager",
+  "description": "A Claude Code plugin that fills your job applications from your profile, drafts the cover letter, and leaves Submit to you. Locally.",
+  "version": "1.0.0",
+  "author": "extrasmall0",
+  "homepage": "https://github.com/extrasmall0/dear-hiring-manager",
+  "skills": []
+}
