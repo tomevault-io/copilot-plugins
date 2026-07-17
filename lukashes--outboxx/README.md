@@ -7,11 +7,11 @@ Outboxx - Lightweight PostgreSQL Change Data Capture in Zig
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lukashes/outboxx](https://github.com/lukashes/outboxx).
+Original source: `CLAUDE.md` in [lukashes/outboxx](https://github.com/lukashes/outboxx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
