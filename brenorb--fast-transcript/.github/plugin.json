@@ -1,0 +1,9 @@
+{
+  "name": "brenorb--fast-transcript",
+  "displayName": "fast-transcript",
+  "description": "Fast local transcription for large lectures with NVIDIA Parakeet ONNX",
+  "version": "1.0.0",
+  "author": "brenorb",
+  "homepage": "https://github.com/brenorb/fast-transcript",
+  "skills": []
+}
