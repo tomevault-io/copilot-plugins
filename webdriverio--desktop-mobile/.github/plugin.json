@@ -1,0 +1,9 @@
+{
+  "name": "webdriverio--desktop-mobile",
+  "displayName": "desktop-mobile",
+  "description": "Integration services for cross-platform testing with WebdriverIO",
+  "version": "1.0.0",
+  "author": "webdriverio",
+  "homepage": "https://github.com/webdriverio/desktop-mobile",
+  "skills": []
+}
