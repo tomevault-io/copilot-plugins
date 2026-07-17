@@ -184234,6 +184234,11 @@
       "description": "Declare your app once in a gofastr.yml blueprint \u2014 get a server-rendered UI, REST API, OpenAPI, MCP tools, and migrations as plain Go you own. Experimental, AI-agent-first, stdlib-first."
     },
     {
+      "name": "licoy--strokemouse",
+      "source": "./licoy--strokemouse",
+      "description": "macOS \u9f20\u6807\u624b\u52bf\u81ea\u5b9a\u4e49\u5de5\u5177\u3002\u6309\u4f4f\u8be5\u624b\u52bf\u7684\u89e6\u53d1\u952e\uff08\u9ed8\u8ba4\u53f3\u952e\uff0c\u4e5f\u53ef\u4e2d\u952e / \u4fa7\u952e\uff09\u7ed8\u5236\u8f68\u8ff9\uff0c\u5339\u914d\u540e\u6267\u884c\u5feb\u6377\u952e\u3001\u6253\u5f00\u5e94\u7528\u3001\u7a97\u53e3\u64cd\u4f5c\u3001\u5a92\u4f53\u952e\u3001Shell / AppleScript \u7b49 \uff5c A macOS mouse gesture customization tool. Hold down the trigger key to execute shortcuts, open applications"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -247259,6 +247264,61 @@
       "description": "website repo of cppgamedev.cpp"
     },
     {
+      "name": "larrymargerum01--ai-sass-platform",
+      "source": "./larrymargerum01--ai-sass-platform",
+      "description": "Built an AI SaaS Platform that enables users to access multiple AI-powered tools through a unified dashboard, including content generation, document analysis, chat assistants, and workflow automation "
+    },
+    {
+      "name": "starsphere-1024--skyport",
+      "source": "./starsphere-1024--skyport",
+      "description": "A multi-platform serial debugging assistant built with Flutter"
+    },
+    {
+      "name": "scott20201225--marktext-pro",
+      "source": "./scott20201225--marktext-pro",
+      "description": "marktext-pro"
+    },
+    {
+      "name": "zackees--clud",
+      "source": "./zackees--clud",
+      "description": "Claude & Codex CLI but with safety 3rd and God Mode always."
+    },
+    {
+      "name": "lukashes--outboxx",
+      "source": "./lukashes--outboxx",
+      "description": "Outboxx - Lightweight PostgreSQL Change Data Capture in Zig"
+    },
+    {
+      "name": "zackees--clud",
+      "source": "./zackees--clud",
+      "description": "Claude & Codex CLI but with safety 3rd and God Mode always."
+    },
+    {
+      "name": "starsphere-1024--skyport",
+      "source": "./starsphere-1024--skyport",
+      "description": "A multi-platform serial debugging assistant built with Flutter"
+    },
+    {
+      "name": "quon-org--quon-ts",
+      "source": "./quon-org--quon-ts",
+      "description": "Implementation of Quon using TypeScript"
+    },
+    {
+      "name": "lukashes--outboxx",
+      "source": "./lukashes--outboxx",
+      "description": "Outboxx - Lightweight PostgreSQL Change Data Capture in Zig"
+    },
+    {
+      "name": "starsphere-1024--skyport",
+      "source": "./starsphere-1024--skyport",
+      "description": "A multi-platform serial debugging assistant built with Flutter"
+    },
+    {
+      "name": "guyroyse--mesh-browser",
+      "source": "./guyroyse--mesh-browser",
+      "description": "MeshBrowser - A browser to go with RServer that lets you browse web sites over Reticulum"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -269987,6 +270047,41 @@
       "name": "infusionvictor--warren-buffett-jr",
       "source": "./infusionvictor--warren-buffett-jr",
       "description": "warren-buffett-jr"
+    },
+    {
+      "name": "gokulkrishh--grep-chat",
+      "source": "./gokulkrishh--grep-chat",
+      "description": "Choose your AI. Ask anything. Get answers that matter."
+    },
+    {
+      "name": "musnows--scriverse",
+      "source": "./musnows--scriverse",
+      "description": "\u53d9\u754c\uff0c\u4e00\u4e2a\u9762\u5411\u957f\u7bc7\u5c0f\u8bf4\u7684\u672c\u5730 AI \u521b\u4f5c\u5de5\u4f5c\u53f0"
+    },
+    {
+      "name": "gokulkrishh--grep-chat",
+      "source": "./gokulkrishh--grep-chat",
+      "description": "Choose your AI. Ask anything. Get answers that matter."
+    },
+    {
+      "name": "redential--redential-cli",
+      "source": "./redential--redential-cli",
+      "description": "Turn private work into an NDA-safe credential that shows what you can build \u2014 and companies can trust more than a CV."
+    },
+    {
+      "name": "gokulkrishh--grep-chat",
+      "source": "./gokulkrishh--grep-chat",
+      "description": "Choose your AI. Ask anything. Get answers that matter."
+    },
+    {
+      "name": "gokulkrishh--grep-chat",
+      "source": "./gokulkrishh--grep-chat",
+      "description": "Choose your AI. Ask anything. Get answers that matter."
+    },
+    {
+      "name": "chatman-media--anastasiya-gurina",
+      "source": "./chatman-media--anastasiya-gurina",
+      "description": "Personal website of the artist Anastasiya Gurina"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -400457,6 +400552,71 @@
       "name": "studio4x--image-converter-hub",
       "source": "./studio4x--image-converter-hub",
       "description": "image-converter-hub"
+    },
+    {
+      "name": "alextangson--pixpawai",
+      "source": "./alextangson--pixpawai",
+      "description": "PixPawAI"
+    },
+    {
+      "name": "nigelpeirce-hash--stylish-entertainment-site",
+      "source": "./nigelpeirce-hash--stylish-entertainment-site",
+      "description": "stylish-entertainment"
+    },
+    {
+      "name": "yooxc--voxel-town",
+      "source": "./yooxc--voxel-town",
+      "description": "voxel-town"
+    },
+    {
+      "name": "nigelpeirce-hash--stylish-entertainment-site",
+      "source": "./nigelpeirce-hash--stylish-entertainment-site",
+      "description": "stylish-entertainment"
+    },
+    {
+      "name": "bimpaccpk-gif--v1",
+      "source": "./bimpaccpk-gif--v1",
+      "description": "v1"
+    },
+    {
+      "name": "nigelpeirce-hash--stylish-entertainment-site",
+      "source": "./nigelpeirce-hash--stylish-entertainment-site",
+      "description": "stylish-entertainment"
+    },
+    {
+      "name": "shipshitshow--premiere",
+      "source": "./shipshitshow--premiere",
+      "description": "Frame-accurate transcript editing for the live Adobe Premiere Pro timeline via Adobe MCP \u2014 every cut is verified for A/V sync, missing frames, and back-to-back packing."
+    },
+    {
+      "name": "eirinkan--private-sauna-availability",
+      "source": "./eirinkan--private-sauna-availability",
+      "description": "\u798f\u5ca1\u30d7\u30e9\u30a4\u30d9\u30fc\u30c8\u30b5\u30a6\u30ca8\u65bd\u8a2d\u306e\u7a7a\u304d\u72b6\u6cc1\u3092\u4e00\u62ec\u8868\u793a\u3059\u308bWeb\u30a2\u30d7\u30ea"
+    },
+    {
+      "name": "junkaijunkai--smartfin-v2",
+      "source": "./junkaijunkai--smartfin-v2",
+      "description": "SmartFin-v2"
+    },
+    {
+      "name": "angelostefani--mosaico",
+      "source": "./angelostefani--mosaico",
+      "description": "Mosaico"
+    },
+    {
+      "name": "dalemusser--stratasave",
+      "source": "./dalemusser--stratasave",
+      "description": "stratasave is a service for save game state including player progress and player settings"
+    },
+    {
+      "name": "felixgeelhaar--bridge",
+      "source": "./felixgeelhaar--bridge",
+      "description": "AI Workflow Orchestration & Governance Platform"
+    },
+    {
+      "name": "shipshitshow--premiere",
+      "source": "./shipshitshow--premiere",
+      "description": "Frame-accurate transcript editing for the live Adobe Premiere Pro timeline via Adobe MCP \u2014 every cut is verified for A/V sync, missing frames, and back-to-back packing."
     }
   ]
 }
