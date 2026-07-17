@@ -1,0 +1,9 @@
+{
+  "name": "starsphere-1024--skyport",
+  "displayName": "SkyPort",
+  "description": "A multi-platform serial debugging assistant built with Flutter",
+  "version": "1.0.0",
+  "author": "StarSphere-1024",
+  "homepage": "https://github.com/StarSphere-1024/SkyPort",
+  "skills": []
+}
