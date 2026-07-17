@@ -1,0 +1,9 @@
+{
+  "name": "superdesigndev--tools-registry",
+  "displayName": "tools-registry",
+  "description": "Shared Skill & Secret vault for your team and agents, without leaking keys. Join community here: https://discord.gg/6mQYYfFMAn",
+  "version": "1.0.0",
+  "author": "superdesigndev",
+  "homepage": "https://github.com/superdesigndev/tools-registry",
+  "skills": []
+}
