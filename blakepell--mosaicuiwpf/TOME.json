@@ -4,7 +4,7 @@
   "repo": "MosaicUIWpf",
   "description": "Mosaic UI for WPF is a control library that seeks to provide compartmentalized controls.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blakepell/MosaicUIWpf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-17T10:33:18Z"
+  "distributed_at": "2026-07-17T10:35:52Z"
 }
