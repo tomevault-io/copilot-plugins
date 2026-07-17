@@ -1,0 +1,9 @@
+{
+  "name": "reloop-labs--reloop",
+  "displayName": "reloop",
+  "description": "An open-source & self-hostable AWS SES / SendGrid / Mailchimp / Resend / Loops alternative.",
+  "version": "1.0.0",
+  "author": "reloop-labs",
+  "homepage": "https://github.com/reloop-labs/reloop",
+  "skills": []
+}
