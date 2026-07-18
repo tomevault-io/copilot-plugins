@@ -7,11 +7,11 @@ A Open-source Visual Frontend Platform blending blueprints, node graphs, and cod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [prodivix/prodivix](https://github.com/prodivix/prodivix).
+Original source: `CLAUDE.md` in [prodivix/prodivix](https://github.com/prodivix/prodivix).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
