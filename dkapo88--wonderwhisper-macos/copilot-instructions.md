@@ -1,18 +1,16 @@
-## 001-project-structure
+## 002-swift-style
 
-> - **App sources**: ["WonderWhisper/"](mdc:WonderWhisper/)
+> - **Indentation**: 2 spaces; ~100‑char line limit.
 
-# WonderWhisper – Project Structure
+# Swift Style Guide
 
-- **App sources**: ["WonderWhisper/"](mdc:WonderWhisper/)
-  - Swift/SwiftUI sources, `Resources/Assets.xcassets`, `Info.plist`, `*.entitlements`.
-- **Tests**:
-  - Unit: ["WonderWhisperTests/"](mdc:WonderWhisperTests/)
-  - UI/flows: ["WonderWhisperUITests/"](mdc:WonderWhisperUITests/)
-- **Project**: ["WonderWhisper.xcodeproj"](mdc:WonderWhisper.xcodeproj)
-- **Scripts**: Scripts/ for maintenance tasks (format, lint, release)
+- **Indentation**: 2 spaces; ~100‑char line limit.
+- **Naming**: types `PascalCase`; methods/vars `camelCase`; constants `static let`.
+- **Files**: one primary type per file; filename matches type (e.g., `AudioTranscriber.swift`).
+- **UI**: prefer SwiftUI with small, composable views and preview providers.
+- **Formatting/Lint**: if configured, run `swiftformat .` and `swiftlint` before committing.
 
-Use this structure when navigating, creating files, and referencing paths.
+Favor clarity and explicitness. Avoid deep nesting beyond 2–3 levels; use guard clauses; handle errors explicitly.
 
 ---
 > Source: [dkapo88/WonderWhisper-macOS](https://github.com/dkapo88/WonderWhisper-macOS) — distributed by [TomeVault](https://tomevault.io).
