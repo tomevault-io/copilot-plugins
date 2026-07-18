@@ -1,0 +1,9 @@
+{
+  "name": "h5i-dev--h5i-python",
+  "displayName": "h5i-python",
+  "description": "Python SDK for Programmable Multi-Agent Orchestration",
+  "version": "1.0.0",
+  "author": "h5i-dev",
+  "homepage": "https://github.com/h5i-dev/h5i-python",
+  "skills": []
+}
