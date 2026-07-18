@@ -1,0 +1,9 @@
+{
+  "name": "creeden-enterprise--scale-gds",
+  "displayName": "scale_gds",
+  "description": "GDS-15 (Geriatric Depression Scale, short form) \u2014 public-domain geriatric depression scale.",
+  "version": "1.0.0",
+  "author": "Creeden-Enterprise",
+  "homepage": "https://github.com/Creeden-Enterprise/scale_gds",
+  "skills": []
+}
