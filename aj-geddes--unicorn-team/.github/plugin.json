@@ -1,0 +1,14 @@
+{
+  "name": "aj-geddes--unicorn-team",
+  "displayName": "unicorn-team",
+  "description": "the 10x unicorn development team",
+  "version": "1.0.0",
+  "author": "aj-geddes",
+  "homepage": "https://github.com/aj-geddes/unicorn-team",
+  "skills": [
+    {
+      "name": "javascript",
+      "description": ""
+    }
+  ]
+}
