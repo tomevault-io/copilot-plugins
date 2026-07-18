@@ -1,0 +1,9 @@
+{
+  "name": "vllm-project--tml-fa4",
+  "displayName": "tml-fa4",
+  "description": "FA4-based Relative Attention Kernel developed by TML and Colfax",
+  "version": "1.0.0",
+  "author": "vllm-project",
+  "homepage": "https://github.com/vllm-project/tml-fa4",
+  "skills": []
+}
