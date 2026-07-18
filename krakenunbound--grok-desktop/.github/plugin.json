@@ -1,0 +1,9 @@
+{
+  "name": "krakenunbound--grok-desktop",
+  "displayName": "grok-desktop",
+  "description": "Desktop GUI for the Grok Build CLI",
+  "version": "1.0.0",
+  "author": "krakenunbound",
+  "homepage": "https://github.com/krakenunbound/grok-desktop",
+  "skills": []
+}
