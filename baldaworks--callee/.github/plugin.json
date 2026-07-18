@@ -1,0 +1,9 @@
+{
+  "name": "baldaworks--callee",
+  "displayName": "callee",
+  "description": "Markdown-defined provider-backed agents and deterministic workflows for ACP runtimes.",
+  "version": "1.0.0",
+  "author": "baldaworks",
+  "homepage": "https://github.com/baldaworks/callee",
+  "skills": []
+}
