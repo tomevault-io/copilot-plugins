@@ -1,0 +1,9 @@
+{
+  "name": "obvirm--comfyui-whispercpp",
+  "displayName": "ComfyUI-WhisperCPP",
+  "description": "ComfyUI node for WhisperCPP Fast and smooth",
+  "version": "1.0.0",
+  "author": "obvirm",
+  "homepage": "https://github.com/obvirm/ComfyUI-WhisperCPP",
+  "skills": []
+}
