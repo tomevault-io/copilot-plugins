@@ -1,0 +1,44 @@
+{
+  "name": "dsa-view-view",
+  "owner": "nyaomaru",
+  "repo": "dsa-view-view",
+  "description": "DSA View View allows you to understand DSA to see the data flow. \ud83d\udc40\ud83d\udc40 Of course, it's free.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nyaomaru/dsa-view-view",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-18T22:32:11Z"
+}
