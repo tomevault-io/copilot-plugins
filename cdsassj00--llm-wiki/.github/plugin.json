@@ -1,0 +1,9 @@
+{
+  "name": "cdsassj00--llm-wiki",
+  "displayName": "llm-wiki",
+  "description": "Karpathy-style LLM Wiki one-stop skill: docs folder \u2192 ontology \u2192 wiki \u2192 3D graph (npx skills add cdsassj00/llm-wiki)",
+  "version": "1.0.0",
+  "author": "cdsassj00",
+  "homepage": "https://github.com/cdsassj00/llm-wiki",
+  "skills": []
+}
