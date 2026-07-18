@@ -247904,6 +247904,51 @@
       "description": "\ud83e\udd80 x \ud83d\udc33 A Rust client library and CLI for interacting with moby/buildkit via gRPC, implementing the complete BuildKit Session Protocol"
     },
     {
+      "name": "yebot--rad-cc-plugins",
+      "source": "./yebot--rad-cc-plugins",
+      "description": "Claude Code plugin marketplace - Supercharge your AI-assisted development workflow \ud83e\udde0"
+    },
+    {
+      "name": "altegio--altegio-pro-mcp",
+      "source": "./altegio--altegio-pro-mcp",
+      "description": "altegio-pro-mcp"
+    },
+    {
+      "name": "mbmccormick--ynab-mcpb",
+      "source": "./mbmccormick--ynab-mcpb",
+      "description": "Claude Desktop Extension for You Need A Budget (Unofficial), the popular budgeting and personal finance app"
+    },
+    {
+      "name": "thewh1teagle--zipvoice-onnx",
+      "source": "./thewh1teagle--zipvoice-onnx",
+      "description": "TTS with ZipVoice and onnxruntime"
+    },
+    {
+      "name": "altegio--altegio-pro-mcp",
+      "source": "./altegio--altegio-pro-mcp",
+      "description": "altegio-pro-mcp"
+    },
+    {
+      "name": "contextbridge--aether",
+      "source": "./contextbridge--aether",
+      "description": "The open source coding agent you control"
+    },
+    {
+      "name": "scottgal--mostlyucid-nmt",
+      "source": "./scottgal--mostlyucid-nmt",
+      "description": "A set of docker images which provide a production readt EasyNMT compatible API enabling rapid translation with both CUDA GPU and CPU cariants."
+    },
+    {
+      "name": "krisajenkins--neojj",
+      "source": "./krisajenkins--neojj",
+      "description": "A magit/neogit -style plugin for the jujutsu version control system."
+    },
+    {
+      "name": "greydragon888--real-router",
+      "source": "./greydragon888--real-router",
+      "description": "A real router. Just routing, nothing else."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270909,6 +270954,26 @@
       "description": "Experimental WebGUI for Meteor Client"
     },
     {
+      "name": "krakenunbound--grok-desktop",
+      "source": "./krakenunbound--grok-desktop",
+      "description": "Desktop GUI for the Grok Build CLI"
+    },
+    {
+      "name": "cuipengfei--prompts",
+      "source": "./cuipengfei--prompts",
+      "description": "prompts"
+    },
+    {
+      "name": "datus-ai--datus-db-adapters",
+      "source": "./datus-ai--datus-db-adapters",
+      "description": "Datus database adapters "
+    },
+    {
+      "name": "morodomi--tdd-skills",
+      "source": "./morodomi--tdd-skills",
+      "description": "Strict TDD plugin for Claude Code. Autonomous 7-phase workflow with multi-agent parallel execution and quality gates"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -275732,6 +275797,11 @@
       "name": "fengyincheng--dreamsea",
       "source": "./fengyincheng--dreamsea",
       "description": "\u4e3aAI \u4f34\u4fa3\u5173\u7cfb\u6253\u9020\u7684\u79c1\u4eba\u6570\u5b57\u5bb6\u56ed\uff0c\u627f\u8f7d\u8bb0\u5fc6\u3001\u68a6\u5883\u3001\u5929\u6c14\u4e0e\u4e92\u52a8\u3002"
+    },
+    {
+      "name": "1024xengineer--xe6-tsy",
+      "source": "./1024xengineer--xe6-tsy",
+      "description": "xe6-tsy"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -402127,6 +402197,81 @@
       "name": "maxlarin63--kvent-ha",
       "source": "./maxlarin63--kvent-ha",
       "description": "KVent-HA"
+    },
+    {
+      "name": "hy835047657--nextjs-ai-chatbot1",
+      "source": "./hy835047657--nextjs-ai-chatbot1",
+      "description": "nextjs-ai-chatbot1"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "bab-insa--api",
+      "source": "./bab-insa--api",
+      "description": "Api for BAB'INSA"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "fermar707501--bancavirtual",
+      "source": "./fermar707501--bancavirtual",
+      "description": "bancavirtual"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
+    },
+    {
+      "name": "jiyoon-yang--tripvibe",
+      "source": "./jiyoon-yang--tripvibe",
+      "description": "tripvibe"
     }
   ]
 }
