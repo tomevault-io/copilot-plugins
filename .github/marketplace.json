@@ -1034,6 +1034,11 @@
       "description": "Kilo is the all-in-one agentic engineering platform. Build, ship, and iterate faster with the most popular open source coding agent."
     },
     {
+      "name": "nagi-ovo--voyager",
+      "source": "./nagi-ovo--voyager",
+      "description": "Voyager \u2014 an all-in-one enhancement suite for AI Studio, Gemini, Claude & ChatGPT: timelines, folders, prompts, usage tracking, chat export, plugins, and more. / \u9762\u5411 AI Studio\u3001Gemini\u3001Claude \u4e0e ChatGPT \u7684"
+    },
+    {
       "name": "screenpipe--screenpipe",
       "source": "./screenpipe--screenpipe",
       "description": "YC (S26) | AI that knows what you've seen, said, or heard. Records everything you do, say, hear 24/7, local, private, secure"
@@ -72739,6 +72744,11 @@
       "description": "labs"
     },
     {
+      "name": "carlassmann--tilly",
+      "source": "./carlassmann--tilly",
+      "description": "Tilly is a relationship journal. An offline capable PWA that feels really good. It has an AI agent for maximum convenience."
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -101107,6 +101117,11 @@
       "name": "bushidocodes--chord-grpc",
       "source": "./bushidocodes--chord-grpc",
       "description": "chord-grpc"
+    },
+    {
+      "name": "fullstacktard--claude-workflow",
+      "source": "./fullstacktard--claude-workflow",
+      "description": "Automated Claude Code configuration setup for existing projects"
     },
     {
       "name": "affitor--open-affiliate",
@@ -148822,6 +148837,16 @@
       "name": "aiwenjie777--codex-skin-skill",
       "source": "./aiwenjie777--codex-skin-skill",
       "description": "codex \u76ae\u80a4\u7ba1\u7406"
+    },
+    {
+      "name": "bagisto--b2b-ecommerce",
+      "source": "./bagisto--b2b-ecommerce",
+      "description": "Open source B2B ecommerce Platform"
+    },
+    {
+      "name": "bagisto--b2b-ecommerce",
+      "source": "./bagisto--b2b-ecommerce",
+      "description": "Open source B2B ecommerce Platform"
     },
     {
       "name": "skenetechnologies--plg-skills",
