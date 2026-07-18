@@ -1,13 +1,12 @@
-## 005-security-config
+## 006-commit-pr
 
-> Security and configuration guidance
+> Commit and PR guidelines
 
-# Security & Configuration
+# Commit & PR Guidelines
 
-- Never commit secrets; prefer `*.xcconfig` and use Keychain at runtime.
-- Review `Signing & Capabilities` and `*.entitlements` for least privilege; enable Hardened Runtime.
-- Avoid private APIs; audit third‑party dependencies periodically.
-- Keep model/API keys in the Keychain and load via dedicated services (e.g., `KeychainService`).
+- **Commits**: small, focused, imperative subjects (e.g., `fix: prevent crash when mic permission denied`).
+- **PRs**: link issues; describe scope, approach, and risks; include screenshots/GIFs for UI changes.
+- **Checks**: ensure build, tests, and lint pass locally before requesting review.
 
 ---
 > Source: [dkapo88/WonderWhisper-macOS](https://github.com/dkapo88/WonderWhisper-macOS) — distributed by [TomeVault](https://tomevault.io).
