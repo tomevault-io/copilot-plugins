@@ -1,0 +1,44 @@
+## aomi
+
+> > Persistent goal: see `GOAL.md` in the repo root. Every session should
+
+# Repository Guidelines
+
+> Persistent goal: see `GOAL.md` in the repo root. Every session should
+> read it first and update it as work progresses.
+
+## Project Structure & Module Organization
+
+`src/` holds the publishable widget library: `components/assistant-ui/` for the Aomi frame and chat surfaces, `components/ui/` for shadcn-style primitives, `hooks/` for reusable state, `lib/` for runtime/context helpers, `utils/` for wallet helpers, and `themes/` for CSS token packs that feed the `styles.css` entry point. The demo Next.js app now lives in `apps/landing/` and consumes the built package from `dist/`; use it to validate UI flows before publishing. Static assets shared by the example go in `apps/landing/public/`, while high-level product briefs sit in `specs/`—update both when you introduce new flows.
+
+## Build, Test, and Development Commands
+
+- `pnpm run dev` — Next dev server for the root workspace; handy for debugging shared configs.
+- `pnpm run build:lib` — tsup build that emits ESM/CJS bundles and `*.d.ts` files under `dist/`.
+- `pnpm --filter landing dev` — launches the demo at http://localhost:3000 using the last built library.
+- `pnpm run dev:landing:live` — watches `src/` with tsup while running the landing so library updates hot-reload into the demo.
+- `pnpm run lint` — ESLint (with Next + TypeScript rules) across the library and example.
+- `pnpm run prettier:fix` — Prettier with the Tailwind plugin; keeps class orders deterministic before committing.
+- `pnpm run generate:theme -- --name=neon` — scaffolds a new CSS token file under `src/themes/` using the default theme as a starting point; remember to update `src/themes/tokens.config.ts`.
+
+## Coding Style & Naming Conventions
+
+The codebase is TypeScript + React 19 on Next 15. Prefer functional components with explicit prop interfaces exported near the component. Follow Prettier defaults (2-space indent, double quotes, trailing commas) and rely on `clsx` + `class-variance-authority` for styling variants. Components use PascalCase file names (e.g., `AomiFrame.tsx`), hooks start with `use` (e.g., `hooks/useWallet.ts`), and shared contexts sit in `lib/`. Tailwind utility strings should group layout → color → motion classes to minimize churn.
+
+## Testing Guidelines
+
+There is no dedicated automated test suite yet, so treat `pnpm run build:lib` and `pnpm run lint` as the minimum regression gates. Validate UI behavior through the `apps/landing/` app before opening a PR, and capture regressions with story-specific checks or lightweight React Testing Library specs (`*.test.tsx`) colocated with the component whenever you add new logic branches.
+
+## Commit & Pull Request Guidelines
+
+Commits follow short, imperative summaries (`Fix linting ci`, `Update packages for …`). Keep bodies optional but include rationale when touching build or security-sensitive files. For pull requests, add: 1) a concise description of the change and linked issue, 2) a checklist of commands you ran (lint, build, demo), and 3) screenshots or short clips for UI-impacting work. Make sure the PR mentions any `specs/` updates so reviewers can cross-check behavior changes.
+
+Before merging, audit every touched workspace against the npm publish workflow. If shipped files from a publishable npm package changed, bump that package's version in the same change (use a patch bump unless the release scope requires otherwise), refresh any affected lockfile or generated artifacts, and verify the package is publishable. Do not defer required npm version bumps until after merge.
+
+## Security & Configuration Tips
+
+Never commit `.env` contents. Local development requires `NEXT_PUBLIC_PROJECT_ID` and `NEXT_PUBLIC_BACKEND_URL` (see README) so be sure to supply mock-safe values when recording demos. Wallet helpers in `utils/wallet.ts` assume checksummed addresses; validate inputs before invoking them, and funnel all network or key-related secrets through the backend instead of embedding them in this repo.
+
+---
+> Source: [aomi-labs/aomi](https://github.com/aomi-labs/aomi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-18 -->
