@@ -1,0 +1,9 @@
+{
+  "name": "binyoun--ritual-engine",
+  "displayName": "ritual-engine",
+  "description": "White-label toolkit that turns cultural sites into walkable ceremonies. NFC/QR/GPS/compass-triggered web experiences, no app, no install.",
+  "version": "1.0.0",
+  "author": "binyoun",
+  "homepage": "https://github.com/binyoun/ritual-engine",
+  "skills": []
+}
