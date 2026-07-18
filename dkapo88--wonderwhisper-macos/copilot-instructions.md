@@ -1,16 +1,13 @@
-## 004-testing-guidelines
+## 005-security-config
 
-> Testing guidelines for WonderWhisper
+> Security and configuration guidance
 
-# Testing Guidelines
+# Security & Configuration
 
-- **Framework**: XCTest for unit and UI tests; use async tests where applicable.
-- **Naming**: `test_<UnitUnderTest>_<Behavior>()` (e.g., `test_AudioService_handlesPermissionDenied`).
-- **Scope**: prioritize pure logic and critical flows; add UI tests for key journeys.
-- **Coverage**: aim ≥80% for core modules.
-- **Run**: use the Test command rule or Xcode’s Test action.
-
-Place unit tests in ["WonderWhisperTests/"](mdc:WonderWhisperTests/) and UI tests in ["WonderWhisperUITests/"](mdc:WonderWhisperUITests/).
+- Never commit secrets; prefer `*.xcconfig` and use Keychain at runtime.
+- Review `Signing & Capabilities` and `*.entitlements` for least privilege; enable Hardened Runtime.
+- Avoid private APIs; audit third‑party dependencies periodically.
+- Keep model/API keys in the Keychain and load via dedicated services (e.g., `KeychainService`).
 
 ---
 > Source: [dkapo88/WonderWhisper-macOS](https://github.com/dkapo88/WonderWhisper-macOS) — distributed by [TomeVault](https://tomevault.io).
