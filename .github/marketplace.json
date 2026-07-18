@@ -247974,6 +247974,61 @@
       "description": "A real router. Just routing, nothing else."
     },
     {
+      "name": "baldaworks--callee",
+      "source": "./baldaworks--callee",
+      "description": "Markdown-defined provider-backed agents and deterministic workflows for ACP runtimes."
+    },
+    {
+      "name": "aviranrevach--my-family-story",
+      "source": "./aviranrevach--my-family-story",
+      "description": "An interactive, bilingual family-tree app that treats your family as a story explored across time. Ships with a fictional demo family."
+    },
+    {
+      "name": "codes30--website-creator-e2b",
+      "source": "./codes30--website-creator-e2b",
+      "description": "website-creator-e2b"
+    },
+    {
+      "name": "pycodebr--finanpy",
+      "source": "./pycodebr--finanpy",
+      "description": "finanpy"
+    },
+    {
+      "name": "pycodebr--finanpy",
+      "source": "./pycodebr--finanpy",
+      "description": "finanpy"
+    },
+    {
+      "name": "yyforreal--md-2-pretty-pdf",
+      "source": "./yyforreal--md-2-pretty-pdf",
+      "description": "\u4e00\u4e2a\u7eaf\u524d\u7aef\u5728\u7ebf&\u514d\u8d39\u7684 Markdown \u8f6c PDF \u5de5\u5177\uff0c\u652f\u6301\u4e30\u5bcc\u7684\u6837\u5f0f\u81ea\u5b9a\u4e49\u548c\u591a\u79cd\u9884\u8bbe\u4e3b\u9898\u3002"
+    },
+    {
+      "name": "aomi-labs--aomi",
+      "source": "./aomi-labs--aomi",
+      "description": "The best blockchain harness for agentic AI - on-chain execution with runtime, skills, and component library."
+    },
+    {
+      "name": "pycodebr--finanpy",
+      "source": "./pycodebr--finanpy",
+      "description": "finanpy"
+    },
+    {
+      "name": "echovaulthq--echovault",
+      "source": "./echovaulthq--echovault",
+      "description": "Echovault Music Player"
+    },
+    {
+      "name": "aomi-labs--aomi",
+      "source": "./aomi-labs--aomi",
+      "description": "The best blockchain harness for agentic AI - on-chain execution with runtime, skills, and component library."
+    },
+    {
+      "name": "skelhammer--slime-rancher-2-guide",
+      "source": "./skelhammer--slime-rancher-2-guide",
+      "description": "A guide for Slime Rancher 2. "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270999,6 +271054,46 @@
       "description": "Strict TDD plugin for Claude Code. Autonomous 7-phase workflow with multi-agent parallel execution and quality gates"
     },
     {
+      "name": "scion-frontiers--farmtable",
+      "source": "./scion-frontiers--farmtable",
+      "description": "farmtable"
+    },
+    {
+      "name": "niteenautade--minimamemosa",
+      "source": "./niteenautade--minimamemosa",
+      "description": "A lightweight, self-hosted memo/notes app built for minimal resource usage (~5\u201310MB idle RAM, max 100MB). Built in Rust."
+    },
+    {
+      "name": "scion-frontiers--farmtable",
+      "source": "./scion-frontiers--farmtable",
+      "description": "farmtable"
+    },
+    {
+      "name": "oscar01428--blockscout",
+      "source": "./oscar01428--blockscout",
+      "description": "A privacy-first blockchain explorer for Ethereum and EVM networks with real-time transaction, token, NFT, and smart contract analytics"
+    },
+    {
+      "name": "oscar01428--blockscout",
+      "source": "./oscar01428--blockscout",
+      "description": "A privacy-first blockchain explorer for Ethereum and EVM networks with real-time transaction, token, NFT, and smart contract analytics"
+    },
+    {
+      "name": "mrdainami--omni-video-director",
+      "source": "./mrdainami--omni-video-director",
+      "description": "Drop in a video \u2014 Claude adds the b-roll & VFX for you. Google Omni + GPT-Image-2 via kie, assembled with HyperFrames."
+    },
+    {
+      "name": "wesleyramalho--mypdfcv",
+      "source": "./wesleyramalho--mypdfcv",
+      "description": "mypdfcv.com is a modern, free resume builder with real-time preview, AI-powered text improvement, and one-click PDF export."
+    },
+    {
+      "name": "kennyanyi9--better-ascii",
+      "source": "./kennyanyi9--better-ascii",
+      "description": "A better React component for rendering ASCII text art with excellent DX"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -275827,6 +275922,11 @@
       "name": "1024xengineer--xe6-tsy",
       "source": "./1024xengineer--xe6-tsy",
       "description": "xe6-tsy"
+    },
+    {
+      "name": "ayush-that--ornn-rider",
+      "source": "./ayush-that--ornn-rider",
+      "description": "A bike game where you ride real GPU market price charts."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
