@@ -1,0 +1,9 @@
+{
+  "name": "arcboxlabs--buildkit-client",
+  "displayName": "buildkit-client",
+  "description": "\ud83e\udd80 x \ud83d\udc33 A Rust client library and CLI for interacting with moby/buildkit via gRPC, implementing the complete BuildKit Session Protocol",
+  "version": "1.0.0",
+  "author": "arcboxlabs",
+  "homepage": "https://github.com/arcboxlabs/buildkit-client",
+  "skills": []
+}
