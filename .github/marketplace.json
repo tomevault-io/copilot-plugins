@@ -247844,6 +247844,46 @@
       "description": "Define flowcharts and diagrams as code using Graphviz DOT language, connect your metrics, and visualize them in your choice of layouts \u2014 no manual drawing needed."
     },
     {
+      "name": "pgray--fpexif",
+      "source": "./pgray--fpexif",
+      "description": "file photo exif lib"
+    },
+    {
+      "name": "achinivar--meera",
+      "source": "./achinivar--meera",
+      "description": "Meera - AI assistant for Linux Gnome desktops that runs fully local (no cloud API tokens needed)"
+    },
+    {
+      "name": "sheetmetalconnect--eryxon-flow",
+      "source": "./sheetmetalconnect--eryxon-flow",
+      "description": "Manufacturing Execution System (MES) for job shops and make-to-order manufacturers."
+    },
+    {
+      "name": "sheetmetalconnect--eryxon-flow",
+      "source": "./sheetmetalconnect--eryxon-flow",
+      "description": "Manufacturing Execution System (MES) for job shops and make-to-order manufacturers."
+    },
+    {
+      "name": "sheetmetalconnect--eryxon-flow",
+      "source": "./sheetmetalconnect--eryxon-flow",
+      "description": "Manufacturing Execution System (MES) for job shops and make-to-order manufacturers."
+    },
+    {
+      "name": "achinivar--meera",
+      "source": "./achinivar--meera",
+      "description": "Meera - AI assistant for Linux Gnome desktops that runs fully local (no cloud API tokens needed)"
+    },
+    {
+      "name": "obvirm--comfyui-whispercpp",
+      "source": "./obvirm--comfyui-whispercpp",
+      "description": "ComfyUI node for WhisperCPP Fast and smooth"
+    },
+    {
+      "name": "arcboxlabs--buildkit-client",
+      "source": "./arcboxlabs--buildkit-client",
+      "description": "\ud83e\udd80 x \ud83d\udc33 A Rust client library and CLI for interacting with moby/buildkit via gRPC, implementing the complete BuildKit Session Protocol"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270817,6 +270857,36 @@
       "name": "tianyaxiang--scrollsnap",
       "source": "./tianyaxiang--scrollsnap",
       "description": "ScrollSnap \u6eda\u52a8\u622a\u5c4f \u4e00\u6b3e\u8f7b\u677e\u622a\u53d6\u7f51\u9875\u6eda\u52a8\u5185\u5bb9\u7684 Chrome \u6269\u5c55\u63d2\u4ef6\u3002"
+    },
+    {
+      "name": "3kh0--snack",
+      "source": "./3kh0--snack",
+      "description": "a lightweight client for slack"
+    },
+    {
+      "name": "polvallverdu--base-ui-mcp",
+      "source": "./polvallverdu--base-ui-mcp",
+      "description": "base-ui-mcp"
+    },
+    {
+      "name": "polvallverdu--base-ui-mcp",
+      "source": "./polvallverdu--base-ui-mcp",
+      "description": "base-ui-mcp"
+    },
+    {
+      "name": "chirag127--bookmark-mind",
+      "source": "./chirag127--bookmark-mind",
+      "description": "AI-driven browser extension that automatically categorizes bookmarks using Gemini, Groq, and other LLMs, offering snapshot/undo, performance insights, and seamless cross\u2011browser support."
+    },
+    {
+      "name": "robertslando--upscaler",
+      "source": "./robertslando--upscaler",
+      "description": "AI-powered image upscaler using Real-ESRGAN with a web API and UI"
+    },
+    {
+      "name": "mcdxai--meteor-client-webgui",
+      "source": "./mcdxai--meteor-client-webgui",
+      "description": "Experimental WebGUI for Meteor Client"
     },
     {
       "name": "cheerhuan--save-your-token",
