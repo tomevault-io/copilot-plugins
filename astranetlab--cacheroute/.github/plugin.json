@@ -1,0 +1,9 @@
+{
+  "name": "astranetlab--cacheroute",
+  "displayName": "CacheRoute",
+  "description": "CacheRoute is an innovative LLM scheduling scheme dedicated to enabling flexible KV cache reuse across LLM systems, improving task performance and system efficiency.",
+  "version": "1.0.0",
+  "author": "AstraNetLab",
+  "homepage": "https://github.com/AstraNetLab/CacheRoute",
+  "skills": []
+}
