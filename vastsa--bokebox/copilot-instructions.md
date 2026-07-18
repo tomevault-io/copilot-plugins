@@ -1,0 +1,100 @@
+## bokebox
+
+> 本项目采用 **LGPL-3.0**（`LGPL-3.0-only`）开源协议，见根目录 `LICENSE` 与 `package.json`。
+
+# Agent 工作约定
+
+## 开源协议与归属信息（强制）
+
+本项目采用 **LGPL-3.0**（`LGPL-3.0-only`）开源协议，见根目录 `LICENSE` 与 `package.json`。
+
+### 必须遵守
+
+- 保留并尊重 **LGPL-3.0** 协议声明
+- 保留仓库地址与相关归属信息，包括但不限于：
+  - `https://github.com/vastsa/BokeBox`
+  - `https://github.com/vastsa/BokeBox.git`
+  - `github.com/vastsa/BokeBox`
+  - README / package.json / 文档中的 `repository`、`homepage`、`bugs`、License Badge、项目主页链接
+  - `LICENSE` 文件本身及对 LGPL 的引用说明
+
+### 明确禁止
+
+- **禁止** 删除、清空、替换或弱化仓库地址
+- **禁止** 移除、改写或绕过 LGPL 协议声明与相关版权/归属信息
+- **禁止** 将协议擅自改为其他 License
+- **禁止** 在重构、清理文档、生成代码、脱敏或“精简文案”时顺手去掉上述信息
+
+若用户明确要求修改协议或仓库地址，**先提示本项目为 LGPL-3.0 且需保留仓库与协议信息**，未经明确授权不得执行删除/替换。
+
+---
+
+## Git 提交规范（强制）
+
+**每次完成一个任务后，必须进行规范提交**，不要等用户提醒。
+
+### 执行时机
+
+- 功能开发 / 修 bug / 重构 / 文档更新等阶段性工作完成后
+- 确认改动可工作、无明显半成品后再提交
+- 用户明确说「先别提交」时除外
+
+### 提交流程
+
+1. 并行查看：`git status`、`git diff`、`git log`（了解风格）
+2. 起草简洁 commit message（说明为什么，而非堆砌文件列表）
+3. 只 stage 相关文件，避免把 `.env`、媒体产物、构建缓存误入仓
+4. 使用 HEREDOC 提交（`git commit -m "$(cat <<'EOF'" ...`）
+5. 提交后执行 `git status` 确认干净或仅剩无关改动
+6. **默认不 push**，除非用户明确要求
+
+### Message 风格
+
+- 优先 Conventional Commits：`feat` / `fix` / `refactor` / `docs` / `chore` …
+- 使用简体中文或中英混排，一句说清变更意图
+- 相关改动可同一次提交；无关改动拆开
+
+### 禁止
+
+- 不修改 git config
+- 不提交密钥、`.env`、数据库、任务媒体、大体积截图
+- 不使用 `--no-verify` 绕过钩子（除非用户明确要求且理由充分）
+- 不 force push 到 main/master
+
+## 多任务并行开发约定（强制）
+
+默认允许多个任务在**同一个工作区与当前分支**并行推进，不要求每个任务创建独立 worktree。并行的前提是明确文件边界、隔离提交内容，并串行执行 Git 写操作。
+
+### 开始任务前
+
+- 先执行 `git status --short`、`git diff --name-only`，确认当前已有改动
+- 将已有未提交文件视为其他任务或用户正在处理的内容，未经确认不得覆盖、还原或顺手修改
+- 明确当前任务预计修改的文件范围；发现与其他任务重叠时，优先重新拆分边界
+- 涉及 `package.json`、lockfile、数据库 schema、全局配置、公共类型等高冲突文件时，默认串行处理
+
+### 开发过程中
+
+- 一个文件同一时间只由一个任务负责；其他任务需要修改时先等待或明确协调
+- 只编辑当前任务负责的文件和代码区域，不做与任务无关的格式化、重命名或批量清理
+- 不切换分支，不执行会影响整个工作区的 `stash`、`reset`、`checkout`、`restore`、`clean`
+- 验证命令可以并行运行，但会写共享产物、数据库、缓存或快照的命令必须串行
+- 若两个任务必须同时大改同一文件，才使用独立分支或 worktree；除这种冲突场景外不默认创建 worktree
+
+### 提交与推送
+
+- Git 写操作必须串行：同一时间只允许一个任务执行 `git add`、`git commit`、`git merge` 或 `git push`
+- 提交前重新检查 `git status`、`git diff`、`git diff --cached` 与最新 `HEAD`，避免并发期间混入新改动
+- 只使用 `git add <明确文件>` 或精确暂存当前任务内容，禁止使用 `git add .`、`git add -A`
+- 若同一文件混有多个任务改动，使用精确 hunk 暂存；无法安全拆分时暂停提交并先协调
+- 每个任务单独提交，commit message 只描述本任务；默认不 push，除非用户明确要求
+
+### 禁止
+
+- 擅自处理、暂存、提交或删除其他任务的改动
+- 为了获得“干净工作区”而回滚、移动或隐藏现有改动
+- 多个任务同时操作 Git index 或同时提交、合并、推送
+- 未验证就直接提交大范围修改
+
+---
+> Source: [vastsa/BokeBox](https://github.com/vastsa/BokeBox) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-18 -->
