@@ -1,0 +1,9 @@
+{
+  "name": "99apps-id--nesarouter",
+  "displayName": "nesarouter",
+  "description": "Next Smart Adaptive (Nesa) Router - Local-first OpenAI-compatible AI gateway with smart routing, budget controls, encrypted OAuth, and token savers.",
+  "version": "1.0.0",
+  "author": "99apps-id",
+  "homepage": "https://github.com/99apps-id/nesarouter",
+  "skills": []
+}
