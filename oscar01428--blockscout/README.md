@@ -7,11 +7,11 @@ A privacy-first blockchain explorer for Ethereum and EVM networks with real-time
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [oscar01428/Blockscout](https://github.com/oscar01428/Blockscout).
+Original source: `CLAUDE.md` in [oscar01428/Blockscout](https://github.com/oscar01428/Blockscout).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
