@@ -1,0 +1,9 @@
+{
+  "name": "codesteward--codesteward",
+  "displayName": "codesteward",
+  "description": "Agentic code review with structural graph intelligence \u2014 PR gate + branch stewardship. Self-hosted. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "Codesteward",
+  "homepage": "https://github.com/Codesteward/codesteward",
+  "skills": []
+}
