@@ -4,7 +4,7 @@
   "repo": "amarula",
   "description": "A Whatsapp client implementation in Elixir",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tubedude/amarula",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-18T01:32:33Z"
+  "distributed_at": "2026-07-18T01:33:26Z"
 }
