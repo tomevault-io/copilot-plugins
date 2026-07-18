@@ -4,7 +4,7 @@
   "repo": "harness-engineering",
   "description": "Ryan Lopopolo\u2019s anthology, field guide, and agent context bundle for harness engineering",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lopopolo/harness-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-18T23:30:35Z"
+  "distributed_at": "2026-07-18T23:31:10Z"
 }
