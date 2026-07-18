@@ -4,7 +4,7 @@
   "repo": "finanpy",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pycodebr/finanpy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-18T08:37:44Z"
+  "distributed_at": "2026-07-18T08:39:08Z"
 }
