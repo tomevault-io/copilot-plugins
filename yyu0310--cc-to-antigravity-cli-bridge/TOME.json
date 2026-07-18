@@ -4,7 +4,7 @@
   "repo": "cc-to-antigravity-cli-bridge",
   "description": "Drive Google's Antigravity CLI (agy) from Claude Code: system-prompt sharing + a research-method prompt prefix. CLI counterpart to the IDE bridge.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yyu0310/cc-to-antigravity-cli-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-18T20:31:11Z"
+  "distributed_at": "2026-07-18T20:31:48Z"
 }
