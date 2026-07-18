@@ -51979,6 +51979,11 @@
       "description": "tent"
     },
     {
+      "name": "dimon94--dverity",
+      "source": "./dimon94--dverity",
+      "description": "\ud83d\ude80 One-command requirement development flow for Claude Code - Complete workflow system with sub-agents, quality gates, and intelligent automation"
+    },
+    {
       "name": "everettjf--liney",
       "source": "./everettjf--liney",
       "description": "Liney is a native macOS terminal workspace built with AppKit, SwiftUI, and Ghostty, designed for multi-repo workflows, worktree switching, and focused vibe coding."
@@ -75667,6 +75672,11 @@
       "name": "liubaicai--shelldesk",
       "source": "./liubaicai--shelldesk",
       "description": "A virtual remote desktop and graphical server management toolkit"
+    },
+    {
+      "name": "codesteward--codesteward",
+      "source": "./codesteward--codesteward",
+      "description": "Agentic code review with structural graph intelligence \u2014 PR gate + branch stewardship. Self-hosted. Apache-2.0."
     },
     {
       "name": "bioliminal--bioliminal-mobile-application",
