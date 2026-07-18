@@ -1,0 +1,9 @@
+{
+  "name": "tubedude--amarula",
+  "displayName": "amarula",
+  "description": "A Whatsapp client implementation in Elixir",
+  "version": "1.0.0",
+  "author": "tubedude",
+  "homepage": "https://github.com/tubedude/amarula",
+  "skills": []
+}
