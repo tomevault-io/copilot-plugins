@@ -1,0 +1,44 @@
+{
+  "name": "pier",
+  "owner": "alphabench",
+  "repo": "pier",
+  "description": "Pier Code is a terminal-native agentic coding tool that understands your codebase and helps you move faster by handling routine tasks, explaining complex code, and managing git workflows through simple natural language commands.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alphabench/pier",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-18T14:33:11Z"
+}
