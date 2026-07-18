@@ -1,0 +1,9 @@
+{
+  "name": "morodomi--tdd-skills",
+  "displayName": "tdd-skills",
+  "description": "Strict TDD plugin for Claude Code. Autonomous 7-phase workflow with multi-agent parallel execution and quality gates",
+  "version": "1.0.0",
+  "author": "morodomi",
+  "homepage": "https://github.com/morodomi/tdd-skills",
+  "skills": []
+}
