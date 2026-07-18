@@ -1,0 +1,9 @@
+{
+  "name": "fullstacktard--claude-workflow",
+  "displayName": "claude-workflow",
+  "description": "Automated Claude Code configuration setup for existing projects",
+  "version": "1.0.0",
+  "author": "fullstacktard",
+  "homepage": "https://github.com/fullstacktard/claude-workflow",
+  "skills": []
+}
