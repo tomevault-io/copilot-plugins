@@ -1,0 +1,9 @@
+{
+  "name": "dayotter--dayotter",
+  "displayName": "dayotter",
+  "description": "The AI-native, open-source scheduling platform. Otter books meetings, protects your focus, and clears the back-and-forth \u2014 confirm-first. Self-host it all under AGPLv3.",
+  "version": "1.0.0",
+  "author": "Dayotter",
+  "homepage": "https://github.com/Dayotter/dayotter",
+  "skills": []
+}
