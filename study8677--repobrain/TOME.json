@@ -4,7 +4,7 @@
   "repo": "repobrain",
   "description": "\ud83e\udde0 RepoBrain (formerly Antigravity) \u2014 Give your repo a brain. ChatGPT for your codebase: works in Claude Code, Cursor, Codex, Windsurf & more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/study8677/repobrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-18T01:30:33Z"
+  "distributed_at": "2026-07-18T01:31:08Z"
 }
