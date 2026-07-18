@@ -1,0 +1,44 @@
+{
+  "name": "avif-local-support",
+  "owner": "ddegner",
+  "repo": "avif-local-support",
+  "description": "Local AVIF plugin for WordPress. It converts JPEGs to AVIFs with a focus on quality and replaces JPEGs on the front-end of WordPress for browsers that support them. It also includes an LQIP (Low Quality Image Placeholder) feature that when on immediately shows a blurry version on the image.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ddegner/avif-local-support",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-18T18:31:10Z"
+}
