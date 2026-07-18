@@ -4,7 +4,7 @@
   "repo": "aomi",
   "description": "The best blockchain harness for agentic AI - on-chain execution with runtime, skills, and component library.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aomi-labs/aomi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-18T08:38:40Z"
+  "distributed_at": "2026-07-18T08:40:34Z"
 }
