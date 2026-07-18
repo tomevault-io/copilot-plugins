@@ -1,0 +1,9 @@
+{
+  "name": "alphabench--pier",
+  "displayName": "pier",
+  "description": "Pier Code is a terminal-native agentic coding tool that understands your codebase and helps you move faster by handling routine tasks, explaining complex code, and managing git workflows through simpl",
+  "version": "1.0.0",
+  "author": "alphabench",
+  "homepage": "https://github.com/alphabench/pier",
+  "skills": []
+}
