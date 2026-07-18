@@ -4,7 +4,7 @@
   "repo": "Blockscout",
   "description": "A privacy-first blockchain explorer for Ethereum and EVM networks with real-time transaction, token, NFT, and smart contract analytics",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oscar01428/Blockscout",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-18T08:35:19Z"
+  "distributed_at": "2026-07-18T08:35:50Z"
 }
