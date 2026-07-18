@@ -1,0 +1,9 @@
+{
+  "name": "antoinezanardi--goat-it-api",
+  "displayName": "goat-it-api",
+  "description": "\ud83d\udc10 Goat It API is a fast and efficient API built with NestJS and Fastify, designed to provide seamless backend services for Goat It applications.",
+  "version": "1.0.0",
+  "author": "antoinezanardi",
+  "homepage": "https://github.com/antoinezanardi/goat-it-api",
+  "skills": []
+}
