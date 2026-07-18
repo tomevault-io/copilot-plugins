@@ -144924,6 +144924,11 @@
       "description": "Your agent writes down why, in the repo, so everyone else's agents can find it without asking you."
     },
     {
+      "name": "gg22666--rise10",
+      "source": "./gg22666--rise10",
+      "description": "Rise10"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
