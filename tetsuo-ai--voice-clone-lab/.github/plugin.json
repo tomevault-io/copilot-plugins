@@ -1,0 +1,9 @@
+{
+  "name": "tetsuo-ai--voice-clone-lab",
+  "displayName": "voice_clone_lab",
+  "description": "Clone a voice from a few minutes of audio and generate speech locally \u2014 Qwen3-TTS fine-tuning pipeline with CLI and web UI",
+  "version": "1.0.0",
+  "author": "tetsuo-ai",
+  "homepage": "https://github.com/tetsuo-ai/voice_clone_lab",
+  "skills": []
+}
