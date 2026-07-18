@@ -1,0 +1,9 @@
+{
+  "name": "co-l--cache-hunter",
+  "displayName": "cache-hunter",
+  "description": "LLM proxy specialized in analyzing harness traffic to catch cache invalidation.",
+  "version": "1.0.0",
+  "author": "co-l",
+  "homepage": "https://github.com/co-l/cache-hunter",
+  "skills": []
+}
