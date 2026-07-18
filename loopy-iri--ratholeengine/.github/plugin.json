@@ -1,0 +1,9 @@
+{
+  "name": "loopy-iri--ratholeengine",
+  "displayName": "RatholeEngine",
+  "description": "The All-in-One Orchestrator for Rathole & Nginx",
+  "version": "1.0.0",
+  "author": "loopy-iri",
+  "homepage": "https://github.com/loopy-iri/RatholeEngine",
+  "skills": []
+}
