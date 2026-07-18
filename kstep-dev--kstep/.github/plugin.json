@@ -1,0 +1,9 @@
+{
+  "name": "kstep-dev--kstep",
+  "displayName": "kstep",
+  "description": "kSTEP: Kernel Scheduler Test and Evaluation Platform ",
+  "version": "1.0.0",
+  "author": "kstep-dev",
+  "homepage": "https://github.com/kstep-dev/kstep",
+  "skills": []
+}
