@@ -163184,6 +163184,11 @@
       "description": "HTML-first, accessible UI primitives with zero hydration and optional, tiny JavaScript enhancers."
     },
     {
+      "name": "loopy-iri--ratholeengine",
+      "source": "./loopy-iri--ratholeengine",
+      "description": "The All-in-One Orchestrator for Rathole & Nginx"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -176257,6 +176262,11 @@
       "name": "celesnity--embinder",
       "source": "./celesnity--embinder",
       "description": "Embinder makes the agent a resident of the app. Turn every traditional platform to AI-native platform"
+    },
+    {
+      "name": "tetsuo-ai--voice-clone-lab",
+      "source": "./tetsuo-ai--voice-clone-lab",
+      "description": "Clone a voice from a few minutes of audio and generate speech locally \u2014 Qwen3-TTS fine-tuning pipeline with CLI and web UI"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
