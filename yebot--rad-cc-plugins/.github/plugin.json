@@ -1,0 +1,9 @@
+{
+  "name": "yebot--rad-cc-plugins",
+  "displayName": "rad-cc-plugins",
+  "description": "Claude Code plugin marketplace - Supercharge your AI-assisted development workflow \ud83e\udde0",
+  "version": "1.0.0",
+  "author": "yebot",
+  "homepage": "https://github.com/yebot/rad-cc-plugins",
+  "skills": []
+}
