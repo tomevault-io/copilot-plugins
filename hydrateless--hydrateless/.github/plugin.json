@@ -1,0 +1,9 @@
+{
+  "name": "hydrateless--hydrateless",
+  "displayName": "hydrateless",
+  "description": "HTML-first, accessible UI primitives with zero hydration and optional, tiny JavaScript enhancers.",
+  "version": "1.0.0",
+  "author": "hydrateless",
+  "homepage": "https://github.com/hydrateless/hydrateless",
+  "skills": []
+}
