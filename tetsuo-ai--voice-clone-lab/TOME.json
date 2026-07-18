@@ -1,0 +1,44 @@
+{
+  "name": "voice_clone_lab",
+  "owner": "tetsuo-ai",
+  "repo": "voice_clone_lab",
+  "description": "Clone a voice from a few minutes of audio and generate speech locally \u2014 Qwen3-TTS fine-tuning pipeline with CLI and web UI",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tetsuo-ai/voice_clone_lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-18T17:30:28Z"
+}
