@@ -7,11 +7,11 @@ Run MoE models larger than device RAM by streaming only the routed experts from 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Helldez/BigMoeOnEdge](https://github.com/Helldez/BigMoeOnEdge).
+Original source: `CLAUDE.md` in [Helldez/BigMoeOnEdge](https://github.com/Helldez/BigMoeOnEdge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
