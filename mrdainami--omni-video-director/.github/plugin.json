@@ -1,0 +1,9 @@
+{
+  "name": "mrdainami--omni-video-director",
+  "displayName": "omni-video-director",
+  "description": "Drop in a video \u2014 Claude adds the b-roll & VFX for you. Google Omni + GPT-Image-2 via kie, assembled with HyperFrames.",
+  "version": "1.0.0",
+  "author": "mrdainami",
+  "homepage": "https://github.com/mrdainami/omni-video-director",
+  "skills": []
+}
