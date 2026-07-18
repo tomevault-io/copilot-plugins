@@ -1,0 +1,9 @@
+{
+  "name": "ddegner--avif-local-support",
+  "displayName": "avif-local-support",
+  "description": "Local AVIF plugin for WordPress. It converts JPEGs to AVIFs with a focus on quality and replaces JPEGs on the front-end of WordPress for browsers that support them. It also includes an LQIP (Low Quali",
+  "version": "1.0.0",
+  "author": "ddegner",
+  "homepage": "https://github.com/ddegner/avif-local-support",
+  "skills": []
+}
