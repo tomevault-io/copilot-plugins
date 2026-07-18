@@ -1,0 +1,9 @@
+{
+  "name": "5e1y--roadmapped",
+  "displayName": "roadmapped",
+  "description": "Project management as flat files in your repo. YAML tasks, a computed roadmap, driven by your AI agent. No database, no SaaS. MIT.",
+  "version": "1.0.0",
+  "author": "5e1y",
+  "homepage": "https://github.com/5e1y/roadmapped",
+  "skills": []
+}
