@@ -1,0 +1,9 @@
+{
+  "name": "niteenautade--minimamemosa",
+  "displayName": "minimamemosa",
+  "description": "A lightweight, self-hosted memo/notes app built for minimal resource usage (~5\u201310MB idle RAM, max 100MB). Built in Rust.",
+  "version": "1.0.0",
+  "author": "niteenautade",
+  "homepage": "https://github.com/niteenautade/minimamemosa",
+  "skills": []
+}
