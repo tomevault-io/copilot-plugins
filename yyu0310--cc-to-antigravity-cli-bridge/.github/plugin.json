@@ -1,0 +1,9 @@
+{
+  "name": "yyu0310--cc-to-antigravity-cli-bridge",
+  "displayName": "cc-to-antigravity-cli-bridge",
+  "description": "Drive Google's Antigravity CLI (agy) from Claude Code: system-prompt sharing + a research-method prompt prefix. CLI counterpart to the IDE bridge.",
+  "version": "1.0.0",
+  "author": "yyu0310",
+  "homepage": "https://github.com/yyu0310/cc-to-antigravity-cli-bridge",
+  "skills": []
+}
