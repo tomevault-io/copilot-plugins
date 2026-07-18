@@ -1,0 +1,9 @@
+{
+  "name": "krisajenkins--neojj",
+  "displayName": "neojj",
+  "description": "A magit/neogit -style plugin for the jujutsu version control system.",
+  "version": "1.0.0",
+  "author": "krisajenkins",
+  "homepage": "https://github.com/krisajenkins/neojj",
+  "skills": []
+}
