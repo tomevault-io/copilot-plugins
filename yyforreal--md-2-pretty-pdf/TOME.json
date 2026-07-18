@@ -1,0 +1,44 @@
+{
+  "name": "md-2-pretty-pdf",
+  "owner": "YYForReal",
+  "repo": "md-2-pretty-pdf",
+  "description": "\u4e00\u4e2a\u7eaf\u524d\u7aef\u5728\u7ebf&\u514d\u8d39\u7684 Markdown \u8f6c PDF \u5de5\u5177\uff0c\u652f\u6301\u4e30\u5bcc\u7684\u6837\u5f0f\u81ea\u5b9a\u4e49\u548c\u591a\u79cd\u9884\u8bbe\u4e3b\u9898\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YYForReal/md-2-pretty-pdf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-18T08:38:07Z"
+}
