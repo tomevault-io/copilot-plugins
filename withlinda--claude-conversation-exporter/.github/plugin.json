@@ -1,0 +1,9 @@
+{
+  "name": "withlinda--claude-conversation-exporter",
+  "displayName": "claude-conversation-exporter",
+  "description": "A JavaScript utility to export your Claude AI conversations as Markdown and JSON files, including all attachments, artifacts, and their extracted content.",
+  "version": "1.0.0",
+  "author": "withLinda",
+  "homepage": "https://github.com/withLinda/claude-conversation-exporter",
+  "skills": []
+}
