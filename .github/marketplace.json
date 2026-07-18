@@ -248164,6 +248164,16 @@
       "description": "Drive Google's Antigravity CLI (agy) from Claude Code: system-prompt sharing + a research-method prompt prefix. CLI counterpart to the IDE bridge."
     },
     {
+      "name": "jiaxuan-tao--vibe-coding-lab",
+      "source": "./jiaxuan-tao--vibe-coding-lab",
+      "description": "Vibe Coding \u8f7b\u91cf\u9879\u76ee\u5b9e\u9a8c\u5ba4\uff1aWeb \u5e94\u7528\u3001\u684c\u9762\u5de5\u5177\u3001Prompt \u8d44\u6599\u5e93\u4e0e Codex Skills"
+    },
+    {
+      "name": "southleft--ds-audit",
+      "source": "./southleft--ds-audit",
+      "description": "A CLI-based auditing tool designed to evaluate the health, structure, and completeness of code-based design systems. "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -271272,6 +271282,21 @@
       "name": "tanjamheng--fengjin-agent",
       "source": "./tanjamheng--fengjin-agent",
       "description": "\u8fd9\u662f\u4e00\u4e2a\u8fd8\u539f\u300a\u5d29\u574f\uff1a\u661f\u7a79\u94c1\u9053\u300b\u89d2\u8272**\u98ce\u5807**\u7684\u4f34\u4fa3\u578bAgent\u3002\u6838\u5fc3\u613f\u666f\u662f\u8ba9 AI \u5c3d\u53ef\u80fd\u8fd8\u539f\u98ce\u5807\u2014\u2014\u6709\u7740\u548c\u98ce\u5807\u4e00\u6837\u7684\u6027\u683c\uff0c\u50cf\u4e00\u4e2a\u6d3b\u751f\u751f\u7684\u4eba\u2014\u2014\u6709\u60c5\u7eea\uff0c\u6709\u7f81\u7eca\uff0c\u6709\u8bb0\u5fc6\u3002\u5e0c\u671b\u98ce\u5807 Agent \u53ef\u4ee5\u7ed9\u4e88\u7528\u6237\u966a\u4f34\uff0c\u548c\u660f\u5149\u5ead\u9662\u7684\u533b\u5e08\u4e00\u6837\u6cbb\u6108\u4eba\u5fc3\u3002"
+    },
+    {
+      "name": "melvynx--benchmarks",
+      "source": "./melvynx--benchmarks",
+      "description": "Reproducible coding-model benchmarks, evidence, transcripts, and comparison workbench"
+    },
+    {
+      "name": "nyaomaru--dsa-view-view",
+      "source": "./nyaomaru--dsa-view-view",
+      "description": "DSA View View allows you to understand DSA to see the data flow. \ud83d\udc40\ud83d\udc40 Of course, it's free."
+    },
+    {
+      "name": "jesse-ai--jesse-rust",
+      "source": "./jesse-ai--jesse-rust",
+      "description": "jesse-rust"
     },
     {
       "name": "cheerhuan--save-your-token",
