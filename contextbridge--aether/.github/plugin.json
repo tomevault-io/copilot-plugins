@@ -1,0 +1,9 @@
+{
+  "name": "contextbridge--aether",
+  "displayName": "aether",
+  "description": "The open source coding agent you control",
+  "version": "1.0.0",
+  "author": "contextbridge",
+  "homepage": "https://github.com/contextbridge/aether",
+  "skills": []
+}
