@@ -169159,6 +169159,16 @@
       "description": "gMAS"
     },
     {
+      "name": "lopopolo--harness-engineering",
+      "source": "./lopopolo--harness-engineering",
+      "description": "Ryan Lopopolo\u2019s anthology, field guide, and agent context bundle for harness engineering"
+    },
+    {
+      "name": "lopopolo--harness-engineering",
+      "source": "./lopopolo--harness-engineering",
+      "description": "Ryan Lopopolo\u2019s anthology, field guide, and agent context bundle for harness engineering"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
