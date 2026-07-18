@@ -1,0 +1,74 @@
+## blocsignal
+
+> Welcome, agent! This document details the development standards, architectural designs, and workspace configurations of the `BlocSignal` monorepo. Please review and align all your code changes with these guidelines.
+
+# AI Agent Developer Handbook (`AGENTS.md`)
+
+Welcome, agent! This document details the development standards, architectural designs, and workspace configurations of the `BlocSignal` monorepo. Please review and align all your code changes with these guidelines.
+
+---
+
+## 🏗️ Workspace Layout & Monorepo Structure
+
+We use a native Dart workspace (supported in Dart 3.5+) instead of Melos.
+- **Root Configuration**: [pubspec.yaml](file:///Users/merlyn/Projects/Flutter/BlocSignal/pubspec.yaml) defines the workspace.
+- **Members**:
+  - `bloc_signals` (Core pure Dart package)
+  - `bloc_signals_flutter` (Flutter bindings)
+  - `bloc_signals_flutter/example` (Example Flutter application)
+
+### Dependency Management
+To satisfy pub.dev publishing requirements while maintaining local developer workspaces, **always use version constraints rather than path dependencies for intra-workspace dependencies**. 
+- Example in `bloc_signals_flutter/pubspec.yaml`:
+  ```yaml
+  dependencies:
+    bloc_signals: ^0.1.0
+  ```
+- The native Dart workspace compiler will automatically route this constraint to the local workspace folder during development.
+
+---
+
+## ⚡ Architectural Guidelines
+
+`BlocSignal` bridges the BLoC pattern with Rody Davis's signals v7 primitives.
+
+### 1. Synchronous Propagation
+Unlike classic BLoC which runs asynchronously on microtask-queue Streams, state updates in `BlocSignal` propagate **synchronously**. Calling `emit(newState)` triggers downstream recalculations and rebuilds in the exact same frame. Keep this synchronous behavior in mind when designing state relationships and test expectations.
+
+### 2. Automatic De-duplication
+Signals automatically de-duplicate identical states using `==` equality. If you call `emit()` with a state that is equal to the current state, downstream effects and widget builders will **not** trigger.
+
+### 3. Stream Transformations
+Because `BlocSignal` does not use streams under the hood, standard stream-transformer properties (e.g. `debounce`, `throttle`, `switchMap`) are not available. Use custom timing triggers or signal effects to reproduce these behaviors.
+
+### 4. Lifecycle & Disposal (`isClosed`)
+Calling `close()` disposes of the underlying `SignalModel` effect tracking and marks the bloc as closed (`isClosed = true`). Subsequent calls to `add(event)` or `emit(state)` are dropped automatically to prevent memory leaks and unexpected side-effects. The state remains readable after closure to align with classic BLoC semantics.
+
+### 5. Asynchronous Event Handling
+We support `FutureOr<void>` handlers in `onEvent(event)`. If an event handler triggers asynchronous processes (Futures), operational exceptions are captured and reported via `onError` automatically, while programmer faults (`Error` objects) are rethrown to fail fast.
+
+### 6. Transition Event Tracing
+Transitions triggered via `emit()` are associated with their causing `event` using dynamic Zone context values (`Zone.current[_zoneEventKey]`). This provides full event traceability to observers without modifying the signature of `emit()` or introducing an event-handler registry.
+
+---
+
+## 🧪 Code Quality Standards
+
+We maintain a production-grade codebase with strict enforcement rules:
+
+1. **Strict Linting**: We use `very_good_analysis` for code analysis. Ensure all public member APIs are documented with complete doc comments (`///`) and examples.
+2. **100% Test Coverage**: We maintain **100% line coverage** for both packages. If you modify or add features, write unit tests to keep coverage at 100%.
+   - **Running Coverage (Core)**:
+     ```bash
+     dart test --coverage=coverage
+     dart run coverage:format_coverage --report-on=lib --in=coverage --out=coverage/lcov.info --lcov
+     ```
+   - **Running Coverage (Flutter)**:
+     ```bash
+     flutter test --coverage
+     ```
+3. **Format**: Always run `dart format .` to maintain uniform formatting before committing.
+
+---
+> Source: [RandalSchwartz/BlocSignal](https://github.com/RandalSchwartz/BlocSignal) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-18 -->
