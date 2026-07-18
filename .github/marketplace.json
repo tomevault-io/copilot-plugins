@@ -247744,6 +247744,11 @@
       "description": "A configurable Model Context Protocol (MCP) server for Microsoft SQL Server integration with Claude Code, supporting project-based database access with secure read/write operations."
     },
     {
+      "name": "withlinda--claude-conversation-exporter",
+      "source": "./withlinda--claude-conversation-exporter",
+      "description": "A JavaScript utility to export your Claude AI conversations as Markdown and JSON files, including all attachments, artifacts, and their extracted content."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270684,6 +270689,11 @@
       "description": "swift-os"
     },
     {
+      "name": "coleam00--eve-analyst",
+      "source": "./coleam00--eve-analyst",
+      "description": "eve-analyst"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -275467,6 +275477,16 @@
       "name": "devindudeman--nix-android",
       "source": "./devindudeman--nix-android",
       "description": "nix-android"
+    },
+    {
+      "name": "richarvey--omnimem",
+      "source": "./richarvey--omnimem",
+      "description": "Self-hosted semantic memory for AI Agents. Persistent sessions, experience scoring, and a graveyard for dead ends, backed by knowledge acquired from the RSS you read and stored in a Valkey vector sear"
+    },
+    {
+      "name": "berkantcen--codex-productivity-starter",
+      "source": "./berkantcen--codex-productivity-starter",
+      "description": "codex-productivity-starter"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -401697,6 +401717,21 @@
       "name": "duwscan--hono-skeleton",
       "source": "./duwscan--hono-skeleton",
       "description": "Honojs + better-auth + drizzle"
+    },
+    {
+      "name": "tdiorio2323--td-playground",
+      "source": "./tdiorio2323--td-playground",
+      "description": "Td-playground"
+    },
+    {
+      "name": "zsc--modern-ui-design",
+      "source": "./zsc--modern-ui-design",
+      "description": "modern_ui_design"
+    },
+    {
+      "name": "tdiorio2323--td-playground",
+      "source": "./tdiorio2323--td-playground",
+      "description": "Td-playground"
     }
   ]
 }
