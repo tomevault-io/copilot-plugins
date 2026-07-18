@@ -4,7 +4,7 @@
   "repo": "prodivix",
   "description": "A Open-source Visual Frontend Platform blending blueprints, node graphs, and code. Streamlines design-to-deployment workflow with local/cloud collaboration. Perfect for cross-disciplinary teams, rapid MVP builds, and frontend learning.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prodivix/prodivix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-18T05:30:42Z"
+  "distributed_at": "2026-07-18T05:32:50Z"
 }
