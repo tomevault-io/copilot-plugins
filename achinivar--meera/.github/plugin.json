@@ -1,0 +1,9 @@
+{
+  "name": "achinivar--meera",
+  "displayName": "meera",
+  "description": "Meera - AI assistant for Linux Gnome desktops that runs fully local (no cloud API tokens needed)",
+  "version": "1.0.0",
+  "author": "achinivar",
+  "homepage": "https://github.com/achinivar/meera",
+  "skills": []
+}
