@@ -9574,6 +9574,16 @@
       "description": "Self-hosted platform to unify wearable health data through one AI-ready API."
     },
     {
+      "name": "study8677--repobrain",
+      "source": "./study8677--repobrain",
+      "description": "\ud83e\udde0 RepoBrain (formerly Antigravity) \u2014 Give your repo a brain. ChatGPT for your codebase: works in Claude Code, Cursor, Codex, Windsurf & more."
+    },
+    {
+      "name": "study8677--repobrain",
+      "source": "./study8677--repobrain",
+      "description": "\ud83e\udde0 RepoBrain (formerly Antigravity) \u2014 Give your repo a brain. ChatGPT for your codebase: works in Claude Code, Cursor, Codex, Windsurf & more."
+    },
+    {
       "name": "win4r--clawteam-openclaw",
       "source": "./win4r--clawteam-openclaw",
       "description": "ClawTeam fork fully adapted for OpenClaw \u2014 multi-agent swarm coordination with OpenClaw as the default agent"
@@ -35087,6 +35097,11 @@
       "name": "chituai--prd-writer",
       "source": "./chituai--prd-writer",
       "description": "prd-writer"
+    },
+    {
+      "name": "astranetlab--cacheroute",
+      "source": "./astranetlab--cacheroute",
+      "description": "CacheRoute is an innovative LLM scheduling scheme dedicated to enabling flexible KV cache reuse across LLM systems, improving task performance and system efficiency."
     },
     {
       "name": "jdubois--dr-jskill",
@@ -99529,6 +99544,11 @@
       "description": "A visualization tool that replays coding-agent sessions on a 3D map of your codebase."
     },
     {
+      "name": "leanos-technologies--strategy-os",
+      "source": "./leanos-technologies--strategy-os",
+      "description": "The validation layer for solo founders. Research, strategy, and validation on Claude Code -  decide before you build. MIT. "
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -138067,6 +138087,16 @@
       "name": "junnjiee--pi-exa",
       "source": "./junnjiee--pi-exa",
       "description": "Web search, deep research and fetch content tools for Pi Agent, powered by Exa"
+    },
+    {
+      "name": "tubedude--amarula",
+      "source": "./tubedude--amarula",
+      "description": "A Whatsapp client implementation in Elixir"
+    },
+    {
+      "name": "tubedude--amarula",
+      "source": "./tubedude--amarula",
+      "description": "A Whatsapp client implementation in Elixir"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -193967,6 +193997,46 @@
       "name": "pinebasedev--svelteflare",
       "source": "./pinebasedev--svelteflare",
       "description": "A SvelteKit, Hono and Cloudflare SaaS boilerplate to launch your next MVP."
+    },
+    {
+      "name": "dkapo88--wonderwhisper-macos",
+      "source": "./dkapo88--wonderwhisper-macos",
+      "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
+    },
+    {
+      "name": "dkapo88--wonderwhisper-macos",
+      "source": "./dkapo88--wonderwhisper-macos",
+      "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
+    },
+    {
+      "name": "dkapo88--wonderwhisper-macos",
+      "source": "./dkapo88--wonderwhisper-macos",
+      "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
+    },
+    {
+      "name": "dkapo88--wonderwhisper-macos",
+      "source": "./dkapo88--wonderwhisper-macos",
+      "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
+    },
+    {
+      "name": "dkapo88--wonderwhisper-macos",
+      "source": "./dkapo88--wonderwhisper-macos",
+      "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
+    },
+    {
+      "name": "dkapo88--wonderwhisper-macos",
+      "source": "./dkapo88--wonderwhisper-macos",
+      "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
+    },
+    {
+      "name": "dkapo88--wonderwhisper-macos",
+      "source": "./dkapo88--wonderwhisper-macos",
+      "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
+    },
+    {
+      "name": "dkapo88--wonderwhisper-macos",
+      "source": "./dkapo88--wonderwhisper-macos",
+      "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
     },
     {
       "name": "lightninglabs--lnget",
