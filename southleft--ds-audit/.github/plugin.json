@@ -1,0 +1,9 @@
+{
+  "name": "southleft--ds-audit",
+  "displayName": "ds-audit",
+  "description": "A CLI-based auditing tool designed to evaluate the health, structure, and completeness of code-based design systems. ",
+  "version": "1.0.0",
+  "author": "southleft",
+  "homepage": "https://github.com/southleft/ds-audit",
+  "skills": []
+}
