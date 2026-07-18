@@ -1,0 +1,9 @@
+{
+  "name": "richarvey--omnimem",
+  "displayName": "OmniMem",
+  "description": "Self-hosted semantic memory for AI Agents. Persistent sessions, experience scoring, and a graveyard for dead ends, backed by knowledge acquired from the RSS you read and stored in a Valkey vector sear",
+  "version": "1.0.0",
+  "author": "richarvey",
+  "homepage": "https://github.com/richarvey/OmniMem",
+  "skills": []
+}
