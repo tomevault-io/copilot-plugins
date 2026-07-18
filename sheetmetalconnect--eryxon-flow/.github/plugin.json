@@ -1,0 +1,9 @@
+{
+  "name": "sheetmetalconnect--eryxon-flow",
+  "displayName": "eryxon-flow",
+  "description": "Manufacturing Execution System (MES) for job shops and make-to-order manufacturers.",
+  "version": "1.0.0",
+  "author": "SheetMetalConnect",
+  "homepage": "https://github.com/SheetMetalConnect/eryxon-flow",
+  "skills": []
+}
