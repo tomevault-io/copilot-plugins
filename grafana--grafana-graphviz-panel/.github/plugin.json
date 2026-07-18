@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafana-graphviz-panel",
+  "displayName": "grafana-graphviz-panel",
+  "description": "Define flowcharts and diagrams as code using Graphviz DOT language, connect your metrics, and visualize them in your choice of layouts \u2014 no manual drawing needed.",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-graphviz-panel",
+  "skills": []
+}
