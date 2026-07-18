@@ -7,11 +7,11 @@ The best blockchain harness for agentic AI - on-chain execution with runtime, sk
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aomi-labs/aomi](https://github.com/aomi-labs/aomi).
+Original source: `CLAUDE.md` in [aomi-labs/aomi](https://github.com/aomi-labs/aomi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
