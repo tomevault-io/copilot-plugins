@@ -1,0 +1,9 @@
+{
+  "name": "oscar01428--blockscout",
+  "displayName": "Blockscout",
+  "description": "A privacy-first blockchain explorer for Ethereum and EVM networks with real-time transaction, token, NFT, and smart contract analytics",
+  "version": "1.0.0",
+  "author": "oscar01428",
+  "homepage": "https://github.com/oscar01428/Blockscout",
+  "skills": []
+}
