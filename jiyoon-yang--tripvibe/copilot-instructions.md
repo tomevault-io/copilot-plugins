@@ -1,9 +1,9 @@
-## recheck-102-required-codestyle
+## recheck-201-optional-ui-component
 
 > AI instruction file for tripvibe by Jiyoon-Yang
 
 
-스타일 일관성 재검토 요청
+공통컴포넌트 조건 재검토 요청
 
 ---
 > Source: [Jiyoon-Yang/tripvibe](https://github.com/Jiyoon-Yang/tripvibe) — distributed by [TomeVault](https://tomevault.io).
