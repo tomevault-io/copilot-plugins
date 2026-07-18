@@ -1,37 +1,38 @@
-## development
+## prompt-change-consent
 
-> Require explicit approval and minimal scope for code changes, plus explicit branch names when pushing
+> Require exact prompt diff and explicit user consent before any prompt edits
 
 
-# Code Change Consent (Strict)
+# Prompt Change Consent (Strict)
 
-The codebase is now mature. Any code modification requires explicit user confirmation before edits are made.
+This project uses a highly prompt-sensitive 2B model.
 
-- Never modify code files without explicit user approval.
-- Never infer that discussion, troubleshooting, or intent exploration is approval to edit code.
-- Never "just make a quick fix" without confirming first.
+- Never modify any model prompt text without explicit user confirmation first.
+- Never assume that discussing prompt quality is permission to edit the prompt.
+- Never "silently improve" prompts.
+- Never rewrite, reorder, shorten, expand, normalize, or reformat prompt text without prior confirmation.
 
-Before any code change, Cursor must:
+Before any prompt change, Cursor must:
 
-1. Restate the user's requested change in clear, concise terms.
-2. Ask a brief clarification question if intent is ambiguous.
-3. Propose the exact change plan (files/components and what will be changed).
-4. Ask for explicit approval and wait for a clear confirmation before applying edits.
+1. Print the full current prompt exactly as sent to the model (word-for-word, punctuation-for-punctuation, whitespace preserved when relevant).
+2. Print the full proposed prompt exactly as it would be sent after the change.
+3. If the prompt depends on conversation history, print the example conversation history/context exactly as used with the prompt.
+4. Provide an explicit before/after comparison with exact text, not a high-level summary.
+5. Ask for explicit approval and wait for a clear user confirmation before applying any change.
 
 Hard requirements:
 
-- If approval is missing, ambiguous, implied, or partial, do not edit files.
-- Repeat this confirmation process for every new requested change.
-- If scope changes during implementation, pause and request new approval before continuing.
-- Only make the minimum set of changes required to satisfy the confirmed request.
-- Do not add opportunistic, "nice-to-have," refactor, cleanup, defensive, or stylistic changes unless the user explicitly asks for them.
-- If any additional change is proposed beyond the confirmed scope, ask for explicit permission first and wait for clear approval.
+- Exact text only; no paraphrased diffs.
+- If there are multiple prompts/templates, show each exact before/after pair.
+- If conversation history is part of prompt construction, show that history/context with the prompt before asking for approval.
+- If uncertain whether a change affects prompt text, treat it as a prompt change and require approval.
+- If approval is missing, ambiguous, or implied, do not change the prompt.
+- Repeat this process every time prompt text would change.
 
-# Git Push Clarity
+Absolute prohibition:
 
-- When pushing a branch, always use the explicit branch name in the command.
-- Do not use `HEAD` shorthand in push commands.
-- Prefer: `git push -u origin <branch_name>`.
+- Cursor is forbidden from changing prompt text without first showing exact before/after prompts and receiving explicit consent.
+- This prohibition applies even when the user asks to "improve", "tune", "fix", or "modify" prompts until exact before/after text is shown and approved.
 
 ---
 > Source: [achinivar/meera](https://github.com/achinivar/meera) — distributed by [TomeVault](https://tomevault.io).
