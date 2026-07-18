@@ -248139,6 +248139,16 @@
       "description": "reposcan - A fast CLI tool to scan your system for Git repositories and report uncommitted files, unpushed commits, and unpulled changes (dirty repos). "
     },
     {
+      "name": "tjcoder-labs--cli",
+      "source": "./tjcoder-labs--cli",
+      "description": "Terminal-first Coding CLI by TJ Coder AI Labs Las Vegas"
+    },
+    {
+      "name": "ddegner--avif-local-support",
+      "source": "./ddegner--avif-local-support",
+      "description": "Local AVIF plugin for WordPress. It converts JPEGs to AVIFs with a focus on quality and replaces JPEGs on the front-end of WordPress for browsers that support them. It also includes an LQIP (Low Quali"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -271227,6 +271237,11 @@
       "name": "alphabench--pier",
       "source": "./alphabench--pier",
       "description": "Pier Code is a terminal-native agentic coding tool that understands your codebase and helps you move faster by handling routine tasks, explaining complex code, and managing git workflows through simpl"
+    },
+    {
+      "name": "randalschwartz--blocsignal",
+      "source": "./randalschwartz--blocsignal",
+      "description": "BlocSignal"
     },
     {
       "name": "cheerhuan--save-your-token",
