@@ -1,0 +1,9 @@
+{
+  "name": "thewh1teagle--zipvoice-onnx",
+  "displayName": "zipvoice-onnx",
+  "description": "TTS with ZipVoice and onnxruntime",
+  "version": "1.0.0",
+  "author": "thewh1teagle",
+  "homepage": "https://github.com/thewh1teagle/zipvoice-onnx",
+  "skills": []
+}
