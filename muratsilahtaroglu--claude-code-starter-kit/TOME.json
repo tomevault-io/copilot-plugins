@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-starter-kit",
+  "owner": "muratsilahtaroglu",
+  "repo": "claude-code-starter-kit",
+  "description": "Discipline + security starter kit that keeps Claude Code (or any LLM agent) on course across sessions: repo-based memory that survives compaction, enforced hooks & permissions, and a phased workflow \u2014 consistent, traceable, safe. Clone it or install as a plugin.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/muratsilahtaroglu/claude-code-starter-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-18T02:36:09Z"
+}
