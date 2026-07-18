@@ -1,0 +1,9 @@
+{
+  "name": "mabd-dev--reposcan",
+  "displayName": "reposcan",
+  "description": "reposcan - A fast CLI tool to scan your system for Git repositories and report uncommitted files, unpushed commits, and unpulled changes (dirty repos). ",
+  "version": "1.0.0",
+  "author": "mabd-dev",
+  "homepage": "https://github.com/mabd-dev/reposcan",
+  "skills": []
+}
