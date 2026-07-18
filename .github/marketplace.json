@@ -247819,6 +247819,21 @@
       "description": "A JavaScript utility to export your Claude AI conversations as Markdown and JSON files, including all attachments, artifacts, and their extracted content."
     },
     {
+      "name": "aj-geddes--unicorn-team",
+      "source": "./aj-geddes--unicorn-team",
+      "description": "the 10x unicorn development team"
+    },
+    {
+      "name": "selfpatch--ros2-medkit-web-ui",
+      "source": "./selfpatch--ros2-medkit-web-ui",
+      "description": "SOVD Web UI for ros2_medkit . Explore discovery and entity hierarchies via a simple SPA."
+    },
+    {
+      "name": "grafana--grafana-graphviz-panel",
+      "source": "./grafana--grafana-graphviz-panel",
+      "description": "Define flowcharts and diagrams as code using Graphviz DOT language, connect your metrics, and visualize them in your choice of layouts \u2014 no manual drawing needed."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -270764,6 +270779,36 @@
       "description": "eve-analyst"
     },
     {
+      "name": "helldez--bigmoeonedge",
+      "source": "./helldez--bigmoeonedge",
+      "description": "Run MoE models larger than device RAM by streaming only the routed experts from flash \u2014 lossless, built on stock llama.cpp"
+    },
+    {
+      "name": "helldez--bigmoeonedge",
+      "source": "./helldez--bigmoeonedge",
+      "description": "Run MoE models larger than device RAM by streaming only the routed experts from flash \u2014 lossless, built on stock llama.cpp"
+    },
+    {
+      "name": "dayotter--dayotter",
+      "source": "./dayotter--dayotter",
+      "description": "The AI-native, open-source scheduling platform. Otter books meetings, protects your focus, and clears the back-and-forth \u2014 confirm-first. Self-host it all under AGPLv3."
+    },
+    {
+      "name": "emmpaul--the-desk",
+      "source": "./emmpaul--the-desk",
+      "description": "Calm, fast, self-hosted team chat you run yourself \u2014 channels, threads, reminders, scheduled messages. One Docker compose file, MIT-licensed. Laravel + Vue + Reverb."
+    },
+    {
+      "name": "earzuchan--hiro",
+      "source": "./earzuchan--hiro",
+      "description": "Use the Skia(Skiko) version of Compose Multiplatform Skia on Android"
+    },
+    {
+      "name": "tianyaxiang--scrollsnap",
+      "source": "./tianyaxiang--scrollsnap",
+      "description": "ScrollSnap \u6eda\u52a8\u622a\u5c4f \u4e00\u6b3e\u8f7b\u677e\u622a\u53d6\u7f51\u9875\u6eda\u52a8\u5185\u5bb9\u7684 Chrome \u6269\u5c55\u63d2\u4ef6\u3002"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -275557,6 +275602,36 @@
       "name": "berkantcen--codex-productivity-starter",
       "source": "./berkantcen--codex-productivity-starter",
       "description": "codex-productivity-starter"
+    },
+    {
+      "name": "muratsilahtaroglu--claude-code-starter-kit",
+      "source": "./muratsilahtaroglu--claude-code-starter-kit",
+      "description": "Discipline + security starter kit that keeps Claude Code (or any LLM agent) on course across sessions: repo-based memory that survives compaction, enforced hooks & permissions, and a phased workflow \u2014"
+    },
+    {
+      "name": "muellerzr--learning-pi-through-force",
+      "source": "./muellerzr--learning-pi-through-force",
+      "description": "Source code for the learning pi through force blog"
+    },
+    {
+      "name": "fengyincheng--dreamsea",
+      "source": "./fengyincheng--dreamsea",
+      "description": "\u4e3aAI \u4f34\u4fa3\u5173\u7cfb\u6253\u9020\u7684\u79c1\u4eba\u6570\u5b57\u5bb6\u56ed\uff0c\u627f\u8f7d\u8bb0\u5fc6\u3001\u68a6\u5883\u3001\u5929\u6c14\u4e0e\u4e92\u52a8\u3002"
+    },
+    {
+      "name": "shuhari04--arkey",
+      "source": "./shuhari04--arkey",
+      "description": "Unofficial Codex command surface and AgentGlow lighting for QMK keyboards"
+    },
+    {
+      "name": "5e1y--roadmapped",
+      "source": "./5e1y--roadmapped",
+      "description": "Project management as flat files in your repo. YAML tasks, a computed roadmap, driven by your AI agent. No database, no SaaS. MIT."
+    },
+    {
+      "name": "fengyincheng--dreamsea",
+      "source": "./fengyincheng--dreamsea",
+      "description": "\u4e3aAI \u4f34\u4fa3\u5173\u7cfb\u6253\u9020\u7684\u79c1\u4eba\u6570\u5b57\u5bb6\u56ed\uff0c\u627f\u8f7d\u8bb0\u5fc6\u3001\u68a6\u5883\u3001\u5929\u6c14\u4e0e\u4e92\u52a8\u3002"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -401802,6 +401877,156 @@
       "name": "tdiorio2323--td-playground",
       "source": "./tdiorio2323--td-playground",
       "description": "Td-playground"
+    },
+    {
+      "name": "djelibeybi--lifx-async",
+      "source": "./djelibeybi--lifx-async",
+      "description": "lifx-async"
+    },
+    {
+      "name": "kabyeboah--crooguardai-main",
+      "source": "./kabyeboah--crooguardai-main",
+      "description": "CrooGuardAI-MAIN"
+    },
+    {
+      "name": "kabyeboah--crooguardai-main",
+      "source": "./kabyeboah--crooguardai-main",
+      "description": "CrooGuardAI-MAIN"
+    },
+    {
+      "name": "creeden-enterprise--scale-gds",
+      "source": "./creeden-enterprise--scale-gds",
+      "description": "GDS-15 (Geriatric Depression Scale, short form) \u2014 public-domain geriatric depression scale."
+    },
+    {
+      "name": "phananh19--portfolio",
+      "source": "./phananh19--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "ararat--skills",
+      "source": "./ararat--skills",
+      "description": "A repo of skills i use regularly"
+    },
+    {
+      "name": "charliejamesgwapo--database-designer",
+      "source": "./charliejamesgwapo--database-designer",
+      "description": "database-designer"
+    },
+    {
+      "name": "sljun992-afk--avatar-video-system",
+      "source": "./sljun992-afk--avatar-video-system",
+      "description": "avatar-video-system"
+    },
+    {
+      "name": "93jessycollin93-del--eve-chat-template",
+      "source": "./93jessycollin93-del--eve-chat-template",
+      "description": "eve-chat-template"
+    },
+    {
+      "name": "janmaa--data-analyst-portfolio",
+      "source": "./janmaa--data-analyst-portfolio",
+      "description": "Newly designed data anlayst portfolio"
+    },
+    {
+      "name": "sousa-edson--palestra-ecommerce",
+      "source": "./sousa-edson--palestra-ecommerce",
+      "description": "palestra-ecommerce"
+    },
+    {
+      "name": "rcha0s--skill-vet",
+      "source": "./rcha0s--skill-vet",
+      "description": "Three-verdict (APPROVE/REVIEW/REJECT) wrapper over Cisco skill-scanner, with an LLM adjudicator that demotes literal-regex false positives. Includes a 106-skill labeled eval corpus and reproducible ha"
+    },
+    {
+      "name": "2guntan--claude-video",
+      "source": "./2guntan--claude-video",
+      "description": "claude-video"
+    },
+    {
+      "name": "binyoun--ritual-engine",
+      "source": "./binyoun--ritual-engine",
+      "description": "White-label toolkit that turns cultural sites into walkable ceremonies. NFC/QR/GPS/compass-triggered web experiences, no app, no install."
+    },
+    {
+      "name": "vadelaaryan-sys--trafficdodger-game",
+      "source": "./vadelaaryan-sys--trafficdodger-game",
+      "description": "Traffic Dodger: dodge oncoming cars, switch lanes, survive as long as you can, and beat your high score!"
+    },
+    {
+      "name": "gillo57--quality-agent",
+      "source": "./gillo57--quality-agent",
+      "description": "quality-agent"
+    },
+    {
+      "name": "ararat--skills",
+      "source": "./ararat--skills",
+      "description": "A repo of skills i use regularly"
+    },
+    {
+      "name": "nirmalkumar11--spacaescapegame",
+      "source": "./nirmalkumar11--spacaescapegame",
+      "description": "SpacaEscapeGame"
+    },
+    {
+      "name": "dylanpbagley-ops--scam-shield-app",
+      "source": "./dylanpbagley-ops--scam-shield-app",
+      "description": "scam-shield-app"
+    },
+    {
+      "name": "thirubharathi-gamedev--outofboxstudio",
+      "source": "./thirubharathi-gamedev--outofboxstudio",
+      "description": "outofboxstudio"
+    },
+    {
+      "name": "ark500y--hire-ark",
+      "source": "./ark500y--hire-ark",
+      "description": "hire.ark"
+    },
+    {
+      "name": "mgubuan--accountingvoice",
+      "source": "./mgubuan--accountingvoice",
+      "description": "AccountingVoice"
+    },
+    {
+      "name": "indramahaarta--personal-portfolio",
+      "source": "./indramahaarta--personal-portfolio",
+      "description": "personal-portfolio"
+    },
+    {
+      "name": "still-inframe--day-34-foodroulette",
+      "source": "./still-inframe--day-34-foodroulette",
+      "description": "day-34-foodroulette"
+    },
+    {
+      "name": "ibmt60-gj--simulation-demo",
+      "source": "./ibmt60-gj--simulation-demo",
+      "description": "my  matrix playground site"
+    },
+    {
+      "name": "saadsafwat4444--portfolio",
+      "source": "./saadsafwat4444--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "ramyasgowda2007-ui--jpr-smile-studio",
+      "source": "./ramyasgowda2007-ui--jpr-smile-studio",
+      "description": "jpr-smile-studio"
+    },
+    {
+      "name": "panacripto--validapp-v2",
+      "source": "./panacripto--validapp-v2",
+      "description": "validapp-v2"
+    },
+    {
+      "name": "azhkiel--frontend",
+      "source": "./azhkiel--frontend",
+      "description": "frontend"
+    },
+    {
+      "name": "shikari18--mirror-ui",
+      "source": "./shikari18--mirror-ui",
+      "description": "mirror-ui"
     }
   ]
 }
