@@ -1,0 +1,9 @@
+{
+  "name": "scottgal--mostlyucid-nmt",
+  "displayName": "mostlyucid-nmt",
+  "description": "A set of docker images which provide a production readt EasyNMT compatible API enabling rapid translation with both CUDA GPU and CPU cariants.",
+  "version": "1.0.0",
+  "author": "scottgal",
+  "homepage": "https://github.com/scottgal/mostlyucid-nmt",
+  "skills": []
+}
