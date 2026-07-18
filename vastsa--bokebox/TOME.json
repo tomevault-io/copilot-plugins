@@ -1,0 +1,44 @@
+{
+  "name": "BokeBox",
+  "owner": "vastsa",
+  "repo": "BokeBox",
+  "description": " BokeBox: multi-source private AI podcast studio \u2014 videos/links/articles/notes \u2192 spoken episodes.   Custom persona & voice, MCP + pluggable sources, self-hosted. BokeBox\uff08\u64ad\u5323\uff09\uff1a\u5185\u5bb9\u8fdb\u5323\uff0cAI \u6210\u64ad\uff1b\u591a\u6e90\u8f93\u5165\u3001MCP\u3001\u63d2\u4ef6\u6e90\u3001\u79c1\u6709\u90e8\u7f72\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vastsa/BokeBox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-18T14:31:32Z"
+}
