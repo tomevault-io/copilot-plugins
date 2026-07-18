@@ -1,0 +1,9 @@
+{
+  "name": "bagisto--b2b-ecommerce",
+  "displayName": "b2b-ecommerce",
+  "description": "Open source B2B ecommerce Platform",
+  "version": "1.0.0",
+  "author": "bagisto",
+  "homepage": "https://github.com/bagisto/b2b-ecommerce",
+  "skills": []
+}
