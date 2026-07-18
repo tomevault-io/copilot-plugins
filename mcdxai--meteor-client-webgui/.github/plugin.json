@@ -1,0 +1,9 @@
+{
+  "name": "mcdxai--meteor-client-webgui",
+  "displayName": "meteor-client-webgui",
+  "description": "Experimental WebGUI for Meteor Client",
+  "version": "1.0.0",
+  "author": "MCDxAI",
+  "homepage": "https://github.com/MCDxAI/meteor-client-webgui",
+  "skills": []
+}
