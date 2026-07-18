@@ -1,0 +1,9 @@
+{
+  "name": "helldez--bigmoeonedge",
+  "displayName": "BigMoeOnEdge",
+  "description": "Run MoE models larger than device RAM by streaming only the routed experts from flash \u2014 lossless, built on stock llama.cpp",
+  "version": "1.0.0",
+  "author": "Helldez",
+  "homepage": "https://github.com/Helldez/BigMoeOnEdge",
+  "skills": []
+}
