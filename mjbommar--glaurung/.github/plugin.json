@@ -1,0 +1,9 @@
+{
+  "name": "mjbommar--glaurung",
+  "displayName": "glaurung",
+  "description": "Permissive, modern alternative to Ghidra with Rust/Python core and first-class agentic AI integration",
+  "version": "1.0.0",
+  "author": "mjbommar",
+  "homepage": "https://github.com/mjbommar/glaurung",
+  "skills": []
+}
