@@ -1,0 +1,9 @@
+{
+  "name": "selfpatch--ros2-medkit-web-ui",
+  "displayName": "ros2_medkit_web_ui",
+  "description": "SOVD Web UI for ros2_medkit . Explore discovery and entity hierarchies via a simple SPA.",
+  "version": "1.0.0",
+  "author": "selfpatch",
+  "homepage": "https://github.com/selfpatch/ros2_medkit_web_ui",
+  "skills": []
+}
