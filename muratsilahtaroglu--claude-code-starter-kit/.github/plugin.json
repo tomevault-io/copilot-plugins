@@ -1,0 +1,9 @@
+{
+  "name": "muratsilahtaroglu--claude-code-starter-kit",
+  "displayName": "claude-code-starter-kit",
+  "description": "Discipline + security starter kit that keeps Claude Code (or any LLM agent) on course across sessions: repo-based memory that survives compaction, enforced hooks & permissions, and a phased workflow \u2014",
+  "version": "1.0.0",
+  "author": "muratsilahtaroglu",
+  "homepage": "https://github.com/muratsilahtaroglu/claude-code-starter-kit",
+  "skills": []
+}
