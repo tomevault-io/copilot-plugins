@@ -1,0 +1,9 @@
+{
+  "name": "pmady--keda-gpu-scaler",
+  "displayName": "keda-gpu-scaler",
+  "description": "keda-gpu-scaler",
+  "version": "1.0.0",
+  "author": "pmady",
+  "homepage": "https://github.com/pmady/keda-gpu-scaler",
+  "skills": []
+}
