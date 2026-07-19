@@ -1,0 +1,14 @@
+{
+  "name": "arabagentskills--skills",
+  "displayName": "Skills",
+  "description": "Public source-backed Arab-world agent skills: APIs, marketing, sales, support, localization, Arabic NLP, open data, and MENA workflows.",
+  "version": "1.0.0",
+  "author": "ArabAgentSkills",
+  "homepage": "https://github.com/ArabAgentSkills/Skills",
+  "skills": [
+    {
+      "name": "mena-marketing-localization",
+      "description": ""
+    }
+  ]
+}
