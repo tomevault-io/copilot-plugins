@@ -1,0 +1,44 @@
+{
+  "name": "ChaoXing_Code_Paste",
+  "owner": "MuQY1818",
+  "repo": "ChaoXing_Code_Paste",
+  "description": "\u8d85\u661f\u7c98\u8d34\u52a9\u624b\uff08\u6cb9\u7334\u811a\u672c\uff09\uff1a\u9002\u914d CodeMirror/UEditor\uff0c\u60ac\u6d6e\u7a97 + \u5feb\u6377\u952e\u4e00\u952e\u7c98\u8d34",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MuQY1818/ChaoXing_Code_Paste",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T12:31:07Z"
+}
