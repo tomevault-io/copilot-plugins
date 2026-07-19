@@ -109479,6 +109479,16 @@
       "description": "Tmux manager for running, monitoring, saving, restoring, and looping Codex, Claude, Gemini, and custom agent CLIs."
     },
     {
+      "name": "stremio-community--stremio-addon-sdk",
+      "source": "./stremio-community--stremio-addon-sdk",
+      "description": "An unopinionated SDK for building modern Stremio addons with TypeScript"
+    },
+    {
+      "name": "stremio-community--stremio-addon-sdk",
+      "source": "./stremio-community--stremio-addon-sdk",
+      "description": "An unopinionated SDK for building modern Stremio addons with TypeScript"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
