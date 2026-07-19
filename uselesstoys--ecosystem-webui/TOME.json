@@ -4,7 +4,7 @@
   "repo": "Ecosystem_WebUI",
   "description": "AI Ecosystem with Model Training, Image Generation, as well as standard auto-tagging, step calculator, and real-time training monitoring. Featuring Civitai & Arc En Ciel model downloading, model merging and more. NextJS/React Based UI with Shadcn components.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/UselessToys/Ecosystem_WebUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T09:41:04Z"
+  "distributed_at": "2026-07-19T09:52:26Z"
 }
