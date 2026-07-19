@@ -1,0 +1,9 @@
+{
+  "name": "yashneil75--gitlord",
+  "displayName": "gitlord",
+  "description": "Agent orchestration framework with Git-backed storage. Every turn is a Git commit - inspectable, rewindable, forkable.",
+  "version": "1.0.0",
+  "author": "yashneil75",
+  "homepage": "https://github.com/yashneil75/gitlord",
+  "skills": []
+}
