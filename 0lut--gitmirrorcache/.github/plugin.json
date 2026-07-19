@@ -1,0 +1,9 @@
+{
+  "name": "0lut--gitmirrorcache",
+  "displayName": "gitmirrorcache",
+  "description": "Read through Git proxy that supports pack caching to avoid Github's rate limits",
+  "version": "1.0.0",
+  "author": "0lut",
+  "homepage": "https://github.com/0lut/gitmirrorcache",
+  "skills": []
+}
