@@ -7,11 +7,11 @@ WorkFlowy CLI — command-line interface for agents, automations, and power user
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rodolfo-terriquez/workflowy-cli](https://github.com/rodolfo-terriquez/workflowy-cli).
+Original source: `CLAUDE.md` in [rodolfo-terriquez/workflowy-cli](https://github.com/rodolfo-terriquez/workflowy-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
