@@ -1,0 +1,9 @@
+{
+  "name": "omarelkhal--aftertone",
+  "displayName": "aftertone",
+  "description": "Hear a short spoken summary after your coding agent answers. Free to install - no API keys, no subscription, no cloud TTS.",
+  "version": "1.0.0",
+  "author": "omarelkhal",
+  "homepage": "https://github.com/omarelkhal/aftertone",
+  "skills": []
+}
