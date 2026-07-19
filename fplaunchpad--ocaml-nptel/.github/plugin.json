@@ -1,0 +1,9 @@
+{
+  "name": "fplaunchpad--ocaml-nptel",
+  "displayName": "ocaml_nptel",
+  "description": "\"Functional Programming in OCaml\" course materials for NPTEL",
+  "version": "1.0.0",
+  "author": "fplaunchpad",
+  "homepage": "https://github.com/fplaunchpad/ocaml_nptel",
+  "skills": []
+}
