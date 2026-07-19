@@ -1599,6 +1599,11 @@
       "description": "The official repository of Mozilla's Firefox web browser."
     },
     {
+      "name": "spencermountain--compromise",
+      "source": "./spencermountain--compromise",
+      "description": "compromise"
+    },
+    {
       "name": "zackriya-solutions--meetily",
       "source": "./zackriya-solutions--meetily",
       "description": "Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker diarization, and Ollama summarization built on Rust. 100% local processing. no cloud required. Meetily ("
@@ -4184,6 +4189,11 @@
       "description": "A components library built with Tailwind CSS that works with any web stack."
     },
     {
+      "name": "bojieli--ai-agent-book-projects",
+      "source": "./bojieli--ai-agent-book-projects",
+      "description": "ai-agent-book-projects"
+    },
+    {
       "name": "groupultra--telegram-search",
       "source": "./groupultra--telegram-search",
       "description": "\ud83d\udd0d \u5bfc\u51fa\u5e76\u6a21\u7cca\u641c\u7d22 Telegram \u804a\u5929\u8bb0\u5f55 | Export and fuzzy search your Telegram chat history"
@@ -6369,6 +6379,11 @@
       "description": "gentle-ai"
     },
     {
+      "name": "geosigno--simpleparallax-js",
+      "source": "./geosigno--simpleparallax-js",
+      "description": "simpleParallax.js"
+    },
+    {
       "name": "tech-leads-club--agent-skills",
       "source": "./tech-leads-club--agent-skills",
       "description": "The secure, validated skill registry for professional AI coding agents. Extend Antigravity, Claude Code, Cursor, Copilot and more with absolute confidence."
@@ -7854,6 +7869,11 @@
       "description": "A Model Context Protocol server that provides read-only access to MySQL databases. This server enables LLMs to inspect database schemas and execute read-only queries."
     },
     {
+      "name": "jasonacox--tinytuya",
+      "source": "./jasonacox--tinytuya",
+      "description": "tinytuya"
+    },
+    {
       "name": "deusyu--harness-engineering",
       "source": "./deusyu--harness-engineering",
       "description": "Harness Engineering \u5b66\u4e60\u6307\u5357 \u2014 \u4ece\u6982\u5ff5\u7406\u89e3\u5230\u72ec\u7acb\u5b9e\u8df5\u7684\u6df1\u5ea6\u5b66\u4e60\u6863\u6848"
@@ -9197,6 +9217,16 @@
       "name": "fukuball--jieba-php",
       "source": "./fukuball--jieba-php",
       "description": "jieba-php"
+    },
+    {
+      "name": "eko--monday",
+      "source": "./eko--monday",
+      "description": "monday"
+    },
+    {
+      "name": "eko--monday",
+      "source": "./eko--monday",
+      "description": "monday"
     },
     {
       "name": "yamlresume--yamlresume",
@@ -12337,6 +12367,11 @@
       "name": "kossakovsky--selfhost-ai",
       "source": "./kossakovsky--selfhost-ai",
       "description": "\ud83d\ude80 Self-hosted AI automation platform. Deploy n8n, Ollama, Flowise, RAG, Supabase & 30+ tools with one command. Auto HTTPS. Free Zapier/Make alternative."
+    },
+    {
+      "name": "auties00--cobalt",
+      "source": "./auties00--cobalt",
+      "description": "Cobalt"
     },
     {
       "name": "mhdzumair--mediafusion",
@@ -15964,6 +15999,11 @@
       "description": "digital-oracle"
     },
     {
+      "name": "ck-jesse--l2cache",
+      "source": "./ck-jesse--l2cache",
+      "description": "l2cache"
+    },
+    {
       "name": "joelhooks--swarm-tools",
       "source": "./joelhooks--swarm-tools",
       "description": "\ud83d\udc1d Multi-agent swarm coordination for OpenCode with learning capabilities, agent issue tracking, and management"
@@ -18672,6 +18712,11 @@
       "name": "mycrl--turn-rs",
       "source": "./mycrl--turn-rs",
       "description": "turn-rs"
+    },
+    {
+      "name": "dhravya--notty",
+      "source": "./dhravya--notty",
+      "description": "notty"
     },
     {
       "name": "thedecipherist--claude-code-mastery",
@@ -22457,6 +22502,16 @@
       "name": "alchaincyf--elon-musk-skill",
       "source": "./alchaincyf--elon-musk-skill",
       "description": "elon-musk-skill"
+    },
+    {
+      "name": "nayjest--gito",
+      "source": "./nayjest--gito",
+      "description": "Gito"
+    },
+    {
+      "name": "nayjest--gito",
+      "source": "./nayjest--gito",
+      "description": "Gito"
     },
     {
       "name": "brainqub3--claude-code-rlm",
@@ -31784,6 +31839,11 @@
       "description": "django-typed-models"
     },
     {
+      "name": "joaquinbejar--optionstratlib",
+      "source": "./joaquinbejar--optionstratlib",
+      "description": "OptionStratLib"
+    },
+    {
       "name": "remoteoss--dexter",
       "source": "./remoteoss--dexter",
       "description": "A fast, full-featured Elixir LSP optimized for large codebases."
@@ -35392,6 +35452,11 @@
       "name": "lucassabreu--clockify-cli",
       "source": "./lucassabreu--clockify-cli",
       "description": "clockify-cli"
+    },
+    {
+      "name": "huthvincent--yt-bilingual-app",
+      "source": "./huthvincent--yt-bilingual-app",
+      "description": "yt-bilingual-app"
     },
     {
       "name": "tentacleopera--switchboard",
@@ -45324,6 +45389,11 @@
       "description": "oc-codex-multi-auth"
     },
     {
+      "name": "lkmeta--txtify",
+      "source": "./lkmeta--txtify",
+      "description": "txtify"
+    },
+    {
       "name": "skywind3000--gamelib",
       "source": "./skywind3000--gamelib",
       "description": "Single-header C++ Game Library for Beginners \u2014 no SDL/DirectX/OpenGL, no setup, just include and play."
@@ -49899,6 +49969,11 @@
       "description": "Kucoin.Net"
     },
     {
+      "name": "jmacdotorg--plerd",
+      "source": "./jmacdotorg--plerd",
+      "description": "plerd"
+    },
+    {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
       "source": "./iusztinpaul--designing-real-world-ai-agents-workshop",
       "description": "Hands-on workshop: Build a multi-agent AI system from scratch \u2014 Deep Research Agent + Writing Workflow served as MCP servers. Includes code, slides, and video (coming soon)"
@@ -51982,6 +52057,16 @@
       "name": "dimon94--dverity",
       "source": "./dimon94--dverity",
       "description": "\ud83d\ude80 One-command requirement development flow for Claude Code - Complete workflow system with sub-agents, quality gates, and intelligent automation"
+    },
+    {
+      "name": "pmady--keda-gpu-scaler",
+      "source": "./pmady--keda-gpu-scaler",
+      "description": "keda-gpu-scaler"
+    },
+    {
+      "name": "pmady--keda-gpu-scaler",
+      "source": "./pmady--keda-gpu-scaler",
+      "description": "keda-gpu-scaler"
     },
     {
       "name": "everettjf--liney",
@@ -55914,6 +55999,11 @@
       "description": "telegram-webapp-auth"
     },
     {
+      "name": "ewohltman--ephemeral-roles",
+      "source": "./ewohltman--ephemeral-roles",
+      "description": "ephemeral-roles"
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -58264,6 +58354,16 @@
       "description": "CLI tool that enforces structural conventions in TypeScript codebases."
     },
     {
+      "name": "kunwarvivek--mcp-github-project-manager",
+      "source": "./kunwarvivek--mcp-github-project-manager",
+      "description": "mcp-github-project-manager"
+    },
+    {
+      "name": "kunwarvivek--mcp-github-project-manager",
+      "source": "./kunwarvivek--mcp-github-project-manager",
+      "description": "mcp-github-project-manager"
+    },
+    {
       "name": "sugarforever--01coder-agent-skills",
       "source": "./sugarforever--01coder-agent-skills",
       "description": "01coder-agent-skills"
@@ -58622,6 +58722,11 @@
       "name": "andry-lebedev--neobank-primitives",
       "source": "./andry-lebedev--neobank-primitives",
       "description": "neobank-primitives"
+    },
+    {
+      "name": "helti--daily-hot-api",
+      "source": "./helti--daily-hot-api",
+      "description": "daily-hot-api"
     },
     {
       "name": "jjongguet--oh-my-product",
@@ -63544,6 +63649,11 @@
       "description": "A Chrome Extension that lets you easily create custom GIFs from YouTube videos"
     },
     {
+      "name": "kurianbenoy--whisper-normalizer",
+      "source": "./kurianbenoy--whisper-normalizer",
+      "description": "whisper_normalizer"
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -64517,6 +64627,11 @@
       "name": "eoinkelly--notes",
       "source": "./eoinkelly--notes",
       "description": "notes"
+    },
+    {
+      "name": "chenjia404--go-p2ptunnel",
+      "source": "./chenjia404--go-p2ptunnel",
+      "description": "go-p2ptunnel"
     },
     {
       "name": "edisonwong520--wanny",
@@ -71479,6 +71594,11 @@
       "description": "A Python library for LLM-based evaluation using weighted rubrics."
     },
     {
+      "name": "vectaport--flowgraph",
+      "source": "./vectaport--flowgraph",
+      "description": "flowgraph"
+    },
+    {
       "name": "chongdashu--phaserjs-oakwoods",
       "source": "./chongdashu--phaserjs-oakwoods",
       "description": "A vibe coded implementation of an RPG platformer"
@@ -74767,6 +74887,11 @@
       "name": "alexsanderhamir--prof",
       "source": "./alexsanderhamir--prof",
       "description": "prof"
+    },
+    {
+      "name": "dedeard--next-personal-web-app",
+      "source": "./dedeard--next-personal-web-app",
+      "description": "next-personal-web-app"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -78632,6 +78757,11 @@
       "name": "thelastoutpostworkshop--espvault",
       "source": "./thelastoutpostworkshop--espvault",
       "description": "An amazing ESP32 Inventory and Projects App for Makers"
+    },
+    {
+      "name": "radum2275--merlin",
+      "source": "./radum2275--merlin",
+      "description": "merlin"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -83482,6 +83612,11 @@
       "name": "fennec-ai--fennec",
       "source": "./fennec-ai--fennec",
       "description": "Open-source, AI-driven penetration testing framework."
+    },
+    {
+      "name": "toru-ver4--sample-code",
+      "source": "./toru-ver4--sample-code",
+      "description": "sample_code"
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -102669,6 +102804,11 @@
       "description": "Fast Rust scanner for licenses, copyrights, package metadata, SBOMs, and provenance data."
     },
     {
+      "name": "skoba--openehr-ruby",
+      "source": "./skoba--openehr-ruby",
+      "description": "openehr-ruby"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -107722,6 +107862,11 @@
       "name": "huta0kj--vetix",
       "source": "./huta0kj--vetix",
       "description": "Vetix \u2014 Automated scanning, identification, and assessment of SKILL security risks."
+    },
+    {
+      "name": "jnewland--ha-config",
+      "source": "./jnewland--ha-config",
+      "description": "ha-config"
     },
     {
       "name": "skywind3000--gamesample",
@@ -271924,6 +272069,21 @@
       "description": "repo-wiki-agent"
     },
     {
+      "name": "milkbuttercheese2--what-i-have-to-do",
+      "source": "./milkbuttercheese2--what-i-have-to-do",
+      "description": "\uc628\uac16 \uae30\ub2a5\uc774 \ub2f4\uaca8\uc788\uc73c\uba74\uc11c\ub3c4 \uc9c1\uad00\uc801\uc778 \ub0b4\ubd80\ub9dd\uc6a9 \uba54\ubaa8\uc5b4\ud50c"
+    },
+    {
+      "name": "malinskiy--mellow",
+      "source": "./malinskiy--mellow",
+      "description": "Native Jellyfin client for Android"
+    },
+    {
+      "name": "loxoron218--qobuz-api",
+      "source": "./loxoron218--qobuz-api",
+      "description": "Rust library exposing public Qobuz v0.2 REST API"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -403452,6 +403612,16 @@
       "name": "manwjh--research-garden",
       "source": "./manwjh--research-garden",
       "description": "research-garden"
+    },
+    {
+      "name": "rich0423--ai-agent-with-adk",
+      "source": "./rich0423--ai-agent-with-adk",
+      "description": "AI Agents Workshop with Google Agent Development Kit (ADK) and Cloud Run"
+    },
+    {
+      "name": "aerial33--udccas",
+      "source": "./aerial33--udccas",
+      "description": "udccas"
     }
   ]
 }
