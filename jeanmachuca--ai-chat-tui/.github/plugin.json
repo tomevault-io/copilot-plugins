@@ -1,0 +1,9 @@
+{
+  "name": "jeanmachuca--ai-chat-tui",
+  "displayName": "ai-chat-tui",
+  "description": "Terminal AI chat client built with Bubble Tea",
+  "version": "1.0.0",
+  "author": "jeanmachuca",
+  "homepage": "https://github.com/jeanmachuca/ai-chat-tui",
+  "skills": []
+}
