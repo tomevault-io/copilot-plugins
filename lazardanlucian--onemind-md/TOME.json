@@ -1,0 +1,44 @@
+{
+  "name": "onemind.md",
+  "owner": "lazardanlucian",
+  "repo": "onemind.md",
+  "description": "onemind.md turns any git repo into a persistent \"mind\". Thoughts live as git objects on a hidden ref (refs/mind/main) \u2014 written via plumbing, invisible to git status. You get decisions with reasons, full history/diff/blame on your thinking, and it all clones with the repo. No database, no service, no API key \u2014 just git.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lazardanlucian/onemind.md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T10:31:17Z"
+}
