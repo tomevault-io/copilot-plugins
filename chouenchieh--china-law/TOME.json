@@ -1,0 +1,44 @@
+{
+  "name": "china-law",
+  "owner": "chouenchieh",
+  "repo": "china-law",
+  "description": "\u4e2d\u56fd\u6cd5\u5f8b\u5b9e\u52a1 Claude Code \u63d2\u4ef6 \u00b7 45 \u9879\u6280\u80fd \u00b7 \u96c6\u6210\u5317\u5927\u6cd5\u5b9d MCP \u548c 2,190 \u90e8\u672c\u5730\u6cd5\u5f8b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chouenchieh/china-law",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T00:49:48Z"
+}
