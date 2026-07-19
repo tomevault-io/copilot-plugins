@@ -1,0 +1,133 @@
+## cclint
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is the CC Linter project - a TypeScript/Node.js tool designed to validate and optimize CLAUDE.md context files. The project follows a hexagonal architecture with a Core Linting Engine that is independent from its delivery mechanisms (CLI, IDE extensions).
+
+## Development Commands
+
+```bash
+# Development (uses tsx for fast execution)
+npm test                # Run tests with Vitest
+npm run test:watch      # Run tests in watch mode
+
+# Production checks (uses tsc for strict type checking)
+npm run typecheck      # Type check with TypeScript compiler
+npm run lint           # Lint code
+npm run build          # Build for production
+
+# Package management
+npm ci                 # Install dependencies (CI)
+npm install            # Install dependencies
+```
+
+## Architecture
+
+The project uses a **Domain-Driven Design** approach with hexagonal architecture:
+
+### Core Domain Model
+
+- **ContextFile**: In-memory representation of a file being linted
+- **Rule**: Self-contained service that inspects a ContextFile and returns Violations
+- **Violation**: Entity representing a broken rule with Location and Severity
+- **Location**: Value object defining position of a Violation
+- **Severity**: Value object (Error, Warning, Info)
+- **LintingResult**: Root aggregate containing all Violations for a file
+
+### Architecture Layers
+
+```
+CLI  (cclint)      ──┐
+MCP  (cclint-mcp)  ──┼──► Core Linting Engine (npm package)
+LSP  (cclint-lsp)  ──┤     ├── Rules Engine (aggregates violations)
+GitHub Action      ──┘     ├── createRules(config) factory + rule descriptors
+                           ├── Individual Rules (implement Rule interface)
+                           └── File System I/O (reads CLAUDE.md, config files)
+```
+
+All four entry points build their rule set from the **single** `createRules(config)`
+factory (`src/rules/registry/`), driven by canonical `RULE_DESCRIPTORS` — one
+source of truth for each rule's id, default-enabled flag, and metadata — so every
+entry point runs an identical, in-lock-step rule set.
+
+### Bins
+
+- `cclint` — CLI (`src/cli/index.ts`). `cclint lint <file>` lints one file;
+  `cclint lint <dir>` (e.g. `cclint lint .`) discovers and lints a whole
+  project tree. Other commands: `watch`, `init`, `install`/`uninstall`,
+  `explain`, `mcp`, `why`.
+- `cclint-mcp` — MCP server (`src/mcp/`) for MCP-compatible clients.
+- `cclint-lsp` — Language Server (`src/lsp/`); run `cclint-lsp --stdio` for
+  real-time diagnostics and quick-fix code actions in any LSP editor.
+
+## Technology Stack
+
+- **Language**: TypeScript
+- **Runtime**: Node.js
+- **Development**: tsx (fast esbuild-based execution)
+- **Production Type Checking**: tsc (strict TypeScript compiler)
+- **Testing**: Vitest for fast unit and integration tests
+- **CLI Framework**: commander.js
+- **Linting**: ESLint + Prettier
+- **Packaging**: npm
+
+## Development Workflow
+
+The project follows a **"Speed in Dev, Correctness in CI"** philosophy:
+
+### Local Development (Speed-focused)
+
+- All local scripts use `tsx` for near-instant TypeScript execution
+- Tests run via Vitest with esbuild transformer for fast feedback
+- TDD loop: write test → run `npm test` → implement → refactor
+
+### CI/CD (Correctness-focused)
+
+Required CI jobs:
+
+1. `npm ci` - Install dependencies
+2. `npm run lint` - Lint and format
+3. `npm test` - Run tests (Vitest)
+4. `npm run typecheck` - Strict type checking with tsc
+5. `npm run build` - Build for production
+6. `npm audit` - Security vulnerability check
+
+### Test Strategy
+
+- **Unit Tests** (~80%): Each Rule has dedicated tests
+- **Integration Tests**: Test Rules Engine with multiple rules
+- **E2E Tests**: Test complete linting workflows
+
+## File Structure
+
+The project contains:
+
+- `src/` - TypeScript source code
+  - `domain/` - Core domain model (Rule, Violation, ContextFile, RulesEngine, etc.)
+  - `rules/` - Individual linting rules (19 built-in rules)
+    - `rules/registry/` - `createRules` factory + `RULE_DESCRIPTORS`/`RULE_METADATA` (single source of truth)
+  - `infrastructure/` - Adapters (FileReader, FileDiscovery, ConfigLoader, PluginLoader, path/DoS validators)
+  - `cli/` - CLI commands and output formatters
+  - `mcp/` - MCP server (`cclint-mcp`)
+  - `lsp/` - Language Server (`cclint-lsp`)
+  - `action/` - GitHub Action implementation
+- `tests/` - Vitest test files (incl. drift + version-sync regression gates)
+- `docs/` - Documentation and ADRs
+
+## Key Development Principles
+
+1. **Modularity**: Core engine is decoupled from delivery mechanisms
+2. **Testability**: Full support for Test-Driven Development
+3. **Type Safety**: Guaranteed type safety in production builds
+4. **Fast Feedback**: Near-instant test execution during development
+5. **Domain-Driven**: Clear ubiquitous language and bounded contexts
+
+---
+> Source: [felixgeelhaar/cclint](https://github.com/felixgeelhaar/cclint) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-19 -->
