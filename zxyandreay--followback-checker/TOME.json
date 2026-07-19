@@ -1,0 +1,44 @@
+{
+  "name": "followback-checker",
+  "owner": "zxyandreay",
+  "repo": "followback-checker",
+  "description": "FollowBack Checker is a web app that helps users analyze their Instagram followers and following list using their official Instagram data export. It compares the data locally in the browser to show accounts that don\u2019t follow back, mutual connections, and followers the user doesn\u2019t follow back\u2014without requiring an Instagram login",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zxyandreay/followback-checker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T02:46:22Z"
+}
