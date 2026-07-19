@@ -1,0 +1,9 @@
+{
+  "name": "netboxlabs--skills",
+  "displayName": "skills",
+  "description": "NetBox Labs Agent Skills",
+  "version": "1.0.0",
+  "author": "netboxlabs",
+  "homepage": "https://github.com/netboxlabs/skills",
+  "skills": []
+}
