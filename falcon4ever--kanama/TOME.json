@@ -4,7 +4,7 @@
   "repo": "kanama",
   "description": "Kanama brings Kotlin to Godot through a GDExtension runtime powered by the JVM and the Foreign Function & Memory API.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/falcon4ever/kanama",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T00:40:33Z"
+  "distributed_at": "2026-07-19T00:41:55Z"
 }
