@@ -1,0 +1,9 @@
+{
+  "name": "illyism--instagram-scraper",
+  "displayName": "instagram-scraper",
+  "description": "Download Instagram Reel transcripts for any public creator via Scrape Creators \u2014 then mine hooks in Cursor.",
+  "version": "1.0.0",
+  "author": "Illyism",
+  "homepage": "https://github.com/Illyism/instagram-scraper",
+  "skills": []
+}
