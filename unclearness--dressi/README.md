@@ -7,11 +7,11 @@ Unofficial re-implementation of "Dressi: A Hardware-Agnostic Differentiable Rend
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [unclearness/dressi](https://github.com/unclearness/dressi).
+Original source: `AGENTS.md` in [unclearness/dressi](https://github.com/unclearness/dressi).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
