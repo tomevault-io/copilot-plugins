@@ -1,0 +1,9 @@
+{
+  "name": "oubakiou--mdxg-redline",
+  "displayName": "mdxg-redline",
+  "description": "Inline review tool for MDXG markdown \u2014 capture highlighted comments and export them as structured JSON for LLM agents.",
+  "version": "1.0.0",
+  "author": "oubakiou",
+  "homepage": "https://github.com/oubakiou/mdxg-redline",
+  "skills": []
+}
