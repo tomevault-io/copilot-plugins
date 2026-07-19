@@ -7,11 +7,11 @@ macOS menu bar app that keeps your Claude Code and Codex CLI quota windows activ
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bcanozgur/quota-warmer](https://github.com/bcanozgur/quota-warmer).
+Original source: `CLAUDE.md` in [bcanozgur/quota-warmer](https://github.com/bcanozgur/quota-warmer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
