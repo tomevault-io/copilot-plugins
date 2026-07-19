@@ -1,0 +1,44 @@
+{
+  "name": "devops-bench",
+  "owner": "kubernetes-sigs",
+  "repo": "devops-bench",
+  "description": "A standardized benchmarking suite to evaluate how well different agents or models perform specific DevOps tasks. Its goal is to provide an open-source, reproducible way to transparently assess agent performance across various infrastructure platforms and operational environments.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kubernetes-sigs/devops-bench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T01:17:42Z"
+}
