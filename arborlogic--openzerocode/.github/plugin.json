@@ -1,0 +1,9 @@
+{
+  "name": "arborlogic--openzerocode",
+  "displayName": "openzerocode",
+  "description": "OpenZeroCode is a local-first, TUI-driven AI coding assistant adapted from the OpenCode direction. It strips away the zero cloud dependency and focuses on a self-contained terminal experience with bui",
+  "version": "1.0.0",
+  "author": "arborlogic",
+  "homepage": "https://github.com/arborlogic/openzerocode",
+  "skills": []
+}
