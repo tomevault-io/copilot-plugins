@@ -1,0 +1,9 @@
+{
+  "name": "hodong-kim--clair",
+  "displayName": "clair",
+  "description": "A practical Ada library providing bindings for common C and POSIX APIs.",
+  "version": "1.0.0",
+  "author": "hodong-kim",
+  "homepage": "https://github.com/hodong-kim/clair",
+  "skills": []
+}
