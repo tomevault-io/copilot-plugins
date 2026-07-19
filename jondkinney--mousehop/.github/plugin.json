@@ -1,0 +1,9 @@
+{
+  "name": "jondkinney--mousehop",
+  "displayName": "mousehop",
+  "description": "Share a single mouse and keyboard across multiple computers over the local network.",
+  "version": "1.0.0",
+  "author": "jondkinney",
+  "homepage": "https://github.com/jondkinney/mousehop",
+  "skills": []
+}
