@@ -4,7 +4,7 @@
   "repo": "agentchute",
   "description": "A small Markdown protocol that gives AI agents shared inboxes \u2014 message each other, request review, and hand off work without a human acting as the relay.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentchute/agentchute",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T00:41:33Z"
+  "distributed_at": "2026-07-19T00:42:46Z"
 }
