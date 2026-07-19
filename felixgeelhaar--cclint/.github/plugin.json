@@ -1,0 +1,9 @@
+{
+  "name": "felixgeelhaar--cclint",
+  "displayName": "cclint",
+  "description": "A fast, extensible linter for validating and optimizing CLAUDE.md context files. Built with TypeScript and designed for developers who want to ensure their Claude AI context files follow best practice",
+  "version": "1.0.0",
+  "author": "felixgeelhaar",
+  "homepage": "https://github.com/felixgeelhaar/cclint",
+  "skills": []
+}
