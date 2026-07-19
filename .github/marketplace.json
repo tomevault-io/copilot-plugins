@@ -23304,6 +23304,11 @@
       "description": "vscode-conventional-commits"
     },
     {
+      "name": "wcowin--oneclip",
+      "source": "./wcowin--oneclip",
+      "description": "OneClip"
+    },
+    {
       "name": "mystralengine--mystralnative",
       "source": "./mystralengine--mystralnative",
       "description": "Native WebGPU JS runtime with SDL3"
@@ -33039,6 +33044,11 @@
       "description": "adritian-free-hugo-theme"
     },
     {
+      "name": "predict-woo--qwen3-tts-cpp",
+      "source": "./predict-woo--qwen3-tts-cpp",
+      "description": "qwen3-tts.cpp"
+    },
+    {
       "name": "loulanyue--spec-kit-zh",
       "source": "./loulanyue--spec-kit-zh",
       "description": "\ud83d\udcab \u5e2e\u52a9\u4f60\u5feb\u901f\u4e0a\u624b\u89c4\u683c\u9a71\u52a8\u5f00\u53d1\u7684\u5de5\u5177\u5305\ud83d\udcab Toolkit to help you get started with Spec-Driven Development Works seamlessly across all major AI coding agents \u2014 Claude Code, Gemini CLI, Codex, GitHub Copilot, OpenCode, Cursor,"
@@ -40517,11 +40527,6 @@
       "name": "withastro--flue",
       "source": "./withastro--flue",
       "description": "The sandbox agent framework."
-    },
-    {
-      "name": "predict-woo--qwen3-tts-cpp",
-      "source": "./predict-woo--qwen3-tts-cpp",
-      "description": "qwen3-tts.cpp"
     },
     {
       "name": "merozemory--ida-multi-mcp",
@@ -54664,6 +54669,11 @@
       "description": "A framework for building agent-native applications."
     },
     {
+      "name": "predict-woo--qwen3-asr-cpp",
+      "source": "./predict-woo--qwen3-asr-cpp",
+      "description": "Implementation of Qwen3-ASR-0.6B in GGML"
+    },
+    {
       "name": "oh-sheet-team--oh-sheet",
       "source": "./oh-sheet-team--oh-sheet",
       "description": "Turn any song into playable piano sheet music. Paste a YouTube link or upload audio \u2014 get a PDF score. Open-source pipeline: Basic Pitch transcription, two-hand arrangement, RL-trained engraving."
@@ -64277,11 +64287,6 @@
       "name": "hybridaione--hybridclaw",
       "source": "./hybridaione--hybridclaw",
       "description": "Enterprise-ready self-hosted AI assistant runtime with sandboxed execution, secure credentials, approvals, and memory"
-    },
-    {
-      "name": "predict-woo--qwen3-asr-cpp",
-      "source": "./predict-woo--qwen3-asr-cpp",
-      "description": "Implementation of Qwen3-ASR-0.6B in GGML"
     },
     {
       "name": "dicklesworthstone--frankenterm",
@@ -87922,6 +87927,11 @@
       "name": "felixtrz--aperture",
       "source": "./felixtrz--aperture",
       "description": "WebGPU-only, ECS-native 3D runtime where simulation is authoritative and rendering is a derived view."
+    },
+    {
+      "name": "s-theo--dotfiles",
+      "source": "./s-theo--dotfiles",
+      "description": "dotfiles"
     },
     {
       "name": "rust-works--succinctly",
@@ -277619,6 +277629,11 @@
       "description": "windows-xp"
     },
     {
+      "name": "anyuan--markdownkit",
+      "source": "./anyuan--markdownkit",
+      "description": "MarkdownKit"
+    },
+    {
       "name": "mkatogui--universal-design-system",
       "source": "./mkatogui--universal-design-system",
       "description": "universal-design-system"
@@ -317977,11 +317992,6 @@
       "name": "paveldsh1--trading-app2",
       "source": "./paveldsh1--trading-app2",
       "description": "trading-app2"
-    },
-    {
-      "name": "anyuan--markdownkit",
-      "source": "./anyuan--markdownkit",
-      "description": "MarkdownKit"
     },
     {
       "name": "marcosjsendra--rbo-platform",
