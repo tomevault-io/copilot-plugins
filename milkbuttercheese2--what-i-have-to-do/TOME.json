@@ -1,0 +1,44 @@
+{
+  "name": "What-I-have-to-do",
+  "owner": "Milkbuttercheese2",
+  "repo": "What-I-have-to-do",
+  "description": "\uc628\uac16 \uae30\ub2a5\uc774 \ub2f4\uaca8\uc788\uc73c\uba74\uc11c\ub3c4 \uc9c1\uad00\uc801\uc778 \ub0b4\ubd80\ub9dd\uc6a9 \uba54\ubaa8\uc5b4\ud50c",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Milkbuttercheese2/What-I-have-to-do",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T04:44:09Z"
+}
