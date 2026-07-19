@@ -4,7 +4,7 @@
   "repo": "keda-gpu-scaler",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pmady/keda-gpu-scaler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T04:34:12Z"
+  "distributed_at": "2026-07-19T04:34:45Z"
 }
