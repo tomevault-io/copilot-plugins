@@ -1,0 +1,9 @@
+{
+  "name": "niko96-dotcom--cursor-goal",
+  "displayName": "cursor-goal",
+  "description": "Codex-style /goal loops for Cursor Agent chat with local .goal state \u2014 no Agent SDK.",
+  "version": "1.0.0",
+  "author": "Niko96-dotcom",
+  "homepage": "https://github.com/Niko96-dotcom/cursor-goal",
+  "skills": []
+}
