@@ -4,7 +4,7 @@
   "repo": "TestClone",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AlexAhmanHV/TestClone",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T02:34:36Z"
+  "distributed_at": "2026-07-19T02:53:07Z"
 }
