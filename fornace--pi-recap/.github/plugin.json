@@ -1,0 +1,9 @@
+{
+  "name": "fornace--pi-recap",
+  "displayName": "pi-recap",
+  "description": "Session at a glance \u2014 always-visible recap panel for pi coding agent",
+  "version": "1.0.0",
+  "author": "Fornace",
+  "homepage": "https://github.com/Fornace/pi-recap",
+  "skills": []
+}
