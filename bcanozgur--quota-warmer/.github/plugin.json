@@ -1,0 +1,9 @@
+{
+  "name": "bcanozgur--quota-warmer",
+  "displayName": "quota-warmer",
+  "description": "macOS menu bar app that keeps your Claude Code and Codex CLI quota windows active \u2014 automatically sends warmup messages when the 5-hour window resets.",
+  "version": "1.0.0",
+  "author": "bcanozgur",
+  "homepage": "https://github.com/bcanozgur/quota-warmer",
+  "skills": []
+}
