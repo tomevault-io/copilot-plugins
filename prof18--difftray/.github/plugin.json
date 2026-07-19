@@ -1,0 +1,9 @@
+{
+  "name": "prof18--difftray",
+  "displayName": "difftray",
+  "description": "Local-first macOS app for reviewing Git changes across projects \u2014 tracks reviewed files, flags drift, and exports review notes as agent prompts.",
+  "version": "1.0.0",
+  "author": "prof18",
+  "homepage": "https://github.com/prof18/difftray",
+  "skills": []
+}
