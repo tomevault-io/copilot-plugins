@@ -4,7 +4,7 @@
   "repo": "dressi",
   "description": "Unofficial re-implementation of \"Dressi: A Hardware-Agnostic Differentiable Renderer with Reactive Shader Packing and Soft Rasterization\"",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/unclearness/dressi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T02:37:58Z"
+  "distributed_at": "2026-07-19T02:45:28Z"
 }
