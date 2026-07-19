@@ -7,11 +7,11 @@ A zero-config Vite plugin that injects a floating devtools panel into your Svelt
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chrislentz/svelte-devtools](https://github.com/chrislentz/svelte-devtools).
+Original source: `CLAUDE.md` in [chrislentz/svelte-devtools](https://github.com/chrislentz/svelte-devtools).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
