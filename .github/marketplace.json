@@ -33514,6 +33514,11 @@
       "description": "compose-data-table"
     },
     {
+      "name": "adcontextprotocol--adcp",
+      "source": "./adcontextprotocol--adcp",
+      "description": "Docs and reference implementation for the Ad Context Protocol"
+    },
+    {
       "name": "lichas--maxclaw",
       "source": "./lichas--maxclaw",
       "description": "OpenClaw-Style Local-First AI Agent in Go - Low-Memory, Private, UI-Ready, Out-of-the-Box"
@@ -272267,6 +272272,26 @@
       "name": "mb-mal--pmbok6",
       "source": "./mb-mal--pmbok6",
       "description": "PMBOK 6th Edition \u2014 Project Management skill for AI agents. 49 \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u043e\u0432, EVM, Agile, \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442\u044b, \u0448\u0430\u0431\u043b\u043e\u043d\u044b."
+    },
+    {
+      "name": "danmcinerney--orchflows",
+      "source": "./danmcinerney--orchflows",
+      "description": "Composable orchestration skills for Codex and Claude Code"
+    },
+    {
+      "name": "drowzeys--keys-latest-glm-5-2-quantrio-int4-int8-mixed-abliterated-dflash-4x-dgx-sparks",
+      "source": "./drowzeys--keys-latest-glm-5-2-quantrio-int4-int8-mixed-abliterated-dflash-4x-dgx-sparks",
+      "description": "keys-latest: GLM-5.2 QuantTrio INT4/INT8 ablit + DFlash \u00b7 4x DGX Spark \u00b7 k=12 \u00b7 128k \u00b7 seqs=4 \u00b7 KV 10GiB"
+    },
+    {
+      "name": "yankieldbc2--codex-skills-library",
+      "source": "./yankieldbc2--codex-skills-library",
+      "description": "codex-skills-library"
+    },
+    {
+      "name": "drpwchen--textbook-to-note",
+      "source": "./drpwchen--textbook-to-note",
+      "description": "Turn your own PDF textbooks into an AI-searchable knowledge base and structured, fully-cited notes \u2014 figures included. Local-first, token-frugal."
     },
     {
       "name": "cheerhuan--save-your-token",
