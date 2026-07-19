@@ -4,7 +4,7 @@
   "repo": "aftertone",
   "description": "Hear a short spoken summary after your coding agent answers. Free to install - no API keys, no subscription, no cloud TTS.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/omarelkhal/aftertone",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T00:33:28Z"
+  "distributed_at": "2026-07-19T00:39:30Z"
 }
