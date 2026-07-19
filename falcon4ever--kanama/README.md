@@ -7,11 +7,11 @@ Kanama brings Kotlin to Godot through a GDExtension runtime powered by the JVM a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [falcon4ever/kanama](https://github.com/falcon4ever/kanama).
+Original source: `CLAUDE.md` in [falcon4ever/kanama](https://github.com/falcon4ever/kanama).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
