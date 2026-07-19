@@ -4,7 +4,7 @@
   "repo": "cc-to-grok-bridge",
   "description": "Bridge Claude Code \u2192 Grok Build: shared rules/skills, hook adapter hard-gates, optional memory mirror",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yyu0310/cc-to-grok-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T14:31:01Z"
+  "distributed_at": "2026-07-19T14:32:12Z"
 }
