@@ -1,0 +1,9 @@
+{
+  "name": "drowzeys--keys-latest-glm-5-2-quantrio-int4-int8-mixed-abliterated-dflash-4x-dgx-sparks",
+  "displayName": "keys-latest-GLM-5.2-Quantrio-INT4-INT8-Mixed-Abliterated-DFlash-4x-DGX-Sparks",
+  "description": "keys-latest: GLM-5.2 QuantTrio INT4/INT8 ablit + DFlash \u00b7 4x DGX Spark \u00b7 k=12 \u00b7 128k \u00b7 seqs=4 \u00b7 KV 10GiB",
+  "version": "1.0.0",
+  "author": "drowzeys",
+  "homepage": "https://github.com/drowzeys/keys-latest-GLM-5.2-Quantrio-INT4-INT8-Mixed-Abliterated-DFlash-4x-DGX-Sparks",
+  "skills": []
+}
