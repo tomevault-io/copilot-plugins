@@ -1,0 +1,9 @@
+{
+  "name": "silo-server--silo-apple",
+  "displayName": "silo-apple",
+  "description": "Native iOS, tvOS, and macOS clients for the Silo self-hosted media server.",
+  "version": "1.0.0",
+  "author": "Silo-Server",
+  "homepage": "https://github.com/Silo-Server/silo-apple",
+  "skills": []
+}
