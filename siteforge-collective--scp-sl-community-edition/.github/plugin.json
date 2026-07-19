@@ -1,0 +1,9 @@
+{
+  "name": "siteforge-collective--scp-sl-community-edition",
+  "displayName": "SCP-SL-Community-Edition",
+  "description": "SCP: SL Community Edition is a open source decompile of SCP: SL 12.0.2",
+  "version": "1.0.0",
+  "author": "Siteforge-Collective",
+  "homepage": "https://github.com/Siteforge-Collective/SCP-SL-Community-Edition",
+  "skills": []
+}
