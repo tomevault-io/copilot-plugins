@@ -248934,6 +248934,21 @@
       "description": "React playground"
     },
     {
+      "name": "hyperpotatoneo--prime-values",
+      "source": "./hyperpotatoneo--prime-values",
+      "description": "Async value functions and replay-buffer critic training for PRIME-RL"
+    },
+    {
+      "name": "felixgeelhaar--cclint",
+      "source": "./felixgeelhaar--cclint",
+      "description": "A fast, extensible linter for validating and optimizing CLAUDE.md context files. Built with TypeScript and designed for developers who want to ensure their Claude AI context files follow best practice"
+    },
+    {
+      "name": "yi-john-huang--loreloom",
+      "source": "./yi-john-huang--loreloom",
+      "description": "An AI-first Obsidian vault framework that weaves sources into living knowledge."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272297,6 +272312,16 @@
       "name": "drpwchen--textbook-to-note",
       "source": "./drpwchen--textbook-to-note",
       "description": "Turn your own PDF textbooks into an AI-searchable knowledge base and structured, fully-cited notes \u2014 figures included. Local-first, token-frugal."
+    },
+    {
+      "name": "illyism--instagram-scraper",
+      "source": "./illyism--instagram-scraper",
+      "description": "Download Instagram Reel transcripts for any public creator via Scrape Creators \u2014 then mine hooks in Cursor."
+    },
+    {
+      "name": "hodong-kim--clair",
+      "source": "./hodong-kim--clair",
+      "description": "A practical Ada library providing bindings for common C and POSIX APIs."
     },
     {
       "name": "cheerhuan--save-your-token",
