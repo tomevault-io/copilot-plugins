@@ -131489,6 +131489,11 @@
       "description": "Spring AI Agent \u5b66\u4e60"
     },
     {
+      "name": "renoir1220--esse",
+      "source": "./renoir1220--esse",
+      "description": "\u9762\u5411 Codex \u548c ChatGPT Work \u7684\u672c\u5730\u56fe\u7247\u751f\u6210\u4e0e\u7f16\u8f91\u5de5\u4f5c\u53f0 \u00b7 Local image generation and editing workspace"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -153532,6 +153537,11 @@
       "name": "housecat-inc--scratch",
       "source": "./housecat-inc--scratch",
       "description": "Setup for Agent Computers"
+    },
+    {
+      "name": "worldwonderer--novel-to-game",
+      "source": "./worldwonderer--novel-to-game",
+      "description": "\u628a\u4efb\u4f55\u5c0f\u8bf4\u53d8\u6210\u53ef\u73a9\u7684\u6e38\u620f \u00b7 Turn any novel into a playable game \u2014 a 7-skill adaptation pipeline for Claude Code, Codex & Kimi Code(k3)"
     },
     {
       "name": "13point5--agent-canvas",
