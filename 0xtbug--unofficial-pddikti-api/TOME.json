@@ -4,7 +4,7 @@
   "repo": "unofficial-pddikti-api",
   "description": "Reverse-engineered API for PDDIKTI \u2014 Indonesian Higher Education Database.  Provides access to universities, study programs, lecturers, and students data.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0xtbug/unofficial-pddikti-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T13:31:05Z"
+  "distributed_at": "2026-07-19T13:31:42Z"
 }
