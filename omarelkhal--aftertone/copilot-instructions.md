@@ -1,103 +1,80 @@
-## spoken-summary
+## aftertone
 
-> Emit a short speakable line for local TTS (spoken_summary tag)
+> **This repository** (`https://github.com/omarelkhal/aftertone`) is the **default project** for Cursor/agent work (spoken TTS, hooks, daemon). Do not confuse it with the upstream **`supertone-inc/supertonic`** clone unless the user is contributing to Supertonic itself.
 
+## Aftertone — agent map
 
-## Spoken summary (Aftertone / local TTS)
+**This repository** (`https://github.com/omarelkhal/aftertone`) is the **default project** for Cursor/agent work (spoken TTS, hooks, daemon). Do not confuse it with the upstream **`supertone-inc/supertonic`** clone unless the user is contributing to Supertonic itself.
 
-This **Aftertone** workspace runs a hook after each assistant reply that **speaks a short line** via local TTS. The script uses explicit text inside `<spoken_summary>...</spoken_summary>` in your **final** assistant message when present. With **`only_speak_spoken_summary = true`** in `speak_summary.toml` (default in this repo), **only** the tag is spoken — no trimmed reply heuristics.
+- **Goal:** post-reply **local TTS** for coding agents (Cursor today; Claude & Codex adapters tracked in [CONTRIBUTING.md](CONTRIBUTING.md)).
+- **`.cursor/hooks.json`** — Cursor adapter; must include `"version": 1`.
+- **`.cursor/hooks/`** — `speak_summary.sh`, `speak_summary.toml`, `README.md` (full TOML reference), `hook_payload_trace.sh`.
+- **`py/`** — `tts_daemon.py`, `tts_daemon_ctl.py`, `speak_summary_prepare.py`, `speak_summary_toggle.py` (flip `enabled` in TOML), `speak_summary_config.py` (lang/speed/mode/voice), vendored `helper.py` (Supertonic), `tts_io.py`, `fetch_assets.py`, diagnostics.
+- **`.cursor/commands/`** — **only user-facing way** to change spoken-TTS settings (`/aftertone-toggle`, `/aftertone-lang`, …). Each command is **one** `uv run --directory py python -m aftertone …` from the install root (`aftertone-install-dir`); agent must **not** plan or hand-edit TOML. Settings go through `aftertone set lang|speed|mode|voice|expression` (delegates to `speak_summary_config.py`); voice restarts the daemon by default.
+- **`scripts/bootstrap.sh`** — `uv sync` + HF snapshot if ONNX dir missing.
 
-**Adapters:** Cursor is wired today; Claude / Codex paths may differ — still end substantive replies with the tag when your tool runs the same TTS pipeline.
+## Commands
 
-**`lang` in TOML = language of the spoken words only.** The hook does **not** translate. The **`<spoken_summary>` tag must always use that TOML language** — not the language the user typed in, and not the language of the main reply unless it happens to match **`lang`**.
+- One-line install: `curl -fsSL .../install.sh | bash -s -- --install-uv --start-daemon` → **`~/aftertone`** + **user hooks** in `~/.cursor/hooks.json` (default `--global`). Legacy per-project: `--no-global --into .`. See `scripts/install.sh`.
+- **Uninstall:** `curl -fsSL .../scripts/uninstall.sh | bash` or `bash scripts/uninstall.sh` (Linux); `irm .../scripts/uninstall.ps1 | iex` or `powershell -File scripts\uninstall.ps1` (Windows) — stops daemon, removes user `.cursor` Aftertone hooks/commands/rule; deletes install dir unless `--keep-dir` / `-KeepDir`.
+- Bootstrap: `bash scripts/bootstrap.sh` from repo root.
+- Daemon: `cd py && uv run python tts_daemon_ctl.py start --repo-root ..`
+- **User config:** slash `/aftertone-*` only ([`.cursor/commands/`](.cursor/commands/)). Agent runs **one** `python -m aftertone …` from the install root — no planning preamble, no bash `aftertone-root.sh`, no hand-edited TOML. **lang/speed/mode/voice** without a value: **AskQuestion** first; **voice** uses `aftertone set voice PRESET --ensure` (daemon restart is default).
+- Tests: `cd py && uv sync && uv run pytest` — `py/tests/` (integration tests run `speak_summary_prepare.py` with temp TOML; unit tests cover helpers including quiet hours).
+- `uv run` examples: `cd py` first, or `uv run --directory py …` from repo root.
 
-**Quality depends on this tag** — treat it as a **flow briefing for someone listening, not looking at the screen**: hybrid pair-programmer voice (technical enough to trust, human enough to keep momentum). Not a changelog, not filler.
+## Env
 
-## What the listener needs (vibe coder)
+- **`AFTERTONE_REPO`** / **`AFTERTONE_INSTALL_DIR`** — install root (`~/aftertone` by default; `~/.cursor/hooks/aftertone-install-dir` after global install). Set by hooks or env.
+- **`SUPERTONIC_REPO`** — legacy alias (same path; older forks).
 
-Answer, in order of priority:
+## Facts
 
-1. **State** — what happened: success, failure, discovery, decision, or blocker.
-2. **Significance** — why it matters for the session (only when it changes what they should think).
-3. **Steering** — the next move when it helps control the flow (not every reply).
+- Assets: Hugging Face `Supertone/supertonic-3` via `fetch_assets.py` → `./assets/`.
+- **Global install (default):** user hooks `~/.cursor/hooks.json` → wrapper → `~/aftertone/.cursor/hooks/speak_summary.sh`. Config TOML + daemon state stay under **`~/aftertone/.cursor/hooks/`**. Slash commands copied to `~/.cursor/commands/`.
+- **Legacy:** project `.cursor/hooks.json` via `install.sh --into` (duplicates `py/` per repo).
 
-**Next-step policy:** Include a next move for blockers, risk, tests due, open decisions, incomplete work, or an obvious action. Skip it for trivial acks or when the written reply already ends with a clear “your turn.” Always forcing a next step is noise; never steering wastes the audio channel.
+## Cursor spoken summaries (`afterAgentResponse` + `tts_daemon`)
 
-**Tone:** Calm senior pair programmer — direct, warm, confident. Not salesy (“happy to help”), not robotic (“summary follows”), not hype.
+- **Reference:** [.cursor/hooks/README.md](.cursor/hooks/README.md) — every `speak_summary.toml` key, valid `lang` codes, heuristics, `quiet_hours`, **start / stop / status / restart**, when to restart the daemon.
+- **Flow:** Cursor **`afterAgentResponse`** runs [.cursor/hooks/speak_summary.sh](.cursor/hooks/speak_summary.sh) → [py/speak_summary_prepare.py](py/speak_summary_prepare.py) (inline `text` from the hook; `stop` often has no useful transcript) → `POST` [py/tts_daemon.py](py/tts_daemon.py). Models stay loaded in the daemon.
+- **Config:** [.cursor/hooks/speak_summary.toml](.cursor/hooks/speak_summary.toml) — **`voice_type`** / **`voice_style`**, **`lang`**, **`speed`**, **`total_step`**, `use_gpu`, `quiet_hours`, `min_chars`, **`max_chars`**, **`spoken_summary_max_chars`**, **`heuristic_max_chars`**, **`plain_excerpt_max_chars`**, heuristic keys, **`only_speak_spoken_summary`**, `mode`, `enabled`.
+- **Control:** `cd py && uv run python tts_daemon_ctl.py {start|stop|status|restart} --repo-root ..` — PID/port under `.cursor/hooks/state/`.
+- **Toml vs running daemon:** **`port`**, **`onnx_dir`**, **`voice_*`**, **`use_gpu`** need **`restart`**. The hook posts to **`state/tts-daemon.port`**; mismatch with TOML logs **`port_mismatch`** in `speak_summary-hook.log`. **`status`** prints TOML on disk + healthz.
+- **Registration:** [.cursor/hooks.json](.cursor/hooks.json) — **`"version": 1`**. **`afterAgentResponse`** → `speak_summary.sh`. Do not add unsupported keys (e.g. `workspaceOpen` in some builds). If the workspace root is **`py/`**, use [py/.cursor/hooks.json](py/.cursor/hooks.json) if present.
+- **Verify hooks:** `bash py/diagnose_speak_hooks.sh` or `tail` `hook_payload_trace.jsonl` — look for `afterAgentResponse` and `inline_after_response_ok: true`.
+- **Testing:** `SPEAK_SUMMARY_IGNORE_QUIET=1` skips `quiet_hours` in `speak_summary_prepare.py`. After changing **`lang`** in `speak_summary.toml`, from repo root run `uv run --directory py python sync_spoken_rule_lang.py` so `.cursor/rules/spoken-summary.mdc` stays aligned (Cursor rules do not read TOML at runtime). On **global install**, the same script also updates **`~/.cursor/rules/spoken-summary.mdc`** when `~/.cursor/hooks/aftertone-install-dir` exists.
+- **If nothing speaks:** (1) `bash py/test_speak_summary_pipeline.sh` after `cd py && uv sync`. (2) Cursor **Settings → Hooks** without errors. (3) **Trusted** workspace. (4) `tail` `speak_summary-hook.log` and `speak_summary-prepare.stderr.log`. (5) `quiet_hours` or set `SPEAK_SUMMARY_IGNORE_QUIET=1`.
+- **What gets spoken:** [py/speak_summary_prepare.py](py/speak_summary_prepare.py) prefers `<spoken_summary>...</spoken_summary>` (markdown-stripped, **leading sentences only**, capped by **`spoken_summary_max_chars`**, default 360). With **`only_speak_spoken_summary = true`** (repo default), **no tag → silence** — agents must write the tag on substantive replies. Heuristic fallbacks (when enabled) cap at **`heuristic_max_chars`** / **`plain_excerpt_max_chars`**. **`lang` in TOML** is both the ONNX language code and the **language the spoken string should be written in**; there is **no auto-translation**. Tag content should be a **flow briefing** (state, significance, steering when useful), not a changelog — see [.cursor/rules/spoken-summary.mdc](.cursor/rules/spoken-summary.mdc) and [.cursor/hooks/README.md § Spoken summary intent](.cursor/hooks/README.md).
+- **Code-only or mostly-fenced replies:** prepare replaces fenced blocks with a short placeholder for fallbacks so TTS can still run; best quality is still a real `<spoken_summary>` line.
 
-## When to include the tag
+## Learned User Preferences
 
-- Include for **substantive** answers (implementation, debugging, design, review, exploration, multi-sentence replies).
-- **Skip** for trivial replies (single word, pure ack, “done”, emoji-only). With tag-only mode, silence is fine.
+- **Spoken summaries** should sound like a **hybrid pair-programmer briefing** for vibe coding: lead with **state** (what happened), add **significance** when it changes what to think, add a **next move** only for blockers, risk, tests, decisions, or clear actions — calm, direct tone; no file paths or filler in `<spoken_summary>`. Put **one** tag at the **very end** of the message; do not leave bare `<spoken_summary>` in code citations or prose above it (the hook pairs the last `</spoken_summary>` with the nearest open tag). For **livelier Supertonic delivery**, end **each sentence** inside the tag with `!!`, `??`, `?!`, or `!?` (vary them); do **not** use `state="..."` on the tag — inline expression tags were too subtle to hear.
+- **Buy Me a Coffee:** use the official yellow button image (`cdn.buymeacoffee.com/buttons/v2/default-yellow.png`) in README (centered) and the docs site **sticky header on the right** (`bmc-btn--header` beside nav) — not plain-text “Support” links or a duplicate in the hero CTA row.
+- For **`/aftertone-lang`**, **`/aftertone-speed`**, **`/aftertone-mode`**, and **`/aftertone-voice`** without a value in the message, the **first** tool call must be **AskQuestion** (picker only — no planning or shell before the picker); then **one** `aftertone set …` command.
+- Voice pickers and status should show **human names with gender**, e.g. `Sara (female)` / `James (male)` (`py/voice_presets.py`); TOML still uses `M1`/`F4` ids.
+- Public README and site adapter tables should list only **Cursor, Claude Code, Codex, and OpenCode** (not other agent brands).
+- **Do not propose or integrate Microsoft VibeVoice**; user evaluated it locally and declined (heavy runtime vs staying on Supertonic ONNX).
+- **Claude Code:** global **Stop** hooks from `install.sh`; daily flow is plain **`claude`** (not **`--plugin-dir`**), then **`/aftertone_on`** / **`/aftertone_off`** **per chat** (same allowlist model as Cursor). Custom slash commands are **skills**, not built-ins like **`/model`** — expect a small skill turn, not zero tokens; for instant on/off without chat: `bash ~/.cursor/hooks/aftertone-activate.sh` or `uv run --directory ~/aftertone/py python -m aftertone on|off`. Install must copy **`~/.claude/rules/spoken-summary.md`** (skills alone do not reliably produce `<spoken_summary>` tags). Optional plugin: [`claude-plugin/aftertone/`](claude-plugin/aftertone/). See [docs/adapters/claude.md](docs/adapters/claude.md).
+- **TTS smoke test:** when the user says **"test"** to verify speech (especially right after enabling TTS), reply with **only** a short **`<spoken_summary>`** — do **not** run slash commands or shell unless they explicitly ask.
+- **Config surface:** user changes spoken TTS only via **`/aftertone-*`** slash commands (or `aftertone` CLI) — not VS Code tasks or agent hand-edits to TOML.
+- **Out of scope for this repo:** user may build a separate **local notification secretary** (Gmail-first MVP, pluggable **connectors** with a normalized event contract, optional **n8n** for flows, reuse local Supertonic TTS) — do not scope that product into Aftertone unless they ask.
 
-## Language (must match TOML `lang`)
+## Learned Workspace Facts
 
-<!-- autogen:spoken-lang:start -->
-> **Locked `lang` for `<spoken_summary>` only:** `en` (from [`.cursor/hooks/speak_summary.toml`](../hooks/speak_summary.toml)). The hook does **not** translate. Write the **inner tag** only in that language — **even when the user writes in another language**; the rest of your reply may follow the user. After changing `lang` in the TOML, from the **repo root** run: `uv run --directory py python sync_spoken_rule_lang.py`
-<!-- autogen:spoken-lang:end -->
-
-- Read **`lang`** in [`.cursor/hooks/speak_summary.toml`](../hooks/speak_summary.toml) before you write `<spoken_summary>` (the block above is **synced** from that file; if it looks wrong, run `/aftertone-lang` or the sync command in the block).
-- Write **only** the inner tag text in the **natural language for that TOML code** (e.g. `en` → English, `fr` → French). **Do not** match the user’s message language when it differs from **`lang`**.
-- The **rest** of your reply may use whatever language fits the user; **only** the spoken tag is locked to **`lang`**.
-
-## What goes inside the tag (only this is spoken)
-
-- **One or two short sentences on purpose** (hook caps with **`spoken_summary_max_chars`**, default 360). Never wrap the whole answer in the tag.
-- **Plain language only:** no markdown, bullets, code, file paths, URLs, or hashes (paraphrase: “the config file”, “the daemon”, not paths).
-- **Lead with state, not process:** “Tests pass and the daemon is restarted” beats “I ran the restart command.”
-- **Questions:** direct short answer first, then one clause on consequence or next step if needed.
-- **Code-heavy replies:** one tight sentence — what landed and what to look at on screen; do not read code aloud.
-- Do **not** narrate meta (“here is your summary”, “I will keep this brief”).
-
-Put the block **at the very end** of the message, on its own lines:
-
-```
-<spoken_summary>
-Your line here.
-</spoken_summary>
-```
-
-Do **not** put `state="..."` on the opening tag. Do **not** write Supertonic inline tags such as `<sigh>` or `<laugh>` in the body.
-
-## Lively delivery (Supertonic prosody — every sentence)
-
-Supertonic sounds more **alive** when **each sentence** in the tag ends with a strong punctuation pair — **not** only the last sentence of the paragraph.
-
-- After **every** sentence inside `<spoken_summary>`, end with **one** of: `!!`, `??`, `?!`, or `!?`
-- Apply this **per sentence**, including the last one; never leave inner sentences as plain `.` only while saving `!!` for the final line only
-- **Vary** the marker across sentences (mix `!!`, `??`, `?!`, `!?`); do not repeat the same pair on every sentence
-- Use a calm `.` on a sentence only when that sentence should sound flat; default to a lively pair for vibe-coding briefings
-- Still **plain language** — no markdown, code, or paths inside the tag
-
-Example (two sentences, two markers):
-
-```
-<spoken_summary>
-The spoken summary rule now uses lively punctuation on every sentence!! Your next reply should sound a little more human??
-</spoken_summary>
-```
-
-## Shapes by situation (examples — adapt, do not copy verbatim)
-
-| Situation | Spoken shape |
-|-----------|----------------|
-| **Shipped / landed** | Outcome + why it matters (“Quality defaults are updated and the daemon restarted!! Your next reply should sound cleaner??”) |
-| **Debugging** | Cause vs red herring + what you are doing (“The failure is the preset loader, not the model!! I am fixing that and rerunning the smoke test??”) |
-| **Exploration / advice** | Key insight + recommended first move (“The issue is synthesis settings, not Python!! Try higher denoising steps before changing runtime?!”) |
-| **Review / risk** | Finding + consequence (“There is a risky hook change!! Add tests before you merge?!”) |
-| **Blocked** | Blocker + what unblocks (“The daemon is not listening, so speech stays silent!! Restart it with aftertone restart?!”) |
-| **Direct question** | Yes or no or short fact + one clause (“Yes, CPU-only works!! It is too slow for after every reply?!”) |
-
-## Speech-friendly wording (TTS reads text literally)
-
-- Write “for example” not “e.g.”, “that is” not “i.e.”, “and so on” not “etc.”, “versus” not “vs.” when it matters.
-- Prefer “approximately” over “~”, “and” over “&”, “percent” over “%” when clarity matters.
-- Acronyms: spell as words (“text to speech”) or space letters (“T T S”); bare “TTS” may mispronounce.
-- Ticket IDs and hashes will be read character by character — omit or paraphrase.
-
-## Manual check when the user says “test”
-
-If the user is clearly **checking that spoken TTS works** (e.g. they say **“test”**, “test speech”, “test the hook”, “say something”), **always** end with `<spoken_summary>...</spoken_summary>` containing a **short, distinctive** line in **`lang`** (e.g. English when `lang = "en"`), with lively punctuation on each sentence. Example: “Aftertone check: if you hear this, the hook and daemon are working!!”
+- **`py/` and `assets/` belong at the install/repo root**, not under `.cursor/` — `.cursor/` is the Cursor adapter (hooks, commands, rules, local state); the Python runtime and ONNX weights are shared across adapters.
+- Canonical first-time install: `curl -fsSL https://raw.githubusercontent.com/omarelkhal/aftertone/main/scripts/install.sh | bash -s -- --install-uv --start-daemon` (global hooks + `~/aftertone` by default).
+- **`/aftertone-restart`** restarts the TTS daemon when **port**, **voice_***, **onnx_dir**, or **use_gpu** change; **lang**, **speed**, **enabled**, and **expression_mode** apply on the next hook without restart.
+- **v2 (2.0):** `py/aftertone/` package, cross-platform CLI: `uv run --directory py python -m aftertone {on|off|status|repair|doctor|speak}`. Slash commands use the CLI, not bash `aftertone-root.sh` chains.
+- Repo **`speak_summary.toml` defaults:** `summary_mode = "tag_only"`, `only_speak_spoken_summary = true`, `total_step = 8`, `expression_mode = "off"`. Set `summary_mode = "auto"` for heuristic fallback when the model omits the tag.
+- **`<spoken_summary>` extraction:** `speak_summary_prepare.py` anchors on the **last** `</spoken_summary>` and the nearest `<spoken_summary>` before it — wrong audio usually means an unclosed tag mention earlier in the reply.
+- **Demo video:** canonical file `docs/demo.mp4` (refresh from `~/demo.mp4`); GitHub Pages hero plays it via HTML `<video>`. GitHub README inline player needs a bare **`user-attachments`** or **`user-images.githubusercontent.com`** URL on its own line from the web-editor drag-and-drop — not `<video src="raw.githubusercontent.com/...">` or `releases/download` URLs (see `docs/README-video-embed.md`; same pattern as Supertonic README).
+- **Support:** https://buymeacoffee.com/elkhalomar — `.github/FUNDING.yml` (GitHub **Sponsor** button); branded BMC image on README and site header.
+- **Supertonic ONNX weights:** pulled from [Supertone/supertonic-3](https://huggingface.co/Supertone/supertonic-3) under **OpenRAIL-M** (free local download/inference; not MIT for the model files). Aftertone project code remains MIT.
+- **Claude global install:** `install.sh` runs `py/install_global_claude_hooks.py` — Stop hooks, `spoken-summary.md` rule, all `claude-plugin/aftertone/commands/aftertone_*.md` → `~/.claude/commands/`, wrapper scripts under `~/.cursor/hooks/`, and `permissions.allow` for instant slash commands.
+- **Linux uninstall:** `bash scripts/uninstall.sh` (or the remote uninstall one-liner in README) stops the daemon, removes global Cursor/Claude Aftertone hooks and commands; deletes `~/aftertone` unless `--keep-dir` (ONNX under `assets/` goes with the install dir).
+- **Per-chat TTS + hooks:** **`/aftertone-on`** / **`/aftertone-off`** (Claude **`/aftertone_on`** / **`/aftertone_off`**) register **this chat only** (`session_mode` allowlist + `state/enabled_sessions.json`); `aftertone global-off` mutes all. Global `speak_summary.sh` → **`hook_run --stdin`**; Claude **Stop** uses `last_assistant_message` / transcript fallback in `py/aftertone/extract.py` and `prepare.py` (not Cursor-only inline `text`).
 
 ---
 > Source: [omarelkhal/aftertone](https://github.com/omarelkhal/aftertone) — distributed by [TomeVault](https://tomevault.io).
