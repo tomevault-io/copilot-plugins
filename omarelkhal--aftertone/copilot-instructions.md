@@ -1,0 +1,104 @@
+## spoken-summary
+
+> Emit a short speakable line for local TTS (spoken_summary tag)
+
+
+## Spoken summary (Aftertone / local TTS)
+
+This **Aftertone** workspace runs a hook after each assistant reply that **speaks a short line** via local TTS. The script uses explicit text inside `<spoken_summary>...</spoken_summary>` in your **final** assistant message when present. With **`only_speak_spoken_summary = true`** in `speak_summary.toml` (default in this repo), **only** the tag is spoken — no trimmed reply heuristics.
+
+**Adapters:** Cursor is wired today; Claude / Codex paths may differ — still end substantive replies with the tag when your tool runs the same TTS pipeline.
+
+**`lang` in TOML = language of the spoken words only.** The hook does **not** translate. The **`<spoken_summary>` tag must always use that TOML language** — not the language the user typed in, and not the language of the main reply unless it happens to match **`lang`**.
+
+**Quality depends on this tag** — treat it as a **flow briefing for someone listening, not looking at the screen**: hybrid pair-programmer voice (technical enough to trust, human enough to keep momentum). Not a changelog, not filler.
+
+## What the listener needs (vibe coder)
+
+Answer, in order of priority:
+
+1. **State** — what happened: success, failure, discovery, decision, or blocker.
+2. **Significance** — why it matters for the session (only when it changes what they should think).
+3. **Steering** — the next move when it helps control the flow (not every reply).
+
+**Next-step policy:** Include a next move for blockers, risk, tests due, open decisions, incomplete work, or an obvious action. Skip it for trivial acks or when the written reply already ends with a clear “your turn.” Always forcing a next step is noise; never steering wastes the audio channel.
+
+**Tone:** Calm senior pair programmer — direct, warm, confident. Not salesy (“happy to help”), not robotic (“summary follows”), not hype.
+
+## When to include the tag
+
+- Include for **substantive** answers (implementation, debugging, design, review, exploration, multi-sentence replies).
+- **Skip** for trivial replies (single word, pure ack, “done”, emoji-only). With tag-only mode, silence is fine.
+
+## Language (must match TOML `lang`)
+
+<!-- autogen:spoken-lang:start -->
+> **Locked `lang` for `<spoken_summary>` only:** `en` (from [`.cursor/hooks/speak_summary.toml`](../hooks/speak_summary.toml)). The hook does **not** translate. Write the **inner tag** only in that language — **even when the user writes in another language**; the rest of your reply may follow the user. After changing `lang` in the TOML, from the **repo root** run: `uv run --directory py python sync_spoken_rule_lang.py`
+<!-- autogen:spoken-lang:end -->
+
+- Read **`lang`** in [`.cursor/hooks/speak_summary.toml`](../hooks/speak_summary.toml) before you write `<spoken_summary>` (the block above is **synced** from that file; if it looks wrong, run `/aftertone-lang` or the sync command in the block).
+- Write **only** the inner tag text in the **natural language for that TOML code** (e.g. `en` → English, `fr` → French). **Do not** match the user’s message language when it differs from **`lang`**.
+- The **rest** of your reply may use whatever language fits the user; **only** the spoken tag is locked to **`lang`**.
+
+## What goes inside the tag (only this is spoken)
+
+- **One or two short sentences on purpose** (hook caps with **`spoken_summary_max_chars`**, default 360). Never wrap the whole answer in the tag.
+- **Plain language only:** no markdown, bullets, code, file paths, URLs, or hashes (paraphrase: “the config file”, “the daemon”, not paths).
+- **Lead with state, not process:** “Tests pass and the daemon is restarted” beats “I ran the restart command.”
+- **Questions:** direct short answer first, then one clause on consequence or next step if needed.
+- **Code-heavy replies:** one tight sentence — what landed and what to look at on screen; do not read code aloud.
+- Do **not** narrate meta (“here is your summary”, “I will keep this brief”).
+
+Put the block **at the very end** of the message, on its own lines:
+
+```
+<spoken_summary>
+Your line here.
+</spoken_summary>
+```
+
+Do **not** put `state="..."` on the opening tag. Do **not** write Supertonic inline tags such as `<sigh>` or `<laugh>` in the body.
+
+## Lively delivery (Supertonic prosody — every sentence)
+
+Supertonic sounds more **alive** when **each sentence** in the tag ends with a strong punctuation pair — **not** only the last sentence of the paragraph.
+
+- After **every** sentence inside `<spoken_summary>`, end with **one** of: `!!`, `??`, `?!`, or `!?`
+- Apply this **per sentence**, including the last one; never leave inner sentences as plain `.` only while saving `!!` for the final line only
+- **Vary** the marker across sentences (mix `!!`, `??`, `?!`, `!?`); do not repeat the same pair on every sentence
+- Use a calm `.` on a sentence only when that sentence should sound flat; default to a lively pair for vibe-coding briefings
+- Still **plain language** — no markdown, code, or paths inside the tag
+
+Example (two sentences, two markers):
+
+```
+<spoken_summary>
+The spoken summary rule now uses lively punctuation on every sentence!! Your next reply should sound a little more human??
+</spoken_summary>
+```
+
+## Shapes by situation (examples — adapt, do not copy verbatim)
+
+| Situation | Spoken shape |
+|-----------|----------------|
+| **Shipped / landed** | Outcome + why it matters (“Quality defaults are updated and the daemon restarted!! Your next reply should sound cleaner??”) |
+| **Debugging** | Cause vs red herring + what you are doing (“The failure is the preset loader, not the model!! I am fixing that and rerunning the smoke test??”) |
+| **Exploration / advice** | Key insight + recommended first move (“The issue is synthesis settings, not Python!! Try higher denoising steps before changing runtime?!”) |
+| **Review / risk** | Finding + consequence (“There is a risky hook change!! Add tests before you merge?!”) |
+| **Blocked** | Blocker + what unblocks (“The daemon is not listening, so speech stays silent!! Restart it with aftertone restart?!”) |
+| **Direct question** | Yes or no or short fact + one clause (“Yes, CPU-only works!! It is too slow for after every reply?!”) |
+
+## Speech-friendly wording (TTS reads text literally)
+
+- Write “for example” not “e.g.”, “that is” not “i.e.”, “and so on” not “etc.”, “versus” not “vs.” when it matters.
+- Prefer “approximately” over “~”, “and” over “&”, “percent” over “%” when clarity matters.
+- Acronyms: spell as words (“text to speech”) or space letters (“T T S”); bare “TTS” may mispronounce.
+- Ticket IDs and hashes will be read character by character — omit or paraphrase.
+
+## Manual check when the user says “test”
+
+If the user is clearly **checking that spoken TTS works** (e.g. they say **“test”**, “test speech”, “test the hook”, “say something”), **always** end with `<spoken_summary>...</spoken_summary>` containing a **short, distinctive** line in **`lang`** (e.g. English when `lang = "en"`), with lively punctuation on each sentence. Example: “Aftertone check: if you hear this, the hook and daemon are working!!”
+
+---
+> Source: [omarelkhal/aftertone](https://github.com/omarelkhal/aftertone) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-18 -->
