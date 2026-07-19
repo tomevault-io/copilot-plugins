@@ -1,34 +1,21 @@
-## agent-capability-first
+## specify-rules
 
-> Capability-first agent design — prefer prompts/skills over keyword handlers
+> <!-- SPECKIT START -->
 
 
-# Agent Capability-First Design (Principle VII)
+<!-- SPECKIT START -->
+For additional context about technologies, project structure, shell commands, and
+pipeline segments, read the current implementation plan:
 
-When improving agentic retrieval—especially numeric XBRL synthesis—follow this ladder:
+**Plan**: `specs/023-capability-realignment/plan.md` (active) | Shipped: `specs/022-outcome-score-ladder/plan.md` | Base: `specs/001-sec-disclosure-rag/plan.md`
 
-## Decision ladder
-
-1. **Structured output** — JSON answer contract → rendered prose; ban `"Based on N evidence chunk(s)"` in live paths (`src/retrieval/skills/structured_answer.py`).
-2. **Prompt enrichment** — Pass benchmark `temporal_anchor` and `fiscal_period_labels` into macro planner and synthesis (`runner.py` → `service.py` → `macro_router` / `synthesis.py`).
-3. **LLM skills** — Disambiguation before synthesis (e.g. `src/retrieval/skills/xbrl_fact_resolution.py`).
-4. **Cohort gate** — Validate on frozen cohort (`xbrl_numeric_cohort.json`) via `repro cohort-debug` before full repro.
-
-## Do not (without ADR)
-
-- Add new `_try_synthesize_*` keyword routers as the primary fix for financebench failures.
-- Fall back to `_synthesize_template` chunk dumps when `USE_MOCK_LLM` is unset.
-
-## Allowed
-
-- Deterministic handlers when `USE_MOCK_LLM=1` (CI/fixtures).
-- Documented exceptions in plan Complexity Tracking.
-
-## Reference
-
-- Spec: `specs/020-agent-capability-first/spec.md`
-- Quickstart: `specs/020-agent-capability-first/quickstart.md`
-- Constitution: `.specify/memory/constitution.md` Principle VII
+Quick reference:
+- **Stack**: uv, custom-judge v2.0.1 draft, judge v3.1 VA-only task_success, **paper-v1.1** cohort-gated
+- **Layers**: LLM `resolve_xbrl_facts` + Python compute; **no** live 022 heuristics; repro slice expansion retained
+- **CLI**: `repro cohort-debug` → judge-batch → `specs/023-capability-realignment/scripts/audit_cohort_synthesis_paths.py`
+- **Focus**: Principle VII realignment — single numeric path, filing catalog, taxonomy index, role-aware validation
+- **Docs**: `specs/023-capability-realignment/quickstart.md`, baseline `reports/cohort-022-phase-e`, latest `reports/cohort-023-m4b`
+<!-- SPECKIT END -->
 
 ---
 > Source: [caldeirav/agentic-graphrag-finance](https://github.com/caldeirav/agentic-graphrag-finance) — distributed by [TomeVault](https://tomevault.io).
