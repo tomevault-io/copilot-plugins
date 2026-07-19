@@ -1,0 +1,9 @@
+{
+  "name": "chrislentz--svelte-devtools",
+  "displayName": "svelte-devtools",
+  "description": "A zero-config Vite plugin that injects a floating devtools panel into your Svelte 5 or SvelteKit app during development. Inspect routes, hover-highlight components in the DOM tree, and track runes sta",
+  "version": "1.0.0",
+  "author": "chrislentz",
+  "homepage": "https://github.com/chrislentz/svelte-devtools",
+  "skills": []
+}
