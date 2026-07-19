@@ -7,11 +7,11 @@ open source iOS and Android app for controlling and monitoring the Nikon Z cinem
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [erik-sutton95/OpenZCine](https://github.com/erik-sutton95/OpenZCine).
+Original source: `CLAUDE.md` in [erik-sutton95/OpenZCine](https://github.com/erik-sutton95/OpenZCine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
