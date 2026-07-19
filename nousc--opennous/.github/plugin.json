@@ -1,0 +1,9 @@
+{
+  "name": "nousc--opennous",
+  "displayName": "opennous",
+  "description": "The context graph for agentic GTM teams. Unify the data scattered across your GTM tools into one identity-resolved account any agent reads in a single call.",
+  "version": "1.0.0",
+  "author": "NousC",
+  "homepage": "https://github.com/NousC/opennous",
+  "skills": []
+}
