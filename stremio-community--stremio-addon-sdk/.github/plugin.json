@@ -1,0 +1,9 @@
+{
+  "name": "stremio-community--stremio-addon-sdk",
+  "displayName": "stremio-addon-sdk",
+  "description": "An unopinionated SDK for building modern Stremio addons with TypeScript",
+  "version": "1.0.0",
+  "author": "stremio-community",
+  "homepage": "https://github.com/stremio-community/stremio-addon-sdk",
+  "skills": []
+}
