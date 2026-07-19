@@ -1,0 +1,9 @@
+{
+  "name": "lazardanlucian--onemind-md",
+  "displayName": "onemind.md",
+  "description": "onemind.md turns any git repo into a persistent \"mind\". Thoughts live as git objects on a hidden ref (refs/mind/main) \u2014 written via plumbing, invisible to git status. You get decisions with reasons, f",
+  "version": "1.0.0",
+  "author": "lazardanlucian",
+  "homepage": "https://github.com/lazardanlucian/onemind.md",
+  "skills": []
+}
