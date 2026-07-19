@@ -1,0 +1,9 @@
+{
+  "name": "sunrisepeak--mbun",
+  "displayName": "mbun",
+  "description": "Rewrite Bun in MC++ - Just for fun",
+  "version": "1.0.0",
+  "author": "Sunrisepeak",
+  "homepage": "https://github.com/Sunrisepeak/mbun",
+  "skills": []
+}
