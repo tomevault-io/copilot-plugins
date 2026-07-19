@@ -141774,6 +141774,11 @@
       "description": "A comprehensive datasheet-backed electrical schematic reviewer"
     },
     {
+      "name": "aatricks--emaki",
+      "source": "./aatricks--emaki",
+      "description": "Lightweight light novel, pdf, manwha, manga and epub reader with offline AI summaries."
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -248824,6 +248829,11 @@
       "description": "sovereign embedded vector database, single-file .nest container with content-addressable citations, reproducible builds, and offline-first model verification."
     },
     {
+      "name": "zacharyzhang-ny--kigi-cli",
+      "source": "./zacharyzhang-ny--kigi-cli",
+      "description": "Kigi \u2014 unofficial Kimi Code CLI community build (Rust, based on Grok Build open source)"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272092,6 +272102,16 @@
       "name": "loxoron218--qobuz-api",
       "source": "./loxoron218--qobuz-api",
       "description": "Rust library exposing public Qobuz v0.2 REST API"
+    },
+    {
+      "name": "arbishal--frontend-101",
+      "source": "./arbishal--frontend-101",
+      "description": "Everyday frontend concepts explained with interactive demo."
+    },
+    {
+      "name": "arbishal--frontend-101",
+      "source": "./arbishal--frontend-101",
+      "description": "Everyday frontend concepts explained with interactive demo."
     },
     {
       "name": "cheerhuan--save-your-token",
