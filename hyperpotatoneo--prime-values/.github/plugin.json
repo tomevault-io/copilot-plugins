@@ -1,0 +1,9 @@
+{
+  "name": "hyperpotatoneo--prime-values",
+  "displayName": "prime-values",
+  "description": "Async value functions and replay-buffer critic training for PRIME-RL",
+  "version": "1.0.0",
+  "author": "HyperPotatoNeo",
+  "homepage": "https://github.com/HyperPotatoNeo/prime-values",
+  "skills": []
+}
