@@ -4,7 +4,7 @@
   "repo": "multica-ai-karpathy-skills-andrej-karpathy-skills",
   "description": "costrict-plugins mirror of multica-ai-karpathy-skills-andrej-karpathy-skills (auto-generated, do not edit)",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/costrict-plugins-repo/multica-ai-karpathy-skills-andrej-karpathy-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T00:35:20Z"
+  "distributed_at": "2026-07-19T00:57:55Z"
 }
