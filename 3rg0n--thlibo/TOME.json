@@ -4,7 +4,7 @@
   "repo": "thlibo",
   "description": "AI tool output compressor for Claude Code + Codex CLI. Local Gemma 4 for unknown output; deterministic Python filters for git/npm/cargo.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/3rg0n/thlibo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T01:01:31Z"
+  "distributed_at": "2026-07-19T01:08:27Z"
 }
