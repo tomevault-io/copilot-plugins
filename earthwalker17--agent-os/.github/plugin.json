@@ -1,0 +1,9 @@
+{
+  "name": "earthwalker17--agent-os",
+  "displayName": "agent-os",
+  "description": "Local-first AI project OS that turns coding models into reliable software agents with memory, sandboxed execution, verification, recovery, GitOps, and deployment.",
+  "version": "1.0.0",
+  "author": "earthwalker17",
+  "homepage": "https://github.com/earthwalker17/agent-os",
+  "skills": []
+}
