@@ -1,0 +1,44 @@
+{
+  "name": "cross-border-ai",
+  "owner": "libowenhemonesy-svg",
+  "repo": "cross-border-ai",
+  "description": "\u8de8\u5883\u7535\u5546 AI \u667a\u80fd\u52a9\u624b \u2014 \u57fa\u4e8e n8n + Agent + RAG \u7684\u77e5\u8bc6\u5e93\u95ee\u7b54\u7cfb\u7edf\uff0c\u6db5\u76d6\u4e9a\u9a6c\u900a\u8fd0\u8425SOP\u3001\u9009\u54c1\u65b9\u6cd5\u8bba\u3001\u5e7f\u544a\u4f18\u5316\u7b4916\u4e2a\u4e13\u4e1a\u9886\u57df",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/libowenhemonesy-svg/cross-border-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T01:07:23Z"
+}
