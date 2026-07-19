@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--devops-bench",
+  "displayName": "devops-bench",
+  "description": "A standardized benchmarking suite to evaluate how well different agents or models perform specific DevOps tasks. Its goal is to provide an open-source, reproducible way to transparently assess agent p",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/devops-bench",
+  "skills": []
+}
