@@ -4,7 +4,7 @@
   "repo": "irenechey",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/irenechey820712-star/irenechey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T02:41:58Z"
+  "distributed_at": "2026-07-19T02:53:33Z"
 }
