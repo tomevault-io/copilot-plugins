@@ -1,0 +1,9 @@
+{
+  "name": "hoffresearch--nest",
+  "displayName": "nest",
+  "description": "sovereign embedded vector database, single-file .nest container with content-addressable citations, reproducible builds, and offline-first model verification.",
+  "version": "1.0.0",
+  "author": "hoffresearch",
+  "homepage": "https://github.com/hoffresearch/nest",
+  "skills": []
+}
