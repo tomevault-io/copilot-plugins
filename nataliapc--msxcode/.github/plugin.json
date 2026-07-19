@@ -1,0 +1,9 @@
+{
+  "name": "nataliapc--msxcode",
+  "displayName": "msxcode",
+  "description": "An AI client for MSX2 machines with a RAM Mapper and a UNAPI TCPIP device.",
+  "version": "1.0.0",
+  "author": "nataliapc",
+  "homepage": "https://github.com/nataliapc/msxcode",
+  "skills": []
+}
