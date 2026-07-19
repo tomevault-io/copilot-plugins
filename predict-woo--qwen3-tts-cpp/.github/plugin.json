@@ -1,0 +1,9 @@
+{
+  "name": "predict-woo--qwen3-tts-cpp",
+  "displayName": "qwen3-tts.cpp",
+  "description": "qwen3-tts.cpp",
+  "version": "1.0.0",
+  "author": "predict-woo",
+  "homepage": "https://github.com/predict-woo/qwen3-tts.cpp",
+  "skills": []
+}
