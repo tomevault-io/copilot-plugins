@@ -4,7 +4,7 @@
   "repo": "svelte-devtools",
   "description": "A zero-config Vite plugin that injects a floating devtools panel into your Svelte 5 or SvelteKit app during development. Inspect routes, hover-highlight components in the DOM tree, and track runes state \u2014 all without leaving the browser. Drop-in setup, nothing included in production builds.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chrislentz/svelte-devtools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T00:47:23Z"
+  "distributed_at": "2026-07-19T00:48:55Z"
 }
