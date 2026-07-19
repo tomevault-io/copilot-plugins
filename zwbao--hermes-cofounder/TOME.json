@@ -1,0 +1,44 @@
+{
+  "name": "hermes-cofounder",
+  "owner": "zwbao",
+  "repo": "hermes-cofounder",
+  "description": "Build your company's AI co-founder on hermes-agent \u2014 persistent world model, autonomous review & weekly retros, principled dissent, calibration loop. \u7ed9\u6bcf\u4e00\u5bb6\u516c\u53f8\u4e00\u4e2a AI \u8054\u5408\u521b\u59cb\u4eba\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zwbao/hermes-cofounder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T02:58:06Z"
+}
