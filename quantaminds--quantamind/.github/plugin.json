@@ -1,0 +1,9 @@
+{
+  "name": "quantaminds--quantamind",
+  "displayName": "QuantaMind",
+  "description": "We test whether self-hosted LLMs can run agents",
+  "version": "1.0.0",
+  "author": "QuantaMinds",
+  "homepage": "https://github.com/QuantaMinds/QuantaMind",
+  "skills": []
+}
