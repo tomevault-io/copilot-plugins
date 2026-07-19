@@ -7,13 +7,13 @@ Hear a short spoken summary after your coding agent answers. Free to install - n
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [omarelkhal/aftertone](https://github.com/omarelkhal/aftertone).
+Original source: `AGENTS.md` in [omarelkhal/aftertone](https://github.com/omarelkhal/aftertone).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
