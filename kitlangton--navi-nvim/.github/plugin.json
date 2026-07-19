@@ -1,0 +1,9 @@
+{
+  "name": "kitlangton--navi-nvim",
+  "displayName": "navi.nvim",
+  "description": "Guided source tours for Neovim",
+  "version": "1.0.0",
+  "author": "kitlangton",
+  "homepage": "https://github.com/kitlangton/navi.nvim",
+  "skills": []
+}
