@@ -1,0 +1,9 @@
+{
+  "name": "vigolium--vigolium-audit",
+  "displayName": "vigolium-audit",
+  "description": "Agent that performs thorough security audits on your codebase, part of Vigolium",
+  "version": "1.0.0",
+  "author": "vigolium",
+  "homepage": "https://github.com/vigolium/vigolium-audit",
+  "skills": []
+}
