@@ -1,0 +1,9 @@
+{
+  "name": "pku-typst--toss",
+  "displayName": "TOSS",
+  "description": "Typst Open-Source Server for collaborative editing",
+  "version": "1.0.0",
+  "author": "pku-typst",
+  "homepage": "https://github.com/pku-typst/TOSS",
+  "skills": []
+}
