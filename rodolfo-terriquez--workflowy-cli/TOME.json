@@ -4,7 +4,7 @@
   "repo": "workflowy-cli",
   "description": "WorkFlowy CLI \u2014 command-line interface for agents, automations, and power users",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rodolfo-terriquez/workflowy-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T01:03:27Z"
+  "distributed_at": "2026-07-19T01:10:24Z"
 }
