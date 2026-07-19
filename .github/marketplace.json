@@ -54669,11 +54669,6 @@
       "description": "A framework for building agent-native applications."
     },
     {
-      "name": "predict-woo--qwen3-asr-cpp",
-      "source": "./predict-woo--qwen3-asr-cpp",
-      "description": "Implementation of Qwen3-ASR-0.6B in GGML"
-    },
-    {
       "name": "oh-sheet-team--oh-sheet",
       "source": "./oh-sheet-team--oh-sheet",
       "description": "Turn any song into playable piano sheet music. Paste a YouTube link or upload audio \u2014 get a PDF score. Open-source pipeline: Basic Pitch transcription, two-hand arrangement, RL-trained engraving."
@@ -54947,6 +54942,11 @@
       "name": "allenanswerzq--llmcc",
       "source": "./allenanswerzq--llmcc",
       "description": "llmcc"
+    },
+    {
+      "name": "predict-woo--qwen3-asr-cpp",
+      "source": "./predict-woo--qwen3-asr-cpp",
+      "description": "Implementation of Qwen3-ASR-0.6B in GGML"
     },
     {
       "name": "mitchellh--go-libghostty",
