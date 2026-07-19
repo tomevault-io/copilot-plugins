@@ -1,0 +1,44 @@
+{
+  "name": "DeepReason-Agents-Framework",
+  "owner": "redmaplewww",
+  "repo": "DeepReason-Agents-Framework",
+  "description": "A heavy-reasoning multi-agent framework with evidence gates, memory, RAG, workflow graphs, and self-evolution.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/redmaplewww/DeepReason-Agents-Framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T18:30:44Z"
+}
