@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "ambient-code",
   "homepage": "https://github.com/ambient-code/platform",
-  "skills": [
-    {
-      "name": "dev-cluster",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
