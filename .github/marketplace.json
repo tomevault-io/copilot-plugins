@@ -51019,6 +51019,11 @@
       "description": "Login-less, bring-your-own-key desktop agent that turns plain English into browser automation \u2014 and generates runnable Playwright, Cypress, and Selenium scripts."
     },
     {
+      "name": "ambient-code--platform",
+      "source": "./ambient-code--platform",
+      "description": "Vision/Mission https://ambient-code.ai : Virtual team management and collaboration platform. User guides: https://ambient-code.github.io/platform/"
+    },
+    {
       "name": "atuinsh--eye-declare",
       "source": "./atuinsh--eye-declare",
       "description": "A declarative inline TUI rendering library for Rust, built on Ratatui"
