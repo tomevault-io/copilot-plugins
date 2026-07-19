@@ -1,0 +1,9 @@
+{
+  "name": "yyu0310--cc-to-grok-bridge",
+  "displayName": "cc-to-grok-bridge",
+  "description": "Bridge Claude Code \u2192 Grok Build: shared rules/skills, hook adapter hard-gates, optional memory mirror",
+  "version": "1.0.0",
+  "author": "yyu0310",
+  "homepage": "https://github.com/yyu0310/cc-to-grok-bridge",
+  "skills": []
+}
