@@ -1,0 +1,9 @@
+{
+  "name": "getathelas--loopharness",
+  "displayName": "LoopHarness",
+  "description": "an agent harness that runs natively on Apple Operating Systems (iOS, MacOS, VisionOS)",
+  "version": "1.0.0",
+  "author": "getathelas",
+  "homepage": "https://github.com/getathelas/LoopHarness",
+  "skills": []
+}
