@@ -7,14 +7,14 @@ Bridge Claude Code → Grok Build: shared rules/skills, hook adapter hard-gates,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yyu0310/cc-to-grok-bridge](https://github.com/yyu0310/cc-to-grok-bridge).
+Original source: `GEMINI.md` in [yyu0310/cc-to-grok-bridge](https://github.com/yyu0310/cc-to-grok-bridge).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/yyu0310/cc-to-grok-bridge](https://github.com/yyu0310/cc-to-grok-bridge)
