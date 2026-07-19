@@ -7,14 +7,14 @@ A small Markdown protocol that gives AI agents shared inboxes — message each o
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [agentchute/agentchute](https://github.com/agentchute/agentchute).
+Original source: `AGENTS.md` in [agentchute/agentchute](https://github.com/agentchute/agentchute).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [agentchute/agentchute](https://github.com/agentchute/agentchute) — a repo with 9+ stars on GitHub.
