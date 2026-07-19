@@ -1,0 +1,44 @@
+{
+  "name": "osrs-quest-sync",
+  "owner": "faust-soft",
+  "repo": "osrs-quest-sync",
+  "description": "Passes the state of the Quest List to a vercel app as a helper for Clan Questing Events",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/faust-soft/osrs-quest-sync",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T02:53:56Z"
+}
