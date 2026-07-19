@@ -1,0 +1,9 @@
+{
+  "name": "vincent212--kaspar-hft",
+  "displayName": "kaspar-hft",
+  "description": "C++20 HFT simulator for CME futures. Shadow execution algorithm (% of volume, beats VWAP/TWAP). Position-aware order book with queue simulation. MDP3 decoder, iLink 3, PCAP replay. Lock-free actor fra",
+  "version": "1.0.0",
+  "author": "vincent212",
+  "homepage": "https://github.com/vincent212/kaspar-hft",
+  "skills": []
+}
