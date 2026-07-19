@@ -1,0 +1,14 @@
+{
+  "name": "reef123--openvera",
+  "displayName": "OpenVera",
+  "description": "A harness for Claude Code that remembers your context, researches before building, ships a working prototype, and reviews its own code. Session fifty starts where session one left off. Files you can r",
+  "version": "1.0.0",
+  "author": "Reef123",
+  "homepage": "https://github.com/Reef123/OpenVera",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
