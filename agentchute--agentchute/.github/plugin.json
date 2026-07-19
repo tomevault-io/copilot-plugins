@@ -1,0 +1,9 @@
+{
+  "name": "agentchute--agentchute",
+  "displayName": "agentchute",
+  "description": "A small Markdown protocol that gives AI agents shared inboxes \u2014 message each other, request review, and hand off work without a human acting as the relay.",
+  "version": "1.0.0",
+  "author": "agentchute",
+  "homepage": "https://github.com/agentchute/agentchute",
+  "skills": []
+}
