@@ -1,0 +1,44 @@
+{
+  "name": "zotero-research-assistant",
+  "owner": "qiobn",
+  "repo": "zotero-research-assistant",
+  "description": "AI-powered research assistant for Zotero via MCP. 32 tools: hybrid semantic search, multi-source literature discovery (OpenAlex/CrossRef/S2), citation network expansion, personalized reading recommendations, anti-hallucination verification, and CNKI support. Works with Cursor, Claude, Cherry Studio, Trae, and Codex CLI.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qiobn/zotero-research-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T00:41:03Z"
+}
