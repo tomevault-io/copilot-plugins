@@ -4,7 +4,7 @@
   "repo": "msxcode",
   "description": "An AI client for MSX2 machines with a RAM Mapper and a UNAPI TCPIP device.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nataliapc/msxcode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T16:30:35Z"
+  "distributed_at": "2026-07-19T16:31:12Z"
 }
