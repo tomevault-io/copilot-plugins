@@ -1,0 +1,9 @@
+{
+  "name": "raspbeguy--ncdeck",
+  "displayName": "ncdeck",
+  "description": "CLI and TUI client for Nextcloud Deck",
+  "version": "1.0.0",
+  "author": "raspbeguy",
+  "homepage": "https://github.com/raspbeguy/ncdeck",
+  "skills": []
+}
