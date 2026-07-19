@@ -1,0 +1,9 @@
+{
+  "name": "faust-soft--osrs-quest-sync",
+  "displayName": "osrs-quest-sync",
+  "description": "Passes the state of the Quest List to a vercel app as a helper for Clan Questing Events",
+  "version": "1.0.0",
+  "author": "faust-soft",
+  "homepage": "https://github.com/faust-soft/osrs-quest-sync",
+  "skills": []
+}
