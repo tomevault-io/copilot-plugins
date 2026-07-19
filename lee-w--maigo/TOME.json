@@ -1,0 +1,44 @@
+{
+  "name": "maigo",
+  "owner": "Lee-W",
+  "repo": "maigo",
+  "description": "Maigo \u662f\u4e00\u5957\u4ee5 MyGO!!!!! \u4e94\u4f4d\u5718\u54e1\u70ba\u4eba\u8a2d\u7684\u591a agent \u901a\u7528\u958b\u767c\u5de5\u4f5c\u6d41\uff08Claude Code plugin\uff09\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lee-W/maigo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T00:51:55Z"
+}
