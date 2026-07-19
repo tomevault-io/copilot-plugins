@@ -1,0 +1,9 @@
+{
+  "name": "caldeirav--agentic-graphrag-finance",
+  "displayName": "agentic-graphrag-finance",
+  "description": "An Agentic GraphRAG system for answering natural-language questions over SEC regulatory filings (10-K, 10-Q).",
+  "version": "1.0.0",
+  "author": "caldeirav",
+  "homepage": "https://github.com/caldeirav/agentic-graphrag-finance",
+  "skills": []
+}
