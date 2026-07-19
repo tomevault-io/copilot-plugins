@@ -1,0 +1,9 @@
+{
+  "name": "tortishead--bindfetto",
+  "displayName": "bindfetto",
+  "description": "Live kernel-level Binder IPC tracing for Android",
+  "version": "1.0.0",
+  "author": "tortishead",
+  "homepage": "https://github.com/tortishead/bindfetto",
+  "skills": []
+}
