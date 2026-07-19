@@ -122779,6 +122779,11 @@
       "description": "\u57fa\u4e8e Fei-Away/Codex-Dream-Skin \u4e8c\u6b21\u5f00\u53d1\u7684 Codex Desktop \u4e3b\u9898\u5de5\u5177\uff0c\u65b0\u589e Windows \u591a\u4e3b\u9898\u5305\u3001\u5e94\u7528\u5185\u5207\u6362\u3001Bug \u4fee\u590d\u4e0e AI \u8f85\u52a9\u4e3b\u9898\u5236\u4f5c\u3002"
     },
     {
+      "name": "modakbul-gongbang--contents-hub",
+      "source": "./modakbul-gongbang--contents-hub",
+      "description": "Contents Hub"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -148874,6 +148879,16 @@
       "description": "Open source B2B ecommerce Platform"
     },
     {
+      "name": "sunlllccc--dsp",
+      "source": "./sunlllccc--dsp",
+      "description": "\u6570\u636e\u670d\u52a1\u5e73\u53f0"
+    },
+    {
+      "name": "sunlllccc--dsp",
+      "source": "./sunlllccc--dsp",
+      "description": "\u6570\u636e\u670d\u52a1\u5e73\u53f0"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -153332,6 +153347,11 @@
       "name": "aiwenjie777--codex-skin-switcher",
       "source": "./aiwenjie777--codex-skin-switcher",
       "description": "codex \u76ae\u80a4\u7ba1\u7406"
+    },
+    {
+      "name": "housecat-inc--scratch",
+      "source": "./housecat-inc--scratch",
+      "description": "Setup for Agent Computers"
     },
     {
       "name": "13point5--agent-canvas",
@@ -176284,6 +176304,21 @@
       "description": "Clone a voice from a few minutes of audio and generate speech locally \u2014 Qwen3-TTS fine-tuning pipeline with CLI and web UI"
     },
     {
+      "name": "fightheyyy--xiaobaos",
+      "source": "./fightheyyy--xiaobaos",
+      "description": "Local-first, IM-native AI coworker runtime with async role agents, trace replay, evidence, and agentic evaluation."
+    },
+    {
+      "name": "bryley--evalt",
+      "source": "./bryley--evalt",
+      "description": "Portable YAML evals for AI agents and model harnesses."
+    },
+    {
+      "name": "sarveshsea--design-skills",
+      "source": "./sarveshsea--design-skills",
+      "description": "Practical design judgment for AI coding agents: 78 installable skills for craft, research, generation, Figma, and Memoire."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -184427,6 +184462,21 @@
       "name": "frontier-ai-next--lethyx",
       "source": "./frontier-ai-next--lethyx",
       "description": "Lethyx"
+    },
+    {
+      "name": "nozomi-koborinai--terradart",
+      "source": "./nozomi-koborinai--terradart",
+      "description": "\ud83c\udfaf Type-safe IaC for Dart."
+    },
+    {
+      "name": "nozomi-koborinai--terradart",
+      "source": "./nozomi-koborinai--terradart",
+      "description": "\ud83c\udfaf Type-safe IaC for Dart."
+    },
+    {
+      "name": "nozomi-koborinai--terradart",
+      "source": "./nozomi-koborinai--terradart",
+      "description": "\ud83c\udfaf Type-safe IaC for Dart."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -194152,6 +194202,11 @@
       "name": "dkapo88--wonderwhisper-macos",
       "source": "./dkapo88--wonderwhisper-macos",
       "description": "Voice-first productivity for macOS: dictation, meeting notes, live Obsidian context, and optional Beeper/Hermes workflows."
+    },
+    {
+      "name": "arborlogic--openzerocode",
+      "source": "./arborlogic--openzerocode",
+      "description": "OpenZeroCode is a local-first, TUI-driven AI coding assistant adapted from the OpenCode direction. It strips away the zero cloud dependency and focuses on a self-contained terminal experience with bui"
     },
     {
       "name": "lightninglabs--lnget",
@@ -208657,6 +208712,26 @@
       "name": "mjbommar--glaurung",
       "source": "./mjbommar--glaurung",
       "description": "Permissive, modern alternative to Ghidra with Rust/Python core and first-class agentic AI integration"
+    },
+    {
+      "name": "pku-typst--toss",
+      "source": "./pku-typst--toss",
+      "description": "Typst Open-Source Server for collaborative editing"
+    },
+    {
+      "name": "earthwalker17--agent-os",
+      "source": "./earthwalker17--agent-os",
+      "description": "Local-first AI project OS that turns coding models into reliable software agents with memory, sandboxed execution, verification, recovery, GitOps, and deployment."
+    },
+    {
+      "name": "jasons-impart--create-delight-project-rebirth",
+      "source": "./jasons-impart--create-delight-project-rebirth",
+      "description": "Create Delight Remake in 1.21.1!"
+    },
+    {
+      "name": "variante--endfield-research-kit",
+      "source": "./variante--endfield-research-kit",
+      "description": "A toolkit to export and view Arknights: Endfield game story and assets."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -248544,6 +248619,51 @@
       "description": "An AI-powered agile team for any software project. Ship with the discipline of a senior team \u2014 even when you're building alone."
     },
     {
+      "name": "vincent212--kaspar-hft",
+      "source": "./vincent212--kaspar-hft",
+      "description": "C++20 HFT simulator for CME futures. Shadow execution algorithm (% of volume, beats VWAP/TWAP). Position-aware order book with queue simulation. MDP3 decoder, iLink 3, PCAP replay. Lock-free actor fra"
+    },
+    {
+      "name": "scitix--agent-sandbox",
+      "source": "./scitix--agent-sandbox",
+      "description": "Fast, Multi-Cloud Sandbox Engine for AI Agents"
+    },
+    {
+      "name": "smagnuso--hydra-acp",
+      "source": "./smagnuso--hydra-acp",
+      "description": "hydra-acp"
+    },
+    {
+      "name": "zxyandreay--followback-checker",
+      "source": "./zxyandreay--followback-checker",
+      "description": "FollowBack Checker is a web app that helps users analyze their Instagram followers and following list using their official Instagram data export. It compares the data locally in the browser to show ac"
+    },
+    {
+      "name": "gowtham142006--chat-app",
+      "source": "./gowtham142006--chat-app",
+      "description": "chat_app"
+    },
+    {
+      "name": "theorcdev--4elements",
+      "source": "./theorcdev--4elements",
+      "description": "3d test for different AI models"
+    },
+    {
+      "name": "lulalulaluobo--str-download",
+      "source": "./lulalulaluobo--str-download",
+      "description": "\u6279\u91cf\u5f71\u7247\u4e0b\u8f7d\u5b57\u5e55\u5de5\u5177"
+    },
+    {
+      "name": "smagnuso--hydra-acp",
+      "source": "./smagnuso--hydra-acp",
+      "description": "hydra-acp"
+    },
+    {
+      "name": "hoffresearch--nest",
+      "source": "./hoffresearch--nest",
+      "description": "sovereign embedded vector database, single-file .nest container with content-addressable citations, reproducible builds, and offline-first model verification."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -271794,6 +271914,11 @@
       "description": "Multi-agent coordinator"
     },
     {
+      "name": "bingooyong--repo-wiki-agent",
+      "source": "./bingooyong--repo-wiki-agent",
+      "description": "repo-wiki-agent"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -276632,6 +276757,26 @@
       "name": "h5i-dev--h5i-python",
       "source": "./h5i-dev--h5i-python",
       "description": "Python SDK for Programmable Multi-Agent Orchestration"
+    },
+    {
+      "name": "cabbage2000-lab--textbook-writer-skills",
+      "source": "./cabbage2000-lab--textbook-writer-skills",
+      "description": "\u57fa\u4e8e UbD \u9006\u5411\u8bbe\u8ba1\u7684\u6559\u6750\u5199\u4f5c skill \u7ec4\u5408\uff08\u652f\u6301 Claude Code / Codex CLI\uff09\uff1a\u6559\u5b66\u5b9a\u4f4d \u2192 \u4e94\u4ef6\u5957 gate \u2192 \u7ae0\u8282\u6811 gate \u2192 \u9010\u7ae0\u5199\u4f5c\uff0c\u4f8b\u9898\u771f\u7b97\u9a8c\u8bc1\u3001\u4e2d\u65ad\u53ef\u7eed\u5199\uff0c\u9762\u5411\u6570\u5b66/\u7269\u7406/\u8ba1\u7b97\u673a\u7b49 STEM \u5b66\u79d1\u6210\u4f53\u7cfb\u6559\u6750\u5199\u4f5c"
+    },
+    {
+      "name": "unclearness--dressi",
+      "source": "./unclearness--dressi",
+      "description": "Unofficial re-implementation of \"Dressi: A Hardware-Agnostic Differentiable Renderer with Reactive Shader Packing and Soft Rasterization\""
+    },
+    {
+      "name": "cabbage2000-lab--textbook-writer-skills",
+      "source": "./cabbage2000-lab--textbook-writer-skills",
+      "description": "\u57fa\u4e8e UbD \u9006\u5411\u8bbe\u8ba1\u7684\u6559\u6750\u5199\u4f5c skill \u7ec4\u5408\uff08\u652f\u6301 Claude Code / Codex CLI\uff09\uff1a\u6559\u5b66\u5b9a\u4f4d \u2192 \u4e94\u4ef6\u5957 gate \u2192 \u7ae0\u8282\u6811 gate \u2192 \u9010\u7ae0\u5199\u4f5c\uff0c\u4f8b\u9898\u771f\u7b97\u9a8c\u8bc1\u3001\u4e2d\u65ad\u53ef\u7eed\u5199\uff0c\u9762\u5411\u6570\u5b66/\u7269\u7406/\u8ba1\u7b97\u673a\u7b49 STEM \u5b66\u79d1\u6210\u4f53\u7cfb\u6559\u6750\u5199\u4f5c"
+    },
+    {
+      "name": "unclearness--dressi",
+      "source": "./unclearness--dressi",
+      "description": "Unofficial re-implementation of \"Dressi: A Hardware-Agnostic Differentiable Renderer with Reactive Shader Packing and Soft Rasterization\""
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -403137,6 +403282,171 @@
       "name": "inhuiyang--nextpartner-signin-edit",
       "source": "./inhuiyang--nextpartner-signin-edit",
       "description": "nextpartner-signin-edit"
+    },
+    {
+      "name": "sparkpoints--sfrtg",
+      "source": "./sparkpoints--sfrtg",
+      "description": "SFRTG"
+    },
+    {
+      "name": "alexahmanhv--testclone",
+      "source": "./alexahmanhv--testclone",
+      "description": "TestClone"
+    },
+    {
+      "name": "irenechey820712-star--irenechey",
+      "source": "./irenechey820712-star--irenechey",
+      "description": "irenechey"
+    },
+    {
+      "name": "pedestrian6--nsr",
+      "source": "./pedestrian6--nsr",
+      "description": "nsr"
+    },
+    {
+      "name": "sakblm--html-slide-template",
+      "source": "./sakblm--html-slide-template",
+      "description": "HTML\u30b9\u30e9\u30a4\u30c9\u306e\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8"
+    },
+    {
+      "name": "abhinavkabra--claude-ai-spring-boot",
+      "source": "./abhinavkabra--claude-ai-spring-boot",
+      "description": "claude-ai-spring-boot"
+    },
+    {
+      "name": "gustavo-correia--projeto-topicos",
+      "source": "./gustavo-correia--projeto-topicos",
+      "description": "projeto-topicos"
+    },
+    {
+      "name": "xandar6--frontend-mentor-bookmark-landingpage",
+      "source": "./xandar6--frontend-mentor-bookmark-landingpage",
+      "description": "frontend-mentor-bookmark-landingpage"
+    },
+    {
+      "name": "nicotordev--nicogram",
+      "source": "./nicotordev--nicogram",
+      "description": "nicogram"
+    },
+    {
+      "name": "kyeonghooon--fastapi-sample",
+      "source": "./kyeonghooon--fastapi-sample",
+      "description": "fastapi-sample"
+    },
+    {
+      "name": "umair-a11y--metromanagement-web",
+      "source": "./umair-a11y--metromanagement-web",
+      "description": "metromanagement-web"
+    },
+    {
+      "name": "angelg13m--lavacontrol",
+      "source": "./angelg13m--lavacontrol",
+      "description": "lavacontrol"
+    },
+    {
+      "name": "jeanmachuca--ai-chat-tui",
+      "source": "./jeanmachuca--ai-chat-tui",
+      "description": "Terminal AI chat client built with Bubble Tea"
+    },
+    {
+      "name": "alexahmanhv--testclone",
+      "source": "./alexahmanhv--testclone",
+      "description": "TestClone"
+    },
+    {
+      "name": "irenechey820712-star--irenechey",
+      "source": "./irenechey820712-star--irenechey",
+      "description": "irenechey"
+    },
+    {
+      "name": "faust-soft--osrs-quest-sync",
+      "source": "./faust-soft--osrs-quest-sync",
+      "description": "Passes the state of the Quest List to a vercel app as a helper for Clan Questing Events"
+    },
+    {
+      "name": "reqtad--notification-hub",
+      "source": "./reqtad--notification-hub",
+      "description": "notification-hub"
+    },
+    {
+      "name": "roxanam06--calculator-app",
+      "source": "./roxanam06--calculator-app",
+      "description": "Calculator App with React Native"
+    },
+    {
+      "name": "sabaton9804--legalwatch",
+      "source": "./sabaton9804--legalwatch",
+      "description": "Plataforma LegalTech de vigilancia judicial para Colombia"
+    },
+    {
+      "name": "ashraful-techo--nextjs-tmp",
+      "source": "./ashraful-techo--nextjs-tmp",
+      "description": "nextjs-tmp"
+    },
+    {
+      "name": "qingpenglam--project-0007-personal-ai-workbench",
+      "source": "./qingpenglam--project-0007-personal-ai-workbench",
+      "description": "project-0007-personal-ai-workbench"
+    },
+    {
+      "name": "gustavo-correia--projeto-topicos",
+      "source": "./gustavo-correia--projeto-topicos",
+      "description": "projeto-topicos"
+    },
+    {
+      "name": "rj-shashwat--shashwat-portfolio",
+      "source": "./rj-shashwat--shashwat-portfolio",
+      "description": "shashwat_portfolio"
+    },
+    {
+      "name": "zwbao--hermes-cofounder",
+      "source": "./zwbao--hermes-cofounder",
+      "description": "Build your company's AI co-founder on hermes-agent \u2014 persistent world model, autonomous review & weekly retros, principled dissent, calibration loop. \u7ed9\u6bcf\u4e00\u5bb6\u516c\u53f8\u4e00\u4e2a AI \u8054\u5408\u521b\u59cb\u4eba\u3002"
+    },
+    {
+      "name": "restuabi198-cmyk--perpustakaan-digital",
+      "source": "./restuabi198-cmyk--perpustakaan-digital",
+      "description": "perpustakaan-digital"
+    },
+    {
+      "name": "rodrigoooooo1234567-cmyk--plataforma-cursos",
+      "source": "./rodrigoooooo1234567-cmyk--plataforma-cursos",
+      "description": "plataforma-cursos"
+    },
+    {
+      "name": "hslcrb--nextjs-visitkorea-remake",
+      "source": "./hslcrb--nextjs-visitkorea-remake",
+      "description": "nextjs-visitkorea-remake"
+    },
+    {
+      "name": "xandar6--frontend-mentor-bookmark-landingpage",
+      "source": "./xandar6--frontend-mentor-bookmark-landingpage",
+      "description": "frontend-mentor-bookmark-landingpage"
+    },
+    {
+      "name": "sunnydatko--drag-queen-bingo",
+      "source": "./sunnydatko--drag-queen-bingo",
+      "description": "drag-queen-bingo"
+    },
+    {
+      "name": "saisevasangh--whatsapp",
+      "source": "./saisevasangh--whatsapp",
+      "description": "whatsapp"
+    },
+    {
+      "name": "saladikishore2503--uniquecarwash",
+      "source": "./saladikishore2503--uniquecarwash",
+      "description": "uniquecarwash"
+    },
+    {
+      "name": "tapcodefun--shadiao-animation-tool",
+      "source": "./tapcodefun--shadiao-animation-tool",
+      "description": "shadiao-animation-tool"
+    },
+    {
+      "name": "manwjh--research-garden",
+      "source": "./manwjh--research-garden",
+      "description": "research-garden"
     }
   ]
 }
