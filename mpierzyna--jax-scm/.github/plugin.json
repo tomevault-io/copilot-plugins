@@ -1,0 +1,9 @@
+{
+  "name": "mpierzyna--jax-scm",
+  "displayName": "jax_scm",
+  "description": "JAX-SCM, an atmospheric single-column model, implemented in Python and JAX, featuring prognostic turbulent kinetic energy and parameterized turbulent statistics from MYNN-2.5.",
+  "version": "1.0.0",
+  "author": "mpierzyna",
+  "homepage": "https://github.com/mpierzyna/jax_scm",
+  "skills": []
+}
