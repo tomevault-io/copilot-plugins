@@ -1,0 +1,9 @@
+{
+  "name": "unclearness--dressi",
+  "displayName": "dressi",
+  "description": "Unofficial re-implementation of \"Dressi: A Hardware-Agnostic Differentiable Renderer with Reactive Shader Packing and Soft Rasterization\"",
+  "version": "1.0.0",
+  "author": "unclearness",
+  "homepage": "https://github.com/unclearness/dressi",
+  "skills": []
+}
