@@ -4,7 +4,7 @@
   "repo": "Typex",
   "description": "Speak. It types. Typex is an open-source, desktop AI voice input tool.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/typex-ink/Typex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T00:34:22Z"
+  "distributed_at": "2026-07-19T00:36:15Z"
 }
