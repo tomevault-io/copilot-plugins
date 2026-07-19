@@ -1,0 +1,9 @@
+{
+  "name": "marzukia--charted",
+  "displayName": "charted",
+  "description": "Charted is a zero dependency SVG chart generator that aims to provide a simple interface for generating beautiful and customisable graphs. This project is inspired by chart libraries like mermaid.js.",
+  "version": "1.0.0",
+  "author": "marzukia",
+  "homepage": "https://github.com/marzukia/charted",
+  "skills": []
+}
