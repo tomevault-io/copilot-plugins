@@ -248849,6 +248849,11 @@
       "description": "Kigi \u2014 unofficial Kimi Code CLI community build (Rust, based on Grok Build open source)"
     },
     {
+      "name": "lazardanlucian--onemind-md",
+      "source": "./lazardanlucian--onemind-md",
+      "description": "onemind.md turns any git repo into a persistent \"mind\". Thoughts live as git objects on a hidden ref (refs/mind/main) \u2014 written via plumbing, invisible to git status. You get decisions with reasons, f"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272129,6 +272134,16 @@
       "description": "Everyday frontend concepts explained with interactive demo."
     },
     {
+      "name": "aznanseyam--techbuilt",
+      "source": "./aznanseyam--techbuilt",
+      "description": " A full-stack SaaS app using Next.js."
+    },
+    {
+      "name": "raum-so--shelter",
+      "source": "./raum-so--shelter",
+      "description": "Give your code a home \u2014 open-source deployment infrastructure with the simplicity of a platform and the ownership of your own VPS."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -276987,6 +277002,11 @@
       "name": "unclearness--dressi",
       "source": "./unclearness--dressi",
       "description": "Unofficial re-implementation of \"Dressi: A Hardware-Agnostic Differentiable Renderer with Reactive Shader Packing and Soft Rasterization\""
+    },
+    {
+      "name": "siteforge-collective--scp-sl-community-edition",
+      "source": "./siteforge-collective--scp-sl-community-edition",
+      "description": "SCP: SL Community Edition is a open source decompile of SCP: SL 12.0.2"
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
