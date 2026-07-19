@@ -1,0 +1,9 @@
+{
+  "name": "jvm--pi-mono",
+  "displayName": "pi-mono",
+  "description": "Monorepo for Pi-related projects",
+  "version": "1.0.0",
+  "author": "jvm",
+  "homepage": "https://github.com/jvm/pi-mono",
+  "skills": []
+}
