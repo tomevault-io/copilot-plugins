@@ -1,0 +1,44 @@
+{
+  "name": "AI-Hook-Lab",
+  "owner": "Cori-anba",
+  "repo": "AI-Hook-Lab",
+  "description": "AI Hook Lab \u662f\u4e00\u6b3e AI \u7206\u6b3e\u6587\u6848 Hook \u751f\u6210\u5de5\u5177\uff0c\u5982\u679c\u4f60\u60f3\u5728\u5c0f\u7ea2\u4e66\u3001\u6296\u97f3\u3001B\u7ad9\u3001YouTube\u3001X \u8fd9\u79cd\u5e73\u53f0\u53d1\u5e03\u89c6\u9891\u3001\u56fe\u6587\u3001\u5e7f\u544a\u7b49\u5185\u5bb9\uff0c\u8be5\u7f51\u7ad9\u53ef\u4ee5\u4e00\u952e\u751f\u6210\u7206\u6b3eHook\uff0c\uff0c\u5185\u7f6e 12 \u79cd\u98ce\u683c\uff0c\u4e00\u952e\u751f\u6210 10 \u6761\u4e0d\u540c\u5207\u5165\u89d2\u5ea6\u7684\u5f00\u5934\u6587\u6848\uff0c\u6bcf\u6761\u9644\u5e26\u98ce\u683c\u6807\u7b7e\u3001\u70b9\u51fb\u6b32\u8bc4\u5206\u548c\u63a8\u8350\u7406\u7531\uff0c\u5e2e\u52a9\u5185\u5bb9\u521b\u4f5c\u8005\u5feb\u901f\u627e\u5230\u6700\u6293\u4eba\u7684\u8868\u8fbe\u7075\u611f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cori-anba/AI-Hook-Lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T00:48:25Z"
+}
