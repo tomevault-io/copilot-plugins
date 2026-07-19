@@ -1,0 +1,9 @@
+{
+  "name": "falcon4ever--kanama",
+  "displayName": "kanama",
+  "description": "Kanama brings Kotlin to Godot through a GDExtension runtime powered by the JVM and the Foreign Function & Memory API.",
+  "version": "1.0.0",
+  "author": "falcon4ever",
+  "homepage": "https://github.com/falcon4ever/kanama",
+  "skills": []
+}
