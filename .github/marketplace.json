@@ -208924,6 +208924,16 @@
       "description": "GPT-5.6 Sol, Terra \u4e0e Luna \u7684 Codex \u52a8\u6001\u4efb\u52a1\u8def\u7531\u5de5\u4f5c\u6d41\u4e0e\u53ef\u590d\u7528\u914d\u7f6e"
     },
     {
+      "name": "0xtbug--unofficial-pddikti-api",
+      "source": "./0xtbug--unofficial-pddikti-api",
+      "description": "Reverse-engineered API for PDDIKTI \u2014 Indonesian Higher Education Database.  Provides access to universities, study programs, lecturers, and students data."
+    },
+    {
+      "name": "0xtbug--unofficial-pddikti-api",
+      "source": "./0xtbug--unofficial-pddikti-api",
+      "description": "Reverse-engineered API for PDDIKTI \u2014 Indonesian Higher Education Database.  Provides access to universities, study programs, lecturers, and students data."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
