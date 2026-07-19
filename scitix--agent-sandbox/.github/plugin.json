@@ -1,0 +1,9 @@
+{
+  "name": "scitix--agent-sandbox",
+  "displayName": "Agent-Sandbox",
+  "description": "Fast, Multi-Cloud Sandbox Engine for AI Agents",
+  "version": "1.0.0",
+  "author": "scitix",
+  "homepage": "https://github.com/scitix/Agent-Sandbox",
+  "skills": []
+}
