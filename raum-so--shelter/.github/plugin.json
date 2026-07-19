@@ -1,0 +1,9 @@
+{
+  "name": "raum-so--shelter",
+  "displayName": "shelter",
+  "description": "Give your code a home \u2014 open-source deployment infrastructure with the simplicity of a platform and the ownership of your own VPS.",
+  "version": "1.0.0",
+  "author": "raum-so",
+  "homepage": "https://github.com/raum-so/shelter",
+  "skills": []
+}
