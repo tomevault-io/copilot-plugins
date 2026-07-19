@@ -1,0 +1,9 @@
+{
+  "name": "zacharyzhang-ny--kigi-cli",
+  "displayName": "Kigi-CLI",
+  "description": "Kigi \u2014 unofficial Kimi Code CLI community build (Rust, based on Grok Build open source)",
+  "version": "1.0.0",
+  "author": "ZacharyZhang-NY",
+  "homepage": "https://github.com/ZacharyZhang-NY/Kigi-CLI",
+  "skills": []
+}
