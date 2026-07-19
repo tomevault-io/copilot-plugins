@@ -1,0 +1,9 @@
+{
+  "name": "metta-ai--coworld",
+  "displayName": "coworld",
+  "description": "Public Coworld CLI, Python helpers, manifest schemas, runner tooling, and reference worlds.",
+  "version": "1.0.0",
+  "author": "Metta-AI",
+  "homepage": "https://github.com/Metta-AI/coworld",
+  "skills": []
+}
