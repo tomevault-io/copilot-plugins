@@ -1,0 +1,9 @@
+{
+  "name": "hpuntu--obsidian-sidekick",
+  "displayName": "obsidian-sidekick",
+  "description": "Obsidian LLM agent interaction dashboard plugin",
+  "version": "1.0.0",
+  "author": "HPuntu",
+  "homepage": "https://github.com/HPuntu/obsidian-sidekick",
+  "skills": []
+}
