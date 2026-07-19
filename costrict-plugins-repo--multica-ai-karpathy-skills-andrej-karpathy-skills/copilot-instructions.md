@@ -1,9 +1,8 @@
-## karpathy-guidelines
+## multica-ai-karpathy-skills-andrej-karpathy-skills
 
-> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+> Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-
-# Karpathy behavioral guidelines
+# CLAUDE.md
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
