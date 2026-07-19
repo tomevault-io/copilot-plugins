@@ -1,0 +1,9 @@
+{
+  "name": "hstern--fj-bellows",
+  "displayName": "fj-bellows",
+  "description": "On-demand, ephemeral Forgejo Actions runners on cloud VMs \u2014 kept warm only for the billing hour you've already paid for, so you never pay for idle CI.",
+  "version": "1.0.0",
+  "author": "hstern",
+  "homepage": "https://github.com/hstern/fj-bellows",
+  "skills": []
+}
