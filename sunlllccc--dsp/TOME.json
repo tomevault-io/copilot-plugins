@@ -4,7 +4,7 @@
   "repo": "dsp",
   "description": "\u6570\u636e\u670d\u52a1\u5e73\u53f0",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SunLLLccc/dsp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T02:30:36Z"
+  "distributed_at": "2026-07-19T02:31:07Z"
 }
