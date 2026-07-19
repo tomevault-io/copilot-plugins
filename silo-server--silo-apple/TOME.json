@@ -4,7 +4,7 @@
   "repo": "silo-apple",
   "description": "Native iOS, tvOS, and macOS clients for the Silo self-hosted media server.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Silo-Server/silo-apple",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T01:05:33Z"
+  "distributed_at": "2026-07-19T01:12:10Z"
 }
