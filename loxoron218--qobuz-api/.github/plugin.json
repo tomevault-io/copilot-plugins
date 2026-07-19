@@ -1,0 +1,9 @@
+{
+  "name": "loxoron218--qobuz-api",
+  "displayName": "qobuz-api",
+  "description": "Rust library exposing public Qobuz v0.2 REST API",
+  "version": "1.0.0",
+  "author": "loxoron218",
+  "homepage": "https://github.com/loxoron218/qobuz-api",
+  "skills": []
+}
