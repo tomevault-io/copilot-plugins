@@ -1,0 +1,9 @@
+{
+  "name": "drolosoft--go-docs-mcp",
+  "displayName": "go-docs-mcp",
+  "description": "\ud83d\udcc4\ud83d\udc39\u26a1 Go MCP server for multi-format document access \u2014 PDF, TXT, MD, DOCX, CSV, images. Install and Go.",
+  "version": "1.0.0",
+  "author": "drolosoft",
+  "homepage": "https://github.com/drolosoft/go-docs-mcp",
+  "skills": []
+}
