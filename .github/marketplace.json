@@ -248864,6 +248864,11 @@
       "description": "onemind.md turns any git repo into a persistent \"mind\". Thoughts live as git objects on a hidden ref (refs/mind/main) \u2014 written via plumbing, invisible to git status. You get decisions with reasons, f"
     },
     {
+      "name": "muqy1818--chaoxing-code-paste",
+      "source": "./muqy1818--chaoxing-code-paste",
+      "description": "\u8d85\u661f\u7c98\u8d34\u52a9\u624b\uff08\u6cb9\u7334\u811a\u672c\uff09\uff1a\u9002\u914d CodeMirror/UEditor\uff0c\u60ac\u6d6e\u7a97 + \u5feb\u6377\u952e\u4e00\u952e\u7c98\u8d34"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
