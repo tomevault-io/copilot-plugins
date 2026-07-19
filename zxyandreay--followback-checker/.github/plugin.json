@@ -1,0 +1,9 @@
+{
+  "name": "zxyandreay--followback-checker",
+  "displayName": "followback-checker",
+  "description": "FollowBack Checker is a web app that helps users analyze their Instagram followers and following list using their official Instagram data export. It compares the data locally in the browser to show ac",
+  "version": "1.0.0",
+  "author": "zxyandreay",
+  "homepage": "https://github.com/zxyandreay/followback-checker",
+  "skills": []
+}
