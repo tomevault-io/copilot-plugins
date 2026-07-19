@@ -1,0 +1,44 @@
+{
+  "name": "esse",
+  "owner": "renoir1220",
+  "repo": "esse",
+  "description": "\u9762\u5411 Codex \u548c ChatGPT Work \u7684\u672c\u5730\u56fe\u7247\u751f\u6210\u4e0e\u7f16\u8f91\u5de5\u4f5c\u53f0 \u00b7 Local image generation and editing workspace",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/renoir1220/esse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-19T15:31:23Z"
+}
