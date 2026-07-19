@@ -1,0 +1,9 @@
+{
+  "name": "uselesstoys--ecosystem-webui",
+  "displayName": "Ecosystem_WebUI",
+  "description": "AI Ecosystem with Model Training, Image Generation, as well as standard auto-tagging, step calculator, and real-time training monitoring. Featuring Civitai & Arc En Ciel model downloading, model mergi",
+  "version": "1.0.0",
+  "author": "UselessToys",
+  "homepage": "https://github.com/UselessToys/Ecosystem_WebUI",
+  "skills": []
+}
