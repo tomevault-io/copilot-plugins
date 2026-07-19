@@ -1,0 +1,9 @@
+{
+  "name": "qiobn--zotero-research-assistant",
+  "displayName": "zotero-research-assistant",
+  "description": "AI-powered research assistant for Zotero via MCP. 32 tools: hybrid semantic search, multi-source literature discovery (OpenAlex/CrossRef/S2), citation network expansion, personalized reading recommend",
+  "version": "1.0.0",
+  "author": "qiobn",
+  "homepage": "https://github.com/qiobn/zotero-research-assistant",
+  "skills": []
+}
