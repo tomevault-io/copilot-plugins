@@ -1,0 +1,9 @@
+{
+  "name": "renanfulas--supportfaqagent",
+  "displayName": "supportFAQagent",
+  "description": "Agente de LLM para identificar, organizar e responder as d\u00favidas com precis\u00e3o. Multidomain podendo integrar a diferentes setores como suporte, atendimento, vendas e outros.",
+  "version": "1.0.0",
+  "author": "renanfulas",
+  "homepage": "https://github.com/renanfulas/supportFAQagent",
+  "skills": []
+}
