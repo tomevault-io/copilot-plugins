@@ -272239,6 +272239,26 @@
       "description": "pi is \ud83d\udc10"
     },
     {
+      "name": "redmaplewww--deepreason-agents-framework",
+      "source": "./redmaplewww--deepreason-agents-framework",
+      "description": "A heavy-reasoning multi-agent framework with evidence gates, memory, RAG, workflow graphs, and self-evolution."
+    },
+    {
+      "name": "kitlangton--navi-nvim",
+      "source": "./kitlangton--navi-nvim",
+      "description": "Guided source tours for Neovim"
+    },
+    {
+      "name": "amunm9--glyf",
+      "source": "./amunm9--glyf",
+      "description": "Tu letra a mano convertida en fuente .ttf/.otf \u2014 100% en el navegador, sin subir archivos a la nube."
+    },
+    {
+      "name": "mb-mal--pmbok6",
+      "source": "./mb-mal--pmbok6",
+      "description": "PMBOK 6th Edition \u2014 Project Management skill for AI agents. 49 \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u043e\u0432, EVM, Agile, \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442\u044b, \u0448\u0430\u0431\u043b\u043e\u043d\u044b."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
