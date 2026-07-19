@@ -1,0 +1,9 @@
+{
+  "name": "0xtbug--unofficial-pddikti-api",
+  "displayName": "unofficial-pddikti-api",
+  "description": "Reverse-engineered API for PDDIKTI \u2014 Indonesian Higher Education Database.  Provides access to universities, study programs, lecturers, and students data.",
+  "version": "1.0.0",
+  "author": "0xtbug",
+  "homepage": "https://github.com/0xtbug/unofficial-pddikti-api",
+  "skills": []
+}
