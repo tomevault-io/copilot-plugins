@@ -1,0 +1,9 @@
+{
+  "name": "jonaslee12--research-agent-starter-kit",
+  "displayName": "research-agent-starter-kit",
+  "description": "Local-first research-agent workflows for defensible formal research outputs, with source-first gates, bounded routing, skill receipts, and delivery guards.",
+  "version": "1.0.0",
+  "author": "JonasLee12",
+  "homepage": "https://github.com/JonasLee12/research-agent-starter-kit",
+  "skills": []
+}
