@@ -1,0 +1,9 @@
+{
+  "name": "4t145--lark-acp",
+  "displayName": "lark-acp",
+  "description": "Bridge Feishu/Lark chat messages to any ACP-compatible AI agent (Copilot, Claude, Codex, Gemini, OpenCode and more)",
+  "version": "1.0.0",
+  "author": "4t145",
+  "homepage": "https://github.com/4t145/lark-acp",
+  "skills": []
+}
