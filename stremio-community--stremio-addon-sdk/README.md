@@ -7,11 +7,11 @@ An unopinionated SDK for building modern Stremio addons with TypeScript
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [stremio-community/stremio-addon-sdk](https://github.com/stremio-community/stremio-addon-sdk).
+Original source: `CLAUDE.md` in [stremio-community/stremio-addon-sdk](https://github.com/stremio-community/stremio-addon-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
