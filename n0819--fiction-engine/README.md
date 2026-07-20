@@ -7,11 +7,11 @@ An engine for creating coherent fiction with LLMs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [N0819/Fiction_Engine](https://github.com/N0819/Fiction_Engine).
+Original source: `CLAUDE.md` in [N0819/Fiction_Engine](https://github.com/N0819/Fiction_Engine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
