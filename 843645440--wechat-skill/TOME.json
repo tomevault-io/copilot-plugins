@@ -1,0 +1,44 @@
+{
+  "name": "wechat-skill",
+  "owner": "843645440",
+  "repo": "wechat-skill",
+  "description": "\u5fae\u4fe1\u516c\u4f17\u53f7\u5185\u5bb9 Skill \u5de5\u5177\u5305\uff1a\u70ed\u70b9\u53d1\u73b0\u3001\u79d1\u6280\u5199\u4f5c\u3001\u53bb AI \u5473\u3001\u914d\u56fe\u3001\u6392\u7248\u3001\u591a\u8d26\u53f7\u8349\u7a3f\u4e0e\u5de5\u4f5c\u6d41\u7f16\u6392\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/843645440/wechat-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T07:30:47Z"
+}
