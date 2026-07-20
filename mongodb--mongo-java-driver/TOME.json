@@ -1,0 +1,57 @@
+{
+  "name": "mongo-java-driver",
+  "owner": "mongodb",
+  "repo": "mongo-java-driver",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mongo-java-driver",
+      "path": ".agents/skills/evergreen/SKILL.md",
+      "github_url": "https://github.com/mongodb/mongo-java-driver/tree/main/.agents/skills/evergreen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mongo-java-driver",
+      "path": ".agents/skills/sync-agents-docs/SKILL.md",
+      "github_url": "https://github.com/mongodb/mongo-java-driver/tree/main/.agents/skills/sync-agents-docs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mongodb/mongo-java-driver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:41:30Z"
+}
