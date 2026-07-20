@@ -1,265 +1,439 @@
-## backend-development
+## docs-development
 
-> Guidelines for backend development in Langflow, focusing on Python components, FastAPI services, and backend testing.
+> Guidelines for developing and maintaining Langflow documentation using Docusaurus, including content structure, style, and deployment processes.
 
 
 
-# Backend Development Guidelines
+# Documentation Development Guidelines
 
 ## Purpose
-Guidelines for backend development in Langflow, focusing on Python components, FastAPI services, and backend testing.
+Guidelines for developing and maintaining Langflow documentation using Docusaurus, including content structure, style, and deployment processes.
 
 ---
 
-## 1. Backend Environment Setup
+## 1. Documentation Environment Setup
 
 ### Prerequisites
-- **Python Package Manager:** `uv` (>=0.4) for dependency management
-- **Database:** SQLite for development, PostgreSQL for production
-- **Development Tools:** `make` for build coordination
+- **Node.js:** v22.12 LTS for runtime
+- **Package Manager:** Yarn for dependency management
+- **Documentation Framework:** Docusaurus v3
 
-### Backend Service
+### Documentation Service
 ```bash
-make backend  # Start FastAPI backend on port 7860
+cd docs
+yarn install      # Install dependencies
+yarn start        # Start dev server (usually port 3001)
 ```
-- Auto-reloads on file changes
-- Health check: http://localhost:7860/health
-- Backend components: `src/backend/base/langflow/`
+- Auto-reloads on documentation changes
+- Access at: http://localhost:3001/
+- Documentation source: `docs/`
 
 ---
 
-## 2. Component Development
+## 2. Documentation Structure
 
-### Component Structure
+### Directory Layout
 ```
-src/backend/base/langflow/components/
-├── agents/           # Agent components
-├── data/            # Data processing components
-├── embeddings/      # Embedding components
-├── input_output/    # Input/output components
-├── models/          # Language model components
-├── processing/      # Text processing components
-├── prompts/         # Prompt components
-├── tools/           # Tool components
-└── vectorstores/    # Vector store components
+docs/
+├── docs/                    # Main documentation content
+│   ├── agents/              # Agent and MCP guides
+│   ├── get-started/         # Getting started guides
+│   ├── tutorials/           # Langflow tutorials
+│   ├── components/          # Component documentation
+│   ├── flows/               # Guides to build, run, and test flows
+│   ├── deployment/          # Guides for deploying and hosting a Langflow server
+│   ├── develop/             # Guides for developing apps with Langflow
+│   ├── support/             # Help and release notes
+│   ├── contributing/        # Contribution guidelines
+│   └── api-reference/       # API documentation
+├── src/                     # Custom React components
+├── static/                  # Static assets (images, etc.)
+├── sidebars.js             # Sidebar configuration
+├── docusaurus.config.js    # Main configuration
+└── package.json            # Dependencies
 ```
 
-### Adding New Components
-1. **Location:** Add to appropriate subdirectory under `src/backend/base/langflow/components/`
-2. **Import:** Update `__init__.py` with alphabetical imports:
-   ```python
-   from .my_component import MyComponent
-
-   __all__ = [
-       "ExistingComponent",
-       "MyComponent",  # Add alphabetically
-   ]
-   ```
-3. **Auto-restart:** Backend auto-restarts on save
-4. **Browser refresh:** Refresh browser to see component changes
-
-### Component Testing
-- **Unit Tests:** `src/backend/tests/unit/components/`
-- **Test Structure:** Mirror component directory structure
-- **Test Base Classes:** Use `ComponentTestBaseWithClient` or `ComponentTestBaseWithoutClient`
-- **Version Testing:** Provide `file_names_mapping` for backward compatibility
-
-### Development Tips
-- **Fast iteration:** Edit component in UI first, then save to source
-- **Component updates:** Old components show "Updates Available" after backend restart
-- **Testing:** Create comprehensive unit tests for all new components
+### Content Types
+- **Guides:** Step-by-step tutorials (`docs/getting-started/`)
+- **Reference:** API and component reference (`docs/api-reference/`)
+- **How-to:** Problem-solving articles (`docs/components/`)
+- **Concepts:** Explanatory articles about Langflow concepts
+- **Blog:** Release notes, announcements (`blog/`)
 
 ---
 
-## 3. Backend Code Quality
+## 3. Writing Documentation
 
-### Formatting (CRITICAL)
+### Markdown Conventions
+```markdown
+---
+title: Page Title
+description: Brief description for SEO
+sidebar_position: 1
+---
+
+# Page Title
+
+Brief introduction paragraph.
+
+## Section Header
+
+Content with proper formatting.
+
+### Subsection
+
+More detailed content.
+
+:::tip
+Use admonitions for important information.
+:::
+
+:::warning
+Use warnings for potential issues.
+:::
+
+:::danger
+Use danger for critical warnings.
+:::
+```
+
+### Code Blocks
+````markdown
+```python title="component_example.py"
+from langflow.components.base import Component
+
+class MyComponent(Component):
+    display_name = "My Component"
+    description = "Example component"
+
+    def run(self):
+        return "Hello, World!"
+```
+````
+
+### Images and Assets
+```markdown
+<!-- Images go in static/img/ -->
+![Component Overview](/img/components/overview.png)
+
+<!-- Use descriptive alt text -->
+![Langflow interface showing the flow editor with nodes and connections](/img/flow-editor.png)
+```
+
+---
+
+## 4. Component Documentation
+
+### Component Page Template
+```markdown
+---
+title: Component Name
+description: Brief description of what the component does
+sidebar_position: 1
+---
+
+# Component Name
+
+Brief overview of the component's purpose.
+
+## Overview
+
+What this component does and when to use it.
+
+## Configuration
+
+### Inputs
+
+| Input | Type | Required | Description |
+|-------|------|----------|-------------|
+| `input_text` | String | Yes | The text to process |
+| `model_name` | String | No | Model to use (default: gpt-3.5-turbo) |
+
+### Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `result` | Message | Processed result |
+
+## Usage Example
+
+```python
+# Example of using the component
+component = MyComponent(
+    input_text="Hello, world!",
+    model_name="gpt-4"
+)
+result = component.run()
+```
+
+## Common Issues
+
+### Issue: Component not loading
+
+**Solution:** Check that all required inputs are provided.
+
+### Issue: API key errors
+
+**Solution:** Ensure your API key is properly configured.
+```
+
+### API Documentation
+```markdown
+---
+title: API Endpoint
+description: REST API endpoint documentation
+---
+
+# API Endpoint Name
+
+## Endpoint
+
+`POST /api/v1/endpoint`
+
+## Request
+
+### Headers
+```json
+{
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+### Body
+```json
+{
+  "parameter": "value",
+  "optional_param": "optional_value"
+}
+```
+
+## Response
+
+### Success (200)
+```json
+{
+  "success": true,
+  "data": {
+    "result": "success"
+  }
+}
+```
+
+### Error (400)
+```json
+{
+  "success": false,
+  "error": "Error message"
+}
+```
+
+## Example
+
 ```bash
-make format_backend  # Format Python code
+curl -X POST http://localhost:7860/api/v1/endpoint \
+  -H "Authorization: Bearer your-token" \
+  -H "Content-Type: application/json" \
+  -d '{"parameter": "value"}'
 ```
-**Important:** Run `make format_backend` _early and often_ (ideally before running linting or committing changes). It auto-corrects the majority of style issues, preventing lengthy manual fixes when lint errors surface later.
+```
 
-### Linting
+---
+
+## 5. Blog Posts and Announcements
+
+### Blog Post Template
+```markdown
+---
+title: "Release: Langflow v1.1.0"
+description: "New features and improvements in Langflow v1.1.0"
+authors: [author-name]
+date: 2024-01-15
+tags: [release, features]
+---
+
+# Release: Langflow v1.1.0
+
+Brief introduction to the release.
+
+## New Features
+
+### Feature 1
+Description of the feature and how to use it.
+
+### Feature 2
+Another feature description.
+
+## Improvements
+
+- List of improvements
+- Bug fixes
+- Performance enhancements
+
+## Breaking Changes
+
+:::warning
+List any breaking changes that require user action.
+:::
+
+## Migration Guide
+
+Steps to migrate from previous versions.
+```
+
+### Announcement Posts
+```markdown
+---
+title: "Announcement: New Integration"
+description: "Langflow now supports integration with XYZ service"
+authors: [author-name]
+date: 2024-01-15
+tags: [announcement, integration]
+---
+
+Brief announcement content with clear call-to-action.
+```
+
+---
+
+## 6. Configuration
+
+### Sidebar Configuration (`sidebars.js`)
+```javascript
+module.exports = {
+  docs: [
+    'introduction',
+    {
+      type: 'category',
+      label: 'Getting Started',
+      items: [
+        'getting-started/installation',
+        'getting-started/quickstart',
+        'getting-started/first-flow',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Components',
+      items: [
+        'components/overview',
+        'components/inputs',
+        'components/outputs',
+        'components/processing',
+      ],
+    },
+  ],
+};
+```
+
+### Site Configuration (`docusaurus.config.js`)
+```javascript
+module.exports = {
+  title: 'Langflow Documentation',
+  tagline: 'Build AI flows visually',
+  url: 'https://docs.langflow.org',
+  baseUrl: '/',
+
+  themeConfig: {
+    navbar: {
+      title: 'Langflow',
+      logo: {
+        alt: 'Langflow Logo',
+        src: 'img/logo.svg',
+      },
+      items: [
+        {
+          type: 'doc',
+          docId: 'introduction',
+          position: 'left',
+          label: 'Docs',
+        },
+        {
+          to: '/blog',
+          label: 'Blog',
+          position: 'left'
+        },
+      ],
+    },
+  },
+};
+```
+
+---
+
+## 7. Documentation Testing
+
+### Link Checking
 ```bash
-make lint  # Run linting checks
+# Check for broken internal links
+yarn build
+yarn serve
+# Manual testing or use link checker tools
 ```
 
-### Testing
+### Content Review
+- **Accuracy:** Verify all code examples work
+- **Completeness:** Ensure all features are documented
+- **Clarity:** Review for clear, concise language
+- **Navigation:** Test sidebar and cross-references
+
+### Screenshots
+- Keep screenshots up-to-date with current UI
+- Use consistent browser/OS for screenshots
+- Highlight relevant UI elements
+- Use descriptive file names
+
+---
+
+## 8. Style Guide
+
+### Writing Style
+- **Tone:** Professional but approachable
+- **Voice:** Second person ("you") for instructions
+- **Tense:** Present tense for current features
+- **Length:** Keep paragraphs short and scannable
+
+### Formatting
+- **Headers:** Use sentence case
+- **Code:** Inline code with `backticks`
+- **Emphasis:** Use **bold** for UI elements, *italic* for emphasis
+- **Lists:** Use parallel structure
+
+### Terminology
+- **Langflow:** Always capitalize
+- **Component:** Capitalize when referring to Langflow components
+- **Flow:** Capitalize when referring to Langflow flows
+- **API:** Always uppercase
+- **JSON:** Always uppercase
+
+---
+
+## 9. Deployment
+
+### Local Testing
 ```bash
-make unit_tests  # Run backend unit tests
+yarn build    # Build static site
+yarn serve    # Serve built site locally
 ```
 
-### Pre-commit Workflow
-1. **Run `make format_backend`** (FIRST - saves time on lint fixes)
-2. Run `make lint`
-3. Run `make unit_tests`
-4. Commit changes
+### Production Deployment
+- Documentation is automatically deployed on commit to main branch
+- Build artifacts go to `build/` directory
+- Static site is served via CDN
 
 ---
 
-## 4. FastAPI Development
-
-### API Structure
-```
-src/backend/base/langflow/api/
-├── v1/              # API version 1
-│   ├── chat.py      # Chat endpoints
-│   ├── flows.py     # Flow management
-│   ├── users.py     # User management
-│   └── ...
-└── v2/              # API version 2 (future)
-```
-
-### Testing APIs
-- Use `client` fixture from `conftest.py`
-- Test with `logged_in_headers` for authenticated endpoints
-- Example:
-  ```python
-  async def test_flows_endpoint(client, logged_in_headers):
-      response = await client.post(
-          "api/v1/flows/",
-          json=flow_data,
-          headers=logged_in_headers
-      )
-      assert response.status_code == 201
-  ```
-
----
-
-## 5. Database Development
-
-### Models Location
-```
-src/backend/base/langflow/services/database/models/
-├── api_key/         # API key models
-├── flow/            # Flow models
-├── folder/          # Folder models
-├── user/            # User models
-└── ...
-```
-
-### Database Testing
-- Use in-memory SQLite for tests
-- Database tests may fail in batch runs - run individually if needed:
-  ```bash
-  uv run pytest src/backend/tests/unit/test_database.py
-  ```
-
----
-
-## 6. Async Development Patterns
-
-### Component Async Methods
-```python
-async def run(self) -> MessageType:
-    """Main component execution method."""
-    # Use await for async operations
-    result = await self.async_operation()
-    return result
-
-async def message_response(self) -> Message:
-    """Return a Message object for chat components."""
-    return Message(
-        text=self.input_value,
-        sender=self.sender,
-        session_id=self.session_id,
-    )
-```
-
-### Background Tasks
-```python
-import asyncio
-
-async def process_in_background(self):
-    """Process items without blocking."""
-    # Use asyncio.create_task for background work
-    task = asyncio.create_task(self.heavy_operation())
-
-    # Ensure proper cleanup
-    try:
-        result = await task
-        return result
-    except asyncio.CancelledError:
-        # Handle cancellation gracefully
-        await self.cleanup()
-        raise
-```
-
-### Queue Operations
-```python
-async def queue_processing(self):
-    """Non-blocking queue operations."""
-    queue = asyncio.Queue()
-
-    # Non-blocking put
-    queue.put_nowait(data)
-
-    # Timeout-controlled get
-    try:
-        result = await asyncio.wait_for(queue.get(), timeout=5.0)
-        return result
-    except asyncio.TimeoutError:
-        # Handle timeout appropriately
-        raise ComponentError("Processing timeout")
-```
-
----
-
-## 7. Component Integration Testing
-
-### Flow Testing
-```python
-from tests.unit.build_utils import create_flow, build_flow, get_build_events
-
-async def test_component_in_flow(client, json_flow, logged_in_headers):
-    """Test component within a complete flow."""
-    flow_id = await create_flow(client, json_flow, logged_in_headers)
-    build_response = await build_flow(client, flow_id, logged_in_headers)
-
-    # Validate flow execution
-    job_id = build_response["job_id"]
-    events_response = await get_build_events(client, job_id, logged_in_headers)
-    assert events_response.status_code == 200
-```
-
-### External API Testing
-```python
-@pytest.mark.api_key_required
-@pytest.mark.no_blockbuster
-async def test_with_real_api(self):
-    """Test component with external service."""
-    api_key = os.getenv("OPENAI_API_KEY")
-    component = MyComponent(api_key=api_key, model="gpt-4o")
-
-    response = await component.run()
-    assert response is not None
-```
-
----
-
-## 8. Known Backend Issues
-
-### Testing Quirks
-- `test_database.py` may fail in batch runs but pass individually
-- Use `@pytest.mark.no_blockbuster` to skip blockbuster plugin when needed
-- Context variables may not propagate correctly in `asyncio.to_thread` - test both patterns
-
-### File Changes
-- Starter project files auto-format after `langflow run`
-- These formatting changes can be committed or ignored
-
----
-
-## Backend Development Checklist
-- [ ] Component added to appropriate subdirectory
-- [ ] `__init__.py` updated with alphabetical imports
-- [ ] Code formatted with `make format_backend` (FIRST)
-- [ ] Linting passed with `make lint`
-- [ ] Unit tests created and passing with `make unit_tests`
-- [ ] Component tested in UI with backend restart + browser refresh
-- [ ] Version mapping provided for backward compatibility
-- [ ] Async patterns implemented correctly with proper cleanup
-- [ ] External API calls use appropriate pytest markers
+## Documentation Development Checklist
+- [ ] Documentation service running with `yarn start`
+- [ ] Content follows markdown conventions
+- [ ] Code examples are tested and working
+- [ ] Images have descriptive alt text
+- [ ] Internal links are functional
+- [ ] Sidebar navigation is updated
+- [ ] Content follows style guide
+- [ ] Screenshots are current and properly formatted
+- [ ] Cross-references between related topics
+- [ ] Build succeeds with `yarn build`
 
 ---
 > Source: [UhtredRegress/LangFlowClone](https://github.com/UhtredRegress/LangFlowClone) — distributed by [TomeVault](https://tomevault.io).
