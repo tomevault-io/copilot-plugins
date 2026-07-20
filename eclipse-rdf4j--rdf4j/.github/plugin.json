@@ -1,0 +1,54 @@
+{
+  "name": "eclipse-rdf4j--rdf4j",
+  "displayName": "rdf4j",
+  "description": "rdf4j",
+  "version": "1.0.0",
+  "author": "eclipse-rdf4j",
+  "homepage": "https://github.com/eclipse-rdf4j/rdf4j",
+  "skills": [
+    {
+      "name": "debug-surefire",
+      "description": ""
+    },
+    {
+      "name": "gh-read-inspector",
+      "description": ""
+    },
+    {
+      "name": "mvnf",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "description": ""
+    }
+  ]
+}
