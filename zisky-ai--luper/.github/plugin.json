@@ -1,0 +1,9 @@
+{
+  "name": "zisky-ai--luper",
+  "displayName": "Luper",
+  "description": "Text-defined workflow harness for autonomous AI delivery via local CLIs",
+  "version": "1.0.0",
+  "author": "Zisky-ai",
+  "homepage": "https://github.com/Zisky-ai/Luper",
+  "skills": []
+}
