@@ -1,140 +1,60 @@
 ## mockly
 
-> >
+> Guidance for AI coding agents working in **Mockly**, a fluent HTTP mocking library for .NET
 
+# AGENTS.md
 
-# Mockly
+Guidance for AI coding agents working in **Mockly**, a fluent HTTP mocking library for .NET
+that intercepts `HttpClient` calls in tests. For the user-facing overview see
+[`README.md`](./README.md) and [mockly.org](https://mockly.org/); for the fluent API cheat
+sheet see [`SKILL.md`](./SKILL.md).
 
-Fluent HTTP mocking library for .NET. Intercepts `HttpClient` calls via a custom `HttpMessageHandler`.
-Unmatched requests throw `UnexpectedRequestException` by default (`FailOnUnexpectedCalls = true`).
-Default base address: `https://localhost/`.
+## Layout
 
-## Setup
+- `Mockly/` — core library, multi-targeted `net8.0;net472` (the `Mockly` NuGet package).
+- `Mockly.Specs/` — xUnit test suite (`net8.0` + `net472`).
+- `Mockly.ApiVerificationTests/` — public API approval tests (`PublicApiGenerator` + Verify).
+- `Build/` — Nuke build automation. `website/` — Docusaurus docs.
 
-```csharp
-var mock = new HttpMock();
-mock.ForGet().WithPath("/api/users").RespondsWithStatus(HttpStatusCode.OK);
-HttpClient client = mock.GetClient(); // or mock.GetClientFactory()
+The FluentAssertions v7/v8 extensions live in a separate repo:
+[dennisdoomen/fluentassertions.mockly](https://github.com/dennisdoomen/fluentassertions.mockly)
+(referenced here only via `InternalsVisibleTo`).
+
+## Build & test
+
+```bash
+./build.ps1        # or ./build.sh — Nuke build used by CI (build, test, API checks, pack)
+dotnet build Mockly.sln -c Debug
+dotnet test -c Debug
+dotnet test --filter FullyQualifiedName~Mockly.Specs.HttpMockSpecs+BasicUsage
 ```
 
-## HTTP Verbs
+- `TreatWarningsAsErrors` is on; analyzers run **only** on `net8.0` — fix issues there first.
+- Tests run in Debug so FluentAssertions can report variable names. Keep coverage non-decreasing.
 
-```csharp
-// Convenience methods per verb (each also has a "(urlPattern)" overload)
-mock.ForGet();
-mock.ForPost();
-mock.ForPut();
-mock.ForPatch();
-mock.ForDelete();
-mock.ForHead();
-mock.ForOptions();
+## Conventions
 
-// Generic entry point for any (including non-standard) verb
-mock.For(HttpMethod.Get).WithPath("/api/data").RespondsWithStatus(HttpStatusCode.OK);
-mock.For(new HttpMethod("PROPFIND"), "https://localhost/dav/*").RespondsWithStatus(HttpStatusCode.OK);
-```
+- C# style: follow the
+  [csharp-guidelines skill](https://github.com/dennisdoomen/CSharpGuidelines/tree/main/Skills/csharp-guidelines);
+  `.editorconfig` is authoritative (4-space indent, 130-col lines, braces on new lines).
+- Tests: xUnit, Arrange-Act-Assert, scenarios grouped in nested classes (see
+  `Mockly.Specs/HttpMockSpecs.cs`), snake-case method names, FluentAssertions for assertions.
+- Chain-starting fluent methods use present-tense verbs (`ForGet`, `WithPath`, `RespondsWithStatus`).
+- Keep the public API working on both `net472` and `net8.0`; XML-doc public members. Use
+  `#if NET472_OR_GREATER` for the rare TFM-specific divergence and keep it minimal.
+- Avoid new dependencies; never commit secrets; guard against ReDoS in matchers. Add any new
+  analyzer packages to `Directory.Build.props` conditioned on `net8.0` with `<PrivateAssets>all</PrivateAssets>`.
 
-## URL Matching
+### Tests
+- Tests should not use terms like "should" or "when". Instead, they should use a fact-based naming convention in snake casing.
+- Test method names must describe observable behavior in business terms and must never start with or include the name of the method under test or any other code element. For example: `Returns_credit_report_for_valid_nl_company` ✅; `GetCompanyCreditReport_returns_credit_report_for_valid_nl_company_id` ❌.
 
-```csharp
-// Exact path (leading slash optional); * is wildcard
-mock.ForGet().WithPath("/api/users/*").RespondsWithStatus(HttpStatusCode.OK);
+## Public API changes
 
-// Query: omitting WithQuery() rejects requests that include a query string
-mock.ForGet().WithPath("/api/search").WithQuery("?q=*").RespondsWithStatus(HttpStatusCode.OK);
-mock.ForGet().WithPath("/api/search").WithAnyQuery().RespondsWithStatus(HttpStatusCode.OK);
-mock.ForGet().WithPath("/api/search").WithoutQuery().RespondsWithStatus(HttpStatusCode.OK);
-
-// Scheme / host
-mock.ForGet().ForHttps().ForHost("api.example.com").WithPath("/data").RespondsWithStatus(HttpStatusCode.OK);
-mock.ForGet().ForHttp().ForAnyHost().WithPath("/data").RespondsWithStatus(HttpStatusCode.OK);
-
-// Full-URL shorthand (scheme + host + path + query, all support *)
-mock.ForGet("https://api.example.com/users/*?q=*").RespondsWithStatus(HttpStatusCode.OK);
-mock.ForPatch("http://*.example.com/*").RespondsWithStatus(HttpStatusCode.OK);
-```
-
-## Request Body Matching
-
-```csharp
-mock.ForPost().WithPath("/api/data").WithBody("*keyword*").RespondsWithStatus(HttpStatusCode.NoContent);
-mock.ForPost().WithPath("/api/data").WithBody(new { name = "John" }).RespondsWithStatus(HttpStatusCode.NoContent); // JSON object
-mock.ForPost().WithPath("/api/data").WithBodyMatchingJson("{\"name\":\"John\"}").RespondsWithStatus(HttpStatusCode.NoContent);
-mock.ForPost().WithPath("/api/data").WithBodyMatchingRegex(".*keyword.*").RespondsWithStatus(HttpStatusCode.NoContent);
-
-// Custom predicate (sync or async) — use .With() for custom body or URI checks
-mock.ForPost().WithPath("/api/data").With(req => req.Body!.Contains("keyword")).RespondsWithStatus(HttpStatusCode.NoContent);
-```
-
-## Header Matching
-
-```csharp
-mock.ForGet().WithPath("/api/secure").WithHeader("X-API-Key").RespondsWithStatus(HttpStatusCode.OK);
-mock.ForGet().WithPath("/api/secure").WithHeader("X-Trace-Id", "abc-*").RespondsWithStatus(HttpStatusCode.OK);
-mock.ForGet().WithPath("/api/auth").WithBearerToken().RespondsWithStatus(HttpStatusCode.OK);
-mock.ForPost().WithPath("/api/json").WithContentType("application/json").RespondsWithStatus(HttpStatusCode.OK);
-```
-
-## Responses
-
-```csharp
-mock.ForDelete().WithPath("/api/items/1").RespondsWithStatus(HttpStatusCode.NoContent);
-mock.ForGet().WithPath("/api/user").RespondsWithJsonContent(new { Id = 1, Name = "Alice" });
-mock.ForGet().WithPath("/api/user").RespondsWithJsonContent(HttpStatusCode.Created, new { Id = 1 });
-mock.ForGet().WithPath("/api/text").RespondsWithContent("Hello"); // 200 OK, application/json
-mock.ForGet().WithPath("/api/text").RespondsWithContent(HttpStatusCode.OK, "<xml/>", "text/xml");
-mock.ForGet().WithPath("/api/empty").RespondsWithEmptyContent(); // 204 No Content
-mock.ForGet().WithPath("/api/binary").RespondsWith(new ByteArrayContent(bytes));
-mock.ForGet().WithPath("/api/custom").RespondsWith(_ => new HttpResponseMessage(HttpStatusCode.OK));
-
-// OData v4: wraps in { "value": [...] }
-mock.ForGet().WithPath("/odata/items").RespondsWithODataResult(new { Id = 1 });
-mock.ForGet().WithPath("/odata/items").RespondsWithODataResult(HttpStatusCode.OK, items, "https://localhost/$metadata#Items");
-```
-
-> `HttpContent` instances are reused across calls — use the lambda overload for mocks called multiple times.
-
-## Request Capture
-
-```csharp
-// Global log
-mock.Requests.HasUnexpectedRequests // bool
-mock.Requests.First().WasExpected   // bool; .Uri, .Method, .Body, .Timestamp, .Response also available
-
-// Scoped collection
-var captured = new RequestCollection();
-mock.ForPatch().WithPath("/api/items/1").CollectingRequestsIn(captured).RespondsWithStatus(HttpStatusCode.NoContent);
-captured.Count.Should().Be(1);
-```
-
-## Invocation Limits
-
-```csharp
-mock.ForGet().WithPath("/api/once").RespondsWithStatus(HttpStatusCode.OK).Once();
-mock.ForGet().WithPath("/api/twice").RespondsWithStatus(HttpStatusCode.OK).Twice();
-mock.ForGet().WithPath("/api/data").RespondsWithStatus(HttpStatusCode.OK).Times(3);
-
-mock.AllMocksInvoked.Should().BeTrue();   // true when all mocks hit required count
-mock.GetUninvokedMocks();                  // IEnumerable<RequestMock>
-```
-
-## Reset / Clear
-
-```csharp
-mock.Reset(); // clears scheme/host inheritance from previous builder; start fresh
-mock.Clear(); // removes all configured mocks
-```
-
-## FluentAssertions.Mockly (`FluentAssertions.Mockly.v8` / `.v7`)
-
-```csharp
-mock.Should().HaveAllRequestsCalled();
-mock.Requests.Should().NotContainUnexpectedCalls();
-mock.Requests.Should().NotBeEmpty();
-mock.Requests.First().Should().BeExpected();
-mock.Requests.First().Should().BeUnexpected();
-```
+Public API changes need an `api-approved` issue first. When the approval tests in
+`Mockly.ApiVerificationTests/` fail for an intended change, run `AcceptApiChanges.ps1` /
+`AcceptApiChanges.sh` (or Rider's Verify Support) and commit the updated `ApprovedApi/` files.
 
 ---
 > Source: [dennisdoomen/mockly](https://github.com/dennisdoomen/mockly) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
