@@ -1,31 +1,22 @@
-## clodex
+## post-change-build-link
 
-> This file provides guidance to coding agents working in this repository.
+> After relay-ai code changes, always build and npm link — Jacob does not run this manually
 
-# AGENTS.md
 
-This file provides guidance to coding agents working in this repository.
+# Post-change build + link (relay-ai)
 
-**clodex** bridges Claude Code to OpenAI models (OpenAI API key or ChatGPT/Codex-plan OAuth). It is a trimmed fork of relay-ai with the full commit history preserved.
+Jacob tests relay-ai via the **global npm-linked** CLI. He does **not** want to run build/link himself.
 
-The complete architecture guide, hard-won constraints, release workflow, and testing rules live in [CLAUDE.md](CLAUDE.md) — read it in full before making changes. It applies to all agents, not just Claude Code.
+After **any** code change to this repo that affects runtime behavior (`src/`, `package.json`, dependencies, etc.):
 
-## Quick reference
+1. Run **`npm run build`** — required before manual testing
+2. Run **`npm link`** — refreshes the global `relay-ai` command to point at this workspace
 
-```bash
-pnpm build          # compile TypeScript → dist/cli.js (tsup, ESM)
-pnpm test           # vitest
-pnpm typecheck      # tsc --noEmit
-pnpm vitest run tests/patcher.test.ts   # single test file
-```
+Do this **automatically** at the end of the task. Do not tell Jacob to run it unless the command failed and needs his attention.
 
-## Non-negotiables (details in CLAUDE.md)
+Skip only when the session was **read-only** (questions, review with no edits).
 
-- Do not restructure the translation/caching/OAuth-continuation code (`src/sdk-adapter.ts`, `src/oauth/responses-websocket.ts`) — it encodes extensively field-tested behavior.
-- The proxy-mode MITM must echo the exact requested model id in responses (auto-compaction depends on it).
-- Anthropic-passthrough base URLs must NOT include `/v1`.
-- `claude -p` end-to-end tests are manual only — never add them to the automated test suite.
-- Never `npm publish` locally; releases are tag-driven CI.
+On success, a short note like “Built and linked — ready to test” is enough.
 
 ---
 > Source: [bman654/clodex](https://github.com/bman654/clodex) — distributed by [TomeVault](https://tomevault.io).
