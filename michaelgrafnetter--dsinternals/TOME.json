@@ -1,0 +1,69 @@
+{
+  "name": "DSInternals",
+  "owner": "MichaelGrafnetter",
+  "repo": "DSInternals",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DSInternals",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/MichaelGrafnetter/DSInternals/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DSInternals",
+      "path": ".agents/skills/doc-comments/SKILL.md",
+      "github_url": "https://github.com/MichaelGrafnetter/DSInternals/tree/main/.agents/skills/doc-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DSInternals",
+      "path": ".agents/skills/release-preparation/SKILL.md",
+      "github_url": "https://github.com/MichaelGrafnetter/DSInternals/tree/main/.agents/skills/release-preparation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DSInternals",
+      "path": ".agents/skills/update-copyright-year/SKILL.md",
+      "github_url": "https://github.com/MichaelGrafnetter/DSInternals/tree/main/.agents/skills/update-copyright-year/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MichaelGrafnetter/DSInternals",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:18:33Z"
+}
