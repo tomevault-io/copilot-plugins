@@ -1,0 +1,14 @@
+{
+  "name": "datadog--ddprof",
+  "displayName": "ddprof",
+  "description": "ddprof",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/ddprof",
+  "skills": [
+    {
+      "name": "ddprof",
+      "description": ""
+    }
+  ]
+}
