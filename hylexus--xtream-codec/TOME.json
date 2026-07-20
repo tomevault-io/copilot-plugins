@@ -1,0 +1,75 @@
+{
+  "name": "xtream-codec",
+  "owner": "hylexus",
+  "repo": "xtream-codec",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "xtream-codec",
+      "path": ".agents/skills/SKILL.md",
+      "github_url": "https://github.com/hylexus/xtream-codec/tree/main/.agents/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtream-codec",
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/hylexus/xtream-codec/tree/main/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtream-codec",
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/hylexus/xtream-codec/tree/main/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtream-codec",
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/hylexus/xtream-codec/tree/main/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtream-codec",
+      "path": ".agents/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/hylexus/xtream-codec/tree/main/.agents/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hylexus/xtream-codec",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:08:32Z"
+}
