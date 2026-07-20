@@ -4,7 +4,7 @@
 
 # ServiceNow MCP Server v2.0 - Development Guide
 
-**For:** Claude Code (claude.ai/code)
+**For:** Codex (Codex.ai/code)
 **Version:** 2.0
 **Instance:** Multi-instance support enabled
 
@@ -460,7 +460,7 @@ SN-Query-Table({
 ```
 src/
 ├── server.js                      # Express HTTP server (SSE transport)
-├── stdio-server.js                # Stdio transport (Claude Desktop)
+├── stdio-server.js                # Stdio transport (Codex Desktop)
 ├── mcp-server-consolidated.js    # MCP tool registration (480+ tools)
 ├── servicenow-client.js           # ServiceNow REST API client
 └── config-manager.js              # Multi-instance configuration
@@ -782,4 +782,4 @@ SN-Execute-Background-Script({ script: "...", description: "..." });
 
 ---
 > Source: [Happy-Technologies-LLC/happy-platform-mcp](https://github.com/Happy-Technologies-LLC/happy-platform-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
