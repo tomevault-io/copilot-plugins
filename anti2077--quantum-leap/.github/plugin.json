@@ -1,0 +1,9 @@
+{
+  "name": "anti2077--quantum-leap",
+  "displayName": "Quantum-Leap",
+  "description": "A native macOS SSH-powered iperf3 client with real-time TCP/UDP bandwidth visualization.",
+  "version": "1.0.0",
+  "author": "Anti2077",
+  "homepage": "https://github.com/Anti2077/Quantum-Leap",
+  "skills": []
+}
