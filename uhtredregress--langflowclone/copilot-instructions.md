@@ -1,369 +1,135 @@
-## frontend-development
+## icons
 
-> Guidelines for frontend development in Langflow, focusing on React/TypeScript UI components, build processes, and frontend testing.
+> Rules for creating and implementing component icons in Langflow, covering both backend Python component icon attributes and frontend React icon implementation.
 
 
-## 1. Frontend Environment Setup
+# Component Icon Rules
 
-### Prerequisites
-- **Node.js:** v22.12 LTS for JavaScript runtime
-- **Package Manager:** npm (v10.9) for dependency management
-- **Development Tools:** Vite for build tooling
+## Purpose
 
-### Frontend Service
-```bash
-make frontend  # Start Vite dev server on port 3000
-```
-- Hot-reload enabled for UI changes
-- Access at: http://localhost:3000/
-- Frontend source: `src/frontend/`
+To ensure consistent, clear, and functional icon usage for components, covering both backend (Python) and frontend (React/TypeScript) steps.
 
 ---
 
-## 2. Frontend Structure
+## 1. Backend (Python) — Setting the Icon Name
 
-### Directory Layout
-```
-src/frontend/src/
-├── components/          # Reusable UI components
-├── pages/              # Page-level components
-├── icons/              # Component icons and lazy loading
-├── stores/             # State management (Zustand)
-├── types/              # TypeScript type definitions
-├── utils/              # Utility functions
-├── hooks/              # Custom React hooks
-├── services/           # API service functions
-└── assets/             # Static assets
-```
-
-### Key Technologies
-- **React 18** with TypeScript
-- **Vite** for build tooling and dev server
-- **Tailwind CSS** for styling
-- **Zustand** for state management
-- **React Flow** for flow graph visualization
-- **Lucide React** for icons
+- **Where:** In your component class (e.g., in `src/backend/base/langflow/components/vectorstores/astradb.py`)
+- **How:**
+  Set the `icon` attribute to a string matching the icon you want to use.
+  ```python
+  icon = "AstraDB"
+  ```
+- **Tip:**
+  The string must match the frontend icon mapping exactly (case-sensitive).
 
 ---
 
-## 3. Frontend Code Quality
+## 2. Frontend (React/TypeScript) — Adding the Icon
 
-### Formatting
-```bash
-make format_frontend  # Format TypeScript/JavaScript code
-```
+### a. Create the Icon Component
 
-### Linting
-```bash
-make lint  # Run ESLint and TypeScript checks
-```
+- **Where:**
+  In a new directory for your icon, e.g., `src/frontend/src/icons/AstraDB/`.
+- **How:**
 
-### Testing
-```bash
-make tests_frontend  # Run frontend tests (requires additional setup)
-```
+  - Add your SVG as a React component, e.g., `AstraSVG` in `AstraDB.jsx`.
+    ```jsx
+    const AstraSVG = (props) => (
+      <svg {...props}>
+        <path
+        // ...
+        />
+      </svg>
+    );
+    ```
+  - Create an `index.tsx` that exports your icon using `forwardRef`:
 
-### Pre-commit Workflow
-1. Run `make format_frontend`
-2. Run `make lint`
-3. Test changes in browser
-4. Commit changes
+    ```tsx
+    import React, { forwardRef } from "react";
+    import AstraSVG from "./AstraDB";
 
----
+    export const AstraDBIcon = forwardRef<
+      SVGSVGElement,
+      React.PropsWithChildren<{}>
+    >((props, ref) => {
+      return <AstraSVG ref={ref} isDark={isDark} {...props} />;
+    });
+    ```
 
-## 4. State Management
+#### Supporting Light and Dark Mode Icons
 
-### Zustand Stores
-```typescript
-// stores/myStore.ts
-import { create } from 'zustand';
+- **How:**
+  - In your SVG component (e.g., `AstraDB.jsx`), use the `isDark` prop to switch colors:
+    ```jsx
+    const AstraSVG = (props) => (
+      <svg {...props}>
+        <path
+          fill={props.isDark ? "#ffffff" : "#0A0A0A"}
+          // ...
+        />
+      </svg>
+    );
+    ```
+  - The `isDark` prop is passed from the icon wrapper (see above) and should be used to toggle between light and dark color schemes.
+  - You can use a utility like `stringToBool` to ensure the prop is interpreted correctly.
 
-interface MyState {
-  value: string;
-  setValue: (value: string) => void;
-}
+### b. Add to Lazy Icon Imports
 
-export const useMyStore = create<MyState>((set) => ({
-  value: '',
-  setValue: (value) => set({ value }),
-}));
-```
-
-### Using Stores in Components
-```typescript
-// components/MyComponent.tsx
-import { useMyStore } from '@/stores/myStore';
-
-export function MyComponent() {
-  const { value, setValue } = useMyStore();
-
-  return (
-    <input
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
-}
-```
-
----
-
-## 5. API Integration
-
-### Service Functions
-```typescript
-// services/api.ts
-import { api } from '@/controllers/API';
-
-export async function createFlow(flowData: FlowData) {
-  const response = await api.post('/flows/', flowData);
-  return response.data;
-}
-
-export async function getFlows() {
-  const response = await api.get('/flows/');
-  return response.data;
-}
-```
-
-### Error Handling
-```typescript
-// hooks/useApi.ts
-import { useState, useCallback } from 'react';
-
-export function useApi<T>(apiFunction: (...args: any[]) => Promise<T>) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const execute = useCallback(async (...args: any[]) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const result = await apiFunction(...args);
-      return result;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, [apiFunction]);
-
-  return { execute, loading, error };
-}
-```
+- **Where:**
+  In `src/frontend/src/icons/lazyIconImports.ts`
+- **How:**
+  Add an entry to the `lazyIconsMapping` object:
+  ```ts
+  AstraDB: () =>
+    import("@/icons/AstraDB").then((mod) => ({ default: mod.AstraDBIcon })),
+  ```
+- **Tip:**
+  The key (`AstraDB`) must match the string used in the backend.
 
 ---
 
-## 6. React Flow Integration
+## 3. Best Practices
 
-### Flow Graph Components
-```typescript
-// components/FlowGraph.tsx
-import ReactFlow, {
-  Node,
-  Edge,
-  Controls,
-  Background
-} from 'reactflow';
-
-interface FlowGraphProps {
-  nodes: Node[];
-  edges: Edge[];
-  onNodesChange: (changes: NodeChange[]) => void;
-  onEdgesChange: (changes: EdgeChange[]) => void;
-}
-
-export function FlowGraph({
-  nodes,
-  edges,
-  onNodesChange,
-  onEdgesChange
-}: FlowGraphProps) {
-  return (
-    <div className="w-full h-full">
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        fitView
-      >
-        <Controls />
-        <Background />
-      </ReactFlow>
-    </div>
-  );
-}
-```
-
-### Custom Node Types
-```typescript
-// components/nodes/ComponentNode.tsx
-import { memo } from 'react';
-import { Handle, Position } from 'reactflow';
-
-interface ComponentNodeProps {
-  data: {
-    label: string;
-    icon?: string;
-  };
-}
-
-export const ComponentNode = memo(({ data }: ComponentNodeProps) => {
-  return (
-    <div className="px-4 py-2 shadow-md rounded-md bg-white border">
-      <Handle type="target" position={Position.Top} />
-
-      <div className="flex items-center">
-        {data.icon && (
-          <img src={data.icon} alt="" className="w-4 h-4 mr-2" />
-        )}
-        <span className="text-sm">{data.label}</span>
-      </div>
-
-      <Handle type="source" position={Position.Bottom} />
-    </div>
-  );
-});
-```
+- **Naming:**
+  Use clear, recognizable names (e.g., `"AstraDB"`, `"Postgres"`, `"OpenAI"`).
+- **Consistency:**
+  Always use the same icon name for the same service across backend and frontend.
+- **Missing Icon:**
+  If no icon exists, use a [lucide icon](https://lucide.dev/icons)
+- **Light/Dark Mode:**
+  Always support both light and dark mode for custom icons by using the `isDark` prop in your SVG.
 
 ---
 
-## 7. Styling with Tailwind
+## 4. Checklist for Adding a New Icon
 
-### Component Styling
-```typescript
-// components/Button.tsx
-import { cn } from '@/utils/cn';
-
-interface ButtonProps {
-  variant?: 'primary' | 'secondary';
-  size?: 'sm' | 'md' | 'lg';
-  children: React.ReactNode;
-  onClick?: () => void;
-}
-
-export function Button({
-  variant = 'primary',
-  size = 'md',
-  children,
-  onClick
-}: ButtonProps) {
-  return (
-    <button
-      className={cn(
-        'rounded-md font-medium transition-colors',
-        {
-          'bg-blue-600 hover:bg-blue-700 text-white': variant === 'primary',
-          'bg-gray-200 hover:bg-gray-300 text-gray-900': variant === 'secondary',
-          'px-2 py-1 text-sm': size === 'sm',
-          'px-4 py-2 text-base': size === 'md',
-          'px-6 py-3 text-lg': size === 'lg',
-        }
-      )}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-```
-
-### Dark Mode Support
-```typescript
-// hooks/useDarkMode.ts
-import { useDarkStore } from '@/stores/darkStore';
-
-export function useDarkMode() {
-  const { dark, setDark } = useDarkStore();
-
-  const toggle = () => setDark(!dark);
-
-  return { isDark: dark, toggle };
-}
-```
+- [ ] Decide on a clear, descriptive icon name (e.g., `AstraDB`).
+- [ ] In your Python component, set `icon = "YourIconName"`.
+- [ ] Create a new icon directory in `src/frontend/src/icons/YourIconName/`.
+- [ ] Add your SVG as a React component (e.g., `YourIconNameIcon.jsx`).
+- [ ] Create an `index.tsx` that exports your icon using `forwardRef` and passes the `isDark` prop.
+- [ ] Add your icon to `lazyIconsMapping` in `src/frontend/src/icons/lazyIconImports.ts` with the exact same name.
+- [ ] Verify the icon appears correctly in the UI in both light and dark mode.
+- [ ] If no suitable icon exists, use a generic icon and request a new one if needed.
 
 ---
 
-## 8. Frontend Testing
+**Example for AstraDB:**
 
-### Component Testing
-```typescript
-// __tests__/Button.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { Button } from '@/components/Button';
-
-describe('Button', () => {
-  it('renders with correct text', () => {
-    render(<Button>Click me</Button>);
-    expect(screen.getByText('Click me')).toBeInTheDocument();
-  });
-
-  it('calls onClick when clicked', () => {
-    const handleClick = jest.fn();
-    render(<Button onClick={handleClick}>Click me</Button>);
-
-    fireEvent.click(screen.getByText('Click me'));
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-});
-```
-
-### Integration Testing
-```typescript
-// __tests__/FlowEditor.test.tsx
-import { render, screen } from '@testing-library/react';
-import { FlowEditor } from '@/pages/FlowEditor';
-
-describe('FlowEditor', () => {
-  it('loads flow data correctly', async () => {
-    render(<FlowEditor flowId="test-flow-id" />);
-
-    // Wait for flow to load
-    await screen.findByText('Flow loaded');
-
-    expect(screen.getByTestId('flow-canvas')).toBeInTheDocument();
-  });
-});
-```
+- Backend:
+  ```python
+  icon = "AstraDB"
+  ```
+- Frontend:
+  - `src/icons/AstraDB/AstraDB.jsx` (SVG as React component, uses `isDark` prop)
+  - `src/icons/AstraDB/index.tsx` (exports `AstraDBIcon` and passes `isDark`)
+  - Add to `lazyIconImports.ts`:
+    ```ts
+    AstraDB: () =>
+      import("@/icons/AstraDB").then((mod) => ({ default: mod.AstraDBIcon })),
+    ```
 
 ---
-
-## 9. Build and Deployment
-
-### Development Build
-```bash
-make build_frontend  # Build frontend static files
-```
-
-### Production Build
-```bash
-cd src/frontend
-npm run build  # Creates dist/ directory
-```
-
-### Build Integration
-- Frontend builds to `src/frontend/dist/`
-- Backend serves static files from this directory in production
-- `make init` includes frontend build step
----
-
-## Frontend Development Checklist
-- [ ] Frontend service running with `make frontend`
-- [ ] Changes hot-reload correctly in browser
-- [ ] State management uses Zustand stores
-- [ ] API calls use proper error handling
-- [ ] Components styled with Tailwind CSS
-- [ ] Dark mode support implemented where needed
-- [ ] Code formatted with `make format_frontend`
-- [ ] Linting passed with `make lint`
-- [ ] Changes tested in both light and dark mode
-
-- [ ] Components styled with Tailwind CSS
-- [ ] Dark mode support implemented where needed
-- [ ] Code formatted with `make format_frontend`
-- [ ] Changes tested in both light and dark mode
 
 ---
 > Source: [UhtredRegress/LangFlowClone](https://github.com/UhtredRegress/LangFlowClone) — distributed by [TomeVault](https://tomevault.io).
