@@ -1,0 +1,14 @@
+{
+  "name": "citrolabs--ego-lite",
+  "displayName": "ego-lite",
+  "description": "ego-lite",
+  "version": "1.0.0",
+  "author": "citrolabs",
+  "homepage": "https://github.com/citrolabs/ego-lite",
+  "skills": [
+    {
+      "name": "ego-lite",
+      "description": ""
+    }
+  ]
+}
