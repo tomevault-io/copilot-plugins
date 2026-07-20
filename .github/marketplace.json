@@ -249039,6 +249039,16 @@
       "description": "ssb"
     },
     {
+      "name": "lxxyslf--grok-account-manager-main",
+      "source": "./lxxyslf--grok-account-manager-main",
+      "description": "grok\u6ce8\u518c\u673a\uff0c\u652f\u6301\u57df\u540d\u90ae\u7bb1\u548c\u5fae\u8f6f\u90ae\u7bb1"
+    },
+    {
+      "name": "radareorg--r2flutter",
+      "source": "./radareorg--r2flutter",
+      "description": "Parsing Flutter Constant Pools for radare2"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272552,6 +272562,36 @@
       "name": "nothans--abode101",
       "source": "./nothans--abode101",
       "description": "A practical project to learn the Open Knowledge Format (OKF) from Google to understand your house."
+    },
+    {
+      "name": "danvega--skills",
+      "source": "./danvega--skills",
+      "description": "skills"
+    },
+    {
+      "name": "jeonghopark--wormhole",
+      "source": "./jeonghopark--wormhole",
+      "description": "Wormhole"
+    },
+    {
+      "name": "jmisilo--imessage-sdk",
+      "source": "./jmisilo--imessage-sdk",
+      "description": "A provider-neutral TypeScript SDK for iMessage infrastructure."
+    },
+    {
+      "name": "yuya-takeyama--junrei",
+      "source": "./yuya-takeyama--junrei",
+      "description": "Agent Statistics Analyzer"
+    },
+    {
+      "name": "jeonghopark--wormhole",
+      "source": "./jeonghopark--wormhole",
+      "description": "Wormhole"
+    },
+    {
+      "name": "jeonghopark--wormhole",
+      "source": "./jeonghopark--wormhole",
+      "description": "Wormhole"
     },
     {
       "name": "cheerhuan--save-your-token",
