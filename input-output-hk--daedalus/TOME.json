@@ -1,0 +1,153 @@
+{
+  "name": "daedalus",
+  "owner": "input-output-hk",
+  "repo": "daedalus",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/e2e-test-creation/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/e2e-test-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/storybook-creation/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/storybook-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-doctor/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-staking/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-staking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-wallets/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-wallets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/git-commit-formatter/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/git-commit-formatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cbor-encoding-decoding/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cbor-encoding-decoding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/frontend/i18n-messaging/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/frontend/i18n-messaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-protocol-params/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-protocol-params/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/bech32-encoding-decoding/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/bech32-encoding-decoding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-transactions/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-transactions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/frontend/theme-management/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/frontend/theme-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-plutus-scripts/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-plutus-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-wallets-operator/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-wallets-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-staking-operator/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-staking-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-transactions-operator/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-transactions-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "daedalus",
+      "path": ".agent/skills/cardano-cli-plutus-scripts-operator/SKILL.md",
+      "github_url": "https://github.com/input-output-hk/daedalus/tree/main/.agent/skills/cardano-cli-plutus-scripts-operator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/input-output-hk/daedalus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:54:22Z"
+}
