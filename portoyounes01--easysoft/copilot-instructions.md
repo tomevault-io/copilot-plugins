@@ -1,76 +1,64 @@
-## documentation-reference
+## progress-tracking
 
-> Mandatory documentation reference and compliance requirements
+> Progress tracking and reflection requirements
 
 
-# Documentation Reference Rule
+# Progress Tracking Rule
 
-**CRITICAL REQUIREMENT**: Before ANY code or design changes, agents MUST reference and follow established documentation.
+**CRITICAL REQUIREMENT**: At EVERY STEP of any coding task, the agent MUST ABSOLUTELY:
 
-## Required Documentation Review
+1. **Reflect on changes**: Explicitly identify and analyze what has changed, what is changing, or what will change in the codebase
+2. **Document progress**: Update appropriate task files to reflect the current state
 
-### **Pre-Development Checklist**
-Before starting ANY task:
-- [ ] **Read relevant sections** of `STYLE_GUIDE.md` for UI/design work
-- [ ] **Review patterns** in `DEVELOPMENT_GUIDE.md` for code architecture
-- [ ] **Check existing components** for established patterns
-- [ ] **Verify consistency** with current codebase standards
+## Task File Hierarchy:
 
-### **Style Guide References (`STYLE_GUIDE.md`)**
-**ALWAYS reference for:**
-- Color system and role-based coding
-- Typography scale and font weights
-- Touch screen optimization requirements
-- Component patterns and reusable code
-- Animation and transition standards
-- Responsive design breakpoints
-- Accessibility requirements
+### Main Tracking Files (Permanent):
+- `TODO.md` - for pending tasks and future work
+- `IN_PROGRESS.md` - for currently active tasks  
+- `DONE.md` - for completed tasks and accomplishments
 
-### **Development Guide References (`DEVELOPMENT_GUIDE.md`)**
-**ALWAYS reference for:**
-- TypeScript conventions and interface naming
-- Component structure and organization
-- State management patterns
-- Performance optimization techniques
-- Error handling standards
-- Testing strategies
-- Code quality checklist
+### Temporary Tracking Files (Session-based):
+- `TEMP_TASKS_YYYY-MM-DD.md` - for daily subtasks, minor changes, debugging steps
+- `SESSION_NOTES_[identifier].md` - for specific feature development sessions
+- `TEMP_DEBUG_[issue].md` - for troubleshooting and bug investigation steps
 
-## Documentation Compliance Process
+## Usage Guidelines:
 
-### **For UI/Design Changes:**
-1. **Identify** component type (button, card, input, etc.)
-2. **Locate** pattern in Style Guide
-3. **Follow** established color, spacing, and sizing standards
-4. **Verify** touch screen optimization requirements
-5. **Apply** consistent animation and transition patterns
+### Use Main Files For:
+- Major features and milestones
+- Important architectural decisions
+- User-requested functionality
+- Critical bug fixes
+- Tasks that affect multiple components
 
-### **For Code Architecture:**
-1. **Determine** appropriate component structure from Development Guide
-2. **Use** correct TypeScript naming conventions
-3. **Implement** proper state management pattern
-4. **Add** error handling and performance optimizations
-5. **Follow** established file organization
+### Use Temporary Files For:
+- Minor UI adjustments and styling tweaks
+- Debugging steps and investigation notes
+- Experimental code or proof-of-concepts
+- Refactoring individual functions
+- Code cleanup and optimization
+- Temporary workarounds
 
-## Reference Requirements
+## Requirements:
 
-**MANDATORY**: When implementing any feature, agents must:
-- **Explicitly reference** which guide section was followed
-- **Justify deviations** from established patterns
-- **Update documentation** if new patterns are introduced
-- **Maintain consistency** with existing codebase
+- **NEVER skip this step** - even for minor changes or single-line edits
+- **Be specific** about what changed (files, functions, features, etc.)
+- **Update task status** to accurately reflect current progress
+- **Cross-reference** completed work with original requirements
+- **Note dependencies** between tasks when relevant
+- **Promote important items** from temporary to main files when appropriate
+- **Clean up temporary files** weekly or at session end
+- **Archive valuable insights** from temporary files before cleanup
 
-## Pattern Evolution
+## Cleanup Process:
 
-**IF** a new pattern is needed that doesn't exist in the guides:
-1. **Document the need** and rationale
-2. **Design pattern** following existing principles
-3. **Update appropriate guide** with new pattern
-4. **Ensure consistency** across similar components
+1. **Weekly Review**: Every 7 days, review all temporary files
+2. **Promote Important Items**: Move significant accomplishments to main DONE.md
+3. **Archive Insights**: Save valuable debugging insights or lessons learned
+4. **Delete Obsolete Files**: Remove temporary files that are no longer relevant
+5. **Consolidate Notes**: Merge related temporary tracking into main files when appropriate
 
-**VIOLATION CONSEQUENCE**: Any implementation not referencing or following established documentation will be considered incomplete and must be revised.
-
-This rule ensures the POS system maintains consistency, quality, and professional standards across all development work.
+This rule ensures complete transparency and accountability while maintaining organized, focused main tracking files.
 
 ---
 > Source: [portoyounes01/easysoft](https://github.com/portoyounes01/easysoft) — distributed by [TomeVault](https://tomevault.io).
