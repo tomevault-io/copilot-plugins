@@ -1,0 +1,9 @@
+{
+  "name": "aws--smithy-go",
+  "displayName": "smithy-go",
+  "description": "smithy-go",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/smithy-go",
+  "skills": []
+}
