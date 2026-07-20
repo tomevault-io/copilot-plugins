@@ -1,0 +1,14 @@
+{
+  "name": "hookdeck--hookdeck-cli",
+  "displayName": "hookdeck-cli",
+  "description": "hookdeck-cli",
+  "version": "1.0.0",
+  "author": "hookdeck",
+  "homepage": "https://github.com/hookdeck/hookdeck-cli",
+  "skills": [
+    {
+      "name": "hookdeck-cli",
+      "description": ""
+    }
+  ]
+}
