@@ -1,0 +1,9 @@
+{
+  "name": "danproc--solopass",
+  "displayName": "SoloPass",
+  "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started.",
+  "version": "1.0.0",
+  "author": "Danproc",
+  "homepage": "https://github.com/Danproc/SoloPass",
+  "skills": []
+}
