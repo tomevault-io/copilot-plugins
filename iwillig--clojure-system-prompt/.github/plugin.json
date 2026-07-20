@@ -1,0 +1,22 @@
+{
+  "name": "iwillig--clojure-system-prompt",
+  "displayName": "clojure-system-prompt",
+  "description": "clojure-system-prompt",
+  "version": "1.0.0",
+  "author": "iwillig",
+  "homepage": "https://github.com/iwillig/clojure-system-prompt",
+  "skills": [
+    {
+      "name": "clojure-repl-dev",
+      "description": ""
+    },
+    {
+      "name": "clojure-system-prompt",
+      "description": ""
+    },
+    {
+      "name": "clojure-system-prompt",
+      "description": ""
+    }
+  ]
+}
