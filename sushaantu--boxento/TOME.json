@@ -3,8 +3,8 @@
   "owner": "sushaantu",
   "repo": "boxento",
   "description": "Open-source customizable start page ",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,39 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "boxento",
+      "path": ".codex/skills/push/SKILL.md",
+      "github_url": "https://github.com/sushaantu/boxento/tree/main/.codex/skills/push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "boxento",
+      "path": ".codex/skills/land/SKILL.md",
+      "github_url": "https://github.com/sushaantu/boxento/tree/main/.codex/skills/land/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "boxento",
+      "path": ".codex/skills/pull/SKILL.md",
+      "github_url": "https://github.com/sushaantu/boxento/tree/main/.codex/skills/pull/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "boxento",
+      "path": ".codex/skills/linear/SKILL.md",
+      "github_url": "https://github.com/sushaantu/boxento/tree/main/.codex/skills/linear/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "boxento",
+      "path": ".codex/skills/commit/SKILL.md",
+      "github_url": "https://github.com/sushaantu/boxento/tree/main/.codex/skills/commit/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/sushaantu/boxento",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T17:46:08Z"
+  "distributed_at": "2026-07-20T20:31:41Z"
 }
