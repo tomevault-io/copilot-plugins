@@ -1,7 +1,7 @@
 {
   "name": "amoylab--unla",
   "displayName": "Unla",
-  "description": "\ud83e\udde9 MCP Gateway - A lightweight gateway service that instantly transforms existing MCP Servers and APIs into MCP servers with zero code changes. Features Docker deployment and management UI, requiring n",
+  "description": "Unla",
   "version": "1.0.0",
   "author": "AmoyLab",
   "homepage": "https://github.com/AmoyLab/Unla",
