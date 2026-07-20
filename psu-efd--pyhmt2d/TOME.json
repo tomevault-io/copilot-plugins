@@ -1,0 +1,153 @@
+{
+  "name": "pyHMT2D",
+  "owner": "psu-efd",
+  "repo": "pyHMT2D",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-run/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-run/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-open/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-open/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-open/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-open/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-export/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-export/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-modify/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-modify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-modify/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-modify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-status/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-status/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-convert/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-convert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-convert/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-convert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-results/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-results/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-results/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-results/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-calibrate/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-calibrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-calibrate/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-calibrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".agents/skills/hmt-monte-carlo/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.agents/skills/hmt-monte-carlo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyHMT2D",
+      "path": ".claude/skills/hmt-monte-carlo/SKILL.md",
+      "github_url": "https://github.com/psu-efd/pyHMT2D/tree/main/.claude/skills/hmt-monte-carlo/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/psu-efd/pyHMT2D",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:25:56Z"
+}
