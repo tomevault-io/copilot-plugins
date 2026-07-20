@@ -1,0 +1,9 @@
+{
+  "name": "rubick--ynab-sqlite-export",
+  "displayName": "ynab-sqlite-export",
+  "description": "Dump your entire YNAB account into a local SQLite file. Zero dependencies, incremental sync, AI-agent ready.",
+  "version": "1.0.0",
+  "author": "RuBiCK",
+  "homepage": "https://github.com/RuBiCK/ynab-sqlite-export",
+  "skills": []
+}
