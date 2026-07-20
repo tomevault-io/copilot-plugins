@@ -1,0 +1,51 @@
+{
+  "name": "tyro-dashboard",
+  "owner": "hasinhayder",
+  "repo": "tyro-dashboard",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tyro-dashboard",
+      "path": "skills/tyro-dashboard/SKILL.md",
+      "github_url": "https://github.com/hasinhayder/tyro-dashboard/tree/main/skills/tyro-dashboard/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hasinhayder/tyro-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:44:36Z"
+}
