@@ -1,9 +1,10 @@
-## use-pnpm
+## use-swr-and-client
 
-> To install dependencies or run npm commands or install shadcn components
+> While creating components or pages or fetching data from API
 
 
-To install dependencies, use `pnpm` instead of `npm`, since `pnpm` is default package manager in this project. To run command or install shadcn components, use `pnpm dlx`. For example: `pnpm dlx shadcn@latest add popover`
+- While dealing with client side components, that requires hooks, add "use client" on top.
+- While using `useSWR` you don't need to mention fetcher function since it's already set globally in [Providers.tsx](mdc:src/app/Providers.tsx)
 
 ---
 > Source: [Danproc/SoloPass](https://github.com/Danproc/SoloPass) — distributed by [TomeVault](https://tomevault.io).
