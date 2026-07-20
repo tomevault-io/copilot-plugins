@@ -248999,6 +248999,16 @@
       "description": "\u8ba9\u4efb\u4f55 AI agent \u53d8\u8eab\u4e2a\u4eba IP \u6253\u9020\u7b56\u7565\u5e08\u7684\u5f00\u6e90 skill \u00b7 \u8033\u603b\u4e2a\u4eba\u5b9e\u6218\u7ecf\u9a8c\u6c89\u6dc0 \u00b7 \u8bca\u5951\u884c\u76d8\u95ed\u73af \u00b7 \u4e0d\u78b0\u526a\u8f91"
     },
     {
+      "name": "kevintsai1202--law-powers",
+      "source": "./kevintsai1202--law-powers",
+      "description": "\u53f0\u7063\u6cd5\u5f8b\u6280\u80fd\u5305\uff1a\u6cd5\u5f8b\u8166\u529b\u6fc0\u76ea\uff0f\u9632\u5e7b\u89ba\u6cd5\u6e90\u6aa2\u7d22\uff0f\u95dc\u4fc2\u5716\u751f\u6210\uff08\u542b\u81ea\u5305\u542b\u6e32\u67d3\u5668\uff09\uff0f\u5408\u898f\u7a3d\u6838\uff0c\u4f9b Claude Code \u7b49 AI \u52a9\u7406\u4f7f\u7528"
+    },
+    {
+      "name": "kevintsai1202--law-powers",
+      "source": "./kevintsai1202--law-powers",
+      "description": "\u53f0\u7063\u6cd5\u5f8b\u6280\u80fd\u5305\uff1a\u6cd5\u5f8b\u8166\u529b\u6fc0\u76ea\uff0f\u9632\u5e7b\u89ba\u6cd5\u6e90\u6aa2\u7d22\uff0f\u95dc\u4fc2\u5716\u751f\u6210\uff08\u542b\u81ea\u5305\u542b\u6e32\u67d3\u5668\uff09\uff0f\u5408\u898f\u7a3d\u6838\uff0c\u4f9b Claude Code \u7b49 AI \u52a9\u7406\u4f7f\u7528"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272457,6 +272467,31 @@
       "name": "chiody--agent-skin-hub",
       "source": "./chiody--agent-skin-hub",
       "description": "\u7ed9 Codex \u684c\u9762\u7aef\u7528\u7684\u5f00\u6e90\u76ae\u80a4\u5408\u96c6\u3002\u514d\u8d39\uff0c\u6309\u9700\u4e0b\u8f7d\uff0c\u4e0d\u585e\u8fdb\u5b89\u88c5\u5305\u3002"
+    },
+    {
+      "name": "whwhw--short-video-ops-kit",
+      "source": "./whwhw--short-video-ops-kit",
+      "description": "\u53ef\u5ba1\u8ba1\u3001\u6570\u636e\u9694\u79bb\u3001\u7531 Codex \u9a71\u52a8\u7684\u77ed\u89c6\u9891\u8fd0\u8425\u5de5\u4f5c\u6d41"
+    },
+    {
+      "name": "fengdwx--codex-notch",
+      "source": "./fengdwx--codex-notch",
+      "description": "Native macOS notch activity for ChatGPT Codex tasks and weekly quota"
+    },
+    {
+      "name": "uisee-ai--zaofu",
+      "source": "./uisee-ai--zaofu",
+      "description": "An open-source Coding Harness Platform for long-horizon, multi-agent software delivery."
+    },
+    {
+      "name": "uisee-ai--zaofu",
+      "source": "./uisee-ai--zaofu",
+      "description": "An open-source Coding Harness Platform for long-horizon, multi-agent software delivery."
+    },
+    {
+      "name": "aovestdipaperino--plank",
+      "source": "./aovestdipaperino--plank",
+      "description": "Rust port of the ds4 agent"
     },
     {
       "name": "cheerhuan--save-your-token",
