@@ -1,0 +1,177 @@
+{
+  "name": "next-shadcn-dashboard-starter",
+  "owner": "Kiranism",
+  "repo": "next-shadcn-dashboard-starter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tanstack-form",
+      "path": ".agents/skills/tanstack-form",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/tanstack-form",
+      "description": ""
+    },
+    {
+      "name": "kiranism-shadcn-dashboard",
+      "path": ".agents/skills/kiranism-shadcn-dashboard",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/kiranism-shadcn-dashboard",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "path": ".agents/skills/next-best-practices",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/next-best-practices",
+      "description": ""
+    },
+    {
+      "name": "kiranism-shadcn-dashboard",
+      "path": ".claude/skills/kiranism-shadcn-dashboard",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/kiranism-shadcn-dashboard",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".claude/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".claude/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/tanstack-form/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/tanstack-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/tanstack-query/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".claude/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".claude/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/kiranism-shadcn-dashboard/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/kiranism-shadcn-dashboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".claude/skills/kiranism-shadcn-dashboard/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/kiranism-shadcn-dashboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-shadcn-dashboard-starter",
+      "path": ".claude/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:39:58Z"
+}
