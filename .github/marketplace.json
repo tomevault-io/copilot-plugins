@@ -31319,6 +31319,21 @@
       "description": "deployex"
     },
     {
+      "name": "julian-adv--openmmo",
+      "source": "./julian-adv--openmmo",
+      "description": "OpenMMO"
+    },
+    {
+      "name": "julian-adv--openmmo",
+      "source": "./julian-adv--openmmo",
+      "description": "OpenMMO"
+    },
+    {
+      "name": "julian-adv--openmmo",
+      "source": "./julian-adv--openmmo",
+      "description": "OpenMMO"
+    },
+    {
       "name": "muxy-app--muxy",
       "source": "./muxy-app--muxy",
       "description": "Lightweight and Memory efficient terminal for Mac built with SwiftUI and libghostty"
@@ -128529,6 +128544,11 @@
       "description": "A .NET library for advanced TUIs that focuses on performance and usability."
     },
     {
+      "name": "recursionpharma--nesso",
+      "source": "./recursionpharma--nesso",
+      "description": "Accelerating Open-Source Binding Affinity Predictions"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -169424,6 +169444,11 @@
       "description": "next-supabase-start-kit"
     },
     {
+      "name": "axellaban--loro",
+      "source": "./axellaban--loro",
+      "description": "loro"
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -209017,6 +209042,11 @@
       "name": "shodowlo--nx-torrent-player",
       "source": "./shodowlo--nx-torrent-player",
       "description": "NX Torrent Player: Stremio on Nintendo Switch"
+    },
+    {
+      "name": "meterless--meterless",
+      "source": "./meterless--meterless",
+      "description": "Meterless"
     },
     {
       "name": "yschimke--compose-ai-tools",
