@@ -1,0 +1,177 @@
+{
+  "name": "semantic-link-labs",
+  "owner": "microsoft",
+  "repo": "semantic-link-labs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-function",
+      "path": ".claude/skills/add-function",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/add-function",
+      "description": ""
+    },
+    {
+      "name": "build-docs",
+      "path": ".claude/skills/build-docs",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/build-docs",
+      "description": ""
+    },
+    {
+      "name": "code-style",
+      "path": ".claude/skills/code-style",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/code-style",
+      "description": ""
+    },
+    {
+      "name": "direct-lake-operations",
+      "path": ".claude/skills/direct-lake-operations",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/direct-lake-operations",
+      "description": ""
+    },
+    {
+      "name": "github-repo-explore",
+      "path": ".claude/skills/github-repo-explore",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/github-repo-explore",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".claude/skills/planning-with-files",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/planning-with-files",
+      "description": ""
+    },
+    {
+      "name": "pr-review-comments",
+      "path": ".claude/skills/pr-review-comments",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/pr-review-comments",
+      "description": ""
+    },
+    {
+      "name": "rest-api-patterns",
+      "path": ".claude/skills/rest-api-patterns",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/rest-api-patterns",
+      "description": ""
+    },
+    {
+      "name": "run-tests",
+      "path": ".claude/skills/run-tests",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/run-tests",
+      "description": ""
+    },
+    {
+      "name": "tom-operations",
+      "path": ".claude/skills/tom-operations",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/tom-operations",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/sql_to_dax/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/sql_to_dax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/ui-styling/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/ui-styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/build-docs/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/build-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/code-style/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/code-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/add-function/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/add-function/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/tom-operations/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/tom-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/rest-api-patterns/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/rest-api-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/pr-review-comments/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/pr-review-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/github-repo-explore/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/github-repo-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "semantic-link-labs",
+      "path": ".claude/skills/direct-lake-operations/SKILL.md",
+      "github_url": "https://github.com/microsoft/semantic-link-labs/tree/main/.claude/skills/direct-lake-operations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/semantic-link-labs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:35:26Z"
+}
