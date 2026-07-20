@@ -1,0 +1,339 @@
+{
+  "name": "pathling",
+  "owner": "aehrc",
+  "repo": "pathling",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "spark-catalyst",
+      "path": ".claude/skills/spark-catalyst",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/spark-catalyst",
+      "description": ""
+    },
+    {
+      "name": "databricks-cli",
+      "path": ".claude/skills/databricks-cli",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/databricks-cli",
+      "description": ""
+    },
+    {
+      "name": "fhir-api",
+      "path": ".claude/skills/fhir-api",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/fhir-api",
+      "description": ""
+    },
+    {
+      "name": "fhir-bulk-data",
+      "path": ".claude/skills/fhir-bulk-data",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/fhir-bulk-data",
+      "description": ""
+    },
+    {
+      "name": "fhirpath",
+      "path": ".claude/skills/fhirpath",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/fhirpath",
+      "description": ""
+    },
+    {
+      "name": "hapi-fhir-server",
+      "path": ".claude/skills/hapi-fhir-server",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/hapi-fhir-server",
+      "description": ""
+    },
+    {
+      "name": "jmh-benchmarks",
+      "path": ".claude/skills/jmh-benchmarks",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/jmh-benchmarks",
+      "description": ""
+    },
+    {
+      "name": "openspec-apply-change",
+      "path": ".claude/skills/openspec-apply-change",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-apply-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-continue-change",
+      "path": ".claude/skills/openspec-continue-change",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-continue-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-new-change",
+      "path": ".claude/skills/openspec-new-change",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-new-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-onboard",
+      "path": ".claude/skills/openspec-onboard",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-onboard",
+      "description": ""
+    },
+    {
+      "name": "pathling-python",
+      "path": ".claude/skills/pathling-python",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/pathling-python",
+      "description": ""
+    },
+    {
+      "name": "radix-ui",
+      "path": ".claude/skills/radix-ui",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/radix-ui",
+      "description": ""
+    },
+    {
+      "name": "smart-app-launch",
+      "path": ".claude/skills/smart-app-launch",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/smart-app-launch",
+      "description": ""
+    },
+    {
+      "name": "sql-on-fhir",
+      "path": ".claude/skills/sql-on-fhir",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/sql-on-fhir",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/wiremock/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/wiremock/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/fhirpath/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/fhirpath/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/fhir-api/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/fhir-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/radix-ui/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/radix-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/sql-on-fhir/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/sql-on-fhir/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/spark-catalyst/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/spark-catalyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/databricks-cli/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/databricks-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/sonarcloud-api/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/sonarcloud-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/jmh-benchmarks/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/jmh-benchmarks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/fhir-bulk-data/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/fhir-bulk-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/pathling-python/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/pathling-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/hapi-fhir-server/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/hapi-fhir-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/smart-app-launch/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/smart-app-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/playwright-testing/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/playwright-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".pi/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.pi/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "path": ".claude/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/aehrc/pathling/tree/main/.claude/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aehrc/pathling",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:31:14Z"
+}
