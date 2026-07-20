@@ -1,23 +1,21 @@
 # king-context
 
-> Tome by [deandevz](https://github.com/deandevz/king-context) — distributed by [TomeVault](https://tomevault.io)
-
-Open-source Context7 alternative with 3x token efficiency
+> Tome by [deandevz](https://github.com/deandevz/king-context), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [deandevz/king-context](https://github.com/deandevz/king-context).
+Original source: `AGENTS.md` in [deandevz/king-context](https://github.com/deandevz/king-context).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/deandevz/king-context](https://github.com/deandevz/king-context)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/deandevz/king-context](https://github.com/deandevz/king-context)
 
 ---
 
