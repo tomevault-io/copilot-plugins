@@ -4,7 +4,7 @@
   "repo": "happy2",
   "description": "What would Slack be if agents came first?",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/slopus/happy2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T06:31:13Z"
+  "distributed_at": "2026-07-20T06:34:34Z"
 }
