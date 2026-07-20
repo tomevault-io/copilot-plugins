@@ -1,0 +1,129 @@
+{
+  "name": "eweser-db",
+  "owner": "eweser",
+  "repo": "eweser-db",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-qa/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".agents/skills/impeccable/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.agents/skills/impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-coder/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-coder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-planner/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-yjs-debug/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-yjs-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-migration/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-create-pr/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-sdk-release/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-sdk-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-docker-debug/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-docker-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-manual-tester/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-manual-tester/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-browser-checkpoint/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-browser-checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-runtime-orientation/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-runtime-orientation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eweser-db",
+      "path": ".codex/skills/eweser-retrospective-improver/SKILL.md",
+      "github_url": "https://github.com/eweser/eweser-db/tree/main/.codex/skills/eweser-retrospective-improver/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/eweser/eweser-db",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:53:31Z"
+}
