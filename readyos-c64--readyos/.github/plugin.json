@@ -1,0 +1,18 @@
+{
+  "name": "readyos-c64--readyos",
+  "displayName": "ReadyOs",
+  "description": "ReadyOs",
+  "version": "1.0.0",
+  "author": "ReadyOS-C64",
+  "homepage": "https://github.com/ReadyOS-C64/ReadyOs",
+  "skills": [
+    {
+      "name": "ReadyOs",
+      "description": ""
+    },
+    {
+      "name": "ReadyOs",
+      "description": ""
+    }
+  ]
+}
