@@ -4,7 +4,7 @@
   "repo": "Sonder_Engine",
   "description": "An engine for creating coherent fiction with LLMs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/N0819/Sonder_Engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T17:30:48Z"
+  "distributed_at": "2026-07-20T17:31:30Z"
 }
