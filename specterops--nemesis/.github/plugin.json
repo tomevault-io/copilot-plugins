@@ -1,0 +1,22 @@
+{
+  "name": "specterops--nemesis",
+  "displayName": "Nemesis",
+  "description": "Nemesis",
+  "version": "1.0.0",
+  "author": "SpecterOps",
+  "homepage": "https://github.com/SpecterOps/Nemesis",
+  "skills": [
+    {
+      "name": "Nemesis",
+      "description": ""
+    },
+    {
+      "name": "Nemesis",
+      "description": ""
+    },
+    {
+      "name": "Nemesis",
+      "description": ""
+    }
+  ]
+}
