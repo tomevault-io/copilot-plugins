@@ -209074,6 +209074,11 @@
       "description": "claude-youtube-editor"
     },
     {
+      "name": "pancreations--halo-mcc-vr",
+      "source": "./pancreations--halo-mcc-vr",
+      "description": "Halo-MCC-VR"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
