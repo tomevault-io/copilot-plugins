@@ -1,0 +1,14 @@
+{
+  "name": "veliovgroup--mail-time",
+  "displayName": "mail-time",
+  "description": "mail-time",
+  "version": "1.0.0",
+  "author": "veliovgroup",
+  "homepage": "https://github.com/veliovgroup/mail-time",
+  "skills": [
+    {
+      "name": "mail-time",
+      "description": ""
+    }
+  ]
+}
