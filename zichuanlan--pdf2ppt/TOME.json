@@ -1,0 +1,81 @@
+{
+  "name": "PDF2PPT",
+  "owner": "ZiChuanLan",
+  "repo": "PDF2PPT",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PDF2PPT",
+      "path": ".claude/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/ZiChuanLan/PDF2PPT/tree/main/.claude/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PDF2PPT",
+      "path": ".claude/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/ZiChuanLan/PDF2PPT/tree/main/.claude/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PDF2PPT",
+      "path": ".claude/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/ZiChuanLan/PDF2PPT/tree/main/.claude/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PDF2PPT",
+      "path": ".claude/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/ZiChuanLan/PDF2PPT/tree/main/.claude/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PDF2PPT",
+      "path": ".claude/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/ZiChuanLan/PDF2PPT/tree/main/.claude/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PDF2PPT",
+      "path": ".claude/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/ZiChuanLan/PDF2PPT/tree/main/.claude/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ZiChuanLan/PDF2PPT",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:06:01Z"
+}
