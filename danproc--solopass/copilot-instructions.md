@@ -1,11 +1,9 @@
-## route-authentication
+## use-pnpm
 
-> While working with authenticated API routs and pages
+> To install dependencies or run npm commands or install shadcn components
 
 
-- If the API route has to be authenticated, use [withAuthRequired.ts](mdc:src/lib/auth/withAuthRequired.ts). Example: [route.ts](mdc:src/app/api/app/me/route.ts)
-- If the API route has to be super user authenticated, use [withSuperAdminAuthRequired.ts](mdc:src/lib/auth/withSuperAdminAuthRequired.ts). Example: [route.ts](mdc:src/app/api/super-admin/users/route.ts)
-- If you need current user plan access in route, or quota checks, use context from [withAuthRequired.ts](mdc:src/lib/auth/withAuthRequired.ts) to get current plan and quotas, Refer to Db for schema: [plans.ts](mdc:src/db/schema/plans.ts)](mdc:src/db/schema/plans.ts)
+To install dependencies, use `pnpm` instead of `npm`, since `pnpm` is default package manager in this project. To run command or install shadcn components, use `pnpm dlx`. For example: `pnpm dlx shadcn@latest add popover`
 
 ---
 > Source: [Danproc/SoloPass](https://github.com/Danproc/SoloPass) — distributed by [TomeVault](https://tomevault.io).
