@@ -1,0 +1,9 @@
+{
+  "name": "auspex-aerie--modelark",
+  "displayName": "modelark",
+  "description": "An ark for open model weights: catalog broadly, compress and archive curated weights across an offline git-annex drive library, and verify archive integrity. Building in public.",
+  "version": "1.0.0",
+  "author": "Auspex-Aerie",
+  "homepage": "https://github.com/Auspex-Aerie/modelark",
+  "skills": []
+}
