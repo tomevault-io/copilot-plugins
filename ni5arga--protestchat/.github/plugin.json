@@ -1,0 +1,9 @@
+{
+  "name": "ni5arga--protestchat",
+  "displayName": "protestchat",
+  "description": "Encrypted messaging with no internet, no cell tower, and no server. Phones relay for each other over Bluetooth mesh, so it keeps working during shutdowns and inside cellular jammers.",
+  "version": "1.0.0",
+  "author": "ni5arga",
+  "homepage": "https://github.com/ni5arga/protestchat",
+  "skills": []
+}
