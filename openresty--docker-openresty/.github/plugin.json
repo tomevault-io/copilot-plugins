@@ -1,0 +1,9 @@
+{
+  "name": "openresty--docker-openresty",
+  "displayName": "docker-openresty",
+  "description": "docker-openresty",
+  "version": "1.0.0",
+  "author": "openresty",
+  "homepage": "https://github.com/openresty/docker-openresty",
+  "skills": []
+}
