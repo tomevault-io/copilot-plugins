@@ -1,0 +1,93 @@
+{
+  "name": "deepgram-js-sdk",
+  "owner": "deepgram",
+  "repo": "deepgram-js-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deepgram-js-audio-intelligence",
+      "path": ".agents/skills/deepgram-js-audio-intelligence",
+      "github_url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-audio-intelligence",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "path": ".agents/skills/deepgram-js-voice-agent/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-voice-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "path": ".agents/skills/deepgram-js-text-to-speech/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-text-to-speech/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "path": ".agents/skills/deepgram-js-management-api/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-management-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "path": ".agents/skills/deepgram-js-speech-to-text/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-speech-to-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "path": ".agents/skills/deepgram-js-text-intelligence/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-text-intelligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "path": ".agents/skills/deepgram-js-audio-intelligence/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-audio-intelligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "path": ".agents/skills/deepgram-js-conversational-stt/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-conversational-stt/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deepgram/deepgram-js-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:46:27Z"
+}
