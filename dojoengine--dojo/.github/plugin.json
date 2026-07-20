@@ -1,0 +1,26 @@
+{
+  "name": "dojoengine--dojo",
+  "displayName": "dojo",
+  "description": "dojo",
+  "version": "1.0.0",
+  "author": "dojoengine",
+  "homepage": "https://github.com/dojoengine/dojo",
+  "skills": [
+    {
+      "name": "dojo-contributing",
+      "description": ""
+    },
+    {
+      "name": "dojo",
+      "description": ""
+    },
+    {
+      "name": "dojo",
+      "description": ""
+    },
+    {
+      "name": "dojo",
+      "description": ""
+    }
+  ]
+}
