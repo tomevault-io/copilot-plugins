@@ -1,0 +1,18 @@
+{
+  "name": "raindrop-ai--workshop",
+  "displayName": "workshop",
+  "description": "workshop",
+  "version": "1.0.0",
+  "author": "raindrop-ai",
+  "homepage": "https://github.com/raindrop-ai/workshop",
+  "skills": [
+    {
+      "name": "workshop",
+      "description": ""
+    },
+    {
+      "name": "workshop",
+      "description": ""
+    }
+  ]
+}
