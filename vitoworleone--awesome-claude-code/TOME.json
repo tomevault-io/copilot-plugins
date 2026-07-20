@@ -1,0 +1,44 @@
+{
+  "name": "awesome-claude-code",
+  "owner": "vitoworleone",
+  "repo": "awesome-claude-code",
+  "description": "\u7cbe\u5fc3\u7b5b\u9009\u7684 Claude Code / AI Coding \u751f\u6001\u8d44\u6e90\u6e05\u5355\uff1aSkills\u3001MCP\u3001Rules\u3001CLI\u3001Plugins\u3001Prompts\u3001Workflows",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vitoworleone/awesome-claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T02:46:27Z"
+}
