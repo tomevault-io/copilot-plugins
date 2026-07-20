@@ -1,0 +1,9 @@
+{
+  "name": "migueltorrezd--claudex",
+  "displayName": "claudex",
+  "description": "Run Claude Code with GPT models through Raine's claude-code-proxy.",
+  "version": "1.0.0",
+  "author": "migueltorrezd",
+  "homepage": "https://github.com/migueltorrezd/claudex",
+  "skills": []
+}
