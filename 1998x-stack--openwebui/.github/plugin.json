@@ -1,0 +1,9 @@
+{
+  "name": "1998x-stack--openwebui",
+  "displayName": "openwebui",
+  "description": "OpenWebUI Docker deployment with OpenCode Gateway, plugin tools, and iAgent/Ollama integration",
+  "version": "1.0.0",
+  "author": "1998x-stack",
+  "homepage": "https://github.com/1998x-stack/openwebui",
+  "skills": []
+}
