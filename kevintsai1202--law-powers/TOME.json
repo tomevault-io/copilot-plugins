@@ -1,0 +1,44 @@
+{
+  "name": "law-powers",
+  "owner": "kevintsai1202",
+  "repo": "law-powers",
+  "description": "\u53f0\u7063\u6cd5\u5f8b\u6280\u80fd\u5305\uff1a\u6cd5\u5f8b\u8166\u529b\u6fc0\u76ea\uff0f\u9632\u5e7b\u89ba\u6cd5\u6e90\u6aa2\u7d22\uff0f\u95dc\u4fc2\u5716\u751f\u6210\uff08\u542b\u81ea\u5305\u542b\u6e32\u67d3\u5668\uff09\uff0f\u5408\u898f\u7a3d\u6838\uff0c\u4f9b Claude Code \u7b49 AI \u52a9\u7406\u4f7f\u7528",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kevintsai1202/law-powers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T08:31:16Z"
+}
