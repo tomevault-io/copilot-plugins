@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "Adityaraj0421",
   "homepage": "https://github.com/Adityaraj0421/naksha-studio",
-  "skills": []
+  "skills": [
+    {
+      "name": "naksha-studio",
+      "description": ""
+    }
+  ]
 }
