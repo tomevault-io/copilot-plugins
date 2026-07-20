@@ -1,0 +1,75 @@
+{
+  "name": "Jackrong-llm-finetuning-guide",
+  "owner": "R6410418",
+  "repo": "Jackrong-llm-finetuning-guide",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Jackrong-llm-finetuning-guide",
+      "path": "qwen-mtp-gguf/SKILL.md",
+      "github_url": "https://github.com/R6410418/Jackrong-llm-finetuning-guide/tree/main/qwen-mtp-gguf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Jackrong-llm-finetuning-guide",
+      "path": ".agents/skills/github-sync-gate/SKILL.md",
+      "github_url": "https://github.com/R6410418/Jackrong-llm-finetuning-guide/tree/main/.agents/skills/github-sync-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Jackrong-llm-finetuning-guide",
+      "path": ".agents/skills/qwopus27b-rl-training/SKILL.md",
+      "github_url": "https://github.com/R6410418/Jackrong-llm-finetuning-guide/tree/main/.agents/skills/qwopus27b-rl-training/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Jackrong-llm-finetuning-guide",
+      "path": ".agents/skills/qwen-mtp-gguf-release/SKILL.md",
+      "github_url": "https://github.com/R6410418/Jackrong-llm-finetuning-guide/tree/main/.agents/skills/qwen-mtp-gguf-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Jackrong-llm-finetuning-guide",
+      "path": ".agents/skills/repository-resource-portal/SKILL.md",
+      "github_url": "https://github.com/R6410418/Jackrong-llm-finetuning-guide/tree/main/.agents/skills/repository-resource-portal/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/R6410418/Jackrong-llm-finetuning-guide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:06:48Z"
+}
