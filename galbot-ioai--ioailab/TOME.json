@@ -4,7 +4,7 @@
   "repo": "ioailab",
   "description": "[IOAI 2026 Team Challenge] The official simulation platform for IOAI 2026 Team Challenge",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/galbot-ioai/ioailab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T10:32:40Z"
+  "distributed_at": "2026-07-20T10:33:16Z"
 }
