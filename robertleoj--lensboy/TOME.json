@@ -2,9 +2,9 @@
   "name": "lensboy",
   "owner": "Robertleoj",
   "repo": "lensboy",
-  "description": "Camera calibration library with spline and parametric distortion models. Maximally powerful, minimally complex.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Robertleoj/lensboy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T20:57:20Z"
+  "distributed_at": "2026-07-20T21:35:52Z"
 }
