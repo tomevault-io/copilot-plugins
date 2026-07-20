@@ -1,0 +1,339 @@
+{
+  "name": "dart",
+  "owner": "dartsim",
+  "repo": "dart",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dart-ci",
+      "path": ".codex/skills/dart-ci",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-ci",
+      "description": ""
+    },
+    {
+      "name": "dart-ci",
+      "path": ".claude/skills/dart-ci",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-ci",
+      "description": ""
+    },
+    {
+      "name": "dart-contribute",
+      "path": ".claude/skills/dart-contribute",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-contribute",
+      "description": ""
+    },
+    {
+      "name": "dart-contribute",
+      "path": ".codex/skills/dart-contribute",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-contribute",
+      "description": ""
+    },
+    {
+      "name": "dart-io",
+      "path": ".claude/skills/dart-io",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-io",
+      "description": ""
+    },
+    {
+      "name": "dart-io",
+      "path": ".codex/skills/dart-io",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-io",
+      "description": ""
+    },
+    {
+      "name": "dart-python",
+      "path": ".codex/skills/dart-python",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-python",
+      "description": ""
+    },
+    {
+      "name": "dart-python",
+      "path": ".claude/skills/dart-python",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-python",
+      "description": ""
+    },
+    {
+      "name": "dart-test",
+      "path": ".codex/skills/dart-test",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-test",
+      "description": ""
+    },
+    {
+      "name": "dart-test",
+      "path": ".claude/skills/dart-test",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-test",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-ci/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-pr/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-io/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".claude/skills/dart-ci/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".claude/skills/dart-io/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-next/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-next/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-test/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".claude/skills/dart-test/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-build/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".claude/skills/dart-build/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-resume/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-resume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-python/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-fix-ci/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-fix-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".claude/skills/dart-python/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-analyze/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-merge-pr/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-merge-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-new-task/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-new-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-manage-pr/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-manage-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-review-pr/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-fix-issue/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-contribute/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-contribute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-retrospect/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-retrospect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-references/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-references/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".claude/skills/dart-contribute/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-contribute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-close-issue/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-close-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-backport-pr/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-backport-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".claude/skills/dart-references/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-references/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-docs-update/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-docs-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-plan-update/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-plan-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-architecture/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-triage-issue/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".claude/skills/dart-architecture/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.claude/skills/dart-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-downstream-fix/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-downstream-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-branch-cleanup/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-branch-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-release-ci-fix/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-release-ci-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-release-packaging/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-release-packaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-release-merge-main/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-release-merge-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-mechanical-refactor/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-mechanical-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dart",
+      "path": ".codex/skills/dart-audit-agent-compliance/SKILL.md",
+      "github_url": "https://github.com/dartsim/dart/tree/main/.codex/skills/dart-audit-agent-compliance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dartsim/dart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:33:31Z"
+}
