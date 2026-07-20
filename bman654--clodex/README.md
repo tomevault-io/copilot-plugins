@@ -7,11 +7,11 @@ Bridge Claude Code to OpenAI models — OpenAI API key or ChatGPT/Codex-plan OAu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bman654/clodex](https://github.com/bman654/clodex).
+Original source: `CLAUDE.md` in [bman654/clodex](https://github.com/bman654/clodex).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
