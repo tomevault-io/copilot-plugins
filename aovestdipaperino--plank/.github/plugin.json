@@ -1,0 +1,9 @@
+{
+  "name": "aovestdipaperino--plank",
+  "displayName": "plank",
+  "description": "Rust port of the ds4 agent",
+  "version": "1.0.0",
+  "author": "aovestdipaperino",
+  "homepage": "https://github.com/aovestdipaperino/plank",
+  "skills": []
+}
