@@ -1,0 +1,9 @@
+{
+  "name": "heathteng--blindspot-finder",
+  "displayName": "blindspot-finder",
+  "description": "AI demand-mining meta-skill \u2014 surface the questions users can't ask themselves. \u9700\u6c42\u900f\u955c",
+  "version": "1.0.0",
+  "author": "HeathTeng",
+  "homepage": "https://github.com/HeathTeng/blindspot-finder",
+  "skills": []
+}
