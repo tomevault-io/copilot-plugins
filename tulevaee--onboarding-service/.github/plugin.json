@@ -1,0 +1,14 @@
+{
+  "name": "tulevaee--onboarding-service",
+  "displayName": "onboarding-service",
+  "description": "onboarding-service",
+  "version": "1.0.0",
+  "author": "TulevaEE",
+  "homepage": "https://github.com/TulevaEE/onboarding-service",
+  "skills": [
+    {
+      "name": "onboarding-service",
+      "description": ""
+    }
+  ]
+}
