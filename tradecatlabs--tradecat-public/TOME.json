@@ -1,0 +1,87 @@
+{
+  "name": "tradecat-public",
+  "owner": "tradecatlabs",
+  "repo": "tradecat-public",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tradecat-public",
+      "path": "skills/tradecat-public/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/tradecat-public/tree/main/skills/tradecat-public/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tradecat-public",
+      "path": "resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance/p2p/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/tradecat-public/tree/main/resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance/p2p/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tradecat-public",
+      "path": "resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance/fiat/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/tradecat-public/tree/main/resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance/fiat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tradecat-public",
+      "path": "resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance/onchain-pay/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/tradecat-public/tree/main/resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance/onchain-pay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tradecat-public",
+      "path": "resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance/square-post/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/tradecat-public/tree/main/resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance/square-post/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tradecat-public",
+      "path": "resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance-web3/query-address-info/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/tradecat-public/tree/main/resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance-web3/query-address-info/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tradecat-public",
+      "path": "resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance-web3/binance-tokenized-securities-info/SKILL.md",
+      "github_url": "https://github.com/tradecatlabs/tradecat-public/tree/main/resources/agent_market_context/binance/upstream/binance-skills-hub-main/skills/binance-web3/binance-tokenized-securities-info/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tradecatlabs/tradecat-public",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:21:57Z"
+}
