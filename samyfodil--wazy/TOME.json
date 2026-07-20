@@ -1,0 +1,44 @@
+{
+  "name": "wazy",
+  "owner": "samyfodil",
+  "repo": "wazy",
+  "description": "Fastest WebAssembly runtime for Go. Supports Component Model & Async. Zero dependencies, no CGO, pure Go.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/samyfodil/wazy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T18:33:52Z"
+}
