@@ -1,0 +1,165 @@
+{
+  "name": "agent-skills",
+  "owner": "pulumi",
+  "repo": "agent-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pulumi-arm-to-pulumi",
+      "path": "migration/skills/pulumi-arm-to-pulumi",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/migration/skills/pulumi-arm-to-pulumi",
+      "description": ""
+    },
+    {
+      "name": "pulumi-best-practices",
+      "path": "authoring/skills/pulumi-best-practices",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/authoring/skills/pulumi-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pulumi-component",
+      "path": "authoring/skills/pulumi-component",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/authoring/skills/pulumi-component",
+      "description": ""
+    },
+    {
+      "name": "pulumi-automation-api",
+      "path": "authoring/skills/pulumi-automation-api",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/authoring/skills/pulumi-automation-api",
+      "description": ""
+    },
+    {
+      "name": "pulumi-cdk-to-pulumi",
+      "path": "migration/skills/pulumi-cdk-to-pulumi",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/migration/skills/pulumi-cdk-to-pulumi",
+      "description": ""
+    },
+    {
+      "name": "cloudformation-to-pulumi",
+      "path": "migration/skills/cloudformation-to-pulumi",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/migration/skills/cloudformation-to-pulumi",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pulumi/skills/pulumi-esc/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/pulumi/skills/pulumi-esc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pulumi/skills/package-usage/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/pulumi/skills/package-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pulumi/skills/pulumi-overview/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/pulumi/skills/pulumi-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pulumi/skills/pulumi-component/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/pulumi/skills/pulumi-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pulumi/skills/provider-upgrade/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/pulumi/skills/provider-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pulumi/skills/pulumi-automation-api/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/pulumi/skills/pulumi-automation-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pulumi/skills/pulumi-best-practices/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/pulumi/skills/pulumi-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "delegation/skills/pulumi-neo-handoff/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/delegation/skills/pulumi-neo-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "migration/skills/pulumi-cdk-to-pulumi/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/migration/skills/pulumi-cdk-to-pulumi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "migration/skills/pulumi-arm-to-pulumi/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/migration/skills/pulumi-arm-to-pulumi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "migration/skills/cloudformation-to-pulumi/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/migration/skills/cloudformation-to-pulumi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "package-maintenance/skills/upstream-patches/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/package-maintenance/skills/upstream-patches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "migration/skills/pulumi-terraform-to-pulumi/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/migration/skills/pulumi-terraform-to-pulumi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "package-maintenance/skills/pulumi-upgrade-provider/SKILL.md",
+      "github_url": "https://github.com/pulumi/agent-skills/tree/main/package-maintenance/skills/pulumi-upgrade-provider/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pulumi/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:36:29Z"
+}
