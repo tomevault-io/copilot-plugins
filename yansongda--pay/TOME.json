@@ -1,0 +1,63 @@
+{
+  "name": "pay",
+  "owner": "yansongda",
+  "repo": "pay",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pay",
+      "path": ".agents/skills/dev-guide/SKILL.md",
+      "github_url": "https://github.com/yansongda/pay/tree/main/.agents/skills/dev-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pay",
+      "path": ".agents/skills/container-dev/SKILL.md",
+      "github_url": "https://github.com/yansongda/pay/tree/main/.agents/skills/container-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pay",
+      "path": ".agents/skills/pr-review-provider/SKILL.md",
+      "github_url": "https://github.com/yansongda/pay/tree/main/.agents/skills/pr-review-provider/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yansongda/pay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:35:28Z"
+}
