@@ -1,0 +1,14 @@
+{
+  "name": "abagames--crisp-game-lib",
+  "displayName": "crisp-game-lib",
+  "description": "crisp-game-lib",
+  "version": "1.0.0",
+  "author": "abagames",
+  "homepage": "https://github.com/abagames/crisp-game-lib",
+  "skills": [
+    {
+      "name": "developing-with-crisp-game-lib",
+      "description": ""
+    }
+  ]
+}
