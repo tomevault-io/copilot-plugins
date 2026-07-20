@@ -1,0 +1,9 @@
+{
+  "name": "startreedata--pinot-client-go",
+  "displayName": "pinot-client-go",
+  "description": "pinot-client-go",
+  "version": "1.0.0",
+  "author": "startreedata",
+  "homepage": "https://github.com/startreedata/pinot-client-go",
+  "skills": []
+}
