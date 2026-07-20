@@ -1,0 +1,9 @@
+{
+  "name": "bloxbean--cardano-client-lib",
+  "displayName": "cardano-client-lib",
+  "description": "cardano-client-lib",
+  "version": "1.0.0",
+  "author": "bloxbean",
+  "homepage": "https://github.com/bloxbean/cardano-client-lib",
+  "skills": []
+}
