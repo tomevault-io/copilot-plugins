@@ -1,0 +1,9 @@
+{
+  "name": "shadowalpha-ai--shadow-cortex",
+  "displayName": "shadow-cortex",
+  "description": "A central decision engine for automated stock trading using ShadowAlpha MCP and Robinhood MCP. Generate signals, create trading rules, and automate execution of trades with built in stop losses and ot",
+  "version": "1.0.0",
+  "author": "shadowalpha-ai",
+  "homepage": "https://github.com/shadowalpha-ai/shadow-cortex",
+  "skills": []
+}
