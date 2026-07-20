@@ -1,0 +1,44 @@
+{
+  "name": "ip-strategist",
+  "owner": "erduo1998-cell",
+  "repo": "ip-strategist",
+  "description": "\u8ba9\u4efb\u4f55 AI agent \u53d8\u8eab\u4e2a\u4eba IP \u6253\u9020\u7b56\u7565\u5e08\u7684\u5f00\u6e90 skill \u00b7 \u8033\u603b\u4e2a\u4eba\u5b9e\u6218\u7ecf\u9a8c\u6c89\u6dc0 \u00b7 \u8bca\u5951\u884c\u76d8\u95ed\u73af \u00b7 \u4e0d\u78b0\u526a\u8f91",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/erduo1998-cell/ip-strategist",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T06:32:21Z"
+}
