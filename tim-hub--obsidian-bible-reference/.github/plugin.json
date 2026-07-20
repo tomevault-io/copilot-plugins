@@ -1,0 +1,14 @@
+{
+  "name": "tim-hub--obsidian-bible-reference",
+  "displayName": "obsidian-bible-reference",
+  "description": "obsidian-bible-reference",
+  "version": "1.0.0",
+  "author": "tim-hub",
+  "homepage": "https://github.com/tim-hub/obsidian-bible-reference",
+  "skills": [
+    {
+      "name": "obsidian-bible-reference",
+      "description": ""
+    }
+  ]
+}
