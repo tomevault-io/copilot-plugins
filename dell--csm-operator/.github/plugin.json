@@ -1,0 +1,9 @@
+{
+  "name": "dell--csm-operator",
+  "displayName": "csm-operator",
+  "description": "csm-operator",
+  "version": "1.0.0",
+  "author": "dell",
+  "homepage": "https://github.com/dell/csm-operator",
+  "skills": []
+}
