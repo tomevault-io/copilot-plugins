@@ -1,0 +1,9 @@
+{
+  "name": "samyfodil--wazy",
+  "displayName": "wazy",
+  "description": "Fastest WebAssembly runtime for Go. Supports Component Model & Async. Zero dependencies, no CGO, pure Go.",
+  "version": "1.0.0",
+  "author": "samyfodil",
+  "homepage": "https://github.com/samyfodil/wazy",
+  "skills": []
+}
