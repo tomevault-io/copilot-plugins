@@ -1,0 +1,14 @@
+{
+  "name": "mbk-dev--okama",
+  "displayName": "okama",
+  "description": "okama",
+  "version": "1.0.0",
+  "author": "mbk-dev",
+  "homepage": "https://github.com/mbk-dev/okama",
+  "skills": [
+    {
+      "name": "okama",
+      "description": ""
+    }
+  ]
+}
