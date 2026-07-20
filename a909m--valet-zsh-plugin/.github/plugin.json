@@ -1,0 +1,9 @@
+{
+  "name": "a909m--valet-zsh-plugin",
+  "displayName": "valet-zsh-plugin",
+  "description": "Universal Zsh plugin for Laravel Valet (macOS) and Valet Linux with smart completion and cross-platform utilities",
+  "version": "1.0.0",
+  "author": "A909M",
+  "homepage": "https://github.com/A909M/valet-zsh-plugin",
+  "skills": []
+}
