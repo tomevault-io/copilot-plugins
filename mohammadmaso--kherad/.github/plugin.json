@@ -1,0 +1,9 @@
+{
+  "name": "mohammadmaso--kherad",
+  "displayName": "kherad",
+  "description": "A Notion-like wiki for non-technical teams, backed by real git commits and a merge-request review workflow \u2014 plus AI agents that write the first draft for you.",
+  "version": "1.0.0",
+  "author": "mohammadmaso",
+  "homepage": "https://github.com/mohammadmaso/kherad",
+  "skills": []
+}
