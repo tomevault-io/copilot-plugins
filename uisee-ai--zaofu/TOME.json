@@ -4,7 +4,7 @@
   "repo": "zaofu",
   "description": "An open-source Coding Harness Platform for long-horizon, multi-agent software delivery.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uisee-ai/zaofu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T08:32:49Z"
+  "distributed_at": "2026-07-20T08:33:25Z"
 }
