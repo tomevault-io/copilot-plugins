@@ -7,11 +7,11 @@ What would Slack be if agents came first?
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [slopus/happy2](https://github.com/slopus/happy2).
+Original source: `AGENTS.md` in [slopus/happy2](https://github.com/slopus/happy2).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
