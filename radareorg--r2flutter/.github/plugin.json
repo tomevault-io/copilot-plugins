@@ -1,0 +1,9 @@
+{
+  "name": "radareorg--r2flutter",
+  "displayName": "r2flutter",
+  "description": "Parsing Flutter Constant Pools for radare2",
+  "version": "1.0.0",
+  "author": "radareorg",
+  "homepage": "https://github.com/radareorg/r2flutter",
+  "skills": []
+}
