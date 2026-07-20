@@ -1,0 +1,9 @@
+{
+  "name": "fr-ser--grafana-sqlite-datasource",
+  "displayName": "grafana-sqlite-datasource",
+  "description": "grafana-sqlite-datasource",
+  "version": "1.0.0",
+  "author": "fr-ser",
+  "homepage": "https://github.com/fr-ser/grafana-sqlite-datasource",
+  "skills": []
+}
