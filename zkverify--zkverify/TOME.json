@@ -1,0 +1,63 @@
+{
+  "name": "zkVerify",
+  "owner": "zkVerify",
+  "repo": "zkVerify",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zkVerify",
+      "path": ".claude/skills/cargo-audit/SKILL.md",
+      "github_url": "https://github.com/zkVerify/zkVerify/tree/main/.claude/skills/cargo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zkVerify",
+      "path": ".claude/skills/refine-patch/SKILL.md",
+      "github_url": "https://github.com/zkVerify/zkVerify/tree/main/.claude/skills/refine-patch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zkVerify",
+      "path": ".claude/skills/investigate-benchmark/SKILL.md",
+      "github_url": "https://github.com/zkVerify/zkVerify/tree/main/.claude/skills/investigate-benchmark/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zkVerify/zkVerify",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:56:00Z"
+}
