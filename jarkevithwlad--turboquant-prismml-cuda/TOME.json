@@ -4,7 +4,7 @@
   "repo": "turboquant-prismml-cuda",
   "description": "This is a fork of prismml-eng/llama.cpp + amesianx/turboquant with support for TurboQuant and prism-ml/ternary-bonsai-27b-gguf (2-bit).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jarkevithwlad/turboquant-prismml-cuda",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T14:33:21Z"
+  "distributed_at": "2026-07-20T14:34:00Z"
 }
