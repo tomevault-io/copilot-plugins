@@ -1,0 +1,9 @@
+{
+  "name": "izzipizzy--slimtds",
+  "displayName": "slimtds",
+  "description": "Self-hosted traffic distribution system \u2014 Slim 4 + FrankenPHP worker mode + PostgreSQL 18",
+  "version": "1.0.0",
+  "author": "izzipizzy",
+  "homepage": "https://github.com/izzipizzy/slimtds",
+  "skills": []
+}
