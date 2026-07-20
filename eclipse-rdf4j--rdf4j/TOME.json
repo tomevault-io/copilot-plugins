@@ -1,0 +1,111 @@
+{
+  "name": "rdf4j",
+  "owner": "eclipse-rdf4j",
+  "repo": "rdf4j",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "debug-surefire",
+      "path": ".codex/skills/debug-surefire",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/debug-surefire",
+      "description": ""
+    },
+    {
+      "name": "gh-read-inspector",
+      "path": ".codex/skills/gh-read-inspector",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/gh-read-inspector",
+      "description": ""
+    },
+    {
+      "name": "mvnf",
+      "path": ".codex/skills/mvnf",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/mvnf",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "path": ".codex/skills/mvnf/SKILL.md",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/mvnf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "path": ".codex/skills/debug-surefire/SKILL.md",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/debug-surefire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "path": ".codex/skills/gh-read-inspector/SKILL.md",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/gh-read-inspector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "path": ".codex/skills/hotspot-jit-forensics/SKILL.md",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/hotspot-jit-forensics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "path": ".codex/skills/high-performance-java/SKILL.md",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/high-performance-java/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "path": ".codex/skills/jmh-benchmark-compare/SKILL.md",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/jmh-benchmark-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "path": ".codex/skills/query-plan-snapshot-cli/SKILL.md",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/query-plan-snapshot-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rdf4j",
+      "path": ".codex/skills/docker-jfr-benchmark-loop/SKILL.md",
+      "github_url": "https://github.com/eclipse-rdf4j/rdf4j/tree/main/.codex/skills/docker-jfr-benchmark-loop/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/eclipse-rdf4j/rdf4j",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:34:34Z"
+}
