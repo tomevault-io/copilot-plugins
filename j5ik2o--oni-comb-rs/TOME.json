@@ -1,0 +1,171 @@
+{
+  "name": "oni-comb-rs",
+  "owner": "j5ik2o",
+  "repo": "oni-comb-rs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oni-comb-rs",
+      "path": ".agents/skills/takt-analyzer/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.agents/skills/takt-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".agents/skills/takt-optimizer/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.agents/skills/takt-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".kiro/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.kiro/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".kiro/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.kiro/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".cursor/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.cursor/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".cursor/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.cursor/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".agents/skills/takt-skill-updater/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.agents/skills/takt-skill-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".agents/skills/takt-piece-builder/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.agents/skills/takt-piece-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".agents/skills/takt-facet-builder/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.agents/skills/takt-facet-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".opencode/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.opencode/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".opencode/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.opencode/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".kiro/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.kiro/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".kiro/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.kiro/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".cursor/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.cursor/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".cursor/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.cursor/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".opencode/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.opencode/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oni-comb-rs",
+      "path": ".opencode/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/j5ik2o/oni-comb-rs/tree/main/.opencode/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/j5ik2o/oni-comb-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:56:47Z"
+}
