@@ -1,0 +1,9 @@
+{
+  "name": "outconceive--followup",
+  "displayName": "followup",
+  "description": "Followup is a mobile app for the person 'accompanying' a patient to the emergency room. While you wait \u2014 and you will wait \u2014 it interviews you about what you've observed, then generates a timestamped,",
+  "version": "1.0.0",
+  "author": "outconceive",
+  "homepage": "https://github.com/outconceive/followup",
+  "skills": []
+}
