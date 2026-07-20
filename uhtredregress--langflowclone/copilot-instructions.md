@@ -1,439 +1,369 @@
-## docs-development
+## frontend-development
 
-> Guidelines for developing and maintaining Langflow documentation using Docusaurus, including content structure, style, and deployment processes.
+> Guidelines for frontend development in Langflow, focusing on React/TypeScript UI components, build processes, and frontend testing.
 
 
-
-# Documentation Development Guidelines
-
-## Purpose
-Guidelines for developing and maintaining Langflow documentation using Docusaurus, including content structure, style, and deployment processes.
-
----
-
-## 1. Documentation Environment Setup
+## 1. Frontend Environment Setup
 
 ### Prerequisites
-- **Node.js:** v22.12 LTS for runtime
-- **Package Manager:** Yarn for dependency management
-- **Documentation Framework:** Docusaurus v3
+- **Node.js:** v22.12 LTS for JavaScript runtime
+- **Package Manager:** npm (v10.9) for dependency management
+- **Development Tools:** Vite for build tooling
 
-### Documentation Service
+### Frontend Service
 ```bash
-cd docs
-yarn install      # Install dependencies
-yarn start        # Start dev server (usually port 3001)
+make frontend  # Start Vite dev server on port 3000
 ```
-- Auto-reloads on documentation changes
-- Access at: http://localhost:3001/
-- Documentation source: `docs/`
+- Hot-reload enabled for UI changes
+- Access at: http://localhost:3000/
+- Frontend source: `src/frontend/`
 
 ---
 
-## 2. Documentation Structure
+## 2. Frontend Structure
 
 ### Directory Layout
 ```
-docs/
-├── docs/                    # Main documentation content
-│   ├── agents/              # Agent and MCP guides
-│   ├── get-started/         # Getting started guides
-│   ├── tutorials/           # Langflow tutorials
-│   ├── components/          # Component documentation
-│   ├── flows/               # Guides to build, run, and test flows
-│   ├── deployment/          # Guides for deploying and hosting a Langflow server
-│   ├── develop/             # Guides for developing apps with Langflow
-│   ├── support/             # Help and release notes
-│   ├── contributing/        # Contribution guidelines
-│   └── api-reference/       # API documentation
-├── src/                     # Custom React components
-├── static/                  # Static assets (images, etc.)
-├── sidebars.js             # Sidebar configuration
-├── docusaurus.config.js    # Main configuration
-└── package.json            # Dependencies
+src/frontend/src/
+├── components/          # Reusable UI components
+├── pages/              # Page-level components
+├── icons/              # Component icons and lazy loading
+├── stores/             # State management (Zustand)
+├── types/              # TypeScript type definitions
+├── utils/              # Utility functions
+├── hooks/              # Custom React hooks
+├── services/           # API service functions
+└── assets/             # Static assets
 ```
 
-### Content Types
-- **Guides:** Step-by-step tutorials (`docs/getting-started/`)
-- **Reference:** API and component reference (`docs/api-reference/`)
-- **How-to:** Problem-solving articles (`docs/components/`)
-- **Concepts:** Explanatory articles about Langflow concepts
-- **Blog:** Release notes, announcements (`blog/`)
+### Key Technologies
+- **React 18** with TypeScript
+- **Vite** for build tooling and dev server
+- **Tailwind CSS** for styling
+- **Zustand** for state management
+- **React Flow** for flow graph visualization
+- **Lucide React** for icons
 
 ---
 
-## 3. Writing Documentation
-
-### Markdown Conventions
-```markdown
----
-title: Page Title
-description: Brief description for SEO
-sidebar_position: 1
----
-
-# Page Title
-
-Brief introduction paragraph.
-
-## Section Header
-
-Content with proper formatting.
-
-### Subsection
-
-More detailed content.
-
-:::tip
-Use admonitions for important information.
-:::
-
-:::warning
-Use warnings for potential issues.
-:::
-
-:::danger
-Use danger for critical warnings.
-:::
-```
-
-### Code Blocks
-````markdown
-```python title="component_example.py"
-from langflow.components.base import Component
-
-class MyComponent(Component):
-    display_name = "My Component"
-    description = "Example component"
-
-    def run(self):
-        return "Hello, World!"
-```
-````
-
-### Images and Assets
-```markdown
-<!-- Images go in static/img/ -->
-![Component Overview](/img/components/overview.png)
-
-<!-- Use descriptive alt text -->
-![Langflow interface showing the flow editor with nodes and connections](/img/flow-editor.png)
-```
-
----
-
-## 4. Component Documentation
-
-### Component Page Template
-```markdown
----
-title: Component Name
-description: Brief description of what the component does
-sidebar_position: 1
----
-
-# Component Name
-
-Brief overview of the component's purpose.
-
-## Overview
-
-What this component does and when to use it.
-
-## Configuration
-
-### Inputs
-
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| `input_text` | String | Yes | The text to process |
-| `model_name` | String | No | Model to use (default: gpt-3.5-turbo) |
-
-### Outputs
-
-| Output | Type | Description |
-|--------|------|-------------|
-| `result` | Message | Processed result |
-
-## Usage Example
-
-```python
-# Example of using the component
-component = MyComponent(
-    input_text="Hello, world!",
-    model_name="gpt-4"
-)
-result = component.run()
-```
-
-## Common Issues
-
-### Issue: Component not loading
-
-**Solution:** Check that all required inputs are provided.
-
-### Issue: API key errors
-
-**Solution:** Ensure your API key is properly configured.
-```
-
-### API Documentation
-```markdown
----
-title: API Endpoint
-description: REST API endpoint documentation
----
-
-# API Endpoint Name
-
-## Endpoint
-
-`POST /api/v1/endpoint`
-
-## Request
-
-### Headers
-```json
-{
-  "Authorization": "Bearer <token>",
-  "Content-Type": "application/json"
-}
-```
-
-### Body
-```json
-{
-  "parameter": "value",
-  "optional_param": "optional_value"
-}
-```
-
-## Response
-
-### Success (200)
-```json
-{
-  "success": true,
-  "data": {
-    "result": "success"
-  }
-}
-```
-
-### Error (400)
-```json
-{
-  "success": false,
-  "error": "Error message"
-}
-```
-
-## Example
-
-```bash
-curl -X POST http://localhost:7860/api/v1/endpoint \
-  -H "Authorization: Bearer your-token" \
-  -H "Content-Type: application/json" \
-  -d '{"parameter": "value"}'
-```
-```
-
----
-
-## 5. Blog Posts and Announcements
-
-### Blog Post Template
-```markdown
----
-title: "Release: Langflow v1.1.0"
-description: "New features and improvements in Langflow v1.1.0"
-authors: [author-name]
-date: 2024-01-15
-tags: [release, features]
----
-
-# Release: Langflow v1.1.0
-
-Brief introduction to the release.
-
-## New Features
-
-### Feature 1
-Description of the feature and how to use it.
-
-### Feature 2
-Another feature description.
-
-## Improvements
-
-- List of improvements
-- Bug fixes
-- Performance enhancements
-
-## Breaking Changes
-
-:::warning
-List any breaking changes that require user action.
-:::
-
-## Migration Guide
-
-Steps to migrate from previous versions.
-```
-
-### Announcement Posts
-```markdown
----
-title: "Announcement: New Integration"
-description: "Langflow now supports integration with XYZ service"
-authors: [author-name]
-date: 2024-01-15
-tags: [announcement, integration]
----
-
-Brief announcement content with clear call-to-action.
-```
-
----
-
-## 6. Configuration
-
-### Sidebar Configuration (`sidebars.js`)
-```javascript
-module.exports = {
-  docs: [
-    'introduction',
-    {
-      type: 'category',
-      label: 'Getting Started',
-      items: [
-        'getting-started/installation',
-        'getting-started/quickstart',
-        'getting-started/first-flow',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Components',
-      items: [
-        'components/overview',
-        'components/inputs',
-        'components/outputs',
-        'components/processing',
-      ],
-    },
-  ],
-};
-```
-
-### Site Configuration (`docusaurus.config.js`)
-```javascript
-module.exports = {
-  title: 'Langflow Documentation',
-  tagline: 'Build AI flows visually',
-  url: 'https://docs.langflow.org',
-  baseUrl: '/',
-
-  themeConfig: {
-    navbar: {
-      title: 'Langflow',
-      logo: {
-        alt: 'Langflow Logo',
-        src: 'img/logo.svg',
-      },
-      items: [
-        {
-          type: 'doc',
-          docId: 'introduction',
-          position: 'left',
-          label: 'Docs',
-        },
-        {
-          to: '/blog',
-          label: 'Blog',
-          position: 'left'
-        },
-      ],
-    },
-  },
-};
-```
-
----
-
-## 7. Documentation Testing
-
-### Link Checking
-```bash
-# Check for broken internal links
-yarn build
-yarn serve
-# Manual testing or use link checker tools
-```
-
-### Content Review
-- **Accuracy:** Verify all code examples work
-- **Completeness:** Ensure all features are documented
-- **Clarity:** Review for clear, concise language
-- **Navigation:** Test sidebar and cross-references
-
-### Screenshots
-- Keep screenshots up-to-date with current UI
-- Use consistent browser/OS for screenshots
-- Highlight relevant UI elements
-- Use descriptive file names
-
----
-
-## 8. Style Guide
-
-### Writing Style
-- **Tone:** Professional but approachable
-- **Voice:** Second person ("you") for instructions
-- **Tense:** Present tense for current features
-- **Length:** Keep paragraphs short and scannable
+## 3. Frontend Code Quality
 
 ### Formatting
-- **Headers:** Use sentence case
-- **Code:** Inline code with `backticks`
-- **Emphasis:** Use **bold** for UI elements, *italic* for emphasis
-- **Lists:** Use parallel structure
-
-### Terminology
-- **Langflow:** Always capitalize
-- **Component:** Capitalize when referring to Langflow components
-- **Flow:** Capitalize when referring to Langflow flows
-- **API:** Always uppercase
-- **JSON:** Always uppercase
-
----
-
-## 9. Deployment
-
-### Local Testing
 ```bash
-yarn build    # Build static site
-yarn serve    # Serve built site locally
+make format_frontend  # Format TypeScript/JavaScript code
 ```
 
-### Production Deployment
-- Documentation is automatically deployed on commit to main branch
-- Build artifacts go to `build/` directory
-- Static site is served via CDN
+### Linting
+```bash
+make lint  # Run ESLint and TypeScript checks
+```
+
+### Testing
+```bash
+make tests_frontend  # Run frontend tests (requires additional setup)
+```
+
+### Pre-commit Workflow
+1. Run `make format_frontend`
+2. Run `make lint`
+3. Test changes in browser
+4. Commit changes
 
 ---
 
-## Documentation Development Checklist
-- [ ] Documentation service running with `yarn start`
-- [ ] Content follows markdown conventions
-- [ ] Code examples are tested and working
-- [ ] Images have descriptive alt text
-- [ ] Internal links are functional
-- [ ] Sidebar navigation is updated
-- [ ] Content follows style guide
-- [ ] Screenshots are current and properly formatted
-- [ ] Cross-references between related topics
-- [ ] Build succeeds with `yarn build`
+## 4. State Management
+
+### Zustand Stores
+```typescript
+// stores/myStore.ts
+import { create } from 'zustand';
+
+interface MyState {
+  value: string;
+  setValue: (value: string) => void;
+}
+
+export const useMyStore = create<MyState>((set) => ({
+  value: '',
+  setValue: (value) => set({ value }),
+}));
+```
+
+### Using Stores in Components
+```typescript
+// components/MyComponent.tsx
+import { useMyStore } from '@/stores/myStore';
+
+export function MyComponent() {
+  const { value, setValue } = useMyStore();
+
+  return (
+    <input
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+}
+```
+
+---
+
+## 5. API Integration
+
+### Service Functions
+```typescript
+// services/api.ts
+import { api } from '@/controllers/API';
+
+export async function createFlow(flowData: FlowData) {
+  const response = await api.post('/flows/', flowData);
+  return response.data;
+}
+
+export async function getFlows() {
+  const response = await api.get('/flows/');
+  return response.data;
+}
+```
+
+### Error Handling
+```typescript
+// hooks/useApi.ts
+import { useState, useCallback } from 'react';
+
+export function useApi<T>(apiFunction: (...args: any[]) => Promise<T>) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const execute = useCallback(async (...args: any[]) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const result = await apiFunction(...args);
+      return result;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [apiFunction]);
+
+  return { execute, loading, error };
+}
+```
+
+---
+
+## 6. React Flow Integration
+
+### Flow Graph Components
+```typescript
+// components/FlowGraph.tsx
+import ReactFlow, {
+  Node,
+  Edge,
+  Controls,
+  Background
+} from 'reactflow';
+
+interface FlowGraphProps {
+  nodes: Node[];
+  edges: Edge[];
+  onNodesChange: (changes: NodeChange[]) => void;
+  onEdgesChange: (changes: EdgeChange[]) => void;
+}
+
+export function FlowGraph({
+  nodes,
+  edges,
+  onNodesChange,
+  onEdgesChange
+}: FlowGraphProps) {
+  return (
+    <div className="w-full h-full">
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        fitView
+      >
+        <Controls />
+        <Background />
+      </ReactFlow>
+    </div>
+  );
+}
+```
+
+### Custom Node Types
+```typescript
+// components/nodes/ComponentNode.tsx
+import { memo } from 'react';
+import { Handle, Position } from 'reactflow';
+
+interface ComponentNodeProps {
+  data: {
+    label: string;
+    icon?: string;
+  };
+}
+
+export const ComponentNode = memo(({ data }: ComponentNodeProps) => {
+  return (
+    <div className="px-4 py-2 shadow-md rounded-md bg-white border">
+      <Handle type="target" position={Position.Top} />
+
+      <div className="flex items-center">
+        {data.icon && (
+          <img src={data.icon} alt="" className="w-4 h-4 mr-2" />
+        )}
+        <span className="text-sm">{data.label}</span>
+      </div>
+
+      <Handle type="source" position={Position.Bottom} />
+    </div>
+  );
+});
+```
+
+---
+
+## 7. Styling with Tailwind
+
+### Component Styling
+```typescript
+// components/Button.tsx
+import { cn } from '@/utils/cn';
+
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+
+export function Button({
+  variant = 'primary',
+  size = 'md',
+  children,
+  onClick
+}: ButtonProps) {
+  return (
+    <button
+      className={cn(
+        'rounded-md font-medium transition-colors',
+        {
+          'bg-blue-600 hover:bg-blue-700 text-white': variant === 'primary',
+          'bg-gray-200 hover:bg-gray-300 text-gray-900': variant === 'secondary',
+          'px-2 py-1 text-sm': size === 'sm',
+          'px-4 py-2 text-base': size === 'md',
+          'px-6 py-3 text-lg': size === 'lg',
+        }
+      )}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+### Dark Mode Support
+```typescript
+// hooks/useDarkMode.ts
+import { useDarkStore } from '@/stores/darkStore';
+
+export function useDarkMode() {
+  const { dark, setDark } = useDarkStore();
+
+  const toggle = () => setDark(!dark);
+
+  return { isDark: dark, toggle };
+}
+```
+
+---
+
+## 8. Frontend Testing
+
+### Component Testing
+```typescript
+// __tests__/Button.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from '@/components/Button';
+
+describe('Button', () => {
+  it('renders with correct text', () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByText('Click me')).toBeInTheDocument();
+  });
+
+  it('calls onClick when clicked', () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Click me</Button>);
+
+    fireEvent.click(screen.getByText('Click me'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+});
+```
+
+### Integration Testing
+```typescript
+// __tests__/FlowEditor.test.tsx
+import { render, screen } from '@testing-library/react';
+import { FlowEditor } from '@/pages/FlowEditor';
+
+describe('FlowEditor', () => {
+  it('loads flow data correctly', async () => {
+    render(<FlowEditor flowId="test-flow-id" />);
+
+    // Wait for flow to load
+    await screen.findByText('Flow loaded');
+
+    expect(screen.getByTestId('flow-canvas')).toBeInTheDocument();
+  });
+});
+```
+
+---
+
+## 9. Build and Deployment
+
+### Development Build
+```bash
+make build_frontend  # Build frontend static files
+```
+
+### Production Build
+```bash
+cd src/frontend
+npm run build  # Creates dist/ directory
+```
+
+### Build Integration
+- Frontend builds to `src/frontend/dist/`
+- Backend serves static files from this directory in production
+- `make init` includes frontend build step
+---
+
+## Frontend Development Checklist
+- [ ] Frontend service running with `make frontend`
+- [ ] Changes hot-reload correctly in browser
+- [ ] State management uses Zustand stores
+- [ ] API calls use proper error handling
+- [ ] Components styled with Tailwind CSS
+- [ ] Dark mode support implemented where needed
+- [ ] Code formatted with `make format_frontend`
+- [ ] Linting passed with `make lint`
+- [ ] Changes tested in both light and dark mode
+
+- [ ] Components styled with Tailwind CSS
+- [ ] Dark mode support implemented where needed
+- [ ] Code formatted with `make format_frontend`
+- [ ] Changes tested in both light and dark mode
 
 ---
 > Source: [UhtredRegress/LangFlowClone](https://github.com/UhtredRegress/LangFlowClone) — distributed by [TomeVault](https://tomevault.io).
