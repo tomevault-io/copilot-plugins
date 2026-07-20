@@ -128519,6 +128519,11 @@
       "description": "chat"
     },
     {
+      "name": "allisterb--jumbee-console",
+      "source": "./allisterb--jumbee-console",
+      "description": "A .NET library for advanced TUIs that focuses on performance and usability."
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -248964,6 +248969,16 @@
       "description": "An engine for creating coherent fiction with LLMs"
     },
     {
+      "name": "r14084--swc-digital",
+      "source": "./r14084--swc-digital",
+      "description": "swc-digital"
+    },
+    {
+      "name": "r14084--swc-digital",
+      "source": "./r14084--swc-digital",
+      "description": "swc-digital"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272377,6 +272392,16 @@
       "name": "liarmttt--agent-foundry-vault",
       "source": "./liarmttt--agent-foundry-vault",
       "description": "agent-foundry-vault"
+    },
+    {
+      "name": "hyyh-code--agent-skill-store",
+      "source": "./hyyh-code--agent-skill-store",
+      "description": "Discover, govern, version, and install skills for AI agents."
+    },
+    {
+      "name": "heathteng--blindspot-finder",
+      "source": "./heathteng--blindspot-finder",
+      "description": "AI demand-mining meta-skill \u2014 surface the questions users can't ask themselves. \u9700\u6c42\u900f\u955c"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -404117,6 +404142,31 @@
       "name": "copperdogma--rational-constitution",
       "source": "./copperdogma--rational-constitution",
       "description": "A modern constitutional framework built on realism about human nature."
+    },
+    {
+      "name": "minhtk1--shougunremotex",
+      "source": "./minhtk1--shougunremotex",
+      "description": "ShougunRemoteX"
+    },
+    {
+      "name": "dekpiano--teacher-ci4",
+      "source": "./dekpiano--teacher-ci4",
+      "description": "teacher_ci4"
+    },
+    {
+      "name": "rafaelbisnar--machine-learningv2",
+      "source": "./rafaelbisnar--machine-learningv2",
+      "description": "machine learning foook"
+    },
+    {
+      "name": "yosstechllc--website-mcp",
+      "source": "./yosstechllc--website-mcp",
+      "description": "Website_MCP"
+    },
+    {
+      "name": "finessevanes--gauntlet-03-1",
+      "source": "./finessevanes--gauntlet-03-1",
+      "description": "gauntlet-03.1"
     }
   ]
 }
