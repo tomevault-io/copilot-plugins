@@ -1,0 +1,129 @@
+{
+  "name": "bedframe",
+  "owner": "nyaggah",
+  "repo": "bedframe",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bedframe",
+      "path": "packages/skills/bedframe/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/packages/skills/bedframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "packages/skills/bedframe/references/template/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/packages/skills/bedframe/references/template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/popup-vue-ts/__agents/skills/bedframe/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/popup-vue-ts/__agents/skills/bedframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/popup-react-ts/__agents/skills/bedframe/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/popup-react-ts/__agents/skills/bedframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/popup-svelte-ts/__agents/skills/bedframe/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/popup-svelte-ts/__agents/skills/bedframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/overlay-react-ts/__agents/skills/bedframe/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/overlay-react-ts/__agents/skills/bedframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/devtools-react-ts/__agents/skills/bedframe/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/devtools-react-ts/__agents/skills/bedframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/sidepanel-react-ts/__agents/skills/bedframe/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/sidepanel-react-ts/__agents/skills/bedframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/popup-vue-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/popup-vue-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/popup-react-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/popup-react-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/popup-svelte-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/popup-svelte-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/overlay-react-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/overlay-react-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/devtools-react-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/devtools-react-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bedframe",
+      "path": "examples/sidepanel-react-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "github_url": "https://github.com/nyaggah/bedframe/tree/main/examples/sidepanel-react-ts/__agents/skills/bedframe/references/template/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nyaggah/bedframe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:05:13Z"
+}
