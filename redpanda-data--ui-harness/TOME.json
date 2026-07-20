@@ -1,0 +1,435 @@
+{
+  "name": "ui-harness",
+  "owner": "redpanda-data",
+  "repo": "ui-harness",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-harness",
+      "path": "qa/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "go/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "tdd/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "work/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "triage/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "to-prd/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/to-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "review/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "handoff/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "caveman/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "diagnose/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "steelman/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/steelman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "grill-me/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "zoom-out/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/zoom-out/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "prototype/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "to-issues/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/to-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "hook-audit/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/hook-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "commit-push/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/commit-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-biome/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-biome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "domain-model/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/domain-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "codex-compat/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/codex-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "edit-article/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/edit-article/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "visual-review/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/visual-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-ux-copy/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-ux-copy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "write-a-skill/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/write-a-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "writing-beats/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/writing-beats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "brainstorming/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "writing-shape/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/writing-shape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-zustand/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-zustand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-routines/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-routines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/commit-push-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "extend-harness/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/extend-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "obsidian-vault/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/obsidian-vault/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-toolchain/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-toolchain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "snyk-ux-security/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/snyk-ux-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-sandcastle/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-sandcastle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-pre-commit/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-pre-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-react-rules/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-react-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-e2e-testing/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-ci-pipeline/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-ci-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "writing-fragments/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/writing-fragments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-quality-gate/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-quality-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-react-doctor/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-react-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "scaffold-exercises/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/scaffold-exercises/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-agent-config/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-agent-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "resolve-pr-feedback/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/resolve-pr-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "design-an-interface/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/design-an-interface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "ubiquitous-language/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/ubiquitous-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "migrate-to-shoehorn/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/migrate-to-shoehorn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "work-automation-kit/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/work-automation-kit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-accessibility/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-connect-query/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-connect-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-react-compiler/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-react-compiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "frontend-starter-kit/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/frontend-starter-kit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-env-validation/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-env-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "frontend-skills-stats/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/frontend-skills-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "request-refactor-plan/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/request-refactor-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "development-lifecycle/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/development-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "redpanda-frontend-kit/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/redpanda-frontend-kit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-tanstack-router/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-tanstack-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-registry-workflow/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-registry-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-atlassian-workflow/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-atlassian-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "setup-conventional-commits/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/setup-conventional-commits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "git-guardrails-claude-code/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/git-guardrails-claude-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-harness",
+      "path": "improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/redpanda-data/ui-harness/tree/main/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/redpanda-data/ui-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:00:55Z"
+}
