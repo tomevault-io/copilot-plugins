@@ -4,7 +4,7 @@
   "repo": "evalcore",
   "description": "Snapshot testing for LLM apps and agents, built to run locally and block regressions in CI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Eval-core/evalcore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T16:33:26Z"
+  "distributed_at": "2026-07-20T16:35:26Z"
 }
