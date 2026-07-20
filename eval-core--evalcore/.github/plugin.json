@@ -1,0 +1,9 @@
+{
+  "name": "eval-core--evalcore",
+  "displayName": "evalcore",
+  "description": "Snapshot testing for LLM apps and agents, built to run locally and block regressions in CI.",
+  "version": "1.0.0",
+  "author": "Eval-core",
+  "homepage": "https://github.com/Eval-core/evalcore",
+  "skills": []
+}
