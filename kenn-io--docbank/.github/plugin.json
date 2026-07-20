@@ -1,0 +1,9 @@
+{
+  "name": "kenn-io--docbank",
+  "displayName": "docbank",
+  "description": "Local-first system of record for documents (PDFs, images, text files, etc.) for you and your agents",
+  "version": "1.0.0",
+  "author": "kenn-io",
+  "homepage": "https://github.com/kenn-io/docbank",
+  "skills": []
+}
