@@ -1,0 +1,69 @@
+{
+  "name": "edp-keycloak-operator",
+  "owner": "epam",
+  "repo": "edp-keycloak-operator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "edp-keycloak-operator",
+      "path": ".claude/skills/cr-field/SKILL.md",
+      "github_url": "https://github.com/epam/edp-keycloak-operator/tree/main/.claude/skills/cr-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "edp-keycloak-operator",
+      "path": ".claude/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/epam/edp-keycloak-operator/tree/main/.claude/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "edp-keycloak-operator",
+      "path": ".claude/skills/generate-mocks/SKILL.md",
+      "github_url": "https://github.com/epam/edp-keycloak-operator/tree/main/.claude/skills/generate-mocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "edp-keycloak-operator",
+      "path": ".claude/skills/run-golangci-lint/SKILL.md",
+      "github_url": "https://github.com/epam/edp-keycloak-operator/tree/main/.claude/skills/run-golangci-lint/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/epam/edp-keycloak-operator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:11:58Z"
+}
