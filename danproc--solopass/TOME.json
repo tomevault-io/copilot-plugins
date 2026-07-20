@@ -4,7 +4,7 @@
   "repo": "SoloPass",
   "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Danproc/SoloPass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T02:42:47Z"
+  "distributed_at": "2026-07-20T02:48:10Z"
 }
