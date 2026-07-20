@@ -1,0 +1,26 @@
+{
+  "name": "owent--atframe-utils",
+  "displayName": "atframe_utils",
+  "description": "atframe_utils",
+  "version": "1.0.0",
+  "author": "owent",
+  "homepage": "https://github.com/owent/atframe_utils",
+  "skills": [
+    {
+      "name": "ai-agent-maintenance",
+      "description": ""
+    },
+    {
+      "name": "atframe_utils",
+      "description": ""
+    },
+    {
+      "name": "atframe_utils",
+      "description": ""
+    },
+    {
+      "name": "atframe_utils",
+      "description": ""
+    }
+  ]
+}
