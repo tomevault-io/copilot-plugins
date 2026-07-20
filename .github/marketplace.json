@@ -248949,6 +248949,16 @@
       "description": "An AI-first Obsidian vault framework that weaves sources into living knowledge."
     },
     {
+      "name": "n0819--fiction-engine",
+      "source": "./n0819--fiction-engine",
+      "description": "An engine for creating coherent fiction with LLMs"
+    },
+    {
+      "name": "n0819--fiction-engine",
+      "source": "./n0819--fiction-engine",
+      "description": "An engine for creating coherent fiction with LLMs"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272329,6 +272339,41 @@
       "description": "An ark for open model weights: catalog broadly, compress and archive curated weights across an offline git-annex drive library, and verify archive integrity. Building in public."
     },
     {
+      "name": "j-roskopf--andy",
+      "source": "./j-roskopf--andy",
+      "description": "Andy is a desktop companion for Android development."
+    },
+    {
+      "name": "kaiwutech-tw--flightwake",
+      "source": "./kaiwutech-tw--flightwake",
+      "description": "Flight-recorder style work framework for strong AI coding agents \u2014 records follow work, they don't lead it. \u2708\ufe0f"
+    },
+    {
+      "name": "migueltorrezd--claudex",
+      "source": "./migueltorrezd--claudex",
+      "description": "Run Claude Code with GPT models through Raine's claude-code-proxy."
+    },
+    {
+      "name": "migueltorrezd--claudex",
+      "source": "./migueltorrezd--claudex",
+      "description": "Run Claude Code with GPT models through Raine's claude-code-proxy."
+    },
+    {
+      "name": "lukasguziel--overseer",
+      "source": "./lukasguziel--overseer",
+      "description": "Cinema 4D plugin that keeps your scenes organized - analyze any scene for insights, normalize names, manage layers, tags, assets, materials & textures. One web UI served by the plugin."
+    },
+    {
+      "name": "lukasguziel--overseer",
+      "source": "./lukasguziel--overseer",
+      "description": "Cinema 4D plugin that keeps your scenes organized - analyze any scene for insights, normalize names, manage layers, tags, assets, materials & textures. One web UI served by the plugin."
+    },
+    {
+      "name": "liarmttt--agent-foundry-vault",
+      "source": "./liarmttt--agent-foundry-vault",
+      "description": "agent-foundry-vault"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -277192,6 +277237,11 @@
       "name": "siteforge-collective--scp-sl-community-edition",
       "source": "./siteforge-collective--scp-sl-community-edition",
       "description": "SCP: SL Community Edition is a open source decompile of SCP: SL 12.0.2"
+    },
+    {
+      "name": "alirezasafaei-dev--awesome-free-llm-apis-ir",
+      "source": "./alirezasafaei-dev--awesome-free-llm-apis-ir",
+      "description": "Persian-first, machine-readable directory of free LLM APIs with quotas, OpenAI compatibility, official sources, and Iran-access evidence."
     },
     {
       "name": "microsoft--amplifier-app-openclaw",
@@ -403877,6 +403927,191 @@
       "name": "shagai--template-metaprograming",
       "source": "./shagai--template-metaprograming",
       "description": "Try to improve my knowledge of Template Metaprograming using Codex"
+    },
+    {
+      "name": "portoyounes01--easysoft",
+      "source": "./portoyounes01--easysoft",
+      "description": "easysoft"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "portoyounes01--easysoft",
+      "source": "./portoyounes01--easysoft",
+      "description": "easysoft"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "portoyounes01--easysoft",
+      "source": "./portoyounes01--easysoft",
+      "description": "easysoft"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "portoyounes01--easysoft",
+      "source": "./portoyounes01--easysoft",
+      "description": "easysoft"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "1998x-stack--openwebui",
+      "source": "./1998x-stack--openwebui",
+      "description": "OpenWebUI Docker deployment with OpenCode Gateway, plugin tools, and iAgent/Ollama integration"
+    },
+    {
+      "name": "uhtredregress--langflowclone",
+      "source": "./uhtredregress--langflowclone",
+      "description": "LangFlowClone"
+    },
+    {
+      "name": "soujash-123--webbasedquantoclassicalos",
+      "source": "./soujash-123--webbasedquantoclassicalos",
+      "description": "College Final year Project"
+    },
+    {
+      "name": "patbhav1441--thebhavyapatel",
+      "source": "./patbhav1441--thebhavyapatel",
+      "description": "thebhavyapatel"
+    },
+    {
+      "name": "uhtredregress--langflowclone",
+      "source": "./uhtredregress--langflowclone",
+      "description": "LangFlowClone"
+    },
+    {
+      "name": "wordsmith0907--new-design-mela-web",
+      "source": "./wordsmith0907--new-design-mela-web",
+      "description": "New copy of Designmela"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "uhtredregress--langflowclone",
+      "source": "./uhtredregress--langflowclone",
+      "description": "LangFlowClone"
+    },
+    {
+      "name": "liujunheng0212--gift-manager",
+      "source": "./liujunheng0212--gift-manager",
+      "description": "gift-manager"
+    },
+    {
+      "name": "uhtredregress--langflowclone",
+      "source": "./uhtredregress--langflowclone",
+      "description": "LangFlowClone"
+    },
+    {
+      "name": "oxaradev--mintlify-docs",
+      "source": "./oxaradev--mintlify-docs",
+      "description": "mintlify-docs"
+    },
+    {
+      "name": "uhtredregress--langflowclone",
+      "source": "./uhtredregress--langflowclone",
+      "description": "LangFlowClone"
+    },
+    {
+      "name": "chichifr--clublicenceagent",
+      "source": "./chichifr--clublicenceagent",
+      "description": "ClubLicenceAgent"
+    },
+    {
+      "name": "patbhav1441--thebhavyapatel",
+      "source": "./patbhav1441--thebhavyapatel",
+      "description": "thebhavyapatel"
+    },
+    {
+      "name": "vitoworleone--awesome-claude-code",
+      "source": "./vitoworleone--awesome-claude-code",
+      "description": "\u7cbe\u5fc3\u7b5b\u9009\u7684 Claude Code / AI Coding \u751f\u6001\u8d44\u6e90\u6e05\u5355\uff1aSkills\u3001MCP\u3001Rules\u3001CLI\u3001Plugins\u3001Prompts\u3001Workflows"
+    },
+    {
+      "name": "huangmangit--laravel",
+      "source": "./huangmangit--laravel",
+      "description": "laravel"
+    },
+    {
+      "name": "outconceive--followup",
+      "source": "./outconceive--followup",
+      "description": "Followup is a mobile app for the person 'accompanying' a patient to the emergency room. While you wait \u2014 and you will wait \u2014 it interviews you about what you've observed, then generates a timestamped,"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "portoyounes01--easysoft",
+      "source": "./portoyounes01--easysoft",
+      "description": "easysoft"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "invasor666666-source--agent-visibility-template",
+      "source": "./invasor666666-source--agent-visibility-template",
+      "description": "agent-visibility-template"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "phamtm--nerdtb",
+      "source": "./phamtm--nerdtb",
+      "description": "nerdtb"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "ninjaa--neon-rails-terminal",
+      "source": "./ninjaa--neon-rails-terminal",
+      "description": "neon-rails-terminal"
+    },
+    {
+      "name": "danproc--solopass",
+      "source": "./danproc--solopass",
+      "description": "StackPass is a developer network that helps you meet devs and ship in focused hackathons. Simply connect your GitHub to get started."
+    },
+    {
+      "name": "cediorio--wintermute",
+      "source": "./cediorio--wintermute",
+      "description": "wintermute"
+    },
+    {
+      "name": "copperdogma--rational-constitution",
+      "source": "./copperdogma--rational-constitution",
+      "description": "A modern constitutional framework built on realism about human nature."
+    },
+    {
+      "name": "copperdogma--rational-constitution",
+      "source": "./copperdogma--rational-constitution",
+      "description": "A modern constitutional framework built on realism about human nature."
     }
   ]
 }
