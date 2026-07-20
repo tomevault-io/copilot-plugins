@@ -1,0 +1,9 @@
+{
+  "name": "n0819--fiction-engine",
+  "displayName": "Fiction_Engine",
+  "description": "An engine for creating coherent fiction with LLMs",
+  "version": "1.0.0",
+  "author": "N0819",
+  "homepage": "https://github.com/N0819/Fiction_Engine",
+  "skills": []
+}
