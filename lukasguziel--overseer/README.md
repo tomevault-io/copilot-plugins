@@ -7,11 +7,11 @@ Cinema 4D plugin that keeps your scenes organized - analyze any scene for insigh
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lukasguziel/Overseer](https://github.com/lukasguziel/Overseer).
+Original source: `CLAUDE.md` in [lukasguziel/Overseer](https://github.com/lukasguziel/Overseer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
