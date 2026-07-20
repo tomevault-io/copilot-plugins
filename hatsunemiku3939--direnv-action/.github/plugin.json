@@ -1,0 +1,14 @@
+{
+  "name": "hatsunemiku3939--direnv-action",
+  "displayName": "direnv-action",
+  "description": "direnv-action",
+  "version": "1.0.0",
+  "author": "HatsuneMiku3939",
+  "homepage": "https://github.com/HatsuneMiku3939/direnv-action",
+  "skills": [
+    {
+      "name": "direnv-action",
+      "description": ""
+    }
+  ]
+}
