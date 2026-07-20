@@ -1,0 +1,206 @@
+{
+  "name": "aehrc--pathling",
+  "displayName": "pathling",
+  "description": "pathling",
+  "version": "1.0.0",
+  "author": "aehrc",
+  "homepage": "https://github.com/aehrc/pathling",
+  "skills": [
+    {
+      "name": "spark-catalyst",
+      "description": ""
+    },
+    {
+      "name": "databricks-cli",
+      "description": ""
+    },
+    {
+      "name": "fhir-api",
+      "description": ""
+    },
+    {
+      "name": "fhir-bulk-data",
+      "description": ""
+    },
+    {
+      "name": "fhirpath",
+      "description": ""
+    },
+    {
+      "name": "hapi-fhir-server",
+      "description": ""
+    },
+    {
+      "name": "jmh-benchmarks",
+      "description": ""
+    },
+    {
+      "name": "openspec-apply-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-continue-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-new-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-onboard",
+      "description": ""
+    },
+    {
+      "name": "pathling-python",
+      "description": ""
+    },
+    {
+      "name": "radix-ui",
+      "description": ""
+    },
+    {
+      "name": "smart-app-launch",
+      "description": ""
+    },
+    {
+      "name": "sql-on-fhir",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    },
+    {
+      "name": "pathling",
+      "description": ""
+    }
+  ]
+}
