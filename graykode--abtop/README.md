@@ -1,23 +1,21 @@
 # AI instruction files for abtop
 
-> Sourced from [graykode/abtop](https://github.com/graykode/abtop) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Like htop, but for AI coding agents. Monitor Claude    Code & Codex CLI sessions, tokens, context window,    rate limits, and ports in real-time.
+> Sourced from [graykode/abtop](https://github.com/graykode/abtop), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [graykode/abtop](https://github.com/graykode/abtop).
+Original source: `AGENTS.md` in [graykode/abtop](https://github.com/graykode/abtop).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/graykode/abtop](https://github.com/graykode/abtop)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/graykode/abtop](https://github.com/graykode/abtop)
 
 ---
 
