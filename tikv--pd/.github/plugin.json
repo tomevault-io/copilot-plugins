@@ -1,0 +1,26 @@
+{
+  "name": "tikv--pd",
+  "displayName": "pd",
+  "description": "pd",
+  "version": "1.0.0",
+  "author": "tikv",
+  "homepage": "https://github.com/tikv/pd",
+  "skills": [
+    {
+      "name": "pd",
+      "description": ""
+    },
+    {
+      "name": "pd",
+      "description": ""
+    },
+    {
+      "name": "pd",
+      "description": ""
+    },
+    {
+      "name": "pd",
+      "description": ""
+    }
+  ]
+}
