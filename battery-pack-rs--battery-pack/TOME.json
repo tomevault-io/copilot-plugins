@@ -1,0 +1,99 @@
+{
+  "name": "battery-pack",
+  "owner": "battery-pack-rs",
+  "repo": "battery-pack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "battery-pack",
+      "path": "battery-packs/ci-battery-pack/skills/binary-releases/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/battery-packs/ci-battery-pack/skills/binary-releases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "battery-pack",
+      "path": "battery-packs/error-battery-pack/skills/library-errors/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/battery-packs/error-battery-pack/skills/library-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "battery-pack",
+      "path": "battery-packs/ci-battery-pack/skills/trusted-publishing/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/battery-packs/ci-battery-pack/skills/trusted-publishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "battery-pack",
+      "path": "battery-packs/error-battery-pack/skills/application-errors/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/battery-packs/error-battery-pack/skills/application-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "battery-pack",
+      "path": "battery-packs/ci-battery-pack/skills/github-ci-fundamentals/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/battery-packs/ci-battery-pack/skills/github-ci-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "battery-pack",
+      "path": "battery-packs/error-battery-pack/skills/error-handling-basics/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/battery-packs/error-battery-pack/skills/error-handling-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "battery-pack",
+      "path": "opinionated-battery-packs/backend-service-battery-pack/skills/telemetry/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/opinionated-battery-packs/backend-service-battery-pack/skills/telemetry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "battery-pack",
+      "path": "opinionated-battery-packs/backend-service-battery-pack/skills/memory-allocator/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/opinionated-battery-packs/backend-service-battery-pack/skills/memory-allocator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "battery-pack",
+      "path": "opinionated-battery-packs/backend-service-battery-pack/skills/service-architecture/SKILL.md",
+      "github_url": "https://github.com/battery-pack-rs/battery-pack/tree/main/opinionated-battery-packs/backend-service-battery-pack/skills/service-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/battery-pack-rs/battery-pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:51:12Z"
+}
