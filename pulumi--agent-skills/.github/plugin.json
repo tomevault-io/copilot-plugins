@@ -1,0 +1,90 @@
+{
+  "name": "pulumi--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/agent-skills",
+  "skills": [
+    {
+      "name": "pulumi-arm-to-pulumi",
+      "description": ""
+    },
+    {
+      "name": "pulumi-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pulumi-component",
+      "description": ""
+    },
+    {
+      "name": "pulumi-automation-api",
+      "description": ""
+    },
+    {
+      "name": "pulumi-cdk-to-pulumi",
+      "description": ""
+    },
+    {
+      "name": "cloudformation-to-pulumi",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    }
+  ]
+}
