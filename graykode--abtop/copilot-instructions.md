@@ -6,7 +6,17 @@
 
 AI agent monitor for your terminal. Like btop++, but for AI coding agents.
 
-Supports Claude Code and Codex CLI.
+Supports Claude Code, Codex CLI, and OpenCode sessions.
+
+## Language Policy
+
+English is mandatory for all project-facing work and communication.
+
+- Write all source code, comments, tests, fixtures, documentation, examples, configuration text, scripts, and user-facing strings in English.
+- Use English for every GitHub artifact: issue titles and bodies, issue comments, pull request titles and descriptions, review comments, commit messages, branch names, release notes, changelogs, discussions, labels, milestones, and workflow or CI messages.
+- Do not use non-English text in repository content or GitHub communication unless it is an exact external identifier, a required protocol value, or a direct quote needed for context.
+- When quoting or preserving non-English input, add an English explanation and keep the non-English text as short as possible.
+- If a contributor opens an issue, comment, or review in another language, respond in English and continue the thread in English.
 
 ## Architecture
 
@@ -22,6 +32,7 @@ src/
 │   ├── mod.rs              # MultiCollector orchestration, orphan port detection
 │   ├── claude.rs           # Claude Code: session discovery, transcript parsing
 │   ├── codex.rs            # Codex CLI: session discovery via ps+lsof, JSONL parsing
+│   ├── opencode.rs         # OpenCode: session discovery via ps + SQLite DB parsing
 │   ├── process.rs          # Child process tree (ps) + open ports (lsof) + git stats
 │   └── rate_limit.rs       # Rate limit file reading (~/.claude/abtop-rate-limits.json)
 └── model/
@@ -69,7 +80,7 @@ Panel rendering priority (top to bottom):
 
 Panel descriptions:
 - **¹context**: Left = token rate braille sparkline (200-point history). Right = per-session context % bars with yellow/red warning.
-- **²quota**: Claude + Codex rate limit gauges side-by-side (5h and 7d windows with reset countdown).
+- **²quota**: Claude + Codex rate limit gauges side-by-side (5h and 7d windows with reset countdown). Quota is intentionally limited to Claude and Codex; do not add an OpenCode row unless OpenCode exposes a reliable account-level provider rate-limit source.
 - **³tokens**: Total token breakdown (in/out/cache) + per-turn sparkline for selected session.
 - **projects** (always visible): Per-project git branch + added/modified file counts.
 - **⁴ports**: Agent-spawned open ports + orphan ports (from dead sessions). Conflict detection.
@@ -79,15 +90,26 @@ Panel descriptions:
 
 All read-only from local filesystem + `ps` + `lsof`. No API calls, no auth.
 
-### 1. Claude Code session discovery: `~/.claude/sessions/{PID}.json`
+### 1. Claude Code session discovery: process + config-root mapping
+
+Discovery strategy:
+1. Find running `claude` processes via `ps`
+2. Map PID → open files/directories via `lsof`
+3. Infer Claude config roots from open paths that contain `sessions/` and `projects/`
+4. Read `{config-root}/sessions/{PID}.json`, falling back to scanning session files for the matching embedded PID
+5. Parse `{config-root}/projects/{encoded-path}/{sessionId}.jsonl`
+
+Fallback config roots are still scanned: `~/.claude`, direct home profile roots matching `~/.claude-*` when they contain both `sessions/` and `projects/`, `claude_config_dirs` from `~/.config/abtop/config.toml`, abtop's own `CLAUDE_CONFIG_DIR`, and on Linux any `CLAUDE_CONFIG_DIR` read from `/proc/{pid}/environ`.
+
+Session file format:
 ```json
 { "pid": 7336, "sessionId": "2f029acc-...", "cwd": "/Users/graykode/abtop", "startedAt": 1774715116826, "kind": "interactive", "entrypoint": "cli" }
 ```
 - ~170 bytes. Created on start, deleted on exit.
-- Scan all files, verify PID alive with `ps -p {pid} -o command=` containing `/claude`.
-- Skip `--print` sessions (abtop's own LLM calls for summary generation).
+- Verify PID alive with shared `ps` data containing a `claude` binary.
+- Skip sessions whose PID descends from abtop's own `claude --print` summary children without hiding user-spawned non-interactive sessions.
 
-### 2. Claude Code transcript: `~/.claude/projects/{encoded-path}/{sessionId}.jsonl`
+### 2. Claude Code transcript: `{config-root}/projects/{encoded-path}/{sessionId}.jsonl`
 Path encoding: `/Users/foo/bar` → `-Users-foo-bar`
 
 Key line types:
@@ -149,11 +171,17 @@ Rate limits extracted from `token_count` events:
 }
 ```
 
-### 4. Subagents: `~/.claude/projects/{path}/{sessionId}/subagents/`
+### 4. OpenCode sessions: `~/.local/share/opencode/opencode.db`
+- Discover running `opencode` processes via shared `ps` data.
+- Read recent sessions from OpenCode's SQLite DB through `sqlite3 -readonly -json`.
+- Match live PIDs to DB sessions by process cwd. OpenCode does not expose a PID/session mapping, so when multiple DB rows share one cwd, only live PIDs should be assigned and older rows should not be shown as live duplicates.
+- OpenCode contributes session/token/project/port data, but not quota data. Quota remains Claude + Codex only.
+
+### 5. Subagents: `~/.claude/projects/{path}/{sessionId}/subagents/`
 - `agent-{hash}.jsonl` — same JSONL format as main transcript
 - `agent-{hash}.meta.json` — `{ "agentType": "general-purpose", "description": "..." }`
 
-### 5. Process tree: `ps` + `lsof`
+### 6. Process tree: `ps` + `lsof`
 ```bash
 ps -eo pid,ppid,rss,%cpu,command    # All processes
 lsof -i -P -n -sTCP:LISTEN         # Open ports
@@ -161,16 +189,16 @@ lsof -i -P -n -sTCP:LISTEN         # Open ports
 - Build parent→children map from ppid
 - Map listening PID → parent agent PID → session
 
-### 6. Git status per project
+### 7. Git status per project
 ```bash
 git -C {cwd} status --porcelain     # added/modified file counts
 ```
 
-### 7. Memory status
+### 8. Memory status
 - Path: `~/.claude/projects/{encoded-path}/memory/`
 - Count files in directory + lines in `MEMORY.md`
 
-### 8. Rate limit (Claude Code)
+### 9. Rate limit (Claude Code)
 
 NOT in transcript JSONL. Collected via StatusLine mechanism.
 
@@ -190,7 +218,7 @@ File format read by abtop:
 - Account-level metric, shared across all sessions.
 - Show "—" when not configured or data unavailable.
 
-### 9. Other files
+### 10. Other files
 - `~/.claude/stats-cache.json` — daily aggregates. Only updated on `/stats`, NOT real-time.
 - `~/.claude/history.jsonl` — prompt history with sessionId.
 
@@ -205,7 +233,7 @@ File format read by abtop:
 
 **Done detection**: session files are deleted on normal exit, but may linger briefly or survive crashes. When PID is dead but file exists, show as Done and clean up on next tick.
 
-**PID reuse risk**: verify PID is still a claude/codex process by checking `ps -p {pid} -o command=`. Don't trust PID alone.
+**PID reuse risk**: verify PID is still the expected agent process (Claude, Codex, or OpenCode) by checking `ps -p {pid} -o command=`. Don't trust PID alone.
 
 Current task (2nd line under each session):
 - Working → last `tool_use` name + first arg (e.g. `Edit src/main.rs`)
@@ -234,7 +262,7 @@ Not provided in data files. Derive:
   - `claude-opus-4-6[1m]` → 1,000,000
   - `claude-sonnet-4-6` → 200,000
   - `claude-haiku-4-5` → 200,000
-- **Current usage**: last `assistant` line's `input_tokens + cache_read_input_tokens + cache_creation_input_tokens`
+- **Current usage**: last `assistant` line's `input_tokens + cache_read_input_tokens`. `cache_creation_input_tokens` is intentionally excluded — on compaction turns the same tokens can be reported as both `cache_creation` *and* `cache_read`, and summing all three double-counts (#54). Matches Claude Code's own statusline and the Codex collector.
 - **Percentage**: current_usage / window_size * 100
 - **Warning**: yellow at 80%, red at 90%, ⚠ icon at 90%+
 
@@ -250,7 +278,7 @@ Tracks child processes that have open ports. When a parent session dies but the 
 | Key | Action |
 |-----|--------|
 | `↑`/`↓` or `k`/`j` | Select session in list |
-| `Enter` | Jump to session terminal (tmux only) |
+| `Enter` | Jump to session terminal (cmux / tmux / iTerm2) |
 | `x` | Kill selected session (SIGKILL) |
 | `X` | Kill all orphan ports |
 | `q` | Quit |
@@ -282,27 +310,43 @@ cargo build                    # Build
 cargo run                      # Run TUI
 cargo run -- --once            # Print snapshot and exit
 cargo run -- --setup           # Install StatusLine hook for rate limit collection
+cargo run -- --exit-on-jump    # Quit after Enter-jumping to a session terminal (for popup overlays)
 cargo test                     # Tests
 cargo clippy                   # Lint
 ```
 
 ## Release Process
 
-1. Bump version in `Cargo.toml` and commit:
+1. Pick the target semver version and update both `Cargo.toml` and `Cargo.lock`.
+2. Verify the package locally:
+   ```bash
+   cargo test
+   cargo clippy -- -D warnings
+   cargo build --release
+   cargo publish --dry-run
+   ```
+3. Commit and merge or push the version bump to `main`:
    ```bash
    git add Cargo.toml Cargo.lock
    git commit -m "chore: bump version to X.Y.Z"
-   git push
+   git push origin main
    ```
-2. Create and push a git tag — CI handles everything else:
+4. From a clean, up-to-date `main`, create and push an annotated release tag:
    ```bash
-   git tag vX.Y.Z
+   git tag -a vX.Y.Z -m "vX.Y.Z"
    git push origin vX.Y.Z
    ```
-3. `release.yml` builds platform binaries and creates a GitHub Release.
-4. `publish.yml` runs `cargo publish` to crates.io automatically.
+5. Watch the tag-triggered workflows:
+   ```bash
+   gh run list --workflow Release --limit 5
+   gh run list --workflow "Publish to crates.io" --limit 5
+   ```
+6. `release.yml` builds platform binaries, creates the GitHub Release, and updates the Homebrew formula.
+7. `publish.yml` runs `cargo publish` to crates.io automatically.
 
 **Do NOT run `cargo publish` or `gh release create` manually** — the CI workflows handle both.
+**Do NOT push the tag before the version bump is on `main`.**
+**Do NOT reuse a release tag after a failed publish; bump to a new patch version instead.**
 
 ## Non-Goals (v0.1)
 
@@ -311,13 +355,35 @@ cargo clippy                   # Lint
 - Remote/SSH monitoring
 - Notifications/alerts
 
-## tmux Integration
+## Terminal Jump (`Enter`)
 
-Session jump (`Enter`) only works when abtop runs inside tmux:
-1. On startup, detect if `$TMUX` is set. If not, disable Enter key.
-2. To map PID → tmux pane: `tmux list-panes -a -F '#{pane_pid} #{session_name}:#{window_index}.#{pane_index}'` then walk process tree to find which pane owns the agent PID.
-3. Jump: `tmux select-pane -t {target}`
-4. If mapping fails (PID not in any pane), show transient "pane not found" status message.
+`Enter` focuses the terminal running the selected session's agent process.
+The logic lives in `src/jump/` as a registry of `TerminalJumper` adapters
+(one file per backend). `jumpers()` is the single ordered source of truth;
+`resolve()` walks it and the first applicable adapter wins.
+
+Each adapter returns a three-way `JumpAttempt`:
+- `NotApplicable` — not this backend's terminal; try the next adapter.
+- `Jumped` — focused successfully; stop.
+- `Failed(msg)` — this backend owns the process but the focus command errored;
+  stop and surface `"<backend>: <msg>"` in the status line.
+
+Order (most specific first), mutually exclusive by controlling tty:
+
+1. **cmux** (`jump/cmux.rs`) — reads `CMUX_WORKSPACE_ID` (a UUID cmux exports
+   into every surface, inherited by the agent) from the process environment via
+   `ps eww`, then `cmux select-workspace --workspace <uuid>`.
+2. **tmux** (`jump/tmux.rs`) — only when abtop itself runs inside tmux (`$TMUX`).
+   Maps PID → pane via `tmux list-panes -a -F '#{pane_pid} #{session_name}:#{window_index}.#{pane_index}'`
+   + process-tree descent, then `switch-client` / `select-window` / `select-pane`.
+   PID in no pane → `NotApplicable` (lets another backend try).
+3. **iTerm2** (`jump/iterm2.rs`) — resolves the PID's controlling tty (`ps -o tty=`),
+   then AppleScript selects the session whose `tty` matches and brings its
+   window/app to the front. First call triggers a one-time macOS Automation
+   permission prompt; until granted, `osascript` exits non-zero → `Failed`.
+
+Parsing/registry logic is unit-tested in `jump/mod.rs`; the thin `ps`/`osascript`/
+`tmux` I/O wrappers are verified manually.
 
 ## Privacy
 
@@ -344,7 +410,8 @@ abtop reads transcripts, prompts, tool inputs, and memory files. These may conta
 - **Terminal size**: minimum 80x24. Panels degrade gracefully when small (context panel hidden first).
 - **PID reuse in port cache**: invalidate cached ports when the set of tracked PIDs changes.
 - **Rate limit staleness**: reject rate limit data older than 10 minutes.
+- **`/clear` + multi-PID same cwd**: after `/clear`, Claude Code mints a new `sessionId` + `.jsonl` without rewriting `sessions/{PID}.json`. abtop overrides the stale sid by picking the newest transcript in the project dir, but this heuristic can't disambiguate ownership when two live `claude` PIDs share a cwd — so the override is disabled in that case and both sessions keep their original sid until exit. Use separate worktrees if live tracking is needed on both simultaneously.
 
 ---
 > Source: [graykode/abtop](https://github.com/graykode/abtop) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
