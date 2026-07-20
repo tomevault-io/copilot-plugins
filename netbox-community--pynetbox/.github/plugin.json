@@ -1,0 +1,14 @@
+{
+  "name": "netbox-community--pynetbox",
+  "displayName": "pynetbox",
+  "description": "pynetbox",
+  "version": "1.0.0",
+  "author": "netbox-community",
+  "homepage": "https://github.com/netbox-community/pynetbox",
+  "skills": [
+    {
+      "name": "pynetbox",
+      "description": ""
+    }
+  ]
+}
