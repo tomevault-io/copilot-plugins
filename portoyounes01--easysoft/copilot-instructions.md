@@ -1,72 +1,76 @@
-## development-guide-compliance
+## documentation-reference
 
-> Development guide compliance and code quality requirements
+> Mandatory documentation reference and compliance requirements
 
 
-# Development Guide Compliance Rule
+# Documentation Reference Rule
 
-**MANDATORY REQUIREMENT**: All code MUST follow the established Development Guide (`DEVELOPMENT_GUIDE.md`).
+**CRITICAL REQUIREMENT**: Before ANY code or design changes, agents MUST reference and follow established documentation.
 
-## Architecture Standards Enforcement
+## Required Documentation Review
 
-### **TypeScript Conventions**
-- **ALWAYS** use PascalCase for entity interfaces (`Employee`, `Product`, `Transaction`)
-- **ALWAYS** use ComponentNameProps for props interfaces (`LoginFormProps`, `VirtualKeyboardProps`)
-- **ALWAYS** use ContextNameType for context interfaces (`AuthContextType`, `POSContextType`)
-- **NEVER** use `any` types - define proper interfaces
+### **Pre-Development Checklist**
+Before starting ANY task:
+- [ ] **Read relevant sections** of `STYLE_GUIDE.md` for UI/design work
+- [ ] **Review patterns** in `DEVELOPMENT_GUIDE.md` for code architecture
+- [ ] **Check existing components** for established patterns
+- [ ] **Verify consistency** with current codebase standards
 
-### **Component Structure (MANDATORY ORDER)**
-```typescript
-const ComponentName: React.FC<Props> = ({ prop1, prop2 }) => {
-  // 1. Hooks (useState, useEffect, useContext)
-  // 2. Event handlers  
-  // 3. Computed values (useMemo)
-  // 4. Effects (useEffect)
-  // 5. Render
-};
-```
+### **Style Guide References (`STYLE_GUIDE.md`)**
+**ALWAYS reference for:**
+- Color system and role-based coding
+- Typography scale and font weights
+- Touch screen optimization requirements
+- Component patterns and reusable code
+- Animation and transition standards
+- Responsive design breakpoints
+- Accessibility requirements
 
-### **File Organization**
-- **PLACE** shared components at `src/components/` root
-- **GROUP** feature-specific components in folders (`Auth/`, `Layout/`)
-- **FOLLOW** established import order: React hooks → Icons → Local contexts
+### **Development Guide References (`DEVELOPMENT_GUIDE.md`)**
+**ALWAYS reference for:**
+- TypeScript conventions and interface naming
+- Component structure and organization
+- State management patterns
+- Performance optimization techniques
+- Error handling standards
+- Testing strategies
+- Code quality checklist
 
-### **State Management Patterns**
-- **USE** `useState` for component-specific UI state
-- **USE** `useReducer` for complex state logic
-- **USE** Context for global app state (auth, cart)
-- **IMPLEMENT** proper error boundaries
+## Documentation Compliance Process
 
-### **Performance Requirements**
-- **USE** `React.memo` for components with frequent re-renders
-- **USE** `useMemo` for expensive calculations
-- **USE** `useCallback` for event handlers passed to children
-- **AVOID** unnecessary re-renders
+### **For UI/Design Changes:**
+1. **Identify** component type (button, card, input, etc.)
+2. **Locate** pattern in Style Guide
+3. **Follow** established color, spacing, and sizing standards
+4. **Verify** touch screen optimization requirements
+5. **Apply** consistent animation and transition patterns
 
-### **Error Handling Standards**
-- **IMPLEMENT** error boundaries for component trees
-- **HANDLE** async operations with try/catch
-- **PROVIDE** user-friendly error messages
-- **LOG** errors for debugging
+### **For Code Architecture:**
+1. **Determine** appropriate component structure from Development Guide
+2. **Use** correct TypeScript naming conventions
+3. **Implement** proper state management pattern
+4. **Add** error handling and performance optimizations
+5. **Follow** established file organization
 
-## Code Quality Checklist
+## Reference Requirements
 
-Before ANY component implementation:
-- [ ] TypeScript interfaces properly defined
-- [ ] Component structure follows established order
-- [ ] Props interfaces use correct naming convention
-- [ ] State management pattern appropriate for use case
-- [ ] Error handling implemented
-- [ ] Performance optimizations applied where needed
-- [ ] Follows established file organization
+**MANDATORY**: When implementing any feature, agents must:
+- **Explicitly reference** which guide section was followed
+- **Justify deviations** from established patterns
+- **Update documentation** if new patterns are introduced
+- **Maintain consistency** with existing codebase
 
-## Testing Requirements
-- **WRITE** unit tests for new functionality
-- **TEST** touch interactions and accessibility
-- **VERIFY** TypeScript compilation without errors
-- **ENSURE** components work in isolation
+## Pattern Evolution
 
-**VIOLATION CONSEQUENCE**: Code not following development guide patterns will be rejected and must be refactored.
+**IF** a new pattern is needed that doesn't exist in the guides:
+1. **Document the need** and rationale
+2. **Design pattern** following existing principles
+3. **Update appropriate guide** with new pattern
+4. **Ensure consistency** across similar components
+
+**VIOLATION CONSEQUENCE**: Any implementation not referencing or following established documentation will be considered incomplete and must be revised.
+
+This rule ensures the POS system maintains consistency, quality, and professional standards across all development work.
 
 ---
 > Source: [portoyounes01/easysoft](https://github.com/portoyounes01/easysoft) — distributed by [TomeVault](https://tomevault.io).
