@@ -1,0 +1,9 @@
+{
+  "name": "embeddedllm--jamaibase",
+  "displayName": "JamAIBase",
+  "description": "JamAIBase",
+  "version": "1.0.0",
+  "author": "EmbeddedLLM",
+  "homepage": "https://github.com/EmbeddedLLM/JamAIBase",
+  "skills": []
+}
