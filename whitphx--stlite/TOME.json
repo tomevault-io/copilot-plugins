@@ -1,0 +1,63 @@
+{
+  "name": "stlite",
+  "owner": "whitphx",
+  "repo": "stlite",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stlite",
+      "path": ".claude/skills/changeset/SKILL.md",
+      "github_url": "https://github.com/whitphx/stlite/tree/main/.claude/skills/changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stlite",
+      "path": ".claude/skills/copy-samples/SKILL.md",
+      "github_url": "https://github.com/whitphx/stlite/tree/main/.claude/skills/copy-samples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stlite",
+      "path": ".claude/skills/rebase-streamlit/SKILL.md",
+      "github_url": "https://github.com/whitphx/stlite/tree/main/.claude/skills/rebase-streamlit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/whitphx/stlite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:11:12Z"
+}
