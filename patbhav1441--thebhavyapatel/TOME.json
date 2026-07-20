@@ -4,7 +4,7 @@
   "repo": "thebhavyapatel",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/patbhav1441/thebhavyapatel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T02:41:22Z"
+  "distributed_at": "2026-07-20T02:46:06Z"
 }
