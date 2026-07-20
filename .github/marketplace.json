@@ -163434,6 +163434,16 @@
       "description": "The All-in-One Orchestrator for Rathole & Nginx"
     },
     {
+      "name": "stackcodelabs--simple-ai-tools-dashboard",
+      "source": "./stackcodelabs--simple-ai-tools-dashboard",
+      "description": "simple-ai-tools-dashboard"
+    },
+    {
+      "name": "stackcodelabs--invoice-v2",
+      "source": "./stackcodelabs--invoice-v2",
+      "description": "invoice-v2"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -169407,6 +169417,11 @@
       "name": "lopopolo--harness-engineering",
       "source": "./lopopolo--harness-engineering",
       "description": "Ryan Lopopolo\u2019s anthology, field guide, and agent context bundle for harness engineering"
+    },
+    {
+      "name": "stackcodelabs--next-supabase-start-kit",
+      "source": "./stackcodelabs--next-supabase-start-kit",
+      "description": "next-supabase-start-kit"
     },
     {
       "name": "lucas-acc--sancho-skills",
