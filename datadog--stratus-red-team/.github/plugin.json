@@ -1,0 +1,14 @@
+{
+  "name": "datadog--stratus-red-team",
+  "displayName": "stratus-red-team",
+  "description": "stratus-red-team",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/stratus-red-team",
+  "skills": [
+    {
+      "name": "stratus-red-team",
+      "description": ""
+    }
+  ]
+}
