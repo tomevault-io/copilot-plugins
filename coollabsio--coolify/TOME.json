@@ -1,0 +1,219 @@
+{
+  "name": "coolify",
+  "owner": "coollabsio",
+  "repo": "coolify",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "debugging-output-and-previewing-html-using-ray",
+      "path": ".agents/skills/debugging-output-and-previewing-html-using-ray",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/debugging-output-and-previewing-html-using-ray",
+      "description": ""
+    },
+    {
+      "name": "developing-with-fortify",
+      "path": ".agents/skills/developing-with-fortify",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/developing-with-fortify",
+      "description": ""
+    },
+    {
+      "name": "livewire-development",
+      "path": ".agents/skills/livewire-development",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/livewire-development",
+      "description": ""
+    },
+    {
+      "name": "pest-testing",
+      "path": ".agents/skills/pest-testing",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/pest-testing",
+      "description": ""
+    },
+    {
+      "name": "tailwindcss-development",
+      "path": ".agents/skills/tailwindcss-development",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/tailwindcss-development",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".agents/skills/pest-testing/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/pest-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".claude/skills/pest-testing/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.claude/skills/pest-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".cursor/skills/pest-testing/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.cursor/skills/pest-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".agents/skills/laravel-actions/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/laravel-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".claude/skills/laravel-actions/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.claude/skills/laravel-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".cursor/skills/laravel-actions/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.cursor/skills/laravel-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".agents/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".claude/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.claude/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".cursor/skills/fortify-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.cursor/skills/fortify-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".agents/skills/configuring-horizon/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/configuring-horizon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".claude/skills/configuring-horizon/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.claude/skills/configuring-horizon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".cursor/skills/configuring-horizon/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.cursor/skills/configuring-horizon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".agents/skills/livewire-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/livewire-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".claude/skills/livewire-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.claude/skills/livewire-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".cursor/skills/livewire-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.cursor/skills/livewire-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".agents/skills/socialite-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/socialite-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".claude/skills/socialite-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.claude/skills/socialite-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".cursor/skills/socialite-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.cursor/skills/socialite-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".agents/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".claude/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.claude/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".cursor/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.cursor/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".agents/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.agents/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".claude/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.claude/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coolify",
+      "path": ".cursor/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/coollabsio/coolify/tree/main/.cursor/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/coollabsio/coolify",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:32:29Z"
+}
