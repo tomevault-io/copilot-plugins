@@ -1,9 +1,9 @@
 {
   "name": "allisterb--jumbee-console",
   "displayName": "Jumbee.Console",
-  "description": "Jumbee.Console",
+  "description": "A .NET library for advanced TUIs that focuses on performance and usability.",
   "version": "1.0.0",
   "author": "allisterb",
-  "homepage": "https://tomevault.io/claim/allisterb",
+  "homepage": "https://github.com/allisterb/Jumbee.Console",
   "skills": []
 }
