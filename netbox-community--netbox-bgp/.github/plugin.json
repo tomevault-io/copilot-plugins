@@ -1,0 +1,9 @@
+{
+  "name": "netbox-community--netbox-bgp",
+  "displayName": "netbox-bgp",
+  "description": "netbox-bgp",
+  "version": "1.0.0",
+  "author": "netbox-community",
+  "homepage": "https://github.com/netbox-community/netbox-bgp",
+  "skills": []
+}
