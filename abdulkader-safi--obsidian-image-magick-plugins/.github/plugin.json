@@ -1,0 +1,9 @@
+{
+  "name": "abdulkader-safi--obsidian-image-magick-plugins",
+  "displayName": "obsidian-image-magick-plugins",
+  "description": "Resize, crop, rotate, compress and convert images inside your Obsidian vault, fully offline.",
+  "version": "1.0.0",
+  "author": "Abdulkader-Safi",
+  "homepage": "https://github.com/Abdulkader-Safi/obsidian-image-magick-plugins",
+  "skills": []
+}
