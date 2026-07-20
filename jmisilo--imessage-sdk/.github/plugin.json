@@ -1,0 +1,9 @@
+{
+  "name": "jmisilo--imessage-sdk",
+  "displayName": "imessage-sdk",
+  "description": "A provider-neutral TypeScript SDK for iMessage infrastructure.",
+  "version": "1.0.0",
+  "author": "jmisilo",
+  "homepage": "https://github.com/jmisilo/imessage-sdk",
+  "skills": []
+}
