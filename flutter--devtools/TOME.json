@@ -1,0 +1,99 @@
+{
+  "name": "devtools",
+  "owner": "flutter",
+  "repo": "devtools",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "authoring-skills",
+      "path": ".agents/skills/authoring-skills",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/authoring-skills",
+      "description": ""
+    },
+    {
+      "name": "adding-release-notes",
+      "path": ".agents/skills/adding-release-notes",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/adding-release-notes",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": ".agents/skills/preparing-pr/SKILL.md",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/preparing-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": ".agents/skills/authoring-skills/SKILL.md",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/authoring-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": ".agents/skills/adding-release-notes/SKILL.md",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/adding-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": ".agents/skills/closing-obsolete-issues/SKILL.md",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/closing-obsolete-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": ".agents/skills/adding-copyright-headers/SKILL.md",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/adding-copyright-headers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": ".agents/skills/adding-changelog-entries/SKILL.md",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/adding-changelog-entries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": ".agents/skills/updating-package-versions/SKILL.md",
+      "github_url": "https://github.com/flutter/devtools/tree/main/.agents/skills/updating-package-versions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/flutter/devtools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:40:55Z"
+}
