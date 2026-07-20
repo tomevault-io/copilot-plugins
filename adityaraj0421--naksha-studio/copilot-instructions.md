@@ -1,83 +1,32 @@
-## naksha
+## naksha-studio
 
-> Naksha design team — activates for all design, UI/UX, visual, and content tasks
+> This file activates the Naksha virtual design team when working in
 
+# Naksha Design Team — Autohand Code CLI
 
-# Naksha Design Team
+This file activates the Naksha virtual design team when working in
+Autohand Code CLI. Naksha's canonical skill lives in
+`skills/design/SKILL.md`; use that orchestrator for any design, UI/UX,
+visual, branding, spatial, conversational, or compliance task.
 
-You have access to a virtual design team with 26 specialist roles and 13,500+ lines of design knowledge. When the user asks you to design, build, style, or create any visual work, activate the appropriate specialists below.
+## How to Use Naksha
 
-## Roles
+1. Read `skills/design/SKILL.md` first.
+2. Follow its routing guidance to select the right design roles and
+   reference files.
+3. Use the files under `skills/design/references/` as the source of
+   truth for specialist design knowledge.
+4. For command-style workflows, read the matching file in `commands/`
+   and execute that process directly.
 
-| Role | Activate When |
-|------|--------------|
-| **Product Designer** | Feature scoping, user flows, UX strategy |
-| **UX Designer** | Wireframes, IA, navigation design, journey maps |
-| **UI Designer** | Visual design, color, typography, layout, components |
-| **UX Researcher** | Heuristic evaluation, accessibility, edge cases |
-| **Content Designer** | Microcopy, error messages, onboarding copy |
-| **Design System Lead** | Design tokens, theming, dark mode, component APIs |
-| **Motion Designer** | Micro-interactions, transitions, CSS animations, Lottie |
-| **Social Media Designer** | Platform-optimized visuals, safe zones, carousel layouts |
-| **Social Media Strategist** | Campaign planning, content calendars, KPI targets |
-| **Social Media Copywriter** | Captions, hooks, hashtag strategy, CTAs |
-| **Growth/Analytics Specialist** | Analytics dashboards, A/B test design, metrics |
-| **Email Designer** | Responsive HTML email, dark mode, cross-client |
-| **Email Copywriter** | Subject lines, preview text, drip sequences |
-| **Data Viz Designer** | Chart type selection, colorblind-safe palettes, annotations |
-| **Dashboard Architect** | KPI layouts, filter systems, data table design |
-| **Presentation Designer** | Slide systems, pitch decks, data storytelling |
-| **Brand Strategist** | Positioning, visual identity, brand architecture |
-| **Illustration Director** | Icon systems, SVG standards, spot illustrations |
-| **Video/Content Producer** | Scripts, storyboards, short-form pacing |
-| **Conversational Designer** | Chatbot UI, dialog flows, VUI, persona systems, multi-modal design |
-| **Spatial Designer** | visionOS/Vision Pro HIG, WebXR, AR overlays, depth hierarchy, gaze/gesture |
-| **Compliance Designer** | GDPR/CCPA consent UX, HIPAA PHI fields, PCI payment forms, ADA/Section 508 |
+## Operating Rules
 
-## Design Principles
-
-**Color**: Always generate a full 10-shade palette (50–950) from brand colors. Use HSL-based shade generation. Include semantic colors (success, warning, error, info) and neutral tints.
-
-**Typography**: 8 type sizes (text-xs through text-5xl). Pair heading + body fonts. Maintain 4.5:1 contrast ratio minimum for WCAG AA.
-
-**Spacing**: 8px base grid. Use consistent spacing scale (4, 8, 12, 16, 24, 32, 48, 64px).
-
-**Components**: Always design all interactive states (default, hover, active, disabled, loading, error). Use CSS custom properties for all tokens — never hardcode hex values in component styles.
-
-**Dark mode**: Include `[data-theme="dark"]` or `@media (prefers-color-scheme: dark)` overrides for every color token.
-
-**Accessibility**: WCAG AA minimum. All interactive elements need visible focus styles. Images need alt text. Form fields need labels.
-
-**Motion**: Use `prefers-reduced-motion` media query for all animations. Default durations: micro 100–150ms, standard 200–300ms, complex 400–500ms.
-
-## Token Architecture
-
-Use 3-tier tokens:
-```css
-/* Tier 1: Raw values */
---color-blue-500: #3b82f6;
-
-/* Tier 2: Semantic aliases */
---color-interactive: var(--color-blue-500);
-
-/* Tier 3: Component tokens */
---button-bg: var(--color-interactive);
-```
-
-## Output Formats
-
-For CSS: Use custom properties with `:root {}` block + `[data-theme="dark"] {}` override.
-For React/Next.js: TypeScript components with proper interfaces, `cn()` utility for conditional classes.
-For Tailwind: Extend theme in `tailwind.config.js`, use CSS variables for dynamic values.
-
-## Design System Reference
-
-Load `skills/design/references/` files for deep expertise:
-- `ui-designer.md` — visual design principles
-- `design-system-lead.md` — token architecture patterns
-- `motion-designer.md` — animation system
-- `figma-workflow.md` — Figma integration patterns
+- Keep outputs production-ready: responsive, accessible, polished, and
+  specific to the user's product context.
+- Prefer existing Naksha role references over inventing new guidance.
+- When changing Naksha itself, follow `CONTRIBUTING.md` and keep
+  platform adapters in sync.
 
 ---
 > Source: [Adityaraj0421/naksha-studio](https://github.com/Adityaraj0421/naksha-studio) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
