@@ -1,0 +1,111 @@
+{
+  "name": "DiscordPHP",
+  "owner": "discord-php",
+  "repo": "DiscordPHP",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/type-map-keeper/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/type-map-keeper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/part-model-maintainer/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/part-model-maintainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/builder-payload-smith/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/builder-payload-smith/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/voice-subsystem-keeper/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/voice-subsystem-keeper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/repository-cache-keeper/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/repository-cache-keeper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/async-test-and-doc-sync/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/async-test-and-doc-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/interaction-flow-keeper/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/interaction-flow-keeper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/runtime-bootstrap-keeper/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/runtime-bootstrap-keeper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/helpers-and-infra-keeper/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/helpers-and-infra-keeper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/gateway-cache-sync-keeper/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/gateway-cache-sync-keeper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DiscordPHP",
+      "path": ".agents/skills/legacy-command-client-keeper/SKILL.md",
+      "github_url": "https://github.com/discord-php/DiscordPHP/tree/main/.agents/skills/legacy-command-client-keeper/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/discord-php/DiscordPHP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:20:17Z"
+}
