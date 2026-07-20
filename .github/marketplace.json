@@ -249049,6 +249049,11 @@
       "description": "Parsing Flutter Constant Pools for radare2"
     },
     {
+      "name": "mohammadmaso--kherad",
+      "source": "./mohammadmaso--kherad",
+      "description": "A Notion-like wiki for non-technical teams, backed by real git commits and a merge-request review workflow \u2014 plus AI agents that write the first draft for you."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272592,6 +272597,31 @@
       "name": "jeonghopark--wormhole",
       "source": "./jeonghopark--wormhole",
       "description": "Wormhole"
+    },
+    {
+      "name": "zisky-ai--luper",
+      "source": "./zisky-ai--luper",
+      "description": "Text-defined workflow harness for autonomous AI delivery via local CLIs"
+    },
+    {
+      "name": "jarkevithwlad--turboquant-prismml-cuda",
+      "source": "./jarkevithwlad--turboquant-prismml-cuda",
+      "description": "This is a fork of prismml-eng/llama.cpp + amesianx/turboquant with support for TurboQuant and prism-ml/ternary-bonsai-27b-gguf (2-bit)."
+    },
+    {
+      "name": "jarkevithwlad--turboquant-prismml-cuda",
+      "source": "./jarkevithwlad--turboquant-prismml-cuda",
+      "description": "This is a fork of prismml-eng/llama.cpp + amesianx/turboquant with support for TurboQuant and prism-ml/ternary-bonsai-27b-gguf (2-bit)."
+    },
+    {
+      "name": "abdulkader-safi--obsidian-image-magick-plugins",
+      "source": "./abdulkader-safi--obsidian-image-magick-plugins",
+      "description": "Resize, crop, rotate, compress and convert images inside your Obsidian vault, fully offline."
+    },
+    {
+      "name": "kenn-io--docbank",
+      "source": "./kenn-io--docbank",
+      "description": "Local-first system of record for documents (PDFs, images, text files, etc.) for you and your agents"
     },
     {
       "name": "cheerhuan--save-your-token",
