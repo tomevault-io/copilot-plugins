@@ -1,0 +1,297 @@
+{
+  "name": "Storage",
+  "owner": "managedcode",
+  "repo": "Storage",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-nfr/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-nfr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-ui-ux/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-ui-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-devex/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-devex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-ci-cd/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-ci-cd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-testing/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-cloc/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-cloc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-adr-writing/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-adr-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-code-review/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-tunit/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-tunit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-xunit/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-xunit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-feature-spec/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-feature-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-codeql/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-codeql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-format/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-mstest/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-mstest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-documentation/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-observability/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-stryker/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-stryker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-agile-delivery/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-agile-delivery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-source-control/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-source-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-ml-ai-delivery/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-ml-ai-delivery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-coverlet/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-coverlet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-features/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-quickdup/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-quickdup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-csharpier/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-csharpier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-profiling/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-complexity/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-complexity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-roslynator/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-roslynator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-quality-ci/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-quality-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-security-baseline/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-security-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-netarchtest/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-netarchtest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-archunitnet/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-archunitnet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-solution-governance/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-solution-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-code-analysis/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-code-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-resharper-clt/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-resharper-clt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-solid-maintainability/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-solid-maintainability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-architecture-overview/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-architecture-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-human-review-planning/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-human-review-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-reportgenerator/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-reportgenerator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-analyzer-config/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-analyzer-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-meziantou-analyzer/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-meziantou-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Storage",
+      "path": ".codex/skills/mcaf-dotnet-stylecop-analyzers/SKILL.md",
+      "github_url": "https://github.com/managedcode/Storage/tree/main/.codex/skills/mcaf-dotnet-stylecop-analyzers/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/managedcode/Storage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:19:20Z"
+}
