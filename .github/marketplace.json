@@ -249114,6 +249114,26 @@
       "description": "grok\u6ce8\u518c\u673a\uff0c\u652f\u6301\u57df\u540d\u90ae\u7bb1\u548c\u5fae\u8f6f\u90ae\u7bb1"
     },
     {
+      "name": "bman654--clodex",
+      "source": "./bman654--clodex",
+      "description": "Bridge Claude Code to OpenAI models \u2014 OpenAI API key or ChatGPT/Codex-plan OAuth"
+    },
+    {
+      "name": "bman654--clodex",
+      "source": "./bman654--clodex",
+      "description": "Bridge Claude Code to OpenAI models \u2014 OpenAI API key or ChatGPT/Codex-plan OAuth"
+    },
+    {
+      "name": "bman654--clodex",
+      "source": "./bman654--clodex",
+      "description": "Bridge Claude Code to OpenAI models \u2014 OpenAI API key or ChatGPT/Codex-plan OAuth"
+    },
+    {
+      "name": "stupidoodle--bumble-like-revealer",
+      "source": "./stupidoodle--bumble-like-revealer",
+      "description": "Bumble's Paywall is a Joke - A Chrome Extension to See Who's Already Liked You \ud83d\udc40"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272722,6 +272742,26 @@
       "name": "goadesign--goa-ai",
       "source": "./goadesign--goa-ai",
       "description": "Design-first agentic systems in Go: declare agents, tools, MCP servers, policies, and structured model output in Goa, then generate the durable runtime."
+    },
+    {
+      "name": "derailed-dash--gemini-review-action",
+      "source": "./derailed-dash--gemini-review-action",
+      "description": "Automated, Pull Request reviews and Issue Triaging powered by Google Gemini. With full codebase context. Installable as a GitHub Action."
+    },
+    {
+      "name": "marcosmarf27--pje-ia",
+      "source": "./marcosmarf27--pje-ia",
+      "description": "\u2696\ufe0f Extens\u00e3o Chrome que analisa autos do PJe com IA (Claude): chat sobre as pe\u00e7as do processo, OCR nativo, tabelas e linha do tempo \u2014 direto na tela do processo."
+    },
+    {
+      "name": "samyfodil--wazy",
+      "source": "./samyfodil--wazy",
+      "description": "Fastest WebAssembly runtime for Go. Supports Component Model & Async. Zero dependencies, no CGO, pure Go."
+    },
+    {
+      "name": "a909m--valet-zsh-plugin",
+      "source": "./a909m--valet-zsh-plugin",
+      "description": "Universal Zsh plugin for Laravel Valet (macOS) and Valet Linux with smart completion and cross-platform utilities"
     },
     {
       "name": "cheerhuan--save-your-token",
