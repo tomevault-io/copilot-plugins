@@ -1,0 +1,105 @@
+{
+  "name": "integrations",
+  "owner": "nolebase",
+  "repo": "integrations",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "integrations",
+      "path": ".agents/skills/vue/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/vite/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/vite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/pnpm/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/pnpm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/antfu/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/antfu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/tsdown/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/tsdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/unocss/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/unocss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/vueuse-functions/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/vueuse-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "integrations",
+      "path": ".agents/skills/vue-best-practices/SKILL.md",
+      "github_url": "https://github.com/nolebase/integrations/tree/main/.agents/skills/vue-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nolebase/integrations",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:10:23Z"
+}
