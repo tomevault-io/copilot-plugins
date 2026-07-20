@@ -1,166 +1,156 @@
-## new-features
+## latex
 
-> New Feature Development Standards - Testing, Execution, and Preview Requirements
+> Brief guide for coding agents working in this repository.
 
+# AGENTS.md
 
-# 新功能开发标准规范
+Brief guide for coding agents working in this repository.
 
-## 1. 概述
-为了保证 `latex` 项目的高质量和稳定性，所有新功能的开发必须严格遵循本规范。本规范涵盖单元测试编写、测试执行流程以及预览功能的实现。
+## Project
 
-## 2. Parser 模块测试规范
+Kotlin Multiplatform LaTeX parsing and rendering library with demo apps.
 
-对于 `latex-parser` 模块的任何修改或新功能添加，**必须**同步补充对应的单元测试。
+Core pipeline:
 
-### 2.1 测试文件结构
-测试文件应位于 `latex-parser/src/commonTest/kotlin/com/hrm/latex/parser/` 目录下。
+`String -> Tokenizer -> Parser -> AST -> Visitors / Renderer -> Compose UI`
 
-```
-latex-parser/
-├── src/
-│   ├── commonMain/kotlin/  # 源代码
-│   └── commonTest/kotlin/  # 测试代码
-│       └── com/hrm/latex/parser/
-│           ├── NewFeatureTest.kt  # 新功能的测试文件
-│           └── ...
-```
+Main modules:
 
-### 2.2 测试归类规范（重要）
+- `latex-base`: shared base types and SDK entry points
+- `latex-parser`: tokenizer, parser, AST, incremental parsing, diagnostics, visitors
+- `latex-renderer`: Compose measurement and rendering engine
+- `latex-preview`: local preview/sample dataset
+- `latex-benchmark`: benchmark-only module
+- `composeApp`: Compose Multiplatform demo app
+- `androidapp` / `iosApp`: native app entry points
 
-新增功能的测试用例**必须归入已有的功能分类测试文件**，而非单独创建以优先级或功能批次命名的文件（如 ~~P0FeaturesTest~~、~~BatchXTest~~）。
+## Commands
 
-**规则**：
-- 根据功能域找到对应的已有测试文件，将新用例追加到该文件末尾。
-- 如果确实不属于任何已有分类，才可新建测试文件，但文件名必须使用**具体功能域名称**（如 `HyperlinkTest`、`ColorBoxTest`），严禁使用优先级编号或批次编号。
+Use exact commands unless the user asks otherwise:
 
-**归类示例**：
+- Android build: `./gradlew :composeApp:assembleDebug`
+- Desktop demo: `./gradlew :composeApp:run`
+- Preview module: `./gradlew :latex-preview:run`
+- Web demo (Wasm): `./gradlew :composeApp:wasmJsBrowserDevelopmentRun`
+- Web demo (JS): `./gradlew :composeApp:jsBrowserDevelopmentRun`
+- Parser tests: `./run_parser_tests.sh`
+- Parser tests direct: `./gradlew :latex-parser:cleanJvmTest :latex-parser:jvmTest`
+- One parser test: `./gradlew :latex-parser:jvmTest --tests "*SpecialEffectTest"`
+- Renderer JVM compile: `./gradlew :latex-renderer:compileKotlinJvm`
+- Preview JVM compile: `./gradlew :latex-preview:compileKotlinJvm`
+- Full checks: `./gradlew check`
+- Clean: `./gradlew clean`
 
-| 新功能 | 归入的测试文件 | 说明 |
-|--------|---------------|------|
-| `\overbracket` / `\underbracket` | `AccentExtensionTest.kt` | 属于装饰符号扩展 |
-| `\colorbox` / `\fcolorbox` | `ColorBoxTest.kt`（新建） | 独立功能域，以功能命名 |
-| `\href` / `\url` | `HyperlinkTest.kt`（新建） | 独立功能域，以功能命名 |
-| 新增可扩展箭头方向 | `ExtensibleArrowTest.kt` | 属于箭头类扩展 |
+Do not invent lint/format commands unless confirmed in the repo.
 
-### 2.3 测试命名规范
-- **测试类名**：`FeatureNameTest` (例如 `MatrixParserTest`)
-- **测试方法**：`should_expectedBehavior_when_condition` 或清晰描述测试目的的句子。
+## Code Map
 
-### 2.4 测试编写模板
-使用 `kotlin.test` 框架编写测试：
+Parser:
 
-```kotlin
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+- `latex-parser/.../LatexParser.kt`
+- `latex-parser/.../IncrementalLatexParser.kt`
+- `latex-parser/.../tokenizer/`
+- `latex-parser/.../model/LatexNode.kt`
+- `latex-parser/.../component/`
+- `latex-parser/.../visitor/`
+- `latex-parser/.../util/LatexPrinter.kt`
 
-class NewFeatureTest {
+Renderer:
 
-    @Test
-    fun should_parse_new_command_correctly() {
-        // Arrange
-        val input = "\\newcommand{args}"
-        val parser = LatexParser()
+- `latex-renderer/.../Latex.kt`
+- `latex-renderer/.../layout/`
+- `latex-renderer/.../editor/`
+- `latex-renderer/.../export/`
 
-        // Act
-        val result = parser.parse(input)
+Preview:
 
-        // Assert
-        assertTrue(result.isSuccess, "Parsing should succeed")
-        assertEquals(ExpectedNode(...), result.rootNode)
-    }
+- `latex-preview/.../preview/BasicLatexPreview.kt`
+- `latex-preview/.../preview/PreviewGroupList.kt`
+- `composeApp/src/commonMain/kotlin/com/hrm/latex/App.kt`
 
-    @Test
-    fun should_handle_invalid_input_gracefully() {
-        // Edge case testing
-        // ...
-    }
-}
-```
+## Core Rules
 
-### 2.5 覆盖率要求
-- ✅ **正常路径 (Happy Path)**：验证功能在标准输入下工作正常。
-- ✅ **边界条件 (Edge Cases)**：空输入、特殊字符、嵌套结构等。
-- ✅ **错误处理 (Error Handling)**：验证解析器在非法输入下能否抛出预期错误或返回错误节点，而不是崩溃。
+- Keep the whole pipeline aligned. New LaTeX features usually need parser, AST, visitors, renderer/preview, tests, and docs together.
+- Prefer reusable AST abstractions over command-specific hacks.
+- Keep shared logic in `commonMain`; do not move parser/layout logic into platform source sets.
+- Preserve module direction: `latex-parser` must not depend on renderer code.
 
-## 3. 测试执行流程
+## Parser Rules
 
-在提交代码前，必须执行项目根目录下的测试脚本，并确保所有测试通过。
+- Register commands in the appropriate handler under `latex-parser/.../component/handler/`.
+- Font/style aliases must stay centralized in `StyleHandlers.kt`.
+- If you add a new semantic `LatexNode`, update at least:
+  - `LatexNode.kt`
+  - `LatexVisitor.kt`
+  - `MathMLVisitor.kt`
+  - `AccessibilityVisitor.kt`
+  - `LatexPrinter.kt`
+- If the node affects rendering, update renderer measurer/layout code too.
 
-### 3.1 执行命令
-```bash
-./run_parser_tests.sh
-```
+## Preview Rules
 
-### 3.2 通过标准
-- 脚本退出代码必须为 `0`。
-- 控制台输出必须包含 "✅ Tests passed successfully!"。
-- **严禁**在测试失败的情况下提交代码。
+- Any user-visible feature should get preview coverage in `latex-preview`.
+- Reuse an existing group when it fits; create a dedicated group when the feature is substantial.
 
-## 4. Preview 预览规范
+## Testing
 
-为了验证渲染效果和提升开发体验，所有涉及渲染的新功能必须在 `latex-preview` 模块中添加预览支持。
+- Add tests to the nearest feature-specific file under `latex-parser/src/commonTest/...`.
+- Prefer existing focused files such as:
+  - `SpecialEffectTest.kt`
+  - `MathMLVisitorTest.kt`
+  - `AccessibilityVisitorTest.kt`
+  - `ComplexStructureTest.kt`
+  - `DelimiterTest.kt`
+  - `SectionHeadingTest.kt`
+- For renderer changes, run at least `:latex-renderer:compileKotlinJvm`.
+- For visible changes, verify with `:composeApp:run` or `:latex-preview:run`.
 
-### 4.1 预览归类规范（重要）
+Recommended validation order:
 
-新增功能的预览示例**必须归入已有的 `PreviewGroup` 分组**，而非单独创建以优先级或功能批次命名的分组（如 ~~"P0. 超链接"~~、~~"新增功能"~~）。
+1. Focused tests for the touched area
+2. Owning module compile/test command
+3. Preview/demo run for visible changes
+4. `./gradlew check` only when justified by scope
 
-**规则**：
-- 根据功能所属的主题，找到 `BasicLatexPreview.kt` 中对应的 `PreviewGroup`，将新的 `PreviewItem` 追加到该分组的 `items` 列表末尾。
-- 严禁创建新的 `PreviewGroup` 来存放零散的新功能，除非该功能确实构成一个完整的新主题分类。
+## Docs Sync
 
-**归类示例**：
+User-visible feature support must keep docs in sync. Review:
 
-| 新功能 | 归入的 PreviewGroup | 说明 |
-|--------|---------------------|------|
-| `\colorbox` / `\fcolorbox` | `colors`（颜色专题） | 属于颜色相关功能 |
-| `\href` / `\url` | `special_effects`（特殊效果） | 属于特殊效果类 |
-| `\overbracket` / `\underbracket` | `accents`（装饰符号专题） | 属于装饰符号类 |
-| 新增可扩展箭头 | `accents`（装饰符号专题） | 箭头属于装饰符号类 |
+- `README.md`
+- `README_zh.md`
+- `latex-parser/PARSER_COVERAGE_ANALYSIS.md`
+- `latex-preview/README.md`
 
-### 4.2 预览实现
-- 在 `latex-preview/src/commonMain/kotlin/com/hrm/latex/preview/` 中更新或添加预览逻辑。
-- 如果是新的 LaTeX 命令或环境，请在 `BasicLatexPreview.kt` 或 `IncrementalLatexPreview.kt` 的示例数据中添加相应的 `PreviewItem`，归入对应的 `PreviewGroup`，以便在 Demo App 中直观展示。
+Typical pattern:
 
-### 4.3 示例
-在已有的 PreviewGroup 中追加 PreviewItem：
+- parser feature -> coverage analysis
+- rendered feature -> README
+- visual feature -> preview samples
 
-```kotlin
-// ✅ 正确：将 colorbox 追加到已有的 colors 分组
-PreviewGroup(
-    id = "colors",
-    title = "10. 颜色专题",
-    items = listOf(
-        // ... 已有 items ...
-        PreviewItem("8", "colorbox 背景色", "\\colorbox{yellow}{重要}"),
-    )
-)
+## Release Notes
 
-// ❌ 错误：为新功能单独建分组
-PreviewGroup(
-    id = "p0_colorbox",
-    title = "P0. 背景色",
-    items = listOf(...)
-)
-```
+- Follow Conventional Commits in `CONTRIBUTING.md`.
+- Recommended scopes: `parser`, `renderer`, `preview`, `base`, `build`, `android`, `ios`, `app`.
+- Be careful with `gradle.properties` `VERSION` and `.github/workflows/publish.yml`.
+- Never add secrets, tokens, signing keys, or local credentials.
 
-## 5. 文档维护 (Documentation)
+## Working Style
 
-如果新增了对特定 LaTeX 命令、环境或语法的支持，**必须**检查并更新 `latex-parser/PARSER_COVERAGE_ANALYSIS.md` 文件。
-- 标记新支持的命令状态为已实现。
-- 如果是部分实现，请添加相关备注。
+- Read the relevant module files first.
+- Explain the plan before large refactors or cross-module changes.
+- Prefer small, coherent edits over speculative broad changes.
+- Validate with the narrowest useful command first.
+- Do not overwrite or revert user changes unless explicitly asked.
 
-## 6. 总结 (Checklist)
+## Avoid
 
-开发新功能时，请自查以下清单：
-- [ ] `latex-parser` 中实现了核心逻辑。
-- [ ] `latex-parser` 中添加了对应的单元测试 (`commonTest`)。
-- [ ] **测试用例归入了已有的功能分类测试文件**，而非创建以优先级/批次命名的独立文件。
-- [ ] 运行 `./run_parser_tests.sh` 并全部通过。
-- [ ] `latex-preview` 中添加了该功能的预览示例。
-- [ ] **预览示例归入了已有的 `PreviewGroup` 分组**，而非创建以优先级/批次命名的独立分组。
-- [ ] (如适用) 更新 `latex-parser/PARSER_COVERAGE_ANALYSIS.md` 支持列表。
+- Adding parser support without visitor support for a new AST node
+- Adding user-visible features without preview coverage
+- Forgetting to update docs after adding command support
+- Putting shared parsing/layout logic into platform source sets
+- Scattering style aliases outside `StyleHandlers.kt`
+- Guessing commands that are not defined by the repository
 
 ---
 > Source: [huarangmeng/latex](https://github.com/huarangmeng/latex) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
