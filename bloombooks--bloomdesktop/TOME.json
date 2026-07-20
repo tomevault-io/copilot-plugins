@@ -1,0 +1,99 @@
+{
+  "name": "BloomDesktop",
+  "owner": "BloomBooks",
+  "repo": "BloomDesktop",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/youtrack-fix/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/youtrack-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/edit-bloom-book/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/edit-bloom-book/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/react-useeffect/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/react-useeffect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/bloom-automation/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/bloom-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/rab-icon-grid-processing/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/rab-icon-grid-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/bloom-canvas-e2e-testing/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/bloom-canvas-e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/bloom-youtrack-reporting/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/bloom-youtrack-reporting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/reviewable-thread-replies/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/reviewable-thread-replies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BloomDesktop",
+      "path": ".github/skills/bloom-canvas-tool-testing/SKILL.md",
+      "github_url": "https://github.com/BloomBooks/BloomDesktop/tree/main/.github/skills/bloom-canvas-tool-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/BloomBooks/BloomDesktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T22:52:44Z"
+}
