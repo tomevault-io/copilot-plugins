@@ -1,0 +1,9 @@
+{
+  "name": "zhu-kai--whodecided",
+  "displayName": "whodecided",
+  "description": "CLI that distills the silent decisions your AI coding agents make into a reviewable ledger. Approve once, becomes precedent.",
+  "version": "1.0.0",
+  "author": "zhu-kai",
+  "homepage": "https://github.com/zhu-kai/whodecided",
+  "skills": []
+}
