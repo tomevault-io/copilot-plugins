@@ -1,0 +1,14 @@
+{
+  "name": "aws-samples--sample-spec-driven-presentation-maker",
+  "displayName": "sample-spec-driven-presentation-maker",
+  "description": "sample-spec-driven-presentation-maker",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-spec-driven-presentation-maker",
+  "skills": [
+    {
+      "name": "sample-spec-driven-presentation-maker",
+      "description": ""
+    }
+  ]
+}
