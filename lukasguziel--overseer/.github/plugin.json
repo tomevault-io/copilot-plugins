@@ -1,0 +1,9 @@
+{
+  "name": "lukasguziel--overseer",
+  "displayName": "Overseer",
+  "description": "Cinema 4D plugin that keeps your scenes organized - analyze any scene for insights, normalize names, manage layers, tags, assets, materials & textures. One web UI served by the plugin.",
+  "version": "1.0.0",
+  "author": "lukasguziel",
+  "homepage": "https://github.com/lukasguziel/Overseer",
+  "skills": []
+}
