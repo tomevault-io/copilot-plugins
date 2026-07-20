@@ -1,0 +1,9 @@
+{
+  "name": "bman654--clodex",
+  "displayName": "clodex",
+  "description": "Bridge Claude Code to OpenAI models \u2014 OpenAI API key or ChatGPT/Codex-plan OAuth",
+  "version": "1.0.0",
+  "author": "bman654",
+  "homepage": "https://github.com/bman654/clodex",
+  "skills": []
+}
