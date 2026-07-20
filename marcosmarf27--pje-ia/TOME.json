@@ -1,0 +1,44 @@
+{
+  "name": "pje-ia",
+  "owner": "marcosmarf27",
+  "repo": "pje-ia",
+  "description": "\u2696\ufe0f Extens\u00e3o Chrome que analisa autos do PJe com IA (Claude): chat sobre as pe\u00e7as do processo, OCR nativo, tabelas e linha do tempo \u2014 direto na tela do processo.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/marcosmarf27/pje-ia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T18:33:17Z"
+}
