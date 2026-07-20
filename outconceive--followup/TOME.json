@@ -1,0 +1,44 @@
+{
+  "name": "followup",
+  "owner": "outconceive",
+  "repo": "followup",
+  "description": "Followup is a mobile app for the person 'accompanying' a patient to the emergency room. While you wait \u2014 and you will wait \u2014 it interviews you about what you've observed, then generates a timestamped, plain-language observation record you can show to the triage nurse or provider, copy, share, or export as a PDF.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/outconceive/followup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T02:47:33Z"
+}
