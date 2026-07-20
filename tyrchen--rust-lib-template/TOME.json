@@ -1,0 +1,81 @@
+{
+  "name": "rust-lib-template",
+  "owner": "tyrchen",
+  "repo": "rust-lib-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rust-lib-template",
+      "path": ".agents/skills/impl/SKILL.md",
+      "github_url": "https://github.com/tyrchen/rust-lib-template/tree/main/.agents/skills/impl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-lib-template",
+      "path": ".claude/skills/impl/SKILL.md",
+      "github_url": "https://github.com/tyrchen/rust-lib-template/tree/main/.claude/skills/impl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-lib-template",
+      "path": ".agents/skills/spec/SKILL.md",
+      "github_url": "https://github.com/tyrchen/rust-lib-template/tree/main/.agents/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-lib-template",
+      "path": ".claude/skills/spec/SKILL.md",
+      "github_url": "https://github.com/tyrchen/rust-lib-template/tree/main/.claude/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-lib-template",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/tyrchen/rust-lib-template/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-lib-template",
+      "path": ".claude/skills/research/SKILL.md",
+      "github_url": "https://github.com/tyrchen/rust-lib-template/tree/main/.claude/skills/research/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tyrchen/rust-lib-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:13:35Z"
+}
