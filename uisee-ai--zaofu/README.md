@@ -7,11 +7,11 @@ An open-source Coding Harness Platform for long-horizon, multi-agent software de
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [uisee-ai/zaofu](https://github.com/uisee-ai/zaofu).
+Original source: `AGENTS.md` in [uisee-ai/zaofu](https://github.com/uisee-ai/zaofu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
