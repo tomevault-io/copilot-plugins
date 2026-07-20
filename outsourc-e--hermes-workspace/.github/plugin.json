@@ -1,0 +1,14 @@
+{
+  "name": "outsourc-e--hermes-workspace",
+  "displayName": "hermes-workspace",
+  "description": "hermes-workspace",
+  "version": "1.0.0",
+  "author": "outsourc-e",
+  "homepage": "https://github.com/outsourc-e/hermes-workspace",
+  "skills": [
+    {
+      "name": "hermes-workspace",
+      "description": ""
+    }
+  ]
+}
