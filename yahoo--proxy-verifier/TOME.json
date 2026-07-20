@@ -1,0 +1,99 @@
+{
+  "name": "proxy-verifier",
+  "owner": "yahoo",
+  "repo": "proxy-verifier",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/build-pv/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/build-pv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/plan-issue/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/plan-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/run-autests/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/run-autests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/run-unit-tests/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/run-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/writing-autests/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/writing-autests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "proxy-verifier",
+      "path": ".agents/skills/apply-pr-comments/SKILL.md",
+      "github_url": "https://github.com/yahoo/proxy-verifier/tree/main/.agents/skills/apply-pr-comments/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yahoo/proxy-verifier",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:26:47Z"
+}
