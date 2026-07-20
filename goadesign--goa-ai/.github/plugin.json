@@ -1,0 +1,9 @@
+{
+  "name": "goadesign--goa-ai",
+  "displayName": "goa-ai",
+  "description": "Design-first agentic systems in Go: declare agents, tools, MCP servers, policies, and structured model output in Goa, then generate the durable runtime.",
+  "version": "1.0.0",
+  "author": "goadesign",
+  "homepage": "https://github.com/goadesign/goa-ai",
+  "skills": []
+}
