@@ -1,0 +1,30 @@
+# AI instruction files for zkVerify
+
+> Sourced from [zkVerify/zkVerify](https://github.com/zkVerify/zkVerify), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [zkVerify/zkVerify](https://github.com/zkVerify/zkVerify).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (3)
+
+- [zkVerify](https://github.com/zkVerify/zkVerify/tree/main/.claude/skills/cargo-audit/SKILL.md)
+- [zkVerify](https://github.com/zkVerify/zkVerify/tree/main/.claude/skills/refine-patch/SKILL.md)
+- [zkVerify](https://github.com/zkVerify/zkVerify/tree/main/.claude/skills/investigate-benchmark/SKILL.md)
+
+From [zkVerify/zkVerify](https://github.com/zkVerify/zkVerify) — a repo with 482+ stars on GitHub.
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-s -->
