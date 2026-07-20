@@ -1,0 +1,9 @@
+{
+  "name": "galbot-ioai--ioailab",
+  "displayName": "ioailab",
+  "description": "[IOAI 2026 Team Challenge] The official simulation platform for IOAI 2026 Team Challenge",
+  "version": "1.0.0",
+  "author": "galbot-ioai",
+  "homepage": "https://github.com/galbot-ioai/ioailab",
+  "skills": []
+}
