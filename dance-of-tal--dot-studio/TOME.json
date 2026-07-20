@@ -1,0 +1,99 @@
+{
+  "name": "dot-studio",
+  "owner": "dance-of-tal",
+  "repo": "dot-studio",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/studio-assistant-team-guide/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/studio-assistant-team-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/studio-assistant-agent-guide/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/studio-assistant-agent-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/studio-assistant-studio-guide/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/studio-assistant-studio-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/studio-assistant-workflow-guide/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/studio-assistant-workflow-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/studio-assistant-ui-operations-guide/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/studio-assistant-ui-operations-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/studio-assistant-skill-creator-guide/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/studio-assistant-skill-creator-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/studio-assistant-action-surface-guide/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/studio-assistant-action-surface-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-studio",
+      "path": "server/services/studio-assistant/skills/studio-assistant-instruction-design-guide/SKILL.md",
+      "github_url": "https://github.com/dance-of-tal/dot-studio/tree/main/server/services/studio-assistant/skills/studio-assistant-instruction-design-guide/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dance-of-tal/dot-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-20T23:07:37Z"
+}
