@@ -1,0 +1,42 @@
+{
+  "name": "deepgram--deepgram-js-sdk",
+  "displayName": "deepgram-js-sdk",
+  "description": "deepgram-js-sdk",
+  "version": "1.0.0",
+  "author": "deepgram",
+  "homepage": "https://github.com/deepgram/deepgram-js-sdk",
+  "skills": [
+    {
+      "name": "deepgram-js-audio-intelligence",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-js-sdk",
+      "description": ""
+    }
+  ]
+}
