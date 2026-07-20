@@ -1,17 +1,15 @@
 # lensboy
 
-> Source: [Robertleoj/lensboy](https://github.com/Robertleoj/lensboy) — distributed by [TomeVault](https://tomevault.io)
-
-Camera calibration library with spline and parametric distortion models. Maximally powerful, minimally complex.
+> Source: [Robertleoj/lensboy](https://github.com/Robertleoj/lensboy). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Robertleoj/lensboy](https://github.com/Robertleoj/lensboy).
+Original source: `AGENTS.md` in [Robertleoj/lensboy](https://github.com/Robertleoj/lensboy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
