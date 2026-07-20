@@ -1,0 +1,9 @@
+{
+  "name": "hyyh-code--agent-skill-store",
+  "displayName": "agent-skill-store",
+  "description": "Discover, govern, version, and install skills for AI agents.",
+  "version": "1.0.0",
+  "author": "HYYH-code",
+  "homepage": "https://github.com/HYYH-code/agent-skill-store",
+  "skills": []
+}
