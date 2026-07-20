@@ -272324,6 +272324,11 @@
       "description": "A practical Ada library providing bindings for common C and POSIX APIs."
     },
     {
+      "name": "auspex-aerie--modelark",
+      "source": "./auspex-aerie--modelark",
+      "description": "An ark for open model weights: catalog broadly, compress and archive curated weights across an offline git-annex drive library, and verify archive integrity. Building in public."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
