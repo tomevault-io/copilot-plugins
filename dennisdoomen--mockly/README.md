@@ -1,25 +1,24 @@
 # mockly
 
-> Source: [dennisdoomen/mockly](https://github.com/dennisdoomen/mockly) — distributed by [TomeVault](https://tomevault.io)
+> Source: [dennisdoomen/mockly](https://github.com/dennisdoomen/mockly). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [dennisdoomen/mockly](https://github.com/dennisdoomen/mockly).
+Original source: `AGENTS.md` in [dennisdoomen/mockly](https://github.com/dennisdoomen/mockly).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dennisdoomen/mockly](https://github.com/dennisdoomen/mockly) — a repo with 38+ stars on GitHub.
+From [dennisdoomen/mockly](https://github.com/dennisdoomen/mockly) — a repo with 39+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
