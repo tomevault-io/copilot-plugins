@@ -1,0 +1,84 @@
+## r2flutter
+
+> Agent Notes for r2flutter Work
+
+Agent Notes for r2flutter Work
+
+Scope
+- This document is for agents working in this repo to implement and iterate on the Dart AOT snapshot/ObjectPool parser and CLI.
+
+Build
+- Requires radare2 (`r2` binary in PATH) to resolve include/link flags via `r2 -H`.
+- Do NOT use `pkg-config` — the build system uses `r2 -H R2_CFLAGS` and `r2 -H R2_LDFLAGS` instead.
+- Build with `make` (uses `r2 -H` to resolve r2 includes/libs).
+- Do not build with gcc oneliners, always use `make`
+- Run `make fmt` to format/indent the source code
+- To update the version change it in configure.acr and then run autogen.sh
+- running meson or configure will generate the version.h from the version.h.in
+
+Usage
+- Use bin/r2flutter cli program to test the changes and implementation of the dart aot snapshots
+- Update doc/learn.md to record anotations and important findings and discoveries while solving more tasks
+- When using radare2 to read the raw contents of a file you should use `r2 -n` to not load the sections and actually read physical address instead of the virtual mapped ones.
+
+Coding Rules
+- `R_NEW`/`R_NEW0` macros never return NULL
+- Do not check for null before calling free methods
+- `r_list_new` / `r_list_newf` do not return NULL here; do not add defensive null checks after creating lists
+- `r_list_free` accepts NULL; call it directly instead of wrapping it in `if (x) { ... }`
+- `r_list_contains` is pointer-based; for string-content lookups use `r_list_find (..., (RListComparator)strcmp)` instead
+- The `r_json_parse` does not own the string passed, we must free it after freeing the parser
+- Prefer `R_STR_ISEMPTY` / `R_STR_ISNOTEMPTY` over hand-written `!s || !*s` checks
+- Prefer `r_str_startswith` / `r_str_endswith` over `strncmp` prefix checks or local `endswith` helpers
+- Prefer `isupper`, `islower`, `isdigit`, and `isalpha` over manual ASCII range checks
+- When rendering string lists, prefer helpers like `r_str_list_join` instead of open-coded separator loops
+- Function calls require a space before the parenthesis. (p.ex: Use `foo ()` instead of `foo()`)
+- Use tabs instead of spaces to indent the code
+- Follow the `radare2` coding style
+
+## Core plugin
+
+* The -q, -j and -r flags are modifiers, all commands that print stuff must be modified to print quiet, json or r2 commands
+* Help message of the core plugin must include the `r2flutter` prefix, not just the flag
+
+## Reference Sources
+- Third party code is found in the `./third_party` directory
+- radare2 source code `./third_party/radare2` see the `libr/include` directory for the headers
+- blutter is the original project in python+c++ that we used as inspiration for this project. the source code is in `./third_party/blutter`
+- dart and its VM are also available in there
+
+Tests
+- Uses r2r to run tests in `test/db`.
+- The `test/bins` directory contains android and ios binaries for testing the implementation
+- Run with `make test` which wraps `r2r test/db` in a Python timeout (180s) to avoid hanging on heavy samples.
+- Add each new test as a single file under `test/db/cmd/`.
+  - Example: `test/db/cmd/json-android` runs the CLI and expects a single JSON line.
+- It's important to ensure the behaviour is correct on both iOS and Android binaries before accepting a fix
+
+CLI Flags (debugging)
+- `-v` / `-vv`: increase stderr verbosity for snapshot discovery.
+- `-j -H`: emit one JSON line with snapshot + cluster info.
+- `-i`: print InstructionTable entries to stdout. Supports plain text, `-j`, and `-r`.
+- `-q`: suppress non-essential stdout (handy for JSON-only tests).
+
+Function dumps skip loader-provided ELF/Mach-O stub symbols by default; rely on plain `r2`/`RBin` for those and keep `r2flutter` focused on Dart-derived names.
+
+Iteration Loop
+1) Implement a focused change (parser or flags), build with `make`.
+2) Add a minimal r2r test exercising the new behavior under `test/db/cmd/`.
+3) Run `make test` to validate. If it times out, reduce test output (use `-q`).
+4) When failures occur, use the debug flags (`-v`, `-vv`, `-i`) and small inputs to triage. Adjust parser heuristics accordingly.
+5) Keep tests deterministic: prefer single-line stable outputs and avoid large dumps.
+
+Parser Notes
+- Snapshot discovery prefers symbol names, then falls back to section scan+magic.
+- InstructionTable decoding reconstructs entrypoints for AOT bare-instructions.
+- Offsets/layout can be enriched via `offsets.json` keyed by snapshot hash.
+- Keep memory reads bounded and walk headers conservatively to avoid large reads.
+
+Links Of Interest:
+- https://mrale.ph/dartvm/
+
+---
+> Source: [radareorg/r2flutter](https://github.com/radareorg/r2flutter) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
