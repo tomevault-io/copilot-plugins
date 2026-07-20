@@ -1,0 +1,9 @@
+{
+  "name": "duolahypercho--codex-router",
+  "displayName": "codex-router",
+  "description": "External-model router for Codex with guided Kimi OAuth/API, DeepSeek, safe migration, and rollback.",
+  "version": "1.0.0",
+  "author": "duolahypercho",
+  "homepage": "https://github.com/duolahypercho/codex-router",
+  "skills": []
+}
