@@ -109524,6 +109524,16 @@
       "description": "An unopinionated SDK for building modern Stremio addons with TypeScript"
     },
     {
+      "name": "n0819--sonder-engine",
+      "source": "./n0819--sonder-engine",
+      "description": "An engine for creating coherent fiction with LLMs"
+    },
+    {
+      "name": "n0819--sonder-engine",
+      "source": "./n0819--sonder-engine",
+      "description": "An engine for creating coherent fiction with LLMs"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -135217,6 +135227,11 @@
       "name": "gakonst--nanocodex",
       "source": "./gakonst--nanocodex",
       "description": "nanocodex"
+    },
+    {
+      "name": "ni5arga--protestchat",
+      "source": "./ni5arga--protestchat",
+      "description": "Encrypted messaging with no internet, no cell tower, and no server. Phones relay for each other over Bluetooth mesh, so it keeps working during shutdowns and inside cellular jammers."
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -209047,6 +209062,16 @@
       "name": "meterless--meterless",
       "source": "./meterless--meterless",
       "description": "Meterless"
+    },
+    {
+      "name": "egealtan--motor-digital-twin",
+      "source": "./egealtan--motor-digital-twin",
+      "description": "motor-digital-twin"
+    },
+    {
+      "name": "hassancs91--claude-youtube-editor",
+      "source": "./hassancs91--claude-youtube-editor",
+      "description": "claude-youtube-editor"
     },
     {
       "name": "yschimke--compose-ai-tools",
