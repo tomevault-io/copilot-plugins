@@ -2,9 +2,9 @@
   "name": "latex",
   "owner": "huarangmeng",
   "repo": "latex",
-  "description": "Compose Latex",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huarangmeng/latex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T05:45:35Z"
+  "distributed_at": "2026-07-20T20:40:16Z"
 }
