@@ -249024,6 +249024,16 @@
       "description": "\u53f0\u7063\u6cd5\u5f8b\u6280\u80fd\u5305\uff1a\u6cd5\u5f8b\u8166\u529b\u6fc0\u76ea\uff0f\u9632\u5e7b\u89ba\u6cd5\u6e90\u6aa2\u7d22\uff0f\u95dc\u4fc2\u5716\u751f\u6210\uff08\u542b\u81ea\u5305\u542b\u6e32\u67d3\u5668\uff09\uff0f\u5408\u898f\u7a3d\u6838\uff0c\u4f9b Claude Code \u7b49 AI \u52a9\u7406\u4f7f\u7528"
     },
     {
+      "name": "guoyixing--llm-qa",
+      "source": "./guoyixing--llm-qa",
+      "description": "Llm-Qa"
+    },
+    {
+      "name": "onlyghb--ssb",
+      "source": "./onlyghb--ssb",
+      "description": "ssb"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -272507,6 +272517,36 @@
       "name": "aovestdipaperino--plank",
       "source": "./aovestdipaperino--plank",
       "description": "Rust port of the ds4 agent"
+    },
+    {
+      "name": "poco-ai--agentero",
+      "source": "./poco-ai--agentero",
+      "description": "Agent-first paper management"
+    },
+    {
+      "name": "galbot-ioai--ioailab",
+      "source": "./galbot-ioai--ioailab",
+      "description": "[IOAI 2026 Team Challenge] The official simulation platform for IOAI 2026 Team Challenge"
+    },
+    {
+      "name": "galbot-ioai--ioailab",
+      "source": "./galbot-ioai--ioailab",
+      "description": "[IOAI 2026 Team Challenge] The official simulation platform for IOAI 2026 Team Challenge"
+    },
+    {
+      "name": "ali2000hos--persian-writing",
+      "source": "./ali2000hos--persian-writing",
+      "description": "Professional Persian (Farsi) writing & RTL documents skill for any AI \u2014 \u0646\u06af\u0627\u0631\u0634 \u0641\u0627\u0631\u0633\u06cc \u062d\u0631\u0641\u0647\u200c\u0627\u06cc \u0628\u0631\u0627\u06cc \u0647\u0648\u0634 \u0645\u0635\u0646\u0648\u0639\u06cc"
+    },
+    {
+      "name": "lillavee--tensor-liquid-surface",
+      "source": "./lillavee--tensor-liquid-surface",
+      "description": "A fast local tensor unit that runs at home."
+    },
+    {
+      "name": "nothans--abode101",
+      "source": "./nothans--abode101",
+      "description": "A practical project to learn the Open Knowledge Format (OKF) from Google to understand your house."
     },
     {
       "name": "cheerhuan--save-your-token",
