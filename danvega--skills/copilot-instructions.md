@@ -1,0 +1,47 @@
+## skills
+
+> This is Dan Vega's personal skills' repository. When creating or editing skills here,
+
+# CLAUDE.md — authoring conventions for this repo
+
+This is Dan Vega's personal skills' repository. When creating or editing skills here,
+follow these rules.
+
+## Two layers, kept separate
+
+- **Knowledge skills** (`skills/spring/spring-boot-4/`, future `skills/spring/spring-ai/`,
+  `skills/java/`) are auto-discovered by description match. They encode framework/language
+  deltas. Framework families get a top-level folder (`spring/`) with one subfolder per
+  release or product.
+- **Workflow skills** (`skills/blog/`, `skills/newsletter/`, `skills/video/`) are
+  processes that drive a repeatable task end to end (drafting a post, republishing a
+  newsletter, generating video ideas, rough-cutting a recording).
+- Don't mix the two in one folder; their descriptions optimize for different things.
+
+## Every knowledge skill
+
+- `SKILL.md` is a **router**, not an essay. Body under ~150 lines. Route by task to
+  `reference/*.md` files.
+- Reference files are **one level deep** — never `SKILL.md → ref → ref`.
+- Encode the **delta only**. Assume the model knows Spring; tell it what changed in
+  4.x/7.x and what the current idiom is. Don't re-explain a `@RestController`.
+- Put deprecated 3.x patterns in a collapsed `<details>` "Legacy" block so the
+  current path stays clean and the skill doesn't rot on a date.
+- State the version baseline explicitly (Boot 4.0+, Framework 7.0+, Java 17+ (25 recommended)).
+- Include real gotchas (the exceptions you actually hit), not just happy-path code.
+
+## The description field
+
+This is what discovery runs on. Write it third-person, lead with what it does +
+when to use it, name concrete triggers (the annotations, the feature names), and
+add an explicit "Do NOT use for…" pointing at the sibling skill that does cover it.
+
+## Before committing
+
+This is a plain skills repo (no marketplace/plugin packaging). Sanity-check that every
+skill folder has a `SKILL.md` with valid `name` and `description` frontmatter, and that
+the README's skill list matches what's actually in `skills/`.
+
+---
+> Source: [danvega/skills](https://github.com/danvega/skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
