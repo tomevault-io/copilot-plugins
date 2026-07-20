@@ -209014,6 +209014,11 @@
       "description": "External-model router for Codex with guided Kimi OAuth/API, DeepSeek, safe migration, and rollback."
     },
     {
+      "name": "shodowlo--nx-torrent-player",
+      "source": "./shodowlo--nx-torrent-player",
+      "description": "NX Torrent Player: Stremio on Nintendo Switch"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
