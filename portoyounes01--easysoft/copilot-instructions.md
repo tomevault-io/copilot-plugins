@@ -1,64 +1,55 @@
-## progress-tracking
+## style-guide-compliance
 
-> Progress tracking and reflection requirements
+> Style guide compliance and design consistency requirements
 
 
-# Progress Tracking Rule
+# Style Guide Compliance Rule
 
-**CRITICAL REQUIREMENT**: At EVERY STEP of any coding task, the agent MUST ABSOLUTELY:
+**MANDATORY REQUIREMENT**: All UI/design decisions MUST follow the established Style Guide (`STYLE_GUIDE.md`).
 
-1. **Reflect on changes**: Explicitly identify and analyze what has changed, what is changing, or what will change in the codebase
-2. **Document progress**: Update appropriate task files to reflect the current state
+## Design Standards Enforcement
 
-## Task File Hierarchy:
+### **Color System Compliance**
+- **ALWAYS** use role-based color coding for employees:
+  - Admin: `from-red-500 to-pink-600`
+  - Manager: `from-orange-500 to-amber-600` 
+  - Cashier: `from-blue-500 to-purple-600`
+- **ALWAYS** use functional colors for actions:
+  - Success/Confirm: `bg-green-500 hover:bg-green-600`
+  - Delete/Danger: `bg-red-500 hover:bg-red-600`
+  - Warning/Clear: `bg-orange-500 hover:bg-orange-600`
+- **NEVER** introduce new colors without updating the style guide
 
-### Main Tracking Files (Permanent):
-- `TODO.md` - for pending tasks and future work
-- `IN_PROGRESS.md` - for currently active tasks  
-- `DONE.md` - for completed tasks and accomplishments
+### **Touch Screen Requirements (CRITICAL)**
+- **MINIMUM** ~60px touch targets at default root (`min-h-touch` = `3.75rem`); menus `min-h-touch-sm`; compact `min-h-touch-xs`
+- **LARGE** action buttons (`min-h-20` / ~5rem)
+- **EMPLOYEE** cards (`min-h-70` / ~17.5rem)
+- **AVOID** dropdowns, hover-dependent interactions, small fonts (<16px)
 
-### Temporary Tracking Files (Session-based):
-- `TEMP_TASKS_YYYY-MM-DD.md` - for daily subtasks, minor changes, debugging steps
-- `SESSION_NOTES_[identifier].md` - for specific feature development sessions
-- `TEMP_DEBUG_[issue].md` - for troubleshooting and bug investigation steps
+### **Typography Scale**
+- **USE** established text sizes: `text-6xl` (titles), `text-2xl` (buttons), `text-xl` (labels)
+- **MAINTAIN** font weight hierarchy: `font-bold` (titles), `font-semibold` (headers), `font-medium` (buttons)
 
-## Usage Guidelines:
+### **Component Patterns**
+- **FOLLOW** established button patterns (Primary: gradient, Secondary: gray, Keyboard: white with border)
+- **USE** standard card structure with `bg-white rounded-3xl shadow-2xl p-8`
+- **APPLY** consistent spacing with `gap-4`, `gap-6`, `gap-8` scale
 
-### Use Main Files For:
-- Major features and milestones
-- Important architectural decisions
-- User-requested functionality
-- Critical bug fixes
-- Tasks that affect multiple components
+### **Animation Standards**
+- **USE** standard transitions: `duration-200` (buttons), `duration-300` (cards), `duration-150` (keyboard)
+- **IMPLEMENT** hover effects: `hover:scale-105` (cards), gradient changes (buttons)
 
-### Use Temporary Files For:
-- Minor UI adjustments and styling tweaks
-- Debugging steps and investigation notes
-- Experimental code or proof-of-concepts
-- Refactoring individual functions
-- Code cleanup and optimization
-- Temporary workarounds
+## Compliance Checklist
 
-## Requirements:
+Before ANY UI component implementation:
+- [ ] Touch targets meet 60px minimum
+- [ ] Colors follow role-based or functional patterns
+- [ ] Typography uses established scale
+- [ ] Spacing follows gap system
+- [ ] Animations use standard timings
+- [ ] Component follows established patterns
 
-- **NEVER skip this step** - even for minor changes or single-line edits
-- **Be specific** about what changed (files, functions, features, etc.)
-- **Update task status** to accurately reflect current progress
-- **Cross-reference** completed work with original requirements
-- **Note dependencies** between tasks when relevant
-- **Promote important items** from temporary to main files when appropriate
-- **Clean up temporary files** weekly or at session end
-- **Archive valuable insights** from temporary files before cleanup
-
-## Cleanup Process:
-
-1. **Weekly Review**: Every 7 days, review all temporary files
-2. **Promote Important Items**: Move significant accomplishments to main DONE.md
-3. **Archive Insights**: Save valuable debugging insights or lessons learned
-4. **Delete Obsolete Files**: Remove temporary files that are no longer relevant
-5. **Consolidate Notes**: Merge related temporary tracking into main files when appropriate
-
-This rule ensures complete transparency and accountability while maintaining organized, focused main tracking files.
+**VIOLATION CONSEQUENCE**: Any deviation from style guide must be explicitly justified and documented.
 
 ---
 > Source: [portoyounes01/easysoft](https://github.com/portoyounes01/easysoft) — distributed by [TomeVault](https://tomevault.io).
