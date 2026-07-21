@@ -1,0 +1,18 @@
+{
+  "name": "wevm--wagmi",
+  "displayName": "wagmi",
+  "description": "wagmi",
+  "version": "1.0.0",
+  "author": "wevm",
+  "homepage": "https://github.com/wevm/wagmi",
+  "skills": [
+    {
+      "name": "wagmi-development",
+      "description": ""
+    },
+    {
+      "name": "wagmi",
+      "description": ""
+    }
+  ]
+}
