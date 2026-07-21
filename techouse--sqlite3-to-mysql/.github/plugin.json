@@ -1,0 +1,14 @@
+{
+  "name": "techouse--sqlite3-to-mysql",
+  "displayName": "sqlite3-to-mysql",
+  "description": "sqlite3-to-mysql",
+  "version": "1.0.0",
+  "author": "techouse",
+  "homepage": "https://github.com/techouse/sqlite3-to-mysql",
+  "skills": [
+    {
+      "name": "sqlite3-to-mysql",
+      "description": ""
+    }
+  ]
+}
