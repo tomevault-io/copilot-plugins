@@ -3,8 +3,8 @@
   "owner": "OrlojHQ",
   "repo": "orloj",
   "description": "An orchestration runtime for multi-agent AI systems. Declare agents, tools, and policies as YAML; Orloj schedules, executes, routes, and governs them for production-grade operation.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "orloj",
+      "path": ".cursor/skills/orloj-generator/SKILL.md",
+      "github_url": "https://github.com/OrlojHQ/orloj/tree/main/.cursor/skills/orloj-generator/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/OrlojHQ/orloj",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T01:45:28Z"
+  "distributed_at": "2026-07-21T06:26:11Z"
 }
