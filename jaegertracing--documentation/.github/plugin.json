@@ -1,0 +1,9 @@
+{
+  "name": "jaegertracing--documentation",
+  "displayName": "documentation",
+  "description": "documentation",
+  "version": "1.0.0",
+  "author": "jaegertracing",
+  "homepage": "https://github.com/jaegertracing/documentation",
+  "skills": []
+}
