@@ -1,0 +1,75 @@
+{
+  "name": "ngx-otp-input",
+  "owner": "pkovzz",
+  "repo": "ngx-otp-input",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": ".agents/skills/frontend-design",
+      "github_url": "https://github.com/pkovzz/ngx-otp-input/tree/main/.agents/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": ".agents/skills/web-design-guidelines",
+      "github_url": "https://github.com/pkovzz/ngx-otp-input/tree/main/.agents/skills/web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "ngx-otp-input",
+      "path": ".agents/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/pkovzz/ngx-otp-input/tree/main/.agents/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ngx-otp-input",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/pkovzz/ngx-otp-input/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ngx-otp-input",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/pkovzz/ngx-otp-input/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pkovzz/ngx-otp-input",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T18:31:48Z"
+}
