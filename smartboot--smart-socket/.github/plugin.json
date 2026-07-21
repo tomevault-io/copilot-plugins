@@ -1,0 +1,14 @@
+{
+  "name": "smartboot--smart-socket",
+  "displayName": "smart-socket",
+  "description": "smart-socket",
+  "version": "1.0.0",
+  "author": "smartboot",
+  "homepage": "https://github.com/smartboot/smart-socket",
+  "skills": [
+    {
+      "name": "smart-socket",
+      "description": ""
+    }
+  ]
+}
