@@ -1,0 +1,51 @@
+{
+  "name": "Musa.Veil",
+  "owner": "MiroKaku",
+  "repo": "Musa.Veil",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Musa.Veil",
+      "path": ".omp/skills/veil-update/SKILL.md",
+      "github_url": "https://github.com/MiroKaku/Musa.Veil/tree/main/.omp/skills/veil-update/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MiroKaku/Musa.Veil",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:42:50Z"
+}
