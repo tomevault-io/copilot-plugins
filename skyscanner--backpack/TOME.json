@@ -1,0 +1,63 @@
+{
+  "name": "backpack",
+  "owner": "Skyscanner",
+  "repo": "backpack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backpack",
+      "path": ".claude/skills/backpack-v42-migration/SKILL.md",
+      "github_url": "https://github.com/Skyscanner/backpack/tree/main/.claude/skills/backpack-v42-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "backpack",
+      "path": ".claude/skills/backpack-code-review-checklist/SKILL.md",
+      "github_url": "https://github.com/Skyscanner/backpack/tree/main/.claude/skills/backpack-code-review-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "backpack",
+      "path": ".claude/skills/backpack-external-component-migration/SKILL.md",
+      "github_url": "https://github.com/Skyscanner/backpack/tree/main/.claude/skills/backpack-external-component-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Skyscanner/backpack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:38:25Z"
+}
