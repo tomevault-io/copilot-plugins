@@ -1,0 +1,9 @@
+{
+  "name": "werf--trdl",
+  "displayName": "trdl",
+  "description": "trdl",
+  "version": "1.0.0",
+  "author": "werf",
+  "homepage": "https://github.com/werf/trdl",
+  "skills": []
+}
