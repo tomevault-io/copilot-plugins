@@ -1,10 +1,10 @@
 ## cheatengine-mcp-bridge
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## What this project is
 
@@ -20,7 +20,7 @@ pip install -r MCP_Server/requirements.txt
 python MCP_Server/test_mcp.py
 ```
 
-Loading the Lua side in Cheat Engine: `File → Execute Script → open MCP_Server/ce_mcp_bridge.lua → Execute`. Success log: `[MCP v12.0.0] MCP Server Listening on: CE_MCP_Bridge_v99`. Re-executing the script auto-calls `StopMCPBridge` / `cleanupZombieState` first, so reloading is safe.
+Loading the Lua side in Cheat Engine: `File -> Execute Script -> open MCP_Server/ce_mcp_bridge.lua -> Execute`. Some CE builds expose this through `Table -> Show Cheat Table Lua Script`; in that case execute `dofile([[C:\path\to\cheatengine-mcp-bridge\MCP_Server\ce_mcp_bridge.lua]])` instead of pasting the full bridge. Success log: `[MCP v12.0.0] MCP Server Listening on: CE_MCP_Bridge_v99`. Re-executing the script auto-calls `StopMCPBridge` / `cleanupZombieState` first, so reloading is safe.
 
 There is **no build step, no linter, and no unit-test harness**. `test_mcp.py` is a single end-to-end script that talks to the live Named Pipe; running a "single test" means editing the `all_tests` dict in `test_mcp.py:main` or commenting out sections.
 
@@ -64,7 +64,7 @@ One self-contained script with its own pure-Lua JSON codec, loaded inside Cheat 
 
 Two files are the source of truth — there's no codegen, so you must edit both:
 
-1. In `ce_mcp_bridge.lua`: write `local function cmd_foo(params) ... return { success = true, ... } end` and register it in the `commandHandlers` table inside the appropriate unit sub-block (see **Conventions → Section markers** below). The handler name must match the snake_case verb-first convention (`cmd_<name>`).
+1. In `ce_mcp_bridge.lua`: write `function cmd_foo(params) ... return { success = true, ... } end` and register it in the `commandHandlers` table inside the appropriate unit sub-block (see **Conventions -> Section markers** below). Command handlers are intentionally not top-level locals because Cheat Engine can fail to compile the full bridge once a Lua chunk exceeds 200 local variables. The handler name must match the snake_case verb-first convention (`cmd_<name>`).
 2. In `mcp_cheatengine.py`: add `@mcp.tool() def foo(...): return format_result(ce_client.send_command("foo", {...}))`.
 3. Follow the **Conventions** section below for return shape, address encoding, and naming.
 4. Reload the Lua script in CE. The Python server picks up changes automatically via pipe reconnect.
@@ -74,6 +74,7 @@ Two files are the source of truth — there's no codegen, so you must edit both:
 - **Windows only.** Named Pipe access via `pywin32`; no plans for cross-platform.
 - **Cheat Engine prerequisite**: CE → Settings → Extra → **disable "Query memory region routines"**. With it enabled, memory scans on DBVM-protected pages trigger `CLOCK_WATCHDOG_TIMEOUT` BSODs. This is documented as a hard requirement in both `README.md` and `AI_Context/AI_Guide_MCP_Server_Implementation.md`; don't weaken the assumption without testing.
 - **Pipe name** `\\.\pipe\CE_MCP_Bridge_v99` is hardcoded in both `mcp_cheatengine.py` (as `PIPE_NAME`) and `ce_mcp_bridge.lua` (as `PIPE_NAME`). Keep them in sync if you ever rename it. The `_v99` suffix is the wire-protocol version and is independent of the bridge version (`12.0.0`).
+- **Codex config:** use TOML, not JSON. Add `[mcp_servers.cheatengine]`, `command = "python"`, and `args = ['C:\path\to\MCP_Server\mcp_cheatengine.py']`. Use TOML single-quoted strings for Windows paths so backslashes are literal, then restart Codex and verify with the `ping` tool.
 - **Anti-cheat safety** (per `AI_Context/AI_Guide_MCP_Server_Implementation.md`): prefer hardware DR0–DR3 breakpoints over software (`0xCC`) breakpoints, and prefer DBVM watches for truly invisible tracing. The existing `cmd_set_breakpoint` already uses `debug_setBreakpoint` (hardware); keep new debugging tools on that path.
 - **Env vars:** `CE_MCP_TIMEOUT` (default 30s) limits per-tool latency; `CE_MCP_ALLOW_SHELL=1` enables `run_command` / `shell_execute` (default: disabled).
 
@@ -106,4 +107,4 @@ List-returning commands (scan results, memory regions, modules, threads, disasse
 
 ---
 > Source: [miscusi-peek/cheatengine-mcp-bridge](https://github.com/miscusi-peek/cheatengine-mcp-bridge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
