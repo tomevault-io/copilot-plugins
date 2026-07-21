@@ -1,0 +1,9 @@
+{
+  "name": "0xwilliamortiz--agents-council",
+  "displayName": "agents-council",
+  "description": "Multi-agents collaboration plugin for Claude Code - orchestrate multiple AI agents (Codex CLI, Gemini CLI, etc.) for diverse perspectives",
+  "version": "1.0.0",
+  "author": "0xwilliamortiz",
+  "homepage": "https://github.com/0xwilliamortiz/agents-council",
+  "skills": []
+}
