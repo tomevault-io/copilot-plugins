@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--optimum-neuron",
+  "displayName": "optimum-neuron",
+  "description": "optimum-neuron",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/optimum-neuron",
+  "skills": []
+}
