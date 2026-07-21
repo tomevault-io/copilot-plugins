@@ -1,0 +1,165 @@
+{
+  "name": "sast-skills",
+  "owner": "utkusen",
+  "repo": "sast-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-xss/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-xss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-xss/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-xss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-jwt/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-jwt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-jwt/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-jwt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-sqli/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-sqli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-sqli/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-sqli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-idor/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-idor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-idor/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-idor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-report/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-report/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-graphql/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-graphql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-graphql/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-graphql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-analysis/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-analysis/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-fileupload/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-fileupload/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-fileupload/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-fileupload/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-missingauth/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-missingauth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-missingauth/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-missingauth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.agents/skills/sast-businesslogic/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-businesslogic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sast-skills",
+      "path": "sast-files/.claude/skills/sast-businesslogic/SKILL.md",
+      "github_url": "https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-businesslogic/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/utkusen/sast-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:46:05Z"
+}
