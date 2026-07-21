@@ -1,0 +1,105 @@
+{
+  "name": "LLM-Agents-Ecosystem-Handbook",
+  "owner": "oxbshw",
+  "repo": "LLM-Agents-Ecosystem-Handbook",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/catalog/adr-writer/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/catalog/adr-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/examples/repo-auditor/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/examples/repo-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/catalog/pr-summarizer/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/catalog/pr-summarizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/catalog/sprint-planner/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/catalog/sprint-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/catalog/dataset-profiler/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/catalog/dataset-profiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/catalog/api-design-reviewer/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/catalog/api-design-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/catalog/incident-postmortem/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/catalog/incident-postmortem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/examples/research-summarizer/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/examples/research-summarizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/examples/agent-memory-curator/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/examples/agent-memory-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LLM-Agents-Ecosystem-Handbook",
+      "path": "skills/examples/mcp-security-reviewer/SKILL.md",
+      "github_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook/tree/main/skills/examples/mcp-security-reviewer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oxbshw/LLM-Agents-Ecosystem-Handbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:46:07Z"
+}
