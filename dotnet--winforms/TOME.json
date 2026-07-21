@@ -1,0 +1,99 @@
+{
+  "name": "winforms",
+  "owner": "dotnet",
+  "repo": "winforms",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "winforms",
+      "path": ".github/skills/download-sdk/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/download-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": ".github/skills/running-tests/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/running-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": ".github/skills/building-code/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/building-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": ".github/skills/new-control-api/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/new-control-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": ".github/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": ".github/skills/control-api-tests/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/control-api-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": ".github/skills/code-modernization/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/code-modernization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": ".github/skills/gdi-rendering-tests/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/gdi-rendering-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "winforms",
+      "path": ".github/skills/using-and-extending-gdi-plus/SKILL.md",
+      "github_url": "https://github.com/dotnet/winforms/tree/main/.github/skills/using-and-extending-gdi-plus/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnet/winforms",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T20:36:26Z"
+}
