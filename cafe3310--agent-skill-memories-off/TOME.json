@@ -1,0 +1,51 @@
+{
+  "name": "agent-skill-memories-off",
+  "owner": "cafe3310",
+  "repo": "agent-skill-memories-off",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-skill-memories-off",
+      "path": "memories-off-skill/SKILL.md",
+      "github_url": "https://github.com/cafe3310/agent-skill-memories-off/tree/main/memories-off-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cafe3310/agent-skill-memories-off",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:36:06Z"
+}
