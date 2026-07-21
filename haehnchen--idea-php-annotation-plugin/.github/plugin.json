@@ -1,0 +1,14 @@
+{
+  "name": "haehnchen--idea-php-annotation-plugin",
+  "displayName": "idea-php-annotation-plugin",
+  "description": "idea-php-annotation-plugin",
+  "version": "1.0.0",
+  "author": "Haehnchen",
+  "homepage": "https://github.com/Haehnchen/idea-php-annotation-plugin",
+  "skills": [
+    {
+      "name": "idea-php-annotation-plugin",
+      "description": ""
+    }
+  ]
+}
