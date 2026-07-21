@@ -1,0 +1,147 @@
+{
+  "name": "planning-with-files",
+  "owner": "OthmanAdi",
+  "repo": "planning-with-files",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "planning-with-files",
+      "path": "skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": "skills/planning-with-files-zh/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/skills/planning-with-files-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": "skills/planning-with-files-de/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/skills/planning-with-files-de/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": "skills/planning-with-files-es/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/skills/planning-with-files-es/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": "skills/planning-with-files-ar/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/skills/planning-with-files-ar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".pi/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.pi/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": "skills/planning-with-files-zht/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/skills/planning-with-files-zht/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".kiro/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.kiro/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".codex/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.codex/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".gemini/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.gemini/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".hermes/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.hermes/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".cursor/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.cursor/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".factory/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.factory/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".continue/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.continue/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".opencode/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.opencode/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".codebuddy/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.codebuddy/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "planning-with-files",
+      "path": ".mastracode/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/OthmanAdi/planning-with-files/tree/main/.mastracode/skills/planning-with-files/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OthmanAdi/planning-with-files",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:02:50Z"
+}
