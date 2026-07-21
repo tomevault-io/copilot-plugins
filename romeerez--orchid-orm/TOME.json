@@ -1,0 +1,111 @@
+{
+  "name": "orchid-orm",
+  "owner": "romeerez",
+  "repo": "orchid-orm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/task/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/spec/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/repro/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/repro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/ideas/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/ideas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/refine/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/refine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/code-doc/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/code-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/variants/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/variants/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/changeset/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/write-about/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/write-about/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orchid-orm",
+      "path": ".agents/skills/select-variant/SKILL.md",
+      "github_url": "https://github.com/romeerez/orchid-orm/tree/main/.agents/skills/select-variant/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/romeerez/orchid-orm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:06:23Z"
+}
