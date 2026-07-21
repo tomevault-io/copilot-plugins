@@ -1,0 +1,26 @@
+{
+  "name": "catel--catel-examples",
+  "displayName": "Catel.Examples",
+  "description": "Catel.Examples",
+  "version": "1.0.0",
+  "author": "Catel",
+  "homepage": "https://github.com/Catel/Catel.Examples",
+  "skills": [
+    {
+      "name": "Catel.Examples",
+      "description": ""
+    },
+    {
+      "name": "Catel.Examples",
+      "description": ""
+    },
+    {
+      "name": "Catel.Examples",
+      "description": ""
+    },
+    {
+      "name": "Catel.Examples",
+      "description": ""
+    }
+  ]
+}
