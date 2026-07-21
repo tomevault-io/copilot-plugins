@@ -1,0 +1,14 @@
+{
+  "name": "bigliao--markcv",
+  "displayName": "markCV",
+  "description": "markCV",
+  "version": "1.0.0",
+  "author": "BigLiao",
+  "homepage": "https://github.com/BigLiao/markCV",
+  "skills": [
+    {
+      "name": "markCV",
+      "description": ""
+    }
+  ]
+}
