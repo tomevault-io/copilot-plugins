@@ -1,0 +1,63 @@
+{
+  "name": "gworkspace-agent",
+  "owner": "haseeb-heaven",
+  "repo": "gworkspace-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gworkspace-agent",
+      "path": "skills/check-pr/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/gworkspace-agent/tree/main/skills/check-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gworkspace-agent",
+      "path": "skills/greploop/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/gworkspace-agent/tree/main/skills/greploop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gworkspace-agent",
+      "path": "skills/github-pr-mon/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/gworkspace-agent/tree/main/skills/github-pr-mon/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/haseeb-heaven/gworkspace-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:05:45Z"
+}
