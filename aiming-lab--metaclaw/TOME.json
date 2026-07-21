@@ -1,0 +1,267 @@
+{
+  "name": "MetaClaw",
+  "owner": "aiming-lab",
+  "repo": "MetaClaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-workflow",
+      "path": "memory_data/skills/git-workflow",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/test-before-ship/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/test-before-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/avoid-scope-creep/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/avoid-scope-creep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/source-evaluation/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/source-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/task-decomposition/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/task-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/sql-best-practices/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/sql-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/secrets-management/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/secrets-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/secure-code-review/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/secure-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/agent-task-handoff/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/agent-task-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/codebase-navigation/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/codebase-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/prioritize-by-impact/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/prioritize-by-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/debug-systematically/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/debug-systematically/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/data-validation-first/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/data-validation-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/visualization-selection/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/visualization-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/graceful-error-recovery/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/graceful-error-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/tool-selection-strategy/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/tool-selection-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/idempotent-script-design/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/idempotent-script-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/technical-writing-clarity/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/technical-writing-clarity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/context-window-management/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/context-window-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/structured-progress-update/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/structured-progress-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/uncertainty-acknowledgment/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/uncertainty-acknowledgment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/clarify-ambiguous-requests/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/clarify-ambiguous-requests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/avoid-acting-on-assumptions/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/avoid-acting-on-assumptions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/professional-email-drafting/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/professional-email-drafting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/audience-aware-communication/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/audience-aware-communication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/structured-research-workflow/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/structured-research-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/async-communication-etiquette/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/async-communication-etiquette/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/avoid-hallucinating-specifics/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/avoid-hallucinating-specifics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/do-not-retry-without-diagnosis/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/do-not-retry-without-diagnosis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/auth-and-authorization-patterns/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/auth-and-authorization-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/robust-error-handling-in-scripts/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/robust-error-handling-in-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/plan-before-multi-step-execution/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/plan-before-multi-step-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/structured-step-by-step-reasoning/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/structured-step-by-step-reasoning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/verify-before-irreversible-action/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/verify-before-irreversible-action/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/input-validation-and-sanitization/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/input-validation-and-sanitization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MetaClaw",
+      "path": "memory_data/skills/structured-logging-and-observability/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/MetaClaw/tree/main/memory_data/skills/structured-logging-and-observability/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aiming-lab/MetaClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:34:06Z"
+}
