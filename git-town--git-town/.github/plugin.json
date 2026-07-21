@@ -1,0 +1,14 @@
+{
+  "name": "git-town--git-town",
+  "displayName": "git-town",
+  "description": "git-town",
+  "version": "1.0.0",
+  "author": "git-town",
+  "homepage": "https://github.com/git-town/git-town",
+  "skills": [
+    {
+      "name": "git-town",
+      "description": ""
+    }
+  ]
+}
