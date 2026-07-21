@@ -1,0 +1,9 @@
+{
+  "name": "py-smart-gardena--hass-gardena-smart-system",
+  "displayName": "hass-gardena-smart-system",
+  "description": "hass-gardena-smart-system",
+  "version": "1.0.0",
+  "author": "py-smart-gardena",
+  "homepage": "https://github.com/py-smart-gardena/hass-gardena-smart-system",
+  "skills": []
+}
