@@ -1,0 +1,14 @@
+{
+  "name": "bit-vcs--bit",
+  "displayName": "bit",
+  "description": "bit",
+  "version": "1.0.0",
+  "author": "bit-vcs",
+  "homepage": "https://github.com/bit-vcs/bit",
+  "skills": [
+    {
+      "name": "bit",
+      "description": ""
+    }
+  ]
+}
