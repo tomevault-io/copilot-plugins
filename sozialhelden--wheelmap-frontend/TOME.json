@@ -1,0 +1,87 @@
+{
+  "name": "wheelmap-frontend",
+  "owner": "sozialhelden",
+  "repo": "wheelmap-frontend",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "wheelmap-frontend",
+      "path": ".claude/skills/a11y-practices/SKILL.md",
+      "github_url": "https://github.com/sozialhelden/wheelmap-frontend/tree/main/.claude/skills/a11y-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheelmap-frontend",
+      "path": ".claude/skills/map-interactions/SKILL.md",
+      "github_url": "https://github.com/sozialhelden/wheelmap-frontend/tree/main/.claude/skills/map-interactions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheelmap-frontend",
+      "path": ".claude/skills/writing-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/sozialhelden/wheelmap-frontend/tree/main/.claude/skills/writing-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheelmap-frontend",
+      "path": ".github/skills/map-interactions/SKILL.md",
+      "github_url": "https://github.com/sozialhelden/wheelmap-frontend/tree/main/.github/skills/map-interactions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheelmap-frontend",
+      "path": ".github/skills/writing-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/sozialhelden/wheelmap-frontend/tree/main/.github/skills/writing-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheelmap-frontend",
+      "path": ".github/skills/mapbox-web-performance-patterns/SKILL.md",
+      "github_url": "https://github.com/sozialhelden/wheelmap-frontend/tree/main/.github/skills/mapbox-web-performance-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheelmap-frontend",
+      "path": ".github/skills/mapbox-web-integration-patterns/SKILL.md",
+      "github_url": "https://github.com/sozialhelden/wheelmap-frontend/tree/main/.github/skills/mapbox-web-integration-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sozialhelden/wheelmap-frontend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:38:30Z"
+}
