@@ -1,0 +1,87 @@
+{
+  "name": "netbox",
+  "owner": "netbox-community",
+  "repo": "netbox",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "netbox",
+      "path": ".claude/skills/add-model/SKILL.md",
+      "github_url": "https://github.com/netbox-community/netbox/tree/main/.claude/skills/add-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "netbox",
+      "path": ".claude/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/netbox-community/netbox/tree/main/.claude/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "netbox",
+      "path": ".claude/skills/remove-model/SKILL.md",
+      "github_url": "https://github.com/netbox-community/netbox/tree/main/.claude/skills/remove-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "netbox",
+      "path": ".claude/skills/add-model-field/SKILL.md",
+      "github_url": "https://github.com/netbox-community/netbox/tree/main/.claude/skills/add-model-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "netbox",
+      "path": ".claude/skills/add-config-param/SKILL.md",
+      "github_url": "https://github.com/netbox-community/netbox/tree/main/.claude/skills/add-config-param/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "netbox",
+      "path": ".claude/skills/remove-model-field/SKILL.md",
+      "github_url": "https://github.com/netbox-community/netbox/tree/main/.claude/skills/remove-model-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "netbox",
+      "path": ".claude/skills/remove-config-param/SKILL.md",
+      "github_url": "https://github.com/netbox-community/netbox/tree/main/.claude/skills/remove-config-param/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/netbox-community/netbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:02:02Z"
+}
