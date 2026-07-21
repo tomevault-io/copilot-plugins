@@ -1,0 +1,81 @@
+{
+  "name": "sre-agent",
+  "owner": "microsoft",
+  "repo": "sre-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sre-agent",
+      "path": "labs/vm-cosmosdb/skills/vm-performance-diagnostics/SKILL.md",
+      "github_url": "https://github.com/microsoft/sre-agent/tree/main/labs/vm-cosmosdb/skills/vm-performance-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "path": "labs/vm-cosmosdb/skills/compliance-drift-detection/SKILL.md",
+      "github_url": "https://github.com/microsoft/sre-agent/tree/main/labs/vm-cosmosdb/skills/compliance-drift-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "path": "labs/deployment-compliance/skills/deployment-compliance-check/SKILL.md",
+      "github_url": "https://github.com/microsoft/sre-agent/tree/main/labs/deployment-compliance/skills/deployment-compliance-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "path": "labs/zava-aks-postgres/.github/skills/running-demo/SKILL.md",
+      "github_url": "https://github.com/microsoft/sre-agent/tree/main/labs/zava-aks-postgres/.github/skills/running-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "path": "labs/zava-aks-postgres/.github/skills/deploying-demo/SKILL.md",
+      "github_url": "https://github.com/microsoft/sre-agent/tree/main/labs/zava-aks-postgres/.github/skills/deploying-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "path": "labs/zava-aks-postgres/.github/skills/managing-sre-agent/SKILL.md",
+      "github_url": "https://github.com/microsoft/sre-agent/tree/main/labs/zava-aks-postgres/.github/skills/managing-sre-agent/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/sre-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:47:00Z"
+}
