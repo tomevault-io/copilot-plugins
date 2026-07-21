@@ -1,0 +1,14 @@
+{
+  "name": "lakesoul-io--lakesoul",
+  "displayName": "LakeSoul",
+  "description": "LakeSoul",
+  "version": "1.0.0",
+  "author": "lakesoul-io",
+  "homepage": "https://github.com/lakesoul-io/LakeSoul",
+  "skills": [
+    {
+      "name": "LakeSoul",
+      "description": ""
+    }
+  ]
+}
