@@ -1,24 +1,28 @@
 # bnb-chain-toolkit
 
-> Tome by [nirholas](https://github.com/nirholas/bnb-chain-toolkit) — distributed by [TomeVault](https://tomevault.io/claim/nirholas)
+> Tome by [nirholas](https://github.com/nirholas/bnb-chain-toolkit), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [nirholas/bnb-chain-toolkit](https://github.com/nirholas/bnb-chain-toolkit).
+Original source: `AGENTS.md` in [nirholas/bnb-chain-toolkit](https://github.com/nirholas/bnb-chain-toolkit).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/nirholas)
+## Bundled Skills (1)
+
+- [bnb-chain-toolkit](https://github.com/nirholas/bnb-chain-toolkit/tree/main/erc8004-agents/SKILL.md)
+
+From [nirholas/bnb-chain-toolkit](https://github.com/nirholas/bnb-chain-toolkit) — a repo with 37+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/nirholas) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
