@@ -1,45 +1,54 @@
-## loop-memory
+## memory-audit
 
-> Use when BOOTing a session (read the registry + knowledge layers) or at the end of every iteration (write per-session state). Keeps state persistent across runs — the model forgets, the repo doesn't.
+> Use every 5 iterations, when scope changes, or before session end. Invokes .windsurf/scripts/memory_audit.py to review candidate memories, prune stale ones, and distills reusable patterns into knowledge_distill.md.
 
 
-# Skill: loop-memory
+# Skill: memory-audit
 
-> Thin wrapper over `.windsurf/canon/MEMORY_PROTOCOL.md`. Read at BOOT, write per-session state at the end of every iteration.
-> The model forgets; the repo doesn't.
+> Turn raw mistakes into reusable anti-patterns. Do not write `knowledge_distill.md` by hand; call the script.
 
 ## Trigger
-- BOOT: read registry + knowledge layers + per-session state.
-- End of every iteration: write per-session state and regenerate the registry.
-- Keywords: update memory, loop_state, session_state, iteration end, distill.
+- 5 iterations have passed.
+- Scope has changed significantly (new files, new goal, new tool).
+- Before writing the final `.agents/handoff_letter.md`.
+- `post_tool_use.py` has written candidate memory entries to the per-session file.
 
-## What to do
+## When to run
+At scope change, at iteration 5, and before the session ends.
 
-Follow `.windsurf/canon/MEMORY_PROTOCOL.md` for the full spec. Quick reference:
+## How
 
-| Action | Rule |
-|--------|------|
-| Read at BOOT | `.windsurf/loop_state.md` registry (<3KB) + `.agents/knowledge_distill.md` (<8KB) + `.agents/user_profile.md` (<2KB) + `.windsurf/context_flags/<session_id>.json` if exists. Only read the matching `loop_state/<session_id>.md` and `session_state/<session_id>.json` for audit/conflict. |
-| Iteration start | Set `.windsurf/session_state/<session_id>.json` `state_written` to `false`. |
-| Write every iteration | Update `.windsurf/loop_state/<session_id>.md` with date, phase, last_action, active GoalSpec, subtasks, deferred/human_required, `context_fill_pct`, `caveman_level`. Update `.windsurf/session_state/<session_id>.json` with `current_subtask`, `last_action`, `last_state_write`, `state_written: true`, `context_fill_pct`, `caveman_level`, `context_flags`, `owned_files`, `affected_files`, `tags`. Then call `python .windsurf/scripts/loop_memory_sync.py`. |
-| Distill when >8KB | Merge duplicate anti-patterns, abstract concrete cases into patterns, archive originals to `.windsurf/loop_state_archive.md`. Dispatch Memory Keeper if judgment needed. |
-| Micro-memory | Run `memory-audit` skill every 5 iterations or scope change. It invokes `python .windsurf/scripts/memory_audit.py --session <session_id>`. |
-| Cold layer | Append-only. Never edit; only archive. |
-| Secrets | Never write secrets/keys/API tokens to any layer. |
-| Skipping write | Red line #7 (canon). |
+1. Call `python .windsurf/scripts/memory_audit.py --session <session_id>`.
+2. The script does the following:
+   - Read `.windsurf/session_state/<session_id>/candidate_memory.jsonl`.
+   - For each candidate, check:
+     - Does it have a clear trigger? (e.g., "file path with spaces in exec causes shell parse error")
+     - Does it have a correct action? (e.g., "quote the path with double quotes")
+     - Does it have a counter-example or a previous failure? (e.g., `exec command: rm /path with spaces`)
+   - If all three exist, merge into `.agents/knowledge_distill.md` in the format:
+     ```
+     - [memory] <trigger> -> <correct action> (counter: <...>)
+     ```
+   - If incomplete, either add the missing piece by reading the relevant journal or discard if it is too specific to a one-off event.
+   - If `.agents/knowledge_distill.md` exceeds 8KB, run a distillation pass:
+     - merge duplicates
+     - abstract concrete paths into patterns
+     - archive evicted entries to `.windsurf/loop_state_archive.md`
+   - Clear the processed candidates from `.windsurf/session_state/<session_id>/candidate_memory.jsonl`.
+3. You may also read the audit output from the script and append any high-level judgment to `.agents/handoff_letter.md`.
 
-## StateWritten contract
+## Output
+```
+## Memory audit
+- script: python .windsurf/scripts/memory_audit.py --session <session_id>
+- accepted: N
+- discarded: N
+- merged into knowledge_distill.md: N
+- bytes in knowledge_distill.md: <N>/8192
+- note: <any unresolved conflict>
+```
 
-- `state_written` is the heartbeat of honest progress.
-- Set it to `false` at the very start of every iteration.
-- Set it to `true` only after the per-session markdown and JSON have been written and `loop_memory_sync.py` has returned.
-- `stop.py` uses `state_written` + `last_state_write` to decide between `completed` and `crashed`.
-
-## Optional: deep-memory
-
-If `~/.deep-memory/.venv` exists, run cross-project retrieval via `chroma-hybrid-search` skill.
-If not, set `deep_memory_offline: true` in `.windsurf/session_state/<session_id>.json`. Do not fabricate memory.
-To bootstrap, run `python scripts/init_deep_memory.py`.
+Caveman compact. One line per memory.
 
 ---
 > Source: [masteryee-labs/Open-Godot-MCP](https://github.com/masteryee-labs/Open-Godot-MCP) — distributed by [TomeVault](https://tomevault.io).
