@@ -1,0 +1,249 @@
+{
+  "name": "router",
+  "owner": "TanStack",
+  "repo": "router",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue-start",
+      "path": "packages/vue-start/skills/vue-start",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/vue-start/skills/vue-start",
+      "description": ""
+    },
+    {
+      "name": "vue-router",
+      "path": "packages/vue-router/skills/vue-router",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/vue-router/skills/vue-router",
+      "description": ""
+    },
+    {
+      "name": "lifecyclemigrate-from-nextjs",
+      "path": "packages/react-start/skills/lifecycle/migrate-from-nextjs",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-start/skills/lifecycle/migrate-from-nextjs",
+      "description": ""
+    },
+    {
+      "name": "react-router",
+      "path": "packages/react-router/skills/react-router",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-router/skills/react-router",
+      "description": ""
+    },
+    {
+      "name": "react-start",
+      "path": "packages/react-start/skills/react-start",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-start/skills/react-start",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "skills/bundle-size-optimization/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/skills/bundle-size-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/vue-start/skills/vue-start/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/vue-start/skills/vue-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/vue-router/skills/vue-router/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/vue-router/skills/vue-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/react-start/skills/react-start/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-start/skills/react-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/solid-start/skills/solid-start/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/solid-start/skills/solid-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/solid-router/skills/solid-router/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/solid-router/skills/solid-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/react-router/skills/react-router/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-router/skills/react-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/ssr/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/ssr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-plugin/skills/router-plugin/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-plugin/skills/router-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/start-client-core/skills/start-core/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/start-client-core/skills/start-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/navigation/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/type-safety/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/type-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/path-params/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/path-params/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/start-server-core/skills/start-server-core/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/start-server-core/skills/start-server-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/data-loading/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/data-loading/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/search-params/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/search-params/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/code-splitting/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/code-splitting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/react-router/skills/compositions/router-query/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-router/skills/compositions/router-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/start-client-core/skills/start-core/middleware/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/start-client-core/skills/start-core/middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/virtual-file-routes/skills/virtual-file-routes/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/virtual-file-routes/skills/virtual-file-routes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/auth-and-guards/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/auth-and-guards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/react-start/skills/lifecycle/migrate-from-nextjs/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-start/skills/lifecycle/migrate-from-nextjs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/react-start/skills/react-start/server-components/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-start/skills/react-start/server-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/start-client-core/skills/start-core/server-routes/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/start-client-core/skills/start-core/server-routes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/router-core/skills/router-core/not-found-and-errors/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/router-core/skills/router-core/not-found-and-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/start-client-core/skills/start-core/execution-model/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/start-client-core/skills/start-core/execution-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/start-client-core/skills/start-core/server-functions/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/start-client-core/skills/start-core/server-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "router",
+      "path": "packages/react-router/skills/lifecycle/migrate-from-react-router/SKILL.md",
+      "github_url": "https://github.com/TanStack/router/tree/main/packages/react-router/skills/lifecycle/migrate-from-react-router/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TanStack/router",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:02:52Z"
+}
