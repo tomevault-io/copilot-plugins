@@ -1,0 +1,87 @@
+{
+  "name": "design-system-example-components-react",
+  "owner": "digital-go-jp",
+  "repo": "design-system-example-components-react",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "design-system-example-components-react",
+      "path": ".agents/skills/review/SKILL.md",
+      "github_url": "https://github.com/digital-go-jp/design-system-example-components-react/tree/main/.agents/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system-example-components-react",
+      "path": ".agents/skills/write-tests/SKILL.md",
+      "github_url": "https://github.com/digital-go-jp/design-system-example-components-react/tree/main/.agents/skills/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system-example-components-react",
+      "path": ".agents/skills/create-commit/SKILL.md",
+      "github_url": "https://github.com/digital-go-jp/design-system-example-components-react/tree/main/.agents/skills/create-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system-example-components-react",
+      "path": ".agents/skills/component-rules/SKILL.md",
+      "github_url": "https://github.com/digital-go-jp/design-system-example-components-react/tree/main/.agents/skills/component-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system-example-components-react",
+      "path": ".agents/skills/port-html-to-react/SKILL.md",
+      "github_url": "https://github.com/digital-go-jp/design-system-example-components-react/tree/main/.agents/skills/port-html-to-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system-example-components-react",
+      "path": ".agents/skills/write-component-docs/SKILL.md",
+      "github_url": "https://github.com/digital-go-jp/design-system-example-components-react/tree/main/.agents/skills/write-component-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system-example-components-react",
+      "path": ".agents/skills/pre-completion-check/SKILL.md",
+      "github_url": "https://github.com/digital-go-jp/design-system-example-components-react/tree/main/.agents/skills/pre-completion-check/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/digital-go-jp/design-system-example-components-react",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:55:17Z"
+}
