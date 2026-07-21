@@ -1,0 +1,9 @@
+{
+  "name": "cloudsmith-io--cloudsmith-cli",
+  "displayName": "cloudsmith-cli",
+  "description": "cloudsmith-cli",
+  "version": "1.0.0",
+  "author": "cloudsmith-io",
+  "homepage": "https://github.com/cloudsmith-io/cloudsmith-cli",
+  "skills": []
+}
