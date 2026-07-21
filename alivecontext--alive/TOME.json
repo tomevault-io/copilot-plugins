@@ -1,0 +1,261 @@
+{
+  "name": "alive",
+  "owner": "alivecontext",
+  "repo": "alive",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/demo/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/save/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/save/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/world/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/world/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/bundle/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/bundle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/feedback/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/settings/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-save/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-save/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-load/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-load/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-mine/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-mine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-daily/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-daily/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-world/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-world/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/cron-templates/alive-mine/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/cron-templates/alive-mine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/search-world/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/search-world/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/load-context/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/load-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-create/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/cron-templates/alive-prune/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/cron-templates/alive-prune/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-search/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-bundle/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-bundle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/cron-templates/alive-inbox/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/cron-templates/alive-inbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/create-walnut/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/create-walnut/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-cleanup/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/cron-templates/alive-people/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/cron-templates/alive-people/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-capture/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/cron-templates/alive-health/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/cron-templates/alive-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/hermes-skills/alive-history/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/hermes-skills/alive-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/system-cleanup/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/system-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/system-upgrade/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/system-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/cron-templates/alive-project/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/cron-templates/alive-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/cron-templates/alive-morning/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/cron-templates/alive-morning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/session-history/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/session-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/capture-context/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/capture-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/my-context-graph/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/my-context-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/build-extensions/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/build-extensions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/mine-for-context/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/mine-for-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "hermes/cron-templates/alive-stash-router/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/hermes/cron-templates/alive-stash-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alive",
+      "path": "plugins/alive/skills/session-context-rebuild/SKILL.md",
+      "github_url": "https://github.com/alivecontext/alive/tree/main/plugins/alive/skills/session-context-rebuild/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alivecontext/alive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:45:02Z"
+}
