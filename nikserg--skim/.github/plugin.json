@@ -1,0 +1,9 @@
+{
+  "name": "nikserg--skim",
+  "displayName": "skim",
+  "description": "A free, open-source AI email client for Windows that doesn't suck (that hard). ~5 MB installer, BYOK AI.",
+  "version": "1.0.0",
+  "author": "nikserg",
+  "homepage": "https://github.com/nikserg/skim",
+  "skills": []
+}
