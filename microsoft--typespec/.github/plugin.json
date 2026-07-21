@@ -1,0 +1,50 @@
+{
+  "name": "microsoft--typespec",
+  "displayName": "typespec",
+  "description": "typespec",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/typespec",
+  "skills": [
+    {
+      "name": "http-client-python-bump-and-release",
+      "description": ""
+    },
+    {
+      "name": "python-sdk-spector-mock-api-tests",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "description": ""
+    }
+  ]
+}
