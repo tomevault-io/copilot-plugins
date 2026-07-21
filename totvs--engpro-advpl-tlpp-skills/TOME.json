@@ -1,0 +1,249 @@
+{
+  "name": "engpro-advpl-tlpp-skills",
+  "owner": "totvs",
+  "repo": "engpro-advpl-tlpp-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documentation-writer",
+      "path": "skills/advpl-tlpp/documentation-writer",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/documentation-writer",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/refactor/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/code-review/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/context-map/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/context-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/query-builder/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/query-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/mvc-generator/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/mvc-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/advpl-tlpp-sdd/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/advpl-tlpp-sdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/writing-plans/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/brainstorming/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/writing-skills/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/sql-code-review/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/sql-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/executing-plans/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/sql-optimization/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/sql-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/tir-test-generator/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/tir-test-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/advpl-tlpp-compile/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/advpl-tlpp-compile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/documentation-writer/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/documentation-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/entry-point-designer/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/entry-point-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/data-dictionary-lookup/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/data-dictionary-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/fwrest-client-generator/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/fwrest-client-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/advpl-to-tlpp-migration/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/advpl-to-tlpp-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/utf8-to-cp1252-conversion/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/utf8-to-cp1252-conversion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/create-implementation-plan/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/create-implementation-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/tlpp-rest-endpoint-generator/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/tlpp-rest-endpoint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/superpowers/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/superpowers/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "engpro-advpl-tlpp-skills",
+      "path": "skills/advpl-tlpp/refactor-method-complexity-reduce/SKILL.md",
+      "github_url": "https://github.com/totvs/engpro-advpl-tlpp-skills/tree/main/skills/advpl-tlpp/refactor-method-complexity-reduce/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/totvs/engpro-advpl-tlpp-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:52:12Z"
+}
