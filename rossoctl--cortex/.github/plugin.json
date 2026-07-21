@@ -1,0 +1,9 @@
+{
+  "name": "rossoctl--cortex",
+  "displayName": "cortex",
+  "description": "Repository for kagenti extensions projects",
+  "version": "1.0.0",
+  "author": "rossoctl",
+  "homepage": "https://github.com/rossoctl/cortex",
+  "skills": []
+}
