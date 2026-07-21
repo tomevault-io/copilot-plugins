@@ -1,0 +1,51 @@
+{
+  "name": "functions-markdown-agent",
+  "owner": "Azure-Samples",
+  "repo": "functions-markdown-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "functions-markdown-agent",
+      "path": "src/.github/skills/azure-pricing/SKILL.md",
+      "github_url": "https://github.com/Azure-Samples/functions-markdown-agent/tree/main/src/.github/skills/azure-pricing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure-Samples/functions-markdown-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:56:52Z"
+}
