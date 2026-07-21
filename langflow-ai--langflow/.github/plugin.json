@@ -1,0 +1,38 @@
+{
+  "name": "langflow-ai--langflow",
+  "displayName": "langflow",
+  "description": "langflow",
+  "version": "1.0.0",
+  "author": "langflow-ai",
+  "homepage": "https://github.com/langflow-ai/langflow",
+  "skills": [
+    {
+      "name": "frontend-query-mutation",
+      "description": ""
+    },
+    {
+      "name": "component-refactoring",
+      "description": ""
+    },
+    {
+      "name": "langflow",
+      "description": ""
+    },
+    {
+      "name": "langflow",
+      "description": ""
+    },
+    {
+      "name": "langflow",
+      "description": ""
+    },
+    {
+      "name": "langflow",
+      "description": ""
+    },
+    {
+      "name": "langflow",
+      "description": ""
+    }
+  ]
+}
