@@ -1,0 +1,9 @@
+{
+  "name": "exceptionless--exceptionless-datetimeextensions",
+  "displayName": "Exceptionless.DateTimeExtensions",
+  "description": "Exceptionless.DateTimeExtensions",
+  "version": "1.0.0",
+  "author": "exceptionless",
+  "homepage": "https://github.com/exceptionless/Exceptionless.DateTimeExtensions",
+  "skills": []
+}
