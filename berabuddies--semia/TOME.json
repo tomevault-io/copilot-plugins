@@ -1,0 +1,219 @@
+{
+  "name": "Semia",
+  "owner": "berabuddies",
+  "repo": "Semia",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Semia",
+      "path": "packages/semia-plugins/codex/skills/semia/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/packages/semia-plugins/codex/skills/semia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "packages/semia-plugins/shared/skills/semia/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/packages/semia-plugins/shared/skills/semia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "packages/semia-plugins/openclaw/skills/semia/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/packages/semia-plugins/openclaw/skills/semia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "packages/semia-plugins/claude-code/skills/semia/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/packages/semia-plugins/claude-code/skills/semia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/f-liva/ryot/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/f-liva/ryot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/stveenli/airbnb/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/stveenli/airbnb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/rdewolff/godaddy/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/rdewolff/godaddy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/ivangdavila/goals/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/ivangdavila/goals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/reed1898/claw-roam/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/reed1898/claw-roam/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/kintupercy/deadclaw/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/kintupercy/deadclaw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/ivangdavila/japanese/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/ivangdavila/japanese/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/stveenli/copywritings/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/stveenli/copywritings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/baokui/pdf-ocr-layout/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/baokui/pdf-ocr-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/autogame-17/feishu-post/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/autogame-17/feishu-post/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/epheterson/mcp-applemusic/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/epheterson/mcp-applemusic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/thiagoruss0/pptx-creatord/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/thiagoruss0/pptx-creatord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/xiulipan/multi-agent-roles/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/xiulipan/multi-agent-roles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/crossallen/regex-assistant/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/crossallen/regex-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/lijie420461340/md-to-office/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/lijie420461340/md-to-office/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/abdullah4ai/council-builder/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/abdullah4ai/council-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/2winter-dev/fennecseo-audit/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/2winter-dev/fennecseo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/misaka43fd/mulerouter-skills/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/misaka43fd/mulerouter-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/xbillwatsonx/session-watchdog/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/xbillwatsonx/session-watchdog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/nicholasoxford/market-snapshot/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/nicholasoxford/market-snapshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/su707181393-del/finance-watcher/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/su707181393-del/finance-watcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/bavxhack/create-videoconference/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/bavxhack/create-videoconference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/phheng/amazon-competitor-analyzer/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/phheng/amazon-competitor-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/noreplyboter/polymarket-all-in-one/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/noreplyboter/polymarket-all-in-one/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Semia",
+      "path": "tests/fixtures/skills/aiwithabidi/a6-gemini-video-analyzer/SKILL.md",
+      "github_url": "https://github.com/berabuddies/Semia/tree/main/tests/fixtures/skills/aiwithabidi/a6-gemini-video-analyzer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/berabuddies/Semia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:46:03Z"
+}
