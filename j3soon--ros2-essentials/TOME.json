@@ -1,0 +1,51 @@
+{
+  "name": "ros2-essentials",
+  "owner": "j3soon",
+  "repo": "ros2-essentials",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ros2-essentials",
+      "path": ".codex/skills/test-all-fixer/SKILL.md",
+      "github_url": "https://github.com/j3soon/ros2-essentials/tree/main/.codex/skills/test-all-fixer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/j3soon/ros2-essentials",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T04:04:55Z"
+}
