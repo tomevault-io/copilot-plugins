@@ -1,0 +1,9 @@
+{
+  "name": "splunk--splunk-sdk-python",
+  "displayName": "splunk-sdk-python",
+  "description": "splunk-sdk-python",
+  "version": "1.0.0",
+  "author": "splunk",
+  "homepage": "https://github.com/splunk/splunk-sdk-python",
+  "skills": []
+}
