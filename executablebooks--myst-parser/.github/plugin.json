@@ -1,0 +1,9 @@
+{
+  "name": "executablebooks--myst-parser",
+  "displayName": "MyST-Parser",
+  "description": "MyST-Parser",
+  "version": "1.0.0",
+  "author": "executablebooks",
+  "homepage": "https://github.com/executablebooks/MyST-Parser",
+  "skills": []
+}
