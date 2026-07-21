@@ -1,0 +1,18 @@
+{
+  "name": "getsentry--sentry-python",
+  "displayName": "sentry-python",
+  "description": "sentry-python",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-python",
+  "skills": [
+    {
+      "name": "sentry-python",
+      "description": ""
+    },
+    {
+      "name": "sentry-python",
+      "description": ""
+    }
+  ]
+}
