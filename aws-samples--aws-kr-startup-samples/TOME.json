@@ -1,0 +1,57 @@
+{
+  "name": "aws-kr-startup-samples",
+  "owner": "aws-samples",
+  "repo": "aws-kr-startup-samples",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-code-skills-aidlc-workflows",
+      "path": "gen-ai/claude-code-skills-aidlc-workflows",
+      "github_url": "https://github.com/aws-samples/aws-kr-startup-samples/tree/main/gen-ai/claude-code-skills-aidlc-workflows",
+      "description": ""
+    },
+    {
+      "name": "aws-kr-startup-samples",
+      "path": "gen-ai/claude-code-skills-aidlc-workflows/SKILL.md",
+      "github_url": "https://github.com/aws-samples/aws-kr-startup-samples/tree/main/gen-ai/claude-code-skills-aidlc-workflows/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/aws-kr-startup-samples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:59:22Z"
+}
