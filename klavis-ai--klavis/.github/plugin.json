@@ -1,0 +1,14 @@
+{
+  "name": "klavis-ai--klavis",
+  "displayName": "klavis",
+  "description": "klavis",
+  "version": "1.0.0",
+  "author": "Klavis-AI",
+  "homepage": "https://github.com/Klavis-AI/klavis",
+  "skills": [
+    {
+      "name": "klavis",
+      "description": ""
+    }
+  ]
+}
