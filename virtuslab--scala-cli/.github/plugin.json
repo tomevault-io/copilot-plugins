@@ -1,0 +1,22 @@
+{
+  "name": "virtuslab--scala-cli",
+  "displayName": "scala-cli",
+  "description": "scala-cli",
+  "version": "1.0.0",
+  "author": "VirtusLab",
+  "homepage": "https://github.com/VirtusLab/scala-cli",
+  "skills": [
+    {
+      "name": "scala-cli",
+      "description": ""
+    },
+    {
+      "name": "scala-cli",
+      "description": ""
+    },
+    {
+      "name": "scala-cli",
+      "description": ""
+    }
+  ]
+}
