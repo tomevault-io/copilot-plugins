@@ -1,0 +1,171 @@
+{
+  "name": "mimeo",
+  "owner": "K-Dense-AI",
+  "repo": "mimeo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "richard-s-sutton",
+      "path": "output/richard-s-sutton",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/richard-s-sutton",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/jeff-dean/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/jeff-dean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/andrew-ng/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/andrew-ng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/fei-fei-li/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/fei-fei-li/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/kaiming-he/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/kaiming-he/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/yann-lecun/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/yann-lecun/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/judea-pearl/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/judea-pearl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/david-silver/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/david-silver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/pieter-abbeel/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/pieter-abbeel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/yoshua-bengio/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/yoshua-bengio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/daphne-koller/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/daphne-koller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/ian-goodfellow/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/ian-goodfellow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/demis-hassabis/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/demis-hassabis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/stuart-russell/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/stuart-russell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/ilya-sutskever/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/ilya-sutskever/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/sebastian-thrun/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/sebastian-thrun/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/andrej-karpathy/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/andrej-karpathy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/geoffrey-hinton/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/geoffrey-hinton/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/richard-s-sutton/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/richard-s-sutton/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/jurgen-schmidhuber/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/jurgen-schmidhuber/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeo",
+      "path": "output/christopher-manning/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeo/tree/main/output/christopher-manning/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/K-Dense-AI/mimeo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:40:28Z"
+}
