@@ -1,0 +1,22 @@
+{
+  "name": "hyperlane-xyz--hyperlane-registry",
+  "displayName": "hyperlane-registry",
+  "description": "hyperlane-registry",
+  "version": "1.0.0",
+  "author": "hyperlane-xyz",
+  "homepage": "https://github.com/hyperlane-xyz/hyperlane-registry",
+  "skills": [
+    {
+      "name": "claude-review",
+      "description": ""
+    },
+    {
+      "name": "hyperlane-registry",
+      "description": ""
+    },
+    {
+      "name": "hyperlane-registry",
+      "description": ""
+    }
+  ]
+}
