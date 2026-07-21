@@ -1,0 +1,9 @@
+{
+  "name": "intelpython--mkl-fft",
+  "displayName": "mkl_fft",
+  "description": "mkl_fft",
+  "version": "1.0.0",
+  "author": "IntelPython",
+  "homepage": "https://github.com/IntelPython/mkl_fft",
+  "skills": []
+}
