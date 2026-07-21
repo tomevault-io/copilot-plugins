@@ -1,0 +1,14 @@
+{
+  "name": "devolutions--ironrdp",
+  "displayName": "IronRDP",
+  "description": "IronRDP",
+  "version": "1.0.0",
+  "author": "Devolutions",
+  "homepage": "https://github.com/Devolutions/IronRDP",
+  "skills": [
+    {
+      "name": "IronRDP",
+      "description": ""
+    }
+  ]
+}
