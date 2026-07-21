@@ -1,0 +1,129 @@
+{
+  "name": "dlt",
+  "owner": "dlt-hub",
+  "repo": "dlt",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dlt",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/dashboard/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/dashboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/optimize-code/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/optimize-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/implement-issue/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/implement-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/create-worktree/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/create-worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/switch-worktree/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/switch-worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/worktree-make-dev/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/worktree-make-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/auto-import-rules/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/auto-import-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/worktree-from-issue/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/worktree-from-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/auto-docstring-rules/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/auto-docstring-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/auto-write-test-rules/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/auto-write-test-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": ".claude/skills/review-issues-severity/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/.claude/skills/review-issues-severity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlt",
+      "path": "tests/workspace/cli/dlthub/ai/cases/mock_workbench/rest-api-pipeline/skills/find-source/SKILL.md",
+      "github_url": "https://github.com/dlt-hub/dlt/tree/main/tests/workspace/cli/dlthub/ai/cases/mock_workbench/rest-api-pipeline/skills/find-source/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dlt-hub/dlt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:55:00Z"
+}
