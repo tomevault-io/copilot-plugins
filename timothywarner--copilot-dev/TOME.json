@@ -1,0 +1,63 @@
+{
+  "name": "copilot-dev",
+  "owner": "timothywarner",
+  "repo": "copilot-dev",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "copilot-dev",
+      "path": ".github/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/timothywarner/copilot-dev/tree/main/.github/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-dev",
+      "path": ".github/skills/legacy-code-refactor/SKILL.md",
+      "github_url": "https://github.com/timothywarner/copilot-dev/tree/main/.github/skills/legacy-code-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-dev",
+      "path": ".github/skills/api-endpoint-generator/SKILL.md",
+      "github_url": "https://github.com/timothywarner/copilot-dev/tree/main/.github/skills/api-endpoint-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/timothywarner/copilot-dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:36:05Z"
+}
