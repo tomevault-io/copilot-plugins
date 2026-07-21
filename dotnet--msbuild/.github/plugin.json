@@ -1,0 +1,78 @@
+{
+  "name": "dotnet--msbuild",
+  "displayName": "msbuild",
+  "description": "msbuild",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/msbuild",
+  "skills": [
+    {
+      "name": "multithreaded-task-migration",
+      "description": ""
+    },
+    {
+      "name": "use-bootstrap-msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "description": ""
+    }
+  ]
+}
