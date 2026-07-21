@@ -1,29 +1,35 @@
 # cult-ui
 
-> Tome by [nolly-studio](https://github.com/nolly-studio/cult-ui) — distributed by [TomeVault](https://tomevault.io/claim/nolly-studio)
-
-AI instruction files for cult-ui by nolly-studio
+> Tome by [nolly-studio](https://github.com/nolly-studio/cult-ui), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [nolly-studio/cult-ui](https://github.com/nolly-studio/cult-ui).
+Original source: `AGENTS.md` in [nolly-studio/cult-ui](https://github.com/nolly-studio/cult-ui).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/nolly-studio](https://tomevault.io/claim/nolly-studio)
-
-## Bundled Skills (1)
+## Bundled Skills (4)
 
 - [components-build](https://github.com/nolly-studio/cult-ui/tree/main/.agents/skills/components-build)
+- [cult-ui](https://github.com/nolly-studio/cult-ui/tree/main/.agents/skills/components-build/SKILL.md)
+- [cult-ui](https://github.com/nolly-studio/cult-ui/tree/main/.claude/skills/fixing-motion-performance/SKILL.md)
+- [cult-ui](https://github.com/nolly-studio/cult-ui/tree/main/.cursor/skills/fixing-motion-performance/SKILL.md)
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/nolly-studio/cult-ui](https://github.com/nolly-studio/cult-ui)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/nolly-studio) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install nolly-studio/cult-ui
+```
+Source: [github.com/nolly-studio/cult-ui](https://github.com/nolly-studio/cult-ui).
+
+<!-- genome:t-i-p -->
