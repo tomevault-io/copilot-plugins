@@ -1,0 +1,81 @@
+{
+  "name": "CopilotCustomizer",
+  "owner": "klintravis",
+  "repo": "CopilotCustomizer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "CopilotCustomizer",
+      "path": ".github/skills/planning/SKILL.md",
+      "github_url": "https://github.com/klintravis/CopilotCustomizer/tree/main/.github/skills/planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CopilotCustomizer",
+      "path": ".github/skills/asset-design/SKILL.md",
+      "github_url": "https://github.com/klintravis/CopilotCustomizer/tree/main/.github/skills/asset-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CopilotCustomizer",
+      "path": ".github/skills/orchestration/SKILL.md",
+      "github_url": "https://github.com/klintravis/CopilotCustomizer/tree/main/.github/skills/orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CopilotCustomizer",
+      "path": ".github/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/klintravis/CopilotCustomizer/tree/main/.github/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CopilotCustomizer",
+      "path": ".github/skills/repo-analysis/SKILL.md",
+      "github_url": "https://github.com/klintravis/CopilotCustomizer/tree/main/.github/skills/repo-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CopilotCustomizer",
+      "path": ".github/skills/deployment-automation/SKILL.md",
+      "github_url": "https://github.com/klintravis/CopilotCustomizer/tree/main/.github/skills/deployment-automation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/klintravis/CopilotCustomizer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:58:24Z"
+}
