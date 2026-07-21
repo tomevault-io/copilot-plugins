@@ -1,0 +1,30 @@
+{
+  "name": "heroui-inc--heroui",
+  "displayName": "heroui",
+  "description": "heroui",
+  "version": "1.0.0",
+  "author": "heroui-inc",
+  "homepage": "https://github.com/heroui-inc/heroui",
+  "skills": [
+    {
+      "name": "heroui-native",
+      "description": ""
+    },
+    {
+      "name": "heroui-react",
+      "description": ""
+    },
+    {
+      "name": "heroui",
+      "description": ""
+    },
+    {
+      "name": "heroui",
+      "description": ""
+    },
+    {
+      "name": "heroui",
+      "description": ""
+    }
+  ]
+}
