@@ -1,0 +1,9 @@
+{
+  "name": "psake--powershellbuild",
+  "displayName": "PowerShellBuild",
+  "description": "PowerShellBuild",
+  "version": "1.0.0",
+  "author": "psake",
+  "homepage": "https://github.com/psake/PowerShellBuild",
+  "skills": []
+}
