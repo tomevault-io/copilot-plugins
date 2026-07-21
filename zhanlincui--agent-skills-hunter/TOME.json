@@ -1,0 +1,357 @@
+{
+  "name": "Agent-Skills-Hunter",
+  "owner": "ZhanlinCui",
+  "repo": "Agent-Skills-Hunter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doc-sync-tool",
+      "path": "integration/doc-sync-tool",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/integration/doc-sync-tool",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "docs/pdf/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/docs/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "docs/xlsx/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/docs/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "docs/pptx/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/docs/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "docs/docx/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/docs/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "dev/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/dev/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "dev/skill-creator/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/dev/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "dev/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/dev/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "docs/internal-comms/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/docs/internal-comms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "agent/writing-skills/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/agent/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "obsidian/json-canvas/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/obsidian/json-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "docs/doc-coauthoring/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/docs/doc-coauthoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "vercel/vercel-deploy/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/vercel/vercel-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "integration/daily-news/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/integration/daily-news/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "creative/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/creative/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "integration/notebooklm/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/integration/notebooklm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "integration/web-access/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/integration/web-access/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "creative/canvas-design/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/creative/canvas-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "creative/theme-factory/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/creative/theme-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "planning/writing-plans/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/planning/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "planning/brainstorming/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/planning/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "obsidian/obsidian-bases/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/obsidian/obsidian-bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "seo/web-performance-seo/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/seo/web-performance-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "planning/chat-compactor/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/planning/chat-compactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "agent/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/agent/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "obsidian/obsidian-helper/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/obsidian/obsidian-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "creative/algorithmic-art/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/creative/algorithmic-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "planning/executing-plans/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/planning/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "creative/frontend-design/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/creative/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "integration/doc-sync-tool/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/integration/doc-sync-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "creative/brand-guidelines/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/creative/brand-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "dev/web-artifacts-builder/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/dev/web-artifacts-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "obsidian/obsidian-markdown/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/obsidian/obsidian-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "creative/slack-gif-creator/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/creative/slack-gif-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "dev/deploying-to-production/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/dev/deploying-to-production/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "obsidian/project-to-obsidian/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/obsidian/project-to-obsidian/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "planning/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/planning/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "quality/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/quality/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "seo/google-official-seo-guide/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/seo/google-official-seo-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "quality/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/quality/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "docs/github-release-assistant/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/docs/github-release-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "quality/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/quality/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "integration/x-article-publisher/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/integration/x-article-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "quality/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/quality/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "dev/internationalizing-websites/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/dev/internationalizing-websites/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "git-workflow/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/git-workflow/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "agent/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/agent/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "agent/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/agent/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "vercel/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/vercel/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "vercel/vercel-web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/vercel/vercel-web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "quality/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/quality/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Skills-Hunter",
+      "path": "git-workflow/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/tree/main/git-workflow/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T18:37:00Z"
+}
