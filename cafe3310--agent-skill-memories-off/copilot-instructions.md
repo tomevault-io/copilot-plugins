@@ -1,0 +1,53 @@
+## agent-skill-memories-off
+
+> 本文档是 `memories-off` 项目的章程，用于定义项目目标、协作流程、设计规范和技术架构。
+
+# 项目章程: memories-off
+
+本文档是 `memories-off` 项目的章程，用于定义项目目标、协作流程、设计规范和技术架构。
+
+---
+
+### 第二部分：协作流程和规范
+
+我们采用 `doc-todo-log-loop` Skill 定义的人机协作开发工作流。文档统一放在 `docs/` 目录下。TODO 也放在 `docs/TODO.md` 中。
+
+---
+
+### 第三部分：项目计划与演进
+
+项目采取“快速可用，持续调优，极致压缩”的演进策略。
+
+#### 阶段 1: Agent Skill 风格实现 (当前阶段)
+- **目标**: 基于 v2 设计，构建一个功能完整、易于 Agent（如 Gemini, Claude）直接调用的基本可用版本。
+- **重点**:
+    - 实现核心的“库观察”、“实体检索”、“内容编辑”等工具。
+    - 采用易于理解的结构化交互（如 XML Report）。
+    - 侧重于功能的完备性和逻辑的正确性。
+- **交付物**: 一套完整的 Agent Skill 集，可直接集成到 Agent 协作流中。
+
+#### 阶段 2: CLI 优化与 Token 压缩
+- **目标**: 在功能稳定和调优后，将其构建为 CLI 版本。
+- **重点**:
+    - 极致精简工具的输出，减少不必要的描述。
+    - 优化数据传输格式，最小化 Token 消耗。
+    - 提高命令行交互的响应速度。
+
+---
+
+### 第四部分：核心设计原则 (v2 愿景)
+
+- **便携轻量**: 本地优先，无外部依赖。
+- **结构化知识**: 基于 Markdown 文件的知识图谱（实体、关系、元数据）。
+- **通用语言**: 统一使用 `Heading`, `Section`, `Content`, `TOC` 等术语（详见 `docs/2026-01-03-15-39-glossary.md`）。
+- **库结构**:
+  ```
+  [Library Name]/
+  ├── meta.md         # 库手册
+  └── entities/       # 实体文件 (.md)
+  ```
+- **工具集**: 遵循 `docs/2026-01-04-22-25-tools-spec.md` 定义的分类和规格进行开发。
+
+---
+> Source: [cafe3310/agent-skill-memories-off](https://github.com/cafe3310/agent-skill-memories-off) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
