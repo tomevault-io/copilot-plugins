@@ -1,0 +1,87 @@
+{
+  "name": "ethereum-org-website",
+  "owner": "ethereum",
+  "repo": "ethereum-org-website",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "data-layer",
+      "path": ".claude/skills/data-layer",
+      "github_url": "https://github.com/ethereum/ethereum-org-website/tree/main/.claude/skills/data-layer",
+      "description": ""
+    },
+    {
+      "name": "ethereum-org-website",
+      "path": ".claude/skills/data-layer/SKILL.md",
+      "github_url": "https://github.com/ethereum/ethereum-org-website/tree/main/.claude/skills/data-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ethereum-org-website",
+      "path": ".claude/skills/intl-review/SKILL.md",
+      "github_url": "https://github.com/ethereum/ethereum-org-website/tree/main/.claude/skills/intl-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ethereum-org-website",
+      "path": ".claude/skills/performance/SKILL.md",
+      "github_url": "https://github.com/ethereum/ethereum-org-website/tree/main/.claude/skills/performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ethereum-org-website",
+      "path": ".claude/skills/intl-pipeline/SKILL.md",
+      "github_url": "https://github.com/ethereum/ethereum-org-website/tree/main/.claude/skills/intl-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ethereum-org-website",
+      "path": ".claude/skills/design-system/SKILL.md",
+      "github_url": "https://github.com/ethereum/ethereum-org-website/tree/main/.claude/skills/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ethereum-org-website",
+      "path": ".claude/skills/page-visual-tests/SKILL.md",
+      "github_url": "https://github.com/ethereum/ethereum-org-website/tree/main/.claude/skills/page-visual-tests/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ethereum/ethereum-org-website",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:12:27Z"
+}
