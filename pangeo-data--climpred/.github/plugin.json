@@ -1,0 +1,14 @@
+{
+  "name": "pangeo-data--climpred",
+  "displayName": "climpred",
+  "description": "climpred",
+  "version": "1.0.0",
+  "author": "pangeo-data",
+  "homepage": "https://github.com/pangeo-data/climpred",
+  "skills": [
+    {
+      "name": "climpred",
+      "description": ""
+    }
+  ]
+}
