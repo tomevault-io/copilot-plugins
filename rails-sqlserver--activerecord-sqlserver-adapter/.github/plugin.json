@@ -1,0 +1,9 @@
+{
+  "name": "rails-sqlserver--activerecord-sqlserver-adapter",
+  "displayName": "activerecord-sqlserver-adapter",
+  "description": "activerecord-sqlserver-adapter",
+  "version": "1.0.0",
+  "author": "rails-sqlserver",
+  "homepage": "https://github.com/rails-sqlserver/activerecord-sqlserver-adapter",
+  "skills": []
+}
