@@ -1,0 +1,26 @@
+{
+  "name": "clickhouse--clickhouse-js",
+  "displayName": "clickhouse-js",
+  "description": "clickhouse-js",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/clickhouse-js",
+  "skills": [
+    {
+      "name": "clickhouse-js",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-js",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-js",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-js",
+      "description": ""
+    }
+  ]
+}
