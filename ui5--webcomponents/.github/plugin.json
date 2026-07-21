@@ -1,0 +1,14 @@
+{
+  "name": "ui5--webcomponents",
+  "displayName": "webcomponents",
+  "description": "webcomponents",
+  "version": "1.0.0",
+  "author": "UI5",
+  "homepage": "https://github.com/UI5/webcomponents",
+  "skills": [
+    {
+      "name": "webcomponents",
+      "description": ""
+    }
+  ]
+}
