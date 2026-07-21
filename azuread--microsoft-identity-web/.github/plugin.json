@@ -1,0 +1,18 @@
+{
+  "name": "azuread--microsoft-identity-web",
+  "displayName": "microsoft-identity-web",
+  "description": "microsoft-identity-web",
+  "version": "1.0.0",
+  "author": "AzureAD",
+  "homepage": "https://github.com/AzureAD/microsoft-identity-web",
+  "skills": [
+    {
+      "name": "microsoft-identity-web",
+      "description": ""
+    },
+    {
+      "name": "microsoft-identity-web",
+      "description": ""
+    }
+  ]
+}
