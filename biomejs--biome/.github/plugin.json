@@ -1,0 +1,86 @@
+{
+  "name": "biomejs--biome",
+  "displayName": "biome",
+  "description": "biome",
+  "version": "1.0.0",
+  "author": "biomejs",
+  "homepage": "https://github.com/biomejs/biome",
+  "skills": [
+    {
+      "name": "biome-developer",
+      "description": ""
+    },
+    {
+      "name": "diagnostics-development",
+      "description": ""
+    },
+    {
+      "name": "formatter-development",
+      "description": ""
+    },
+    {
+      "name": "lint-rule-development",
+      "description": ""
+    },
+    {
+      "name": "parser-development",
+      "description": ""
+    },
+    {
+      "name": "prettier-compare",
+      "description": ""
+    },
+    {
+      "name": "testing-codegen",
+      "description": ""
+    },
+    {
+      "name": "type-inference",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "description": ""
+    }
+  ]
+}
