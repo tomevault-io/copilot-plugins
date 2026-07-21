@@ -1,0 +1,9 @@
+{
+  "name": "openshift--route-monitor-operator",
+  "displayName": "route-monitor-operator",
+  "description": "route-monitor-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/route-monitor-operator",
+  "skills": []
+}
