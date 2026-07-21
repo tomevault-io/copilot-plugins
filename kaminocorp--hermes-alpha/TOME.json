@@ -1,0 +1,531 @@
+{
+  "name": "hermes-alpha",
+  "owner": "kaminocorp",
+  "repo": "hermes-alpha",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/dogfood/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/dogfood/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/apple/findmy/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/apple/findmy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mcp/mcporter/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mcp/mcporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/media/songsee/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/media/songsee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mcp/native-mcp/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mcp/native-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/email/himalaya/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/email/himalaya/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/apple/imessage/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/apple/imessage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/media/heartmula/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/media/heartmula/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/cloud/modal/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/cloud/modal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/models/clip/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/models/clip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/apple/apple-notes/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/apple/apple-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/creative/ascii-art/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/creative/ascii-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/models/llava/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/models/llava/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/smart-home/openhue/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/smart-home/openhue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/research/dspy/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/research/dspy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/peft/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/peft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/productivity/notion/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/productivity/notion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/creative/excalidraw/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/creative/excalidraw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/research/polymarket/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/research/polymarket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/leisure/find-nearby/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/leisure/find-nearby/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/slime/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/slime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/inference/gguf/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/inference/gguf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/models/whisper/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/models/whisper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/creative/ascii-video/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/creative/ascii-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/github/github-issues/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/github/github-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/simpo/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/simpo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/inference/vllm/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/inference/vllm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/note-taking/obsidian/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/note-taking/obsidian/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/research/blogwatcher/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/research/blogwatcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/gaming/pokemon-player/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/gaming/pokemon-player/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/apple/apple-reminders/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/apple/apple-reminders/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/media/youtube-content/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/media/youtube-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/research/domain-intel/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/research/domain-intel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/productivity/nano-pdf/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/productivity/nano-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/axolotl/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/axolotl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/unsloth/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/unsloth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/models/audiocraft/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/models/audiocraft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/productivity/powerpoint/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/productivity/powerpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/inference/outlines/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/inference/outlines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/inference/guidance/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/inference/guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/evaluation/saelens/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/evaluation/saelens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/optional-skills/email/agentmail/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/optional-skills/email/agentmail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/research/ml-paper-writing/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/research/ml-paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/github/github-code-review/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/github/github-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/inference/llama-cpp/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/inference/llama-cpp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/github/github-pr-workflow/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/github/github-pr-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/accelerate/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/accelerate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/torchtitan/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/torchtitan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/inference/instructor/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/inference/instructor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/optional-skills/blockchain/solana/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/optional-skills/blockchain/solana/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/research/duckduckgo-search/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/research/duckduckgo-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/github/codebase-inspection/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/github/codebase-inspection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/autonomous-ai-agents/codex/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/autonomous-ai-agents/codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/inference/tensorrt-llm/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/inference/tensorrt-llm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/vector-databases/faiss/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/vector-databases/faiss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/models/segment-anything/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/models/segment-anything/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/models/stable-diffusion/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/models/stable-diffusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/evaluation/nemo-curator/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/evaluation/nemo-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/vector-databases/qdrant/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/vector-databases/qdrant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/vector-databases/chroma/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/vector-databases/chroma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/productivity/google-workspace/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/productivity/google-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/flash-attention/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/flash-attention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/trl-fine-tuning/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/trl-fine-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/productivity/ocr-and-documents/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/productivity/ocr-and-documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/grpo-rl-training/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/grpo-rl-training/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/vector-databases/pinecone/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/vector-databases/pinecone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/pytorch-lightning/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/pytorch-lightning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/software-development/code-review/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/software-development/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/autonomous-ai-agents/claude-code/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/autonomous-ai-agents/claude-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/autonomous-ai-agents/hermes-agent/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/autonomous-ai-agents/hermes-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/software-development/writing-plans/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/software-development/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/evaluation/weights-and-biases/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/evaluation/weights-and-biases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/optional-skills/migration/openclaw-migration/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/optional-skills/migration/openclaw-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/optional-skills/autonomous-ai-agents/blackbox/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/optional-skills/autonomous-ai-agents/blackbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/evaluation/lm-evaluation-harness/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/evaluation/lm-evaluation-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/evaluation/huggingface-tokenizers/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/evaluation/huggingface-tokenizers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/software-development/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/software-development/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/mlops/training/hermes-atropos-environments/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/mlops/training/hermes-atropos-environments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/software-development/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/software-development/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/software-development/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/software-development/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-alpha",
+      "path": "hermes-agent/skills/software-development/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/kaminocorp/hermes-alpha/tree/main/hermes-agent/skills/software-development/subagent-driven-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kaminocorp/hermes-alpha",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:47:01Z"
+}
