@@ -1,0 +1,123 @@
+{
+  "name": "error-prone-support",
+  "owner": "PicnicSupermarket",
+  "repo": "error-prone-support",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/bug-checker/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/bug-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/refaster-rule/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/refaster-rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/review-changes/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/review-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/write-java-code/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/write-java-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/apply-self-check/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/apply-self-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/finalize-changes/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/finalize-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/open-pull-request/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/open-pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/write-shell-script/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/write-shell-script/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/run-mutation-tests/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/run-mutation-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/upgrade-dependency/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/upgrade-dependency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/write-documentation/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/write-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/write-commit-message/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/write-commit-message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "error-prone-support",
+      "path": ".agents/skills/write-github-actions-workflow/SKILL.md",
+      "github_url": "https://github.com/PicnicSupermarket/error-prone-support/tree/main/.agents/skills/write-github-actions-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PicnicSupermarket/error-prone-support",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:41:41Z"
+}
