@@ -1,0 +1,30 @@
+{
+  "name": "cure-lab--arbiteros",
+  "displayName": "ArbiterOS",
+  "description": "ArbiterOS",
+  "version": "1.0.0",
+  "author": "cure-lab",
+  "homepage": "https://github.com/cure-lab/ArbiterOS",
+  "skills": [
+    {
+      "name": "ArbiterOS",
+      "description": ""
+    },
+    {
+      "name": "ArbiterOS",
+      "description": ""
+    },
+    {
+      "name": "ArbiterOS",
+      "description": ""
+    },
+    {
+      "name": "ArbiterOS",
+      "description": ""
+    },
+    {
+      "name": "ArbiterOS",
+      "description": ""
+    }
+  ]
+}
