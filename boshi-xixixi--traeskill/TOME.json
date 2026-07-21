@@ -1,0 +1,2379 @@
+{
+  "name": "TraeSkill",
+  "owner": "boshi-xixixi",
+  "repo": "TraeSkill",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-workflow",
+      "path": ".trae/Skills/05_DevOps_GitWorkflow",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/05_DevOps_GitWorkflow",
+      "description": ""
+    },
+    {
+      "name": "flutter-development-expert",
+      "path": ".trae/Skills/03_Mobile_Flutter",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/03_Mobile_Flutter",
+      "description": ""
+    },
+    {
+      "name": "flutter-china-deploy",
+      "path": ".trae/Skills/03_Mobile_FlutterChinaDeploy",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/03_Mobile_FlutterChinaDeploy",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/06_Office_Pdf/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/06_Office_Pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/06_Office_Docx/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/06_Office_Docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/08_AI_Engineer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/08_AI_Engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/06_Office_Excel/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/06_Office_Excel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/05_Backend_Node/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/05_Backend_Node/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/05_DevOps_GitOps/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/05_DevOps_GitOps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/06_SEO_Technical/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/06_SEO_Technical/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/06_SEO_Analytics/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/06_SEO_Analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/05_Backend_Python/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/05_Backend_Python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/03_Mobile_Flutter/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/03_Mobile_Flutter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/prd/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/00_Meta_Dispatcher/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/00_Meta_Dispatcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/06_SEO_LinkBuilding/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/06_SEO_LinkBuilding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/05_Backend_Database/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/05_Backend_Database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/99_Meta_SkillCreator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/99_Meta_SkillCreator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/09_Operations_Growth/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/09_Operations_Growth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/codeql/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/codeql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/05_Backend_MCPBuilder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/05_Backend_MCPBuilder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/aspire/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/napkin/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/napkin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/05_DevOps_GitWorkflow/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/05_DevOps_GitWorkflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/drawio/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/drawio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/99_Meta_Customization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/99_Meta_Customization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/07_Security_Specialist/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/07_Security_Specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/roundup/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/roundup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/02_Architect_APIDesign/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/02_Architect_APIDesign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/06_SEO_ContentStrategy/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/06_SEO_ContentStrategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/eyeball/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/eyeball/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/ef-core/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/ef-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mcp-cli/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mcp-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/refactor/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/remember/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/05_DevOps_GiteeWorkflow/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/05_DevOps_GiteeWorkflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/04_Tester_WebAppTesting/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/04_Tester_WebAppTesting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/diagnose/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/ai-ready/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/ai-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/web-coder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/web-coder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/02_Designer_DesignSystem/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/02_Designer_DesignSystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/code-tour/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/code-tour/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/99_Meta_TraeProjectSetup/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/99_Meta_TraeProjectSetup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/noob-mode/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/noob-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/lsp-setup/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/lsp-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/00_Meta_UniversalDevTeam/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/00_Meta_UniversalDevTeam/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/my-issues/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/my-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/java-docs/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/java-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/first-ask/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/first-ask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/02_Designer_WebGuidelines/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/02_Designer_WebGuidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dependabot/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dependabot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/brag-sheet/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/brag-sheet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-ai-gtm/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-ai-gtm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/daily-prep/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/daily-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/exam-ready/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/exam-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-link/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-link/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/java-junit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/java-junit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/winapp-cli/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/winapp-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/md-to-docx/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/md-to-docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/01_Discovery_GitHubSearch/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/01_Discovery_GitHubSearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/copilot-sdk/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/copilot-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/batch-files/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/batch-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/msstore-cli/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/msstore-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-trace/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/quasi-coder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/quasi-coder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/update-llms/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/update-llms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-llms/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-llms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/doublecheck/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/doublecheck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/tldr-prompt/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/tldr-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/phoenix-cli/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/phoenix-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/game-engine/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/game-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/csharp-docs/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/csharp-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/context-map/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/context-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/cli-mastery/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/cli-mastery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/autoresearch/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/autoresearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/pdftk-server/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/pdftk-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/scoutqa-test/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/scoutqa-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mvvm-toolkit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mvvm-toolkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/agentic-eval/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/agentic-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/csharp-tunit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/csharp-tunit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/04_Tester_BrowserAutomation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/04_Tester_BrowserAutomation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/csharp-xunit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/csharp-xunit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/csharp-nunit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/csharp-nunit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/csharp-async/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/csharp-async/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/editorconfig/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/editorconfig/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/pr-dashboard/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/pr-dashboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/boost-prompt/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/boost-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-dataset/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-dataset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/02_Designer_UIUXIntelligence/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/02_Designer_UIUXIntelligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/roundup-setup/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/roundup-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/github-issues/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/github-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-pricing/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-pricing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/03_Mobile_FlutterChinaDeploy/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/03_Mobile_FlutterChinaDeploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/automate-this/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/automate-this/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/nuget-manager/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/nuget-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/memory-merger/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/memory-merger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/email-drafter/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/email-drafter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/phoenix-evals/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/phoenix-evals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/refactor-plan/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/refactor-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-readme/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-readme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/breakdown-plan/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/breakdown-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/breakdown-test/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/breakdown-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/plantuml-ascii/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/plantuml-ascii/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gdpr-compliant/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gdpr-compliant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/sponsor-finder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/sponsor-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/copilot-spaces/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/copilot-spaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/prompt-builder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/prompt-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/workiq-copilot/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/workiq-copilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dotnet-upgrade/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dotnet-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/microsoft-docs/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/microsoft-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/03_Developer_ArtifactsBuilder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/03_Developer_ArtifactsBuilder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/github-release/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/github-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/freecad-scripts/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/freecad-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-evaluator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/sql-code-review/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/sql-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/meeting-minutes/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/meeting-minutes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/secret-scanning/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/secret-scanning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/resemble-detect/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/resemble-detect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-agentsmd/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-agentsmd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/eval-driven-dev/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/eval-driven-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/phoenix-tracing/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/phoenix-tracing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/security-review/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/chrome-devtools/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/chrome-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/repo-story-time/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/repo-story-time/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/fluentui-blazor/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/fluentui-blazor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mvvm-toolkit-di/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mvvm-toolkit-di/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/java-springboot/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/java-springboot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/01_Architect_TechStackSelector/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/01_Architect_TechStackSelector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dotnet-timezone/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dotnet-timezone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/semantic-kernel/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/semantic-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/audit-integrity/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/audit-integrity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/pytest-coverage/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/pytest-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/markdown-to-html/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/markdown-to-html/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/sql-optimization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/sql-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-experiment/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-experiment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/03_Developer_ReactBestPractices/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/03_Developer_ReactBestPractices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-annotation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-annotation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/entra-agent-user/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/entra-agent-user/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/fabric-lakehouse/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/fabric-lakehouse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-tldr-page/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-tldr-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/az-cost-optimize/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/az-cost-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/powerbi-modeling/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/powerbi-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/publish-to-pages/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/publish-to-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/vardoger-analyze/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/vardoger-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/winmd-api-search/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/winmd-api-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/01_ProductManager_Brainstorming/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/01_ProductManager_Brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-devops-cli/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-devops-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/my-pull-requests/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/my-pull-requests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mentoring-juniors/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mentoring-juniors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-0-to-1-launch/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-0-to-1-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/shuffle-json-data/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/shuffle-json-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/breakdown-epic-pm/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/breakdown-epic-pm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/finnish-humanizer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/finnish-humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/kotlin-springboot/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/kotlin-springboot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/x-twitter-scraper/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/x-twitter-scraper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arch-linux-triage/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arch-linux-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-monitoring/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-monitoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/penpot-uiux-design/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/penpot-uiux-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/foundry-agent-sync/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/foundry-agent-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/ruff-recursive-fix/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/ruff-recursive-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mini-context-graph/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mini-context-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/acreadiness-policy/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/acreadiness-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/declarative-agents/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/declarative-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/agent-supply-chain/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/agent-supply-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mcp-security-audit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mcp-security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dotnet-mcp-builder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dotnet-mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-clients-sdk/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-clients-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/acreadiness-assess/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/acreadiness-assess/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/web-design-reviewer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/web-design-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/polyglot-test-agent/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/polyglot-test-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/02_Designer_FrontendImplementation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/02_Designer_FrontendImplementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/devops-rollout-plan/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/devops-rollout-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/spring-boot-testing/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/spring-boot-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gen-specs-as-issues/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gen-specs-as-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/unit-test-vue-pinia/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/unit-test-vue-pinia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/make-skill-template/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/make-skill-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/premium-frontend-ui/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/premium-frontend-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/breakdown-epic-arch/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/breakdown-epic-arch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/sandbox-npm-install/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/sandbox-npm-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mkdocs-translations/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mkdocs-translations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/conventional-commit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/conventional-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/what-context-needed/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/what-context-needed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/fedora-linux-triage/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/fedora-linux-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/centos-linux-triage/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/centos-linux-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/debian-linux-triage/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/debian-linux-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react18-string-refs/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react18-string-refs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/vscode-ext-commands/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/vscode-ext-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/review-and-refactor/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/review-and-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-role-selector/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-role-selector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/fireworks-tech-graph/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/fireworks-tech-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/model-recommendation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/model-recommendation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/aws-cdk-python-setup/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/aws-cdk-python-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/architecture-diagram/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/architecture-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/threat-model-analyst/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/threat-model-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/documentation-writer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/documentation-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-specification/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/update-specification/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/update-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-instrumentation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-instrumentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-static-web-apps/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-static-web-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-operating-cadence/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-operating-cadence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/breakdown-feature-prd/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/breakdown-feature-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/ai-team-orchestration/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/ai-team-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/onboard-context-matic/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/onboard-context-matic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dotnet-best-practices/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dotnet-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/copilot-usage-metrics/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/copilot-usage-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/slang-shader-engineer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/slang-shader-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react19-test-patterns/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react19-test-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react18-enzyme-to-rtl/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react18-enzyme-to-rtl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/typespec-create-agent/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/typespec-create-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/cloud-design-patterns/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/cloud-design-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/finalize-agent-prompt/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/finalize-agent-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-search-quality/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-search-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/copilot-cli-quickstart/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/copilot-cli-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/issue-fields-migration/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/issue-fields-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/postgresql-code-review/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/postgresql-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/winui3-migration-guide/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/winui3-migration-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mvvm-toolkit-messenger/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mvvm-toolkit-messenger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-technical-spike/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-technical-spike/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/agent-owasp-compliance/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/agent-owasp-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-product-led-growth/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-product-led-growth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/salesforce-flow-design/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/salesforce-flow-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/github-copilot-starter/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/github-copilot-starter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/make-repo-contribution/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/make-repo-contribution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/snowflake-semanticview/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/snowflake-semanticview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-model-migration/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-model-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/multi-stage-dockerfile/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/multi-stage-dockerfile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react18-legacy-context/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react18-legacy-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-version-upgrade/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-version-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/next-intl-add-language/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/next-intl-add-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/apple-appstore-reviewer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/apple-appstore-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/typespec-api-operations/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/typespec-api-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/postgresql-optimization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/postgresql-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/containerize-aspnetcore/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/containerize-aspnetcore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/microsoft-skill-creator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/microsoft-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/convert-plaintext-to-md/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/convert-plaintext-to-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/linkedin-post-formatter/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/linkedin-post-formatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/datanalysis-credit-risk/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/datanalysis-credit-risk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-developer-ecosystem/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-developer-ecosystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/salesforce-apex-quality/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/salesforce-apex-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/integrate-context-matic/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/integrate-context-matic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/go-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/go-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/git-flow-branch-creator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/git-flow-branch-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/bigquery-pipeline-audit/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/bigquery-pipeline-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-monitoring/setup/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-monitoring/setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react19-source-patterns/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react19-source-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/vscode-ext-localization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/vscode-ext-localization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/php-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/php-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/add-educational-comments/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/add-educational-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-positioning-strategy/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-positioning-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/data-breach-blast-radius/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/data-breach-blast-radius/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/power-platform-architect/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/power-platform-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/from-the-other-side-vega/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/from-the-other-side-vega/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/structured-autonomy-plan/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/structured-autonomy-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/playwright-generate-test/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/playwright-generate-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mcp-deploy-manage-agents/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mcp-deploy-manage-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-prompt-optimization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-prompt-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/draw-io-diagram-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/draw-io-diagram-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/rust-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/rust-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/power-bi-dax-optimization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/power-bi-dax-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-resource-visualizer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-resource-visualizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/performance-review-writer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/performance-review-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/ruby-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/ruby-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-enterprise-onboarding/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-enterprise-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/java-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/java-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react18-dep-compatibility/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react18-dep-compatibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/impediment-prioritization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/impediment-prioritization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/microsoft-agent-framework/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/microsoft-agent-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-deployment-options/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-deployment-options/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react18-batching-patterns/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react18-batching-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react-audit-grep-patterns/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react-audit-grep-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mcp-create-adaptive-cards/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mcp-create-adaptive-cards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/swift-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/swift-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-deployment-preflight/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-deployment-preflight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/content-management-systems/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/content-management-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/readme-blueprint-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/readme-blueprint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/commit-message-storyteller/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/commit-message-storyteller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/acquire-codebase-knowledge/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/acquire-codebase-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/typespec-create-api-plugin/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/typespec-create-api-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-implementation-plan/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-implementation-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/update-implementation-plan/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/update-implementation-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/update-markdown-file-index/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/update-markdown-file-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/javax-to-jakarta-migration/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/javax-to-jakarta-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/nano-banana-pro-openrouter/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/nano-banana-pro-openrouter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/oo-component-documentation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/oo-component-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react18-lifecycle-patterns/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react18-lifecycle-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/javascript-typescript-jest/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/javascript-typescript-jest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/scaling-qps/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/scaling-qps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/aspnet-minimal-api-openapi/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/aspnet-minimal-api-openapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/playwright-explore-website/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/playwright-explore-website/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/adobe-illustrator-scripting/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/adobe-illustrator-scripting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/python-pypi-package-builder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/python-pypi-package-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/kotlin-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/kotlin-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/python-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/python-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/openapi-to-application-code/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/openapi-to-application-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/appinsights-instrumentation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/appinsights-instrumentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/react19-concurrent-patterns/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/react19-concurrent-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/update-avm-modules-in-bicep/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/update-avm-modules-in-bicep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-monitoring/debugging/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-monitoring/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dataverse-python-quickstart/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dataverse-python-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/excalidraw-diagram-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/excalidraw-diagram-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/power-bi-model-design-review/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/power-bi-model-design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/minecraft-plugin-development/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/minecraft-plugin-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/power-apps-code-app-scaffold/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/power-apps-code-app-scaffold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-partnership-architecture/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-partnership-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gsap-framer-scroll-animation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gsap-framer-scroll-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-architecture-autopilot/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-architecture-autopilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/transloadit-media-processing/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/transloadit-media-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/structured-autonomy-generate/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/structured-autonomy-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dotnet-design-pattern-review/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dotnet-design-pattern-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mcp-create-declarative-agent/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mcp-create-declarative-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/import-infrastructure-as-code/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/import-infrastructure-as-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arize-ai-provider-integration/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arize-ai-provider-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/containerize-aspnet-framework/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/containerize-aspnet-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/python-azure-iot-edge-modules/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/python-azure-iot-edge-modules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-technical-product-pricing/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-technical-product-pricing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/flowstudio-power-automate-mcp/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/flowstudio-power-automate-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/structured-autonomy-implement/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/structured-autonomy-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/salesforce-component-standards/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/salesforce-component-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-resource-health-diagnose/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-resource-health-diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/flowstudio-power-automate-debug/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/flowstudio-power-automate-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/image-manipulation-image-magick/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/image-manipulation-image-magick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/flowstudio-power-automate-build/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/flowstudio-power-automate-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-enterprise-account-planning/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-enterprise-account-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-spring-boot-java-project/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-spring-boot-java-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/typescript-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/typescript-mcp-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/java-refactoring-extract-method/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/java-refactoring-extract-method/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-search-quality/diagnosis/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-search-quality/diagnosis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/minimize-latency/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/minimize-latency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-performance-optimization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/write-coding-standards-from-file/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/write-coding-standards-from-file/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dataverse-python-usecase-builder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dataverse-python-usecase-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/architecture-blueprint-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/architecture-blueprint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dataverse-python-production-code/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dataverse-python-production-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/breakdown-feature-implementation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/breakdown-feature-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/remember-interactive-programming/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/remember-interactive-programming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/comment-code-generate-a-tutorial/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/comment-code-generate-a-tutorial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/java-refactoring-remove-parameter/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/java-refactoring-remove-parameter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/acreadiness-generate-instructions/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/acreadiness-generate-instructions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-spring-boot-kotlin-project/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-spring-boot-kotlin-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/refactor-method-complexity-reduce/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/refactor-method-complexity-reduce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/power-platform-mcp-connector-suite/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/power-platform-mcp-connector-suite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/arduino-azure-iot-edge-integration/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/arduino-azure-iot-edge-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/code-exemplars-blueprint-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/code-exemplars-blueprint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/playwright-automation-fill-in-form/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/playwright-automation-fill-in-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/dataverse-python-advanced-patterns/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/dataverse-python-advanced-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/power-bi-report-design-consultation/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/power-bi-report-design-consultation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/ai-prompt-engineering-safety-review/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/ai-prompt-engineering-safety-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/terraform-azurerm-set-diff-analyzer/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/terraform-azurerm-set-diff-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/mcp-copilot-studio-server-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/mcp-copilot-studio-server-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/scaling-query-volume/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/scaling-query-volume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/power-bi-performance-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/power-bi-performance-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/flowstudio-power-automate-monitoring/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/flowstudio-power-automate-monitoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/technology-stack-blueprint-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/technology-stack-blueprint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/flowstudio-power-automate-governance/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/flowstudio-power-automate-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/gtm-board-and-investor-communication/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/gtm-board-and-investor-communication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/folder-structure-blueprint-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/folder-structure-blueprint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-architectural-decision-record/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-architectural-decision-record/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/java-add-graalvm-native-image-support/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/java-add-graalvm-native-image-support/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/azure-smart-city-iot-solution-builder/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/azure-smart-city-iot-solution-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/suggest-awesome-github-copilot-skills/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/suggest-awesome-github-copilot-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/suggest-awesome-github-copilot-agents/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/suggest-awesome-github-copilot-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/reviewing-oracle-to-postgres-migration/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/reviewing-oracle-to-postgres-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-search-quality/search-strategies/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-search-quality/search-strategies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/copilot-instructions-blueprint-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/copilot-instructions-blueprint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/generate-custom-instructions-from-codebase/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/generate-custom-instructions-from-codebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-github-action-workflow-specification/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-github-action-workflow-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/suggest-awesome-github-copilot-instructions/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/suggest-awesome-github-copilot-instructions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/project-workflow-analysis-blueprint-generator/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/project-workflow-analysis-blueprint-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-github-pull-request-from-specification/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-github-pull-request-from-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-github-issue-feature-from-specification/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-github-issue-feature-from-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/migrating-oracle-to-postgres-stored-procedures/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/migrating-oracle-to-postgres-stored-procedures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/creating-oracle-to-postgres-migration-bug-report/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/creating-oracle-to-postgres-migration-bug-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/tenant-scaling/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/tenant-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/creating-oracle-to-postgres-master-migration-plan/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/creating-oracle-to-postgres-master-migration-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/vertical-scaling/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/vertical-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/horizontal-scaling/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/horizontal-scaling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-github-issues-feature-from-implementation-plan/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-github-issues-feature-from-implementation-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/scaffolding-oracle-to-postgres-migration-test-project/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/scaffolding-oracle-to-postgres-migration-test-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/sliding-time-window/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-scaling/scaling-data-volume/sliding-time-window/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/creating-oracle-to-postgres-migration-integration-tests/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/creating-oracle-to-postgres-migration-integration-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-performance-optimization/search-speed-optimization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-performance-optimization/search-speed-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/create-github-issues-for-unmet-specification-requirements/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/create-github-issues-for-unmet-specification-requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-performance-optimization/memory-usage-optimization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-performance-optimization/memory-usage-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/planning-oracle-to-postgres-migration-integration-testing/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/planning-oracle-to-postgres-migration-integration-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TraeSkill",
+      "path": ".trae/Skills/.agents/skills/qdrant-performance-optimization/indexing-performance-optimization/SKILL.md",
+      "github_url": "https://github.com/boshi-xixixi/TraeSkill/tree/main/.trae/Skills/.agents/skills/qdrant-performance-optimization/indexing-performance-optimization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/boshi-xixixi/TraeSkill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:32:17Z"
+}
