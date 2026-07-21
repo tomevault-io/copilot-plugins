@@ -1,0 +1,14 @@
+{
+  "name": "yelp--paasta",
+  "displayName": "paasta",
+  "description": "paasta",
+  "version": "1.0.0",
+  "author": "Yelp",
+  "homepage": "https://github.com/Yelp/paasta",
+  "skills": [
+    {
+      "name": "paasta",
+      "description": ""
+    }
+  ]
+}
