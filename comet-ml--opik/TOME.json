@@ -1,0 +1,165 @@
+{
+  "name": "opik",
+  "owner": "comet-ml",
+  "repo": "opik",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documentation",
+      "path": ".agents/skills/documentation",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "local-dev",
+      "path": ".agents/skills/local-dev",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/local-dev",
+      "description": ""
+    },
+    {
+      "name": "opik-backend",
+      "path": ".agents/skills/opik-backend",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/opik-backend",
+      "description": ""
+    },
+    {
+      "name": "opik-frontend",
+      "path": ".agents/skills/opik-frontend",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/opik-frontend",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e",
+      "path": ".agents/skills/playwright-e2e",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/playwright-e2e",
+      "description": ""
+    },
+    {
+      "name": "python-sdk",
+      "path": ".agents/skills/python-sdk",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/python-sdk",
+      "description": ""
+    },
+    {
+      "name": "typescript-sdk",
+      "path": ".agents/skills/typescript-sdk",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/typescript-sdk",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/local-dev/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/local-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/write-docs/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/write-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/python-sdk/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/python-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/opik-backend/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/opik-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/opik-frontend/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/opik-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/typescript-sdk/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/typescript-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/playwright-e2e/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/playwright-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/writing-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/writing-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/diagram-generation/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/diagram-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/debugging-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/debugging-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/playwright-pom-discovery/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/playwright-pom-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opik",
+      "path": ".agents/skills/analytics-instrumentation/SKILL.md",
+      "github_url": "https://github.com/comet-ml/opik/tree/main/.agents/skills/analytics-instrumentation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/comet-ml/opik",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:33:32Z"
+}
