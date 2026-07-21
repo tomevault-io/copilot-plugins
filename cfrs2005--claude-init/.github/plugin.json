@@ -1,0 +1,14 @@
+{
+  "name": "cfrs2005--claude-init",
+  "displayName": "claude-init",
+  "description": "claude-init",
+  "version": "1.0.0",
+  "author": "cfrs2005",
+  "homepage": "https://github.com/cfrs2005/claude-init",
+  "skills": [
+    {
+      "name": "claude-init",
+      "description": ""
+    }
+  ]
+}
