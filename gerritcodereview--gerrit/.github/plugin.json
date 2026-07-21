@@ -1,0 +1,22 @@
+{
+  "name": "gerritcodereview--gerrit",
+  "displayName": "gerrit",
+  "description": "gerrit",
+  "version": "1.0.0",
+  "author": "GerritCodeReview",
+  "homepage": "https://github.com/GerritCodeReview/gerrit",
+  "skills": [
+    {
+      "name": "gerrit",
+      "description": ""
+    },
+    {
+      "name": "gerrit",
+      "description": ""
+    },
+    {
+      "name": "gerrit",
+      "description": ""
+    }
+  ]
+}
