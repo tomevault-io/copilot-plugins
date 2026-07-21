@@ -1,0 +1,42 @@
+{
+  "name": "raugadh--fila-starter",
+  "displayName": "fila-starter",
+  "description": "fila-starter",
+  "version": "1.0.0",
+  "author": "raugadh",
+  "homepage": "https://github.com/raugadh/fila-starter",
+  "skills": [
+    {
+      "name": "livewire-development",
+      "description": ""
+    },
+    {
+      "name": "pest-testing",
+      "description": ""
+    },
+    {
+      "name": "tailwindcss-development",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "description": ""
+    }
+  ]
+}
