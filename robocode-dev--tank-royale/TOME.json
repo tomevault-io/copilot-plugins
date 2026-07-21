@@ -1,0 +1,87 @@
+{
+  "name": "tank-royale",
+  "owner": "robocode-dev",
+  "repo": "tank-royale",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tank-royale",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/robocode-dev/tank-royale/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tank-royale",
+      "path": ".agents/skills/dot-audit/SKILL.md",
+      "github_url": "https://github.com/robocode-dev/tank-royale/tree/main/.agents/skills/dot-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tank-royale",
+      "path": ".agents/skills/dot-scout/SKILL.md",
+      "github_url": "https://github.com/robocode-dev/tank-royale/tree/main/.agents/skills/dot-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tank-royale",
+      "path": ".agents/skills/dot-prime/SKILL.md",
+      "github_url": "https://github.com/robocode-dev/tank-royale/tree/main/.agents/skills/dot-prime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tank-royale",
+      "path": ".agents/skills/update-deps/SKILL.md",
+      "github_url": "https://github.com/robocode-dev/tank-royale/tree/main/.agents/skills/update-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tank-royale",
+      "path": ".agents/skills/structurizr/SKILL.md",
+      "github_url": "https://github.com/robocode-dev/tank-royale/tree/main/.agents/skills/structurizr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tank-royale",
+      "path": ".agents/skills/deploy-sample-bots/SKILL.md",
+      "github_url": "https://github.com/robocode-dev/tank-royale/tree/main/.agents/skills/deploy-sample-bots/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/robocode-dev/tank-royale",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:51:51Z"
+}
