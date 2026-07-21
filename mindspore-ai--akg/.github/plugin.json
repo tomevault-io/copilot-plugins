@@ -1,0 +1,470 @@
+{
+  "name": "mindspore-ai--akg",
+  "displayName": "akg",
+  "description": "akg",
+  "version": "1.0.0",
+  "author": "mindspore-ai",
+  "homepage": "https://github.com/mindspore-ai/akg",
+  "skills": [
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "description": ""
+    }
+  ]
+}
