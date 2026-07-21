@@ -1,0 +1,14 @@
+{
+  "name": "commitizen-tools--commitizen",
+  "displayName": "commitizen",
+  "description": "commitizen",
+  "version": "1.0.0",
+  "author": "commitizen-tools",
+  "homepage": "https://github.com/commitizen-tools/commitizen",
+  "skills": [
+    {
+      "name": "commitizen",
+      "description": ""
+    }
+  ]
+}
