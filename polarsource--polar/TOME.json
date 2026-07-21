@@ -1,0 +1,99 @@
+{
+  "name": "polar",
+  "owner": "polarsource",
+  "repo": "polar",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vercel-react-best-practices",
+      "path": "clients/apps/web/.agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/polarsource/polar/tree/main/clients/apps/web/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "polar",
+      "path": ".agents/skills/fix-sentry/SKILL.md",
+      "github_url": "https://github.com/polarsource/polar/tree/main/.agents/skills/fix-sentry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polar",
+      "path": ".agents/skills/render-env/SKILL.md",
+      "github_url": "https://github.com/polarsource/polar/tree/main/.agents/skills/render-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polar",
+      "path": ".agents/skills/add-locale/SKILL.md",
+      "github_url": "https://github.com/polarsource/polar/tree/main/.agents/skills/add-locale/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polar",
+      "path": ".agents/skills/interview-task/SKILL.md",
+      "github_url": "https://github.com/polarsource/polar/tree/main/.agents/skills/interview-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polar",
+      "path": ".agents/skills/local-environment/SKILL.md",
+      "github_url": "https://github.com/polarsource/polar/tree/main/.agents/skills/local-environment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polar",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/polarsource/polar/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polar",
+      "path": ".agents/skills/handbook-backend-development/SKILL.md",
+      "github_url": "https://github.com/polarsource/polar/tree/main/.agents/skills/handbook-backend-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "polar",
+      "path": "clients/apps/web/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/polarsource/polar/tree/main/clients/apps/web/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/polarsource/polar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:18:52Z"
+}
