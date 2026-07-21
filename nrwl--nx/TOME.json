@@ -1,0 +1,159 @@
+{
+  "name": "nx",
+  "owner": "nrwl",
+  "repo": "nx",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nx-generate",
+      "path": ".cursor/skills/nx-generate",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.cursor/skills/nx-generate",
+      "description": ""
+    },
+    {
+      "name": "nx-run-tasks",
+      "path": ".cursor/skills/nx-run-tasks",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.cursor/skills/nx-run-tasks",
+      "description": ""
+    },
+    {
+      "name": "run-nx-generator",
+      "path": ".claude/skills/run-nx-generator",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.claude/skills/run-nx-generator",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".cursor/skills/ci-monitor/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.cursor/skills/ci-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".gemini/skills/ci-monitor/skill.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.gemini/skills/ci-monitor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".cursor/skills/nx-plugins/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.cursor/skills/nx-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".cursor/skills/nx-generate/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.cursor/skills/nx-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".opencode/skills/ci-monitor/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.opencode/skills/ci-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".cursor/skills/nx-workspace/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.cursor/skills/nx-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".cursor/skills/nx-run-tasks/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.cursor/skills/nx-run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".opencode/skills/nx-plugins/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.opencode/skills/nx-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".opencode/skills/nx-generate/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.opencode/skills/nx-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".opencode/skills/nx-workspace/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.opencode/skills/nx-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".opencode/skills/nx-run-tasks/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.opencode/skills/nx-run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".claude/skills/run-nx-generator/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.claude/skills/run-nx-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".claude/skills/nx-docs-style-check/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.claude/skills/nx-docs-style-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".claude/skills/dist-build-migration/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.claude/skills/dist-build-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".claude/skills/multi-version-compliance/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.claude/skills/multi-version-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx",
+      "path": ".claude/skills/nx-gradle-plugin-version-bump/SKILL.md",
+      "github_url": "https://github.com/nrwl/nx/tree/main/.claude/skills/nx-gradle-plugin-version-bump/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nrwl/nx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:44:11Z"
+}
