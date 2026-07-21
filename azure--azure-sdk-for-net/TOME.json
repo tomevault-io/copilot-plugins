@@ -1,0 +1,225 @@
+{
+  "name": "azure-sdk-for-net",
+  "owner": "Azure",
+  "repo": "azure-sdk-for-net",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/ai/Azure.AI.Projects.Agents/tests/Samples/roll-dice/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/Azure.AI.Projects.Agents/tests/Samples/roll-dice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/ai/Azure.AI.Projects.Agents/tests/TestData/roll-dice/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/Azure.AI.Projects.Agents/tests/TestData/roll-dice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/ai/Azure.AI.Extensions.OpenAI/tests/Samples/Assets/roll-dice/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/Azure.AI.Extensions.OpenAI/tests/Samples/Assets/roll-dice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/owners/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/owners/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/dpg-migration/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/dpg-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/mpg-migration/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/mpg-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/pre-commit-checks/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/pre-commit-checks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/find-package-skill/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/find-package-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/analyze-ci-failures/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/analyze-ci-failures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/bump-mgmt-base-version/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/bump-mgmt-base-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/refresh-arm-sdk-release/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/refresh-arm-sdk-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/mpg-migration-pr-review/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/mpg-migration-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/azure-sdk-mgmt-pr-review/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/azure-sdk-mgmt-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/azsdk-common-sdk-release/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/azsdk-common-sdk-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/mitigate-breaking-changes/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/mitigate-breaking-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/mgmt-review-comment-resolution/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/mgmt-review-comment-resolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/provisioning-library-regeneration/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/provisioning-library-regeneration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/azsdk-common-prepare-release-plan/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/azsdk-common-prepare-release-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/csharp-azure-spector-coverage-gaps/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/csharp-azure-spector-coverage-gaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/azsdk-common-pipeline-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/azsdk-common-pipeline-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/ai/.github/skills/azure-ai-projects-sample-skill/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/.github/skills/azure-ai-projects-sample-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/ai/.github/skills/azure-ai-projects-author-tests/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/.github/skills/azure-ai-projects-author-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/ai/.github/skills/azure-ai-projects-generate-code/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/.github/skills/azure-ai-projects-generate-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/ai/.github/skills/azure-ai-projects-sample-matrix/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/.github/skills/azure-ai-projects-sample-matrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": ".github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/.github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/ai/.github/skills/azure-ai-projects-update-changelog/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/ai/.github/skills/azure-ai-projects-update-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/search/Azure.Search.Documents/.github/skills/search-documents/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/search/Azure.Search.Documents/.github/skills/search-documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/search/Azure.Search.Documents/.github/skills/search-documents-version-diff/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/search/Azure.Search.Documents/.github/skills/search-documents-version-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-net",
+      "path": "sdk/search/Azure.Search.Documents/.github/skills/search-documents-typespec-validation/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/search/Azure.Search.Documents/.github/skills/search-documents-typespec-validation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure/azure-sdk-for-net",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:57:32Z"
+}
