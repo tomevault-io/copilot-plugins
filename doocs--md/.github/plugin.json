@@ -1,0 +1,18 @@
+{
+  "name": "doocs--md",
+  "displayName": "md",
+  "description": "md",
+  "version": "1.0.0",
+  "author": "doocs",
+  "homepage": "https://github.com/doocs/md",
+  "skills": [
+    {
+      "name": "md",
+      "description": ""
+    },
+    {
+      "name": "md",
+      "description": ""
+    }
+  ]
+}
