@@ -1,0 +1,111 @@
+{
+  "name": "anomalib",
+  "owner": "open-edge-platform",
+  "repo": "anomalib",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/testing/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/models-data/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/models-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/pr-workflow/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/pr-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/python-style/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/python-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/model-doc-sync/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/model-doc-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/docs-changelog/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/docs-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/third-party-code/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/third-party-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/python-docstrings/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/python-docstrings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/fastapi-rest-api-design/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/fastapi-rest-api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/model-sample-image-export/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/model-sample-image-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anomalib",
+      "path": ".agents/skills/benchmark-and-docs-refresh/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/anomalib/tree/main/.agents/skills/benchmark-and-docs-refresh/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/open-edge-platform/anomalib",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:49:10Z"
+}
