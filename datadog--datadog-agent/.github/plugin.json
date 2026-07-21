@@ -1,0 +1,106 @@
+{
+  "name": "datadog--datadog-agent",
+  "displayName": "datadog-agent",
+  "description": "datadog-agent",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-agent",
+  "skills": [
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "description": ""
+    }
+  ]
+}
