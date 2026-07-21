@@ -1,0 +1,81 @@
+{
+  "name": "rill",
+  "owner": "rilldata",
+  "repo": "rill",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rill",
+      "path": ".claude/skills/reflect/SKILL.md",
+      "github_url": "https://github.com/rilldata/rill/tree/main/.claude/skills/reflect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rill",
+      "path": ".claude/skills/re-review/SKILL.md",
+      "github_url": "https://github.com/rilldata/rill/tree/main/.claude/skills/re-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rill",
+      "path": ".claude/skills/file-issue/SKILL.md",
+      "github_url": "https://github.com/rilldata/rill/tree/main/.claude/skills/file-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rill",
+      "path": ".claude/skills/investigate/SKILL.md",
+      "github_url": "https://github.com/rilldata/rill/tree/main/.claude/skills/investigate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rill",
+      "path": ".claude/skills/address-feedback/SKILL.md",
+      "github_url": "https://github.com/rilldata/rill/tree/main/.claude/skills/address-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rill",
+      "path": ".claude/skills/svelte-core-bestpractices/SKILL.md",
+      "github_url": "https://github.com/rilldata/rill/tree/main/.claude/skills/svelte-core-bestpractices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rilldata/rill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:35:49Z"
+}
