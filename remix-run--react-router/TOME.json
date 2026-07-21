@@ -1,0 +1,63 @@
+{
+  "name": "react-router",
+  "owner": "remix-run",
+  "repo": "react-router",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fix-bug",
+      "path": ".agents/skills/fix-bug",
+      "github_url": "https://github.com/remix-run/react-router/tree/main/.agents/skills/fix-bug",
+      "description": ""
+    },
+    {
+      "name": "react-router",
+      "path": ".agents/skills/fix-bug/SKILL.md",
+      "github_url": "https://github.com/remix-run/react-router/tree/main/.agents/skills/fix-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-router",
+      "path": ".agents/skills/implement-rfc/SKILL.md",
+      "github_url": "https://github.com/remix-run/react-router/tree/main/.agents/skills/implement-rfc/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/remix-run/react-router",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:21:18Z"
+}
