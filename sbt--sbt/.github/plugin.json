@@ -1,0 +1,9 @@
+{
+  "name": "sbt--sbt",
+  "displayName": "sbt",
+  "description": "sbt",
+  "version": "1.0.0",
+  "author": "sbt",
+  "homepage": "https://github.com/sbt/sbt",
+  "skills": []
+}
