@@ -1,0 +1,50 @@
+{
+  "name": "bradsjm--hassio-addons",
+  "displayName": "hassio-addons",
+  "description": "hassio-addons",
+  "version": "1.0.0",
+  "author": "bradsjm",
+  "homepage": "https://github.com/bradsjm/hassio-addons",
+  "skills": [
+    {
+      "name": "home-assistant-awtrix",
+      "description": ""
+    },
+    {
+      "name": "home-assistant-custom-integration",
+      "description": ""
+    },
+    {
+      "name": "home-assistant-esphome",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    }
+  ]
+}
