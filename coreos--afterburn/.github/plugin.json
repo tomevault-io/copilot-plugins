@@ -1,0 +1,22 @@
+{
+  "name": "coreos--afterburn",
+  "displayName": "afterburn",
+  "description": "afterburn",
+  "version": "1.0.0",
+  "author": "coreos",
+  "homepage": "https://github.com/coreos/afterburn",
+  "skills": [
+    {
+      "name": "afterburn",
+      "description": ""
+    },
+    {
+      "name": "afterburn",
+      "description": ""
+    },
+    {
+      "name": "afterburn",
+      "description": ""
+    }
+  ]
+}
