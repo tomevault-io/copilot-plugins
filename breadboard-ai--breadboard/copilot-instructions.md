@@ -1,0 +1,129 @@
+## breadboard
+
+> Read this before making changes in `packages/bees`. Update this doc after making
+
+# Bees — Agent Context
+
+Read this before making changes in `packages/bees`. Update this doc after making
+changes to the code in `packages/bees`.
+
+## What is Bees
+
+Bees is a Python library for building agent swarm systems. It has two layers:
+
+| Layer         | Responsibility                                                                 | Key file            |
+| ------------- | ------------------------------------------------------------------------------ | ------------------- |
+| **Session**   | One LLM conversation: agent loop, tools, suspend/resume, context management.   | `bees/session.py`   |
+| **Scheduler** | Drives sessions via a task data model. Tasks capture state; scheduler manages. | `bees/scheduler.py` |
+
+Applications (server, web shell, CLI) are built on top of these layers.
+
+For the full architecture reference, see
+[docs/architecture.md](docs/architecture.md).
+
+## Directory Structure
+
+```
+packages/bees/
+  bees/                  # Python source — the core library
+    session.py           # Session layer: agent loop, context, suspend/resume
+    scheduler.py         # Scheduler layer: task lifecycle, coordination
+    playbook.py          # Template loading, task creation from templates
+    ticket.py            # Task data model (on-disk "ticket" format)
+    agent.py             # Agent entity model (Swarm layout)
+    unified_agent_store.py  # Layout-aware store (routes to agents/ or tickets/)
+    functions/           # Function group implementations
+    declarations/        # Function declarations (JSON schemas)
+  app/                   # Reference application and CLI tools
+    server.py            # FastAPI server (REST API + SSE)
+    cli.py               # Main CLI entry point
+  hive/                  # Runtime configuration — the "hive" directory
+    config/
+      SYSTEM.yaml        # Boot config: title, root template
+      TEMPLATES.yaml     # All task templates
+      hooks/             # Python lifecycle hooks per template
+    skills/              # Agent skill documents (SKILL.md + assets)
+    eval/                # Eval-specific config (persona.md for simulated user)
+    agents/              # Runtime agent state (Swarm layout)
+    tasks/               # Runtime task files (Swarm layout)
+    tickets/             # Runtime task state (legacy layout)
+    logs/                # Session logs
+  web/                   # Reference web shell (React, will be extracted)
+  hivetool/              # Built-in dev workbench (Lit, Vite)
+  docs/                  # Human + agent documentation
+  tests/                 # Python tests
+```
+
+## Key Concepts
+
+- **Tasks** are like issues in a bug tracker. They capture objective, status,
+  assignee, dependencies, and outcome. Agents work on tasks; tasks form trees.
+- **Templates** (`TEMPLATES.yaml`) are blueprints for tasks. They define what
+  tools, skills, and delegation powers an agent gets. See
+  [docs/patterns.md](docs/patterns.md#appendix-template-schema-reference).
+- **Skills** are markdown instruction documents in `hive/skills/`. They use
+  [Agent Skills](https://agentskills.io/home) format with `allowed-tools`
+  frontmatter.
+- **Function groups** are the extensibility seam for the session layer. Each
+  group bundles declarations, handlers, and a system prompt fragment.
+- **MCP servers** are external tool providers registered in `SYSTEM.yaml`. Each
+  MCP server becomes a function group that agents access via the `functions`
+  filter (e.g., `weather.*`). See `bees/functions/mcp_bridge.py`.
+- **The Hive** is the on-disk directory that holds all configuration and runtime
+  state.
+
+## Naming Migration (In Progress)
+
+The code is migrating terminology. When reading code:
+
+| Old term (in code) | New term (in docs) |
+| ------------------ | ------------------ |
+| `ticket`           | task               |
+| `playbook`         | template           |
+| `playbook_id`      | template_id        |
+
+Use the **new** terminology in documentation and comments. In code, follow
+whatever the surrounding file uses until the codemod lands.
+
+## Python Conventions
+
+- Use `pyproject.toml` for project config. The package is `bees`.
+- Tests use `pytest` in `tests/`.
+- The developer environment uses a corporate mirror for package repositories. If
+  package installation fails, remind the user to run `gcert`.
+
+## Running a Hive
+
+The primary way to run a Bees hive during development is `dev:box`, which starts
+the filesystem-watching scheduler loop (`bees.box`):
+
+```bash
+BEES_HIVE_DIR=../../hives/chat-app  npm run dev:box -w bees
+```
+
+`BEES_HIVE_DIR` points to the hive directory containing `config/SYSTEM.yaml`.
+The box watches the hive for filesystem changes and drives the scheduler.
+
+To reset a hive, use Hivetool's reset control — it handles cleanup of all
+runtime directories (`agents/`, `tasks/`, `tickets/`, `logs/`, `mutations/`).
+
+## Deeper References
+
+See [docs/README.md](docs/README.md) for the full documentation index.
+
+| Topic            | Document                                       |
+| ---------------- | ---------------------------------------------- |
+| Architecture     | [docs/architecture.md](docs/architecture.md)   |
+| Session layer    | [docs/session.md](docs/session.md)             |
+| Scheduler layer  | [docs/scheduler.md](docs/scheduler.md)         |
+| Reference app    | [docs/reference-app.md](docs/reference-app.md) |
+| Hivetool         | [docs/hivetool.md](docs/hivetool.md)           |
+| Design patterns  | [docs/patterns.md](docs/patterns.md)           |
+| Stability map    | [docs/flux.md](docs/flux.md)                   |
+| Eval framework   | [docs/eval.md](docs/eval.md)                   |
+| Future direction | [docs/future.md](docs/future.md)               |
+| Interview log    | [docs/interview-log.md](docs/interview-log.md) |
+
+---
+> Source: [breadboard-ai/breadboard](https://github.com/breadboard-ai/breadboard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
