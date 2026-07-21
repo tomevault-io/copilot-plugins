@@ -1,0 +1,51 @@
+{
+  "name": "FlowMVI",
+  "owner": "respawn-llc",
+  "repo": "FlowMVI",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "FlowMVI",
+      "path": "skills/flowmvi/SKILL.md",
+      "github_url": "https://github.com/respawn-llc/FlowMVI/tree/main/skills/flowmvi/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/respawn-llc/FlowMVI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:18:38Z"
+}
