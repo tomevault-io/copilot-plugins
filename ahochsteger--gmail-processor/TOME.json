@@ -1,0 +1,105 @@
+{
+  "name": "gmail-processor",
+  "owner": "ahochsteger",
+  "repo": "gmail-processor",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gmail-processor",
+      "path": ".agent/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/ahochsteger/gmail-processor/tree/main/.agent/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ahochsteger/gmail-processor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:18:38Z"
+}
