@@ -1,0 +1,81 @@
+{
+  "name": "pika",
+  "owner": "justinmoon",
+  "repo": "pika",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pika",
+      "path": ".agents/skills/land/SKILL.md",
+      "github_url": "https://github.com/justinmoon/pika/tree/main/.agents/skills/land/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pika",
+      "path": ".claude/skills/e2e-video/SKILL.md",
+      "github_url": "https://github.com/justinmoon/pika/tree/main/.claude/skills/e2e-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pika",
+      "path": ".claude/skills/pr-shepherd/SKILL.md",
+      "github_url": "https://github.com/justinmoon/pika/tree/main/.claude/skills/pr-shepherd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pika",
+      "path": ".agents/skills/orchestrate/SKILL.md",
+      "github_url": "https://github.com/justinmoon/pika/tree/main/.agents/skills/orchestrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pika",
+      "path": ".agents/skills/swiftui-expert-skill/SKILL.md",
+      "github_url": "https://github.com/justinmoon/pika/tree/main/.agents/skills/swiftui-expert-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pika",
+      "path": ".agents/skills/jetpack-compose-material3-expert-skill/SKILL.md",
+      "github_url": "https://github.com/justinmoon/pika/tree/main/.agents/skills/jetpack-compose-material3-expert-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/justinmoon/pika",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:45:01Z"
+}
