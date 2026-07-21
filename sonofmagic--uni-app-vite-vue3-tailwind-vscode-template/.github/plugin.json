@@ -1,0 +1,14 @@
+{
+  "name": "sonofmagic--uni-app-vite-vue3-tailwind-vscode-template",
+  "displayName": "uni-app-vite-vue3-tailwind-vscode-template",
+  "description": "uni-app-vite-vue3-tailwind-vscode-template",
+  "version": "1.0.0",
+  "author": "sonofmagic",
+  "homepage": "https://github.com/sonofmagic/uni-app-vite-vue3-tailwind-vscode-template",
+  "skills": [
+    {
+      "name": "uni-app-vite-vue3-tailwind-vscode-template",
+      "description": ""
+    }
+  ]
+}
