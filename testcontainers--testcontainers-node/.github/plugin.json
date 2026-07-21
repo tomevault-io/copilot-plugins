@@ -1,0 +1,9 @@
+{
+  "name": "testcontainers--testcontainers-node",
+  "displayName": "testcontainers-node",
+  "description": "testcontainers-node",
+  "version": "1.0.0",
+  "author": "testcontainers",
+  "homepage": "https://github.com/testcontainers/testcontainers-node",
+  "skills": []
+}
