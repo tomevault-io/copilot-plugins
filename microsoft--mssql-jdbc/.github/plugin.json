@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--mssql-jdbc",
+  "displayName": "mssql-jdbc",
+  "description": "mssql-jdbc",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/mssql-jdbc",
+  "skills": []
+}
