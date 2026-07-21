@@ -1,0 +1,105 @@
+{
+  "name": "ruoyi-plus-soybean",
+  "owner": "m-xlsea",
+  "repo": "ruoyi-plus-soybean",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".codex/skills/pace/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.codex/skills/pace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".claude/skills/pace/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.claude/skills/pace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".codex/skills/compound/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.codex/skills/compound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".claude/skills/compound/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.claude/skills/compound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".claude/skills/athena-dev/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.claude/skills/athena-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".claude/skills/athena-init/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.claude/skills/athena-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".claude/skills/athena-status/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.claude/skills/athena-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".claude/skills/athena-review/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.claude/skills/athena-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".claude/skills/athena-migrate/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.claude/skills/athena-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruoyi-plus-soybean",
+      "path": ".claude/skills/athena-preferences/SKILL.md",
+      "github_url": "https://github.com/m-xlsea/ruoyi-plus-soybean/tree/main/.claude/skills/athena-preferences/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/m-xlsea/ruoyi-plus-soybean",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:39:36Z"
+}
