@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--server-command",
+  "displayName": "server-command",
+  "description": "server-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/server-command",
+  "skills": []
+}
