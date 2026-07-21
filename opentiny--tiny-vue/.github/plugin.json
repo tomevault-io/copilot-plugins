@@ -1,0 +1,14 @@
+{
+  "name": "opentiny--tiny-vue",
+  "displayName": "tiny-vue",
+  "description": "tiny-vue",
+  "version": "1.0.0",
+  "author": "opentiny",
+  "homepage": "https://github.com/opentiny/tiny-vue",
+  "skills": [
+    {
+      "name": "tiny-vue",
+      "description": ""
+    }
+  ]
+}
