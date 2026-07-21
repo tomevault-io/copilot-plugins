@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--bson-ruby",
+  "displayName": "bson-ruby",
+  "description": "bson-ruby",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/bson-ruby",
+  "skills": []
+}
