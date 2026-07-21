@@ -1,0 +1,14 @@
+{
+  "name": "hugorcd--shelve",
+  "displayName": "shelve",
+  "description": "shelve",
+  "version": "1.0.0",
+  "author": "HugoRCD",
+  "homepage": "https://github.com/HugoRCD/shelve",
+  "skills": [
+    {
+      "name": "shelve",
+      "description": ""
+    }
+  ]
+}
