@@ -1,0 +1,9 @@
+{
+  "name": "dkorunic--pktstat-bpf",
+  "displayName": "pktstat-bpf",
+  "description": "pktstat-bpf",
+  "version": "1.0.0",
+  "author": "dkorunic",
+  "homepage": "https://github.com/dkorunic/pktstat-bpf",
+  "skills": []
+}
