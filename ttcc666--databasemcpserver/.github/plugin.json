@@ -1,0 +1,14 @@
+{
+  "name": "ttcc666--databasemcpserver",
+  "displayName": "DatabaseMcpServer",
+  "description": "DatabaseMcpServer",
+  "version": "1.0.0",
+  "author": "ttcc666",
+  "homepage": "https://github.com/ttcc666/DatabaseMcpServer",
+  "skills": [
+    {
+      "name": "DatabaseMcpServer",
+      "description": ""
+    }
+  ]
+}
