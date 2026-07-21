@@ -1,0 +1,225 @@
+{
+  "name": "obsidian-llm-wiki",
+  "owner": "songzhuozhu",
+  "repo": "obsidian-llm-wiki",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/inspool/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/inspool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/defuddle/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/defuddle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude/skills/defuddle/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude/skills/defuddle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/lint_wiki/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/lint_wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/ingest_raw/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/ingest_raw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/query_wiki/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/query_wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/inspool/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/inspool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/json-canvas/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/json-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/defuddle/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/defuddle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude/skills/json-canvas/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude/skills/json-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/obsidian-cli/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/obsidian-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude-en/skills/defuddle/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude-en/skills/defuddle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/lint_wiki/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/lint_wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude/skills/obsidian-cli/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude/skills/obsidian-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/ingest_raw/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/ingest_raw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/query_wiki/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/query_wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/obsidian-bases/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/obsidian-bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/json-canvas/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/json-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/approve_ingest/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/approve_ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude/skills/obsidian-bases/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude/skills/obsidian-bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude-en/skills/json-canvas/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude-en/skills/json-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/obsidian-cli/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/obsidian-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude-en/skills/obsidian-cli/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude-en/skills/obsidian-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/obsidian-bases/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/obsidian-bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex/skills/obsidian-markdown/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex/skills/obsidian-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/approve_ingest/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/approve_ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude-en/skills/obsidian-bases/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude-en/skills/obsidian-bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude/skills/obsidian-markdown/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude/skills/obsidian-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".codex-en/skills/obsidian-markdown/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/obsidian-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-llm-wiki",
+      "path": ".claude-en/skills/obsidian-markdown/SKILL.md",
+      "github_url": "https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude-en/skills/obsidian-markdown/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/songzhuozhu/obsidian-llm-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:45:06Z"
+}
