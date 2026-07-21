@@ -1,0 +1,14 @@
+{
+  "name": "azure--terraform-azurerm-avm-template",
+  "displayName": "terraform-azurerm-avm-template",
+  "description": "terraform-azurerm-avm-template",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-template",
+  "skills": [
+    {
+      "name": "terraform-azurerm-avm-template",
+      "description": ""
+    }
+  ]
+}
