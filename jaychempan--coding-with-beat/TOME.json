@@ -1,0 +1,195 @@
+{
+  "name": "coding-with-beat",
+  "owner": "jaychempan",
+  "repo": "coding-with-beat",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-sad/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-sad/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-jazz/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-jazz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-lofi/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-lofi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-hype/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-hype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-party/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-party/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-sleep/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-sleep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-relax/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-relax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-focus/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-focus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-profile/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-chinese/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-chinese/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-companion/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-companion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-synthwave/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-synthwave/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-sad/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-sad/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "skills/cwb-classical/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/skills/cwb-classical/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-jazz/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-jazz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-lofi/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-lofi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-hype/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-hype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-party/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-party/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-sleep/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-sleep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-relax/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-relax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-focus/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-focus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-profile/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-chinese/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-chinese/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-synthwave/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-synthwave/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coding-with-beat",
+      "path": "codex_skills/cwb-classical/SKILL.md",
+      "github_url": "https://github.com/jaychempan/coding-with-beat/tree/main/codex_skills/cwb-classical/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jaychempan/coding-with-beat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:30:32Z"
+}
