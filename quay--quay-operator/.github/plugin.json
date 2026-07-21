@@ -1,0 +1,9 @@
+{
+  "name": "quay--quay-operator",
+  "displayName": "quay-operator",
+  "description": "quay-operator",
+  "version": "1.0.0",
+  "author": "quay",
+  "homepage": "https://github.com/quay/quay-operator",
+  "skills": []
+}
