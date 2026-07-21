@@ -1,0 +1,34 @@
+{
+  "name": "flashinfer-ai--flashinfer",
+  "displayName": "flashinfer",
+  "description": "flashinfer",
+  "version": "1.0.0",
+  "author": "flashinfer-ai",
+  "homepage": "https://github.com/flashinfer-ai/flashinfer",
+  "skills": [
+    {
+      "name": "add-cuda-kernel",
+      "description": ""
+    },
+    {
+      "name": "benchmark-kernel",
+      "description": ""
+    },
+    {
+      "name": "debug-cuda-crash",
+      "description": ""
+    },
+    {
+      "name": "flashinfer",
+      "description": ""
+    },
+    {
+      "name": "flashinfer",
+      "description": ""
+    },
+    {
+      "name": "flashinfer",
+      "description": ""
+    }
+  ]
+}
