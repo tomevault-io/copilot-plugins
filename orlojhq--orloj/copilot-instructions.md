@@ -1,28 +1,26 @@
-## openapi-sync
+## orloj
 
-> Keep OpenAPI in sync when the v1 API or CLI-exposed HTTP surface changes
+> These instructions are for Codex and other OpenAI-style coding agents working in this repository. Also read [.agents/rules.md](.agents/rules.md) before making changes.
 
+# Orloj Agent Instructions
 
-# OpenAPI and API surface
+These instructions are for Codex and other OpenAI-style coding agents working in this repository. Also read [.agents/rules.md](.agents/rules.md) before making changes.
 
-When you change any of the following, update **[openapi/](openapi/)** so paths and schemas stay accurate, then run the same check as CI:
+## Must-Follow Sync Rules
 
-`npx --yes @redocly/cli@1.28.5 lint openapi/openapi.yaml`
+- If you change CRD-backed resource schemas in `crds/**/*.go`, `resources/resource_types.go`, `resources/agent.go`, or `resources/model_endpoint.go`, run `make generate-crds` and commit the resulting `config/crd/bases/` changes.
+- If a CRD schema changes, check whether the embedded Helm CRD copy in `charts/orloj/templates/operator-crds.yaml` must be updated too.
+- If an API-visible resource field, route, request body, or response body changes, update `openapi/` and run `npx --yes @redocly/cli@1.28.5 lint openapi/openapi.yaml`.
+- If the change affects users or operators, add or update a bullet under `## [Unreleased]` in `CHANGELOG.md`.
+- Run the narrowest useful tests while iterating, and run `go test ./... -count=1 -timeout 120s` before handing off broad code changes when feasible.
 
-**Usually requires OpenAPI updates**
+## Working Style
 
-- **`api/`** — new or changed routes, status codes, query params, or JSON bodies on the control-plane API.
-- **Resource JSON** shipped over the API — Go types in **`resources/`** (and related handlers) when they change serialized shape fields users or `orlojctl apply` send/receive.
-- **`orlojctl`** — new subcommands or flags that call **new or changed** HTTP endpoints or bodies (extend the spec to match what the server actually does).
-
-**Often does not require OpenAPI updates**
-
-- **Offline-only CLI** (e.g. manifest parse/validate with no new HTTP contract).
-- Internal refactors with identical wire format.
-- Docs-only changes outside the spec.
-
-When unsure, compare **`api/server.go`** route registration and handler payloads to **`openapi/openapi.yaml`** (and split schemas under **`openapi/schemas/`**). Regenerate the bundled root doc when your workflow uses **`openapi/build_openapi.py`**.
+- Prefer existing package patterns and helpers over new abstractions.
+- Keep generated artifacts committed with the source changes that caused them.
+- Do not make unrelated refactors while fixing a focused issue.
+- When reviewing contributor PRs, call out generated-file drift and release artifact drift explicitly.
 
 ---
 > Source: [OrlojHQ/orloj](https://github.com/OrlojHQ/orloj) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
