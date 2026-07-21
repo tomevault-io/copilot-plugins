@@ -1,0 +1,14 @@
+{
+  "name": "skjolber--3d-bin-container-packing",
+  "displayName": "3d-bin-container-packing",
+  "description": "3d-bin-container-packing",
+  "version": "1.0.0",
+  "author": "skjolber",
+  "homepage": "https://github.com/skjolber/3d-bin-container-packing",
+  "skills": [
+    {
+      "name": "3d-bin-container-packing",
+      "description": ""
+    }
+  ]
+}
