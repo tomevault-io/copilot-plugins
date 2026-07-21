@@ -1,0 +1,130 @@
+{
+  "name": "reactive--data-client",
+  "displayName": "data-client",
+  "description": "data-client",
+  "version": "1.0.0",
+  "author": "reactive",
+  "homepage": "https://github.com/reactive/data-client",
+  "skills": [
+    {
+      "name": "changeset",
+      "description": ""
+    },
+    {
+      "name": "data-client-endpoint-setup",
+      "description": ""
+    },
+    {
+      "name": "data-client-graphql-setup",
+      "description": ""
+    },
+    {
+      "name": "data-client-manager",
+      "description": ""
+    },
+    {
+      "name": "data-client-react",
+      "description": ""
+    },
+    {
+      "name": "data-client-react-testing",
+      "description": ""
+    },
+    {
+      "name": "data-client-rest",
+      "description": ""
+    },
+    {
+      "name": "data-client-rest-setup",
+      "description": ""
+    },
+    {
+      "name": "data-client-schema",
+      "description": ""
+    },
+    {
+      "name": "data-client-setup",
+      "description": ""
+    },
+    {
+      "name": "data-client-vue-testing",
+      "description": ""
+    },
+    {
+      "name": "initialize",
+      "description": ""
+    },
+    {
+      "name": "packages-documentation",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "description": ""
+    }
+  ]
+}
