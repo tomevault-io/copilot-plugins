@@ -1,0 +1,63 @@
+{
+  "name": "finalrun-agent",
+  "owner": "final-run",
+  "repo": "finalrun-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "finalrun-agent",
+      "path": "skills/finalrun-use-cli/SKILL.md",
+      "github_url": "https://github.com/final-run/finalrun-agent/tree/main/skills/finalrun-use-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "finalrun-agent",
+      "path": "skills/finalrun-test-and-fix/SKILL.md",
+      "github_url": "https://github.com/final-run/finalrun-agent/tree/main/skills/finalrun-test-and-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "finalrun-agent",
+      "path": "skills/finalrun-generate-test/SKILL.md",
+      "github_url": "https://github.com/final-run/finalrun-agent/tree/main/skills/finalrun-generate-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/final-run/finalrun-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T14:44:21Z"
+}
