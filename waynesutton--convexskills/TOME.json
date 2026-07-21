@@ -4,7 +4,7 @@
   "repo": "convexskills",
   "description": "AI agent skills and templates for building production ready apps with Convex. Patterns for queries, mutations, cron jobs, webhooks, migrations, and more.",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -103,9 +103,87 @@
       "path": "skills/convex-component-authoring",
       "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-component-authoring",
       "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-agents/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-realtime/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-realtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-cron-jobs/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-cron-jobs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-functions/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-migrations/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-http-actions/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-http-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/avoid-feature-creep/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/avoid-feature-creep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-security-check/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-security-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-best-practices/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-security-audit/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-schema-validator/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-schema-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convexskills",
+      "path": "skills/convex-component-authoring/SKILL.md",
+      "github_url": "https://github.com/waynesutton/convexskills/tree/main/skills/convex-component-authoring/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/waynesutton/convexskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T11:58:36Z"
+  "distributed_at": "2026-07-21T05:55:52Z"
 }
