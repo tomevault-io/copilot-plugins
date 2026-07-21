@@ -1,0 +1,225 @@
+{
+  "name": "neo4j-skills",
+  "owner": "neo4j-contrib",
+  "repo": "neo4j-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "neo4j-cypher-skill",
+      "path": "neo4j-cypher-skill",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-cypher-skill",
+      "description": ""
+    },
+    {
+      "name": "neo4j-migration-skill",
+      "path": "neo4j-migration-skill",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-migration-skill",
+      "description": ""
+    },
+    {
+      "name": "neo4j-aura-agent-skill",
+      "path": "neo4j-aura-agent-skill",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-aura-agent-skill",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-gds-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-gds-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-nvl-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-nvl-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-mcp-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-mcp-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-kafka-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-kafka-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-spark-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-spark-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-import-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-import-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-cypher-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-cypher-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-graphql-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-graphql-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-security-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-security-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-graphrag-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-graphrag-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-modeling-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-modeling-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-migration-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-migration-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-driver-go-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-driver-go-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-cli-tools-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-cli-tools-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-aura-agent-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-aura-agent-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-spring-data-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-spring-data-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-driver-java-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-driver-java-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-agent-memory-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-agent-memory-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-query-tuning-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-query-tuning-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-vector-index-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-vector-index-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-genai-plugin-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-genai-plugin-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-driver-dotnet-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-driver-dotnet-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-driver-python-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-driver-python-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-getting-started-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-getting-started-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-driver-javascript-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-driver-javascript-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-aura-graph-analytics-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-aura-graph-analytics-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "path": "neo4j-snowflake-graph-analytics-skill/SKILL.md",
+      "github_url": "https://github.com/neo4j-contrib/neo4j-skills/tree/main/neo4j-snowflake-graph-analytics-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/neo4j-contrib/neo4j-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:30:47Z"
+}
