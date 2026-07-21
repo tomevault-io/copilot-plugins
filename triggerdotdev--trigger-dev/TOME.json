@@ -1,0 +1,63 @@
+{
+  "name": "trigger.dev",
+  "owner": "triggerdotdev",
+  "repo": "trigger.dev",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "trigger-dev-tasks",
+      "path": ".claude/skills/trigger-dev-tasks",
+      "github_url": "https://github.com/triggerdotdev/trigger.dev/tree/main/.claude/skills/trigger-dev-tasks",
+      "description": ""
+    },
+    {
+      "name": "trigger.dev",
+      "path": ".claude/skills/trigger-dev-tasks/SKILL.md",
+      "github_url": "https://github.com/triggerdotdev/trigger.dev/tree/main/.claude/skills/trigger-dev-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trigger.dev",
+      "path": ".claude/skills/span-timeline-events/SKILL.md",
+      "github_url": "https://github.com/triggerdotdev/trigger.dev/tree/main/.claude/skills/span-timeline-events/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/triggerdotdev/trigger.dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:25:23Z"
+}
