@@ -1,0 +1,22 @@
+{
+  "name": "zfogg--ascii-chat",
+  "displayName": "ascii-chat",
+  "description": "ascii-chat",
+  "version": "1.0.0",
+  "author": "zfogg",
+  "homepage": "https://github.com/zfogg/ascii-chat",
+  "skills": [
+    {
+      "name": "sentry-commit-messages",
+      "description": ""
+    },
+    {
+      "name": "ascii-chat",
+      "description": ""
+    },
+    {
+      "name": "ascii-chat",
+      "description": ""
+    }
+  ]
+}
