@@ -1,0 +1,14 @@
+{
+  "name": "tc-mb--llama-cpp-omni",
+  "displayName": "llama.cpp-omni",
+  "description": "Omni inference in C/C++",
+  "version": "1.0.0",
+  "author": "tc-mb",
+  "homepage": "https://github.com/tc-mb/llama.cpp-omni",
+  "skills": [
+    {
+      "name": "llama.cpp-omni",
+      "description": ""
+    }
+  ]
+}
