@@ -1,0 +1,14 @@
+{
+  "name": "lance-format--lance",
+  "displayName": "lance",
+  "description": "lance",
+  "version": "1.0.0",
+  "author": "lance-format",
+  "homepage": "https://github.com/lance-format/lance",
+  "skills": [
+    {
+      "name": "lance",
+      "description": ""
+    }
+  ]
+}
