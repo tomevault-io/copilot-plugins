@@ -1,0 +1,81 @@
+{
+  "name": "flashinfer",
+  "owner": "flashinfer-ai",
+  "repo": "flashinfer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-cuda-kernel",
+      "path": ".claude/skills/add-cuda-kernel",
+      "github_url": "https://github.com/flashinfer-ai/flashinfer/tree/main/.claude/skills/add-cuda-kernel",
+      "description": ""
+    },
+    {
+      "name": "benchmark-kernel",
+      "path": ".claude/skills/benchmark-kernel",
+      "github_url": "https://github.com/flashinfer-ai/flashinfer/tree/main/.claude/skills/benchmark-kernel",
+      "description": ""
+    },
+    {
+      "name": "debug-cuda-crash",
+      "path": ".claude/skills/debug-cuda-crash",
+      "github_url": "https://github.com/flashinfer-ai/flashinfer/tree/main/.claude/skills/debug-cuda-crash",
+      "description": ""
+    },
+    {
+      "name": "flashinfer",
+      "path": ".claude/skills/add-cuda-kernel/SKILL.md",
+      "github_url": "https://github.com/flashinfer-ai/flashinfer/tree/main/.claude/skills/add-cuda-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flashinfer",
+      "path": ".claude/skills/debug-cuda-crash/SKILL.md",
+      "github_url": "https://github.com/flashinfer-ai/flashinfer/tree/main/.claude/skills/debug-cuda-crash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flashinfer",
+      "path": ".claude/skills/benchmark-kernel/SKILL.md",
+      "github_url": "https://github.com/flashinfer-ai/flashinfer/tree/main/.claude/skills/benchmark-kernel/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/flashinfer-ai/flashinfer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:38:07Z"
+}
