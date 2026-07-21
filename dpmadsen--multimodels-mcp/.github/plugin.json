@@ -1,0 +1,9 @@
+{
+  "name": "dpmadsen--multimodels-mcp",
+  "displayName": "multimodels-mcp",
+  "description": "MCP server that lets Claude Code delegate tasks to GPT-5.6 (Codex CLI), DeepSeek, GLM, OpenRouter and local LM Studio models \u2014 plus a 198-run benchmark of all of them",
+  "version": "1.0.0",
+  "author": "dpmadsen",
+  "homepage": "https://github.com/dpmadsen/multimodels-mcp",
+  "skills": []
+}
