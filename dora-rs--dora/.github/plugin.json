@@ -1,0 +1,14 @@
+{
+  "name": "dora-rs--dora",
+  "displayName": "dora",
+  "description": "dora",
+  "version": "1.0.0",
+  "author": "dora-rs",
+  "homepage": "https://github.com/dora-rs/dora",
+  "skills": [
+    {
+      "name": "dora",
+      "description": ""
+    }
+  ]
+}
