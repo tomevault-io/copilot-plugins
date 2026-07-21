@@ -1,0 +1,26 @@
+{
+  "name": "srajangpt1--ai-security-crew",
+  "displayName": "ai-security-crew",
+  "description": "ai-security-crew",
+  "version": "1.0.0",
+  "author": "Srajangpt1",
+  "homepage": "https://github.com/Srajangpt1/ai-security-crew",
+  "skills": [
+    {
+      "name": "verify-code",
+      "description": ""
+    },
+    {
+      "name": "ai-security-crew",
+      "description": ""
+    },
+    {
+      "name": "ai-security-crew",
+      "description": ""
+    },
+    {
+      "name": "ai-security-crew",
+      "description": ""
+    }
+  ]
+}
