@@ -1,0 +1,63 @@
+{
+  "name": "Coding-Agent-prompt-best-practice",
+  "owner": "2217173240",
+  "repo": "Coding-Agent-prompt-best-practice",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Coding-Agent-prompt-best-practice",
+      "path": "harness-engineering/SKILL.md",
+      "github_url": "https://github.com/2217173240/Coding-Agent-prompt-best-practice/tree/main/harness-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Coding-Agent-prompt-best-practice",
+      "path": "cybernetic-systems-engineering/SKILL.md",
+      "github_url": "https://github.com/2217173240/Coding-Agent-prompt-best-practice/tree/main/cybernetic-systems-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Coding-Agent-prompt-best-practice",
+      "path": "cybernetic-systems-engineering-v2/SKILL.md",
+      "github_url": "https://github.com/2217173240/Coding-Agent-prompt-best-practice/tree/main/cybernetic-systems-engineering-v2/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/2217173240/Coding-Agent-prompt-best-practice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:54:07Z"
+}
