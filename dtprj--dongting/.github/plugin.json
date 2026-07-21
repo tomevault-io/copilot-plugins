@@ -1,0 +1,34 @@
+{
+  "name": "dtprj--dongting",
+  "displayName": "dongting",
+  "description": "dongting",
+  "version": "1.0.0",
+  "author": "dtprj",
+  "homepage": "https://github.com/dtprj/dongting",
+  "skills": [
+    {
+      "name": "build-and-test",
+      "description": ""
+    },
+    {
+      "name": "idea-mcp",
+      "description": ""
+    },
+    {
+      "name": "run-dongting",
+      "description": ""
+    },
+    {
+      "name": "dongting",
+      "description": ""
+    },
+    {
+      "name": "dongting",
+      "description": ""
+    },
+    {
+      "name": "dongting",
+      "description": ""
+    }
+  ]
+}
