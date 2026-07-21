@@ -1,0 +1,22 @@
+{
+  "name": "provablehq--snarkvm",
+  "displayName": "snarkVM",
+  "description": "snarkVM",
+  "version": "1.0.0",
+  "author": "ProvableHQ",
+  "homepage": "https://github.com/ProvableHQ/snarkVM",
+  "skills": [
+    {
+      "name": "snarkVM",
+      "description": ""
+    },
+    {
+      "name": "snarkVM",
+      "description": ""
+    },
+    {
+      "name": "snarkVM",
+      "description": ""
+    }
+  ]
+}
