@@ -1,0 +1,18 @@
+{
+  "name": "evstack--ev-node",
+  "displayName": "ev-node",
+  "description": "ev-node",
+  "version": "1.0.0",
+  "author": "evstack",
+  "homepage": "https://github.com/evstack/ev-node",
+  "skills": [
+    {
+      "name": "ev-node-explainer",
+      "description": ""
+    },
+    {
+      "name": "ev-node",
+      "description": ""
+    }
+  ]
+}
