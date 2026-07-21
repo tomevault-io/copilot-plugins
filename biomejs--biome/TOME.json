@@ -1,0 +1,159 @@
+{
+  "name": "biome",
+  "owner": "biomejs",
+  "repo": "biome",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "biome-developer",
+      "path": ".claude/skills/biome-developer",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/biome-developer",
+      "description": ""
+    },
+    {
+      "name": "diagnostics-development",
+      "path": ".claude/skills/diagnostics-development",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/diagnostics-development",
+      "description": ""
+    },
+    {
+      "name": "formatter-development",
+      "path": ".claude/skills/formatter-development",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/formatter-development",
+      "description": ""
+    },
+    {
+      "name": "lint-rule-development",
+      "path": ".claude/skills/lint-rule-development",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/lint-rule-development",
+      "description": ""
+    },
+    {
+      "name": "parser-development",
+      "path": ".claude/skills/parser-development",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/parser-development",
+      "description": ""
+    },
+    {
+      "name": "prettier-compare",
+      "path": ".claude/skills/prettier-compare",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/prettier-compare",
+      "description": ""
+    },
+    {
+      "name": "testing-codegen",
+      "path": ".claude/skills/testing-codegen",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/testing-codegen",
+      "description": ""
+    },
+    {
+      "name": "type-inference",
+      "path": ".claude/skills/type-inference",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/type-inference",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/changeset/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/pull-request/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/type-inference/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/type-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/biome-developer/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/biome-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/testing-codegen/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/testing-codegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/prettier-compare/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/prettier-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/parser-development/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/parser-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/formatter-development/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/formatter-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/lint-rule-development/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/lint-rule-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/eslint-migrate-options/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/eslint-migrate-options/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "biome",
+      "path": ".claude/skills/diagnostics-development/SKILL.md",
+      "github_url": "https://github.com/biomejs/biome/tree/main/.claude/skills/diagnostics-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/biomejs/biome",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:31:44Z"
+}
