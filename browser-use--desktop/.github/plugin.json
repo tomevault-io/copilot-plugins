@@ -1,0 +1,14 @@
+{
+  "name": "browser-use--desktop",
+  "displayName": "desktop",
+  "description": "desktop",
+  "version": "1.0.0",
+  "author": "browser-use",
+  "homepage": "https://github.com/browser-use/desktop",
+  "skills": [
+    {
+      "name": "desktop",
+      "description": ""
+    }
+  ]
+}
