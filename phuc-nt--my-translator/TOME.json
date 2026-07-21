@@ -1,0 +1,489 @@
+{
+  "name": "my-translator",
+  "owner": "phuc-nt",
+  "repo": "my-translator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/fix/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/git/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/gkg/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/gkg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ask/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/team/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/team/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/test/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/llms/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/llms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ship/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/cook/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/cook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/docs/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/scout/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/retro/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/retro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/design/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/stitch/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/stitch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/shader/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/shader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/deploy/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/devops/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/devops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/kanban/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/kanban/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/watzup/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/watzup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/repomix/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/repomix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/shopify/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/shopify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ck-plan/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ck-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ck-loop/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ck-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/threejs/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/threejs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/preview/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/use-mcp/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/use-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/journal/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/journal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ck-debug/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ck-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/tanstack/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/tanstack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/worktree/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/research/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/mintlify/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/mintlify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/remotion/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/remotion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ai-artist/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ai-artist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/bootstrap/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/databases/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/databases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ui-styling/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ui-styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/brainstorm/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ck-predict/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ck-predict/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ck-security/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ck-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/web-testing/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/web-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/docs-seeker/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/docs-seeker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ck-scenario/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ck-scenario/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/plans-kanban/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/plans-kanban/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/coding-level/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/coding-level/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/security-scan/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ai-multimodal/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ai-multimodal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/mermaidjs-v11/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/mermaidjs-v11/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/mcp-management/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/mcp-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/web-frameworks/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/web-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/template-skill/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/template-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/chrome-devtools/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/chrome-devtools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/ck-autoresearch/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/ck-autoresearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/problem-solving/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/problem-solving/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/media-processing/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/media-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/google-adk-python/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/google-adk-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/project-management/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/project-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/mobile-development/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/mobile-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/sequential-thinking/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/sequential-thinking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/payment-integration/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/payment-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/context-engineering/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/context-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/backend-development/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/backend-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/frontend-development/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/frontend-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/react-best-practices/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/project-organization/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/project-organization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/markdown-novel-viewer/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/markdown-novel-viewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-translator",
+      "path": ".opencode/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/phuc-nt/my-translator/tree/main/.opencode/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/phuc-nt/my-translator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:49:41Z"
+}
