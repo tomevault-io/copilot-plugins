@@ -1,0 +1,9 @@
+{
+  "name": "deskhq--the-desk",
+  "displayName": "the-desk",
+  "description": "Calm, fast, self-hosted team chat you run yourself \u2014 channels, threads, reminders, scheduled messages. One Docker compose file, MIT-licensed. Laravel + Vue + Reverb.",
+  "version": "1.0.0",
+  "author": "deskhq",
+  "homepage": "https://github.com/deskhq/the-desk",
+  "skills": []
+}
