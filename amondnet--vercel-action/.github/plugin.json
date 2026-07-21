@@ -1,0 +1,14 @@
+{
+  "name": "amondnet--vercel-action",
+  "displayName": "vercel-action",
+  "description": "vercel-action",
+  "version": "1.0.0",
+  "author": "amondnet",
+  "homepage": "https://github.com/amondnet/vercel-action",
+  "skills": [
+    {
+      "name": "vercel-action",
+      "description": ""
+    }
+  ]
+}
