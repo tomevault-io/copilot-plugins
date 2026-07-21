@@ -1,120 +1,111 @@
-## systematic-debugging
+## tdd
 
-> Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes. Enforces 4-phase root cause investigation: investigate, analyze, hypothesize, implement.
+> Use when implementing any feature or bugfix, before writing implementation code. Enforces RED-GREEN-REFACTOR: write failing test first, watch it fail, write minimal code to pass, refactor.
 
 
-# Skill: systematic-debugging
+# Skill: tdd — Test-Driven Development
 
-> Iron law: no fixes without root cause investigation first.
-> Extracted from obra/superpowers `systematic-debugging` skill.
-> Agent Harness Deploy adaptation: integrates with maker≠checker (investigator≠fixer) and evidence-graded claims.
+> Iron law: no production code without a failing test first.
+> Extracted from obra/superpowers `test-driven-development` skill.
+> Agent Harness Deploy adaptation: integrates with maker≠checker (test = checker, code = maker).
 
 ## Trigger
 
-- Any bug, test failure, unexpected behavior, performance problem, build failure.
-- Keywords: debug, root cause, why does this fail, fix bug, investigate.
-
-**Use ESPECIALLY when:**
-- Under time pressure (emergencies make guessing tempting)
-- "Just one quick fix" seems obvious
-- Previous fix didn't work
-- You don't fully understand the issue
+- Implementing a feature or bugfix.
+- Keywords: TDD, test-first, red-green, write test, implement feature.
 
 ## The iron law
 
 ```
-NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 ```
 
-If you haven't completed Phase 1, you cannot propose fixes.
+Wrote code before the test? Delete it. Start over. No "keep as reference", no "adapt it while writing tests". Delete means delete.
 
-## The four phases
+## When to use
 
-You MUST complete each phase before proceeding to the next.
+**Always:**
+- New features
+- Bug fixes
+- Refactoring
+- Behavior changes
 
-### Phase 1: Root cause investigation
+**Exceptions (ask human partner):**
+- Throwaway prototypes
+- Generated code
+- Configuration files
 
-**BEFORE attempting ANY fix:**
+Thinking "skip TDD just this once"? Stop. That's rationalization.
 
-1. **Read errors completely** — Stack traces, line numbers, error codes. They often contain the solution.
-2. **Reproduce consistently** — Exact steps, every time? If not reproducible → gather more data, don't guess.
-3. **Trace to source** — Check recent changes (git diff). Log component boundaries (what enters/exits). Trace bad values to origin. Fix at source, not symptom.
+## RED-GREEN-REFACTOR cycle
 
-### Phase 2: Pattern analysis
+### 1. RED — Write failing test
 
-**Find the pattern before fixing:**
+One minimal test showing what should happen. One behavior per test. Clear name (describes behavior). Real code, no mocks unless unavoidable.
 
-1. **Find working examples** — Locate similar working code in same codebase.
-2. **Compare completely** — Read reference implementation fully. List every difference, however small.
-3. **Check dependencies** — What settings, config, environment does this need?
+### 2. Verify RED — Watch it fail (MANDATORY, never skip)
 
-### Phase 3: Hypothesis and testing
+Run test. Confirm: test **fails** (not errors), failure message is expected, fails because feature missing (not typos). Passes immediately? Testing existing behavior — fix test. Errors? Fix error, re-run until it fails correctly.
 
-**Scientific method:**
+### 3. GREEN — Minimal code
 
-1. **Form single hypothesis** — "I think X is the root cause because Y". Be specific, write it down.
-2. **Test minimally** — Smallest possible change, one variable at a time. No bundled fixes.
-3. **Verify before continuing** — Worked → Phase 4. Didn't → NEW hypothesis (don't stack fixes). Don't know → say so, ask for help.
+Simplest code to pass the test. No extra features, no refactoring, no "improvements" beyond the test. Run test: passes? Other tests still pass? Output pristine? Test fails → fix code, not test. Other tests fail → fix now.
 
-### Phase 4: Implementation
+### 4. REFACTOR — Clean up (after green only)
 
-**Fix the root cause, not the symptom:**
+Remove duplication, improve names, extract helpers. Keep tests green. Don't add behavior. Then: next failing test for next feature.
 
-1. **Create failing test** — Simplest reproduction. Use the `tdd` skill. MUST have before fixing.
-2. **Implement single fix** — Address root cause. ONE change. No "while I'm here" improvements.
-3. **Verify + escalate if needed** — Test passes? No regressions? If fix fails: <3 attempts → return to Phase 1. ≥3 failed fixes → STOP, question architecture (coupling, shared state, symptom-whack-a-mole). Discuss with human before more fixes.
+## Good tests
 
-## Red flags — STOP and follow process
+- **Minimal**: One thing per test. "and" in name? Split it.
+- **Clear**: Name describes behavior, not "test1".
+- **Shows intent**: Demonstrates desired API, not obscures what code should do.
 
-If you catch yourself thinking:
-- "Quick fix for now, investigate later"
-- "Just try changing X and see if it works"
-- "Add multiple changes, run tests"
-- "It's probably X, let me fix that"
-- "I don't fully understand but this might work"
-- Proposing solutions before tracing data flow
-- **"One more fix attempt" (when already tried 2+)**
-- **Each fix reveals new problem in different place**
+## Why order matters
 
-**ALL of these mean: STOP. Return to Phase 1.**
+- **"I'll write tests after"** → Tests pass immediately, proving nothing. Might test wrong thing, test implementation not behavior, miss edge cases, never saw it catch the bug. Test-first forces you to see it fail.
+- **"Deleting X hours of work is wasteful"** → Sunk cost fallacy. Keeping unverified code is technical debt.
+
+## Red flags — STOP and start over
+
+- Code before test
+- Test after implementation
+- Test passes immediately
+- Can't explain why test failed
+- Rationalizing "just this once"
+- "Keep as reference" or "adapt existing code"
+
+**All of these mean: delete code. Start over with TDD.**
 
 ### Common rationalizations (same trap, different words)
 
-- "Issue is simple" → Simple bugs have root causes too. Process is fast for simple bugs.
-- "Emergency, no time" → Systematic debugging is FASTER than guess-and-check thrashing.
-- "Just try this first" → First fix sets the pattern. Do it right from the start.
-- "I'll write test after" → Untested fixes don't stick. Test first proves it.
-- "Multiple fixes at once saves time" → Can't isolate what worked. Causes new bugs.
-- "I see the problem, let me fix it" → Seeing symptoms ≠ understanding root cause.
-- "One more fix attempt" (after 2+) → 3+ failures = architectural problem. Question pattern.
+- "Too simple to test" → Simple code breaks. Test takes 30 seconds.
+- "I'll test after" → Tests passing immediately prove nothing.
+- "Already manually tested" → Ad-hoc ≠ systematic. No record, can't re-run.
+- "Deleting is wasteful" → Sunk cost. Keeping unverified code = debt.
+- "Keep as reference" → You'll adapt it. That's testing after. Delete means delete.
+- "Need to explore first" → Fine. Throw away exploration, start with TDD.
+- "TDD will slow me down" → TDD faster than debugging production.
 
-## Quick reference
+## Bug fix workflow
 
-| Phase | Key activities | Success criteria |
-|-------|---------------|------------------|
-| 1. Root cause | Read errors, reproduce, check changes, gather evidence | Understand WHAT and WHY |
-| 2. Pattern | Find working examples, compare | Identify differences |
-| 3. Hypothesis | Form theory, test minimally | Confirmed or new hypothesis |
-| 4. Implementation | Create test, fix, verify | Bug resolved, tests pass |
+1. **RED**: Write failing test reproducing the bug.
+2. **Verify RED**: Watch it fail (confirms test catches the bug).
+3. **GREEN**: Write minimal fix.
+4. **Verify GREEN**: Watch it pass.
+5. **REFACTOR**: Clean up if needed.
 
-## Real-world impact
-
-Systematic approach: 15-30 min to fix, 95% first-time fix rate, near-zero new bugs. Random fixes: 2-3 hours thrashing, 40% first-time rate, common new bugs.
+Never fix bugs without a test. The test proves the fix and prevents regression.
 
 ## Agent Harness Deploy integration
 
-- **Maker≠checker**: The agent that investigates (Phase 1-3) should not be the same agent that fixes (Phase 4) for complex bugs. For simple bugs, same agent is OK but the test is the checker.
-- **Evidence-graded claims**: Phase 1 findings tagged [fact] (from error output) / [inference] (from tracing) / [unverified-guess] (hypothesis before testing).
-- **Plan-gate**: Phase 3 hypothesis must be stated before testing. No "I'll try X and see" without a written hypothesis.
-- **Verification protocol**: Phase 4 fix verification = maker≠checker. The test runner verifies, not the fixer.
-
-## When process reveals "no root cause"
-
-If investigation shows the issue is truly environmental/timing/external: document what you investigated, implement appropriate handling (retry, timeout, error message), add monitoring. **But: 95% of "no root cause" cases are incomplete investigation.**
+- **Maker≠checker**: Test = checker, implementation = maker. The agent that writes code does not judge if tests pass — the test runner does.
+- **Verification protocol**: TDD's "watch it fail / watch it pass" is the verification protocol applied at the unit level.
+- **Loop protocol**: RED→GREEN→REFACTOR is a `/goal` loop with exit condition "test passes".
 
 ## Attribution
 
-Extracted/adapted from [obra/superpowers](https://github.com/obra/superpowers) `systematic-debugging` skill (MIT). Integrates with maker≠checker, evidence-graded claims, plan-gate.
+Extracted/adapted from [obra/superpowers](https://github.com/obra/superpowers) `test-driven-development` skill (MIT). Integrates with maker≠checker and verification protocol.
 
 ---
 > Source: [masteryee-labs/Open-Godot-MCP](https://github.com/masteryee-labs/Open-Godot-MCP) — distributed by [TomeVault](https://tomevault.io).
