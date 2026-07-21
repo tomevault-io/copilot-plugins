@@ -1,0 +1,105 @@
+{
+  "name": "deepseek-pp",
+  "owner": "zhu1090093659",
+  "repo": "deepseek-pp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deepseek-pp",
+      "path": "docs/archives/deepseek-automation/skill/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/docs/archives/deepseek-automation/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/officecli/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/morph-ppt/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/morph-ppt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/morph-ppt-3d/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/morph-ppt-3d/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/officecli-docx/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/officecli-pptx/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/officecli-xlsx/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/officecli-word-form/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-word-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/officecli-pitch-deck/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-pitch-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/officecli-official/skills/officecli-data-dashboard/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-data-dashboard/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhu1090093659/deepseek-pp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:12:57Z"
+}
