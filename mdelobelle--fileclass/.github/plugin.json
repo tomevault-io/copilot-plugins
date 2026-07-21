@@ -1,0 +1,9 @@
+{
+  "name": "mdelobelle--fileclass",
+  "displayName": "fileclass",
+  "description": "Give your notes typed, validated properties with guided input \u2014 define reusable note types, like a schema for your frontmatter. Successor to Metadata Menu, powered by Bases.",
+  "version": "1.0.0",
+  "author": "mdelobelle",
+  "homepage": "https://github.com/mdelobelle/fileclass",
+  "skills": []
+}
