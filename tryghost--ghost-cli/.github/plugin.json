@@ -1,0 +1,9 @@
+{
+  "name": "tryghost--ghost-cli",
+  "displayName": "Ghost-CLI",
+  "description": "Ghost-CLI",
+  "version": "1.0.0",
+  "author": "TryGhost",
+  "homepage": "https://github.com/TryGhost/Ghost-CLI",
+  "skills": []
+}
