@@ -1,0 +1,57 @@
+{
+  "name": "ragflow",
+  "owner": "infiniflow",
+  "repo": "ragflow",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ragflow",
+      "path": ".agents/skills/go-naming/SKILL.md",
+      "github_url": "https://github.com/infiniflow/ragflow/tree/main/.agents/skills/go-naming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ragflow",
+      "path": "web/.agents/skills/tanstack-query-best-practices/SKILL.md",
+      "github_url": "https://github.com/infiniflow/ragflow/tree/main/web/.agents/skills/tanstack-query-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/infiniflow/ragflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T11:08:57Z"
+}
