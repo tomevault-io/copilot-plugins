@@ -1,0 +1,130 @@
+{
+  "name": "neo4j-contrib--neo4j-skills",
+  "displayName": "neo4j-skills",
+  "description": "neo4j-skills",
+  "version": "1.0.0",
+  "author": "neo4j-contrib",
+  "homepage": "https://github.com/neo4j-contrib/neo4j-skills",
+  "skills": [
+    {
+      "name": "neo4j-cypher-skill",
+      "description": ""
+    },
+    {
+      "name": "neo4j-migration-skill",
+      "description": ""
+    },
+    {
+      "name": "neo4j-aura-agent-skill",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    },
+    {
+      "name": "neo4j-skills",
+      "description": ""
+    }
+  ]
+}
