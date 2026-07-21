@@ -1,0 +1,46 @@
+{
+  "name": "mavlink--qgroundcontrol",
+  "displayName": "qgroundcontrol",
+  "description": "qgroundcontrol",
+  "version": "1.0.0",
+  "author": "mavlink",
+  "homepage": "https://github.com/mavlink/qgroundcontrol",
+  "skills": [
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "description": ""
+    }
+  ]
+}
