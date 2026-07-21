@@ -1,0 +1,20 @@
+## alphasolve
+
+> - 本项目的所有注释应以地道、流畅的中文写就。
+
+# AlphaSolve 项目约定
+
+## 注意事项
+
+- 本项目的所有注释应以地道、流畅的中文写就。
+- 本项目将在Windows、MacOS等多个平台上运行，注意跨平台适配。
+- 在做任何事之前，先看看和远程是否版本一致，如果不一致，立刻通知用户，确认应该怎么做。
+- 注意：1.工具的描述、2.每个agent与subagent的工具权限，均要与其提示词相匹配。
+- 注意：修改代码时要思考能否破坏graceful ctrl+C exit：第一次ctrl+C停止所有worker，第二次ctrl+C停止整个程序。
+- 注意：当你修改完代码后，记得也相应修改旧的test，使之与时俱进，并思考有没有test未覆盖的地方
+- 每次git push前，向用户进行二次确认，说明更改的内容，以及有无风险（比如暴露api-key）。
+- 不要提交 AI 工具的中间产物：`docs/superpowers/`（plan/spec 等）、`.codegraph/`、`.claude/` 等目录都已在 `.gitignore` 中；新增此类目录时一并加进去，永远不要 `git add` 进仓库。
+
+---
+> Source: [tanzcoding/AlphaSolve](https://github.com/tanzcoding/AlphaSolve) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
