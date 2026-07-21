@@ -1,0 +1,9 @@
+{
+  "name": "ydb-platform--ydb-js-sdk",
+  "displayName": "ydb-js-sdk",
+  "description": "ydb-js-sdk",
+  "version": "1.0.0",
+  "author": "ydb-platform",
+  "homepage": "https://github.com/ydb-platform/ydb-js-sdk",
+  "skills": []
+}
