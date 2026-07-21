@@ -1,0 +1,14 @@
+{
+  "name": "reorx--httpstat",
+  "displayName": "httpstat",
+  "description": "httpstat",
+  "version": "1.0.0",
+  "author": "reorx",
+  "homepage": "https://github.com/reorx/httpstat",
+  "skills": [
+    {
+      "name": "httpstat",
+      "description": ""
+    }
+  ]
+}
