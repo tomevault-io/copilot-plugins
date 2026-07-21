@@ -1,0 +1,81 @@
+{
+  "name": "saleor",
+  "owner": "saleor",
+  "repo": "saleor",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pytest-runner",
+      "path": ".claude/skills/pytest-runner",
+      "github_url": "https://github.com/saleor/saleor/tree/main/.claude/skills/pytest-runner",
+      "description": ""
+    },
+    {
+      "name": "saleor-commit",
+      "path": ".claude/skills/saleor-commit",
+      "github_url": "https://github.com/saleor/saleor/tree/main/.claude/skills/saleor-commit",
+      "description": ""
+    },
+    {
+      "name": "saleor",
+      "path": ".claude/skills/saleor-commit/SKILL.md",
+      "github_url": "https://github.com/saleor/saleor/tree/main/.claude/skills/saleor-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "saleor",
+      "path": ".claude/skills/pytest-runner/SKILL.md",
+      "github_url": "https://github.com/saleor/saleor/tree/main/.claude/skills/pytest-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "saleor",
+      "path": ".claude/skills/filter-benchmark/SKILL.md",
+      "github_url": "https://github.com/saleor/saleor/tree/main/.claude/skills/filter-benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "saleor",
+      "path": ".claude/skills/saleor-django-migration/SKILL.md",
+      "github_url": "https://github.com/saleor/saleor/tree/main/.claude/skills/saleor-django-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/saleor/saleor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:49:29Z"
+}
