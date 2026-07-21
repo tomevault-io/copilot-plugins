@@ -1,0 +1,57 @@
+{
+  "name": "sentry-python",
+  "owner": "getsentry",
+  "repo": "sentry-python",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sentry-python",
+      "path": ".agents/skills/find-bugs/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-python/tree/main/.agents/skills/find-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-python",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-python/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/getsentry/sentry-python",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T11:46:16Z"
+}
