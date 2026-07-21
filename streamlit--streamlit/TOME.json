@@ -2,9 +2,9 @@
   "name": "streamlit",
   "owner": "streamlit",
   "repo": "streamlit",
-  "description": "AI instruction files for streamlit by streamlit",
+  "description": "",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -69,37 +69,127 @@
       "description": ""
     },
     {
-      "name": "developing-with-streamlit",
-      "path": "developing-with-streamlit",
-      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit",
+      "name": "updating-internal-docs",
+      "path": ".claude/skills/updating-internal-docs",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/updating-internal-docs",
       "description": ""
     },
     {
-      "name": "building-streamlit-chat-ui",
-      "path": "developing-with-streamlit/skills/building-streamlit-chat-ui",
-      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit/skills/building-streamlit-chat-ui",
+      "name": "implementing-feature",
+      "path": ".claude/skills/implementing-feature",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/implementing-feature",
       "description": ""
     },
     {
-      "name": "building-streamlit-multipage-apps",
-      "path": "developing-with-streamlit/skills/building-streamlit-multipage-apps",
-      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit/skills/building-streamlit-multipage-apps",
+      "name": "improving-python-coverage",
+      "path": ".claude/skills/improving-python-coverage",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/improving-python-coverage",
       "description": ""
     },
     {
-      "name": "connecting-streamlit-to-snowflake",
-      "path": "developing-with-streamlit/skills/connecting-streamlit-to-snowflake",
-      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit/skills/connecting-streamlit-to-snowflake",
+      "name": "streamlit",
+      "path": ".claude/skills/writing-spec/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/writing-spec/SKILL.md",
       "description": ""
     },
     {
-      "name": "creating-streamlit-themes",
-      "path": "developing-with-streamlit/skills/creating-streamlit-themes",
-      "github_url": "https://github.com/streamlit/streamlit/tree/main/developing-with-streamlit/skills/creating-streamlit-themes",
+      "name": "streamlit",
+      "path": ".claude/skills/finalizing-pr/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/finalizing-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/checking-changes/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/checking-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/fixing-streamlit-ci/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/fixing-streamlit-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/debugging-streamlit/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/debugging-streamlit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/generating-changelog/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/generating-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/implementing-feature/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/implementing-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/fixing-flaky-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/fixing-flaky-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/creating-pull-requests/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/creating-pull-requests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/updating-internal-docs/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/updating-internal-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/improving-python-coverage/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/improving-python-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/discovering-make-commands/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/discovering-make-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/improving-frontend-coverage/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/improving-frontend-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/assessing-external-test-risk/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/assessing-external-test-risk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/addressing-pr-review-comments/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/addressing-pr-review-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": ".claude/skills/understanding-streamlit-architecture/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/.claude/skills/understanding-streamlit-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "streamlit",
+      "path": "lib/streamlit/.agents/skills/developing-with-streamlit/SKILL.md",
+      "github_url": "https://github.com/streamlit/streamlit/tree/main/lib/streamlit/.agents/skills/developing-with-streamlit/SKILL.md",
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/streamlit",
+  "source_url": "https://github.com/streamlit/streamlit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T16:02:30Z"
+  "distributed_at": "2026-07-21T05:51:57Z"
 }
