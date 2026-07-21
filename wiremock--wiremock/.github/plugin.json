@@ -1,0 +1,14 @@
+{
+  "name": "wiremock--wiremock",
+  "displayName": "wiremock",
+  "description": "wiremock",
+  "version": "1.0.0",
+  "author": "wiremock",
+  "homepage": "https://github.com/wiremock/wiremock",
+  "skills": [
+    {
+      "name": "wiremock",
+      "description": ""
+    }
+  ]
+}
