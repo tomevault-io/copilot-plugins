@@ -1,0 +1,93 @@
+{
+  "name": "azure-container-networking",
+  "owner": "Azure",
+  "repo": "azure-container-networking",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-container-networking",
+      "path": ".github/skills/acn-go-types-parsing/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-container-networking/tree/main/.github/skills/acn-go-types-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-container-networking",
+      "path": ".github/skills/acn-go-errors-logging/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-container-networking/tree/main/.github/skills/acn-go-errors-logging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-container-networking",
+      "path": ".github/skills/acn-go-design-boundaries/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-container-networking/tree/main/.github/skills/acn-go-design-boundaries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-container-networking",
+      "path": ".github/skills/acn-go-context-lifecycle/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-container-networking/tree/main/.github/skills/acn-go-context-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-container-networking",
+      "path": ".github/skills/acn-go-http-api-contracts/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-container-networking/tree/main/.github/skills/acn-go-http-api-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-container-networking",
+      "path": ".github/skills/acn-go-platform-abstraction/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-container-networking/tree/main/.github/skills/acn-go-platform-abstraction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-container-networking",
+      "path": ".github/skills/acn-go-control-plane-contracts/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-container-networking/tree/main/.github/skills/acn-go-control-plane-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-container-networking",
+      "path": ".github/skills/acn-go-interfaces-dependencies/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-container-networking/tree/main/.github/skills/acn-go-interfaces-dependencies/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure/azure-container-networking",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:20:04Z"
+}
