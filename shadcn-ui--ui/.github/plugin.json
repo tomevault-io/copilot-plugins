@@ -1,0 +1,14 @@
+{
+  "name": "shadcn-ui--ui",
+  "displayName": "ui",
+  "description": "ui",
+  "version": "1.0.0",
+  "author": "shadcn-ui",
+  "homepage": "https://github.com/shadcn-ui/ui",
+  "skills": [
+    {
+      "name": "ui",
+      "description": ""
+    }
+  ]
+}
