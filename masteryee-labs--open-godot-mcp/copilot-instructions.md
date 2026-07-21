@@ -1,92 +1,115 @@
-## harness-sensor
+## init-deep
 
-> Use when code or files have been modified. Runs structural, build, and syntax checks deterministically. Code changes trigger full sensor; doc-only changes trigger SENSOR-3 only.
+> Use when a repository is too large to explain from memory, or when the shape of the codebase has changed. Generates hierarchical AGENTS.md context files near the code that needs them, giving future agents landmarks before they edit.
 
 
-# Skill: harness-sensor
+# Skill: init_deep
 
-> Computational verification sensor. Run after code/file changes.
-> Two modes: `code` (full sensor) / `doc` (SENSOR-3 only).
-> Implements Q3 computational sensors per `.windsurf/canon/HARNESS_ENGINEERING.md` and CLI gates per `.windsurf/canon/VERIFICATION_PROTOCOL.md`.
-> Every failure output must include `Fix: <specific action>` as the last line.
+> Hierarchical project memory. Generates `AGENTS.md` files at directory boundaries so
+> future agents inherit context without re-reading the whole repo.
+> Concept extracted from oh-my-openagent's `/init-deep` (Sisyphus Labs), reimplemented
+> as a prompt-level skill for the Agent Harness Deploy harness. No runtime dependency on OmO.
 
 ## Trigger
-- After any code modification → `code` mode.
-- After pure doc/markdown modification → `doc` mode.
-- Keywords: harness-sensor, build check, sensor PASS.
+- The repository is too large to explain from a single root context file (>20 dirs or
+  >50 source files).
+- The shape of the codebase has changed (major refactor, new top-level package, directory
+  restructure).
+- A new agent keeps making wrong assumptions about which files live where.
+- At BOOT, if the repo has >50 source files or >20 directories, consider running `init_deep` first.
+- Keywords: init_deep, init-deep, hierarchical context, project memory, AGENTS.md tree.
 
-## Sensors
+## Why
 
-### SENSOR-1: Structure (code mode)
-- Files claimed changed actually exist at claimed paths.
-- `read` each changed file, confirm content present.
-- Fail → report path + what's missing.
+A single root `AGENTS.md` either bloats (token cost at every BOOT) or stays too lean (agents lack local context deep in the tree). `init_deep` writes **local** `AGENTS.md` files at directory boundaries — agents auto-read the nearest one. Root stays lean (index + global rules); local files carry directory-specific guidance.
 
-### SENSOR-2: Build (code mode)
-- Run the project's build/typecheck/lint command.
-- Pass = green. Fail = report error verbatim + failing file:line.
-- If no build system → skip with note "no build system."
+## How
 
-### SENSOR-3: Syntax/links (both modes)
-- Markdown: check internal links resolve, code fences balanced, headers well-formed.
-- Code: syntax check (parse-only if no full build).
-- Config files: valid JSON/YAML/TOML parse.
+### Step 1: Score directories
 
-### SENSOR-4: SLOP (doc mode + code report)
-- Run `slop-detector` on user-facing prose, naming, and abstractions in the changed set.
-- Flag generic names, filler phrases, single-call wrappers, premature interfaces.
+Walk the tree. For each directory, score it 0-3:
 
-### SENSOR-4b: Comment slop (code mode, graceful degradation)
-> Detects AI-generated comment slop (explanation bloat, restating the code).
-> Implements REDLINES.md #16 + VERIFICATION_PROTOCOL.md "Explanation bloat" axis.
-> Source: arXiv 2605.02741 (Volume-Quality Inverse Law).
-- **If `uncomment` is installed**: run `uncomment --dry-run <changed_files>` to get an
-  AST-precise comment inventory (tree-sitter, 306 languages, 100% accuracy, no false
-  positives in strings).
-- **If `uncomment` is NOT installed**: skip with note
-  `"SENSOR-4b: uncomment not installed — skipping. Install: pip install uncomment. Falling back to comment_checker skill."`
-  Then run `comment_checker` skill on changed files as prompt-level fallback.
-- Report: comment count per file, lines with comments that restate code.
-- **Report-only, never auto-fix.** Maker ≠ checker. Agent or human decides what to delete.
-- Fix instruction per finding:
-  `"Delete comment at line N — it restates the code. See REDLINES.md #16. Comment discipline: comments explain WHY, not WHAT."`
+- **0** — Empty/build output/vendored deps (node_modules, .venv, dist) → skip
+- **1** — Trivial (1-3 files, no subdirs) → skip (context not worth the file)
+- **2** — Moderate (4+ files OR 1+ subdir with code) → write AGENTS.md
+- **3** — Major boundary (top-level package, module root, complex subsystem) → write AGENTS.md + ensure parent links to it
 
-### SENSOR-4c: Version stacking (code mode, always runs)
-> Detects in-file version markers / changelog blocks.
-> Implements REDLINES.md #17 + VERIFICATION_PROTOCOL.md "Version stacking" axis.
-> Source: arXiv 2606.09090 (Context Rot).
-- Scan changed files for: `<!-- v\d+ -->`, `# v\d+ `, `// v\d+ `, `<!-- updated YYYY -->`,
-  `# changelog`, `# YYYY-MM-DD ` (date-prefixed edit markers).
-- Ignore backtick-wrapped code spans (examples in docs) and single front-matter version
-  lines (`> v1.0 | ...`).
-- Report: each in-file version marker found.
-- Fix instruction per finding:
-  `"Remove version marker at line N. Version truth = git history + CHANGELOG.md, not in-file stacking. See REDLINES.md #17."`
+### Step 2: Write local AGENTS.md (per scored directory)
+
+Each local `AGENTS.md` is **<2KB** and contains only what's local:
+
+```markdown
+# [dir name]/ — [one-line purpose]
+
+## What lives here
+- [file/dir]: [what it does, one line]
+
+## Local conventions
+- [convention specific to this directory, if any]
+
+## Don't touch without asking
+- [file]: [why it's sensitive — e.g., "generated by build, edit source in ../templates/"]
+
+## See also
+- Parent context: ../AGENTS.md
+- Related: [path to sibling dir that interacts with this one]
+```
+
+### Step 3: Update root AGENTS.md index
+
+The root `AGENTS.md` (or `Docs/00-Overview.md`) gets a **directory index** section:
+
+```markdown
+## Directory index (auto-generated by init_deep)
+
+| Directory | Has local AGENTS.md? | Summary |
+|-----------|---------------------|---------|
+| src/core/ | yes | Core domain logic — see src/core/AGENTS.md |
+| src/adapters/ | yes | Tool adapters — see src/adapters/AGENTS.md |
+| tests/ | no | Test files, flat structure, no local context needed |
+```
+
+### Step 4: Re-run when shape changes
+
+`init_deep` is not one-time. Re-run when:
+- A new top-level directory is added.
+- A directory's purpose changes (e.g., `src/legacy/` → `src/v2/`).
+- An agent reports it couldn't find context for a subtree.
 
 ## Output
+
 ```
-## Sensor [PASS/FAIL] mode:[code/doc]
-## SENSOR-1 structure: [pass/fail] — evidence
-## SENSOR-2 build: [pass/fail/n-a] — command + result
-## SENSOR-3 syntax: [pass/fail] — evidence
-## SENSOR-4 slop: [pass/fail] — count
-## SENSOR-4b comment-slop: [pass/fail/skipped] — count or "uncomment not installed"
-## SENSOR-4c version-stacking: [pass/fail] — count
-## Failures
-- sensor | file:line | issue | fix
-Fix: <specific action>
+## init_deep report
+## Scored
+- [dir]: score=N → [wrote AGENTS.md | skipped]
+## Written
+- [path]: [N] bytes, covers [M] files
+## Updated root index
+- [path]: directory index section refreshed
+## Skipped (score 0-1)
+- [dir]: [reason]
 ```
 
 ## Rules
-- Sensor is deterministic. It runs commands. It does not "feel" correctness.
-- A sensor FAIL stops the loop. Fix before next iteration.
-- Sensor does not replace fresh-context Verifier. Sensor = structural; Verifier = semantic.
-- If SENSOR-4 fails, the next iteration should fix the SLOP before moving on.
-- **SENSOR-4b is graceful-degradation.** No external tool required. `uncomment` adds Q3
-  precision when available; `comment_checker` skill is the always-available fallback.
-- **SENSOR-4b is report-only.** Never auto-delete comments. Agent/human reviews and decides.
-- **SENSOR-4c always runs** (no external dependency — regex scan). Version stacking is a
-  red line (#17), not a suggestion.
+
+- **Local files are <2KB.** If a local AGENTS.md exceeds 2KB, the directory is too complex
+  for a single file — split into subdirectory files instead.
+- **Never duplicate the root canon.** Local files contain *local* context only. Global
+  rules live in `.windsurf/canon/` and are synced by the deployer, not by init_deep.
+- **Don't write AGENTS.md inside `.windsurf/canon/` or `core/assets/`.** Those are the
+  canonical source — init_deep writes *derived* context, not source.
+- **Backup before overwriting.** If a local AGENTS.md already exists, `.bak` it first
+  (follows the canon's backup-first principle).
+- **Idempotent.** Re-running init_deep on an already-initialized repo should produce
+  identical files (or report "no changes needed").
+
+## Relationship to Agent Harness Deploy memory layers
+
+`init_deep` writes the **project context** layer — stable, structural, directory-bound. It complements (not replaces) the three-layer runtime memory (hot/knowledge/cold). See `.windsurf/canon/MEMORY_PROTOCOL.md`. It's the *spatial* memory: "where am I in the codebase" without reading 50 files.
+
+## Attribution
+
+Concept extracted from oh-my-openagent's `/init-deep` (Sisyphus Labs, SUL-1.0). Reimplemented as a prompt-level skill — no OmO runtime code used or vendored. The concept (hierarchical AGENTS.md generation) is a workflow pattern, not copyrightable expression.
 
 ---
 > Source: [masteryee-labs/Open-Godot-MCP](https://github.com/masteryee-labs/Open-Godot-MCP) — distributed by [TomeVault](https://tomevault.io).
