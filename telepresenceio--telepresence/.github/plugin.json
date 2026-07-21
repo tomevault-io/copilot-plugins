@@ -1,0 +1,22 @@
+{
+  "name": "telepresenceio--telepresence",
+  "displayName": "telepresence",
+  "description": "telepresence",
+  "version": "1.0.0",
+  "author": "telepresenceio",
+  "homepage": "https://github.com/telepresenceio/telepresence",
+  "skills": [
+    {
+      "name": "telepresence",
+      "description": ""
+    },
+    {
+      "name": "telepresence",
+      "description": ""
+    },
+    {
+      "name": "telepresence",
+      "description": ""
+    }
+  ]
+}
