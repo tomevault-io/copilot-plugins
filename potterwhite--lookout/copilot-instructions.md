@@ -1,0 +1,23 @@
+## lookout
+
+> - All source code and comments must be in **English**
+
+# CLAUDE.md
+
+## Requirements
+
+- All source code and comments must be in **English**
+- Communicate with me in **Chinese (中文)**
+- Do not end the session arbitrarily — always wait on the UI of the tool of AskUserQuestion
+
+## Codebase Documentation
+
+- 不要直接扫描代码库，先阅读 `docs/zh/1-for-ai/` 下的文档
+- 如果代码改变，记得更新对应文档
+- PKB（实验日志、部署文档等）在 `/volumes_pkb_helmsman/`
+
+---
+
+---
+> Source: [potterwhite/Lookout](https://github.com/potterwhite/Lookout) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
