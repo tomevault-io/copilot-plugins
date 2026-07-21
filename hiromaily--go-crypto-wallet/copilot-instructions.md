@@ -1,136 +1,140 @@
 ## go-crypto-wallet
 
-> Mockery Mock Generation Rules
+> ⚠️ AUTO-GENERATED FILE — DO NOT EDIT
 
+<!--
+⚠️ AUTO-GENERATED FILE — DO NOT EDIT
+Source: template/pages/AGENTS.tpl.md · Run `make docs` to regenerate.
+-->
 
+# Agent Guidelines for go-crypto-wallet
 
-# Mockery Mock Generation Rules
+This document defines the **behavior and values** for AI agents working on this project.
+For detailed documentation, see [llms.txt](./llms.txt) and [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-## Overview
+## Project Identity
 
-Every interface defined under `internal/application/ports/` MUST have a corresponding
-mockery-generated mock in the appropriate `mocks/` subdirectory of the infrastructure layer.
-Manually written mocks or stubs for these interfaces are **not allowed**.
+- **Type**: Multi-signature cryptocurrency wallet (BTC, BCH, ETH, XRP, ERC-20)
+- **Security Model**: Offline cold wallets (keygen, sign) + Online watch wallet
+- **Architecture**: Clean Architecture with strict layer separation
+- **Status**: Under refactoring based on Clean Code principles
 
-## Placement Convention
+## Core Values (Priority Order)
 
-Mocks are placed in the infrastructure layer alongside the concrete implementations:
+1. **Security First** - Private key protection is non-negotiable
+2. **Clean Architecture** - Domain layer has ZERO infrastructure dependencies
+3. **Single Source of Truth (SSOT)** - One authoritative location for each piece of information
+4. **Incremental Changes** - No breaking changes without rollback plan
+5. **Code Quality** - Follow language-specific linting and testing standards
 
-| Interface package (`application/ports/`) | Mock directory (`infrastructure/`) |
-|---|---|
-| `ports/api/btc/` | `infrastructure/api/btc/mocks/` |
-| `ports/api/eth/` | `infrastructure/api/eth/mocks/` |
-| `ports/api/xrp/` | `infrastructure/api/xrp/mocks/` |
-| `ports/file/` | `infrastructure/storage/file/transaction/mocks/` |
-| `ports/repository/cold/` | `infrastructure/repository/cold/mocks/` |
-| `ports/repository/watch/` | `infrastructure/repository/watch/mocks/` |
+## Expected Behavior
 
-**Pattern**: `ports/<layer>/<pkg>/` → `infrastructure/<layer>/<pkg>/mocks/`
+### Always Do
 
-## Mandatory Steps When Adding a New Interface
+- **Check current branch before starting any task** (see `git-workflow` skill)
+- Read relevant documentation before making changes
+- Run verification commands after code changes
+- Wrap errors with context using `fmt.Errorf("context: %w", err)`
+- Consider impact on offline wallet operations
 
-When a new interface is added to `internal/application/ports/`:
+### Never Do
 
-1. **Add to `.mockery.yaml`**: Register the interface under its package entry with the correct `dir`.
-2. **Run `make mockery`**: Regenerate all mocks.
-3. **Verify**: Run `make go-lint` and `make check-build`.
+- ❌ Log private keys or sensitive information
+- ❌ Edit files marked `DO NOT EDIT` (auto-generated)
+- ❌ Push directly to `main` branch
+- ❌ Run `git merge` or `gh pr merge`
+- ❌ Run `protoc` or `buf` commands directly (always use Makefile targets like `make proto`, `make proto-ts`)
 
-Do these in the **same commit or PR** as the interface definition.
+### Ask Before
 
-## `.mockery.yaml` Entry Format
+- Making security-related changes
+- Breaking changes to public APIs
+- Changes affecting multiple layers
 
-```yaml
-packages:
-  github.com/hiromaily/go-crypto-wallet/internal/application/ports/<layer>/<pkg>:
-    config:
-      dir: "internal/infrastructure/<layer>/<pkg>/mocks"
-      pkgname: "mocks"
-    interfaces:
-      MyNewInterface:
-```
+## SSOT Structure
 
-## Mock File Conventions (auto-applied by global config)
+**When modifying rules, skills, or documentation, always edit the SSOT location.**
 
-| Setting | Value |
-|---|---|
-| Filename | `mock_<interface_name_snakecase>.go` |
-| Struct name | `Mock<InterfaceName>` |
-| Constructor | `NewMock<InterfaceName>(t)` |
-| Framework | `testify/mock` with `.EXPECT()` builder |
+### AI Agent Configuration
 
-## Using Mocks in Tests
+| Category | SSOT Location | Other Locations |
+|----------|---------------|-----------------|
+| Rules | `.claude/rules/*.md` | `.cursor/rules/*.mdc` (auto-generated) |
+| Skills | `.claude/skills/*/SKILL.md` | `.cursor/skills/` (symlink) |
+| Commands | `.claude/commands/` | `.cursor/commands/` (reference only) |
 
-```go
-import coldmocks "github.com/hiromaily/go-crypto-wallet/internal/infrastructure/repository/cold/mocks"
+**Sync Process:**
 
-func TestFoo(t *testing.T) {
-    repo := coldmocks.NewMockBTCAccountKeyRepositorier(t)
-    repo.EXPECT().
-        GetOneMaxID(domainAccount.AccountTypeDeposit).
-        Return(key, nil)
-    // ...
-}
-```
+- `.cursor/rules/` → Auto-generated via `make sync-cursor-rules`
+- `.cursor/skills/` → Symlink to `.claude/skills/`
 
-**Never** call `mock.AssertExpectations(t)` manually — the `NewMock*(t)` constructor registers
-cleanup automatically via `t.Cleanup`.
+### Project Documentation
 
-## DO NOT Edit Generated Mock Files
+| Category | SSOT Location | Notes |
+|----------|---------------|-------|
+| Guidelines | `docs/guidelines/` | Coding, testing, security, workflow, database, code-generation |
+| Architecture | `ARCHITECTURE.md` | System design |
+| Agent behavior | `AGENTS.md` (this file) | Entry point for all agents |
 
-Files in `mocks/` directories contain `// Code generated by mockery; DO NOT EDIT.`.
-Always regenerate with `make mockery` instead of editing manually.
+### Key Principle
 
-## Combined Mock Struct for Local Unexported Interfaces
+> **Don't Repeat Yourself (DRY)**: Define once, reference everywhere.
+> When information exists in multiple places, update the SSOT and reference it from others.
 
-When a use case declares a local unexported interface that composes two (or more) port interfaces
-(e.g. `xrpSendTxClient` combining `TransactionSubmitter` + `LedgerPoller`), tests cannot directly
-use a single generated mock because no single mock satisfies the composite type.
+## Documentation Map
 
-**Pattern**: embed the relevant mocks into a thin struct:
+| Need | Document |
+|------|----------|
+| Project overview | [llms.txt](./llms.txt) |
+| Architecture design | [ARCHITECTURE.md](./ARCHITECTURE.md) |
+| **AI Agent instruction design** | [docs/ai/design.md](./docs/ai/design.md) |
+| **Guidelines** | [docs/guidelines/](./docs/guidelines) |
+| Coding conventions | [docs/guidelines/coding-conventions.md](./docs/guidelines/coding-conventions.md) |
+| Security | [docs/guidelines/security.md](./docs/guidelines/security.md) |
+| Testing | [docs/guidelines/testing.md](./docs/guidelines/testing.md) |
+| Workflow | [docs/guidelines/workflow.md](./docs/guidelines/workflow.md) |
+| Database changes | [docs/database/db-management.md](./docs/database/db-management.md) |
+| Auto-generated files | [docs/guidelines/code-generation.md](./docs/guidelines/code-generation.md) |
+| CLI commands | [internal/interface-adapters/cli/README.md](./internal/interface-adapters/cli/README.md) | Command × Chain × UseCase matrix (SSOT) |
+| Internal packages | [internal/AGENTS.md](./internal/AGENTS.md) |
+| Public packages | [pkg/AGENTS.md](./pkg/AGENTS.md) |
 
-```go
-// Production code (send_transaction.go)
-type xrpSendTxClient interface {
-    apixrp.TransactionSubmitter
-    apixrp.LedgerPoller
-}
+## Quick Reference
 
-// Test code (send_transaction_test.go)
-type mockSendTxClient struct {
-    *xrpapiamocks.MockTransactionSubmitter
-    *xrpapiamocks.MockLedgerPoller
-}
+### Identifying BTC Address Types
 
-func createSendUseCase(deps *sendTestDependencies) watchusecase.SendTransactionUseCase {
-    client := &mockSendTxClient{
-        MockTransactionSubmitter: deps.submitter,
-        MockLedgerPoller:         deps.ledgerPoller,
-    }
-    return xrp.NewSendTransactionUseCase(client, nil, deps.txDetailRepo, deps.txFileRepo)
-}
-```
+| Prefix | Type | BIP | SegWit |
+|--------|------|-----|--------|
+| `1...` | P2PKH | BIP44 | ❌ |
+| `3...` | P2SH or P2SH-P2WPKH | BIP16/BIP49 | △ |
+| `bc1q...` | P2WPKH or P2WSH | BIP84 | ✅ |
+| `bc1p...` | P2TR (Taproot) | BIP86 | ✅ |
 
-Rules:
-- The embedding struct lives in the **test file**, not in `mocks/`
-- Each embedded field is still a `NewMock*(t)` instance with its own `.EXPECT()` setup
-- Do **not** generate a mock for the composite local interface itself
+### Identifying BCH Address Types
 
-## Exceptions
+| Prefix | Type | Multisig |
+|--------|------|----------|
+| `bitcoincash:q...` | P2PKH | ❌ |
+| `bitcoincash:p...` | P2SH | ✅ |
 
-- **`Ethereumer` (ETH)**: DI-layer-only monolithic interface — do NOT add to `.mockery.yaml`.
-- **`ETHTransactionSender`**: Type alias for `TxSender` — mockery cannot generate mocks for type aliases; mock `TxSender` instead.
-- **Composed ETH interfaces** (`ETHKeygenSignClient`, `ETHWatchClient`, `WatchTxCreationDeps`, `KeygenSignTxDeps`): Leaf interface mocks satisfy all compositions implicitly — do NOT add composed interfaces to `.mockery.yaml`.
-- **Use case interfaces** (`internal/application/usecase/*/interfaces.go`): These are NOT ports interfaces. Simple struct stubs are acceptable for testing use case orchestration.
-- **Compile-time conformance stubs** in `*_test.go` files (e.g., in `ports/` packages): These are intentional type-check helpers, not test doubles — keep them as-is.
+### Transaction Size Comparison
 
-## Related Files
-
-- `.mockery.yaml` — mockery configuration (SSOT for all mock generation)
-- `Makefile` → `make mockery` — regenerates all mocks
-- `@.claude/rules/internal/infrastructure-layer.md` — infrastructure layer rules
-- `@.claude/rules/internal/application-layer.md` — application layer rules
+| Pattern | Weight | vBytes | Notes |
+|---------|--------|--------|-------|
+| P2PKH Single-sig (1-in, 2-out) | ~680 | ~170 | Legacy |
+| P2WPKH Single-sig (1-in, 2-out) | ~440 | ~110 | Native SegWit |
+| P2TR Single-sig (1-in, 2-out) | ~396 | ~99 | Taproot |
+| 2-of-3 P2WSH Multisig | ~1,100 | ~275 | Traditional Multisig |
+| 2-of-3 MuSig2 (P2TR) | ~560 | ~140 | Signature Aggregation |
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/hiromaily)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/hiromaily)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+
+## See Also
+
+- [llms.txt](./llms.txt) - AI-friendly project sitemap
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - System architecture
+- [docs/guidelines/](./docs/guidelines) - Project guidelines and standards
+
+---
+> Source: [hiromaily/go-crypto-wallet](https://github.com/hiromaily/go-crypto-wallet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
