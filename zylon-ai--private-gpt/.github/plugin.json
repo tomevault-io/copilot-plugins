@@ -1,0 +1,14 @@
+{
+  "name": "zylon-ai--private-gpt",
+  "displayName": "private-gpt",
+  "description": "private-gpt",
+  "version": "1.0.0",
+  "author": "zylon-ai",
+  "homepage": "https://github.com/zylon-ai/private-gpt",
+  "skills": [
+    {
+      "name": "private-gpt",
+      "description": ""
+    }
+  ]
+}
