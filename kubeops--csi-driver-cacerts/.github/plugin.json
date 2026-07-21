@@ -1,0 +1,9 @@
+{
+  "name": "kubeops--csi-driver-cacerts",
+  "displayName": "csi-driver-cacerts",
+  "description": "csi-driver-cacerts",
+  "version": "1.0.0",
+  "author": "kubeops",
+  "homepage": "https://github.com/kubeops/csi-driver-cacerts",
+  "skills": []
+}
