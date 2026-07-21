@@ -1,0 +1,14 @@
+{
+  "name": "vercel--flags",
+  "displayName": "flags",
+  "description": "flags",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/flags",
+  "skills": [
+    {
+      "name": "flags",
+      "description": ""
+    }
+  ]
+}
