@@ -1,0 +1,159 @@
+{
+  "name": "codex-redteam-mode",
+  "owner": "chAng-L19",
+  "repo": "codex-redteam-mode",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-ad-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-ad-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-api-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-api-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-web-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-web-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-auth-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-auth-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-file-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-file-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-cloud-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-cloud-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-logic-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-logic-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-recon-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-recon-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/red-team-command-doctrine/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/red-team-command-doctrine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-mobile-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-mobile-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-crypto-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-crypto-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-postex-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-postex-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-evasion-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-evasion-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-payload-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-payload-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-network-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-network-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-reverse-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-reverse-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-container-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-container-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-injection-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-injection-detail-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-redteam-mode",
+      "path": "agents/skills/redteam-code-audit-detail-pack/SKILL.md",
+      "github_url": "https://github.com/chAng-L19/codex-redteam-mode/tree/main/agents/skills/redteam-code-audit-detail-pack/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chAng-L19/codex-redteam-mode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:50:54Z"
+}
