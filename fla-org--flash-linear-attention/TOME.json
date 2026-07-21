@@ -1,0 +1,75 @@
+{
+  "name": "flash-linear-attention",
+  "owner": "fla-org",
+  "repo": "flash-linear-attention",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flash-linear-attention",
+      "path": ".agents/skills/fla-kda/SKILL.md",
+      "github_url": "https://github.com/fla-org/flash-linear-attention/tree/main/.agents/skills/fla-kda/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-linear-attention",
+      "path": ".agents/skills/fla-mr-readiness/SKILL.md",
+      "github_url": "https://github.com/fla-org/flash-linear-attention/tree/main/.agents/skills/fla-mr-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-linear-attention",
+      "path": ".agents/skills/fla-dispatch-backends/SKILL.md",
+      "github_url": "https://github.com/fla-org/flash-linear-attention/tree/main/.agents/skills/fla-dispatch-backends/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-linear-attention",
+      "path": ".agents/skills/fla-nvidia-performance/SKILL.md",
+      "github_url": "https://github.com/fla-org/flash-linear-attention/tree/main/.agents/skills/fla-nvidia-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-linear-attention",
+      "path": ".agents/skills/fla-correctness-coverage/SKILL.md",
+      "github_url": "https://github.com/fla-org/flash-linear-attention/tree/main/.agents/skills/fla-correctness-coverage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fla-org/flash-linear-attention",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:01:07Z"
+}
