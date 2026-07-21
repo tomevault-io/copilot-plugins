@@ -1,0 +1,9 @@
+{
+  "name": "coursier--cache-action",
+  "displayName": "cache-action",
+  "description": "cache-action",
+  "version": "1.0.0",
+  "author": "coursier",
+  "homepage": "https://github.com/coursier/cache-action",
+  "skills": []
+}
