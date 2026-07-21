@@ -1,0 +1,42 @@
+{
+  "name": "towns-protocol--towns",
+  "displayName": "towns",
+  "description": "towns",
+  "version": "1.0.0",
+  "author": "towns-protocol",
+  "homepage": "https://github.com/towns-protocol/towns",
+  "skills": [
+    {
+      "name": "design-philosophy",
+      "description": ""
+    },
+    {
+      "name": "foundry-testing",
+      "description": ""
+    },
+    {
+      "name": "guidelines-advisor",
+      "description": ""
+    },
+    {
+      "name": "solidity-security-review",
+      "description": ""
+    },
+    {
+      "name": "towns",
+      "description": ""
+    },
+    {
+      "name": "towns",
+      "description": ""
+    },
+    {
+      "name": "towns",
+      "description": ""
+    },
+    {
+      "name": "towns",
+      "description": ""
+    }
+  ]
+}
