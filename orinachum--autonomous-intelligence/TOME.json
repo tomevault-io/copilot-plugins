@@ -1,0 +1,129 @@
+{
+  "name": "autonomous-intelligence",
+  "owner": "OriNachum",
+  "repo": "autonomous-intelligence",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "memory",
+      "path": "qq/.claude/skills-test/memory",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/.claude/skills-test/memory",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/skills/memory/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/skills/coding/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/skills/coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/.agent/skills/plan/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/.agent/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/.agent/skills/call-qq/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/.agent/skills/call-qq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/.agent/skills/implement/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/.agent/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/.agent/skills/neo4j-query/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/.agent/skills/neo4j-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/.claude/skills-test/memory/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/.claude/skills-test/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/.agent/skills/mongodb-query/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/.agent/skills/mongodb-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "realtime-api/.agent/skills/test/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/realtime-api/.agent/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "qq/.agent/skills/test-on-finish/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/qq/.agent/skills/test-on-finish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "realtime-api/.agent/skills/speak/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/realtime-api/.agent/skills/speak/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "realtime-api/.agent/skills/deploy/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/realtime-api/.agent/skills/deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autonomous-intelligence",
+      "path": "claude-code-projects/claude-playground/.agents/skills/playground/SKILL.md",
+      "github_url": "https://github.com/OriNachum/autonomous-intelligence/tree/main/claude-code-projects/claude-playground/.agents/skills/playground/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OriNachum/autonomous-intelligence",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:42:31Z"
+}
