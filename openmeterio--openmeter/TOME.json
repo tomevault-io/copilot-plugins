@@ -1,0 +1,147 @@
+{
+  "name": "openmeter",
+  "owner": "openmeterio",
+  "repo": "openmeter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/e2e/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/api/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/ent/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/ent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/test/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/rebase/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/rebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/ledger/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/ledger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/github/skill.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/github/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/service/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/billing/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/billing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/charges/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/charges/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/samber-lo/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/samber-lo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/api-filters/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/api-filters/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/refactoring/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/subscription/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/subscription/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/db-migration/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/db-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/subscriptionsync/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/subscriptionsync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openmeter",
+      "path": ".agents/skills/go-types-conversion/SKILL.md",
+      "github_url": "https://github.com/openmeterio/openmeter/tree/main/.agents/skills/go-types-conversion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openmeterio/openmeter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:34:45Z"
+}
