@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-symfony",
+  "displayName": "sentry-symfony",
+  "description": "sentry-symfony",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-symfony",
+  "skills": []
+}
