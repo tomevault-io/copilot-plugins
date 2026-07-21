@@ -1,0 +1,14 @@
+{
+  "name": "datahub-project--datahub",
+  "displayName": "datahub",
+  "description": "datahub",
+  "version": "1.0.0",
+  "author": "datahub-project",
+  "homepage": "https://github.com/datahub-project/datahub",
+  "skills": [
+    {
+      "name": "datahub",
+      "description": ""
+    }
+  ]
+}
