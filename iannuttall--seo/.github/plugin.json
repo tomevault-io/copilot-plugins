@@ -1,0 +1,9 @@
+{
+  "name": "iannuttall--seo",
+  "displayName": "seo",
+  "description": "The only SEO skill your agent needs. 50+ SEO audit tools through a local CLI and MCP server, using your own crawl, Search Console, and GA4 data.",
+  "version": "1.0.0",
+  "author": "iannuttall",
+  "homepage": "https://github.com/iannuttall/seo",
+  "skills": []
+}
