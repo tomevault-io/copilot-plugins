@@ -1,0 +1,87 @@
+{
+  "name": "deepgram-python-sdk",
+  "owner": "deepgram",
+  "repo": "deepgram-python-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deepgram-python-management-api",
+      "path": ".agents/skills/deepgram-python-management-api",
+      "github_url": "https://github.com/deepgram/deepgram-python-sdk/tree/main/.agents/skills/deepgram-python-management-api",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "path": ".agents/skills/deepgram-python-voice-agent/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-python-sdk/tree/main/.agents/skills/deepgram-python-voice-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "path": ".agents/skills/deepgram-python-text-to-speech/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-python-sdk/tree/main/.agents/skills/deepgram-python-text-to-speech/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "path": ".agents/skills/deepgram-python-management-api/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-python-sdk/tree/main/.agents/skills/deepgram-python-management-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "path": ".agents/skills/deepgram-python-text-intelligence/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-python-sdk/tree/main/.agents/skills/deepgram-python-text-intelligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "path": ".agents/skills/deepgram-python-audio-intelligence/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-python-sdk/tree/main/.agents/skills/deepgram-python-audio-intelligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "path": ".agents/skills/deepgram-python-conversational-stt/SKILL.md",
+      "github_url": "https://github.com/deepgram/deepgram-python-sdk/tree/main/.agents/skills/deepgram-python-conversational-stt/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deepgram/deepgram-python-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:09:29Z"
+}
