@@ -1,0 +1,14 @@
+{
+  "name": "narwhal-lab--magicskills",
+  "displayName": "MagicSkills",
+  "description": "MagicSkills",
+  "version": "1.0.0",
+  "author": "Narwhal-Lab",
+  "homepage": "https://github.com/Narwhal-Lab/MagicSkills",
+  "skills": [
+    {
+      "name": "MagicSkills",
+      "description": ""
+    }
+  ]
+}
