@@ -1,0 +1,14 @@
+{
+  "name": "jnmetacode--ai-coding-guide",
+  "displayName": "ai-coding-guide",
+  "description": "ai-coding-guide",
+  "version": "1.0.0",
+  "author": "jnMetaCode",
+  "homepage": "https://github.com/jnMetaCode/ai-coding-guide",
+  "skills": [
+    {
+      "name": "ai-coding-guide",
+      "description": ""
+    }
+  ]
+}
