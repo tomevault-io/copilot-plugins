@@ -1,0 +1,18 @@
+{
+  "name": "dirac-run--dirac",
+  "displayName": "dirac",
+  "description": "dirac",
+  "version": "1.0.0",
+  "author": "dirac-run",
+  "homepage": "https://github.com/dirac-run/dirac",
+  "skills": [
+    {
+      "name": "dirac",
+      "description": ""
+    },
+    {
+      "name": "dirac",
+      "description": ""
+    }
+  ]
+}
