@@ -1,0 +1,99 @@
+{
+  "name": "phaser3-rex-notes",
+  "owner": "rexrainbow",
+  "repo": "phaser3-rex-notes",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-basic-widgets/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-basic-widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-layout-sizers/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-layout-sizers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-text-and-input/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-text-and-input/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-setup-and-factory/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-setup-and-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-shapes-and-states/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-shapes-and-states/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-dialogs-and-popups/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-dialogs-and-popups/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-components-catalog/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-components-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-scroll-lists-and-tables/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-scroll-lists-and-tables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phaser3-rex-notes",
+      "path": "skills/rexui/rexui-interactions-and-effects/SKILL.md",
+      "github_url": "https://github.com/rexrainbow/phaser3-rex-notes/tree/main/skills/rexui/rexui-interactions-and-effects/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rexrainbow/phaser3-rex-notes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:22:49Z"
+}
