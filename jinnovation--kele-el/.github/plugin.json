@@ -1,0 +1,26 @@
+{
+  "name": "jinnovation--kele-el",
+  "displayName": "kele.el",
+  "description": "kele.el",
+  "version": "1.0.0",
+  "author": "jinnovation",
+  "homepage": "https://github.com/jinnovation/kele.el",
+  "skills": [
+    {
+      "name": "emacs-testing",
+      "description": ""
+    },
+    {
+      "name": "k8s-openapi",
+      "description": ""
+    },
+    {
+      "name": "kele.el",
+      "description": ""
+    },
+    {
+      "name": "kele.el",
+      "description": ""
+    }
+  ]
+}
