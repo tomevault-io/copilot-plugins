@@ -1,0 +1,141 @@
+{
+  "name": "dots-personal",
+  "owner": "evanpurkhiser",
+  "repo": "dots-personal",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dots-personal",
+      "path": "base/agents/skills/things3/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/base/agents/skills/things3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "base/agents/skills/git-surgeon/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/base/agents/skills/git-surgeon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "base/agents/skills/fork-claude/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/base/agents/skills/fork-claude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "base/agents/skills/notify-evan/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/base/agents/skills/notify-evan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "base/agents/skills/skill-writer/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/base/agents/skills/skill-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "base/agents/skills/dotfile-management/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/base/agents/skills/dotfile-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/contacts/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/contacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/work/agents/skills/pr-workflow/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/work/agents/skills/pr-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/iptorrents/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/iptorrents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/git-status/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/git-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/server-admin/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/server-admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/resy-booking/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/resy-booking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/context-share/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/context-share/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/reload-opencode/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/reload-opencode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/media-management/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/media-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots-personal",
+      "path": "machines/server/agents/skills/play-youtube-on-tv/SKILL.md",
+      "github_url": "https://github.com/evanpurkhiser/dots-personal/tree/main/machines/server/agents/skills/play-youtube-on-tv/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/evanpurkhiser/dots-personal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:03:23Z"
+}
