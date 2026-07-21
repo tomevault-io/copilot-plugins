@@ -1,0 +1,315 @@
+{
+  "name": "ConvoForm",
+  "owner": "growupanand",
+  "repo": "ConvoForm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/audit/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/shape/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/shape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/clerk/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/clerk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/polish/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/harden/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/ai-sdk/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/ai-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/resend/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/resend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/delight/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/animate/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/distill/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/arrange/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/arrange/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/typeset/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/typeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/extract/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/critique/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/overdrive/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/overdrive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/normalize/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/impeccable/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/clerk-orgs/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/clerk-orgs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/react-email/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/react-email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/drizzle-orm/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/drizzle-orm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/clerk-setup/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/clerk-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/next-upgrade/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/next-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/clerk-testing/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/clerk-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/clerk-webhooks/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/clerk-webhooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/clerk-custom-ui/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/clerk-custom-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/email-best-practices/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/email-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/resend-design-skills/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/resend-design-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/clerk-nextjs-patterns/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/clerk-nextjs-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/vercel-react-native-skills/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/vercel-react-native-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ConvoForm",
+      "path": ".agents/skills/resend-design-skills/brand-guidelines/SKILL.md",
+      "github_url": "https://github.com/growupanand/ConvoForm/tree/main/.agents/skills/resend-design-skills/brand-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/growupanand/ConvoForm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T14:36:54Z"
+}
