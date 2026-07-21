@@ -1,0 +1,99 @@
+{
+  "name": "sample-voice-agent",
+  "owner": "aws-solutions-library-samples",
+  "repo": "sample-voice-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sample-voice-agent",
+      "path": ".claude/skills/deployment-guide/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.claude/skills/deployment-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-voice-agent",
+      "path": ".claude/skills/deploy-sagemaker/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.claude/skills/deploy-sagemaker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-voice-agent",
+      "path": ".claude/skills/deploy-cloud-api/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.claude/skills/deploy-cloud-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-voice-agent",
+      "path": ".claude/skills/create-local-tool/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.claude/skills/create-local-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-voice-agent",
+      "path": ".claude/skills/verify-deployment/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.claude/skills/verify-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-voice-agent",
+      "path": ".opencode/skills/run-scaling-test/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.opencode/skills/run-scaling-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-voice-agent",
+      "path": ".opencode/skills/create-local-tool/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.opencode/skills/create-local-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-voice-agent",
+      "path": ".claude/skills/create-capability-agent/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.claude/skills/create-capability-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-voice-agent",
+      "path": ".opencode/skills/create-capability-agent/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent/tree/main/.opencode/skills/create-capability-agent/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-solutions-library-samples/sample-voice-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:15:20Z"
+}
