@@ -1,0 +1,14 @@
+{
+  "name": "dreamiurg--claude-mountaineering-skills",
+  "displayName": "claude-mountaineering-skills",
+  "description": "claude-mountaineering-skills",
+  "version": "1.0.0",
+  "author": "dreamiurg",
+  "homepage": "https://github.com/dreamiurg/claude-mountaineering-skills",
+  "skills": [
+    {
+      "name": "claude-mountaineering-skills",
+      "description": ""
+    }
+  ]
+}
