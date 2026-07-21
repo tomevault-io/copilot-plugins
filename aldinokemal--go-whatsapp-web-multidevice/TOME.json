@@ -1,0 +1,51 @@
+{
+  "name": "go-whatsapp-web-multidevice",
+  "owner": "aldinokemal",
+  "repo": "go-whatsapp-web-multidevice",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "go-whatsapp-web-multidevice",
+      "path": ".agents/skills/update-release-note/SKILL.md",
+      "github_url": "https://github.com/aldinokemal/go-whatsapp-web-multidevice/tree/main/.agents/skills/update-release-note/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aldinokemal/go-whatsapp-web-multidevice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T11:32:40Z"
+}
