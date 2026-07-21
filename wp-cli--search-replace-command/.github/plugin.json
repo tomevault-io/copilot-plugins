@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--search-replace-command",
+  "displayName": "search-replace-command",
+  "description": "search-replace-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/search-replace-command",
+  "skills": []
+}
