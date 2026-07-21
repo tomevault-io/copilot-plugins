@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--doctor-command",
+  "displayName": "doctor-command",
+  "description": "doctor-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/doctor-command",
+  "skills": []
+}
