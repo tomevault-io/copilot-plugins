@@ -1,0 +1,9 @@
+{
+  "name": "paloaltonetworks--pan-os-python",
+  "displayName": "pan-os-python",
+  "description": "pan-os-python",
+  "version": "1.0.0",
+  "author": "PaloAltoNetworks",
+  "homepage": "https://github.com/PaloAltoNetworks/pan-os-python",
+  "skills": []
+}
