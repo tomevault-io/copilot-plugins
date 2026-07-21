@@ -1,0 +1,14 @@
+{
+  "name": "pingcap--kvproto",
+  "displayName": "kvproto",
+  "description": "kvproto",
+  "version": "1.0.0",
+  "author": "pingcap",
+  "homepage": "https://github.com/pingcap/kvproto",
+  "skills": [
+    {
+      "name": "kvproto",
+      "description": ""
+    }
+  ]
+}
