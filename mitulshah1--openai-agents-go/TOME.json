@@ -1,0 +1,63 @@
+{
+  "name": "openai-agents-go",
+  "owner": "MitulShah1",
+  "repo": "openai-agents-go",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openai-agents-go",
+      "path": ".agents/skills/example-author/SKILL.md",
+      "github_url": "https://github.com/MitulShah1/openai-agents-go/tree/main/.agents/skills/example-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openai-agents-go",
+      "path": ".agents/skills/docs-maintainer/SKILL.md",
+      "github_url": "https://github.com/MitulShah1/openai-agents-go/tree/main/.agents/skills/docs-maintainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openai-agents-go",
+      "path": ".agents/skills/go-sdk-maintainer/SKILL.md",
+      "github_url": "https://github.com/MitulShah1/openai-agents-go/tree/main/.agents/skills/go-sdk-maintainer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MitulShah1/openai-agents-go",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:41:24Z"
+}
