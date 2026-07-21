@@ -1,0 +1,135 @@
+{
+  "name": "livecodes",
+  "owner": "live-codes",
+  "repo": "livecodes",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/testing/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/gh-action/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/gh-action/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/sdk-methods/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/sdk-methods/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/self-hosting/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/self-hosting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/configuration/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/display-modes/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/display-modes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/sdk-embedding/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/sdk-embedding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/import-export/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/import-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/headless-mode/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/headless-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/getting-started/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/language-support/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/language-support/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/module-resolution/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/module-resolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/framework-wrappers/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/framework-wrappers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livecodes",
+      "path": ".agents/skills/livecodes/markdown-integration/SKILL.md",
+      "github_url": "https://github.com/live-codes/livecodes/tree/main/.agents/skills/livecodes/markdown-integration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/live-codes/livecodes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:08:36Z"
+}
