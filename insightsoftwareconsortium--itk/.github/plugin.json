@@ -1,0 +1,22 @@
+{
+  "name": "insightsoftwareconsortium--itk",
+  "displayName": "ITK",
+  "description": "ITK",
+  "version": "1.0.0",
+  "author": "InsightSoftwareConsortium",
+  "homepage": "https://github.com/InsightSoftwareConsortium/ITK",
+  "skills": [
+    {
+      "name": "ITK",
+      "description": ""
+    },
+    {
+      "name": "ITK",
+      "description": ""
+    },
+    {
+      "name": "ITK",
+      "description": ""
+    }
+  ]
+}
