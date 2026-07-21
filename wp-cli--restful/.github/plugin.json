@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--restful",
+  "displayName": "restful",
+  "description": "restful",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/restful",
+  "skills": []
+}
