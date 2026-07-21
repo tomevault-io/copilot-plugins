@@ -1,0 +1,18 @@
+{
+  "name": "mixinnetwork--flutter-plugins",
+  "displayName": "flutter-plugins",
+  "description": "flutter-plugins",
+  "version": "1.0.0",
+  "author": "MixinNetwork",
+  "homepage": "https://github.com/MixinNetwork/flutter-plugins",
+  "skills": [
+    {
+      "name": "flutter-pub-release",
+      "description": ""
+    },
+    {
+      "name": "flutter-plugins",
+      "description": ""
+    }
+  ]
+}
