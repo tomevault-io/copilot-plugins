@@ -1,0 +1,34 @@
+{
+  "name": "adobe--s3mock",
+  "displayName": "S3Mock",
+  "description": "S3Mock",
+  "version": "1.0.0",
+  "author": "adobe",
+  "homepage": "https://github.com/adobe/S3Mock",
+  "skills": [
+    {
+      "name": "S3Mock",
+      "description": ""
+    },
+    {
+      "name": "S3Mock",
+      "description": ""
+    },
+    {
+      "name": "S3Mock",
+      "description": ""
+    },
+    {
+      "name": "S3Mock",
+      "description": ""
+    },
+    {
+      "name": "S3Mock",
+      "description": ""
+    },
+    {
+      "name": "S3Mock",
+      "description": ""
+    }
+  ]
+}
