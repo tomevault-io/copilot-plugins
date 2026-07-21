@@ -1,0 +1,226 @@
+{
+  "name": "prowler-cloud--prowler",
+  "displayName": "prowler",
+  "description": "prowler",
+  "version": "1.0.0",
+  "author": "prowler-cloud",
+  "homepage": "https://github.com/prowler-cloud/prowler",
+  "skills": [
+    {
+      "name": "ai-sdk-5",
+      "description": ""
+    },
+    {
+      "name": "django-drf",
+      "description": ""
+    },
+    {
+      "name": "nextjs-15",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler-api",
+      "description": ""
+    },
+    {
+      "name": "prowler-changelog",
+      "description": ""
+    },
+    {
+      "name": "prowler-commit",
+      "description": ""
+    },
+    {
+      "name": "prowler-docs",
+      "description": ""
+    },
+    {
+      "name": "prowler-mcp",
+      "description": ""
+    },
+    {
+      "name": "prowler-pr",
+      "description": ""
+    },
+    {
+      "name": "prowler-sdk-check",
+      "description": ""
+    },
+    {
+      "name": "prowler-test-sdk",
+      "description": ""
+    },
+    {
+      "name": "prowler-test-ui",
+      "description": ""
+    },
+    {
+      "name": "prowler-ui",
+      "description": ""
+    },
+    {
+      "name": "pytest",
+      "description": ""
+    },
+    {
+      "name": "react-19",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-sync",
+      "description": ""
+    },
+    {
+      "name": "tailwind-4",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "zustand-5",
+      "description": ""
+    },
+    {
+      "name": "django-migration-psql",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "description": ""
+    }
+  ]
+}
