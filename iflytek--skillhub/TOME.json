@@ -1,0 +1,99 @@
+{
+  "name": "skillhub",
+  "owner": "iflytek",
+  "repo": "skillhub",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skillhub",
+      "path": "web/src/docs/skill.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/web/src/docs/skill.md",
+      "description": ""
+    },
+    {
+      "name": "skillhub",
+      "path": ".agents/skills/dev-workflow/SKILL.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/.agents/skills/dev-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillhub",
+      "path": ".agents/skills/pr-submission/SKILL.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/.agents/skills/pr-submission/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillhub",
+      "path": ".agents/skills/testing-and-ci/SKILL.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/.agents/skills/testing-and-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillhub",
+      "path": ".agents/skills/skill-lifecycle/SKILL.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/.agents/skills/skill-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillhub",
+      "path": ".agents/skills/code-conventions/SKILL.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/.agents/skills/code-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillhub",
+      "path": ".agents/skills/frontend-conventions/SKILL.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/.agents/skills/frontend-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillhub",
+      "path": ".agents/skills/api-and-namespace-design/SKILL.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/.agents/skills/api-and-namespace-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillhub",
+      "path": ".agents/skills/backend-module-structure/SKILL.md",
+      "github_url": "https://github.com/iflytek/skillhub/tree/main/.agents/skills/backend-module-structure/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iflytek/skillhub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:00:36Z"
+}
