@@ -1,0 +1,75 @@
+{
+  "name": "agoric-sdk",
+  "owner": "Agoric",
+  "repo": "agoric-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agoric-sdk",
+      "path": ".agents/skills/depot-ci/SKILL.md",
+      "github_url": "https://github.com/Agoric/agoric-sdk/tree/main/.agents/skills/depot-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agoric-sdk",
+      "path": ".agents/skills/depot-general/SKILL.md",
+      "github_url": "https://github.com/Agoric/agoric-sdk/tree/main/.agents/skills/depot-general/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agoric-sdk",
+      "path": ".agents/skills/depot-github-runners/SKILL.md",
+      "github_url": "https://github.com/Agoric/agoric-sdk/tree/main/.agents/skills/depot-github-runners/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agoric-sdk",
+      "path": ".agents/skills/depot-container-builds/SKILL.md",
+      "github_url": "https://github.com/Agoric/agoric-sdk/tree/main/.agents/skills/depot-container-builds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agoric-sdk",
+      "path": ".agents/skills/maintaining-dependency-patches/SKILL.md",
+      "github_url": "https://github.com/Agoric/agoric-sdk/tree/main/.agents/skills/maintaining-dependency-patches/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Agoric/agoric-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:23:31Z"
+}
