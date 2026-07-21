@@ -1,0 +1,93 @@
+{
+  "name": "fila-starter",
+  "owner": "raugadh",
+  "repo": "fila-starter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "livewire-development",
+      "path": ".opencode/skill/livewire-development",
+      "github_url": "https://github.com/raugadh/fila-starter/tree/main/.opencode/skill/livewire-development",
+      "description": ""
+    },
+    {
+      "name": "pest-testing",
+      "path": ".opencode/skill/pest-testing",
+      "github_url": "https://github.com/raugadh/fila-starter/tree/main/.opencode/skill/pest-testing",
+      "description": ""
+    },
+    {
+      "name": "tailwindcss-development",
+      "path": ".opencode/skill/tailwindcss-development",
+      "github_url": "https://github.com/raugadh/fila-starter/tree/main/.opencode/skill/tailwindcss-development",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "path": ".agents/skills/pest-testing/SKILL.md",
+      "github_url": "https://github.com/raugadh/fila-starter/tree/main/.agents/skills/pest-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "path": ".agents/skills/livewire-development/SKILL.md",
+      "github_url": "https://github.com/raugadh/fila-starter/tree/main/.agents/skills/livewire-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "path": ".agents/skills/debug-using-debugbar/SKILL.md",
+      "github_url": "https://github.com/raugadh/fila-starter/tree/main/.agents/skills/debug-using-debugbar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "path": ".agents/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/raugadh/fila-starter/tree/main/.agents/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fila-starter",
+      "path": ".agents/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/raugadh/fila-starter/tree/main/.agents/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/raugadh/fila-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T01:54:29Z"
+}
