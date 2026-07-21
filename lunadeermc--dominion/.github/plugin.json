@@ -1,0 +1,14 @@
+{
+  "name": "lunadeermc--dominion",
+  "displayName": "Dominion",
+  "description": "Dominion",
+  "version": "1.0.0",
+  "author": "LunaDeerMC",
+  "homepage": "https://github.com/LunaDeerMC/Dominion",
+  "skills": [
+    {
+      "name": "Dominion",
+      "description": ""
+    }
+  ]
+}
