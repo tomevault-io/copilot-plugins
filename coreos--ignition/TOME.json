@@ -1,0 +1,63 @@
+{
+  "name": "ignition",
+  "owner": "coreos",
+  "repo": "ignition",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ignition",
+      "path": ".opencode/skills/stabilize-spec/SKILL.md",
+      "github_url": "https://github.com/coreos/ignition/tree/main/.opencode/skills/stabilize-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ignition",
+      "path": ".opencode/skills/release_note_update/SKILL.md",
+      "github_url": "https://github.com/coreos/ignition/tree/main/.opencode/skills/release_note_update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ignition",
+      "path": ".opencode/skills/add-platform-support/SKILL.md",
+      "github_url": "https://github.com/coreos/ignition/tree/main/.opencode/skills/add-platform-support/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/coreos/ignition",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:25:06Z"
+}
