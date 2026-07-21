@@ -1,0 +1,63 @@
+{
+  "name": "vscode-sort-package-json",
+  "owner": "unional",
+  "repo": "vscode-sort-package-json",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vscode-sort-package-json",
+      "path": ".agents/skills/init/SKILL.md",
+      "github_url": "https://github.com/unional/vscode-sort-package-json/tree/main/.agents/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-sort-package-json",
+      "path": ".agents/skills/create-skill/SKILL.md",
+      "github_url": "https://github.com/unional/vscode-sort-package-json/tree/main/.agents/skills/create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-sort-package-json",
+      "path": ".agents/skills/fix-security-pr/SKILL.md",
+      "github_url": "https://github.com/unional/vscode-sort-package-json/tree/main/.agents/skills/fix-security-pr/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/unional/vscode-sort-package-json",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:30:06Z"
+}
