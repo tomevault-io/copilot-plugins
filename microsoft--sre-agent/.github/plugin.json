@@ -1,0 +1,34 @@
+{
+  "name": "microsoft--sre-agent",
+  "displayName": "sre-agent",
+  "description": "sre-agent",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/sre-agent",
+  "skills": [
+    {
+      "name": "sre-agent",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "description": ""
+    },
+    {
+      "name": "sre-agent",
+      "description": ""
+    }
+  ]
+}
