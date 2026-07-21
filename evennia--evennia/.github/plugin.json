@@ -1,0 +1,14 @@
+{
+  "name": "evennia--evennia",
+  "displayName": "evennia",
+  "description": "evennia",
+  "version": "1.0.0",
+  "author": "evennia",
+  "homepage": "https://github.com/evennia/evennia",
+  "skills": [
+    {
+      "name": "evennia",
+      "description": ""
+    }
+  ]
+}
