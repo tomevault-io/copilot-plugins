@@ -1,0 +1,18 @@
+{
+  "name": "sourcegraph--src-cli",
+  "displayName": "src-cli",
+  "description": "src-cli",
+  "version": "1.0.0",
+  "author": "sourcegraph",
+  "homepage": "https://github.com/sourcegraph/src-cli",
+  "skills": [
+    {
+      "name": "src-cli",
+      "description": ""
+    },
+    {
+      "name": "src-cli",
+      "description": ""
+    }
+  ]
+}
