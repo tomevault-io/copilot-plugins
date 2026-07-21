@@ -1,0 +1,93 @@
+{
+  "name": "signalize",
+  "owner": "spearwolf",
+  "repo": "signalize",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "signalize-decorators",
+      "path": "skills/signalize-decorators",
+      "github_url": "https://github.com/spearwolf/signalize/tree/main/skills/signalize-decorators",
+      "description": ""
+    },
+    {
+      "name": "signalize-effects",
+      "path": "skills/signalize-effects",
+      "github_url": "https://github.com/spearwolf/signalize/tree/main/skills/signalize-effects",
+      "description": ""
+    },
+    {
+      "name": "signalize-groups",
+      "path": "skills/signalize-groups",
+      "github_url": "https://github.com/spearwolf/signalize/tree/main/skills/signalize-groups",
+      "description": ""
+    },
+    {
+      "name": "signalize-links",
+      "path": "skills/signalize-links",
+      "github_url": "https://github.com/spearwolf/signalize/tree/main/skills/signalize-links",
+      "description": ""
+    },
+    {
+      "name": "signalize-signals",
+      "path": "skills/signalize-signals",
+      "github_url": "https://github.com/spearwolf/signalize/tree/main/skills/signalize-signals",
+      "description": ""
+    },
+    {
+      "name": "signalize-testing",
+      "path": "skills/signalize-testing",
+      "github_url": "https://github.com/spearwolf/signalize/tree/main/skills/signalize-testing",
+      "description": ""
+    },
+    {
+      "name": "signalize-utilities",
+      "path": "skills/signalize-utilities",
+      "github_url": "https://github.com/spearwolf/signalize/tree/main/skills/signalize-utilities",
+      "description": ""
+    },
+    {
+      "name": "signalize",
+      "path": "skills/using-signalize/SKILL.md",
+      "github_url": "https://github.com/spearwolf/signalize/tree/main/skills/using-signalize/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/spearwolf/signalize",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:03:40Z"
+}
