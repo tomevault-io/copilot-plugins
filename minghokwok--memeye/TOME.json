@@ -1,0 +1,51 @@
+{
+  "name": "MemEye",
+  "owner": "MinghoKwok",
+  "repo": "MemEye",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MemEye",
+      "path": "benchmark/simplemem/upstream/SKILL/simplemem-skill/SKILL.md",
+      "github_url": "https://github.com/MinghoKwok/MemEye/tree/main/benchmark/simplemem/upstream/SKILL/simplemem-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MinghoKwok/MemEye",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:50:28Z"
+}
