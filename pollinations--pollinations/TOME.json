@@ -1,0 +1,201 @@
+{
+  "name": "pollinations",
+  "owner": "pollinations",
+  "repo": "pollinations",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "app-review",
+      "path": ".claude/skills/app-review",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/app-review",
+      "description": ""
+    },
+    {
+      "name": "candidate-evaluation",
+      "path": ".claude/skills/candidate-evaluation",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/candidate-evaluation",
+      "description": ""
+    },
+    {
+      "name": "code-formatting",
+      "path": ".claude/skills/code-formatting",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/code-formatting",
+      "description": ""
+    },
+    {
+      "name": "enter-services",
+      "path": ".claude/skills/enter-services",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/enter-services",
+      "description": ""
+    },
+    {
+      "name": "issue-maker",
+      "path": ".claude/skills/issue-maker",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/issue-maker",
+      "description": ""
+    },
+    {
+      "name": "model-debugging",
+      "path": ".claude/skills/model-debugging",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/model-debugging",
+      "description": ""
+    },
+    {
+      "name": "tier-management",
+      "path": ".claude/skills/tier-management",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/tier-management",
+      "description": ""
+    },
+    {
+      "name": "voting-status",
+      "path": ".claude/skills/voting-status",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/voting-status",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "path": ".claude/skills/web-research",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/web-research",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": "packages/polli-cli/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/packages/polli-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/app-review/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/app-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/polli-video/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/polli-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/issue-maker/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/issue-maker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/web-research/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/web-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/voting-status/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/voting-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/enter-services/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/enter-services/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/model-debugging/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/model-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/tier-management/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/tier-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/abuse-detection/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/abuse-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/sync-production/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/sync-production/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/code-formatting/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/code-formatting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/model-management/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/model-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/provider-billing/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/provider-billing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/r2-glacier-migration/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/r2-glacier-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": ".claude/skills/candidate-evaluation/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/.claude/skills/candidate-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pollinations",
+      "path": "apps/openclaw/skills/founder-meditation/SKILL.md",
+      "github_url": "https://github.com/pollinations/pollinations/tree/main/apps/openclaw/skills/founder-meditation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pollinations/pollinations",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:45:03Z"
+}
