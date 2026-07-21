@@ -1,0 +1,99 @@
+{
+  "name": "pabpereza",
+  "owner": "pabpereza",
+  "repo": "pabpereza",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kubernetes-specialist",
+      "path": ".gemini/skills/kubernetes-specialist",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.gemini/skills/kubernetes-specialist",
+      "description": ""
+    },
+    {
+      "name": "pabpereza",
+      "path": ".claude/skills/neovim/SKILL.md",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.claude/skills/neovim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pabpereza",
+      "path": ".gemini/skills/neovim/SKILL.md",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.gemini/skills/neovim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pabpereza",
+      "path": ".claude/skills/docker-expert/SKILL.md",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.claude/skills/docker-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pabpereza",
+      "path": ".gemini/skills/docker-expert/SKILL.md",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.gemini/skills/docker-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pabpereza",
+      "path": ".claude/skills/devops-engineer/SKILL.md",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.claude/skills/devops-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pabpereza",
+      "path": ".gemini/skills/devops-engineer/SKILL.md",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.gemini/skills/devops-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pabpereza",
+      "path": ".claude/skills/kubernetes-specialist/SKILL.md",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.claude/skills/kubernetes-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pabpereza",
+      "path": ".gemini/skills/kubernetes-specialist/SKILL.md",
+      "github_url": "https://github.com/pabpereza/pabpereza/tree/main/.gemini/skills/kubernetes-specialist/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pabpereza/pabpereza",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:41:51Z"
+}
