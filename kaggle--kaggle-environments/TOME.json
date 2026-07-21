@@ -1,0 +1,111 @@
+{
+  "name": "kaggle-environments",
+  "owner": "Kaggle",
+  "repo": "kaggle-environments",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kaggle-environments",
+      "path": ".agents/skills/review-harness/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.agents/skills/review-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".agents/skills/create-harness/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.agents/skills/create-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".claude/skills/create-harness/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.claude/skills/create-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".claude/skills/review-harness/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.claude/skills/review-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".agents/skills/create-visualizer/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.agents/skills/create-visualizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".claude/skills/create-visualizer/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.claude/skills/create-visualizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".agents/skills/create-environment/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.agents/skills/create-environment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".claude/skills/create-environment/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.claude/skills/create-environment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".agents/skills/onboard-open-spiel-game/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.agents/skills/onboard-open-spiel-game/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".claude/skills/onboard-open-spiel-game/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.claude/skills/onboard-open-spiel-game/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kaggle-environments",
+      "path": ".agents/skills/create-playable-visualizer/SKILL.md",
+      "github_url": "https://github.com/Kaggle/kaggle-environments/tree/main/.agents/skills/create-playable-visualizer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Kaggle/kaggle-environments",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:11:10Z"
+}
