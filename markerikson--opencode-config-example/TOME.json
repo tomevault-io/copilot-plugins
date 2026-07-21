@@ -1,0 +1,183 @@
+{
+  "name": "opencode-config-example",
+  "owner": "markerikson",
+  "repo": "opencode-config-example",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/gh/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/gh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/dex/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/dex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/gitto/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/gitto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/diffloupe/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/diffloupe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/replay-cli/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/replay-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/replay-mcp/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/replay-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/file-search/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/file-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/skill-creator/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/fetch-twitter/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/fetch-twitter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/feature-design/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/feature-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/replay-cypress/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/replay-cypress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/progress-update/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/progress-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/code-navigation/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/code-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/frontend-design/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/dashboard-design/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/dashboard-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/development-plan/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/development-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/project-overview/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/project-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/issue-triage-tool/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/issue-triage-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/replay-playwright/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/replay-playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/code-style-review/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/code-style-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/architecture-review/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/architecture-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/typescript-advanced/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/typescript-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-config-example",
+      "path": "config/skill/web-interface-guidelines/SKILL.md",
+      "github_url": "https://github.com/markerikson/opencode-config-example/tree/main/config/skill/web-interface-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/markerikson/opencode-config-example",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:38:40Z"
+}
