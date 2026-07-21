@@ -1,0 +1,75 @@
+{
+  "name": "extension-bootc",
+  "owner": "podman-desktop",
+  "repo": "extension-bootc",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "extension-bootc",
+      "path": ".agents/skills/backend-api/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/extension-bootc/tree/main/.agents/skills/backend-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extension-bootc",
+      "path": ".agents/skills/unit-testing/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/extension-bootc/tree/main/.agents/skills/unit-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extension-bootc",
+      "path": ".agents/skills/svelte-ui-design/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/extension-bootc/tree/main/.agents/skills/svelte-ui-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extension-bootc",
+      "path": ".agents/skills/playwright-testing/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/extension-bootc/tree/main/.agents/skills/playwright-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extension-bootc",
+      "path": ".agents/skills/extension-development/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/extension-bootc/tree/main/.agents/skills/extension-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/podman-desktop/extension-bootc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:08:55Z"
+}
