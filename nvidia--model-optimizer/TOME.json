@@ -1,0 +1,129 @@
+{
+  "name": "Model-Optimizer",
+  "owner": "NVIDIA",
+  "repo": "Model-Optimizer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/ptq/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/ptq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/debug/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/monitor/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/evaluation/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/day0-release/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/day0-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/eagle3-triage/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/eagle3-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/eagle3-validate/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/eagle3-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/launching-evals/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/launching-evals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/compare-results/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/compare-results/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/accessing-mlflow/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/accessing-mlflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/eagle3-new-model/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/eagle3-new-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/eagle3-review-logs/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/eagle3-review-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/release-cherry-pick/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/release-cherry-pick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Model-Optimizer",
+      "path": ".agents/skills/quant-recipe-search/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/Model-Optimizer/tree/main/.agents/skills/quant-recipe-search/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA/Model-Optimizer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:17:13Z"
+}
