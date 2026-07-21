@@ -1,0 +1,99 @@
+{
+  "name": "simple_fastapi",
+  "owner": "p141592",
+  "repo": "simple_fastapi",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/review/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/diagnose/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/changelog-generator/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/changelog-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/content-research-writer/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/content-research-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/security-best-practices/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/security-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simple_fastapi",
+      "path": ".ai/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/p141592/simple_fastapi/tree/main/.ai/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/p141592/simple_fastapi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:29:48Z"
+}
