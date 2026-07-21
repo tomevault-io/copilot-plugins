@@ -1,0 +1,111 @@
+{
+  "name": "akka",
+  "owner": "living-stream",
+  "repo": "akka",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "akka",
+      "path": ".claude/skills/aceternity-ui/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/.claude/skills/aceternity-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/edit-soul/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/edit-soul/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/task-planning/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/task-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/comment-reply/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/comment-reply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/content-review/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/content-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/scheduled-task/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/scheduled-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/action-planning/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/action-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/content-creation/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/content-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/content-publishing/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/content-publishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/inspiration-hunting/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/inspiration-hunting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akka",
+      "path": "master/skills/definitions/competitor-benchmarking/SKILL.md",
+      "github_url": "https://github.com/living-stream/akka/tree/main/master/skills/definitions/competitor-benchmarking/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/living-stream/akka",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:48:18Z"
+}
