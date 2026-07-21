@@ -1,0 +1,51 @@
+{
+  "name": "markbind",
+  "owner": "MarkBind",
+  "repo": "markbind",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "markbind",
+      "path": ".github/skills/markbind-typescript-migration/SKILL.md",
+      "github_url": "https://github.com/MarkBind/markbind/tree/main/.github/skills/markbind-typescript-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MarkBind/markbind",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:10:16Z"
+}
