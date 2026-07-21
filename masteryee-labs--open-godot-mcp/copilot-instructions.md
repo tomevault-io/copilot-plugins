@@ -1,49 +1,49 @@
-## gap-scan
+## graph-verify
 
-> Use when BOOT is complete and GoalSpec is written, before starting the first work action. Scans 1-2 scope angles for blind spots the GoalSpec doesn't cover.
+> Use when answering structural questions (who calls X, who imports Y, blast radius). Verifies claims against code graph or grep, not memory.
 
 
-# Skill: gap-scan
+# Skill: graph-verify
 
-> Differential blind-spot scan. Run after BOOT, before starting work.
-> Scans 1-2 scope angles only (not all six). Keeps context clean.
+> Don't trust memory for structure. Trust the graph.
 
 ## Trigger
-- BOOT complete, GoalSpec written.
-- Keywords: scan blind spots, gap analysis, differential scan, BOOT.
+- A claim involves file relationships, call chains, imports, or dependency blast radius.
+- A worker says "X is used by Y", "A depends on B", or "this change affects ...".
+- Before any refactor that touches multiple files.
 
 ## When to run
-After BOOT, before the first work action. Re-run when scope changes significantly.
+Before finalizing a structural claim. May be called by Scout, Builder, Auditor, or Commander.
 
 ## How
 
-1. Read GoalSpec from `loop_state.md`. Identify `scope.angles_required` (1-3 angles).
-2. For each required angle, ask: "what would make this angle fail that the GoalSpec
-   doesn't already cover?"
-3. List gaps as: `[angle] — [potential blind spot] — [check to resolve it]`.
-4. Resolve cheap gaps immediately (one read/grep). Expensive gaps → add as subtasks.
-5. Write findings to `loop_state.md` under `gap_scan_results`.
-
-## The six angles (pick from these)
-
-| Angle | Question |
-|-------|----------|
-| Completeness | What's missing that the user expects but didn't say? |
-| Correctness | What assumption is unverified? |
-| Consistency | What conflicts with existing rules/files? |
-| Cost | What will burn tokens/time unexpectedly? |
-| Safety | What destructive side effect could happen? |
-| Reversibility | What can't be undone if we're wrong? |
+1. **Prefer code graph if available.**
+   - If `codebase-memory-mcp` is configured, query it for callers/importers of the symbol/file.
+   - If `codebase-memory-mcp` is not available, continue to step 2.
+2. **Fallback to grep.**
+   - Use `grep -n` or `rg` to find:
+     - `import X`, `from X import`, `require('X')`, `using X`, `using X;` for the target.
+     - `X(` or `->X` or `X.` or `<X` for call sites.
+   - Limit to 5-10 representative matches; do not dump the whole repo.
+3. **Filter for the correct symbol.**
+   - Same name in different files is not the same symbol. Use file path and namespace to disambiguate.
+4. **Attach evidence.**
+   - Every structural claim must be followed by `file:line` matches.
+   - If you found 0 matches, say `[structure: zero-callers]` and report that, not a guess.
+5. **Output `[structure-verified]` if you can trace from the changed symbol to all affected callers.**
 
 ## Output
 ```
-## Gap scan [angle]
-- [gap] — [check] — [resolved/subtask/deferred]
-## New subtasks added
-- ST-N: ...
+## Structure verification
+- claim: <what you are asserting>
+- method: <codebase-memory-mcp|grep>
+- evidence:
+  - path/to/file:line
+  - path/to/file:line
+- status: [structure-verified|needs-graph|zero-callers]
 ```
 
-Caveman full. Don't write essays about gaps. One line each.
+Caveman compact. One line per match. No "probably used by".
 
 ---
 > Source: [masteryee-labs/Open-Godot-MCP](https://github.com/masteryee-labs/Open-Godot-MCP) — distributed by [TomeVault](https://tomevault.io).
