@@ -1,0 +1,9 @@
+{
+  "name": "tinuva--home-assistant-config",
+  "displayName": "home-assistant-config",
+  "description": "home-assistant-config",
+  "version": "1.0.0",
+  "author": "tinuva",
+  "homepage": "https://github.com/tinuva/home-assistant-config",
+  "skills": []
+}
