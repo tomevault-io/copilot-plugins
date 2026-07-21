@@ -1,0 +1,9 @@
+{
+  "name": "llnl--griddyn",
+  "displayName": "GridDyn",
+  "description": "GridDyn",
+  "version": "1.0.0",
+  "author": "LLNL",
+  "homepage": "https://github.com/LLNL/GridDyn",
+  "skills": []
+}
