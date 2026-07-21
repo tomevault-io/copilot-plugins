@@ -1,0 +1,153 @@
+{
+  "name": "atmosphere",
+  "owner": "Atmosphere",
+  "repo": "atmosphere",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/llm-judge/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/llm-judge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/classroom/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/classroom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/startup-ceo/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/startup-ceo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/ai-assistant/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/ai-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/writer-agent/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/writer-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/dentist-agent/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/dentist-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/rag-assistant/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/rag-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/finance-agent/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/finance-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/billing-agent/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/billing-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/support-agent/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/support-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/tool-assistant/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/tool-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/strategy-agent/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/strategy-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/research-agent/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/research-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/koog-assistant/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/koog-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/mcp-chat-summary/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/mcp-chat-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/skills/src/main/resources/META-INF/skills/mcp-analyze-topic/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/skills/src/main/resources/META-INF/skills/mcp-analyze-topic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/ai/src/test/resources/fixtures/openclaw/skills/example-skill/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/ai/src/test/resources/fixtures/openclaw/skills/example-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmosphere",
+      "path": "modules/ai/src/test/resources/META-INF/skills/spec-test-with-frontmatter/SKILL.md",
+      "github_url": "https://github.com/Atmosphere/atmosphere/tree/main/modules/ai/src/test/resources/META-INF/skills/spec-test-with-frontmatter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Atmosphere/atmosphere",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:57:50Z"
+}
