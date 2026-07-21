@@ -1,0 +1,14 @@
+{
+  "name": "apache--jackrabbit-oak",
+  "displayName": "jackrabbit-oak",
+  "description": "jackrabbit-oak",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/jackrabbit-oak",
+  "skills": [
+    {
+      "name": "jackrabbit-oak",
+      "description": ""
+    }
+  ]
+}
