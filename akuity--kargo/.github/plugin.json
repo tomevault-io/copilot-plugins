@@ -1,0 +1,14 @@
+{
+  "name": "akuity--kargo",
+  "displayName": "kargo",
+  "description": "kargo",
+  "version": "1.0.0",
+  "author": "akuity",
+  "homepage": "https://github.com/akuity/kargo",
+  "skills": [
+    {
+      "name": "kargo",
+      "description": ""
+    }
+  ]
+}
