@@ -1,0 +1,14 @@
+{
+  "name": "intel--intel-xpu-backend-for-triton",
+  "displayName": "intel-xpu-backend-for-triton",
+  "description": "intel-xpu-backend-for-triton",
+  "version": "1.0.0",
+  "author": "intel",
+  "homepage": "https://github.com/intel/intel-xpu-backend-for-triton",
+  "skills": [
+    {
+      "name": "intel-xpu-backend-for-triton",
+      "description": ""
+    }
+  ]
+}
