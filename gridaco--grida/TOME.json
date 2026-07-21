@@ -1,0 +1,237 @@
+{
+  "name": "grida",
+  "owner": "gridaco",
+  "repo": "grida",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "grida",
+      "path": ".agents/skills/ee/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/ee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/seo/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/docs/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/tweet/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/tweet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/links/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/io-svg/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/io-svg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/naming/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/naming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/vision/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/vision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/docs-wg/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/docs-wg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/code-ts/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/code-ts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/sdk-seam/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/sdk-seam/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/database/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/io-figma/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/io-figma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/io-grida/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/io-grida/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/fixtures/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/fixtures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/pedantic/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/pedantic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/etiology/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/etiology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/security/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/ai-models/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/ai-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/grounding/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/grounding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/sdk-design/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/sdk-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/ee-billing/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/ee-billing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/code-react/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/code-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/render-perf/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/render-perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/editor-perf/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/editor-perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/docs-canvas/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/docs-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/agent-system/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/agent-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/oss-standards/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/oss-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/render-reftest/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/render-reftest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/dev-render-htmlcss-feature/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/dev-render-htmlcss-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "grida",
+      "path": ".agents/skills/dev-render-htmlcss-svg-feature/SKILL.md",
+      "github_url": "https://github.com/gridaco/grida/tree/main/.agents/skills/dev-render-htmlcss-svg-feature/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gridaco/grida",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:58:44Z"
+}
