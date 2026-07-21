@@ -1,0 +1,87 @@
+{
+  "name": "rustfs",
+  "owner": "rustfs",
+  "repo": "rustfs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rustfs",
+      "path": ".agents/skills/rust-code-quality/SKILL.md",
+      "github_url": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/rust-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rustfs",
+      "path": ".agents/skills/pr-creation-checker/SKILL.md",
+      "github_url": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/pr-creation-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rustfs",
+      "path": ".agents/skills/test-coverage-improver/SKILL.md",
+      "github_url": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/test-coverage-improver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rustfs",
+      "path": ".agents/skills/code-change-verification/SKILL.md",
+      "github_url": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/code-change-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rustfs",
+      "path": ".agents/skills/security-advisory-lessons/SKILL.md",
+      "github_url": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/security-advisory-lessons/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rustfs",
+      "path": ".agents/skills/rustfs-logging-governance/SKILL.md",
+      "github_url": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/rustfs-logging-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rustfs",
+      "path": ".agents/skills/rustfs-release-version-bump/SKILL.md",
+      "github_url": "https://github.com/rustfs/rustfs/tree/main/.agents/skills/rustfs-release-version-bump/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rustfs/rustfs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:03:45Z"
+}
