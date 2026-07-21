@@ -1,0 +1,147 @@
+{
+  "name": "opengap",
+  "owner": "open-gitagent",
+  "repo": "opengap",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opengap",
+      "path": "examples/llm-wiki/skills/wiki-lint/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/llm-wiki/skills/wiki-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/llm-wiki/skills/wiki-query/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/llm-wiki/skills/wiki-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/lyzr-agent/skills/research/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/lyzr-agent/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/llm-wiki/skills/wiki-ingest/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/llm-wiki/skills/wiki-ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/standard/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/standard/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/full/skills/document-review/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/full/skills/document-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/full/skills/regulatory-analysis/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/full/skills/regulatory-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/gitagent-helper/skills/run-agent/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/gitagent-helper/skills/run-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/gitagent-helper/skills/get-started/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/gitagent-helper/skills/get-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/gitagent-helper/skills/create-agent/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/gitagent-helper/skills/create-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/gitagent-helper/skills/export-agent/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/gitagent-helper/skills/export-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/gitagent-helper/skills/manage-skills/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/gitagent-helper/skills/manage-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/nvidia-deep-researcher/skills/web-search/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/nvidia-deep-researcher/skills/web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/nvidia-deep-researcher/skills/paper-search/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/nvidia-deep-researcher/skills/paper-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/nvidia-deep-researcher/skills/knowledge-retrieval/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/nvidia-deep-researcher/skills/knowledge-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/jason-my-claw-is-the-law-deebee-4567b4/skills/narco-check/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/jason-my-claw-is-the-law-deebee-4567b4/skills/narco-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opengap",
+      "path": "examples/jason-my-claw-is-the-law-deebee-4567b4/skills/packet-factory/SKILL.md",
+      "github_url": "https://github.com/open-gitagent/opengap/tree/main/examples/jason-my-claw-is-the-law-deebee-4567b4/skills/packet-factory/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/open-gitagent/opengap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:36:49Z"
+}
