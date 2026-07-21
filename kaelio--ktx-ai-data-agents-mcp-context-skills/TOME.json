@@ -1,0 +1,129 @@
+{
+  "name": "ktx-ai-data-agents-mcp-context-skills",
+  "owner": "Kaelio",
+  "repo": "ktx-ai-data-agents-mcp-context-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "skills/ktx/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/skills/ktx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/sl/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/sl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/analytics/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/sl_capture/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/sl_capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/dbt_ingest/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/dbt_ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/wiki_capture/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/wiki_capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/lookml_ingest/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/lookml_ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/ingest_triage/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/ingest_triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/metabase_ingest/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/metabase_ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/metricflow_ingest/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/metricflow_ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/notion_synthesize/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/notion_synthesize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/live_database_ingest/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/live_database_ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/historic_sql_patterns/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/historic_sql_patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ktx-ai-data-agents-mcp-context-skills",
+      "path": "packages/cli/src/skills/historic_sql_table_digest/SKILL.md",
+      "github_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills/tree/main/packages/cli/src/skills/historic_sql_table_digest/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Kaelio/ktx-ai-data-agents-mcp-context-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:04:04Z"
+}
