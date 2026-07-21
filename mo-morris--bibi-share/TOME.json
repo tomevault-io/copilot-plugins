@@ -1,0 +1,57 @@
+{
+  "name": "bibi-share",
+  "owner": "Mo-Morris",
+  "repo": "bibi-share",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bibi-share",
+      "path": "hermes/computer-use-helper/SKILL.md",
+      "github_url": "https://github.com/Mo-Morris/bibi-share/tree/main/hermes/computer-use-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bibi-share",
+      "path": "hermes/git-auto-commit-and-push/SKILL.md",
+      "github_url": "https://github.com/Mo-Morris/bibi-share/tree/main/hermes/git-auto-commit-and-push/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Mo-Morris/bibi-share",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:11:56Z"
+}
