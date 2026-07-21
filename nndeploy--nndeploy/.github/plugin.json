@@ -1,0 +1,14 @@
+{
+  "name": "nndeploy--nndeploy",
+  "displayName": "nndeploy",
+  "description": "nndeploy",
+  "version": "1.0.0",
+  "author": "nndeploy",
+  "homepage": "https://github.com/nndeploy/nndeploy",
+  "skills": [
+    {
+      "name": "nndeploy",
+      "description": ""
+    }
+  ]
+}
