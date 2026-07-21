@@ -1,0 +1,14 @@
+{
+  "name": "pinecone-io--examples",
+  "displayName": "examples",
+  "description": "examples",
+  "version": "1.0.0",
+  "author": "pinecone-io",
+  "homepage": "https://github.com/pinecone-io/examples",
+  "skills": [
+    {
+      "name": "examples",
+      "description": ""
+    }
+  ]
+}
