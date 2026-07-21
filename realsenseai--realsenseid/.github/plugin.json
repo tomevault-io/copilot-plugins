@@ -1,0 +1,14 @@
+{
+  "name": "realsenseai--realsenseid",
+  "displayName": "RealSenseID",
+  "description": "RealSenseID",
+  "version": "1.0.0",
+  "author": "realsenseai",
+  "homepage": "https://github.com/realsenseai/RealSenseID",
+  "skills": [
+    {
+      "name": "RealSenseID",
+      "description": ""
+    }
+  ]
+}
