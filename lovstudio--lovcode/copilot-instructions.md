@@ -1,10 +1,10 @@
 ## lovcode
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Design System
 
@@ -32,7 +32,7 @@ Reference complete design guide: file:///Users/mark/@lovstudio/design/design-gui
 
 ## Project Overview
 
-Lovcode is a Vibe Coding assistant desktop app built with Tauri 2 + React 19 + TypeScript. Primary focus is supporting AI coding tool ecosystems (claude code, codex, etc.) with chat history viewer as the first feature.
+Lovcode is a Vibe Coding assistant desktop app built with Tauri 2 + React 19 + TypeScript. Primary focus is supporting AI coding tool ecosystems (Codex, codex, etc.) with chat history viewer as the first feature.
 
 ## Commands
 
@@ -70,4 +70,4 @@ pnpm tauri build
 
 ---
 > Source: [lovstudio/lovcode](https://github.com/lovstudio/lovcode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
