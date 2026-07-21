@@ -1,0 +1,22 @@
+{
+  "name": "google--a2ui",
+  "displayName": "A2UI",
+  "description": "A2UI",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/A2UI",
+  "skills": [
+    {
+      "name": "A2UI",
+      "description": ""
+    },
+    {
+      "name": "A2UI",
+      "description": ""
+    },
+    {
+      "name": "A2UI",
+      "description": ""
+    }
+  ]
+}
