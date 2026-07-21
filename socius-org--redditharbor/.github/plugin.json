@@ -1,0 +1,22 @@
+{
+  "name": "socius-org--redditharbor",
+  "displayName": "RedditHarbor",
+  "description": "RedditHarbor",
+  "version": "1.0.0",
+  "author": "socius-org",
+  "homepage": "https://github.com/socius-org/RedditHarbor",
+  "skills": [
+    {
+      "name": "RedditHarbor",
+      "description": ""
+    },
+    {
+      "name": "RedditHarbor",
+      "description": ""
+    },
+    {
+      "name": "RedditHarbor",
+      "description": ""
+    }
+  ]
+}
