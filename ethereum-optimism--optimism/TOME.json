@@ -1,0 +1,75 @@
+{
+  "name": "optimism",
+  "owner": "ethereum-optimism",
+  "repo": "optimism",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "optimism",
+      "path": ".claude/skills/fix-todo/SKILL.md",
+      "github_url": "https://github.com/ethereum-optimism/optimism/tree/main/.claude/skills/fix-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "optimism",
+      "path": ".claude/skills/update-reth/SKILL.md",
+      "github_url": "https://github.com/ethereum-optimism/optimism/tree/main/.claude/skills/update-reth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "optimism",
+      "path": ".claude/skills/fix-rust-fmt/SKILL.md",
+      "github_url": "https://github.com/ethereum-optimism/optimism/tree/main/.claude/skills/fix-rust-fmt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "optimism",
+      "path": ".claude/skills/run-acceptance-tests/SKILL.md",
+      "github_url": "https://github.com/ethereum-optimism/optimism/tree/main/.claude/skills/run-acceptance-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "optimism",
+      "path": ".claude/skills/dispute-game-investigator/SKILL.md",
+      "github_url": "https://github.com/ethereum-optimism/optimism/tree/main/.claude/skills/dispute-game-investigator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ethereum-optimism/optimism",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:59:28Z"
+}
