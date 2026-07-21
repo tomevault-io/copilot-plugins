@@ -1,0 +1,9 @@
+{
+  "name": "akunzai--gss-authentication-cas",
+  "displayName": "GSS.Authentication.CAS",
+  "description": "GSS.Authentication.CAS",
+  "version": "1.0.0",
+  "author": "akunzai",
+  "homepage": "https://github.com/akunzai/GSS.Authentication.CAS",
+  "skills": []
+}
