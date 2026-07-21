@@ -1,0 +1,99 @@
+{
+  "name": "dotfiles",
+  "owner": "shunk031",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "high-impact-journal-publishing",
+      "path": "home/dot_config/claude/skills/high-impact-journal-publishing",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/claude/skills/high-impact-journal-publishing",
+      "description": ""
+    },
+    {
+      "name": "convert-to-transformers",
+      "path": "home/dot_config/claude/skills/convert-to-transformers",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/claude/skills/convert-to-transformers",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "home/dot_config/exact_agents/skills/humanizer-ja/SKILL.md",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/exact_agents/skills/humanizer-ja/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "home/dot_config/exact_agents/skills/worklog-manager/SKILL.md",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/exact_agents/skills/worklog-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "home/dot_config/exact_agents/skills/shdoc-shell-docs/SKILL.md",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/exact_agents/skills/shdoc-shell-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "home/dot_config/exact_agents/skills/python-uv-workflow/SKILL.md",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/exact_agents/skills/python-uv-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "home/dot_config/exact_agents/skills/convert-to-transformers/SKILL.md",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/exact_agents/skills/convert-to-transformers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "home/dot_config/exact_agents/skills/gh-comment-attach-files/SKILL.md",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/exact_agents/skills/gh-comment-attach-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "home/dot_config/exact_agents/skills/high-impact-journal-publishing/SKILL.md",
+      "github_url": "https://github.com/shunk031/dotfiles/tree/main/home/dot_config/exact_agents/skills/high-impact-journal-publishing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shunk031/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:02:51Z"
+}
