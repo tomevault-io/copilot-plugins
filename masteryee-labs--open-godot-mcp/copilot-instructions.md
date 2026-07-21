@@ -1,59 +1,43 @@
-## auditor
+## claim-grader
 
-> Use when 5 iterations have passed, or after a large output (>5 files or >200 lines changed), or before declaring a task complete. Seven-angle adversarial audit to catch self-persuasion blind spots.
+> Use before finalizing any worker report. Grades every claim as [fact], [inference], or [unverified-guess] and attaches file:line or command evidence.
 
 
-# Skill: auditor
+# Skill: claim-grader
 
-> Adversarial audit. Run every 5 iterations, after large outputs, and before declaring done.
-> Eight-angle audit to catch self-persuasion, SLOP, and evidence blind spots.
-> Run `claim-grader` and `slop-detector` before finalizing the audit output.
+> Evidence-graded claims. No more "I think this is used".
 
 ## Trigger
-- Every 5 iterations (mandatory periodic breadth pass — 8 fixed angles).
-- After a large output (>5 files or >200 lines changed).
-- Before declaring a task complete — **but the done-gate itself is `fable-judge`** (event-driven,
-  every done-declaration, focused on claims + frauds + verbatim gate lines per
-  `.windsurf/canon/VERIFICATION_PROTOCOL.md §Verbatim execution gates`). Run fable-judge first;
-  Auditor adds the 8-angle breadth sweep. See `.windsurf/rules/fable-judge.md`.
-- Keywords: auditor, adversarial audit, AUDITOR MODE.
+- Worker has produced an analysis and is about to return a report.
+- Commander is reviewing a worker output before integration.
+- Any conclusion is about to influence the next action.
 
-## The eight audit angles
-
-1. **Self-persuasion** — did the agent talk itself into "done" without evidence?
-2. **Scope creep** — did work exceed what was asked?
-3. **Red-line breach** — any `canon/REDLINES.md` line violated?
-4. **Evidence grade** — is every claim tagged `[fact]`, `[inference]`, or `[unverified-guess]`? Is `[unverified-guess]` followed by an action?
-5. **Unverified claims** — claims stated as fact without file:line evidence?
-6. **Fabricated detection** — any "synced"/"found" claim without a tool run?
-7. **State drift** — `loop_state.md` not updated last iteration? Includes `context_fill_pct` and `caveman_level`.
-8. **Honest-clause violation** — taste/aesthetic decision made without escalating?
-
-## SLOP check
-
-- **Names**: `data`, `info`, `manager`, `helper`, `utils`, `processor`, `handler`, `service` without domain context.
-- **Abstractions**: single-call wrappers, interfaces with one implementation, premature base classes.
-- **Prose**: filler phrases (`delve`, `leverage`, `seamless`, `robust`, `in the ever-evolving landscape`).
-- **Commits**: `update`, `fix`, `improve` without area/why.
+## When to run
+Last step before finalizing a report. Re-run if any claim's evidence is challenged.
 
 ## How
 
-For each angle: ask the adversarial question. If yes → P0/P1 finding with evidence.
-If no → one-line "clean" note. No angle skipped.
+1. Scan the draft report line by line.
+2. For each concrete claim, tag it:
+   - `[fact]` — direct evidence from a file, line, or command output. Attach `file:line` or `command`.
+   - `[inference: <basis>]` — logically derived from one or more facts, but not directly observed. State the basis.
+   - `[unverified-guess]` — no direct evidence; a placeholder. If this appears, stop and gather evidence before continuing.
+3. Code-related facts need `file:line` (e.g., `src/main.py:42`).
+4. State/config facts need exact command or `cat` output.
+5. "Seems", "looks like", "probably", "should" are signals that the claim is not a `[fact]`.
+6. If `[unverified-guess]` count > 0, downgrade the report to "needs evidence" and dispatch the appropriate worker (Scout/Builder) to verify.
+7. Output an `Evidence-graded` section:
+   ```
+   ## Evidence-graded
+   - [fact] <claim> — evidence: <file:line|command>
+   - [inference: <basis>] <claim> — basis: <...>
+   - [unverified-guess] <claim> — action needed: <...>
+   ```
 
 ## Output
-```
-## Audit [CLEAN/ISSUES] iteration:N
-## Findings
-| angle | severity | evidence | fix |
-## Clean angles
-- [angle]: clean — [why]
-## Escalation needed [yes/no + reason]
-```
+Append the `Evidence-graded` section to the worker report. The Commander must see at least one `[fact]` for every major conclusion before trusting the output.
 
-## Rule
-Auditor is fresh-context when possible. If same context, switch to Devil's Advocate mode
-explicitly and state it. Same-context audit is weaker — note this in output.
+Caveman compact. One line per claim. No essays about evidence.
 
 ---
 > Source: [masteryee-labs/Open-Godot-MCP](https://github.com/masteryee-labs/Open-Godot-MCP) — distributed by [TomeVault](https://tomevault.io).
