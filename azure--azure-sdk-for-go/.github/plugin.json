@@ -1,0 +1,14 @@
+{
+  "name": "azure--azure-sdk-for-go",
+  "displayName": "azure-sdk-for-go",
+  "description": "azure-sdk-for-go",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/azure-sdk-for-go",
+  "skills": [
+    {
+      "name": "azure-sdk-for-go",
+      "description": ""
+    }
+  ]
+}
