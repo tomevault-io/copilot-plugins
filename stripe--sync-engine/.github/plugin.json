@@ -1,0 +1,9 @@
+{
+  "name": "stripe--sync-engine",
+  "displayName": "sync-engine",
+  "description": "sync-engine",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/sync-engine",
+  "skills": []
+}
