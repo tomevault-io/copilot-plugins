@@ -1,0 +1,105 @@
+{
+  "name": "cassandra",
+  "owner": "apache",
+  "repo": "cassandra",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/heatmap/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/heatmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/tla-plus/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/tla-plus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/mega-review/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/mega-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/deep-review/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/deep-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/shallow-review/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/shallow-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/patch-explainer/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/patch-explainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/targeted-review/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/targeted-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/bug-archaeology/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/bug-archaeology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/write-reproducer/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/write-reproducer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "path": ".claude/skills/cassandra-injvm-dtest/SKILL.md",
+      "github_url": "https://github.com/apache/cassandra/tree/main/.claude/skills/cassandra-injvm-dtest/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/apache/cassandra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:48:43Z"
+}
