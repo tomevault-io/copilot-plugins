@@ -1,0 +1,14 @@
+{
+  "name": "jaguarjack--catch-admin",
+  "displayName": "catch-admin",
+  "description": "catch-admin",
+  "version": "1.0.0",
+  "author": "JaguarJack",
+  "homepage": "https://github.com/JaguarJack/catch-admin",
+  "skills": [
+    {
+      "name": "vue-pages",
+      "description": ""
+    }
+  ]
+}
