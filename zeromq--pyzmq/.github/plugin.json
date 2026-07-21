@@ -1,0 +1,9 @@
+{
+  "name": "zeromq--pyzmq",
+  "displayName": "pyzmq",
+  "description": "pyzmq",
+  "version": "1.0.0",
+  "author": "zeromq",
+  "homepage": "https://github.com/zeromq/pyzmq",
+  "skills": []
+}
