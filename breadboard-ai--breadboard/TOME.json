@@ -1,0 +1,333 @@
+{
+  "name": "breadboard",
+  "owner": "breadboard-ai",
+  "repo": "breadboard",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-component-generation",
+      "path": "spikes/build-service/orchestrator/skills/ui-generator",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/spikes/build-service/orchestrator/skills/ui-generator",
+      "description": ""
+    },
+    {
+      "name": "ui-component-generation",
+      "path": "spikes/context-gradient",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/spikes/context-gradient",
+      "description": ""
+    },
+    {
+      "name": "build-react-apps",
+      "path": "hives/chat-app/skills/build-react-apps",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/chat-app/skills/build-react-apps",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "spikes/ea-magazine/skill.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/spikes/ea-magazine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": ".agent/skills/codemod/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/.agent/skills/codemod/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "spikes/context-gradient/skill.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/spikes/context-gradient/skill.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": ".agent/skills/deja-code/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/.agent/skills/deja-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": ".agent/skills/daily-dig/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/.agent/skills/daily-dig/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": ".agent/skills/spec-driven/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/.agent/skills/spec-driven/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/office/skills/surface/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/office/skills/surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": ".agent/skills/port-fidelity/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/.agent/skills/port-fidelity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/chat-app/skills/surface/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/chat-app/skills/surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": ".agent/skills/idiomatic-ts-lit/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/.agent/skills/idiomatic-ts-lit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": ".agent/skills/opal-backend-api/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/.agent/skills/opal-backend-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/swarm-test/skills/surface/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/swarm-test/skills/surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/ui-builder/skills/surface/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/ui-builder/skills/surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/antigravity/skills/surface/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/antigravity/skills/surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/office/skills/use-opal-sdk/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/office/skills/use-opal-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "packages/bees/hive/skills/surface/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/packages/bees/hive/skills/surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "spikes/ark/backend/skills/teacher/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/spikes/ark/backend/skills/teacher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "packages/bees/hive/skills/persona/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/packages/bees/hive/skills/persona/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/office/skills/build-widgets/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/office/skills/build-widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/chat-app/skills/use-opal-sdk/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/chat-app/skills/use-opal-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/office/skills/run-in-sandbox/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/office/skills/run-in-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "packages/bees/hive/skills/research/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/packages/bees/hive/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/chat-app/skills/build-widgets/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/chat-app/skills/build-widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/office/skills/build-react-apps/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/office/skills/build-react-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/swarm-test/skills/use-opal-sdk/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/swarm-test/skills/use-opal-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/ui-builder/skills/use-opal-sdk/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/ui-builder/skills/use-opal-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/chat-app/skills/run-in-sandbox/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/chat-app/skills/run-in-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/antigravity/skills/use-opal-sdk/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/antigravity/skills/use-opal-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/swarm-test/skills/build-widgets/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/swarm-test/skills/build-widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/chat-app/skills/build-react-apps/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/chat-app/skills/build-react-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/swarm-test/skills/run-in-sandbox/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/swarm-test/skills/run-in-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/ui-builder/skills/run-in-sandbox/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/ui-builder/skills/run-in-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/antigravity/skills/build-widgets/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/antigravity/skills/build-widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "packages/bees/hive/skills/app-architect/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/packages/bees/hive/skills/app-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/antigravity/skills/run-in-sandbox/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/antigravity/skills/run-in-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/swarm-test/skills/build-react-apps/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/swarm-test/skills/build-react-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/ui-builder/skills/build-react-apps/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/ui-builder/skills/build-react-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "packages/bees/hive/skills/interview-user/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/packages/bees/hive/skills/interview-user/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/antigravity/skills/build-react-apps/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/antigravity/skills/build-react-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "packages/folio/backend/hive/skills/persona/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/packages/folio/backend/hive/skills/persona/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "packages/bees/hive/skills/create-task-type/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/packages/bees/hive/skills/create-task-type/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "spikes/ark/backend/skills/journey-architect/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/spikes/ark/backend/skills/journey-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "hives/react-app-coder/skills/run-in-sandbox/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/hives/react-app-coder/skills/run-in-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "packages/bees/hive/skills/editorial-designer/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/packages/bees/hive/skills/editorial-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "breadboard",
+      "path": "spikes/build-service/orchestrator/skills/ui-generator/SKILL.md",
+      "github_url": "https://github.com/breadboard-ai/breadboard/tree/main/spikes/build-service/orchestrator/skills/ui-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/breadboard-ai/breadboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T20:33:01Z"
+}
