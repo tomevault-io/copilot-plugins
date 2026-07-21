@@ -1,0 +1,9 @@
+{
+  "name": "vscodevim--vim",
+  "displayName": "Vim",
+  "description": "Vim",
+  "version": "1.0.0",
+  "author": "VSCodeVim",
+  "homepage": "https://github.com/VSCodeVim/Vim",
+  "skills": []
+}
