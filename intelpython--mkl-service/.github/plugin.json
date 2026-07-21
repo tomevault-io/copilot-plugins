@@ -1,0 +1,9 @@
+{
+  "name": "intelpython--mkl-service",
+  "displayName": "mkl-service",
+  "description": "mkl-service",
+  "version": "1.0.0",
+  "author": "IntelPython",
+  "homepage": "https://github.com/IntelPython/mkl-service",
+  "skills": []
+}
