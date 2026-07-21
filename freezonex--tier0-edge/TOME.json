@@ -1,0 +1,63 @@
+{
+  "name": "Tier0-Edge",
+  "owner": "FREEZONEX",
+  "repo": "Tier0-Edge",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Tier0-Edge",
+      "path": "skills/uns-structure/SKILL.md",
+      "github_url": "https://github.com/FREEZONEX/Tier0-Edge/tree/main/skills/uns-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tier0-Edge",
+      "path": "skills/uns-validation/SKILL.md",
+      "github_url": "https://github.com/FREEZONEX/Tier0-Edge/tree/main/skills/uns-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Tier0-Edge",
+      "path": "frontend/.claude/skills/match-screenshot-colors/skill.md",
+      "github_url": "https://github.com/FREEZONEX/Tier0-Edge/tree/main/frontend/.claude/skills/match-screenshot-colors/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/FREEZONEX/Tier0-Edge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T14:38:52Z"
+}
