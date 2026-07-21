@@ -1,0 +1,57 @@
+{
+  "name": "kubetail",
+  "owner": "kubetail-org",
+  "repo": "kubetail",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kubetail",
+      "path": ".claude/skills/release-cli/SKILL.md",
+      "github_url": "https://github.com/kubetail-org/kubetail/tree/main/.claude/skills/release-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kubetail",
+      "path": ".claude/skills/release-cluster/SKILL.md",
+      "github_url": "https://github.com/kubetail-org/kubetail/tree/main/.claude/skills/release-cluster/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kubetail-org/kubetail",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:56:21Z"
+}
