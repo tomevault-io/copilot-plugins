@@ -1,0 +1,147 @@
+{
+  "name": "slim",
+  "owner": "NASA-AMMOS",
+  "repo": "slim",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-readme/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-readme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-license/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-license/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-changelog/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-governance/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-rebranding/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-rebranding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-website-maker/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-website-maker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-skill-creator/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-meeting-agenda/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-meeting-agenda/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-code-of-conduct/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-code-of-conduct/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-meeting-summary/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-meeting-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-issue-templates/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-issue-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-executive-summary/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-executive-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-contributing-guide/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-contributing-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-continuous-testing/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-continuous-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-rebranding-original/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-rebranding-original/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-project-aware-workspace/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-project-aware-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slim",
+      "path": "static/marketplace/skills/slim-container-vulnerability-scanning/SKILL.md",
+      "github_url": "https://github.com/NASA-AMMOS/slim/tree/main/static/marketplace/skills/slim-container-vulnerability-scanning/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NASA-AMMOS/slim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:55:03Z"
+}
