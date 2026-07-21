@@ -1,0 +1,63 @@
+{
+  "name": "pulumi-aws",
+  "owner": "pulumi",
+  "repo": "pulumi-aws",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pulumi-aws",
+      "path": ".claude/skills/upstream-patches/SKILL.md",
+      "github_url": "https://github.com/pulumi/pulumi-aws/tree/main/.claude/skills/upstream-patches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulumi-aws",
+      "path": ".claude/skills/provider-code-review/SKILL.md",
+      "github_url": "https://github.com/pulumi/pulumi-aws/tree/main/.claude/skills/provider-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulumi-aws",
+      "path": ".claude/skills/pulumi-upgrade-provider/SKILL.md",
+      "github_url": "https://github.com/pulumi/pulumi-aws/tree/main/.claude/skills/pulumi-upgrade-provider/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pulumi/pulumi-aws",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:16:24Z"
+}
