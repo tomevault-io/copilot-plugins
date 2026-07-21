@@ -1,0 +1,165 @@
+{
+  "name": "BreachWeave",
+  "owner": "m-sec-org",
+  "repo": "BreachWeave",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "BreachWeave",
+      "path": ".claude/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/.claude/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": ".claude/skills/bun-dev/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/.claude/skills/bun-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/.claude/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": ".claude/skills/pi-mono-framework/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/.claude/skills/pi-mono-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/recon/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/recon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/ad-pentest/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/ad-pentest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/ffuf-skill/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/ffuf-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/nuclei-skill/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/nuclei-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/agent-browser/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/jwt-tool-skill/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/jwt-tool-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/targeted-pentest/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/targeted-pentest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/payload-research/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/payload-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/fuzz-dicts-skills/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/fuzz-dicts-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/redis-webroot-rce/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/redis-webroot-rce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/pentest-fuzz-skill/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/pentest-fuzz-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/tch-headless-skill/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/tch-headless-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/php-payload-builder/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/php-payload-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/payloads-everything/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/payloads-everything/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/known-product-exploit/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/known-product-exploit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BreachWeave",
+      "path": "packages/core/src/config/skills/builtin/jwt-oauth-token-attacks/SKILL.md",
+      "github_url": "https://github.com/m-sec-org/BreachWeave/tree/main/packages/core/src/config/skills/builtin/jwt-oauth-token-attacks/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/m-sec-org/BreachWeave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:00:51Z"
+}
