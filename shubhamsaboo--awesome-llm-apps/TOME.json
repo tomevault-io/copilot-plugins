@@ -1,0 +1,219 @@
+{
+  "name": "awesome-llm-apps",
+  "owner": "Shubhamsaboo",
+  "repo": "awesome-llm-apps",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fullstack-developer",
+      "path": "awesome_agent_skills/fullstack-developer",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/fullstack-developer",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "path": "awesome_agent_skills/technical-writer",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/technical-writer",
+      "description": ""
+    },
+    {
+      "name": "editor",
+      "path": "awesome_agent_skills/editor",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/editor",
+      "description": ""
+    },
+    {
+      "name": "python-expert",
+      "path": "awesome_agent_skills/python-expert",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/python-expert",
+      "description": ""
+    },
+    {
+      "name": "meeting-notes",
+      "path": "awesome_agent_skills/meeting-notes",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/meeting-notes",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/editor/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/debugger/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/ux-designer/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/ux-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/fact-checker/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/fact-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/data-analyst/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/data-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/python-expert/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/python-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/email-drafter/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/email-drafter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/meeting-notes/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/meeting-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/sprint-planner/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/sprint-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/project-planner/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/project-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/content-creator/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/content-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/decision-helper/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/decision-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/technical-writer/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/technical-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/strategy-advisor/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/strategy-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/academic-researcher/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/academic-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/fullstack-developer/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/fullstack-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/visualization-expert/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/visualization-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/self-improving-agent-skills/example_skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/self-improving-agent-skills/example_skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "awesome_agent_skills/self-improving-agent-skills/example_skills/content-writer/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/awesome_agent_skills/self-improving-agent-skills/example_skills/content-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "generative_ui_agents/ai-mcp-app-builder/apps/mcp-use-server/.agent/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/generative_ui_agents/ai-mcp-app-builder/apps/mcp-use-server/.agent/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "generative_ui_agents/ai-mcp-app-builder/apps/mcp-use-server/.agent/skills/mcp-apps-builder/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/generative_ui_agents/ai-mcp-app-builder/apps/mcp-use-server/.agent/skills/mcp-apps-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-llm-apps",
+      "path": "generative_ui_agents/ai-mcp-app-builder/apps/mcp-use-server/.agent/skills/chatgpt-app-builder/SKILL.md",
+      "github_url": "https://github.com/Shubhamsaboo/awesome-llm-apps/tree/main/generative_ui_agents/ai-mcp-app-builder/apps/mcp-use-server/.agent/skills/chatgpt-app-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:33:01Z"
+}
