@@ -1,0 +1,18 @@
+{
+  "name": "ansys--pymapdl",
+  "displayName": "pymapdl",
+  "description": "pymapdl",
+  "version": "1.0.0",
+  "author": "ansys",
+  "homepage": "https://github.com/ansys/pymapdl",
+  "skills": [
+    {
+      "name": "pymapdl-cli",
+      "description": ""
+    },
+    {
+      "name": "pymapdl",
+      "description": ""
+    }
+  ]
+}
