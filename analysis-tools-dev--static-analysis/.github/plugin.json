@@ -1,0 +1,9 @@
+{
+  "name": "analysis-tools-dev--static-analysis",
+  "displayName": "static-analysis",
+  "description": "static-analysis",
+  "version": "1.0.0",
+  "author": "analysis-tools-dev",
+  "homepage": "https://github.com/analysis-tools-dev/static-analysis",
+  "skills": []
+}
