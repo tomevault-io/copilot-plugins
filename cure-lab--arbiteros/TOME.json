@@ -1,0 +1,75 @@
+{
+  "name": "ArbiterOS",
+  "owner": "cure-lab",
+  "repo": "ArbiterOS",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ArbiterOS",
+      "path": "langfuse/.claude/skills/skill-developer/SKILL.md",
+      "github_url": "https://github.com/cure-lab/ArbiterOS/tree/main/langfuse/.claude/skills/skill-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArbiterOS",
+      "path": "langfuse/.claude/skills/backend-dev-guidelines/SKILL.md",
+      "github_url": "https://github.com/cure-lab/ArbiterOS/tree/main/langfuse/.claude/skills/backend-dev-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArbiterOS",
+      "path": "langfuse/web/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/cure-lab/ArbiterOS/tree/main/langfuse/web/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArbiterOS",
+      "path": "langfuse/web/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/cure-lab/ArbiterOS/tree/main/langfuse/web/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ArbiterOS",
+      "path": "ArbiterOS-Kernel/.claude/skills/arbiteros-instruction-metadata-dsl-writer/SKILL.md",
+      "github_url": "https://github.com/cure-lab/ArbiterOS/tree/main/ArbiterOS-Kernel/.claude/skills/arbiteros-instruction-metadata-dsl-writer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cure-lab/ArbiterOS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:53:15Z"
+}
