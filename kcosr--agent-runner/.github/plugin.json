@@ -1,0 +1,18 @@
+{
+  "name": "kcosr--agent-runner",
+  "displayName": "agent-runner",
+  "description": "agent-runner",
+  "version": "1.0.0",
+  "author": "kcosr",
+  "homepage": "https://github.com/kcosr/agent-runner",
+  "skills": [
+    {
+      "name": "agent-runner",
+      "description": ""
+    },
+    {
+      "name": "agent-runner",
+      "description": ""
+    }
+  ]
+}
