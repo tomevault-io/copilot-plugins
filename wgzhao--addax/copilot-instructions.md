@@ -1,0 +1,150 @@
+## addax
+
+> 该项目是一个离线的 ETL 工具，通过插件化架构支持多种数据源和目标。核心组件包括 Engine、JobContainer，以及各种 Reader/Writer 插件。项目使用 Maven 管理构建和依赖。
+
+# AGENTS.md
+
+## 概述
+
+该项目是一个离线的 ETL 工具，通过插件化架构支持多种数据源和目标。核心组件包括 Engine、JobContainer，以及各种 Reader/Writer 插件。项目使用 Maven 管理构建和依赖。
+
+## 通用偏好
+
+- 用中文回复，代码注释用英文，注释写 why 不写 how
+- 简洁直接，不要多余总结和解释
+- 直接写代码，不需要每次确认后再生成
+
+## 编译
+
+### 整体编译
+
+```bash
+mvn clean package -T1C -DskipTests
+```
+
+### 单模块编译（以 dorisreader 为例）
+
+```bash
+mvn clean package -pl :dorisreader -am
+```
+
+## 禁止
+- `core` 为核心模块，包含 Engine 和 JobContainer 等核心类。修改此模块需谨慎，确保不破坏核心运行逻辑。
+- `addax-rdbms` 包含多个 JDBC/SQL 相关的工具类
+- `addax-lib` 包含一些通用工具类和依赖管理, 若无必要，避免修改核心工具类。
+- 尽可能不要引入新的依赖库，尤其是核心模块和公共库。新增依赖可能引入版本冲突或增加维护负担。
+- 考虑到兼容各类 RDBMS 的最低版本，因此各依赖库的版本请勿修改，除非确实需要修复安全漏洞或兼容性问题，并且在修改前先评估对现有插件的影响。
+- 不需要写单元测试，所有的测试都会在目前特定构建的环境下手工执行
+
+## 运行流程
+
+1. 编辑一个 `json` 格式或者 `yaml` 格式的 Job 配置文件，指定 Reader、Writer 以及相关参数，可以参考 `core/src/main/job` 下的例子
+2. 执行 `addax.sh` 脚本，传入 Job 配置文件路径，例如：
+
+```bash
+sh addax.sh -job /path/to/job.json
+```
+
+程序运行的内部流程可以参考[这个文档](https://github.com/wgzhao/addax-docs/raw/refs/heads/master/docs/plugin-development.md)
+
+## 插件开发
+
+新增插件的开发流程可以参考[plugin development 文档](https://github.com/wgzhao/addax-docs/raw/refs/heads/master/docs/plugin-development.md)
+
+
+## 架构与设计宗旨
+
+- 从第一性原理解构问题 一先明确什么是必须的，再决定怎么做
+- 警惕 XY 问题-多角度审视方案，先确认真正要解决的是什么，主动提出替代方案
+- 解決根本问题，不要 workaround -如果现有架构不支持，重构它
+- 质疑不合理的需求和方向—发现问题立刻指出，不要等我问才说，不要奉承或无脑赞同
+- 架构设计时参考 ddia-principles 和 software-design-philosophy 规则
+
+## Git / PR 标准流程
+
+当用户明确提出“提交并创建 PR”时，默认按以下流程执行（除非用户另有说明）：
+
+1. 创建新分支后再提交，分支名建议使用 `feat/<topic>` 或 `fix/<topic>` 格式，根据本次修改的性质选择 `feat`（新功能）或 `fix`（修复）。例如：`feat/add-protobuf-dependency`。
+2. 使用英文编写 commit message：
+   - `title` 简洁明确（建议 Conventional Commits 风格）。
+   - `description/body` 说明动机、核心改动、验证情况。
+3. 使用 `gh` 命令创建 PR，不只推送分支：
+   - 示例：`gh pr create --base master --head <branch> --title "<english title>" --body-file <file>`
+4. PR 内容必须使用英文，遵循 [PR 模板](.github/pull_request_template.md) 进行填写
+5. 若无特别要求，PR 设为 Ready for review（非 Draft）。
+
+以上流程可由一句 "提交并创建 PR" 触发，不需要用户重复描述细节格式要求。
+
+## Commit Message 规范
+
+为保证提交历史可读、可检索、可自动化发布，统一使用 Conventional Commits 格式：
+
+```text
+<type>(<scope>)!: <subject>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### 1) 标题（第一行）强制规则
+
+- 必须使用英文。
+- `type` 必填，且只能是：`feat`、`fix`、`refactor`、`perf`、`docs`、`test`、`build`、`ci`、`chore`、`revert`。
+- `scope` 必填（本项目强制），用于标识模块或插件。
+- `subject` 使用祈使句现在时（如 add/fix/remove/refactor），首字母小写，不以句号结尾。
+- 标题总长度不超过 72 个字符。
+- 单个 commit 只做一件事，禁止混入无关改动。
+
+### 2) Scope 约束
+
+优先使用以下 scope：
+
+- `core`、`server`、`docs`、`build`、`ci`、`deps`、`release`、`script`
+- `lib-rdbms`、`lib-storage`
+- `plugin-<name>`（例如：`plugin-hdfswriter`、`plugin-mongodbreader`）
+
+### 3) Body 规则
+
+- 对 `feat`、`fix`、`refactor`、`perf`，建议必须写 body。
+- body 中至少说明三点：
+   - `why`: 为什么改
+   - `what`: 改了什么
+   - `impact`: 影响范围、兼容性、性能或行为变化
+
+### 4) Footer 规则
+
+- 关联 issue：`Refs: #123` 或 `Closes: #123`。
+- 破坏性变更必须使用 `!` 或 `BREAKING CHANGE:`，并明确迁移方式。
+
+### 5) 历史风格映射（统一口径）
+
+- `feature` -> `feat`
+- `bugfix` -> `fix`
+- `update` -> `chore`（仅版本/依赖更新）或 `fix`（修复问题）
+- `improve` -> `refactor` / `perf` / `feat`（按语义选择）
+- `[chore][3rd]` -> `chore(deps)`
+- `[chore][action]` / `[chore][github][action]` -> `ci(github-actions)`
+
+### 6) 示例
+
+```text
+feat(plugin-mongodbreader): support wildcard collection matching
+fix(lib-rdbms): avoid quoted-column mismatch in excludeColumn
+refactor(core): split yaml and json job config parser
+ci(github-actions): bump setup-java to v5
+chore(release): prepare 6.0.12
+docs(readme): clarify plugin development workflow
+```
+
+### 7) 自动校验（本地 + CI）
+
+- 本仓库提供统一校验脚本：`.github/scripts/lint-commit-msg.sh`。
+- 本地启用方式（仅需一次）：
+   - `git config core.hooksPath .githooks`
+   - `chmod +x .githooks/commit-msg .github/scripts/lint-commit-msg.sh`
+- CI 在 PR 中会校验所有非 merge commit；任一 commit message 不符合规范将直接失败。
+
+---
+> Source: [wgzhao/Addax](https://github.com/wgzhao/Addax) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
