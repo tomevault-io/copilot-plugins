@@ -1,0 +1,1562 @@
+{
+  "name": "ysyecust--everything-claude-code",
+  "displayName": "everything-claude-code",
+  "description": "everything-claude-code",
+  "version": "1.0.0",
+  "author": "ysyecust",
+  "homepage": "https://github.com/ysyecust/everything-claude-code",
+  "skills": [
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning-v2",
+      "description": ""
+    },
+    {
+      "name": "springboot-verification",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "description": ""
+    }
+  ]
+}
