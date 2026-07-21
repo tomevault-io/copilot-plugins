@@ -1,0 +1,117 @@
+{
+  "name": "rsbuild",
+  "owner": "web-infra-dev",
+  "repo": "rsbuild",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docs-en-improvement",
+      "path": ".agents/skills/docs-en-improvement",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/docs-en-improvement",
+      "description": ""
+    },
+    {
+      "name": "sync-zh-en-docs",
+      "path": ".agents/skills/sync-zh-en-docs",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/sync-zh-en-docs",
+      "description": ""
+    },
+    {
+      "name": "write-e2e-cases",
+      "path": ".agents/skills/write-e2e-cases",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/write-e2e-cases",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/pr-creator/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/pr-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/release-core/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/release-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/upgrade-rspack/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/upgrade-rspack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/write-e2e-cases/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/write-e2e-cases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/sync-zh-en-docs/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/sync-zh-en-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/add-doc-anchor-ids/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/add-doc-anchor-ids/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/docs-en-improvement/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/docs-en-improvement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/create-draft-release-notes/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/create-draft-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rsbuild",
+      "path": ".agents/skills/rspress-description-generator/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rsbuild/tree/main/.agents/skills/rspress-description-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/web-infra-dev/rsbuild",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:56:42Z"
+}
