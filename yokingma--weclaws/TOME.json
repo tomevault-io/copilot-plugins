@@ -1,0 +1,237 @@
+{
+  "name": "weclaws",
+  "owner": "yokingma",
+  "repo": "weclaws",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "weclaws",
+      "path": ".codex/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/.codex/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/github/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-im/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-im/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-vc/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-vc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/weather/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-okr/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-okr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-doc/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/ppt-skill/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/ppt-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-base/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-base/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-task/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-wiki/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-drive/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-drive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-event/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-event/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-slides/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-sheets/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-sheets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-shared/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-minutes/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-minutes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-contact/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-contact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/video-frames/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/video-frames/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/skill-creator/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-calendar/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/agent-browser/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-approval/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-approval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-markdown/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-whiteboard/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-whiteboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-attendance/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-attendance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/personal-planner/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/personal-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-skill-maker/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-skill-maker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-openapi-explorer/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-openapi-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/editorial-card-screenshot/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/editorial-card-screenshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-workflow-standup-report/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-workflow-standup-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weclaws",
+      "path": "resources/skills/managed/lark-workflow-meeting-summary/SKILL.md",
+      "github_url": "https://github.com/yokingma/weclaws/tree/main/resources/skills/managed/lark-workflow-meeting-summary/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yokingma/weclaws",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:32:06Z"
+}
