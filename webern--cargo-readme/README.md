@@ -1,0 +1,30 @@
+# AI instruction files for cargo-readme
+
+> Sourced from [webern/cargo-readme](https://github.com/webern/cargo-readme), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [webern/cargo-readme](https://github.com/webern/cargo-readme).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (3)
+
+- [cargo-readme](https://github.com/webern/cargo-readme/tree/main/.claude/skills/review/SKILL.md)
+- [cargo-readme](https://github.com/webern/cargo-readme/tree/main/.claude/skills/publish/SKILL.md)
+- [cargo-readme](https://github.com/webern/cargo-readme/tree/main/.claude/skills/update-deps/SKILL.md)
+
+From [webern/cargo-readme](https://github.com/webern/cargo-readme) — a repo with 386+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:a-e-s -->
