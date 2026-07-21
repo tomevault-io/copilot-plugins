@@ -1,0 +1,9 @@
+{
+  "name": "kubermatic--kubelb",
+  "displayName": "kubelb",
+  "description": "kubelb",
+  "version": "1.0.0",
+  "author": "kubermatic",
+  "homepage": "https://github.com/kubermatic/kubelb",
+  "skills": []
+}
