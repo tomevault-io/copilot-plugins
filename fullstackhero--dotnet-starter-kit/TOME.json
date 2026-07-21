@@ -1,0 +1,111 @@
+{
+  "name": "dotnet-starter-kit",
+  "owner": "fullstackhero",
+  "repo": "dotnet-starter-kit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/add-module/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/add-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/add-entity/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/add-entity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/add-feature/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/add-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/testing-guide/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/testing-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/add-react-page/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/add-react-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/add-permission/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/add-permission/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/add-full-slice/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/add-full-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/query-patterns/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/query-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/create-migration/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/create-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/mediator-reference/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/mediator-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotnet-starter-kit",
+      "path": ".agents/skills/add-integration-event/SKILL.md",
+      "github_url": "https://github.com/fullstackhero/dotnet-starter-kit/tree/main/.agents/skills/add-integration-event/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fullstackhero/dotnet-starter-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:07:43Z"
+}
