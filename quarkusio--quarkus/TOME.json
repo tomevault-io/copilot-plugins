@@ -1,0 +1,105 @@
+{
+  "name": "quarkus",
+  "owner": "quarkusio",
+  "repo": "quarkus",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/coding-style/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/coding-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/building-docs/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/building-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/pull-requests/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/pull-requests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/writing-tests/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/writing-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/working-with-config/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/working-with-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/creating-extensions/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/creating-extensions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/writing-build-steps/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/writing-build-steps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/building-and-testing/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/building-and-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/writing-extension-devui/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/writing-extension-devui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".agents/skills/classloading-and-runtime-dev/SKILL.md",
+      "github_url": "https://github.com/quarkusio/quarkus/tree/main/.agents/skills/classloading-and-runtime-dev/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/quarkusio/quarkus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:21:09Z"
+}
