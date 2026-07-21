@@ -1,0 +1,9 @@
+{
+  "name": "deepset-ai--haystack-experimental",
+  "displayName": "haystack-experimental",
+  "description": "haystack-experimental",
+  "version": "1.0.0",
+  "author": "deepset-ai",
+  "homepage": "https://github.com/deepset-ai/haystack-experimental",
+  "skills": []
+}
