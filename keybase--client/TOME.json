@@ -1,0 +1,225 @@
+{
+  "name": "client",
+  "owner": "keybase",
+  "repo": "client",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-native-best-practices",
+      "path": ".agents/skills/react-native-best-practices",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/react-native-best-practices",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/visual-diff/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/visual-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/merge-master/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/merge-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/prod-bundles/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/prod-bundles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/ios-screenshot/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/ios-screenshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/bumping-versions/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/bumping-versions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/keybase-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/keybase-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/react-effect-lints/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/react-effect-lints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/simplify-ui-section/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/simplify-ui-section/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/update-dependencies/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/update-dependencies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/address-pr-feedback/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/address-pr-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/electron-screenshot/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/electron-screenshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/migrate-clickable-box/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/migrate-clickable-box/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/zustand-store-pruning/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/zustand-store-pruning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/keybase-unused-assets/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/keybase-unused-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/keybase-style-analysis/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/keybase-style-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/keybase-unused-source-files/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/keybase-unused-source-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": "skill/merge-passthrough-containers/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/skill/merge-passthrough-containers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/migrate-to-static-config/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/migrate-to-static-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/upgrade-react-navigation/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/upgrade-react-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/vercel-react-native-skills/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/vercel-react-native-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/react-native-best-practices/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/react-native-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/react-native-best-practices/references/svg/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/react-native-best-practices/references/svg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/react-native-best-practices/references/audio/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/react-native-best-practices/references/audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/react-native-best-practices/references/gestures/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/react-native-best-practices/references/gestures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/react-native-best-practices/references/rich-text/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/react-native-best-practices/references/rich-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/react-native-best-practices/references/animations/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/react-native-best-practices/references/animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "client",
+      "path": ".agents/skills/react-native-best-practices/references/multithreading/SKILL.md",
+      "github_url": "https://github.com/keybase/client/tree/main/.agents/skills/react-native-best-practices/references/multithreading/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/keybase/client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:50:54Z"
+}
