@@ -1,0 +1,195 @@
+{
+  "name": "AgentAutoFlow",
+  "owner": "ScotterMonk",
+  "repo": "AgentAutoFlow",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/db-use/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/db-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/testing/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/learning/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/research/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/github-use/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/github-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/coding-css/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/coding-css/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/db-postgres/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/db-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/browser-use/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/browser-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/coding-html/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/coding-html/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/log-file-use/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/log-file-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/coding-debug/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/coding-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/coding-python/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/coding-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/planning-init/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/planning-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/simplification/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/simplification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/mode-selection/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/mode-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/coding-markdown/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/coding-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/coding-lifecycle/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/coding-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/api-use-external/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/api-use-external/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/resolve-ambiguity/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/resolve-ambiguity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/hermes-api-client/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/hermes-api-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/coding-guidelines/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/coding-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/login-using-querystring/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/login-using-querystring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgentAutoFlow",
+      "path": ".kilocode/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/ScotterMonk/AgentAutoFlow/tree/main/.kilocode/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ScotterMonk/AgentAutoFlow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:52:38Z"
+}
