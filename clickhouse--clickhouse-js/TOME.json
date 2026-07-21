@@ -1,0 +1,69 @@
+{
+  "name": "clickhouse-js",
+  "owner": "ClickHouse",
+  "repo": "clickhouse-js",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clickhouse-js",
+      "path": ".claude/skills/setup/SKILL.md",
+      "github_url": "https://github.com/ClickHouse/clickhouse-js/tree/main/.claude/skills/setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-js",
+      "path": ".claude/skills/typescript-lsp/SKILL.md",
+      "github_url": "https://github.com/ClickHouse/clickhouse-js/tree/main/.claude/skills/typescript-lsp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-js",
+      "path": "skills/clickhouse-js-node-coding/SKILL.md",
+      "github_url": "https://github.com/ClickHouse/clickhouse-js/tree/main/skills/clickhouse-js-node-coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-js",
+      "path": "skills/clickhouse-js-node-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/ClickHouse/clickhouse-js/tree/main/skills/clickhouse-js-node-troubleshooting/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ClickHouse/clickhouse-js",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:14:55Z"
+}
