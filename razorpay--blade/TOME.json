@@ -1,0 +1,147 @@
+{
+  "name": "blade",
+  "owner": "razorpay",
+  "repo": "blade",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "migrate-to-svelte",
+      "path": ".cursor/skills/migrate-to-svelte",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.cursor/skills/migrate-to-svelte",
+      "description": ""
+    },
+    {
+      "name": "write-api-decision",
+      "path": ".cursor/skills/write-api-decision",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.cursor/skills/write-api-decision",
+      "description": ""
+    },
+    {
+      "name": "write-biweekly-announcement",
+      "path": ".cursor/skills/write-biweekly-announcement",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.cursor/skills/write-biweekly-announcement",
+      "description": ""
+    },
+    {
+      "name": "write-unit-tests",
+      "path": ".cursor/skills/write-unit-tests",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.cursor/skills/write-unit-tests",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".agents/skills/code-review",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/update-component/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/update-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/write-unit-tests/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/write-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/migrate-to-svelte/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/migrate-to-svelte/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": "packages/blade-mcp/skillTemplate/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/packages/blade-mcp/skillTemplate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/write-api-decision/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/write-api-decision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/verify-with-browser/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/verify-with-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/perform-task-end-to-end/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/perform-task-end-to-end/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/check-component-readiness/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/check-component-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/get-agentic-blade-metrics/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/get-agentic-blade-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blade",
+      "path": ".agents/skills/write-biweekly-announcement/SKILL.md",
+      "github_url": "https://github.com/razorpay/blade/tree/main/.agents/skills/write-biweekly-announcement/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/razorpay/blade",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:47:27Z"
+}
