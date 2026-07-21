@@ -1,0 +1,22 @@
+{
+  "name": "lmcache--lmcache",
+  "displayName": "LMCache",
+  "description": "LMCache",
+  "version": "1.0.0",
+  "author": "LMCache",
+  "homepage": "https://github.com/LMCache/LMCache",
+  "skills": [
+    {
+      "name": "LMCache",
+      "description": ""
+    },
+    {
+      "name": "LMCache",
+      "description": ""
+    },
+    {
+      "name": "LMCache",
+      "description": ""
+    }
+  ]
+}
