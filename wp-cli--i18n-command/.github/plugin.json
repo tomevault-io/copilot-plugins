@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--i18n-command",
+  "displayName": "i18n-command",
+  "description": "i18n-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/i18n-command",
+  "skills": []
+}
