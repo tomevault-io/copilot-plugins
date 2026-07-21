@@ -1,0 +1,135 @@
+{
+  "name": "extract-emails",
+  "owner": "dmitriiweb",
+  "repo": "extract-emails",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-md-assistant",
+      "path": ".codex/skills/agents-md-assistant",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/agents-md-assistant",
+      "description": ""
+    },
+    {
+      "name": "code-review-assistant",
+      "path": ".codex/skills/code-review-assistant",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/code-review-assistant",
+      "description": ""
+    },
+    {
+      "name": "git-commit-assistant",
+      "path": ".codex/skills/git-commit-assistant",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/git-commit-assistant",
+      "description": ""
+    },
+    {
+      "name": "google-docstring-assistant",
+      "path": ".codex/skills/google-docstring-assistant",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/google-docstring-assistant",
+      "description": ""
+    },
+    {
+      "name": "pytest-testing-assistant",
+      "path": ".codex/skills/pytest-testing-assistant",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/pytest-testing-assistant",
+      "description": ""
+    },
+    {
+      "name": "uv-package-management-assistant",
+      "path": ".codex/skills/uv-package-management-assistant",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/uv-package-management-assistant",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/agents-md-assistant/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/agents-md-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/git-commit-assistant/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/git-commit-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/code-review-assistant/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/code-review-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/format-lint-assistant/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/format-lint-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/debug-logging-assistant/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/debug-logging-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/pytest-testing-assistant/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/pytest-testing-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/google-docstring-assistant/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/google-docstring-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "extract-emails",
+      "path": ".codex/skills/uv-package-management-assistant/SKILL.md",
+      "github_url": "https://github.com/dmitriiweb/extract-emails/tree/main/.codex/skills/uv-package-management-assistant/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dmitriiweb/extract-emails",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:34:30Z"
+}
