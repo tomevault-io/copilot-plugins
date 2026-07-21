@@ -1,0 +1,34 @@
+{
+  "name": "saleor--saleor",
+  "displayName": "saleor",
+  "description": "saleor",
+  "version": "1.0.0",
+  "author": "saleor",
+  "homepage": "https://github.com/saleor/saleor",
+  "skills": [
+    {
+      "name": "pytest-runner",
+      "description": ""
+    },
+    {
+      "name": "saleor-commit",
+      "description": ""
+    },
+    {
+      "name": "saleor",
+      "description": ""
+    },
+    {
+      "name": "saleor",
+      "description": ""
+    },
+    {
+      "name": "saleor",
+      "description": ""
+    },
+    {
+      "name": "saleor",
+      "description": ""
+    }
+  ]
+}
