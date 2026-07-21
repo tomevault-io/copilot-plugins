@@ -1,0 +1,243 @@
+{
+  "name": "neo",
+  "owner": "neomjs",
+  "repo": "neo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "turn-memory-pre-flight",
+      "path": ".agents/skills/turn-memory-pre-flight",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/turn-memory-pre-flight",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/unit-test/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/peer-role/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/peer-role/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/lead-role/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/lead-role/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/lane-intent/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/lane-intent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/neural-link/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/neural-link/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/self-repair/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/self-repair/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/epic-create/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/epic-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/epic-review/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/epic-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/peer-naming/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/peer-naming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/whitebox-e2e/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/whitebox-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/pull-request/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/create-skill/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/ticket-intake/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/ticket-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/ticket-triage/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/ticket-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/memory-mining/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/memory-mining/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/ticket-create/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/ticket-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/session-sunset/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/session-sunset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/tech-debt-radar/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/tech-debt-radar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/epic-resolution/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/epic-resolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/context-recovery/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/context-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/ideation-sandbox/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/ideation-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/identity-firewall/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/identity-firewall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/blocked-task-state/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/blocked-task-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/post-review-pickup/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/post-review-pickup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/neo-identity-update/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/neo-identity-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/debugging-antigravity/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/debugging-antigravity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/structural-pre-flight/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/structural-pre-flight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/turn-memory-pre-flight/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/turn-memory-pre-flight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/architecture-pre-flight/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/architecture-pre-flight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/industry-friction-radar/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/industry-friction-radar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neo",
+      "path": ".agents/skills/hostile-content-quarantine/SKILL.md",
+      "github_url": "https://github.com/neomjs/neo/tree/main/.agents/skills/hostile-content-quarantine/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/neomjs/neo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:22:53Z"
+}
