@@ -1,0 +1,22 @@
+{
+  "name": "appwrite--appwrite",
+  "displayName": "appwrite",
+  "description": "appwrite",
+  "version": "1.0.0",
+  "author": "appwrite",
+  "homepage": "https://github.com/appwrite/appwrite",
+  "skills": [
+    {
+      "name": "appwrite",
+      "description": ""
+    },
+    {
+      "name": "appwrite",
+      "description": ""
+    },
+    {
+      "name": "appwrite",
+      "description": ""
+    }
+  ]
+}
