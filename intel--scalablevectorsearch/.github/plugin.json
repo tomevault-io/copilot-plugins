@@ -1,0 +1,9 @@
+{
+  "name": "intel--scalablevectorsearch",
+  "displayName": "ScalableVectorSearch",
+  "description": "ScalableVectorSearch",
+  "version": "1.0.0",
+  "author": "intel",
+  "homepage": "https://github.com/intel/ScalableVectorSearch",
+  "skills": []
+}
