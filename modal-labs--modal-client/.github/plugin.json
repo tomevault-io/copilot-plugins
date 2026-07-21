@@ -1,0 +1,14 @@
+{
+  "name": "modal-labs--modal-client",
+  "displayName": "modal-client",
+  "description": "modal-client",
+  "version": "1.0.0",
+  "author": "modal-labs",
+  "homepage": "https://github.com/modal-labs/modal-client",
+  "skills": [
+    {
+      "name": "modal-client",
+      "description": ""
+    }
+  ]
+}
