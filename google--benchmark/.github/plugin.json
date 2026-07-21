@@ -1,0 +1,9 @@
+{
+  "name": "google--benchmark",
+  "displayName": "benchmark",
+  "description": "benchmark",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/benchmark",
+  "skills": []
+}
