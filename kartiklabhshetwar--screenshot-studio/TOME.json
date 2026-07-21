@@ -1,0 +1,165 @@
+{
+  "name": "screenshot-studio",
+  "owner": "KartikLabhshetwar",
+  "repo": "screenshot-studio",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/ai-seo/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/ai-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/ai-seo/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/ai-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/seo-audit/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/seo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/seo-audit/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/seo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/programmatic-seo/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/programmatic-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/programmatic-seo/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/programmatic-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/marketing-psychology/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/marketing-psychology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/marketing-psychology/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/marketing-psychology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/emilkowal-animations/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/emilkowal-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/emilkowal-animations/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/emilkowal-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "screenshot-studio",
+      "path": ".claude/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/KartikLabhshetwar/screenshot-studio/tree/main/.claude/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/KartikLabhshetwar/screenshot-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:47:53Z"
+}
