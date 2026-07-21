@@ -1,0 +1,63 @@
+{
+  "name": "easy-speed-dial",
+  "owner": "lucaseverett",
+  "repo": "easy-speed-dial",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "easy-speed-dial",
+      "path": ".agents/skills/preset-dial/SKILL.md",
+      "github_url": "https://github.com/lucaseverett/easy-speed-dial/tree/main/.agents/skills/preset-dial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "easy-speed-dial",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/lucaseverett/easy-speed-dial/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "easy-speed-dial",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/lucaseverett/easy-speed-dial/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lucaseverett/easy-speed-dial",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:35:16Z"
+}
