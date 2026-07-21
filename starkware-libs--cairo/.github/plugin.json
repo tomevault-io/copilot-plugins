@@ -1,0 +1,22 @@
+{
+  "name": "starkware-libs--cairo",
+  "displayName": "cairo",
+  "description": "cairo",
+  "version": "1.0.0",
+  "author": "starkware-libs",
+  "homepage": "https://github.com/starkware-libs/cairo",
+  "skills": [
+    {
+      "name": "cairo",
+      "description": ""
+    },
+    {
+      "name": "cairo",
+      "description": ""
+    },
+    {
+      "name": "cairo",
+      "description": ""
+    }
+  ]
+}
