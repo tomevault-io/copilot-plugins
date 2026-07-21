@@ -1,0 +1,14 @@
+{
+  "name": "newtype-ai--nit",
+  "displayName": "nit",
+  "description": "nit",
+  "version": "1.0.0",
+  "author": "newtype-ai",
+  "homepage": "https://github.com/newtype-ai/nit",
+  "skills": [
+    {
+      "name": "nit",
+      "description": ""
+    }
+  ]
+}
