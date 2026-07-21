@@ -1,0 +1,93 @@
+{
+  "name": "altinn-studio",
+  "owner": "Altinn",
+  "repo": "altinn-studio",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "altinn-studio",
+      "path": ".claude/skills/rebase-stacked-pr/SKILL.md",
+      "github_url": "https://github.com/Altinn/altinn-studio/tree/main/.claude/skills/rebase-stacked-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altinn-studio",
+      "path": ".claude/skills/tekstforfatter-docs/SKILL.md",
+      "github_url": "https://github.com/Altinn/altinn-studio/tree/main/.claude/skills/tekstforfatter-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altinn-studio",
+      "path": ".claude/skills/text-content-review/SKILL.md",
+      "github_url": "https://github.com/Altinn/altinn-studio/tree/main/.claude/skills/text-content-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altinn-studio",
+      "path": "src/Runtime/workflow-engine/.claude/skills/k6/SKILL.md",
+      "github_url": "https://github.com/Altinn/altinn-studio/tree/main/src/Runtime/workflow-engine/.claude/skills/k6/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altinn-studio",
+      "path": "src/Runtime/workflow-engine/.claude/skills/test/SKILL.md",
+      "github_url": "https://github.com/Altinn/altinn-studio/tree/main/src/Runtime/workflow-engine/.claude/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altinn-studio",
+      "path": "src/Runtime/workflow-engine/.claude/skills/format/SKILL.md",
+      "github_url": "https://github.com/Altinn/altinn-studio/tree/main/src/Runtime/workflow-engine/.claude/skills/format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altinn-studio",
+      "path": "src/Runtime/workflow-engine/.claude/skills/docker/SKILL.md",
+      "github_url": "https://github.com/Altinn/altinn-studio/tree/main/src/Runtime/workflow-engine/.claude/skills/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altinn-studio",
+      "path": "src/Runtime/workflow-engine/.claude/skills/migration/SKILL.md",
+      "github_url": "https://github.com/Altinn/altinn-studio/tree/main/src/Runtime/workflow-engine/.claude/skills/migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Altinn/altinn-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:27:01Z"
+}
