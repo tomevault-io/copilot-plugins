@@ -1,0 +1,9 @@
+{
+  "name": "libsdl-org--sdl-net",
+  "displayName": "SDL_net",
+  "description": "SDL_net",
+  "version": "1.0.0",
+  "author": "libsdl-org",
+  "homepage": "https://github.com/libsdl-org/SDL_net",
+  "skills": []
+}
