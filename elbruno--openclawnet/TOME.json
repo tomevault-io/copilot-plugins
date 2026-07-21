@@ -1,0 +1,75 @@
+{
+  "name": "openclawnet",
+  "owner": "elbruno",
+  "repo": "openclawnet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openclawnet",
+      "path": "src/OpenClawNet.Skills/SystemSkills/memory/SKILL.md",
+      "github_url": "https://github.com/elbruno/openclawnet/tree/main/src/OpenClawNet.Skills/SystemSkills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclawnet",
+      "path": "src/OpenClawNet.Skills/SystemSkills/doc-processor/SKILL.md",
+      "github_url": "https://github.com/elbruno/openclawnet/tree/main/src/OpenClawNet.Skills/SystemSkills/doc-processor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclawnet",
+      "path": "src/OpenClawNet.Skills/SystemSkills/repo-analyzer/SKILL.md",
+      "github_url": "https://github.com/elbruno/openclawnet/tree/main/src/OpenClawNet.Skills/SystemSkills/repo-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclawnet",
+      "path": "src/OpenClawNet.Skills/SystemSkills/dotnet-assistant/SKILL.md",
+      "github_url": "https://github.com/elbruno/openclawnet/tree/main/src/OpenClawNet.Skills/SystemSkills/dotnet-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openclawnet",
+      "path": "tests/OpenClawNet.E2ETests/TestData/Skills/banana-suffix/SKILL.md",
+      "github_url": "https://github.com/elbruno/openclawnet/tree/main/tests/OpenClawNet.E2ETests/TestData/Skills/banana-suffix/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/elbruno/openclawnet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:43:26Z"
+}
