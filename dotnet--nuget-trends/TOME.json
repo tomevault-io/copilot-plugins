@@ -1,0 +1,57 @@
+{
+  "name": "nuget-trends",
+  "owner": "dotnet",
+  "repo": "nuget-trends",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "address-review",
+      "path": ".claude/skills/address-review",
+      "github_url": "https://github.com/dotnet/nuget-trends/tree/main/.claude/skills/address-review",
+      "description": ""
+    },
+    {
+      "name": "nuget-trends",
+      "path": ".claude/skills/address-review/SKILL.md",
+      "github_url": "https://github.com/dotnet/nuget-trends/tree/main/.claude/skills/address-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnet/nuget-trends",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:11:39Z"
+}
