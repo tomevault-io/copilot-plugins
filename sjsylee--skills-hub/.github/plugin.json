@@ -1,0 +1,9 @@
+{
+  "name": "sjsylee--skills-hub",
+  "displayName": "skills-hub",
+  "description": "\ubc14\uc774\ube0c \ucf54\ub529\uc5d0 \uaddc\uc728\uc744 \uc785\ud788\ub294 \uc5d0\uc774\uc804\ud2b8 \uc2a4\ud0ac \ubaa8\uc74c \u00b7 Agent skills that bring discipline to vibe coding. Install: npx skills add sjsylee/skills-hub",
+  "version": "1.0.0",
+  "author": "sjsylee",
+  "homepage": "https://github.com/sjsylee/skills-hub",
+  "skills": []
+}
