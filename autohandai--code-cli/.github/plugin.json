@@ -1,0 +1,14 @@
+{
+  "name": "autohandai--code-cli",
+  "displayName": "code-cli",
+  "description": "code-cli",
+  "version": "1.0.0",
+  "author": "autohandai",
+  "homepage": "https://github.com/autohandai/code-cli",
+  "skills": [
+    {
+      "name": "code-cli",
+      "description": ""
+    }
+  ]
+}
