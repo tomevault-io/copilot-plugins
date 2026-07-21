@@ -1,0 +1,9 @@
+{
+  "name": "strimzi--strimzi-kafka-bridge",
+  "displayName": "strimzi-kafka-bridge",
+  "description": "strimzi-kafka-bridge",
+  "version": "1.0.0",
+  "author": "strimzi",
+  "homepage": "https://github.com/strimzi/strimzi-kafka-bridge",
+  "skills": []
+}
