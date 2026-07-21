@@ -1,0 +1,105 @@
+{
+  "name": "agentic-stack",
+  "owner": "codejunkie99",
+  "repo": "agentic-stack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/brain/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/brain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/tldraw/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/tldraw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/design-md/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/git-proxy/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/git-proxy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/data-layer/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/data-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/skillforge/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/skillforge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/data-flywheel/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/data-flywheel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/memory-manager/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/memory-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/deploy-checklist/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/deploy-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-stack",
+      "path": ".agent/skills/debug-investigator/SKILL.md",
+      "github_url": "https://github.com/codejunkie99/agentic-stack/tree/main/.agent/skills/debug-investigator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/codejunkie99/agentic-stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:44:09Z"
+}
