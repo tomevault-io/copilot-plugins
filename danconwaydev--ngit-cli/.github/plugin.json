@@ -1,0 +1,14 @@
+{
+  "name": "danconwaydev--ngit-cli",
+  "displayName": "ngit-cli",
+  "description": "ngit-cli",
+  "version": "1.0.0",
+  "author": "DanConwayDev",
+  "homepage": "https://github.com/DanConwayDev/ngit-cli",
+  "skills": [
+    {
+      "name": "ngit-cli",
+      "description": ""
+    }
+  ]
+}
