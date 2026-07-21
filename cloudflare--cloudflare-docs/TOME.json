@@ -1,0 +1,99 @@
+{
+  "name": "cloudflare-docs",
+  "owner": "cloudflare",
+  "repo": "cloudflare-docs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".agents/skills/code-review",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/.agents/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-docs",
+      "path": ".agents/skills/pr/SKILL.md",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/.agents/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-docs",
+      "path": ".agents/skills/eli5/SKILL.md",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/.agents/skills/eli5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-docs",
+      "path": ".agents/skills/dependabot-review/SKILL.md",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/.agents/skills/dependabot-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-docs",
+      "path": ".flue/.agents/skills/dependabot-review/SKILL.md",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/.flue/.agents/skills/dependabot-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-docs",
+      "path": "public/sandbox/guides/2026-deprecation/SKILL.md",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/public/sandbox/guides/2026-deprecation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-docs",
+      "path": ".flue/.agents/skills/style-guide-review/SKILL.md",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/.flue/.agents/skills/style-guide-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-docs",
+      "path": ".flue/.agents/skills/reconcile-code-review/SKILL.md",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/.flue/.agents/skills/reconcile-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-docs",
+      "path": ".flue/.agents/skills/spam-and-off-topic-filter/SKILL.md",
+      "github_url": "https://github.com/cloudflare/cloudflare-docs/tree/main/.flue/.agents/skills/spam-and-off-topic-filter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cloudflare/cloudflare-docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:10:49Z"
+}
