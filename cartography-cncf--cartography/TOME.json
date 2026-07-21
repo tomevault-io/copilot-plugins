@@ -1,0 +1,111 @@
+{
+  "name": "cartography",
+  "owner": "cartography-cncf",
+  "repo": "cartography",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cartography",
+      "path": ".agents/skills/create-rule/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/create-rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/cubic-audit/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/cubic-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/analysis-jobs/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/analysis-jobs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/create-module/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/create-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/add-node-type/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/add-node-type/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/refactor-legacy/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/refactor-legacy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/troubleshooting/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/enrich-ontology/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/enrich-ontology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/audit-frameworks/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/audit-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/add-relationship/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/add-relationship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cartography",
+      "path": ".agents/skills/promote-ontology-relationship/SKILL.md",
+      "github_url": "https://github.com/cartography-cncf/cartography/tree/main/.agents/skills/promote-ontology-relationship/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cartography-cncf/cartography",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:52:04Z"
+}
