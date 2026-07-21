@@ -1,0 +1,69 @@
+{
+  "name": "ai-security-crew",
+  "owner": "Srajangpt1",
+  "repo": "ai-security-crew",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "verify-code",
+      "path": "skills/verify-code",
+      "github_url": "https://github.com/Srajangpt1/ai-security-crew/tree/main/skills/verify-code",
+      "description": ""
+    },
+    {
+      "name": "ai-security-crew",
+      "path": "skills/verify-code/SKILL.md",
+      "github_url": "https://github.com/Srajangpt1/ai-security-crew/tree/main/skills/verify-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-security-crew",
+      "path": "skills/threat-model/SKILL.md",
+      "github_url": "https://github.com/Srajangpt1/ai-security-crew/tree/main/skills/threat-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-security-crew",
+      "path": "skills/security-review/SKILL.md",
+      "github_url": "https://github.com/Srajangpt1/ai-security-crew/tree/main/skills/security-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Srajangpt1/ai-security-crew",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:08:23Z"
+}
