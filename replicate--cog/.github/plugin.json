@@ -1,0 +1,38 @@
+{
+  "name": "replicate--cog",
+  "displayName": "cog",
+  "description": "cog",
+  "version": "1.0.0",
+  "author": "replicate",
+  "homepage": "https://github.com/replicate/cog",
+  "skills": [
+    {
+      "name": "python-review",
+      "description": ""
+    },
+    {
+      "name": "cog",
+      "description": ""
+    },
+    {
+      "name": "cog",
+      "description": ""
+    },
+    {
+      "name": "cog",
+      "description": ""
+    },
+    {
+      "name": "cog",
+      "description": ""
+    },
+    {
+      "name": "cog",
+      "description": ""
+    },
+    {
+      "name": "cog",
+      "description": ""
+    }
+  ]
+}
