@@ -1,0 +1,14 @@
+{
+  "name": "wuyutanhongyuxin-cell--sjtu-cli",
+  "displayName": "SJTU_CLI",
+  "description": "SJTU_CLI",
+  "version": "1.0.0",
+  "author": "wuyutanhongyuxin-cell",
+  "homepage": "https://github.com/wuyutanhongyuxin-cell/SJTU_CLI",
+  "skills": [
+    {
+      "name": "SJTU_CLI",
+      "description": ""
+    }
+  ]
+}
