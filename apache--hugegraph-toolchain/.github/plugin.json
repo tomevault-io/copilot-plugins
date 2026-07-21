@@ -1,0 +1,9 @@
+{
+  "name": "apache--hugegraph-toolchain",
+  "displayName": "hugegraph-toolchain",
+  "description": "hugegraph-toolchain",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/hugegraph-toolchain",
+  "skills": []
+}
