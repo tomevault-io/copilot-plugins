@@ -1,0 +1,22 @@
+{
+  "name": "haseeb-heaven--gworkspace-agent",
+  "displayName": "gworkspace-agent",
+  "description": "gworkspace-agent",
+  "version": "1.0.0",
+  "author": "haseeb-heaven",
+  "homepage": "https://github.com/haseeb-heaven/gworkspace-agent",
+  "skills": [
+    {
+      "name": "gworkspace-agent",
+      "description": ""
+    },
+    {
+      "name": "gworkspace-agent",
+      "description": ""
+    },
+    {
+      "name": "gworkspace-agent",
+      "description": ""
+    }
+  ]
+}
