@@ -1,0 +1,14 @@
+{
+  "name": "cloudflare--workers-sdk",
+  "displayName": "workers-sdk",
+  "description": "workers-sdk",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/workers-sdk",
+  "skills": [
+    {
+      "name": "workers-sdk",
+      "description": ""
+    }
+  ]
+}
