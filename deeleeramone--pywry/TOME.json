@@ -1,0 +1,153 @@
+{
+  "name": "PyWry",
+  "owner": "deeleeramone",
+  "repo": "PyWry",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/chat/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/chat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/iframe/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/iframe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/deploy/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/modals/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/modals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/native/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/events/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/events/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/styling/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/jupyter/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/jupyter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/tvchart/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/tvchart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/chat_agent/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/chat_agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/css_selectors/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/css_selectors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/authentication/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/authentication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/forms_and_inputs/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/forms_and_inputs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/data_visualization/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/data_visualization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/component_reference/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/component_reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/autonomous_building/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/autonomous_building/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "pywry/pywry/mcp/skills/interactive_buttons/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/pywry/pywry/mcp/skills/interactive_buttons/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PyWry",
+      "path": "claude/plugins/pywry/skills/pywry-orientation/SKILL.md",
+      "github_url": "https://github.com/deeleeramone/PyWry/tree/main/claude/plugins/pywry/skills/pywry-orientation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deeleeramone/PyWry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T20:39:03Z"
+}
