@@ -1,0 +1,9 @@
+{
+  "name": "bsidio--celly",
+  "displayName": "celly",
+  "description": "A native C#/.NET implementation of Google's Common Expression Language (CEL).",
+  "version": "1.0.0",
+  "author": "bsidio",
+  "homepage": "https://github.com/bsidio/celly",
+  "skills": []
+}
