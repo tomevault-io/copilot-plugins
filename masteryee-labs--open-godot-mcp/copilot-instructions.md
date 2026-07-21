@@ -1,54 +1,55 @@
-## memory-audit
+## slop-detector
 
-> Use every 5 iterations, when scope changes, or before session end. Invokes .windsurf/scripts/memory_audit.py to review candidate memories, prune stale ones, and distills reusable patterns into knowledge_distill.md.
+> Use after generating user-facing prose, docs, commit messages, naming, or code. Detects AI-generated filler, generic abstractions, and meaningless identifiers.
 
 
-# Skill: memory-audit
+# Skill: slop-detector
 
-> Turn raw mistakes into reusable anti-patterns. Do not write `knowledge_distill.md` by hand; call the script.
+> Detect AI Slop before it ships.
 
 ## Trigger
-- 5 iterations have passed.
-- Scope has changed significantly (new files, new goal, new tool).
-- Before writing the final `.agents/handoff_letter.md`.
-- `post_tool_use.py` has written candidate memory entries to the per-session file.
+- After writing user-facing prose, README, PR description, commit message, or inline documentation.
+- After naming a class, function, variable, or module.
+- After creating an abstraction (interface, base class, wrapper).
+- Final report before user-facing output.
 
 ## When to run
-At scope change, at iteration 5, and before the session ends.
+Before declaring a task done or before a user-facing response.
 
 ## How
 
-1. Call `python .windsurf/scripts/memory_audit.py --session <session_id>`.
-2. The script does the following:
-   - Read `.windsurf/session_state/<session_id>/candidate_memory.jsonl`.
-   - For each candidate, check:
-     - Does it have a clear trigger? (e.g., "file path with spaces in exec causes shell parse error")
-     - Does it have a correct action? (e.g., "quote the path with double quotes")
-     - Does it have a counter-example or a previous failure? (e.g., `exec command: rm /path with spaces`)
-   - If all three exist, merge into `.agents/knowledge_distill.md` in the format:
-     ```
-     - [memory] <trigger> -> <correct action> (counter: <...>)
-     ```
-   - If incomplete, either add the missing piece by reading the relevant journal or discard if it is too specific to a one-off event.
-   - If `.agents/knowledge_distill.md` exceeds 8KB, run a distillation pass:
-     - merge duplicates
-     - abstract concrete paths into patterns
-     - archive evicted entries to `.windsurf/loop_state_archive.md`
-   - Clear the processed candidates from `.windsurf/session_state/<session_id>/candidate_memory.jsonl`.
-3. You may also read the audit output from the script and append any high-level judgment to `.agents/handoff_letter.md`.
+1. **Prose check.**
+   Flag and rewrite any of these AI Slop phrases:
+   - `delve into`, `leverage`, `seamless`, `robust`, `in the ever-evolving landscape`, `it's important to note`, `as a responsible AI`, `we will explore`, `this is a complex topic`
+   - Hedging: `might be`, `could be considered`, `arguably`, `to some extent` (unless uncertainty is real)
+2. **Naming check.**
+   Flag generic names with no domain meaning:
+   - `data`, `info`, `manager`, `helper`, `utils`, `processor`, `handler`, `service`, `common`, `base` (unless part of a recognized pattern)
+   - Replace with the domain concept (e.g., `UserProfile` not `UserData`, `InvoiceParser` not `InvoiceProcessor`).
+3. **Abstraction check.**
+   Flag:
+   - Single-call wrapper functions.
+   - Interfaces with only one implementation.
+   - Premature generic abstractions (`AbstractBaseFoo`, `IManager`).
+   - Gold-plating: unrequested features, speculative extension points.
+4. **Commit message check.**
+   - Reject: `update`, `fix`, `improve`, `changes`.
+   - Require: `area: what changed and why`.
+5. **Output a slop report.**
+   For each issue: `[category] original -> rewrite`.
+   If rewrite count > 0, fix before shipping.
 
 ## Output
 ```
-## Memory audit
-- script: python .windsurf/scripts/memory_audit.py --session <session_id>
-- accepted: N
-- discarded: N
-- merged into knowledge_distill.md: N
-- bytes in knowledge_distill.md: <N>/8192
-- note: <any unresolved conflict>
+## Slop report
+| # | category | original | rewrite |
+|---|----------|----------|---------|
+| 1 | prose | ... | ... |
+| 2 | naming | ... | ... |
+| 3 | abstraction | ... | ... |
 ```
 
-Caveman compact. One line per memory.
+Caveman compact. One row per issue.
 
 ---
 > Source: [masteryee-labs/Open-Godot-MCP](https://github.com/masteryee-labs/Open-Godot-MCP) — distributed by [TomeVault](https://tomevault.io).
