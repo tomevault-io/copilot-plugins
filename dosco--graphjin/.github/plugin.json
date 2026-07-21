@@ -1,0 +1,14 @@
+{
+  "name": "dosco--graphjin",
+  "displayName": "graphjin",
+  "description": "graphjin",
+  "version": "1.0.0",
+  "author": "dosco",
+  "homepage": "https://github.com/dosco/graphjin",
+  "skills": [
+    {
+      "name": "graphjin",
+      "description": ""
+    }
+  ]
+}
