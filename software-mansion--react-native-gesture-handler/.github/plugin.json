@@ -1,0 +1,18 @@
+{
+  "name": "software-mansion--react-native-gesture-handler",
+  "displayName": "react-native-gesture-handler",
+  "description": "react-native-gesture-handler",
+  "version": "1.0.0",
+  "author": "software-mansion",
+  "homepage": "https://github.com/software-mansion/react-native-gesture-handler",
+  "skills": [
+    {
+      "name": "gesture-handler-3-migration",
+      "description": ""
+    },
+    {
+      "name": "react-native-gesture-handler",
+      "description": ""
+    }
+  ]
+}
