@@ -1,0 +1,14 @@
+{
+  "name": "gosom--google-maps-scraper",
+  "displayName": "google-maps-scraper",
+  "description": "google-maps-scraper",
+  "version": "1.0.0",
+  "author": "gosom",
+  "homepage": "https://github.com/gosom/google-maps-scraper",
+  "skills": [
+    {
+      "name": "google-maps-scraper",
+      "description": ""
+    }
+  ]
+}
