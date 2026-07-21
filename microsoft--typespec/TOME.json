@@ -1,0 +1,105 @@
+{
+  "name": "typespec",
+  "owner": "microsoft",
+  "repo": "typespec",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "http-client-python-bump-and-release",
+      "path": ".github/skills/http-client-python-bump-and-release",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/.github/skills/http-client-python-bump-and-release",
+      "description": ""
+    },
+    {
+      "name": "python-sdk-spector-mock-api-tests",
+      "path": ".github/skills/python-sdk-spector-mock-api-tests",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/.github/skills/python-sdk-spector-mock-api-tests",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "path": ".github/skills/pnpm-format/SKILL.md",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/.github/skills/pnpm-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "path": ".github/skills/minimal-repro/SKILL.md",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/.github/skills/minimal-repro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "path": ".github/skills/emitter-prep-for-pr/SKILL.md",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/.github/skills/emitter-prep-for-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "path": ".github/skills/csharp-spector-coverage-gaps/SKILL.md",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/.github/skills/csharp-spector-coverage-gaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "path": ".github/skills/python-sdk-spector-mock-api-tests/SKILL.md",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/.github/skills/python-sdk-spector-mock-api-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "path": ".github/skills/http-client-python-bump-and-release/SKILL.md",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/.github/skills/http-client-python-bump-and-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "path": "packages/http-client-python/.github/skills/diff-upstream/SKILL.md",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/packages/http-client-python/.github/skills/diff-upstream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typespec",
+      "path": "packages/http-client-python/.github/skills/test-unbranded-emitter/SKILL.md",
+      "github_url": "https://github.com/microsoft/typespec/tree/main/packages/http-client-python/.github/skills/test-unbranded-emitter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/typespec",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:42:14Z"
+}
