@@ -1,0 +1,297 @@
+{
+  "name": "composio",
+  "owner": "ComposioHQ",
+  "repo": "composio",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "composio",
+      "path": ".claude/skills/cli-test/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/cli-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/create-cli/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/create-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/create-cli/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/create-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/cli-release/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/cli-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/full-cli-test/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/full-cli-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/create-cli-e2e/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/create-cli-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/create-cli-e2e/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/create-cli-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/bug-fixing-guide/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/bug-fixing-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/bug-fixing-guide/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/bug-fixing-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/implement-cli-command/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/implement-cli-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/implement-cli-command/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/implement-cli-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/test-sdk-in-realworld/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/test-sdk-in-realworld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/test-sdk-in-realworld/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/test-sdk-in-realworld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/cli-release-promotion/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/cli-release-promotion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/cli-test-with-bundling/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/cli-test-with-bundling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/cli-test-with-bundling/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/cli-test-with-bundling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/ephemeral-e2e-sdk-tests/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/ephemeral-e2e-sdk-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/ephemeral-e2e-sdk-tests/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/ephemeral-e2e-sdk-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-google/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-google/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-google/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-google/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-mastra/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-mastra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-mastra/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-mastra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-crewai/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-crewai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-crewai/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-crewai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-vercel/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-vercel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-vercel/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-vercel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-openai/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-openai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-openai/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-openai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-autogen/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-autogen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-autogen/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-autogen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-langgraph/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-langgraph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-langgraph/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-langgraph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-langchain/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-langchain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-langchain/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-langchain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-anthropic/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-anthropic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-anthropic/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-anthropic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-cloudflare/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-cloudflare/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".agents/skills/building-agents-using-llamaindex/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.agents/skills/building-agents-using-llamaindex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "composio",
+      "path": ".claude/skills/building-agents-using-llamaindex/SKILL.md",
+      "github_url": "https://github.com/ComposioHQ/composio/tree/main/.claude/skills/building-agents-using-llamaindex/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ComposioHQ/composio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:58:29Z"
+}
