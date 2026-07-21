@@ -1,0 +1,14 @@
+{
+  "name": "ngrok--ngrok-operator",
+  "displayName": "ngrok-operator",
+  "description": "ngrok-operator",
+  "version": "1.0.0",
+  "author": "ngrok",
+  "homepage": "https://github.com/ngrok/ngrok-operator",
+  "skills": [
+    {
+      "name": "ngrok-operator",
+      "description": ""
+    }
+  ]
+}
