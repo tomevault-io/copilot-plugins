@@ -1,0 +1,14 @@
+{
+  "name": "ghostty-org--ghostty",
+  "displayName": "ghostty",
+  "description": "ghostty",
+  "version": "1.0.0",
+  "author": "ghostty-org",
+  "homepage": "https://github.com/ghostty-org/ghostty",
+  "skills": [
+    {
+      "name": "ghostty",
+      "description": ""
+    }
+  ]
+}
