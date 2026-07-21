@@ -1,0 +1,123 @@
+{
+  "name": "pinot",
+  "owner": "apache",
+  "repo": "pinot",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pinot",
+      "path": ".claude/skills/run-test/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/run-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/precommit/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/precommit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/quickstart/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/bench-compare/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/bench-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/flaky-analyze/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/flaky-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/review-testing/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/review-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/review-naming-api/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/review-naming-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/review-performance/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/review-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/review-architecture/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/review-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/review-process-scope/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/review-process-scope/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/review-correctness-nulls/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/review-correctness-nulls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/review-concurrency-state/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/review-concurrency-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pinot",
+      "path": ".claude/skills/review-config-backcompat/SKILL.md",
+      "github_url": "https://github.com/apache/pinot/tree/main/.claude/skills/review-config-backcompat/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/apache/pinot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:12:04Z"
+}
