@@ -1,0 +1,63 @@
+{
+  "name": "goa",
+  "owner": "goadesign",
+  "repo": "goa",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "goa",
+      "path": ".claude/skills/goa-release/SKILL.md",
+      "github_url": "https://github.com/goadesign/goa/tree/main/.claude/skills/goa-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "goa",
+      "path": ".cursor/skills/goa-release/SKILL.md",
+      "github_url": "https://github.com/goadesign/goa/tree/main/.cursor/skills/goa-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "goa",
+      "path": "skills/goa-service-designer/SKILL.md",
+      "github_url": "https://github.com/goadesign/goa/tree/main/skills/goa-service-designer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/goadesign/goa",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:43:27Z"
+}
