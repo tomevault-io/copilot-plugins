@@ -1,0 +1,561 @@
+{
+  "name": "AssistAgents",
+  "owner": "OzeroHAX",
+  "repo": "AssistAgents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/guide/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/aqa/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/aqa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/a11y/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/a11y/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/load/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/load/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/dev-plan/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/dev-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/base/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/base/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/changelog/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/mobile/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/mobile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/diagram-gen/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/diagram-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/prd/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/security/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/contract/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/e2e-flow/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/e2e-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/task/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/epic/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/epic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/arch/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/arch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/shared/base-rules/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/shared/base-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/fast/init/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/fast/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/checklist/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/test-case/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/test-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/shared/docs-paths/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/shared/docs-paths/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/brief/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/doc/quality/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/doc/quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/api-manual/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/api-manual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/status/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/estimation/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/estimation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/doc/strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/doc/strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/fast/status/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/fast/status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/code/maintain/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/code/maintain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/code/security/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/code/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/code/strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/code/strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/frontend/ui-ux/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/frontend/ui-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/use-case/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/use-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/code/checklist/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/code/checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/epic/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/epic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/arch/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/arch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/frontend/design/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/frontend/design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/personals/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/personals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/brief/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/arch/full-check/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/arch/full-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/browser-manual/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/browser-manual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/rules/clean-code/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/rules/clean-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/code/idiom-check/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/code/idiom-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/arch/consistency/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/arch/consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/code/performance/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/code/performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/status/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/fast/stack-pick/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/fast/stack-pick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/fast/pulse-scan/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/fast/pulse-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/fast/task-blast/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/fast/task-blast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/fast/proto-spec/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/fast/proto-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/impact-analysis/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/impact-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/risk-assessment/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/risk-assessment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/review/code/requirements/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/review/code/requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/task-classifier/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/task-classifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/rules/requirements/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/rules/requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/report/bug-reporting/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/report/bug-reporting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/change-inventory/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/change-inventory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/scope-definition/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/scope-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/testing-strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/testing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/rollout-strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/rollout-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/personas/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/personas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/usecases/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/usecases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/research/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/testing/visual-regression/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/testing/visual-regression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/report/test-reporting/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/report/test-reporting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/monitoring-checks/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/monitoring-checks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/approach-selection/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/approach-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/scope-minimization/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/scope-minimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/migration-strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/migration-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/rollback-mechanism/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/rollback-mechanism/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/system-design/security/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/system-design/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/docs/project/research-summary/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/docs/project/research-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/system-design/db-schema/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/system-design/db-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/decomposition/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/rules/debug-requirements/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/rules/debug-requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/system-design/api-design/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/system-design/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/task-use/research/web-strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/task-use/research/web-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/task-use/research/code-strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/task-use/research/code-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/discovery/mode-selector/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/discovery/mode-selector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/planning/requirements-extraction/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/planning/requirements-extraction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/system-design/external-api/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/system-design/external-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/project/standart/proj-description/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/project/standart/proj-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/system-design/perf-patterns/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/system-design/perf-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/coder/system-design/testable-code/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/coder/system-design/testable-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/task-use/research/context-strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/task-use/research/context-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AssistAgents",
+      "path": "templates/skills/task-use/creator/decomposition-strategy/SKILL.md",
+      "github_url": "https://github.com/OzeroHAX/AssistAgents/tree/main/templates/skills/task-use/creator/decomposition-strategy/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OzeroHAX/AssistAgents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T18:40:53Z"
+}
