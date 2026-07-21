@@ -4,7 +4,7 @@
   "repo": "go-crypto-wallet",
   "description": "",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -133,9 +133,165 @@
       "path": ".claude/skills/wallet-cli",
       "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/wallet-cli",
       "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/devops/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/devops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/mockery/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/mockery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/docs-ssot/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/docs-ssot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/wallet-cli/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/wallet-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/docs-update/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/docs-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/db-migration/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/db-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/fix-pr-review/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/fix-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/knowledge-gap/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/knowledge-gap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/shell-scripts/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/shell-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/go-development/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/go-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/bch-development/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/bch-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/makefile-update/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/makefile-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/btc-terminology/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/btc-terminology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/solidity-development/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/solidity-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/label-context-mapping/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/label-context-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/github-issue-creation/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/github-issue-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/typescript-development/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/typescript-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-crypto-wallet",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/hiromaily/go-crypto-wallet/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/hiromaily/go-crypto-wallet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T14:33:40Z"
+  "distributed_at": "2026-07-21T01:48:15Z"
 }
