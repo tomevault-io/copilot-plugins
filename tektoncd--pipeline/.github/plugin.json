@@ -1,0 +1,14 @@
+{
+  "name": "tektoncd--pipeline",
+  "displayName": "pipeline",
+  "description": "pipeline",
+  "version": "1.0.0",
+  "author": "tektoncd",
+  "homepage": "https://github.com/tektoncd/pipeline",
+  "skills": [
+    {
+      "name": "pipeline",
+      "description": ""
+    }
+  ]
+}
