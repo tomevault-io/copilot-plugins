@@ -1,0 +1,249 @@
+{
+  "name": "archive",
+  "owner": "dp-archive",
+  "repo": "archive",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "archive",
+      "path": "seed_skills/pdf/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/doc/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/sora/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/sora/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/rdkit/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/rdkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/speech/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/speech/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/imagegen/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/trace-qa/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/trace-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/humanizer/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/biopython/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/biopython/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/spreadsheet/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/spreadsheet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/humanizer-zh/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/humanizer-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/pdb-database/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/pdb-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/skill-finder/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/skill-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/skill-updater/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/skill-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/skill-evolver/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/skill-evolver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/canvas-design/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/canvas-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/brand-identity/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/brand-identity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/skills-planner/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/skills-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/pubmed-database/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/pubmed-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/audio-extractor/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/audio-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/gemini-imagegen/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/gemini-imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/code-to-diagram/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/code-to-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/media-downloader/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/media-downloader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/slack-gif-creator/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/slack-gif-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/invoice-organizer/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/invoice-organizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/ai-writing-detection/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/ai-writing-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/storyboard-to-slides/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/storyboard-to-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/markdown-to-storyboard/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/markdown-to-storyboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/remotion-best-practices/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/remotion-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "archive",
+      "path": "seed_skills/twitter-algorithm-optimizer/SKILL.md",
+      "github_url": "https://github.com/dp-archive/archive/tree/main/seed_skills/twitter-algorithm-optimizer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dp-archive/archive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:44:04Z"
+}
