@@ -1,0 +1,14 @@
+{
+  "name": "algolia--api-clients-automation",
+  "displayName": "api-clients-automation",
+  "description": "api-clients-automation",
+  "version": "1.0.0",
+  "author": "algolia",
+  "homepage": "https://github.com/algolia/api-clients-automation",
+  "skills": [
+    {
+      "name": "api-clients-automation",
+      "description": ""
+    }
+  ]
+}
