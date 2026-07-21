@@ -1,0 +1,36 @@
+## sb-mig
+
+> This repository uses **conventional commits** for all commits. When committing, follow the format:
+
+# AI Agent Instructions
+
+This repository uses **conventional commits** for all commits. When committing, follow the format:
+
+```
+<type>(<scope>): <short description>
+
+<body>
+```
+
+Use the following commit types when appropriate:
+
+- `feat` – new features
+- `fix` – bug fixes
+- `chore` – maintenance work
+- `refactor` – code refactoring
+- `docs` – documentation changes
+- `test` – adding or modifying tests
+
+Other commit types from the [Conventional Commits](https://www.conventionalcommits.org/) specification are also allowed.
+
+Every pull request should contain commits that adhere to this style. The repository is configured with commitlint and commitizen to help enforce these rules.
+
+## LLM-ready docs maintenance
+
+The canonical public docs live in the `sb-mig-landing` repository and are exposed at `https://sb-mig.vercel.app`, including `/llms.txt` and `/llms-full.txt`.
+
+When changing this package README or package metadata, keep links to the canonical docs site and LLM entrypoints accurate. Normal package code changes do not require touching the LLM routes. If docs URLs, the canonical domain, or the public docs strategy changes, update this repo's README/package metadata and the matching `sb-mig-landing` docs configuration in the same workstream.
+
+---
+> Source: [sb-mig/sb-mig](https://github.com/sb-mig/sb-mig) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
