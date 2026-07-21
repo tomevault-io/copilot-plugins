@@ -1,0 +1,63 @@
+{
+  "name": "excessibility",
+  "owner": "lessthanseventy",
+  "repo": "excessibility",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "e11y-fix",
+      "path": "priv/claude-plugin/skills/e11y-fix",
+      "github_url": "https://github.com/lessthanseventy/excessibility/tree/main/priv/claude-plugin/skills/e11y-fix",
+      "description": ""
+    },
+    {
+      "name": "excessibility",
+      "path": "priv/claude-plugin/skills/e11y-tdd/SKILL.md",
+      "github_url": "https://github.com/lessthanseventy/excessibility/tree/main/priv/claude-plugin/skills/e11y-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "excessibility",
+      "path": "priv/claude-plugin/skills/e11y-debug/SKILL.md",
+      "github_url": "https://github.com/lessthanseventy/excessibility/tree/main/priv/claude-plugin/skills/e11y-debug/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lessthanseventy/excessibility",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:07:23Z"
+}
