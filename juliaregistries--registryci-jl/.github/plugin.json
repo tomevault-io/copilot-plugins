@@ -1,0 +1,9 @@
+{
+  "name": "juliaregistries--registryci-jl",
+  "displayName": "RegistryCI.jl",
+  "description": "RegistryCI.jl",
+  "version": "1.0.0",
+  "author": "JuliaRegistries",
+  "homepage": "https://github.com/JuliaRegistries/RegistryCI.jl",
+  "skills": []
+}
