@@ -1,0 +1,14 @@
+{
+  "name": "ktorio--ktor",
+  "displayName": "ktor",
+  "description": "ktor",
+  "version": "1.0.0",
+  "author": "ktorio",
+  "homepage": "https://github.com/ktorio/ktor",
+  "skills": [
+    {
+      "name": "ktor",
+      "description": ""
+    }
+  ]
+}
