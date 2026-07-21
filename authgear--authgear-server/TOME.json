@@ -1,0 +1,147 @@
+{
+  "name": "authgear-server",
+  "owner": "authgear",
+  "repo": "authgear-server",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/dep-audit/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/dep-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/add-go-test/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/add-go-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/write-e2e-test/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/write-e2e-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/update-portal-ui/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/update-portal-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/add-portal-screen/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/add-portal-screen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/new-siteadmin-api/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/new-siteadmin-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/update-go-version/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/update-go-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/bootstrap-local-dev/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/bootstrap-local-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/update-email-templates/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/update-email-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/update-vettedpositions/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/update-vettedpositions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/update-important-modules/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/update-important-modules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/portal-admin-api-graphql/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/portal-admin-api-graphql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/write-implementation-plan/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/write-implementation-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/add-portal-admin-api-query/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/add-portal-admin-api-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/generate-schemas-and-gentype/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/generate-schemas-and-gentype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "authgear-server",
+      "path": ".claude/skills/add-portal-admin-api-mutation/SKILL.md",
+      "github_url": "https://github.com/authgear/authgear-server/tree/main/.claude/skills/add-portal-admin-api-mutation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/authgear/authgear-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:42:57Z"
+}
