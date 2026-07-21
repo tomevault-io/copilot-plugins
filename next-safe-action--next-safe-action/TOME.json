@@ -1,0 +1,99 @@
+{
+  "name": "next-safe-action",
+  "owner": "next-safe-action",
+  "repo": "next-safe-action",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/pnpm/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/pnpm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/tsdown/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/tsdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/vitest/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/vitest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/next-upgrade/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/next-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-safe-action",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/next-safe-action/next-safe-action/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/next-safe-action/next-safe-action",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:22:38Z"
+}
