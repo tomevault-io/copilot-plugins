@@ -1,0 +1,42 @@
+{
+  "name": "cole-robertson--inertia-rails-skills",
+  "displayName": "inertia-rails-skills",
+  "description": "inertia-rails-skills",
+  "version": "1.0.0",
+  "author": "cole-robertson",
+  "homepage": "https://github.com/cole-robertson/inertia-rails-skills",
+  "skills": [
+    {
+      "name": "inertia-rails-auth",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-best-practices",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-cookbook",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-forms",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-performance",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-setup",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-ssr",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-testing",
+      "description": ""
+    }
+  ]
+}
