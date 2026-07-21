@@ -1,0 +1,63 @@
+{
+  "name": "RedditHarbor",
+  "owner": "socius-org",
+  "repo": "RedditHarbor",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "RedditHarbor",
+      "path": "app/.agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/socius-org/RedditHarbor/tree/main/app/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RedditHarbor",
+      "path": "app/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/socius-org/RedditHarbor/tree/main/app/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RedditHarbor",
+      "path": "app/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/socius-org/RedditHarbor/tree/main/app/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/socius-org/RedditHarbor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T18:39:00Z"
+}
