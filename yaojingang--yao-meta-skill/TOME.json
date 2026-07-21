@@ -1,0 +1,111 @@
+{
+  "name": "yao-meta-skill",
+  "owner": "yaojingang",
+  "repo": "yao-meta-skill",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "yao-meta-skill",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "examples/evolution-frontend-review/v0/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/examples/evolution-frontend-review/v0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "examples/evolution-frontend-review/v1/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/examples/evolution-frontend-review/v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "examples/evolution-frontend-review/final/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/examples/evolution-frontend-review/final/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "examples/simple-note-cleanup/generated-skill/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/examples/simple-note-cleanup/generated-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "examples/team-frontend-review/generated-skill/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/examples/team-frontend-review/generated-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "examples/governed-incident-command/generated-skill/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/examples/governed-incident-command/generated-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "examples/complex-release-orchestrator/generated-skill/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/examples/complex-release-orchestrator/generated-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "tests/fixtures/package_invalid_yaml/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/tests/fixtures/package_invalid_yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "tests/fixtures/governance_invalid_manifest/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/tests/fixtures/governance_invalid_manifest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yao-meta-skill",
+      "path": "tests/fixtures/package_missing_interface_field/SKILL.md",
+      "github_url": "https://github.com/yaojingang/yao-meta-skill/tree/main/tests/fixtures/package_missing_interface_field/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yaojingang/yao-meta-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:13:58Z"
+}
