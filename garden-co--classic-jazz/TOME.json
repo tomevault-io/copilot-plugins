@@ -1,0 +1,123 @@
+{
+  "name": "classic-jazz",
+  "owner": "garden-co",
+  "repo": "classic-jazz",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "classic-jazz",
+      "path": ".cursor/skills/spec/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/.cursor/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": ".cursor/skills/changeset/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/.cursor/skills/changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": ".cursor/skills/jazz-testing/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/.cursor/skills/jazz-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": ".cursor/skills/benchmarking/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/.cursor/skills/benchmarking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": ".cursor/skills/jazz-performance/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/.cursor/skills/jazz-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": ".cursor/skills/jazz-schema-design/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/.cursor/skills/jazz-schema-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": ".cursor/skills/jazz-ui-development/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/.cursor/skills/jazz-ui-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": ".cursor/skills/jazz-permissions-security/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/.cursor/skills/jazz-permissions-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": "packages/cursor-docs/.skills/jazz-testing/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/packages/cursor-docs/.skills/jazz-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": "packages/cursor-docs/.skills/jazz-performance/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/packages/cursor-docs/.skills/jazz-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": "packages/cursor-docs/.skills/jazz-schema-design/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/packages/cursor-docs/.skills/jazz-schema-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": "packages/cursor-docs/.skills/jazz-ui-development/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/packages/cursor-docs/.skills/jazz-ui-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "classic-jazz",
+      "path": "packages/cursor-docs/.skills/jazz-permissions-security/SKILL.md",
+      "github_url": "https://github.com/garden-co/classic-jazz/tree/main/packages/cursor-docs/.skills/jazz-permissions-security/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/garden-co/classic-jazz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:00:01Z"
+}
