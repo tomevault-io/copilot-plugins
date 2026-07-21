@@ -1,0 +1,26 @@
+{
+  "name": "langchain-ai--langgraph-101",
+  "displayName": "langgraph-101",
+  "description": "langgraph-101",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/langgraph-101",
+  "skills": [
+    {
+      "name": "linkedin-post",
+      "description": ""
+    },
+    {
+      "name": "twitter-post",
+      "description": ""
+    },
+    {
+      "name": "langgraph-101",
+      "description": ""
+    },
+    {
+      "name": "langgraph-101",
+      "description": ""
+    }
+  ]
+}
