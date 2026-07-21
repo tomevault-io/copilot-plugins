@@ -1,0 +1,9 @@
+{
+  "name": "sbnlight--multiagent-kit",
+  "displayName": "multiagent-kit",
+  "description": "Portable multi-agent collaboration framework for Claude Code: a /team command orchestrates planner/explorer/developer/tester/reviewer subagents, backed by an on-disk ledger for resumable, compaction-p",
+  "version": "1.0.0",
+  "author": "sbnlight",
+  "homepage": "https://github.com/sbnlight/multiagent-kit",
+  "skills": []
+}
