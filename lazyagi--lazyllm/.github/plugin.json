@@ -1,0 +1,14 @@
+{
+  "name": "lazyagi--lazyllm",
+  "displayName": "LazyLLM",
+  "description": "LazyLLM",
+  "version": "1.0.0",
+  "author": "LazyAGI",
+  "homepage": "https://github.com/LazyAGI/LazyLLM",
+  "skills": [
+    {
+      "name": "LazyLLM",
+      "description": ""
+    }
+  ]
+}
