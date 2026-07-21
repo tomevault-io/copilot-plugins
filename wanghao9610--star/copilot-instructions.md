@@ -1,102 +1,44 @@
-## agent-instructions
+## skill-roots
 
-> Agent behavior guidelines
+> Skill root ownership and which copy Cursor Agent must follow
 
 
-Behavioral guidelines to reduce common LLM coding mistakes.
+Guidelines for loading skills from tool-specific roots without mixing incompatible instructions.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+**Tradeoff:** These guidelines favor predictable tool behavior over treating every discovered skill as interchangeable.
 
-## 1. Think Before Coding
+## 1. Respect Root Ownership
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+**Use one authoritative copy per tool. Keep tool-specific instructions separate.**
 
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+Cursor does not prioritize or de-duplicate skills. It discovers every `SKILL.md` under its scan roots and may list the same `name` more than once. This repo therefore assigns one owner per root:
 
-## 2. Simplicity First
+| Root | Owner tool | Adaptation |
+|------|------------|------------|
+| `.cursor/skills/` | **Cursor** | `SwitchMode` plan gate, `Task` subagents, plain-text Q&A |
+| `.agents/skills/` | **Codex** | `$skill` invoke, Codex progress-plan / selective delegation |
+| `.claude/skills/` | **Claude** | `/skill` invoke, AskUserQuestion, Enter/ExitPlanMode |
 
-**Minimum code that solves the problem. Nothing speculative.**
+Do not treat these three trees as interchangeable. Keep tool-specific wording in the matching root only.
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+## 2. Follow the Cursor-Owned Copy
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+**When duplicate skills exist, Cursor Agent must use the copy under `.cursor/skills/`.**
 
-## 3. Surgical Changes
+- For `star-plan-*`, and any other skill that exists in multiple roots, read and follow `.cursor/skills/<name>/`.
+- Ignore sibling copies under `.agents/skills/` and `.claude/skills/` unless the user explicitly asks to use Codex or Claude wording.
+- When linking hand-offs, keep `/star-plan-*` names, but still load instructions from `.cursor/skills/`.
 
-**Touch only what you must. Clean up only your own mess.**
+## 3. Reduce Duplicate Discovery in the Cursor UI
 
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
+**Hide compatible third-party copies where possible. Prefer this rule when duplicates remain.**
 
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" -> "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" -> "Write a test that reproduces it, then make it pass"
-- "Refactor X" -> "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-```
-1. [Step] -> verify: [check]
-2. [Step] -> verify: [check]
-3. [Step] -> verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
-
-## 5. Project Layout
-
-**Keep project files in their designated directories.**
-
-- Core code belongs in `${CODE_NAME}/`, as defined in `.env`.
-- Data and data-related files belong in `datas/`.
-- Model weights and weight-related files belong in `inits/`.
-- Generated output files belong in `wkdrs/`.
-- Put methodology notes in `metds/` and research plans in `metds/plans/`.
-- Output names must distinguish tasks, experiments, or runs.
-
-## 6. Project Runtime
-
-**Use the project environment. Do not guess local paths.**
-
-Before running Python, tests, or dependency checks:
-- Read the project root `.env` and use its `CONDA_HOME` and `PYTHON_HOME`.
-- If `.env` is missing, create it from `.env.example` and fill in machine-specific values first.
-- Run through that Conda environment, not system Python.
-- Do not hardcode local paths.
-
-## 7. Verification
-
-**Prove the change works before calling it done.**
-
-Before finishing:
-- Run the narrowest relevant checks first.
-- Broaden checks when changes touch shared behavior, public interfaces, or risky paths.
-- If a check cannot be run, say why and name the remaining risk.
-- Report what was verified, not just that it "works."
+- Turn **off** Settings → Rules, Skills and Subagents → **Include third-party Plugins, Skills, and other configs** so `.claude/skills/` (compatibility) is not ingested.
+- `.agents/skills/` is a **native** Cursor root, not third-party, so that toggle does not hide it. Prefer `.cursor/skills/` via this rule when both appear.
 
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to over complication, and clarifying questions come before implementation rather than after mistakes.
+**These guidelines are working if:** Cursor Agent consistently loads the Cursor-owned skill, preserves tool-specific wording, and avoids ambiguous duplicate entries where the UI allows it.
 
 ---
 > Source: [wanghao9610/STAR](https://github.com/wanghao9610/STAR) — distributed by [TomeVault](https://tomevault.io).
