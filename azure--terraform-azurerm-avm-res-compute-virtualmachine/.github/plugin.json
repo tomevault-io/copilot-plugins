@@ -1,0 +1,14 @@
+{
+  "name": "azure--terraform-azurerm-avm-res-compute-virtualmachine",
+  "displayName": "terraform-azurerm-avm-res-compute-virtualmachine",
+  "description": "terraform-azurerm-avm-res-compute-virtualmachine",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-res-compute-virtualmachine",
+  "skills": [
+    {
+      "name": "terraform-azurerm-avm-res-compute-virtualmachine",
+      "description": ""
+    }
+  ]
+}
