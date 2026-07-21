@@ -1,0 +1,129 @@
+{
+  "name": "EvoAny",
+  "owner": "DataLab-atom",
+  "repo": "EvoAny",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/hunt/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/hunt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/boost/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/boost/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/evolve/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/evolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/freeze/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/freeze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/status/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/report/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/ask-lit/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/ask-lit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/search-lit/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/search-lit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/write-intro/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/write-intro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/write-method/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/write-method/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/write-related/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/write-related/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/research-loop/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/research-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/paper-assemble/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/paper-assemble/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EvoAny",
+      "path": "plugin/skills/write-experiment/SKILL.md",
+      "github_url": "https://github.com/DataLab-atom/EvoAny/tree/main/plugin/skills/write-experiment/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DataLab-atom/EvoAny",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T14:41:31Z"
+}
