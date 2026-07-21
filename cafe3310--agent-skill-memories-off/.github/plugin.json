@@ -1,0 +1,14 @@
+{
+  "name": "cafe3310--agent-skill-memories-off",
+  "displayName": "agent-skill-memories-off",
+  "description": "agent-skill-memories-off",
+  "version": "1.0.0",
+  "author": "cafe3310",
+  "homepage": "https://github.com/cafe3310/agent-skill-memories-off",
+  "skills": [
+    {
+      "name": "agent-skill-memories-off",
+      "description": ""
+    }
+  ]
+}
