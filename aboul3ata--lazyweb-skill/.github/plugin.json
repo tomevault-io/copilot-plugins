@@ -1,0 +1,22 @@
+{
+  "name": "aboul3ata--lazyweb-skill",
+  "displayName": "lazyweb-skill",
+  "description": "lazyweb-skill",
+  "version": "1.0.0",
+  "author": "aboul3ata",
+  "homepage": "https://github.com/aboul3ata/lazyweb-skill",
+  "skills": [
+    {
+      "name": "lazyweb-skill",
+      "description": ""
+    },
+    {
+      "name": "lazyweb-skill",
+      "description": ""
+    },
+    {
+      "name": "lazyweb-skill",
+      "description": ""
+    }
+  ]
+}
