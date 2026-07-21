@@ -1,0 +1,29 @@
+# jxa-lib
+
+> Source: [Tatsh/jxa-lib](https://github.com/Tatsh/jxa-lib). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [Tatsh/jxa-lib](https://github.com/Tatsh/jxa-lib).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [jxa-lib](https://github.com/Tatsh/jxa-lib/tree/main/.claude/skills/ci/SKILL.md)
+- [jxa-lib](https://github.com/Tatsh/jxa-lib/tree/main/.claude/skills/regen/SKILL.md)
+
+From [Tatsh/jxa-lib](https://github.com/Tatsh/jxa-lib) — a repo with 40+ stars on GitHub.
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-s -->
