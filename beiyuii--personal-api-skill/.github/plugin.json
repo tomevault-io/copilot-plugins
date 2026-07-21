@@ -1,0 +1,14 @@
+{
+  "name": "beiyuii--personal-api-skill",
+  "displayName": "personal-api-skill",
+  "description": "personal-api-skill",
+  "version": "1.0.0",
+  "author": "beiyuii",
+  "homepage": "https://github.com/beiyuii/personal-api-skill",
+  "skills": [
+    {
+      "name": "personal-api-skill",
+      "description": ""
+    }
+  ]
+}
