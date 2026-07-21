@@ -1,0 +1,81 @@
+{
+  "name": "nunit",
+  "owner": "nunit",
+  "repo": "nunit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nunit",
+      "path": ".claude/skills/nunit-testing/SKILL.md",
+      "github_url": "https://github.com/nunit/nunit/tree/main/.claude/skills/nunit-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nunit",
+      "path": ".claude/skills/nunit-code-style/SKILL.md",
+      "github_url": "https://github.com/nunit/nunit/tree/main/.claude/skills/nunit-code-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nunit",
+      "path": ".claude/skills/nunit-api-design/SKILL.md",
+      "github_url": "https://github.com/nunit/nunit/tree/main/.claude/skills/nunit-api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nunit",
+      "path": ".claude/skills/nunit-build-infra/SKILL.md",
+      "github_url": "https://github.com/nunit/nunit/tree/main/.claude/skills/nunit-build-infra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nunit",
+      "path": ".claude/skills/nunit-performance/SKILL.md",
+      "github_url": "https://github.com/nunit/nunit/tree/main/.claude/skills/nunit-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nunit",
+      "path": ".claude/skills/nunit-threading-and-async/SKILL.md",
+      "github_url": "https://github.com/nunit/nunit/tree/main/.claude/skills/nunit-threading-and-async/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nunit/nunit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:18:11Z"
+}
