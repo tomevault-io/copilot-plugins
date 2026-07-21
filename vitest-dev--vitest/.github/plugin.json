@@ -1,0 +1,14 @@
+{
+  "name": "vitest-dev--vitest",
+  "displayName": "vitest",
+  "description": "vitest",
+  "version": "1.0.0",
+  "author": "vitest-dev",
+  "homepage": "https://github.com/vitest-dev/vitest",
+  "skills": [
+    {
+      "name": "vitest",
+      "description": ""
+    }
+  ]
+}
