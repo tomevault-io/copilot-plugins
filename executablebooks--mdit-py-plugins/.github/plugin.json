@@ -1,0 +1,9 @@
+{
+  "name": "executablebooks--mdit-py-plugins",
+  "displayName": "mdit-py-plugins",
+  "description": "mdit-py-plugins",
+  "version": "1.0.0",
+  "author": "executablebooks",
+  "homepage": "https://github.com/executablebooks/mdit-py-plugins",
+  "skills": []
+}
