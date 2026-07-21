@@ -1,0 +1,14 @@
+{
+  "name": "ueberdosis--tiptap",
+  "displayName": "tiptap",
+  "description": "tiptap",
+  "version": "1.0.0",
+  "author": "ueberdosis",
+  "homepage": "https://github.com/ueberdosis/tiptap",
+  "skills": [
+    {
+      "name": "tiptap",
+      "description": ""
+    }
+  ]
+}
