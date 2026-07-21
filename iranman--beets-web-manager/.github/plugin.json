@@ -1,0 +1,9 @@
+{
+  "name": "iranman--beets-web-manager",
+  "displayName": "beets-web-manager",
+  "description": "Self-hosted Beets music library manager with import review, playlist repair, cleanup jobs, and metadata verification.",
+  "version": "1.0.0",
+  "author": "Iranman",
+  "homepage": "https://github.com/Iranman/beets-web-manager",
+  "skills": []
+}
