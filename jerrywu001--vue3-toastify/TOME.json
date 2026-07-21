@@ -1,0 +1,51 @@
+{
+  "name": "vue3-toastify",
+  "owner": "jerrywu001",
+  "repo": "vue3-toastify",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue3-toastify",
+      "path": ".agents/skills/git-push/SKILL.md",
+      "github_url": "https://github.com/jerrywu001/vue3-toastify/tree/main/.agents/skills/git-push/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jerrywu001/vue3-toastify",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:57:26Z"
+}
