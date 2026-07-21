@@ -1,0 +1,9 @@
+{
+  "name": "apache--airflow-client-python",
+  "displayName": "airflow-client-python",
+  "description": "airflow-client-python",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/airflow-client-python",
+  "skills": []
+}
