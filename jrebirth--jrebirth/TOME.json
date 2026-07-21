@@ -1,0 +1,141 @@
+{
+  "name": "JRebirth",
+  "owner": "JRebirth",
+  "repo": "JRebirth",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/view/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/view/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/waves/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/waves/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/model/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/service/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/behavior/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/behavior/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/resources/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/resources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/controller/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/controller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/mvc-feature/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/mvc-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/application/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/application/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/command-multi/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/command-multi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/anti-patterns/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/anti-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/spring-bridge/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/spring-bridge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/jrebirth-core/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/jrebirth-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/command-single/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/command-single/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/javafx-css-ref/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/javafx-css-ref/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JRebirth",
+      "path": ".cursor/skills/refactor-legacy/SKILL.md",
+      "github_url": "https://github.com/JRebirth/JRebirth/tree/main/.cursor/skills/refactor-legacy/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JRebirth/JRebirth",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:54:16Z"
+}
