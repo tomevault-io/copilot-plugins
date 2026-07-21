@@ -1,0 +1,14 @@
+{
+  "name": "microsoft--botframework-webchat",
+  "displayName": "BotFramework-WebChat",
+  "description": "BotFramework-WebChat",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/BotFramework-WebChat",
+  "skills": [
+    {
+      "name": "BotFramework-WebChat",
+      "description": ""
+    }
+  ]
+}
