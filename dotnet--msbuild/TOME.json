@@ -1,0 +1,147 @@
+{
+  "name": "msbuild",
+  "owner": "dotnet",
+  "repo": "msbuild",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "multithreaded-task-migration",
+      "path": ".github/skills/multithreaded-task-migration",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/multithreaded-task-migration",
+      "description": ""
+    },
+    {
+      "name": "use-bootstrap-msbuild",
+      "path": ".github/skills/use-bootstrap-msbuild",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/use-bootstrap-msbuild",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/release/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/cswin32-com/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/cswin32-com/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/changewaves/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/changewaves/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/cswin32-interop/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/cswin32-interop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/dotnet-aot-compat/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/dotnet-aot-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/project-management/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/project-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/running-unit-tests/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/running-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/deploy-msbuild-to-vs/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/deploy-msbuild-to-vs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/use-bootstrap-msbuild/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/use-bootstrap-msbuild/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/reviewing-msbuild-code/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/reviewing-msbuild-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/merge-dependency-updates/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/merge-dependency-updates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/assessing-breaking-changes/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/assessing-breaking-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/authoring-errors-and-warnings/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/authoring-errors-and-warnings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/optimizing-msbuild-performance/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/optimizing-msbuild-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "msbuild",
+      "path": ".github/skills/maintaining-binary-log-compatibility/SKILL.md",
+      "github_url": "https://github.com/dotnet/msbuild/tree/main/.github/skills/maintaining-binary-log-compatibility/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnet/msbuild",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:35:26Z"
+}
