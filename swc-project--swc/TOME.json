@@ -1,0 +1,69 @@
+{
+  "name": "swc",
+  "owner": "swc-project",
+  "repo": "swc",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "swc",
+      "path": ".agents/skills/repair-pr/SKILL.md",
+      "github_url": "https://github.com/swc-project/swc/tree/main/.agents/skills/repair-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swc",
+      "path": ".agents/skills/add-changeset/SKILL.md",
+      "github_url": "https://github.com/swc-project/swc/tree/main/.agents/skills/add-changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swc",
+      "path": ".agents/skills/codspeed-optimize/SKILL.md",
+      "github_url": "https://github.com/swc-project/swc/tree/main/.agents/skills/codspeed-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swc",
+      "path": ".agents/skills/codspeed-setup-harness/SKILL.md",
+      "github_url": "https://github.com/swc-project/swc/tree/main/.agents/skills/codspeed-setup-harness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/swc-project/swc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:17:49Z"
+}
