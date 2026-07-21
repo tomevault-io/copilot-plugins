@@ -1,0 +1,13 @@
+## easy-speed-dial
+
+> - For CSS colors, define a global Material Design 2 custom property in `src/styles/global.css` before using it, using the format `--{material-color-name}-{step}` such as `--grey-50`, `--blue-700`, or `--deep-purple-600`.
+
+- For CSS colors, define a global Material Design 2 custom property in `src/styles/global.css` before using it, using the format `--{material-color-name}-{step}` such as `--grey-50`, `--blue-700`, or `--deep-purple-600`.
+- Use the nearest matching hex value from the Material Design 2 color palette for each new color choice.
+- Do not use raw color literals directly in component styles. Add a new global Material Design 2 color variable for a new palette selection, then reference that variable from semantic component variables or declarations.
+- This project uses the `focus-visible` polyfill. Use the polyfill's `.focus-visible` class for keyboard focus styling instead of native `:focus-visible`, so focus behavior is consistent across controls such as `select`.
+- When adding or replacing preset dials or preset dial SVG thumbnails in `src/assets/thumbnails`, use the `preset-dial` skill. Do not solve preset thumbnail sizing with dial CSS; thumbnail sizing should be normalized in the SVG `viewBox`.
+
+---
+> Source: [lucaseverett/easy-speed-dial](https://github.com/lucaseverett/easy-speed-dial) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
