@@ -1,0 +1,9 @@
+{
+  "name": "get-concord-ai--concord-mcp",
+  "displayName": "concord-mcp",
+  "description": "Shared work-state for coding agents: claim work, leave handoffs, and generate review packets before PRs, over MCP.",
+  "version": "1.0.0",
+  "author": "Get-Concord-AI",
+  "homepage": "https://github.com/Get-Concord-AI/concord-mcp",
+  "skills": []
+}
