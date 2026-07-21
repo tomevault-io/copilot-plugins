@@ -1,0 +1,81 @@
+{
+  "name": "DevoxxGenieIDEAPlugin",
+  "owner": "devoxx",
+  "repo": "DevoxxGenieIDEAPlugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DevoxxGenieIDEAPlugin",
+      "path": ".claude/skills/pr/SKILL.md",
+      "github_url": "https://github.com/devoxx/DevoxxGenieIDEAPlugin/tree/main/.claude/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevoxxGenieIDEAPlugin",
+      "path": ".claude/skills/review/SKILL.md",
+      "github_url": "https://github.com/devoxx/DevoxxGenieIDEAPlugin/tree/main/.claude/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevoxxGenieIDEAPlugin",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/devoxx/DevoxxGenieIDEAPlugin/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevoxxGenieIDEAPlugin",
+      "path": ".claude/skills/start-task/SKILL.md",
+      "github_url": "https://github.com/devoxx/DevoxxGenieIDEAPlugin/tree/main/.claude/skills/start-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevoxxGenieIDEAPlugin",
+      "path": ".claude/skills/git-commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/devoxx/DevoxxGenieIDEAPlugin/tree/main/.claude/skills/git-commit-push-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevoxxGenieIDEAPlugin",
+      "path": ".claude/skills/close-task-commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/devoxx/DevoxxGenieIDEAPlugin/tree/main/.claude/skills/close-task-commit-push-pr/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/devoxx/DevoxxGenieIDEAPlugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:02:21Z"
+}
