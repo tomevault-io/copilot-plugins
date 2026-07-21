@@ -1,0 +1,22 @@
+{
+  "name": "apache--fory",
+  "displayName": "fory",
+  "description": "fory",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/fory",
+  "skills": [
+    {
+      "name": "fory-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "fory",
+      "description": ""
+    },
+    {
+      "name": "fory",
+      "description": ""
+    }
+  ]
+}
