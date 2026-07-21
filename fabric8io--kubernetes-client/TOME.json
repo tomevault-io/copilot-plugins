@@ -1,0 +1,63 @@
+{
+  "name": "kubernetes-client",
+  "owner": "fabric8io",
+  "repo": "kubernetes-client",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kubernetes-client",
+      "path": ".claude/skills/k8s-model-update/SKILL.md",
+      "github_url": "https://github.com/fabric8io/kubernetes-client/tree/main/.claude/skills/k8s-model-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-client",
+      "path": ".claude/skills/gh-issue-release/SKILL.md",
+      "github_url": "https://github.com/fabric8io/kubernetes-client/tree/main/.claude/skills/gh-issue-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-client",
+      "path": ".claude/skills/regen-java-models-from-upstream/SKILL.md",
+      "github_url": "https://github.com/fabric8io/kubernetes-client/tree/main/.claude/skills/regen-java-models-from-upstream/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fabric8io/kubernetes-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:52:56Z"
+}
