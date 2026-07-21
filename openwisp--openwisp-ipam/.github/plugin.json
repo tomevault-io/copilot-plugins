@@ -1,0 +1,9 @@
+{
+  "name": "openwisp--openwisp-ipam",
+  "displayName": "openwisp-ipam",
+  "description": "openwisp-ipam",
+  "version": "1.0.0",
+  "author": "openwisp",
+  "homepage": "https://github.com/openwisp/openwisp-ipam",
+  "skills": []
+}
