@@ -1,81 +1,153 @@
 ## sentry-testkit
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Instructions for AI coding agents (Claude Code, OpenAI Codex, Gemini CLI, and others) working in this repository. This is the **single canonical instructions file** — `CLAUDE.md` only references this one.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Instructions for AI coding agents (Claude Code, OpenAI Codex, Gemini CLI, and others) working in this repository. This is the **single canonical instructions file** — `CLAUDE.md` only references this one.
 
-Also read [CONTRIBUTING.md](CONTRIBUTING.md) for additional contribution guidelines — it may be updated independently and takes precedence for commit conventions, git workflow, and release process details.
+> Also read [CONTRIBUTING.md](CONTRIBUTING.md) for commit conventions, git workflow, and release details — it takes precedence on those topics.
+
+---
 
 ## Project Overview
 
-**sentry-testkit** is a testing utility library that intercepts Sentry error/performance reports during tests, storing them in memory rather than sending them to Sentry's servers. Tests can then assert on what was (or wasn't) reported.
+**sentry-testkit** is a testing utility library. It intercepts Sentry SDK error/performance reports during tests, stores them in memory, and exposes an API for test assertions. Reports never reach Sentry's servers.
+
+This is a **Yarn 4 monorepo**. The main package is `packages/sentry-testkit/`. There is also an Expo/React Native test app under `apps/`.
+
+---
+
+## Setup
+
+```bash
+git clone git@github.com:zivl/sentry-testkit.git
+cd sentry-testkit
+yarn install
+```
+
+**Node version**: use whatever `.nvmrc` / `.node-version` specifies, or the `engines` field in `package.json`.
+
+---
 
 ## Commands
 
-This is a **Yarn 4 monorepo**. Most work happens in `packages/sentry-testkit/`.
+Run from the **repo root** unless noted:
 
 ```bash
-# From repo root
-yarn build         # Build the sentry-testkit package
-yarn test          # Run all tests for sentry-testkit
-yarn test:expo     # Run tests for expo-react-native test app
-yarn lint          # Lint the sentry-testkit package
+yarn build          # Build the sentry-testkit package
+yarn test           # Run all tests for sentry-testkit
+yarn test:expo      # Run tests for the Expo/React Native app
+yarn lint           # Lint the sentry-testkit package
 
-# From packages/sentry-testkit/
-yarn test -- <pattern>                          # Run tests matching file pattern
-yarn test -- --testNamePattern="<test name>"   # Run tests matching name pattern
-yarn test -- local-server.test.ts              # Run a specific test file
+# From packages/sentry-testkit/ — narrower test runs:
+yarn test -- <file-pattern>                        # e.g. node.test.ts
+yarn test -- --testNamePattern="<test name>"       # filter by test name
 ```
+
+Always run `yarn test` before finishing any change that touches `packages/sentry-testkit/`.
+
+---
 
 ## Architecture
 
-The library supports multiple integration modes, each solving how to intercept Sentry's outgoing requests:
+The library provides multiple integration modes:
 
-| Mode | Entry | How it works |
-|------|-------|-------------|
-| Node.js / Browser | `index.ts` / `browser.ts` | Custom Sentry transport (replaces the HTTP sender) |
-| Local Server | `localServerApi.ts` | Express server that mimics Sentry's API, generates a local DSN |
+| Mode | Entry file | Mechanism |
+|------|-----------|-----------|
+| Node.js / Browser | `index.ts` / `browser.ts` | Custom Sentry transport replaces the HTTP sender |
+| Local Server | `localServerApi.ts` | Express server that mimics Sentry's API; returns a local DSN |
 | Puppeteer | `testkit.ts` | Intercepts page network requests via Puppeteer's Page API |
-| Network Interceptor | `initNetworkInterceptor.ts` | Callback-based hook for manual network capture (e.g. nock) |
-| Jest Mock | `jestMock.ts` | Convenience wrapper that auto-injects testkit into `global.testkit` |
+| Network Interceptor | `initNetworkInterceptor.ts` | Callback hook for manual capture (e.g. nock) |
+| Jest Mock | `jestMock.ts` | Convenience wrapper; injects testkit into `global.testkit` |
 
-### Data Flow
+### Data flow
 
-1. Sentry SDK calls transport → `sentryTransport.ts` intercepts it
-2. Raw event/envelope is parsed by `parsers.ts`
-3. Transformed into `Report` or `Transaction` by `transformers.ts`
-4. Stored in-memory arrays inside `testkit.ts`
-5. Tests query via `testkit` API: `reports()`, `transactions()`, `getExceptionAt()`, `findReport()`, `isExist()`, `reset()`
+```
+Sentry SDK call
+  → sentryTransport.ts   (intercept)
+  → parsers.ts           (parse raw envelope / event)
+  → transformers.ts      (convert to Report / Transaction)
+  → testkit.ts           (store in memory arrays)
+  → test assertions      (reports(), transactions(), getExceptionAt(), …)
+```
 
-### Key Files
+### Key source files (`packages/sentry-testkit/src/`)
 
-- [src/index.ts](packages/sentry-testkit/src/index.ts) — Main entry; exports `create()` returning `{ sentryTransport, testkit, initNetworkInterceptor, localServer }`
-- [src/browser.ts](packages/sentry-testkit/src/browser.ts) — Same as index but without Node.js/Express dependencies
-- [src/testkit.ts](packages/sentry-testkit/src/testkit.ts) — Core in-memory store and Puppeteer integration
-- [src/sentryTransport.ts](packages/sentry-testkit/src/sentryTransport.ts) — Sentry transport adapter (supports Sentry v4–v7+ envelope format)
-- [src/transformers.ts](packages/sentry-testkit/src/transformers.ts) — Converts raw Sentry events into typed `Report`/`Transaction` objects
-- [src/localServerApi.ts](packages/sentry-testkit/src/localServerApi.ts) — Express server handling `/api/{project}/store/` and `/api/{project}/envelope/`
-- [src/types.ts](packages/sentry-testkit/src/types.ts) — All public TypeScript interfaces (`Testkit`, `Report`, `Transaction`, `Span`, etc.)
+| File | Purpose |
+|------|---------|
+| `index.ts` | Main entry; exports `create()` → `{ sentryTransport, testkit, initNetworkInterceptor, localServer }` |
+| `browser.ts` | Same as index but without Node.js / Express imports |
+| `testkit.ts` | Core in-memory store + Puppeteer integration |
+| `sentryTransport.ts` | Transport adapter (envelope-based; supports Sentry v9/v10) |
+| `parsers.ts` | Parses raw Sentry envelopes (multi-item, length-prefixed payloads) |
+| `transformers.ts` | Converts parsed items into typed `Report` / `Transaction` / `Log` objects |
+| `localServerApi.ts` | Express handlers for `/api/{project}/store/` and `/api/{project}/envelope/` |
+| `types.ts` | All public TypeScript interfaces (`Testkit`, `Report`, `Transaction`, `Span`, …) |
 
-### Test Structure
+### Test files (`packages/sentry-testkit/__tests__/`)
 
-Tests are in `packages/sentry-testkit/__tests__/`:
-- `commonTests.ts` — Shared test suite exercised by node, browser, and react tests
-- `node.test.ts`, `browser.test.ts`, `react.test.tsx` — Mode-specific wrappers around common tests
-- `puppeteer.test.ts`, `local-server.test.ts`, `network-interception.test.ts`, `jest-mock.test.ts` — Integration-specific tests
-
-### Git Workflow
-
-- **Always rebase** instead of merge when integrating branches (`git rebase`, not `git merge`)
-- **Squash commits** when merging a PR — each PR should land as a single commit on `master`
-
-### Releases
-
-Uses [release-please-action](https://github.com/googleapis/release-please-action) for automated releases. Follow **conventional commits** (`feat:`, `fix:`, `chore:`, etc.) — commit type determines version bump.
+| File | What it covers |
+|------|---------------|
+| `commonTests.ts` | Shared suite run by node, browser, and react tests |
+| `node.test.ts` | Node.js integration |
+| `browser.test.ts` | Browser (jsdom) integration |
+| `react.test.tsx` | React integration |
+| `puppeteer.test.ts` | Puppeteer integration |
+| `local-server.test.ts` | Local server integration |
+| `network-interception.test.ts` | Network interceptor |
+| `jest-mock.test.ts` | Jest mock helper |
+| `parsers.test.ts` | Envelope parser unit tests |
+| `logs.test.ts` | Structured logs capture |
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zivl)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/zivl)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+
+## Coding Conventions
+
+- **TypeScript** throughout. No `any` unless absolutely unavoidable.
+- Prefer `const` over `let`; avoid `var`.
+- Functions should have minimal side effects.
+- Use clear, descriptive variable and function names.
+- Do not add comments that explain *what* code does — name things well instead. Only comment *why* when the reason is non-obvious (a hidden constraint, a workaround for a specific bug).
+- Do not add error handling or fallbacks for scenarios that cannot happen; trust TypeScript types and framework guarantees.
+- Do not introduce abstractions beyond what the task requires.
+
+---
+
+## Git Workflow
+
+- **Rebase, never merge** when integrating with `master` (`git rebase origin/master`, not `git merge`).
+- **Squash commits** — each PR should land as a single, well-formed commit on `master`.
+- **No attribution trailers** — commit messages and PR descriptions must not contain `Co-Authored-By`, "Generated with", or any other AI-attribution lines. Commits are authored solely by the repository owner.
+- Commit messages must follow **Conventional Commits**:
+  ```
+  <type>[optional scope]: <description>
+
+  [optional body]
+
+  [optional footer]
+  ```
+  Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `perf`, `ci`, `build`.
+- `fix:` → patch bump; `feat:` → minor bump; `feat!:` / `BREAKING CHANGE:` → major bump.
+
+---
+
+## Release Process
+
+Fully automated via [release-please-action](https://github.com/googleapis/release-please-action). Do **not** manually edit `CHANGELOG.md` or bump versions in `package.json`. Merge well-typed conventional commits to `master` and release-please handles the rest.
+
+---
+
+## What to Avoid
+
+- **Never use emojis.** Not in code, docs, READMEs, commit messages, PR titles/descriptions, issues, or chat responses. No exceptions.
+- Do not push directly to `master` — open a PR.
+- Do not use `yarn add` / `npm install` without confirming with the user.
+- Do not edit `CHANGELOG.md` manually.
+- Do not skip tests. All changes to `packages/sentry-testkit/` must pass `yarn test`.
+- Do not add Node.js-specific imports (e.g. `express`, `http`) to `browser.ts` — it must be browser-safe.
+- Do not commit `.env` files, secrets, or credentials.
+
+---
+> Source: [zivl/sentry-testkit](https://github.com/zivl/sentry-testkit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
