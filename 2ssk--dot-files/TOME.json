@@ -1,0 +1,87 @@
+{
+  "name": "dot-files",
+  "owner": "2SSK",
+  "repo": "dot-files",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dot-files",
+      "path": ".config/opencode/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.config/opencode/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".config/opencode/skills/ship/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.config/opencode/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".config/opencode/skills/observability/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.config/opencode/skills/observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".config/opencode/skills/go-best-practices/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.config/opencode/skills/go-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".config/opencode/skills/cpp-best-practices/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.config/opencode/skills/cpp-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".config/opencode/skills/dockerfile-best-practices/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.config/opencode/skills/dockerfile-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".config/opencode/skills/react-native-best-practices/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.config/opencode/skills/react-native-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/2SSK/dot-files",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:45:14Z"
+}
