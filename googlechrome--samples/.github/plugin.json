@@ -1,0 +1,18 @@
+{
+  "name": "googlechrome--samples",
+  "displayName": "samples",
+  "description": "samples",
+  "version": "1.0.0",
+  "author": "GoogleChrome",
+  "homepage": "https://github.com/GoogleChrome/samples",
+  "skills": [
+    {
+      "name": "samples",
+      "description": ""
+    },
+    {
+      "name": "samples",
+      "description": ""
+    }
+  ]
+}
