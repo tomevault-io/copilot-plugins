@@ -1,0 +1,14 @@
+{
+  "name": "crc-org--crc",
+  "displayName": "crc",
+  "description": "crc",
+  "version": "1.0.0",
+  "author": "crc-org",
+  "homepage": "https://github.com/crc-org/crc",
+  "skills": [
+    {
+      "name": "crc",
+      "description": ""
+    }
+  ]
+}
