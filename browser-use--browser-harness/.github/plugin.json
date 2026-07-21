@@ -1,0 +1,18 @@
+{
+  "name": "browser-use--browser-harness",
+  "displayName": "browser-harness",
+  "description": "browser-harness",
+  "version": "1.0.0",
+  "author": "browser-use",
+  "homepage": "https://github.com/browser-use/browser-harness",
+  "skills": [
+    {
+      "name": "browser-harness",
+      "description": ""
+    },
+    {
+      "name": "browser-harness",
+      "description": ""
+    }
+  ]
+}
