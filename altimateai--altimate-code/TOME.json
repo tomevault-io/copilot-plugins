@@ -1,0 +1,183 @@
+{
+  "name": "altimate-code",
+  "owner": "AltimateAI",
+  "repo": "altimate-code",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/train/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/train/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/teach/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/teach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/dbt-test/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/dbt-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/data-viz/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/data-viz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/dbt-docs/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/dbt-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/pii-audit/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/pii-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/sql-review/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/sql-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/data-parity/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/data-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/dbt-develop/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/dbt-develop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/dbt-analyze/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/dbt-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/cost-report/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/cost-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/lineage-diff/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/lineage-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/dbt-pr-review/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/dbt-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/sql-translate/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/sql-translate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/dbt-unit-tests/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/dbt-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/query-optimize/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/query-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/altimate-setup/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/altimate-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/training-status/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/training-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/dbt-troubleshoot/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/dbt-troubleshoot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/schema-migration/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/schema-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": ".opencode/skills/dbt-schema-verify/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/.opencode/skills/dbt-schema-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": "packages/opencode/test/fixture/skills/cloudflare/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/packages/opencode/test/fixture/skills/cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "altimate-code",
+      "path": "packages/opencode/test/fixture/skills/agents-sdk/SKILL.md",
+      "github_url": "https://github.com/AltimateAI/altimate-code/tree/main/packages/opencode/test/fixture/skills/agents-sdk/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AltimateAI/altimate-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:37:33Z"
+}
