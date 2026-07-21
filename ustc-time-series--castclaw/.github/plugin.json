@@ -1,0 +1,18 @@
+{
+  "name": "ustc-time-series--castclaw",
+  "displayName": "CastClaw",
+  "description": "CastClaw",
+  "version": "1.0.0",
+  "author": "ustc-time-series",
+  "homepage": "https://github.com/ustc-time-series/CastClaw",
+  "skills": [
+    {
+      "name": "CastClaw",
+      "description": ""
+    },
+    {
+      "name": "CastClaw",
+      "description": ""
+    }
+  ]
+}
