@@ -1,0 +1,34 @@
+{
+  "name": "datadog--dd-sdk-ios",
+  "displayName": "dd-sdk-ios",
+  "description": "dd-sdk-ios",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/dd-sdk-ios",
+  "skills": [
+    {
+      "name": "dd-sdk-ios",
+      "description": ""
+    },
+    {
+      "name": "dd-sdk-ios",
+      "description": ""
+    },
+    {
+      "name": "dd-sdk-ios",
+      "description": ""
+    },
+    {
+      "name": "dd-sdk-ios",
+      "description": ""
+    },
+    {
+      "name": "dd-sdk-ios",
+      "description": ""
+    },
+    {
+      "name": "dd-sdk-ios",
+      "description": ""
+    }
+  ]
+}
