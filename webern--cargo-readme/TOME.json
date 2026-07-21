@@ -1,0 +1,63 @@
+{
+  "name": "cargo-readme",
+  "owner": "webern",
+  "repo": "cargo-readme",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cargo-readme",
+      "path": ".claude/skills/review/SKILL.md",
+      "github_url": "https://github.com/webern/cargo-readme/tree/main/.claude/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cargo-readme",
+      "path": ".claude/skills/publish/SKILL.md",
+      "github_url": "https://github.com/webern/cargo-readme/tree/main/.claude/skills/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cargo-readme",
+      "path": ".claude/skills/update-deps/SKILL.md",
+      "github_url": "https://github.com/webern/cargo-readme/tree/main/.claude/skills/update-deps/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/webern/cargo-readme",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:10:17Z"
+}
