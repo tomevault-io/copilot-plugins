@@ -1,0 +1,42 @@
+{
+  "name": "spearwolf--signalize",
+  "displayName": "signalize",
+  "description": "signalize",
+  "version": "1.0.0",
+  "author": "spearwolf",
+  "homepage": "https://github.com/spearwolf/signalize",
+  "skills": [
+    {
+      "name": "signalize-decorators",
+      "description": ""
+    },
+    {
+      "name": "signalize-effects",
+      "description": ""
+    },
+    {
+      "name": "signalize-groups",
+      "description": ""
+    },
+    {
+      "name": "signalize-links",
+      "description": ""
+    },
+    {
+      "name": "signalize-signals",
+      "description": ""
+    },
+    {
+      "name": "signalize-testing",
+      "description": ""
+    },
+    {
+      "name": "signalize-utilities",
+      "description": ""
+    },
+    {
+      "name": "signalize",
+      "description": ""
+    }
+  ]
+}
