@@ -1,0 +1,315 @@
+{
+  "name": "motive",
+  "owner": "geezerrrr",
+  "repo": "motive",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/gog/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/gog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/sag/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/sag/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/bird/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/bird/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/tmux/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/imsg/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/imsg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/oracle/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/oracle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/notion/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/notion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/github/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/gemini/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/gemini/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/blucli/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/blucli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/weather/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/openhue/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/openhue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/camsnap/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/camsnap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/songsee/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/songsee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/clawhub/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/gifgrep/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/gifgrep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/himalaya/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/himalaya/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/peekaboo/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/peekaboo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/obsidian/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/obsidian/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/nano-pdf/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/nano-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/eightctl/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/eightctl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/sonoscli/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/sonoscli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/goplaces/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/goplaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/mcporter/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/mcporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/ordercli/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/ordercli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/summarize/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/1password/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/1password/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/bear-notes/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/bear-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/food-order/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/food-order/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/things-mac/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/things-mac/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/model-usage/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/model-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/bluebubbles/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/bluebubbles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/blogwatcher/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/blogwatcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/apple-notes/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/apple-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/coding-agent/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/coding-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/session-logs/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/session-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/local-places/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/local-places/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/video-frames/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/video-frames/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/skill-creator/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/openai-whisper/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/openai-whisper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/spotify-player/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/spotify-player/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/nano-banana-pro/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/nano-banana-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/apple-reminders/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/apple-reminders/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/openai-image-gen/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/openai-image-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "motive",
+      "path": "Motive/Resources/Skills.bundle/openai-whisper-api/SKILL.md",
+      "github_url": "https://github.com/geezerrrr/motive/tree/main/Motive/Resources/Skills.bundle/openai-whisper-api/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/geezerrrr/motive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T18:42:10Z"
+}
