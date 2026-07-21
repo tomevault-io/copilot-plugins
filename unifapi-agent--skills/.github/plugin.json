@@ -1,0 +1,14 @@
+{
+  "name": "unifapi-agent--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "unifapi-agent",
+  "homepage": "https://github.com/unifapi-agent/skills",
+  "skills": [
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
