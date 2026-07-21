@@ -1,0 +1,14 @@
+{
+  "name": "uhop--stream-json",
+  "displayName": "stream-json",
+  "description": "stream-json",
+  "version": "1.0.0",
+  "author": "uhop",
+  "homepage": "https://github.com/uhop/stream-json",
+  "skills": [
+    {
+      "name": "stream-json",
+      "description": ""
+    }
+  ]
+}
