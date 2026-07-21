@@ -1,0 +1,9 @@
+{
+  "name": "kestra-io--plugin-template",
+  "displayName": "plugin-template",
+  "description": "plugin-template",
+  "version": "1.0.0",
+  "author": "kestra-io",
+  "homepage": "https://github.com/kestra-io/plugin-template",
+  "skills": []
+}
