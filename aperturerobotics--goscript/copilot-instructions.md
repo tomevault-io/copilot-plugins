@@ -1,0 +1,202 @@
+## goscript
+
+> - NEVER run the vite dev server or anything that listens on any port yourself! Ask the user to do it!
+
+# Agent Rules for GoScript
+
+## IMPORTANT
+
+- NEVER run the vite dev server or anything that listens on any port yourself! Ask the user to do it!
+- Read `docs/explainer.md` for an overview of the project if you need it
+- The `design/` documents (including `design/DESIGN.md` and `design/SPEC_DIFFERENCES.md`) are OUTDATED and are NOT authoritative. They describe an earlier state of the compiler and runtime and have drifted from the actual behavior. Treat the compiler source, the `gs/` runtime overrides, and the passing compliance tests under `tests/tests/` as the source of truth. When you touch an area a design doc describes, update that doc to match reality (or note the divergence) rather than implementing to the stale text. They need a full review and update.
+
+### Project-Specific Rules
+
+- When creating git commits when explicitly asked do not add co-author attribution lines. Always use git commit -s to sign-off.
+- NEVER use emdash `--` anywhere.
+- When creating PRs, match the target repo's existing PR description style. For repos with minimal/plain text PR descriptions, do NOT use markdown headers (## Summary, ## Test plan, etc.) or bullet lists. Use plain prose matching the commit message style.
+
+- DO NOT maintain backwards compatibility - this is an experimental project
+- Remove any "for backwards compatibility" comments and fallback logic
+- NEVER hardcode things: examples include function names, builtins, etc.
+- Actively improve touched code and design docs when the opportunity is clear: if you find a stale or contradictory design note in the area you are changing, update the doc to match the source/tests instead of preserving the contradiction.
+- Never use `as unknown as ...`. It is a red flag for a type-system escape hatch hiding a bad runtime contract; return the actual runtime type or fix the owner type signature so the checker catches mismatches.
+- Go standard library sources are located at "go env GOROOT" (shell command)
+- Leverage adding more tests (e.g., `compiler/analysis_test.go`) instead of debug logging for diagnosing issues. If the new test case is temporary, add a `tmp_test.go` file to keep things separated.
+- AVOID type arguments unless necessary (prefer type inference)
+- When making Git commits referencing issues use the short form: Fixes #128 (for example)
+- When making Git commits use the existing commit message pattern and Linux-kernel style commit message bodies.
+- When you would normally add a new compliance test check if a very-similar compliance test already exists and if so extend that one instead. For example testing another function in the same package.
+
+## Project Overview
+
+GoScript is an experimental Go to TypeScript transpiler that enables developers to convert high-level Go code into maintainable TypeScript. It translates Go constructs—such as structs, functions, and pointer semantics—into idiomatic TypeScript code while preserving Go's value semantics and type safety. It is designed to bridge the gap between the robust type system of Go and the flexible ecosystem of TypeScript.
+
+**This is an experimental project** - we do not maintain backwards compatibility and prioritize simplicity and correctness over legacy support. You may sometimes encounter a problem that requires a complete re-design or re-think or re-architecting of an aspect of goscript, which is perfectly okay, in this case write a design to `tests/WIP.md` and think it through extensively before performing your refactor. It's perfectly OK to delete large swaths of code as needed. Focus on correctness.
+
+If you want to overwrite WIP.md you must `rm` it first.
+
+The GoScript runtime, located in `gs/builtin/builtin.ts`, provides necessary helper functions and is imported in generated code using the `@goscript/builtin` alias.
+
+**Output Style**: Generated TypeScript should not use semicolons and should always focus on code clarity and correctness.
+
+**Philosophy**: Follow Rick Rubin's concept of being both an engineer and a reducer (not always a producer) by focusing on the shortest, most straightforward solution that is correct.
+
+## Compliance Testing Workflow
+
+When working on compliance tests:
+
+1. **Test Location**: Compliance tests are located at `./tests/tests/{testname}/testname.go` with a package main and using `println()` only for output, trying to not import anything.
+
+2. **Running Tests**:
+
+   **For a specific test:**
+   ```bash
+   go test -timeout 60s -run ^TestCompliance/if_statement$ ./compiler
+   ```
+
+   **For a full local suite (optional; useful for deliberate breadth checks):**
+   ```bash
+   # Run once, capture to file, check result
+   mkdir -p .tmp && go test -timeout 10m ./compiler 2>&1 > .tmp/test_output.txt; echo "Exit code: $?"
+
+   # If exit code is non-zero, find all failing tests:
+   grep -E "^--- FAIL:" .tmp/test_output.txt
+
+   # Then run specific failing tests with -v for details:
+   go test -v -timeout 60s -run ^TestCompliance/failing_test_name$ ./compiler
+   ```
+
+   **IMPORTANT:** Do NOT pipe test output directly to grep/tail during the test run. The test framework may produce verbose output that looks like errors but isn't. Always check the exit code first, then analyze the output file if needed. The `.tmp/` directory is gitignored.
+
+3. **Analysis Process**:
+   - Run the compliance test to check if it passes
+   - If not, review the output to see why
+   - Deeply consider the generated TypeScript from the source Go code
+   - Think about what the correct TypeScript output would look like with as minimal of a change as possible
+   - **If the test is too complex** (many cascading errors, large dependencies, or unclear root cause):
+     - Create a new, simpler compliance test that isolates a specific subset of the problem
+     - Name it descriptively (e.g., `method_async_call` for async method invocation issues)
+     - Focus on reproducing just one aspect of the failure in minimal code
+     - Fix the isolated test first, then return to the original complex test
+
+4. **Implementation Workflow**:
+   - Review the code under `compiler/*.go` to determine what needs to be changed
+   - Write your analysis and info about the task at hand to `tests/WIP.md` (overwrite any existing contents)
+   - Apply the planned changes to the `compiler/` code
+   - Run the integration test again
+   - Repeat: update compiler code and/or `tests/WIP.md` until the compliance test passes successfully
+   - If you make two or more edits and the test still does not pass, ask the user how to proceed providing several options
+   - After fixing a specific test, rerun that focused test. The full local
+     compliance suite is optional and must not block committing or pushing the
+     change.
+
+Once the issue is fixed and the compliance test passes you may delete WIP.md without updating it with a final summary.
+
+NOTE: `./tests/deps/` contains library dependencies compiled by the goscript compiler! do not edit! they will be re-generated when running the tests.
+
+When a compiler change alters generated TypeScript output, run the focused
+compliance tests needed to prove the change. Before every commit and push,
+inspect `tests/tests/` and `tests/deps/` for generated changes, review them, and
+include every generated addition, modification, or deletion in the same commit.
+Use `git add -A -- tests/tests tests/deps` so deleted generated files are not
+missed.
+
+Do not run the full compliance suite solely as a pre-commit or pre-push gate.
+GitHub CI owns the routine full-suite pass on `master` and automatically commits
+dirty generated compliance files. A broken CI run may be fixed later while
+development continues, but the latest `master` CI must be green before the next
+release.
+
+## Design Patterns & Code Style
+
+### Core Principles
+
+1. **Follow Existing Patterns**: Use `design/DESIGN.md` as historical orientation only after checking the current compiler source, runtime overrides, and passing compliance tests. If it contradicts reality in an area you touch, update the document rather than implementing stale text.
+
+2. **Function Naming Convention**: When writing functions that convert Go AST to TypeScript, name them to match the AST type:
+   - For `*ast.FuncDecl`, use `WriteFuncDecl`
+   - Try to make a 1-1 match between AST type and function name
+   - Avoid hiding logic in unexported functions
+
+3. **Implementation Completeness**:
+   - Avoid leaving undecided implementation details in the code
+   - Make a decision and add a comment explaining the choice if necessary
+
+4. **Struct Field Policy**:
+   - You **may not** add new fields to `GoToTSCompiler`
+   - You **may** add new fields to `Analysis` if you are adding ahead-of-time analysis only
+
+## Linting and Code Quality
+
+When working with golangci-lint:
+
+1. **Running the Linter**: Use `bun lint` to run the linter, `bun lint:go` for go and `bun lint:js` for js
+2. **Fixing Errors**: Address linter errors in the affected code files
+3. **Iterating**: Repeat the linting process until no errors remain
+4. **Ignoring Warnings**: You can ignore linter errors with inline comments when the warning is unnecessarily strict:
+   ```go
+   defer f.Close() //nolint:errcheck
+   ```
+
+Run `bun lint` and the focused tests covering touched behavior before suggesting
+a task is complete. Running `bun test` locally is optional because GitHub CI
+owns the routine full compliance suite.
+
+## Specialized Workflows
+
+### Squash Commits
+
+When squashing commits on the `wip` branch:
+
+1. Verify we are on the `wip` branch; if not, ask the user what to do
+2. Note the current branch name and HEAD commit hash
+3. Verify the git worktree is clean; if not, ask the user what to do
+4. Check out `origin/master` with `--detach`
+5. Run `git merge --squash COMMIT_HASH` where COMMIT_HASH is the noted hash
+6. Ask the user if we are done or if we should merge this to master
+7. If merging to master: `git checkout master` then `git cherry-pick HEAD@{1}`
+
+### Update Design from Integration Tests
+
+When updating design documentation from integration tests:
+
+1. Read `design/DESIGN.md` for the initial state
+2. List available tests with `ls ./tests/tests/*.gs.ts` (each .gs.ts corresponds to a .go file)
+3. Read the .go and .gs.ts files
+4. Update `design/DESIGN.md` with any previously undocumented behavior from the tests
+5. Skip integration tests that are obviously already represented in the design
+
+### Update Design Documentation
+
+When updating design documents:
+
+1. Receive instructions from the user on design changes
+2. Consult the Go specification at `design/GO_SPECIFICATION.html` as needed
+3. Update `design/DESIGN.md` with the finalized design changes
+4. Use `design/WIP.md` for work-in-progress notes or drafts if necessary
+5. Ensure updates accurately reflect the user's instructions and align with project goals
+6. Note any divergences from the Go specification clearly
+7. Follow any already-noted divergences carefully
+
+### Eliminate Dead Code
+
+When eliminating dead code if requested by the user:
+
+1. Receive instructions from the user
+2. Run `golangci-lint run --no-config --enable-only=unused` (exactly this command)
+3. Remove any unused code in `./compiler` ignoring ./tests
+4. Any line which is unused in `./tests` add a `//nolint:unused` comment at the end.
+5. Rerun the golangci-lint command to ensure we got everything.
+
+## Website Playground
+
+The playground at `website/` compiles Go to TypeScript using a WASM build of the compiler. **It only supports single-file compilation without external dependencies.**
+
+- Playground examples are defined in `scripts/generate-examples.ts` (the `CURATED_EXAMPLES` array)
+- Do NOT add examples that import packages beyond `@goscript/builtin` (e.g., `encoding/json`) until dependency bundling is implemented
+- Run `bun run scripts/generate-examples.ts` then `cd website && bun run build` to update
+
+---
+> Source: [aperturerobotics/goscript](https://github.com/aperturerobotics/goscript) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
