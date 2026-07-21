@@ -1,0 +1,159 @@
+{
+  "name": "X-OmniClaw",
+  "owner": "OPPO-Mente-Lab",
+  "repo": "X-OmniClaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "X-OmniClaw",
+      "path": "extensions/feishu/skills/feishu-doc/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/extensions/feishu/skills/feishu-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "extensions/feishu/skills/feishu-chat/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/extensions/feishu/skills/feishu-chat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "extensions/feishu/skills/feishu-perm/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/extensions/feishu/skills/feishu-perm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "extensions/feishu/skills/feishu-task/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/extensions/feishu/skills/feishu-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "extensions/feishu/skills/feishu-wiki/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/extensions/feishu/skills/feishu-wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/app-search/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/app-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "extensions/feishu/skills/feishu-drive/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/extensions/feishu/skills/feishu-drive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/gallery-qa/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/gallery-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "extensions/feishu/skills/feishu-urgent/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/extensions/feishu/skills/feishu-urgent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "extensions/feishu/skills/feishu-bitable/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/extensions/feishu/skills/feishu-bitable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/model-config/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/model-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/taobao-search/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/taobao-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/gallery-memory/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/gallery-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/channel-config/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/channel-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/memory-evolution/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/memory-evolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/capcut-theme-video/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/capcut-theme-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/scheduled-automation/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/scheduled-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "X-OmniClaw",
+      "path": "app/src/main/assets/skills/clipboard-to-shortcut/SKILL.md",
+      "github_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw/tree/main/app/src/main/assets/skills/clipboard-to-shortcut/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OPPO-Mente-Lab/X-OmniClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:37:44Z"
+}
