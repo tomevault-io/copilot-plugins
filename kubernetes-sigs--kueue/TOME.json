@@ -1,0 +1,381 @@
+{
+  "name": "kueue",
+  "owner": "kubernetes-sigs",
+  "repo": "kueue",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/kueue-lineage/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/kueue-lineage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/comments/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/code-eval/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/code-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/kueue-release-notes/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/kueue-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/kueue-who-preempted/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/kueue-who-preempted/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/code-style/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/code-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/kueue-flake-debugger/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/kueue-flake-debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/buggy-behavior/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/buggy-behavior/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/race-conditions/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/race-conditions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/extract-helpers/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/extract-helpers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/split-test-files/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/split-test-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/visibility-exports/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/visibility-exports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/table-driven-tests/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/table-driven-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/metrics-label-sets/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/metrics-label-sets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/algorithm-comments/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/algorithm-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/api-field-comments/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/api-field-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/feature-gated-code/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/feature-gated-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/injection/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/nil-safety/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/nil-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/metrics-feature-gates/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/metrics-feature-gates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/terminology-semantics/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/terminology-semantics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/comments/comment-typos/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/comments/comment-typos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/encapsulate-paired-ops/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/encapsulate-paired-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/push-guards-to-callees/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/push-guards-to-callees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/architectural-decisions/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/architectural-decisions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/path-traversal/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/path-traversal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/comments/over-commenting/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/comments/over-commenting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/input-validation/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/input-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/code-style/imprecise-names/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/code-style/imprecise-names/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/code-style/code-style-typos/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/code-style/code-style-typos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/code-style/convention-drift/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/code-style/convention-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/buggy-behavior/logic-errors/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/buggy-behavior/logic-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/comments/inaccurate-comments/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/comments/inaccurate-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/resource-bounds-dos/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/resource-bounds-dos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/code-style/reinvented-helpers/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/code-style/reinvented-helpers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/integration-tests-for-updates/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/integration-tests-for-updates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/code-style/wrong-log-verbosity/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/code-style/wrong-log-verbosity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/comments/wrong-kind-of-comment/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/comments/wrong-kind-of-comment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/information-disclosure/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/information-disclosure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/code-style/misaligned-test-names/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/code-style/misaligned-test-names/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/architectural-decisions/scope-creep/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/architectural-decisions/scope-creep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/webhook-safety-regressions/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/webhook-safety-regressions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/feature-gated-insecure-paths/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/feature-gated-insecure-paths/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/architectural-decisions/misplaced-logic/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/architectural-decisions/misplaced-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/architectural-decisions/duplicated-logic/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/architectural-decisions/duplicated-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/annotation-label-namespace-abuse/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/annotation-label-namespace-abuse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/comments/missing-deferred-removal-markers/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/comments/missing-deferred-removal-markers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/architectural-decisions/illogical-structure/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/architectural-decisions/illogical-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/buggy-behavior/unnecessary-guard-conditions/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/buggy-behavior/unnecessary-guard-conditions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/security/integration-adapter-trust-boundary/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/security/integration-adapter-trust-boundary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/architectural-decisions/avoidable-complexity/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/architectural-decisions/avoidable-complexity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/buggy-behavior/feature-gate-interaction-bugs/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/buggy-behavior/feature-gate-interaction-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/architectural-decisions/nonsensical-decisions/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/architectural-decisions/nonsensical-decisions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/buggy-behavior/deleted-backwards-compatibility-code/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/buggy-behavior/deleted-backwards-compatibility-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kueue",
+      "path": "cmd/experimental/skills/reviewer/architectural-decisions/pointless-intermediate-variables/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/kueue/tree/main/cmd/experimental/skills/reviewer/architectural-decisions/pointless-intermediate-variables/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kubernetes-sigs/kueue",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:19:00Z"
+}
