@@ -1,0 +1,22 @@
+{
+  "name": "skyscanner--backpack",
+  "displayName": "backpack",
+  "description": "backpack",
+  "version": "1.0.0",
+  "author": "Skyscanner",
+  "homepage": "https://github.com/Skyscanner/backpack",
+  "skills": [
+    {
+      "name": "backpack",
+      "description": ""
+    },
+    {
+      "name": "backpack",
+      "description": ""
+    },
+    {
+      "name": "backpack",
+      "description": ""
+    }
+  ]
+}
