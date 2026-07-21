@@ -1,0 +1,93 @@
+{
+  "name": "tianji",
+  "owner": "msgbyte",
+  "repo": "tianji",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tianji",
+      "path": "website/docs/skill/skill.md",
+      "github_url": "https://github.com/msgbyte/tianji/tree/main/website/docs/skill/skill.md",
+      "description": ""
+    },
+    {
+      "name": "tianji",
+      "path": "skills/tianji-data-query/SKILL.md",
+      "github_url": "https://github.com/msgbyte/tianji/tree/main/skills/tianji-data-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tianji",
+      "path": "website/i18n/id/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "github_url": "https://github.com/msgbyte/tianji/tree/main/website/i18n/id/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "description": ""
+    },
+    {
+      "name": "tianji",
+      "path": "website/i18n/de/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "github_url": "https://github.com/msgbyte/tianji/tree/main/website/i18n/de/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "description": ""
+    },
+    {
+      "name": "tianji",
+      "path": "website/i18n/es/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "github_url": "https://github.com/msgbyte/tianji/tree/main/website/i18n/es/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "description": ""
+    },
+    {
+      "name": "tianji",
+      "path": "website/i18n/fr/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "github_url": "https://github.com/msgbyte/tianji/tree/main/website/i18n/fr/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "description": ""
+    },
+    {
+      "name": "tianji",
+      "path": "website/i18n/ja/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "github_url": "https://github.com/msgbyte/tianji/tree/main/website/i18n/ja/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "description": ""
+    },
+    {
+      "name": "tianji",
+      "path": "website/i18n/zh-Hans/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "github_url": "https://github.com/msgbyte/tianji/tree/main/website/i18n/zh-Hans/docusaurus-plugin-content-docs/current/skill/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/msgbyte/tianji",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:01:29Z"
+}
