@@ -1,0 +1,14 @@
+{
+  "name": "meilisearch--strapi-plugin-meilisearch",
+  "displayName": "strapi-plugin-meilisearch",
+  "description": "strapi-plugin-meilisearch",
+  "version": "1.0.0",
+  "author": "meilisearch",
+  "homepage": "https://github.com/meilisearch/strapi-plugin-meilisearch",
+  "skills": [
+    {
+      "name": "strapi-plugin-meilisearch",
+      "description": ""
+    }
+  ]
+}
