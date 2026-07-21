@@ -1,0 +1,34 @@
+{
+  "name": "apache--airflow",
+  "displayName": "airflow",
+  "description": "airflow",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/airflow",
+  "skills": [
+    {
+      "name": "airflow",
+      "description": ""
+    },
+    {
+      "name": "airflow",
+      "description": ""
+    },
+    {
+      "name": "airflow",
+      "description": ""
+    },
+    {
+      "name": "airflow",
+      "description": ""
+    },
+    {
+      "name": "airflow",
+      "description": ""
+    },
+    {
+      "name": "airflow",
+      "description": ""
+    }
+  ]
+}
