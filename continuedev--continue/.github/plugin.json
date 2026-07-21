@@ -1,0 +1,26 @@
+{
+  "name": "continuedev--continue",
+  "displayName": "continue",
+  "description": "continue",
+  "version": "1.0.0",
+  "author": "continuedev",
+  "homepage": "https://github.com/continuedev/continue",
+  "skills": [
+    {
+      "name": "cn-check",
+      "description": ""
+    },
+    {
+      "name": "docs-style",
+      "description": ""
+    },
+    {
+      "name": "continue",
+      "description": ""
+    },
+    {
+      "name": "continue",
+      "description": ""
+    }
+  ]
+}
