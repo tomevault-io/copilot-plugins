@@ -1,0 +1,9 @@
+{
+  "name": "go-pkgz--auth",
+  "displayName": "auth",
+  "description": "auth",
+  "version": "1.0.0",
+  "author": "go-pkgz",
+  "homepage": "https://github.com/go-pkgz/auth",
+  "skills": []
+}
