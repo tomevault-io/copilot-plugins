@@ -1,0 +1,93 @@
+{
+  "name": "cuplyr",
+  "owner": "bbtheo",
+  "repo": "cuplyr",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "implement-dplyr-verb",
+      "path": ".claude/skills/implement-dplyr-verb",
+      "github_url": "https://github.com/bbtheo/cuplyr/tree/main/.claude/skills/implement-dplyr-verb",
+      "description": ""
+    },
+    {
+      "name": "cuplyr",
+      "path": ".claude/skills/lifecycle/SKILL.md",
+      "github_url": "https://github.com/bbtheo/cuplyr/tree/main/.claude/skills/lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuplyr",
+      "path": ".claude/skills/describe-design/SKILL.md",
+      "github_url": "https://github.com/bbtheo/cuplyr/tree/main/.claude/skills/describe-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuplyr",
+      "path": ".claude/skills/testing-r-packages/SKILL.md",
+      "github_url": "https://github.com/bbtheo/cuplyr/tree/main/.claude/skills/testing-r-packages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuplyr",
+      "path": ".claude/skills/implement-dplyr-verb/SKILL.md",
+      "github_url": "https://github.com/bbtheo/cuplyr/tree/main/.claude/skills/implement-dplyr-verb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuplyr",
+      "path": ".claude/skills/critical-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/bbtheo/cuplyr/tree/main/.claude/skills/critical-code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuplyr",
+      "path": ".claude/skills/tidy-argument-checking/SKILL.md",
+      "github_url": "https://github.com/bbtheo/cuplyr/tree/main/.claude/skills/tidy-argument-checking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuplyr",
+      "path": ".claude/skills/tidy-deprecate-function/SKILL.md",
+      "github_url": "https://github.com/bbtheo/cuplyr/tree/main/.claude/skills/tidy-deprecate-function/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bbtheo/cuplyr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:16:58Z"
+}
