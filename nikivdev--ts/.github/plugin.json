@@ -1,0 +1,18 @@
+{
+  "name": "nikivdev--ts",
+  "displayName": "ts",
+  "description": "ts",
+  "version": "1.0.0",
+  "author": "nikivdev",
+  "homepage": "https://github.com/nikivdev/ts",
+  "skills": [
+    {
+      "name": "better-result-adopt",
+      "description": ""
+    },
+    {
+      "name": "ts",
+      "description": ""
+    }
+  ]
+}
