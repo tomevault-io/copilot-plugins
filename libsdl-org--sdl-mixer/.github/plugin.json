@@ -1,0 +1,9 @@
+{
+  "name": "libsdl-org--sdl-mixer",
+  "displayName": "SDL_mixer",
+  "description": "SDL_mixer",
+  "version": "1.0.0",
+  "author": "libsdl-org",
+  "homepage": "https://github.com/libsdl-org/SDL_mixer",
+  "skills": []
+}
