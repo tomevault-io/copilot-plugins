@@ -1,0 +1,9 @@
+{
+  "name": "micronaut-projects--micronaut-gradle-plugin",
+  "displayName": "micronaut-gradle-plugin",
+  "description": "micronaut-gradle-plugin",
+  "version": "1.0.0",
+  "author": "micronaut-projects",
+  "homepage": "https://github.com/micronaut-projects/micronaut-gradle-plugin",
+  "skills": []
+}
