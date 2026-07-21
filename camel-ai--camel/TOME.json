@@ -1,0 +1,99 @@
+{
+  "name": "camel",
+  "owner": "camel-ai",
+  "repo": "camel",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "path": "examples/toolkits/skill_toolkit_example/.camel/skills/code-reviewer",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/examples/toolkits/skill_toolkit_example/.camel/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "data-analyzer",
+      "path": "examples/toolkits/skill_toolkit_example/.camel/skills/data-analyzer",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/examples/toolkits/skill_toolkit_example/.camel/skills/data-analyzer",
+      "description": ""
+    },
+    {
+      "name": "report-writer",
+      "path": "examples/toolkits/skill_toolkit_example/.camel/skills/report-writer",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/examples/toolkits/skill_toolkit_example/.camel/skills/report-writer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".camel/skills/skill-creator",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/.camel/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "path": ".camel/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/.camel/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "path": ".camel/skills/docs-incremental-update/SKILL.md",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/.camel/skills/docs-incremental-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "path": "examples/toolkits/skill_toolkit_example/.camel/skills/report-writer/SKILL.md",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/examples/toolkits/skill_toolkit_example/.camel/skills/report-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "path": "examples/toolkits/skill_toolkit_example/.camel/skills/data-analyzer/SKILL.md",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/examples/toolkits/skill_toolkit_example/.camel/skills/data-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "path": "examples/toolkits/skill_toolkit_example/.camel/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/camel-ai/camel/tree/main/examples/toolkits/skill_toolkit_example/.camel/skills/code-reviewer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/camel-ai/camel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:31:18Z"
+}
