@@ -1,0 +1,297 @@
+{
+  "name": "cc-crossbeam",
+  "owner": "mikeOnBreeze",
+  "repo": "cc-crossbeam",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/fal-ai/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/fal-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/cc-guide/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/cc-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/nano-banana/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/nano-banana/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/placentia-adu/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/placentia-adu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/california-adu/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/california-adu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/buena-park-adu/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/buena-park-adu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/adu-plan-review/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/adu-plan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/template-skill/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/template-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/adu-city-research/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/adu-city-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/demo-city-review/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/demo-city-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/adu-city-research/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/adu-city-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/adu-corrections-pdf/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/adu-corrections-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/long-running-agent/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/long-running-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/product-demo-video/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/product-demo-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/document-skills/pdf/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/document-skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/adu-corrections-flow/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/adu-corrections-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/document-skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/document-skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/document-skills/pptx/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/document-skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/document-skills/docx/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/document-skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/react-best-practices/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/adu-targeted-page-viewer/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/adu-targeted-page-viewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "server/skills/adu-corrections-complete/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/server/skills/adu-corrections-complete/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/placentia-adu/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/placentia-adu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/demo-contractor-corrections/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/demo-contractor-corrections/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": ".claude/skills/adu-corrections-interpreter/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/.claude/skills/adu-corrections-interpreter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/california-adu/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/california-adu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/buena-park-adu/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/buena-park-adu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/adu-plan-review/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/adu-plan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/adu-city-research/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/adu-city-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/adu-pdf-extraction/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/adu-pdf-extraction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/document-skills/pdf/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/document-skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/adu-corrections-pdf/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/adu-corrections-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/document-skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/document-skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/document-skills/pptx/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/document-skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/document-skills/docx/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/document-skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/adu-corrections-flow/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/adu-corrections-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/adu-targeted-page-viewer/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/adu-targeted-page-viewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/adu-corrections-complete/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/adu-corrections-complete/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-crossbeam",
+      "path": "adu-skill-development/skill/adu-corrections-interpreter/SKILL.md",
+      "github_url": "https://github.com/mikeOnBreeze/cc-crossbeam/tree/main/adu-skill-development/skill/adu-corrections-interpreter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mikeOnBreeze/cc-crossbeam",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T18:39:50Z"
+}
