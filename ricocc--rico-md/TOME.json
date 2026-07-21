@@ -1,0 +1,51 @@
+{
+  "name": "rico-md",
+  "owner": "ricocc",
+  "repo": "rico-md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rico-md",
+      "path": ".claude/skills/rico-wechat-theme/SKILL.md",
+      "github_url": "https://github.com/ricocc/rico-md/tree/main/.claude/skills/rico-wechat-theme/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ricocc/rico-md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:47:52Z"
+}
