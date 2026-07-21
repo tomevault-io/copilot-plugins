@@ -1,0 +1,14 @@
+{
+  "name": "srod--node-minify",
+  "displayName": "node-minify",
+  "description": "node-minify",
+  "version": "1.0.0",
+  "author": "srod",
+  "homepage": "https://github.com/srod/node-minify",
+  "skills": [
+    {
+      "name": "node-minify",
+      "description": ""
+    }
+  ]
+}
