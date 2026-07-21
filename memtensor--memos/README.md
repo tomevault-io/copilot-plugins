@@ -1,0 +1,32 @@
+# MemOS
+
+> Source: [MemTensor/MemOS](https://github.com/MemTensor/MemOS). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [MemTensor/MemOS](https://github.com/MemTensor/MemOS).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (5)
+
+- [MemOS](https://github.com/MemTensor/MemOS/tree/main/apps/memos-local-openclaw/skill/browserwing-admin/SKILL.md)
+- [MemOS](https://github.com/MemTensor/MemOS/tree/main/apps/memos-local-openclaw/skill/memos-memory-guide/SKILL.md)
+- [MemOS](https://github.com/MemTensor/MemOS/tree/main/apps/openwork-memos-integration/apps/desktop/skills/dev-browser/SKILL.md)
+- [MemOS](https://github.com/MemTensor/MemOS/tree/main/apps/openwork-memos-integration/apps/desktop/skills/ask-user-question/SKILL.md)
+- [MemOS](https://github.com/MemTensor/MemOS/tree/main/apps/openwork-memos-integration/apps/desktop/skills/safe-file-deletion/SKILL.md)
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/MemTensor/MemOS](https://github.com/MemTensor/MemOS)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:d-e-p -->
