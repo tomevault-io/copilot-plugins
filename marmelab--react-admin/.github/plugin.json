@@ -1,0 +1,26 @@
+{
+  "name": "marmelab--react-admin",
+  "displayName": "react-admin",
+  "description": "react-admin",
+  "version": "1.0.0",
+  "author": "marmelab",
+  "homepage": "https://github.com/marmelab/react-admin",
+  "skills": [
+    {
+      "name": "react-admin",
+      "description": ""
+    },
+    {
+      "name": "react-admin-i18n",
+      "description": ""
+    },
+    {
+      "name": "react-admin",
+      "description": ""
+    },
+    {
+      "name": "react-admin",
+      "description": ""
+    }
+  ]
+}
