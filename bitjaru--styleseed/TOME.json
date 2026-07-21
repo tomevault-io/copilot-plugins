@@ -1,0 +1,135 @@
+{
+  "name": "styleseed",
+  "owner": "bitjaru",
+  "repo": "styleseed",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-lint/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-copy/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-copy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-a11y/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-a11y/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-flow/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-page/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-setup/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-audit/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-score/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-score/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-review/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-update/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-motion/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-motion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-tokens/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-tokens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-pattern/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-feedback/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-component/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-component/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bitjaru/styleseed",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T20:37:19Z"
+}
