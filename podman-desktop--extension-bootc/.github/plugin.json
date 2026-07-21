@@ -1,0 +1,30 @@
+{
+  "name": "podman-desktop--extension-bootc",
+  "displayName": "extension-bootc",
+  "description": "extension-bootc",
+  "version": "1.0.0",
+  "author": "podman-desktop",
+  "homepage": "https://github.com/podman-desktop/extension-bootc",
+  "skills": [
+    {
+      "name": "extension-bootc",
+      "description": ""
+    },
+    {
+      "name": "extension-bootc",
+      "description": ""
+    },
+    {
+      "name": "extension-bootc",
+      "description": ""
+    },
+    {
+      "name": "extension-bootc",
+      "description": ""
+    },
+    {
+      "name": "extension-bootc",
+      "description": ""
+    }
+  ]
+}
