@@ -1,0 +1,14 @@
+{
+  "name": "gethugothemes--academia-hugo",
+  "displayName": "academia-hugo",
+  "description": "academia-hugo",
+  "version": "1.0.0",
+  "author": "gethugothemes",
+  "homepage": "https://github.com/gethugothemes/academia-hugo",
+  "skills": [
+    {
+      "name": "academia-hugo",
+      "description": ""
+    }
+  ]
+}
