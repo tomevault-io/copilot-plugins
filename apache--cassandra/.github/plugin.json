@@ -1,0 +1,50 @@
+{
+  "name": "apache--cassandra",
+  "displayName": "cassandra",
+  "description": "cassandra",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/cassandra",
+  "skills": [
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    },
+    {
+      "name": "cassandra",
+      "description": ""
+    }
+  ]
+}
