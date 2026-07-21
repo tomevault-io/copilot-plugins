@@ -1,0 +1,9 @@
+{
+  "name": "timescale--timescaledb-tune",
+  "displayName": "timescaledb-tune",
+  "description": "timescaledb-tune",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/timescaledb-tune",
+  "skills": []
+}
