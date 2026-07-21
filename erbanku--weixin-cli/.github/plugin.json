@@ -1,0 +1,9 @@
+{
+  "name": "erbanku--weixin-cli",
+  "displayName": "weixin-cli",
+  "description": "WeChat CLI tool",
+  "version": "1.0.0",
+  "author": "erbanku",
+  "homepage": "https://github.com/erbanku/weixin-cli",
+  "skills": []
+}
