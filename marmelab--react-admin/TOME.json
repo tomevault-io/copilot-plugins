@@ -1,0 +1,69 @@
+{
+  "name": "react-admin",
+  "owner": "marmelab",
+  "repo": "react-admin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-admin",
+      "path": ".agents/skills/react-admin",
+      "github_url": "https://github.com/marmelab/react-admin/tree/main/.agents/skills/react-admin",
+      "description": ""
+    },
+    {
+      "name": "react-admin-i18n",
+      "path": ".agents/skills/i18n",
+      "github_url": "https://github.com/marmelab/react-admin/tree/main/.agents/skills/i18n",
+      "description": ""
+    },
+    {
+      "name": "react-admin",
+      "path": ".agents/skills/i18n/SKILL.md",
+      "github_url": "https://github.com/marmelab/react-admin/tree/main/.agents/skills/i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-admin",
+      "path": ".agents/skills/react-admin/SKILL.md",
+      "github_url": "https://github.com/marmelab/react-admin/tree/main/.agents/skills/react-admin/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marmelab/react-admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:07:14Z"
+}
