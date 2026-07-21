@@ -1,0 +1,207 @@
+{
+  "name": "autumn",
+  "owner": "useautumn",
+  "repo": "autumn",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-versioning",
+      "path": ".claude/skills/api-versioning",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/api-versioning",
+      "description": ""
+    },
+    {
+      "name": "billing",
+      "path": ".claude/skills/billing",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/billing",
+      "description": ""
+    },
+    {
+      "name": "linear-ticket",
+      "path": ".claude/skills/linear-ticket",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/linear-ticket",
+      "description": ""
+    },
+    {
+      "name": "write-test",
+      "path": ".claude/skills/write-test",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/write-test",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/billing/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/billing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".claude/skills/billing/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/billing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/checkout/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/checkout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".claude/skills/checkout/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/checkout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/workflows/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".claude/skills/workflows/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/write-test/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/write-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".claude/skills/write-test/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/write-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/edge-config/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/edge-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/mutation-logs/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/mutation-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".claude/skills/mutation-logs/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/mutation-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/linear-ticket/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/linear-ticket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".claude/skills/linear-ticket/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/linear-ticket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/api-versioning/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".claude/skills/api-versioning/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/rolling-rollouts/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/rolling-rollouts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".claude/skills/rolling-rollouts/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.claude/skills/rolling-rollouts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": "apps/checkout/.claude/skills/d3k/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/apps/checkout/.claude/skills/d3k/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": ".agents/skills/openlogs-server-logs/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/.agents/skills/openlogs-server-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": "packages/atmn-tests/.claude/skills/autumn-setup/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/packages/atmn-tests/.claude/skills/autumn-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": "packages/atmn-tests/.claude/skills/autumn-gating/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/packages/atmn-tests/.claude/skills/autumn-gating/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": "packages/atmn-tests/.claude/skills/autumn-billing-page/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/packages/atmn-tests/.claude/skills/autumn-billing-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "autumn",
+      "path": "packages/atmn-tests/.claude/skills/autumn-modelling-pricing-plans/SKILL.md",
+      "github_url": "https://github.com/useautumn/autumn/tree/main/packages/atmn-tests/.claude/skills/autumn-modelling-pricing-plans/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/useautumn/autumn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T20:31:59Z"
+}
