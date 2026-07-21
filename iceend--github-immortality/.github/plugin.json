@@ -1,0 +1,14 @@
+{
+  "name": "iceend--github-immortality",
+  "displayName": "github-immortality",
+  "description": "github-immortality",
+  "version": "1.0.0",
+  "author": "IceEnd",
+  "homepage": "https://github.com/IceEnd/github-immortality",
+  "skills": [
+    {
+      "name": "github-immortality",
+      "description": ""
+    }
+  ]
+}
