@@ -1,0 +1,14 @@
+{
+  "name": "lcomplete--huntly",
+  "displayName": "huntly",
+  "description": "huntly",
+  "version": "1.0.0",
+  "author": "lcomplete",
+  "homepage": "https://github.com/lcomplete/huntly",
+  "skills": [
+    {
+      "name": "huntly",
+      "description": ""
+    }
+  ]
+}
