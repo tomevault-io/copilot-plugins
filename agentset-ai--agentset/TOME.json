@@ -4,7 +4,7 @@
   "repo": "agentset",
   "description": "The open-source RAG platform: built-in citations, deep research, 22+ file formats, partitions, MCP server, and more.",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -67,9 +67,45 @@
       "path": ".agents/skills/vercel-react-best-practices",
       "github_url": "https://github.com/agentset-ai/agentset/tree/main/.agents/skills/vercel-react-best-practices",
       "description": ""
+    },
+    {
+      "name": "agentset",
+      "path": ".agents/skills/react-email/SKILL.md",
+      "github_url": "https://github.com/agentset-ai/agentset/tree/main/.agents/skills/react-email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentset",
+      "path": ".agents/skills/baseline-ui/SKILL.md",
+      "github_url": "https://github.com/agentset-ai/agentset/tree/main/.agents/skills/baseline-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentset",
+      "path": ".agents/skills/fixing-metadata/SKILL.md",
+      "github_url": "https://github.com/agentset-ai/agentset/tree/main/.agents/skills/fixing-metadata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentset",
+      "path": ".agents/skills/trigger-dev-tasks/SKILL.md",
+      "github_url": "https://github.com/agentset-ai/agentset/tree/main/.agents/skills/trigger-dev-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentset",
+      "path": ".agents/skills/fixing-accessibility/SKILL.md",
+      "github_url": "https://github.com/agentset-ai/agentset/tree/main/.agents/skills/fixing-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentset",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/agentset-ai/agentset/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/agentset-ai/agentset",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T09:30:31Z"
+  "distributed_at": "2026-07-21T14:31:14Z"
 }
