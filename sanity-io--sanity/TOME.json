@@ -1,0 +1,147 @@
+{
+  "name": "sanity",
+  "owner": "sanity-io",
+  "repo": "sanity",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/write-a-skill/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/write-a-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/pr-description/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/pr-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/rxjs-like-a-pro/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/rxjs-like-a-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/code-simplification/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/code-simplification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/sanity-config-reducers/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/sanity-config-reducers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/sanity-default-plugins/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/sanity-default-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/code-review-and-quality/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/code-review-and-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/sanity-plugin-authoring/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/sanity-plugin-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/performance-optimization/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/playwright-best-practices/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/playwright-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sanity",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/sanity-io/sanity/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sanity-io/sanity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:23:45Z"
+}
