@@ -2,9 +2,9 @@
   "name": "runebender-xilem",
   "owner": "eliheuer",
   "repo": "runebender-xilem",
-  "description": "A port of Runebender from Druid to Xilem",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eliheuer/runebender-xilem",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T05:43:28Z"
+  "distributed_at": "2026-07-21T15:36:17Z"
 }
