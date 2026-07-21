@@ -1,0 +1,9 @@
+{
+  "name": "contentful--contentful-import",
+  "displayName": "contentful-import",
+  "description": "contentful-import",
+  "version": "1.0.0",
+  "author": "contentful",
+  "homepage": "https://github.com/contentful/contentful-import",
+  "skills": []
+}
