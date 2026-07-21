@@ -1,0 +1,315 @@
+{
+  "name": "madoc-platform",
+  "owner": "digirati-co-uk",
+  "repo": "madoc-platform",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/i18n/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/ssr-site/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/ssr-site/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/auth-jwt/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/auth-jwt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/cron-jobs/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/cron-jobs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/ssr-admin/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/ssr-admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/auth-core/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/auth-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/db-queries/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/db-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/routes-site/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/routes-site/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/routes-admin/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/routes-admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/ssr-pipeline/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/ssr-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/media-assets/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/media-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/utility-core/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/utility-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/db-migrations/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/db-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/plugin-system/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/plugin-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/frontend-site/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/frontend-site/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/frontend-core/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/frontend-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/types-schemas/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/types-schemas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/frontend-admin/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/frontend-admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/queue-scheduler/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/queue-scheduler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/automation-bots/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/automation-bots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/auth-middleware/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/auth-middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/frontend-themes/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/frontend-themes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/email-templates/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/email-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/madoc-docker-ops/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/madoc-docker-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/extensions-media/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/extensions-media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/routing-http-api/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/routing-http-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/tasks-automation/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/tasks-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/extensions-themes/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/extensions-themes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/gateway-api-tasks/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/gateway-api-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/auth-authorization/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/auth-authorization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/repository-patterns/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/repository-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/extensions-projects/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/extensions-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/capture-model-server/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/capture-model-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/extensions-framework/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/extensions-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/activity-streams-iiif/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/activity-streams-iiif/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/extensions-completions/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/extensions-completions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/extensions-page-blocks/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/extensions-page-blocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/notifications-webhooks/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/notifications-webhooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/extensions-site-manager/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/extensions-site-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/configuration-deployment/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/configuration-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/project-template-creation/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/project-template-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/capture-models-enrichment/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/capture-models-enrichment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/extensions-project-export/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/extensions-project-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/architecture-bootstrapping/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/architecture-bootstrapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "madoc-platform",
+      "path": ".agents/skills/crowdsourcing-task-review-workflow/SKILL.md",
+      "github_url": "https://github.com/digirati-co-uk/madoc-platform/tree/main/.agents/skills/crowdsourcing-task-review-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/digirati-co-uk/madoc-platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:16:09Z"
+}
