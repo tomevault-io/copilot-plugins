@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--serverless-chat-langchainjs",
+  "displayName": "serverless-chat-langchainjs",
+  "description": "serverless-chat-langchainjs",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/serverless-chat-langchainjs",
+  "skills": []
+}
