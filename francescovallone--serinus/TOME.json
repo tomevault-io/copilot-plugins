@@ -1,0 +1,87 @@
+{
+  "name": "serinus",
+  "owner": "francescovallone",
+  "repo": "serinus",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "serinus",
+      "path": "packages/serinus/skills/serinus-microservices/SKILL.md",
+      "github_url": "https://github.com/francescovallone/serinus/tree/main/packages/serinus/skills/serinus-microservices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serinus",
+      "path": "packages/serinus/skills/serinus-request-pipeline/SKILL.md",
+      "github_url": "https://github.com/francescovallone/serinus/tree/main/packages/serinus/skills/serinus-request-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serinus",
+      "path": "packages/serinus/skills/serinus-providers-and-di/SKILL.md",
+      "github_url": "https://github.com/francescovallone/serinus/tree/main/packages/serinus/skills/serinus-providers-and-di/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serinus",
+      "path": "packages/serinus/skills/serinus-realtime-features/SKILL.md",
+      "github_url": "https://github.com/francescovallone/serinus/tree/main/packages/serinus/skills/serinus-realtime-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serinus",
+      "path": "packages/serinus/skills/serinus-minimal-application/SKILL.md",
+      "github_url": "https://github.com/francescovallone/serinus/tree/main/packages/serinus/skills/serinus-minimal-application/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serinus",
+      "path": "packages/serinus/skills/serinus-application-bootstrap/SKILL.md",
+      "github_url": "https://github.com/francescovallone/serinus/tree/main/packages/serinus/skills/serinus-application-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serinus",
+      "path": "packages/serinus/skills/serinus-modules-controllers-routes/SKILL.md",
+      "github_url": "https://github.com/francescovallone/serinus/tree/main/packages/serinus/skills/serinus-modules-controllers-routes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/francescovallone/serinus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T14:40:38Z"
+}
