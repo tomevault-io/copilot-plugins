@@ -1,0 +1,57 @@
+{
+  "name": "vscode-pascal-formatter",
+  "owner": "alefragnani",
+  "repo": "vscode-pascal-formatter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vscode-pascal-formatter",
+      "path": ".github/skills/vscode-ext-commands/SKILL.md",
+      "github_url": "https://github.com/alefragnani/vscode-pascal-formatter/tree/main/.github/skills/vscode-ext-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vscode-pascal-formatter",
+      "path": ".github/skills/vscode-ext-localization/SKILL.md",
+      "github_url": "https://github.com/alefragnani/vscode-pascal-formatter/tree/main/.github/skills/vscode-ext-localization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alefragnani/vscode-pascal-formatter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:44:20Z"
+}
