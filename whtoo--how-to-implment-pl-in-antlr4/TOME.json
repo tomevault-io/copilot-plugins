@@ -1,0 +1,87 @@
+{
+  "name": "How_to_implment_PL_in_Antlr4",
+  "owner": "whtoo",
+  "repo": "How_to_implment_PL_in_Antlr4",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "How_to_implment_PL_in_Antlr4",
+      "path": ".claude/skills/vm-dev/SKILL.md",
+      "github_url": "https://github.com/whtoo/How_to_implment_PL_in_Antlr4/tree/main/.claude/skills/vm-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "How_to_implment_PL_in_Antlr4",
+      "path": ".claude/skills/test-dev/SKILL.md",
+      "github_url": "https://github.com/whtoo/How_to_implment_PL_in_Antlr4/tree/main/.claude/skills/test-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "How_to_implment_PL_in_Antlr4",
+      "path": ".claude/skills/antlr4-dev/SKILL.md",
+      "github_url": "https://github.com/whtoo/How_to_implment_PL_in_Antlr4/tree/main/.claude/skills/antlr4-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "How_to_implment_PL_in_Antlr4",
+      "path": ".claude/skills/tech-blogger/SKILL.md",
+      "github_url": "https://github.com/whtoo/How_to_implment_PL_in_Antlr4/tree/main/.claude/skills/tech-blogger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "How_to_implment_PL_in_Antlr4",
+      "path": ".claude/skills/compiler-dev/SKILL.md",
+      "github_url": "https://github.com/whtoo/How_to_implment_PL_in_Antlr4/tree/main/.claude/skills/compiler-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "How_to_implment_PL_in_Antlr4",
+      "path": ".claude/skills/ep-navigator/SKILL.md",
+      "github_url": "https://github.com/whtoo/How_to_implment_PL_in_Antlr4/tree/main/.claude/skills/ep-navigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "How_to_implment_PL_in_Antlr4",
+      "path": ".claude/skills/git-committer/SKILL.md",
+      "github_url": "https://github.com/whtoo/How_to_implment_PL_in_Antlr4/tree/main/.claude/skills/git-committer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/whtoo/How_to_implment_PL_in_Antlr4",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:08:36Z"
+}
