@@ -1,0 +1,9 @@
+{
+  "name": "esri--cookiecutter-spatial-data-science",
+  "displayName": "cookiecutter-spatial-data-science",
+  "description": "cookiecutter-spatial-data-science",
+  "version": "1.0.0",
+  "author": "Esri",
+  "homepage": "https://github.com/Esri/cookiecutter-spatial-data-science",
+  "skills": []
+}
