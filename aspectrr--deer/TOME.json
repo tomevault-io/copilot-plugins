@@ -1,0 +1,147 @@
+{
+  "name": "deer",
+  "owner": "aspectrr",
+  "repo": "deer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/kafka/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/kafka/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/find-skills/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/kibana-audit/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/kibana-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/log-aggregation/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/log-aggregation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/kibana-connectors/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/kibana-connectors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/elasticsearch-esql/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/elasticsearch-esql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/elasticsearch-authn/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/elasticsearch-authn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/elasticsearch-audit/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/elasticsearch-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/security-alert-triage/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/security-alert-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/kibana-alerting-rules/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/kibana-alerting-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/observability-llm-obs/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/observability-llm-obs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/security-case-management/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/security-case-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/elasticsearch-file-ingest/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/elasticsearch-file-ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/observability-logs-search/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/observability-logs-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/observability-service-health/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/observability-service-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/security-detection-rule-management/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/security-detection-rule-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deer",
+      "path": "deer-cli/internal/skill/defaults/elasticsearch-security-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/aspectrr/deer/tree/main/deer-cli/internal/skill/defaults/elasticsearch-security-troubleshooting/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aspectrr/deer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:40:11Z"
+}
