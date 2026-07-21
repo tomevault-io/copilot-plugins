@@ -1,0 +1,99 @@
+{
+  "name": "es-toolkit",
+  "owner": "toss",
+  "repo": "es-toolkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "es-toolkit",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "es-toolkit",
+      "path": ".claude/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/.claude/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "es-toolkit",
+      "path": ".claude/skills/pr-triage/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/.claude/skills/pr-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "es-toolkit",
+      "path": ".claude/skills/issue-label/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/.claude/skills/issue-label/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "es-toolkit",
+      "path": ".claude/skills/issue-review/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/.claude/skills/issue-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "es-toolkit",
+      "path": ".claude/skills/compat-review/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/.claude/skills/compat-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "es-toolkit",
+      "path": "es-toolkit-plugin/skills/guide/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/es-toolkit-plugin/skills/guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "es-toolkit",
+      "path": "es-toolkit-plugin/skills/migrate/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/es-toolkit-plugin/skills/migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "es-toolkit",
+      "path": "es-toolkit-plugin/skills/recommend/SKILL.md",
+      "github_url": "https://github.com/toss/es-toolkit/tree/main/es-toolkit-plugin/skills/recommend/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/toss/es-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:37:12Z"
+}
