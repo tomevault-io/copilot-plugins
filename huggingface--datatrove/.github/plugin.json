@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--datatrove",
+  "displayName": "datatrove",
+  "description": "datatrove",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/datatrove",
+  "skills": []
+}
