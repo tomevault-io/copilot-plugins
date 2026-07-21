@@ -1,0 +1,18 @@
+{
+  "name": "openshift--machine-config-operator",
+  "displayName": "machine-config-operator",
+  "description": "machine-config-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/machine-config-operator",
+  "skills": [
+    {
+      "name": "machine-config-operator",
+      "description": ""
+    },
+    {
+      "name": "machine-config-operator",
+      "description": ""
+    }
+  ]
+}
