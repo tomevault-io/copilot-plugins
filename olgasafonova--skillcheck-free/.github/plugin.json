@@ -1,0 +1,14 @@
+{
+  "name": "olgasafonova--skillcheck-free",
+  "displayName": "SkillCheck-Free",
+  "description": "SkillCheck-Free",
+  "version": "1.0.0",
+  "author": "olgasafonova",
+  "homepage": "https://github.com/olgasafonova/SkillCheck-Free",
+  "skills": [
+    {
+      "name": "SkillCheck-Free",
+      "description": ""
+    }
+  ]
+}
