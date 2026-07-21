@@ -1,0 +1,69 @@
+{
+  "name": "prefect",
+  "owner": "PrefectHQ",
+  "repo": "prefect",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "prefect",
+      "path": ".claude/skills/write-docs/SKILL.md",
+      "github_url": "https://github.com/PrefectHQ/prefect/tree/main/.claude/skills/write-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prefect",
+      "path": ".claude/skills/agents-md-sync/SKILL.md",
+      "github_url": "https://github.com/PrefectHQ/prefect/tree/main/.claude/skills/agents-md-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prefect",
+      "path": ".claude/skills/document-changes/SKILL.md",
+      "github_url": "https://github.com/PrefectHQ/prefect/tree/main/.claude/skills/document-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prefect",
+      "path": ".claude/skills/backlog-management/SKILL.md",
+      "github_url": "https://github.com/PrefectHQ/prefect/tree/main/.claude/skills/backlog-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PrefectHQ/prefect",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:41:20Z"
+}
