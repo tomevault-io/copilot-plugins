@@ -1,0 +1,735 @@
+{
+  "name": "akg",
+  "owner": "mindspore-ai",
+  "repo": "akg",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "akg",
+      "path": "akg_agents/.opencode/skills/akg-review/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/.opencode/skills/akg-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/op-test/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/op-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/cuda-basics/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/cuda-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/coder-agent/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/coder-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/.opencode/skills/dev-insight-extractor/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/.opencode/skills/dev-insight-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/triton-syntax/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/triton-syntax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/email-writing/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/email-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/sparse_quant/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/sparse_quant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/triton-ascend/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/triton-ascend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/verifier-agent/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/verifier-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/error-handling/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/designer-agent/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/designer-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/akg-env-setup/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/akg-env-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/adaptive-evolve/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/adaptive-evolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/skills_creator/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/skills_creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/kernel-designer/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/kernel-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/search-workflow/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/search-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/kernel-verifier/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/kernel-verifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/kernel-generator/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/kernel-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/standard-workflow/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/standard-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/op-task-extractor/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/op-task-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/examples/run_skill/skills/external-web-scraping/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/examples/run_skill/skills/external-web-scraping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/vllm-ascend-post-process/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/vllm-ascend-post-process/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/kernel-workflow/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/kernel-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/vllm-mindspore-post-process/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/vllm-mindspore-post-process/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/vllm-ascend-operator-fusion/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/vllm-ascend-operator-fusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/task-constructor/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/task-constructor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/workspace/.opencode/skills/performance-optimize-verify/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/workspace/.opencode/skills/performance-optimize-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/designer/hint-mode/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/designer/hint-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/performance-summary/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/performance-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/cpp/guides/cpu-basics/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/cpp/guides/cpu-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/designer/sketch-design/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/designer/sketch-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-api/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-api/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-basics/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-basics/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-pitfalls/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-pitfalls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-loop-view/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-loop-view/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-patterns/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-matvec/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-matvec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/cpp/guides/cpu-optimization-arm/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/cpp/guides/cpu-optimization-arm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/cpp/guides/cpu-optimization-x64/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/cpp/guides/cpu-optimization-x64/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-optimization/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/guides/pypto-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-matmul-2d/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-matmul-2d/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-optimization/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-api/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/kernel-agent/kernel-agent-overview/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/kernel-agent/kernel-agent-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-examples-torch/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/cuda-c/guides/cuda-c-examples-torch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-reduction-sum/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-reduction-sum/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-elemwise-gelu/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-elemwise-gelu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-memory/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-basics/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-matmul/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-matmul/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-reduce/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-reduce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-norm-layernorm/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-norm-layernorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-norm-batchnorm/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-norm-batchnorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-api/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-patterns/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-debugging/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-attention/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-attention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-loss-crossentropy/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/pypto/cases/pypto-case-loss-crossentropy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-memory/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-basics/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-reduce/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-reduce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-matmul/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-matmul/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/evolved/triton-cuda-error-fix/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/evolved/triton-cuda-error-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-grid-config/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-grid-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-elementwise/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-elementwise/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-optimization/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-patterns/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-attention/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-attention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-examples-torch/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-cuda/guides/triton-cuda-examples-torch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-elementwise/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-elementwise/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-optimization/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-basics/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-memory/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-index-put/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-index-put/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/evolved-fix/triton-ascend-error-fix/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/evolved-fix/triton-ascend-error-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-examples-torch/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-examples-torch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-relu/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-relu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-synchronization/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/tilelang-cuda/guides/tilelang-cuda-synchronization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-debugging/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-api-rules/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-api-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-matmul/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-matmul/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-grid-config/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-grid-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-cast/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-cast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-softmax/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-softmax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-matmul-large-k/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-matmul-large-k/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-optimization/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-zeros/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-zeros/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-index-histogram/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-index-histogram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-concat/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-concat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-layernorm/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-layernorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-matmul-swizzle2d/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-matmul-swizzle2d/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-examples-mindspore/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-examples-mindspore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-sum-fused/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-sum-fused/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-sum-large/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-sum-large/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-double-kernel/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/examples/triton-ascend-example-double-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amax-large/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amax-large/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amin-large/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amin-large/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-mean-large/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-mean-large/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-prod-small/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-prod-small/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amax-small/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amax-small/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amin-small/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amin-small/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-elementwise-reduce-fused/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/guides/triton-ascend-elementwise-reduce-fused/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amin-atomic/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amin-atomic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-broadcast-3d/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-broadcast-3d/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-broadcast-2d/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-elemwise-broadcast-2d/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amax-medium/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amax-medium/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-mean-medium/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-mean-medium/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amin-medium/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-amin-medium/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-weighted-swiglu/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/cases/triton-ascend-case-reduction-weighted-swiglu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-ascend-hardware-constraints/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/fundamentals/triton-ascend-ascend-hardware-constraints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/evolved-improvement/triton-ascend-performance-improvement/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/evolved-improvement/triton-ascend-performance-improvement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "akg",
+      "path": "akg_agents/python/akg_agents/op/resources/skills/triton-ascend/evolved-improvement/triton-ascend-fused-operator-optimization/SKILL.md",
+      "github_url": "https://github.com/mindspore-ai/akg/tree/main/akg_agents/python/akg_agents/op/resources/skills/triton-ascend/evolved-improvement/triton-ascend-fused-operator-optimization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mindspore-ai/akg",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:34:05Z"
+}
