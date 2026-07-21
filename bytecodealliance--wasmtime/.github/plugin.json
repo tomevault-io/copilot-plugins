@@ -1,0 +1,18 @@
+{
+  "name": "bytecodealliance--wasmtime",
+  "displayName": "wasmtime",
+  "description": "wasmtime",
+  "version": "1.0.0",
+  "author": "bytecodealliance",
+  "homepage": "https://github.com/bytecodealliance/wasmtime",
+  "skills": [
+    {
+      "name": "wasmtime",
+      "description": ""
+    },
+    {
+      "name": "wasmtime",
+      "description": ""
+    }
+  ]
+}
