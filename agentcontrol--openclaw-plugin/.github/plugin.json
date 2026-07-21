@@ -1,0 +1,9 @@
+{
+  "name": "agentcontrol--openclaw-plugin",
+  "displayName": "openclaw-plugin",
+  "description": "openclaw-plugin",
+  "version": "1.0.0",
+  "author": "agentcontrol",
+  "homepage": "https://github.com/agentcontrol/openclaw-plugin",
+  "skills": []
+}
