@@ -1,0 +1,339 @@
+{
+  "name": "cc-polymath",
+  "owner": "rand",
+  "repo": "cc-polymath",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anti-slop",
+      "path": "skills/anti-slop",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/anti-slop",
+      "description": ""
+    },
+    {
+      "name": "discover-agentic",
+      "path": "skills/discover-agentic",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-agentic",
+      "description": ""
+    },
+    {
+      "name": "discover-api",
+      "path": "skills/discover-api",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-api",
+      "description": ""
+    },
+    {
+      "name": "discover-cicd",
+      "path": "skills/discover-cicd",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-cicd",
+      "description": ""
+    },
+    {
+      "name": "discover-cryptography",
+      "path": "skills/discover-cryptography",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-cryptography",
+      "description": ""
+    },
+    {
+      "name": "discover-data",
+      "path": "skills/discover-data",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-data",
+      "description": ""
+    },
+    {
+      "name": "discover-database",
+      "path": "skills/discover-database",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-database",
+      "description": ""
+    },
+    {
+      "name": "discover-debugging",
+      "path": "skills/discover-debugging",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-debugging",
+      "description": ""
+    },
+    {
+      "name": "discover-engineering",
+      "path": "skills/discover-engineering",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-engineering",
+      "description": ""
+    },
+    {
+      "name": "discover-frontend",
+      "path": "skills/discover-frontend",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-frontend",
+      "description": ""
+    },
+    {
+      "name": "discover-math",
+      "path": "skills/discover-math",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-math",
+      "description": ""
+    },
+    {
+      "name": "discover-mcp",
+      "path": "skills/discover-mcp",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-mcp",
+      "description": ""
+    },
+    {
+      "name": "discover-ml",
+      "path": "skills/discover-ml",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-ml",
+      "description": ""
+    },
+    {
+      "name": "discover-mobile",
+      "path": "skills/discover-mobile",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-mobile",
+      "description": ""
+    },
+    {
+      "name": "discover-networking",
+      "path": "skills/discover-networking",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-networking",
+      "description": ""
+    },
+    {
+      "name": "discover-product",
+      "path": "skills/discover-product",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-product",
+      "description": ""
+    },
+    {
+      "name": "discover-research",
+      "path": "skills/discover-research",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-research",
+      "description": ""
+    },
+    {
+      "name": "discover-security",
+      "path": "skills/discover-security",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-security",
+      "description": ""
+    },
+    {
+      "name": "discover-testing",
+      "path": "skills/discover-testing",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-testing",
+      "description": ""
+    },
+    {
+      "name": "discover-wasm",
+      "path": "skills/discover-wasm",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-wasm",
+      "description": ""
+    },
+    {
+      "name": "discover-zig",
+      "path": "skills/discover-zig",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-zig",
+      "description": ""
+    },
+    {
+      "name": "elegant-design",
+      "path": "skills/elegant-design",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/elegant-design",
+      "description": ""
+    },
+    {
+      "name": "typed-holes-refactor",
+      "path": "skills/typed-holes-refactor",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/typed-holes-refactor",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/anti-slop/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/anti-slop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-ml/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-ml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-api/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-mcp/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-zig/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-zig/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-data/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-wasm/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-wasm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-math/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-math/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-cicd/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-cicd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/elegant-design/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/elegant-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-infra/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-infra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-mobile/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-mobile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-agentic/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-agentic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-testing/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-product/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-product/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-research/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-security/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-frontend/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-database/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-debugging/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-networking/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-networking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/typed-holes-refactor/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/typed-holes-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-distributed/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-distributed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-engineering/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-cryptography/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-cryptography/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-polymath",
+      "path": "skills/discover-systems-theory/SKILL.md",
+      "github_url": "https://github.com/rand/cc-polymath/tree/main/skills/discover-systems-theory/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rand/cc-polymath",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T18:32:43Z"
+}
