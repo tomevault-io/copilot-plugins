@@ -1,0 +1,31 @@
+## secco
+
+> - `pnpm build` - Build the project
+
+# Secco Development Guide
+
+## Build/Test Commands
+- `pnpm build` - Build the project
+- `pnpm test:unit` - Run unit tests
+- `pnpm test:unit:w` - Watch mode for unit tests
+- `pnpm test:integration` - Run integration tests
+- `pnpm test:unit -- path/to/test.ts` - Run a single test file
+- `pnpm lint` - Run ESLint
+- `pnpm typecheck` - TypeScript type checking
+- `pnpm check` - Run Publint for package.json linting
+
+## Code Style
+- **Imports**: Use `type` imports for types, Node.js imports with `node:` prefix
+- **Formatting**: 2 spaces, single quotes, no semicolons (@antfu/eslint-config)
+- **Arrays**: Use generic syntax `Array<T>` instead of `T[]`
+- **Objects**: Use `Record<string, unknown>` instead of `{}` or `object`
+- **Exports**: Named exports preferred, organize by type/function/const
+- **Async**: Use async/await, handle errors with try-catch
+- **Logging**: Use `logger` from `utils/logger.ts`, avoid console.log
+- **Tests**: Use Vitest with describe/it blocks, place in `__tests__` folders
+- **TypeScript**: Strict mode enabled, use explicit types for parameters
+- **File structure**: Group related utilities in `utils/`, commands in `commands/`
+
+---
+> Source: [LekoArts/secco](https://github.com/LekoArts/secco) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
