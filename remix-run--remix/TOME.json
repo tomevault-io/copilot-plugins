@@ -1,0 +1,153 @@
+{
+  "name": "remix",
+  "owner": "remix-run",
+  "repo": "remix",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "remix-project-layout",
+      "path": "skills/remix-project-layout",
+      "github_url": "https://github.com/remix-run/remix/tree/main/skills/remix-project-layout",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/remix/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/remix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/make-pr/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/make-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/make-demo/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/make-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/update-pr/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/update-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/write-tests/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/add-package/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/add-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/make-changes/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/make-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/write-readme/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/write-readme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/supersede-pr/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/supersede-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/write-api-docs/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/write-api-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/typescript-expert/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/typescript-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/author-ui-modules/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/author-ui-modules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/make-decision-doc/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/make-decision-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/write-ui-module-readme/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/write-ui-module-readme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "remix",
+      "path": ".agents/skills/publish-placeholder-package/SKILL.md",
+      "github_url": "https://github.com/remix-run/remix/tree/main/.agents/skills/publish-placeholder-package/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/remix-run/remix",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:22:07Z"
+}
