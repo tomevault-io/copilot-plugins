@@ -1,0 +1,123 @@
+{
+  "name": "defold-daabbcc",
+  "owner": "selimanac",
+  "repo": "defold-daabbcc",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/xmath-usage/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/xmath-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-api-fetch/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-api-fetch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-docs-fetch/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-docs-fetch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/monarch-screen-setup/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/monarch-screen-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-project-build/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-project-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-project-setup/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-assets-search/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-assets-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-examples-fetch/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-examples-fetch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-skill-maintain/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-skill-maintain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-shaders-editing/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-shaders-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-scripts-editing/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-scripts-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-proto-file-editing/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-proto-file-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "defold-daabbcc",
+      "path": ".agents/skills/defold-native-extension-editing/SKILL.md",
+      "github_url": "https://github.com/selimanac/defold-daabbcc/tree/main/.agents/skills/defold-native-extension-editing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/selimanac/defold-daabbcc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:42:37Z"
+}
