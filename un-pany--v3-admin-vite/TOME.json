@@ -1,0 +1,75 @@
+{
+  "name": "v3-admin-vite",
+  "owner": "un-pany",
+  "repo": "v3-admin-vite",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "v3-admin-vite",
+      "path": ".agents/skills/v3-use-utils/SKILL.md",
+      "github_url": "https://github.com/un-pany/v3-admin-vite/tree/main/.agents/skills/v3-use-utils/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "v3-admin-vite",
+      "path": ".agents/skills/v3-create-crud/SKILL.md",
+      "github_url": "https://github.com/un-pany/v3-admin-vite/tree/main/.agents/skills/v3-create-crud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "v3-admin-vite",
+      "path": ".agents/skills/v3-upsert-store/SKILL.md",
+      "github_url": "https://github.com/un-pany/v3-admin-vite/tree/main/.agents/skills/v3-upsert-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "v3-admin-vite",
+      "path": ".agents/skills/v3-upsert-route/SKILL.md",
+      "github_url": "https://github.com/un-pany/v3-admin-vite/tree/main/.agents/skills/v3-upsert-route/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "v3-admin-vite",
+      "path": ".agents/skills/v3-use-composables/SKILL.md",
+      "github_url": "https://github.com/un-pany/v3-admin-vite/tree/main/.agents/skills/v3-use-composables/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/un-pany/v3-admin-vite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T09:55:58Z"
+}
