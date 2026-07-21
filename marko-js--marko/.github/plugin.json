@@ -1,0 +1,14 @@
+{
+  "name": "marko-js--marko",
+  "displayName": "marko",
+  "description": "marko",
+  "version": "1.0.0",
+  "author": "marko-js",
+  "homepage": "https://github.com/marko-js/marko",
+  "skills": [
+    {
+      "name": "marko",
+      "description": ""
+    }
+  ]
+}
