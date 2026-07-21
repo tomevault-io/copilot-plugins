@@ -1,0 +1,117 @@
+{
+  "name": "growingio-sdk-ios-autotracker",
+  "owner": "growingio",
+  "repo": "growingio-sdk-ios-autotracker",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/sdk-code-review/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/sdk-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/plan-document-review/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/plan-document-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/using-growingio-sdk-skills/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/using-growingio-sdk-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growingio-sdk-ios-autotracker",
+      "path": ".agents/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/growingio/growingio-sdk-ios-autotracker/tree/main/.agents/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/growingio/growingio-sdk-ios-autotracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:11:07Z"
+}
