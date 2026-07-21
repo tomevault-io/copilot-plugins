@@ -1,0 +1,189 @@
+{
+  "name": "datadog-agent",
+  "owner": "DataDog",
+  "repo": "datadog-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "datadog-agent",
+      "path": ".agents/skills/allium/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.agents/skills/allium/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/run-e2e/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/run-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/run-jira/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/run-jira/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/auto-jira/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/auto-jira/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/write-e2e/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/write-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-go-module/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-go-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-component/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-core-check/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-core-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-subcommand/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-subcommand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/review-pr-comments/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/review-pr-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-invoke-task/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-invoke-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-config-field/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-config-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-release-note/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-release-note/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".agents/skills/allium/skills/elicit/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.agents/skills/allium/skills/elicit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".agents/skills/allium/skills/distill/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.agents/skills/allium/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/explain-lading-config/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/explain-lading-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/update-3rd-party-libs/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/update-3rd-party-libs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-runtime-setting/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-runtime-setting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/create-status-provider/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/create-status-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".agents/skills/allium/skills/propagate/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.agents/skills/allium/skills/propagate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/quality-gate-size-analysis/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/quality-gate-size-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": ".claude/skills/agent-supply-chain-newsletter/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/.claude/skills/agent-supply-chain-newsletter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "datadog-agent",
+      "path": "test/new-e2e/tests/agent-health/.claude/skills/write-agent-health-e2e/SKILL.md",
+      "github_url": "https://github.com/DataDog/datadog-agent/tree/main/test/new-e2e/tests/agent-health/.claude/skills/write-agent-health-e2e/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DataDog/datadog-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:53:46Z"
+}
