@@ -1,0 +1,22 @@
+{
+  "name": "planetable--planet",
+  "displayName": "Planet",
+  "description": "Planet",
+  "version": "1.0.0",
+  "author": "Planetable",
+  "homepage": "https://github.com/Planetable/Planet",
+  "skills": [
+    {
+      "name": "Planet",
+      "description": ""
+    },
+    {
+      "name": "Planet",
+      "description": ""
+    },
+    {
+      "name": "Planet",
+      "description": ""
+    }
+  ]
+}
