@@ -1,0 +1,14 @@
+{
+  "name": "ponylang--ponyc",
+  "displayName": "ponyc",
+  "description": "ponyc",
+  "version": "1.0.0",
+  "author": "ponylang",
+  "homepage": "https://github.com/ponylang/ponyc",
+  "skills": [
+    {
+      "name": "ponyc",
+      "description": ""
+    }
+  ]
+}
