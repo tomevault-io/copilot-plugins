@@ -3,8 +3,8 @@
   "owner": "deepsense-ai",
   "repo": "ragbits",
   "description": "Building blocks for rapid development of GenAI applications ",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ragbits",
+      "path": ".claude/skills/generate-changelog/SKILL.md",
+      "github_url": "https://github.com/deepsense-ai/ragbits/tree/main/.claude/skills/generate-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ragbits",
+      "path": ".claude/skills/sync-builder-journal/SKILL.md",
+      "github_url": "https://github.com/deepsense-ai/ragbits/tree/main/.claude/skills/sync-builder-journal/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/deepsense-ai/ragbits",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T11:35:09Z"
+  "distributed_at": "2026-07-21T12:35:07Z"
 }
