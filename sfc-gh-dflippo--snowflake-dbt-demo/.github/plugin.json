@@ -1,0 +1,266 @@
+{
+  "name": "sfc-gh-dflippo--snowflake-dbt-demo",
+  "displayName": "snowflake-dbt-demo",
+  "description": "snowflake-dbt-demo",
+  "version": "1.0.0",
+  "author": "sfc-gh-dflippo",
+  "homepage": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "skills": [
+    {
+      "name": "dbt-architecture",
+      "description": ""
+    },
+    {
+      "name": "dbt-artifacts",
+      "description": ""
+    },
+    {
+      "name": "dbt-commands",
+      "description": ""
+    },
+    {
+      "name": "dbt-core",
+      "description": ""
+    },
+    {
+      "name": "dbt-materializations",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-bigquery",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-db2",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-hive",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-ms-sql-server",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-oracle",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-postgres",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-redshift",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-snowflake",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-sybase",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-teradata",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-validation",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-vertica",
+      "description": ""
+    },
+    {
+      "name": "dbt-modeling",
+      "description": ""
+    },
+    {
+      "name": "dbt-performance",
+      "description": ""
+    },
+    {
+      "name": "dbt-projects-on-snowflake",
+      "description": ""
+    },
+    {
+      "name": "dbt-projects-snowflake-setup",
+      "description": ""
+    },
+    {
+      "name": "dbt-testing",
+      "description": ""
+    },
+    {
+      "name": "devcontainer-setup",
+      "description": ""
+    },
+    {
+      "name": "doc-scraper",
+      "description": ""
+    },
+    {
+      "name": "playwright-mcp",
+      "description": ""
+    },
+    {
+      "name": "schemachange",
+      "description": ""
+    },
+    {
+      "name": "skills-sync",
+      "description": ""
+    },
+    {
+      "name": "snowflake-cli",
+      "description": ""
+    },
+    {
+      "name": "task-master",
+      "description": ""
+    },
+    {
+      "name": "task-master-install",
+      "description": ""
+    },
+    {
+      "name": "task-master-viewer",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "description": ""
+    }
+  ]
+}
