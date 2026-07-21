@@ -1,0 +1,14 @@
+{
+  "name": "mervinpraison--praisonai",
+  "displayName": "PraisonAI",
+  "description": "PraisonAI",
+  "version": "1.0.0",
+  "author": "MervinPraison",
+  "homepage": "https://github.com/MervinPraison/PraisonAI",
+  "skills": [
+    {
+      "name": "PraisonAI",
+      "description": ""
+    }
+  ]
+}
