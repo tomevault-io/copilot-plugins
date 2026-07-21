@@ -1,0 +1,75 @@
+{
+  "name": "vstest",
+  "owner": "microsoft",
+  "repo": "vstest",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vstest",
+      "path": ".github/skills/trx-analysis/SKILL.md",
+      "github_url": "https://github.com/microsoft/vstest/tree/main/.github/skills/trx-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vstest",
+      "path": ".github/skills/expert-review/SKILL.md",
+      "github_url": "https://github.com/microsoft/vstest/tree/main/.github/skills/expert-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vstest",
+      "path": ".github/skills/creating-skills/SKILL.md",
+      "github_url": "https://github.com/microsoft/vstest/tree/main/.github/skills/creating-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vstest",
+      "path": ".github/skills/validate-skills/SKILL.md",
+      "github_url": "https://github.com/microsoft/vstest/tree/main/.github/skills/validate-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vstest",
+      "path": ".github/skills/vstest-build-test/SKILL.md",
+      "github_url": "https://github.com/microsoft/vstest/tree/main/.github/skills/vstest-build-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/vstest",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:20:12Z"
+}
