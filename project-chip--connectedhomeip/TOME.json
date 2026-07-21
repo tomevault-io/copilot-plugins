@@ -1,0 +1,105 @@
+{
+  "name": "connectedhomeip",
+  "owner": "project-chip",
+  "repo": "connectedhomeip",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/chip-tool-testing/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/chip-tool-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/python-test-runner/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/python-test-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/zap-matter-analysis/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/zap-matter-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/python-test-reviewer/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/python-test-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/documentation-discovery/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/documentation-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/matter-specification-access/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/matter-specification-access/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/github-pr-description-writer/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/github-pr-description-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/code-driven-cluster-migration/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/code-driven-cluster-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/code-driven-cluster-development/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/code-driven-cluster-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "connectedhomeip",
+      "path": ".agents/skills/code-driven-cluster-tdd-implementation/SKILL.md",
+      "github_url": "https://github.com/project-chip/connectedhomeip/tree/main/.agents/skills/code-driven-cluster-tdd-implementation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/project-chip/connectedhomeip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:51:14Z"
+}
