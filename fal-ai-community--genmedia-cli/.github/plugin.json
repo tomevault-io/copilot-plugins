@@ -1,0 +1,14 @@
+{
+  "name": "fal-ai-community--genmedia-cli",
+  "displayName": "genmedia-cli",
+  "description": "genmedia-cli",
+  "version": "1.0.0",
+  "author": "fal-ai-community",
+  "homepage": "https://github.com/fal-ai-community/genmedia-cli",
+  "skills": [
+    {
+      "name": "genmedia-cli",
+      "description": ""
+    }
+  ]
+}
