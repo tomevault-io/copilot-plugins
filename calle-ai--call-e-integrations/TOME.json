@@ -1,0 +1,105 @@
+{
+  "name": "call-e-integrations",
+  "owner": "CALLE-AI",
+  "repo": "call-e-integrations",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "call-e-integrations",
+      "path": "skills/calle/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/skills/calle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": ".agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": ".agents/skills/release-decision/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/.agents/skills/release-decision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": ".agents/skills/github-ci-triage/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/.agents/skills/github-ci-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": ".agents/skills/change-review-agent/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/.agents/skills/change-review-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": ".agents/skills/claude-plugin-reinstall/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/.agents/skills/claude-plugin-reinstall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": "packages/codex-plugin/plugin/skills/calle/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/packages/codex-plugin/plugin/skills/calle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": "packages/cursor-plugin/plugin/skills/calle/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/packages/cursor-plugin/plugin/skills/calle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": "packages/claude-plugin/plugin/skills/calle/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/packages/claude-plugin/plugin/skills/calle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "call-e-integrations",
+      "path": "packages/openclaw-cli-skill/skills/phone-call-calle/SKILL.md",
+      "github_url": "https://github.com/CALLE-AI/call-e-integrations/tree/main/packages/openclaw-cli-skill/skills/phone-call-calle/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/CALLE-AI/call-e-integrations",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:28:11Z"
+}
