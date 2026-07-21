@@ -1,0 +1,9 @@
+{
+  "name": "browser-actions--setup-firefox",
+  "displayName": "setup-firefox",
+  "description": "setup-firefox",
+  "version": "1.0.0",
+  "author": "browser-actions",
+  "homepage": "https://github.com/browser-actions/setup-firefox",
+  "skills": []
+}
