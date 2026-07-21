@@ -1,0 +1,87 @@
+{
+  "name": "AI-Gateway",
+  "owner": "Azure-Samples",
+  "repo": "AI-Gateway",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AI-Gateway",
+      "path": ".github/skills/apim-kql/SKILL.md",
+      "github_url": "https://github.com/Azure-Samples/AI-Gateway/tree/main/.github/skills/apim-kql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Gateway",
+      "path": ".github/skills/apim-bicep/SKILL.md",
+      "github_url": "https://github.com/Azure-Samples/AI-Gateway/tree/main/.github/skills/apim-bicep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Gateway",
+      "path": ".github/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/Azure-Samples/AI-Gateway/tree/main/.github/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Gateway",
+      "path": ".github/skills/lab-creator/SKILL.md",
+      "github_url": "https://github.com/Azure-Samples/AI-Gateway/tree/main/.github/skills/lab-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Gateway",
+      "path": ".github/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/Azure-Samples/AI-Gateway/tree/main/.github/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Gateway",
+      "path": ".github/skills/apim-policies/SKILL.md",
+      "github_url": "https://github.com/Azure-Samples/AI-Gateway/tree/main/.github/skills/apim-policies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Gateway",
+      "path": ".github/skills/apim-terraform/SKILL.md",
+      "github_url": "https://github.com/Azure-Samples/AI-Gateway/tree/main/.github/skills/apim-terraform/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure-Samples/AI-Gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:46:24Z"
+}
