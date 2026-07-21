@@ -1,0 +1,18 @@
+{
+  "name": "fike--fastapi-blog",
+  "displayName": "fastapi-blog",
+  "description": "fastapi-blog",
+  "version": "1.0.0",
+  "author": "fike",
+  "homepage": "https://github.com/fike/fastapi-blog",
+  "skills": [
+    {
+      "name": "fastapi-blog",
+      "description": ""
+    },
+    {
+      "name": "fastapi-blog",
+      "description": ""
+    }
+  ]
+}
