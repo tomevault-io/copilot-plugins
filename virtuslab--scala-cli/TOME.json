@@ -1,0 +1,63 @@
+{
+  "name": "scala-cli",
+  "owner": "VirtusLab",
+  "repo": "scala-cli",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "scala-cli",
+      "path": "agentskills/integration-tests/SKILL.md",
+      "github_url": "https://github.com/VirtusLab/scala-cli/tree/main/agentskills/integration-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scala-cli",
+      "path": "agentskills/adding-directives/SKILL.md",
+      "github_url": "https://github.com/VirtusLab/scala-cli/tree/main/agentskills/adding-directives/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scala-cli",
+      "path": "agentskills/deprecating-features/SKILL.md",
+      "github_url": "https://github.com/VirtusLab/scala-cli/tree/main/agentskills/deprecating-features/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/VirtusLab/scala-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:07:15Z"
+}
