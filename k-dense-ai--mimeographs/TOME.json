@@ -1,0 +1,537 @@
+{
+  "name": "mimeographs",
+  "owner": "K-Dense-AI",
+  "repo": "mimeographs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "richard-s-sutton",
+      "path": "mimeographs/richard-s-sutton",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/richard-s-sutton",
+      "description": ""
+    },
+    {
+      "name": "elizabeth-anscombe",
+      "path": "mimeographs/elizabeth-anscombe",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/elizabeth-anscombe",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/plato/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/plato/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/socrates/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/socrates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/thai-lee/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/thai-lee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/jeff-dean/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/jeff-dean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/andrew-ng/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/andrew-ng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/aristotle/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/aristotle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/elon-musk/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/elon-musk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/confucius/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/confucius/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/fei-fei-li/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/fei-fei-li/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/kaiming-he/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/kaiming-he/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/zhenan-bao/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/zhenan-bao/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/yann-lecun/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/yann-lecun/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/henry-ford/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/henry-ford/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/aviv-regev/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/aviv-regev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/steve-jobs/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/steve-jobs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/frank-b-hu/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/frank-b-hu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/david-hume/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/david-hume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/bill-gates/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/bill-gates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/judea-pearl/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/judea-pearl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/walt-disney/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/walt-disney/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/david-silver/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/david-silver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/mary-midgley/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/mary-midgley/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/shizuo-akira/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/shizuo-akira/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/iris-murdoch/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/iris-murdoch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/kay-tee-khaw/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/kay-tee-khaw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/sara-blakely/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/sara-blakely/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/pieter-abbeel/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/pieter-abbeel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/anne-wojcicki/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/anne-wojcicki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/eric-s-lander/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/eric-s-lander/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/immanuel-kant/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/immanuel-kant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/judith-butler/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/judith-butler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/yoshua-bengio/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/yoshua-bengio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/daphne-koller/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/daphne-koller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/marian-ilitch/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/marian-ilitch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/oprah-winfrey/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/oprah-winfrey/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/robert-langer/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/robert-langer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/thomas-edison/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/thomas-edison/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/hannah-arendt/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/hannah-arendt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/lynda-resnick/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/lynda-resnick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/albert-hofman/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/albert-hofman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/judy-faulkner/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/judy-faulkner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/ian-goodfellow/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/ian-goodfellow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/demis-hassabis/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/demis-hassabis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/stuart-russell/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/stuart-russell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/warren-buffett/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/warren-buffett/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/ilya-sutskever/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/ilya-sutskever/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/julie-e-buring/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/julie-e-buring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/stacey-gabriel/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/stacey-gabriel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/rene-descartes/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/rene-descartes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/zhong-lin-wang/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/zhong-lin-wang/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/joann-e-manson/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/joann-e-manson/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/sebastian-thrun/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/sebastian-thrun/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/andrej-karpathy/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/andrej-karpathy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/andrew-carnegie/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/andrew-carnegie/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/geoffrey-hinton/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/geoffrey-hinton/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/mark-zuckerberg/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/mark-zuckerberg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/martha-nussbaum/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/martha-nussbaum/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/tamara-b-harris/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/tamara-b-harris/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/diane-hendricks/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/diane-hendricks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/meir-j-stampfer/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/meir-j-stampfer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/richard-s-sutton/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/richard-s-sutton/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/dorret-i-boomsma/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/dorret-i-boomsma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/virginia-m-y-lee/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/virginia-m-y-lee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/ronald-c-kessler/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/ronald-c-kessler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/martin-heidegger/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/martin-heidegger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/terrie-e-moffitt/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/terrie-e-moffitt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/walter-c-willett/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/walter-c-willett/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/graham-a-colditz/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/graham-a-colditz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/jurgen-schmidhuber/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/jurgen-schmidhuber/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/john-d-rockefeller/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/john-d-rockefeller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/whitney-wolfe-herd/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/whitney-wolfe-herd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/elizabeth-anscombe/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/elizabeth-anscombe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/simone-de-beauvoir/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/simone-de-beauvoir/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/christopher-manning/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/christopher-manning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/hildegard-of-bingen/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/hildegard-of-bingen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/friedrich-nietzsche/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/friedrich-nietzsche/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/ludwig-wittgenstein/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/ludwig-wittgenstein/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/kiran-mazumdar-shaw/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/kiran-mazumdar-shaw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/mary-wollstonecraft/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/mary-wollstonecraft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mimeographs",
+      "path": "mimeographs/hypatia-of-alexandria/SKILL.md",
+      "github_url": "https://github.com/K-Dense-AI/mimeographs/tree/main/mimeographs/hypatia-of-alexandria/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/K-Dense-AI/mimeographs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:35:26Z"
+}
