@@ -1,0 +1,9 @@
+{
+  "name": "polarmutex--beancount-language-server",
+  "displayName": "beancount-language-server",
+  "description": "beancount-language-server",
+  "version": "1.0.0",
+  "author": "polarmutex",
+  "homepage": "https://github.com/polarmutex/beancount-language-server",
+  "skills": []
+}
