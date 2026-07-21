@@ -1,0 +1,9 @@
+{
+  "name": "cloudbees-oss--zendesk-java-client",
+  "displayName": "zendesk-java-client",
+  "description": "zendesk-java-client",
+  "version": "1.0.0",
+  "author": "cloudbees-oss",
+  "homepage": "https://github.com/cloudbees-oss/zendesk-java-client",
+  "skills": []
+}
