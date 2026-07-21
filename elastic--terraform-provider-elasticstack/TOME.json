@@ -1,0 +1,147 @@
+{
+  "name": "terraform-provider-elasticstack",
+  "owner": "elastic",
+  "repo": "terraform-provider-elasticstack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/schema-coverage/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/schema-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/flaky-test-catcher/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/flaky-test-catcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/pr-monitoring-loop/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/pr-monitoring-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/sdk-to-pf-migration/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/sdk-to-pf-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/new-entity-requirements/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/new-entity-requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/requirements-verification/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/requirements-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/existing-entity-requirements/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/existing-entity-requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".agents/skills/openspec-implementation-loop/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.agents/skills/openspec-implementation-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-elasticstack",
+      "path": ".github/skills/agentic-workflows/SKILL.md",
+      "github_url": "https://github.com/elastic/terraform-provider-elasticstack/tree/main/.github/skills/agentic-workflows/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/elastic/terraform-provider-elasticstack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:21:48Z"
+}
