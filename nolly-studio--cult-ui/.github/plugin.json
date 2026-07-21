@@ -1,0 +1,26 @@
+{
+  "name": "nolly-studio--cult-ui",
+  "displayName": "cult-ui",
+  "description": "cult-ui",
+  "version": "1.0.0",
+  "author": "nolly-studio",
+  "homepage": "https://github.com/nolly-studio/cult-ui",
+  "skills": [
+    {
+      "name": "components-build",
+      "description": ""
+    },
+    {
+      "name": "cult-ui",
+      "description": ""
+    },
+    {
+      "name": "cult-ui",
+      "description": ""
+    },
+    {
+      "name": "cult-ui",
+      "description": ""
+    }
+  ]
+}
