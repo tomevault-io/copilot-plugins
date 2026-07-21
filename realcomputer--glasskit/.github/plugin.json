@@ -1,0 +1,14 @@
+{
+  "name": "realcomputer--glasskit",
+  "displayName": "GlassKit",
+  "description": "GlassKit",
+  "version": "1.0.0",
+  "author": "RealComputer",
+  "homepage": "https://github.com/RealComputer/GlassKit",
+  "skills": [
+    {
+      "name": "GlassKit",
+      "description": ""
+    }
+  ]
+}
