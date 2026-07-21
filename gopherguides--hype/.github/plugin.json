@@ -1,0 +1,14 @@
+{
+  "name": "gopherguides--hype",
+  "displayName": "hype",
+  "description": "hype",
+  "version": "1.0.0",
+  "author": "gopherguides",
+  "homepage": "https://github.com/gopherguides/hype",
+  "skills": [
+    {
+      "name": "hype",
+      "description": ""
+    }
+  ]
+}
