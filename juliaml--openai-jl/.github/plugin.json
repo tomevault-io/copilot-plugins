@@ -1,0 +1,9 @@
+{
+  "name": "juliaml--openai-jl",
+  "displayName": "OpenAI.jl",
+  "description": "OpenAI.jl",
+  "version": "1.0.0",
+  "author": "JuliaML",
+  "homepage": "https://github.com/JuliaML/OpenAI.jl",
+  "skills": []
+}
