@@ -3,8 +3,8 @@
   "owner": "J-Pster",
   "repo": "Psters_AI_Workflow",
   "description": "An auto-documenting, model-agnostic AI workflow for any project, framework, and language. It reduces hallucination and keeps delivery predictable: the developer controls the path, AI executes the steps, and project standards stay consistent.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,111 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/git-worktree/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/git-worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/deploy-lambda/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/deploy-lambda/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/commit-changes/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/commit-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/nestjs-conventions/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/nestjs-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/angular-conventions/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/angular-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/docs-baseline-loading/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/docs-baseline-loading/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/using-psters-workflow/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/using-psters-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/commit-changes-repo-worker/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/commit-changes-repo-worker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/orchestrating-multi-agents/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/orchestrating-multi-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/docs-maintenance-after-work/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/docs-maintenance-after-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/visual-brainstorm-companion/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/visual-brainstorm-companion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Psters_AI_Workflow",
+      "path": "plugins/psters-ai-workflow/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/J-Pster/Psters_AI_Workflow/tree/main/plugins/psters-ai-workflow/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/J-Pster/Psters_AI_Workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T06:13:02Z"
+  "distributed_at": "2026-07-21T16:32:20Z"
 }
