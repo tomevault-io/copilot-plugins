@@ -1,0 +1,14 @@
+{
+  "name": "fabricjs--fabric-js",
+  "displayName": "fabric.js",
+  "description": "fabric.js",
+  "version": "1.0.0",
+  "author": "fabricjs",
+  "homepage": "https://github.com/fabricjs/fabric.js",
+  "skills": [
+    {
+      "name": "fabric.js",
+      "description": ""
+    }
+  ]
+}
