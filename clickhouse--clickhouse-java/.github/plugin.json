@@ -1,0 +1,18 @@
+{
+  "name": "clickhouse--clickhouse-java",
+  "displayName": "clickhouse-java",
+  "description": "clickhouse-java",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/clickhouse-java",
+  "skills": [
+    {
+      "name": "clickhouse-java",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-java",
+      "description": ""
+    }
+  ]
+}
