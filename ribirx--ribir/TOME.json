@@ -1,0 +1,63 @@
+{
+  "name": "Ribir",
+  "owner": "RibirX",
+  "repo": "Ribir",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Ribir",
+      "path": ".agents/skills/ribir-debug/SKILL.md",
+      "github_url": "https://github.com/RibirX/Ribir/tree/main/.agents/skills/ribir-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ribir",
+      "path": ".agents/skills/ribir-widget-creator/SKILL.md",
+      "github_url": "https://github.com/RibirX/Ribir/tree/main/.agents/skills/ribir-widget-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Ribir",
+      "path": ".agents/skills/ribir-style-and-cleanliness/SKILL.md",
+      "github_url": "https://github.com/RibirX/Ribir/tree/main/.agents/skills/ribir-style-and-cleanliness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RibirX/Ribir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:05:00Z"
+}
