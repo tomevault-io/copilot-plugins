@@ -1,0 +1,165 @@
+{
+  "name": "basic",
+  "owner": "fantastic-admin",
+  "repo": "basic",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fa-page-optimizer",
+      "path": ".agents/skills/fa-page-optimizer",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-page-optimizer",
+      "description": ""
+    },
+    {
+      "name": "fa-route-generator",
+      "path": ".agents/skills/fa-route-generator",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-route-generator",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-feedback/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-slot-creator/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-slot-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-form-builder/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-form-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-page-optimizer/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-page-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-route-generator/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-route-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-store-generator/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-store-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-feedback/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-theme-customizer/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-theme-customizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-framework-settings/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-framework-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": "skills/fa-crud-page-generator/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/skills/fa-crud-page-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-slot-creator/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-slot-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-form-builder/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-form-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-page-optimizer/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-page-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-route-generator/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-route-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-store-generator/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-store-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-theme-customizer/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-theme-customizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-framework-settings/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-framework-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "basic",
+      "path": ".agents/skills/fa-crud-page-generator/SKILL.md",
+      "github_url": "https://github.com/fantastic-admin/basic/tree/main/.agents/skills/fa-crud-page-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fantastic-admin/basic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:03:55Z"
+}
