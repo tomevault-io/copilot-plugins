@@ -1,0 +1,18 @@
+{
+  "name": "dotnet--nuget-trends",
+  "displayName": "nuget-trends",
+  "description": "nuget-trends",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/nuget-trends",
+  "skills": [
+    {
+      "name": "address-review",
+      "description": ""
+    },
+    {
+      "name": "nuget-trends",
+      "description": ""
+    }
+  ]
+}
