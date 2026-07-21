@@ -1,0 +1,9 @@
+{
+  "name": "amqp-rs--amq-protocol",
+  "displayName": "amq-protocol",
+  "description": "amq-protocol",
+  "version": "1.0.0",
+  "author": "amqp-rs",
+  "homepage": "https://github.com/amqp-rs/amq-protocol",
+  "skills": []
+}
