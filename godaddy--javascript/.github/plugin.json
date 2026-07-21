@@ -1,0 +1,14 @@
+{
+  "name": "godaddy--javascript",
+  "displayName": "javascript",
+  "description": "javascript",
+  "version": "1.0.0",
+  "author": "godaddy",
+  "homepage": "https://github.com/godaddy/javascript",
+  "skills": [
+    {
+      "name": "javascript",
+      "description": ""
+    }
+  ]
+}
