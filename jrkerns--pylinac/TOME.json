@@ -1,0 +1,69 @@
+{
+  "name": "pylinac",
+  "owner": "jrkerns",
+  "repo": "pylinac",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pylinac",
+      "path": ".agents/skills/clean-up/SKILL.md",
+      "github_url": "https://github.com/jrkerns/pylinac/tree/main/.agents/skills/clean-up/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pylinac",
+      "path": ".agents/skills/refactor/SKILL.md",
+      "github_url": "https://github.com/jrkerns/pylinac/tree/main/.agents/skills/refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pylinac",
+      "path": ".agents/skills/pull-request-review/SKILL.md",
+      "github_url": "https://github.com/jrkerns/pylinac/tree/main/.agents/skills/pull-request-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pylinac",
+      "path": ".agents/skills/generate-pull-request/SKILL.md",
+      "github_url": "https://github.com/jrkerns/pylinac/tree/main/.agents/skills/generate-pull-request/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jrkerns/pylinac",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:26:38Z"
+}
