@@ -1,0 +1,225 @@
+{
+  "name": "data-client",
+  "owner": "reactive",
+  "repo": "data-client",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "changeset",
+      "path": ".cursor/skills/changeset",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/changeset",
+      "description": ""
+    },
+    {
+      "name": "data-client-endpoint-setup",
+      "path": ".cursor/skills/data-client-endpoint-setup",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-endpoint-setup",
+      "description": ""
+    },
+    {
+      "name": "data-client-graphql-setup",
+      "path": ".cursor/skills/data-client-graphql-setup",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-graphql-setup",
+      "description": ""
+    },
+    {
+      "name": "data-client-manager",
+      "path": ".cursor/skills/data-client-manager",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-manager",
+      "description": ""
+    },
+    {
+      "name": "data-client-react",
+      "path": ".cursor/skills/data-client-react",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-react",
+      "description": ""
+    },
+    {
+      "name": "data-client-react-testing",
+      "path": ".cursor/skills/data-client-react-testing",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-react-testing",
+      "description": ""
+    },
+    {
+      "name": "data-client-rest",
+      "path": ".cursor/skills/data-client-rest",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-rest",
+      "description": ""
+    },
+    {
+      "name": "data-client-rest-setup",
+      "path": ".cursor/skills/data-client-rest-setup",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-rest-setup",
+      "description": ""
+    },
+    {
+      "name": "data-client-schema",
+      "path": ".cursor/skills/data-client-schema",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-schema",
+      "description": ""
+    },
+    {
+      "name": "data-client-setup",
+      "path": ".cursor/skills/data-client-setup",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-setup",
+      "description": ""
+    },
+    {
+      "name": "data-client-vue-testing",
+      "path": ".cursor/skills/data-client-vue-testing",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-vue-testing",
+      "description": ""
+    },
+    {
+      "name": "initialize",
+      "path": ".cursor/skills/initialize",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/initialize",
+      "description": ""
+    },
+    {
+      "name": "packages-documentation",
+      "path": ".cursor/skills/packages-documentation",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/packages-documentation",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/pr/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/changeset/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/initialize/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/initialize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-rest/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-rest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-setup/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-react/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-schema/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-manager/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-rest-setup/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-rest-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/packages-documentation/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/packages-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-vue-testing/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-vue-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-graphql-setup/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-graphql-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-react-testing/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-react-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-endpoint-setup/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-endpoint-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/path-to-regexp-v8-migration/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/path-to-regexp-v8-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "data-client",
+      "path": ".cursor/skills/data-client-v0.18-migration/SKILL.md",
+      "github_url": "https://github.com/reactive/data-client/tree/main/.cursor/skills/data-client-v0.18-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/reactive/data-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:48:22Z"
+}
