@@ -1,0 +1,9 @@
+{
+  "name": "kpsuperplane--homebridge-wiz-lan",
+  "displayName": "homebridge-wiz-lan",
+  "description": "homebridge-wiz-lan",
+  "version": "1.0.0",
+  "author": "kpsuperplane",
+  "homepage": "https://github.com/kpsuperplane/homebridge-wiz-lan",
+  "skills": []
+}
