@@ -1,0 +1,57 @@
+{
+  "name": "browser-sdk",
+  "owner": "DataDog",
+  "repo": "browser-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser-sdk",
+      "path": ".claude/skills/manual-testing/SKILL.md",
+      "github_url": "https://github.com/DataDog/browser-sdk/tree/main/.claude/skills/manual-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "browser-sdk",
+      "path": ".claude/skills/upgrade-browser-sdk-v7/SKILL.md",
+      "github_url": "https://github.com/DataDog/browser-sdk/tree/main/.claude/skills/upgrade-browser-sdk-v7/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DataDog/browser-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T11:13:00Z"
+}
