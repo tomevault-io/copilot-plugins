@@ -1,0 +1,14 @@
+{
+  "name": "gravity-ui--page-constructor",
+  "displayName": "page-constructor",
+  "description": "page-constructor",
+  "version": "1.0.0",
+  "author": "gravity-ui",
+  "homepage": "https://github.com/gravity-ui/page-constructor",
+  "skills": [
+    {
+      "name": "page-constructor",
+      "description": ""
+    }
+  ]
+}
