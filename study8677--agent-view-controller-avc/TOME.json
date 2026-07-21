@@ -1,0 +1,51 @@
+{
+  "name": "Agent_View_Controller-AVC",
+  "owner": "study8677",
+  "repo": "Agent_View_Controller-AVC",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Agent_View_Controller-AVC",
+      "path": "skills/avc/SKILL.md",
+      "github_url": "https://github.com/study8677/Agent_View_Controller-AVC/tree/main/skills/avc/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/study8677/Agent_View_Controller-AVC",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T03:12:34Z"
+}
