@@ -1,0 +1,9 @@
+{
+  "name": "gradle--android-cache-fix-gradle-plugin",
+  "displayName": "android-cache-fix-gradle-plugin",
+  "description": "android-cache-fix-gradle-plugin",
+  "version": "1.0.0",
+  "author": "gradle",
+  "homepage": "https://github.com/gradle/android-cache-fix-gradle-plugin",
+  "skills": []
+}
