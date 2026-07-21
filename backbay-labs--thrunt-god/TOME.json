@@ -1,0 +1,387 @@
+{
+  "name": "thrunt-god",
+  "owner": "backbay-labs",
+  "repo": "thrunt-god",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-run/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-help/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-do/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-do/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-plan/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-help/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-next/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-next/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-fast/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-fast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-note/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-note/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-debug/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-stats/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-publish/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-quick/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-quick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-health/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-update/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-review/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-thread/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-thread/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-new-case/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-new-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-cleanup/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-manager/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-progress/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-progress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-ui-phase/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-ui-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-settings/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-add-todo/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-add-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-ui-review/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-ui-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-pr-branch/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-pr-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-add-tests/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-add-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-add-phase/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-add-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-forensics/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-forensics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-new-program/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-new-program/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-plant-seed/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-plant-seed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-pause-work/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-pause-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-autonomous/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-autonomous/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-workstreams/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-workstreams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-set-profile/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-set-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-resume-work/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-resume-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-check-todos/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-check-todos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-add-backlog/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-add-backlog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-join-discord/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-join-discord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-remove-phase/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-remove-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-insert-phase/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-insert-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-profile-user/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-profile-user/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-map-environment/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-map-environment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-new-workspace/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-new-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-session-report/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-session-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-audit-evidence/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-audit-evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-validate-phase/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-validate-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-shape-hypothesis/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-shape-hypothesis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-review-backlog/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-review-backlog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-reapply-patches/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-reapply-patches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-list-workspaces/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-list-workspaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-validate-findings/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/hunt-validate-findings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-audit-milestone/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-audit-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-remove-workspace/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-remove-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-milestone-summary/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-milestone-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-complete-milestone/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-complete-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-plan-milestone-gaps/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-plan-milestone-gaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "thrunt-god",
+      "path": "thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-list-phase-assumptions/SKILL.md",
+      "github_url": "https://github.com/backbay-labs/thrunt-god/tree/main/thrunt-god/examples/brute-force-to-persistence/.github/skills/thrunt-list-phase-assumptions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/backbay-labs/thrunt-god",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:40:13Z"
+}
