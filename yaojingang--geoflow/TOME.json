@@ -1,0 +1,117 @@
+{
+  "name": "GEOFlow",
+  "owner": "yaojingang",
+  "repo": "GEOFlow",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "GEOFlow",
+      "path": ".agents/skills/ai-sdk-development/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.agents/skills/ai-sdk-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".claude/skills/ai-sdk-development/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.claude/skills/ai-sdk-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".cursor/skills/ai-sdk-development/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.cursor/skills/ai-sdk-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".agents/skills/configuring-horizon/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.agents/skills/configuring-horizon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".claude/skills/configuring-horizon/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.claude/skills/configuring-horizon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".cursor/skills/configuring-horizon/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.cursor/skills/configuring-horizon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".agents/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.agents/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".claude/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.claude/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".cursor/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.cursor/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".agents/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.agents/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".claude/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.claude/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEOFlow",
+      "path": ".cursor/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/yaojingang/GEOFlow/tree/main/.cursor/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yaojingang/GEOFlow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:36:41Z"
+}
