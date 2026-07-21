@@ -1,0 +1,63 @@
+{
+  "name": "G2",
+  "owner": "antvis",
+  "repo": "G2",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "G2",
+      "path": ".claude/skills/g2-testing/SKILL.md",
+      "github_url": "https://github.com/antvis/G2/tree/main/.claude/skills/g2-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "G2",
+      "path": ".claude/skills/g2-translation/SKILL.md",
+      "github_url": "https://github.com/antvis/G2/tree/main/.claude/skills/g2-translation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "G2",
+      "path": ".claude/skills/g2-legend-expert/SKILL.md",
+      "github_url": "https://github.com/antvis/G2/tree/main/.claude/skills/g2-legend-expert/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/antvis/G2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:27:25Z"
+}
