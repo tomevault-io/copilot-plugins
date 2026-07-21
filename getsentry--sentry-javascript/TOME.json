@@ -1,0 +1,111 @@
+{
+  "name": "sentry-javascript",
+  "owner": "getsentry",
+  "repo": "sentry-javascript",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/e2e/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/dotagents/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/dotagents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/write-tests/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/vendor-otel/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/vendor-otel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/upgrade-dep/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/upgrade-dep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/add-cdn-bundle/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/add-cdn-bundle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/bump-size-limit/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/bump-size-limit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/add-ai-integration/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/add-ai-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sentry-javascript",
+      "path": ".agents/skills/linear-project-update/SKILL.md",
+      "github_url": "https://github.com/getsentry/sentry-javascript/tree/main/.agents/skills/linear-project-update/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/getsentry/sentry-javascript",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:51:49Z"
+}
