@@ -1,0 +1,87 @@
+{
+  "name": "relic.skill",
+  "owner": "Ylsssq926",
+  "repo": "relic.skill",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "relic.skill",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/Ylsssq926/relic.skill/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "relic.skill",
+      "path": "soul-forge/SKILL.md",
+      "github_url": "https://github.com/Ylsssq926/relic.skill/tree/main/soul-forge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "relic.skill",
+      "path": "soul-engine/SKILL.md",
+      "github_url": "https://github.com/Ylsssq926/relic.skill/tree/main/soul-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "relic.skill",
+      "path": "soul-shield/SKILL.md",
+      "github_url": "https://github.com/Ylsssq926/relic.skill/tree/main/soul-shield/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "relic.skill",
+      "path": "examples/grandma-demo/SKILL.md",
+      "github_url": "https://github.com/Ylsssq926/relic.skill/tree/main/examples/grandma-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "relic.skill",
+      "path": "examples/cat-mimi-demo/SKILL.md",
+      "github_url": "https://github.com/Ylsssq926/relic.skill/tree/main/examples/cat-mimi-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "relic.skill",
+      "path": "examples/team-startup-demo/SKILL.md",
+      "github_url": "https://github.com/Ylsssq926/relic.skill/tree/main/examples/team-startup-demo/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Ylsssq926/relic.skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:41:23Z"
+}
