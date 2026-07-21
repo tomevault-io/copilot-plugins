@@ -1,0 +1,22 @@
+{
+  "name": "fabric8io--kubernetes-client",
+  "displayName": "kubernetes-client",
+  "description": "kubernetes-client",
+  "version": "1.0.0",
+  "author": "fabric8io",
+  "homepage": "https://github.com/fabric8io/kubernetes-client",
+  "skills": [
+    {
+      "name": "kubernetes-client",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-client",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-client",
+      "description": ""
+    }
+  ]
+}
