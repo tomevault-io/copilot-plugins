@@ -1,0 +1,2373 @@
+{
+  "name": "everything-claude-code",
+  "owner": "ysyecust",
+  "repo": "everything-claude-code",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "coding-standards",
+      "path": "skills/coding-standards",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/coding-standards",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning-v2",
+      "path": "skills/continuous-learning-v2",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/continuous-learning-v2",
+      "description": ""
+    },
+    {
+      "name": "springboot-verification",
+      "path": "skills/springboot-verification",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/springboot-verification",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "path": "skills/tdd-workflow",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "path": "docs/zh-CN/skills/django-verification",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/django-verification",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "path": "skills/django-verification",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/django-verification",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/x-api/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/x-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/videodb/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/videodb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/crosspost/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/crosspost/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/blueprint/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/blueprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/benchmark/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/api-design/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/claude-api/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/claude-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/agent-eval/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/agent-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/exa-search/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/exa-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/browser-qa/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/browser-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/laravel-tdd/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/laravel-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/cpp-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/cpp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/bun-runtime/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/bun-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/rust-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/rust-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/perl-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/perl-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/hpc-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/hpc-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/fal-ai-media/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/fal-ai-media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/search-first/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/search-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/santa-method/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/santa-method/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/team-builder/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/team-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/canary-watch/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/canary-watch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/product-lens/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/product-lens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/skill-comply/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/skill-comply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/rust-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/rust-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/video-editing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/video-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/perl-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/perl-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/configure-ecc/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/configure-ecc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/rules-distill/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/rules-distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/x-api/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/x-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/design-system/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/nanoclaw-repl/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/nanoclaw-repl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/kotlin-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/kotlin-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/dmux-workflows/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/dmux-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/content-engine/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/content-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/springboot-tdd/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/springboot-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/context-budget/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/context-budget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/nuxt4-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/nuxt4-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/kotlin-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/kotlin-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/django-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/django-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/cpp-large-scale/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/cpp-large-scale/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/docker-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/docker-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/skill-stocktake/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/skill-stocktake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/article-writing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/article-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/claude-devfleet/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/claude-devfleet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/market-research/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/autonomous-loops/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/autonomous-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/laravel-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/laravel-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/prompt-optimizer/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/prompt-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/pytorch-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/pytorch-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/laravel-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/laravel-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/swiftui-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/swiftui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/click-path-audit/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/click-path-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/x-api/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/x-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/nextjs-turbopack/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/nextjs-turbopack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/crosspost/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/crosspost/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/investor-outreach/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/investor-outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/videodb/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/videodb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/data-scraper-agent/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/data-scraper-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/energy-procurement/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/energy-procurement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/search-first/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/search-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/claude-api/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/claude-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/exa-search/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/exa-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/numerical-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/numerical-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/investor-materials/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/investor-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/visa-doc-translate/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/visa-doc-translate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/database-migrations/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/database-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/deployment-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/deployment-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/liquid-glass-design/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/liquid-glass-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/laravel-tdd/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/laravel-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/django-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/django-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/springboot-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/springboot-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/codebase-onboarding/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/codebase-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/mcp-server-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/mcp-server-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/bun-runtime/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/bun-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/bun-runtime/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/bun-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/agentic-engineering/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/agentic-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/cpp-coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/cpp-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/rust-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/rust-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/kotlin-ktor-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/kotlin-ktor-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/fal-ai-media/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/fal-ai-media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/crosspost/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/crosspost/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/documentation-lookup/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/documentation-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/laravel-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/laravel-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/blueprint/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/blueprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/enterprise-agent-ops/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/enterprise-agent-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/ai-first-engineering/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/ai-first-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/rust-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/rust-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/video-editing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/video-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/production-scheduling/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/production-scheduling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/plankton-code-quality/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/plankton-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/docker-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/docker-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/claude-api/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/claude-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/ai-regression-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/ai-regression-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/agent-eval/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/agent-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/java-coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/java-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/exa-search/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/exa-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/swift-concurrency-6-2/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/swift-concurrency-6-2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/continuous-agent-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/continuous-agent-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/kotlin-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/kotlin-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/laravel-tdd/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/laravel-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/cpp-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/cpp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/cpp-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/cpp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/dmux-workflows/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/dmux-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/content-engine/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/content-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/content-engine/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/content-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/springboot-tdd/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/springboot-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/bun-runtime/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/bun-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/ralphinho-rfc-pipeline/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/ralphinho-rfc-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/rust-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/rust-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/kotlin-exposed-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/kotlin-exposed-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/perl-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/perl-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/kotlin-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/kotlin-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/fal-ai-media/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/fal-ai-media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/kotlin-coroutines-flows/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/kotlin-coroutines-flows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/search-first/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/search-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/docker-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/docker-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/springboot-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/springboot-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/cost-aware-llm-pipeline/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/cost-aware-llm-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/team-builder/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/team-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/article-writing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/article-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/article-writing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/article-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/market-research/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/market-research/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/swift-actor-persistence/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/swift-actor-persistence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/flutter-dart-code-review/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/flutter-dart-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/rust-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/rust-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/video-editing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/video-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/perl-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/perl-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/laravel-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/laravel-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/customs-trade-compliance/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/customs-trade-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/configure-ecc/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/configure-ecc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/configure-ecc/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/configure-ecc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/laravel-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/laravel-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/rules-distill/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/rules-distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/security-scan/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/security-scan/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/nextjs-turbopack/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/nextjs-turbopack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/nextjs-turbopack/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/nextjs-turbopack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/nextjs-turbopack/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/nextjs-turbopack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/nanoclaw-repl/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/nanoclaw-repl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/kotlin-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/kotlin-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/deployment-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/deployment-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/database-migrations/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/database-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/returns-reverse-logistics/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/returns-reverse-logistics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/dmux-workflows/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/dmux-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/content-engine/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/content-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/springboot-tdd/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/springboot-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/springboot-tdd/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/springboot-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/swift-protocol-di-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/swift-protocol-di-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".kiro/skills/agentic-engineering/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.kiro/skills/agentic-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/investor-outreach/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/investor-outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/investor-outreach/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/investor-outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/context-budget/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/context-budget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/nuxt4-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/nuxt4-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/kotlin-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/kotlin-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/django-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/django-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/django-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/django-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/android-clean-architecture/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/android-clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/docker-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/docker-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/frontend-slides/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/frontend-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/content-hash-cache-pattern/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/content-hash-cache-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/skill-stocktake/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/skill-stocktake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/investor-materials/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/investor-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/investor-materials/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/investor-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/article-writing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/article-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/claude-devfleet/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/claude-devfleet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/agent-harness-construction/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/agent-harness-construction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/market-research/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/autonomous-loops/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/autonomous-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/deployment-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/deployment-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/laravel-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/laravel-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/database-migrations/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/database-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/prompt-optimizer/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/prompt-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/pytorch-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/pytorch-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/laravel-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/laravel-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/swiftui-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/swiftui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/foundation-models-on-device/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/foundation-models-on-device/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/springboot-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/springboot-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/mcp-server-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/mcp-server-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/mcp-server-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/mcp-server-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/nextjs-turbopack/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/nextjs-turbopack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/documentation-lookup/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/documentation-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".cursor/skills/documentation-lookup/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.cursor/skills/documentation-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/nutrient-document-processing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/nutrient-document-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/regex-vs-llm-structured-text/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/regex-vs-llm-structured-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/laravel-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/laravel-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/investor-outreach/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/investor-outreach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/data-scraper-agent/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/data-scraper-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/energy-procurement/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/energy-procurement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/architecture-decision-records/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/architecture-decision-records/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/investor-materials/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/investor-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/visa-doc-translate/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/visa-doc-translate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".agents/skills/everything-claude-code/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.agents/skills/everything-claude-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": ".claude/skills/everything-claude-code/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/.claude/skills/everything-claude-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/deployment-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/deployment-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/database-migrations/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/database-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/liquid-glass-design/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/liquid-glass-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/logistics-exception-management/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/logistics-exception-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/compose-multiplatform-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/compose-multiplatform-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/django-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/django-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/django-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/django-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/springboot-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/springboot-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/codebase-onboarding/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/codebase-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/springboot-security/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/springboot-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/mcp-server-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/mcp-server-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/agentic-engineering/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/agentic-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/cpp-coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/cpp-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/kotlin-ktor-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/kotlin-ktor-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "skills/carrier-relationship-management/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/skills/carrier-relationship-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/tr/skills/springboot-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/tr/skills/springboot-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/documentation-lookup/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/documentation-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/laravel-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/laravel-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/enterprise-agent-ops/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/enterprise-agent-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/ai-first-engineering/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/ai-first-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/production-scheduling/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/production-scheduling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/plankton-code-quality/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/plankton-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/ai-regression-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/ai-regression-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/java-coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/java-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/java-coding-standards/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/java-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/swift-concurrency-6-2/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/swift-concurrency-6-2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/continuous-agent-loop/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/continuous-agent-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/quality-nonconformance/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/quality-nonconformance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/ralphinho-rfc-pipeline/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/ralphinho-rfc-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/kotlin-exposed-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/kotlin-exposed-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/kotlin-coroutines-flows/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/kotlin-coroutines-flows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/springboot-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/springboot-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/cost-aware-llm-pipeline/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/cost-aware-llm-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/swift-actor-persistence/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/swift-actor-persistence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/springboot-verification/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/springboot-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/flutter-dart-code-review/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/flutter-dart-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/customs-trade-compliance/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/customs-trade-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/returns-reverse-logistics/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/returns-reverse-logistics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/swift-protocol-di-testing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/swift-protocol-di-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/android-clean-architecture/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/android-clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-TW/skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-TW/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ko-KR/skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ko-KR/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/content-hash-cache-pattern/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/content-hash-cache-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/agent-harness-construction/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/agent-harness-construction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/foundation-models-on-device/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/foundation-models-on-device/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/nutrient-document-processing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/nutrient-document-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/regex-vs-llm-structured-text/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/regex-vs-llm-structured-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/ja-JP/skills/nutrient-document-processing/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/ja-JP/skills/nutrient-document-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/architecture-decision-records/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/architecture-decision-records/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/logistics-exception-management/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/logistics-exception-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/compose-multiplatform-patterns/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/compose-multiplatform-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code",
+      "path": "docs/zh-CN/skills/carrier-relationship-management/SKILL.md",
+      "github_url": "https://github.com/ysyecust/everything-claude-code/tree/main/docs/zh-CN/skills/carrier-relationship-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ysyecust/everything-claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:00:04Z"
+}
