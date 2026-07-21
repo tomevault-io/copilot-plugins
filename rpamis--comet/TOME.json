@@ -1,0 +1,141 @@
+{
+  "name": "comet",
+  "owner": "rpamis",
+  "repo": "comet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "comet",
+      "path": "assets/skills/comet/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills/comet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills-zh/comet/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills-zh/comet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills/comet-open/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills/comet-open/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills/comet-build/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills/comet-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills/comet-tweak/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills/comet-tweak/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills/comet-verify/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills/comet-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills/comet-design/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills/comet-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills/comet-hotfix/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills/comet-hotfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills-zh/comet-open/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills-zh/comet-open/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills/comet-archive/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills/comet-archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills-zh/comet-build/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills-zh/comet-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills-zh/comet-tweak/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills-zh/comet-tweak/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills-zh/comet-verify/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills-zh/comet-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills-zh/comet-design/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills-zh/comet-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills-zh/comet-hotfix/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills-zh/comet-hotfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "comet",
+      "path": "assets/skills-zh/comet-archive/SKILL.md",
+      "github_url": "https://github.com/rpamis/comet/tree/main/assets/skills-zh/comet-archive/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rpamis/comet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:10:32Z"
+}
