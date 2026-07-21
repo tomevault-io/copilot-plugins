@@ -1,0 +1,18 @@
+{
+  "name": "easycorp--easyadminbundle",
+  "displayName": "EasyAdminBundle",
+  "description": "EasyAdminBundle",
+  "version": "1.0.0",
+  "author": "EasyCorp",
+  "homepage": "https://github.com/EasyCorp/EasyAdminBundle",
+  "skills": [
+    {
+      "name": "EasyAdminBundle",
+      "description": ""
+    },
+    {
+      "name": "EasyAdminBundle",
+      "description": ""
+    }
+  ]
+}
