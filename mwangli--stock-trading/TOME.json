@@ -1,0 +1,135 @@
+{
+  "name": "stock-trading",
+  "owner": "mwangli",
+  "repo": "stock-trading",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/superpower/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/superpower/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stock-trading",
+      "path": ".trae/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/mwangli/stock-trading/tree/main/.trae/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mwangli/stock-trading",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:46:43Z"
+}
