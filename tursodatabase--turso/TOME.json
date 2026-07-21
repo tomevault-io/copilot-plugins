@@ -1,0 +1,159 @@
+{
+  "name": "turso",
+  "owner": "tursodatabase",
+  "repo": "turso",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cdc",
+      "path": ".claude/skills/cdc",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/cdc",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": ".claude/skills/code-quality",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/code-quality",
+      "description": ""
+    },
+    {
+      "name": "differential-fuzzer",
+      "path": ".claude/skills/differential-fuzzer",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/differential-fuzzer",
+      "description": ""
+    },
+    {
+      "name": "index-knowledge",
+      "path": ".claude/skills/index-knowledge",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/index-knowledge",
+      "description": ""
+    },
+    {
+      "name": "pr-workflow",
+      "path": ".claude/skills/pr-workflow",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/pr-workflow",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/cdc/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/cdc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/mvcc/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/mvcc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/pr-workflow/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/pr-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/async-io-model/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/async-io-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/storage-format/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/storage-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/index-knowledge/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/index-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/memory-benchmark/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/memory-benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/yield-injections/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/yield-injections/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/differential-fuzzer/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/differential-fuzzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": ".claude/skills/transaction-correctness/SKILL.md",
+      "github_url": "https://github.com/tursodatabase/turso/tree/main/.claude/skills/transaction-correctness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tursodatabase/turso",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:53:48Z"
+}
