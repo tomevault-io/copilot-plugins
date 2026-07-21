@@ -1,0 +1,111 @@
+{
+  "name": "nop-entropy",
+  "owner": "entropy-cloud",
+  "repo": "nop-entropy",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nop-file-converter",
+      "path": ".opencode/skills/nop-file-converter",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-file-converter",
+      "description": ""
+    },
+    {
+      "name": "nop-git-worktree",
+      "path": ".opencode/skills/nop-git-worktree",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-git-worktree",
+      "description": ""
+    },
+    {
+      "name": "nop-orm-modeler",
+      "path": ".opencode/skills/nop-orm-modeler",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-orm-modeler",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "path": ".opencode/skills/nop-git-master/SKILL.md",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-git-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "path": ".opencode/skills/nop-orm-modeler/SKILL.md",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-orm-modeler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "path": ".opencode/skills/nop-git-worktree/SKILL.md",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-git-worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "path": ".opencode/skills/nop-nodejs-backend/SKILL.md",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-nodejs-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "path": ".opencode/skills/nop-deep-interview/SKILL.md",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-deep-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "path": ".opencode/skills/nop-codegen-master/SKILL.md",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-codegen-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "path": ".opencode/skills/nop-file-converter/SKILL.md",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-file-converter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "path": ".opencode/skills/nop-database-design/SKILL.md",
+      "github_url": "https://github.com/entropy-cloud/nop-entropy/tree/main/.opencode/skills/nop-database-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/entropy-cloud/nop-entropy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:37:14Z"
+}
