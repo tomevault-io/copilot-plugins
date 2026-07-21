@@ -1,0 +1,22 @@
+{
+  "name": "sanderdw--hassio-addons",
+  "displayName": "hassio-addons",
+  "description": "hassio-addons",
+  "version": "1.0.0",
+  "author": "sanderdw",
+  "homepage": "https://github.com/sanderdw/hassio-addons",
+  "skills": [
+    {
+      "name": "hassio-addons",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "description": ""
+    }
+  ]
+}
