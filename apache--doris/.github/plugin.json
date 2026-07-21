@@ -1,0 +1,30 @@
+{
+  "name": "apache--doris",
+  "displayName": "doris",
+  "description": "doris",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/doris",
+  "skills": [
+    {
+      "name": "doris",
+      "description": ""
+    },
+    {
+      "name": "doris",
+      "description": ""
+    },
+    {
+      "name": "doris",
+      "description": ""
+    },
+    {
+      "name": "doris",
+      "description": ""
+    },
+    {
+      "name": "doris",
+      "description": ""
+    }
+  ]
+}
