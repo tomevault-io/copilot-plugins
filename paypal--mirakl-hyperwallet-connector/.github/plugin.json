@@ -1,0 +1,9 @@
+{
+  "name": "paypal--mirakl-hyperwallet-connector",
+  "displayName": "mirakl-hyperwallet-connector",
+  "description": "mirakl-hyperwallet-connector",
+  "version": "1.0.0",
+  "author": "paypal",
+  "homepage": "https://github.com/paypal/mirakl-hyperwallet-connector",
+  "skills": []
+}
