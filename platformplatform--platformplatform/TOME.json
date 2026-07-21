@@ -1,0 +1,153 @@
+{
+  "name": "PlatformPlatform",
+  "owner": "platformplatform",
+  "repo": "PlatformPlatform",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/e2e/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/lint/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/test/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/build/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/format/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/rebrand/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/rebrand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/db-query/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/db-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/create-prd/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/create-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/aspire-stop/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/aspire-stop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/ultra-review/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/ultra-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/fix-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/fix-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/rebuild-branch/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/rebuild-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/aspire-restart/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/aspire-restart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/team-interrupt/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/team-interrupt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/upgrade-packages/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/upgrade-packages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/create-pull-request/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/create-pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PlatformPlatform",
+      "path": ".claude/skills/pull-platformplatform-changes/SKILL.md",
+      "github_url": "https://github.com/platformplatform/PlatformPlatform/tree/main/.claude/skills/pull-platformplatform-changes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/platformplatform/PlatformPlatform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:21:48Z"
+}
