@@ -1,0 +1,9 @@
+{
+  "name": "cyclonedx--cyclonedx-dotnet",
+  "displayName": "cyclonedx-dotnet",
+  "description": "cyclonedx-dotnet",
+  "version": "1.0.0",
+  "author": "CycloneDX",
+  "homepage": "https://github.com/CycloneDX/cyclonedx-dotnet",
+  "skills": []
+}
