@@ -1,0 +1,105 @@
+{
+  "name": "docs",
+  "owner": "docker",
+  "repo": "docs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docs",
+      "path": ".agents/skills/write/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/check-pr/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/check-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/review-changes/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/review-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/create-lab-guide/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/create-lab-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/migrate-content-ia/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/migrate-content-ia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".agents/skills/agent-readiness-audit/SKILL.md",
+      "github_url": "https://github.com/docker/docs/tree/main/.agents/skills/agent-readiness-audit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/docker/docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:47:03Z"
+}
