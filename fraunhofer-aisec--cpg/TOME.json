@@ -1,0 +1,57 @@
+{
+  "name": "cpg",
+  "owner": "Fraunhofer-AISEC",
+  "repo": "cpg",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cpg",
+      "path": ".agents/skills/suggest-concepts/SKILL.md",
+      "github_url": "https://github.com/Fraunhofer-AISEC/cpg/tree/main/.agents/skills/suggest-concepts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cpg",
+      "path": "codyze-console/src/test/resources/skills/tagging/SKILL.md",
+      "github_url": "https://github.com/Fraunhofer-AISEC/cpg/tree/main/codyze-console/src/test/resources/skills/tagging/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Fraunhofer-AISEC/cpg",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:58:05Z"
+}
