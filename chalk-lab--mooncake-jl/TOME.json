@@ -1,0 +1,63 @@
+{
+  "name": "Mooncake.jl",
+  "owner": "chalk-lab",
+  "repo": "Mooncake.jl",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Mooncake.jl",
+      "path": ".claude/skills/inspect/SKILL.md",
+      "github_url": "https://github.com/chalk-lab/Mooncake.jl/tree/main/.claude/skills/inspect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mooncake.jl",
+      "path": ".claude/skills/minimise/SKILL.md",
+      "github_url": "https://github.com/chalk-lab/Mooncake.jl/tree/main/.claude/skills/minimise/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Mooncake.jl",
+      "path": ".claude/skills/scrutinise/SKILL.md",
+      "github_url": "https://github.com/chalk-lab/Mooncake.jl/tree/main/.claude/skills/scrutinise/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chalk-lab/Mooncake.jl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:19:26Z"
+}
