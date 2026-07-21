@@ -1,0 +1,30 @@
+{
+  "name": "kubernetes-sigs--kubebuilder",
+  "displayName": "kubebuilder",
+  "description": "kubebuilder",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/kubebuilder",
+  "skills": [
+    {
+      "name": "documentation-standards",
+      "description": ""
+    },
+    {
+      "name": "plugin-helm",
+      "description": ""
+    },
+    {
+      "name": "kubebuilder",
+      "description": ""
+    },
+    {
+      "name": "kubebuilder",
+      "description": ""
+    },
+    {
+      "name": "kubebuilder",
+      "description": ""
+    }
+  ]
+}
