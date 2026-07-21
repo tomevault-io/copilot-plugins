@@ -1,0 +1,22 @@
+{
+  "name": "triggerdotdev--trigger-dev",
+  "displayName": "trigger.dev",
+  "description": "trigger.dev",
+  "version": "1.0.0",
+  "author": "triggerdotdev",
+  "homepage": "https://github.com/triggerdotdev/trigger.dev",
+  "skills": [
+    {
+      "name": "trigger-dev-tasks",
+      "description": ""
+    },
+    {
+      "name": "trigger.dev",
+      "description": ""
+    },
+    {
+      "name": "trigger.dev",
+      "description": ""
+    }
+  ]
+}
