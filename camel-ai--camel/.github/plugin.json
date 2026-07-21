@@ -1,0 +1,46 @@
+{
+  "name": "camel-ai--camel",
+  "displayName": "camel",
+  "description": "camel",
+  "version": "1.0.0",
+  "author": "camel-ai",
+  "homepage": "https://github.com/camel-ai/camel",
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "data-analyzer",
+      "description": ""
+    },
+    {
+      "name": "report-writer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "description": ""
+    },
+    {
+      "name": "camel",
+      "description": ""
+    }
+  ]
+}
