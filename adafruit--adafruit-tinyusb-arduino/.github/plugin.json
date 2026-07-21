@@ -1,0 +1,9 @@
+{
+  "name": "adafruit--adafruit-tinyusb-arduino",
+  "displayName": "Adafruit_TinyUSB_Arduino",
+  "description": "Adafruit_TinyUSB_Arduino",
+  "version": "1.0.0",
+  "author": "adafruit",
+  "homepage": "https://github.com/adafruit/Adafruit_TinyUSB_Arduino",
+  "skills": []
+}
