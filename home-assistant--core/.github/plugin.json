@@ -1,0 +1,26 @@
+{
+  "name": "home-assistant--core",
+  "displayName": "core",
+  "description": "core",
+  "version": "1.0.0",
+  "author": "home-assistant",
+  "homepage": "https://github.com/home-assistant/core",
+  "skills": [
+    {
+      "name": "integrations",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    }
+  ]
+}
