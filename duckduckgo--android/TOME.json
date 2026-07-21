@@ -1,0 +1,69 @@
+{
+  "name": "Android",
+  "owner": "duckduckgo",
+  "repo": "Android",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Android",
+      "path": ".claude/skills/review-public-api/SKILL.md",
+      "github_url": "https://github.com/duckduckgo/Android/tree/main/.claude/skills/review-public-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Android",
+      "path": ".claude/skills/run-maintenance-task/SKILL.md",
+      "github_url": "https://github.com/duckduckgo/Android/tree/main/.claude/skills/run-maintenance-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Android",
+      "path": ".claude/skills/check-translations-pr/SKILL.md",
+      "github_url": "https://github.com/duckduckgo/Android/tree/main/.claude/skills/check-translations-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Android",
+      "path": ".claude/skills/scope-maintenance-task/SKILL.md",
+      "github_url": "https://github.com/duckduckgo/Android/tree/main/.claude/skills/scope-maintenance-task/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/duckduckgo/Android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:35:38Z"
+}
