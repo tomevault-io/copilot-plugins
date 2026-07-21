@@ -1,0 +1,51 @@
+{
+  "name": "curl_cffi",
+  "owner": "lexiforest",
+  "repo": "curl_cffi",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "curl_cffi",
+      "path": "skills/imp-fetch/SKILL.md",
+      "github_url": "https://github.com/lexiforest/curl_cffi/tree/main/skills/imp-fetch/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lexiforest/curl_cffi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:00:50Z"
+}
