@@ -1,549 +1,223 @@
 ## audio-paper-digest
 
-> >
+> 自动化"语音/音乐/音频论文速递"流水线：arXiv + HuggingFace 抓取 → LLM 筛选 → 多模态深度分析 → 发布到 Hugo 博客 / 微信公众号 / 小红书 / 飞书。
 
+# AGENTS.md
 
-**[English](SKILL.en.md)** | 中文
+## 项目概述
 
-# Paper Digest Skill（以当前代码为准）
+自动化"语音/音乐/音频论文速递"流水线：arXiv + HuggingFace 抓取 → LLM 筛选 → 多模态深度分析 → 发布到 Hugo 博客 / 微信公众号 / 小红书 / 飞书。
 
-## 1. 文档定位
+**技术栈**：Node.js（核心流水线）+ Python（发布脚本）。要求 Node ≥ 18。`scripts/config.js` 集中管理 Node 端主要可调参数和当前运行数据文件路径（部分高频参数支持在项目根 `.env` 中用 `PD_*` 覆写）；`scripts/path_config.py` 集中管理 Python 发布/维护脚本共享路径。
 
-- `SKILL.md`：给 Agent 的执行规则与安全约束
-- `README.md`：给人的运行手册（命令、配置、排错）
-- `prompts/filter.md`：筛选阶段 LLM prompt
-- `prompts/deep-analysis.md`：深度分析阶段 LLM prompt（输出格式、标签体系、评分标准）
+详细执行规则见 `SKILL.md`，本文是紧凑版——只保留 Agent 不看代码就容易漏掉的要点。
 
-当文档与代码冲突时，**以 `scripts/*` 当前实现为准，并同步更新文档**。
-
----
-
-## 2. 当前真实流程
-
-主入口：`./run-full-fetch.sh`（或 `node scripts/full-fetch.js` / `npm run fetch`）
-
-1. **自动归档**：检查 `data/current/deep-analysis-result.json` / `filtered-papers.json` / `analyzed.json`，若时间戳早于今天（北京时间）且 `data/archive/<日期>/` 下不存在，则复制后删除原文件。**`papers.json` 不归档。**
-2. **加载去重库**：读取 `data/current/papers.json` 已有 ID；扫描 Hugo 博客仓库（`PAPER_DIGEST_BLOG_REPO`）中已发布论文的 arXiv ID，两者合并为统一去重集合
-3. **arXiv 抓取**：7 个分类，每类最多 100 篇（可通过 `PD_ARXIV_MAX_RESULTS` 调整），遇连续 20 篇已有 ID 提前停止（去重集合包含 papers.json + 博客已发布 ID）
-4. **HuggingFace 抓取**：`daily_papers` 分页（最多 20 页）+ `papers` API 补充，默认近 7 天，排除去重集合中的已有 ID
-5. **合并去重**：arXiv 优先，HF 补充 7 个特有字段，标记 `sources`；过滤掉博客已发布论文
-6. **LLM 筛选**：按 `PAPER_ANALYZER_*` 配置逐篇判断语音/音乐/音频相关，`batchSize=5`（可通过 `PD_FILTER_BATCH_SIZE` 调整），单篇超时 60 秒，重试 3 次
-7. **保存筛选结果**：`data/current/filtered-papers.json`
-8. **更新去重库**：追加所有爬取论文 ID 到 `data/current/papers.json`（不仅筛选通过的，提前保存防止后续中断丢失）
-9. **深度分析**：`deep-analyzer.js`，全文+图片，并发 3 篇（可通过 `PD_ANALYSIS_CONCURRENCY` 调整），每篇最多重试 2 次（可通过 `PD_ANALYSIS_MAX_RETRIES` 调整）
-10. **增量保存**：每批分析后立即保存到 `data/current/deep-analysis-result.json`，自带失败结果保护（已有成功 analysis 的论文不会被无 analysis 的失败结果覆盖）
-11. **收尾合并**：去重合并历史结果，自动备份 bak 文件（保留最近 10 个）
-
-`full-fetch.js` **不会自动发布博客/微信**，发布需单独运行 Python 脚本。
-
----
-
-## 3. 数据路径规范
-
-### 3.1 优先路径（当前）
-
-| 文件 | 用途 | 归档行为 |
-|------|------|---------|
-| `data/current/papers.json` | 论文去重数据库 | **不归档**，持续累积 |
-| `data/current/filtered-papers.json` | 筛选后的论文元数据 | 每日归档移走后重新生成 |
-| `data/current/deep-analysis-result.json` | 核心分析结果（含 analysis / parsed / imageUrls） | 每日归档移走后重新生成 |
-| `data/current/analyzed.json` | 旧版已分析记录（兼容） | 每日归档移走后重新生成 |
-
-### 3.2 兼容行为
-
-部分脚本在读取时兼容 `data/*.json` 旧路径，但新产物应写入 `data/current/`。
-
-### 3.3 归档目录
-
-`data/archive/<YYYY-MM-DD>/` 按日期子目录存放当日归档文件。`deep-analysis-result-<时间戳>.bak.json` 备份文件也存放在此目录下，自动清理保留最近 10 个。
-
----
-
-## 4. 模型与环境变量
-
-### 4.1 统一存放位置
-
-**所有环境变量统一放在 `项目根目录的 `.env` 文件`。** `.zshrc` 已配置：
-```zsh
-set -a; source 项目根目录的 `.env` 文件 2>/dev/null; set +a
-```
-
-这意味着：
-- shell 启动时自动注入所有变量
-- Python 脚本直接通过 `os.environ` 读取
-- Node 脚本通过 `loadEnvFile()` 二次兜底（仅补未设置的变量）
-
-### 4.2 筛选阶段（`fetch-papers.js`）
-
-筛选统一调用 `PAPER_ANALYZER_*` 指定的 LLM：
-
-- endpoint: `PAPER_ANALYZER_ENDPOINT`（必填）
-- key: `PAPER_ANALYZER_API_KEY`（必填）
-- model: `PAPER_ANALYZER_MODEL`（必填）
-- **API 协议自动路由**：`scripts/utils.js` 中的 `detectApiType()` 会根据端点和模型名自动判断使用 OpenAI 还是 Anthropic 协议
-  - **MiMo/Kimi Token Plan / Coding Plan**（端点含 `token-plan` 或 `coding`，模型含 `mimo`/`kimi`）→ 自动切换为 **Anthropic 协议**，伪装成 Claude Code 调用
-    - **MiMo**: `https://token-plan-cn.xiaomimimo.com/v1` → `https://token-plan-cn.xiaomimimo.com/anthropic/v1/messages`（替换 `/v1` 为 `/anthropic`）
-    - **Kimi**: `https://api.kimi.com/coding/v1` → `https://api.kimi.com/coding/v1/messages`（直接加 `/messages`，无需 `/anthropic` 中间路径）
-    - Headers: `x-api-key` + `anthropic-version: 2023-06-01` + `User-Agent: claude-cli/<version> (external, cli)`（版本号动态获取自本地 `claude --version`，失败回退到 `2.1.108`）
-    - system message 自动提取为请求体顶级字段（Anthropic 要求）
-  - **其他情况**（包括 MiMo 按量付费、通用 OpenAI 兼容端点）→ 使用标准 **OpenAI 协议**
-    - URL: `/v1/chat/completions`
-    - Headers: `Authorization: Bearer {key}`
-- **agent: `false`** — LLM API 请求明确禁用连接复用，避免全局 agent 连接池被代理污染导致 MiMo 403（详见 9.2）
-- 超时 60 秒，重试 3 次，每次重试独立创建 AbortController
-- 指数退避：抓取 4s/8s/16s（`2^attempt * 2s`，上限 60s），限流 10s/20s/40s（`2^attempt * 5s`，上限 60s）
-- prompt 来源：`prompts/filter.md`，运行时通过 `loadPrompt()` 读取并替换 `{title}`、`{abstract}`、`{categories}` 占位符
-- 判定口径：多模态模型只要明确涉及语音/音乐/音频（输入、输出、训练目标、评测任务或核心能力之一）即判定为相关
-- 冲突处理：若同时满足"多模态涉及语音/音乐/音频"和"其他领域"描述，优先判定为"是"
-
-### 4.3 深度分析阶段（`deep-analyzer.js`）
-
-深度分析统一使用 `PAPER_ANALYZER_*` 指定的 LLM，**与筛选阶段共用同一套 API 协议自动路由逻辑**：
-
-- endpoint: `PAPER_ANALYZER_ENDPOINT`（必填）
-- key: `PAPER_ANALYZER_API_KEY`（必填）
-- model: `PAPER_ANALYZER_MODEL`（必填）
-- `detectApiType()` 自动判断协议类型，行为与 4.2 节一致
-  - **MiMo**: `/v1` → `/anthropic/v1/messages`
-  - **Kimi**: `/coding/v1` → `/coding/v1/messages`
-
-API 调用特性：
-- 整体超时 20 分钟（AbortController）
-- max_tokens=64000，temperature=0.7
-- **双层重试**：analysis-engine.js 层面每篇最多重试 2 次（总共最多 3 次尝试）；deep-analyzer.js 内部每次 API 调用再重试最多 3 次（指数退避：第一次 10 秒，之后翻倍，`2^attempt * 5s`）
-- **LLM API 请求明确设置 `agent: false`，强制直连以绕过本地代理（避免 MiMo 403）；arXiv/HuggingFace 等外部抓取仍使用代理自动检测**
-- arXiv HTML 解析使用 **cheerio** 结构化选择器，移除 script/style/nav/header/footer 等噪音元素
-- 图片下载 **并行化（并发 3）**，下载论文全部图片（无数量限制）；单张 base64 上限约 20M 字符（config.js 中 `imageMaxBase64Chars`）；超时后自动降级为纯文本重试
-- 全文上限约 500K 字符（config.js 中 `fullTextMaxChars`）
-- 所有分析配置集中管理于 `scripts/config.js`，支持环境变量覆写
-
-输出约束：
-- prompt 来源：`prompts/deep-analysis.md`，运行时通过 `loadPrompt()` 读取并替换 `{hasFullText}`、`{title}`、`{authors}`、`{categories}`、`{arxivId}`、`{textForAnalysis}` 占位符
-- 固定一级标题：`## 评分`、`## 机器摘要`、`## 标签`、`## 作者与机构`、`## 毒舌点评`、`## 核心摘要`、`## 方法概述和架构`、`## 核心创新点`、`## 实验结果`、`## 细节详述`、`## 评分理由`、`## 局限与问题`、`## 开源详情`
-- `## 评分` 下先输出总分（X.X/10）
-- **代码后处理**：`parseAnalysis`/`parse_analysis` 会从 `## 评分理由` 中提取八个分项（创新性/2、技术严谨性/1.5、实验充分性/1.5、清晰度/1、影响力/1.5、开源/1.5、可复现性/0.5、工程/实践价值/1.5）重新计算总分，各分项之和上限为 10，四舍五入到 0.1，覆盖 LLM 原始总分
-- `## 机器摘要` 包含 `rank_bucket`（带顶会映射）、`innovation`（创新性 0-2）、`technical_rigor`（技术严谨性 0-1.5）、`experimental_sufficiency`（实验充分性 0-1.5）、`clarity`（清晰度 0-1）、`impact`（影响力 0-1.5）、`open_source`（开源 0-1.5）、`reproducibility`（可复现性 0-0.5）、`engineering_score`（工程/实践价值 0-1.5）、`confidence`、`primary_task_tag`、`primary_method_tag` 等固定键
-- 评分采用八维审稿人体系：创新性（0-2）+ 技术严谨性（0-1.5）+ 实验充分性（0-1.5）+ 清晰度（0-1）+ 影响力（0-1.5）+ 开源（0-1.5）+ 可复现性（0-0.5）+ 工程/实践价值（0-1.5），满分 11 分，总分上限 10
-- **代码后处理**：`parseAnalysis`/`parse_analysis` 始终从 `## 评分理由` 提取分项重新计算总分，覆盖 LLM 原始输出，避免 LLM 算错总分
-- 标签输出必须同时包含最终标签串、`主任务标签`、`主方法标签`、`补充标签`
-- 缺失信息必须写"未说明/未提供/未提及"，禁止猜测作者机构、实验数字、开源状态或外部信息
-- 修改 `prompts/deep-analysis.md` 或 `prompts/filter.md` 时，需同步检查 `scripts/utils.js` 与 `scripts/utils.py` 的解析逻辑是否仍能匹配新输出格式
-
-### 4.4 微信公众号（`publish-wechat-full.py`）
-
-- `WECHAT_APP_ID` 和 `WECHAT_APP_SECRET` 从 `os.environ` 读取
-- `WECHAT_THUMB_MEDIA_ID`（可选）：封面图永久素材 ID，未设置时使用内置默认素材
-- 图片上传：下载 arXiv 图片 → 上传到微信 CDN → 替换为微信 URL。缓存保存在系统临时目录下的 `wechat-image-cache.json`
-- 该脚本会访问真实微信接口；除非用户明确要求生成或上传公众号草稿，否则不要执行
-- **注意**：所有发布脚本统一从环境变量读取凭证，禁止硬编码
-
-### 4.5 完整环境变量清单
+## 常用命令
 
 ```bash
-# LLM API（筛选 + 深度分析，下面是 4 种常见配置方案，只能选一种启用）
+npm install              # 安装依赖（cheerio + pdf-parse）
+npm test                 # 运行单元测试（node --test tests/*.test.js）
+npm run fetch            # 全流程：抓取 + 筛选 + 深度分析
+npm run deep             # 仅深度分析续跑（跳过已有 analysis；无分析结果时可从 filtered-papers.json 初始化）
+npm run reanalyze        # 强制全量重分析（支持 --concurrency N）
+npm run batch            # 批量分析未分析论文
+npm run validate:data    # 只读校验候选/筛选/分析 JSON 数据、筛选决策缓存一致性和完整候选覆盖
+npm run visual:post-publish -- --date YYYY-MM-DD # 在博客锁内建立 TOP 10 长图和汇总图任务
+npm run visual:prepare -- --date YYYY-MM-DD # 校验 .bin 参考缓存并物化为带正确扩展名的内置生图输入
+npm run visual:status -- --date YYYY-MM-DD # 只读校验 TOP 10 论文长图，不影响已经完成的博客发布
+npm run cover:status -- --date YYYY-MM-DD  # 只读校验发布后的汇总图
+npm run backfill         # 补录历史 paper ID（Python 脚本，不分析）
+npm run blog:generate    # 只生成并安装 Hugo 博客文件
+npm run blog:generate -- --date YYYY-MM-DD --exclude-id <arXiv ID>  # 明确排除单篇，可重复传入
+npm run blog:review      # 只 review 已生成文件并保存 SHA-256 凭证
+npm run blog:push        # 只验证凭证并 commit/push，不生成、不 review
+npm run wechat           # 生成微信公众号草稿
+npm run xiaohongshu      # 生成小红书文案
+npm run visual:archive -- --date YYYY-MM-DD # 仅迁移旧版论文图片到日期/排行榜归档，不创建任务
+npm run cover:archive -- --date YYYY-MM-DD  # 仅迁移旧版汇总封面到日期归档
+npm run xhs-login        # 小红书登录（获取 Cookie）
+npm run xhs-publish      # 小红书自动发布单篇
+npm run xhs-publish-all  # 小红书自动发布全部
 
-# 方案 1: MiMo Token Plan（推荐，伪装 Claude Code 自动切换 Anthropic 协议）
-PAPER_ANALYZER_API_KEY=tp-your-token-plan-key
-PAPER_ANALYZER_MODEL=mimo-v2.5
-PAPER_ANALYZER_ENDPOINT=https://token-plan-cn.xiaomimimo.com/v1
+# 直接调用（不在 package.json 中）
+node scripts/quick-test.js              # 快速测试（抓+筛选，不分析）
+node scripts/analyze-single-paper.js <arxiv-id> [--force]  # 单独分析一篇论文（--force 覆盖已有结果）
+node scripts/reanalyze-selected.js <arxivId1> [arxivId2] ...  # 重分析指定论文
+node scripts/refilter-reanalyze-by-date.js <date>  # 按日期重新筛选+分析
+node scripts/validate-scores.js         # 验证并修复评分
+node scripts/test-api-key.js            # 测试 LLM API key 可用性
+python3 scripts/publish-to-feishu.py    # 生成飞书文档
 
-# 方案 2: MiMo 按量付费（通用 OpenAI 协议）
-# PAPER_ANALYZER_API_KEY=sk-your-pay-as-you-go-key
-# PAPER_ANALYZER_MODEL=mimo-v2.5
-# PAPER_ANALYZER_ENDPOINT=https://api.xiaomimimo.com/v1
-
-# 方案 3: Kimi Coding Plan（伪装 Claude Code 自动切换 Anthropic 协议）
-# PAPER_ANALYZER_API_KEY=sk-your-kimi-key
-# PAPER_ANALYZER_MODEL=kimi-for-coding
-# PAPER_ANALYZER_ENDPOINT=https://api.kimi.com/coding/v1
-
-# 方案 4: 通用 OpenAI 兼容端点
-# PAPER_ANALYZER_API_KEY=sk-your-openai-key
-# PAPER_ANALYZER_MODEL=gpt-4o
-# PAPER_ANALYZER_ENDPOINT=https://api.openai.com/v1
-
-# 微信公众号
-WECHAT_APP_ID=your-app-id
-WECHAT_APP_SECRET=your-app-secret
-# WECHAT_THUMB_MEDIA_ID=your-thumb-media-id  # 封面图永久素材 ID（可选，未设置时使用默认素材）
-
-# 飞书文档
-FEISHU_APP_ID=your-feishu-app-id
-FEISHU_APP_SECRET=your-feishu-app-secret
-
-# 博客发布
-# PAPER_DIGEST_BLOG_REPO=~/code/github_repos/audio-paper-digest-blog
-# PAPER_DIGEST_BLOG_BASE_PATH=/audio-paper-digest-blog
-# PAPER_DIGEST_BLOG_URL=https://nanless.github.io/audio-paper-digest-blog/posts
-# PAPER_DIGEST_GITHUB_REMOTE=origin
-
-# 微信公众号作者（可选）
-# PAPER_DIGEST_AUTHOR=your-name
-
-# 配置覆写（可选）
-# PD_ANALYSIS_CONCURRENCY=3       # 深度分析并发度
-# PD_ANALYSIS_MAX_RETRIES=2       # 深度分析重试次数
-# PD_REANALYZE_CONCURRENCY=3      # 重分析并发度（默认与 ANALYSIS_CONFIG.concurrency 一致）
-# PD_FILTER_BATCH_SIZE=5          # LLM 筛选每批篇数
-# PD_ARXIV_MAX_RESULTS=100        # arXiv 每类抓取数量
-
-# 代理（可选，但建议为 MiMo Token Plan 关闭或绕过代理）
-# https_proxy=http://127.0.0.1:7897
-# http_proxy=http://127.0.0.1:7897
-# all_proxy=socks5://127.0.0.1:7897
+# ICML 2026 专属流程（仅 icml-2026-analysis 分支可用）
+npm run icml-fetch-openreview   # 从 OpenReview API 抓取论文元数据（需 Chrome Cookie）
+npm run icml-filter             # LLM 筛选音频/语音/音乐相关论文
+npm run icml-download-pdfs      # 下载筛选论文 PDF 并提取文本（含表格）
+npm run icml-analyze            # 批量深度分析（基于 PDF 全文 + 自动注入图片）
+npm run icml-retry              # 重试失败的分析
+npm run icml-reanalyze-pdf      # 基于 PDF 全文重分析
+python3 scripts/extract-icml-images.py   # 提取 PDF 图片到图床
+# 会议博客也须依次运行 generate-blog.py、review-blog.py、push-blog.py；生成阶段传 category/date/data file
 ```
 
-**API 协议自动路由概览**：
+未配置 linter、typecheck 或 formatter。CI 会运行 `npm test`、`npm run validate:data`、所有 `scripts/` / `tests/` 下 JS 文件 `node -c` 语法检查、所有 `scripts/` 下 Python 文件 `py_compile` 语法检查、`tests/python` 下 Python 单测，以及所有 `.sh` 的 `bash -n`。
 
-| 端点特征 | 模型特征 | 自动路由 | Anthropic URL 转换 |
-|----------|----------|----------|-------------------|
-| 含 `token-plan` | 含 `mimo` | Anthropic | `/v1` → `/anthropic/v1/messages` |
-| 含 `coding` | 含 `kimi` | Anthropic | `/coding/v1` → `/coding/v1/messages` |
-| 任意其他 | 任意其他 | OpenAI | `/v1/chat/completions` |
+## 环境配置
 
-端点配置格式统一为 `协议://域名/v1`，不管后续用哪种协议，配置方式一致。
+复制 `env.example` → `.env`（已 gitignore）。
 
----
+**抓取/筛选/分析必需变量**：`PAPER_ANALYZER_API_KEY` / `PAPER_ANALYZER_MODEL` / `PAPER_ANALYZER_ENDPOINT`
 
-## 5. 常用命令（当前可用）
+`PD_ANALYSIS_REPAIR_MAX_TOKENS` 控制审校重写、表格补充、方法补充与结构修复的输出上限，默认 16000；主分析仍保留 64000 上限，避免局部修复在推理模型上长期思考并撞到供应商网关超时。
 
-```bash
-cd ~/.hermes/skills/openclaw-imports/audio-paper-digest
+**博客相关变量**：`PAPER_DIGEST_BLOG_REPO` 可覆写 Hugo 博客仓库路径；未设置时使用默认路径，目录不存在会跳过博客已发布去重，真实博客发布仍需要本地仓库存在。
+`PD_BLOG_REVIEW_CONCURRENCY` 控制博客独立论文页的三层 review 并发度，默认为 5；汇总页仍先完成审查。首次 review 失败会保存绑定生成清单、博客 `main` 基线和逐文件 SHA-256 的失败集状态；修复后仅复审已修改的失败文件，已通过文件或基线发生变化时自动退回全量 review。
+`PD_XIAOHONGSHU_ONELINER_CONCURRENCY` 控制小红书 TOP N 一句话亮点的 LLM 并发度，默认 5，限制为 1–5；结果必须按原排名回填，单篇失败独立使用本地摘要回退。
 
-# 全流程（抓取 + 筛选 + 深度分析）
-npm run fetch
-# 或 ./run-full-fetch.sh
+**双模型（可选，多模态）**：设置 `PAPER_ANALYZER_SECONDARY_MODEL` 即启用副模型做图像筛选与插图计划（主模型仅做纯文本分析）；副模型只输出 JSON 计划，包含目标章节、代码提供的稳定 `paragraph_id`、图前 `lead` 和图后 `explanation`。代码只新增插图及相邻说明，忽略旧 `replacement` / `rewrite` 字段，禁止副模型替换主模型原文；每篇默认最多插入 4 张，非法段落 ID 直接丢弃，旧 `anchor` 格式仅保留兼容。不设置则跳过图片、退回单模型纯文本。`PAPER_ANALYZER_SECONDARY_ENDPOINT` / `PAPER_ANALYZER_SECONDARY_API_KEY` 未设置时默认复用主模型对应值。
 
-# 仅深度分析续跑（跳过已有 analysis）
-npm run deep
+**Codex 发布后视觉资产**：必须先完成全部论文深度分析，再依次完成博客 generate、全量/失败集 review、push，并由 `push-blog.py` 验证远端 `main` OID。只有发布凭证同时记录 `publicationCommit`、相同的 `remoteVerifiedOid` 和验证时间后，才可建立视觉任务。`push-blog.py` 会自动运行发布后规划器；论文长图只选择最终评分 TOP 10（同分按规范化 arXiv ID），每篇一张纵向 PNG，顶部为完整英文标题、正文为简体中文；另生成一张包含批次标题、热门方向和 TOP 10 排行榜的汇总图。默认成品必须由 Codex 内置 `image_gen` 一次性生成完整带字构图，让标题、中文说明、结构关系、实验数字、论文关键图与纸张拼贴视觉自然配合；禁止再经过确定性文字卡片合成器。Agent 必须逐图目视核对标题、中文正文、箭头/并行分支、指标方向、论文数字与排行榜后才能执行 record，不可读或存在实质错误时必须重生成。两类 manifest 按日期隔离并支持失败项续跑，但图片不进入本轮博客 generation/review/push，也不阻断已经完成的发布。项目脚本不得调用图像 API或读取 `OPENAI_API_KEY`，实际绘图只能由 Codex 内置 `image_gen` 完成；`render-visual-summary.py` 仅用于本地调试和离线兜底。
 
-# 全量重分析（默认读取 data/current/deep-analysis-result.json）
-npm run reanalyze
+Node 脚本通过 `scripts/env-loader.js` 加载当前项目根 `.env`：① `scripts/config.js` 模块级最先执行（任何 `require('config')` 即触发）；② `scripts/utils.js` 的 `loadEnvFile()` 二次兜底补漏。Python 脚本通过 `scripts/project_env.py` 加载同一个 `.env`。两端都会先清理继承自 Trae/Codex/shell 的项目同名变量（`PAPER_ANALYZER_*`、`PAPER_DIGEST_*`、`PD_*`、`WECHAT_*`、`FEISHU_*`、`XIAOHONGSHU_*`、`KIMI_API_KEY`）以及大小写代理变量，再写入项目 `.env`；代理不再回退 macOS `scutil`，加载器会把 `.env` 权限收紧为 `0600`。外部命令必须使用最小子进程环境，禁止把 LLM/发布凭据传给 curl、CLI、Git hook 或浏览器进程。
 
-# 指定并发度重分析
-node scripts/reanalyze.js --concurrency 3 data/current/deep-analysis-result.json
+**所有项目脚本必须沙箱外执行**：任何直接执行的 `scripts/*.js`、`scripts/*.py`、`run-full-fetch.sh` 或 `scripts/*.sh` 都必须以沙箱外权限启动。Node `env-loader.js`、Python `project_env.py` 与 shell 入口会检测可靠的 `CODEX_SANDBOX` 标志并在业务逻辑、日志、网络和写入前失败退出；测试导入模块不触发守卫。`CODEX_SANDBOX_NETWORK_DISABLED` 可能被沙箱外权限包装保留，不能单独判定仍在沙箱内。
 
-# 运行单元测试
-npm test
+### LLM API 协议自动路由
 
-# 快速抓取测试（仅抓+筛选，不分析，输出 data/quick-test-result.json）
-node scripts/quick-test.js
+`detectApiType()`（`scripts/utils.js`）根据 endpoint + model 自动判断协议：
 
-# 批量分析未分析论文（基于 deep-analysis-result.json）
-npm run batch
+| 端点含 | 模型含 | 协议 | URL 转换 |
+|--------|--------|------|----------|
+| `deepseek.com` 或模型含 `deepseek` | — | OpenAI | `/anthropic` → `/v1/chat/completions`（强制 OpenAI，优先级最高） |
+| `token-plan` | `mimo` | Anthropic | `/v1` → `/anthropic/v1/messages` |
+| `coding` + `kimi.com`，或模型含 `kimi` | — | Anthropic | `/coding` 或 `/coding/v1` → `/coding/v1/messages`；兼容 `k3` |
+| `/anthropic` | — | Anthropic | `{base}/messages` |
+| 其他 | 其他 | OpenAI | `/v1/chat/completions` |
 
-# 单独分析一篇论文（命令行参数）
-node scripts/analyze-single-paper.js 2604.16044
+**网络职责必须隔离**：LLM API 请求中 `options.agent` 必须显式设为 `false`（禁用连接复用且强制直连），否则在有系统代理时 MiMo Token Plan 返回 403。适用于 `fetch-papers.js`、`deep-analyzer.js`、`test-api-key.js` 以及后续新增的所有 Node LLM API 调用。arXiv 元数据、HTML、PDF、图片及 HuggingFace Papers 则必须通过当前项目 `.env` 的代理访问，缺少代理配置时必须报错，严禁静默直连；Node 的 arXiv 请求只接受 `HTTPS_PROXY` / `HTTP_PROXY` 中的 HTTP CONNECT 代理，HuggingFace 的 curl 可额外使用 SOCKS `ALL_PROXY`。
 
-# 补录历史 paper ID（不做深度分析）
-npm run backfill
+## 架构
 
-# 发布博客（建议显式指定日期）
-npm run publish -- --date YYYY-MM-DD
+### 入口脚本（Node.js）
 
-# 只生成 markdown，不推送
-npm run publish -- --skip-push --date YYYY-MM-DD
+| 文件 | 角色 |
+|------|------|
+| `scripts/full-fetch.js` | 主编排器（归档→去重含博客已发布→抓取→筛选→更新去重库→分析→增量保存） |
+| `scripts/fetch-papers.js` | arXiv 网页抓取 + LLM 筛选 |
+| `scripts/fetch-huggingface-papers.js` | HuggingFace Papers 抓取（curl 命令） |
+| `scripts/deep-analyzer.js` | 单篇多模态深度分析（支持双模型模式：主模型做文本分析，副模型做图像筛选与局部插图计划；单模型模式向后兼容） |
+| `scripts/analysis-engine.js` | 批量分析协调器，提供 `analyzePaperWithRetry()` + `analyzeBatch()` |
+| `scripts/utils.js` | Node 端共用工具（API 路由、JSON 解析、prompt 加载、`normalizedId` 去重、代理检测、文件原子写入） |
+| `scripts/config.js` | Node 端主要可调参数与运行数据路径集中配置 + 部分 `PD_*` 项目 `.env` 覆写 |
 
-# 使用自定义数据文件发布
-npm run publish -- --date YYYY-MM-DD data/current/deep-analysis-result.json
+### 发布脚本（Python）
 
-# 生成微信公众号草稿（默认读 data/current/deep-analysis-result.json）
-npm run wechat
+`generate-blog.py` / `review-blog.py` / `push-blog.py` 是博客生成、审查、推送的三个独立入口；`publish-to-blog.py` 仅保留生成兼容入口与共用实现。`publish-wechat-full.py` / `publish-xiaohongshu.py` / `xiaohongshu-publisher.py` / `publish-to-feishu.py` + 共用模块 `publish_common.py` / `path_config.py` / `utils.py`。生成前必须从 `analysis` 重解析评分并校验八维完整性，再与缓存 `parsed` 和顶层评分版本逐字段比较；人工修正必须声明 `parsedOverride.type=manual`、来源、原因和字段白名单。Python 侧默认运行数据路径统一从 `path_config.py` 取。
 
-# 生成小红书文案（默认 TOP 5 精选版）
-npm run xiaohongshu
-npm run xiaohongshu -- --top 7     # 指定 TOP N
-npm run xiaohongshu -- --all       # 完整汇总版
-npm run xiaohongshu -- --date 2026-04-22
+### 数据目录
+
+```
+data/current/           # 工作数据（gitignored）
+  papers.json           # 论文去重数据库，跨运行累积，永不归档
+  fetch-checkpoint.json # 按 arXiv 类别/HF 保存抓取断点、论文数量与内容 SHA；损坏时仅补对应来源
+  raw-candidates.json   # 当日合并+博客去重后的筛选候选，便于排查筛选输入
+  filter-decisions.json # 当日 LLM 筛选逐篇决策缓存（含 reason/rawResponse）；来源健康时续跑只重试未决论文，不重新抓取
+  filtered-papers.json  # 当日筛选结果
+  deep-analysis-result.json  # 当日分析结果
+  visual-summary-manifests/<date>.json # 发布后评分 TOP 10 纵向长图的状态、排名、指纹和资产 SHA
+  digest-cover-manifests/<date>.json # 发布后汇总图状态、上下文和指纹
+  analyzed.json         # 分析状态（兼容）
+data/archive/<date>/    # 每日快照（自动创建）
+  visual-summaries/<两位排名>-<paper>/infographic.png # 发布后 TOP 10 论文长图，按排行榜编号归档
+  digest-cover/cover.png # 发布后汇总封面，生成后直接按批次日期归档
+logs/                   # 默认生成文件日志（gitignored；可用 PD_DISABLE_FILE_LOGS=1 强制关闭）
+prompts/                # LLM prompt 模板
+  filter.md             # 筛选阶段
+  deep-analysis.md      # 深度分析主 prompt（Round 1，纯文本）
+  image-supplement.md   # 图像筛选与插图计划（双模型模式副模型用）
+  visual-summary.md     # GPT Image 2 编辑性论文视觉摘要（评分 TOP 10 各一张纵向长图）
+  digest-cover.md       # 发布后汇总图（标题、热门方向、TOP 10 排行榜）
+  opensource-scan.md    # 开源链接扫描（Round 2）
+  gap-fill.md           # 审校重写（Round 3）
+  method-fill.md        # 方法章节补充（后处理）
+  table-fill.md         # 实验表格补充（后处理）
+  structure-repair.md   # 缺失必要章节时的主模型局部结构修复
+  scoring-audit.md      # 主模型最终类型感知评分审计（JSON）
+  index.md              # Prompt 文档索引（含占位符规范）
+  en/                   # 英文版 prompt（含 filter / deep-analysis / gap-fill / opensource-scan / index，不含 image-supplement / method-fill / table-fill / structure-repair / scoring-audit）
 ```
 
-**小红书发布经验：**
-
-- 小红书单帖正文限制约 1000 字，TOP 3 模式默认约 800-950 字符，适合单帖直接发布
-- **每篇论文的一句话介绍调用 MiMo LLM API 生成**（anthropic 协议，绕过代理），LLM 失败时回退到本地 `extract_one_liner()`（优先取 innovation 第一条，其次 summary 中含"提出了/解决了/旨在"的句子，最后 roast）
-- 脚本会自动清理 Markdown 格式（`**加粗**`、`` 代码 ``）和学术化前缀（"这篇论文旨在"、"本文针对"等），避免平台渲染异常
-- 文案自动附带 emoji 热度标识：🔥≥8 分、✅≥6 分、📝<6 分（与博客、微信统一）
-- 末尾固定附博客链接和开源仓库链接，不输出标签和 `---` 分隔线
-- `--all` 模式输出更长，适合分篇发或自选精华发布
-
----
-
-## 6. 发布行为与日期安全
-
-发布脚本：`scripts/publish-to-blog.py`
-
-### 核心原则：博客日期 = 爬取分析日期，≠ arXiv 上传日期
-
-- `published` 字段是论文在 arXiv 上的原始发布日期，可能早于今天
-- **博客的 `YYYY-MM-DD` 日期代表「今天爬取并分析」的批次**，不是论文原始发布日期
-- `deep-analysis-result.json` 已经是「今天抓取 → 和 `papers.json` 去重 → LLM 筛选」后的结果，其中所有论文都应发布在 today's blog 下
-
-当前行为：
-
-- 默认读 `data/current/deep-analysis-result.json`
-- **按 `fetchedAt` 日期过滤**：只发布 `fetchedAt` 匹配 `--date` 指定日期的论文（默认今天），避免历史数据被重复发布
-- 在 `~/code/github_repos/audio-paper-digest-blog/content/posts` 生成：
-  - 汇总页：`YYYY-MM-DD.md`
-  - 单篇页：`YYYY-MM-DD-<slug>.md`
-- 默认会执行 `git add -A`、`git commit`、`git push origin main`
-- 若需发布全部论文（不过滤），可手动修改脚本或使用自定义数据文件
-
-Agent 执行约束：
-
-- 默认仅允许使用 `--skip-push` 模式验证博客生成结果
-- 只有用户明确要求"正式发布 / 推送博客"时，才允许去掉 `--skip-push`
-- 若只是检查格式、验证新字段或预览产物，禁止触发真实 `git push`
-
-发布前保障：
-
-- `full-fetch.js` 每天运行时会自动归档移走昨天的 `deep-analysis-result.json`、`filtered-papers.json` 和 `analyzed.json`，确保 `data/current/` 下只有当天新抓取的论文
-- 若意外混入非当日论文，它们也会被发布在今天的博客下，所以必须确保每天运行前 `data/current/` 已清空
-
-### 重跑/修复当天的正确姿势
-
-若当天结果需要清空重跑：
-
-1. 删除 `data/current/filtered-papers.json`、`data/current/deep-analysis-result.json`
-2. **恢复 `papers.json` 到昨天状态**（推荐，比个删 ID 更可靠）：
-   ```bash
-   # 用昨天备份替换去重库（backupPapersJson 生成，格式为 papers-YYYY-MM-DD.json）
-   cp data/archive/papers-2026-04-21.json data/current/papers.json
-   ```
-3. 删除博客仓库中当天的所有 `content/posts/YYYY-MM-DD-*.md` 文件
-4. 重新运行 `npm run fetch`
-
-**特殊场景——筛选阶段 API 全面失败（如 34→0 篇）：**
-- 即使筛选为 0 篇，`papers.json` 也已被污染（新增 ID 已写入），必须按步骤 1-2 清理后重跑。
-- 若修复后立即重跑，可用 `npm run batch` 续跑深度分析（无需重新抓取）。
-
-**关键教训——恢复 `papers.json` 前必须检查 `lastUpdated`：**
-
-第一次运行中断后，不要盲目恢复任何备份！必须先确认 `papers.json` 的状态：
-
-```bash
-# 检查 papers.json 最后更新时间
-ls -la data/current/papers.json
-# 或读取 lastUpdated 字段
-cat data/current/papers.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('lastUpdated'))"
-```
-
-判断规则：
-| `papers.json` 的 `lastUpdated` | 正确操作 |
-|-------------------------------|---------|
-| **今天**（如 `2026-04-23T03:09:03`）| **不要恢复！** 它已经是最新状态，直接删除 `filtered-papers.json` 后重新运行即可 |
-| **昨天或更早** | 可以恢复备份：`cp data/archive/papers-YYYY-MM-DD.json data/current/papers.json` |
-
-推荐检查命令（可选）：
-
-```bash
-python3 - <<'PY'
-import json
-from collections import Counter
-with open('data/current/deep-analysis-result.json') as f:
-    d = json.load(f)
-papers = d.get('papers', [])
-dates = [p.get('published', '')[:10] for p in papers if p.get('published')]
-print('总论文:', len(papers))
-print('日期分布:', Counter(dates))
-PY
-```
-
----
-
-## 7. 日志与运行特性
-
-- Node 脚本统一通过 `scripts/log-setup.js` 输出日志到 `logs/<script>-YYYYMMDD-HHMMSS.log`
-- Python 脚本统一通过 `scripts/log_setup.py` 输出日志到 `logs/<script>-YYYYMMDD-HHMMSS.log`
-- **自动清理**：每次启动时清理旧日志，保留最近 50 个
-- `backfill_papers.py` 额外写独立日志到 `logs/backfill.log`
-- 主要 Node 脚本已处理后台 stdout 缓冲（`setBlocking`），便于实时查看进度
-- `full-fetch.js` / `deep-analysis-only.js` / `batch-analyze.js` 采用重试与增量保存，降低中断丢数风险
-- `reanalyze.js` 每 5 篇保存一次中间结果（并发模式下自动调整保存间隔）
-- `full-fetch.js` 自动备份 bak 文件到 `data/archive/`，保留最近 10 个
-- `full-fetch.js` 自动备份 `papers.json` 到 `data/archive/papers-<日期>.json`，保留最近 7 天
-
----
-
-## 8. Agent 执行规则（强约束）
-
-1. **先查再改**：先读取相关脚本确认当前行为，再更新文档或执行命令。
-2. **发布需确认日期**：未明确日期时，先问用户；默认不要依赖"今天"。
-3. **禁止危险操作**：未获明确授权，禁止 `git reset --hard`、`git push -f`、批量删除历史文章。
-4. **不自动扩展流程**：运行 `full-fetch.js` 后，不要擅自追加博客/微信发布，除非用户明确要求。
-5. **改动留痕**：流程、参数、路径变化后，同步更新 `SKILL.md` 和 `README.md`。
-6. **禁止硬编码密钥**：不要在任何脚本或文档中写入真实 API key；所有凭证（LLM、微信公众号、飞书）统一从环境变量读取，LLM 配置放在 `项目根目录的 `.env` 文件`（由脚本自动 `source`），微信/飞书凭据也写入 `项目根目录的 `.env` 文件`。
-7. **修改脚本时防止安全机制破坏**：本环境会静默替换 `API_KEY` 等敏感字符为 `***`。修改含有这类字符的脚本时，修改后必须重新读取文件验证关键行未被破坏。同时定期检查 `data/`、`logs/` 目录是否残留含密钥的备份文件或日志快照，发现立即清理。
-8. **环境变量统一管理**：新增脚本需要读取 LLM 配置时，统一使用 `PAPER_ANALYZER_API_KEY`、`PAPER_ANALYZER_MODEL`、`PAPER_ANALYZER_ENDPOINT`，禁止引入别名回退链、硬编码或 base64 编码变量名 hack。
-9. **新增可配置参数放入 config.js**：新增脚本涉及可调整参数（并发度、超时、批次大小等）时，统一放入 `scripts/config.js` 并添加对应的环境变量覆写支持。
-10. **新增分析脚本复用 analysis-engine.js**：新增论文分析相关脚本时，优先复用 `analysis-engine.js` 的 `analyzeBatch()` / `analyzePaperWithRetry()`，避免重复实现重试、解析、保存逻辑。
-11. **博客验证默认不推送**：未获用户明确授权时，运行 `publish-to-blog.py` 必须带 `--skip-push`。
-12. **输出契约改动要同步 parser**：若修改 `prompts/deep-analysis.md` 中的 `## 机器摘要` 键名、章节顺序或标签输出格式，必须同步检查 `scripts/utils.js` 与 `scripts/utils.py` 的解析逻辑。
-13. **变更后必须做产物级验证**：至少抽样检查一份 `data/current/deep-analysis-result.json`，确认存在 `rank_bucket`、`primary_task_tag`、`primary_method_tag` 等字段，再运行博客/社媒脚本验证最终产物。
-14. **变更后验证 prompt 加载**：修改 `prompts/` 目录下的 markdown 文件后，运行一次快速测试（`node scripts/quick-test.js` 或单篇分析）确认 `loadPrompt()` 能正确读取并替换占位符，无 `{变量名}` 残留。
-15. **变更后运行单元测试**：修改 `scripts/utils.js`、`scripts/config.js` 或分析引擎核心逻辑后，必须运行 `npm test` 确保测试通过。
-16. **MiMo API 请求必须禁用代理连接复用**：`fetch-papers.js` 和 `deep-analyzer.js` 中调用 LLM API 时，`options.agent` 必须为 `false`（不是 `undefined`）。任何重构或修改 HTTP 请求逻辑时，禁止将 `agent: false` 改回 `agent: proxyAgent` 或 `agent: undefined`，否则 MiMo Token Plan 会在有系统代理的环境中返回 403。
-17. **新增 LLM 端点必须接入 API 协议自动路由**：任何新增脚本调用 LLM 时，统一使用 `scripts/utils.js` 中的 `detectApiType()`、`buildApiUrl()`、`buildHeaders()`、`buildRequestBody()`、`parseResponseText()`，禁止硬编码特定协议的 URL/Header/Body。
-18. **修改 API 协议路由逻辑时同步全链路**：修改 `detectApiType()` 的判定规则或 `buildApiUrl()`/`buildHeaders()` 等函数时，必须同步检查 `fetch-papers.js`、`deep-analyzer.js` 以及所有使用 `analysis-engine.js` 的脚本（`full-fetch.js`、`reanalyze.js`、`batch-analyze.js`、`deep-analysis-only.js`、`analyze-single-paper.js`），确保全链路行为一致。
-19. **禁止将敏感文件提交到版本控制**：`data/`、`logs/`、`*.env`、`*.backup*`、缓存文件、含密钥的日志归档等严禁进入 git；提交前必须确认 `.gitignore` 已正确配置，且仓库中不存在历史遗留的敏感文件。
-
----
-
-## 9. 最小排错手册
-
-### 9.1 模型调用失败 / API 返回 401 / 403 / timeout
-
-**检查步骤**：
-
-1. **检查 key/endpoint/model 三元组是否匹配**
-   | 套餐类型 | 端点 | Key 前缀 | 协议 |
-   |---------|------|----------|-------|
-   | MiMo Token Plan | `token-plan-cn.xiaomimimo.com/v1` | `tp-` | Anthropic（自动切换） |
-   | MiMo 按量付费 | `api.xiaomimimo.com/v1` | `sk-` | OpenAI |
-   | Kimi Coding Plan | `api.kimi.com/coding/v1` | `sk-kimi-...` | Anthropic（自动切换） |
-   | 通用 OpenAI | 自定义端点 | `sk-...` | OpenAI |
-
-   - MiMo Token Plan key 前缀为 `tp-`，必须配合 Token Plan 端点，两者混用必返回 401
-   - 确保 `.env` 已正确配置，且 `.zshrc` 已 source
-
-2. **检查是否走对了协议**（日志中查找 `[filter] API 类型: xxx` 或 `[api] → model | xxx` 行）
-   - 若使用 MiMo/Kimi Token Plan 却显示 `openai`，检查端点是否含 `token-plan` 或 `coding`，模型是否含 `mimo` 或 `kimi`
-   - 若日志显示 `anthropic`但仍失败，检查是否走的是 `/anthropic/v1/messages` 路径（不是 `/v1/chat/completions`）
-
-3. **Anthropic 协议专项检查**（日志显示 `anthropic` 时）
-   - 请求头是否为 `x-api-key`（非 `Authorization: Bearer`）
-   - 是否带 `anthropic-version: 2023-06-01`
-   - 是否带 `User-Agent: claude-cli/<version> (external, cli)`（日志不会直接显示，可用代理工具验证）
-
-4. **OpenAI 协议专项检查**（日志显示 `openai` 时）
-   - 确认使用 `Authorization: Bearer {key}`
-   - 确认 URL 路径是 `/v1/chat/completions`
-
-5. **检查代理**（见 9.2 节）
-   - MiMo Token Plan 在有系统代理时可能被屏蔽
-   - 尝试用 `curl --noproxy "xiaomimimo.com"` 绕过代理测试
-
-6. **查看日志**：`logs/full-fetch-*.log`、`logs/deep-analyzer-*.log`
-
-### 9.2 MiMo API 返回 403 Illegal access / timeout / socket hang up
-
-**根因**：Node.js `https.request` 的 `agent: undefined` 仍会复用全局默认 agent 的连接池。当系统配置了代理（`https_proxy` 等环境变量）时，全局 agent 的连接可能被代理污染，导致 MiMo Token Plan 服务端拒绝请求。
-
-**修复**：`fetch-papers.js` 和 `deep-analyzer.js` 中 LLM API 请求的 `options.agent` 必须设为 `false`（不是 `undefined`），彻底禁用连接复用，强制每个请求建立新连接：
-
-```javascript
-const options = {
-    hostname: url.hostname,
-    path: url.pathname,
-    method: 'POST',
-    headers: headers,
-    agent: false,  // ← 必须是 false，undefined 无效
-    signal: controller.signal
-};
-```
-
-**验证**：直接用 `curl --noproxy "xiaomimimo.com"` 测试，若绕过代理成功而脚本失败，即为此问题。
-
-### 9.3 深度分析慢或频繁失败
-
-- 查看日志：`logs/deep-analyzer-*.log`、`logs/full-fetch-*.log`
-- 检查 key/endpoint/model 三元组是否匹配（见 9.1 节）
-- 若超时，脚本会自动降级为纯文本重试；若仍失败，检查代理或减小并发
-- 可用 `node scripts/deep-analysis-only.js` 安全续跑
-
-### 9.4 发布后无变更可推送
-
-在博客仓库检查：
-```bash
-cd ~/code/github_repos/audio-paper-digest-blog
-git status --short
-ls -lt content/posts | head -20
-```
-
-### 9.5 路径混淆
-
-优先使用 `data/current/deep-analysis-result.json`，仅在兼容场景下读取旧路径。
-
-### 9.6 重分析启动报 key 未设置
-
-- 在 `项目根目录的 `.env` 文件` 中配置 `PAPER_ANALYZER_API_KEY`
-- 重新 source：`source ~/.zshrc`
-
-### 9.7 微信公众号发布失败
-
-- 检查 `WECHAT_APP_ID` / `WECHAT_APP_SECRET` 环境变量是否已设置（在 `项目根目录的 `.env` 文件`）
-- 检查 `APP_SECRET` 是否过期
-- 检查图片是否过大或被 arXiv 限制
-- 微信图片上传有频率限制，大量图片可能需要分批执行
-
-### 9.8 HuggingFace 抓取为空
-
-- 检查网络连接（`curl https://huggingface.co/api/daily_papers?limit=10`）
-- 检查是否被限流或需要代理
-- `fetch-huggingface-papers.js` 使用 `curl` 命令，确保系统 `curl` 可用
-
-### 9.9 验证 API 路由变更
-
-当修改 `detectApiType()` 或 `buildApiUrl()` 后，必须用以下测试脚本验证两个端点都正常：
-
-```bash
-# 纯文本测试
-node -e "
-const u = require('./scripts/utils.js');
-const cases = [
-  ['MiMo', 'https://token-plan-cn.xiaomimimo.com/v1', 'mimo-v2.5'],
-  ['Kimi', 'https://api.kimi.com/coding/v1', 'kimi-for-coding'],
-  ['OpenAI', 'https://api.openai.com/v1', 'gpt-4o']
-];
-for (const [name, ep, model] of cases) {
-  const t = u.detectApiType(ep, model);
-  const url = u.buildApiUrl(t, ep);
-  console.log(name + ': ' + t + ' -> ' + url);
-}
-"
-```
-
-确保输出符合预期：
-- MiMo → `anthropic` → `.../anthropic/v1/messages`
-- Kimi → `anthropic` → `.../coding/v1/messages`（无 `/anthropic` 中间路径）
-- OpenAI → `openai` → `.../v1/chat/completions`
-
-**重要经验**：Kimi 和 MiMo 的 Anthropic URL 结构不同，修改 `buildApiUrl()` 时必须分支处理。
-
-### 9.10 后台运行 full-fetch 被 SIGTERM 中断 (exit code 143)
-
-**根因**：npm 脚本在后台模式下尝试访问 TTY 交互，导致 bash 报错并终止进程。
-
-**修复**：后台运行时使用直接 Node 命令，绕过 npm：
-```bash
-# ❌ 后台模式避免使用
-npm run fetch
-
-# ✅ 后台运行推荐方式
-node scripts/full-fetch.js
-```
-
-如果已在筛选阶段中断，需要按第 6 节"重跑/修复当天的正确姿势"处理：
-1. 检查 `papers.json` 的 `lastUpdated` 是否为今天（见 6 节判断矩阵）
-2. 如果是今天，不要恢复 papers.json，直接删除 `filtered-papers.json` 后重跑
-3. 如果是昨天或更早，恢复 `papers.json` 备份后重跑
-
----
-
-## 10. 相关子技能
-
-### 轻量论文速递
-
-#### arXiv Trending (`references/arxiv-digest.md`)
-Daily AI/ML trending papers from HuggingFace Papers with accessible interpretations. Fetches trending papers, ranks by combined score (position + upvotes + freshness), generates plain-language summaries. Supports automated daily delivery via cron.
-- Script: `scripts/fetch_papers.py`
-- Output: JSON or Markdown
-- Deduplication: history tracking
-
-#### Daily Paper Digest (`references/daily-paper-digest.md`)
-Aggregates latest AI papers from arXiv and HuggingFace, formats output for chat apps (Feishu, Slack, Discord). Configurable sources and keyword filters via `config/sources.json`.
-- Scripts: `main.py`, `arxiv_fetcher.py`, `huggingface_fetcher.py`
-- Triggers: `论文速递`, `今日论文`, `最新论文`, `/papers`, `/digest`
+`papers.json` 同时支持 `data/current/papers.json` 和 `data/papers.json`（旧版路径），均被 `config.js` 引用。**`papers.json` 持久化去重数据库，永不归档**。`full-fetch.js` 每次运行自动备份 `papers.json` 到 `data/archive/papers-<日期>.json`，保留最近 7 天。条目可带 `digestStatus.status`：`pending_analysis` / `analysis_failed` 不参与强去重，便于中断后重跑；所有分析入口应通过 `scripts/digest-status.js` 将成功/失败同步为 `analyzed` / `analysis_failed`。若最新一次分析失败但旧成功分析仍可用，`status` 保持 `analyzed`，失败记录写入 `digestStatus.latestAttemptStatus` / `error`。
+
+`filtered-papers.json` 只有在七个 arXiv 类别、HuggingFace 必需请求和筛选决定均覆盖完整时才能写为 `complete`。抓取按来源保存论文数量和稳定内容 SHA，篡改或截短只失效对应来源。checkpoint、raw、decisions、filtered 的候选/来源/博客去重指纹和北京时间批次日期必须一致。健康 raw 可从空决定续筛；模型/prompt/协议变化只重筛，不重新抓取。最终 filtered 集合必须精确对应 `related=true` 决定扣除显式归档排除项。
+
+## 分支策略
+
+- `main` — 每日论文速递流水线（arXiv + HuggingFace）
+- `icml-2026-analysis` / `iclr-2026-analysis` / `icassp-2026-analysis` — 会议专用分析分支，含独立脚本和 prompt。**不要将会议脚本混入 main 分支**。
+
+## 重要约定
+
+- **资料权威性**：文档与代码冲突时，以 `scripts/*` 当前实现为准。详尽的执行规则与安全约束见 `SKILL.md`。
+- **提交信息**：必须使用中文且描述要具体，说明主要修复点/影响范围；禁止只写“修复”“更新”这类空泛信息。可保留 `feat:` / `fix:` / `docs:` 前缀，但正文必须是中文详细描述。
+- **测试框架**：Node.js 内置 `node:test`，非 Jest/Mocha。
+- **CI**：运行 `npm test` + `npm run validate:data` + `find scripts tests -name '*.js'` 的 `node -c` 语法检查 + `find scripts -name '*.py'` 的 `py_compile` 语法检查 + `python3 -m unittest discover -s tests/python` + 所有 `.sh` 的 `bash -n`。新增 JS/Python/shell 文件会自动纳入检查。
+- **新增分析脚本必须复用 `analysis-engine.js`**，使用 `analyzePaperWithRetry()` + `analyzeBatch()`，禁止重复实现重试/解析/保存逻辑；保存分析结果后必须复用 `scripts/digest-status.js` 同步 `papers.json.digestStatus`。
+- **新增 Node LLM 调用必须通过 `utils.js` 的 `detectApiType()` / `buildApiUrl()` / `buildHeaders()` / `buildRequestBody()` / `parseResponseText()`**，禁止硬编码协议。Python 发布阶段 LLM 调用必须复用 `publish_common.py` 的 `call_publish_llm_api()`。
+- **环境变量加载**：Node 端必须复用 `scripts/env-loader.js` / `loadEnvFile()`；Python 端必须复用 `scripts/project_env.py`。项目配置只允许来自当前项目根 `.env`，脚本启动时必须清理继承进程里的同名项目变量与代理变量，禁止 shell / Trae / Codex 外层变量覆盖或补齐当前项目配置。外部命令复用 `buildChildProcessEnv()` / `build_child_process_env()`；只有 Git 可显式追加 SSH/GPG agent。
+- **所有脚本必须沙箱外运行**：凡是直接执行项目脚本的抓取、分析、发布、测试、语法检查或数据校验命令，Agent 必须以沙箱外权限启动；沙箱无法访问 `127.0.0.1:7897` 时不得把该失败误判为目标站点或代理故障。仅可在沙箱内阅读文件或由测试框架导入模块，禁止直接运行脚本入口。
+- **`loadPrompt()` 从 markdown 文件内的第一个 fenced code block 提取 prompt**，并替换 `{变量名}` 占位符。内部示例代码块需使用比外层更短的 fence，修改 prompt 后需验证 `utils.js` 解析逻辑兼容。
+- **原子与并发写入**：使用 `writeFileAtomic()` 保存普通数据；分析结果和 `papers.json` 的读改写必须使用跨进程文件锁并校验 `generation`，防止多个入口后写覆盖先写。Python 侧复用 `path_config.py` 的原子写入和 `update_json_file_locked()`，锁目录/owner/generation 协议必须与 Node 一致。
+- **阶段恢复**：深度分析失败结果必须保留 `analysisManifest`、`analysisCheckpoint`、`analysisStageCheckpoints` 和 `analysisRecoveryImageManifest`。每个阶段绑定实际输入、模型/协议、prompt、温度和图像配置指纹；指纹变化时回退到上一阶段正文快照，只重跑当前及下游。`full-fetch`、`deep`、`batch`、单篇和重分析入口均须从 canonical deep result 合并失败 checkpoint，并逐论文持久化。只有下载、主分析、开源扫描、Demo 扫描、审校、表格/方法/结构修复、评分审计和插图阶段均处于终态时才算成功。
+- **同篇分析互斥**：所有经 `analysis-engine.js` 的入口都必须按规范化 arXiv ID 取得异步共享运行锁，并在锁内完成“重读最新 canonical 记录 → 分析 → 写回结果和 digest 状态”；禁止在锁外用陈旧对象覆盖较新结果。单篇失败也必须合并 `r.result`，以保留 checkpoint。
+- **博客推送凭证**：严格 review 凭证绑定 review 时博客 `main` 的 `baseHead`；push 只能从该基线创建清单对应的发布提交，或重试凭证记录的同一发布提交。禁止借由空清单、已有本地提交或无关 HEAD 推送未审查内容；生成前必须拒绝覆盖目标日期文章的人工 Git 修改。
+- **arXiv 与 Demo 网络恢复**：深度分析的 arXiv HTML/图片发现默认超时 60 秒，PDF fallback 默认 180 秒且默认最大 50MB，分别支持 `PD_ARXIV_FETCH_TIMEOUT_MS` / `PD_ARXIV_PDF_TIMEOUT_MS` / `PD_ARXIV_PDF_MAX_BYTES`。arXiv 全文、PDF 和图片必须使用项目 HTTP CONNECT 代理 dispatcher；稳定 400/403/404 只尝试一轮；指定版本号不得静默回退到最新版。Demo 页面允许最多 3 次 HTTP 重定向，但每一跳都必须重新执行公网 DNS/IP 校验，严禁自动跟随到私网地址。
+- **北京时间时间戳**：运行数据中的 `timestamp` / `lastUpdated` / `fetchedAt` 应使用 `getBeijingISOString()` 或 Python 端 `now_bj_iso()`，避免 UTC 日期导致跨天归档或发布筛选错误。
+- **博客三阶段必须分离且必须沙箱外运行**：依次运行 `generate-blog.py` → `review-blog.py` → `push-blog.py`。生成阶段使用持久 journal；review 逐文件保存实际审查 SHA，内容失败只复审失败页，瞬时错误保持待重试。三个阶段同时使用日期级锁和博客仓库级全局锁；push 在 `git add` 后及 commit 前必须把 index blob/删除状态与 review 凭证逐项比较，防止不同日期共享 worktree/index/HEAD 时交叉提交或回滚。仅用户明确要求发博客时才允许运行 push。
+- **小红书文案续跑**：TOP N one-liner 成功项按 normalized arXiv ID 写入日期缓存，绑定 analysis、prompt、模型/endpoint/温度和清洗契约；日期级锁内逐篇原子保存。坏缓存原子隔离后重建，只重试缺失、失败或指纹失效项；`--date` 必须严格为 `YYYY-MM-DD`。小红书自动发布不属于论文速递必需流程。
+- **发布 review 不得删除合法表格续行**：Markdown 表格允许前导分组列为空，这通常表示沿用上一行模型/配置；不能把 `| | | | Filter2 ... |` 一类数据行当成子标题删除。普通模型名或技术术语未加反引号属于样式建议，不是格式问题。
+- **图片展示顺序与质量门禁**：候选图编号不是最终展示图号；无真实 caption 的通用 `图N` alt 与 `selectedImageUrls` 必须按图片在最终正文中的出现顺序归一化。副模型每篇最多插入 4 张图（可用 `PD_IMAGE_INSERTION_MAX` 覆写），必须选择代码生成的稳定段落 ID；非法 ID 和超限图片一律拒绝，不得回退堆到章节末尾。HTML 正文和图注必须同次解析复用，成功下载写入 `data/current/image-cache/`，永久 HTTP/MIME/大小错误不得反复重试。
+- **内置生图参考文件**：视觉 manifest 中的 `cachePath` 保留原始 `.bin` 缓存路径；调用内置 `image_gen` 前必须运行 `npm run visual:prepare -- --date YYYY-MM-DD`，由脚本重新校验受控路径、SHA、字节数、MIME 与文件头，并物化为 `data/current/visual-reference-inputs/<日期>/<排名-论文>/` 下的 `.png/.jpg/.webp`。必须把命令输出的 `referencedImagePaths` 传给生图工具，禁止直接上传 `.bin` 或手工改后缀。
+- **分析来源与发布门禁**：结果必须保存 `analysisSource`、全文/实际输入字符数、截断状态、来源 SHA-256、抓取告警和置信度。来源指纹变化时清除主分析及下游 checkpoint。仅摘要分析默认禁止发布；人工确认后必须显式设置 `allowAbstractAnalysisPublish: true`，博客同时显示醒目降级提示。最新一次重分析失败时禁止用陈旧正文发布。
+- **评分稳定性**：最终评分审计默认低温 `0.1`（`PD_SCORING_AUDIT_TEMPERATURE`），副模型图片计划默认 `0.2`（`PD_IMAGE_PLAN_TEMPERATURE`）。送审输入必须移除旧“评分理由”段但保留正文和证据账本，禁止模型照抄待纠正理由；跨维度校验失败须反馈具体违规分句。评分 manifest 必须保留模型、温度、prompt 模板哈希、证据哈希、尝试次数、前后总分/差值和最终八维 JSON；变化超过 0.5 分必须打印稳定性告警，指纹变化时只失效评分及插图阶段。
+- **副模型日志**：插图筛选必须记录 `[secondary]` 详细输入/输出摘要（模型、协议、endpoint/key 来源、候选和下载数量、图片安全标签/MIME/负载、Prompt/响应长度、活跃请求时长、计划解析状态、anchor 实际命中、拒绝原因和最终选图），只能记录 key 来源，严禁记录 API key 内容。统一日志必须是 UTF-8 纯文本、唯一文件名和 `0600` 权限；每个非空物理行均须以毫秒级北京时间戳（`[YYYY-MM-DD HH:mm:ss.SSS+08:00]`）开头，并脱敏认证头、Cookie、token、secret、password、任意已配置密钥实际值和 URL userinfo；不得轮转、限量或自动清理。
+- **睡眠恢复**：LLM 的 20 分钟整体超时按进程活跃时间记账；检测到超过 30 秒的事件循环跳变时视为系统睡眠/长时间挂起，排除睡眠时长并记录 `[api]` 日志。唤醒后底层请求超时必须保留剩余预算进入正常重试，不能把睡眠墙钟时间算成 API 已用时间。
+- **评分数值契约**：八个分项与总分最多一位小数；开源分仅允许 `0/0.2/0.5/1.0/1.2/1.5`。理论研究的完整证明、推导和附录可作为核心公开产物，不能因 `hasCode/hasModel/hasDataset` 均为否而被代码强制归零。Python 发布预检与人工覆盖也必须执行同一契约。
+- **后台运行全流程时用 `node scripts/full-fetch.js`** 而非 `npm run fetch`（npm 可能因 TTY 导致 SIGTERM，exit code 143）。根目录 `run-full-fetch.sh` 即此包装（`cd` 到项目根后 `exec node`）。
+- **`data/` 和 `logs/` 已 gitignore** — 禁止提交运行时产物。
+
+### 致命 Bug 防御
+
+**MiMo Token Plan 403**：所有 Node LLM 请求（包括 API 测试脚本）的 `options.agent` 必须为 `false`（不是 `undefined`）。这会彻底禁用连接复用，强制直连。任何重构 HTTP 代码时绝对不能改回 `agent: proxyAgent` 或 `undefined`。
+
+### 长时间运行命令
+
+命令 `npm run fetch`、`npm run reanalyze`、`npm run deep`、`batch-analyze.js` 等可能运行数十分钟到数小时。**必须：**
+1. **禁止设置 Bash timeout**，确保命令永不超时。
+2. **禁止检查进程状态**（`ps aux | grep`、`jobs`）。
+3. **禁止过滤输出**（`grep`、`head`、`tail`），完整输出是判断是否正常的唯一依据。
+4. **禁止 abort**，命令自然结束前严禁中止、取消或重启。
+5. **启动后只等待结果**，不做其他操作。
+
+## 评分体系速查
+
+深度分析采用八维审稿人评分：创新性(2) + 技术严谨性(1.5) + 实验充分性(1.5) + 清晰度(1) + 影响力(1.5) + 开源(1.5) + 可复现性(0.5) + 工程/实践价值(1.5) = 满分 11 分，**总分上限 10**。
+
+当前评分契约为 `type-aware-v1`。主模型必须先输出 `document_type`，且只能取：`方法研究` / `系统技术报告` / `模型报告` / `数据集与基准` / `综述` / `理论研究` / `应用研究`。类型只选择证据标准，不提供固定加分、保底或豁免；系统/模型报告按端到端质量、延迟、吞吐、成本、规模、压力测试、竞品公平性和失败案例评估，综述、理论和数据集论文也使用各自适配证据，不能机械套用方法论文的消融标准。
+
+评分必须遵守“单一问题单一主维度扣分”：缺少开源产物只归开源，缺少超参数/复现步骤只归可复现性，证据不足只归实验充分性，表达问题只归清晰度，推导/假设/逻辑错误才归技术严谨性。信息不足时降低 `confidence`，不得把“无法验证”写成“技术错误”。副模型仍只负责插图，不得参与类型判断或评分。
+
+最终评分审计会把精确校验错误反馈给下一次局部审计，避免相同违规输出造成整篇重跑。非理论论文无核心产物时，代码按资源状态固定开源分：明确肯定语境的未来开放承诺为 0.5、带可访问 URL 或肯定结构化状态的 Demo 为 0.2、否定/未提及且无承诺为 0；理论研究保留基于公开证明材料的判断。`parseAnalysis()` 只有在八个分项完整、唯一、分母正确、最多一位小数且分值有限并位于合法范围时才重算总分，否则返回契约错误并阻断保存或发布。
+
+`rankBucket` 推断（基于最终 score）：≥9.0 → 前10%，≥7.5 → 前25%，≥5.5 → 前50%，<5.5 → 后50%。
+
+## 发布日期安全
+
+- 博客 `YYYY-MM-DD` 代表**爬取分析的批次日期**，不是论文 arXiv 发布日期
+- `deep-analysis-result.json` 中的论文都是当日抓取+去重+筛选后的结果
+- `full-fetch.js` 每天运行时自动归档移走昨日数据文件
+- 重跑当天步骤见 `SKILL.md` §6（先检查 `papers.json` 的 `lastUpdated`）
+- **恢复 `papers.json` 的关键判断**：`lastUpdated` 是今天→不要恢复；若今日 `filtered-papers.json` 已是 `status: complete`，直接运行 `node scripts/full-fetch.js` 会跳过抓取/筛选并续跑深度分析；是昨天或更早→可恢复 `data/archive/papers-<日期>.json` 备份
 
 ---
 > Source: [nanless/audio-paper-digest](https://github.com/nanless/audio-paper-digest) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
