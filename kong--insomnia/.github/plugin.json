@@ -1,0 +1,14 @@
+{
+  "name": "kong--insomnia",
+  "displayName": "insomnia",
+  "description": "insomnia",
+  "version": "1.0.0",
+  "author": "Kong",
+  "homepage": "https://github.com/Kong/insomnia",
+  "skills": [
+    {
+      "name": "insomnia",
+      "description": ""
+    }
+  ]
+}
