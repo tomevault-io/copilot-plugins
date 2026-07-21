@@ -1,0 +1,81 @@
+{
+  "name": "agno",
+  "owner": "agno-agi",
+  "repo": "agno",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "cookbook/02_agents/16_skills/sample_skills/code-review",
+      "github_url": "https://github.com/agno-agi/agno/tree/main/cookbook/02_agents/16_skills/sample_skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "cookbook/02_agents/16_skills/sample_skills/git-workflow",
+      "github_url": "https://github.com/agno-agi/agno/tree/main/cookbook/02_agents/16_skills/sample_skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "agno",
+      "path": "cookbook/05_agent_os/skills/sample_skills/system-info/SKILL.md",
+      "github_url": "https://github.com/agno-agi/agno/tree/main/cookbook/05_agent_os/skills/sample_skills/system-info/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agno",
+      "path": "cookbook/02_agents/16_skills/sample_skills/code-review/SKILL.md",
+      "github_url": "https://github.com/agno-agi/agno/tree/main/cookbook/02_agents/16_skills/sample_skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agno",
+      "path": "cookbook/02_agents/16_skills/sample_skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/agno-agi/agno/tree/main/cookbook/02_agents/16_skills/sample_skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agno",
+      "path": "cookbook/frameworks/antigravity/example_agent/skills/haiku/SKILL.md",
+      "github_url": "https://github.com/agno-agi/agno/tree/main/cookbook/frameworks/antigravity/example_agent/skills/haiku/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agno-agi/agno",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:30:52Z"
+}
