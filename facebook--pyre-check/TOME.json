@@ -1,0 +1,75 @@
+{
+  "name": "pyre-check",
+  "owner": "facebook",
+  "repo": "pyre-check",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pyre-check",
+      "path": ".llms/skills/architecture/SKILL.md",
+      "github_url": "https://github.com/facebook/pyre-check/tree/main/.llms/skills/architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyre-check",
+      "path": ".llms/skills/pysa-json-models/SKILL.md",
+      "github_url": "https://github.com/facebook/pyre-check/tree/main/.llms/skills/pysa-json-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyre-check",
+      "path": ".llms/skills/commit-conventions/SKILL.md",
+      "github_url": "https://github.com/facebook/pyre-check/tree/main/.llms/skills/commit-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyre-check",
+      "path": ".llms/skills/pysa-integration-tests/SKILL.md",
+      "github_url": "https://github.com/facebook/pyre-check/tree/main/.llms/skills/pysa-integration-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyre-check",
+      "path": ".llms/skills/pysa-false-negative-debugger/SKILL.md",
+      "github_url": "https://github.com/facebook/pyre-check/tree/main/.llms/skills/pysa-false-negative-debugger/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/facebook/pyre-check",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:36:24Z"
+}
