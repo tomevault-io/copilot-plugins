@@ -1,0 +1,57 @@
+{
+  "name": "pymapdl",
+  "owner": "ansys",
+  "repo": "pymapdl",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pymapdl-cli",
+      "path": "src/ansys/mapdl/core/skills/pymapdl-cli",
+      "github_url": "https://github.com/ansys/pymapdl/tree/main/src/ansys/mapdl/core/skills/pymapdl-cli",
+      "description": ""
+    },
+    {
+      "name": "pymapdl",
+      "path": "src/ansys/mapdl/core/skills/pymapdl-cli/SKILL.md",
+      "github_url": "https://github.com/ansys/pymapdl/tree/main/src/ansys/mapdl/core/skills/pymapdl-cli/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ansys/pymapdl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:36:08Z"
+}
