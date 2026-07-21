@@ -1,0 +1,105 @@
+{
+  "name": "hassio-addons",
+  "owner": "bradsjm",
+  "repo": "hassio-addons",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "home-assistant-awtrix",
+      "path": "addon-opencode/skills/home-assistant-awtrix",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-awtrix",
+      "description": ""
+    },
+    {
+      "name": "home-assistant-custom-integration",
+      "path": "addon-opencode/skills/home-assistant-custom-integration",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-custom-integration",
+      "description": ""
+    },
+    {
+      "name": "home-assistant-esphome",
+      "path": "addon-opencode/skills/home-assistant-esphome",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-esphome",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "path": "addon-opencode/skills/home-assistant-awtrix/SKILL.md",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-awtrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "path": "addon-opencode/skills/home-assistant-esphome/SKILL.md",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-esphome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "path": "addon-opencode/skills/home-assistant-dashboards-cards/SKILL.md",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-dashboards-cards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "path": "addon-opencode/skills/home-assistant-entities-services/SKILL.md",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-entities-services/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "path": "addon-opencode/skills/home-assistant-automation-scripts/SKILL.md",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-automation-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "path": "addon-opencode/skills/home-assistant-custom-integration/SKILL.md",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-custom-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hassio-addons",
+      "path": "addon-opencode/skills/home-assistant-integrations-addons/SKILL.md",
+      "github_url": "https://github.com/bradsjm/hassio-addons/tree/main/addon-opencode/skills/home-assistant-integrations-addons/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bradsjm/hassio-addons",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:32:42Z"
+}
