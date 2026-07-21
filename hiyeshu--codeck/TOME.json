@@ -2,9 +2,9 @@
   "name": "codeck",
   "owner": "hiyeshu",
   "repo": "codeck",
-  "description": "No Keynote. No dragging. No font sizes.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hiyeshu/codeck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T03:54:09Z"
+  "distributed_at": "2026-07-21T21:02:07Z"
 }
