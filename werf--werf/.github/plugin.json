@@ -1,0 +1,38 @@
+{
+  "name": "werf--werf",
+  "displayName": "werf",
+  "description": "werf",
+  "version": "1.0.0",
+  "author": "werf",
+  "homepage": "https://github.com/werf/werf",
+  "skills": [
+    {
+      "name": "werf",
+      "description": ""
+    },
+    {
+      "name": "werf",
+      "description": ""
+    },
+    {
+      "name": "werf",
+      "description": ""
+    },
+    {
+      "name": "werf",
+      "description": ""
+    },
+    {
+      "name": "werf",
+      "description": ""
+    },
+    {
+      "name": "werf",
+      "description": ""
+    },
+    {
+      "name": "werf",
+      "description": ""
+    }
+  ]
+}
