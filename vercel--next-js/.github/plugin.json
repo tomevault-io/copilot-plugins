@@ -1,0 +1,122 @@
+{
+  "name": "vercel--next-js",
+  "displayName": "next.js",
+  "description": "next.js",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/next.js",
+  "skills": [
+    {
+      "name": "authoring-skills",
+      "description": ""
+    },
+    {
+      "name": "cache-components",
+      "description": ""
+    },
+    {
+      "name": "dce-edge",
+      "description": ""
+    },
+    {
+      "name": "flags",
+      "description": ""
+    },
+    {
+      "name": "pr-status-triage",
+      "description": ""
+    },
+    {
+      "name": "react-vendoring",
+      "description": ""
+    },
+    {
+      "name": "runtime-debug",
+      "description": ""
+    },
+    {
+      "name": "write-api-reference",
+      "description": ""
+    },
+    {
+      "name": "write-guide",
+      "description": ""
+    },
+    {
+      "name": "router-act",
+      "description": ""
+    },
+    {
+      "name": "v8-jit",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    },
+    {
+      "name": "next.js",
+      "description": ""
+    }
+  ]
+}
