@@ -1,0 +1,93 @@
+{
+  "name": "agentcore-samples",
+  "owner": "awslabs",
+  "repo": "agentcore-samples",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentcore-samples",
+      "path": "06-workshops/01-AgentCore-runtime/10-managed-session-storage/persistent-notes/SKILL.md",
+      "github_url": "https://github.com/awslabs/agentcore-samples/tree/main/06-workshops/01-AgentCore-runtime/10-managed-session-storage/persistent-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentcore-samples",
+      "path": "06-workshops/01-AgentCore-runtime/01-hosting-agent/06-strands-with-skills/skills/weather-reporter/SKILL.md",
+      "github_url": "https://github.com/awslabs/agentcore-samples/tree/main/06-workshops/01-AgentCore-runtime/01-hosting-agent/06-strands-with-skills/skills/weather-reporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentcore-samples",
+      "path": "01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/registry-skills-dynamic-discovery/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/awslabs/agentcore-samples/tree/main/01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/registry-skills-dynamic-discovery/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentcore-samples",
+      "path": "01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/revenue-growth-analyst/SKILL.md",
+      "github_url": "https://github.com/awslabs/agentcore-samples/tree/main/01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/revenue-growth-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentcore-samples",
+      "path": "01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/quarterly-kpi-calculator/SKILL.md",
+      "github_url": "https://github.com/awslabs/agentcore-samples/tree/main/01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/quarterly-kpi-calculator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentcore-samples",
+      "path": "01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/cost-efficiency-analyzer/SKILL.md",
+      "github_url": "https://github.com/awslabs/agentcore-samples/tree/main/01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/cost-efficiency-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentcore-samples",
+      "path": "01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/multi-quarter-trend-analysis/SKILL.md",
+      "github_url": "https://github.com/awslabs/agentcore-samples/tree/main/01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/multi-quarter-trend-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentcore-samples",
+      "path": "01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/executive-financial-briefing/SKILL.md",
+      "github_url": "https://github.com/awslabs/agentcore-samples/tree/main/01-features/07-centralize-and-govern-your-ai-infrastructure/03-registry/03-advanced/strands-mcp-ecs-registry/my_skills/executive-financial-briefing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/awslabs/agentcore-samples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:39:16Z"
+}
