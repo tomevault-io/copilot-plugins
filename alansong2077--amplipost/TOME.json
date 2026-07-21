@@ -1,0 +1,75 @@
+{
+  "name": "Amplipost",
+  "owner": "AlanSong2077",
+  "repo": "Amplipost",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Amplipost",
+      "path": "publishers/xhs-publisher/SKILL.md",
+      "github_url": "https://github.com/AlanSong2077/Amplipost/tree/main/publishers/xhs-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amplipost",
+      "path": "publishers/xianyu-publisher/SKILL.md",
+      "github_url": "https://github.com/AlanSong2077/Amplipost/tree/main/publishers/xianyu-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amplipost",
+      "path": "publishers/douyin-publisher/SKILL.md",
+      "github_url": "https://github.com/AlanSong2077/Amplipost/tree/main/publishers/douyin-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amplipost",
+      "path": "publishers/bilibili-publisher/SKILL.md",
+      "github_url": "https://github.com/AlanSong2077/Amplipost/tree/main/publishers/bilibili-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Amplipost",
+      "path": ".claude/skills/amplipost-workflow/SKILL.md",
+      "github_url": "https://github.com/AlanSong2077/Amplipost/tree/main/.claude/skills/amplipost-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AlanSong2077/Amplipost",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:41:01Z"
+}
