@@ -1,0 +1,14 @@
+{
+  "name": "lucacome--docker-image-update-checker",
+  "displayName": "docker-image-update-checker",
+  "description": "docker-image-update-checker",
+  "version": "1.0.0",
+  "author": "lucacome",
+  "homepage": "https://github.com/lucacome/docker-image-update-checker",
+  "skills": [
+    {
+      "name": "docker-image-update-checker",
+      "description": ""
+    }
+  ]
+}
