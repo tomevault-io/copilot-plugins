@@ -1,0 +1,63 @@
+{
+  "name": "Yuan",
+  "owner": "No-Trade-No-Life",
+  "repo": "Yuan",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Yuan",
+      "path": ".claude/skills/context-management/SKILL.md",
+      "github_url": "https://github.com/No-Trade-No-Life/Yuan/tree/main/.claude/skills/context-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yuan",
+      "path": ".claude/skills/git-changes-reporter/SKILL.md",
+      "github_url": "https://github.com/No-Trade-No-Life/Yuan/tree/main/.claude/skills/git-changes-reporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yuan",
+      "path": ".claude/skills/vendor-implementation/SKILL.md",
+      "github_url": "https://github.com/No-Trade-No-Life/Yuan/tree/main/.claude/skills/vendor-implementation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/No-Trade-No-Life/Yuan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:44:14Z"
+}
