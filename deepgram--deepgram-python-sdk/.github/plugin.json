@@ -1,0 +1,38 @@
+{
+  "name": "deepgram--deepgram-python-sdk",
+  "displayName": "deepgram-python-sdk",
+  "description": "deepgram-python-sdk",
+  "version": "1.0.0",
+  "author": "deepgram",
+  "homepage": "https://github.com/deepgram/deepgram-python-sdk",
+  "skills": [
+    {
+      "name": "deepgram-python-management-api",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "description": ""
+    },
+    {
+      "name": "deepgram-python-sdk",
+      "description": ""
+    }
+  ]
+}
