@@ -1,0 +1,34 @@
+# AI instruction files for common-media-library
+
+> Sourced from [streaming-video-technology-alliance/common-media-library](https://github.com/streaming-video-technology-alliance/common-media-library), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [streaming-video-technology-alliance/common-media-library](https://github.com/streaming-video-technology-alliance/common-media-library).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (3)
+
+- [common-media-library](https://github.com/streaming-video-technology-alliance/common-media-library/tree/main/.claude/skills/create-pr/SKILL.md)
+- [common-media-library](https://github.com/streaming-video-technology-alliance/common-media-library/tree/main/.claude/skills/pr-feedback/SKILL.md)
+- [common-media-library](https://github.com/streaming-video-technology-alliance/common-media-library/tree/main/.claude/skills/code-review/SKILL.md)
+
+From [streaming-video-technology-alliance/common-media-library](https://github.com/streaming-video-technology-alliance/common-media-library) — a repo with 80+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install streaming-video-technology-alliance/common-media-library
+```
+Source: [github.com/streaming-video-technology-alliance/common-media-library](https://github.com/streaming-video-technology-alliance/common-media-library).
+
+<!-- genome:a-i-s -->
