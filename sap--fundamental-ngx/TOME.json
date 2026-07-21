@@ -1,0 +1,129 @@
+{
+  "name": "fundamental-ngx",
+  "owner": "SAP",
+  "repo": "fundamental-ngx",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/migrate/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/scaffold/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/scaffold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/preflight/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/preflight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/build-form/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/build-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/a11y-audit/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/a11y-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/i18n-manage/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/i18n-manage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/build-table/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/build-table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/update-docs/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/update-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/create-test/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/create-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/adopt-styles/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/adopt-styles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/setup-project/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/setup-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/best-practices/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fundamental-ngx",
+      "path": ".claude/skills/build-page-layout/SKILL.md",
+      "github_url": "https://github.com/SAP/fundamental-ngx/tree/main/.claude/skills/build-page-layout/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SAP/fundamental-ngx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T08:27:54Z"
+}
