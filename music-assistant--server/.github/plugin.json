@@ -1,0 +1,14 @@
+{
+  "name": "music-assistant--server",
+  "displayName": "server",
+  "description": "server",
+  "version": "1.0.0",
+  "author": "music-assistant",
+  "homepage": "https://github.com/music-assistant/server",
+  "skills": [
+    {
+      "name": "server",
+      "description": ""
+    }
+  ]
+}
