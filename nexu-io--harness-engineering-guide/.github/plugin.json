@@ -1,0 +1,14 @@
+{
+  "name": "nexu-io--harness-engineering-guide",
+  "displayName": "harness-engineering-guide",
+  "description": "harness-engineering-guide",
+  "version": "1.0.0",
+  "author": "nexu-io",
+  "homepage": "https://github.com/nexu-io/harness-engineering-guide",
+  "skills": [
+    {
+      "name": "harness-engineering-guide",
+      "description": ""
+    }
+  ]
+}
