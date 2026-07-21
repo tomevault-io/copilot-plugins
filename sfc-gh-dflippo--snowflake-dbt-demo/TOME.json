@@ -1,0 +1,429 @@
+{
+  "name": "snowflake-dbt-demo",
+  "owner": "sfc-gh-dflippo",
+  "repo": "snowflake-dbt-demo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dbt-architecture",
+      "path": ".claude/skills/dbt-architecture",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-architecture",
+      "description": ""
+    },
+    {
+      "name": "dbt-artifacts",
+      "path": ".claude/skills/dbt-artifacts",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-artifacts",
+      "description": ""
+    },
+    {
+      "name": "dbt-commands",
+      "path": ".claude/skills/dbt-commands",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-commands",
+      "description": ""
+    },
+    {
+      "name": "dbt-core",
+      "path": ".claude/skills/dbt-core",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-core",
+      "description": ""
+    },
+    {
+      "name": "dbt-materializations",
+      "path": ".claude/skills/dbt-materializations",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-materializations",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration",
+      "path": ".claude/skills/dbt-migration",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-bigquery",
+      "path": ".claude/skills/dbt-migration-bigquery",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-bigquery",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-db2",
+      "path": ".claude/skills/dbt-migration-db2",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-db2",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-hive",
+      "path": ".claude/skills/dbt-migration-hive",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-hive",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-ms-sql-server",
+      "path": ".claude/skills/dbt-migration-ms-sql-server",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-ms-sql-server",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-oracle",
+      "path": ".claude/skills/dbt-migration-oracle",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-oracle",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-postgres",
+      "path": ".claude/skills/dbt-migration-postgres",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-postgres",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-redshift",
+      "path": ".claude/skills/dbt-migration-redshift",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-redshift",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-snowflake",
+      "path": ".claude/skills/dbt-migration-snowflake",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-snowflake",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-sybase",
+      "path": ".claude/skills/dbt-migration-sybase",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-sybase",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-teradata",
+      "path": ".claude/skills/dbt-migration-teradata",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-teradata",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-validation",
+      "path": ".claude/skills/dbt-migration-validation",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-validation",
+      "description": ""
+    },
+    {
+      "name": "dbt-migration-vertica",
+      "path": ".claude/skills/dbt-migration-vertica",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-vertica",
+      "description": ""
+    },
+    {
+      "name": "dbt-modeling",
+      "path": ".claude/skills/dbt-modeling",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-modeling",
+      "description": ""
+    },
+    {
+      "name": "dbt-performance",
+      "path": ".claude/skills/dbt-performance",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-performance",
+      "description": ""
+    },
+    {
+      "name": "dbt-projects-on-snowflake",
+      "path": ".claude/skills/dbt-projects-on-snowflake",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-projects-on-snowflake",
+      "description": ""
+    },
+    {
+      "name": "dbt-projects-snowflake-setup",
+      "path": ".claude/skills/dbt-projects-snowflake-setup",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-projects-snowflake-setup",
+      "description": ""
+    },
+    {
+      "name": "dbt-testing",
+      "path": ".claude/skills/dbt-testing",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-testing",
+      "description": ""
+    },
+    {
+      "name": "devcontainer-setup",
+      "path": ".claude/skills/devcontainer-setup",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/devcontainer-setup",
+      "description": ""
+    },
+    {
+      "name": "doc-scraper",
+      "path": ".claude/skills/doc-scraper",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/doc-scraper",
+      "description": ""
+    },
+    {
+      "name": "playwright-mcp",
+      "path": ".claude/skills/playwright-mcp",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/playwright-mcp",
+      "description": ""
+    },
+    {
+      "name": "schemachange",
+      "path": ".claude/skills/schemachange",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/schemachange",
+      "description": ""
+    },
+    {
+      "name": "skills-sync",
+      "path": ".claude/skills/skills-sync",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/skills-sync",
+      "description": ""
+    },
+    {
+      "name": "snowflake-cli",
+      "path": ".claude/skills/snowflake-cli",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/snowflake-cli",
+      "description": ""
+    },
+    {
+      "name": "task-master",
+      "path": ".claude/skills/task-master",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/task-master",
+      "description": ""
+    },
+    {
+      "name": "task-master-install",
+      "path": ".claude/skills/task-master-install",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/task-master-install",
+      "description": ""
+    },
+    {
+      "name": "task-master-viewer",
+      "path": ".claude/skills/task-master-viewer",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/task-master-viewer",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-core/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-testing/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/task-master/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/task-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/skills-sync/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/skills-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/doc-scraper/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/doc-scraper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-commands/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-modeling/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/schemachange/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/schemachange/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-artifacts/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-artifacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/snowflake-cli/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/snowflake-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/playwright-mcp/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/playwright-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-performance/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-architecture/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-db2/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-db2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-hive/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-hive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/task-master-viewer/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/task-master-viewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/devcontainer-setup/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/devcontainer-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/task-master-install/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/task-master-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-materializations/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-materializations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-sybase/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-sybase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-oracle/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-oracle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-vertica/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-vertica/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-bigquery/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-bigquery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-redshift/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-redshift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-postgres/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-teradata/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-teradata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-snowflake/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-snowflake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-validation/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-projects-on-snowflake/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-projects-on-snowflake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-migration-ms-sql-server/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-migration-ms-sql-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snowflake-dbt-demo",
+      "path": ".claude/skills/dbt-projects-snowflake-setup/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo/tree/main/.claude/skills/dbt-projects-snowflake-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:50:19Z"
+}
