@@ -1,0 +1,177 @@
+{
+  "name": "linkedin-skills",
+  "owner": "sergebulaev",
+  "repo": "linkedin-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "linkedin-skills",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-humanizer/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-post-writer/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-post-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-reply-handler/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-reply-handler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-thread-monitor/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-thread-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-hook-extractor/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-hook-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-content-planner/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-content-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-comment-drafter/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-comment-drafter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-employee-advocacy/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-employee-advocacy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-engager-analytics/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-engager-analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": "skills/linkedin-profile-optimizer/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/skills/linkedin-profile-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-humanizer/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-post-writer/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-post-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-reply-handler/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-reply-handler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-thread-monitor/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-thread-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-hook-extractor/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-hook-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-content-planner/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-content-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-comment-drafter/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-comment-drafter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-employee-advocacy/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-employee-advocacy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-engager-analytics/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-engager-analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linkedin-skills",
+      "path": ".codex-marketplace/linkedin-skills/skills/linkedin-profile-optimizer/SKILL.md",
+      "github_url": "https://github.com/sergebulaev/linkedin-skills/tree/main/.codex-marketplace/linkedin-skills/skills/linkedin-profile-optimizer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sergebulaev/linkedin-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:59:11Z"
+}
