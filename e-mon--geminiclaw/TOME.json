@@ -1,0 +1,129 @@
+{
+  "name": "geminiclaw",
+  "owner": "e-mon",
+  "repo": "geminiclaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/gog/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/gog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/cron/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/github/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/workspace/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/self-manage/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/self-manage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/coding-plan/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/coding-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/session-logs/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/session-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/topic-patrol/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/topic-patrol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/todo-tracker/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/todo-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/daily-briefing/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/daily-briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geminiclaw",
+      "path": "templates/.gemini/skills/translate-preview/SKILL.md",
+      "github_url": "https://github.com/e-mon/geminiclaw/tree/main/templates/.gemini/skills/translate-preview/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/e-mon/geminiclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T16:43:09Z"
+}
