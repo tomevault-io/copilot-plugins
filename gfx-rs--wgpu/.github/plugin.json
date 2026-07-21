@@ -1,0 +1,26 @@
+{
+  "name": "gfx-rs--wgpu",
+  "displayName": "wgpu",
+  "description": "wgpu",
+  "version": "1.0.0",
+  "author": "gfx-rs",
+  "homepage": "https://github.com/gfx-rs/wgpu",
+  "skills": [
+    {
+      "name": "cts-triage",
+      "description": ""
+    },
+    {
+      "name": "webgpu-specs",
+      "description": ""
+    },
+    {
+      "name": "wgpu",
+      "description": ""
+    },
+    {
+      "name": "wgpu",
+      "description": ""
+    }
+  ]
+}
