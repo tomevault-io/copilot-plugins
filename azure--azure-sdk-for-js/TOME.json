@@ -1,0 +1,147 @@
+{
+  "name": "azure-sdk-for-js",
+  "owner": "Azure",
+  "repo": "azure-sdk-for-js",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-sdk-for-js",
+      "path": ".github/skills/find-package-skill/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/.github/skills/find-package-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": ".github/skills/create-package-skill/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/.github/skills/create-package-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": ".github/skills/azsdk-common-sdk-release/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/.github/skills/azsdk-common-sdk-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/ai/ai-projects/.github/skills/author-tests/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/ai/ai-projects/.github/skills/author-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": ".github/skills/azsdk-common-prepare-release-plan/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/.github/skills/azsdk-common-prepare-release-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/ai/ai-projects/.github/skills/author-samples/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/ai/ai-projects/.github/skills/author-samples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": ".github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/.github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/ai/ai-projects/.github/skills/update-changelog/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/ai/ai-projects/.github/skills/update-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": ".github/skills/azsdk-common-pipeline-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/.github/skills/azsdk-common-pipeline-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/ai/ai-projects/.github/skills/open-regeneration-pr/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/ai/ai-projects/.github/skills/open-regeneration-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": ".github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/.github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/ai/ai-projects/.github/skills/apply-post-emitter-edits/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/ai/ai-projects/.github/skills/apply-post-emitter-edits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/ai/ai-projects/.github/skills/regenerate-from-typespec/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/ai/ai-projects/.github/skills/regenerate-from-typespec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/contentunderstanding/ai-content-understanding/.github/skills/cu-sdk-setup/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/contentunderstanding/ai-content-understanding/.github/skills/cu-sdk-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/contentunderstanding/ai-content-understanding/.github/skills/cu-sdk-sample-run/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/contentunderstanding/ai-content-understanding/.github/skills/cu-sdk-sample-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/contentunderstanding/ai-content-understanding/.github/skills/cu-sdk-common-knowledge/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/contentunderstanding/ai-content-understanding/.github/skills/cu-sdk-common-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-js",
+      "path": "sdk/search/search-documents/.github/skills/search-documents/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/search/search-documents/.github/skills/search-documents/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure/azure-sdk-for-js",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:59:42Z"
+}
