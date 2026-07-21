@@ -1,0 +1,14 @@
+{
+  "name": "standardagents--arrow-js",
+  "displayName": "arrow-js",
+  "description": "arrow-js",
+  "version": "1.0.0",
+  "author": "standardagents",
+  "homepage": "https://github.com/standardagents/arrow-js",
+  "skills": [
+    {
+      "name": "arrow-js",
+      "description": ""
+    }
+  ]
+}
