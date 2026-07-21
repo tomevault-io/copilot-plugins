@@ -1,0 +1,12 @@
+## frp-android
+
+> 1. 适当添加中文的代码注释，尤其是复杂逻辑部分，并保持注释更新
+
+编码规范：
+1. 适当添加中文的代码注释，尤其是复杂逻辑部分，并保持注释更新
+2. 遵循项目现有的代码风格和命名规范
+3. 如果你不确定外部库的使用方式，请使用工具进行搜索
+
+---
+> Source: [AceDroidX/frp-Android](https://github.com/AceDroidX/frp-Android) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
