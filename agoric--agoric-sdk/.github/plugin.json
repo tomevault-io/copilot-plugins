@@ -1,0 +1,30 @@
+{
+  "name": "agoric--agoric-sdk",
+  "displayName": "agoric-sdk",
+  "description": "agoric-sdk",
+  "version": "1.0.0",
+  "author": "Agoric",
+  "homepage": "https://github.com/Agoric/agoric-sdk",
+  "skills": [
+    {
+      "name": "agoric-sdk",
+      "description": ""
+    },
+    {
+      "name": "agoric-sdk",
+      "description": ""
+    },
+    {
+      "name": "agoric-sdk",
+      "description": ""
+    },
+    {
+      "name": "agoric-sdk",
+      "description": ""
+    },
+    {
+      "name": "agoric-sdk",
+      "description": ""
+    }
+  ]
+}
