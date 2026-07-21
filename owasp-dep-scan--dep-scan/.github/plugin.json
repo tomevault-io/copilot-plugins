@@ -1,0 +1,14 @@
+{
+  "name": "owasp-dep-scan--dep-scan",
+  "displayName": "dep-scan",
+  "description": "dep-scan",
+  "version": "1.0.0",
+  "author": "owasp-dep-scan",
+  "homepage": "https://github.com/owasp-dep-scan/dep-scan",
+  "skills": [
+    {
+      "name": "dep-scan",
+      "description": ""
+    }
+  ]
+}
