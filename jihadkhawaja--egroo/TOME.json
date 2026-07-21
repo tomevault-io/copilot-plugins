@@ -1,0 +1,63 @@
+{
+  "name": "Egroo",
+  "owner": "jihadkhawaja",
+  "repo": "Egroo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Egroo",
+      "path": ".github/skills/agent-framework/SKILL.md",
+      "github_url": "https://github.com/jihadkhawaja/Egroo/tree/main/.github/skills/agent-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Egroo",
+      "path": ".github/skills/mudblazor-theming/SKILL.md",
+      "github_url": "https://github.com/jihadkhawaja/Egroo/tree/main/.github/skills/mudblazor-theming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Egroo",
+      "path": ".github/skills/ef-core-migrations/SKILL.md",
+      "github_url": "https://github.com/jihadkhawaja/Egroo/tree/main/.github/skills/ef-core-migrations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jihadkhawaja/Egroo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:16:11Z"
+}
