@@ -1,0 +1,22 @@
+{
+  "name": "pulumi--pulumi-aws",
+  "displayName": "pulumi-aws",
+  "description": "pulumi-aws",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-aws",
+  "skills": [
+    {
+      "name": "pulumi-aws",
+      "description": ""
+    },
+    {
+      "name": "pulumi-aws",
+      "description": ""
+    },
+    {
+      "name": "pulumi-aws",
+      "description": ""
+    }
+  ]
+}
