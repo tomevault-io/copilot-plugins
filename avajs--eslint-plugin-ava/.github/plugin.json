@@ -1,0 +1,9 @@
+{
+  "name": "avajs--eslint-plugin-ava",
+  "displayName": "eslint-plugin-ava",
+  "description": "eslint-plugin-ava",
+  "version": "1.0.0",
+  "author": "avajs",
+  "homepage": "https://github.com/avajs/eslint-plugin-ava",
+  "skills": []
+}
