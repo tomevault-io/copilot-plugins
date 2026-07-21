@@ -1,0 +1,9 @@
+{
+  "name": "apache--logging-log4j2",
+  "displayName": "logging-log4j2",
+  "description": "logging-log4j2",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/logging-log4j2",
+  "skills": []
+}
