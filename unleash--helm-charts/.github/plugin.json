@@ -1,0 +1,9 @@
+{
+  "name": "unleash--helm-charts",
+  "displayName": "helm-charts",
+  "description": "helm-charts",
+  "version": "1.0.0",
+  "author": "Unleash",
+  "homepage": "https://github.com/Unleash/helm-charts",
+  "skills": []
+}
