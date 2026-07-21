@@ -1,0 +1,75 @@
+{
+  "name": "instructor-php",
+  "owner": "cognesy",
+  "repo": "instructor-php",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "instructor-php",
+      "path": ".codex/skills/instructor-qa/SKILL.md",
+      "github_url": "https://github.com/cognesy/instructor-php/tree/main/.codex/skills/instructor-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "instructor-php",
+      "path": ".codex/skills/instructor-release/SKILL.md",
+      "github_url": "https://github.com/cognesy/instructor-php/tree/main/.codex/skills/instructor-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "instructor-php",
+      "path": "examples/D02_AgentBuilder/AgentSkills/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/cognesy/instructor-php/tree/main/examples/D02_AgentBuilder/AgentSkills/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "instructor-php",
+      "path": "examples/D02_AgentBuilder/AgentSkills/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/cognesy/instructor-php/tree/main/examples/D02_AgentBuilder/AgentSkills/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "instructor-php",
+      "path": "examples/D02_AgentBuilder/AgentSkills/skills/project-context/SKILL.md",
+      "github_url": "https://github.com/cognesy/instructor-php/tree/main/examples/D02_AgentBuilder/AgentSkills/skills/project-context/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cognesy/instructor-php",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:14:30Z"
+}
