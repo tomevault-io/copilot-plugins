@@ -1,0 +1,63 @@
+{
+  "name": "lazyweb-skill",
+  "owner": "aboul3ata",
+  "repo": "lazyweb-skill",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lazyweb-skill",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/aboul3ata/lazyweb-skill/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazyweb-skill",
+      "path": "skills/lazyweb-update/SKILL.md",
+      "github_url": "https://github.com/aboul3ata/lazyweb-skill/tree/main/skills/lazyweb-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazyweb-skill",
+      "path": "skills/lazyweb-quick-search/SKILL.md",
+      "github_url": "https://github.com/aboul3ata/lazyweb-skill/tree/main/skills/lazyweb-quick-search/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aboul3ata/lazyweb-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T10:21:11Z"
+}
