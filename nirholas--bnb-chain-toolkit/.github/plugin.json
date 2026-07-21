@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "nirholas",
   "homepage": "https://github.com/nirholas/bnb-chain-toolkit",
-  "skills": []
+  "skills": [
+    {
+      "name": "bnb-chain-toolkit",
+      "description": ""
+    }
+  ]
 }
