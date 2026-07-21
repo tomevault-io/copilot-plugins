@@ -1,0 +1,14 @@
+{
+  "name": "j3soon--ros2-essentials",
+  "displayName": "ros2-essentials",
+  "description": "ros2-essentials",
+  "version": "1.0.0",
+  "author": "j3soon",
+  "homepage": "https://github.com/j3soon/ros2-essentials",
+  "skills": [
+    {
+      "name": "ros2-essentials",
+      "description": ""
+    }
+  ]
+}
