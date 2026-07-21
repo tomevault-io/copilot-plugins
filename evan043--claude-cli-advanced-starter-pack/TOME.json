@@ -1,0 +1,111 @@
+{
+  "name": "claude-cli-advanced-starter-pack",
+  "owner": "evan043",
+  "repo": "claude-cli-advanced-starter-pack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-creator",
+      "path": "templates/skills/agent-creator",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/agent-creator",
+      "description": ""
+    },
+    {
+      "name": "hook-creator",
+      "path": "templates/skills/hook-creator",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/hook-creator",
+      "description": ""
+    },
+    {
+      "name": "rag-agent-creator",
+      "path": "templates/skills/rag-agent-creator",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/rag-agent-creator",
+      "description": ""
+    },
+    {
+      "name": "claude-cli-advanced-starter-pack",
+      "path": "templates/skills/panel/skill.md",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/panel/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude-cli-advanced-starter-pack",
+      "path": "templates/skills/hook-creator/skill.md",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/hook-creator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude-cli-advanced-starter-pack",
+      "path": "templates/skills/agent-creator/skill.md",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/agent-creator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude-cli-advanced-starter-pack",
+      "path": "templates/skills/refactor-react/skill.md",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/refactor-react/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude-cli-advanced-starter-pack",
+      "path": "templates/skills/refactor-fastapi/skill.md",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/refactor-fastapi/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude-cli-advanced-starter-pack",
+      "path": "templates/skills/rag-agent-creator/skill.md",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/rag-agent-creator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude-cli-advanced-starter-pack",
+      "path": "templates/skills/screenshot-pipeline/skill.md",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/screenshot-pipeline/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude-cli-advanced-starter-pack",
+      "path": "templates/skills/github-actions-generator/skill.md",
+      "github_url": "https://github.com/evan043/claude-cli-advanced-starter-pack/tree/main/templates/skills/github-actions-generator/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/evan043/claude-cli-advanced-starter-pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T18:30:48Z"
+}
