@@ -1,0 +1,147 @@
+{
+  "name": "mockserver-monorepo",
+  "owner": "mock-server",
+  "repo": "mockserver-monorepo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "terraform-tfvars",
+      "path": ".opencode/skills/terraform-tfvars",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/terraform-tfvars",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/ideate/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/ideate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/pr-monitor/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/pr-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/review-spec/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/review-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/review-code/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/review-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/issue-review/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/issue-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/browser-auth/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/browser-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/build-monitor/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/build-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/renew-test-certs/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/renew-test-certs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/terraform-tfvars/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/terraform-tfvars/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/aws-investigation/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/aws-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/docker-build-push/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/docker-build-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/release-management/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/release-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/dockerhub-credentials/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/dockerhub-credentials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/pipeline-investigation/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/pipeline-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mockserver-monorepo",
+      "path": ".opencode/skills/dependabot-snyk-pr-management/SKILL.md",
+      "github_url": "https://github.com/mock-server/mockserver-monorepo/tree/main/.opencode/skills/dependabot-snyk-pr-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mock-server/mockserver-monorepo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:14:21Z"
+}
