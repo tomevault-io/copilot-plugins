@@ -3,8 +3,8 @@
   "owner": "doncheli",
   "repo": "don-cheli-sdd",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,345 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/doncheli",
+  "skills": [
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-prd/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-tea/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-tea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-spec/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-plan/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-drift/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-voice/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-skills/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-prd/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-debate/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-debate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-review/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-tea/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-tea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-distill/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-migrate/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-spec/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-diagram/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-plan/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-webhook/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-webhook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-estimate/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-estimate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-planning/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-drift/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-security/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-voice/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-skills/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-debate/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-debate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-reasoning/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-reasoning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-implement/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-review/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-changelog/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-pr-review/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-tech-debt/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-tech-debt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-tech-panel/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-tech-panel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-distill/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-migrate/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-diagram/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-webhook/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-webhook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-spec-score/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-spec-score/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-estimate/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-estimate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-planning/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-security/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-audit-trail/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-audit-trail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-visual-test/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-visual-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-data-policy/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-data-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-reasoning/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-reasoning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-implement/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-api-contract/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-api-contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-changelog/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-pr-review/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-tech-debt/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-tech-debt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-tech-panel/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-tech-panel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-spec-score/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-spec-score/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-audit-trail/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-audit-trail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-visual-test/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-visual-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".agent/skills/doncheli-context-health/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.agent/skills/doncheli-context-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-data-policy/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-data-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-api-contract/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-api-contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "don-cheli-sdd",
+      "path": ".opencode/skills/doncheli-context-health/SKILL.md",
+      "github_url": "https://github.com/doncheli/don-cheli-sdd/tree/main/.opencode/skills/doncheli-context-health/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/doncheli/don-cheli-sdd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T22:34:28Z"
+  "distributed_at": "2026-07-21T02:05:27Z"
 }
