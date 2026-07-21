@@ -1,0 +1,14 @@
+{
+  "name": "colltoaction--mytilus",
+  "displayName": "mytilus",
+  "description": "mytilus",
+  "version": "1.0.0",
+  "author": "colltoaction",
+  "homepage": "https://github.com/colltoaction/mytilus",
+  "skills": [
+    {
+      "name": "mytilus",
+      "description": ""
+    }
+  ]
+}
