@@ -1,0 +1,9 @@
+{
+  "name": "intoolswetrust--ldap-server",
+  "displayName": "ldap-server",
+  "description": "ldap-server",
+  "version": "1.0.0",
+  "author": "intoolswetrust",
+  "homepage": "https://github.com/intoolswetrust/ldap-server",
+  "skills": []
+}
