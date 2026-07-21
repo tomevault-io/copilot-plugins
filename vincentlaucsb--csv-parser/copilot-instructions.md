@@ -1,47 +1,69 @@
 ## csv-parser
 
-> > **`AGENTS.md` is the source of truth.** This file is a bullet-point summary only. Always load and follow `AGENTS.md` — it takes precedence over anything here.
+> This folder implements the `csv::DataFrame` family. The public types stay in
 
-# CSV Parser - Claude Summary
+# DataFrame Agent Notes
 
-> **`AGENTS.md` is the source of truth.** This file is a bullet-point summary only. Always load and follow `AGENTS.md` — it takes precedence over anything here.
+This folder implements the `csv::DataFrame` family. The public types stay in
+namespace `csv`; the folder split is for maintainability, not a namespace move.
 
-## single_include/csv.hpp
-- Non-functional shim — do **not** compile against it
-- For single-header use: generate `build/.../single_include_generated/csv.hpp` via `generate_single_header` target
-- For unamalgamated use: include from `include/`
+## Storage Model
 
-## Two Independent Code Paths
-- `CSVReader("file.csv")` → MmapParser
-- `CSVReader(istream, format)` → StreamParser
-- Bugs can exist in one and not the other — always test both with Catch2 `SECTION`
+`DataFrame` is row-backed. Its primary storage is `std::vector<CSVRow>` plus
+per-row sparse edit overlays. Do not turn normal row/cell access into a
+columnar abstraction just to make structural edit implementations symmetric.
 
-## Threading
-- Worker thread reads 10MB chunks (`ITERATION_CHUNK_SIZE`)
-- Communication via `ThreadSafeDeque<CSVRow>`
-- Exceptions propagate via `std::exception_ptr`
-- Tests must use ≥500K rows to cross chunk boundary
+The guiding rule is:
 
-## Key Files
-- `csv_reader.hpp` — mmap vs stream constructors
-- `basic_csv_parser.hpp` — MmapParser, StreamParser implementations
-- `basic_csv_parser.cpp` — chunk transitions, worker thread
-- `raw_csv_data.hpp` — RawCSVField, CSVFieldList, RawCSVData
-- `thread_safe_deque.hpp` — producer-consumer queue
-- `csv_row.hpp` — CSVField, CSVRow public API
+> Use the cheapest reliable operation that preserves visible semantics and
+> keeps ordinary row access simple.
 
-## Common Pitfalls
-- Always test both mmap and stream paths
-- ≥500K rows needed to cross 10MB boundary
-- Use distinct column values to detect field corruption
-- Exceptions from worker thread need `exception_ptr`
-- Changes to one constructor likely affect both paths
-- **Do not delete or simplify comments** unless trivially obvious or factually wrong — comments encode concurrency invariants and bug history
+Current structural edit strategy:
 
-## Tests
-See `tests/AGENTS.md` for full test strategy, checklist, and conventions.
+- Row insert/erase mutates row storage, keyed metadata, and sparse overlay slots
+  directly.
+- Column insert materializes the current visible table through `CSVWriter`,
+  reparses it into fresh row storage, and clears sparse overlays because visible
+  edits are baked into the rebuilt rows.
+- Column erase is a soft delete: visible column names and the
+  logical-to-physical column map change, while underlying `CSVRow` storage stays
+  intact.
+
+If repeated column erases need cleanup later, prefer an explicit
+compaction/materialization API over adding hot-path indirection for all access.
+
+## Editing Rules
+
+- Keep `DataFrameRow::erase()` and `DataFrameColumn::erase()` behavior aligned:
+  structural mutation invalidates outstanding row, column, and cell proxies.
+- Do not allow erasing a column-keyed frame's key column unless the keyed lookup
+  contract is redesigned at the same time.
+- When column visibility changes, keep `columns()`, `n_cols()`, `index_of()`,
+  row conversion, JSON, writer output, `column()`, and `column_view()` aligned.
+- Preserve the original `ColumnNamePolicy` when rebuilding visible column names
+  or reparsing materialized rows.
+- Sparse overlays are keyed by physical column index. Any feature that changes
+  physical row storage or logical-to-physical mapping must account for existing
+  overlays.
+- DataFrame iterators should follow the library's cached-proxy convention:
+  store the current proxy inside the iterator and expose `operator*` /
+  `operator->` reference-like access, as `CSVReader` and `CSVRow` do.
+
+## Test Expectations
+
+Put DataFrame behavior tests in `tests/test_data_frame.cpp`. For writer
+compatibility, also check `tests/test_write_csv.cpp` when row-like output or
+`to_sv_range()` behavior changes.
+
+Structural edit tests should cover:
+
+- keyed and unkeyed frames
+- sparse edits before the structural edit
+- row conversion / writer output
+- JSON output
+- column lookup by name and index
+- attempts to mutate through const proxies
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/vincentlaucsb)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/vincentlaucsb)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [vincentlaucsb/csv-parser](https://github.com/vincentlaucsb/csv-parser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
