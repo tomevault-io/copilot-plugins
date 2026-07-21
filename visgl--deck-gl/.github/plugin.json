@@ -1,0 +1,9 @@
+{
+  "name": "visgl--deck-gl",
+  "displayName": "deck.gl",
+  "description": "deck.gl",
+  "version": "1.0.0",
+  "author": "visgl",
+  "homepage": "https://github.com/visgl/deck.gl",
+  "skills": []
+}
