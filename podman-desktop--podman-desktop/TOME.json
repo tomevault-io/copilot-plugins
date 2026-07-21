@@ -1,0 +1,123 @@
+{
+  "name": "podman-desktop",
+  "owner": "podman-desktop",
+  "repo": "podman-desktop",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/mcp-testing/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/mcp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/new-extension/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/new-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/storybook-hmr/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/storybook-hmr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/playwright-testing/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/playwright-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/extension-features/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/extension-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/issue-requirements/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/issue-requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/investigate-gh-run/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/investigate-gh-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/prototype-switcher/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/prototype-switcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/storybook-record-video/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/storybook-record-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/component-modernization/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/component-modernization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/playwright-trace-analysis/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/playwright-trace-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/storybook-screenshot-docs/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/storybook-screenshot-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podman-desktop",
+      "path": ".agents/skills/storybook-screenshot-story/SKILL.md",
+      "github_url": "https://github.com/podman-desktop/podman-desktop/tree/main/.agents/skills/storybook-screenshot-story/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/podman-desktop/podman-desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:39:22Z"
+}
