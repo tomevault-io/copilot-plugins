@@ -1,0 +1,14 @@
+{
+  "name": "moritzzimmer--terraform-aws-lambda",
+  "displayName": "terraform-aws-lambda",
+  "description": "terraform-aws-lambda",
+  "version": "1.0.0",
+  "author": "moritzzimmer",
+  "homepage": "https://github.com/moritzzimmer/terraform-aws-lambda",
+  "skills": [
+    {
+      "name": "terraform-aws-lambda",
+      "description": ""
+    }
+  ]
+}
