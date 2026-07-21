@@ -1,0 +1,369 @@
+{
+  "name": "prowler",
+  "owner": "prowler-cloud",
+  "repo": "prowler",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-sdk-5",
+      "path": "skills/ai-sdk-5",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/ai-sdk-5",
+      "description": ""
+    },
+    {
+      "name": "django-drf",
+      "path": "skills/django-drf",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/django-drf",
+      "description": ""
+    },
+    {
+      "name": "nextjs-15",
+      "path": "skills/nextjs-15",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/nextjs-15",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler",
+      "description": ""
+    },
+    {
+      "name": "prowler-api",
+      "path": "skills/prowler-api",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-api",
+      "description": ""
+    },
+    {
+      "name": "prowler-changelog",
+      "path": "skills/prowler-changelog",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-changelog",
+      "description": ""
+    },
+    {
+      "name": "prowler-commit",
+      "path": "skills/prowler-commit",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-commit",
+      "description": ""
+    },
+    {
+      "name": "prowler-docs",
+      "path": "skills/prowler-docs",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-docs",
+      "description": ""
+    },
+    {
+      "name": "prowler-mcp",
+      "path": "skills/prowler-mcp",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-mcp",
+      "description": ""
+    },
+    {
+      "name": "prowler-pr",
+      "path": "skills/prowler-pr",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-pr",
+      "description": ""
+    },
+    {
+      "name": "prowler-sdk-check",
+      "path": "skills/prowler-sdk-check",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-sdk-check",
+      "description": ""
+    },
+    {
+      "name": "prowler-test-sdk",
+      "path": "skills/prowler-test-sdk",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-test-sdk",
+      "description": ""
+    },
+    {
+      "name": "prowler-test-ui",
+      "path": "skills/prowler-test-ui",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-test-ui",
+      "description": ""
+    },
+    {
+      "name": "prowler-ui",
+      "path": "skills/prowler-ui",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-ui",
+      "description": ""
+    },
+    {
+      "name": "pytest",
+      "path": "skills/pytest",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/pytest",
+      "description": ""
+    },
+    {
+      "name": "react-19",
+      "path": "skills/react-19",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/react-19",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-sync",
+      "path": "skills/skill-sync",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/skill-sync",
+      "description": ""
+    },
+    {
+      "name": "tailwind-4",
+      "path": "skills/tailwind-4",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/tailwind-4",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": "skills/typescript",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/typescript",
+      "description": ""
+    },
+    {
+      "name": "zustand-5",
+      "path": "skills/zustand-5",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/zustand-5",
+      "description": ""
+    },
+    {
+      "name": "django-migration-psql",
+      "path": "skills/django-migration-psql",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/django-migration-psql",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/tdd/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/gh-aw/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/gh-aw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/zod-4/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/zod-4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/vitest/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/vitest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/pytest/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/pytest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/ai-sdk-5/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/ai-sdk-5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/react-19/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/react-19/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/nextjs-16/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/nextjs-16/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/zustand-5/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/zustand-5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/django-drf/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/django-drf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-ui/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/tailwind-4/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/tailwind-4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/skill-sync/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/skill-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-pr/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/typescript/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-api/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-mcp/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-docs/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-commit/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-test-ui/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-test-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-provider/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-test-sdk/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-test-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-changelog/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-sdk-check/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-sdk-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-compliance/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-readme-table/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-readme-table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/django-migration-psql/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/django-migration-psql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-compliance-review/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-compliance-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "skills/prowler-attack-paths-query/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/skills/prowler-attack-paths-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "prowler",
+      "path": "claude_plugins/prowler/skills/framework-compliance-triage/SKILL.md",
+      "github_url": "https://github.com/prowler-cloud/prowler/tree/main/claude_plugins/prowler/skills/framework-compliance-triage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/prowler-cloud/prowler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:46:07Z"
+}
