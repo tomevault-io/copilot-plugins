@@ -1,0 +1,69 @@
+{
+  "name": "yamada-ui",
+  "owner": "yamada-ui",
+  "repo": "yamada-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "yamada-ui",
+      "path": ".agents/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/yamada-ui/yamada-ui/tree/main/.agents/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yamada-ui",
+      "path": ".agents/skills/create-issue/SKILL.md",
+      "github_url": "https://github.com/yamada-ui/yamada-ui/tree/main/.agents/skills/create-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yamada-ui",
+      "path": ".agents/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/yamada-ui/yamada-ui/tree/main/.agents/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "yamada-ui",
+      "path": ".agents/skills/pr-review-anti-patterns/SKILL.md",
+      "github_url": "https://github.com/yamada-ui/yamada-ui/tree/main/.agents/skills/pr-review-anti-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yamada-ui/yamada-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:54:40Z"
+}
