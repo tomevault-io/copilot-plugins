@@ -1,0 +1,22 @@
+{
+  "name": "final-run--finalrun-agent",
+  "displayName": "finalrun-agent",
+  "description": "finalrun-agent",
+  "version": "1.0.0",
+  "author": "final-run",
+  "homepage": "https://github.com/final-run/finalrun-agent",
+  "skills": [
+    {
+      "name": "finalrun-agent",
+      "description": ""
+    },
+    {
+      "name": "finalrun-agent",
+      "description": ""
+    },
+    {
+      "name": "finalrun-agent",
+      "description": ""
+    }
+  ]
+}
