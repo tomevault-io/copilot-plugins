@@ -1,0 +1,14 @@
+{
+  "name": "vrsen--agency-swarm",
+  "displayName": "agency-swarm",
+  "description": "agency-swarm",
+  "version": "1.0.0",
+  "author": "VRSEN",
+  "homepage": "https://github.com/VRSEN/agency-swarm",
+  "skills": [
+    {
+      "name": "policy-maintenance",
+      "description": ""
+    }
+  ]
+}
