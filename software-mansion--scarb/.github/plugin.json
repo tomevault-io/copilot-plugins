@@ -1,0 +1,14 @@
+{
+  "name": "software-mansion--scarb",
+  "displayName": "scarb",
+  "description": "scarb",
+  "version": "1.0.0",
+  "author": "software-mansion",
+  "homepage": "https://github.com/software-mansion/scarb",
+  "skills": [
+    {
+      "name": "scarb",
+      "description": ""
+    }
+  ]
+}
