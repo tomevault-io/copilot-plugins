@@ -1,0 +1,9 @@
+{
+  "name": "evenfire-ai--evenfire",
+  "displayName": "evenfire",
+  "description": "Evenfire is an intelligence layer platform for running LLM agents that take real actions, on your infrastructure",
+  "version": "1.0.0",
+  "author": "evenfire-ai",
+  "homepage": "https://github.com/evenfire-ai/evenfire",
+  "skills": []
+}
