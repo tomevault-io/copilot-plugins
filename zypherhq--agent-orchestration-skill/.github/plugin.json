@@ -1,0 +1,14 @@
+{
+  "name": "zypherhq--agent-orchestration-skill",
+  "displayName": "agent-orchestration-skill",
+  "description": "agent-orchestration-skill",
+  "version": "1.0.0",
+  "author": "ZypherHQ",
+  "homepage": "https://github.com/ZypherHQ/agent-orchestration-skill",
+  "skills": [
+    {
+      "name": "agent-orchestration-skill",
+      "description": ""
+    }
+  ]
+}
