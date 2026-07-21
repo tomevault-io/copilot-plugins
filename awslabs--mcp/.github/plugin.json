@@ -1,0 +1,18 @@
+{
+  "name": "awslabs--mcp",
+  "displayName": "mcp",
+  "description": "mcp",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/mcp",
+  "skills": [
+    {
+      "name": "dsql-skill",
+      "description": ""
+    },
+    {
+      "name": "mcp",
+      "description": ""
+    }
+  ]
+}
