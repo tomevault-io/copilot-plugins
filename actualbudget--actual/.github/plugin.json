@@ -1,0 +1,22 @@
+{
+  "name": "actualbudget--actual",
+  "displayName": "actual",
+  "description": "actual",
+  "version": "1.0.0",
+  "author": "actualbudget",
+  "homepage": "https://github.com/actualbudget/actual",
+  "skills": [
+    {
+      "name": "actual",
+      "description": ""
+    },
+    {
+      "name": "actual",
+      "description": ""
+    },
+    {
+      "name": "actual",
+      "description": ""
+    }
+  ]
+}
