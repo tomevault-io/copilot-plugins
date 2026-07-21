@@ -1,0 +1,87 @@
+{
+  "name": "kweaver-core",
+  "owner": "kweaver-ai",
+  "repo": "kweaver-core",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kweaver-core",
+      "path": "deploy/openclaw-extensions/dip/skills/schedule-plan/SKILL.md",
+      "github_url": "https://github.com/kweaver-ai/kweaver-core/tree/main/deploy/openclaw-extensions/dip/skills/schedule-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kweaver-core",
+      "path": "examples/05-skill-routing-loop/skills/substitute_swap/SKILL.md",
+      "github_url": "https://github.com/kweaver-ai/kweaver-core/tree/main/examples/05-skill-routing-loop/skills/substitute_swap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kweaver-core",
+      "path": "deploy/openclaw-extensions/dip/skills/archive-protocol/SKILL.md",
+      "github_url": "https://github.com/kweaver-ai/kweaver-core/tree/main/deploy/openclaw-extensions/dip/skills/archive-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kweaver-core",
+      "path": "examples/05-skill-routing-loop/skills/supplier_expedite/SKILL.md",
+      "github_url": "https://github.com/kweaver-ai/kweaver-core/tree/main/examples/05-skill-routing-loop/skills/supplier_expedite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kweaver-core",
+      "path": "examples/05-skill-routing-loop/skills/standard_replenish/SKILL.md",
+      "github_url": "https://github.com/kweaver-ai/kweaver-core/tree/main/examples/05-skill-routing-loop/skills/standard_replenish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kweaver-core",
+      "path": "examples/04-multi-agent-session-id/skills/exp_session_echo/SKILL.md",
+      "github_url": "https://github.com/kweaver-ai/kweaver-core/tree/main/examples/04-multi-agent-session-id/skills/exp_session_echo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kweaver-core",
+      "path": "adp/bkn/bkn-backend/tests/integration_tests/bkn/helpers/examples/k8s-network/SKILL.md",
+      "github_url": "https://github.com/kweaver-ai/kweaver-core/tree/main/adp/bkn/bkn-backend/tests/integration_tests/bkn/helpers/examples/k8s-network/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kweaver-ai/kweaver-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T12:42:26Z"
+}
