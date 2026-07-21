@@ -1,0 +1,14 @@
+{
+  "name": "virtuslab--git-machete",
+  "displayName": "git-machete",
+  "description": "git-machete",
+  "version": "1.0.0",
+  "author": "VirtusLab",
+  "homepage": "https://github.com/VirtusLab/git-machete",
+  "skills": [
+    {
+      "name": "git-machete",
+      "description": ""
+    }
+  ]
+}
