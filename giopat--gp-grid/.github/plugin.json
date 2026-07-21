@@ -1,0 +1,14 @@
+{
+  "name": "giopat--gp-grid",
+  "displayName": "gp-grid",
+  "description": "gp-grid",
+  "version": "1.0.0",
+  "author": "GioPat",
+  "homepage": "https://github.com/GioPat/gp-grid",
+  "skills": [
+    {
+      "name": "gp-grid",
+      "description": ""
+    }
+  ]
+}
