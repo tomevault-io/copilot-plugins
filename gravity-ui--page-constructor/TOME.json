@@ -1,0 +1,51 @@
+{
+  "name": "page-constructor",
+  "owner": "gravity-ui",
+  "repo": "page-constructor",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "page-constructor",
+      "path": ".agents/skills/page-constructor-block-creator/SKILL.md",
+      "github_url": "https://github.com/gravity-ui/page-constructor/tree/main/.agents/skills/page-constructor-block-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gravity-ui/page-constructor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T04:01:00Z"
+}
