@@ -1,0 +1,18 @@
+{
+  "name": "aws-samples--aws-kr-startup-samples",
+  "displayName": "aws-kr-startup-samples",
+  "description": "aws-kr-startup-samples",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/aws-kr-startup-samples",
+  "skills": [
+    {
+      "name": "claude-code-skills-aidlc-workflows",
+      "description": ""
+    },
+    {
+      "name": "aws-kr-startup-samples",
+      "description": ""
+    }
+  ]
+}
