@@ -1,0 +1,81 @@
+{
+  "name": "dongting",
+  "owner": "dtprj",
+  "repo": "dongting",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "build-and-test",
+      "path": ".agents/skills/build-and-test",
+      "github_url": "https://github.com/dtprj/dongting/tree/main/.agents/skills/build-and-test",
+      "description": ""
+    },
+    {
+      "name": "idea-mcp",
+      "path": ".agents/skills/idea-mcp",
+      "github_url": "https://github.com/dtprj/dongting/tree/main/.agents/skills/idea-mcp",
+      "description": ""
+    },
+    {
+      "name": "run-dongting",
+      "path": ".agents/skills/run-dongting",
+      "github_url": "https://github.com/dtprj/dongting/tree/main/.agents/skills/run-dongting",
+      "description": ""
+    },
+    {
+      "name": "dongting",
+      "path": ".agents/skills/idea-mcp/SKILL.md",
+      "github_url": "https://github.com/dtprj/dongting/tree/main/.agents/skills/idea-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dongting",
+      "path": ".agents/skills/run-dongting/SKILL.md",
+      "github_url": "https://github.com/dtprj/dongting/tree/main/.agents/skills/run-dongting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dongting",
+      "path": ".agents/skills/build-and-test/SKILL.md",
+      "github_url": "https://github.com/dtprj/dongting/tree/main/.agents/skills/build-and-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dtprj/dongting",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T05:36:23Z"
+}
