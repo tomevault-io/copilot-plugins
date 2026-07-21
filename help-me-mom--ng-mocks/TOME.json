@@ -1,0 +1,81 @@
+{
+  "name": "ng-mocks",
+  "owner": "help-me-mom",
+  "repo": "ng-mocks",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ng-mocks",
+      "path": ".agents/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/help-me-mom/ng-mocks/tree/main/.agents/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ng-mocks",
+      "path": ".agents/skills/rebase-to-upstream/SKILL.md",
+      "github_url": "https://github.com/help-me-mom/ng-mocks/tree/main/.agents/skills/rebase-to-upstream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ng-mocks",
+      "path": ".agents/skills/clean-doc-examples/SKILL.md",
+      "github_url": "https://github.com/help-me-mom/ng-mocks/tree/main/.agents/skills/clean-doc-examples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ng-mocks",
+      "path": ".agents/skills/update-node-version/SKILL.md",
+      "github_url": "https://github.com/help-me-mom/ng-mocks/tree/main/.agents/skills/update-node-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ng-mocks",
+      "path": ".agents/skills/update-package-locks/SKILL.md",
+      "github_url": "https://github.com/help-me-mom/ng-mocks/tree/main/.agents/skills/update-package-locks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ng-mocks",
+      "path": ".agents/skills/prepare-dependabot-prs/SKILL.md",
+      "github_url": "https://github.com/help-me-mom/ng-mocks/tree/main/.agents/skills/prepare-dependabot-prs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/help-me-mom/ng-mocks",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:17:05Z"
+}
