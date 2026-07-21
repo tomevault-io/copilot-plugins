@@ -1,0 +1,91 @@
+## termide
+
+> Lean engineering rules for coding agents working in this repository.
+
+# AGENTS
+
+Lean engineering rules for coding agents working in this repository.
+
+## Sources of truth
+
+1. Source code in `crates/` and `src/` for actual behavior.
+2. Shared contracts in `crates/core/` and config/i18n crates for cross-subsystem interfaces and expectations.
+3. `doc/en/` for intended user-visible behavior.
+4. `doc/ru/` and `doc/zh/` as translations that should stay aligned with `doc/en/`, but do not override code.
+5. Workspace and crate manifests (`Cargo.toml`) for crate boundaries, dependencies, and package metadata.
+6. Existing tests as executable expectations; when tests, docs, and code drift apart, align them instead of preserving inconsistency.
+
+Resolution rules:
+- If docs and code diverge, code is the effective behavior.
+- If a user-visible behavior change is intentional, update `doc/en/` and `doc/ru/` in the same change at minimum.
+- If tests contradict current intended behavior, fix the tests in the same change.
+
+## Language policy
+
+- Write commit messages, code comments, doc comments, and developer-facing docs in English.
+- Keep new identifiers and user-visible config keys in English unless an established external format requires otherwise.
+- User-facing documentation may be localized; engineering artifacts should not mix English and Russian in the same context.
+
+## Commit discipline
+
+- Use conventional commits when the scope is honest: `type(scope): subject`.
+- Prefer the existing repo vocabulary: `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `chore`, `style`, `revert`.
+- Keep subjects short and in English.
+- Make each commit one coherent unit: one feature, one fix, or one refactor.
+- Agents must not create commits by default. In non-autonomous work, prepare the diff, report validation status, and wait for an explicit user request before committing.
+- Auto-commit is allowed only when the task is explicitly operating in a fully autonomous execution mode.
+- Include tests and required docs updates in the same commit as the behavior change.
+
+## Working rules
+
+- Prefer small local changes over broad rewrites.
+- Preserve existing crate boundaries and event flow unless the task explicitly requires changing them.
+- Reuse existing helpers and conventions before adding new abstractions.
+- Do not mix unrelated cleanup into a focused change.
+- Do not silently change user-facing behavior as collateral refactoring.
+
+## Architecture constraints
+
+- Prefer typed communication through `PanelEvent`, `PanelCommand`, and shared contracts over ad hoc coupling or downcast-heavy shortcuts.
+- Treat redraw behavior, event routing, focus handling, modal flow, and terminal input semantics as correctness-sensitive.
+- Keep watcher reactions, cache invalidation, and per-frame work conservative and explicit.
+- For UI and input changes, account for narrow terminals, alternate-screen terminal apps, and mouse/keyboard interactions together.
+
+## Preferred patterns
+
+- Add regression tests near the touched logic unless integration coverage is clearly the better fit.
+- Start validation narrowly while working, then broaden only as needed:
+  - `cargo test -p <crate>`
+  - `cargo check -p <crate>`
+  - `cargo clippy -p <crate> -- -D warnings`
+- Use comments only for invariants, protocol details, and non-obvious constraints.
+- Follow existing module and naming patterns unless there is a concrete reason to change them.
+
+## Anti-patterns
+
+- No unrelated refactors in bug fixes or focused feature work.
+- No new cross-crate coupling without a concrete architectural need.
+- No duplicate special-case paths when an existing typed path can be extended.
+- No unconditional redraws or avoidable idle-loop work.
+- No silent changes to input semantics, focus behavior, modal routing, or panel lifecycle.
+- No mixed-language engineering artifacts.
+
+## Validation
+
+- Run the narrowest useful checks first.
+- This repository has a local `pre-commit` hook that runs `cargo fmt --check`, `cargo check`, `cargo clippy -- -D warnings`, and `cargo test`.
+- Do not rely on the hook as a substitute for targeted validation; use narrow crate-level checks to validate the changed area before committing.
+- Treat completed implementation or an internally completed plan as insufficient reason to commit. If human review or local user validation is still expected, stop before commit and report the current state instead.
+- Before finishing broader changes, run:
+  - `cargo fmt --all`
+  - `cargo test`
+
+## Documentation policy
+
+- Update docs only when behavior, workflow, or invariants actually changed.
+- Treat `doc/en/` as the primary user documentation source and keep `doc/ru/` aligned at minimum for user-visible changes.
+- Do not pad docs with obvious implementation trivia.
+
+---
+> Source: [termide/termide](https://github.com/termide/termide) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
