@@ -1,269 +1,600 @@
 ## cdxgen
 
-> `cdxgen` is a universal, polyglot CLI tool that generates valid CycloneDX Bill-of-Materials (BOM) documents in JSON format. It produces SBOM, HBOM, CBOM, OBOM, SaaSBOM, VDR, and CDXA outputs for source code, containers, VMs, live operating systems, and supported hardware hosts. Supports CycloneDX spec versions `1.4`–`1.7` (default: `1.7`, with HBOM currently targeting `1.7`). cdxgen features a best-in-class, native **JSON Signature Format (JSF)** implementation for BOM signing, providing robust authenticity and non-repudiation capabilities. Unlike basic signing tools, our implementation fully supports granular signatures (signing individual components, services, and annotations), parallel Multi-Signatures (`signers`), and sequential Signature Chains (`chain`). When the optional companion binaries from `@cdxgen/cdxgen-plugins-bin` are available, cdxgen also enriches container/rootfs and live-OS scans with Trivy/osquery-powered metadata, Linux GTFOBins runtime context, platform trust posture, and Go Evinse evid
+> This document helps AI coding agents (GitHub Copilot, Claude, Cursor, etc.) understand the cdxgen codebase conventions, architecture, and contribution rules so they can produce code that fits naturally with the existing style.
 
-# Skill: OWASP cdxgen (CycloneDX BOM Generator)
+# AGENTS.md — cdxgen contributor guide for AI agents
 
-## Description
+This document helps AI coding agents (GitHub Copilot, Claude, Cursor, etc.) understand the cdxgen codebase conventions, architecture, and contribution rules so they can produce code that fits naturally with the existing style.
 
-`cdxgen` is a universal, polyglot CLI tool that generates valid CycloneDX Bill-of-Materials (BOM) documents in JSON format. It produces SBOM, HBOM, CBOM, OBOM, SaaSBOM, VDR, and CDXA outputs for source code, containers, VMs, live operating systems, and supported hardware hosts. Supports CycloneDX spec versions `1.4`–`1.7` (default: `1.7`, with HBOM currently targeting `1.7`). cdxgen features a best-in-class, native **JSON Signature Format (JSF)** implementation for BOM signing, providing robust authenticity and non-repudiation capabilities. Unlike basic signing tools, our implementation fully supports granular signatures (signing individual components, services, and annotations), parallel Multi-Signatures (`signers`), and sequential Signature Chains (`chain`). When the optional companion binaries from `@cdxgen/cdxgen-plugins-bin` are available, cdxgen also enriches container/rootfs and live-OS scans with Trivy/osquery-powered metadata, Linux GTFOBins runtime context, platform trust posture, and Go Evinse evidence through the `golem` helper. HBOM collection is dynamically provided by the optional `@cdxgen/cdx-hbom` library on supported `darwin/arm64`, `linux/amd64`, and `linux/arm64` hosts. CBOM mode can also extract cryptographic algorithm inventory from JavaScript and TypeScript source through lightweight AST analysis.
+---
 
-## ✅ When to Invoke
+## Project overview
 
-- User requests an SBOM/BOM for a repository, directory, container image, or live OS.
-- User requests a hardware BOM / HBOM for the current host.
-- User needs dependency inventory, license resolution, or vulnerability triage context.
-- User wants to export to Dependency-Track, sign/validate a BOM, convert CycloneDX JSON to SPDX JSON-LD, or generate evidence/callstacks.
-- User wants a predictive audit of an existing CycloneDX BOM with `cdx-audit`, especially for npm or PyPI package compromise posture.
-- User wants Go dependency evidence, usage scopes, call graph context, data-flow/crypto-flow evidence, local replacement review, vendoring/license evidence, crypto components, or security-sensitive API signals from `evinse -l go` with Golem.
+**cdxgen** is a universal, polyglot CycloneDX Bill-of-Materials (BOM) generator. It produces SBOM, CBOM, OBOM, SaaSBOM, CDXA, and VDR documents in CycloneDX JSON format. It is distributed as an npm package (`@cyclonedx/cdxgen`), a container image, and a Deno/Bun-compatible script.
 
-## 📦 Prerequisites & Installation
+Primary entry points:
 
-| Requirement   | Detail                                                                                                   |
-| ------------- | -------------------------------------------------------------------------------------------------------- |
-| **Runtime**   | Node.js ≥ 20 (≥ 22.21 recommended for native proxy support)                                              |
-| **Java**      | ≥ 21 required for C/C++/Python/CBOM analysis. Fails silently or produces incomplete BOMs with Java 8/11. |
-| **Install**   | `npm i -g @cyclonedx/cdxgen` or `pnpm dlx @cyclonedx/cdxgen`                                             |
-| **Container** | `docker run --rm -v $(pwd):/app:rw -t ghcr.io/cyclonedx/cdxgen:master /app`                              |
+- **CLI** — `bin/cdxgen.js` (calls into `lib/cli/index.js`)
+- **Audit CLI** — `bin/audit.js` (`cdx-audit` predictive supply-chain audit with `console`, `json`, and `sarif` reporters)
+- **Conversion CLI** — `bin/convert.js` (`cdx-convert` CycloneDX → SPDX export)
+- **Library** — `lib/cli/index.js` exports `createBom`, `submitBom`
+- **HTTP server** — `lib/server/server.js` (started via `bin/repl.js` or `cdxgen --server`)
+- **REPL** — `bin/repl.js`
 
-Notes:
+Companion binaries:
 
-- The optional `@cdxgen/cdxgen-plugins-bin` packages provide native helpers such as Trivy and osquery.
-- The same plugin package also provides `golem` for Go Evinse semantic evidence when a platform binary is available.
-- Container and `rootfs` scans can surface repository source components plus trusted-key cryptographic assets when those binaries are present.
-- Container and `rootfs` scans also emit `cdx:container:unpackagedExecutableCount` and `cdx:container:unpackagedSharedLibraryCount` metadata properties so agents can spot native file inventory that was not traced to OS package ownership.
-- Linux live-OS profiles include hardening-oriented `sysctl_hardening` and `mount_hardening` snapshots plus GTFOBins enrichment on privileged and network-active runtime rows.
-- The optional `trustinspector` helper adds macOS code-signing/notarization and Windows Authenticode/WDAC properties across large host inventories without truncating path inspection after the first few hundred paths.
-- macOS live-OS OBOM collection uses the bundled osquery binary in shell mode and may still require Full Disk Access or elevated privileges for some tables.
+- cdxgen opportunistically uses the optional companion package/repo **`cdxgen-plugins-bin`** for heavyweight native helpers such as **Trivy**, **osquery**, **SourceKitten**, **dosai**, and **golem**.
+- Dynamic SBOM generation via **tracebom** depends only on `@cdxgen/safer-exec` + `@cdxgen/cdx-proto` from optional deps. No atom, no plugins-bin, no hbom.
+- Container/rootfs inventory flows through `lib/managers/binary.js` and may combine native parsing with plugin-enriched Trivy output.
+- Live-OS OBOM flows use the bundled osquery binary plus the query packs under `data/queries*.json`. Linux query packs also include hardening-focused snapshots such as `sysctl_hardening` and `mount_hardening`.
+- When the optional `trustinspector` helper is present, host-path trust enrichment should be treated as batched rather than artificially capped. Keep Authenticode, WDAC, code-signing, and notarization properties intact across large inventories.
+- GTFOBins enrichment is expected on Linux live-runtime osquery components in the same way LOLBAS enrichment is expected on Windows runtime components.
+- Go Evinse flows use the bundled `golem` helper when available. Keep `cdx:golem:*` metadata and component properties safe, compact, and policy-friendly: counts, categories, scopes, source locations, data-flow rule IDs, taint-kind labels, crypto algorithm names/OIDs, and module facts are acceptable, but do not emit raw generator commands, environment values, HTTP parameter values, raw key material, embedded file contents, generated source contents, or secrets.
 
-## 💻 Core Syntax
+---
 
-```bash
-cdxgen [path] [options]
+## Module system and runtime
+
+- The package is **pure ESM** (`"type": "module"` in `package.json`). There is no CommonJS source except the generated `index.cjs` shim.
+- The project targets **Node.js ≥ 20** with optional support for Bun and Deno (see `devEngines` in `package.json`).
+- Detect the runtime with the helpers exported from `lib/helpers/utils.js`:
+  ```js
+  export const isNode = globalThis.process?.versions?.node !== undefined;
+  export const isBun = globalThis.Bun?.version !== undefined;
+  export const isDeno = globalThis.Deno?.version?.deno !== undefined;
+  ```
+
+---
+
+## Import conventions
+
+### Always use the `node:` protocol for built-ins
+
+```js
+// correct
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import process from "node:process";
+
+// wrong — missing node: prefix
+import { readFileSync } from "fs";
 ```
 
-- `path` defaults to `.` (current directory)
-- All boolean flags accept `--no-` prefix to invert behavior
-- Config precedence: `CLI args` > `CDXGEN_* env vars` > `.cdxgenrc`/`.cdxgen.json`/`.cdxgen.yml`/`.cdxgen.yaml`
+### Import ordering (enforced by Biome)
 
-## 🔑 Key Parameters & Profiles
+Biome (`biome.json`) enforces this exact three-group order, with a blank line between each group:
 
-| Category       | Flag                      | Purpose                                                                                                                                                          |
-| -------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Scope**      | `-t, --type <type>`       | Language/platform (auto-detected if omitted). Pass multiple: `-t java -t js`                                                                                     |
-|                | `-r, --recurse`           | Scan mono-repos (default: `true`). Use `--no-recurse` to disable                                                                                                 |
-|                | `--deep`                  | Enable deep parsing (C/C++, OS, OCI, live systems)                                                                                                               |
-| **Output**     | `-o, --output <file>`     | Destination path (default: `bom.json`)                                                                                                                           |
-|                | `-p, --print`             | Print human-readable table/tree to stdout                                                                                                                        |
-|                | `--dry-run`               | Read-only preview mode. Record reads plus blocked writes, commands, temp dirs, network, and submissions before any real execution                                |
-|                | `--activity-report <fmt>` | Hidden machine-readable dry-run/debug report: `json` or `jsonl`                                                                                                  |
-|                | `--spec-version <ver>`    | CycloneDX version: `1.4`, `1.5`, `1.6` (default), `1.7`                                                                                                          |
-| **Profiles**   | `--profile <name>`        | `generic` (default), `appsec`, `research`, `operational`, `threat-modeling`, `license-compliance`, `ml`/`machine-learning`, `ml-deep`/`deep-learning`, `ml-tiny` |
-| **Lifecycles** | `--lifecycle <phase>`     | `pre-build` (no installs), `build` (default), `post-build` (binaries/containers)                                                                                 |
-| **Filtering**  | `--required-only`         | Include only production/non-dev dependencies                                                                                                                     |
-|                | `--filter <purl>`         | Exclude components matching string in purl/properties                                                                                                            |
-|                | `--only <purl>`           | Include ONLY components matching string in purl                                                                                                                  |
-| **Advanced**   | `--evidence`              | Generate SaaSBOM with usage/callstack evidence                                                                                                                   |
-|                | `--include-crypto`        | Include CBOM-oriented cryptographic assets, certificates, and source-derived crypto algorithms                                                                   |
-|                | `--include-formulation`   | Add git metadata & build tool versions                                                                                                                           |
-|                | `--server`                | Start HTTP server on `127.0.0.1:9090`                                                                                                                            |
-|                | `--validate`              | Auto-validate BOM against JSON schema (default: `true`)                                                                                                          |
-|                | `--generate-key-and-sign` | Generate RSA keys & sign BOM with JWS                                                                                                                            |
-
-## 📖 Common Workflows
-
-```bash
-# Basic auto-detect
-cdxgen -o bom.json
-
-# Multi-language mono-repo (disable recursion if not needed)
-cdxgen -t java -t python --no-recurse -o bom.json
-
-# Production-only dependencies
-cdxgen --required-only -o bom.json
-
-# Container/OCI image
-cdxgen -t docker myimage:latest -o bom.json
-
-# Reconstructed or mounted root filesystem
-cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json
-
-# Offline rootfs hardening review
-cdxgen /absolute/path/to/rootfs -t rootfs -o bom.json --bom-audit --bom-audit-categories rootfs-hardening
-
-# Research/Security deep scan with evidence
-cdxgen --profile research --evidence -o bom.json
-
-# Live macOS/Linux/Windows operating-system inventory (OBOM)
-obom -o obom.json --deep --bom-audit --bom-audit-categories obom-runtime
-
-# Live hardware inventory (HBOM)
-hbom -o hbom.json
-
-# Dynamic trace process execution SBOM
-tracebom --cmd "node app.js" -o bom.json
-
-# Catalog a packaged Electron ASAR archive
-cdxgen -t asar --bom-audit --bom-audit-categories asar-archive -o bom.json /absolute/path/to/app.asar
-
-# Pre-build scan (no package installations)
-cdxgen --lifecycle pre-build -o bom.json
-
-# Agent-safe dry-run preview before any real execution
-cdxgen /absolute/path/to/project --dry-run --activity-report json
-
-# Compact line-oriented dry-run preview for automation
-cdxgen /absolute/path/to/project --dry-run --activity-report jsonl
-
-# Start SBOM server
-cdxgen --server --server-host 0.0.0.0 --server-port 8080
-
-# Predictive audit of an existing BOM
-cdx-audit --bom bom.json
-
-# Go Evinse with Golem semantic evidence
-cdxgen -t go -o bom.json /absolute/path/to/go/project
-evinse -i bom.json -o bom.evinse.json -l go --golem-callgraph static /absolute/path/to/go/project
-cdx-audit --bom bom.evinse.json --direct-bom-audit --categories golem
-
-# Go Evinse crypto-flow evidence with bounded data-flow analysis
-evinse -i bom.json -o bom.evinse.crypto.json -l go --with-data-flow --golem-dataflow crypto --golem-dataflow-pattern-packs crypto /absolute/path/to/go/project
-
-# Machine-readable predictive audit
-cdx-audit --bom bom.json --report sarif --report-file audit.sarif
+```
+1. Node built-ins   (node:*)
+<blank line>
+2. npm packages     (packageurl-js, semver, undici, …)
+<blank line>
+3. Local modules    (../../helpers/utils.js, …)
 ```
 
-## 🔎 Predictive Audit Command (`cdx-audit`)
+---
 
-Use the bundled `cdx-audit` command when the user already has one or more CycloneDX JSON BOMs and wants forward-looking supply-chain exposure analysis rather than BOM generation.
+## Code style (Biome)
 
-```bash
-cdx-audit --bom /absolute/path/to/bom.json --report console
-cdx-audit --bom-dir /absolute/path/to/boms --report json --report-file audit-report.json
-cdx-audit --bom /absolute/path/to/bom.json --report sarif --report-file audit.sarif
-```
+The linter and formatter is **Biome** (not ESLint/Prettier).
 
-- Entry point in source: `bin/audit.js` (published command name remains `cdx-audit`)
-- Supported ecosystems today: npm and PyPI package URLs extracted from existing BOM components
-- Reporters: `console`, `json`, `sarif`
-- Exit code `3` indicates at least one audited target met or exceeded `--fail-severity`
-- Use `--workspace-dir` to reuse cloned repositories and cached child SBOMs across runs
-- Use `--reports-dir` to persist per-target artifacts plus an aggregate JSON report
+| Setting   | Value                                                                                   |
+| --------- | --------------------------------------------------------------------------------------- |
+| Indent    | 2 spaces                                                                                |
+| Formatter | enabled for `lib/**` and root JS/JSON (excludes `test/`, `data/`, `contrib/`, `types/`) |
+| Linter    | enabled for the same scope                                                              |
 
-### Best-practice command patterns for agents
+Run locally:
 
 ```bash
-# Fast default review queue
-cdx-audit --bom /absolute/path/to/bom.json --scope required --max-targets 25
-
-# Broaden the queue to include trusted-publishing-backed packages
-cdx-audit --bom /absolute/path/to/bom.json --scope required --include-trusted --max-targets 50
-
-# Isolate the trusted-publishing-backed subset
-cdx-audit --bom /absolute/path/to/bom.json --only-trusted
-
-# Capture machine-readable output for code-scanning or follow-up automation
-cdx-audit --bom /absolute/path/to/bom.json --report sarif --report-file /absolute/path/to/audit.sarif
-
-# Show lightweight score/rationale summaries per package
-CDXGEN_THINK_MODE=true cdx-audit --bom /absolute/path/to/bom.json --scope required --max-targets 10
+pnpm run lint        # check + auto-fix
+pnpm run lint:check  # check only (only for CI)
+pnpm run lint:errors # errors only
 ```
 
-### How agents should choose filters
+Key rules to be aware of (see `biome.json`):
 
-- Start with `--scope required --max-targets 25` for large BOMs or triage-first workflows.
-- Use `--include-trusted` only when the user explicitly wants a broader baseline that includes packages already carrying trusted publishing metadata.
-- Use `--only-trusted` only when the user wants to inspect just that subset.
-- Never pass `--include-trusted` together with `--only-trusted`.
-- Use `--workspace-dir` when the user expects repeated runs or iterative analysis.
+- `noUndeclaredVariables` — error. Don't leave variables undeclared.
+- `noConstAssign` — error.
+- `useDefaultParameterLast` — error (default params must come last).
+- `useSingleVarDeclarator` — error (one binding per `const`/`let`).
+- `noUnusedVariables` — warn (use `_prefix` for intentionally unused vars).
+- `noParameterAssign` — **off** (reassigning parameters is allowed).
+- `noForEach` — **off** (`.forEach()` is acceptable).
+- `noDelete` — **off** (`delete obj.prop` is acceptable).
+- `noAssignInExpressions` — **off**.
+- Comments starting with `// biome-ignore` are the escape hatch for individual rule suppressions.
 
-### Prioritization indicators agents should understand
+### Prefer deterministic parsing over monolithic regexes
 
-`cdx-audit` queue order is explainable. When the queue is trimmed, it currently prioritizes:
+- For filenames, URLs, refs, manifests, and other untrusted or user-controlled text, prefer `split()`, `startsWith()`, `endsWith()`, `indexOf()`, and small anchored validators over a single large parsing regex.
+- Avoid regexes with nested quantifiers, overlapping alternations, or ambiguous greedy groups (for example `(...*)*`, broad `.*`/`[\s\S]*` capture chains, or long optional hyphen-separated groups) because they are harder to review and can trigger CodeQL inefficient-regular-expression findings.
+- If regex is still the clearest tool, keep it linear-time, anchored, and narrowly scoped to one token at a time.
 
-1. direct runtime dependencies
-2. explicit CycloneDX `scope=required`
-3. stronger source evidence via `evidence.occurrences`
-4. non-development packages ahead of development-only packages
-5. non-platform-specific packages ahead of platform-constrained packages
+---
 
-These indicators affect **which packages are audited first**, not the final severity. Final severity still comes from the child SBOM findings plus conservative corroboration logic.
+## Repository layout
 
-### When agents should and should not use `cdx-audit`
+```
+bin/             CLI entry points (audit.js, cdxgen.js, convert.js, evinse.js, repl.js, verify.js, sign.js, validate.js)
+lib/
+  audit/         Predictive supply-chain audit engine, scoring, progress, and reporters for `cdx-audit`
+  cli/           Core BOM generation logic (index.js ~9 000 lines)
+  evinser/       Evinse / SaaSBOM evidence generation
+  helpers/
+    analyzer.js         JS/TS import/export analysis, MCP inventory, and crypto-aware AST extraction
+    asarutils.js        Electron ASAR parsing, file inventory, hashes, and embedded manifest extraction
+    caxa.js             Caxa (self-extracting) executable parsing
+    cbomutils.js        Cryptography BOM helpers, OID lookup, and source-derived algorithm inventory
+    db.js               SQLite / atom DB helpers
+    depsUtils.js        mergeDependencies + trimComponents (shared BOM dependency utilities)
+    display.js          Terminal output tables and summaries
+    dotnetutils.js      .NET assembly / NuGet utilities
+    dynamic.js          Dynamic process tracing SBOM generator
+    envcontext.js       Git, env info, tool availability checks
+    formulationParsers.js  CycloneDX formulation section builder; addFormulationSection()
+    golem.js            Go Evinse helper integration, Golem invocation, and cdx:golem evidence mapping
+    inventoryStats.js   Shared filters and counters for unpackaged native files and source-derived crypto pivots
+    logger.js           thoughtLog / traceLog / THINK_MODE / TRACE_MODE
+    osPackageResolver.js  Map dynamic libraries to operating system packages
+    protobom.js         Protobuf-based BOM utilities
+    pythonutils.js      Python venv / conda helpers
+    traceRunner.js      Execute commands under safer-exec tracing and collect loaded library paths
+    utils.js            ~18 000-line utility module; most parsing functions live here
+    bomValidator.js        CycloneDX JSON schema validation
+  managers/
+    docker.js           Docker daemon / OCI operations
+    oci.js              OCI image layer extraction
+    piptree.js          pip dependency tree
+  parsers/
+    iri.js              IRI reference validator
+    npmrc.js            .npmrc parser
+  server/
+    server.js           connect-based HTTP server
+  stages/
+    postgen/            Post-processing (annotator.js, postgen.js)
+    pregen/             Pre-generation env setup (pregen.js, envAudit.js)
+  third-party/
+    arborist/           Forked npm arborist for workspace support
+data/            Static data files (license SPDX list, frameworks list, …)
+test/            Sample lockfiles, manifests, and fixtures used by poku tests
+types/           Auto-generated TypeScript `.d.ts` declarations (do not edit)
+docs/            Documentation (Markdown)
+plugins/         cdxgen plugin entry point stubs
+contrib/         Community scripts (not linted)
+ci/              Dockerfiles for CI images
+tools_config/    Tool configuration files
+```
 
-- **Use `cdx-audit`** for existing CycloneDX BOMs where the user wants prioritization, upstream review guidance, or SARIF/JSON output.
-- **Use `cdxgen --bom-audit`** when the user wants findings embedded during BOM generation.
-- **Use `cdx-audit` for Cargo/Rust BOMs too** when the BOM contains `pkg:cargo/...` dependencies and the goal is upstream review prioritization.
-- For Cargo-focused work, combine predictive `cdx-audit` triage with normal BOM generation and `--bom-audit` rules so registry, workspace, and native-build signals are all visible.
-- For container/rootfs scans, expect cdxgen to include non-package operational inventory too, such as package-owned files, installed commands, repository source records, and trusted key material when present.
-- For container/rootfs review in `cdxi`, use `.unpackagedbins` and `.unpackagedlibs` to isolate executable and shared-library file components that sit outside OS package ownership.
-- For live Linux OBOM work, also expect GTFOBins properties on selected osquery-derived runtime artifacts and hardening-oriented findings from `sysctl_hardening` and `mount_hardening`.
-- For CBOM review in `cdxi`, use `.sourcecryptos` when you want just the JavaScript or TypeScript source-derived algorithm components rather than the full cryptographic asset list.
-- For Go Evinse review in `cdxi`, use `.golemsummary`, `.golemhotspots`, and `.golemcoverage` before drilling into `.occurrences`, `.callstack`, or `.inspect <component>`. For crypto-flow review, prioritize components with `cdx:golem:cryptoDataFlow=true`, `cdx:golem:cryptoDataFlowCount`, and rendered `cryptographic-asset` algorithms.
+---
 
-## ⛔ Anti-Hallucination & Safety Constraints
+## Key abstractions
 
-1. `cdxgen` outputs CycloneDX JSON by default and can export SPDX JSON-LD via `--format spdx`; use `cdx-convert` for dedicated CycloneDX-to-SPDX conversion of existing BOM files.
-2. **ALWAYS** use absolute paths for `[path]` and `-o`. Relative paths or paths with spaces cause external tool failures.
-3. **NEVER** run as `root` when `CDXGEN_SECURE_MODE=true`. Node.js permissions will reject wildcard FS/child grants.
-4. **DO NOT** auto-invoke `--install-deps` (default: `true`) in CI, containers, or air-gapped environments. Use `--no-install-deps` or `--lifecycle pre-build`.
-5. **Java ≥ 21 is mandatory** for C, C++, Python, and CBOM scans. Lower versions cause silent freezes.
-6. **NEVER** construct PackageURL (purl) strings manually in prompts or scripts. Let `cdxgen` handle resolution.
-7. **Secure Mode** (`CDXGEN_SECURE_MODE=true`) requires explicit Node.js `--permission` flags. Do not grant `--allow-fs-read="*"` or `--allow-fs-write="*"`.
-8. **Environment Variables** must use `CDXGEN_` prefix (e.g., `CDXGEN_TYPE=java`, `CDXGEN_FETCH_LICENSE=true`).
-9. **ALWAYS run `--dry-run` first** for agent-driven workflows. Review the activity summary, prefer `--activity-report json` or `jsonl` for machine-readable inspection, and ask the user for permission before rerunning without `--dry-run`.
-10. **DO NOT** mix `hbom` / `hardware` with software project types such as `js`, `java`, `python`, `os`, or `oci` in the same run. Generate HBOM separately.
-11. When using server mode or BOM upload features, keep `CDXGEN_ALLOWED_HOSTS` and related host allowlists narrow. Prefer exact hosts; server-side Dependency-Track submission interprets wildcard entries as real subdomains only (for example, `*.example.com`), not suffix matches.
-12. When reviewing generated BOMs that include AI/MCP inventory or Chrome extension metadata, still inspect emitted properties before sharing externally even though cdxgen now redacts common secret-bearing URL and token patterns.
-13. For packaged Electron releases, prefer `-t asar` so archive file inventory, integrity verification, and embedded Node manifest analysis are included in the BOM and BOM-audit output.
-14. For OS trust inventory, remember the modeling split: repository sources are normal `data` components, while trusted keys/certificates are `cryptographic-asset` components. Do not assume those crypto assets have purls.
-15. On macOS OBOM runs, use the troubleshooting guide if tables come back empty or permission-gated; shell-mode osquery execution avoids the older `/var/osquery` startup failure mode.
-16. For offline host or golden-image reviews, prefer `--bom-audit --bom-audit-categories rootfs-hardening` so repository trust, privileged helpers, and service drift are checked without requiring live osquery collection.
-17. Source-derived algorithm components must stay validator-safe. Emit only algorithms that can be mapped to a known OID.
-18. For Go Evinse/Golem evidence, do not expose raw `go:generate` commands, raw environment values, HTTP parameter values, raw key material, plaintext, ciphertext, embedded file contents, generated source contents, or secrets. Use the emitted `cdx:golem:*` counts, categories, rule IDs, taint kinds, scopes, call-stack frames, crypto algorithm/OID pivots, and module facts for review.
+### `options` object
 
-## 📤 Output & Validation
+Every public function accepts a single `options` plain object. It is created by the CLI argument parser in `bin/cdxgen.js` and threaded through the entire call chain without mutation. When adding new CLI flags, add them to the yargs builder in `bin/cdxgen.js` **and** pass them through `options` — never read `process.argv` directly inside library code.
 
-- Primary output: Valid CycloneDX JSON at `-o` path
-- Default behavior automatically validates against spec (`--no-validate` to skip)
-- Exit code `0` = success & validation passed. Non-zero = parse/validation/execution failure
-- Protobuf export: `--export-proto --proto-bin-file bom.cdx`
-- Namespace mapping: Auto-generates `<output>.map` if class resolution enabled (`--resolve-class`)
+### `createBom(path, options)` — `lib/cli/index.js`
 
-## 🤖 Agent Execution Guidelines
+The top-level export. Dispatches to per-language `create*Bom` functions based on `options.projectType`. Returns `{ bomJson, dependencies, parentComponent, … }`.
 
-| Scenario                      | Recommended Action                                                                                                                                                                                                    |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Command fails silently**    | Check Java version (`java -version`), missing build tools, or secure mode restrictions. Suggest container image or `--no-install-deps`.                                                                               |
-| **Network/registry timeouts** | Set `HTTP_PROXY`/`HTTPS_PROXY`. Node ≥ 22.21 auto-detects. Do not auto-retry without user confirmation.                                                                                                               |
-| **Large mono-repos**          | Use `--no-recurse` + explicit `-t <lang>` or `--exclude-type` to limit scope.                                                                                                                                         |
-| **Server mode invocation**    | Poll `/health` first. POST to `/sbom` with JSON body or query params. Pass `GITHUB_TOKEN` via env if scanning private repos.                                                                                          |
-| **Aliases**                   | `obom` = `cdxgen -t os`<br>`cbom` = `cdxgen --include-crypto --include-formulation --evidence --spec-version 1.6`                                                                                                     |
-| **HBOM**                      | `hbom` is the dedicated host-hardware command. Equivalent library path: `cdxgen -t hbom`. Do not mix it with other project types.                                                                                     |
-| **Output parsing**            | Use `-p` for human-readable tables. Parse JSON at `-o` path programmatically. Never assume stdout contains the BOM unless `-o` is omitted.                                                                            |
-| **Signature verification**    | Use bundled `cdx-verify -i bom.json --public-key public.key`.                                                                                                                                                         |
-| **SBOM signing**              | Use bundled `cdx-sign -i bom.json -k private.key`.                                                                                                                                                                    |
-| **Predictive auditing**       | Use bundled `cdx-audit --bom bom.json` for existing BOMs. Prefer `--report sarif --report-file audit.sarif` for code-scanning uploads.                                                                                |
-| **OBOM troubleshooting**      | For macOS permission/startup quirks, check `docs/OBOM_MACOS_TROUBLESHOOTING.md`; for live-host triage patterns, use `docs/OBOM_LESSONS.md`.                                                                           |
-| **Go data-flow review**       | Use `evinse -l go --deep` or `--with-data-flow --golem-dataflow crypto` for Golem data-flow. Keep worker/proc/slice limits bounded for CI and inspect `cdx:golem:dataFlow*` / `cdx:golem:cryptoDataFlow*` properties. |
+### `postProcess(bomNSData, options)` — `lib/stages/postgen/postgen.js`
 
-### Dry-run-first workflow for agents
+Runs after BOM generation: filtering, standards application, metadata enrichment, formulation population, and annotations. It is called **exactly once** per BOM generation cycle — by `bin/cdxgen.js` and `lib/server/server.js` — after `createBom` returns.
 
-1. Run `cdxgen` with `--dry-run` first.
-2. Prefer `--activity-report json` or `--activity-report jsonl` so the pending reads, blocked writes, blocked command execution, blocked network access, and blocked submissions are easy to inspect.
-3. Summarize the planned actions for the user.
-4. Ask for permission before rerunning without `--dry-run`.
-5. Only perform real execution after the user explicitly approves it.
+**Any logic that must execute exactly once across all language types must live here**, not inside `buildBomNSData` (which is invoked once per language type and therefore runs multiple times for multi-type projects).
 
-## 📚 Reference Links
+### `prepareEnv(filePath, options)` — `lib/stages/pregen/pregen.js`
 
-- Repo: https://github.com/cdxgen/cdxgen
-- Docs: https://cdxgen.github.io/cdxgen
-- Project Types: https://cdxgen.github.io/cdxgen/#/PROJECT_TYPES
-- Env Vars: https://cdxgen.github.io/cdxgen/#/ENV
-- Secure Mode: https://cdxgen.github.io/cdxgen/#/PERMISSIONS
-- OWASP sponsorship link: https://owasp.org/donate/?reponame=www-project-cdxgen&title=OWASP+cdxgen
+Runs before BOM generation to install missing build tools via sdkman, nvm, rbenv, etc.
+
+### Go Evinse with Golem
+
+`evinse -l go` calls `lib/helpers/golem.js`, which resolves the optional `golem` plugin binary, runs `golem analyze --format json`, and maps the report into CycloneDX evidence. Occurrences and call-stack frames are attached to matching Go module purls. Data-flow traces are mapped to occurrence and call-stack evidence when `--deep`, `--with-data-flow`, `--profile research`, or explicit `--golem-dataflow` options are used. Metadata-level `cdx:golem:*` properties are appended to `bom.metadata.component`; component-level `cdx:golem:*` properties are appended to matching dependency components; crypto evidence can add schema-valid `cryptographic-asset` components without purls.
+
+Keep this path layered as `bin/evinse.js` → `lib/evinser/evinser.js` → `lib/helpers/golem.js`. Do not import CLI modules from helpers. When adding Golem evidence, update `docs/GO_EVINSE_GOLEM.md`, `docs/CUSTOM_PROPERTIES.md`, `docs/EVINSE.md`, `docs/GO_EVINSE_GOLEM_THREAT_MODEL.md`, `docs/BOM_AUDIT.md`, `docs/LESSON14.md`, repo-test assertions in `.github/workflows/repotests.yml`, and the REPL commands in `bin/repl.js` if the new property creates a useful analyst pivot.
+
+### PackageURL
+
+---
+
+## BOM generation pipeline
+
+Understanding the call chain is critical to placing new logic in the right spot.
+
+```
+bin/cdxgen.js (or server.js)
+  └── createBom(path, options)                     lib/cli/index.js
+        ├── createXBom(path, options)              — single project type
+        │     └── create<Language>Bom(path, options)
+        │           └── buildBomNSData(options, pkgList, ptype, context)
+        │                 — called ONCE PER LANGUAGE TYPE
+        │                 — returns { bomJson, nsMapping, dependencies, parentComponent, formulationList? }
+        │
+        └── createMultiXBom(pathList, options)     — multiple types or container
+              ├── createXBom() × N  (one per type/path)
+              └── dedupeBom()  →  merges all per-type results
+  └── postProcess(bomNSData, options)              lib/stages/postgen/postgen.js
+        — called EXACTLY ONCE after createBom returns
+        — correct place for: formulation, annotations, filtering, metadata enrichment
+```
+
+### Key implication: multi-invocation of `buildBomNSData`
+
+`buildBomNSData` is called once **per language type**. A command like
+`cdxgen -t js,java,python` triggers three separate calls. Any side-effect
+placed inside `buildBomNSData` will run three times.
+
+**Rule:** Logic that must execute once per BOM (e.g. formulation, final
+annotations, global deduplication) belongs in `postProcess`, not in
+`buildBomNSData` or `createMultiXBom`.
+
+### Forwarding per-language data to `postProcess`
+
+When a per-language step produces data that `postProcess` needs (e.g. Pixi
+lock formulation components), attach it to `bomNSData` before returning:
+
+```js
+// inside buildBomNSData:
+if (context?.formulationList?.length) {
+  bomNSData.formulationList = context.formulationList;
+}
+```
+
+`postProcess` can then read `bomNSData.formulationList` and incorporate it
+into the single formulation section it builds.
+
+---
+
+## Module layering rules
+
+The dependency graph between source layers is strictly one-directional:
+
+```
+lib/helpers/*          (no imports from cli/ or stages/)
+      ↓
+lib/cli/index.js       (imports from helpers/*)
+      ↓
+lib/stages/postgen/    (imports from helpers/*, NOT from cli/index.js)
+bin/cdxgen.js          (imports from cli/ and stages/)
+lib/server/server.js   (imports from cli/ and stages/)
+```
+
+**Never import `lib/cli/index.js` from inside `lib/helpers/` or `lib/stages/`.**
+Shared utilities used by both layers must live in a helper module:
+
+| Utility                 | Location                            |
+| ----------------------- | ----------------------------------- |
+| `mergeDependencies`     | `lib/helpers/depsUtils.js`          |
+| `trimComponents`        | `lib/helpers/depsUtils.js`          |
+| `addFormulationSection` | `lib/helpers/formulationParsers.js` |
+
+Go Evinse/Golem evidence mapping belongs in `lib/helpers/golem.js`; the enriched BOM write-back belongs in `lib/evinser/evinser.js`. Do not move that logic into post-processing because Evinse is a separate enrichment command over an existing BOM.
+
+If you find yourself writing `import { … } from "../../cli/index.js"` inside
+a helper or stage module, **stop and extract the function to `lib/helpers/`
+first**.
+
+---
+
+### PackageURL
+
+```js
+import { PackageURL } from "packageurl-js";
+
+// construct
+const purl = new PackageURL(
+  type,
+  namespace,
+  name,
+  version,
+  qualifiers,
+  subpath,
+);
+// parse
+const purlObj = PackageURL.fromString(purlString);
+// serialise
+const s = purl.toString();
+```
+
+Never construct purl strings by hand-concatenation.
+
+### Cryptographic assets and OS trust material
+
+- **Do not assign a purl to `type: "cryptographic-asset"` components.** cdxgen intentionally suppresses purls for cryptographic assets.
+- Use schema-valid `cryptoProperties.assetType` values only:
+  - `certificate` for certificates such as `secureboot_certificates`
+  - `related-crypto-material` for trusted key files, kernel keys, and similar key material
+- Source-derived `assetType: "algorithm"` components must carry a known `cryptoProperties.oid`. If a detected algorithm cannot be mapped to an OID, skip it rather than emitting a validator-breaking component.
+- Current OS/container trust-material conventions:
+  - repository sources (`apt`, `ppa`, `yum`) → `type: "data"` with `cdx:os:repo:*` properties
+  - trusted key files → `type: "cryptographic-asset"` with `cryptoProperties.relatedCryptoMaterialProperties.type = "public-key"`
+  - repo-to-key trust relationships should be represented in `dependencies` when the source file explicitly references a key (`signed-by`, `gpgkey`, etc.)
+- If you add new osquery- or rootfs-derived crypto inventory, validate it against `lib/validator/bomValidator.js` expectations and the CycloneDX schema files under `data/`.
+
+### Go Evinse and Golem property hygiene
+
+- Preserve `cdx:golem:*` as small strings: counts, booleans, enums, source locations, module paths, and comma-separated scope/category lists.
+- Preserve data-flow and crypto-flow evidence as categories, rule IDs, confidence/severity labels, taint kinds, source locations, and call-stack frames. Do not emit raw source values, key material, plaintext, ciphertext, HTTP parameter values, environment values, generated source contents, or full command lines.
+- Do not emit raw `go:generate` command strings, raw environment values, embedded file contents, generated source contents, or full command lines.
+- Prefer scope-aware policy signals. `cdx:golem:usageScopes=runtime` is a stronger release signal than test-only usage; `cdx:golem:testOnly=true` is useful triage context but should not be treated as proof of no risk.
+- Prefer bounded defaults for data-flow in CI: `--deep` or `--with-data-flow --golem-dataflow crypto` with capped workers, capped `--golem-max-procs`, slice/trace limits, generated-file skipping, and tests skipped unless `--golem-tests` is required.
+- Keep BOM audit rules in `data/rules/golem-go.yaml` aligned with emitted property names and document new rules in `docs/BOM_AUDIT.md`.
+- Keep `cdxi` pivots aligned with the analyst flow: `.golemsummary` for run context, `.golemhotspots` for risk review, and `.golemcoverage` for evidence coverage.
+
+### HTTP requests
+
+All outbound HTTP is done through `cdxgenAgent`, exported from `lib/helpers/utils.js`. It is a small [undici](https://github.com/nodejs/undici)-backed, `got`-compatible client created by `createHttpClient()` in `lib/helpers/httpClient.js` — it supports `.get`/`.post`/`.put`/`.head`, `.extend()`, `responseType`, `throwHttpErrors`, `followRedirect`, timeouts, and `beforeRequest`/`afterResponse`/`beforeError` hooks (which power dry-run enforcement, host allow-listing, network-activity recording, and HTTP trace logging). It also keeps an in-memory GET response cache that can be disabled with `CDXGEN_NO_CACHE`. Never talk to the network directly (raw `undici`, `fetch`, `http`, etc.) in new code — use `cdxgenAgent`, or pass it through the `options` object. The one exception is Docker/Podman daemon communication, which uses the unix-socket/TLS connection helper in `lib/managers/dockerConnection.js`.
+
+---
+
+## Logging conventions
+
+| Function                                              | Purpose                             | Activation                                              |
+| ----------------------------------------------------- | ----------------------------------- | ------------------------------------------------------- |
+| `console.log` / `console.warn` / `console.error`      | Operational messages                | Always                                                  |
+| `thoughtLog(msg, args?)` from `lib/helpers/logger.js` | Internal reasoning / debug thinking | `CDXGEN_THINK_MODE=true` or `CDXGEN_DEBUG_MODE=verbose` |
+| `traceLog(type, args)` from `lib/helpers/logger.js`   | Structured trace of commands & HTTP | `CDXGEN_TRACE_MODE=true` or `CDXGEN_DEBUG_MODE=verbose` |
+| `DEBUG_MODE` constant from `lib/helpers/utils.js`     | Guards verbose `console.log` calls  | `CDXGEN_DEBUG_MODE=debug` or `debug`                    |
+
+Prefer `thoughtLog` over ad-hoc `console.log` for introspective messages inside core logic so they can be silenced in production.
+
+---
+
+## Security conventions
+
+cdxgen has a _secure mode_ (`CDXGEN_SECURE_MODE=true` or running under Node.js `--permission`). Guards:
+
+```js
+import { isSecureMode } from "../helpers/utils.js";
+if (isSecureMode) {
+  /* skip risky operation */
+}
+```
+
+Always use the safe wrappers rather than the raw Node.js equivalents:
+| Safe wrapper | Replaces |
+|---|---|
+| `safeExistsSync(path)` | `existsSync(path)` |
+| `safeMkdirSync(path, opts)` | `mkdirSync(path, opts)` |
+| `safeSpawnSync(cmd, args, opts)` | `spawnSync(cmd, args, opts)` |
+
+`safeSpawnSync` also validates `cmd` against `CDXGEN_ALLOWED_COMMANDS` and records every invocation in `commandsExecuted`.
+
+For user-supplied strings that will be used in file paths or URLs, check `hasDangerousUnicode(str)` and `isValidDriveRoot(root)` (Windows) before use.
+
+Environment variables from `auditEnvironment` (`lib/stages/pregen/envAudit.js`) are checked at startup to detect dangerous `NODE_OPTIONS` values.
+
+When adding or modifying **external-facing features** (SCM/network integrations like release notes, git metadata, repository lookups), treat all input values as untrusted by default:
+
+- Validate git refs/tags/branches with `isSafeGitRefName()` before using them in git revision/range arguments.
+- Prefer parsing helpers that normalize and filter unsafe refs before selection.
+- Never pass user/remote-derived refs directly into `git log`/`git` revision arguments without validation.
+- Use `hardenedGitCommand()` (or `safeSpawnSync` wrappers where applicable) instead of raw process execution.
+- Use `cdxgenAgent` for outbound HTTP and source tokens from `options`/environment without logging credentials.
+
+### BOM property-value hygiene
+
+When emitting CycloneDX `properties`, annotations, evidence objects, or service/component metadata, treat **every value** as potentially secret-bearing unless it is already a small, enumerated, non-sensitive token.
+
+- Never emit raw secrets or likely secret carriers into BOM fields, including:
+  - bearer tokens, API keys, passwords, client secrets, cookies, session IDs, private keys, signed URLs, or authorization headers
+  - raw environment variable values, command-line arguments, header values, or config blobs that may contain credentials
+  - free-form copied text from user/config-controlled sources when it could embed secrets
+- Prefer **booleans, counts, categories, and field names** over raw values. For example:
+  - `credentialExposure=true`
+  - `credentialIndicatorCount=3`
+  - `credentialExposureFieldCount=2`
+  - `credentialReferenceCount=1`
+  - `header:Authorization` as a field label is acceptable; the header value is not
+- Treat URLs and URIs as untrusted. Before emitting them, remove or avoid:
+  - query strings and fragments
+  - `userinfo` (`https://user:pass@host/...`)
+  - signed-token parameters such as `token`, `sig`, `signature`, `X-Amz-Signature`, `X-Goog-Signature`, `access_token`, `id_token`, `client_secret`, `api_key`, and similar aliases
+- Treat command strings as untrusted. Do not emit full commands when arguments may contain credentials; prefer the executable name, transport type, or a redacted/summarized form instead.
+- Treat free-text mirrored metadata as untrusted. Fields such as `cdx:agent:description`, `cdx:skill:metadata`, `cdx:agent:permission`, `cdx:crewai:*`, `cdx:mcp:description`, `cdx:mcp:resourceUri`, `cdx:mcp:configuredEndpoints`, `cdx:mcp:command`, and future `cdx:mcp:auth:*` values must be reviewed for secret-bearing content before being added.
+- If a value is useful for analysis but may contain credentials, emit a safe derivative instead (count, host, scheme, basename, allowlisted enum, or `"redacted"` marker).
+- Add or update tests whenever new emitted properties are introduced to assert that secrets are not copied into BOM output.
+
+---
+
+## Environment variables
+
+All cdxgen-specific variables use the `CDXGEN_` prefix (or well-known tool-specific names like `JAVA_HOME`, `PYTHON_CMD`, etc.). Environment variables are declared as module-level constants in `lib/helpers/utils.js`:
+
+```js
+export const DEBUG_MODE =
+  ["debug", "verbose"].includes(process.env.CDXGEN_DEBUG_MODE) ||
+  process.env.SCAN_DEBUG_MODE === "debug";
+```
+
+Do not read `process.env.CDXGEN_*` inside deep library functions — export the derived constant from `utils.js` and import it instead. See `docs/ENV.md` for the full list of supported variables.
+
+---
+
+## Adding support for a new language/ecosystem
+
+1. Add a `create<Language>Bom(path, options)` function in `lib/cli/index.js`, following the same signature and return shape as the existing functions.
+2. Add parser functions in `lib/helpers/utils.js` (for lock file / manifest parsing) or a new helper module under `lib/helpers/`.
+3. Register the new project type in `PROJECT_TYPE_ALIASES` and `PACKAGE_MANAGER_ALIASES` in `lib/helpers/utils.js`.
+4. Add a dispatch branch in `createXBom` / `createBom` in `lib/cli/index.js`.
+5. Update `docs/PROJECT_TYPES.md`.
+6. Add fixture files to `test/` and cover with a `*.poku.js` test.
+7. If updating OSQuery table metadata in `data/queries*.json` (for example `purlType` or `componentType`), review all platform variants (`queries.json`, `queries-win.json`, and `queries-darwin.json`) and keep shared table entries aligned.
+8. Always consider adding/expanding `repotests.yml` coverage with a representative public repository for the ecosystem change; if a stable public repo is not practical, add fixture-backed repo tests under `test/data/` and exercise them from `repotests.yml`.
+9. For container/rootfs or OBOM feature work, also review the companion integration surfaces that usually need to stay aligned: `lib/managers/binary.js`, `lib/managers/binary.poku.js`, `lib/managers/binary.e2e.poku.js`, `lib/stages/postgen/auditBom.poku.js`, `ci/dockertests.sh`, `ci/assertions.sh`, `data/component-tags.json`, `bin/repl.js`, and any relevant docs/rules.
+10. For CBOM source-analysis work, keep `lib/helpers/analyzer.js`, `lib/helpers/analyzer.poku.js`, `lib/helpers/cbomutils.js`, and the `createCryptoCertsBom()` path in `lib/cli/index.js` aligned. The analyzer is intentionally lightweight, so prefer conservative constant propagation over broad speculative inference.
+
+---
+
+## Testing
+
+### Framework: poku
+
+Tests are co-located with the source as **`<module>.poku.js`** files. The test runner is [poku](https://poku.io/).
+
+```
+lib/helpers/utils.poku.js         ← tests for utils.js
+lib/helpers/pythonutils.poku.js   ← tests for pythonutils.js
+lib/cli/index.poku.js             ← tests for index.js
+lib/stages/pregen/envAudit.poku.js
+…
+```
+
+Configuration is in `.pokurc.jsonc`:
+
+```jsonc
+{
+  "include": ["lib"],
+  "filter": ".poku.js",
+  "reporter": "verbose",
+}
+```
+
+Run all tests:
+
+```bash
+pnpm test
+```
+
+Watch mode:
+
+```bash
+pnpm run watch
+```
+
+### Cross-platform test expectations
+
+- Treat every unit/integration test as cross-platform unless a test is explicitly platform-scoped.
+- Always check string/path assertions against Windows and POSIX path separator differences (`\` vs `/`).
+- Prefer `node:path` helpers, normalization, or separator-agnostic assertions over hard-coded path literals in tests.
+- When adding or changing tests that inspect file paths, temp directories, command arguments, or serialized activity/log output, verify they still pass on Windows runners and do not assume `/tmp`-style paths.
+
+### Container / OBOM regression coverage
+
+- **Unit coverage:** use `lib/managers/binary.poku.js` for rootfs/container parsing logic, repository-source parsing, trusted-key modeling, and osquery invocation behavior.
+- **Rule coverage:** use `lib/stages/postgen/auditBom.poku.js` when changing `data/rules/*.yaml`, `lib/helpers/auditCategories.js`, or hardening-related query packs.
+- **Analyzer coverage:** use `lib/helpers/analyzer.poku.js`, `lib/helpers/cbomutils.poku.js`, and `lib/helpers/utils.poku.js` when changing crypto-aware AST extraction, GTFOBins/LOLBAS enrichment, or osquery-to-component transforms.
+- **Binary E2E coverage:** use `lib/managers/binary.e2e.poku.js` for real Trivy/rootfs integration when the local environment has the companion repo and container runtime available.
+- **Docker-script parity checks:** use `ci/dockertests.sh` plus `ci/assertions.sh` for archive vs reconstructed-rootfs parity, tool identity evidence, container-risk audit coverage, unpackaged native-file count assertions, and OS repo/trusted-key crypto assertions. The `nerdctl` lane must keep working even when Docker itself is absent.
+- For macOS OBOM changes, validate the real bundled osquery behavior and keep `docs/OBOM_MACOS_TROUBLESHOOTING.md` in sync when execution mode or permissions expectations change.
+
+### Review feedback handling
+
+- Before finalizing work, review feedback from automated code review or validation tools.
+- If a review comment is valid, fix it in the same change rather than leaving it behind.
+- If a review comment is not valid, document why it was not applied in the final summary.
+- Thoroughness is preferred over speed when resolving valid review feedback.
+
+### Test anatomy
+
+```js
+import { strict as assert } from "node:assert"; // or:
+import { assert, describe, it, test } from "poku";
+
+import { myFunction } from "./my-module.js";
+
+describe("myFunction()", () => {
+  it("does X when Y", () => {
+    const result = myFunction(input);
+    assert.strictEqual(result, expected);
+  });
+});
+```
+
+- Use `assert` and `describe`/`it`/`test` from `poku` (they re-export Node's assert plus test grouping).
+- For async tests, return the promise or use `async`/`await` inside `it`/`test`.
+- For tests that need to mock ES-module dependencies, use **esmock** + **sinon**:
+
+```js
+import esmock from "esmock";
+import sinon from "sinon";
+
+// cdxgenAgent is built by createHttpClient(); mock that seam to inject a fake
+// client, or stub cdxgenAgent.get/.post directly for simpler cases.
+const agentStub = sinon.stub().returns({ json: sinon.stub().resolves({}) });
+agentStub.get = sinon.stub().resolves({ statusCode: 200, body: {} });
+
+const { submitBom } = await esmock("./index.js", {
+  "../helpers/httpClient.js": {
+    createHttpClient: sinon.stub().returns(agentStub),
+  },
+});
+```
+
+- Test files are **excluded from the Biome linter** (`"!test/**"` in `biome.json`), so slightly looser style is acceptable there, but still follow the same import conventions.
+- TypeScript generation (`pnpm run gen-types`) excludes `*.poku.js` files via `tsconfig.json`.
+
+---
+
+## TypeScript types
+
+Types are generated — do not write or edit files under `types/` manually. Source JSDoc is the source of truth:
+
+```js
+/**
+ * Parses a Cargo.lock file and returns a list of component objects.
+ *
+ * @param {string} cargoLockFile Path to Cargo.lock
+ * @param {Object} options CLI options
+ * @returns {Object[]} Array of component objects
+ */
+export function parseCargoData(cargoLockFile, options) { … }
+```
+
+Regenerate after adding/changing public function signatures:
+
+```bash
+pnpm run gen-types
+```
+
+---
+
+## CI overview
+
+| Workflow             | Trigger             | What it does                                        |
+| -------------------- | ------------------- | --------------------------------------------------- |
+| `nodejs.yml`         | PR / push to master | Unit tests (poku) on a matrix of Node versions × OS |
+| `lint.yml`           | PR / push to master | `pnpm run lint:check` (Biome)                       |
+| `repotests.yml`      | PR / push to master | Integration tests against real projects             |
+| `snapshot-tests.yml` | PR / push           | Snapshot comparisons of generated BOMs              |
+| `codeql.yml`         | Push / schedule     | CodeQL security analysis                            |
+| `build-image.yml`    | PR / push           | Docker image builds                                 |
+
+Node versions to test against are read from `.versions/node_*` files (not hardcoded). OS matrix: Ubuntu 22.04, Ubuntu 24.04, Windows, macOS (both x64 and ARM).
+
+All GitHub Actions workflows pin action SHA digests and have `permissions: {}` at the job level (least-privilege).
+
+---
+
+## Dependency management
+
+- Package manager: **pnpm ≥ 10** (`packageManager` field in `package.json`).
+- Install: `pnpm install --config.strict-dep-builds=true --frozen-lockfile --package-import-method copy`
+- Do not use `npm` or `yarn`.
+- Runtime dependencies are in `dependencies`; test/dev tools in `devDependencies`; optional heavy packages (atom, protobuf, server middleware) in `optionalDependencies`.
+- Dependency updates are managed by Renovate (see `renovate.json`). Do not bump dependency versions in PRs unless directly required.
+
+---
+
+## What to avoid
+
+- **Do not** talk to the network directly (raw `undici`, `fetch`, `http`/`https`) in new library code — use `cdxgenAgent` from `lib/helpers/utils.js` (or `lib/managers/dockerConnection.js` for the container daemon).
+- **Do not** use `spawnSync` / `execSync` directly — use `safeSpawnSync`.
+- **Do not** use `existsSync` / `mkdirSync` directly — use `safeExistsSync` / `safeMkdirSync`.
+- **Do not** shell out to the Electron `asar` CLI or add a runtime dependency for ASAR parsing — use the native reader in `lib/helpers/asarutils.js`.
+- **Do not** construct PURL strings by concatenation — use `new PackageURL(…).toString()`.
+- **Do not** read `process.argv` inside library modules — accept options via the `options` object.
+- **Do not** commit secrets, tokens, or credentials.
+- **Do not** copy raw secret-bearing values into emitted BOM properties, annotations, evidence, endpoints, or service metadata; aggregate, classify, or redact them instead.
+- **Do not** modify generated files under `types/` directly.
+- **Do not** add `console.log` debug statements to production code without gating them on `DEBUG_MODE` or replacing them with `thoughtLog`.
+- **Do not** add or update `pnpm-lock.yaml` unless changing `package.json` dependencies.
+- **Do not** import from `lib/cli/index.js` inside `lib/helpers/*` or `lib/stages/*` — this creates a circular-like cross-layer dependency. Extract the shared function to `lib/helpers/` instead.
+- **Do not** add logic that must execute once-per-BOM inside `buildBomNSData` — it is called once per language type. Use `postProcess` in `lib/stages/postgen/postgen.js` instead.
+- **Do not** add any generic functions to `lib/cli/index.js` and `lib/helpers/utils.js`.
+- **Do not** add complex all-in-one regex parsers for filenames or other externally sourced strings when tokenization plus small validators will do; that pattern is difficult to maintain and may fail CodeQL inefficient-regex checks.
 
 ---
 > Source: [cdxgen/cdxgen](https://github.com/cdxgen/cdxgen) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
