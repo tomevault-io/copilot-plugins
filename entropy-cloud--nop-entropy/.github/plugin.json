@@ -1,0 +1,54 @@
+{
+  "name": "entropy-cloud--nop-entropy",
+  "displayName": "nop-entropy",
+  "description": "nop-entropy",
+  "version": "1.0.0",
+  "author": "entropy-cloud",
+  "homepage": "https://github.com/entropy-cloud/nop-entropy",
+  "skills": [
+    {
+      "name": "nop-file-converter",
+      "description": ""
+    },
+    {
+      "name": "nop-git-worktree",
+      "description": ""
+    },
+    {
+      "name": "nop-orm-modeler",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "description": ""
+    },
+    {
+      "name": "nop-entropy",
+      "description": ""
+    }
+  ]
+}
