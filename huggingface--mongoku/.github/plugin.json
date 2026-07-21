@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--mongoku",
+  "displayName": "Mongoku",
+  "description": "Mongoku",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/Mongoku",
+  "skills": []
+}
