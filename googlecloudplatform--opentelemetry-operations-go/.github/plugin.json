@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--opentelemetry-operations-go",
+  "displayName": "opentelemetry-operations-go",
+  "description": "opentelemetry-operations-go",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/opentelemetry-operations-go",
+  "skills": []
+}
