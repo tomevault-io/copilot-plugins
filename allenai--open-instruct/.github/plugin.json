@@ -1,0 +1,22 @@
+{
+  "name": "allenai--open-instruct",
+  "displayName": "open-instruct",
+  "description": "open-instruct",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/open-instruct",
+  "skills": [
+    {
+      "name": "update-pr-body",
+      "description": ""
+    },
+    {
+      "name": "open-instruct",
+      "description": ""
+    },
+    {
+      "name": "open-instruct",
+      "description": ""
+    }
+  ]
+}
