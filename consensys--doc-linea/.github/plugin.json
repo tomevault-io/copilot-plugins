@@ -1,0 +1,14 @@
+{
+  "name": "consensys--doc-linea",
+  "displayName": "doc.linea",
+  "description": "doc.linea",
+  "version": "1.0.0",
+  "author": "Consensys",
+  "homepage": "https://github.com/Consensys/doc.linea",
+  "skills": [
+    {
+      "name": "doc.linea",
+      "description": ""
+    }
+  ]
+}
