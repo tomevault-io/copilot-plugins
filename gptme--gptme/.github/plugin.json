@@ -1,0 +1,26 @@
+{
+  "name": "gptme--gptme",
+  "displayName": "gptme",
+  "description": "gptme",
+  "version": "1.0.0",
+  "author": "gptme",
+  "homepage": "https://github.com/gptme/gptme",
+  "skills": [
+    {
+      "name": "codebase-classification",
+      "description": ""
+    },
+    {
+      "name": "python-repl",
+      "description": ""
+    },
+    {
+      "name": "gptme",
+      "description": ""
+    },
+    {
+      "name": "gptme",
+      "description": ""
+    }
+  ]
+}
