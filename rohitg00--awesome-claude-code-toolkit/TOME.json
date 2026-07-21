@@ -1,0 +1,417 @@
+{
+  "name": "awesome-claude-code-toolkit",
+  "owner": "rohitg00",
+  "repo": "awesome-claude-code-toolkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-wcag",
+      "path": "skills/accessibility-wcag",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/accessibility-wcag",
+      "description": ""
+    },
+    {
+      "name": "api-design-patterns",
+      "path": "skills/api-design-patterns",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/api-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "authentication-patterns",
+      "path": "skills/authentication-patterns",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/authentication-patterns",
+      "description": ""
+    },
+    {
+      "name": "aws-cloud-patterns",
+      "path": "skills/aws-cloud-patterns",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/aws-cloud-patterns",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-pipelines",
+      "path": "skills/ci-cd-pipelines",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/ci-cd-pipelines",
+      "description": ""
+    },
+    {
+      "name": "devops-automation",
+      "path": "skills/devops-automation",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/devops-automation",
+      "description": ""
+    },
+    {
+      "name": "docker-best-practices",
+      "path": "skills/docker-best-practices",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/docker-best-practices",
+      "description": ""
+    },
+    {
+      "name": "frontend-excellence",
+      "path": "skills/frontend-excellence",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/frontend-excellence",
+      "description": ""
+    },
+    {
+      "name": "git-advanced",
+      "path": "skills/git-advanced",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/git-advanced",
+      "description": ""
+    },
+    {
+      "name": "golang-idioms",
+      "path": "skills/golang-idioms",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/golang-idioms",
+      "description": ""
+    },
+    {
+      "name": "graphql-design",
+      "path": "skills/graphql-design",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/graphql-design",
+      "description": ""
+    },
+    {
+      "name": "llm-integration",
+      "path": "skills/llm-integration",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/llm-integration",
+      "description": ""
+    },
+    {
+      "name": "mcp-development",
+      "path": "skills/mcp-development",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/mcp-development",
+      "description": ""
+    },
+    {
+      "name": "microservices-design",
+      "path": "skills/microservices-design",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/microservices-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-development",
+      "path": "skills/mobile-development",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/mobile-development",
+      "description": ""
+    },
+    {
+      "name": "performance-optimization",
+      "path": "skills/performance-optimization",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "path": "skills/prompt-engineering",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "python-best-practices",
+      "path": "skills/python-best-practices",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/python-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-patterns",
+      "path": "skills/react-patterns",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/react-patterns",
+      "description": ""
+    },
+    {
+      "name": "rust-systems",
+      "path": "skills/rust-systems",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/rust-systems",
+      "description": ""
+    },
+    {
+      "name": "security-hardening",
+      "path": "skills/security-hardening",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/security-hardening",
+      "description": ""
+    },
+    {
+      "name": "testing-strategies",
+      "path": "skills/testing-strategies",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/testing-strategies",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced",
+      "path": "skills/typescript-advanced",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/typescript-advanced",
+      "description": ""
+    },
+    {
+      "name": "websocket-realtime",
+      "path": "skills/websocket-realtime",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/websocket-realtime",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "path": "skills/django-patterns",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/django-patterns",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/deep-dive/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/deep-dive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/styleseed/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/styleseed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/git-advanced/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/git-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/rust-systems/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/rust-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/agentkit-seo/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/agentkit-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/golang-idioms/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/golang-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/react-patterns/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/react-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/redis-patterns/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/redis-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/graphql-design/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/graphql-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/llm-integration/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/llm-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/mcp-development/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/mcp-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/ci-cd-pipelines/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/ci-cd-pipelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/data-engineering/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/data-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/devops-automation/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/devops-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/claude-memory-kit/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/claude-memory-kit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/security-hardening/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/security-hardening/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/testing-strategies/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/testing-strategies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/prompt-engineering/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/prompt-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/accessibility-wcag/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/accessibility-wcag/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/mobile-development/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/mobile-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/aws-cloud-patterns/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/aws-cloud-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/websocket-realtime/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/websocket-realtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/api-design-patterns/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/api-design-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/frontend-excellence/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/frontend-excellence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/typescript-advanced/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/typescript-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/microservices-design/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/microservices-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/database-optimization/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/database-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/python-best-practices/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/python-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/postgres-optimization/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/postgres-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/docker-best-practices/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/docker-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/kubernetes-operations/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/kubernetes-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/authentication-patterns/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/authentication-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/performance-optimization/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-claude-code-toolkit",
+      "path": "skills/monitoring-observability/SKILL.md",
+      "github_url": "https://github.com/rohitg00/awesome-claude-code-toolkit/tree/main/skills/monitoring-observability/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rohitg00/awesome-claude-code-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T14:32:13Z"
+}
