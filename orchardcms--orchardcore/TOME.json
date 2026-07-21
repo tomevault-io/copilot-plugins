@@ -1,0 +1,135 @@
+{
+  "name": "OrchardCore",
+  "owner": "OrchardCMS",
+  "repo": "OrchardCore",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "orchardcore-asset-manager",
+      "path": ".agents/skills/orchardcore-asset-manager",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-asset-manager",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-tester/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-tester/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-tenants/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-tenants/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-unit-test/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-docs-writer/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-docs-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-localization/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-localization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-theme-creator/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-theme-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-asset-manager/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-asset-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-query-indexing/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-query-indexing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-recipe-creator/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-recipe-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-data-migration/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-data-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-module-creator/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-module-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-admin-edit-views/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-admin-edit-views/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-workflow-activity/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-workflow-activity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrchardCore",
+      "path": ".agents/skills/orchardcore-display-management/SKILL.md",
+      "github_url": "https://github.com/OrchardCMS/OrchardCore/tree/main/.agents/skills/orchardcore-display-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OrchardCMS/OrchardCore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T07:22:01Z"
+}
