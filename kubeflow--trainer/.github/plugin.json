@@ -1,0 +1,9 @@
+{
+  "name": "kubeflow--trainer",
+  "displayName": "trainer",
+  "description": "trainer",
+  "version": "1.0.0",
+  "author": "kubeflow",
+  "homepage": "https://github.com/kubeflow/trainer",
+  "skills": []
+}
