@@ -1,0 +1,14 @@
+{
+  "name": "solidinvoice--solidinvoice",
+  "displayName": "SolidInvoice",
+  "description": "SolidInvoice",
+  "version": "1.0.0",
+  "author": "SolidInvoice",
+  "homepage": "https://github.com/SolidInvoice/SolidInvoice",
+  "skills": [
+    {
+      "name": "SolidInvoice",
+      "description": ""
+    }
+  ]
+}
