@@ -1,0 +1,213 @@
+{
+  "name": "LeanAide",
+  "owner": "siddhartha-gadgil",
+  "repo": "LeanAide",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/06_verify/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/06_verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/01_deconstruct/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/01_deconstruct/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/05_execute_step/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/05_execute_step/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/03_source_study/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/03_source_study/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/04_strategy_gen/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/04_strategy_gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/07_metacognition/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/07_metacognition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/02_inspect_triage/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/02_inspect_triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/09_exploratory_probe/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/09_exploratory_probe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/invariants/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/invariants/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/11_research_synthesis/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/11_research_synthesis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/08_question_formulation/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/08_question_formulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/10_conjecture_stress_test/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/10_conjecture_stress_test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/12_example_counterexample/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/12_example_counterexample/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/generic_arguments/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/generic_arguments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/core/cases_exhaustion/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/core/cases_exhaustion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/analysis/epsilon_delta/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/analysis/epsilon_delta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/algorithms/correctness/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/algorithms/correctness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/order/bounding_extremal/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/order/bounding_extremal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/geometry/bochner_technique/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/geometry/bochner_technique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/core/equivalence_reduction/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/core/equivalence_reduction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/algebra/universal_property/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/algebra/universal_property/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/diagrammatic/diagram_chase/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/diagrammatic/diagram_chase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/analysis/density_approximation/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/analysis/density_approximation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/local_global/compactness_gluing/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/local_global/compactness_gluing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/induction/induction_and_descent/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/induction/induction_and_descent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/combinatorics/counting_pigeonhole/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/combinatorics/counting_pigeonhole/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/construction/existence_uniqueness/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/construction/existence_uniqueness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "LeanAide",
+      "path": "math-reasoning-system/skills/techniques/core/direct_contrapositive_contradiction/SKILL.md",
+      "github_url": "https://github.com/siddhartha-gadgil/LeanAide/tree/main/math-reasoning-system/skills/techniques/core/direct_contrapositive_contradiction/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/siddhartha-gadgil/LeanAide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T22:34:51Z"
+}
