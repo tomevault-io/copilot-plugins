@@ -1,0 +1,9 @@
+{
+  "name": "defectdojo--django-defectdojo",
+  "displayName": "django-DefectDojo",
+  "description": "django-DefectDojo",
+  "version": "1.0.0",
+  "author": "DefectDojo",
+  "homepage": "https://github.com/DefectDojo/django-DefectDojo",
+  "skills": []
+}
