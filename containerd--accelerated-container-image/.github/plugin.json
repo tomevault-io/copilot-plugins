@@ -1,0 +1,9 @@
+{
+  "name": "containerd--accelerated-container-image",
+  "displayName": "accelerated-container-image",
+  "description": "accelerated-container-image",
+  "version": "1.0.0",
+  "author": "containerd",
+  "homepage": "https://github.com/containerd/accelerated-container-image",
+  "skills": []
+}
