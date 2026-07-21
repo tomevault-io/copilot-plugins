@@ -1,0 +1,14 @@
+{
+  "name": "markbind--markbind",
+  "displayName": "markbind",
+  "description": "markbind",
+  "version": "1.0.0",
+  "author": "MarkBind",
+  "homepage": "https://github.com/MarkBind/markbind",
+  "skills": [
+    {
+      "name": "markbind",
+      "description": ""
+    }
+  ]
+}
