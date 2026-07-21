@@ -1,0 +1,75 @@
+## flowmvi
+
+> FlowMVI is a Kotlin Multiplatform MVI (Model-View-Intent) framework built on coroutines.
+
+FlowMVI is a Kotlin Multiplatform MVI (Model-View-Intent) framework built on coroutines.
+ 
+## Build Commands
+
+- `./gradlew allTests` - Run all tests across platforms  
+- `./gradlew detektFormat` - Auto-format code, use before completing ANY task.
+- `./gradlew :core:jvmTest --tests "pro.respawn.flowmvi.test.StoreTestSuite"` - Run specific test class
+
+## Main Directories:
+
+- `core/src/commonMain/kotlin/pro/respawn/flowmvi` - core logic, main module
+  - ./StoreImpl.kt - core store implementation
+  - ./api/ - public API interfaces and contracts (Store, State, Intent, Action, etc.)
+  - ./dsl/ - DSL builders for stores, plugins, and configurations
+  - ./modules/ - internal store modules (intent, state, action, recovery, lifecycle)
+  - ./plugins/ - built-in plugins (logging, undo/redo, caching, job management, etc.)
+    - ./delegate/ - delegate plugins for composition
+  - ./decorators/ - public api intent decorators (retry, batch, conflate, timeout)
+  - ./decorator/ - decorator framework and builders
+  - ./impl/ - internal implementations
+    - ./plugin/ - plugin execution machinery
+    - ./store/ - store internals
+  - ./util/ - utility classes (locks, dispatchers, collections)
+  - ./exceptions/ - custom exceptions
+  - ./annotation/ - API annotations (@ExperimentalFlowMVIAPI, etc.)
+  - ./logging/ - logging framework and implementations
+- `android/` - Android ViewModel integration
+- `compose/` - Compose Multiplatform integration with lifecycle-aware subscriptions
+- `savedstate/` - Cross-platform state persistence
+- `essenty/` - Decompose/Essenty integration for retained components
+- `test/` - Testing DSL and utilities (actual tests are per-module)
+- `debugger/` - Remote debugger for the lib (desktop app, IDE plugin, runtime plugin)
+- `sample/` - Complete sample application (wasm, android, desktop). Usage examples here.
+- `benchmarks/` - Benchmarks module
+- `docs/` - Documentation directory. Read documentation to self-educate on aspects of the library.
+- `metrics/` - Metrics decorator and related code
+
+
+### Before you complete a task
+
+1. Run `detektFormat`. It will autofix lint, and warn you about remaining issues to solve.
+2. Assemble the target module.
+3. Run unit tests with `gradle allTests`.
+
+## Commit Guidelines
+
+Format: `<type>[!]: [description]` where scope is optional, `!` = breaking change
+
+**Types:** `feat` (→🚀 Features), `fix` (→🐞 Fixes), `feat!`/`breaking`/`api` (→🧨 Breaking), `docs` (→📚 Docs), 
+`perf`, `refactor`, `test`, `chore`, `build`, `ci`, `style`, `revert`
+
+Examples: `feat: add state recovery`, `fix: resolve lifecycle conflict`, `feat!: change Saver API`
+
+
+## Additional docs.
+
+- Before writing tests, read `./docs/ai/testing.md` for instructions.
+
+## Notes 
+
+- Document public code via kdocs.
+- Do not run `assemble` on the entire project, that task can take hours, use more granular tasks
+- Avoid source-breaking changes. Deprecate public api instead of removing it.
+- Main branch: `master`. Master = prod.
+- Ignore warnings about experimental or unsupported features - they are informational
+- Put native platform code in nativeMain, or if using Apple APIs, in appleMain. Native includes all Apple platforms.
+- Keep the ./skills/flowmvi skill up to date, same way you keep docs up to date. Always update api signatures and docs there when you change public APIs.
+
+---
+> Source: [respawn-llc/FlowMVI](https://github.com/respawn-llc/FlowMVI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
