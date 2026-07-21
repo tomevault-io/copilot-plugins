@@ -1,0 +1,63 @@
+{
+  "name": "ascii-chat",
+  "owner": "zfogg",
+  "repo": "ascii-chat",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sentry-commit-messages",
+      "path": ".cursor/skills/sentry-commit-messages",
+      "github_url": "https://github.com/zfogg/ascii-chat/tree/main/.cursor/skills/sentry-commit-messages",
+      "description": ""
+    },
+    {
+      "name": "ascii-chat",
+      "path": ".agents/skills/browser-use/SKILL.md",
+      "github_url": "https://github.com/zfogg/ascii-chat/tree/main/.agents/skills/browser-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ascii-chat",
+      "path": ".cursor/skills/sentry-commit-messages/SKILL.md",
+      "github_url": "https://github.com/zfogg/ascii-chat/tree/main/.cursor/skills/sentry-commit-messages/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zfogg/ascii-chat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:11:57Z"
+}
