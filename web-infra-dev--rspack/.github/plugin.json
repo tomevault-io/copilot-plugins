@@ -1,0 +1,42 @@
+{
+  "name": "web-infra-dev--rspack",
+  "displayName": "rspack",
+  "description": "rspack",
+  "version": "1.0.0",
+  "author": "web-infra-dev",
+  "homepage": "https://github.com/web-infra-dev/rspack",
+  "skills": [
+    {
+      "name": "rspack-perf-profiling",
+      "description": ""
+    },
+    {
+      "name": "rspack-sftrace",
+      "description": ""
+    },
+    {
+      "name": "rspack",
+      "description": ""
+    },
+    {
+      "name": "rspack",
+      "description": ""
+    },
+    {
+      "name": "rspack",
+      "description": ""
+    },
+    {
+      "name": "rspack",
+      "description": ""
+    },
+    {
+      "name": "rspack",
+      "description": ""
+    },
+    {
+      "name": "rspack",
+      "description": ""
+    }
+  ]
+}
