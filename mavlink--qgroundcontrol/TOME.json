@@ -1,0 +1,99 @@
+{
+  "name": "qgroundcontrol",
+  "owner": "mavlink",
+  "repo": "qgroundcontrol",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-qml/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-qml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-cpp-docs/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-cpp-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-qml-test/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-qml-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-qml-docs/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-qml-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-ui-design/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-ui-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-cpp-review/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-cpp-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-qml-review/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-qml-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-qml-test-run/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-qml-test-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qgroundcontrol",
+      "path": "tools/skills/qt-qml-profiler/SKILL.md",
+      "github_url": "https://github.com/mavlink/qgroundcontrol/tree/main/tools/skills/qt-qml-profiler/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mavlink/qgroundcontrol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T06:56:43Z"
+}
