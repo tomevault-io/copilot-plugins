@@ -1,0 +1,18 @@
+{
+  "name": "tektoncd--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "tektoncd",
+  "homepage": "https://github.com/tektoncd/cli",
+  "skills": [
+    {
+      "name": "cli",
+      "description": ""
+    },
+    {
+      "name": "cli",
+      "description": ""
+    }
+  ]
+}
