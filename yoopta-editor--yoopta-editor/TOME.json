@@ -1,0 +1,99 @@
+{
+  "name": "Yoopta-Editor",
+  "owner": "yoopta-editor",
+  "repo": "Yoopta-Editor",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/social-content/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/social-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/email-sequence/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/email-sequence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/marketing-ideas/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/marketing-ideas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/content-strategy/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/content-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/pricing-strategy/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/pricing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/programmatic-seo/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/programmatic-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/marketing-psychology/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/marketing-psychology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/competitor-alternatives/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/competitor-alternatives/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Yoopta-Editor",
+      "path": ".agents/skills/product-marketing-context/SKILL.md",
+      "github_url": "https://github.com/yoopta-editor/Yoopta-Editor/tree/main/.agents/skills/product-marketing-context/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yoopta-editor/Yoopta-Editor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:48:43Z"
+}
