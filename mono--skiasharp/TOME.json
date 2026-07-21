@@ -1,0 +1,171 @@
+{
+  "name": "SkiaSharp",
+  "owner": "mono",
+  "repo": "SkiaSharp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "release-notes",
+      "path": ".agents/skills/release-notes",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/release-notes",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/api-docs/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/api-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/issue-fix/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/issue-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/ci-status/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/ci-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/update-skia/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/update-skia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/issue-repro/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/issue-repro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/issue-triage/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/issue-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/sample-scout/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/sample-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/skia-analyst/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/skia-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/security-audit/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/release-branch/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/release-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/release-status/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/release-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/api-add-review/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/api-add-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/release-publish/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/release-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/release-testing/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/release-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/validate-samples/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/validate-samples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/pr-commit-message/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/pr-commit-message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/review-skia-update/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/review-skia-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/issue-bulk-process/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/issue-bulk-process/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SkiaSharp",
+      "path": ".agents/skills/native-dependency-update/SKILL.md",
+      "github_url": "https://github.com/mono/SkiaSharp/tree/main/.agents/skills/native-dependency-update/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mono/SkiaSharp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:15:17Z"
+}
