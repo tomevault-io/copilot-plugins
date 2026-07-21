@@ -1,0 +1,147 @@
+{
+  "name": "kata",
+  "owner": "gannonh",
+  "repo": "kata",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kata",
+      "path": ".agents/skills/mintlify/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/.agents/skills/mintlify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-setup/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": ".agents/skills/uat-evidence/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/.agents/skills/uat-evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-health/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": ".agents/skills/debug-symphony/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/.agents/skills/debug-symphony/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-progress/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-progress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": ".agents/skills/releasing-kata/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/.agents/skills/releasing-kata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-plan-phase/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-plan-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-plan-issue/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-plan-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-verify-work/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-verify-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-new-project/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-new-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-execute-phase/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-execute-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-new-milestone/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-new-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-execute-issue/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-execute-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-update-project/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-update-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "apps/cli/skills/kata-complete-milestone/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/apps/cli/skills/kata-complete-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kata",
+      "path": "packages/shared/assets/system-skills/spec-elicitation/SKILL.md",
+      "github_url": "https://github.com/gannonh/kata/tree/main/packages/shared/assets/system-skills/spec-elicitation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gannonh/kata",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:09:33Z"
+}
