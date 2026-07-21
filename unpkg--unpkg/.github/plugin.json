@@ -1,0 +1,14 @@
+{
+  "name": "unpkg--unpkg",
+  "displayName": "unpkg",
+  "description": "unpkg",
+  "version": "1.0.0",
+  "author": "unpkg",
+  "homepage": "https://github.com/unpkg/unpkg",
+  "skills": [
+    {
+      "name": "unpkg",
+      "description": ""
+    }
+  ]
+}
