@@ -1,0 +1,9 @@
+{
+  "name": "mitmproxy--mitmproxy",
+  "displayName": "mitmproxy",
+  "description": "mitmproxy",
+  "version": "1.0.0",
+  "author": "mitmproxy",
+  "homepage": "https://github.com/mitmproxy/mitmproxy",
+  "skills": []
+}
