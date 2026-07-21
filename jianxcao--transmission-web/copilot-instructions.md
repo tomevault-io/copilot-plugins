@@ -1,482 +1,125 @@
-## typescript
+## transmission-web
 
-> TypeScript 类型安全和最佳实践
+> Guidelines for agentic coding agents working in this repository.
 
+# AGENTS.md
 
-# TypeScript 规范
+Guidelines for agentic coding agents working in this repository.
 
-## 类型系统
+## Project Overview
 
-### 基础类型使用
-```typescript
-// ✅ 优先使用类型推断
-const count = 0 // 推断为 number
-const message = 'hello' // 推断为 string
+`transmission-web` is a modern Transmission BitTorrent web UI built with Vue 3 and TypeScript.
 
-// ✅ 必要时显式声明类型
-let userId: number
-let torrentName: string
+- Framework: Vue 3 with Composition API
+- Language: TypeScript, strict mode enabled
+- Build tool: Vite 7 with `rolldown-vite` override through pnpm
+- UI: Naive UI
+- State: Pinia
+- Styling: UnoCSS, Less, global CSS
+- Package manager: pnpm >= 10
+- Node: >= 20
 
-// ❌ 避免冗余类型声明
-const count: number = 0 // 不必要
+## Common Commands
+
+```bash
+pnpm install        # install dependencies
+pnpm dev            # start Vite dev server, configured on port 5174
+pnpm check          # run vue-tsc type checking
+pnpm build          # type-check and build production assets into dist/
+pnpm preview        # preview built assets
+pnpm lint           # ESLint with auto-fix enabled
+pnpm lint:fix       # same as pnpm lint
+pnpm build:prod     # release-style local build with VITE_BASE_URL=/transmission/web
+pnpm release:check  # validate release environment
+pnpm release        # GitHub release script; expects a version argument
 ```
 
-### Interface vs Type
+Before finishing code changes, prefer at least `pnpm check`; run `pnpm build` for changes that affect routing, build config, generated imports, or production behavior. There is currently no dedicated test framework configured.
 
-#### 使用 Interface
-```typescript
-// ✅ 对象形状定义
-interface TorrentInfo {
-  id: number
-  name: string
-  status: TorrentStatus
-  totalSize: number
-  downloadedSize: number
-}
+## Project Structure
 
-// ✅ 接口扩展
-interface DetailedTorrent extends TorrentInfo {
-  files: FileInfo[]
-  peers: PeerInfo[]
-}
-
-// ✅ 声明合并
-interface Window {
-  customProperty: string
-}
+```text
+src/
+├── api/                    # Transmission RPC client and typed RPC methods
+├── assets/                 # local icons and static assets
+├── components/             # Vue components
+│   ├── AppHeader/          # top toolbar and mobile action menu
+│   ├── CanvasList/         # canvas-based virtual list/table implementation
+│   ├── TorrentList/        # DOM-based torrent list pieces
+│   ├── SiderbarView.vue/   # sidebar component directory, keep existing spelling
+│   └── dialog/             # modal dialogs and settings panes
+├── composables/            # reusable Composition API helpers
+├── const/                  # shared constants
+├── i18n/                   # Vue I18n setup and locale JSON files
+├── router/                 # Vue Router routes
+├── store/                  # Pinia stores
+├── styles/                 # shared Less styles
+├── types/                  # TypeScript domain types
+├── utils/                  # general utilities
+└── views/                  # route-level views
 ```
 
-#### 使用 Type
-```typescript
-// ✅ 联合类型
-type TorrentStatus = 'stopped' | 'checking' | 'downloading' | 'seeding'
-type FilterType = 'all' | 'active' | 'downloading' | 'seeding' | 'paused'
+## Architecture Notes
 
-// ✅ 交叉类型
-type TorrentWithMeta = TorrentInfo & {
-  addedDate: number
-  creator: string
-}
+- `src/api/rpc.ts` owns the Axios instance, Transmission RPC session-id retry handling, auth headers, and most domain types.
+- `src/api/trpc.ts` is a thin method-name wrapper over `callRpc`; keep new RPC calls consistent with this shape.
+- `src/store/setting.ts` persists settings through VueUse `useStorage`, including domain, auth mode, language, polling intervals, sidebar state, and display preferences.
+- `src/store/torrent.ts` owns torrent polling data, filtering, sorting, menu option derivation, visible columns, and selection state.
+- `src/components/CanvasList/` contains the high-performance canvas list path. Be careful with viewport, row height, column width, and mobile rendering assumptions.
+- The app uses Vue Router history with `import.meta.env.VITE_BASE_URL || '/'`.
+- Vite dev proxy sends `/transmission/rpc` to `VITE_DOMAIN`.
+- Docker runtime serves static files through nginx on `PORT` default `7632` and proxies `/transmission/rpc` to `BACKEND_URL` default `http://localhost:9091`.
 
-// ✅ 工具类型
-type PartialTorrent = Partial<TorrentInfo>
-type ReadonlyTorrent = Readonly<TorrentInfo>
+## Code Style
 
-// ✅ 复杂类型
-type AsyncResponse<T> = Promise<{
-  success: boolean
-  data: T
-  error?: string
-}>
-```
+- Use Vue 3 Composition API and `<script setup>` for new Vue components unless nearby code uses another pattern.
+- Prefer the existing `@/` alias for local imports.
+- Semicolons are disallowed.
+- Curly braces are required for control statements.
+- Single quotes are preferred.
+- Keep Prettier settings in mind: 2-space tabs, `printWidth: 120`, no trailing commas.
+- `no-console` is disabled and `@typescript-eslint/no-explicit-any` is disabled, but prefer precise types when practical.
+- `noUnusedLocals` and `noUnusedParameters` are disabled in TypeScript config; do not add unused code unless it is intentional and useful.
 
-## 类型定义
+## Auto Imports And Generated Files
 
-### 函数类型
-```typescript
-// ✅ 函数签名
-type FetchTorrents = (ids?: number[]) => Promise<TorrentInfo[]>
-type TorrentPredicate = (torrent: TorrentInfo) => boolean
+- Vue, VueUse, and Vue Router APIs are auto-imported by `unplugin-auto-import`; generated declarations live in `src/auto-imports.d.ts`.
+- Naive UI components are auto-registered by `unplugin-vue-components`; generated declarations live in `components.d.ts`.
+- If component or auto-import behavior changes, run the relevant dev/build command so generated declarations stay current.
 
-// ✅ 函数重载
-function getTorrent(id: number): TorrentInfo | undefined
-function getTorrent(name: string): TorrentInfo[]
-function getTorrent(idOrName: number | string): TorrentInfo | TorrentInfo[] | undefined {
-  // implementation
-}
+## Internationalization
 
-// ✅ 泛型函数
-function createStore<T>(initialState: T) {
-  const state = ref(initialState)
-  return {
-    state: readonly(state),
-    setState: (newState: T) => {
-      state.value = newState
-    }
-  }
-}
-```
+- Supported locales are `zh-CN` and `en-US`.
+- Locale files live under `src/i18n/locales/`.
+- Keep translation keys synchronized across all locale JSON files.
+- Use existing key namespaces where possible: `common`, `nav`, `status`, `header`, `sidebar`, `torrentList`, `contextMenu`, `addTorrent`, `settings`, `details`, `statusBar`, `notifications`, `errors`, `time`, and `units`.
+- Use `$t(...)` in templates or the project composable from `@/composables/useI18n` in scripts when it fits the surrounding code.
 
-### 对象类型
-```typescript
-// ✅ 索引签名
-interface TorrentMap {
-  [id: number]: TorrentInfo
-}
+## UI And State Guidelines
 
-interface TranslationMessages {
-  [key: string]: string | TranslationMessages
-}
+- Preserve responsive behavior for desktop and mobile. Many workflows have separate mobile affordances, long-press handling, or canvas rendering paths.
+- For torrent list changes, check both `TorrentList` and `CanvasList` paths when the behavior should be shared.
+- Preserve user settings stored in localStorage/sessionStorage unless a migration is explicitly required.
+- For polling or RPC changes, respect the existing `setting.polling` intervals and Transmission session-id retry flow.
+- When adding visible text, add i18n keys rather than hard-coded user-facing strings.
 
-// ✅ 可选属性
-interface TorrentOptions {
-  downloadDir?: string
-  bandwidthPriority?: -1 | 0 | 1
-  seedRatioLimit?: number
-}
+## Build And Release Notes
 
-// ✅ 只读属性
-interface SessionConfig {
-  readonly version: string
-  readonly rpcVersion: number
-}
-```
+- `pnpm build` runs `vue-tsc -b` before `vite build`.
+- Production build output is `dist/`.
+- `scripts/build.sh` sets `VITE_BASE_URL=/transmission/web` for release-style builds.
+- Release scripts are documented in `scripts/README.md`; avoid changing release behavior without checking those scripts.
+- Docker builds the frontend in a Node image, then serves `/app/static` with nginx.
 
-### 数组和元组
-```typescript
-// ✅ 数组类型
-const torrents: TorrentInfo[] = []
-const ids: number[] = [1, 2, 3]
-const statuses: Array<TorrentStatus> = []
+## Working Rules For Agents
 
-// ✅ 只读数组
-const COLUMNS: readonly string[] = ['name', 'size', 'progress']
-
-// ✅ 元组类型
-type Point = [number, number]
-type NamedPoint = [x: number, y: number]
-
-// ✅ 带可选元素的元组
-type RpcResponse = [success: boolean, data?: any, error?: string]
-```
-
-## 泛型
-
-### 基础泛型
-```typescript
-// ✅ 泛型接口
-interface ApiResponse<T> {
-  success: boolean
-  data: T
-  timestamp: number
-}
-
-// ✅ 泛型约束
-interface HasId {
-  id: number
-}
-
-function findById<T extends HasId>(items: T[], id: number): T | undefined {
-  return items.find(item => item.id === id)
-}
-
-// ✅ 多个泛型参数
-function pair<K, V>(key: K, value: V): [K, V] {
-  return [key, value]
-}
-```
-
-### 实用泛型
-```typescript
-// ✅ 常用工具类型
-type PartialTorrent = Partial<TorrentInfo> // 所有属性可选
-type RequiredOptions = Required<TorrentOptions> // 所有属性必填
-type ReadonlyTorrent = Readonly<TorrentInfo> // 所有属性只读
-type TorrentKeys = keyof TorrentInfo // 键的联合类型
-
-// ✅ Pick 和 Omit
-type TorrentPreview = Pick<TorrentInfo, 'id' | 'name' | 'status'>
-type TorrentWithoutFiles = Omit<DetailedTorrent, 'files' | 'peers'>
-
-// ✅ Record
-type TorrentStatusCount = Record<TorrentStatus, number>
-// 等同于：
-// {
-//   stopped: number
-//   checking: number
-//   downloading: number
-//   seeding: number
-// }
-```
-
-## 类型守卫
-
-### 内置类型守卫
-```typescript
-// ✅ typeof
-function formatValue(value: string | number): string {
-  if (typeof value === 'number') {
-    return value.toFixed(2)
-  }
-  return value
-}
-
-// ✅ instanceof
-class CustomError extends Error {
-  code: number
-}
-
-function handleError(error: Error | CustomError) {
-  if (error instanceof CustomError) {
-    console.log(`Error code: ${error.code}`)
-  }
-}
-
-// ✅ in
-interface NetworkError {
-  statusCode: number
-}
-
-function isNetworkError(error: unknown): error is NetworkError {
-  return (
-    typeof error === 'object' &&
-    error !== null &&
-    'statusCode' in error
-  )
-}
-```
-
-### 自定义类型守卫
-```typescript
-// ✅ 使用 is 关键字
-function isTorrent(value: unknown): value is TorrentInfo {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    'id' in value &&
-    'name' in value &&
-    'status' in value
-  )
-}
-
-// 使用
-function processTorrent(data: unknown) {
-  if (isTorrent(data)) {
-    // data 的类型现在是 TorrentInfo
-    console.log(data.name)
-  }
-}
-
-// ✅ 数组类型守卫
-function isTorrentArray(value: unknown): value is TorrentInfo[] {
-  return Array.isArray(value) && value.every(isTorrent)
-}
-```
-
-## 空值处理
-
-### Null 和 Undefined
-```typescript
-// ✅ 使用可选链
-const fileName = torrent.files?.[0]?.name
-
-// ✅ 空值合并运算符
-const downloadDir = settings.downloadDir ?? '/downloads'
-
-// ✅ 类型收窄
-function getTorrentName(torrent: TorrentInfo | undefined): string {
-  if (!torrent) {
-    return 'Unknown'
-  }
-  return torrent.name
-}
-
-// ✅ 非空断言（确定不为空时使用）
-const torrent = torrents.find(t => t.id === id)!
-// 注意：仅在确定值存在时使用，否则使用可选链
-```
-
-### 类型断言
-```typescript
-// ✅ as 断言
-const input = document.querySelector('#torrent-name') as HTMLInputElement
-input.value = 'New Name'
-
-// ✅ 双重断言（谨慎使用）
-const unknownData = responseData as unknown as TorrentInfo
-
-// ❌ 避免不必要的断言
-const count = (5 + 3) as number // 不必要
-
-// ✅ 使用类型守卫代替断言
-if (isTorrent(data)) {
-  // 类型安全
-  console.log(data.name)
-}
-```
-
-## Vue 中的 TypeScript
-
-### 组件 Props
-```typescript
-// ✅ 使用泛型定义 props
-interface Props {
-  torrent: TorrentInfo
-  compact?: boolean
-  onSelect?: (id: number) => void
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  compact: false
-})
-
-// ✅ PropType 用于复杂类型
-import type { PropType } from 'vue'
-
-const props = defineProps({
-  status: {
-    type: String as PropType<TorrentStatus>,
-    required: true
-  },
-  torrents: {
-    type: Array as PropType<TorrentInfo[]>,
-    default: () => []
-  }
-})
-```
-
-### Composables
-```typescript
-// ✅ 明确返回类型
-export function useTorrentFilter(torrents: Ref<TorrentInfo[]>) {
-  const filterText = ref('')
-  
-  const filtered = computed(() => {
-    return torrents.value.filter(t => 
-      t.name.toLowerCase().includes(filterText.value.toLowerCase())
-    )
-  })
-  
-  return {
-    filterText: readonly(filterText),
-    filtered: readonly(filtered)
-  }
-}
-
-// ✅ 泛型 composable
-export function useAsync<T>(
-  asyncFn: () => Promise<T>
-) {
-  const data = ref<T>()
-  const error = ref<Error>()
-  const loading = ref(false)
-  
-  const execute = async () => {
-    loading.value = true
-    try {
-      data.value = await asyncFn()
-    } catch (e) {
-      error.value = e as Error
-    } finally {
-      loading.value = false
-    }
-  }
-  
-  return {
-    data: readonly(data),
-    error: readonly(error),
-    loading: readonly(loading),
-    execute
-  }
-}
-```
-
-### Store 类型
-```typescript
-// ✅ 定义 Store 类型
-export const useTorrentStore = defineStore('torrent', () => {
-  const torrents = ref<TorrentInfo[]>([])
-  const selectedIds = ref<Set<number>>(new Set())
-  
-  const selectedTorrents = computed(() => {
-    return torrents.value.filter(t => selectedIds.value.has(t.id))
-  })
-  
-  async function fetchTorrents(): Promise<void> {
-    const response = await torrentApi.getAll()
-    torrents.value = response.data
-  }
-  
-  return {
-    torrents: readonly(torrents),
-    selectedIds,
-    selectedTorrents,
-    fetchTorrents
-  }
-})
-
-// ✅ 使用 Store 类型
-export type TorrentStore = ReturnType<typeof useTorrentStore>
-```
-
-## 严格模式
-
-### tsconfig.json 配置
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  }
-}
-```
-
-## 最佳实践
-
-### 1. 避免 any
-```typescript
-// ❌ 不要使用 any
-const data: any = response.data
-
-// ✅ 使用具体类型
-const data: TorrentInfo = response.data
-
-// ✅ 使用 unknown + 类型守卫
-const data: unknown = response.data
-if (isTorrent(data)) {
-  console.log(data.name)
-}
-```
-
-### 2. 使用 const assertions
-```typescript
-// ✅ const assertions 保持字面量类型
-const STATUSES = ['stopped', 'downloading', 'seeding'] as const
-type Status = typeof STATUSES[number] // 'stopped' | 'downloading' | 'seeding'
-
-// ✅ 对象 const assertion
-const CONFIG = {
-  maxRetries: 3,
-  timeout: 5000
-} as const
-```
-
-### 3. 优先使用类型推断
-```typescript
-// ❌ 冗余的类型声明
-const torrents: TorrentInfo[] = getTorrents()
-
-// ✅ 让 TypeScript 推断
-const torrents = getTorrents() // 已经知道返回 TorrentInfo[]
-```
-
-### 4. 使用枚举的替代方案
-```typescript
-// ❌ 枚举（运行时开销）
-enum TorrentStatus {
-  Stopped = 'stopped',
-  Downloading = 'downloading'
-}
-
-// ✅ 联合类型（无运行时开销）
-const TORRENT_STATUS = {
-  STOPPED: 'stopped',
-  DOWNLOADING: 'downloading'
-} as const
-
-type TorrentStatus = typeof TORRENT_STATUS[keyof typeof TORRENT_STATUS]
-```
+- Keep changes narrowly scoped to the requested behavior.
+- Read nearby components, stores, and composables before introducing new abstractions.
+- Do not rename existing directories such as `SiderbarView.vue/` unless the user explicitly asks; imports and paths may depend on the current spelling.
+- Do not rewrite generated declaration files by hand.
+- Do not add a test framework or large dependency just to cover a small change unless requested.
+- If a command fails because of pre-existing unrelated issues, report the failure and the relevant output instead of broadening the edit.
 
 ---
 > Source: [jianxcao/transmission-web](https://github.com/jianxcao/transmission-web) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
