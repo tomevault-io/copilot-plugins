@@ -1,0 +1,30 @@
+{
+  "name": "tektoncd--catalog",
+  "displayName": "catalog",
+  "description": "catalog",
+  "version": "1.0.0",
+  "author": "tektoncd",
+  "homepage": "https://github.com/tektoncd/catalog",
+  "skills": [
+    {
+      "name": "catalog",
+      "description": ""
+    },
+    {
+      "name": "catalog",
+      "description": ""
+    },
+    {
+      "name": "catalog",
+      "description": ""
+    },
+    {
+      "name": "catalog",
+      "description": ""
+    },
+    {
+      "name": "catalog",
+      "description": ""
+    }
+  ]
+}
