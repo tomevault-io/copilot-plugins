@@ -1,0 +1,18 @@
+{
+  "name": "xtermjs--xterm-js",
+  "displayName": "xterm.js",
+  "description": "xterm.js",
+  "version": "1.0.0",
+  "author": "xtermjs",
+  "homepage": "https://github.com/xtermjs/xterm.js",
+  "skills": [
+    {
+      "name": "xterm.js",
+      "description": ""
+    },
+    {
+      "name": "xterm.js",
+      "description": ""
+    }
+  ]
+}
