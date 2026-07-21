@@ -1,0 +1,209 @@
+## tubeless
+
+> This file provides guidance to Claude Code (claude.ai/code) and Codex (Codex.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) and Codex (Codex.ai/code) when working with code in this repository.
+
+## What this project is
+
+Tubeless is a self-hosted Phoenix/Elixir web app that wraps `yt-dlp` to automatically download YouTube content (channels, playlists) on a schedule. It uses SQLite (via `ecto_sqlite3`), Oban for background jobs, and Phoenix LiveView for the UI. Deployed as a single Docker container with no external dependencies.
+
+## Commands
+
+> **On macOS, run tests through Docker, not natively.** The suite needs Linux-only
+> binaries (SQLean `.so`, yt-dlp/ffmpeg/Deno/Apprise) that aren't available on the
+> host, so `mix test` / `mix check` will not work directly. Use the two wrapper
+> scripts below — they run inside the pinned ci-base image and share a warm build
+> cache:
+>
+> - `tooling/test.sh [args…]` — **fast iteration loop.** Passes everything through
+>   to `mix test`, skips the non-test checks and asset builds. This is what you run
+>   after editing code.
+>   - `tooling/test.sh test/path/to/file_test.exs` — one file
+>   - `tooling/test.sh test/path/to/file_test.exs:42` — one test by line
+>   - `tooling/test.sh --failed` / `--stale` — re-run last failures / affected tests
+>   - `tooling/test.sh` (no args) — whole suite
+>   - `tooling/test.sh --clean …` — wipe the cached volumes first
+>   - `tooling/test.sh --shell` — drop into a shell in the container
+> - `tooling/lint_test.sh` — **pre-commit gate.** Full `mix check` (compiler, credo, sobelow, prettier, full ExUnit) inside the same image. Slower; run once before committing, not while iterating. Shares volumes with `test.sh`.
+>
+> The bare `mix …` commands below are the underlying tasks these scripts run; on a
+> Linux dev box (or inside `--shell`) you can call them directly.
+
+```bash
+# Initial setup
+mix setup               # deps.get + DB create/migrate/seed + asset setup/build
+
+# Development server (inside Docker or with deps installed)
+iex -S mix phx.server  # starts on port 4008 in dev
+
+# Tests
+mix test                          # run all tests (creates/migrates DB automatically)
+mix test test/path/to/file_test.exs          # single file
+mix test test/path/to/file_test.exs:42       # single test by line number
+
+# Full quality check (what CI runs)
+mix check                         # formatter + compiler + sobelow + prettier + ex_unit
+
+# Individual checks
+mix credo                         # Elixir code style
+mix sobelow --config              # security scan
+yarn run lint:check               # Prettier (JS/CSS)
+yarn run lint:fix                 # Prettier auto-fix
+
+# Database
+mix ecto.migrate                  # run migrations (also regenerates priv/repo/erd.png)
+mix ecto.rollback                 # rollback one migration
+mix ecto.reset                    # drop + recreate + migrate + seed
+
+# Assets
+mix assets.build                  # compile Tailwind + esbuild (dev)
+mix assets.deploy                 # minified build + digest for production
+
+# Versioning
+mix version.bump                  # runs tooling/version_bump.sh
+```
+
+## Architecture
+
+## Codebase
+
+- Project layout is stored in @CODEBASE.md
+
+### Core domain model
+
+Two top-level entities drive everything:
+
+- **`Source`** (`lib/pinchflat/sources/`) — a YouTube channel or playlist the user wants to track. Has a `MediaProfile` that defines download rules.
+- **`MediaItem`** (`lib/pinchflat/media/`) — a single video/audio item belonging to a Source. Tracks download state, file paths, metadata.
+- **`MediaProfile`** (`lib/pinchflat/profiles/`) — reusable settings for how to download (format, quality, naming, Shorts/livestream rules, SponsorBlock, etc.).
+
+### Background job system
+
+All async work is done through **Oban** jobs. There's a thin wrapper called **`Task`** (`lib/pinchflat/tasks/`) that links an `Oban.Job` to either a `Source` or `MediaItem`. Use `Tasks.create_job_with_task/2` when scheduling work — it handles deduplication and the task record atomically.
+
+Key workers:
+
+- `FastIndexingWorker` (`lib/pinchflat/fast_indexing/`) — polls YouTube RSS feeds to detect new videos quickly without hitting the API
+- `MediaCollectionIndexingWorker` (`lib/pinchflat/slow_indexing/`) — full yt-dlp metadata fetch for a Source (slow indexing)
+- `MediaDownloadWorker` (`lib/pinchflat/downloading/`) — downloads a single MediaItem via yt-dlp
+- `MediaQualityUpgradeWorker` (`lib/pinchflat/downloading/`) — re-downloads media after a configured delay to get better quality
+- `MediaRetentionWorker` (`lib/pinchflat/downloading/`) — deletes old media per retention settings
+- `SourceMetadataStorageWorker` (`lib/pinchflat/metadata/`) — fetches and stores source-level metadata (images, NFO, etc.)
+- `FileSyncingWorker` (`lib/pinchflat/media/`) — reconciles MediaItem records with files on disk
+- `SourceDeletionWorker` (`lib/pinchflat/sources/`) — cascades deletion of a Source and all its media
+- `MediaProfileDeletionWorker` (`lib/pinchflat/profiles/`) — cascades deletion of a MediaProfile
+- `UpdateWorker` (`lib/pinchflat/yt_dlp/`) — keeps the yt-dlp executable up to date according to the configured update policy. The policy logic lives in `UpdateManager` (`lib/pinchflat/yt_dlp/update_manager.ex`): `stable`/`nightly` track a channel, `nightly_frozen`/`pinned` hold one version, and `nightly_until_stable` rides nightly then auto-reverts to stable once a stable release catches up (using `ReleaseLookup` against the GitHub API + `Utils.VersionUtils` for date-version comparison). The `stable` policy resolves the exact latest stable version via `ReleaseLookup` and targets `yt-dlp/yt-dlp@<version>` (not the `stable` channel) so yt-dlp will _downgrade_ when the installed binary is a newer nightly — a plain `--update` refuses to move backwards and would strand you on the nightly. If the GitHub lookup fails it falls back to the channel update. The one-shot jump on a settings change runs via `UpdateWorker.kickoff_apply/0` (`%{"apply_policy" => true}`), distinct from the recurring cron/boot run. The recurring run re-asserts the held version for `pinned` (`yt_dlp_pinned_version`), `nightly_frozen` (the captured `yt_dlp_nightly_baseline`, re-installed via the `nightly@<version>` target), and `nightly_until_stable` while it's still holding (re-installs the same `yt_dlp_nightly_baseline` nightly until stable actually catches up) rather than no-op'ing — yt-dlp lives on the container's ephemeral filesystem, so an image swap reverts it to the baked-in build and the policy must true it back up on boot. `CommandRunner.update/1` builds the actual yt-dlp target: an exact nightly pins via the `nightly@<version>` _channel alias_ (yt-dlp resolves `nightly` to the `yt-dlp/yt-dlp-nightly-builds` repo — naming a `yt-dlp/yt-dlp_nightly@<tag>` repo path fails), while stable/`pinned` versions pin via `yt-dlp/yt-dlp@<version>`. Note yt-dlp's exit codes here are counterintuitive: a no-URL update exits `0` for both a successful update and "already up to date", and exits `100` from its _error_ handler (bad/missing tag, network failure, unwritable binary) — so `update/1` treats only `0` as success. The policy is a DB setting (`yt_dlp_update_policy` / `yt_dlp_pinned_version`), edited in the Settings UI.
+
+### yt-dlp integration
+
+`lib/pinchflat/yt_dlp/` contains the yt-dlp abstraction. The executable path and runner module are injected via application config (`config :pinchflat, yt_dlp_runner: ...`), making it easy to mock in tests. In test, `config/test.exs` points both `yt_dlp_executable` and `apprise_executable` to scripts in `test/scripts/yt-dlp-mocks/`.
+
+`ResponseDecoder` (`lib/pinchflat/yt_dlp/response_decoder.ex`) decodes JSON output from yt-dlp commands, logging the raw response and returning a clean `{:error, binary()}` tuple when it can't be parsed (empty/truncated output after an extractor or yt-dlp behaviour change). It's used by both `Media` and `MediaCollection` so workers fail-and-retry cleanly instead of crashing on `Jason.DecodeError`.
+
+`UnavailableMedia` (`lib/pinchflat/yt_dlp/unavailable_media.ex`) classifies yt-dlp error output for media that can never be downloaded (members-only, private, removed). It's shared by the download path and the source-metadata/indexing path, and is kept distinct from the cookie-recoverable errors in `Downloading.MediaDownloader` so the cookie-retry path always runs first. When the `ignore_unavailable_media` setting is enabled, both paths treat these as permanently unavailable rather than failing/retrying.
+
+SponsorBlock handling is configured per MediaProfile as two independent category lists (`sponsorblock_remove_categories` / `sponsorblock_mark_categories`), so a profile can remove some categories (e.g. sponsors) while marking others as chapters (e.g. intros). `Downloading.DownloadOptionBuilder.sponsorblock_options/1` emits `--sponsorblock-remove` and `--sponsorblock-mark` together, one per non-empty list; both lists empty means disabled. The changeset rejects a category appearing in both lists (yt-dlp would silently let remove win). The form's checkbox groups include a hidden empty input (in the shared `checkbox_group` component) so unchecking every box submits `[""]` — Ecto's cast filters the empty string, clearing the stored list.
+
+Download format selection is built per MediaProfile by `Downloading.QualityOptionBuilder`. The `ignore_youtube_super_resolution` profile option is off by default; when enabled, every selected stream and fallback gets the yt-dlp filter `[format_note!*=?AI-upscaled]`. The `?` keeps formats without a `format_note`, while formats explicitly identified as YouTube Super Resolution are excluded. Keep the filter on every fallback branch when changing the selector so a trailing `best` cannot select an AI-upscaled format.
+
+### Other domain areas
+
+- `lib/pinchflat/metadata/` — parses and persists yt-dlp metadata: source/media metadata, NFO files (for Jellyfin/Kodi), source images. Source-level NFOs/artwork are written to the source's "series directory", resolved by `SourceMetadataStorageWorker` from a simulated yt-dlp render of the output template: a `{{ series_root }}` marker in the template (expands to nothing in real renders; swapped for a sentinel during resolution) explicitly names the root directory, with a fallback that detects a season-style folder (`Season 1`, `s2024`, …) and uses its parent. The marker supports YouTube-style (`/Channel/Videos/…`) and flat layouts the season heuristic can't handle (issue #141); placement rules (one marker, attached to a directory name, not the filename) are enforced by `MediaProfile.validate_series_root_marker/2`, shared with `Source` for template overrides.
+- `lib/pinchflat/podcasts/` — builds podcast RSS and OPML feeds so Sources can be consumed by podcast apps.
+- `lib/pinchflat/lifecycle/` — side effects around media lifecycle: Apprise `notifications` and user-defined `user_scripts` run via command runners.
+- `lib/pinchflat/http/` — small HTTP client behaviour (`http_behaviour.ex` / `http_client.ex`) for RSS fetches and similar, mockable in tests.
+- `lib/pinchflat/diagnostics/` — `QueueDiagnostics` powers the Oban queue diagnostics page in the UI. Each queue card on the page can be expanded to list the jobs currently in that queue (capped at 50, via `get_jobs_for_queue/2`); the Queue Health section is an embedded LiveView (`QueueHealthLive`, colocated in `diagnostics_html/`) so its Refresh button re-fetches stats in place instead of reloading the page. Discarded jobs can be reset or permanently deleted (`delete_discarded_job/1`), and a "Details" column resolves each job's args to the Source/MediaItem/MediaProfile it targets (`describe_job/2`). Long-running (executing) and retryable jobs can be **requeued** (`requeue_job/1`) rather than cancelled outright: this cancels the current run (killing its yt-dlp process if executing) and enqueues a fresh copy of the same worker + args at the back of the queue, re-linking it to a Task via `Tasks.create_job_with_task/2` when it targets a Source/MediaItem. This replaced a bare cancel that silently dropped the work — important for single-worker setups (`YT_DLP_WORKER_CONCURRENCY=1`) where a long slow-index holds the only slot and the user needs to yield it to other jobs without losing the index. The page also has a "Database" section powered by `DatabaseDiagnostics`: on-disk size broken into the main file vs the WAL/SHM sidecars (the two are summed, which is why the UI figure exceeds an `ls` of the main file), VACUUM-reclaimable space (`freelist_count × page_size`), journal mode, row counts for the growth-dominating tables, and an orphaned-tasks canary (tasks whose Oban job vanished — should always be 0 since the FK cascades). Database compaction runs through `DatabaseMaintenanceWorker` (WAL `wal_checkpoint(TRUNCATE)`, then `VACUUM` + `PRAGMA optimize`, then a final checkpoint-truncate — in WAL mode the VACUUM commits the rebuilt database through the WAL, which would otherwise balloon to the size of the database and distort the reclaimed-bytes figure), triggered by the "Compact Now" button (user-facing copy says "compact", not "vacuum") and a monthly cron (1st of the month, 03:00, after the retention/quality-upgrade jobs so their deletions are reclaimable). Scheduled runs are **opt-in** via the `database_maintenance_enabled` setting (default off while the feature matures — intended to flip to opt-out later): a disabled scheduled run cancels with a reason that the diagnostics card surfaces, while the button always runs regardless (it enqueues with `%{"manual" => true}`, mirroring `UpdateWorker.kickoff_apply/0`'s pattern; job uniqueness is scoped to worker+queue so manual and cron runs still dedupe against each other despite differing args). VACUUM holds the write lock for its whole run — minutes for a ~1GB database on Pi-class hardware — so the worker first reserves a quiet window: it pauses all Oban queues, waits indefinitely for other executing jobs to finish (a slow index can take hours; poll cadence via the `db_maintenance_poll_interval` config), then vacuums and resumes the queues in an `after` block (pause state is in-memory, so a crash can't leave queues stuck paused). As a second line of defense the Repo sets `busy_timeout: 30_000` so writes that do collide with a slow operation wait instead of failing with "database is locked". Inside the reserved window it verifies the DB and temp directories have free space for a full temporary copy of the database (checked via the `disk_space_checker` config, a `df`-backed behaviour mocked in tests) and fails with a descriptive error otherwise — failures surface both in the Failed Jobs tables and in the card's "Last maintenance run" line, which reads the most recent worker job record (including reclaimed bytes stored in the job's `meta`) so silent cron runs are still auditable.
+
+### Indexing: fast vs slow
+
+Tubeless uses two indexing strategies:
+
+1. **Fast indexing** (`lib/pinchflat/fast_indexing/`) — parses YouTube's RSS feed to detect new video IDs cheaply and frequently, then schedules individual downloads.
+2. **Slow indexing** (`lib/pinchflat/slow_indexing/`) — runs full yt-dlp collection fetches on a longer schedule to catch anything RSS misses and update metadata. YouTube channels are indexed one content tab at a time (`/videos`, `/shorts`, `/streams` — canonical URLs built from the source's `collection_id`) as separate yt-dlp invocations, each with its own download archive filtered to that tab's content type. This is required because `--break-on-existing` aborts the whole yt-dlp process, not just the current tab — a single bare-channel-URL run with an archive would stop at the first known video and never reach the shorts/streams tabs (issue #59). A channel URL that already names a tab is used as-is; playlists and non-YouTube sources are never split. A tab that errors (e.g. the channel has no shorts tab) is skipped; the run only fails if every tab fails. A source can also set an **indexing cutoff date** (`index_cutoff_date`): each channel tab then gets `--break-match-filters` so yt-dlp aborts the crawl once it reaches videos uploaded before that date — this applies to first/forced indexes too (where the download archive doesn't), which is where it saves the most time on large channels. It's only applied to YouTube channel tabs (newest-first ordering is what makes the early abort safe); playlists and non-YouTube sources ignore it. A paired `!upload_date` filter keeps date-less entries (upcoming premieres) from tripping the break, and the changeset rejects an index cutoff after the source's download cutoff (media between the two could never be indexed, hence never downloaded).
+
+### Boot sequence
+
+`lib/pinchflat/boot/` has three GenServers run at startup:
+
+- `PreJobStartupTasks` — runs before Oban starts: resets stuck `executing` jobs to `retryable`, ensures the tmpfile directory and blank cookie/yt-dlp-config/user-script files exist, records the installed yt-dlp/Apprise versions, and runs the `app_init` user script
+- `PostJobStartupTasks` — runs after Oban starts: re-kicks any missing indexing job chains. Slow/fast indexing jobs are self-perpetuating (each run schedules its successor), so if a job exhausts its retries and is discarded the chain dies — this reconciliation revives it on the next boot without double-scheduling live chains
+- `PostBootStartupTasks` — runs once everything is ready (triggers yt-dlp self-update)
+
+All three use `restart: :temporary` so they run once and exit cleanly.
+
+### Web layer
+
+Standard Phoenix with LiveView. Routes are defined in `lib/pinchflat_web/router.ex`. The web layer is organized by resource under `lib/pinchflat_web/controllers/` (sources, media_items, media_profiles, settings, podcasts, searches, pages) with shared UI in `lib/pinchflat_web/components/`. LiveViews are colocated with their controllers as `*_live.ex` files (e.g. `sources/source_live/`, `settings/setting_html/cookie_file_live.ex`) rather than living in a separate `live/` directory. Notable routing details:
+
+- Podcast RSS/OPML endpoints bypass basic auth intentionally (to work with podcast apps)
+- `/healthcheck` bypasses auth and CSRF
+- `strip_trailing_extension` plug in `endpoint.ex` allows media streaming URLs with extensions
+- 404/500 error pages render through a dedicated standalone layout (`components/layouts/error.html.heex`, set as `render_errors` `root_layout`) — deliberately free of flash, LiveView, and `Settings.get!` DB calls so error rendering can't crash again mid-render (the app/root layouts require assigns and DB access the error conn doesn't have)
+- `Plug.Static` in `endpoint.ex` pairs `only:` with `only_matching: ~w(favicon apple-touch-icon)` because `~p` emits digested filenames in prod that a literal `only:` match would reject (sending every browser icon request through the router as a 404)
+
+### Configuration injection pattern
+
+Executables and pluggable backends are stored in application config and read at runtime, not hardcoded. This means tests override them cleanly via `config/test.exs`. When adding new external tools or swappable backends, follow this pattern rather than calling executables directly.
+
+## Commits and releases
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+- `fix:` → patch release
+- `feat:` → minor release
+- `chore:` / `docs:` / `perf:` / `revert:` / `style:` / `refactor:` / `test:` / `ci:` → no release bump
+
+Only `fix:`, `feat:`, and a `!` / `BREAKING CHANGE:` (major) bump the version. Every type above is recognized by release-please (see the `changelog-sections` in `release-please-config.json`) and is sorted into the changelog accordingly — `test:` and `ci:` are hidden. Prefer `chore(deps):` for dependency bumps; the legacy `deps:` type is also mapped to the Chores section but is being phased out, so don't use it for new commits.
+
+Prefer `chore(ci):` for CI/build-pipeline changes (rather than a bare `ci:`) so they surface in the Chores changelog section instead of being hidden.
+
+### User-facing commits: write the subject for users
+
+When a `fix:` or `feat:` changes something a user can see or feel — UI, download/indexing behaviour, settings, notifications, feeds, anything that shows up in the app or changes how it behaves for them — the subject line (`-m`, the first line) should describe the change in terms of its **user-visible effect**, not the internal mechanics. These subjects flow into the release-please changelog, so someone reading the release notes should understand what changed for them without knowing the code.
+
+- Lead with what the user now experiences (or no longer experiences), not the function/module/refactor that made it happen.
+- Keep the Conventional Commits prefix and scope; only the wording after the colon changes in emphasis.
+- Put the mechanics (which module, why, how) in the commit **body**, not the subject.
+
+Examples:
+
+- Prefer `fix: correct pending count for sources with no downloaded media` over `fix: adjust MediaQuery pending clause for null download states`.
+- Prefer `feat: let sources skip livestreams still in progress` over `feat: add live_status check to indexing filter`.
+- Prefer `fix: stop re-downloading videos after a title change` over `fix: use media_id instead of title in download archive`.
+
+For non-user-facing types (`chore`, `refactor`, `test`, `ci`, internal `perf`, etc.), keep writing the subject in normal developer terms — there's no user effect to lead with.
+
+While iterating on a change, run the relevant tests with `tooling/test.sh <path>`
+(see the Commands section) to get fast feedback without the full check suite.
+
+Before staging and committing, always run these two checks in order:
+
+1. `prettier . --check --config=.prettierrc.js --ignore-path=.prettierignore --ignore-path=.gitignore --write` — auto-fixes formatting so CI's prettier check doesn't fail.
+2. `tooling/lint_test.sh` — reproduces `.github/workflows/ci.yml`'s `test` job (compiler, credo, sobelow, ExUnit, prettier check) inside the same pinned ci-base Docker image, so a green run here means a green CI `test` job. Requires Docker. Run this after prettier and before every commit.
+3. If on main branch, create new branch for your commits.
+
+Releases are automated via release-please using semantic versioning (current version tracked in `version.txt`, e.g. `1.2.0`). Merging the release PR cuts a release and publishes Docker images to GHCR and Docker Hub. (`mix version.bump` / `tooling/version_bump.sh` still produce a legacy date-based `YYYY.M.D` version and predate the move to release-please — prefer the release-please flow.)
+
+Never push commits unless explicitly asked to do. I prefer commits amended if the work is related to a new feature or a new fix.
+
+## Local Development Guide
+
+- @DEVELOPMENT.md contains instructions for local dev practices
+
+## Maintaining This Documentation
+
+**IMPORTANT**: Keep CLAUDE.md, DEVELOPMENT.md and CODEBASE.md files up to date whenever making changes to the codebase:
+
+- **New features**: Document new configuration options, CLI flags, endpoints, or capabilities
+- **Behavior changes**: Update relevant sections when modifying how episodes are processed, stored, or cleaned up
+- **New platform support**: Add platform-specific documentation under "Platform-Specific Behaviors"
+- **API changes**: Update configuration examples and available options
+- **Bug fixes that affect documented behavior**: Correct any documentation that no longer reflects reality
+- **New limitations or removed limitations**: Update the "Limitations and Known Issues" section
+
+---
+> Source: [CommunityMaintained/tubeless](https://github.com/CommunityMaintained/tubeless) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
