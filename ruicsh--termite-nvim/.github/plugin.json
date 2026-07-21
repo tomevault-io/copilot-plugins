@@ -1,0 +1,9 @@
+{
+  "name": "ruicsh--termite-nvim",
+  "displayName": "termite.nvim",
+  "description": "termite.nvim",
+  "version": "1.0.0",
+  "author": "ruicsh",
+  "homepage": "https://github.com/ruicsh/termite.nvim",
+  "skills": []
+}
