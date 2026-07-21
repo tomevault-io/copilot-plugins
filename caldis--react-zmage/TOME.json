@@ -1,0 +1,75 @@
+{
+  "name": "react-zmage",
+  "owner": "Caldis",
+  "repo": "react-zmage",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sync-public-docs",
+      "path": ".agents/skills/sync-public-docs",
+      "github_url": "https://github.com/Caldis/react-zmage/tree/main/.agents/skills/sync-public-docs",
+      "description": ""
+    },
+    {
+      "name": "react-zmage",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/Caldis/react-zmage/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-zmage",
+      "path": ".agents/skills/release-workflow/SKILL.md",
+      "github_url": "https://github.com/Caldis/react-zmage/tree/main/.agents/skills/release-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-zmage",
+      "path": ".agents/skills/sync-public-docs/SKILL.md",
+      "github_url": "https://github.com/Caldis/react-zmage/tree/main/.agents/skills/sync-public-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react-zmage",
+      "path": "docs/.well-known/agent-skills/react-zmage-integration/SKILL.md",
+      "github_url": "https://github.com/Caldis/react-zmage/tree/main/docs/.well-known/agent-skills/react-zmage-integration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Caldis/react-zmage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-21T02:13:31Z"
+}
