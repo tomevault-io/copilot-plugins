@@ -1,0 +1,14 @@
+{
+  "name": "neurodatascience--dfc",
+  "displayName": "dFC",
+  "description": "dFC",
+  "version": "1.0.0",
+  "author": "neurodatascience",
+  "homepage": "https://github.com/neurodatascience/dFC",
+  "skills": [
+    {
+      "name": "dFC",
+      "description": ""
+    }
+  ]
+}
