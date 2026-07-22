@@ -1,0 +1,9 @@
+{
+  "name": "opencyphal-garage--cy",
+  "displayName": "cy",
+  "description": "Cyphal v1.1 in C: robust decentralized pub/sub with optional reliability and service discovery in a few thousand lines of code that runs anywhere.",
+  "version": "1.0.0",
+  "author": "OpenCyphal-Garage",
+  "homepage": "https://github.com/OpenCyphal-Garage/cy",
+  "skills": []
+}
