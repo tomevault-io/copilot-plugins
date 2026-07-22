@@ -1,0 +1,26 @@
+{
+  "name": "the-openroad-project--openroad",
+  "displayName": "OpenROAD",
+  "description": "OpenROAD",
+  "version": "1.0.0",
+  "author": "The-OpenROAD-Project",
+  "homepage": "https://github.com/The-OpenROAD-Project/OpenROAD",
+  "skills": [
+    {
+      "name": "OpenROAD",
+      "description": ""
+    },
+    {
+      "name": "OpenROAD",
+      "description": ""
+    },
+    {
+      "name": "OpenROAD",
+      "description": ""
+    },
+    {
+      "name": "OpenROAD",
+      "description": ""
+    }
+  ]
+}
