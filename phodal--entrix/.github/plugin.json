@@ -1,0 +1,14 @@
+{
+  "name": "phodal--entrix",
+  "displayName": "entrix",
+  "description": "entrix",
+  "version": "1.0.0",
+  "author": "phodal",
+  "homepage": "https://github.com/phodal/entrix",
+  "skills": [
+    {
+      "name": "entrix",
+      "description": ""
+    }
+  ]
+}
