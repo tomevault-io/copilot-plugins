@@ -101,6 +101,29 @@ For handover updates:
 - workspace-level updates go in `docs/HANDOVER.md` and `docs/CHANGELOG.md`
 - run `git status --short` before closing so the handover does not imply a cleaner worktree than exists
 - if public docs changed, keep `README.md`, `docs/README.md`, `docs/CHANGELOG.md`, and relevant repo-local docs aligned
+## Local-model context handover
+
+The optional local-first worker at `tools/scripts/local-model-context.sh` is a
+task-time preparation helper, not a background memory service. It may invoke
+local Ollama for bounded extraction, classification, inventory, routing
+suggestions and draft handovers. Gemini API may be selected automatically only
+for explicitly named, tracked public files, using its `fast` profile only;
+Gemini profile escalation is explicit-only. OpenRouter is explicit-only and
+locked to its free router. Neither automated cloud provider may receive protected,
+private or client material. Second-Brain cloud use is limited further by its
+repo-local policy to explicitly named, tracked, non-protected public-safe files.
+GPT/Richard remain responsible for
+authority, privacy, public claims, destructive actions and final approval.
+Alibaba Cloud Model Studio is Keychain-backed for manual exploration only; it
+is not an automatic provider until a separately reviewed, provider-enforced
+free-quota policy is available.
+
+Keep its targets named and narrow. It must not auto-scan all repos, install or
+download models, access protected paths by default, or write source material
+into generated cache packets. Keep provider keys in macOS Keychain and out of
+tracked files, logs and prompts. Use `docs/24-local-model-context-handover.md`
+for the packet contract and privacy boundary.
+
 
 ## Public Agent Distribution
 
@@ -146,4 +169,4 @@ Do not refresh those sources by hand when a wrapper covers the flow.
 
 ---
 > Source: [RichardGeorgeDavis/Codex-Workspace](https://github.com/RichardGeorgeDavis/Codex-Workspace) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
