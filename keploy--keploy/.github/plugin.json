@@ -1,0 +1,22 @@
+{
+  "name": "keploy--keploy",
+  "displayName": "keploy",
+  "description": "keploy",
+  "version": "1.0.0",
+  "author": "keploy",
+  "homepage": "https://github.com/keploy/keploy",
+  "skills": [
+    {
+      "name": "keploy",
+      "description": ""
+    },
+    {
+      "name": "keploy",
+      "description": ""
+    },
+    {
+      "name": "keploy",
+      "description": ""
+    }
+  ]
+}
