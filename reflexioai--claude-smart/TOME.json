@@ -1,0 +1,165 @@
+{
+  "name": "claude-smart",
+  "owner": "ReflexioAI",
+  "repo": "claude-smart",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sync-agent-instructions",
+      "path": ".agents/skills/sync-agent-instructions",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.agents/skills/sync-agent-instructions",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".agents/skills/prd/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.agents/skills/prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/skills/prd/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/skills/prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".agents/skills/ralph/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.agents/skills/ralph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/skills/ralph/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/skills/ralph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".agents/skills/fastapi/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.agents/skills/fastapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/skills/fastapi/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/skills/fastapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/commands/review/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/commands/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/commands/commit/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/commands/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/commands/create-pr/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/commands/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/commands/update-pr/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/commands/update-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": "plugin/skills/claude-smart/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/plugin/skills/claude-smart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/commands/run-services/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/commands/run-services/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/commands/check-and-test/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/commands/check-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".agents/skills/update-public-docs/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.agents/skills/update-public-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/skills/update-public-docs/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/skills/update-public-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".agents/skills/sync-agent-instructions/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.agents/skills/sync-agent-instructions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-smart",
+      "path": ".claude/skills/sync-agent-instructions/SKILL.md",
+      "github_url": "https://github.com/ReflexioAI/claude-smart/tree/main/.claude/skills/sync-agent-instructions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ReflexioAI/claude-smart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:59:18Z"
+}
