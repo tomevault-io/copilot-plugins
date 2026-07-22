@@ -1,0 +1,14 @@
+{
+  "name": "matsest--lazyazure",
+  "displayName": "lazyazure",
+  "description": "lazyazure",
+  "version": "1.0.0",
+  "author": "matsest",
+  "homepage": "https://github.com/matsest/lazyazure",
+  "skills": [
+    {
+      "name": "lazyazure",
+      "description": ""
+    }
+  ]
+}
