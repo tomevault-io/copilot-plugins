@@ -1,0 +1,177 @@
+{
+  "name": "hypershift",
+  "owner": "openshift",
+  "repo": "hypershift",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "build-cpo-image",
+      "path": ".claude/skills/dev/build-cpo-image",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/build-cpo-image",
+      "description": ""
+    },
+    {
+      "name": "build-ho-image",
+      "path": ".claude/skills/dev/build-ho-image",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/build-ho-image",
+      "description": ""
+    },
+    {
+      "name": "code-formatting",
+      "path": ".claude/skills/code-formatting",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/code-formatting",
+      "description": ""
+    },
+    {
+      "name": "create-hc-aws",
+      "path": ".claude/skills/dev/create-hc-aws",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/create-hc-aws",
+      "description": ""
+    },
+    {
+      "name": "debug-cluster",
+      "path": ".claude/skills/debug-cluster",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/debug-cluster",
+      "description": ""
+    },
+    {
+      "name": "e2e-run-aws",
+      "path": ".claude/skills/dev/e2e-run-aws",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/e2e-run-aws",
+      "description": ""
+    },
+    {
+      "name": "effective-go",
+      "path": ".claude/skills/effective-go",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/effective-go",
+      "description": ""
+    },
+    {
+      "name": "git-commit-format",
+      "path": ".claude/skills/git-commit-format",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/git-commit-format",
+      "description": ""
+    },
+    {
+      "name": "git-env",
+      "path": ".claude/skills/dev/git-env",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/git-env",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/dev/git-env/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/git-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/effective-go/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/effective-go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/debug-cluster/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/debug-cluster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/dev/e2e-run-aws/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/e2e-run-aws/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/code-formatting/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/code-formatting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/git-commit-format/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/git-commit-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/dev/create-hc-aws/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/create-hc-aws/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/dev/build-ho-image/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/build-ho-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/dev/destroy-hc-aws/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/destroy-hc-aws/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/dev/install-ho-aws/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/install-ho-aws/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/dev/build-cpo-image/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/dev/build-cpo-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/konflux-ec-violations/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/konflux-ec-violations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/validate-pr-override-images/SKILL.md",
+      "github_url": "https://github.com/openshift/hypershift/tree/main/.claude/skills/validate-pr-override-images/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openshift/hypershift",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:35:25Z"
+}
