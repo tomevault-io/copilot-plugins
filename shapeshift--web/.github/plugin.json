@@ -1,0 +1,42 @@
+{
+  "name": "shapeshift--web",
+  "displayName": "web",
+  "description": "web",
+  "version": "1.0.0",
+  "author": "shapeshift",
+  "homepage": "https://github.com/shapeshift/web",
+  "skills": [
+    {
+      "name": "chain-integration",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "swapper-integration",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "description": ""
+    }
+  ]
+}
