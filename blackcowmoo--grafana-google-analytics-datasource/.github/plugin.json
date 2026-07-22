@@ -1,0 +1,9 @@
+{
+  "name": "blackcowmoo--grafana-google-analytics-datasource",
+  "displayName": "grafana-google-analytics-datasource",
+  "description": "grafana-google-analytics-datasource",
+  "version": "1.0.0",
+  "author": "blackcowmoo",
+  "homepage": "https://github.com/blackcowmoo/grafana-google-analytics-datasource",
+  "skills": []
+}
