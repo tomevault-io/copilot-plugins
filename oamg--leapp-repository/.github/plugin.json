@@ -1,0 +1,22 @@
+{
+  "name": "oamg--leapp-repository",
+  "displayName": "leapp-repository",
+  "description": "leapp-repository",
+  "version": "1.0.0",
+  "author": "oamg",
+  "homepage": "https://github.com/oamg/leapp-repository",
+  "skills": [
+    {
+      "name": "leapp-repository",
+      "description": ""
+    },
+    {
+      "name": "leapp-repository",
+      "description": ""
+    },
+    {
+      "name": "leapp-repository",
+      "description": ""
+    }
+  ]
+}
