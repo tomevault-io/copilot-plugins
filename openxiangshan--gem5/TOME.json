@@ -1,0 +1,99 @@
+{
+  "name": "GEM5",
+  "owner": "OpenXiangShan",
+  "repo": "GEM5",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/ci-perf-analysis/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/ci-perf-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/mgsc-table-probe/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/mgsc-table-probe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/rtl-tage-alignment/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/rtl-tage-alignment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/run-cpt-regression/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/run-cpt-regression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/tage-trace-workflow/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/tage-trace-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/frontend-pmu-analysis/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/frontend-pmu-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/gem5-manual-perf-trigger/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/gem5-manual-perf-trigger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/performance-modeling.SKILL/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/performance-modeling.SKILL/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GEM5",
+      "path": ".codex/skills/branch-predictability-triage/SKILL.md",
+      "github_url": "https://github.com/OpenXiangShan/GEM5/tree/main/.codex/skills/branch-predictability-triage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OpenXiangShan/GEM5",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:59:32Z"
+}
