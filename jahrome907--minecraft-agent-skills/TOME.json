@@ -1,0 +1,351 @@
+{
+  "name": "minecraft-agent-skills",
+  "owner": "Jahrome907",
+  "repo": "minecraft-agent-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-testing/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-modding/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-modding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-datapack/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-datapack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-testing/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-testing/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-imagegen/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-modding/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-modding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-modding/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-modding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-datapack/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-datapack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-datapack/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-datapack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-imagegen/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-imagegen/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-plugin-dev/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-plugin-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-ci-release/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-ci-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-plugin-dev/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-plugin-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-plugin-dev/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-plugin-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-ci-release/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-ci-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-ci-release/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-ci-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-multiloader/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-multiloader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-multiloader/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-multiloader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-multiloader/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-multiloader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-resource-pack/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-resource-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-worldedit-ops/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-worldedit-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-resource-pack/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-resource-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-resource-pack/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-resource-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-worldedit-ops/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-worldedit-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-worldedit-ops/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-worldedit-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-essentials-ops/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-essentials-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-essentials-ops/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-essentials-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-essentials-ops/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-essentials-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".codex/skills/minecraft-world-generation/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.codex/skills/minecraft-world-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".agents/skills/minecraft-world-generation/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.agents/skills/minecraft-world-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": ".claude/skills/minecraft-world-generation/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/.claude/skills/minecraft-world-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-testing/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-modding/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-modding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-datapack/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-datapack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-imagegen/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-plugin-dev/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-plugin-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-ci-release/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-ci-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-multiloader/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-multiloader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-resource-pack/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-resource-pack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-worldedit-ops/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-worldedit-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-essentials-ops/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-essentials-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "plugins/minecraft-codex-skills/skills/minecraft-world-generation/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/plugins/minecraft-codex-skills/skills/minecraft-world-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "tests/fixtures/validators/ci-release/valid/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/tests/fixtures/validators/ci-release/valid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "tests/fixtures/validators/ci-release/invalid/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/tests/fixtures/validators/ci-release/invalid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "tests/fixtures/validators/ci-release/warn-only/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/tests/fixtures/validators/ci-release/warn-only/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "tests/fixtures/validators/ci-release/invalid-yaml/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/tests/fixtures/validators/ci-release/invalid-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "tests/fixtures/validators/ci-release/multiline-flow/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/tests/fixtures/validators/ci-release/multiline-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "tests/fixtures/validators/ci-release/non-workflow-yaml/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/tests/fixtures/validators/ci-release/non-workflow-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "minecraft-agent-skills",
+      "path": "tests/fixtures/validators/ci-release/indented-workflow/SKILL.md",
+      "github_url": "https://github.com/Jahrome907/minecraft-agent-skills/tree/main/tests/fixtures/validators/ci-release/indented-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Jahrome907/minecraft-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:12:58Z"
+}
