@@ -1,0 +1,22 @@
+{
+  "name": "apache--grails-core",
+  "displayName": "grails-core",
+  "description": "grails-core",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/grails-core",
+  "skills": [
+    {
+      "name": "grails-core",
+      "description": ""
+    },
+    {
+      "name": "grails-core",
+      "description": ""
+    },
+    {
+      "name": "grails-core",
+      "description": ""
+    }
+  ]
+}
