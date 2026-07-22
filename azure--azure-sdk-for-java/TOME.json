@@ -1,0 +1,159 @@
+{
+  "name": "azure-sdk-for-java",
+  "owner": "Azure",
+  "repo": "azure-sdk-for-java",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/contentunderstanding/azure-ai-contentunderstanding/.github/skills/cu-sdk-common-knowledge/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/contentunderstanding/azure-ai-contentunderstanding/.github/skills/cu-sdk-common-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/search/azure-search-documents/.github/skills/azure-search-documents/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/search/azure-search-documents/.github/skills/azure-search-documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/github/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/codegen/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/codegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/run-tests/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/search-m2/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/search-m2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/test-proxy/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/test-proxy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/dup-classes/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/dup-classes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/dedup-openai/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/dedup-openai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/release-notes/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/tsp-type-override/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/tsp-type-override/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/union-type-wrappers/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/union-type-wrappers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": "sdk/ai/.workflow_docs/tsp-naming-collision/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/ai/.workflow_docs/tsp-naming-collision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": ".github/skills/find-package-skill/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/.github/skills/find-package-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": ".github/skills/create-package-skill/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/.github/skills/create-package-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": ".github/skills/azsdk-common-sdk-release/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/.github/skills/azsdk-common-sdk-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": ".github/skills/azsdk-common-prepare-release-plan/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/.github/skills/azsdk-common-prepare-release-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": ".github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/.github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-java",
+      "path": ".github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-java/tree/main/.github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure/azure-sdk-for-java",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:16:17Z"
+}
