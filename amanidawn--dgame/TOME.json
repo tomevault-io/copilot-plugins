@@ -1,0 +1,111 @@
+{
+  "name": "DGame",
+  "owner": "AmaniDawn",
+  "repo": "DGame",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DGame",
+      "path": ".codex/skills/dgame-dev/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.codex/skills/dgame-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".claude/skills/dgame-dev/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.claude/skills/dgame-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".codex/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.codex/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DGame",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/AmaniDawn/DGame/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AmaniDawn/DGame",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:11:21Z"
+}
