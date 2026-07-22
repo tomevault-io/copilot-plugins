@@ -1,0 +1,14 @@
+{
+  "name": "fsistemas--sql2json",
+  "displayName": "sql2json",
+  "description": "sql2json",
+  "version": "1.0.0",
+  "author": "fsistemas",
+  "homepage": "https://github.com/fsistemas/sql2json",
+  "skills": [
+    {
+      "name": "sql2json",
+      "description": ""
+    }
+  ]
+}
