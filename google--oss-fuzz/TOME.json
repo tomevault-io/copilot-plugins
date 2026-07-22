@@ -1,0 +1,81 @@
+{
+  "name": "oss-fuzz",
+  "owner": "google",
+  "repo": "oss-fuzz",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oss-fuzz",
+      "path": "infra/experimental/agent-skills/fuzzing-go-expert/SKILL.md",
+      "github_url": "https://github.com/google/oss-fuzz/tree/main/infra/experimental/agent-skills/fuzzing-go-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-fuzz",
+      "path": "infra/experimental/agent-skills/oss-fuzz-engineer/SKILL.md",
+      "github_url": "https://github.com/google/oss-fuzz/tree/main/infra/experimental/agent-skills/oss-fuzz-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-fuzz",
+      "path": "infra/experimental/agent-skills/fuzzing-jvm-expert/SKILL.md",
+      "github_url": "https://github.com/google/oss-fuzz/tree/main/infra/experimental/agent-skills/fuzzing-jvm-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-fuzz",
+      "path": "infra/experimental/agent-skills/fuzzing-rust-expert/SKILL.md",
+      "github_url": "https://github.com/google/oss-fuzz/tree/main/infra/experimental/agent-skills/fuzzing-rust-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-fuzz",
+      "path": "infra/experimental/agent-skills/fuzzing-python-expert/SKILL.md",
+      "github_url": "https://github.com/google/oss-fuzz/tree/main/infra/experimental/agent-skills/fuzzing-python-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-fuzz",
+      "path": "infra/experimental/agent-skills/fuzzing-memory-unsafe-expert/SKILL.md",
+      "github_url": "https://github.com/google/oss-fuzz/tree/main/infra/experimental/agent-skills/fuzzing-memory-unsafe-expert/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/google/oss-fuzz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:59:07Z"
+}
