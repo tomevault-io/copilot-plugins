@@ -1,0 +1,14 @@
+{
+  "name": "qawolf--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "qawolf",
+  "homepage": "https://github.com/qawolf/cli",
+  "skills": [
+    {
+      "name": "cli",
+      "description": ""
+    }
+  ]
+}
