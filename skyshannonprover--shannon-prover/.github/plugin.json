@@ -1,0 +1,9 @@
+{
+  "name": "skyshannonprover--shannon-prover",
+  "displayName": "shannon-prover",
+  "description": "LLM agents that write machine-checked cryptographic proofs in EasyCrypt (arXiv:2607.02847)",
+  "version": "1.0.0",
+  "author": "SkyShannonProver",
+  "homepage": "https://github.com/SkyShannonProver/shannon-prover",
+  "skills": []
+}
