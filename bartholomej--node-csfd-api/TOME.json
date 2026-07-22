@@ -1,0 +1,81 @@
+{
+  "name": "node-csfd-api",
+  "owner": "bartholomej",
+  "repo": "node-csfd-api",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add_mcp_tool",
+      "path": ".agent/skills/add_mcp_tool",
+      "github_url": "https://github.com/bartholomej/node-csfd-api/tree/main/.agent/skills/add_mcp_tool",
+      "description": ""
+    },
+    {
+      "name": "implement_scraper_feature",
+      "path": ".agent/skills/implement_scraper_feature",
+      "github_url": "https://github.com/bartholomej/node-csfd-api/tree/main/.agent/skills/implement_scraper_feature",
+      "description": ""
+    },
+    {
+      "name": "validate_changes",
+      "path": ".agent/skills/validate_changes",
+      "github_url": "https://github.com/bartholomej/node-csfd-api/tree/main/.agent/skills/validate_changes",
+      "description": ""
+    },
+    {
+      "name": "node-csfd-api",
+      "path": ".agent/skills/add_mcp_tool/SKILL.md",
+      "github_url": "https://github.com/bartholomej/node-csfd-api/tree/main/.agent/skills/add_mcp_tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "node-csfd-api",
+      "path": ".agent/skills/validate_changes/SKILL.md",
+      "github_url": "https://github.com/bartholomej/node-csfd-api/tree/main/.agent/skills/validate_changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "node-csfd-api",
+      "path": ".agent/skills/implement_scraper_feature/SKILL.md",
+      "github_url": "https://github.com/bartholomej/node-csfd-api/tree/main/.agent/skills/implement_scraper_feature/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bartholomej/node-csfd-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:31:21Z"
+}
