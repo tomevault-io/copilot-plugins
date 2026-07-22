@@ -1,0 +1,9 @@
+{
+  "name": "ehalsey--gem-match-wolf",
+  "displayName": "gem-match-wolf",
+  "description": "Modern match-3 puzzle game with TypeScript, Phaser 3, and smooth animations. Features move counter, enhanced UI, and high-quality gem sprites.",
+  "version": "1.0.0",
+  "author": "ehalsey",
+  "homepage": "https://github.com/ehalsey/gem-match-wolf",
+  "skills": []
+}
