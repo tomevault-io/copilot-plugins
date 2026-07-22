@@ -1,0 +1,63 @@
+{
+  "name": "agentic-harness-engineering",
+  "owner": "china-qijizhifeng",
+  "repo": "agentic-harness-engineering",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentic-harness-engineering",
+      "path": "skills/agentic-harness-engineering/SKILL.md",
+      "github_url": "https://github.com/china-qijizhifeng/agentic-harness-engineering/tree/main/skills/agentic-harness-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-harness-engineering",
+      "path": "agents/evolve_agent/skills/agent-debugger-cli/SKILL.md",
+      "github_url": "https://github.com/china-qijizhifeng/agentic-harness-engineering/tree/main/agents/evolve_agent/skills/agent-debugger-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-harness-engineering",
+      "path": "agents/evolve_agent/skills/nexau-evolution-guide/SKILL.md",
+      "github_url": "https://github.com/china-qijizhifeng/agentic-harness-engineering/tree/main/agents/evolve_agent/skills/nexau-evolution-guide/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/china-qijizhifeng/agentic-harness-engineering",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T12:03:50Z"
+}
