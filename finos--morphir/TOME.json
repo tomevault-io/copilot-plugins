@@ -1,0 +1,75 @@
+{
+  "name": "morphir",
+  "owner": "finos",
+  "repo": "morphir",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/finos/morphir/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "path": ".claude/skills/technical-writer",
+      "github_url": "https://github.com/finos/morphir/tree/main/.claude/skills/technical-writer",
+      "description": ""
+    },
+    {
+      "name": "morphir",
+      "path": ".claude/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/finos/morphir/tree/main/.claude/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "morphir",
+      "path": ".claude/skills/release-manager/SKILL.md",
+      "github_url": "https://github.com/finos/morphir/tree/main/.claude/skills/release-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "morphir",
+      "path": ".claude/skills/technical-writer/SKILL.md",
+      "github_url": "https://github.com/finos/morphir/tree/main/.claude/skills/technical-writer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/finos/morphir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:33:52Z"
+}
