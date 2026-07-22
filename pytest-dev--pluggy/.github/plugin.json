@@ -1,0 +1,9 @@
+{
+  "name": "pytest-dev--pluggy",
+  "displayName": "pluggy",
+  "description": "pluggy",
+  "version": "1.0.0",
+  "author": "pytest-dev",
+  "homepage": "https://github.com/pytest-dev/pluggy",
+  "skills": []
+}
