@@ -1,0 +1,105 @@
+{
+  "name": "Embody",
+  "owner": "dylanroscover",
+  "repo": "Embody",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Embody",
+      "path": ".claude/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/add-mcp-tool/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/add-mcp-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/multi-instance/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/multi-instance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/debug-operator/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/debug-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/create-operator/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/create-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/td-api-reference/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/td-api-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/create-extension/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/create-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/manage-annotations/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/manage-annotations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/mcp-tools-reference/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/mcp-tools-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Embody",
+      "path": ".claude/skills/externalize-operator/SKILL.md",
+      "github_url": "https://github.com/dylanroscover/Embody/tree/main/.claude/skills/externalize-operator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dylanroscover/Embody",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:55:03Z"
+}
