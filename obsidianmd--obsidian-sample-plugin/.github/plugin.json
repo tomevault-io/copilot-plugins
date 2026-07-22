@@ -1,0 +1,9 @@
+{
+  "name": "obsidianmd--obsidian-sample-plugin",
+  "displayName": "obsidian-sample-plugin",
+  "description": "obsidian-sample-plugin",
+  "version": "1.0.0",
+  "author": "obsidianmd",
+  "homepage": "https://github.com/obsidianmd/obsidian-sample-plugin",
+  "skills": []
+}
