@@ -1,0 +1,22 @@
+{
+  "name": "basedhardware--omi",
+  "displayName": "omi",
+  "description": "omi",
+  "version": "1.0.0",
+  "author": "BasedHardware",
+  "homepage": "https://github.com/BasedHardware/omi",
+  "skills": [
+    {
+      "name": "mobile-app-flows",
+      "description": ""
+    },
+    {
+      "name": "omi",
+      "description": ""
+    },
+    {
+      "name": "omi",
+      "description": ""
+    }
+  ]
+}
