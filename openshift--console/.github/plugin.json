@@ -1,0 +1,78 @@
+{
+  "name": "openshift--console",
+  "displayName": "console",
+  "description": "console",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/console",
+  "skills": [
+    {
+      "name": "gen-rtl-test",
+      "description": ""
+    },
+    {
+      "name": "microcopy-review",
+      "description": ""
+    },
+    {
+      "name": "plugin-api-review",
+      "description": ""
+    },
+    {
+      "name": "pre-push-review",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "update-package",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    }
+  ]
+}
