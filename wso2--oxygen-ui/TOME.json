@@ -1,0 +1,99 @@
+{
+  "name": "oxygen-ui",
+  "owner": "wso2",
+  "repo": "oxygen-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oxygen-component",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-component",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-component",
+      "description": ""
+    },
+    {
+      "name": "oxygen-layout",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-layout",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-layout",
+      "description": ""
+    },
+    {
+      "name": "oxygen-migrate",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-migrate",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-migrate",
+      "description": ""
+    },
+    {
+      "name": "oxygen-sync",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-sync",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-sync",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-sync/SKILL.md",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-form/SKILL.md",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-layout/SKILL.md",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-migrate/SKILL.md",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "path": "packages/oxygen-ui/.claude/skills/oxygen-component/SKILL.md",
+      "github_url": "https://github.com/wso2/oxygen-ui/tree/main/packages/oxygen-ui/.claude/skills/oxygen-component/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wso2/oxygen-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:47:18Z"
+}
