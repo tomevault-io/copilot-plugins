@@ -1,0 +1,51 @@
+{
+  "name": "Bounty-Hunters",
+  "owner": "UnsafeLabs",
+  "repo": "Bounty-Hunters",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Bounty-Hunters",
+      "path": "fastapi/fastapi/.agents/skills/fastapi/SKILL.md",
+      "github_url": "https://github.com/UnsafeLabs/Bounty-Hunters/tree/main/fastapi/fastapi/.agents/skills/fastapi/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/UnsafeLabs/Bounty-Hunters",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T21:14:18Z"
+}
