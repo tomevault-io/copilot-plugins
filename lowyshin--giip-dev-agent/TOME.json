@@ -3,8 +3,8 @@
   "owner": "LowyShin",
   "repo": "giip-dev-agent",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,369 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/docx/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/pdca/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/pdca/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/retro/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/retro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/starter/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/starter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/dynamic/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/dynamic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/k-layer/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/k-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/skillopt/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/skillopt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/design-md/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/env-check/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/env-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/mobile-app/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/mobile-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/enterprise/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/enterprise/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/bkit-rules/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/bkit-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/desktop-app/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/desktop-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/canvas-design/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/canvas-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/trace-manager/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/trace-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/theme-factory/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/theme-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/security-scan/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/security-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/gstack-safety/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/gstack-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/zero-script-qa/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/zero-script-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/phase-8-review/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/phase-8-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/phase-3-mockup/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/phase-3-mockup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/bkit-templates/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/bkit-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/phase-1-schema/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/phase-1-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/vibe-investing/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/vibe-investing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/algorithmic-art/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/algorithmic-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/keep-codex-fast/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/keep-codex-fast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/agent-lightning/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/agent-lightning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/gstack-security/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/gstack-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/skill-stocktake/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/skill-stocktake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/brand-guidelines/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/brand-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/premium-ui-craft/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/premium-ui-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/workflow-mapping/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/workflow-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/vertex-ai-api-dev/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/vertex-ai-api-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": "docs/02-design/agent-components/skill.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/docs/02-design/agent-components/skill.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/phase-2-convention/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/phase-2-convention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/phase-9-deployment/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/phase-9-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/gemini-live-api-dev/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/gemini-live-api-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/phase-7-seo-security/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/phase-7-seo-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/claude-code-learning/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/claude-code-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/development-pipeline/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/development-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/phase-5-design-system/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/phase-5-design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/phase-6-ui-integration/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/phase-6-ui-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/gemini-interactions-api/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/gemini-interactions-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/gstack-product-thinking/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/gstack-product-thinking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "giip-dev-agent",
+      "path": ".agent/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/LowyShin/giip-dev-agent/tree/main/.agent/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/LowyShin/giip-dev-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T15:55:14Z"
+  "distributed_at": "2026-07-22T16:52:07Z"
 }
