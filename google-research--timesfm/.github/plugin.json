@@ -1,0 +1,14 @@
+{
+  "name": "google-research--timesfm",
+  "displayName": "timesfm",
+  "description": "timesfm",
+  "version": "1.0.0",
+  "author": "google-research",
+  "homepage": "https://github.com/google-research/timesfm",
+  "skills": [
+    {
+      "name": "timesfm",
+      "description": ""
+    }
+  ]
+}
