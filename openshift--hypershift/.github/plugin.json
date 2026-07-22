@@ -1,0 +1,98 @@
+{
+  "name": "openshift--hypershift",
+  "displayName": "hypershift",
+  "description": "hypershift",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/hypershift",
+  "skills": [
+    {
+      "name": "build-cpo-image",
+      "description": ""
+    },
+    {
+      "name": "build-ho-image",
+      "description": ""
+    },
+    {
+      "name": "code-formatting",
+      "description": ""
+    },
+    {
+      "name": "create-hc-aws",
+      "description": ""
+    },
+    {
+      "name": "debug-cluster",
+      "description": ""
+    },
+    {
+      "name": "e2e-run-aws",
+      "description": ""
+    },
+    {
+      "name": "effective-go",
+      "description": ""
+    },
+    {
+      "name": "git-commit-format",
+      "description": ""
+    },
+    {
+      "name": "git-env",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    }
+  ]
+}
