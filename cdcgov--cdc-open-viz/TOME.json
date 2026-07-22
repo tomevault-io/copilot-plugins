@@ -1,0 +1,327 @@
+{
+  "name": "cdc-open-viz",
+  "owner": "CDCgov",
+  "repo": "cdc-open-viz",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-help/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-prfaq/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-prfaq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/yarn-audit/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/yarn-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/react-doctor/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/react-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-edit-prd/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-edit-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-agent-pm/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-agent-pm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-quick-dev/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-quick-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-shard-doc/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-shard-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-agent-dev/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-agent-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-customize/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-dev-story/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-dev-story/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-create-prd/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-create-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-party-mode/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-party-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-index-docs/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-index-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-code-review/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-distillator/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-distillator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/react-doctor-fix/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/react-doctor-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/cove-public-docs/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/cove-public-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-validate-prd/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-validate-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-create-story/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-create-story/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/readme-maintainer/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/readme-maintainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-sprint-status/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-sprint-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-product-brief/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-product-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-retrospective/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-retrospective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-agent-analyst/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-agent-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-brainstorming/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-correct-course/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-correct-course/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-sprint-planning/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-sprint-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-market-research/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-domain-research/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-domain-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-agent-architect/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-agent-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-create-ux-design/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-create-ux-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-document-project/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-document-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-agent-ux-designer/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-agent-ux-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-agent-tech-writer/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-agent-tech-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-technical-research/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-technical-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-checkpoint-preview/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-checkpoint-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-create-architecture/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-create-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-advanced-elicitation/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-advanced-elicitation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-qa-generate-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-qa-generate-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-editorial-review-prose/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-editorial-review-prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-review-edge-case-hunter/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-review-edge-case-hunter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-create-epics-and-stories/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-create-epics-and-stories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-generate-project-context/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-generate-project-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-editorial-review-structure/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-editorial-review-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-review-adversarial-general/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-review-adversarial-general/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cdc-open-viz",
+      "path": ".agents/skills/bmad-check-implementation-readiness/SKILL.md",
+      "github_url": "https://github.com/CDCgov/cdc-open-viz/tree/main/.agents/skills/bmad-check-implementation-readiness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/CDCgov/cdc-open-viz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:22:46Z"
+}
