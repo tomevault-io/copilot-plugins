@@ -1,0 +1,18 @@
+## unplugin-devpilot
+
+> - never fix lint error
+
+- never fix lint error
+- always fix type error
+- core modules need unit test coverage, but avoid writing tests blindly—only cover essential modules, and tests should not verify logic from third-party libraries
+- esm module export is better than class
+- test cases prefer using `toMatchInlineSnapshot` instead of `toContain`
+- functions should not have circular references and should be relatively independent
+- `typecheck` and `test` need to be run to make sure the changed code works
+- do not use ** Barrel Files **
+- skill.md needs to be limited to under 100 lines
+- check [README.md](README.md) [README_CN.md](README_CN.md) [README.md](./packages/unplugin-devpilot/README.md) [README.md](./packages/devpilot-plugin-dom-inspector/README.md) [skill](./packages/unplugin-devpilot/src/core/skill-generator.ts) [skill.md](./packages/devpilot-plugin-dom-inspector/src/skill.md) after any change
+
+---
+> Source: [zcf0508/unplugin-devpilot](https://github.com/zcf0508/unplugin-devpilot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
