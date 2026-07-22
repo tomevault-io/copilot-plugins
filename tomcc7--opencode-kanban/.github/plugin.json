@@ -1,0 +1,14 @@
+{
+  "name": "tomcc7--opencode-kanban",
+  "displayName": "opencode-kanban",
+  "description": "opencode-kanban",
+  "version": "1.0.0",
+  "author": "TomCC7",
+  "homepage": "https://github.com/TomCC7/opencode-kanban",
+  "skills": [
+    {
+      "name": "opencode-kanban",
+      "description": ""
+    }
+  ]
+}
