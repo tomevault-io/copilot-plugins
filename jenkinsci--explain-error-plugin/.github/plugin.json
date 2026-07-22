@@ -1,0 +1,14 @@
+{
+  "name": "jenkinsci--explain-error-plugin",
+  "displayName": "explain-error-plugin",
+  "description": "explain-error-plugin",
+  "version": "1.0.0",
+  "author": "jenkinsci",
+  "homepage": "https://github.com/jenkinsci/explain-error-plugin",
+  "skills": [
+    {
+      "name": "explain-error-plugin",
+      "description": ""
+    }
+  ]
+}
