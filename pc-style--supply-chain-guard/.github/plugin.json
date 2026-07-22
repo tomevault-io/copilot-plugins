@@ -1,0 +1,14 @@
+{
+  "name": "pc-style--supply-chain-guard",
+  "displayName": "supply-chain-guard",
+  "description": "supply-chain-guard",
+  "version": "1.0.0",
+  "author": "pc-style",
+  "homepage": "https://github.com/pc-style/supply-chain-guard",
+  "skills": [
+    {
+      "name": "supply-chain-guard",
+      "description": ""
+    }
+  ]
+}
