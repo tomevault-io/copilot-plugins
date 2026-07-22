@@ -1,0 +1,24 @@
+# PropertyTools
+
+> Tome by [PropertyTools](https://github.com/PropertyTools/PropertyTools), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [PropertyTools/PropertyTools](https://github.com/PropertyTools/PropertyTools).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [PropertyTools/PropertyTools](https://github.com/PropertyTools/PropertyTools) — a repo with 1319+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:t-e-s -->
