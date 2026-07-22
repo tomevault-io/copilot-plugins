@@ -1,0 +1,9 @@
+{
+  "name": "bgpkit--bgpkit-parser",
+  "displayName": "bgpkit-parser",
+  "description": "bgpkit-parser",
+  "version": "1.0.0",
+  "author": "bgpkit",
+  "homepage": "https://github.com/bgpkit/bgpkit-parser",
+  "skills": []
+}
