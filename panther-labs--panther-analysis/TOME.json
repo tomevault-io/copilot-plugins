@@ -1,0 +1,51 @@
+{
+  "name": "panther-analysis",
+  "owner": "panther-labs",
+  "repo": "panther-analysis",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "panther-analysis",
+      "path": ".claude/skills/scaffold-detection/SKILL.md",
+      "github_url": "https://github.com/panther-labs/panther-analysis/tree/main/.claude/skills/scaffold-detection/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/panther-labs/panther-analysis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:49:44Z"
+}
