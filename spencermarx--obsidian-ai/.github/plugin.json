@@ -1,0 +1,14 @@
+{
+  "name": "spencermarx--obsidian-ai",
+  "displayName": "obsidian-ai",
+  "description": "obsidian-ai",
+  "version": "1.0.0",
+  "author": "spencermarx",
+  "homepage": "https://github.com/spencermarx/obsidian-ai",
+  "skills": [
+    {
+      "name": "obsidian-ai",
+      "description": ""
+    }
+  ]
+}
