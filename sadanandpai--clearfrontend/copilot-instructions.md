@@ -1,14 +1,14 @@
 ## clearfrontend
 
-> > Cross-agent compatibility file (OpenAI Codex, GitHub Copilot, and others). Claude Code reads `CLAUDE.md` at root — both files contain identical content.
+> > This file is read natively by **Claude Code**. Identical content lives in `AGENTS.md` for cross-agent compatibility (OpenAI Codex, etc.).
 
 # ClearFrontend — Agent Instructions
 
-> Cross-agent compatibility file (OpenAI Codex, GitHub Copilot, and others). Claude Code reads `CLAUDE.md` at root — both files contain identical content.
+> This file is read natively by **Claude Code**. Identical content lives in `AGENTS.md` for cross-agent compatibility (OpenAI Codex, etc.).
 
 ## Project Overview
 
-ClearFrontend is a Next.js 15 coding challenge platform where users solve JavaScript/TypeScript problems and get instant feedback. Code is executed server-side inside a true V8 isolate (`isolated-vm` + `esbuild`). The backend uses Appwrite (auth + database), Redis (caching), and Vercel (deployment).
+ClearFrontend is a Next.js 15 coding challenge platform where users solve JavaScript/TypeScript problems and get instant feedback. Code is executed server-side inside a true V8 isolate (`isolated-vm` + `esbuild`) — no external judge service, no sandboxed iframe. The backend uses Appwrite (auth + database), Redis (caching), and Vercel (deployment).
 
 ## Tech Stack
 
@@ -134,4 +134,4 @@ File: `src/server/actions/execute.ts`
 
 ---
 > Source: [sadanandpai/clearfrontend](https://github.com/sadanandpai/clearfrontend) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
