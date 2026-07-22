@@ -1,0 +1,14 @@
+{
+  "name": "evotecit--chartforgex",
+  "displayName": "ChartForgeX",
+  "description": "ChartForgeX",
+  "version": "1.0.0",
+  "author": "EvotecIT",
+  "homepage": "https://github.com/EvotecIT/ChartForgeX",
+  "skills": [
+    {
+      "name": "ChartForgeX",
+      "description": ""
+    }
+  ]
+}
