@@ -1,0 +1,14 @@
+{
+  "name": "azure--terraform-azurerm-avm-ptn-cicd-agents-and-runners",
+  "displayName": "terraform-azurerm-avm-ptn-cicd-agents-and-runners",
+  "description": "terraform-azurerm-avm-ptn-cicd-agents-and-runners",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-ptn-cicd-agents-and-runners",
+  "skills": [
+    {
+      "name": "terraform-azurerm-avm-ptn-cicd-agents-and-runners",
+      "description": ""
+    }
+  ]
+}
