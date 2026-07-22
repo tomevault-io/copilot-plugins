@@ -2,7 +2,7 @@
 
 > macOS dev environment automation: dotfiles, AI agent configs, skills, and dev stacks. Domain vocabulary (manifest, link, copy, backup, sync, restore) is defined in `CONTEXT.md`.
 
-# AGENTS.md
+# CLAUDE.md
 
 macOS dev environment automation: dotfiles, AI agent configs, skills, and dev stacks. Domain vocabulary (manifest, link, copy, backup, sync, restore) is defined in `CONTEXT.md`.
 
@@ -18,7 +18,7 @@ Run `make help` to list targets and `hal --help` for the CLI. Use `make` targets
 
 ## External Tool Documentation
 
-When you need information about tools used in this project, use the `find-docs` skill or `WebFetch`.
+Invoke the `find-docs` skill BEFORE writing code or config that touches the tools below, not only when asked about them. Do not answer from training data, even for familiar tools. Use `WebFetch` for user-provided URLs and the documentation links below.
 
 ### Context7 Library IDs
 
@@ -41,12 +41,17 @@ Pre-resolved IDs for the `find-docs` skill. Pass directly to `ctx7 docs`, skippi
 
 For topics not well covered by Context7, use `WebFetch` on these URLs:
 
-- Codex Prompting Best Practices
-  - https://developers.openai.com/api/docs/guides/latest-model
-  - https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6
-- Codex Configs
-  - https://learn.chatgpt.com/docs/config-file/config-reference
+- Claude Prompting Best Practices
+  - https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices
+  - https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5
+- Claude Code Settings
+  - https://code.claude.com/docs/en/settings
+- Claude Code Rules
+  - https://code.claude.com/docs/en/memory#path-specific-rules
+- Claude Code Plugins / Marketplaces
+  - https://code.claude.com/docs/en/plugins-reference
+  - https://code.claude.com/docs/en/plugin-marketplaces
 
 ---
 > Source: [vinta/hal-9000](https://github.com/vinta/hal-9000) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
