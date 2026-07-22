@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--checksum-command",
+  "displayName": "checksum-command",
+  "description": "checksum-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/checksum-command",
+  "skills": []
+}
