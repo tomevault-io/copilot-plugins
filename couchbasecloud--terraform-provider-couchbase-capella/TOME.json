@@ -1,0 +1,105 @@
+{
+  "name": "terraform-provider-couchbase-capella",
+  "owner": "couchbasecloud",
+  "repo": "terraform-provider-couchbase-capella",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".claude/skills/tf-bugfix/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.claude/skills/tf-bugfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".factory/skills/tf-bugfix/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.factory/skills/tf-bugfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".claude/skills/tf-examples-gen/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.claude/skills/tf-examples-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".claude/skills/tf-resource-gen/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.claude/skills/tf-resource-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".factory/skills/tf-examples-gen/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.factory/skills/tf-examples-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".factory/skills/tf-resource-gen/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.factory/skills/tf-resource-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".claude/skills/tf-datasource-gen/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.claude/skills/tf-datasource-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".factory/skills/tf-datasource-gen/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.factory/skills/tf-datasource-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".claude/skills/tf-acceptance-test-gen/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.claude/skills/tf-acceptance-test-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-couchbase-capella",
+      "path": ".factory/skills/tf-acceptance-test-gen/SKILL.md",
+      "github_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella/tree/main/.factory/skills/tf-acceptance-test-gen/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:44:41Z"
+}
