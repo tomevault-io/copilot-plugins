@@ -1,0 +1,50 @@
+{
+  "name": "scalar--scalar",
+  "displayName": "scalar",
+  "description": "scalar",
+  "version": "1.0.0",
+  "author": "scalar",
+  "homepage": "https://github.com/scalar/scalar",
+  "skills": [
+    {
+      "name": "vue-components",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "description": ""
+    }
+  ]
+}
