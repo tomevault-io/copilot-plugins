@@ -1,0 +1,63 @@
+{
+  "name": "babylon",
+  "owner": "redhat-cop",
+  "repo": "babylon",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "babylon",
+      "path": ".agents/skills/autocommit/SKILL.md",
+      "github_url": "https://github.com/redhat-cop/babylon/tree/main/.agents/skills/autocommit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "babylon",
+      "path": ".agents/skills/catalog-ui-dev/SKILL.md",
+      "github_url": "https://github.com/redhat-cop/babylon/tree/main/.agents/skills/catalog-ui-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "babylon",
+      "path": ".agents/skills/catalog-api-dev/SKILL.md",
+      "github_url": "https://github.com/redhat-cop/babylon/tree/main/.agents/skills/catalog-api-dev/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/redhat-cop/babylon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:44:38Z"
+}
