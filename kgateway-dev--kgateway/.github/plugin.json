@@ -1,0 +1,14 @@
+{
+  "name": "kgateway-dev--kgateway",
+  "displayName": "kgateway",
+  "description": "kgateway",
+  "version": "1.0.0",
+  "author": "kgateway-dev",
+  "homepage": "https://github.com/kgateway-dev/kgateway",
+  "skills": [
+    {
+      "name": "kgateway",
+      "description": ""
+    }
+  ]
+}
