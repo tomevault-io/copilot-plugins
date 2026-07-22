@@ -1,0 +1,14 @@
+{
+  "name": "datadog--libdatadog",
+  "displayName": "libdatadog",
+  "description": "libdatadog",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/libdatadog",
+  "skills": [
+    {
+      "name": "libdatadog",
+      "description": ""
+    }
+  ]
+}
