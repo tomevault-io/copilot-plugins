@@ -1,0 +1,105 @@
+{
+  "name": "eval-view",
+  "owner": "hidai25",
+  "repo": "eval-view",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "test-skill",
+      "path": "examples/skills/test-skill",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/examples/skills/test-skill",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "evalview/examples/skills/code-reviewer",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/evalview/examples/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "agent-test",
+      "path": "examples/agent-test",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/examples/agent-test",
+      "description": ""
+    },
+    {
+      "name": "eval-view",
+      "path": "skills/watch/SKILL.md",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/skills/watch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eval-view",
+      "path": "skills/run-eval/SKILL.md",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/skills/run-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eval-view",
+      "path": "examples/agent-test/SKILL.md",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/examples/agent-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eval-view",
+      "path": "skills/generate-tests/SKILL.md",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/skills/generate-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eval-view",
+      "path": "examples/skills/test-skill/SKILL.md",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/examples/skills/test-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eval-view",
+      "path": "demo-tests/procrastination-buster/SKILL.md",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/demo-tests/procrastination-buster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eval-view",
+      "path": "evalview/examples/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/hidai25/eval-view/tree/main/evalview/examples/skills/code-reviewer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hidai25/eval-view",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:37:01Z"
+}
