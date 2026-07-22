@@ -1,0 +1,22 @@
+{
+  "name": "tenstorrent--tt-inference-server",
+  "displayName": "tt-inference-server",
+  "description": "tt-inference-server",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-inference-server",
+  "skills": [
+    {
+      "name": "tt-inference-server",
+      "description": ""
+    },
+    {
+      "name": "tt-inference-server",
+      "description": ""
+    },
+    {
+      "name": "tt-inference-server",
+      "description": ""
+    }
+  ]
+}
