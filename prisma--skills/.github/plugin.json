@@ -1,0 +1,58 @@
+{
+  "name": "prisma--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "prisma",
+  "homepage": "https://github.com/prisma/skills",
+  "skills": [
+    {
+      "name": "prisma-database-setup",
+      "description": ""
+    },
+    {
+      "name": "prisma-cli",
+      "description": ""
+    },
+    {
+      "name": "prisma-client-api",
+      "description": ""
+    },
+    {
+      "name": "prisma-upgrade-v7",
+      "description": ""
+    },
+    {
+      "name": "prisma-postgres",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
