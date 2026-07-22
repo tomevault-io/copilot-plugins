@@ -4,7 +4,7 @@
   "repo": "Storage",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -293,5 +293,5 @@
   ],
   "source_url": "https://github.com/managedcode/Storage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T23:19:20Z"
+  "distributed_at": "2026-07-22T23:07:58Z"
 }
