@@ -1,0 +1,26 @@
+{
+  "name": "xiaomi--hiui",
+  "displayName": "hiui",
+  "description": "hiui",
+  "version": "1.0.0",
+  "author": "XiaoMi",
+  "homepage": "https://github.com/XiaoMi/hiui",
+  "skills": [
+    {
+      "name": "hiui",
+      "description": ""
+    },
+    {
+      "name": "hiui",
+      "description": ""
+    },
+    {
+      "name": "hiui",
+      "description": ""
+    },
+    {
+      "name": "hiui",
+      "description": ""
+    }
+  ]
+}
