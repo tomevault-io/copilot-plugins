@@ -1,0 +1,87 @@
+{
+  "name": "weapp-tailwindcss",
+  "owner": "sonofmagic",
+  "repo": "weapp-tailwindcss",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "scientific-critical-thinking",
+      "path": ".codex/skills/scientific-critical-thinking",
+      "github_url": "https://github.com/sonofmagic/weapp-tailwindcss/tree/main/.codex/skills/scientific-critical-thinking",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "website/docs/ai/basics/skill.md",
+      "github_url": "https://github.com/sonofmagic/weapp-tailwindcss/tree/main/website/docs/ai/basics/skill.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": "skills/weapp-tailwindcss/SKILL.md",
+      "github_url": "https://github.com/sonofmagic/weapp-tailwindcss/tree/main/skills/weapp-tailwindcss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".codex/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/sonofmagic/weapp-tailwindcss/tree/main/.codex/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".claude/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/sonofmagic/weapp-tailwindcss/tree/main/.claude/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".codex/skills/content-research-writer/SKILL.md",
+      "github_url": "https://github.com/sonofmagic/weapp-tailwindcss/tree/main/.codex/skills/content-research-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weapp-tailwindcss",
+      "path": ".codex/skills/scientific-critical-thinking/SKILL.md",
+      "github_url": "https://github.com/sonofmagic/weapp-tailwindcss/tree/main/.codex/skills/scientific-critical-thinking/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sonofmagic/weapp-tailwindcss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:35:07Z"
+}
