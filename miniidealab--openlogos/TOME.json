@@ -1,0 +1,387 @@
+{
+  "name": "openlogos",
+  "owner": "miniidealab",
+  "repo": "openlogos",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openlogos",
+      "path": "skills/prd-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/prd-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/test-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/db-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/db-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/api-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/api-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/project-init/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/project-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/change-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/change-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/merge-executor/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/merge-executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/product-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/product-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/code-implementor/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/code-implementor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/test-orchestrator/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/test-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/prd-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/prd-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/test-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/db-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/db-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/scenario-architect/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/scenario-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/api-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/api-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/deployment-executor/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/deployment-executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/deployment-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/deployment-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/project-init/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/project-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/change-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/change-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "skills/architecture-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/skills/architecture-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/merge-executor/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/merge-executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/product-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/product-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/code-implementor/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/code-implementor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/test-orchestrator/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/test-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/scenario-architect/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/scenario-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "plugin/skills/architecture-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/plugin/skills/architecture-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/prd-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/prd-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/test-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/db-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/db-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/prd-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/prd-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/test-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/db-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/db-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/api-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/api-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/project-init/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/project-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/api-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/api-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/change-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/change-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/project-init/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/project-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/change-writer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/change-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/merge-executor/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/merge-executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/merge-executor/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/merge-executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/product-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/product-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/product-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/product-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/test-orchestrator/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/test-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/.opencode/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/.opencode/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/test-orchestrator/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/test-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/scenario-architect/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/scenario-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/scenario-architect/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/scenario-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/flowtask/logos/skills/architecture-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/flowtask/logos/skills/architecture-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "examples/money-log/logos/skills/architecture-designer/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/examples/money-log/logos/skills/architecture-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "logos/changes/archive/20260527-1921-verify-pre-run-regression-and-incremental-tests/deltas/skills/project-init/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/logos/changes/archive/20260527-1921-verify-pre-run-regression-and-incremental-tests/deltas/skills/project-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openlogos",
+      "path": "logos/changes/archive/20260527-1921-verify-pre-run-regression-and-incremental-tests/deltas/skills/code-implementor/SKILL.md",
+      "github_url": "https://github.com/miniidealab/openlogos/tree/main/logos/changes/archive/20260527-1921-verify-pre-run-regression-and-incremental-tests/deltas/skills/code-implementor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/miniidealab/openlogos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:15:06Z"
+}
