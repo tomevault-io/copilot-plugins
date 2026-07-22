@@ -1,0 +1,9 @@
+{
+  "name": "julia-actions--cache",
+  "displayName": "cache",
+  "description": "cache",
+  "version": "1.0.0",
+  "author": "julia-actions",
+  "homepage": "https://github.com/julia-actions/cache",
+  "skills": []
+}
