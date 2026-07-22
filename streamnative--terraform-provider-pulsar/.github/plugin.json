@@ -1,0 +1,9 @@
+{
+  "name": "streamnative--terraform-provider-pulsar",
+  "displayName": "terraform-provider-pulsar",
+  "description": "terraform-provider-pulsar",
+  "version": "1.0.0",
+  "author": "streamnative",
+  "homepage": "https://github.com/streamnative/terraform-provider-pulsar",
+  "skills": []
+}
