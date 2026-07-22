@@ -1,0 +1,9 @@
+{
+  "name": "sx4im--chronos",
+  "displayName": "chronos",
+  "description": "Deterministic simulation testing for Node.js & TypeScript \u2014 find race conditions and replay them bit-for-bit from a single seed.",
+  "version": "1.0.0",
+  "author": "sx4im",
+  "homepage": "https://github.com/sx4im/chronos",
+  "skills": []
+}
