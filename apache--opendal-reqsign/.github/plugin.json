@@ -1,0 +1,14 @@
+{
+  "name": "apache--opendal-reqsign",
+  "displayName": "opendal-reqsign",
+  "description": "opendal-reqsign",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/opendal-reqsign",
+  "skills": [
+    {
+      "name": "opendal-reqsign",
+      "description": ""
+    }
+  ]
+}
