@@ -1,0 +1,26 @@
+{
+  "name": "dzhng--duet-agent",
+  "displayName": "duet-agent",
+  "description": "duet-agent",
+  "version": "1.0.0",
+  "author": "dzhng",
+  "homepage": "https://github.com/dzhng/duet-agent",
+  "skills": [
+    {
+      "name": "duet-agent",
+      "description": ""
+    },
+    {
+      "name": "duet-agent",
+      "description": ""
+    },
+    {
+      "name": "duet-agent",
+      "description": ""
+    },
+    {
+      "name": "duet-agent",
+      "description": ""
+    }
+  ]
+}
