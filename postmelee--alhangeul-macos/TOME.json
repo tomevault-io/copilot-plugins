@@ -3,8 +3,8 @@
   "owner": "postmelee",
   "repo": "alhangeul-macos",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "alhangeul-macos",
+      "path": "mydocs/skills/task-start/SKILL.md",
+      "github_url": "https://github.com/postmelee/alhangeul-macos/tree/main/mydocs/skills/task-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alhangeul-macos",
+      "path": "mydocs/skills/task-register/SKILL.md",
+      "github_url": "https://github.com/postmelee/alhangeul-macos/tree/main/mydocs/skills/task-register/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alhangeul-macos",
+      "path": "mydocs/skills/pr-merge-cleanup/SKILL.md",
+      "github_url": "https://github.com/postmelee/alhangeul-macos/tree/main/mydocs/skills/pr-merge-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alhangeul-macos",
+      "path": "mydocs/skills/task-stage-report/SKILL.md",
+      "github_url": "https://github.com/postmelee/alhangeul-macos/tree/main/mydocs/skills/task-stage-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alhangeul-macos",
+      "path": "mydocs/skills/task-final-report/SKILL.md",
+      "github_url": "https://github.com/postmelee/alhangeul-macos/tree/main/mydocs/skills/task-final-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alhangeul-macos",
+      "path": "mydocs/skills/external-pr-review/SKILL.md",
+      "github_url": "https://github.com/postmelee/alhangeul-macos/tree/main/mydocs/skills/external-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "alhangeul-macos",
+      "path": "mydocs/skills/external-pr-complete/SKILL.md",
+      "github_url": "https://github.com/postmelee/alhangeul-macos/tree/main/mydocs/skills/external-pr-complete/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/postmelee/alhangeul-macos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T21:14:11Z"
+  "distributed_at": "2026-07-22T19:44:38Z"
 }
