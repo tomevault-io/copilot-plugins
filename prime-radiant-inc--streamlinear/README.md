@@ -15,10 +15,6 @@ Original source: `CLAUDE.md` in [prime-radiant-inc/streamlinear](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [streamlinear](https://github.com/prime-radiant-inc/streamlinear/tree/main/.claude-plugin/skills/linear/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/prime-radiant-inc/streamlinear](https://github.com/prime-radiant-inc/streamlinear)
 
 ---
