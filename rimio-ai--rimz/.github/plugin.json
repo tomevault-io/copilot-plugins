@@ -1,0 +1,9 @@
+{
+  "name": "rimio-ai--rimz",
+  "displayName": "rimz",
+  "description": "RimZ is a realtime dashboard and control room for harnessing agentic coding, build on tmux and Zellij.",
+  "version": "1.0.0",
+  "author": "rimio-ai",
+  "homepage": "https://github.com/rimio-ai/rimz",
+  "skills": []
+}
