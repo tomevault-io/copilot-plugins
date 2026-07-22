@@ -4,7 +4,7 @@
   "repo": "tw93.github.io",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/tw93/tw93.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T23:58:58Z"
+  "distributed_at": "2026-07-22T23:54:18Z"
 }
