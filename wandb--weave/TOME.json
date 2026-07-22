@@ -1,0 +1,69 @@
+{
+  "name": "weave",
+  "owner": "wandb",
+  "repo": "weave",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bump-version",
+      "path": ".claude/skills/bump-version",
+      "github_url": "https://github.com/wandb/weave/tree/main/.claude/skills/bump-version",
+      "description": ""
+    },
+    {
+      "name": "publish-pypi",
+      "path": ".claude/skills/publish-pypi",
+      "github_url": "https://github.com/wandb/weave/tree/main/.claude/skills/publish-pypi",
+      "description": ""
+    },
+    {
+      "name": "weave",
+      "path": ".claude/skills/publish-pypi/SKILL.md",
+      "github_url": "https://github.com/wandb/weave/tree/main/.claude/skills/publish-pypi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "weave",
+      "path": ".claude/skills/bump-version/SKILL.md",
+      "github_url": "https://github.com/wandb/weave/tree/main/.claude/skills/bump-version/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wandb/weave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T13:35:18Z"
+}
