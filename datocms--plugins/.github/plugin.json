@@ -1,0 +1,14 @@
+{
+  "name": "datocms--plugins",
+  "displayName": "plugins",
+  "description": "plugins",
+  "version": "1.0.0",
+  "author": "datocms",
+  "homepage": "https://github.com/datocms/plugins",
+  "skills": [
+    {
+      "name": "plugins",
+      "description": ""
+    }
+  ]
+}
