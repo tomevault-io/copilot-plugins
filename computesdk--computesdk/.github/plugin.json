@@ -1,0 +1,14 @@
+{
+  "name": "computesdk--computesdk",
+  "displayName": "computesdk",
+  "description": "computesdk",
+  "version": "1.0.0",
+  "author": "computesdk",
+  "homepage": "https://github.com/computesdk/computesdk",
+  "skills": [
+    {
+      "name": "computesdk",
+      "description": ""
+    }
+  ]
+}
