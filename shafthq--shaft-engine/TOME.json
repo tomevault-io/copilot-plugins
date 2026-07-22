@@ -1,0 +1,93 @@
+{
+  "name": "SHAFT_ENGINE",
+  "owner": "ShaftHQ",
+  "repo": "SHAFT_ENGINE",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SHAFT_ENGINE",
+      "path": ".agents/skills/java-test-rules/SKILL.md",
+      "github_url": "https://github.com/ShaftHQ/SHAFT_ENGINE/tree/main/.agents/skills/java-test-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SHAFT_ENGINE",
+      "path": ".agents/skills/flaky-test-stabilizer/SKILL.md",
+      "github_url": "https://github.com/ShaftHQ/SHAFT_ENGINE/tree/main/.agents/skills/flaky-test-stabilizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SHAFT_ENGINE",
+      "path": ".agents/skills/framework-source-rules/SKILL.md",
+      "github_url": "https://github.com/ShaftHQ/SHAFT_ENGINE/tree/main/.agents/skills/framework-source-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SHAFT_ENGINE",
+      "path": ".agents/skills/ci-failure-investigator/SKILL.md",
+      "github_url": "https://github.com/ShaftHQ/SHAFT_ENGINE/tree/main/.agents/skills/ci-failure-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SHAFT_ENGINE",
+      "path": ".agents/skills/release-dependency-guard/SKILL.md",
+      "github_url": "https://github.com/ShaftHQ/SHAFT_ENGINE/tree/main/.agents/skills/release-dependency-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SHAFT_ENGINE",
+      "path": ".github/skills/flaky-test-stabilizer/SKILL.md",
+      "github_url": "https://github.com/ShaftHQ/SHAFT_ENGINE/tree/main/.github/skills/flaky-test-stabilizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SHAFT_ENGINE",
+      "path": ".github/skills/ci-failure-investigator/SKILL.md",
+      "github_url": "https://github.com/ShaftHQ/SHAFT_ENGINE/tree/main/.github/skills/ci-failure-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SHAFT_ENGINE",
+      "path": ".github/skills/release-dependency-guard/SKILL.md",
+      "github_url": "https://github.com/ShaftHQ/SHAFT_ENGINE/tree/main/.github/skills/release-dependency-guard/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ShaftHQ/SHAFT_ENGINE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:58:52Z"
+}
