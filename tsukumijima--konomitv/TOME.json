@@ -1,0 +1,69 @@
+{
+  "name": "KonomiTV",
+  "owner": "tsukumijima",
+  "repo": "KonomiTV",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-new-setting-field",
+      "path": ".claude/skills/add-new-setting-field",
+      "github_url": "https://github.com/tsukumijima/KonomiTV/tree/main/.claude/skills/add-new-setting-field",
+      "description": ""
+    },
+    {
+      "name": "KonomiTV",
+      "path": ".claude/skills/release-checklist/SKILL.md",
+      "github_url": "https://github.com/tsukumijima/KonomiTV/tree/main/.claude/skills/release-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KonomiTV",
+      "path": ".claude/skills/add-new-setting-field/SKILL.md",
+      "github_url": "https://github.com/tsukumijima/KonomiTV/tree/main/.claude/skills/add-new-setting-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KonomiTV",
+      "path": ".claude/skills/generate-release-notes/SKILL.md",
+      "github_url": "https://github.com/tsukumijima/KonomiTV/tree/main/.claude/skills/generate-release-notes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tsukumijima/KonomiTV",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:51:09Z"
+}
