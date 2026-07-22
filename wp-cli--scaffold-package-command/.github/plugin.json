@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--scaffold-package-command",
+  "displayName": "scaffold-package-command",
+  "description": "scaffold-package-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/scaffold-package-command",
+  "skills": []
+}
