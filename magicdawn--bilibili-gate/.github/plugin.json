@@ -1,0 +1,14 @@
+{
+  "name": "magicdawn--bilibili-gate",
+  "displayName": "Bilibili-Gate",
+  "description": "Bilibili-Gate",
+  "version": "1.0.0",
+  "author": "magicdawn",
+  "homepage": "https://github.com/magicdawn/Bilibili-Gate",
+  "skills": [
+    {
+      "name": "Bilibili-Gate",
+      "description": ""
+    }
+  ]
+}
