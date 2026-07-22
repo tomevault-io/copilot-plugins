@@ -3,8 +3,8 @@
   "owner": "ryoha000",
   "repo": "launcherg",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,9 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "launcherg",
+      "path": ".codex/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/ryoha000/launcherg/tree/main/.codex/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "launcherg",
+      "path": ".codex/skills/cloudflare-free-tier-guard/SKILL.md",
+      "github_url": "https://github.com/ryoha000/launcherg/tree/main/.codex/skills/cloudflare-free-tier-guard/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ryoha000/launcherg",
-  "claim_url": "https://tomevault.io/claim/ryoha000",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T05:47:12Z"
+  "distributed_at": "2026-07-22T02:39:45Z"
 }
