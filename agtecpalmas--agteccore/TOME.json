@@ -1,0 +1,243 @@
+{
+  "name": "AgtecCore",
+  "owner": "AgtecPalmas",
+  "repo": "AgtecCore",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/obsidian-sync/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/obsidian-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-models/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/merge-com-dev/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/merge-com-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/obsidian-query/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/obsidian-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-managers/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-managers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-api-views/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-api-views/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-migrations/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/task-encerramento/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/task-encerramento/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/workflow-demandas/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/workflow-demandas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-tests-pytest/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-tests-pytest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-celery-tasks/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-celery-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/branch-task-aprovada/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/branch-task-aprovada/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/governanca-compliance/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/governanca-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-api-serializers/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-api-serializers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-services-use-cases/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-services-use-cases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/django-onboarding-checklist/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/django-onboarding-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/.ia/skills/fastapi-especificacao-tecnica/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/.ia/skills/fastapi-especificacao-tecnica/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/corrigir-bug/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/corrigir-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/nova-tool-ia/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/nova-tool-ia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/obsidian-sync/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/obsidian-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/merge-com-dev/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/merge-com-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/novo-agente-ia/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/novo-agente-ia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/obsidian-query/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/obsidian-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/escrever-testes/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/escrever-testes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/refatorar-modulo/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/refatorar-modulo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/task-encerramento/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/task-encerramento/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/workflow-demandas/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/workflow-demandas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/adicionar-endpoint/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/adicionar-endpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/adicionar-embeddings/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/adicionar-embeddings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/fastapi-tests-pytest/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/fastapi-tests-pytest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/branch-task-aprovada/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/branch-task-aprovada/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/governanca-compliance/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/governanca-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AgtecCore",
+      "path": "blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/atualizar-artefatos-ia/SKILL.md",
+      "github_url": "https://github.com/AgtecPalmas/AgtecCore/tree/main/blueprint/core/management/commands/snippets/fastapi_project/.ia/skills/atualizar-artefatos-ia/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AgtecPalmas/AgtecCore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:47:20Z"
+}
