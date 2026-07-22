@@ -1,93 +1,119 @@
 ## xmtpd
 
-> - Avoid variable shadowing.
+> Database layer using **sqlc** for query generation, **pgx v5** driver, and **golang-migrate** for schema migrations. Supports read/write replica routing via `Handler`.
 
-## General Best Practices
-- Avoid variable shadowing.
-- Do not over-nest control flow (e.g., nested `if` or `for` blocks).
-- Avoid `init()` functions unless absolutely necessary.
-- Keep functions small and focused.
-- Prefer composition over inheritance (via embedding).
-- Use the functional options pattern for constructors where flexibility is needed.
+# CLAUDE.md — pkg/db
 
-## Interfaces
+## Overview
 
-- Avoid defining interfaces until you need them.
-- Do not return interfaces from constructors or public APIs.
-- Define interfaces on the consumer side, not the producer side.
-- Keep interfaces small and focused (generally 1–2 methods).
+Database layer using **sqlc** for query generation, **pgx v5** driver, and **golang-migrate** for schema migrations. Supports read/write replica routing via `Handler`.
 
-## Structs and Methods
+## File Layout
 
-- Avoid embedding pointer types unless necessary.
-- Don’t overuse getters/setters — prefer public fields when it makes sense.
-- Use value receivers when the method doesn't mutate state or require pointer semantics.
+```
+pkg/db/
+  sqlc/           # source .sql query files (input to sqlc)
+  queries/        # generated Go code (output of sqlc) — do not edit
+  types/          # custom Go types (e.g. GatewayEnvelopeBatch)
+  db.go           # Handler (read/write routing)
+  pgx.go          # connection management, NewNamespacedDB
+  tx.go           # transaction helpers
+pkg/db/migrations/   # SQL migration files (up/down)
+sqlc.yaml         # sqlc config (project root)
+```
 
-## Packages and Imports
+## Schema Summary
 
-- Do not use `util`, `common`, or similarly vague package names.
-- Avoid package name collisions by using clear, unique names.
-- Do not expose unnecessary symbols (keep exported API minimal).
+| Table                         | Purpose                                                | Key Columns                                                                                                   |
+| ----------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `gateway_envelopes_meta`      | Envelope metadata (hot path, partitioned)              | `originator_node_id`, `originator_sequence_id`, `topic`, `payer_id`, `expiry`, `gateway_time`                 |
+| `gateway_envelopes_blob`      | Envelope payloads (cold path, partitioned)             | `originator_node_id`, `originator_sequence_id`, `originator_envelope`                                         |
+| `gateway_envelopes_view`      | View joining meta + blobs                              | —                                                                                                             |
+| `gateway_envelopes_latest`    | Latest sequence ID per originator (trigger-maintained) | `originator_node_id`, `originator_sequence_id`, `gateway_time`                                                |
+| `staged_originator_envelopes` | Publish queue before ordering                          | `id` (serial), `topic`, `payer_envelope`                                                                      |
+| `node_info`                   | Local node identity (singleton)                        | `node_id`, `public_key`                                                                                       |
+| `address_log`                 | Address → inbox_id mapping                             | `address`, `inbox_id`, `association_sequence_id`, `revocation_sequence_id`                                    |
+| `payers`                      | Payer addresses                                        | `id`, `address`                                                                                               |
+| `unsettled_usage`             | Per-payer per-originator usage tracking                | `payer_id`, `originator_id`, `minutes_since_epoch`, `spend_picodollars`                                       |
+| `payer_reports`               | Cross-node payer settlement reports                    | `id`, `originator_node_id`, `start_sequence_id`, `end_sequence_id`, `submission_status`, `attestation_status` |
+| `payer_report_attestations`   | Attestation signatures on reports                      | `payer_report_id`, `node_id`, `signature`                                                                     |
+| `payer_ledger_events`         | Deposit/withdrawal/settlement events                   | `event_id`, `payer_id`, `amount_picodollars`, `event_type`                                                    |
+| `blockchain_messages`         | Links envelopes to blockchain blocks                   | `block_number`, `block_hash`, `originator_node_id`, `originator_sequence_id`, `is_canonical`                  |
+| `latest_block`                | Last indexed block per contract                        | `contract_address`, `block_number`                                                                            |
+| `originator_congestion`       | Per-originator message rate tracking                   | `originator_id`, `minutes_since_epoch`, `num_messages`                                                        |
+| `nonce_table`                 | Transaction nonce management                           | `nonce`                                                                                                       |
+| `migration_tracker`           | Data migration progress tracking                       | `source_table`, `last_migrated_id`                                                                            |
+| `migration_dead_letter_box`   | Failed migration records for retry                     | `source_table`, `sequence_id`, `payload`, `reason`, `retryable`                                               |
 
-## Slices
+## Partitioning
 
-- Distinguish between nil and empty slices.
-- Avoid memory leaks from slicing large arrays.
-- Always check the capacity when copying or appending slices.
-- Preallocate slice capacity when size is known ahead of time.
+`gateway_envelopes_meta` and `gateway_envelopes_blob` use two-level partitioning:
 
-## Maps
+1. **Level 1 — LIST** by `originator_node_id`: one child table per originator (e.g. `gateway_envelopes_meta_o100`)
+2. **Level 2 — RANGE** by `originator_sequence_id`: 1M-row bands (e.g. `gateway_envelopes_meta_o100_s0_1000000`)
 
-- Always initialize maps before use.
-- Check existence with the two-value assignment (`val, ok := m[key]`).
-- Be aware that ranging over a map is in random order.
+**Dynamic creation:** `ensure_gateway_parts_v2(originator_node_id, sequence_id, band_width DEFAULT 1000000)` creates both levels if missing. Called via savepoint pattern on "no partition" errors:
 
-## Error Handling
+```sql
+-- See pkg/db/sqlc/partitions.sql
+SAVEPOINT sp_part;
+-- attempt insert, on partition error:
+ROLLBACK TO SAVEPOINT sp_part;
+-- call EnsureGatewayParts, then retry
+RELEASE SAVEPOINT sp_part;
+```
 
-- Always check errors — don’t ignore them.
-- Wrap errors with context when rethrowing.
-- Avoid panics except in truly unrecoverable cases.
-- Use `errors.Is` and `errors.As` for error comparison in Go 1.20+.
+## Hot/Cold Path
 
-## Goroutines and Concurrency
+- **Meta table** (`gateway_envelopes_meta`): small rows, heavily indexed, used in all query filters
+- **Blob table** (`gateway_envelopes_blob`): large payloads, joined only when envelope content is needed
+- **View** (`gateway_envelopes_view`): convenience join of meta + blobs, FK with ON DELETE CASCADE
 
-- Always `defer cancel()` when using `context.WithCancel`.
-- Do not leak goroutines — ensure they exit cleanly.
-- Avoid data races — use mutexes or channels appropriately.
-- Never close a channel from the receiving side.
+## Key Query Patterns
 
-## Testing and Debugging
+**Advisory locks** (`sqlc/advisory_locks.sql`): `pg_advisory_xact_lock` / `pg_try_advisory_xact_lock` for serializing operations (e.g. staged envelope insertion, dead letter box)
 
-- Name tests consistently: `TestXxx`, `BenchmarkXxx`, `ExampleXxx`.
-- Use table-driven tests where possible.
-- Avoid global state in tests.
-- Use `t.Helper()` in helper functions to improve error tracebacks.
+**Upserts** (`ON CONFLICT`): used throughout — `InsertNodeInfo`, `IncrementUnsettledUsage`, `FindOrCreatePayer`, `InsertOrIgnorePayerReport`
 
-## Code Style and Tools
+**Batch operations** (`unnest()`): `InsertGatewayEnvelopeBatchV2` accepts parallel arrays for bulk inserts
 
-- Keep imports grouped and ordered: stdlib, external, internal.
-- Avoid magic numbers — use named constants.
-- Prefer explicit over implicit — especially in exported APIs.
+**Time bucketing**: `minutes_since_epoch` column for usage aggregation; payer reports use minute-level granularity
 
-## Go 1.18+ Generics
+**LATERAL per (topic, originator)** (`sqlc/envelopes_v2.sql`): `SelectGatewayEnvelopesByTopics` uses `CROSS JOIN LATERAL` for per-(topic, originator) index probes with per-originator blob join for cache locality. Callers must include all originators in cursor arrays (use `FillMissingOriginators` on the `VectorClock` before `SetVectorClockByTopics`).
 
-- Only use generics when they simplify code or add real flexibility.
-- Avoid over-engineering with type parameters.
-- Be cautious with constraint complexity — keep things readable.
+**LATERAL per originator** (`sqlc/envelopes_v2.sql`): `SelectGatewayEnvelopesByOriginators` uses `CROSS JOIN LATERAL` for per-originator cursor-based pagination
 
-## Numbers and Types
+**Trigger-maintained latest**: `gateway_envelopes_latest` auto-updated via `AFTER INSERT` trigger on `gateway_envelopes_meta`
 
-- Avoid using default `int` unless the size is appropriate.
-- Watch for integer overflows and underflows.
-- Avoid precision issues with `float32`/`float64` — prefer `math/big` if needed.
+## Indexes
 
-## Miscellaneous
+On `gateway_envelopes_meta`:
 
-- Prefer `any` to `interface{}`, but avoid either unless necessary
-- Do not rely on map or slice comparison — use `reflect.DeepEqual` or a library.
-- Avoid relying on goroutine scheduling or map iteration order.
+- `gem_topic_orig_seq_idx` — `(topic, originator_node_id, originator_sequence_id) INCLUDE (gateway_time)` — covering index for V3b LATERAL
+- `gem_topic_time_desc_idx` — `(topic, gateway_time DESC) INCLUDE (originator_node_id, originator_sequence_id)`
+- `gem_expiry_idx` — `(expiry) INCLUDE (...) WHERE expiry IS NOT NULL`
+
+Other notable indexes:
+
+- `blockchain_messages`: `(block_number, is_canonical)`
+- `unsettled_usage`: `(originator_id, minutes_since_epoch DESC)`
+- `payer_reports`: `(submission_status, created_at)`, `(attestation_status, created_at)`
+- `payer_ledger_events`: `(payer_id)`
+
+## Go Utilities
+
+**Handler** (`db.go`): Routes queries to write or read replica. `NewDBHandler(db, WithReadReplica(readDB))`. Methods: `Write()`, `Read()`, `WriteQuery()`, `ReadQuery()`.
+
+**Transaction helpers** (`tx.go`):
+
+- `RunInTx(ctx, db, opts, func(ctx, *queries.Queries) error)` — run in transaction with auto-rollback
+- `RunInTxWithResult[T](ctx, db, opts, func(ctx, *queries.Queries) (T, error))` — same with return value
+- `RunInTxRaw(ctx, db, opts, func(ctx, *sql.Tx) error)` — raw transaction access
+
+**NewNamespacedDB** (`pgx.go`): Creates database if not exists, runs migrations, returns `*sql.DB`. Used for test isolation.
+
+**ConnectToDB** (`pgx.go`): Connects to existing database without creation or migration.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/xmtp)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/xmtp)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [xmtp/xmtpd](https://github.com/xmtp/xmtpd) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
