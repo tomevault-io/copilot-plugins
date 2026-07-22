@@ -1,0 +1,14 @@
+{
+  "name": "macpaw--ai-sdk-typescript",
+  "displayName": "ai-sdk-typescript",
+  "description": "ai-sdk-typescript",
+  "version": "1.0.0",
+  "author": "MacPaw",
+  "homepage": "https://github.com/MacPaw/ai-sdk-typescript",
+  "skills": [
+    {
+      "name": "ai-sdk-typescript",
+      "description": ""
+    }
+  ]
+}
