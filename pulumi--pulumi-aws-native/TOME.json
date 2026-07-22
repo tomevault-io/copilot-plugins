@@ -1,0 +1,51 @@
+{
+  "name": "pulumi-aws-native",
+  "owner": "pulumi",
+  "repo": "pulumi-aws-native",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pulumi-aws-native",
+      "path": ".agents/skills/aws-native-provider-runtime-design/SKILL.md",
+      "github_url": "https://github.com/pulumi/pulumi-aws-native/tree/main/.agents/skills/aws-native-provider-runtime-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pulumi/pulumi-aws-native",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T14:16:59Z"
+}
