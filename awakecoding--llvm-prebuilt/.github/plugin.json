@@ -1,0 +1,9 @@
+{
+  "name": "awakecoding--llvm-prebuilt",
+  "displayName": "llvm-prebuilt",
+  "description": "llvm-prebuilt",
+  "version": "1.0.0",
+  "author": "awakecoding",
+  "homepage": "https://github.com/awakecoding/llvm-prebuilt",
+  "skills": []
+}
