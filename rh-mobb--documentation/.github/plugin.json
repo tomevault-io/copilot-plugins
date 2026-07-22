@@ -1,0 +1,14 @@
+{
+  "name": "rh-mobb--documentation",
+  "displayName": "documentation",
+  "description": "documentation",
+  "version": "1.0.0",
+  "author": "rh-mobb",
+  "homepage": "https://github.com/rh-mobb/documentation",
+  "skills": [
+    {
+      "name": "documentation",
+      "description": ""
+    }
+  ]
+}
