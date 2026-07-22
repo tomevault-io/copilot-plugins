@@ -1,0 +1,87 @@
+{
+  "name": "deepwiki-rs",
+  "owner": "sopaco",
+  "repo": "deepwiki-rs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-litho",
+      "path": "assets/skill-litho",
+      "github_url": "https://github.com/sopaco/deepwiki-rs/tree/main/assets/skill-litho",
+      "description": ""
+    },
+    {
+      "name": "smart-docs",
+      "path": "skills/smart-docs",
+      "github_url": "https://github.com/sopaco/deepwiki-rs/tree/main/skills/smart-docs",
+      "description": ""
+    },
+    {
+      "name": "deepwiki-rs",
+      "path": ".ai-context/SKILL.md",
+      "github_url": "https://github.com/sopaco/deepwiki-rs/tree/main/.ai-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepwiki-rs",
+      "path": "skills/smart-docs/SKILL.md",
+      "github_url": "https://github.com/sopaco/deepwiki-rs/tree/main/skills/smart-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepwiki-rs",
+      "path": "assets/skill-litho/SKILL.md",
+      "github_url": "https://github.com/sopaco/deepwiki-rs/tree/main/assets/skill-litho/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepwiki-rs",
+      "path": ".agents/skills/ai-context-generator/SKILL.md",
+      "github_url": "https://github.com/sopaco/deepwiki-rs/tree/main/.agents/skills/ai-context-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepwiki-rs",
+      "path": ".agents/skills/litho-documents-skill/SKILL.md",
+      "github_url": "https://github.com/sopaco/deepwiki-rs/tree/main/.agents/skills/litho-documents-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sopaco/deepwiki-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:36:08Z"
+}
