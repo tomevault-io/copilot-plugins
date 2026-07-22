@@ -1,0 +1,14 @@
+{
+  "name": "wirelesscar--nauth",
+  "displayName": "nauth",
+  "description": "nauth",
+  "version": "1.0.0",
+  "author": "WirelessCar",
+  "homepage": "https://github.com/WirelessCar/nauth",
+  "skills": [
+    {
+      "name": "nauth",
+      "description": ""
+    }
+  ]
+}
