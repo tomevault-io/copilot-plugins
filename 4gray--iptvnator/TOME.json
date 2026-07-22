@@ -1,0 +1,75 @@
+{
+  "name": "iptvnator",
+  "owner": "4gray",
+  "repo": "iptvnator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "iptvnator",
+      "path": ".codex/skills/xtream-electron/SKILL.md",
+      "github_url": "https://github.com/4gray/iptvnator/tree/main/.codex/skills/xtream-electron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "iptvnator",
+      "path": ".codex/skills/iptvnator-ui-design/SKILL.md",
+      "github_url": "https://github.com/4gray/iptvnator/tree/main/.codex/skills/iptvnator-ui-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "iptvnator",
+      "path": ".codex/skills/iptvnator-theme-style/SKILL.md",
+      "github_url": "https://github.com/4gray/iptvnator/tree/main/.codex/skills/iptvnator-theme-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "iptvnator",
+      "path": ".codex/skills/iptvnator-nx-architecture/SKILL.md",
+      "github_url": "https://github.com/4gray/iptvnator/tree/main/.codex/skills/iptvnator-nx-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "iptvnator",
+      "path": ".codex/skills/iptvnator-sqlite-db-worker/SKILL.md",
+      "github_url": "https://github.com/4gray/iptvnator/tree/main/.codex/skills/iptvnator-sqlite-db-worker/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/4gray/iptvnator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:10:53Z"
+}
