@@ -1,0 +1,315 @@
+{
+  "name": "harmony-claude-code",
+  "owner": "codelably",
+  "repo": "harmony-claude-code",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "django-patterns",
+      "path": "skills/django-patterns",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/django-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-security",
+      "path": "skills/django-security",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/django-security",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "path": "skills/django-verification",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/django-verification",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/springboot-tdd/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/springboot-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/django-security/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/django-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": ".claude/skills/oneskill/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/.claude/skills/oneskill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/django-verification/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/django-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/springboot-security/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/springboot-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/java-coding-standards/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/java-coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/eval-harness/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/eval-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/springboot-verification/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/springboot-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/iterative-retrieval/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/iterative-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harmony-claude-code",
+      "path": "docs/zh-TW/skills/project-guidelines-example/SKILL.md",
+      "github_url": "https://github.com/codelably/harmony-claude-code/tree/main/docs/zh-TW/skills/project-guidelines-example/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/codelably/harmony-claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:39:08Z"
+}
