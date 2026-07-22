@@ -1,0 +1,81 @@
+{
+  "name": "pstrack",
+  "owner": "husamql3",
+  "repo": "pstrack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "better-auth-best-practices",
+      "path": ".agents/skills/better-auth-best-practices",
+      "github_url": "https://github.com/husamql3/pstrack/tree/main/.agents/skills/better-auth-best-practices",
+      "description": ""
+    },
+    {
+      "name": "create-auth-skill",
+      "path": ".agents/skills/create-auth-skill",
+      "github_url": "https://github.com/husamql3/pstrack/tree/main/.agents/skills/create-auth-skill",
+      "description": ""
+    },
+    {
+      "name": "drizzle",
+      "path": ".agents/skills/drizzle",
+      "github_url": "https://github.com/husamql3/pstrack/tree/main/.agents/skills/drizzle",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/husamql3/pstrack/tree/main/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "wrangler",
+      "path": ".agents/skills/wrangler",
+      "github_url": "https://github.com/husamql3/pstrack/tree/main/.agents/skills/wrangler",
+      "description": ""
+    },
+    {
+      "name": "zustand",
+      "path": ".agents/skills/zustand",
+      "github_url": "https://github.com/husamql3/pstrack/tree/main/.agents/skills/zustand",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/husamql3/pstrack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T13:33:05Z"
+}
