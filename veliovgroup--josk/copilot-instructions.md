@@ -1,142 +1,48 @@
 ## josk
 
-> JoSk. Node task scheduler. Single execution across scaled instances (clusters, multi-server, multi-DC). Mimics setTimeout/setInterval. CRON via helper. Sync via Redis/Mongo/Postgres/custom adapter. Read locks, zombie recovery, autoClear. Zero core deps. ~99% test cov.
+> Primary agent guidance for this repo lives in [AGENTS.md](AGENTS.md) — read it first. It covers structure, code style, testing, and edit rules.
 
-# AGENTS.md
+# CLAUDE.md
 
-JoSk. Node task scheduler. Single execution across scaled instances (clusters, multi-server, multi-DC). Mimics setTimeout/setInterval. CRON via helper. Sync via Redis/Mongo/Postgres/custom adapter. Read locks, zombie recovery, autoClear. Zero core deps. ~99% test cov.
+Primary agent guidance for this repo lives in [AGENTS.md](AGENTS.md) — read it first. It covers structure, code style, testing, and edit rules.
 
-## Mission
-Single cluster-wide claim per scheduled tick in horizontally scaled Node.js/Bun.js. Guarantees vary by method: `setInterval` at-least-once, `setTimeout`/`setImmediate` at-most-once (removed before handler). Bulletproof. High perf. Storage agnostic. Easy adapters.
+## Agent Skill
 
-## Structure
-- `index.js`: core ESM (JoSk + adapters). Edit this. Public control: `pause()` / `pause(timerId)` stop this instance competing; `resume()` / `resume(timerId)` restore. `timerId` is the string from `set*` only (no bare uid). Document as multi-instance + long-running only (no benefit single process; short handlers need no pause).
-- `index.cjs`: generated via `prepublishOnly: rollup index.js --file index.cjs --format cjs` (npm publish runs it). CJS bundle for "require". Never edit directly. Regenerate before publish.
-- `adapters/`: postgres.js (pg Pool/tables/indexes/locks), mongo.js, redis.js, blank-example.js + .d.ts. Implement Adapter.
-- `test/`: npm-*.js (mocha+chai), meteor-*.js.
-- `*.d.ts`: Generated from JSDoc in `index.js` + adapters via `tsc --emitDeclarationOnly` on `prepublishOnly`. Do not edit manually.
-- `docs/adapter-api.md`: full adapter contract.
-- `docs/README.md`: docs index (additional guides + migration list). `docs/migration-v{4-v5,v5-v6,v6-v6.1,v6.1-v6.2}.md`: version upgrade guides.
-- `skills/josk/`: Agent Skill source (open cross-tool standard) — `SKILL.md` + `references/{api,adapters,patterns,meteor,troubleshooting}.md`. Installed cross-tool via `npx skills add veliovgroup/josk` (Claude Code, Codex, Cursor, Copilot, Windsurf, Cline, Continue, Goose, Aider, +50 more). Excluded from npm tarball via `.npmignore`. Keep in sync with public API: when adding/changing options, methods, adapter constructors, execution semantics, or migration notes, update the matching reference file. `description` frontmatter in `SKILL.md` must stay ≤ 1024 chars.
-- README.md, CHANGELOG.md, package.json (exports map, types, prepublishOnly now includes tsc).
+The repo ships an [Agent Skill](https://inference.sh/blog/skills/agent-skills-overview) for **users of `josk`** (not for working on this repo itself). It uses the open, cross-tool `SKILL.md` standard and installs into 50+ AI coding agents via `npx skills add veliovgroup/josk`, including Claude Code, Codex, Cursor, Copilot, Windsurf, Cline, Continue, Roo Code, OpenCode, Goose, Aider, Gemini CLI, Kimi CLI, Tabnine, and more. When working on `josk` source, treat the skill as a downstream consumer of the public API.
 
-## Code Style
-- 2-space indentation. Single quotes. Semicolons.
-- **Prefer simple ES classes** for cohesive state/services when they clarify lifecycle (e.g. a small data service with start/stop).
-- Use **small pure functions** for transforms, formatting, and validation.
-- Prefer O(n) single-pass loops; cache derived values.
-- Public methods get JSDoc. Internal helpers prefixed with `__` or `___`.
-- Prefer `void 0` to `undefined` where applicable.
-- Prefer arrow functions assigned to `const` over named `function`.
+- Source: [`skills/josk/`](skills/josk/) — `SKILL.md` plus `references/{api,adapters,patterns,meteor,troubleshooting}.md`.
+- Cross-tool installer: [`npx skills`](https://github.com/vercel-labs/skills). Standard repo layout (`skills/<name>/SKILL.md`); no manifest required.
+- Excluded from the npm tarball via `.npmignore`.
 
-### JS Style Example
+The skill mirrors the public API surface (constructor options, all `setInterval` / `setTimeout` / `setImmediate` / `clearInterval` / `clearTimeout` / `destroy` / `ping` methods, `RedisAdapter` / `MongoAdapter` / `PostgresAdapter` constructors, custom-adapter contract, execution semantics, migration notes). It must stay accurate.
 
-```js
-const string = 'string value';
-const object = {
-  key: string,
-};
+### When to update the skill
 
-const complexObject = {
-  key: string,
-  array: ['one', 'two', 'three'],
-  date: new Date(),
-  timestamp: Date.now(),
-  arrayWithObjects: [{
-    key: {
-      keyLevel2: false,
-    },
-    key2: {
-      array: [{
-        keyLevel3: true,
-      }]
-    }
-  }, {
-    keySecondObject: {
-      keyLevel2: true,
-      otherKeyLevel2: 'string - lorem ipsium',
-    }
-  }],
-};
+After any change that affects the public API or operational guidance:
 
-const sayName = (name) => {
-  if (!name) {
-    return void 0;
-  }
+- New or changed option on `JoSk` → `skills/josk/references/api.md`.
+- New or changed adapter option, table/key/collection layout, or prerequisite → `skills/josk/references/adapters.md`.
+- New handler style, recipe, or tuning knob → `skills/josk/references/patterns.md`.
+- Execution-semantics or migration changes → `skills/josk/references/troubleshooting.md`.
+- Meteor-side wiring changes → `skills/josk/references/meteor.md`.
+- New triggering vocabulary (new adapter, new option name, renamed concept) → frontmatter `description` in `skills/josk/SKILL.md`. Keep it ≤ 1024 chars.
 
-  return `Your name is ${name}`;
-};
-```
+No build or packaging step is required for the cross-tool path — `npx skills add veliovgroup/josk` pulls the source directly from GitHub. Local sanity-check with:
 
-## Standards
-- Terse. No obvious comments. Exact adapter API compliance.
-- ESM primary; JSDoc on public API; CJS generated. Node ≥ 20.9.0, Bun ≥ 1.1.0.
-- Strict validation in ctors. Throw on missing adapter/client/db.
-- Update: README (examples/prereqs), all .d.ts, tests, CHANGELOG.md, package version on change.
-- **Don't add deps** without strong reason — the package's selling points are "tiny, no fluff".
-- Errors: onError hook preferred over throw. ready() or returned Promise controls completion.
-- TS: JSDoc in source drives declarations. Adapter required in JoSkOption. Run `npm run prepublishOnly` after changes to `index.js`/adapters.
-- Never edit `index.cjs` or any `.d.ts`. Always edit source, regenerate before publish.
-- Follow terse response rule: drop articles/fillers. [subject] [verb] [reason]. [next].
-
-
-## Testing
 ```sh
-# Full (Redis+Mongo+PG)
-REDIS_URL=redis://127.0.0.1:6379 MONGO_URL=mongodb://127.0.0.1:27017/test PG_URL=postgres://... npm test
-npm run test:redis
-npm run test:mongo
-npm run test:postgres
-npm run test:jest
-npm run test:types
-npm run test:coverage
+# Validate frontmatter and structure (requires Anthropic skill-creator helpers)
+python -m scripts.quick_validate skills/josk
+
+# Install into your own agents from the local copy to test
+npx skills add ./skills/josk
 ```
 
-- ~3-6min. Requires running DBs.
-- Cover: set*/clear*, zombie (zombieTime), onError/onExecuted, autoClear, destroy mid-run, pause/resume global and per-timerId, CRON helper, promise vs cb ready(), malformed, short delays, concurrent.
-- Add test for any change. Target 99%+.
+Commit the edited source under `skills/josk/`. End users get the update on their next `npx skills add veliovgroup/josk`.
 
-## Guidelines
-- Read adapter-api.md + existing adapters + tests before edit.
-- New adapter: copy blank-example, add .d.ts, test/*.js, update README/index.js/TS/CHANGELOG.
-- Bug: reproduce in test. Fix + regression test.
-- Feature: update docs/TS/tests first. Maintain 2s min interval, jitter note.
-- Weak points: precision (±256ms+), no <2s tasks. Document. No ultra-precision.
-- PR: full test suite, lint clean, update CHANGELOG.
-- Use MongoDB skills only on query/index/schema. PG similar. Frontend skill never. Always read files first.
+### When NOT to use the skill
 
-## Edit rules and flow
-- Introduce changes, validate, run tests.
-- Update TS definitions if absolutely necessary after introduced changes.
-- Update documentation if necessary adding new features or changing old ones.
-- In case of major updates — Add migration instructions to package documentation.
-
-Update this AGENTS.md on major refactors.
-
-## Learned User Preferences
-
-- Refactor only when change has clear, real impact; skip cosmetic-only edits
-- Keep `skills/josk/` terse: router + lazy `references/`; avoid duplicating tables/examples in `SKILL.md`
-- Skill frontmatter `description` must be one inline quoted string (not YAML folded blocks) for cross-tool installers
-- Skill frontmatter description: third-person ("Guides… Use when…"), not imperative "Trigger when"
-- CI matrix cells: adapter-scoped mocha file only, not full suite per cell
-- pause/resume `timerId`: string returned from `set*` only (no bare uid)
-
-## Learned Workspace Facts
-
-- GitHub Actions: `env` context not allowed in `services.*.image` or job `name`; use literals or `matrix`
-- `index.d.cts` is a copy of `index.d.ts` for the `require` export `types` path; identical content is intentional
-- `adapters/*.d.ts` declare adapter classes; required for TypeScript resolution behind `index.d.ts` re-exports
-- Redis Cluster / KeyDB Cluster: `RedisAdapter({ useHashTags: true })`; standalone default key layout unchanged
-- Postgres driver: require `pg>=8.0.3` with Node ≥20.9; `pg@7` connect broken on modern Node; CI excludes `pg@7`
-- `npm run test:bun`: pass explicit files under `test/jest/`, not directory (Bun resolver)
-- CI `test-bun` job: Bun `latest` only; `engines.bun` stays `>=1.1.0`
-- CI: adapter-scoped matrix cells run one mocha file per service; `test-core` runs types/guards/Jest/coverage once (Node 22)
-- Meteor: `api.versionsFrom(['2.14', '3.2'])` — 1.x dropped; npm Node ≥20.9; Meteor 2.x bundles Node 14 (`randomUUID` missing — `createRandomId` uses `randomBytes` hex fallback); `package.json` `meteor.versionsFrom` / `meteor.node` (npm `engines` unchanged); CI matrix 2.14–2.16 + 3.2/3.3.1/3.4; `meteorTestProfile()` Node 14–17 / 18+; `test/meteor-cron.js` cron-parser v4/v5 shim; meteor test `*.js` avoid `?.` (Node 14 isobuild); `METEOR_TEST_SUITE` → `meteor-ci-{mongo,redis,postgres}.js`; skip 3.3.0; Mongo CI omits `MONGO_URL`
-- Meteor package tests: mocha pinned in `package.js` `meteorTestProfile()` only (2.x: `meteortesting:mocha@2.1.0`; 3.x: `@3.3.0`); CLI `--driver-package=meteortesting:mocha` (no `@` — versioned CLI breaks test-packages on 3.x); do not commit `.versions`
-- Package source: `import from 'crypto'` not `node:crypto` — Meteor isobuild compatibility; npm/Bun latest unchanged
-- Pause/resume: shared `test/pause-resume-tests.js`; Meteor `test/meteor-pause-resume.js`; wired into npm-* and meteor-* files; multi-instance tests use peer `readyOnly`, `TASK_DELAY` ≥2048ms, split warmup `waitUntil` for runsA/runsB on slow CI
+The skill is for code that *uses* JoSk. It is not a guide for editing JoSk internals — for that, stay with [AGENTS.md](AGENTS.md), [`docs/adapter-api.md`](docs/adapter-api.md), and the existing adapter implementations.
 
 ---
 > Source: [veliovgroup/josk](https://github.com/veliovgroup/josk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
