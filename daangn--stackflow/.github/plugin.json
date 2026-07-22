@@ -1,0 +1,18 @@
+{
+  "name": "daangn--stackflow",
+  "displayName": "stackflow",
+  "description": "stackflow",
+  "version": "1.0.0",
+  "author": "daangn",
+  "homepage": "https://github.com/daangn/stackflow",
+  "skills": [
+    {
+      "name": "review-react",
+      "description": ""
+    },
+    {
+      "name": "stackflow",
+      "description": ""
+    }
+  ]
+}
