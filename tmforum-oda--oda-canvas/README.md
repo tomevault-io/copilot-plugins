@@ -1,24 +1,24 @@
-# oda-canvas — distributed by TomeVault
+# oda-canvas
 
-> Originally from [tmforum-oda/oda-canvas](https://github.com/tmforum-oda/oda-canvas). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [tmforum-oda/oda-canvas](https://github.com/tmforum-oda/oda-canvas). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [tmforum-oda/oda-canvas](https://github.com/tmforum-oda/oda-canvas).
+Original source: `AGENTS.md` in [tmforum-oda/oda-canvas](https://github.com/tmforum-oda/oda-canvas).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/tmforum-oda#quality)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/tmforum-oda/oda-canvas](https://github.com/tmforum-oda/oda-canvas)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/tmforum-oda) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
