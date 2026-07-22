@@ -1,0 +1,357 @@
+{
+  "name": "farm",
+  "owner": "farm-fe",
+  "repo": "farm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "farm",
+      "path": "skills/farmfe-guide/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/skills/farmfe-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/gh-cli/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/gh-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/rust-engineer/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/rust-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/rust-engineer/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/rust-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/farm-ready-gate/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/farm-ready-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/farm-ready-gate/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/farm-ready-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/git-commit-push/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/git-commit-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/git-commit-push/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/git-commit-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/a5c-ai-docusaurus/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/a5c-ai-docusaurus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/a5c-ai-docusaurus/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/a5c-ai-docusaurus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/creating-changesets/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/creating-changesets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/creating-changesets/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/creating-changesets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/rust-best-practices/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/rust-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/rust-best-practices/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/rust-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/self-improving-agent/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/self-improving-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/self-improving-agent/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/self-improving-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/rebase-commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/rebase-commit-push-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/rebase-commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/rebase-commit-push-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/building-farm-from-source/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/building-farm-from-source/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".agents/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.agents/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".claude/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.claude/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "farm",
+      "path": ".github/skills/e2e-example-acceptance/SKILL.md",
+      "github_url": "https://github.com/farm-fe/farm/tree/main/.github/skills/e2e-example-acceptance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/farm-fe/farm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:11:46Z"
+}
