@@ -1,0 +1,51 @@
+## elodin
+
+> Elodin is an open-source platform for rapid design, testing, and simulation of aerospace and physical systems — aerospace's answer to ROS. This monorepo contains the Elodin Editor (3D viewer/graphing), Elodin DB (time-series telemetry database), the Python SDK (nox-py, JAX-based simulation), flight software components, and the Aleph flight computer NixOS configuration (NVIDIA Jetson Orin).
+
+# Elodin
+
+Elodin is an open-source platform for rapid design, testing, and simulation of aerospace and physical systems — aerospace's answer to ROS. This monorepo contains the Elodin Editor (3D viewer/graphing), Elodin DB (time-series telemetry database), the Python SDK (nox-py, JAX-based simulation), flight software components, and the Aleph flight computer NixOS configuration (NVIDIA Jetson Orin).
+
+## Rules
+
+- Always use the `nix develop` shell when developing changes.
+- Always use `uv` inside the nix shell for Python everything (`just install` sets this up).
+- Don't commit changes to git — that's for the developer to do
+- When suggesting new dependencies, check they are well supported and maintained.
+- Never use unsafe Rust code.
+- Run all activities from the repository root.
+- When running cargo test -p elodin-db, prevent crashing with flags: "CARGO_BUILD_JOBS=1 RUST_TEST_THREADS=1 RAYON_NUM_THREADS=1"
+
+## Quick Start
+
+### Python SDK (always build first, so binaries pick it up)
+
+```bash
+nix develop
+just install
+```
+
+### CI Checks
+
+```bash
+cargo fmt && cargo test && cargo clippy -- -Dwarnings   # Rust
+ruff format --check && ruff check --fix                  # Python
+alejandra                                                # Nix
+```
+
+## Detailed Guidance
+
+For in-depth instructions, read the relevant skill file below when working in that area:
+
+- **Creating simulations** (Python SDK, components, systems, 6DOF, visualization, SITL/HITL): `.cursor/skills/elodin-simulation/SKILL.md`
+- **Monte Carlo + truth data** (calibrating sims against experimental data, campaign specs/hooks, truth-replay ghosts, run scoring, reconstruction): `.cursor/skills/elodin-monte-carlo/SKILL.md`
+- **Contributing to the codebase** (building from source, architecture, workspace structure, testing): `.cursor/skills/elodin-dev/SKILL.md`
+- **Aleph flight computer** (AlephOS deployment, NixOS modules, flight software services, firmware): `.cursor/skills/elodin-aleph/SKILL.md`
+- **Elodin DB** (running the database, client integrations, replication/follow mode, Lua REPL): `.cursor/skills/elodin-db/SKILL.md`
+- **Elodin Editor** (Bevy/Egui architecture, hot-reload, viewport, telemetry graphs, KDL schematics): `.cursor/skills/elodin-editor-dev/SKILL.md`
+- **Python SDK internals** (PyO3 bindings, nox-py, JAX integration, adding components/systems): `.cursor/skills/nox-py-dev/SKILL.md`
+- **Nix environment** (dev shell troubleshooting, OrbStack VMs, flake.nix, binary cache): `.cursor/skills/elodin-nix/SKILL.md`
+
+---
+> Source: [elodin-sys/elodin](https://github.com/elodin-sys/elodin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
