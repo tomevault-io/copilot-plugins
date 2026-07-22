@@ -1,0 +1,26 @@
+{
+  "name": "smartthingscommunity--smartthingsedgedrivers",
+  "displayName": "SmartThingsEdgeDrivers",
+  "description": "SmartThingsEdgeDrivers",
+  "version": "1.0.0",
+  "author": "SmartThingsCommunity",
+  "homepage": "https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers",
+  "skills": [
+    {
+      "name": "SmartThingsEdgeDrivers",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdgeDrivers",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdgeDrivers",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdgeDrivers",
+      "description": ""
+    }
+  ]
+}
