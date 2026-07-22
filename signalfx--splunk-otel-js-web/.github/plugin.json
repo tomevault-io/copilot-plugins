@@ -1,0 +1,26 @@
+{
+  "name": "signalfx--splunk-otel-js-web",
+  "displayName": "splunk-otel-js-web",
+  "description": "splunk-otel-js-web",
+  "version": "1.0.0",
+  "author": "signalfx",
+  "homepage": "https://github.com/signalfx/splunk-otel-js-web",
+  "skills": [
+    {
+      "name": "prepare-release",
+      "description": ""
+    },
+    {
+      "name": "update-cdn",
+      "description": ""
+    },
+    {
+      "name": "splunk-otel-js-web",
+      "description": ""
+    },
+    {
+      "name": "splunk-otel-js-web",
+      "description": ""
+    }
+  ]
+}
