@@ -1,0 +1,153 @@
+{
+  "name": "aspire",
+  "owner": "microsoft",
+  "repo": "aspire",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aspire",
+      "path": ".agents/skills/hex1b/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/hex1b/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/api-review/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/api-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/backport-pr/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/backport-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/startup-perf/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/startup-perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/azdo-internal/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/azdo-internal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/fix-flaky-test/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/fix-flaky-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/cli-e2e-testing/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/cli-e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/test-management/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/test-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/ci-test-failures/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/ci-test-failures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/vscode-extension/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/vscode-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/dashboard-testing/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/dashboard-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/issue-investigation/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/issue-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/connection-properties/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/connection-properties/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/deployment-e2e-testing/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/deployment-e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/update-container-images/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/update-container-images/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".agents/skills/reviewing-aspire-architecture/SKILL.md",
+      "github_url": "https://github.com/microsoft/aspire/tree/main/.agents/skills/reviewing-aspire-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/aspire",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:29:01Z"
+}
