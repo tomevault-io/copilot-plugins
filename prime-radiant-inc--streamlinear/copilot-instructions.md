@@ -1,104 +1,139 @@
 ## streamlinear
 
-> These instructions apply to this repository.
+> This file provides guidance to Claude Code when working in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-These instructions apply to this repository.
+This file provides guidance to Claude Code when working in this repository.
 
-## Project
+## What This Is
 
-streamlinear publishes `@primeradianthq/streamlinear`, a small Linear MCP/CLI
-package for Claude Code and other MCP consumers.
+streamlinear is a lightweight Linear integration published as the npm package
+`@primeradianthq/streamlinear`.
 
-The package exposes:
+It ships two runtime binaries from one TypeScript codebase:
 
-- `streamlinear`: stdio MCP server, backed by `mcp/dist/index.js`.
-- `streamlinear-cli`: local command-line interface, backed by `mcp/dist/cli.js`.
+- `streamlinear`: the stdio MCP server at `mcp/dist/index.js`.
+- `streamlinear-cli`: the local CLI at `mcp/dist/cli.js`.
 
-Source lives under `mcp/src`. The shared behavior is in
-`mcp/src/linear-core.ts`; keep the MCP server and CLI entry points thin.
+The repo also contains `.claude-plugin/` for clone-based Claude Code plugin
+usage. That plugin surface is intentionally repo-only and is not included in
+the npm package.
+
+Most behavior lives in `mcp/src/linear-core.ts`. The MCP server and CLI should
+stay thin shells over that shared module.
 
 ## Setup
 
-Install both dependency trees before verification:
+Install dependencies in both workspaces:
 
 ```bash
 npm ci
 npm --prefix mcp ci
 ```
 
-## Verification
+## Common Commands
 
-Use the smallest relevant check while developing, and run the full gate before
-claiming release readiness.
+Run commands from the repository root unless noted otherwise.
 
 ```bash
-npm run build
-npm run typecheck
-npm run test
-npm run dist:check
-npm run package:check
-npm run pack:verify
-npm run check
+npm run build          # bundle mcp/dist/index.js and mcp/dist/cli.js
+npm run typecheck      # TypeScript check for mcp/src
+npm run test           # node:test coverage under mcp/test
+npm run dist:check     # verify committed dist artifacts match source
+npm run package:check  # verify npm metadata and release invariants
+npm run pack:verify    # pack and install into a temp consumer
+npm run check          # full local release gate
+npm start --prefix mcp # run the MCP server over stdio
 ```
 
-`npm run check` is the full local release gate. It builds, typechecks, tests,
-checks committed dist artifacts, validates package metadata, runs production
-dependency audits, and verifies the packed tarball in a temp consumer.
+To exercise the CLI locally:
+
+```bash
+LINEAR_API_TOKEN=lin_api_xxx node mcp/dist/cli.js search
+node mcp/dist/cli.js --token-cmd "op read 'op://vault/linear/token'" get ABC-123
+```
 
 ## Build Artifacts
 
-`mcp/dist/index.js` and `mcp/dist/cli.js` are committed on purpose because npm
-executes those files directly. Do not hand-edit dist. If `mcp/src/**` changes,
-run `npm run build` and commit any resulting dist changes.
+`mcp/dist/index.js` and `mcp/dist/cli.js` are checked into git because they are
+the files npm executes. Do not hand-edit them. If you change `mcp/src/**`, run
+`npm run build` and commit any matching `mcp/dist/**` changes.
+
+Both dist files need a `#!/usr/bin/env node` shebang. The `mcp/package.json`
+esbuild commands add it with `--banner:js`.
 
 ## Package Boundary
 
-The npm package surface is the root `package.json` `files` allowlist. Keep
-repo-only agent/plugin/development files out of npm unless Drew explicitly asks
-to publish them.
+The npm package is intentionally small. The root `package.json` `files`
+allowlist controls the published surface:
 
-Currently clone/dev-only:
+- `mcp/dist/index.js`
+- `mcp/dist/cli.js`
+- `mcp/package.json`
+- `README.md`
+- `LICENSE`
+- `SECURITY.md`
+- `CONTRIBUTING.md`
+- `CHANGELOG.md`
 
-- `AGENTS.md`
-- `CLAUDE.md`
-- `.claude-plugin/**`
-- `.github/**`
-- `scripts/**`
-- `mcp/src/**`
-- `mcp/test/**`
+`CLAUDE.md`, `AGENTS.md`, `.claude-plugin/**`, GitHub workflows, scripts, tests,
+and source files are clone/dev-only unless the allowlist is changed on purpose.
 
-Do not add npm lifecycle hooks such as `prepare`, `postinstall`, or
-`prepublishOnly`. Consumers should not need a build step during install.
+Avoid adding npm lifecycle hooks such as `prepare`, `postinstall`, or
+`prepublishOnly`. Consumers should be able to install the package without
+running a local build. Clone-time hooks are optional and should stay behind
+explicit commands such as `npm run hooks:install`.
 
-## Development Hooks
+## Architecture Notes
 
-Optional clone hooks use Lefthook and are installed explicitly with:
+`mcp/src/linear-core.ts` owns:
 
-```bash
-npm run hooks:install
-```
+- The Linear GraphQL helper and runtime token handling.
+- Lazy caches for the authenticated viewer and teams.
+- Resolution helpers for issue IDs, team names, workflow state names, and
+  assignees.
+- Action handlers for `search`, `get`, `update`, `comment`, `create`,
+  `graphql`, and `help`.
+- The Zod `LinearParams` schema and `dispatchAction(params)` dispatcher.
+- `buildToolDescription()`, which fetches teams/states at MCP startup so the
+  model sees valid options in the tool description.
 
-Keep hooks clone/dev-only. They should check or rebuild local artifacts for
-contributors; they should not mutate package consumers.
+When adding an action, update the schema, dispatcher, handler, `handleHelp()`,
+CLI argument routing, tests, and `buildToolDescription()` together.
 
-## Release
+Handlers should return useful strings for user-recoverable failures, especially
+unknown teams or workflow states. Throw only for unrecoverable setup/API errors
+that the MCP and CLI entry points should surface as command failures.
 
-The intended package is `@primeradianthq/streamlinear`. The unscoped
-`streamlinear` package on npm is not the target for this repo.
+The `graphql` action is the deliberate escape valve for Linear capabilities not
+covered by the typed actions. Prefer using it before growing the typed surface.
 
-Release tags are `vX.Y.Z` and must match `package.json`. The GitHub release
-workflow verifies the tag, runs `npm run check`, then publishes with provenance.
-If npm auth is not configured for GitHub yet, the first scoped publish may need
-to be done manually by a logged-in npm user.
+## Runtime Contract
 
-## Scope Guardrails
+The MCP server requires `LINEAR_API_TOKEN` at runtime. Product consumers can
+expose their own operator-facing variable names, but they should map those
+values to `LINEAR_API_TOKEN` before starting streamlinear.
 
-Keep publication/tooling changes separate from runtime bug fixes and security
-hardening unless Drew expands the scope. The follow-up bug/secops ticket should
-own behavioral hardening.
+The CLI token precedence is:
+
+1. `--token`
+2. `--token-cmd`
+3. `LINEAR_API_TOKEN`
+
+## Release Notes
+
+Release tags are `vX.Y.Z` and must match the package version. The release
+workflow runs `npm run release:verify-tag`, `npm run check`, then
+`npm publish --access public --provenance`.
+
+The first scoped npm publish may still need to happen manually with a human
+logged into npm. After that, prefer the GitHub release workflow once npm auth is
+configured.
+
+Runtime bugs and security hardening belong in the follow-up ticket, not in the
+npm publication plumbing, unless Drew explicitly expands the release scope.
 
 ---
 > Source: [prime-radiant-inc/streamlinear](https://github.com/prime-radiant-inc/streamlinear) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
