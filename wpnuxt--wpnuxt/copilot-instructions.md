@@ -1,0 +1,221 @@
+## wpnuxt
+
+> Provides base queries for:
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Overview
+
+WPNuxt is a Nuxt module that integrates WordPress with Nuxt 4 via GraphQL (WPGraphQL). It generates type-safe composables from GraphQL queries and provides utilities for fetching WordPress content.
+
+## Development Commands
+
+### Setup
+```bash
+pnpm install                    # Install dependencies
+pnpm run dev:prepare           # Build module stub, prepare playgrounds, generate types
+```
+
+### Development
+```bash
+pnpm run dev                   # Run full playground (with @nuxt/ui)
+pnpm run dev:core              # Run core playground (minimal setup)
+pnpm run dev:blocks            # Run blocks playground
+pnpm run dev:build             # Build main playground
+pnpm run dev:core:build        # Build core playground
+```
+
+### Testing & Linting
+```bash
+pnpm run test                  # Run Vitest tests
+pnpm run test:watch            # Run tests in watch mode
+pnpm run test:types            # Type check module and playground
+pnpm run lint                  # Run ESLint
+```
+
+### Build & Release
+```bash
+pnpm run prepack               # Build the module for distribution
+pnpm run release               # Lint, test, build, create changelog, publish, and push tags
+```
+
+## Architecture
+
+### Module Structure
+
+**Core Module (`src/module.ts`)**
+- Entry point that configures the WPNuxt module
+- Registers the `nuxt-graphql-middleware` dependency and adds a built-in HTML sanitization plugin (`runtime/plugins/sanitizeHtml.ts`) that lazy-loads `dompurify` on the client for the `v-sanitize-html` directive
+- Validates configuration (WordPress URL required, no trailing slash)
+- Merges default queries from `src/runtime/queries/` with user queries from `extend/queries/`
+- Triggers composable generation via `src/generate.ts`
+
+**Composable Generation (`src/generate.ts`)**
+- Scans merged `.gql`/`.graphql` files and parses them using `src/utils/useParser.ts`
+- For each GraphQL query, generates an auto-imported composable: `use{QueryName}()`
+- Regular queries use `useWPContent()`, connection queries (with `pageInfo`) use `useWPConnection()`
+- Composable params accept `MaybeRefOrGetter<T>` — plain objects, refs, computed, or getter functions
+- Generates TypeScript declarations with proper return types based on fragments
+- Output written to `.nuxt/wpnuxt/index.mjs` and `.nuxt/wpnuxt/index.d.ts`
+
+**Runtime Composables**
+- `useWPContent()` (`src/runtime/composables/useWPContent.ts`) — wraps `useAsyncGraphqlQuery()` from nuxt-graphql-middleware, extracts nested data using the `nodes` path, supports reactive params with auto-watch, retry, timeout, and SSG caching
+- `useWPConnection()` (`src/runtime/composables/useWPConnection.ts`) — wraps `useWPContent()` for connection queries, splits result into `data` (nodes array) and `pageInfo`, provides `loadMore()` for infinite scroll accumulation
+
+**Runtime Components (`src/runtime/components/WPContent.vue`)**
+- `<WPContent>` - renders WordPress content with automatic internal link interception
+- Uses `BlockRenderer` when `@wpnuxt/blocks` is installed, falls back to `v-sanitize-html`
+- Intercepts clicks on internal `<a>` tags and uses `navigateTo()` for client-side navigation
+- Props: `node` (content object), `replaceLinks` (per-instance override of global config)
+
+**Auto-imported Utilities**
+- `isInternalLink()`, `toRelativePath()` — link detection and conversion (`src/runtime/util/links.ts`)
+- `getRelativeImagePath()` — WordPress image URL to relative path (`src/runtime/util/images.ts`)
+- `isPage()`, `isPost()`, `isContentType()` — type guards for narrowing `NodeByUri` union types (`src/runtime/util/content-type.ts`)
+- `unwrapScalar()`, `unwrapConnection()` — ACF field normalization helpers (`src/runtime/util/acf.ts`)
+- `usePrevNextPost()` — previous/next post navigation (`src/runtime/composables/usePrevNextPost.ts`)
+
+### Query System
+
+**Default Queries (`src/runtime/queries/`)**
+Provides base queries for:
+- Posts (by URI, ID, category)
+- Pages (by URI, ID, all pages)
+- Menus, Nodes, Revisions, Viewer, GeneralSettings
+- Fragments for common WordPress types (Post, Page, ContentNode, etc.)
+
+**Query Merging (`src/utils/index.ts:mergeQueries()`)**
+1. Copies default queries from `src/runtime/queries/` to `.queries/` folder
+2. If `extend/queries/` exists in the project, copies/overwrites queries from there
+3. This merged folder is then scanned to generate composables
+
+**Connection Pattern Detection**
+The parser (`src/utils/useParser.ts`) detects the WPGraphQL connection pattern when `pageInfo` and `nodes` appear as sibling fields. When detected, `hasPageInfo` is set on the query, and the generator produces a `useWPConnection()` call instead of `useWPContent()`.
+
+**Extending Queries**
+Create `.gql` files in your project's `extend/queries/` folder (configurable via `queries.extendFolder`). These will override default queries or add new ones. Example:
+
+```graphql
+# extend/queries/CustomPosts.gql
+query CustomPosts($limit: Int = 5) {
+  posts(first: $limit) {
+    nodes {
+      ...Post
+      customField  # Add custom fields
+    }
+  }
+}
+```
+
+This generates a `useCustomPosts()` composable.
+
+### Configuration
+
+Module configuration in `nuxt.config.ts` under the `wpNuxt` key:
+
+```typescript
+wpNuxt: {
+  wordpressUrl: string              // Required: WordPress site URL (no trailing slash)
+  graphqlEndpoint: string           // Default: '/graphql'
+  queries: {
+    extendFolder: string            // Default: 'extend/queries/'
+    mergedOutputFolder: string      // Default: '.queries/'
+  }
+  replaceLinks: boolean             // Default: true (intercept internal links in <WPContent>)
+  imageRelativePaths: boolean       // Default: false (convert featured image URLs to relative paths)
+  downloadSchema: boolean           // Default: true (downloads schema.graphql from WP)
+  debug: boolean                    // Default: false (enables debug logging)
+}
+```
+
+Environment variables (`.env`):
+- `WPNUXT_WORDPRESS_URL` - WordPress site URL
+- `WPNUXT_GRAPHQL_ENDPOINT` - GraphQL endpoint path
+- `WPNUXT_DOWNLOAD_SCHEMA` - Whether to download schema
+- `WPNUXT_DEBUG` - Enable debug mode
+
+### Type Generation
+
+The module relies on `nuxt-graphql-middleware` for GraphQL type generation:
+1. Schema downloaded to `schema.graphql` (if `downloadSchema: true`)
+2. Types generated to `.nuxt/graphql-operations.d.ts` from schema + queries
+3. WPNuxt composables reference these types for return values
+
+### Playgrounds
+
+**Full Playground (`playgrounds/full/`)** - `pnpm dev` or `pnpm dev:full`
+- Full-featured example using **@nuxt/ui v4**
+- Renders WordPress HTML content using Tailwind Typography (`prose` classes) with `v-sanitize-html` directive
+- Uses `<BlockRenderer>` for structured Gutenberg blocks, falls back to prose-styled HTML
+- Includes `extend/queries/` with custom paginated query demonstrating connection pattern
+- Best for: Simple content sites where you want great styling out of the box
+
+**Blocks Playground (`playgrounds/blocks/`)** - `pnpm dev:blocks`
+- Demonstrates the **@wpnuxt/blocks** package for Gutenberg block rendering
+- Renders structured `editorBlocks` data using `<BlockRenderer :node="node" />`
+- Each block type has its own Vue component (CoreParagraph, CoreHeading, CoreImage, etc.)
+- Best for: Sites needing custom rendering per block type, lazy-loading images, or interactive blocks
+
+**Core Playground (`playgrounds/core/`)** - `pnpm dev:core`
+- Minimal setup with only @wpnuxt/core
+- No UI framework dependencies
+- Good for testing core functionality
+
+All playgrounds connect to the same WordPress instance (https://wordpress.wpnuxt.com).
+
+### @wpnuxt/blocks Package
+
+The blocks package provides Vue components for rendering WordPress Gutenberg blocks in Nuxt. Key features:
+
+- **BlockRenderer**: Iterates over `editorBlocks` and renders each block with the appropriate component
+- **BlockComponent**: Resolves block type to Vue component (e.g., `core/paragraph` → `CoreParagraph`)
+- **Custom Components**: Users can override any block component by creating their own in `components/blocks/`
+- **Nuxt UI Integration**: When @nuxt/ui is available, components like CoreButton use UButton automatically
+
+To override a block component, create a file in your project's `components/blocks/` directory with the same name (e.g., `CoreParagraph.vue`).
+
+### Build Output
+
+The module is built using `@nuxt/module-builder`:
+- Output: `dist/module.mjs` (ESM)
+- Types: `dist/types.d.mts`
+- Published files include only the `dist/` folder
+
+## Key Patterns
+
+### Adding New Default Queries
+1. Add `.gql` file to `src/runtime/queries/` or `src/runtime/queries/fragments/`
+2. Run `pnpm run dev:prepare` to regenerate types
+3. Generated composables are auto-imported in consuming projects
+
+### Working with Generated Composables
+Generated composables return data extracted from the query response based on the `nodes` parameter passed during generation. For example, `usePosts()` extracts `data.posts.nodes` automatically.
+
+Connection queries (those with `pageInfo` alongside `nodes`) generate composables that return `data` (the nodes array), `pageInfo`, and `loadMore()` for infinite scroll.
+
+### Image Path Handling
+The `useWPContent` composables can transform WordPress image URLs to relative paths using `getRelativeImagePath()` from `src/runtime/util/images.ts`.
+
+### Adding New Auto-imported Utilities
+1. Add the utility to the appropriate file in `src/runtime/util/`
+2. Register the auto-import in `src/module.ts` via `addImports()`
+3. If used by the blocks package, add to `packages/blocks/shim.d.ts`
+
+## Development Rules for Claude Code
+
+### Forbidden Without Permission
+- Never start the dev server (`pnpm run dev`, `pnpm run dev:*`) — always ask the user to start it manually
+- Never run background shell processes for long-running servers
+- Never commit or push to git without explicit user approval — present the changes and wait for consent
+- Never post GitHub comments, close/reopen issues, or change issue state — always draft text for the user to post
+
+### After Every Code Change
+- Run `pnpm run check` to verify everything (runs dev:prepare → lint → typecheck → test → build)
+- IMPORTANT: Never run `pnpm run typecheck` without `pnpm run dev:prepare` first — playground types are generated and will be stale otherwise, causing typecheck to pass locally but fail in CI
+- Report results to the user before continuing
+
+---
+> Source: [wpnuxt/wpnuxt](https://github.com/wpnuxt/wpnuxt) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
