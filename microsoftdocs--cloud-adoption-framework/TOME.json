@@ -1,0 +1,213 @@
+{
+  "name": "cloud-adoption-framework",
+  "owner": "MicrosoftDocs",
+  "repo": "cloud-adoption-framework",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/fix-typos/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/fix-typos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/code-expert/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/code-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/error-check/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/error-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/optimize-seo/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/optimize-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/active-voice/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/active-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/heading-case/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/heading-case/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/gap-analysis/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/gap-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/grammar-check/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/grammar-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/acronym-check/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/acronym-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/code-verifier/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/code-verifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/code-freshness/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/code-freshness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/link-relevance/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/link-relevance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/cloud-adoption/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/cloud-adoption/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/fix-punctuation/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/fix-punctuation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/security-expert/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/security-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/formatting-lint/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/formatting-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/fix-word-choice/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/fix-word-choice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/check-relevance/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/check-relevance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/api-consistency/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/api-consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/list-consistency/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/list-consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/azure-validation/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/azure-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/metadata-updater/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/metadata-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/technical-accuracy/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/technical-accuracy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/improve-readability/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/improve-readability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/temporal-references/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/temporal-references/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/product-terminology/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/product-terminology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/check-accessibility/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/check-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-adoption-framework",
+      "path": ".github/skills/localization-readiness/SKILL.md",
+      "github_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework/tree/main/.github/skills/localization-readiness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MicrosoftDocs/cloud-adoption-framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:14:07Z"
+}
