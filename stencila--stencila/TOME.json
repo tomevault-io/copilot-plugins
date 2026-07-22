@@ -1,0 +1,189 @@
+{
+  "name": "stencila",
+  "owner": "stencila",
+  "repo": "stencila",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stencila",
+      "path": "site/docs/schema/skill.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/site/docs/schema/skill.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/skill-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/skill-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/agent-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/agent-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/theme-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/theme-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/agent-creation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/agent-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/theme-creation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/theme-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/skill-creation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/skill-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/workflow-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/workflow-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/mira-annotation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/mira-annotation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/workflow-creation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/workflow-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/site-config-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/site-config-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-code-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-test-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-test-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-plan-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-plan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/site-config-creation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/site-config-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/mira-annotation-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/mira-annotation-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-test-creation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-test-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-design-review/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-plan-creation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-plan-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-test-execution/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-test-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-implementation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-slice-selection/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-slice-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-design-creation/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-design-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stencila",
+      "path": ".stencila/skills/software-code-refactoring/SKILL.md",
+      "github_url": "https://github.com/stencila/stencila/tree/main/.stencila/skills/software-code-refactoring/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/stencila/stencila",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:47:19Z"
+}
