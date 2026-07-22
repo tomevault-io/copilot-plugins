@@ -1,0 +1,489 @@
+{
+  "name": "x-cmd",
+  "owner": "x-cmd",
+  "repo": "x-cmd",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "x-cmd",
+      "path": "mod/df/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/df/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/ps/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/ps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/arp/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/arp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/cpu/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/cpu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/osv/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/osv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/dns/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/dns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/kev/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/kev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/nets/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/nets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/last/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/last/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/ccal/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/ccal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/lsof/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/lsof/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/find/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/find/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/rule/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/font/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/font/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/smart/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/smart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/theme/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/theme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/tping/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/tping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/route/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/route/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/uname/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/uname/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/uptime/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/uptime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/shodan/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/shodan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/mankier/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/mankier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/starship/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/starship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/ohmyposh/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/ohmyposh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/scorecard/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/scorecard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/advise/lib/spec/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/advise/lib/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/agent/lib/session/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/agent/lib/session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/skills/auto/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/skills/auto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/loop/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/scan/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/work/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill/lib/x-cmd-skill/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill/lib/x-cmd-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/goal/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/check/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/assess/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/assess/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/review/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/simplify/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/optimize/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/ip/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/ip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/qr/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/qr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/git/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/tsv/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/tsv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/csv/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/csv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/pet/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/pet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/meme/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/meme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/repo/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/ccal/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/ccal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/tldr/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/tldr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/time/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/time/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/rule/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/issue/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/naming/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/naming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/prompt/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/lovable/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/lovable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/slash/lib/preset/security-review/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/slash/lib/preset/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/devloop/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/devloop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/knowledge/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/skill0-writer/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/skill0-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/hb/skills/cron/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/hb/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/msg/skills/cron/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/msg/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/hb/skills/x-hub/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/hb/skills/x-hub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/msg/skills/x-hub/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/msg/skills/x-hub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/ontology-database/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/ontology-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/manager/skills/cron/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/manager/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/manager/skills/x-hub/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/manager/skills/x-hub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/manager/skills/claw-admin/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/manager/skills/claw-admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/hb/skills/background-jobs/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/hb/skills/background-jobs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/msg/skills/background-jobs/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/msg/skills/background-jobs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/manager/skills/background-jobs/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/manager/skills/background-jobs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/manager/skills/memory-management/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/manager/skills/memory-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/claw/lib/data/workspace/manager/skills/heartbeat-delegation/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/claw/lib/data/workspace/manager/skills/heartbeat-delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "x-cmd",
+      "path": "mod/skill0/lib/skill0/skills/env/SKILL.md",
+      "github_url": "https://github.com/x-cmd/x-cmd/tree/main/mod/skill0/lib/skill0/skills/env/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/x-cmd/x-cmd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T12:11:59Z"
+}
