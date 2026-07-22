@@ -1,0 +1,105 @@
+{
+  "name": "scalar",
+  "owner": "scalar",
+  "repo": "scalar",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue-components",
+      "path": ".agents/skills/vue-components",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/vue-components",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": ".agents/skills/typescript",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/typescript",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "path": ".agents/skills/tests/SKILL.md",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "path": ".agents/skills/typescript/SKILL.md",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "path": ".agents/skills/scalar-docs/SKILL.md",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/scalar-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "path": ".agents/skills/mock-server/SKILL.md",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/mock-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "path": ".agents/skills/vue-components/SKILL.md",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/vue-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "path": ".agents/skills/openapi-glossary/SKILL.md",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/openapi-glossary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "path": ".agents/skills/cloud-agents-starter/SKILL.md",
+      "github_url": "https://github.com/scalar/scalar/tree/main/.agents/skills/cloud-agents-starter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scalar",
+      "path": "packages/themes/skills/scalar-design-system/SKILL.md",
+      "github_url": "https://github.com/scalar/scalar/tree/main/packages/themes/skills/scalar-design-system/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/scalar/scalar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:40:32Z"
+}
