@@ -4,6 +4,19 @@
   "description": "cloud-cap-hana-swapi",
   "version": "1.0.0",
   "author": "SAP-samples",
-  "homepage": "https://tomevault.io/claim/SAP-samples",
-  "skills": []
+  "homepage": "https://github.com/SAP-samples/cloud-cap-hana-swapi",
+  "skills": [
+    {
+      "name": "cloud-cap-hana-swapi",
+      "description": ""
+    },
+    {
+      "name": "cloud-cap-hana-swapi",
+      "description": ""
+    },
+    {
+      "name": "cloud-cap-hana-swapi",
+      "description": ""
+    }
+  ]
 }
