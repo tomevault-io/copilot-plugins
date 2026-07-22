@@ -1,0 +1,189 @@
+{
+  "name": "OrbitOS",
+  "owner": "MarsWang42",
+  "repo": "OrbitOS",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/ask/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/ask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/ask/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/ask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/archive/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/archive/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/kickoff/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/kickoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/kickoff/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/kickoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/brainstorm/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/brainstorm/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/json-canvas/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/json-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/json-canvas/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/json-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/ai-products/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/ai-products/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/ai-products/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/ai-products/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/start-my-day/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/start-my-day/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/start-my-day/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/start-my-day/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/obsidian-bases/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/obsidian-bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/obsidian-bases/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/obsidian-bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/ai-newsletters/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/ai-newsletters/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/ai-newsletters/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/ai-newsletters/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/parse-knowledge/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/parse-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/parse-knowledge/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/parse-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "CN/.agents/skills/obsidian-markdown/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/obsidian-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OrbitOS",
+      "path": "EN/.agents/skills/obsidian-markdown/SKILL.md",
+      "github_url": "https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/obsidian-markdown/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MarsWang42/OrbitOS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:21:22Z"
+}
