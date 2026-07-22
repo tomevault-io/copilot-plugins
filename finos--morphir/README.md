@@ -1,0 +1,32 @@
+# morphir
+
+> Source: [finos/morphir](https://github.com/finos/morphir). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [finos/morphir](https://github.com/finos/morphir).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (5)
+
+- [skill-creator](https://github.com/finos/morphir/tree/main/.claude/skills/skill-creator)
+- [technical-writer](https://github.com/finos/morphir/tree/main/.claude/skills/technical-writer)
+- [morphir](https://github.com/finos/morphir/tree/main/.claude/skills/skill-creator/SKILL.md)
+- [morphir](https://github.com/finos/morphir/tree/main/.claude/skills/release-manager/SKILL.md)
+- [morphir](https://github.com/finos/morphir/tree/main/.claude/skills/technical-writer/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/finos/morphir](https://github.com/finos/morphir)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:d-e-q -->
