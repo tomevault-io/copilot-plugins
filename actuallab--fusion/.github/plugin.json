@@ -1,0 +1,14 @@
+{
+  "name": "actuallab--fusion",
+  "displayName": "Fusion",
+  "description": "Fusion",
+  "version": "1.0.0",
+  "author": "ActualLab",
+  "homepage": "https://github.com/ActualLab/Fusion",
+  "skills": [
+    {
+      "name": "Fusion",
+      "description": ""
+    }
+  ]
+}
