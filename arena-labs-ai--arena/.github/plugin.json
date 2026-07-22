@@ -1,0 +1,9 @@
+{
+  "name": "arena-labs-ai--arena",
+  "displayName": "arena",
+  "description": "Opensource platform to generate fully custom, intentionally vulnerable security labs on demand",
+  "version": "1.0.0",
+  "author": "arena-labs-ai",
+  "homepage": "https://github.com/arena-labs-ai/arena",
+  "skills": []
+}
