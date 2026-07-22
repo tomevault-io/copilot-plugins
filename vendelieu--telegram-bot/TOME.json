@@ -1,0 +1,321 @@
+{
+  "name": "telegram-bot",
+  "owner": "vendelieu",
+  "repo": "telegram-bot",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-ktnip-ksp-tests",
+      "path": ".cursor/skills/library-dev/add-ktnip-ksp-tests",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-ktnip-ksp-tests",
+      "description": ""
+    },
+    {
+      "name": "add-ktnip-ksp-tests",
+      "path": ".cursor/skills/add-ktnip-ksp-tests",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-ktnip-ksp-tests",
+      "description": ""
+    },
+    {
+      "name": "add-telegram-api-action",
+      "path": ".cursor/skills/add-telegram-api-action",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-telegram-api-action",
+      "description": ""
+    },
+    {
+      "name": "add-telegram-api-action",
+      "path": ".cursor/skills/library-dev/add-telegram-api-action",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-telegram-api-action",
+      "description": ""
+    },
+    {
+      "name": "add-telegram-api-tests",
+      "path": ".cursor/skills/library-dev/add-telegram-api-tests",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-telegram-api-tests",
+      "description": ""
+    },
+    {
+      "name": "add-telegram-api-tests",
+      "path": ".cursor/skills/add-telegram-api-tests",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-telegram-api-tests",
+      "description": ""
+    },
+    {
+      "name": "add-telegram-update-field",
+      "path": ".cursor/skills/add-telegram-update-field",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-telegram-update-field",
+      "description": ""
+    },
+    {
+      "name": "add-telegram-update-field",
+      "path": ".cursor/skills/library-dev/add-telegram-update-field",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-telegram-update-field",
+      "description": ""
+    },
+    {
+      "name": "add-wizard-handler",
+      "path": ".cursor/skills/bot-user/add-wizard-handler",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/add-wizard-handler",
+      "description": ""
+    },
+    {
+      "name": "add-wizard-step",
+      "path": ".cursor/skills/bot-user/add-wizard-step",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/add-wizard-step",
+      "description": ""
+    },
+    {
+      "name": "build-inline-keyboard",
+      "path": ".cursor/skills/bot-user/build-inline-keyboard",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/build-inline-keyboard",
+      "description": ""
+    },
+    {
+      "name": "build-reply-keyboard",
+      "path": ".cursor/skills/bot-user/build-reply-keyboard",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/build-reply-keyboard",
+      "description": ""
+    },
+    {
+      "name": "build-reply-keyboard",
+      "path": ".cursor/skills/build-reply-keyboard",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/build-reply-keyboard",
+      "description": ""
+    },
+    {
+      "name": "build-wizard-flow",
+      "path": ".cursor/skills/bot-user/build-wizard-flow",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/build-wizard-flow",
+      "description": ""
+    },
+    {
+      "name": "create-input-chain",
+      "path": ".cursor/skills/bot-user/create-input-chain",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/create-input-chain",
+      "description": ""
+    },
+    {
+      "name": "handle-callback-query",
+      "path": ".cursor/skills/handle-callback-query",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/handle-callback-query",
+      "description": ""
+    },
+    {
+      "name": "handle-callback-query",
+      "path": ".cursor/skills/bot-user/handle-callback-query",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/handle-callback-query",
+      "description": ""
+    },
+    {
+      "name": "setup-bot-handlers",
+      "path": ".cursor/skills/bot-user/setup-bot-handlers",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/setup-bot-handlers",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/add-wizard-step/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-wizard-step/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/build-wizard-flow/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/build-wizard-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/setup-bot-handlers/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/setup-bot-handlers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/add-wizard-handler/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-wizard-handler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/create-input-chain/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/create-input-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/add-ktnip-collector/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-ktnip-collector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/add-ktnip-ksp-tests/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-ktnip-ksp-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/build-reply-keyboard/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/build-reply-keyboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/handle-callback-query/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/handle-callback-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/build-inline-keyboard/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/build-inline-keyboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/add-telegram-api-tests/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-telegram-api-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/add-telegram-api-action/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-telegram-api-action/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/bot-user/add-wizard-step/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/add-wizard-step/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/add-telegram-update-field/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-telegram-update-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/bot-user/build-wizard-flow/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/build-wizard-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/bot-user/setup-bot-handlers/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/setup-bot-handlers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/bot-user/add-wizard-handler/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/add-wizard-handler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/bot-user/create-input-chain/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/create-input-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/add-ktnip-parameter-strategy/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/add-ktnip-parameter-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/bot-user/build-reply-keyboard/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/build-reply-keyboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/bot-user/handle-callback-query/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/handle-callback-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/bot-user/build-inline-keyboard/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/bot-user/build-inline-keyboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/library-dev/add-ktnip-collector/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-ktnip-collector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/library-dev/add-ktnip-ksp-tests/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-ktnip-ksp-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/library-dev/add-telegram-api-tests/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-telegram-api-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/library-dev/add-telegram-api-action/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-telegram-api-action/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/library-dev/add-telegram-update-field/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-telegram-update-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot",
+      "path": ".cursor/skills/library-dev/add-ktnip-parameter-strategy/SKILL.md",
+      "github_url": "https://github.com/vendelieu/telegram-bot/tree/main/.cursor/skills/library-dev/add-ktnip-parameter-strategy/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vendelieu/telegram-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:37:36Z"
+}
