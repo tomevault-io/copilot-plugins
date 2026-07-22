@@ -1,0 +1,267 @@
+{
+  "name": "ledger-live",
+  "owner": "LedgerHQ",
+  "repo": "ledger-live",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/fix-ci/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/fix-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/testing/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/cleanup/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/e2e-swap/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/e2e-swap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/comments/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/ldls-web/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/ldls-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/client-ids/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/client-ids/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/typescript/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/pre-review/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/pre-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/feature-dev/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/feature-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/redux-slice/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/redux-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/zod-schemas/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/zod-schemas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/ldls-native/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/ldls-native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/coin-modules/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/coin-modules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/docs-migrate/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/docs-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/react-general/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/react-general/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/dialogs-slice/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/dialogs-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/codeownership/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/codeownership/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/rtk-query-api/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/rtk-query-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/test-coverage/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/test-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/prefer-set-has/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/prefer-set-has/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/get-pr-comments/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/get-pr-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/slack-pr-message/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/slack-pr-message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/create-changeset/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/create-changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/ledger-wallet-cli/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/ledger-wallet-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/mvvm-architecture/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/mvvm-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/e2e-mobile-onboard/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/e2e-mobile-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/e2e-desktop-onboard/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/e2e-desktop-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/debug-rn-native-crash/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/debug-rn-native-crash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/docs-update-or-create/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/docs-update-or-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/coin-families-contract/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/coin-families-contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/device-intent-executor/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/device-intent-executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/e2e-desktop-add-or-update/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/e2e-desktop-add-or-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ledger-live",
+      "path": ".agents/skills/rebuild-to-fix-lib-import-errors/SKILL.md",
+      "github_url": "https://github.com/LedgerHQ/ledger-live/tree/main/.agents/skills/rebuild-to-fix-lib-import-errors/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LedgerHQ/ledger-live",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:04:55Z"
+}
