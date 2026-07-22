@@ -1,0 +1,93 @@
+{
+  "name": "swarmauri-sdk",
+  "owner": "swarmauri",
+  "repo": "swarmauri-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "swarmauri-sdk",
+      "path": "plugins/swarmauri-sdk-authoring/skills/swarmauri-add-base-mixin/SKILL.md",
+      "github_url": "https://github.com/swarmauri/swarmauri-sdk/tree/main/plugins/swarmauri-sdk-authoring/skills/swarmauri-add-base-mixin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swarmauri-sdk",
+      "path": "plugins/swarmauri-sdk-authoring/skills/swarmauri-add-base-class/SKILL.md",
+      "github_url": "https://github.com/swarmauri/swarmauri-sdk/tree/main/plugins/swarmauri-sdk-authoring/skills/swarmauri-add-base-class/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swarmauri-sdk",
+      "path": "plugins/swarmauri-sdk-authoring/skills/swarmauri-add-core-interface/SKILL.md",
+      "github_url": "https://github.com/swarmauri/swarmauri-sdk/tree/main/plugins/swarmauri-sdk-authoring/skills/swarmauri-add-core-interface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swarmauri-sdk",
+      "path": "plugins/swarmauri-sdk-authoring/skills/swarmauri-add-plugin-package/SKILL.md",
+      "github_url": "https://github.com/swarmauri/swarmauri-sdk/tree/main/plugins/swarmauri-sdk-authoring/skills/swarmauri-add-plugin-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swarmauri-sdk",
+      "path": "plugins/swarmauri-sdk-authoring/skills/swarmauri-add-community-standalone/SKILL.md",
+      "github_url": "https://github.com/swarmauri/swarmauri-sdk/tree/main/plugins/swarmauri-sdk-authoring/skills/swarmauri-add-community-standalone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swarmauri-sdk",
+      "path": "plugins/swarmauri-sdk-authoring/skills/swarmauri-add-standards-standalone/SKILL.md",
+      "github_url": "https://github.com/swarmauri/swarmauri-sdk/tree/main/plugins/swarmauri-sdk-authoring/skills/swarmauri-add-standards-standalone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swarmauri-sdk",
+      "path": "plugins/swarmauri-sdk-authoring/skills/swarmauri-add-experimental-standalone/SKILL.md",
+      "github_url": "https://github.com/swarmauri/swarmauri-sdk/tree/main/plugins/swarmauri-sdk-authoring/skills/swarmauri-add-experimental-standalone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swarmauri-sdk",
+      "path": "plugins/swarmauri-sdk-authoring/skills/swarmauri-add-swarmauri-standard-concrete/SKILL.md",
+      "github_url": "https://github.com/swarmauri/swarmauri-sdk/tree/main/plugins/swarmauri-sdk-authoring/skills/swarmauri-add-swarmauri-standard-concrete/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/swarmauri/swarmauri-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:01:25Z"
+}
