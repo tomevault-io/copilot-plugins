@@ -1,0 +1,9 @@
+{
+  "name": "osmlab--osm-auth",
+  "displayName": "osm-auth",
+  "description": "osm-auth",
+  "version": "1.0.0",
+  "author": "osmlab",
+  "homepage": "https://github.com/osmlab/osm-auth",
+  "skills": []
+}
