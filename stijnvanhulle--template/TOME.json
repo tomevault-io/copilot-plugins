@@ -1,0 +1,87 @@
+{
+  "name": "template",
+  "owner": "stijnvanhulle",
+  "repo": "template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "template",
+      "path": "tools/claude/skills/pr/SKILL.md",
+      "github_url": "https://github.com/stijnvanhulle/template/tree/main/tools/claude/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "path": "tools/claude/skills/jsdoc/SKILL.md",
+      "github_url": "https://github.com/stijnvanhulle/template/tree/main/tools/claude/skills/jsdoc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "path": "tools/claude/skills/changelog/SKILL.md",
+      "github_url": "https://github.com/stijnvanhulle/template/tree/main/tools/claude/skills/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "path": "tools/claude/skills/humanizer/SKILL.md",
+      "github_url": "https://github.com/stijnvanhulle/template/tree/main/tools/claude/skills/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "path": "tools/claude/skills/spec-driven/SKILL.md",
+      "github_url": "https://github.com/stijnvanhulle/template/tree/main/tools/claude/skills/spec-driven/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "path": "tools/claude/skills/conventions/SKILL.md",
+      "github_url": "https://github.com/stijnvanhulle/template/tree/main/tools/claude/skills/conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "template",
+      "path": "tools/claude/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/stijnvanhulle/template/tree/main/tools/claude/skills/documentation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/stijnvanhulle/template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:06:20Z"
+}
