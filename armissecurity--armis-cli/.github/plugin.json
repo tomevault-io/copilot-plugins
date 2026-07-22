@@ -1,0 +1,9 @@
+{
+  "name": "armissecurity--armis-cli",
+  "displayName": "armis-cli",
+  "description": "armis-cli",
+  "version": "1.0.0",
+  "author": "ArmisSecurity",
+  "homepage": "https://github.com/ArmisSecurity/armis-cli",
+  "skills": []
+}
