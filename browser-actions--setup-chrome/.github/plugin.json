@@ -1,0 +1,9 @@
+{
+  "name": "browser-actions--setup-chrome",
+  "displayName": "setup-chrome",
+  "description": "setup-chrome",
+  "version": "1.0.0",
+  "author": "browser-actions",
+  "homepage": "https://github.com/browser-actions/setup-chrome",
+  "skills": []
+}
