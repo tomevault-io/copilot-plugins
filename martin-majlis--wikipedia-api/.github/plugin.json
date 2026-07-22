@@ -1,0 +1,14 @@
+{
+  "name": "martin-majlis--wikipedia-api",
+  "displayName": "Wikipedia-API",
+  "description": "Wikipedia-API",
+  "version": "1.0.0",
+  "author": "martin-majlis",
+  "homepage": "https://github.com/martin-majlis/Wikipedia-API",
+  "skills": [
+    {
+      "name": "Wikipedia-API",
+      "description": ""
+    }
+  ]
+}
