@@ -1,0 +1,177 @@
+{
+  "name": "superdeck",
+  "owner": "btwld",
+  "repo": "superdeck",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-caching-data/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-caching-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-testing-apps/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-testing-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-theming-apps/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-theming-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-managing-state/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-managing-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-animating-apps/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-animating-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-building-forms/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-building-forms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-localizing-apps/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-localizing-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-building-plugins/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-building-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-building-layouts/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-building-layouts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/playwright-best-practices/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/playwright-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-architecting-apps/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-architecting-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-reducing-app-size/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-reducing-app-size/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-setting-up-on-linux/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-setting-up-on-linux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-setting-up-on-macos/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-setting-up-on-macos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-setting-up-on-windows/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-setting-up-on-windows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-embedding-native-views/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-embedding-native-views/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-working-with-databases/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-working-with-databases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-handling-http-and-json/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-handling-http-and-json/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-improving-accessibility/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-improving-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-adding-home-screen-widgets/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-adding-home-screen-widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-interoperating-with-native-apis/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-interoperating-with-native-apis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superdeck",
+      "path": ".agents/skills/flutter-implementing-navigation-and-routing/SKILL.md",
+      "github_url": "https://github.com/btwld/superdeck/tree/main/.agents/skills/flutter-implementing-navigation-and-routing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/btwld/superdeck",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:03:26Z"
+}
