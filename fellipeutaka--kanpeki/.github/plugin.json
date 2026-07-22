@@ -1,0 +1,22 @@
+{
+  "name": "fellipeutaka--kanpeki",
+  "displayName": "kanpeki",
+  "description": "kanpeki",
+  "version": "1.0.0",
+  "author": "fellipeutaka",
+  "homepage": "https://github.com/fellipeutaka/kanpeki",
+  "skills": [
+    {
+      "name": "commit-work",
+      "description": ""
+    },
+    {
+      "name": "kanpeki",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "description": ""
+    }
+  ]
+}
