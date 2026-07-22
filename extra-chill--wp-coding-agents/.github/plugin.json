@@ -1,0 +1,14 @@
+{
+  "name": "extra-chill--wp-coding-agents",
+  "displayName": "wp-coding-agents",
+  "description": "wp-coding-agents",
+  "version": "1.0.0",
+  "author": "Extra-Chill",
+  "homepage": "https://github.com/Extra-Chill/wp-coding-agents",
+  "skills": [
+    {
+      "name": "wp-coding-agents",
+      "description": ""
+    }
+  ]
+}
