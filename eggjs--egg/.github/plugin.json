@@ -1,0 +1,26 @@
+{
+  "name": "eggjs--egg",
+  "displayName": "egg",
+  "description": "egg",
+  "version": "1.0.0",
+  "author": "eggjs",
+  "homepage": "https://github.com/eggjs/egg",
+  "skills": [
+    {
+      "name": "egg",
+      "description": ""
+    },
+    {
+      "name": "egg",
+      "description": ""
+    },
+    {
+      "name": "egg",
+      "description": ""
+    },
+    {
+      "name": "egg",
+      "description": ""
+    }
+  ]
+}
