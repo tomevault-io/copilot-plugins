@@ -3,8 +3,8 @@
   "owner": "legions-developer",
   "repo": "invoicely",
   "description": "Invoicely is a simple and easy to use invoice generator where you can create beautiful and professional invoices in minutes. ~ Proudly OSS",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,147 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/seo/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/zod/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/zod/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/drizzle/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/drizzle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/twoFactor/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/twoFactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/use-ai-sdk/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/use-ai-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/organization/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/organization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/next-upgrade/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/next-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/neon-postgres/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/neon-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/best-practices/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/react-hook-form/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/react-hook-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/emailAndPassword/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/emailAndPassword/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/tailwind-v4-shadcn/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/tailwind-v4-shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/react-best-practices/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/composition-patterns/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/nodejs-best-practices/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/nodejs-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/tailwind-css-patterns/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/tailwind-css-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/bash-defensive-patterns/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/bash-defensive-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "invoicely",
+      "path": ".agents/skills/nodejs-backend-patterns/SKILL.md",
+      "github_url": "https://github.com/legions-developer/invoicely/tree/main/.agents/skills/nodejs-backend-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/legions-developer/invoicely",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:10:56Z"
+  "distributed_at": "2026-07-22T22:48:20Z"
 }
