@@ -1,0 +1,9 @@
+{
+  "name": "jeboehm--docker-mailserver",
+  "displayName": "docker-mailserver",
+  "description": "docker-mailserver",
+  "version": "1.0.0",
+  "author": "jeboehm",
+  "homepage": "https://github.com/jeboehm/docker-mailserver",
+  "skills": []
+}
