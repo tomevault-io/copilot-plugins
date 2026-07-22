@@ -1,0 +1,30 @@
+{
+  "name": "artsy--eigen",
+  "displayName": "eigen",
+  "description": "eigen",
+  "version": "1.0.0",
+  "author": "artsy",
+  "homepage": "https://github.com/artsy/eigen",
+  "skills": [
+    {
+      "name": "creating-screens",
+      "description": ""
+    },
+    {
+      "name": "eigen-testing",
+      "description": ""
+    },
+    {
+      "name": "eigen",
+      "description": ""
+    },
+    {
+      "name": "eigen",
+      "description": ""
+    },
+    {
+      "name": "eigen",
+      "description": ""
+    }
+  ]
+}
