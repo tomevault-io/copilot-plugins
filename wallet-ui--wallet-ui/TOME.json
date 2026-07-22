@@ -1,0 +1,57 @@
+{
+  "name": "wallet-ui",
+  "owner": "wallet-ui",
+  "repo": "wallet-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "install-wallet-ui-react-native",
+      "path": ".ruler/skills/install-wallet-ui-react-native",
+      "github_url": "https://github.com/wallet-ui/wallet-ui/tree/main/.ruler/skills/install-wallet-ui-react-native",
+      "description": ""
+    },
+    {
+      "name": "wallet-ui",
+      "path": ".ruler/skills/install-wallet-ui-react-native/SKILL.md",
+      "github_url": "https://github.com/wallet-ui/wallet-ui/tree/main/.ruler/skills/install-wallet-ui-react-native/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wallet-ui/wallet-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T21:04:56Z"
+}
