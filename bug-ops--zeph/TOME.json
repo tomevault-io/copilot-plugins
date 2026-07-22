@@ -1,0 +1,165 @@
+{
+  "name": "zeph",
+  "owner": "bug-ops",
+  "repo": "zeph",
+  "description": "Rust AI agent where every context token earns its place. Self-learning skills, temporal graph memory, cascade quality   routing, OWASP AI security. Hybrid inference: Ollama \u00b7 Claude \u00b7 Gemini \u00b7 OpenAI \u00b7 GGUF. MCP + ACP. One binary.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/git/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/regex/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/regex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/qdrant/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/qdrant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/docker/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/github/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/archive/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/network/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/network/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/file-ops/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/file-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/database/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/json-yaml/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/json-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/scheduler/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/scheduler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/web-scrape/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/web-scrape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/web-search/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/system-info/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/system-info/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/setup-guide/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/setup-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/code-analysis/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/code-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/text-processing/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/text-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zeph",
+      "path": ".zeph/skills/rust-agent-handoff/SKILL.md",
+      "github_url": "https://github.com/bug-ops/zeph/tree/main/.zeph/skills/rust-agent-handoff/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bug-ops/zeph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:40:36Z"
+}
