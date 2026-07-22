@@ -1,0 +1,219 @@
+{
+  "name": "marin",
+  "owner": "marin-community",
+  "repo": "marin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "marin",
+      "path": ".agents/skills/debug/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/fix-docs/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/fix-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/scan-logs/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/scan-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/file-issue/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/file-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/run-ferries/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/run-ferries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/babysit-job/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/babysit-job/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/reserve-tpu/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/reserve-tpu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/change-grug/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/change-grug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/add-dataset/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/add-dataset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/lint-review/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/lint-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/write-tests/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/run-research/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/run-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/restart-iris/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/restart-iris/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/write-ops-log/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/write-ops-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/writing-style/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/writing-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/triage-canary/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/triage-canary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/babysit-zephyr/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/babysit-zephyr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/manage-hero-run/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/manage-hero-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/profile-training/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/profile-training/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/write-design-doc/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/write-design-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/add-pallas-kernel/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/add-pallas-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/archive-experiments/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/archive-experiments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/organize-experiments/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/organize-experiments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/scrub-docs-code-parity/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/scrub-docs-code-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/scrub-experiment-issue-tldrs/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/scrub-experiment-issue-tldrs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marin",
+      "path": ".agents/skills/scrub-reflection-self-improvement/SKILL.md",
+      "github_url": "https://github.com/marin-community/marin/tree/main/.agents/skills/scrub-reflection-self-improvement/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marin-community/marin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:45:28Z"
+}
