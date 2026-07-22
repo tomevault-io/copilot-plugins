@@ -1,0 +1,105 @@
+{
+  "name": "sciris",
+  "owner": "sciris",
+  "repo": "sciris",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-utils/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-utils/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-dates/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-dates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-intro/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-intro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-dicts/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-dicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-files/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-arrays/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-arrays/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-plotting/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-plotting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-advanced/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-printing/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-printing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sciris",
+      "path": "claude_plugin/skills/sciris-parallel/SKILL.md",
+      "github_url": "https://github.com/sciris/sciris/tree/main/claude_plugin/skills/sciris-parallel/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sciris/sciris",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:09:39Z"
+}
