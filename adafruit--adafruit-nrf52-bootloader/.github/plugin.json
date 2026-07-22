@@ -1,0 +1,9 @@
+{
+  "name": "adafruit--adafruit-nrf52-bootloader",
+  "displayName": "Adafruit_nRF52_Bootloader",
+  "description": "Adafruit_nRF52_Bootloader",
+  "version": "1.0.0",
+  "author": "adafruit",
+  "homepage": "https://github.com/adafruit/Adafruit_nRF52_Bootloader",
+  "skills": []
+}
