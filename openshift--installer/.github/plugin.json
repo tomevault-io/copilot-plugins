@@ -1,0 +1,14 @@
+{
+  "name": "openshift--installer",
+  "displayName": "installer",
+  "description": "installer",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/installer",
+  "skills": [
+    {
+      "name": "installer",
+      "description": ""
+    }
+  ]
+}
