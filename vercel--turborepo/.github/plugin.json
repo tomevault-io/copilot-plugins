@@ -1,0 +1,18 @@
+{
+  "name": "vercel--turborepo",
+  "displayName": "turborepo",
+  "description": "turborepo",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/turborepo",
+  "skills": [
+    {
+      "name": "turborepo",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "description": ""
+    }
+  ]
+}
