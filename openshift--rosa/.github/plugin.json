@@ -1,0 +1,26 @@
+{
+  "name": "openshift--rosa",
+  "displayName": "rosa",
+  "description": "rosa",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/rosa",
+  "skills": [
+    {
+      "name": "rosa",
+      "description": ""
+    },
+    {
+      "name": "rosa",
+      "description": ""
+    },
+    {
+      "name": "rosa",
+      "description": ""
+    },
+    {
+      "name": "rosa",
+      "description": ""
+    }
+  ]
+}
