@@ -1,0 +1,75 @@
+{
+  "name": "makeup-js",
+  "owner": "makeup",
+  "repo": "makeup-js",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "makeup-js",
+      "path": ".claude/skills/revamp-demo/SKILL.md",
+      "github_url": "https://github.com/makeup/makeup-js/tree/main/.claude/skills/revamp-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "makeup-js",
+      "path": ".claude/skills/test-coverage/SKILL.md",
+      "github_url": "https://github.com/makeup/makeup-js/tree/main/.claude/skills/test-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "makeup-js",
+      "path": ".claude/skills/release-module/skill.md",
+      "github_url": "https://github.com/makeup/makeup-js/tree/main/.claude/skills/release-module/skill.md",
+      "description": ""
+    },
+    {
+      "name": "makeup-js",
+      "path": ".claude/skills/add-unit-tests/SKILL.md",
+      "github_url": "https://github.com/makeup/makeup-js/tree/main/.claude/skills/add-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "makeup-js",
+      "path": ".claude/skills/refactor-module/SKILL.md",
+      "github_url": "https://github.com/makeup/makeup-js/tree/main/.claude/skills/refactor-module/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/makeup/makeup-js",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:00:58Z"
+}
