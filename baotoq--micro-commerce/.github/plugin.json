@@ -1,0 +1,298 @@
+{
+  "name": "baotoq--micro-commerce",
+  "displayName": "micro-commerce",
+  "description": "micro-commerce",
+  "version": "1.0.0",
+  "author": "baotoq",
+  "homepage": "https://github.com/baotoq/micro-commerce",
+  "skills": [
+    {
+      "name": "api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "architecture-decision-records",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "backend-architect",
+      "description": ""
+    },
+    {
+      "name": "context7-auto-research",
+      "description": ""
+    },
+    {
+      "name": "csharp-developer",
+      "description": ""
+    },
+    {
+      "name": "database-architect",
+      "description": ""
+    },
+    {
+      "name": "domain-analysis",
+      "description": ""
+    },
+    {
+      "name": "dotnet-architect",
+      "description": ""
+    },
+    {
+      "name": "dotnet-aspire",
+      "description": ""
+    },
+    {
+      "name": "dotnet-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "dotnet-core-expert",
+      "description": ""
+    },
+    {
+      "name": "dotnet-ddd",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "efcore-patterns",
+      "description": ""
+    },
+    {
+      "name": "microservices-architect",
+      "description": ""
+    },
+    {
+      "name": "microservices-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-app-router-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-best-practices",
+      "description": ""
+    },
+    {
+      "name": "prompt-lookup",
+      "description": ""
+    },
+    {
+      "name": "readme",
+      "description": ""
+    },
+    {
+      "name": "tailwind-design-system",
+      "description": ""
+    },
+    {
+      "name": "tailwind-patterns",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "unit-testing-test-generate",
+      "description": ""
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "description": ""
+    }
+  ]
+}
