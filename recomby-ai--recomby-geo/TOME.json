@@ -1,0 +1,93 @@
+{
+  "name": "recomby-geo",
+  "owner": "recomby-ai",
+  "repo": "recomby-geo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "recomby-geo",
+      "path": "plugins/recomby-geo/skills/geo-pipeline/SKILL.md",
+      "github_url": "https://github.com/recomby-ai/recomby-geo/tree/main/plugins/recomby-geo/skills/geo-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "recomby-geo",
+      "path": "plugins/recomby-geo/skills/content-writer/SKILL.md",
+      "github_url": "https://github.com/recomby-ai/recomby-geo/tree/main/plugins/recomby-geo/skills/content-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "recomby-geo",
+      "path": "plugins/recomby-geo/skills/geo-review-html/SKILL.md",
+      "github_url": "https://github.com/recomby-ai/recomby-geo/tree/main/plugins/recomby-geo/skills/geo-review-html/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "recomby-geo",
+      "path": "plugins/recomby-geo/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/recomby-ai/recomby-geo/tree/main/plugins/recomby-geo/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "recomby-geo",
+      "path": "plugins/recomby-geo/skills/keyword-research/SKILL.md",
+      "github_url": "https://github.com/recomby-ai/recomby-geo/tree/main/plugins/recomby-geo/skills/keyword-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "recomby-geo",
+      "path": "plugins/recomby-geo/skills/seo-geo-optimizer/SKILL.md",
+      "github_url": "https://github.com/recomby-ai/recomby-geo/tree/main/plugins/recomby-geo/skills/seo-geo-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "recomby-geo",
+      "path": "plugins/recomby-geo/skills/meta-tags-optimizer/SKILL.md",
+      "github_url": "https://github.com/recomby-ai/recomby-geo/tree/main/plugins/recomby-geo/skills/meta-tags-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "recomby-geo",
+      "path": "plugins/recomby-geo/skills/internal-linking-optimizer/SKILL.md",
+      "github_url": "https://github.com/recomby-ai/recomby-geo/tree/main/plugins/recomby-geo/skills/internal-linking-optimizer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/recomby-ai/recomby-geo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:50:02Z"
+}
