@@ -1,0 +1,183 @@
+{
+  "name": "rosie",
+  "owner": "withastro",
+  "repo": "rosie",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rosie",
+      "path": "local-skills/release/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/local-skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/fake-org/skills/main/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/fake-org/skills/main/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/fake-org/skills/v1.0.0/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/fake-org/skills/v1.0.0/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/update-all/expected/.agents/skills/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/update-all/expected/.agents/skills/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/update-one/expected/.agents/skills/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/update-one/expected/.agents/skills/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/remove-basic/expected/.agents/skills/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/remove-basic/expected/.agents/skills/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/update-one/expected/.agents/skills/alpha-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/update-one/expected/.agents/skills/alpha-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/install-basic/expected/.agents/skills/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/install-basic/expected/.agents/skills/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/fake-org/multi-skills/main/beta-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/fake-org/multi-skills/main/beta-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/fake-org/multi-skills/main/alpha-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/fake-org/multi-skills/main/alpha-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/fake-org/hostile/main/my-hostile-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/fake-org/hostile/main/my-hostile-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/install-pinned-tag/expected/.agents/skills/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/install-pinned-tag/expected/.agents/skills/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/fake-org/contaminated/main/skills/genuine/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/fake-org/contaminated/main/skills/genuine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/agent-alias-amplify/expected/.agents/skills/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/agent-alias-amplify/expected/.agents/skills/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/install-from-lockfile/expected/.agents/skills/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/install-from-lockfile/expected/.agents/skills/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/install-with-agent-flag/expected/.agents/skills/my-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/install-with-agent-flag/expected/.agents/skills/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/cloudflare/skills/main/skills/cloudflare-pages/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/cloudflare/skills/main/skills/cloudflare-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/install-multiple-skills/expected/.agents/skills/beta-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/install-multiple-skills/expected/.agents/skills/beta-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/install-specific-skill/expected/.agents/skills/alpha-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/install-specific-skill/expected/.agents/skills/alpha-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/install-multiple-skills/expected/.agents/skills/alpha-skill/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/install-multiple-skills/expected/.agents/skills/alpha-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/cloudflare/skills/main/skills/cloudflare-workers/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/cloudflare/skills/main/skills/cloudflare-workers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/cases/install-skips-installed-skills/expected/.agents/skills/genuine/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/cases/install-skips-installed-skills/expected/.agents/skills/genuine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rosie",
+      "path": "tests/regression/fixtures/sources/fake-org/contaminated/main/.claude/skills/installed-thirdparty/SKILL.md",
+      "github_url": "https://github.com/withastro/rosie/tree/main/tests/regression/fixtures/sources/fake-org/contaminated/main/.claude/skills/installed-thirdparty/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/withastro/rosie",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:03:39Z"
+}
