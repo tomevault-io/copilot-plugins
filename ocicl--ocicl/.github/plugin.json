@@ -1,0 +1,14 @@
+{
+  "name": "ocicl--ocicl",
+  "displayName": "ocicl",
+  "description": "ocicl",
+  "version": "1.0.0",
+  "author": "ocicl",
+  "homepage": "https://github.com/ocicl/ocicl",
+  "skills": [
+    {
+      "name": "ocicl",
+      "description": ""
+    }
+  ]
+}
