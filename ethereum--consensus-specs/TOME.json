@@ -1,0 +1,75 @@
+{
+  "name": "consensus-specs",
+  "owner": "ethereum",
+  "repo": "consensus-specs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "consensus-specs",
+      "path": ".claude/skills/review/SKILL.md",
+      "github_url": "https://github.com/ethereum/consensus-specs/tree/main/.claude/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "consensus-specs",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/ethereum/consensus-specs/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "consensus-specs",
+      "path": ".claude/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/ethereum/consensus-specs/tree/main/.claude/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "consensus-specs",
+      "path": ".claude/skills/write-specs/SKILL.md",
+      "github_url": "https://github.com/ethereum/consensus-specs/tree/main/.claude/skills/write-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "consensus-specs",
+      "path": ".claude/skills/prepare-release/SKILL.md",
+      "github_url": "https://github.com/ethereum/consensus-specs/tree/main/.claude/skills/prepare-release/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ethereum/consensus-specs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:15:25Z"
+}
