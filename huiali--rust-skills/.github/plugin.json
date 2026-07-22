@@ -1,0 +1,462 @@
+{
+  "name": "huiali--rust-skills",
+  "displayName": "rust-skills",
+  "description": "rust-skills",
+  "version": "1.0.0",
+  "author": "huiali",
+  "homepage": "https://github.com/huiali/rust-skills",
+  "skills": [
+    {
+      "name": "rust-actor",
+      "description": ""
+    },
+    {
+      "name": "rust-anti-pattern",
+      "description": ""
+    },
+    {
+      "name": "rust-async",
+      "description": ""
+    },
+    {
+      "name": "rust-async-pattern",
+      "description": ""
+    },
+    {
+      "name": "rust-auth",
+      "description": ""
+    },
+    {
+      "name": "rust-cache",
+      "description": ""
+    },
+    {
+      "name": "rust-coding",
+      "description": ""
+    },
+    {
+      "name": "rust-concurrency",
+      "description": ""
+    },
+    {
+      "name": "rust-const",
+      "description": ""
+    },
+    {
+      "name": "rust-coroutine",
+      "description": ""
+    },
+    {
+      "name": "rust-distributed",
+      "description": ""
+    },
+    {
+      "name": "rust-dpdk",
+      "description": ""
+    },
+    {
+      "name": "rust-ebpf",
+      "description": ""
+    },
+    {
+      "name": "rust-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "rust-embedded",
+      "description": ""
+    },
+    {
+      "name": "rust-error",
+      "description": ""
+    },
+    {
+      "name": "rust-error-advanced",
+      "description": ""
+    },
+    {
+      "name": "rust-ffi",
+      "description": ""
+    },
+    {
+      "name": "rust-gpu",
+      "description": ""
+    },
+    {
+      "name": "rust-learner",
+      "description": ""
+    },
+    {
+      "name": "rust-lifetime-complex",
+      "description": ""
+    },
+    {
+      "name": "rust-linear-type",
+      "description": ""
+    },
+    {
+      "name": "rust-macro",
+      "description": ""
+    },
+    {
+      "name": "rust-middleware",
+      "description": ""
+    },
+    {
+      "name": "rust-mutability",
+      "description": ""
+    },
+    {
+      "name": "rust-ownership",
+      "description": ""
+    },
+    {
+      "name": "rust-performance",
+      "description": ""
+    },
+    {
+      "name": "rust-pin",
+      "description": ""
+    },
+    {
+      "name": "rust-resource",
+      "description": ""
+    },
+    {
+      "name": "rust-skill",
+      "description": ""
+    },
+    {
+      "name": "rust-skill-index",
+      "description": ""
+    },
+    {
+      "name": "rust-type-driven",
+      "description": ""
+    },
+    {
+      "name": "rust-unsafe",
+      "description": ""
+    },
+    {
+      "name": "rust-web",
+      "description": ""
+    },
+    {
+      "name": "rust-xacml",
+      "description": ""
+    },
+    {
+      "name": "rust-zero-cost",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "description": ""
+    }
+  ]
+}
