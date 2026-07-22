@@ -1,0 +1,18 @@
+{
+  "name": "bazel-contrib--rules-python",
+  "displayName": "rules_python",
+  "description": "rules_python",
+  "version": "1.0.0",
+  "author": "bazel-contrib",
+  "homepage": "https://github.com/bazel-contrib/rules_python",
+  "skills": [
+    {
+      "name": "rules_python",
+      "description": ""
+    },
+    {
+      "name": "rules_python",
+      "description": ""
+    }
+  ]
+}
