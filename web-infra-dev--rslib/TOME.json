@@ -1,0 +1,69 @@
+{
+  "name": "rslib",
+  "owner": "web-infra-dev",
+  "repo": "rslib",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rslib",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rslib/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rslib",
+      "path": ".agents/skills/pr-creator/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rslib/tree/main/.agents/skills/pr-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rslib",
+      "path": ".agents/skills/create-draft-release-notes/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rslib/tree/main/.agents/skills/create-draft-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rslib",
+      "path": ".agents/skills/rspress-description-generator/SKILL.md",
+      "github_url": "https://github.com/web-infra-dev/rslib/tree/main/.agents/skills/rspress-description-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/web-infra-dev/rslib",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:35:13Z"
+}
