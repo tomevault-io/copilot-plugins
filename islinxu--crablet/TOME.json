@@ -1,0 +1,75 @@
+{
+  "name": "crablet",
+  "owner": "isLinXu",
+  "repo": "crablet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "crablet",
+      "path": "skills/calculator/SKILL.md",
+      "github_url": "https://github.com/isLinXu/crablet/tree/main/skills/calculator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crablet",
+      "path": "crablet/skills/safe_run/SKILL.md",
+      "github_url": "https://github.com/isLinXu/crablet/tree/main/crablet/skills/safe_run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crablet",
+      "path": "crablet/skills/find_skills/SKILL.md",
+      "github_url": "https://github.com/isLinXu/crablet/tree/main/crablet/skills/find_skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crablet",
+      "path": "crablet/skills/create_skills/SKILL.md",
+      "github_url": "https://github.com/isLinXu/crablet/tree/main/crablet/skills/create_skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crablet",
+      "path": "crablet/skills/proactive_agent/SKILL.md",
+      "github_url": "https://github.com/isLinXu/crablet/tree/main/crablet/skills/proactive_agent/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/isLinXu/crablet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:26:04Z"
+}
