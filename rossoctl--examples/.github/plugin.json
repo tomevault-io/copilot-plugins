@@ -1,0 +1,9 @@
+{
+  "name": "rossoctl--examples",
+  "displayName": "examples",
+  "description": "Sample Agents and Tools for Kagenti platform",
+  "version": "1.0.0",
+  "author": "rossoctl",
+  "homepage": "https://github.com/rossoctl/examples",
+  "skills": []
+}
