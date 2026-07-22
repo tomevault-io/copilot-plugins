@@ -1,0 +1,75 @@
+{
+  "name": "diffsitter",
+  "owner": "afnanenayet",
+  "repo": "diffsitter",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "diffsitter",
+      "path": ".claude/skills/debug-diff/SKILL.md",
+      "github_url": "https://github.com/afnanenayet/diffsitter/tree/main/.claude/skills/debug-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "diffsitter",
+      "path": ".claude/skills/add-grammar/SKILL.md",
+      "github_url": "https://github.com/afnanenayet/diffsitter/tree/main/.claude/skills/add-grammar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "diffsitter",
+      "path": ".claude/skills/rust-expert/SKILL.md",
+      "github_url": "https://github.com/afnanenayet/diffsitter/tree/main/.claude/skills/rust-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "diffsitter",
+      "path": ".claude/skills/add-renderer/SKILL.md",
+      "github_url": "https://github.com/afnanenayet/diffsitter/tree/main/.claude/skills/add-renderer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "diffsitter",
+      "path": "plugins/tree-sitter-mcp/skills/ast-navigation/SKILL.md",
+      "github_url": "https://github.com/afnanenayet/diffsitter/tree/main/plugins/tree-sitter-mcp/skills/ast-navigation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/afnanenayet/diffsitter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T22:49:12Z"
+}
