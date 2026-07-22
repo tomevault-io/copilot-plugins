@@ -1,0 +1,14 @@
+{
+  "name": "beatlabs--harvester",
+  "displayName": "harvester",
+  "description": "harvester",
+  "version": "1.0.0",
+  "author": "beatlabs",
+  "homepage": "https://github.com/beatlabs/harvester",
+  "skills": [
+    {
+      "name": "harvester",
+      "description": ""
+    }
+  ]
+}
