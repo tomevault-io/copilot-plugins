@@ -1,0 +1,93 @@
+{
+  "name": "dotfiles",
+  "owner": "ahmedelgabri",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jira",
+      "path": "config/claude/skills/jira",
+      "github_url": "https://github.com/ahmedelgabri/dotfiles/tree/main/config/claude/skills/jira",
+      "description": ""
+    },
+    {
+      "name": "jujutsu",
+      "path": "config/claude/skills/jujutsu",
+      "github_url": "https://github.com/ahmedelgabri/dotfiles/tree/main/config/claude/skills/jujutsu",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "config/claude/skills/shannon/SKILL.md",
+      "github_url": "https://github.com/ahmedelgabri/dotfiles/tree/main/config/claude/skills/shannon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "config/claude/skills/jj-commit/SKILL.md",
+      "github_url": "https://github.com/ahmedelgabri/dotfiles/tree/main/config/claude/skills/jj-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "config/claude/skills/pr-create/SKILL.md",
+      "github_url": "https://github.com/ahmedelgabri/dotfiles/tree/main/config/claude/skills/pr-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "config/claude/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/ahmedelgabri/dotfiles/tree/main/config/claude/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "config/claude/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/ahmedelgabri/dotfiles/tree/main/config/claude/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "config/claude/skills/jj-version-control/SKILL.md",
+      "github_url": "https://github.com/ahmedelgabri/dotfiles/tree/main/config/claude/skills/jj-version-control/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ahmedelgabri/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:34:07Z"
+}
