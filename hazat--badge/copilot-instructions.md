@@ -1,0 +1,111 @@
+## badge
+
+> Short notes for agents (and humans) working on `badge` — a Ruby gem that
+
+# Agents Guide
+
+Short notes for agents (and humans) working on `badge` — a Ruby gem that
+overlays badges/shields on iOS/tvOS/Android app icons, typically invoked
+from fastlane. Core logic is a MiniMagick composite plus an optional
+`rsvg-convert` pass for crisp shields from shields.io.
+
+## Layout
+
+| Path | What lives there |
+|---|---|
+| `lib/badge/base.rb` | `VERSION`, asset paths, shields.io base URLs |
+| `lib/badge/runner.rb` | Find icons → fetch shield → composite → write |
+| `lib/badge/options.rb` | Every CLI option as a `FastlaneCore::ConfigItem` (each with `env_name`) |
+| `lib/badge/icon_catalog.rb` | Parses `*.appiconset/Contents.json` — legacy / single-size / layered |
+| `lib/badge/commands_generator.rb` | Commander CLI wiring |
+| `bin/badge` | Executable entry point |
+| `assets/` | Default badge PNGs (shipped in the gem) + README demo fixtures |
+| `test/smoke.sh` | Integration-test harness — 20 end-to-end cases across every flag combo |
+| `Makefile` | `make build` (release gem) / `make smoke` (run smoke tests) / `make create-assets` (regen README demos) |
+
+## Verifying changes
+
+There is no CI. Before every PR and every release, run the smoke suite:
+
+```bash
+bundle install             # once
+make smoke                 # 20 end-to-end cases, ~30s, mutates only $TMPDIR
+```
+
+`test/smoke.sh` exercises every CLI flag combo from the Makefile,
+multi-format input preservation (webp/jpg), the `shield_base_url`
+override, and the `IconCatalog` auto-detect path. Run with
+`KEEP_ARTIFACTS=1 make smoke` to keep the output images for visual
+inspection.
+
+Other useful commands:
+
+```bash
+make build                 # → badge-X.Y.Z.gem, proves the gemspec packages
+bin/badge --help           # eyeball the CLI option surface
+make create-assets         # regenerate the README demo assets (⚠️ mutates assets/)
+```
+
+System deps: `brew install imagemagick librsvg`. ImageMagick (or
+GraphicsMagick) is mandatory; librsvg is optional but recommended.
+
+## Three icon catalog formats — all must keep working
+
+`IconCatalog.detect_format` parses `Contents.json`:
+
+- **Legacy** — multi-size asset catalog (pre-Xcode 14)
+- **Single-size** — Xcode 14+, a single 1024×1024 image
+- **Layered** — iOS 18+, `appearances` array with separate `all.png` / `dark.png` / `tint.png`
+
+`--glob` is a legacy escape hatch that **bypasses `IconCatalog` entirely**
+and globs the filesystem directly. Don't wire them together.
+
+## Release process (for maintainers)
+
+TL;DR:
+
+```bash
+# 1. Bump VERSION in lib/badge/base.rb, merge to master.
+make smoke && make build
+git tag -a X.Y.Z -m "Release X.Y.Z" master
+git push origin X.Y.Z
+gem push badge-X.Y.Z.gem
+gh release create X.Y.Z --title "" --notes '- feat: …
+- fix: …'
+```
+
+The sister gem `fastlane-plugin-badge` pins `badge ~> 0.X.0`, so patch
+releases ship to fastlane users automatically.
+
+For the full walkthrough — preflight checks, the macOS `/usr/bin/gem`
+gotcha, GitHub release house style, verification — see
+[`.pi/skills/release/SKILL.md`](.pi/skills/release/SKILL.md) or invoke
+the `/release` skill.
+
+## Gotchas
+
+- **Overwrites icons in place.** That's the design, not a bug.
+- **Default badge PNGs are full-canvas** with the beta/alpha graphic baked
+  into the corner, so `--badge_gravity` looks like a no-op with the
+  defaults. (Known issue #113.)
+- **`@@retry_attemps` has a typo** (missing `t`) and is load-bearing —
+  either leave it alone or rename every occurrence.
+- **`required_ruby_version >= 2.0.0`** in the gemspec is intentional.
+  Don't introduce Ruby 2.3+ syntax (`&.`, squiggly heredocs, etc.) without
+  also bumping the floor.
+- **User input flows into shell commands in `runner.rb`.** All external
+  calls (`rsvg-convert`) must use argv-form `system(...)` — never
+  backticks or string-interpolated `system`.
+
+## Conventions
+
+- **Commits:** Conventional Commits (`fix:`, `feat:`, `docs:`, …) with a
+  body that explains *why*, not just *what*.
+- **PRs:** One logical change per PR; merge commits preferred over squash
+  (matches repo history).
+- **GitHub releases:** terse bullet list, empty title, PR `#N` references
+  inline — match the `0.8.x` era.
+
+---
+> Source: [HazAT/badge](https://github.com/HazAT/badge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
