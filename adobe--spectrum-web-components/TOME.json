@@ -1,0 +1,183 @@
+{
+  "name": "spectrum-web-components",
+  "owner": "adobe",
+  "repo": "spectrum-web-components",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documentation-standards",
+      "path": ".ai/skills/documentation",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/explain-code/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/explain-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/ask-questions/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/ask-questions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-api/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-prep/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-a11y/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-a11y/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/session-handoff/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/session-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-setup/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-review/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-testing/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-styling/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/deep-understanding/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/deep-understanding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/conventional-commits/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/conventional-commits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/contributor-docs-nav/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/contributor-docs-nav/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/session-retrospective/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/session-retrospective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-conformance/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-conformance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/migration-documentation/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/migration-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/accessibility-compliance/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/accessibility-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/consumer-migration-guide/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/consumer-migration-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/component-migration-analysis/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/component-migration-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-web-components",
+      "path": ".ai/skills/accessibility-migration-analysis/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-web-components/tree/main/.ai/skills/accessibility-migration-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adobe/spectrum-web-components",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:58:15Z"
+}
