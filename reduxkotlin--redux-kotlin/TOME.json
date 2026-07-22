@@ -1,0 +1,63 @@
+{
+  "name": "redux-kotlin",
+  "owner": "reduxkotlin",
+  "repo": "redux-kotlin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "redux-kotlin",
+      "path": ".claude/skills/redux-kotlin/SKILL.md",
+      "github_url": "https://github.com/reduxkotlin/redux-kotlin/tree/main/.claude/skills/redux-kotlin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "redux-kotlin",
+      "path": "docs/superpowers/specs/ReduxKotlin Design System/SKILL.md",
+      "github_url": "https://github.com/reduxkotlin/redux-kotlin/tree/main/docs/superpowers/specs/ReduxKotlin Design System/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "redux-kotlin",
+      "path": "docs/superpowers/specs/ReduxKotlin Design System Updated/SKILL.md",
+      "github_url": "https://github.com/reduxkotlin/redux-kotlin/tree/main/docs/superpowers/specs/ReduxKotlin Design System Updated/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/reduxkotlin/redux-kotlin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:55:37Z"
+}
