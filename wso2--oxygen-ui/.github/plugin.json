@@ -1,0 +1,46 @@
+{
+  "name": "wso2--oxygen-ui",
+  "displayName": "oxygen-ui",
+  "description": "oxygen-ui",
+  "version": "1.0.0",
+  "author": "wso2",
+  "homepage": "https://github.com/wso2/oxygen-ui",
+  "skills": [
+    {
+      "name": "oxygen-component",
+      "description": ""
+    },
+    {
+      "name": "oxygen-layout",
+      "description": ""
+    },
+    {
+      "name": "oxygen-migrate",
+      "description": ""
+    },
+    {
+      "name": "oxygen-sync",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "description": ""
+    },
+    {
+      "name": "oxygen-ui",
+      "description": ""
+    }
+  ]
+}
