@@ -1,0 +1,69 @@
+{
+  "name": "sdk-typescript",
+  "owner": "restatedev",
+  "repo": "sdk-typescript",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sdk-typescript",
+      "path": ".claude/skills/add-e2e-test/SKILL.md",
+      "github_url": "https://github.com/restatedev/sdk-typescript/tree/main/.claude/skills/add-e2e-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-typescript",
+      "path": ".claude/skills/run-sdk-tests/SKILL.md",
+      "github_url": "https://github.com/restatedev/sdk-typescript/tree/main/.claude/skills/run-sdk-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-typescript",
+      "path": ".claude/skills/add-config-option/SKILL.md",
+      "github_url": "https://github.com/restatedev/sdk-typescript/tree/main/.claude/skills/add-config-option/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdk-typescript",
+      "path": ".claude/skills/update-sdk-test-contracts/SKILL.md",
+      "github_url": "https://github.com/restatedev/sdk-typescript/tree/main/.claude/skills/update-sdk-test-contracts/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/restatedev/sdk-typescript",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:05:55Z"
+}
