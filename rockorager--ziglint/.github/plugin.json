@@ -1,0 +1,22 @@
+{
+  "name": "rockorager--ziglint",
+  "displayName": "ziglint",
+  "description": "ziglint",
+  "version": "1.0.0",
+  "author": "rockorager",
+  "homepage": "https://github.com/rockorager/ziglint",
+  "skills": [
+    {
+      "name": "new-rule",
+      "description": ""
+    },
+    {
+      "name": "ziglint",
+      "description": ""
+    },
+    {
+      "name": "ziglint",
+      "description": ""
+    }
+  ]
+}
