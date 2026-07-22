@@ -1,0 +1,22 @@
+{
+  "name": "livekit--client-sdk-android",
+  "displayName": "client-sdk-android",
+  "description": "client-sdk-android",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/client-sdk-android",
+  "skills": [
+    {
+      "name": "android-coroutines",
+      "description": ""
+    },
+    {
+      "name": "android-testing",
+      "description": ""
+    },
+    {
+      "name": "kotlin-concurrency-expert",
+      "description": ""
+    }
+  ]
+}
