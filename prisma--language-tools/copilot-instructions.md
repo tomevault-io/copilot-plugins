@@ -1,0 +1,93 @@
+## language-tools
+
+> This document helps AI coding agents understand and work effectively in
+
+# Agent Guide for Prisma Language Tools
+
+This document helps AI coding agents understand and work effectively in
+this repository.
+
+## Project Overview
+
+This is the **Prisma Language Tools** monorepo—the official VS Code extension
+and Language Server for [Prisma](https://www.prisma.io/), the popular
+TypeScript ORM. The extension provides IDE features for `.prisma` schema
+files: syntax highlighting, completions, formatting, diagnostics, hover
+information, go-to-definition, and more.
+
+### Packages
+
+| Package                   | Path                       | Purpose                        |
+| ------------------------- | -------------------------- | ------------------------------ |
+| `@prisma/language-server` | `packages/language-server` | LSP implementation             |
+| `prisma` (VS Code ext)    | `packages/vscode`          | VS Code extension with plugins |
+
+## Documentation
+
+| Document                                                        | Description                           |
+| --------------------------------------------------------------- | ------------------------------------- |
+| [Architecture](docs/architecture.md)                            | System design and file organization   |
+| [Development](docs/development.md)                              | Setup and debugging instructions      |
+| [Build System](docs/build-system.md)                            | esbuild bundling and static assets    |
+| [Plugin System](docs/plugin-system.md)                          | VS Code extension plugin architecture |
+| [Language Server](docs/language-server.md)                      | LSP implementation details            |
+| [Local Prisma Postgres](docs/local-prisma-postgres-handling.md) | Local dev server and worker process   |
+| [Testing](docs/testing.md)                                      | Test patterns and helpers             |
+| [Common Tasks](docs/common-tasks.md)                            | How to add features                   |
+| [CI/CD](docs/ci-cd.md)                                          | GitHub Actions workflows              |
+| [Gotchas](docs/gotchas.md)                                      | Important tips and warnings           |
+
+## Quick Start
+
+```bash
+# Install all dependencies (uses pnpm workspaces)
+pnpm install
+
+# Build TypeScript
+pnpm build
+
+# Watch mode for development
+pnpm watch
+```
+
+Then press `F5` in VS Code to launch the extension in debug mode.
+
+### Available Commands
+
+| Command          | Description                                                |
+| ---------------- | ---------------------------------------------------------- |
+| `pnpm build`     | Build all packages                                         |
+| `pnpm watch`     | Watch mode                                                 |
+| `pnpm test`      | Run unit tests in all packages (via Turborepo)             |
+| `pnpm test:e2e`  | Run VS Code E2E tests                                      |
+| `pnpm lint`      | Lint all packages                                          |
+| `pnpm typecheck` | Type-check all packages with TypeScript                    |
+| `pnpm clean`     | Remove untracked files and directories (incl node_modules) |
+
+Commands are orchestrated by Turborepo. See `turbo.json` for task dependencies.
+
+## Key Points
+
+- **Plugin-based architecture** — The VS Code extension uses a plugin system.
+  See [Plugin System](docs/plugin-system.md) for details.
+
+- **Multi-file schema support** — Prisma schemas can span multiple files.
+  Always use `PrismaSchema.load()` instead of assuming a single file.
+
+- **Language server may change** — The LS implementation may be replaced with
+  a new parser. Focus on VS Code extension features for now.
+
+- **Dependencies auto-update** — Don't manually bump `@prisma/*` packages.
+  CI handles this via cron jobs.
+
+- **Test cursor convention** — Tests use `|` to mark cursor position for
+  testing completions, hover, etc.
+
+- **Keep documentation up to date** — When making changes to the codebase,
+  update relevant documentation in the `docs/` folder and any README files.
+  If you add new features, modify architecture, or change workflows, ensure
+  the corresponding docs reflect those changes.
+
+---
+> Source: [prisma/language-tools](https://github.com/prisma/language-tools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
