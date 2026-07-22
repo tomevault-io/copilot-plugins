@@ -1,0 +1,1545 @@
+{
+  "name": "Vibe-Skills",
+  "owner": "foryourhealth111-pixel",
+  "repo": "Vibe-Skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "explaining-machine-learning-models",
+      "path": "bundled/skills/explaining-machine-learning-models",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/explaining-machine-learning-models",
+      "description": ""
+    },
+    {
+      "name": "evaluating-machine-learning-models",
+      "path": "bundled/skills/evaluating-machine-learning-models",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/evaluating-machine-learning-models",
+      "description": ""
+    },
+    {
+      "name": "lqf-machine-learning-expert-guide",
+      "path": "bundled/skills/LQF_Machine_Learning_Expert_Guide",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/LQF_Machine_Learning_Expert_Guide",
+      "description": ""
+    },
+    {
+      "name": "scikit-learn",
+      "path": "bundled/skills/scikit-learn",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scikit-learn",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/doc/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/xan/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/xan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/shap/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/shap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/aeon/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/aeon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/dask/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/dask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/docx/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/vaex/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/vaex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/yeet/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/yeet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/sympy/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/sympy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/simpy/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/simpy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pymoo/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pymoo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/rdkit/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/rdkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/gtars/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/gtars/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scanpy/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scanpy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/polars/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/polars/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/matlab/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/matlab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/plotly/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/plotly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pathml/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pathml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speech/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speech/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/sentry/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/sentry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/deslop/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/deslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/astropy/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/astropy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/medchem/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/medchem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pydicom/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pydicom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/denario/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/denario/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/lamindb/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/lamindb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/unsloth/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/unsloth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/datavis/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/datavis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/matchms/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/matchms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/adaptyv/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/adaptyv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/histolab/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/histolab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pyhealth/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pyhealth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pydeseq2/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pydeseq2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/networkx/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/networkx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pyopenms/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pyopenms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/fluidsim/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/fluidsim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/imagegen/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pyzotero/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pyzotero/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/geomaster/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/geomaster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/biopython/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/biopython/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/tiledbvcf/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/tiledbvcf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/torchdrug/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/torchdrug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pufferlib/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pufferlib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/neurokit2/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/neurokit2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/geopandas/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/geopandas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scrapling/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scrapling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/tdd-guide/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/tdd-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/gh-fix-ci/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/gh-fix-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/dialectic/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/dialectic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/markitdown/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/markitdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/umap-learn/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/umap-learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/matplotlib/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/matplotlib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scikit-bio/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scikit-bio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/etetoolkit/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/etetoolkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/math-tools/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/math-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/playwright/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/edgartools/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/edgartools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/screenshot/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/screenshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/transcribe/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/transcribe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/docs-write/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/docs-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/ralph-loop/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/ralph-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/vibe-do-it/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/vibe-do-it/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/zarr-python/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/zarr-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/paper-2-web/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/paper-2-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/peer-review/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/peer-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/tensorboard/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/tensorboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/spreadsheet/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/spreadsheet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/data-artist/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/data-artist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/docs-review/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/docs-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/openai-docs/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/openai-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/create-plan/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/create-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/infographics/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/infographics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scikit-learn/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scikit-learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/fda-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/fda-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/geo-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/geo-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pptx-posters/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pptx-posters/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/prowler-docs/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/prowler-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/transformers/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/transformers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/usfiscaldata/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/usfiscaldata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/writing-docs/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/writing-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/ena-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/ena-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/video-studio/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/video-studio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/coding-tutor/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/coding-tutor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/skill-lookup/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/skill-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/cancel-ralph/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/cancel-ralph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/think-harder/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/think-harder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/vibe-upgrade/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/vibe-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/latex-posters/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/latex-posters/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/digital-brain/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/digital-brain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/claude-skills/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/claude-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/evals-context/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/evals-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/alpha-vantage/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/alpha-vantage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/vercel-deploy/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/vercel-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/theme-factory/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/theme-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/prompt-lookup/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/prompt-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/error-resolver/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/error-resolver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/file-organizer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/file-organizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/generate-image/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/generate-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/netlify-deploy/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/netlify-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/cs-foundations/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/cs-foundations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/context-hunter/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/context-hunter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/slides-as-code/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/slides-as-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/treatment-plans/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/treatment-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/research-grants/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/research-grants/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/mcp-integration/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/mcp-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/venue-templates/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/venue-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/torch-geometric/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/torch-geometric/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/chembl-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/chembl-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/research-lookup/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/research-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pubmed-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pubmed-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scikit-survival/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scikit-survival/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/algorithmic-art/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/algorithmic-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/statistics-math/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/statistics-math/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/local-vco-roles/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/local-vco-roles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/document-skills/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/document-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/clinpgx-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/clinpgx-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/g2-legend-expert/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/g2-legend-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/report-generator/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/report-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/uniprot-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/uniprot-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/hedgefundmonitor/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/hedgefundmonitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/jupyter-notebook/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/jupyter-notebook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/gradient-methods/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/gradient-methods/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/openai-knowledge/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/openai-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scientific-slides/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scientific-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/perplexity-search/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/perplexity-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/openalex-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/openalex-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/literature-review/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/literature-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/knowledge-steward/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/knowledge-steward/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/data-storytelling/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/data-storytelling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/omero-integration/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/omero-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/stable-baselines3/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/stable-baselines3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/smart-file-writer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/smart-file-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pytorch-lightning/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pytorch-lightning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/flashrag-evidence/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/flashrag-evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/metric-calculator/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/metric-calculator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/security-reviewer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/security-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/vibe-how-do-we-do/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/vibe-how-do-we-do/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/autonomous-builder/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/autonomous-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/hive-mind-advanced/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/hive-mind-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/weights-and-biases/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/weights-and-biases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/hypothesis-testing/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/hypothesis-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/fred-economic-data/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/fred-economic-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/senior-ml-engineer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/senior-ml-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scholar-evaluation/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scholar-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/datacommons-client/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/datacommons-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/manuscript-as-code/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/manuscript-as-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/docx-comment-reply/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/docx-comment-reply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/splitting-datasets/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/splitting-datasets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/citation-management/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/citation-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/timesfm-forecasting/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/timesfm-forecasting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/document-skills/pdf/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/document-skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/math-model-selector/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/math-model-selector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/propositional-logic/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/propositional-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/gh-address-comments/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/gh-address-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/vibe-what-do-i-want/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/vibe-what-do-i-want/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/ml-pipeline-workflow/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/ml-pipeline-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/latchbio-integration/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/latchbio-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/dnanexus-integration/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/dnanexus-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/document-skills/pptx/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/document-skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/document-skills/docx/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/document-skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scholarly-publishing/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scholarly-publishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/context-fundamentals/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/context-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/embedding-strategies/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/embedding-strategies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scientific-reporting/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scientific-reporting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/node-zombie-guardian/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/node-zombie-guardian/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/submission-checklist/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/submission-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/documentation-lookup/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/documentation-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/spec-kit-vibe-compat/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/spec-kit-vibe-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/.system/skill-creator/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/.system/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/senior-data-scientist/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/senior-data-scientist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/hypothesis-generation/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/hypothesis-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/ml-data-leakage-guard/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/ml-data-leakage-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/bio-database-evidence/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/bio-database-evidence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/designing-experiments/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/designing-experiments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/commit-with-reflection/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/commit-with-reflection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/property-based-testing/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/property-based-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/figma-implement-design/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/figma-implement-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/senior-prompt-engineer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/senior-prompt-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/senior-computer-vision/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/senior-computer-vision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/evaluating-code-models/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/evaluating-code-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/security-ownership-map/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/security-ownership-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/ux-researcher-designer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/ux-researcher-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/pymc-bayesian-modeling/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/pymc-bayesian-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/windows-hook-debugging/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/windows-hook-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/iso-13485-certification/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/iso-13485-certification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/market-research-reports/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/market-research-reports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/clinicaltrials-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/clinicaltrials-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/content-research-writer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/content-research-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/data-quality-frameworks/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/data-quality-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/get-available-resources/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/get-available-resources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/evaluating-llms-harness/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/evaluating-llms-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/security-best-practices/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/security-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/generating-test-reports/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/generating-test-reports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/.system/skill-installer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/.system/skill-installer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/markdown-mermaid-writing/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/markdown-mermaid-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scientific-brainstorming/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scientific-brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/webthinker-deep-research/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/webthinker-deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/detecting-data-anomalies/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/detecting-data-anomalies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/exploratory-data-analysis/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/exploratory-data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/clinical-decision-support/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/clinical-decision-support/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/latex-submission-pipeline/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/latex-submission-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/mathematical-logic-expert/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/mathematical-logic-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/nowait-reasoning-optimizer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/nowait-reasoning-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/structured-content-storage/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/structured-content-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/performing-causal-analysis/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/performing-causal-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/sparse-autoencoder-training/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/sparse-autoencoder-training/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/vscode-release-notes-writer/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/vscode-release-notes-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scientific-critical-thinking/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scientific-critical-thinking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/comprehensive-research-agent/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/comprehensive-research-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/visualization-best-practices/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/visualization-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/creating-data-visualizations/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/creating-data-visualizations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/superclaude-framework-compat/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/superclaude-framework-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/scientific-data-preprocessing/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/scientific-data-preprocessing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/verification-quality-assurance/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/verification-quality-assurance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/metabolomics-workbench-database/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/metabolomics-workbench-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/LQF_Machine_Learning_Expert_Guide/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/LQF_Machine_Learning_Expert_Guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/transformer-lens-interpretability/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/transformer-lens-interpretability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/detecting-performance-regressions/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/detecting-performance-regressions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/skypilot-multi-cloud-orchestration/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/skypilot-multi-cloud-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/explaining-machine-learning-models/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/explaining-machine-learning-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/evaluating-machine-learning-models/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/evaluating-machine-learning-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/providing-performance-optimization-advice/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/providing-performance-optimization-advice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vibe-Skills",
+      "path": "bundled/skills/preprocessing-data-with-automated-pipelines/SKILL.md",
+      "github_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills/tree/main/bundled/skills/preprocessing-data-with-automated-pipelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/foryourhealth111-pixel/Vibe-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:50:06Z"
+}
