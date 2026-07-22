@@ -1,0 +1,57 @@
+{
+  "name": "UTM",
+  "owner": "utmapp",
+  "repo": "UTM",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "UTM",
+      "path": ".agents/skills/utm-review/SKILL.md",
+      "github_url": "https://github.com/utmapp/UTM/tree/main/.agents/skills/utm-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UTM",
+      "path": ".agents/skills/utm-submit/SKILL.md",
+      "github_url": "https://github.com/utmapp/UTM/tree/main/.agents/skills/utm-submit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/utmapp/UTM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T04:29:46Z"
+}
