@@ -1,0 +1,14 @@
+{
+  "name": "evanbacon--serve-sim",
+  "displayName": "serve-sim",
+  "description": "serve-sim",
+  "version": "1.0.0",
+  "author": "EvanBacon",
+  "homepage": "https://github.com/EvanBacon/serve-sim",
+  "skills": [
+    {
+      "name": "serve-sim",
+      "description": ""
+    }
+  ]
+}
