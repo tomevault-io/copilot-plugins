@@ -1,0 +1,14 @@
+{
+  "name": "pyinfra-dev--pyinfra",
+  "displayName": "pyinfra",
+  "description": "pyinfra",
+  "version": "1.0.0",
+  "author": "pyinfra-dev",
+  "homepage": "https://github.com/pyinfra-dev/pyinfra",
+  "skills": [
+    {
+      "name": "pyinfra",
+      "description": ""
+    }
+  ]
+}
