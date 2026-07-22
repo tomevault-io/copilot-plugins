@@ -1,0 +1,14 @@
+{
+  "name": "adrianlyjak--obsidian-aloud-tts",
+  "displayName": "obsidian-aloud-tts",
+  "description": "obsidian-aloud-tts",
+  "version": "1.0.0",
+  "author": "adrianlyjak",
+  "homepage": "https://github.com/adrianlyjak/obsidian-aloud-tts",
+  "skills": [
+    {
+      "name": "obsidian-aloud-tts",
+      "description": ""
+    }
+  ]
+}
