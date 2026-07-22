@@ -1,0 +1,18 @@
+{
+  "name": "iepathos--debtmap",
+  "displayName": "debtmap",
+  "description": "debtmap",
+  "version": "1.0.0",
+  "author": "iepathos",
+  "homepage": "https://github.com/iepathos/debtmap",
+  "skills": [
+    {
+      "name": "debtmap-analyst",
+      "description": ""
+    },
+    {
+      "name": "debtmap",
+      "description": ""
+    }
+  ]
+}
