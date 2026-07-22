@@ -1,0 +1,105 @@
+{
+  "name": "trulens",
+  "owner": "truera",
+  "repo": "trulens",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "skills",
+      "github_url": "https://github.com/truera/trulens/tree/main/skills",
+      "description": ""
+    },
+    {
+      "name": "instrumentation",
+      "path": "skills/instrumentation",
+      "github_url": "https://github.com/truera/trulens/tree/main/skills/instrumentation",
+      "description": ""
+    },
+    {
+      "name": "trulens",
+      "path": "src/core/trulens/.agents/skills/trulens-diagnosis/SKILL.md",
+      "github_url": "https://github.com/truera/trulens/tree/main/src/core/trulens/.agents/skills/trulens-diagnosis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trulens",
+      "path": "src/core/trulens/.agents/skills/trulens-guardrails/SKILL.md",
+      "github_url": "https://github.com/truera/trulens/tree/main/src/core/trulens/.agents/skills/trulens-guardrails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trulens",
+      "path": "src/core/trulens/.agents/skills/trulens-instrumentation/SKILL.md",
+      "github_url": "https://github.com/truera/trulens/tree/main/src/core/trulens/.agents/skills/trulens-instrumentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trulens",
+      "path": "src/core/trulens/.agents/skills/trulens-evaluation-setup/SKILL.md",
+      "github_url": "https://github.com/truera/trulens/tree/main/src/core/trulens/.agents/skills/trulens-evaluation-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trulens",
+      "path": "src/core/trulens/.agents/skills/trulens-dataset-curation/SKILL.md",
+      "github_url": "https://github.com/truera/trulens/tree/main/src/core/trulens/.agents/skills/trulens-dataset-curation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trulens",
+      "path": "src/core/trulens/.agents/skills/trulens-notebook-execution/SKILL.md",
+      "github_url": "https://github.com/truera/trulens/tree/main/src/core/trulens/.agents/skills/trulens-notebook-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trulens",
+      "path": "src/core/trulens/.agents/skills/trulens-evaluation-workflow/SKILL.md",
+      "github_url": "https://github.com/truera/trulens/tree/main/src/core/trulens/.agents/skills/trulens-evaluation-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trulens",
+      "path": "src/core/trulens/.agents/skills/trulens-running-evaluations/SKILL.md",
+      "github_url": "https://github.com/truera/trulens/tree/main/src/core/trulens/.agents/skills/trulens-running-evaluations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/truera/trulens",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:36:45Z"
+}
