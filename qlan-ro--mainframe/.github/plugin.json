@@ -1,0 +1,22 @@
+{
+  "name": "qlan-ro--mainframe",
+  "displayName": "mainframe",
+  "description": "mainframe",
+  "version": "1.0.0",
+  "author": "qlan-ro",
+  "homepage": "https://github.com/qlan-ro/mainframe",
+  "skills": [
+    {
+      "name": "mainframe",
+      "description": ""
+    },
+    {
+      "name": "mainframe",
+      "description": ""
+    },
+    {
+      "name": "mainframe",
+      "description": ""
+    }
+  ]
+}
