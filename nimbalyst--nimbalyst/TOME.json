@@ -1,0 +1,87 @@
+{
+  "name": "nimbalyst",
+  "owner": "Nimbalyst",
+  "repo": "nimbalyst",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nimbalyst",
+      "path": "packages/extensions/planning/claude-plugin/skills/planning/SKILL.md",
+      "github_url": "https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/planning/claude-plugin/skills/planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nimbalyst",
+      "path": "packages/extensions/mockuplm/claude-plugin/skills/mockuplm/SKILL.md",
+      "github_url": "https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/mockuplm/claude-plugin/skills/mockuplm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nimbalyst",
+      "path": "packages/extensions/developer/claude-plugin/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/developer/claude-plugin/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nimbalyst",
+      "path": "packages/extensions/excalidraw/claude-plugin/skills/excalidraw/SKILL.md",
+      "github_url": "https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/excalidraw/claude-plugin/skills/excalidraw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nimbalyst",
+      "path": "packages/extensions/datamodellm/claude-plugin/skills/datamodellm/SKILL.md",
+      "github_url": "https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/datamodellm/claude-plugin/skills/datamodellm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nimbalyst",
+      "path": "packages/extensions/feedback/claude-plugin/skills/feedback-intake/SKILL.md",
+      "github_url": "https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/feedback/claude-plugin/skills/feedback-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nimbalyst",
+      "path": "packages/extensions/extension-dev-kit/claude-plugin/skills/extension-development/SKILL.md",
+      "github_url": "https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/extension-dev-kit/claude-plugin/skills/extension-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Nimbalyst/nimbalyst",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:18:20Z"
+}
