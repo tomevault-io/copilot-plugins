@@ -4,7 +4,7 @@
   "repo": "inkathon-dApp",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sillar-codes/inkathon-dApp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:59:21Z"
+  "distributed_at": "2026-07-22T10:07:11Z"
 }
