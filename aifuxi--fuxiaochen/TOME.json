@@ -1,0 +1,123 @@
+{
+  "name": "fuxiaochen",
+  "owner": "aifuxi",
+  "repo": "fuxiaochen",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/better-icons/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/better-icons/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/commit-helper/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/commit-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/migrate-oxlint/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/migrate-oxlint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/changelog-drafter/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/changelog-drafter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/design-taste-frontend/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/design-taste-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/framer-motion-animator/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/framer-motion-animator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/drizzle-best-practices/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/drizzle-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/better-auth-best-practices/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/better-auth-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fuxiaochen",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/aifuxi/fuxiaochen/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aifuxi/fuxiaochen",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:19:41Z"
+}
