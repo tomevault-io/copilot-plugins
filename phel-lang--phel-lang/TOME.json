@@ -1,0 +1,141 @@
+{
+  "name": "phel-lang",
+  "owner": "phel-lang",
+  "repo": "phel-lang",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/pr/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/fix/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/test/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/commit/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/release/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/gh-issue/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/gh-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/gh-issues/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/gh-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/changelog/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/benchmark/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/phel-repl/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/phel-repl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/module-new/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/module-new/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/phel-patterns/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/phel-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/compiler-guide/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/compiler-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/refactor-check/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/refactor-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": ".agnostic-ai/skills/integration-fixture/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/.agnostic-ai/skills/integration-fixture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phel-lang",
+      "path": "resources/agents/skills/claude/phel-lang/SKILL.md",
+      "github_url": "https://github.com/phel-lang/phel-lang/tree/main/resources/agents/skills/claude/phel-lang/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/phel-lang/phel-lang",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:56:26Z"
+}
