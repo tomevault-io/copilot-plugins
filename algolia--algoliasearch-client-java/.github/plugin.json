@@ -1,0 +1,9 @@
+{
+  "name": "algolia--algoliasearch-client-java",
+  "displayName": "algoliasearch-client-java",
+  "description": "algoliasearch-client-java",
+  "version": "1.0.0",
+  "author": "algolia",
+  "homepage": "https://github.com/algolia/algoliasearch-client-java",
+  "skills": []
+}
