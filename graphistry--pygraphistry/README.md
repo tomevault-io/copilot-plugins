@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [graphistry/pygraphistry](https://github.com/graphistry/pygraphistry).
+Original source: `CLAUDE.md` in [graphistry/pygraphistry](https://github.com/graphistry/pygraphistry).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [graphistry/pygraphistry](https://github.com/gra
 - [pygraphistry](https://github.com/graphistry/pygraphistry/tree/main/agents/skills/review/SKILL.md)
 - [pygraphistry](https://github.com/graphistry/pygraphistry/tree/main/agents/skills/test-amplification/SKILL.md)
 
-From [graphistry/pygraphistry](https://github.com/graphistry/pygraphistry) — a repo with 2534+ stars on GitHub.
+From [graphistry/pygraphistry](https://github.com/graphistry/pygraphistry) — a repo with 2535+ stars on GitHub.
 
 ---
 
