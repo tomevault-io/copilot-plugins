@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SummerSec/ShiroAttack2](https://github.com/SummerSec/ShiroAttack2).
+Original source: `CLAUDE.md` in [SummerSec/ShiroAttack2](https://github.com/SummerSec/ShiroAttack2).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -20,7 +20,7 @@ Original source: `AGENTS.md` in [SummerSec/ShiroAttack2](https://github.com/Summ
 - [ShiroAttack2](https://github.com/SummerSec/ShiroAttack2/tree/main/skills/shiro-attack-cli/SKILL.md)
 - [ShiroAttack2](https://github.com/SummerSec/ShiroAttack2/tree/main/.claude/skills/shiro-attack-cli/SKILL.md)
 
-From [SummerSec/ShiroAttack2](https://github.com/SummerSec/ShiroAttack2) — a repo with 2605+ stars on GitHub.
+From [SummerSec/ShiroAttack2](https://github.com/SummerSec/ShiroAttack2) — a repo with 2604+ stars on GitHub.
 
 ---
 
