@@ -1,0 +1,285 @@
+## obsidian-opencode-knowledge
+
+> AI 知识管理员的工作手册。本文件由 AI agent（OpenCode / Claude Code / Codex）启动时自动加载。
+
+# Personal LLM Wiki
+
+AI 知识管理员的工作手册。本文件由 AI agent（OpenCode / Claude Code / Codex）启动时自动加载。
+
+## 配置
+
+读取 [[AI_CONFIG]] 获取用户自定义配置。配置缺失时使用下方默认值。配置中的参数（触发词、知识域、平台、润色规则等）覆盖本文档中的默认定义。
+
+> 用户可在 AI_CONFIG.md 的 `user-custom-rules` 区域添加额外规则，AI 必须遵循。
+
+## 目录职责
+
+- **raw/** — 原始素材，**不可变**。AI 只读，永不修改。按主题分子目录，允许多级嵌套。PDF/视频/xlsx/图片保持原文件名。
+- **wiki/** — AI 维护的消化笔记。允许多级子目录。每篇文章 md 格式，命名自由（描述性即可）。
+- **assets/** — 配图资源。
+
+## 两个特殊文件（必须维护）
+
+- **wiki/index.md** — 全局索引。每篇 wiki 文章一行，按主题分组，带链接 + 一句话摘要 + Updated 日期。
+- **wiki/log.md** — Append-only 操作日志，记录每次 ingest / query archive / lint。
+
+## 四个触发行为
+
+### 触发词消歧规则（多个触发词同时命中时按此判定）
+
+触发词是模糊匹配，真实对话里一句话可能同时命中多个行为。按以下优先级和信号判定，**不要同时执行多个行为**：
+
+1. **有素材 + 暗示保存 → Ingest**（优先级最高）。判断「是否有素材」：用户粘贴了文章/链接/图片/长文本，或明确说"这个/这条/这篇"。即便句子里也出现了"查一下"之类的 query 词，只要带着素材，就按 Ingest 处理。
+2. **素材带社交来源标记 → Social Ingest**。素材的 `source` 字段是社交平台名，或用户说"爬了这个/收录这条"，走 Social Ingest 而非普通 Ingest。
+3. **无素材 + 提问/总结/对比 → Query**。用户只是问问题、要总结、做对比，没有要保存的新内容时，走 Query。**默认只答不写文件**。
+4. **明确说"lint/体检/wiki 有啥问题" → Lint**。这是显式指令，不与其他触发混淆。
+5. **含"存下来/归档到 wiki" → Query 的归档分支**（见触发 2 例外）。只对 Query 已生成的答案做归档，不是新 Ingest。
+
+不确定时：**优先问用户一句**（"你是想保存这个，还是查询已有内容？"），而不是猜。
+
+### 触发 1：Ingest（录入素材）
+
+**触发词：** 读取 [[AI_CONFIG]] → `triggers.ingest`。默认："加到 wiki"、"ingest 这个"、"把这个收进来"、"记录下来"、"保存这个"。给 AI 一份新素材并暗示要保存时也触发。
+
+**动作：**
+1. 把素材存进 `raw/<最合适的主题>/`。主题不存在就新建。文件名保持原样（PDF/视频/图片）或起描述性名（md 笔记）。
+2. 编译成 `wiki/<对应主题>/<文章>.md`：
+   - 和现有文章是**同一核心论点** → 合并进去，更新 Sources 和受影响的小节
+   - **全新概念** → 新建文章，按概念命名，不按 raw 文件名
+   - **Sources 格式**：wiki 文章的 `## Sources` 区域**必须链接到本地 raw 文件**，使用相对路径（如 `[素材标题](../../raw/social/消费研究/小红书-xxx.md)`），**禁止使用外部 URL**。外部链接（如 `note_url`）仅保留在 raw 文件的 frontmatter 中。
+   - **跨多个主题** → 落在最相关的主题下，在文章末尾加"See Also"交叉引用
+3. 检查事实冲突：新素材和已有内容矛盾时，在文章里标注分歧和来源归属。
+4. **级联更新**：扫同主题下其他受影响文章，更新它们的 Updated 日期。
+5. **更新 wiki/index.md**：给每篇改动过的文章补/改条目。
+6. **追加 wiki/log.md**：
+   ```
+   ## [YYYY-MM-DD] ingest | <主文章标题>
+   - Updated: <级联更新的文章标题>
+   ```
+
+### 触发 2：Query（查询）
+
+**触发词：** 读取 [[AI_CONFIG]] → `triggers.query`。默认："我知道啥关于 X"、"wiki 里有没有 Y"、"根据我的 wiki 总结一下 Z"、"对比 A 和 B"。
+
+**动作：**
+1. 先读 `wiki/index.md` 定位相关文章。
+2. 读文章合成答案。优先引用 wiki 内容，其次才用 AI 自己的训练知识。
+3. 引用时用 markdown 链接：`[文章标题](wiki/主题/文章.md)`。
+4. **默认只在对话里答，不写文件**。
+
+**例外——用户说"存下来"/"归档到 wiki"：**
+1. 把答案作为新文章写进最相关的 `wiki/<主题>/`。
+2. 不合并进已有文章（归档内容是合成答案，不是素材）。
+3. 更新 index.md，摘要前缀加 `[Archived]`。
+4. log.md 追加：
+   ```
+   ## [YYYY-MM-DD] query | Archived: <页面标题>
+   ```
+
+### 触发 3：Lint（体检）
+
+**触发词：** 读取 [[AI_CONFIG]] → `triggers.lint`。默认："lint wiki"、"体检"、"wiki 有啥问题"。
+
+**确定性检查（尽量自动修）：**
+
+读取 [[AI_CONFIG]] → `lint_checks` 确定启用的检查项。默认启用的检查：
+- `index_consistency`：`wiki/index.md` ↔ 实际文件一致性：文件存在但索引缺 → 补条目；索引指向死文件 → 标 `[MISSING]`
+- `broken_links`：wiki 内部 markdown 链接失效：同名文件在别处 → 改路径；找不到 → 报告
+- `see_also_links`：See Also 链接：同主题明显缺的交叉引用 → 补；链接已删文件 → 删
+
+**启发式检查（只报告，不自动改）：**
+
+默认关闭，可在 AI_CONFIG.md 的 `lint_checks` 中启用：
+- `fact_contradiction`：跨文章事实矛盾
+- 新素材让旧论点过时
+- 源头分歧没标注
+- `orphaned_pages`：孤岛页面（没人引用）
+- `missing_cross_refs`：跨主题该链没链的概念
+- 反复被提及但没独立页面的概念
+
+**完成后追加 log.md：**
+```
+## [YYYY-MM-DD] lint | <N> issues found, <M> auto-fixed
+```
+
+### 触发 4：Social Ingest（社交媒体内容录入）
+
+> ⚠️ **合规边界：** 自动化抓取可能违反部分平台 ToS。仅处理用户**本人主动提供**的素材；不要主动高频抓取、不要批量再分发他人内容。若用户未提供素材、只是口头要求抓取，先提示合规风险再行动。
+
+**触发词：** 读取 [[AI_CONFIG]] → `triggers.social_ingest`。默认："爬了这个"、"收录这条"、"这条收进来"。给 AI 一份带 `source` 字段为社交平台名的文件，或 vault 根目录出现未归档的社交媒体笔记时也触发。
+
+**内容知识域分类（按内容主题，不按平台）：**
+
+读取 [[AI_CONFIG]] → `domains` 获取完整分类列表。默认知识域：
+
+| 知识域 | 涵盖内容 |
+|--------|----------|
+| 消费研究 | 探店、测评、好物推荐、价格对比 |
+| 技能方法 | 教程、攻略、方法论、经验分享 |
+| 行业洞察 | 趋势分析、商业观察、行业报告 |
+| 生活方式 | 旅行、美食、穿搭、家居、健康 |
+| 观点思考 | 深度评论、思考、价值观输出 |
+| 创意灵感 | 设计、文案、营销案例、内容创作 |
+| 资源收藏 | 工具推荐、书单、课程、资源清单 |
+
+> 知识域可在 AI_CONFIG.md 中自由增删。
+
+**统一 Frontmatter 规范（所有社交平台通用）：**
+
+读取 [[AI_CONFIG]] → `frontmatter.required` 和 `frontmatter.optional` 确定字段。读取 [[AI_CONFIG]] → `platforms` 和 `content_types` 确定枚举值。
+
+```yaml
+---
+title: 标题
+source: <platforms 列表中的值>
+author: 作者名
+created: YYYY-MM-DD
+note_url: 原始链接
+domain: <domains 中的 name>
+content_type: <content_types 中的值>
+credibility: high | medium | low
+metrics:
+  likes: 0
+  collects: 0
+  comments: 0
+  shares: 0
+  views: 0
+tags: []
+---
+```
+
+**动作流程：**
+
+**第一步：抓取（opencli 管线）**
+
+用 opencli 批量抓取笔记详情和图片，每篇笔记独立处理：
+
+```bash
+# 1. 搜索（按平台替换 xiaohongshu）
+opencli xiaohongshu search "<关键词>" --limit 10 -f json
+
+# 2. 获取笔记详情（必须传完整签名 URL，含 xsec_token）
+opencli xiaohongshu note "<完整URL>" -f json
+
+# 3. 下载图片到 assets
+opencli xiaohongshu download "<完整URL>" --output "assets/xiaohongshu/<笔记标题>"
+```
+
+**图片存储规则（用脚本整理，不要手动 mv/rmdir）：**
+- 目录用**笔记标题**命名（如 `assets/xiaohongshu/宁波咖啡三巨头/`），不用笔记 ID
+- opencli download 会自动创建以 ID 命名的子目录。整理成标题目录 + 生成图片引用，**直接调用脚本**，不要自己拼相对路径：
+
+```bash
+bash scripts/organize-social-assets.sh \
+  --vault <vault 根路径> \
+  --platform <xiaohongshu|douyin|bilibili|...> \
+  --note-id <opencli 下载的 ID 目录名> \
+  --title "<笔记标题>"
+```
+
+- 脚本会：把 ID 子目录的文件提升到标题目录 → 删空 ID 目录 → 输出带正确相对路径（`../../../`）的图片引用，直接粘贴进 raw 笔记
+- 其他平台同理：`--platform douyin`、`--platform bilibili` 等
+
+**第二步：生成 raw 笔记（图文一体）**
+
+每篇 raw 笔记 = frontmatter + 正文 + 配图，**必须包含图片引用**。
+
+用 `opencli obsidian create` 创建笔记，确保 Obsidian markdown 格式正确：
+
+```bash
+opencli obsidian create path="raw/social/<domain>/<文件名>.md" content="<完整内容>"
+```
+
+笔记结构：
+```markdown
+---
+title: 标题
+source: Xiaohongshu | Douyin | ...
+author: 作者名
+created: YYYY-MM-DD
+note_url: 原始链接
+domain: 消费研究 | ...
+content_type: 实测体验 | ...
+credibility: high | medium | low
+metrics:
+  likes: 0
+  collects: 0
+  comments: 0
+  shares: 0
+  views: 0
+tags: []
+---
+
+<笔记正文>
+
+## 配图
+
+![](../../../assets/<平台>/<笔记标题>/xxx_1.jpg)
+![](../../../assets/<平台>/<笔记标题>/xxx_2.jpg)
+...
+```
+
+**配图路径关键规则：**
+- **相对路径由 `organize-social-assets.sh` 脚本自动生成**（上溯三层 `../../../`），不要手算；直接用脚本输出粘贴
+- 如果笔记正文有图文对应关系（如 P2-4 对应某店），尽量将图片插到对应位置而非全部堆在末尾
+
+**第三步：分析**
+1. 提取核心信息点，形成结构化摘要
+2. 评估可信度 credibility：
+   - high：专业领域作者 + 高互动 + 有实测证据
+   - medium：普通用户 + 中等互动 + 有细节描述
+   - low：疑似软广 / 无细节 / 搬运内容
+3. 扫描 wiki 中是否已有相关主题文章
+
+**第四步：消化（按 content_type 差异化处理）**
+- **实测体验类**（探店、测评）：提取结构化数据（名称/价格/评分/优缺点），同主题多篇合并为对比维度
+- **教程攻略类**：提取可操作步骤，去掉废话，验证时效性，同技能多篇合并为最佳实践
+- **分析评论类**：提取核心论点和论据，与 wiki 已有内容做观点对照，矛盾观点并列保留
+- **资源清单类**：提取资源列表，同类去重合并，标注推荐来源数
+- **个人观点类**：保留原始观点，标注作者立场，不做主观润色
+
+消化规则：
+1. wiki 已有同主题文章 → 合并新信息，标注新来源
+2. 全新主题 → 新建 `wiki/<domain>/<主题>.md`
+3. 跨域信息 → 主文章 + See Also 交叉引用
+
+**第五步：润色**
+
+读取 [[AI_CONFIG]] → `polish` 获取润色规则。默认规则：
+- 去社交口语（emoji 堆叠、"绝绝子"、"yyds"等 `strip_patterns` 中的词）
+- `keep_subjective: true` → 保留有信息密度的主观评价
+- 按 content_type 选择对应的结构化模板
+- `output_language: zh` → 统一用中文消化（专有名词保留原文）
+
+**第六步：收尾**
+1. 更新 wiki/index.md
+2. 追加 wiki/log.md：
+   ```
+   ## [YYYY-MM-DD] social-ingest | <主文章标题>
+   - Source: <平台> | <作者> | domain: <知识域>
+   - Credibility: <high/medium/low>
+   - Action: merged into <文章> / created new
+   - Images: <N> 张 → assets/<平台>/<笔记标题>/
+   ```
+
+**批量模式：** 一次给多条笔记时，先全部抓取（搜索+详情+图片），再按 domain 分组消化，减少重复扫描 wiki。被风控拦截的笔记跳过，在 log 中标注。
+
+## 约定
+
+- 所有 wiki 内部链接用**相对当前文件的路径**。
+- 对话里引用 wiki 文章用**相对 vault 根的路径**（例如 `wiki/主题/xxx.md`）。
+- 日期用今天的日期。Updated 反映文章内容最后变动的时间，不是文件系统时间戳。
+- **raw 绝对不能改**。如果发现 raw 里有错，在 wiki 文章里标注"source contains error"而不是改 raw。
+- **wiki 的 Sources 必须链接到本地 raw 文件**，使用相对路径。外部 URL 仅保留在 raw 文件的 frontmatter `note_url` 字段中，不出现在 wiki 的 Sources 里。
+- **社交媒体图片目录**用笔记标题命名（如 `assets/xiaohongshu/宁波咖啡三巨头/`），不用 ID。用 `scripts/organize-social-assets.sh` 完成提升 + 引用生成，不要手动 mv。
+
+## 放开的约束
+
+- wiki 子目录**深度不限**。`wiki/一人企业/agent teams/xxx.md` 合法。
+- md 文件**命名自由**，不强制 `YYYY-MM-DD-slug.md` 格式。
+- 不强制 Sources/Raw/Updated metadata 处。想加就加，不加也行。
+- raw 里的文件（PDF/视频/xlsx/图片）**永不改名**。
+
+---
+> Source: [zxfccmm4/Obsidian-OpenCode-Knowledge](https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
