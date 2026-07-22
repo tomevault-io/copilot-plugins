@@ -1,172 +1,141 @@
 ## pptx-from-layouts-skill
 
-> Generate consultant-quality PowerPoint presentations from markdown outlines using your template's actual slide master layouts.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# PPTX from Layouts
+# CLAUDE.md
 
-Generate consultant-quality PowerPoint presentations from markdown outlines using your template's actual slide master layouts.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## What This Repo Is
 
-Most PowerPoint generation approaches overlay text on template slides, fighting with backgrounds and decorative elements. This skill properly uses slide master layouts, placing content in actual placeholders to preserve professional design.
+This repo is the distribution for a single Claude Code **skill**, `pptx-from-layouts`, that generates consultant-grade PowerPoint decks from markdown outlines. The skill itself lives at `.claude/skills/pptx-from-layouts/`; everything else (`docs/`, `examples/`, `templates/`, `alternatives/`) is supporting material.
 
-## Installation
+Installation is just a copy: `cp -r .claude/skills/pptx-from-layouts ~/.claude/skills/`. There is no package to build, no test suite, no lockfile — dependencies are `Python 3.10+` plus `pip install python-pptx pydantic` (also in `requirements.txt`). **python-pptx alone is not enough**: the `schemas/` package imports pydantic, so generation fails with `ModuleNotFoundError: No module named 'pydantic'` without it.
+
+The skill also ships three subagents in `.claude/skills/pptx-from-layouts/agents/` (`pptx-outline-architect`, `pptx-template-onboarder`, `pptx-deck-qa`). Copies are mirrored in this repo's `.claude/agents/` so they're active during skill development; installers copy them to `~/.claude/agents/`. Keep the two copies in sync when editing.
+
+## Commands
+
+All entry-point scripts live in `.claude/skills/pptx-from-layouts/scripts/`. They can be run directly — they set their own `PYTHONPATH` to include the skill's `lib/`, `schemas/`, and `scripts/` when shelling out to sibling scripts.
 
 ```bash
-npx skills add <owner>/pptx-from-layouts-skill
-```
+# Generate a deck from an outline
+python .claude/skills/pptx-from-layouts/scripts/generate.py outline.md -o deck.pptx
 
-Then install dependencies:
-```bash
-pip install python-pptx
-```
+# Same, with validation pass
+python .claude/skills/pptx-from-layouts/scripts/generate.py outline.md -o deck.pptx --validate
 
-## Core Commands
+# Parse only (outline → layout_plan.json, no PPTX)
+python .claude/skills/pptx-from-layouts/scripts/generate.py outline.md --layout-only -o layout.json
 
-### Generate Presentation
-```bash
-python .claude/skills/pptx-from-layouts/scripts/generate.py outline.md -o presentation.pptx
-```
-
-### Profile Custom Template
-```bash
-python .claude/skills/pptx-from-layouts/scripts/profile.py your-template.pptx --generate-config
-```
-
-### Edit Existing Deck
-```bash
-# View content inventory
-python .claude/skills/pptx-from-layouts/scripts/edit.py deck.pptx --inventory
-
-# Replace text
-python .claude/skills/pptx-from-layouts/scripts/edit.py deck.pptx --replace '{"slide":3,"old":"2025","new":"2026"}'
-
-# Reorder slides
+# Edit an existing deck (surgical text replacement / reorder)
+# Replace workflow: dump inventory, edit paragraph "text" fields, pass file back.
+python .claude/skills/pptx-from-layouts/scripts/edit.py deck.pptx --inventory -o inv.json
+python .claude/skills/pptx-from-layouts/scripts/edit.py deck.pptx --replace inv.json -o edited.pptx
 python .claude/skills/pptx-from-layouts/scripts/edit.py deck.pptx --reorder "0,2,1,3,4" -o reordered.pptx
-```
 
-### Validate Output
-```bash
+# Validate output (structural + content + layout coverage)
 python .claude/skills/pptx-from-layouts/scripts/validate.py deck.pptx
+python .claude/skills/pptx-from-layouts/scripts/validate.py deck.pptx --template template.pptx
+python .claude/skills/pptx-from-layouts/scripts/validate.py deck.pptx --diff other.pptx -o diff.md
+
+# Profile a new template (emits a visual-type → layout-index config)
+python .claude/skills/pptx-from-layouts/scripts/profile.py template.pptx --generate-config
 ```
 
-## Outline Format
+### Default template + config
 
-Write markdown with visual type declarations:
+`generate.py` resolves its defaults to `<project-root>/templates/inner-chapter.pptx` and `<project-root>/templates/inner-chapter-config.json` (both bundled), so from this repo root a bare `generate.py outline.md -o out.pptx` works with zero `--template`/`--config` flags. The config is committed (generated via `generate_config.py --generate-ic-defaults`) and doubles as the reference example of a well-formed template config.
 
-```markdown
-# Project Overview
-**Visual: hero-statement**
-Transforming operations through digital innovation
-
----
-
-# Our Approach
-**Visual: process-3-phase**
-
-[Column 1: Discover]
-- Stakeholder interviews
-- Competitive audit
-
-[Column 2: Define]
-- Workshop facilitation
-- Strategic framework
-
-[Column 3: Deliver]
-- Implementation
-- Training & handover
-
----
-
-# Investment Summary
-**Visual: table**
-
-| Category | Investment |
-|----------|------------|
-| Research | $50,000 |
-| Design | $75,000 |
-| **Total** | **$125,000** |
+```bash
+# Works with no flags from the repo root:
+python .claude/skills/pptx-from-layouts/scripts/generate.py \
+    examples/q1-strategy/outline.md -o out.pptx
 ```
 
-## Visual Types
+The example in `examples/q1-strategy/` is the canonical smoke test — regenerate it and diff against `examples/q1-strategy/output.pptx` to verify changes.
 
-| Type | Use When |
-|------|----------|
-| `hero-statement` | Single punchy tagline |
-| `process-N-phase` | Sequential steps (N=2-5) |
-| `comparison-N` | Side-by-side options |
-| `cards-N` | Discrete parallel items |
-| `data-contrast` | Two opposing metrics |
-| `quote-hero` | Powerful quote |
-| `timeline-horizontal` | Date-based sequences |
-| `table` | Genuinely tabular data |
-| `bullets` | Default for 3+ items |
+## Architecture
 
-**Selection order:** sequence → comparison → parallel items → data contrast → quote → table → hero → bullets
+The whole skill is organized around one thesis: **use the template's slide-master layouts, don't overlay text boxes.** Every design choice flows from that.
 
-## Typography Markers
+### Pipeline
 
-### Inline Formatting
-| Marker | Result |
-|--------|--------|
-| `{blue}text{/blue}` | Brand accent color |
-| `{bold}text{/bold}` | Bold |
-| `{italic}text{/italic}` | Italic |
-| `{question}text?{/question}` | Emphasized question |
+```
+outline.md
+   │  ingest.py        (markdown + visual-type declarations → structured plan)
+   ▼
+layout_plan.json
+   │  generate_pptx.py (looks up layout index per visual type, fills placeholders)
+   ▼
+output.pptx
+   │  quality_check.py / validate_pptx.py
+   ▼
+validation report
+```
 
-### Paragraph Formatting
-| Marker | Result |
-|--------|--------|
-| `{bullet:-}` | Dash bullet |
-| `{bullet:1}` | Numbered |
-| `{level:N}` | Indent level |
+Template profiling is a separate offline step: `profile_template.py` walks a `.pptx`'s slide masters and emits a config that maps visual-type names (`hero-statement`, `process-3-phase`, `table`, …) to layout indices. Generation is just plan + config + template → PPTX.
 
-## Decision Guide
-
-| Change Type | Action |
-|-------------|--------|
-| New presentation | `generate.py` |
-| Typos/values (< 30% slides) | `edit.py` |
-| Reorder slides | `edit.py --reorder` |
-| Layout changes | Regenerate |
-| Add/remove slides | Regenerate |
-| > 30% slide changes | Regenerate |
-
-## Anti-Patterns
-
-- DON'T use edit mode for layout changes (regenerate instead)
-- DON'T skip visual type decisions (bullets are boring)
-- DON'T edit > 30% of slides (regenerate instead)
-- DON'T use `hero-statement` for content with 3+ items
-- DON'T use tables for methodology/process flows
-- DON'T use bullet lists for side-by-side comparisons
-
-## Requirements
-
-- Python 3.10+
-- python-pptx library
-
-## File Structure
+### Directory map (skill-internal)
 
 ```
 .claude/skills/pptx-from-layouts/
-  scripts/
-    generate.py      # Outline → PPTX generation
-    edit.py          # Surgical edits to existing decks
-    validate.py      # Quality validation
-    profile.py       # Template profiling
-  references/
-    layouts.md       # Template layout indices
-  rules/
-    visual-types.md  # Visual type selection guide
-    typography.md    # Text formatting reference
-    outline-format.md # Markdown syntax
-  lib/               # Core library modules
-  schemas/           # Pydantic schemas
-templates/
-  inner-chapter.pptx # Default template
+├── SKILL.md                    # Skill manifest + user-facing quick start
+├── scripts/                    # CLI entry points and core pipeline steps
+│   ├── generate.py  edit.py  validate.py  profile.py   ← user-facing entry points
+│   ├── ingest.py  generate_pptx.py  profile_template.py  validate_pptx.py
+│   ├── content_fitter.py  content_splitter.py  content_recovery.py
+│   ├── diff_pptx.py  preview_layout.py  gantt_renderer.py
+│   └── quality_check.py  visual_validator.py  validation_orchestrator.py
+├── lib/                        # Reusable modules imported by scripts/
+│   ├── inventory.py  replace.py  rearrange.py    # edit-mode primitives
+│   ├── font_fallback.py  margins.py  pptx_compat.py
+│   ├── graceful_degradation.py  performance.py  confidence.py  thumbnail.py
+├── schemas/                    # Pydantic models (layout_plan, template_config,
+│   │                             brand_config, checklist, generation_result, …)
+├── agents/                     # Shipped subagent definitions (mirror of repo .claude/agents/)
+│   └── pptx-outline-architect.md  pptx-template-onboarder.md  pptx-deck-qa.md
+├── rules/                      # Prose guidance consumed by LLMs writing outlines
+│   └── visual-types.md  outline-format.md  typography.md  columns.md
+│       tables.md  editing.md  bring-your-own-template.md  decisions.md
+└── references/layouts.md       # Inner Chapter template layout-index catalog (59 layouts)
 ```
+
+`lib/` and `schemas/` are pure Python libraries. `scripts/` shells out between steps rather than importing across them, so each script stays runnable standalone. `rules/` and `references/` are for the *author* of the outline (Claude, or a human) — they are not imported.
+
+### Repo map (outside the skill)
+
+```
+templates/inner-chapter.pptx    # Default template (note: singular `template/` in script defaults)
+examples/q1-strategy/           # outline.md + output.pptx + thumbnail.jpg — canonical demo
+alternatives/                   # 7 preserved competing skills (comparison artifact, not code in use)
+docs/architecture.md            # Deeper internals writeup
+docs/visual-types.md            # Visual-type decision tree + content-length limits
+docs/comparison.md              # Why slide-master approach beats inventory/replace
+docs/workflows.md               # End-to-end workflows + how the 3 subagents chain
+.claude/agents/                 # Active subagents for this repo (mirror of skill agents/)
+```
+
+### Visual types are the API
+
+The outline-author contract is the set of visual-type declarations (`**Visual: cards-3**`, `**Visual: process-4-phase**`, …). They're resolved to layout indices by the template config. Decision order when choosing one is sequence → comparison → parallel items → data contrast → quote → tabular → hero statement → bullets. Full catalog lives in `docs/visual-types.md` and `.claude/skills/pptx-from-layouts/rules/visual-types.md`; the Inner Chapter layout-index catalog lives in `references/layouts.md`.
+
+### Generate vs. edit
+
+These are distinct modes with different code paths:
+
+- **Generate** (`scripts/generate.py` → `ingest.py` → `generate_pptx.py`) builds a deck fresh from an outline. Use for new decks, > 30% slide changes, layout changes, or adding/removing slides.
+- **Edit** (`scripts/edit.py` + `lib/inventory.py` + `lib/replace.py` + `lib/rearrange.py`) mutates an existing deck without regenerating. Use only for text replacement or slide reordering on < 30% of slides.
+
+Don't use edit for layout changes — regenerate.
+
+## Working in this repo
+
+- When modifying the pipeline, touch `scripts/` + `lib/` in the skill; don't add new top-level directories.
+- When changing outline syntax or visual-type semantics, update both `rules/` (author-facing) and `docs/visual-types.md` (external docs) — they overlap deliberately.
+- When profiling new templates, drop the `.pptx` into `templates/` and commit the emitted config alongside it.
+- The `alternatives/` directory is a frozen comparison artifact — do not edit those skills; they exist to document the design tradeoffs called out in `docs/comparison.md`.
 
 ---
 > Source: [tristan-mcinnis/pptx-from-layouts-skill](https://github.com/tristan-mcinnis/pptx-from-layouts-skill) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
