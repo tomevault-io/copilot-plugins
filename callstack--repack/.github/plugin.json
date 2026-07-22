@@ -1,0 +1,14 @@
+{
+  "name": "callstack--repack",
+  "displayName": "repack",
+  "description": "repack",
+  "version": "1.0.0",
+  "author": "callstack",
+  "homepage": "https://github.com/callstack/repack",
+  "skills": [
+    {
+      "name": "repack",
+      "description": ""
+    }
+  ]
+}
