@@ -1,0 +1,56 @@
+## leptos-tiptap
+
+> This repository wraps Tiptap for Leptos. The main Rust library crate lives at the repository root; public API types are
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+This repository wraps Tiptap for Leptos. The main Rust library crate lives at the repository root; public API types are
+in `src/lib.rs`, component-facing API is under `src/api/`, and runtime bridge/session code is under `src/runtime/`.
+
+The browser-side Tiptap bundle source lives in `tiptap/`. TypeScript bridge code is in `tiptap/src/`, extension entry
+points use `tiptap/src/extensions/tiptap_*.ts`, and generated JS consumed by Rust is written to `src/js/generated/`.
+Example apps are under `examples/`, including `demo-csr` and `demo-ssr`.
+
+## Build, Test, and Development Commands
+
+- `just build`: install pinned npm dependencies and rebuild the generated Tiptap JS bundle.
+- `just verify`: run JS tests, TypeScript checks, generated-bundle drift checks, Rust tests, SSR/wasm builds, and
+  Clippy.
+- `cargo build`: build the library crate.
+- `cargo build --features ssr`: verify the server-side no-op JS path builds.
+- `just deny`: run the blocking supply-chain checks.
+- `cd tiptap && npm test`: run bridge runtime tests.
+- `cd examples/demo-csr && trunk serve`: run the CSR example.
+- `cd examples/demo-ssr && cargo leptos watch`: run the SSR example.
+
+## Coding Style & Naming Conventions
+
+Use Rust 2024 formatting via `cargo fmt`; keep public Rust types and functions idiomatic with `CamelCase` types and
+`snake_case` modules/functions. Use TypeScript ES modules in `tiptap/`, and name extension modules
+`tiptap_<extension>.ts`. When adding or removing commands, update Rust protocol/API/runtime code and the matching
+TypeScript bridge or extension module together.
+
+## Testing Guidelines
+
+Place Rust tests near the code they cover or in crate-level test modules, and use the `assertr` crate for assertions
+instead of `assert!` or `assert_eq!`. For Tiptap bridge behavior, add Node tests in `tiptap/src/bridge_runtime.test.ts`.
+Run targeted checks during development, then run `just verify` before submitting broad changes.
+
+## Commit & Pull Request Guidelines
+
+Recent history uses short, imperative commit subjects such as `Add end2end tests` and `Update tiptap to 2.12.0`. Keep
+commits focused and mention generated bundle updates when `src/js/generated/` changes. Pull requests
+should describe the behavior change, list verification commands run, link related issues, and include screenshots or
+reproduction notes for example-app UI changes.
+
+## Runtime Notes
+
+`TiptapEditor` treats `initial_content` as one-time initialization input; use `TiptapEditorHandle` for later content
+reads and document replacement. Editor `id` values must be globally unique among live instances. With the `ssr` feature
+enabled, JS interop in `src/runtime/` is compiled as no-op behavior while still rendering the DOM node for hydration.
+
+---
+> Source: [lpotthast/leptos-tiptap](https://github.com/lpotthast/leptos-tiptap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
