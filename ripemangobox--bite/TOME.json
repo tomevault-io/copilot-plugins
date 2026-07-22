@@ -1,0 +1,147 @@
+{
+  "name": "BITE",
+  "owner": "RipeMangoBox",
+  "repo": "BITE",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "BITE",
+      "path": ".claude/skills/domain-fork/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/domain-fork/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/write-daily-log/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/write-daily-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/skill-fit-guard/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/skill-fit-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/idea-focus-coach/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/idea-focus-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/research-workflow/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/research-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/papers-build-index/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/papers-build-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/rf-obsidian-markdown/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/rf-obsidian-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/reviewer-stress-test/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/reviewer-stress-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/papers-batch-analyze/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/papers-batch-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/papers-collect-from-web/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/papers-collect-from-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/papers-download-from-list/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/papers-download-from-list/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/notes-export-share-version/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/notes-export-share-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/research-brainstorm-from-kb/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/research-brainstorm-from-kb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/papers-query-knowledge-base/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/papers-query-knowledge-base/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/code-context-paper-retrieval/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/code-context-paper-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/papers-collect-from-github-repo/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/papers-collect-from-github-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "BITE",
+      "path": ".claude/skills/papers-audit-metadata-consistency/SKILL.md",
+      "github_url": "https://github.com/RipeMangoBox/BITE/tree/main/.claude/skills/papers-audit-metadata-consistency/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RipeMangoBox/BITE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:24:50Z"
+}
