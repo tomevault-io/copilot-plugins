@@ -1,0 +1,9 @@
+{
+  "name": "inclusionai--akernel",
+  "displayName": "AKernel",
+  "description": "Programmable datacenter-scale infrastructure for Agents.",
+  "version": "1.0.0",
+  "author": "inclusionAI",
+  "homepage": "https://github.com/inclusionAI/AKernel",
+  "skills": []
+}
