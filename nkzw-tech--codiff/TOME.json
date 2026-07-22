@@ -1,0 +1,63 @@
+{
+  "name": "codiff",
+  "owner": "nkzw-tech",
+  "repo": "codiff",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codiff",
+      "path": "pi/skills/codiff/SKILL.md",
+      "github_url": "https://github.com/nkzw-tech/codiff/tree/main/pi/skills/codiff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codiff",
+      "path": "codex/skills/codiff/SKILL.md",
+      "github_url": "https://github.com/nkzw-tech/codiff/tree/main/codex/skills/codiff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codiff",
+      "path": "claude/skills/codiff/SKILL.md",
+      "github_url": "https://github.com/nkzw-tech/codiff/tree/main/claude/skills/codiff/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nkzw-tech/codiff",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:01:15Z"
+}
