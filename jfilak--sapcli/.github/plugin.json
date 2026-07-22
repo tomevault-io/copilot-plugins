@@ -1,0 +1,14 @@
+{
+  "name": "jfilak--sapcli",
+  "displayName": "sapcli",
+  "description": "sapcli",
+  "version": "1.0.0",
+  "author": "jfilak",
+  "homepage": "https://github.com/jfilak/sapcli",
+  "skills": [
+    {
+      "name": "sapcli",
+      "description": ""
+    }
+  ]
+}
