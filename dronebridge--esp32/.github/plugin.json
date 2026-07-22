@@ -1,0 +1,9 @@
+{
+  "name": "dronebridge--esp32",
+  "displayName": "ESP32",
+  "description": "ESP32",
+  "version": "1.0.0",
+  "author": "DroneBridge",
+  "homepage": "https://github.com/DroneBridge/ESP32",
+  "skills": []
+}
