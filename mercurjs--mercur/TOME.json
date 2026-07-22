@@ -1,0 +1,153 @@
+{
+  "name": "mercur",
+  "owner": "mercurjs",
+  "repo": "mercur",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mercur",
+      "path": ".claude/skills/mercur-cli/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/mercur-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/admin-tab-ui/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/admin-tab-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/cc-alignment/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/cc-alignment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/admin-page-ui/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/admin-page-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/admin-form-ui/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/admin-form-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/mercur-blocks/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/mercur-blocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/admin-ui-review/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/admin-ui-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/migration-guide/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/migration-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/medusa-ui-conformance/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/medusa-ui-conformance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": "templates/basic/.claude/skills/mercur-cli/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/templates/basic/.claude/skills/mercur-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": "templates/basic/.claude/skills/mercur-blocks/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/templates/basic/.claude/skills/mercur-blocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": "templates/basic/.claude/skills/migration-guide/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/templates/basic/.claude/skills/migration-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": "templates/basic/.claude/skills/dashboard-tab-ui/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/templates/basic/.claude/skills/dashboard-tab-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": "templates/basic/.claude/skills/dashboard-form-ui/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/templates/basic/.claude/skills/dashboard-form-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": "templates/basic/.claude/skills/dashboard-page-ui/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/templates/basic/.claude/skills/dashboard-page-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": ".claude/skills/compound-components-migration-review/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/.claude/skills/compound-components-migration-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mercur",
+      "path": "templates/basic/.claude/skills/medusa-ui-conformance/SKILL.md",
+      "github_url": "https://github.com/mercurjs/mercur/tree/main/templates/basic/.claude/skills/medusa-ui-conformance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mercurjs/mercur",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T22:54:38Z"
+}
