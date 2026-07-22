@@ -4,6 +4,39 @@
   "description": "google-ads-api-developer-assistant",
   "version": "1.0.0",
   "author": "googleads",
-  "homepage": "https://tomevault.io/claim/googleads",
-  "skills": []
+  "homepage": "https://github.com/googleads/google-ads-api-developer-assistant",
+  "skills": [
+    {
+      "name": "google-ads-api-developer-assistant",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "description": ""
+    }
+  ]
 }
