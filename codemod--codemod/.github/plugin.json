@@ -1,0 +1,46 @@
+{
+  "name": "codemod--codemod",
+  "displayName": "codemod",
+  "description": "codemod",
+  "version": "1.0.0",
+  "author": "codemod",
+  "homepage": "https://github.com/codemod/codemod",
+  "skills": [
+    {
+      "name": "codemod-semantic-providers",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "description": ""
+    }
+  ]
+}
