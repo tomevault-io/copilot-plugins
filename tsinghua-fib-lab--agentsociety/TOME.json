@@ -1,10 +1,10 @@
 {
-  "name": "AgentSociety",
+  "name": "agentsociety",
   "owner": "tsinghua-fib-lab",
-  "repo": "AgentSociety",
-  "description": "AgentSociety 2 is a modern, LLM-native agent simulation platform designed for social science research and experimental design. It provides a flexible framework for creating and managing intelligent agents in simulated environments.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "repo": "agentsociety",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,159 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "source_url": "https://github.com/tsinghua-fib-lab/AgentSociety",
+  "skills": [
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/docx/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-analysis/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-analysis/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-hypothesis/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-hypothesis/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-use-dataset/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-use-dataset/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-create-agent/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-create-agent/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-scan-modules/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-scan-modules/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-run-experiment/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-run-experiment/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-research-pipeline/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-research-pipeline/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-experiment-config/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-experiment-config/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-literature-search/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-literature-search/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-create-env-module/v1.0.0/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-create-env-module/v1.0.0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/plugins/easypaper/skills/easypaper-venue-selection/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/plugins/easypaper/skills/easypaper-venue-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/plugins/easypaper/skills/easypaper-setup-environment/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/plugins/easypaper/skills/easypaper-setup-environment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/plugins/easypaper/skills/easypaper-paper-from-metadata/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/plugins/easypaper/skills/easypaper-paper-from-metadata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-analysis/v1.0.0/support/report-blocks/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-analysis/v1.0.0/support/report-blocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/plugins/easypaper/skills/easypaper-academic-writing-rules/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/plugins/easypaper/skills/easypaper-academic-writing-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-analysis/v1.0.0/support/interactive-viz/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-analysis/v1.0.0/support/interactive-viz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-analysis/v1.0.0/support/frontend-design/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-analysis/v1.0.0/support/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/plugins/easypaper/skills/easypaper-interactive-metadata-build/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/plugins/easypaper/skills/easypaper-interactive-metadata-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "packages/agentsociety2/agentsociety2/custom/skills/examples/my-custom-skill/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/packages/agentsociety2/agentsociety2/custom/skills/examples/my-custom-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "extension/skills/agentsociety-analysis/v1.0.0/support/scientific-visualization/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/extension/skills/agentsociety-analysis/v1.0.0/support/scientific-visualization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentsociety",
+      "path": "packages/agentsociety2/agentsociety2/contrib/env/economy_space_agent_skills/economic-reasoning/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/agentsociety/tree/main/packages/agentsociety2/agentsociety2/contrib/env/economy_space_agent_skills/economic-reasoning/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tsinghua-fib-lab/agentsociety",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:18:03Z"
+  "distributed_at": "2026-07-22T08:54:38Z"
 }
