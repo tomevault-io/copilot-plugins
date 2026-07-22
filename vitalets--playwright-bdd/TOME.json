@@ -1,0 +1,57 @@
+{
+  "name": "playwright-bdd",
+  "owner": "vitalets",
+  "repo": "playwright-bdd",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "playwright-bdd",
+      "path": "skills/playwright-bdd/SKILL.md",
+      "github_url": "https://github.com/vitalets/playwright-bdd/tree/main/skills/playwright-bdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "playwright-bdd",
+      "path": ".github/skills/debug-cucumber-html-report/SKILL.md",
+      "github_url": "https://github.com/vitalets/playwright-bdd/tree/main/.github/skills/debug-cucumber-html-report/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vitalets/playwright-bdd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:44:33Z"
+}
