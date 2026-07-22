@@ -1,0 +1,123 @@
+{
+  "name": "Rethlas",
+  "owner": "frenzymath",
+  "repo": "Rethlas",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/query-memory/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/query-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/verify-proof/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/verify-proof/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/direct-proving/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/direct-proving/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/recursive-proving/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/recursive-proving/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/search-math-results/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/search-math-results/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/identify-key-failures/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/identify-key-failures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/construct-toy-examples/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/construct-toy-examples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/construct-counterexamples/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/construct-counterexamples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/obtain-immediate-conclusions/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/obtain-immediate-conclusions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/verification/.agents/skills/check-referenced-statements/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/verification/.agents/skills/check-referenced-statements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/verification/.agents/skills/verify-sequential-statements/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/verification/.agents/skills/verify-sequential-statements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/verification/.agents/skills/synthesize-verification-report/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/verification/.agents/skills/synthesize-verification-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Rethlas",
+      "path": "agents/generation/.agents/skills/propose-subgoal-decomposition-plans/SKILL.md",
+      "github_url": "https://github.com/frenzymath/Rethlas/tree/main/agents/generation/.agents/skills/propose-subgoal-decomposition-plans/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/frenzymath/Rethlas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:40:18Z"
+}
