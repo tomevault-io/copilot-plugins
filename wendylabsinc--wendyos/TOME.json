@@ -1,0 +1,177 @@
+{
+  "name": "WendyOS",
+  "owner": "wendylabsinc",
+  "repo": "WendyOS",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/wendy/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/wendy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/swift/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/swift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/linear/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/linear/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/deckset/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/deckset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/swift-nio/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/swift-nio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/wendy-lite/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/wendy-lite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/hummingbird/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/hummingbird/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/wendy-swift/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/wendy-swift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/swift-concurrency/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/swift-concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/wendy-contributing/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/wendy-contributing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-install/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/swift-library-design/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/swift-library-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-codebase/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-codebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-mcp-setup/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-mcp-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "go/internal/cli/assets/skills/database-driver-design/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/go/internal/cli/assets/skills/database-driver-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-device-ops/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-device-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-pr-workflow/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-pr-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-device-debug/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-device-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-template-app/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-template-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-entitlements/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-entitlements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-app-lifecycle/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-app-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WendyOS",
+      "path": "plugins/wendy-agentic-coding/skills/wendy-project-setup/SKILL.md",
+      "github_url": "https://github.com/wendylabsinc/WendyOS/tree/main/plugins/wendy-agentic-coding/skills/wendy-project-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wendylabsinc/WendyOS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:34:58Z"
+}
