@@ -1,0 +1,801 @@
+{
+  "name": "MultiUserClaw",
+  "owner": "johnson7788",
+  "repo": "MultiUserClaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MultiUserClaw",
+      "path": "deploy_copy/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/deploy_copy/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/dogfood/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/dogfood/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/yuanbao/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/yuanbao/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "deploy_copy/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/deploy_copy/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/plugins/google_meet/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/plugins/google_meet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/p5js/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/p5js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/media/songsee/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/media/songsee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/email/himalaya/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/email/himalaya/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/media/heartmula/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/media/heartmula/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/sketch/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/sketch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/pretext/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/pretext/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/media/gif-search/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/media/gif-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/research/llm-wiki/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/research/llm-wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/productivity/maps/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/productivity/maps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/humanizer/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/ascii-art/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/ascii-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/smart-home/openhue/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/smart-home/openhue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/design-md/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/peft/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/peft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/clip/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/clip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/excalidraw/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/excalidraw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/research/polymarket/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/research/polymarket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/slime/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/slime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/modal/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/modal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/manim-video/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/manim-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/ascii-video/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/ascii-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mcp/fastmcp/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mcp/fastmcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/llava/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/llava/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/faiss/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/faiss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/github/github-issues/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/github/github-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/mlops/inference/vllm/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/mlops/inference/vllm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/simpo/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/simpo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/research/blogwatcher/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/research/blogwatcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/qdrant/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/qdrant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/chroma/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/chroma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/productivity/airtable/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/productivity/airtable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/mlops/huggingface-hub/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/mlops/huggingface-hub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mcp/mcporter/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mcp/mcporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/media/youtube-content/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/media/youtube-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/productivity/nano-pdf/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/productivity/nano-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/saelens/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/saelens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/claude-design/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/claude-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/whisper/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/whisper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/guidance/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/mlops/models/audiocraft/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/mlops/models/audiocraft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/pinecone/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/pinecone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/productivity/powerpoint/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/productivity/powerpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/blockchain/evm/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/blockchain/evm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/finance/stocks/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/finance/stocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/email/agentmail/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/email/agentmail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/devops/watchers/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/devops/watchers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/instructor/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/instructor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/github/github-code-review/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/github/github-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/github/github-pr-workflow/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/github/github-pr-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/mlops/inference/llama-cpp/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/mlops/inference/llama-cpp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/accelerate/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/accelerate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/torchtitan/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/torchtitan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/software-development/plan/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/software-development/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/touchdesigner-mcp/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/touchdesigner-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/security/sherlock/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/security/sherlock/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/baoyu-infographic/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/baoyu-infographic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/blockchain/solana/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/blockchain/solana/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/software-development/spike/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/software-development/spike/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/github/codebase-inspection/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/github/codebase-inspection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/autonomous-ai-agents/codex/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/autonomous-ai-agents/codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/scrapling/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/scrapling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/nemo-curator/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/nemo-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/tensorrt-llm/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/tensorrt-llm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/productivity/siyuan/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/productivity/siyuan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/finance/pptx-author/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/finance/pptx-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/popular-web-designs/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/popular-web-designs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/productivity/canvas/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/productivity/canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/productivity/shopify/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/productivity/shopify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/productivity/google-workspace/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/productivity/google-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/devops/pinggy-tunnel/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/devops/pinggy-tunnel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/finance/excel-author/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/finance/excel-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/architecture-diagram/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/architecture-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/autonomous-ai-agents/opencode/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/autonomous-ai-agents/opencode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/creative/hyperframes/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/creative/hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/creative/blender-mcp/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/creative/blender-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/finance/merger-model/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/finance/merger-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/parallel-cli/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/parallel-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/productivity/here-now/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/productivity/here-now/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/flash-attention/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/flash-attention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/productivity/ocr-and-documents/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/productivity/ocr-and-documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/domain-intel/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/domain-intel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/finance/comps-analysis/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/finance/comps-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/stable-diffusion/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/stable-diffusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/productivity/telephony/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/productivity/telephony/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/security/oss-forensics/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/security/oss-forensics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/training/axolotl/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/training/axolotl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/training/unsloth/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/training/unsloth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/blockchain/hyperliquid/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/blockchain/hyperliquid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/bioinformatics/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/bioinformatics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/data-science/jupyter-live-kernel/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/data-science/jupyter-live-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/searxng-search/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/searxng-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/pytorch-lightning/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/pytorch-lightning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/drug-discovery/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/drug-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/autonomous-ai-agents/hermes-agent/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/autonomous-ai-agents/hermes-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/inference/outlines/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/inference/outlines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/devops/docker-management/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/devops/docker-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/creative/songwriting-and-ai-music/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/creative/songwriting-and-ai-music/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/creative/meme-generation/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/creative/meme-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/health/fitness-nutrition/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/health/fitness-nutrition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/creative/concept-diagrams/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/creative/concept-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/mlops/evaluation/weights-and-biases/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/mlops/evaluation/weights-and-biases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/software-development/python-debugpy/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/software-development/python-debugpy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/duckduckgo-search/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/duckduckgo-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/gitnexus-explorer/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/gitnexus-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/productivity/teams-meeting-pipeline/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/productivity/teams-meeting-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/web-development/page-agent/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/web-development/page-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/autonomous-ai-agents/honcho/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/autonomous-ai-agents/honcho/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/dogfood/adversarial-ux-test/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/dogfood/adversarial-ux-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/huggingface-tokenizers/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/huggingface-tokenizers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/research/osint-investigation/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/research/osint-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/migration/openclaw-migration/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/migration/openclaw-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/autonomous-ai-agents/blackbox/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/autonomous-ai-agents/blackbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/mlops/evaluation/lm-evaluation-harness/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/mlops/evaluation/lm-evaluation-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/mlops/training/trl-fine-tuning/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/mlops/training/trl-fine-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/productivity/memento-flashcards/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/productivity/memento-flashcards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/software-development/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/software-development/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/communication/one-three-one-rule/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/communication/one-three-one-rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/software-development/node-inspect-debugger/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/software-development/node-inspect-debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/optional-skills/creative/kanban-video-orchestrator/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/optional-skills/creative/kanban-video-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/software-development/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/software-development/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MultiUserClaw",
+      "path": "hermes-agent/skills/software-development/hermes-agent-skill-authoring/SKILL.md",
+      "github_url": "https://github.com/johnson7788/MultiUserClaw/tree/main/hermes-agent/skills/software-development/hermes-agent-skill-authoring/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/johnson7788/MultiUserClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:47:38Z"
+}
