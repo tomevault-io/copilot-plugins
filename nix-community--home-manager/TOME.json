@@ -1,0 +1,129 @@
+{
+  "name": "home-manager",
+  "owner": "nix-community",
+  "repo": "home-manager",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/claude-code/skill-subdir/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/claude-code/skill-subdir/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/codex/skills-dir/skill-one/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/codex/skills-dir/skill-one/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/antigravity-cli/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/antigravity-cli/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/claude-code/skills/test-skill/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/claude-code/skills/test-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/opencode/skill-dir/data-analysis/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/opencode/skill-dir/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/opencode/skills-bulk/git-release/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/opencode/skills-bulk/git-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/antigravity-cli-legacy/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/antigravity-cli-legacy/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/opencode/skills-bulk/pdf-processing/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/opencode/skills-bulk/pdf-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/antigravity-cli/skills/data-analysis/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/antigravity-cli/skills/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/antigravity-cli/skills/pdf-processing/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/antigravity-cli/skills/pdf-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/github-copilot-cli/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/github-copilot-cli/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/github-copilot-cli/skills/data-analysis/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/github-copilot-cli/skills/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/antigravity-cli-legacy/skills/data-analysis/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/antigravity-cli-legacy/skills/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-manager",
+      "path": "tests/modules/programs/antigravity-cli-legacy/skills/pdf-processing/SKILL.md",
+      "github_url": "https://github.com/nix-community/home-manager/tree/main/tests/modules/programs/antigravity-cli-legacy/skills/pdf-processing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nix-community/home-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:21:43Z"
+}
