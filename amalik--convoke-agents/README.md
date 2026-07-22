@@ -1,0 +1,153 @@
+# convoke-agents
+
+> Tome by [amalik](https://github.com/amalik/convoke-agents), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [amalik/convoke-agents](https://github.com/amalik/convoke-agents).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (122)
+
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-help/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-init/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-shard-doc/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/agents/bmad-tea/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-index-docs/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-party-mode/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-help/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-distillator/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-help/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-brainstorming/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-shard-doc/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-create-prd/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-shard-doc/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-index-docs/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-party-mode/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-index-docs/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-distillator/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/.claude/skills/bmad-register-skill/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmb/skills/bmad-builder-setup/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/agents/wds-agent-freya-ux/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmb/skills/bmad-agent-builder/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-3-scenarios/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-4-ux-design/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-advanced-elicitation/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/workflows/bmad-party-mode/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-brainstorming/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/.claude/skills/bmad-audit-skill-dirs/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-editorial-review-prose/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmb/skills/bmad-workflow-builder/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-storytelling/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-review-edge-case-hunter/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/bmad-agent-analyst/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/bmad-product-brief/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/agents/wds-agent-saga-analyst/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-1-project-brief/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-7-design-system/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-0-project-setup/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/workflows/bmad-brainstorming/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-agent-qa/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-agent-sm/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-agent-pm/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-edit-prd/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-agent-dev/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-2-trigger-mapping/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-dev-story/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-design-thinking/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-problem-solving/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-quick-dev/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-editorial-review-structure/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-review-adversarial-general/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-6-asset-generation/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/bmad-document-project/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-create-prd/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-storyteller/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/bmad-agent-tech-writer/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-0-alignment-signoff/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-advanced-elicitation/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-8-product-evolution/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-code-review/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-agent-architect/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-validate-prd/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-editorial-review-prose/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-create-story/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/hypothesis-engineer/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-5-agentic-development/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-sprint-status/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-editorial-review-prose/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-retrospective/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-ci/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-review-edge-case-hunter/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-innovation-strategy/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-correct-course/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-nfr/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-review-edge-case-hunter/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-sprint-planning/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-atdd/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_portability/skills/bmad-export-skill/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_portability/skills/bmad-seed-catalog/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-review-adversarial-general/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-create-ux-design/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-trace/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-create-architecture/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-editorial-review-structure/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_enhance/workflows/initiatives-backlog/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-agent-ux-designer/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/contextualization-expert/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-review-adversarial-general/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-editorial-review-structure/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/discovery-empathy-expert/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/learning-decision-expert/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/research/bmad-market-research/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/research/bmad-domain-research/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-teach-me-testing/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-brainstorming-coach/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-presentation-master/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-automate/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_portability/skills/bmad-generate-catalog/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_portability/skills/bmad-validate-exports/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/lean-experiments-specialist/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-framework/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_artifacts/workflows/bmad-portfolio-status/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-design-thinking-coach/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-innovation-strategist/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-create-epics-and-stories/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-generate-project-context/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-qa-generate-e2e-tests/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/research/bmad-technical-research/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_artifacts/workflows/bmad-migrate-artifacts/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-test-design/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-test-review/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-creative-problem-solver/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/research-convergence-specialist/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-agent-quick-flow-solo-dev/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-check-implementation-readiness/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/production-intelligence-specialist/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/_bmad-output/exp3-smoke-test/bmad-cis-agent-brainstorming-coach/adapters/claude-code/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-removed-dep/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-stepfile-dep/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-manual-entry/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-docbody-only/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-malformed-dep/SKILL.md)
+- [convoke-agents](https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-frontmatter-dep/SKILL.md)
+
+From [amalik/convoke-agents](https://github.com/amalik/convoke-agents) — a repo with 58+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install amalik/convoke-agents
+```
+Source: [github.com/amalik/convoke-agents](https://github.com/amalik/convoke-agents).
+
+<!-- genome:t-i-s -->
