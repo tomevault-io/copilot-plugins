@@ -1,0 +1,14 @@
+{
+  "name": "sibbl--hass-lovelace-kindle-4",
+  "displayName": "hass-lovelace-kindle-4",
+  "description": "hass-lovelace-kindle-4",
+  "version": "1.0.0",
+  "author": "sibbl",
+  "homepage": "https://github.com/sibbl/hass-lovelace-kindle-4",
+  "skills": [
+    {
+      "name": "hass-lovelace-kindle-4",
+      "description": ""
+    }
+  ]
+}
