@@ -1,0 +1,9 @@
+{
+  "name": "openvdb--fvdb-examples",
+  "displayName": "fvdb-examples",
+  "description": "This repository provides reference implementations of spatial intelligence methods\u2014such as panoptic segmentation and depth reconstruction\u2014built on top of the \u0192VDB library.",
+  "version": "1.0.0",
+  "author": "openvdb",
+  "homepage": "https://github.com/openvdb/fvdb-examples",
+  "skills": []
+}
