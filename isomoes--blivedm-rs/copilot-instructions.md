@@ -44,4 +44,4 @@ WebSocket Client --> Event Scheduler --> Plugins
 
 ---
 > Source: [isomoes/blivedm_rs](https://github.com/isomoes/blivedm_rs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
