@@ -1,0 +1,41 @@
+## dotfiles
+
+> - Be direct, technical, and tactful
+
+# Rules
+
+- Be direct, technical, and tactful
+- Lead with the conclusion and include evidence, material caveats, and the next action
+
+## Code
+
+- Before adding code, check: does it need to exist, is it already here, does stdlib/native platform handle it, does an installed dependency handle it, can it be one line, etc
+- Aim for the minimum code that solves the problem
+- Use simple, explicit, practical solutions optimized for readability and clear intent
+- Keep functions and modules small and with clear composable interfaces
+- Keep APIs and public interfaces small, behavior explicit, intention-revealing, and naming clear
+- No speculative abstractions, one-use interfaces, factories, config, or scaffolding for later
+- Remove unnecessary code, optimize for deletion and clean your own mess
+- Read files in full before wide-ranging changes, before editing files you have not fully inspected, and when asked to investigate or audit
+- Never preserve backward compatibility unless the user asks for it
+- The codebase is your memory system, make the code self-explanatory
+
+### Execution Model
+
+- Avoid fallbacks and legacy branches
+- Fail fast with clear error messages
+- Validate conditions explicitly instead of relying on exceptions
+- Verify changes work by running the code, tests, and linters
+- For ad-hoc scripts, write them to a temp file (e.g. /tmp), run, edit if needed, remove when done or do it entirely inline
+- Fix bugs at the root cause by inspecting callers and fixing the shared path when possible
+
+## Git
+
+- Commits: keep them atomic and use short descriptive messages prefixed with a relevant emoji (`🐛 Fix upsert logic`)
+- Pull requests: use a short title prefixed with a relevant emoji (`🚀 Deploy new users flow`) and a concise body describing the changes (no summary header)
+- Branches: use simple descriptive names (`fix-async-stream`, `add-users-model`)
+- Use `gh` for PRs, reviews, issues, and anything related with GitHub like search
+
+---
+> Source: [davidgasquez/dotfiles](https://github.com/davidgasquez/dotfiles) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
