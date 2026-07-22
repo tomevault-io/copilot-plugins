@@ -1,0 +1,135 @@
+{
+  "name": "eventyay",
+  "owner": "fossasia",
+  "repo": "eventyay",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "django-run-locally",
+      "path": ".agents/skills/django-run-locally",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-run-locally",
+      "description": ""
+    },
+    {
+      "name": "django-add-form",
+      "path": ".agents/skills/django-add-form",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-add-form",
+      "description": ""
+    },
+    {
+      "name": "django-create-api-endpoint",
+      "path": ".agents/skills/django-create-api-endpoint",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-create-api-endpoint",
+      "description": ""
+    },
+    {
+      "name": "django-run-migrations",
+      "path": ".agents/skills/django-run-migrations",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-run-migrations",
+      "description": ""
+    },
+    {
+      "name": "django-create-model",
+      "path": ".agents/skills/django-create-model",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-create-model",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/frontend-ui/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/frontend-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/repo-navigation/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/repo-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/django-add-form/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-add-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/docker-deployment/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/docker-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/django-run-locally/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-run-locally/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/django-create-model/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-create-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/pull-request-workflow/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/pull-request-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/django-run-migrations/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-run-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eventyay",
+      "path": ".agents/skills/django-create-api-endpoint/SKILL.md",
+      "github_url": "https://github.com/fossasia/eventyay/tree/main/.agents/skills/django-create-api-endpoint/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fossasia/eventyay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:32:09Z"
+}
