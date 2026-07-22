@@ -2,9 +2,9 @@
   "name": "FastAPI-Template",
   "owner": "JiayuXu0",
   "repo": "FastAPI-Template",
-  "description": "A production-ready FastAPI backend template with clean architecture. \u4e00\u4e2a\u529f\u80fd\u5b8c\u6574\u3001\u67b6\u6784\u6e05\u6670\u7684\u4f01\u4e1a\u7ea7FastAPI\u540e\u7aef\u6a21\u677f\uff0c\u4e13\u4e3a\u56e2\u961f\u5f00\u53d1\u8bbe\u8ba1\uff0c\u5f00\u7bb1\u5373\u7528\u3002",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JiayuXu0/FastAPI-Template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T13:13:35Z"
+  "distributed_at": "2026-07-22T07:37:50Z"
 }
