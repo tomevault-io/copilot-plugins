@@ -1,0 +1,171 @@
+{
+  "name": "ak-guess",
+  "owner": "lie5860",
+  "repo": "ak-guess",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/workflow-runner/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/workflow-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/chinese-code-review/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/chinese-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/chinese-git-workflow/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/chinese-git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/react-best-practices/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/chinese-documentation/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/chinese-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/chinese-commit-conventions/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/chinese-commit-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ak-guess",
+      "path": ".agents/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/lie5860/ak-guess/tree/main/.agents/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lie5860/ak-guess",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:35:09Z"
+}
