@@ -1,0 +1,26 @@
+{
+  "name": "risingwavelabs--risingwave",
+  "displayName": "risingwave",
+  "description": "risingwave",
+  "version": "1.0.0",
+  "author": "risingwavelabs",
+  "homepage": "https://github.com/risingwavelabs/risingwave",
+  "skills": [
+    {
+      "name": "fix-buildkite-ci",
+      "description": ""
+    },
+    {
+      "name": "risingwave",
+      "description": ""
+    },
+    {
+      "name": "risingwave",
+      "description": ""
+    },
+    {
+      "name": "risingwave",
+      "description": ""
+    }
+  ]
+}
