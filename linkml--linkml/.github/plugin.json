@@ -1,0 +1,14 @@
+{
+  "name": "linkml--linkml",
+  "displayName": "linkml",
+  "description": "linkml",
+  "version": "1.0.0",
+  "author": "linkml",
+  "homepage": "https://github.com/linkml/linkml",
+  "skills": [
+    {
+      "name": "codecov-coverage",
+      "description": ""
+    }
+  ]
+}
