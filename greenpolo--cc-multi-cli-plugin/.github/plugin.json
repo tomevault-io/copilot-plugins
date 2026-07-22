@@ -1,0 +1,46 @@
+{
+  "name": "greenpolo--cc-multi-cli-plugin",
+  "displayName": "cc-multi-cli-plugin",
+  "description": "cc-multi-cli-plugin",
+  "version": "1.0.0",
+  "author": "greenpolo",
+  "homepage": "https://github.com/greenpolo/cc-multi-cli-plugin",
+  "skills": [
+    {
+      "name": "multi-cli-anything",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "description": ""
+    }
+  ]
+}
