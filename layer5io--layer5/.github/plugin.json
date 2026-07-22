@@ -1,0 +1,14 @@
+{
+  "name": "layer5io--layer5",
+  "displayName": "layer5",
+  "description": "layer5",
+  "version": "1.0.0",
+  "author": "layer5io",
+  "homepage": "https://github.com/layer5io/layer5",
+  "skills": [
+    {
+      "name": "layer5",
+      "description": ""
+    }
+  ]
+}
