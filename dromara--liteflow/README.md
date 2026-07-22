@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dromara/liteflow](https://github.com/dromara/liteflow).
+Original source: `CLAUDE.md` in [dromara/liteflow](https://github.com/dromara/liteflow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -22,7 +22,7 @@ Original source: `AGENTS.md` in [dromara/liteflow](https://github.com/dromara/li
 - [liteflow](https://github.com/dromara/liteflow/tree/main/liteflow-testcase-el/liteflow-testcase-el-react-agent/src/test/resources/feature/skills/skills/tool-skill/SKILL.md)
 - [liteflow](https://github.com/dromara/liteflow/tree/main/liteflow-testcase-el/liteflow-testcase-el-react-agent/src/test/resources/feature/springbeantool/skills/bean-tool-skill/SKILL.md)
 
-From [dromara/liteflow](https://github.com/dromara/liteflow) — a repo with 3805+ stars on GitHub.
+From [dromara/liteflow](https://github.com/dromara/liteflow) — a repo with 3808+ stars on GitHub.
 
 ---
 
