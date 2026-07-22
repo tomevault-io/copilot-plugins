@@ -1,0 +1,14 @@
+{
+  "name": "pulumi--pulumi-aws-native",
+  "displayName": "pulumi-aws-native",
+  "description": "pulumi-aws-native",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-aws-native",
+  "skills": [
+    {
+      "name": "pulumi-aws-native",
+      "description": ""
+    }
+  ]
+}
