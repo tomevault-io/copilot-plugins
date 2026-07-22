@@ -1,0 +1,14 @@
+{
+  "name": "kitfunso--hippo-memory",
+  "displayName": "hippo-memory",
+  "description": "hippo-memory",
+  "version": "1.0.0",
+  "author": "kitfunso",
+  "homepage": "https://github.com/kitfunso/hippo-memory",
+  "skills": [
+    {
+      "name": "hippo-memory",
+      "description": ""
+    }
+  ]
+}
