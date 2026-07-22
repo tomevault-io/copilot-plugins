@@ -1,20 +1,25 @@
 ## dotfiles
 
-> AGENTS.md — Cross-harness AI agent guidelines for this repository.
+> Role:     Repo-scoped instructions for Claude Code when operating inside
 
 <!--
-  AGENTS.md — Cross-harness AI agent guidelines for this repository.
+  Role:     Repo-scoped instructions for Claude Code when operating inside
+            this repository. Auto-loaded by Claude Code whenever the cwd is
+            somewhere under ~/.dotfiles/.
+  Audience: Claude Code, this repo only.
 
-  This file follows the AGENTS.md standard (originated by OpenAI in
-  August 2025, stewarded since December 2025 by the Linux Foundation
-  Agentic AI Foundation). Native readers: Codex CLI, GitHub Copilot,
-  Cursor, Windsurf, Amp, Devin, and a growing list of other agents.
+  Distinct from:
+    - dot_claude/CLAUDE.md — your PERSONAL cross-project preferences,
+                             deployed to ~/.claude/CLAUDE.md by chezmoi.
+    - docs/OPENCODE.md     — same intent as this file, but consumed by the
+                             OpenCode CLI instead of Claude Code.
 
-  Canonical source: CLAUDE.md (Claude Code uses CLAUDE.md natively).
-  This file is kept in sync via `dot agents render`. Edit CLAUDE.md
-  first; do not hand-edit AGENTS.md.
+  When updating: keep this focused on *this repository's* conventions
+  (version, layout, naming, test framework, CI). Personal style lives
+  in dot_claude/CLAUDE.md, not here.
 -->
 
+# CLAUDE.md — AI Assistant Guidelines
 
 ## Project Overview
 
@@ -90,9 +95,5 @@ version-sync.sh             # Syncs dotfiles_version across non-template files
 - Commit secrets, API keys, or tokens. Atuin `history_filter` and gitleaks are in place.
 
 ---
-
-**Need richer context?** This file is the cross-harness summary. Claude Code reads the full canonical version from [`CLAUDE.md`](./CLAUDE.md). Both files are kept in sync via `dot agents render`.
-
----
 > Source: [sebastienrousseau/dotfiles](https://github.com/sebastienrousseau/dotfiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
