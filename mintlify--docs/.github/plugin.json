@@ -1,0 +1,50 @@
+{
+  "name": "mintlify--docs",
+  "displayName": "docs",
+  "description": "docs",
+  "version": "1.0.0",
+  "author": "mintlify",
+  "homepage": "https://github.com/mintlify/docs",
+  "skills": [
+    {
+      "name": "doc-author",
+      "description": ""
+    },
+    {
+      "name": "doc-reader",
+      "description": ""
+    },
+    {
+      "name": "mintlify",
+      "description": ""
+    },
+    {
+      "name": "update-nav",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    }
+  ]
+}
