@@ -1,0 +1,9 @@
+{
+  "name": "erpipe-org--mcp-odoo",
+  "displayName": "mcp-odoo",
+  "description": "Odoo MCP for AI agents \u2014 41 tools, gated writes, multi-instance. Free hosted: ERPipe \u2192 mcp.erpipe.com",
+  "version": "1.0.0",
+  "author": "erpipe-org",
+  "homepage": "https://github.com/erpipe-org/mcp-odoo",
+  "skills": []
+}
