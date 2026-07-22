@@ -1,0 +1,117 @@
+{
+  "name": "Dynamo",
+  "owner": "DynamoDS",
+  "repo": "Dynamo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-onboarding/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-ux-designer/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-ux-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-jira-ticket/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-jira-ticket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-skill-writer/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-skill-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-unit-testing/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-unit-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-dotnet-expert/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-dotnet-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-dotnet-janitor/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-dotnet-janitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-pr-description/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-pr-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-content-designer/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-content-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-codebase-patterns/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-codebase-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-ecosystem-reviewer/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-ecosystem-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Dynamo",
+      "path": ".claude/skills/dynamo-webview-component-scaffold/SKILL.md",
+      "github_url": "https://github.com/DynamoDS/Dynamo/tree/main/.claude/skills/dynamo-webview-component-scaffold/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DynamoDS/Dynamo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:27:56Z"
+}
