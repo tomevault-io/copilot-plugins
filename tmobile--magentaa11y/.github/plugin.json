@@ -1,0 +1,14 @@
+{
+  "name": "tmobile--magentaa11y",
+  "displayName": "magentaA11y",
+  "description": "magentaA11y",
+  "version": "1.0.0",
+  "author": "tmobile",
+  "homepage": "https://github.com/tmobile/magentaA11y",
+  "skills": [
+    {
+      "name": "magentaA11y",
+      "description": ""
+    }
+  ]
+}
