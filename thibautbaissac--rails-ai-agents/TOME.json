@@ -1,0 +1,363 @@
+{
+  "name": "rails_ai_agents",
+  "owner": "ThibautBaissac",
+  "repo": "rails_ai_agents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/codex-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/codex-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/codex-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/codex-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/i18n-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/i18n-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/i18n-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/i18n-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/rails-concern/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/rails-concern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/rails-concern/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/rails-concern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/security-audit/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/security-audit/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/security-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/api-versioning/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/api-versioning/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/friction-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/friction-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/friction-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/friction-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/mutation-testing/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/mutation-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/mutation-testing/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/mutation-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/dependabot-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/dependabot-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/dependabot-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/dependabot-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/solid-queue-setup/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/solid-queue-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/solid-queue-setup/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/solid-queue-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/postgres-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/postgres-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/extraction-timing/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/extraction-timing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/extraction-timing/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/extraction-timing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/caching-strategies/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/caching-strategies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/caching-strategies/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/caching-strategies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/rails-architecture/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/rails-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/rails-architecture/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/rails-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/accessibility-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/accessibility-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/accessibility-review/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/accessibility-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/auth-setup/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/auth-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/active-storage-setup/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/active-storage-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/active-storage-setup/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/active-storage-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/action-cable-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/action-cable-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/action-cable-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/action-cable-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/behavioral-guidelines/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/behavioral-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/behavioral-guidelines/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/behavioral-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/job-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/job-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/api-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/api-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/state-records/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/state-records/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/crud-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/crud-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/model-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/model-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/turbo-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/turbo-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".agents/skills/performance-optimization/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.agents/skills/performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude/skills/performance-optimization/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude/skills/performance-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/event-tracking/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/event-tracking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/mailer-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/mailer-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/concern-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/concern-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/caching-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/caching-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/testing-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/testing-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/stimulus-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/stimulus-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/migration-patterns/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/migration-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_ai_agents",
+      "path": ".claude_37signals/skills/multi-tenant-setup/SKILL.md",
+      "github_url": "https://github.com/ThibautBaissac/rails_ai_agents/tree/main/.claude_37signals/skills/multi-tenant-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ThibautBaissac/rails_ai_agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:59:48Z"
+}
