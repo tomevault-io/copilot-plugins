@@ -1,0 +1,69 @@
+{
+  "name": "gbrain-evals",
+  "owner": "garrytan",
+  "repo": "gbrain-evals",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gbrain-evals",
+      "path": "eval/data/skillopt-v1/seed-verbose/SKILL.md",
+      "github_url": "https://github.com/garrytan/gbrain-evals/tree/main/eval/data/skillopt-v1/seed-verbose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gbrain-evals",
+      "path": "eval/data/skillopt-v1/seed-no-verdict/SKILL.md",
+      "github_url": "https://github.com/garrytan/gbrain-evals/tree/main/eval/data/skillopt-v1/seed-no-verdict/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gbrain-evals",
+      "path": "eval/data/skillopt-v1/seed-no-brain-first/SKILL.md",
+      "github_url": "https://github.com/garrytan/gbrain-evals/tree/main/eval/data/skillopt-v1/seed-no-brain-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gbrain-evals",
+      "path": "eval/data/skillopt-v1/seed-missing-structure/SKILL.md",
+      "github_url": "https://github.com/garrytan/gbrain-evals/tree/main/eval/data/skillopt-v1/seed-missing-structure/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/garrytan/gbrain-evals",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T22:51:35Z"
+}
