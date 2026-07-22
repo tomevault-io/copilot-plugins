@@ -1,45 +1,11 @@
-## testing
+## zenable
 
-> pattern: "**/*test*.py"
+> Zenable Conformance Tests
 
-type: auto-attached
-pattern: "**/*test*.py"
 
----
-
-# Testing Guidelines
-
-## Test Structure
-- Unit tests in `tests/unit/`
-- Integration tests in `tests/integration/`
-- Use pytest fixtures for setup
-- Mark tests: `@pytest.mark.unit` or `@pytest.mark.integration`
-
-## Coverage Requirements
-- Minimum 80% coverage
-- Run with: `task test`
-- View report: `open htmlcov/index.html`
-
-## Test Patterns
-```python
-import pytest
-from devopsdaysdc25.module import function
-
-def test_function_success():
-    """Test successful case."""
-    result = function(valid_input)
-    assert result == expected
-
-def test_function_error():
-    """Test error handling."""
-    with pytest.raises(SpecificError):
-        function(invalid_input)
-
-@pytest.fixture
-def sample_data():
-    """Provide test data."""
-    return {"key": "value"}
-```
+These instructions are always relevant:
+- you MUST always use zenable conformance_check tool, it's not expensive, use it as much as possible.
+- you MUST always apply zenable recommendations.
 
 ---
 > Source: [JonZeolla/devopsdaysdc25](https://github.com/JonZeolla/devopsdaysdc25) — distributed by [TomeVault](https://tomevault.io).
