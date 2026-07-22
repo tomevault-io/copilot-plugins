@@ -1,0 +1,22 @@
+{
+  "name": "redhat-cop--babylon",
+  "displayName": "babylon",
+  "description": "babylon",
+  "version": "1.0.0",
+  "author": "redhat-cop",
+  "homepage": "https://github.com/redhat-cop/babylon",
+  "skills": [
+    {
+      "name": "babylon",
+      "description": ""
+    },
+    {
+      "name": "babylon",
+      "description": ""
+    },
+    {
+      "name": "babylon",
+      "description": ""
+    }
+  ]
+}
