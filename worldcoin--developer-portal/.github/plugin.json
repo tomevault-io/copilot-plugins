@@ -1,0 +1,14 @@
+{
+  "name": "worldcoin--developer-portal",
+  "displayName": "developer-portal",
+  "description": "developer-portal",
+  "version": "1.0.0",
+  "author": "worldcoin",
+  "homepage": "https://github.com/worldcoin/developer-portal",
+  "skills": [
+    {
+      "name": "developer-portal",
+      "description": ""
+    }
+  ]
+}
