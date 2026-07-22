@@ -1,0 +1,9 @@
+{
+  "name": "openhft--zero-allocation-hashing",
+  "displayName": "Zero-Allocation-Hashing",
+  "description": "Zero-Allocation-Hashing",
+  "version": "1.0.0",
+  "author": "OpenHFT",
+  "homepage": "https://github.com/OpenHFT/Zero-Allocation-Hashing",
+  "skills": []
+}
