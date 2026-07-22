@@ -3,8 +3,8 @@
   "owner": "lnxjedi",
   "repo": "gopherbot",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "gopherbot-multi-protocol-migration",
+      "path": ".agents/skills/gopherbot-multi-protocol-migration",
+      "github_url": "https://github.com/lnxjedi/gopherbot/tree/main/.agents/skills/gopherbot-multi-protocol-migration",
+      "description": ""
+    },
+    {
+      "name": "gopherbot",
+      "path": ".codex/skills/gopherbot-architecture-guardrails/SKILL.md",
+      "github_url": "https://github.com/lnxjedi/gopherbot/tree/main/.codex/skills/gopherbot-architecture-guardrails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gopherbot",
+      "path": ".agents/skills/gopherbot-architecture-guardrails/SKILL.md",
+      "github_url": "https://github.com/lnxjedi/gopherbot/tree/main/.agents/skills/gopherbot-architecture-guardrails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gopherbot",
+      "path": ".claude/skills/gopherbot-architecture-guardrails/SKILL.md",
+      "github_url": "https://github.com/lnxjedi/gopherbot/tree/main/.claude/skills/gopherbot-architecture-guardrails/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/lnxjedi/gopherbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T20:53:53Z"
+  "distributed_at": "2026-07-22T19:45:26Z"
 }
