@@ -1,0 +1,14 @@
+{
+  "name": "nvidia--nemo-retriever",
+  "displayName": "NeMo-Retriever",
+  "description": "NeMo-Retriever",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/NeMo-Retriever",
+  "skills": [
+    {
+      "name": "NeMo-Retriever",
+      "description": ""
+    }
+  ]
+}
