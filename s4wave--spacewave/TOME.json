@@ -1,0 +1,63 @@
+{
+  "name": "spacewave",
+  "owner": "s4wave",
+  "repo": "spacewave",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "spacewave",
+      "path": ".claude/skills/debug-ui-layout/SKILL.md",
+      "github_url": "https://github.com/s4wave/spacewave/tree/main/.claude/skills/debug-ui-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spacewave",
+      "path": ".claude/skills/spacewave-debug/SKILL.md",
+      "github_url": "https://github.com/s4wave/spacewave/tree/main/.claude/skills/spacewave-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spacewave",
+      "path": ".claude/skills/post-work-review/SKILL.md",
+      "github_url": "https://github.com/s4wave/spacewave/tree/main/.claude/skills/post-work-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/s4wave/spacewave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:53:45Z"
+}
