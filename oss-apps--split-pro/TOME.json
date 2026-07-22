@@ -1,0 +1,63 @@
+{
+  "name": "split-pro",
+  "owner": "oss-apps",
+  "repo": "split-pro",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "split-pro",
+      "path": ".opencode/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/oss-apps/split-pro/tree/main/.opencode/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "split-pro",
+      "path": ".opencode/skills/find-docs/SKILL.md",
+      "github_url": "https://github.com/oss-apps/split-pro/tree/main/.opencode/skills/find-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "split-pro",
+      "path": ".opencode/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/oss-apps/split-pro/tree/main/.opencode/skills/playwright-cli/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oss-apps/split-pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:16:19Z"
+}
