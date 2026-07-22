@@ -1,0 +1,591 @@
+{
+  "name": "everything-claude-code-mobile",
+  "owner": "ahmed3elshaer",
+  "repo": "everything-claude-code-mobile",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "android-patterns",
+      "path": "skills/android-patterns",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/android-patterns",
+      "description": ""
+    },
+    {
+      "name": "combine-framework",
+      "path": "skills/combine-framework",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/combine-framework",
+      "description": ""
+    },
+    {
+      "name": "continuous-learning",
+      "path": "skills/continuous-learning",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/continuous-learning",
+      "description": ""
+    },
+    {
+      "name": "expect-actual",
+      "path": "skills/expect-actual",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/expect-actual",
+      "description": ""
+    },
+    {
+      "name": "ios-testing",
+      "path": "skills/ios-testing",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/ios-testing",
+      "description": ""
+    },
+    {
+      "name": "jetpack-compose",
+      "path": "skills/jetpack-compose",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/jetpack-compose",
+      "description": ""
+    },
+    {
+      "name": "kmp-networking",
+      "path": "skills/kmp-networking",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/kmp-networking",
+      "description": ""
+    },
+    {
+      "name": "ktor-patterns",
+      "path": "skills/ktor-patterns",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/ktor-patterns",
+      "description": ""
+    },
+    {
+      "name": "mobile-checkpoint",
+      "path": "skills/mobile-checkpoint",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-checkpoint",
+      "description": ""
+    },
+    {
+      "name": "mobile-compaction",
+      "path": "skills/mobile-compaction",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-compaction",
+      "description": ""
+    },
+    {
+      "name": "mobile-instinct-v1",
+      "path": "skills/mobile-instinct-v1",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-instinct-v1",
+      "description": ""
+    },
+    {
+      "name": "mobile-instinct-v2",
+      "path": "skills/mobile-instinct-v2",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-instinct-v2",
+      "description": ""
+    },
+    {
+      "name": "mobile-memory",
+      "path": "skills/mobile-memory",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-memory",
+      "description": ""
+    },
+    {
+      "name": "mobile-security",
+      "path": "skills/mobile-security",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-security",
+      "description": ""
+    },
+    {
+      "name": "mobile-testing",
+      "path": "skills/mobile-testing",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-testing",
+      "description": ""
+    },
+    {
+      "name": "mobile-verification",
+      "path": "skills/mobile-verification",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-verification",
+      "description": ""
+    },
+    {
+      "name": "swiftui-patterns",
+      "path": "skills/swiftui-patterns",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/swiftui-patterns",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-patterns",
+      "path": "skills/ci-cd-patterns",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/ci-cd-patterns",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/kmp-di/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/kmp-di/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/core-data/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/core-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/ios-testing/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/ios-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/liquid-glass/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/liquid-glass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/deep-linking/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/deep-linking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/m3-expressive/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/m3-expressive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mobile-memory/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/shared-models/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/shared-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/image-loading/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/image-loading/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/offline-first/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/offline-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/app-lifecycle/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/app-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/feature-flags/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/feature-flags/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/expect-actual/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/expect-actual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/room-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/room-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/koin-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/koin-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/ktor-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/ktor-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/swift-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/swift-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/ci-cd-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/ci-cd-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/kmp-networking/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/kmp-networking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/kmp-navigation/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/kmp-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mobile-testing/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/feature-builder/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/feature-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/jetpack-compose/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/jetpack-compose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mobile-security/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/swiftui-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/swiftui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/kmp-di/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/kmp-di/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/android-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/android-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/kmp-repositories/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/kmp-repositories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mvi-architecture/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mvi-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mobile-compaction/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-compaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mobile-checkpoint/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/combine-framework/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/combine-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/shared-coroutines/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/shared-coroutines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/analytics-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/analytics-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/push-notifications/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/push-notifications/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mobile-instinct-v2/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-instinct-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mobile-instinct-v1/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-instinct-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/navigation-compose/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/navigation-compose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/mobile-verification/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/mobile-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/pagination-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/pagination-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/core-data/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/core-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/sqldelight-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/sqldelight-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/coroutines-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/coroutines-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/localization-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/localization-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/ios-testing/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/ios-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/accessibility-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/accessibility-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": "skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mobile-memory/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mobile-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/shared-models/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/shared-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/expect-actual/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/expect-actual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/koin-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/koin-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/ktor-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/ktor-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/swift-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/swift-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/kmp-networking/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/kmp-networking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/kmp-navigation/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/kmp-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mobile-testing/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mobile-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/jetpack-compose/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/jetpack-compose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mobile-security/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mobile-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/swiftui-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/swiftui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/android-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/android-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/kmp-repositories/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/kmp-repositories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mvi-architecture/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mvi-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mobile-compaction/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mobile-compaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mobile-checkpoint/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mobile-checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/combine-framework/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/combine-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/shared-coroutines/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/shared-coroutines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mobile-instinct-v2/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mobile-instinct-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mobile-instinct-v1/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mobile-instinct-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/mobile-verification/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/mobile-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/coroutines-patterns/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/coroutines-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/continuous-learning/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/continuous-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "everything-claude-code-mobile",
+      "path": ".opencode/skills/continuous-learning-v2/SKILL.md",
+      "github_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile/tree/main/.opencode/skills/continuous-learning-v2/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ahmed3elshaer/everything-claude-code-mobile",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:31:17Z"
+}
