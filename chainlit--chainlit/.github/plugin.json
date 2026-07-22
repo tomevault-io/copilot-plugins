@@ -1,0 +1,14 @@
+{
+  "name": "chainlit--chainlit",
+  "displayName": "chainlit",
+  "description": "chainlit",
+  "version": "1.0.0",
+  "author": "Chainlit",
+  "homepage": "https://github.com/Chainlit/chainlit",
+  "skills": [
+    {
+      "name": "chainlit",
+      "description": ""
+    }
+  ]
+}
