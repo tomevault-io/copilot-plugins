@@ -1,0 +1,84 @@
+## eclipse-chatgpt-plugin
+
+> AssistAI is an Eclipse IDE plugin that integrates LLM assistants (OpenAI, Anthropic, Gemini, Grok, DeepSeek, Groq) into the development environment. It also functions as an MCP Server, exposing Eclipse IDE tools via HTTP for external clients like Claude Code and Claude Desktop.
+
+# AssistAI - Eclipse IDE Plugin
+
+## Project Overview
+AssistAI is an Eclipse IDE plugin that integrates LLM assistants (OpenAI, Anthropic, Gemini, Grok, DeepSeek, Groq) into the development environment. It also functions as an MCP Server, exposing Eclipse IDE tools via HTTP for external clients like Claude Code and Claude Desktop.
+
+## Project Structure
+- `plugins/com.github.gradusnikov.eclipse.plugin.assistai.main/` — main plugin (Java 21, Eclipse PDE)
+  - `src/com/github/gradusnikov/eclipse/assistai/` — source root
+    - `chat/` — chat session management
+    - `commands/` — Eclipse command handlers
+    - `completion/` — code completion integration
+    - `handlers/` — event and request handlers
+    - `jobs/` — Eclipse background jobs
+    - `mcp/` — MCP (Model Context Protocol) implementation
+      - `annotations/` — `@McpServer`, `@Tool`, `@ToolParam` annotations
+      - `http/` — HTTP server infrastructure (auth, registry, preferences)
+      - `local/` — in-memory MCP transport
+      - `servers/` — MCP server endpoint classes (`@McpServer` annotated)
+      - `services/` — service classes with business logic for MCP tools
+    - `models/` — data models
+    - `network/clients/` — API connector clients (OpenAI, OpenAI Responses, Anthropic, Gemini, Grok, DeepSeek, Groq)
+    - `preferences/` — preference pages and initializers
+    - `prompt/` — prompt templates and management
+    - `resources/` — resource caching
+    - `services/` — top-level services (separate from MCP services)
+    - `tools/` — utility classes
+    - `view/` — UI views and editors
+- `tests/com.github.gradusnikov.eclipse.plugin.assistai.main.tests/` — test project
+
+## MCP Tools Available
+This project exposes Eclipse IDE capabilities as MCP tools. When working on code in Eclipse projects, prefer using these MCP tools over direct file edits:
+
+- **eclipse-coder** — file editing, refactoring, patching, formatting
+- **eclipse-ide** — code analysis, navigation, testing, building, search
+- **eclipse-runner** — launch, debug, breakpoints, stepping
+- **eclipse-context** — resource caching, file history, workspace context
+- **eclipse-git** — git operations (status, diff, commit, branch, stash)
+- **eclipse-pde** — PDE target platform management
+- **duck-duck-search** — web search via DuckDuckGo
+- **webpage-reader** — fetch and read web pages
+- **memory** — thinking/memory tool for reasoning
+- **time** — time zone conversion and current time
+
+## Key Conventions
+- Use `eclipse-coder__applyPatch` for multi-hunk edits (more reliable than replaceString)
+- Use `eclipse-coder__replaceString` for single targeted replacements
+- Always check `eclipse-ide__getCompilationErrors` after code changes
+- Use `eclipse-ide__getProjectLayout` with `scopePath` and `maxDepth` for large projects
+- MCP tool annotations: `@McpServer`, `@Tool`, `@ToolParam` in the `mcp/annotations` package
+- Service classes in `mcp/services/` contain business logic; server classes in `mcp/servers/` are thin wrappers
+
+## Testing
+
+Test project: `com.github.gradusnikov.eclipse.plugin.assistai.main.tests`
+
+### Plain JUnit (run with `runClassTests` / `runAllTests`)
+- `com.github.gradusnikov.eclipse.assistai.chat.ConversationContextTest`
+- `com.github.gradusnikov.eclipse.assistai.tools.ContentTypeDetectorTest`
+- `com.github.gradusnikov.eclipse.assistai.prompt.MarkdownParserTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.main.HtmlToMarkdownConverterTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.servers.TimeMcpServerTest`
+
+### Plugin Tests (run with `runJUnitPluginTestClass` / `runJUnitPluginTests`)
+- `com.github.gradusnikov.eclipse.assistai.prompt.ChatMessageFactoryTest`
+- `com.github.gradusnikov.eclipse.assistai.tools.ResourceUtilitiesPluginTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.servers.PDEMcpServerTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.services.CodeEditingServiceTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.services.MavenServiceTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.services.CodeAnalysisServiceTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.services.CoverageServiceTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.services.PDEServicePluginTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.services.GitServiceTest`
+- `com.github.gradusnikov.eclipse.plugin.assistai.mcp.transport.SdkHttpStreamingTest`
+
+## Build
+Eclipse PDE project — for a full build, run `mvn clean verify` from the repo root via the shell (do not use Eclipse MCP tools for full builds).
+
+---
+> Source: [gradusnikov/eclipse-chatgpt-plugin](https://github.com/gradusnikov/eclipse-chatgpt-plugin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
