@@ -1,0 +1,87 @@
+{
+  "name": "agglayer",
+  "owner": "agglayer",
+  "repo": "agglayer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agglayer",
+      "path": ".agents/skills/style-prose/SKILL.md",
+      "github_url": "https://github.com/agglayer/agglayer/tree/main/.agents/skills/style-prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agglayer",
+      "path": ".agents/skills/tech-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/agglayer/agglayer/tree/main/.agents/skills/tech-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agglayer",
+      "path": ".agents/skills/workflow-verify/SKILL.md",
+      "github_url": "https://github.com/agglayer/agglayer/tree/main/.agents/skills/workflow-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agglayer",
+      "path": ".agents/skills/workflow-commit/SKILL.md",
+      "github_url": "https://github.com/agglayer/agglayer/tree/main/.agents/skills/workflow-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agglayer",
+      "path": ".agents/skills/meta-session-retro/SKILL.md",
+      "github_url": "https://github.com/agglayer/agglayer/tree/main/.agents/skills/meta-session-retro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agglayer",
+      "path": ".agents/skills/workflow-create-pr/SKILL.md",
+      "github_url": "https://github.com/agglayer/agglayer/tree/main/.agents/skills/workflow-create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agglayer",
+      "path": ".agents/skills/docs-knowledge-base/SKILL.md",
+      "github_url": "https://github.com/agglayer/agglayer/tree/main/.agents/skills/docs-knowledge-base/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agglayer/agglayer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:23:43Z"
+}
