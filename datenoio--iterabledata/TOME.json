@@ -1,0 +1,99 @@
+{
+  "name": "iterabledata",
+  "owner": "datenoio",
+  "repo": "iterabledata",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "database-engine-implementation",
+      "path": ".cursor/skills/database-engine-implementation",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/database-engine-implementation",
+      "description": ""
+    },
+    {
+      "name": "format-implementation",
+      "path": ".cursor/skills/format-implementation",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/format-implementation",
+      "description": ""
+    },
+    {
+      "name": "iterabledata-development",
+      "path": ".cursor/skills/iterabledata-development",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/iterabledata-development",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": ".cursor/skills/testing-patterns",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "iterabledata",
+      "path": ".cursor/skills/testing-patterns/SKILL.md",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/testing-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "iterabledata",
+      "path": ".cursor/skills/openspec-workflows/SKILL.md",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/openspec-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "iterabledata",
+      "path": ".cursor/skills/format-implementation/SKILL.md",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/format-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "iterabledata",
+      "path": ".cursor/skills/iterabledata-development/SKILL.md",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/iterabledata-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "iterabledata",
+      "path": ".cursor/skills/database-engine-implementation/SKILL.md",
+      "github_url": "https://github.com/datenoio/iterabledata/tree/main/.cursor/skills/database-engine-implementation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/datenoio/iterabledata",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:35:56Z"
+}
