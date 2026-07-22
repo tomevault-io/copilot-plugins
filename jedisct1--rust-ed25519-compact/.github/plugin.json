@@ -1,0 +1,9 @@
+{
+  "name": "jedisct1--rust-ed25519-compact",
+  "displayName": "rust-ed25519-compact",
+  "description": "rust-ed25519-compact",
+  "version": "1.0.0",
+  "author": "jedisct1",
+  "homepage": "https://github.com/jedisct1/rust-ed25519-compact",
+  "skills": []
+}
