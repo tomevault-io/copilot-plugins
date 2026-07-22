@@ -1,0 +1,51 @@
+{
+  "name": "oak-examples",
+  "owner": "luxonis",
+  "repo": "oak-examples",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oak-examples",
+      "path": ".agents/skills/bootstrap-example/SKILL.md",
+      "github_url": "https://github.com/luxonis/oak-examples/tree/main/.agents/skills/bootstrap-example/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/luxonis/oak-examples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T18:09:33Z"
+}
