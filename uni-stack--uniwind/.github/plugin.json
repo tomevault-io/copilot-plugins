@@ -1,0 +1,22 @@
+{
+  "name": "uni-stack--uniwind",
+  "displayName": "uniwind",
+  "description": "uniwind",
+  "version": "1.0.0",
+  "author": "uni-stack",
+  "homepage": "https://github.com/uni-stack/uniwind",
+  "skills": [
+    {
+      "name": "migrate-nativewind-to-uniwind",
+      "description": ""
+    },
+    {
+      "name": "uniwind",
+      "description": ""
+    },
+    {
+      "name": "uniwind",
+      "description": ""
+    }
+  ]
+}
