@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--db-command",
+  "displayName": "db-command",
+  "description": "db-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/db-command",
+  "skills": []
+}
