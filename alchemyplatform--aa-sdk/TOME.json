@@ -1,0 +1,93 @@
+{
+  "name": "aa-sdk",
+  "owner": "alchemyplatform",
+  "repo": "aa-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aa-sdk",
+      "path": ".agents/skills/testing/SKILL.md",
+      "github_url": "https://github.com/alchemyplatform/aa-sdk/tree/main/.agents/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aa-sdk",
+      "path": ".agents/skills/tooling/SKILL.md",
+      "github_url": "https://github.com/alchemyplatform/aa-sdk/tree/main/.agents/skills/tooling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aa-sdk",
+      "path": ".agents/skills/wallet-apis/SKILL.md",
+      "github_url": "https://github.com/alchemyplatform/aa-sdk/tree/main/.agents/skills/wallet-apis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aa-sdk",
+      "path": ".agents/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/alchemyplatform/aa-sdk/tree/main/.agents/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aa-sdk",
+      "path": ".agents/skills/error-handling/SKILL.md",
+      "github_url": "https://github.com/alchemyplatform/aa-sdk/tree/main/.agents/skills/error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aa-sdk",
+      "path": ".agents/skills/smart-accounts/SKILL.md",
+      "github_url": "https://github.com/alchemyplatform/aa-sdk/tree/main/.agents/skills/smart-accounts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aa-sdk",
+      "path": ".agents/skills/package-exports/SKILL.md",
+      "github_url": "https://github.com/alchemyplatform/aa-sdk/tree/main/.agents/skills/package-exports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aa-sdk",
+      "path": ".agents/skills/release-workflows/SKILL.md",
+      "github_url": "https://github.com/alchemyplatform/aa-sdk/tree/main/.agents/skills/release-workflows/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alchemyplatform/aa-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:10:54Z"
+}
