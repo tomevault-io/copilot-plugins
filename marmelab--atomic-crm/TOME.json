@@ -1,0 +1,123 @@
+{
+  "name": "atomic-crm",
+  "owner": "marmelab",
+  "repo": "atomic-crm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backend-dev",
+      "path": ".claude/skills/backend-dev",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/backend-dev",
+      "description": ""
+    },
+    {
+      "name": "frontend-dev",
+      "path": ".claude/skills/frontend-dev",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/frontend-dev",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/adr-writing/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/adr-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/backend-dev/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/backend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/frontend-dev/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/frontend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/setup-interview/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/setup-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/update-branding/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/update-branding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/e2e-conventions/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/e2e-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/playwright-testing/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/playwright-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/writing-migrations/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/writing-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/worktree-detection/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/worktree-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/shadcn-customization/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/shadcn-customization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-crm",
+      "path": ".claude/skills/delete-initial-resource/SKILL.md",
+      "github_url": "https://github.com/marmelab/atomic-crm/tree/main/.claude/skills/delete-initial-resource/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marmelab/atomic-crm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:34:29Z"
+}
