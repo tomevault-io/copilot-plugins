@@ -1,0 +1,123 @@
+{
+  "name": "axum-harness",
+  "owner": "openclosed-org",
+  "repo": "axum-harness",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/planner/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/harness-tdd/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/harness-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/worker-agent/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/worker-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/server-agent/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/server-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/service-agent/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/service-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/harness-grill/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/harness-grill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/contract-agent/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/contract-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/skill-authoring/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/skill-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/harness-diagnose/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/harness-diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/harness-zoom-out/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/harness-zoom-out/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/platform-ops-agent/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/platform-ops-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/backend-engineering/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/backend-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "axum-harness",
+      "path": ".agents/skills/harness-architecture-review/SKILL.md",
+      "github_url": "https://github.com/openclosed-org/axum-harness/tree/main/.agents/skills/harness-architecture-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclosed-org/axum-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:52:37Z"
+}
