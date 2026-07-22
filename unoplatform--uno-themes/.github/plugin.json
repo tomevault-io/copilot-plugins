@@ -1,0 +1,14 @@
+{
+  "name": "unoplatform--uno-themes",
+  "displayName": "Uno.Themes",
+  "description": "Uno.Themes",
+  "version": "1.0.0",
+  "author": "unoplatform",
+  "homepage": "https://github.com/unoplatform/Uno.Themes",
+  "skills": [
+    {
+      "name": "Uno.Themes",
+      "description": ""
+    }
+  ]
+}
