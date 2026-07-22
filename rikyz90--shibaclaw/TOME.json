@@ -1,0 +1,99 @@
+{
+  "name": "ShibaClaw",
+  "owner": "RikyZ90",
+  "repo": "ShibaClaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/memory/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/github/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/clawhub/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/weather/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/automation/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ShibaClaw",
+      "path": "shibaclaw/skills/windows-shell/SKILL.md",
+      "github_url": "https://github.com/RikyZ90/ShibaClaw/tree/main/shibaclaw/skills/windows-shell/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RikyZ90/ShibaClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:02:27Z"
+}
