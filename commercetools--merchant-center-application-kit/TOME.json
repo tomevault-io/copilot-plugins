@@ -1,0 +1,87 @@
+{
+  "name": "merchant-center-application-kit",
+  "owner": "commercetools",
+  "repo": "merchant-center-application-kit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "merchant-center-application-kit",
+      "path": ".agents/skills/remember/SKILL.md",
+      "github_url": "https://github.com/commercetools/merchant-center-application-kit/tree/main/.agents/skills/remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "merchant-center-application-kit",
+      "path": ".agents/skills/renovate-review/SKILL.md",
+      "github_url": "https://github.com/commercetools/merchant-center-application-kit/tree/main/.agents/skills/renovate-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "merchant-center-application-kit",
+      "path": ".agents/skills/security-auditor/SKILL.md",
+      "github_url": "https://github.com/commercetools/merchant-center-application-kit/tree/main/.agents/skills/security-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "merchant-center-application-kit",
+      "path": ".agents/skills/renovate-migrate/SKILL.md",
+      "github_url": "https://github.com/commercetools/merchant-center-application-kit/tree/main/.agents/skills/renovate-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "merchant-center-application-kit",
+      "path": ".agents/skills/pr-review-navigator/SKILL.md",
+      "github_url": "https://github.com/commercetools/merchant-center-application-kit/tree/main/.agents/skills/pr-review-navigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "merchant-center-application-kit",
+      "path": ".agents/skills/repo-maintenance-node/SKILL.md",
+      "github_url": "https://github.com/commercetools/merchant-center-application-kit/tree/main/.agents/skills/repo-maintenance-node/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "merchant-center-application-kit",
+      "path": ".agents/skills/repo-healthcheck-node/SKILL.md",
+      "github_url": "https://github.com/commercetools/merchant-center-application-kit/tree/main/.agents/skills/repo-healthcheck-node/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/commercetools/merchant-center-application-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:07:55Z"
+}
