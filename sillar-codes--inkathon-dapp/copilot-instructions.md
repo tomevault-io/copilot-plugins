@@ -1,7 +1,6 @@
-## global
+## inkathon-dapp
 
 > Full-stack project for ink! smart contracts on Polkadot using PolkaVM and a Next.js frontend.
-
 
 ## Project Overview
 
