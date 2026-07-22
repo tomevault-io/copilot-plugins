@@ -1,0 +1,9 @@
+{
+  "name": "approvals--approvaltests-python",
+  "displayName": "ApprovalTests.Python",
+  "description": "ApprovalTests.Python",
+  "version": "1.0.0",
+  "author": "approvals",
+  "homepage": "https://github.com/approvals/ApprovalTests.Python",
+  "skills": []
+}
