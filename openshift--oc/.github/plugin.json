@@ -1,0 +1,26 @@
+{
+  "name": "openshift--oc",
+  "displayName": "oc",
+  "description": "oc",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/oc",
+  "skills": [
+    {
+      "name": "effective-go",
+      "description": ""
+    },
+    {
+      "name": "oc",
+      "description": ""
+    },
+    {
+      "name": "oc",
+      "description": ""
+    },
+    {
+      "name": "oc",
+      "description": ""
+    }
+  ]
+}
