@@ -1,0 +1,99 @@
+{
+  "name": "gemini",
+  "owner": "scylladb",
+  "repo": "gemini",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-cli/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-testing/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-samber-mo/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-samber-mo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-samber-lo/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-samber-lo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-concurrency/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-performance/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-stay-updated/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-stay-updated/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-stretchr-testify/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-stretchr-testify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": ".agents/skills/golang-popular-libraries/SKILL.md",
+      "github_url": "https://github.com/scylladb/gemini/tree/main/.agents/skills/golang-popular-libraries/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/scylladb/gemini",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:36:09Z"
+}
