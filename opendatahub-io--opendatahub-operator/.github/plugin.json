@@ -1,0 +1,14 @@
+{
+  "name": "opendatahub-io--opendatahub-operator",
+  "displayName": "opendatahub-operator",
+  "description": "opendatahub-operator",
+  "version": "1.0.0",
+  "author": "opendatahub-io",
+  "homepage": "https://github.com/opendatahub-io/opendatahub-operator",
+  "skills": [
+    {
+      "name": "opendatahub-operator",
+      "description": ""
+    }
+  ]
+}
