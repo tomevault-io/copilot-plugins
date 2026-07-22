@@ -1,0 +1,14 @@
+{
+  "name": "thorstenrhau--neovim",
+  "displayName": "neovim",
+  "description": "neovim",
+  "version": "1.0.0",
+  "author": "ThorstenRhau",
+  "homepage": "https://github.com/ThorstenRhau/neovim",
+  "skills": [
+    {
+      "name": "neovim",
+      "description": ""
+    }
+  ]
+}
