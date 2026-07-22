@@ -1,0 +1,447 @@
+{
+  "name": "pm-skills",
+  "owner": "phuryn",
+  "repo": "pm-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/wwas/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/wwas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/retro/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/retro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-toolkit/skills/draft-nda/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-toolkit/skills/draft-nda/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/create-prd/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/create-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/pre-mortem/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/pre-mortem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-toolkit/skills/review-resume/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-toolkit/skills/review-resume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-toolkit/skills/grammar-check/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-toolkit/skills/grammar-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/job-stories/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/job-stories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/sprint-plan/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/sprint-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-toolkit/skills/privacy-policy/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-toolkit/skills/privacy-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/user-stories/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/user-stories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/dummy-dataset/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/dummy-dataset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-go-to-market/skills/gtm-motions/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-go-to-market/skills/gtm-motions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/test-scenarios/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/test-scenarios/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-go-to-market/skills/growth-loops/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-go-to-market/skills/growth-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-go-to-market/skills/gtm-strategy/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-go-to-market/skills/gtm-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/brainstorm-okrs/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/brainstorm-okrs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/outcome-roadmap/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/outcome-roadmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/stakeholder-map/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/stakeholder-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-data-analytics/skills/sql-queries/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-data-analytics/skills/sql-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/strategy-red-team/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/strategy-red-team/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/summarize-meeting/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/summarize-meeting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/lean-canvas/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/lean-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-market-research/skills/user-personas/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-market-research/skills/user-personas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-market-research/skills/market-sizing/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-market-research/skills/market-sizing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-marketing-growth/skills/product-name/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-marketing-growth/skills/product-name/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-go-to-market/skills/beachhead-segment/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-go-to-market/skills/beachhead-segment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/ansoff-matrix/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/ansoff-matrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-data-analytics/skills/cohort-analysis/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-data-analytics/skills/cohort-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/swot-analysis/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/swot-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-ai-shipping/skills/shipping-artifacts/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-ai-shipping/skills/shipping-artifacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/business-model/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/business-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/startup-canvas/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/startup-canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/product-vision/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/product-vision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-market-research/skills/market-segments/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-market-research/skills/market-segments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/pestle-analysis/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/pestle-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-marketing-growth/skills/marketing-ideas/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-marketing-growth/skills/marketing-ideas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/product-strategy/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/product-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-market-research/skills/user-segmentation/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-market-research/skills/user-segmentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/pricing-strategy/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/pricing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/value-proposition/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/value-proposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/interview-script/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/interview-script/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-market-research/skills/sentiment-analysis/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-market-research/skills/sentiment-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-marketing-growth/skills/north-star-metric/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-marketing-growth/skills/north-star-metric/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-marketing-growth/skills/positioning-ideas/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-marketing-growth/skills/positioning-ideas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-go-to-market/skills/ideal-customer-profile/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-go-to-market/skills/ideal-customer-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-go-to-market/skills/competitive-battlecard/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-go-to-market/skills/competitive-battlecard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-execution/skills/prioritization-frameworks/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/prioritization-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-market-research/skills/competitor-analysis/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-market-research/skills/competitor-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-ai-shipping/skills/intended-vs-implemented/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-ai-shipping/skills/intended-vs-implemented/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/metrics-dashboard/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/metrics-dashboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/porters-five-forces/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/porters-five-forces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-market-research/skills/customer-journey-map/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-market-research/skills/customer-journey-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/summarize-interview/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/summarize-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/prioritize-features/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/prioritize-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-strategy/skills/monetization-strategy/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-strategy/skills/monetization-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-marketing-growth/skills/value-prop-statements/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-marketing-growth/skills/value-prop-statements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/brainstorm-ideas-new/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/brainstorm-ideas-new/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/prioritize-assumptions/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/prioritize-assumptions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/analyze-feature-requests/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/analyze-feature-requests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/identify-assumptions-new/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/identify-assumptions-new/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/opportunity-solution-tree/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/opportunity-solution-tree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/brainstorm-ideas-existing/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/brainstorm-ideas-existing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/brainstorm-experiments-new/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/brainstorm-experiments-new/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/identify-assumptions-existing/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/identify-assumptions-existing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pm-skills",
+      "path": "pm-product-discovery/skills/brainstorm-experiments-existing/SKILL.md",
+      "github_url": "https://github.com/phuryn/pm-skills/tree/main/pm-product-discovery/skills/brainstorm-experiments-existing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/phuryn/pm-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:00:41Z"
+}
