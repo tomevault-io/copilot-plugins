@@ -1,0 +1,38 @@
+{
+  "name": "k-orc--openstack-resource-controller",
+  "displayName": "openstack-resource-controller",
+  "description": "openstack-resource-controller",
+  "version": "1.0.0",
+  "author": "k-orc",
+  "homepage": "https://github.com/k-orc/openstack-resource-controller",
+  "skills": [
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "description": ""
+    }
+  ]
+}
