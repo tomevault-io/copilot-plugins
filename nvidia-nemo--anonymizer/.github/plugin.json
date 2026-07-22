@@ -1,0 +1,14 @@
+{
+  "name": "nvidia-nemo--anonymizer",
+  "displayName": "Anonymizer",
+  "description": "Anonymizer",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/Anonymizer",
+  "skills": [
+    {
+      "name": "Anonymizer",
+      "description": ""
+    }
+  ]
+}
