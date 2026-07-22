@@ -1,0 +1,177 @@
+{
+  "name": "r3bl-open-core",
+  "owner": "r3bl-org",
+  "repo": "r3bl-open-core",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analyze-log-files",
+      "path": ".claude/skills/analyze-log-files",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/analyze-log-files",
+      "description": ""
+    },
+    {
+      "name": "analyze-performance",
+      "path": ".claude/skills/analyze-performance",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/analyze-performance",
+      "description": ""
+    },
+    {
+      "name": "check-bounds-safety",
+      "path": ".claude/skills/check-bounds-safety",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/check-bounds-safety",
+      "description": ""
+    },
+    {
+      "name": "check-code-quality",
+      "path": ".claude/skills/check-code-quality",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/check-code-quality",
+      "description": ""
+    },
+    {
+      "name": "design-philosophy",
+      "path": ".claude/skills/design-philosophy",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/design-philosophy",
+      "description": ""
+    },
+    {
+      "name": "organize-modules",
+      "path": ".claude/skills/organize-modules",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/organize-modules",
+      "description": ""
+    },
+    {
+      "name": "release-crate",
+      "path": ".claude/skills/release-crate",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/release-crate",
+      "description": ""
+    },
+    {
+      "name": "run-clippy",
+      "path": ".claude/skills/run-clippy",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/run-clippy",
+      "description": ""
+    },
+    {
+      "name": "write-documentation",
+      "path": ".claude/skills/write-documentation",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.claude/skills/write-documentation",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/run-clippy/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/run-clippy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/release-crate/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/release-crate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/organize-tests/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/organize-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/organize-modules/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/organize-modules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/analyze-log-files/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/analyze-log-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/design-philosophy/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/design-philosophy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/check-code-quality/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/check-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/concurrency-safety/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/concurrency-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/write-documentation/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/write-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/check-bounds-safety/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/check-bounds-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/analyze-performance/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/analyze-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/write-structured-tracing/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/write-structured-tracing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "r3bl-open-core",
+      "path": ".agents/skills/batch-refactor-with-sub-agents/SKILL.md",
+      "github_url": "https://github.com/r3bl-org/r3bl-open-core/tree/main/.agents/skills/batch-refactor-with-sub-agents/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/r3bl-org/r3bl-open-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:36:30Z"
+}
