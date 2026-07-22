@@ -1,0 +1,26 @@
+{
+  "name": "shieldbattery--shieldbattery",
+  "displayName": "ShieldBattery",
+  "description": "ShieldBattery",
+  "version": "1.0.0",
+  "author": "ShieldBattery",
+  "homepage": "https://github.com/ShieldBattery/ShieldBattery",
+  "skills": [
+    {
+      "name": "ShieldBattery",
+      "description": ""
+    },
+    {
+      "name": "ShieldBattery",
+      "description": ""
+    },
+    {
+      "name": "ShieldBattery",
+      "description": ""
+    },
+    {
+      "name": "ShieldBattery",
+      "description": ""
+    }
+  ]
+}
