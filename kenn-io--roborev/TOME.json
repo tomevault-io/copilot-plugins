@@ -1,0 +1,99 @@
+{
+  "name": "roborev",
+  "owner": "kenn-io",
+  "repo": "roborev",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "roborev",
+      "path": "internal/skills/claude/roborev-review/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/claude/roborev-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roborev",
+      "path": "internal/skills/codex/roborev-respond/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/codex/roborev-respond/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roborev",
+      "path": "internal/skills/claude/roborev-respond/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/claude/roborev-respond/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roborev",
+      "path": "internal/skills/codex/roborev-design-review/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/codex/roborev-design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roborev",
+      "path": "internal/skills/codex/roborev-review-branch/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/codex/roborev-review-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roborev",
+      "path": "internal/skills/claude/roborev-design-review/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/claude/roborev-design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roborev",
+      "path": "internal/skills/claude/roborev-review-branch/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/claude/roborev-review-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roborev",
+      "path": "internal/skills/codex/roborev-design-review-branch/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/codex/roborev-design-review-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roborev",
+      "path": "internal/skills/claude/roborev-design-review-branch/SKILL.md",
+      "github_url": "https://github.com/kenn-io/roborev/tree/main/internal/skills/claude/roborev-design-review-branch/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kenn-io/roborev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:53:45Z"
+}
