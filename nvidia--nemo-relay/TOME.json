@@ -1,0 +1,195 @@
+{
+  "name": "NeMo-Relay",
+  "owner": "NVIDIA",
+  "repo": "NeMo-Relay",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/small-fix/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/small-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/prepare-pr/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/prepare-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/maintain-ci/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/maintain-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/add-middleware/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/add-middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/test-rust-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/test-rust-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/contribute-api/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/contribute-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/validate-change/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/validate-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/test-go-binding/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/test-go-binding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/rename-surfaces/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/rename-surfaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/contribute-docs/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/contribute-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/review-doc-style/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/review-doc-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/test-ffi-surface/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/test-ffi-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/test-node-binding/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/test-node-binding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/maintain-optimizer/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/maintain-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/maintain-packaging/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/maintain-packaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/test-python-binding/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/test-python-binding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/add-binding-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/add-binding-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": "skills/nemo-relay-instrument-calls/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/skills/nemo-relay-instrument-calls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/karpathy-guidelines/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/karpathy-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/prepare-code-freeze/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/prepare-code-freeze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": "skills/nemo-relay-migrate-from-flow/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/skills/nemo-relay-migrate-from-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/update-project-version/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/update-project-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/maintain-observability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/maintain-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": ".agents/skills/contribute-integration/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/.agents/skills/contribute-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo-Relay",
+      "path": "skills/nemo-relay-debug-runtime-integration/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NeMo-Relay/tree/main/skills/nemo-relay-debug-runtime-integration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA/NeMo-Relay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:39:56Z"
+}
