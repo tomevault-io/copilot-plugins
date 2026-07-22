@@ -1,0 +1,9 @@
+{
+  "name": "callstackincubator--agent-cdp",
+  "displayName": "agent-cdp",
+  "description": "agent-cdp",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/agent-cdp",
+  "skills": []
+}
