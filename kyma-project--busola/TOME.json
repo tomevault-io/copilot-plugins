@@ -1,0 +1,81 @@
+{
+  "name": "busola",
+  "owner": "kyma-project",
+  "repo": "busola",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "busola",
+      "path": ".agents/skills/ui-text/SKILL.md",
+      "github_url": "https://github.com/kyma-project/busola/tree/main/.agents/skills/ui-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "busola",
+      "path": ".agents/skills/cve-check/SKILL.md",
+      "github_url": "https://github.com/kyma-project/busola/tree/main/.agents/skills/cve-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "busola",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/kyma-project/busola/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "busola",
+      "path": ".agents/skills/review-code/SKILL.md",
+      "github_url": "https://github.com/kyma-project/busola/tree/main/.agents/skills/review-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "busola",
+      "path": ".agents/skills/pr-description/SKILL.md",
+      "github_url": "https://github.com/kyma-project/busola/tree/main/.agents/skills/pr-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "busola",
+      "path": ".agents/skills/analyze-pr-tests/SKILL.md",
+      "github_url": "https://github.com/kyma-project/busola/tree/main/.agents/skills/analyze-pr-tests/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kyma-project/busola",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:37:28Z"
+}
