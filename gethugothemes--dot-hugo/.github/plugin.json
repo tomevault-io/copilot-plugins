@@ -1,0 +1,14 @@
+{
+  "name": "gethugothemes--dot-hugo",
+  "displayName": "dot-hugo",
+  "description": "dot-hugo",
+  "version": "1.0.0",
+  "author": "gethugothemes",
+  "homepage": "https://github.com/gethugothemes/dot-hugo",
+  "skills": [
+    {
+      "name": "dot-hugo",
+      "description": ""
+    }
+  ]
+}
