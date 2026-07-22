@@ -1,0 +1,14 @@
+{
+  "name": "onflow--flow-cli",
+  "displayName": "flow-cli",
+  "description": "flow-cli",
+  "version": "1.0.0",
+  "author": "onflow",
+  "homepage": "https://github.com/onflow/flow-cli",
+  "skills": [
+    {
+      "name": "flow-cli",
+      "description": ""
+    }
+  ]
+}
