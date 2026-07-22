@@ -1,0 +1,57 @@
+{
+  "name": "OpenNOW",
+  "owner": "OpenCloudGaming",
+  "repo": "OpenNOW",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenNOW",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/OpenCloudGaming/OpenNOW/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenNOW",
+      "path": ".agents/skills/new-pr-and-branch/SKILL.md",
+      "github_url": "https://github.com/OpenCloudGaming/OpenNOW/tree/main/.agents/skills/new-pr-and-branch/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OpenCloudGaming/OpenNOW",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:46:54Z"
+}
