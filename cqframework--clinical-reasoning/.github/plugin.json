@@ -1,0 +1,14 @@
+{
+  "name": "cqframework--clinical-reasoning",
+  "displayName": "clinical-reasoning",
+  "description": "clinical-reasoning",
+  "version": "1.0.0",
+  "author": "cqframework",
+  "homepage": "https://github.com/cqframework/clinical-reasoning",
+  "skills": [
+    {
+      "name": "clinical-reasoning",
+      "description": ""
+    }
+  ]
+}
