@@ -1,0 +1,99 @@
+{
+  "name": "compass",
+  "owner": "SwitchbackTech",
+  "repo": "compass",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "compass",
+      "path": ".agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compass",
+      "path": ".agents/skills/diagnose/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.agents/skills/diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compass",
+      "path": ".codex/skills/a11y-audit/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.codex/skills/a11y-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compass",
+      "path": ".agents/skills/a11y-audit/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.agents/skills/a11y-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compass",
+      "path": ".claude/skills/a11y-audit/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.claude/skills/a11y-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compass",
+      "path": ".codex/skills/simplify-code/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.codex/skills/simplify-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compass",
+      "path": ".agents/skills/react-doctor/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.agents/skills/react-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compass",
+      "path": ".agents/skills/simplify-code/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.agents/skills/simplify-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "compass",
+      "path": ".codex/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "github_url": "https://github.com/SwitchbackTech/compass/tree/main/.codex/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SwitchbackTech/compass",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T13:52:33Z"
+}
