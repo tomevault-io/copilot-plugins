@@ -1,0 +1,105 @@
+{
+  "name": "docs",
+  "owner": "mintlify",
+  "repo": "docs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doc-author",
+      "path": ".claude/skills/doc-author",
+      "github_url": "https://github.com/mintlify/docs/tree/main/.claude/skills/doc-author",
+      "description": ""
+    },
+    {
+      "name": "doc-reader",
+      "path": ".claude/skills/doc-reader",
+      "github_url": "https://github.com/mintlify/docs/tree/main/.claude/skills/doc-reader",
+      "description": ""
+    },
+    {
+      "name": "mintlify",
+      "path": ".claude/skills/mintlify",
+      "github_url": "https://github.com/mintlify/docs/tree/main/.claude/skills/mintlify",
+      "description": ""
+    },
+    {
+      "name": "update-nav",
+      "path": ".claude/skills/update-nav",
+      "github_url": "https://github.com/mintlify/docs/tree/main/.claude/skills/update-nav",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "skill.md",
+      "github_url": "https://github.com/mintlify/docs/tree/main/skill.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "skills/mintlify-api/SKILL.md",
+      "github_url": "https://github.com/mintlify/docs/tree/main/skills/mintlify-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "skills/mintlify-docs/SKILL.md",
+      "github_url": "https://github.com/mintlify/docs/tree/main/skills/mintlify-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/mintlify/SKILL.md",
+      "github_url": "https://github.com/mintlify/docs/tree/main/.claude/skills/mintlify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/doc-author/SKILL.md",
+      "github_url": "https://github.com/mintlify/docs/tree/main/.claude/skills/doc-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/doc-reader/SKILL.md",
+      "github_url": "https://github.com/mintlify/docs/tree/main/.claude/skills/doc-reader/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mintlify/docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:37:43Z"
+}
