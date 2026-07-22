@@ -1,0 +1,111 @@
+{
+  "name": "wot-ui",
+  "owner": "wot-ui",
+  "repo": "wot-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue-comment",
+      "path": ".agents/skills/vue-comment",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/vue-comment",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/vue-comment/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/vue-comment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/create-test/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/create-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/generate-theme/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/generate-theme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/create-component/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/create-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/create-demo-page/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/create-demo-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/optimize-page-styles/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/optimize-page-styles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/migrate-component-doc/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/migrate-component-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/generate-scss-variables/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/generate-scss-variables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/wot-ui-component-baseline/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/wot-ui-component-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wot-ui",
+      "path": ".agents/skills/check-doc-component-consistency/SKILL.md",
+      "github_url": "https://github.com/wot-ui/wot-ui/tree/main/.agents/skills/check-doc-component-consistency/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wot-ui/wot-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:49:12Z"
+}
