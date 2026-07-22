@@ -1,0 +1,171 @@
+{
+  "name": "azure-sdk-for-python",
+  "owner": "Azure",
+  "repo": "azure-sdk-for-python",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/fix-mypy/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/fix-mypy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/fix-black/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/fix-black/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/fix-pylint/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/fix-pylint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/fix-sphinx/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/fix-sphinx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/ml/fix-mypy/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/ml/fix-mypy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/ml/fix-pylint/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/ml/fix-pylint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/ml/do-code-review/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/ml/do-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/find-package-skill/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/find-package-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/create-package-skill/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/create-package-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/generate-api-markdown/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/generate-api-markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/emitter-package-update/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/emitter-package-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/eng/next-version-update/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/eng/next-version-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/azsdk-common-sdk-release/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/azsdk-common-sdk-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/azsdk-common-prepare-release-plan/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/azsdk-common-prepare-release-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": ".github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/.github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": "sdk/ai/azure-ai-projects/.github/skills/azure-ai-projects-emit-from-typespec/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/ai/azure-ai-projects/.github/skills/azure-ai-projects-emit-from-typespec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": "sdk/contentunderstanding/azure-ai-contentunderstanding/.github/skills/cu-sdk-setup/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/contentunderstanding/azure-ai-contentunderstanding/.github/skills/cu-sdk-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": "sdk/contentunderstanding/azure-ai-contentunderstanding/.github/skills/cu-sdk-sample-run/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/contentunderstanding/azure-ai-contentunderstanding/.github/skills/cu-sdk-sample-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": "sdk/contentunderstanding/azure-ai-contentunderstanding/.github/skills/cu-sdk-common-knowledge/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/contentunderstanding/azure-ai-contentunderstanding/.github/skills/cu-sdk-common-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azure-sdk-for-python",
+      "path": "sdk/search/azure-search-documents/.github/skills/azure-search-documents/SKILL.md",
+      "github_url": "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/search/azure-search-documents/.github/skills/azure-search-documents/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Azure/azure-sdk-for-python",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T12:09:32Z"
+}
