@@ -1,0 +1,18 @@
+{
+  "name": "openclaw--docs",
+  "displayName": "docs",
+  "description": "docs",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/docs",
+  "skills": [
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    }
+  ]
+}
