@@ -1,0 +1,53 @@
+## fixlang
+
+> This project implements the Fix programming language compiler and related tools as the `fix` command.
+
+# Claude Instructions
+
+## Project Overview
+
+This project implements the Fix programming language compiler and related tools as the `fix` command.
+
+## Language and Code Style
+
+- **Programming Language**: This project is written in Rust.
+- **Fix Language Syntax**: Refer to `Document.md` for documentation and `src/tests/test_basic.rs` for Fix code examples.
+- **Data Structures**:
+  - Use `Set` and `Map` from `crate::misc` module instead of `std::collections::HashSet` and `std::collections::HashMap`.
+  - Example: `use crate::misc::{Set, Map};` then use `Set::default()` or `Map::default()`.
+- **Testability abstractions**: Do NOT complicate the code or introduce abstractions solely to make it unit-testable. Abstractions introduced solely for unit-testability tend to make the code harder to read.
+
+## Testing Guidelines
+
+- **When modifying Fix grammar or standard library**:
+  - Add tests that compile and execute Fix code.
+  - These tests verify that Fix language features work correctly.
+  - **Always reference the thing under test from `main`**: When writing a test that checks whether some Fix code compiles, do NOT just declare/define the global value or trait member you want to verify. The test must actually use it from `main` — call the function, evaluate the value (using `eval` if direct calling is awkward), or otherwise reference it. Otherwise the symbol may be skipped by the compiler and a broken definition will not produce an error.
+  
+- **When modifying `fix` command behavior**:
+  - Prefer integration tests.
+  - Place sample Fix projects in the `tests` folder (e.g., `src/tests/test_dependencies/cases/`).
+  - In test code, call `install_fix()` to install Fix to the system.
+  - Test the actual behavior by running `fix` command via `Command::new("fix")`.
+  - For tests that use Fix projects, always copy the project to a temporary directory using `setup_test_env()` pattern (see `test_dependencies.rs` for reference).
+    - This ensures tests can run in parallel without conflicts.
+    - Use `tempfile::TempDir` to create temporary directories.
+    - Use `copy_dir_recursive()` from `test_util.rs` to copy project files.
+    - The temporary directory is automatically cleaned up when the test completes.
+  - **Debugging integration tests**: Since integration tests run the `fix` command as a separate process, its stdout/stderr output is hard to capture directly. In such cases, use `WRITE_LOG` from `src/log_file.rs` to write debug output to a log file from within the `fix` process.
+
+- **Running many tests at once**: When running a large number of tests with `cargo test` (e.g. the full suite or many integration tests), use `--release` (i.e. `cargo test --release`). Debug builds of the `fix` compiler are slow to run, so release mode significantly reduces total test time.
+
+- **Failing tests**: Do NOT add `#[ignore]` to tests to bypass failures. Leaving failing tests in place and committing them is acceptable; hiding them with `#[ignore]` is not.
+
+- **Dead-code warnings**: Do NOT add `#[allow(dead_code)]` to silence the "never used" warning on items that will eventually be used in production code (e.g. a constant or function added in one step of a multi-step rollout that will be consumed in a later step). The warning is the reminder that the follow-up work is still pending; suppressing it loses that signal. Leave the warning in place and let the next step resolve it.
+
+## Changelog
+
+- **When a round of modifications is complete**, add an entry describing the change to `CHANGELOG.md`.
+  - Add it under the `## [Unreleased]` section at the top, in the appropriate category (`### Added` / `### Changed`) and subcategory (`#### Language` / `#### Tool` / `#### Std`), following the style of existing entries.
+  - **Performance improvements that do not change observable behavior do NOT need a changelog entry.** The changelog documents user-visible changes (new/changed/fixed behavior), not internal speedups.
+
+---
+> Source: [tttmmmyyyy/fixlang](https://github.com/tttmmmyyyy/fixlang) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
