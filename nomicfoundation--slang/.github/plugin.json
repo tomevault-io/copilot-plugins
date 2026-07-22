@@ -1,0 +1,14 @@
+{
+  "name": "nomicfoundation--slang",
+  "displayName": "slang",
+  "description": "slang",
+  "version": "1.0.0",
+  "author": "NomicFoundation",
+  "homepage": "https://github.com/NomicFoundation/slang",
+  "skills": [
+    {
+      "name": "slang",
+      "description": ""
+    }
+  ]
+}
