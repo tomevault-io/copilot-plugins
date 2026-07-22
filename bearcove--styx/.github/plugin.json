@@ -1,0 +1,22 @@
+{
+  "name": "bearcove--styx",
+  "displayName": "styx",
+  "description": "styx",
+  "version": "1.0.0",
+  "author": "bearcove",
+  "homepage": "https://github.com/bearcove/styx",
+  "skills": [
+    {
+      "name": "contrib",
+      "description": ""
+    },
+    {
+      "name": "styx",
+      "description": ""
+    },
+    {
+      "name": "styx",
+      "description": ""
+    }
+  ]
+}
