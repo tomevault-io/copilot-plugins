@@ -1,0 +1,273 @@
+{
+  "name": "testfx",
+  "owner": "microsoft",
+  "repo": "testfx",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-testing-agent",
+      "path": ".agents/skills/code-testing-agent",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/code-testing-agent",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/crap-score/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/crap-score/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/grade-tests/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/grade-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/test-tagging/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/test-tagging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/filter-syntax/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/filter-syntax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/mtp-hot-reload/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/mtp-hot-reload/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/msbuild-server/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/msbuild-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/eval-performance/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/eval-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/coverage-analysis/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/coverage-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/test-gap-analysis/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/test-gap-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/assertion-quality/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/assertion-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/incremental-build/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/incremental-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/build-parallelism/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/build-parallelism/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/binlog-generation/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/binlog-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/code-testing-agent/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/code-testing-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/test-anti-patterns/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/test-anti-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/platform-detection/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/platform-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/build-perf-baseline/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/build-perf-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/check-bin-obj-clash/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/check-bin-obj-clash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/writing-mstest-tests/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/writing-mstest-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/migrate-vstest-to-mtp/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/migrate-vstest-to-mtp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/msbuild-modernization/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/msbuild-modernization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/build-perf-diagnostics/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/build-perf-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/dotnet-test-frameworks/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/dotnet-test-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/migrate-mstest-v3-to-v4/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/migrate-mstest-v3-to-v4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/migrate-xunit-to-mstest/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/migrate-xunit-to-mstest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/binlog-failure-analysis/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/binlog-failure-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/code-testing-extensions/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/code-testing-extensions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/test-analysis-extensions/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/test-analysis-extensions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/migrate-xunit-to-xunit-v3/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/migrate-xunit-to-xunit-v3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/migrate-mstest-v1v2-to-v3/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/migrate-mstest-v1v2-to-v3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/migrate-static-to-wrapper/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/migrate-static-to-wrapper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/including-generated-files/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/including-generated-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/detect-static-dependencies/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/detect-static-dependencies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/resolve-project-references/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/resolve-project-references/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".agents/skills/generate-testability-wrappers/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.agents/skills/generate-testability-wrappers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "testfx",
+      "path": ".github/skills/post-release-activities/SKILL.md",
+      "github_url": "https://github.com/microsoft/testfx/tree/main/.github/skills/post-release-activities/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/testfx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:16:34Z"
+}
