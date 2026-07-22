@@ -1,0 +1,273 @@
+{
+  "name": "QwenPaw",
+  "owner": "agentscope-ai",
+  "repo": "QwenPaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "terraform-cli-setup",
+      "path": "plugins/bundle/cloudpaw/skills/terraform-cli-setup",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/plugins/bundle/cloudpaw/skills/terraform-cli-setup",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/pdf-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/pdf-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/pdf-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/pdf-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/xlsx-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/xlsx-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/xlsx-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/xlsx-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/docx-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/docx-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/docx-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/docx-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/cron-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/cron-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/cron-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/cron-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/pptx-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/pptx-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/pptx-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/pptx-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/news-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/news-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/news-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/news-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/himalaya-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/himalaya-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/himalaya-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/himalaya-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/guidance-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/guidance-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/guidance-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/guidance-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/make_plan-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/make_plan-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/make_plan-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/make_plan-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/make-skill-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/make-skill-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/make-skill-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/make-skill-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/browser_cdp-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/browser_cdp-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/browser_cdp-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/browser_cdp-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/file_reader-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/file_reader-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/file_reader-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/file_reader-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "plugins/bundle/cloudpaw/skills/alicloud_cli/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/plugins/bundle/cloudpaw/skills/alicloud_cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/channel_message-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/channel_message-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/channel_message-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/channel_message-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/chat_with_agent-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/chat_with_agent-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/chat_with_agent-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/chat_with_agent-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/browser_visible-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/browser_visible-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/QA_source_index-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/QA_source_index-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/QA_source_index-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/QA_source_index-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/browser_visible-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/browser_visible-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/dingtalk_channel-zh/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/dingtalk_channel-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "src/qwenpaw/agents/skills/dingtalk_channel-en/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/src/qwenpaw/agents/skills/dingtalk_channel-en/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "plugins/bundle/cloudpaw/skills/terraform-skill/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/plugins/bundle/cloudpaw/skills/terraform-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "QwenPaw",
+      "path": "plugins/bundle/cloudpaw/skills/terraform-cli-setup/SKILL.md",
+      "github_url": "https://github.com/agentscope-ai/QwenPaw/tree/main/plugins/bundle/cloudpaw/skills/terraform-cli-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agentscope-ai/QwenPaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:37:41Z"
+}
