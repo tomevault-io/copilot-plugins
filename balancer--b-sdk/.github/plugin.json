@@ -1,0 +1,14 @@
+{
+  "name": "balancer--b-sdk",
+  "displayName": "b-sdk",
+  "description": "b-sdk",
+  "version": "1.0.0",
+  "author": "balancer",
+  "homepage": "https://github.com/balancer/b-sdk",
+  "skills": [
+    {
+      "name": "b-sdk",
+      "description": ""
+    }
+  ]
+}
