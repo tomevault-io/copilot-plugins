@@ -1,0 +1,81 @@
+{
+  "name": "reverse-engineering-assistant",
+  "owner": "cyberkaida",
+  "repo": "reverse-engineering-assistant",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reverse-engineering-assistant",
+      "path": "ReVa/skills/ctf-rev/SKILL.md",
+      "github_url": "https://github.com/cyberkaida/reverse-engineering-assistant/tree/main/ReVa/skills/ctf-rev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-engineering-assistant",
+      "path": "ReVa/skills/ctf-pwn/SKILL.md",
+      "github_url": "https://github.com/cyberkaida/reverse-engineering-assistant/tree/main/ReVa/skills/ctf-pwn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-engineering-assistant",
+      "path": "ReVa/skills/ctf-crypto/SKILL.md",
+      "github_url": "https://github.com/cyberkaida/reverse-engineering-assistant/tree/main/ReVa/skills/ctf-crypto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-engineering-assistant",
+      "path": "ReVa/skills/deep-analysis/SKILL.md",
+      "github_url": "https://github.com/cyberkaida/reverse-engineering-assistant/tree/main/ReVa/skills/deep-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-engineering-assistant",
+      "path": "ReVa/skills/binary-triage/SKILL.md",
+      "github_url": "https://github.com/cyberkaida/reverse-engineering-assistant/tree/main/ReVa/skills/binary-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-engineering-assistant",
+      "path": "ReVa/skills/pyghidra-scripting/SKILL.md",
+      "github_url": "https://github.com/cyberkaida/reverse-engineering-assistant/tree/main/ReVa/skills/pyghidra-scripting/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cyberkaida/reverse-engineering-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:53:36Z"
+}
