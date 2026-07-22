@@ -1,0 +1,9 @@
+{
+  "name": "adyen--adyen-python-api-library",
+  "displayName": "adyen-python-api-library",
+  "description": "adyen-python-api-library",
+  "version": "1.0.0",
+  "author": "Adyen",
+  "homepage": "https://github.com/Adyen/adyen-python-api-library",
+  "skills": []
+}
