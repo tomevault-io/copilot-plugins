@@ -1,0 +1,99 @@
+{
+  "name": "workflow-kotlin",
+  "owner": "square",
+  "repo": "workflow-kotlin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "workflow-integration-testing",
+      "path": "workflow-testing/.agents/skills/workflow-integration-testing",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/workflow-testing/.agents/skills/workflow-integration-testing",
+      "description": ""
+    },
+    {
+      "name": "workflow-testing",
+      "path": "workflow-testing/.agents/skills/workflow-testing",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/workflow-testing/.agents/skills/workflow-testing",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "path": ".agents/skills/extracting-ai-context/SKILL.md",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/.agents/skills/extracting-ai-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "path": "workflow-core/.agents/skills/create-workflow/SKILL.md",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/workflow-core/.agents/skills/create-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "path": "samples/tutorial/.claude/skills/create-workflow/SKILL.md",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/samples/tutorial/.claude/skills/create-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "path": "samples/tutorial/.cursor/skills/create-workflow/SKILL.md",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/samples/tutorial/.cursor/skills/create-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "path": "workflow-testing/.agents/skills/workflow-testing/SKILL.md",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/workflow-testing/.agents/skills/workflow-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "path": "samples/tutorial/.firebender/skills/create-workflow/SKILL.md",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/samples/tutorial/.firebender/skills/create-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "path": "workflow-testing/.agents/skills/workflow-integration-testing/SKILL.md",
+      "github_url": "https://github.com/square/workflow-kotlin/tree/main/workflow-testing/.agents/skills/workflow-integration-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/square/workflow-kotlin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:39:32Z"
+}
