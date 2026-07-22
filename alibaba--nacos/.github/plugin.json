@@ -1,0 +1,14 @@
+{
+  "name": "alibaba--nacos",
+  "displayName": "nacos",
+  "description": "nacos",
+  "version": "1.0.0",
+  "author": "alibaba",
+  "homepage": "https://github.com/alibaba/nacos",
+  "skills": [
+    {
+      "name": "nacos",
+      "description": ""
+    }
+  ]
+}
