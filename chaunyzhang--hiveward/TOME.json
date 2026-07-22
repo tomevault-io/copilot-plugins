@@ -1,0 +1,75 @@
+{
+  "name": "HiveWard",
+  "owner": "Chaunyzhang",
+  "repo": "HiveWard",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "HiveWard",
+      "path": "docs/skills/hiveward-ceo/SKILL.md",
+      "github_url": "https://github.com/Chaunyzhang/HiveWard/tree/main/docs/skills/hiveward-ceo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HiveWard",
+      "path": "docs/skills/hiveward-leader/SKILL.md",
+      "github_url": "https://github.com/Chaunyzhang/HiveWard/tree/main/docs/skills/hiveward-leader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HiveWard",
+      "path": "fixtures/skill-packages/script-backed-skill/SKILL.md",
+      "github_url": "https://github.com/Chaunyzhang/HiveWard/tree/main/fixtures/skill-packages/script-backed-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HiveWard",
+      "path": "fixtures/skill-packages/partial-skill-md-only/SKILL.md",
+      "github_url": "https://github.com/Chaunyzhang/HiveWard/tree/main/fixtures/skill-packages/partial-skill-md-only/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HiveWard",
+      "path": "apps/api/harness-skills/hiveward-skill-decomposer/SKILL.md",
+      "github_url": "https://github.com/Chaunyzhang/HiveWard/tree/main/apps/api/harness-skills/hiveward-skill-decomposer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Chaunyzhang/HiveWard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:00:30Z"
+}
