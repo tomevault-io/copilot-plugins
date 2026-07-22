@@ -1,0 +1,63 @@
+{
+  "name": "leapp-repository",
+  "owner": "oamg",
+  "repo": "leapp-repository",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "leapp-repository",
+      "path": "skills/leapp-actor-dev/SKILL.md",
+      "github_url": "https://github.com/oamg/leapp-repository/tree/main/skills/leapp-actor-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "leapp-repository",
+      "path": "skills/leapp-unit-tests/SKILL.md",
+      "github_url": "https://github.com/oamg/leapp-repository/tree/main/skills/leapp-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "leapp-repository",
+      "path": "skills/leapp-test-runner/SKILL.md",
+      "github_url": "https://github.com/oamg/leapp-repository/tree/main/skills/leapp-test-runner/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oamg/leapp-repository",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:30:53Z"
+}
