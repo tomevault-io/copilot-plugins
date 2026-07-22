@@ -1,0 +1,18 @@
+{
+  "name": "redhat-openshift-ecosystem--openshift-preflight",
+  "displayName": "openshift-preflight",
+  "description": "openshift-preflight",
+  "version": "1.0.0",
+  "author": "redhat-openshift-ecosystem",
+  "homepage": "https://github.com/redhat-openshift-ecosystem/openshift-preflight",
+  "skills": [
+    {
+      "name": "openshift-preflight",
+      "description": ""
+    },
+    {
+      "name": "openshift-preflight",
+      "description": ""
+    }
+  ]
+}
