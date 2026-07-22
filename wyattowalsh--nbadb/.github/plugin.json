@@ -1,0 +1,14 @@
+{
+  "name": "wyattowalsh--nbadb",
+  "displayName": "nbadb",
+  "description": "nbadb",
+  "version": "1.0.0",
+  "author": "wyattowalsh",
+  "homepage": "https://github.com/wyattowalsh/nbadb",
+  "skills": [
+    {
+      "name": "nbadb",
+      "description": ""
+    }
+  ]
+}
