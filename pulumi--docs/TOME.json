@@ -1,0 +1,123 @@
+{
+  "name": "docs",
+  "owner": "pulumi",
+  "repo": "docs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "new-doc",
+      "path": ".claude/commands/new-doc",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/new-doc",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/shipit/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/shipit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/new-doc/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/new-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/move-doc/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/move-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/dashboard/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/dashboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/pr-review/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/docs-tools/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/docs-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/seo-analyze/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/seo-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/docs-review/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/docs-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/slack-to-issue/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/slack-to-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/fix-broken-links/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/fix-broken-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/draft-social-post/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/draft-social-post/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/commands/social-media-review/SKILL.md",
+      "github_url": "https://github.com/pulumi/docs/tree/main/.claude/commands/social-media-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pulumi/docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T13:38:07Z"
+}
