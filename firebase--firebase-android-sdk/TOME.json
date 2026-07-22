@@ -1,0 +1,57 @@
+{
+  "name": "firebase-android-sdk",
+  "owner": "firebase",
+  "repo": "firebase-android-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "firebase-android-sdk",
+      "path": "firebase-dataconnect/.agents/skills/dataconnect_set_cli/SKILL.md",
+      "github_url": "https://github.com/firebase/firebase-android-sdk/tree/main/firebase-dataconnect/.agents/skills/dataconnect_set_cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firebase-android-sdk",
+      "path": "firebase-dataconnect/.agents/skills/dataconnect_emulator_upgrade/SKILL.md",
+      "github_url": "https://github.com/firebase/firebase-android-sdk/tree/main/firebase-dataconnect/.agents/skills/dataconnect_emulator_upgrade/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/firebase/firebase-android-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:34:46Z"
+}
