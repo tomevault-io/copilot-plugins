@@ -1,0 +1,9 @@
+{
+  "name": "jeremydahms--semantic-search",
+  "displayName": "semantic-search",
+  "description": "Semantic code search using Spring Boot, pgvector, and Ollama embeddings",
+  "version": "1.0.0",
+  "author": "JeremyDahms",
+  "homepage": "https://github.com/JeremyDahms/semantic-search",
+  "skills": []
+}
