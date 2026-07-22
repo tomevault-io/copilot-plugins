@@ -1,0 +1,153 @@
+{
+  "name": "linapro",
+  "owner": "linaproai",
+  "repo": "linapro",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "linapro",
+      "path": ".agents/skills/vben/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/vben/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-e2e/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-review/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-feedback/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-perf-audit/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-perf-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/karpathy-guidelines/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/karpathy-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-community-pr-review/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-community-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-community-issue-review/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-community-issue-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-openspec-archive-changes/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-openspec-archive-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-community-release-changelog/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-community-release-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linapro",
+      "path": ".agents/skills/lina-openspec-archive-consolidate/SKILL.md",
+      "github_url": "https://github.com/linaproai/linapro/tree/main/.agents/skills/lina-openspec-archive-consolidate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/linaproai/linapro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:03:31Z"
+}
