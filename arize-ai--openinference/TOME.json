@@ -1,0 +1,99 @@
+{
+  "name": "openinference",
+  "owner": "Arize-ai",
+  "repo": "openinference",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "python-canary-fix",
+      "path": ".claude/skills/python-canary-fix",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.claude/skills/python-canary-fix",
+      "description": ""
+    },
+    {
+      "name": "python-code-reviewer",
+      "path": ".agents/skills/python-code-reviewer",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.agents/skills/python-code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "path": ".agents/skills/phoenix-cli/SKILL.md",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.agents/skills/phoenix-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "path": ".agents/skills/js-docs-sync/SKILL.md",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.agents/skills/js-docs-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "path": ".claude/skills/genai-conformance/SKILL.md",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.claude/skills/genai-conformance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "path": ".claude/skills/python-canary-fix/SKILL.md",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.claude/skills/python-canary-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "path": ".agents/skills/java-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.agents/skills/java-code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "path": ".agents/skills/python-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/Arize-ai/openinference/tree/main/.agents/skills/python-code-reviewer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Arize-ai/openinference",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:43:01Z"
+}
