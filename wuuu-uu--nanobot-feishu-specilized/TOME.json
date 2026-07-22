@@ -1,0 +1,81 @@
+{
+  "name": "nanobot-feishu-specilized",
+  "owner": "Wuuu-uu",
+  "repo": "nanobot-feishu-specilized",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nanobot-feishu-specilized",
+      "path": "nanobot/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/Wuuu-uu/nanobot-feishu-specilized/tree/main/nanobot/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot-feishu-specilized",
+      "path": "nanobot/skills/cron/SKILL.md",
+      "github_url": "https://github.com/Wuuu-uu/nanobot-feishu-specilized/tree/main/nanobot/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot-feishu-specilized",
+      "path": "nanobot/skills/github/SKILL.md",
+      "github_url": "https://github.com/Wuuu-uu/nanobot-feishu-specilized/tree/main/nanobot/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot-feishu-specilized",
+      "path": "nanobot/skills/weather/SKILL.md",
+      "github_url": "https://github.com/Wuuu-uu/nanobot-feishu-specilized/tree/main/nanobot/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot-feishu-specilized",
+      "path": "nanobot/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/Wuuu-uu/nanobot-feishu-specilized/tree/main/nanobot/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot-feishu-specilized",
+      "path": "nanobot/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/Wuuu-uu/nanobot-feishu-specilized/tree/main/nanobot/skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Wuuu-uu/nanobot-feishu-specilized",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:57:51Z"
+}
