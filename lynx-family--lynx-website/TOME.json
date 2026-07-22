@@ -1,0 +1,51 @@
+{
+  "name": "lynx-website",
+  "owner": "lynx-family",
+  "repo": "lynx-website",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lynx-website",
+      "path": ".agents/skills/doc-description-governance/SKILL.md",
+      "github_url": "https://github.com/lynx-family/lynx-website/tree/main/.agents/skills/doc-description-governance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lynx-family/lynx-website",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T14:29:09Z"
+}
