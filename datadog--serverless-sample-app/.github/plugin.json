@@ -1,0 +1,9 @@
+{
+  "name": "datadog--serverless-sample-app",
+  "displayName": "serverless-sample-app",
+  "description": "serverless-sample-app",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/serverless-sample-app",
+  "skills": []
+}
