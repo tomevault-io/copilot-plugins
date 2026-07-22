@@ -1,0 +1,75 @@
+{
+  "name": "eclipse-chatgpt-plugin",
+  "owner": "gradusnikov",
+  "repo": "eclipse-chatgpt-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "path": ".claude/skills/eclipse-run/SKILL.md",
+      "github_url": "https://github.com/gradusnikov/eclipse-chatgpt-plugin/tree/main/.claude/skills/eclipse-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "path": ".claude/skills/eclipse-test/SKILL.md",
+      "github_url": "https://github.com/gradusnikov/eclipse-chatgpt-plugin/tree/main/.claude/skills/eclipse-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "path": ".claude/skills/eclipse-edit/SKILL.md",
+      "github_url": "https://github.com/gradusnikov/eclipse-chatgpt-plugin/tree/main/.claude/skills/eclipse-edit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "path": ".claude/skills/eclipse-debug/SKILL.md",
+      "github_url": "https://github.com/gradusnikov/eclipse-chatgpt-plugin/tree/main/.claude/skills/eclipse-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "path": ".claude/skills/eclipse-analyze/SKILL.md",
+      "github_url": "https://github.com/gradusnikov/eclipse-chatgpt-plugin/tree/main/.claude/skills/eclipse-analyze/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gradusnikov/eclipse-chatgpt-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:29:50Z"
+}
