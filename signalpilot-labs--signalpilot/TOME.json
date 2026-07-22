@@ -1,0 +1,231 @@
+{
+  "name": "SignalPilot",
+  "owner": "SignalPilot-Labs",
+  "repo": "SignalPilot",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/dbt-write/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/dbt-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/sqlite-sql/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/sqlite-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/duckdb-sql/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/duckdb-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/sql-workflow/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/sql-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/bigquery-sql/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/bigquery-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/dbt-workflow/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/dbt-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/snowflake-sql/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/snowflake-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/dbt-debugging/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/dbt-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/skills/dbt-date-spines/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/skills/dbt-date-spines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/dbt-write/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/dbt-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/domain-hr/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/domain-hr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/sqlite-sql/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/sqlite-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/duckdb-sql/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/duckdb-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/dbt-testing/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/dbt-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/signalpilot/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/signalpilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/dbt-workflow/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/dbt-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/bigquery-sql/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/bigquery-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/write-report/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/write-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/sql-workflow/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/sql-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/domain-media/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/domain-media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/dbt-debugging/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/dbt-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/snowflake-sql/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/snowflake-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/dbt-snapshots/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/dbt-snapshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/dbt-versioning/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/dbt-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/knowledge-base/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/knowledge-base/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/domain-product/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/domain-product/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/domain-ecommerce/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/domain-ecommerce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/domain-financial/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/domain-financial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/domain-marketing/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/domain-marketing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/dbt-knowledgebase/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/dbt-knowledgebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SignalPilot",
+      "path": "benchmark/signalpilot-plugin/skills/domain-healthcare/SKILL.md",
+      "github_url": "https://github.com/SignalPilot-Labs/SignalPilot/tree/main/benchmark/signalpilot-plugin/skills/domain-healthcare/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SignalPilot-Labs/SignalPilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:55:27Z"
+}
