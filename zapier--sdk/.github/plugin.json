@@ -1,0 +1,14 @@
+{
+  "name": "zapier--sdk",
+  "displayName": "sdk",
+  "description": "sdk",
+  "version": "1.0.0",
+  "author": "zapier",
+  "homepage": "https://github.com/zapier/sdk",
+  "skills": [
+    {
+      "name": "sdk",
+      "description": ""
+    }
+  ]
+}
