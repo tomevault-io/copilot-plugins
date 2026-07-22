@@ -1,0 +1,14 @@
+{
+  "name": "gonetone--genshin-impact-wish-gacha-analyzer",
+  "displayName": "genshin-impact-wish-gacha-analyzer",
+  "description": "genshin-impact-wish-gacha-analyzer",
+  "version": "1.0.0",
+  "author": "GoneTone",
+  "homepage": "https://github.com/GoneTone/genshin-impact-wish-gacha-analyzer",
+  "skills": [
+    {
+      "name": "genshin-impact-wish-gacha-analyzer",
+      "description": ""
+    }
+  ]
+}
