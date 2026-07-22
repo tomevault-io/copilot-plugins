@@ -1,0 +1,14 @@
+{
+  "name": "zosmaai--pi-llm-wiki",
+  "displayName": "pi-llm-wiki",
+  "description": "pi-llm-wiki",
+  "version": "1.0.0",
+  "author": "zosmaai",
+  "homepage": "https://github.com/zosmaai/pi-llm-wiki",
+  "skills": [
+    {
+      "name": "pi-llm-wiki",
+      "description": ""
+    }
+  ]
+}
