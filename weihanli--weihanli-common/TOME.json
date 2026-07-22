@@ -1,0 +1,99 @@
+{
+  "name": "WeihanLi.Common",
+  "owner": "WeihanLi",
+  "repo": "WeihanLi.Common",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WeihanLi.Common",
+      "path": ".github/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/WeihanLi/WeihanLi.Common/tree/main/.github/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/WeihanLi/WeihanLi.Common",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T12:00:33Z"
+}
