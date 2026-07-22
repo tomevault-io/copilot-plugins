@@ -1,0 +1,57 @@
+{
+  "name": "tree-sitter-fsharp",
+  "owner": "ionide",
+  "repo": "tree-sitter-fsharp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tree-sitter-fsharp",
+      "path": ".opencode/skills/tree-sitter-tdd/SKILL.md",
+      "github_url": "https://github.com/ionide/tree-sitter-fsharp/tree/main/.opencode/skills/tree-sitter-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-fsharp",
+      "path": ".opencode/skills/tree-sitter-parse-testing/SKILL.md",
+      "github_url": "https://github.com/ionide/tree-sitter-fsharp/tree/main/.opencode/skills/tree-sitter-parse-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ionide/tree-sitter-fsharp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:54:21Z"
+}
