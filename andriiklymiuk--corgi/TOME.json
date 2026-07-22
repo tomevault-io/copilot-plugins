@@ -1,0 +1,117 @@
+{
+  "name": "corgi",
+  "owner": "Andriiklymiuk",
+  "repo": "corgi",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/run/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/debug/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/corgi/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/corgi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/review/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/mobile/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/mobile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/memory/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/stories/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/stories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/tracker/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/suggest/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/suggest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/autopilot/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/autopilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/improve-skill/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/improve-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "corgi",
+      "path": "plugins/corgi/skills/suggest-proactive/SKILL.md",
+      "github_url": "https://github.com/Andriiklymiuk/corgi/tree/main/plugins/corgi/skills/suggest-proactive/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Andriiklymiuk/corgi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:05:08Z"
+}
