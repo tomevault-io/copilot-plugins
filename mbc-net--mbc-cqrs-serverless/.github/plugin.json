@@ -1,0 +1,42 @@
+{
+  "name": "mbc-net--mbc-cqrs-serverless",
+  "displayName": "mbc-cqrs-serverless",
+  "description": "mbc-cqrs-serverless",
+  "version": "1.0.0",
+  "author": "mbc-net",
+  "homepage": "https://github.com/mbc-net/mbc-cqrs-serverless",
+  "skills": [
+    {
+      "name": "mbc-debug",
+      "description": ""
+    },
+    {
+      "name": "mbc-generate",
+      "description": ""
+    },
+    {
+      "name": "mbc-migrate",
+      "description": ""
+    },
+    {
+      "name": "mbc-review",
+      "description": ""
+    },
+    {
+      "name": "mbc-cqrs-serverless",
+      "description": ""
+    },
+    {
+      "name": "mbc-cqrs-serverless",
+      "description": ""
+    },
+    {
+      "name": "mbc-cqrs-serverless",
+      "description": ""
+    },
+    {
+      "name": "mbc-cqrs-serverless",
+      "description": ""
+    }
+  ]
+}
