@@ -1,0 +1,81 @@
+{
+  "name": "vibe-coding-prompt-template",
+  "owner": "KhazP",
+  "repo": "vibe-coding-prompt-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vibe-coding-prompt-template",
+      "path": ".claude/skills/vibe-prd/SKILL.md",
+      "github_url": "https://github.com/KhazP/vibe-coding-prompt-template/tree/main/.claude/skills/vibe-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding-prompt-template",
+      "path": ".claude/skills/vibe-build/SKILL.md",
+      "github_url": "https://github.com/KhazP/vibe-coding-prompt-template/tree/main/.claude/skills/vibe-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding-prompt-template",
+      "path": ".claude/skills/vibe-agents/SKILL.md",
+      "github_url": "https://github.com/KhazP/vibe-coding-prompt-template/tree/main/.claude/skills/vibe-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding-prompt-template",
+      "path": ".claude/skills/vibe-workflow/SKILL.md",
+      "github_url": "https://github.com/KhazP/vibe-coding-prompt-template/tree/main/.claude/skills/vibe-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding-prompt-template",
+      "path": ".claude/skills/vibe-research/SKILL.md",
+      "github_url": "https://github.com/KhazP/vibe-coding-prompt-template/tree/main/.claude/skills/vibe-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding-prompt-template",
+      "path": ".claude/skills/vibe-techdesign/SKILL.md",
+      "github_url": "https://github.com/KhazP/vibe-coding-prompt-template/tree/main/.claude/skills/vibe-techdesign/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/KhazP/vibe-coding-prompt-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:49:17Z"
+}
