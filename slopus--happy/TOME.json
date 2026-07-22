@@ -1,0 +1,105 @@
+{
+  "name": "happy",
+  "owner": "slopus",
+  "repo": "happy",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "happy",
+      "path": ".agents/skills/dev/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.agents/skills/dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".agents/skills/sessions/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.agents/skills/sessions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".agents/skills/maintain/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.agents/skills/maintain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".agents/skills/office-hours/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.agents/skills/office-hours/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".agents/skills/control-flow/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.agents/skills/control-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".claude/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.claude/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".agents/skills/terminal-emulator/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.agents/skills/terminal-emulator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "happy",
+      "path": ".claude/skills/terminal-emulator/SKILL.md",
+      "github_url": "https://github.com/slopus/happy/tree/main/.claude/skills/terminal-emulator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/slopus/happy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:45:25Z"
+}
