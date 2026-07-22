@@ -2,9 +2,9 @@
   "name": "OpenWiki",
   "owner": "kdsz001",
   "repo": "OpenWiki",
-  "description": "OpenWiki \u2014 Mac desktop AI knowledge management tool. Capture clipboard, build personal wiki, get AI insights.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kdsz001/OpenWiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T04:15:14Z"
+  "distributed_at": "2026-07-22T21:27:04Z"
 }
