@@ -1,0 +1,14 @@
+{
+  "name": "openai--openai-cookbook",
+  "displayName": "openai-cookbook",
+  "description": "openai-cookbook",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-cookbook",
+  "skills": [
+    {
+      "name": "openai-cookbook",
+      "description": ""
+    }
+  ]
+}
