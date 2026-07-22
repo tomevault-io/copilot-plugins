@@ -1,0 +1,345 @@
+{
+  "name": "mateclaw",
+  "owner": "matevip",
+  "repo": "mateclaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/dspy/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/dspy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/p5js/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/p5js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/docx/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/cron/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/news/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/news/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/plan/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/spike/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/spike/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/sketch/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/sketch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/x_intel/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/x_intel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/pretext/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/pretext/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/outlines/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/outlines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/himalaya/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/himalaya/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/ideation/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/ideation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/guidance/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/humanizer/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/ascii-art/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/ascii-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/pixel-art/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/pixel-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/make_plan/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/make_plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/sql_query/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/sql_query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/design-md/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/design-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/baoyu-comic/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/baoyu-comic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/apple-notes/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/apple-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/blogwatcher/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/blogwatcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/file_reader/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/file_reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/browser_cdp/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/browser_cdp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/test/resources/test-bundles/sample/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/test/resources/test-bundles/sample/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/claude-design/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/claude-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/python-debugpy/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/python-debugpy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/ckjia-shopping/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/ckjia-shopping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/channel_message/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/channel_message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/skill-authoring/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/skill-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/chat_with_agent/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/chat_with_agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/browser_visible/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/browser_visible/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/digital_employee/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/digital_employee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/baoyu-infographic/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/baoyu-infographic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/popular-web-designs/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/popular-web-designs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/architecture-diagram/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/architecture-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/node-inspect-debugger/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/node-inspect-debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/mateclaw_source_index/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/mateclaw_source_index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/steve_jobs_perspective/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/steve_jobs_perspective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/songwriting-and-ai-music/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/songwriting-and-ai-music/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/dingtalk_channel_connect/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/dingtalk_channel_connect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/multi_agent_collaboration/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/multi_agent_collaboration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mateclaw",
+      "path": "mateclaw-server/src/main/resources/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/matevip/mateclaw/tree/main/mateclaw-server/src/main/resources/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/matevip/mateclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:58:10Z"
+}
