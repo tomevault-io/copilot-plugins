@@ -1,0 +1,18 @@
+{
+  "name": "npc-worldwide--npcpy",
+  "displayName": "npcpy",
+  "description": "npcpy",
+  "version": "1.0.0",
+  "author": "NPC-Worldwide",
+  "homepage": "https://github.com/NPC-Worldwide/npcpy",
+  "skills": [
+    {
+      "name": "npcpy",
+      "description": ""
+    },
+    {
+      "name": "npcpy",
+      "description": ""
+    }
+  ]
+}
