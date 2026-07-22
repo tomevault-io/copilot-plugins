@@ -1,0 +1,9 @@
+{
+  "name": "symfony--webpack-encore",
+  "displayName": "webpack-encore",
+  "description": "webpack-encore",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/webpack-encore",
+  "skills": []
+}
