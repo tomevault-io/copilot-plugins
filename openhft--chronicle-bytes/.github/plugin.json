@@ -1,0 +1,9 @@
+{
+  "name": "openhft--chronicle-bytes",
+  "displayName": "Chronicle-Bytes",
+  "description": "Chronicle-Bytes",
+  "version": "1.0.0",
+  "author": "OpenHFT",
+  "homepage": "https://github.com/OpenHFT/Chronicle-Bytes",
+  "skills": []
+}
