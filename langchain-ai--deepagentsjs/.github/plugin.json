@@ -1,0 +1,58 @@
+{
+  "name": "langchain-ai--deepagentsjs",
+  "displayName": "deepagentsjs",
+  "description": "deepagentsjs",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/deepagentsjs",
+  "skills": [
+    {
+      "name": "arxiv-search",
+      "description": ""
+    },
+    {
+      "name": "file-organizer",
+      "description": ""
+    },
+    {
+      "name": "langgraph-docs",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "description": ""
+    }
+  ]
+}
