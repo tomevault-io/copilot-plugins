@@ -1,0 +1,165 @@
+{
+  "name": "quill",
+  "owner": "baizhiheizi",
+  "repo": "quill",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "quill",
+      "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".cursor/skills/test-improver/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.cursor/skills/test-improver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".cursor/skills/perf-improver/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.cursor/skills/perf-improver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".cursor/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.cursor/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".cursor/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.cursor/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".opencode/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.opencode/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".opencode/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.opencode/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".cursor/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.cursor/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".cursor/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.cursor/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".opencode/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.opencode/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".opencode/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.opencode/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".github/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.github/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".github/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.github/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".github/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.github/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quill",
+      "path": ".github/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/baizhiheizi/quill/tree/main/.github/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/baizhiheizi/quill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:53:45Z"
+}
