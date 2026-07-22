@@ -1,0 +1,99 @@
+{
+  "name": "skillshare",
+  "owner": "runkids",
+  "repo": "skillshare",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skillshare",
+      "path": "skills/skillshare",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/skills/skillshare",
+      "description": ""
+    },
+    {
+      "name": "skillshare",
+      "path": "skills/skillshare/SKILL.md",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/skills/skillshare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillshare",
+      "path": ".skillshare/skills/skillshare-release/SKILL.md",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/.skillshare/skills/skillshare-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillshare",
+      "path": ".skillshare/skills/skillshare-changelog/SKILL.md",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/.skillshare/skills/skillshare-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillshare",
+      "path": ".skillshare/skills/skillshare-update-docs/SKILL.md",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/.skillshare/skills/skillshare-update-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillshare",
+      "path": ".skillshare/skills/skillshare-devcontainer/SKILL.md",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/.skillshare/skills/skillshare-devcontainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillshare",
+      "path": ".skillshare/skills/skillshare-codebase-audit/SKILL.md",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/.skillshare/skills/skillshare-codebase-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillshare",
+      "path": ".skillshare/skills/skillshare-ui-website-style/SKILL.md",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/.skillshare/skills/skillshare-ui-website-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skillshare",
+      "path": ".skillshare/skills/skillshare-implement-feature/SKILL.md",
+      "github_url": "https://github.com/runkids/skillshare/tree/main/.skillshare/skills/skillshare-implement-feature/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/runkids/skillshare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:34:13Z"
+}
