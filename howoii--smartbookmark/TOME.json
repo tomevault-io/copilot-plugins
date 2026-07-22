@@ -2,8 +2,8 @@
   "name": "SmartBookmark",
   "owner": "howoii",
   "repo": "SmartBookmark",
-  "description": "\u4e00\u6b3e\u57fa\u4e8e AI \u7684\u667a\u80fd\u4e66\u7b7e\u7ba1\u7406\u63d2\u4ef6",
-  "type": "tome",
+  "description": "",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "SmartBookmark",
-      "path": "skills/docs-maintenance/SKILL.md",
-      "github_url": "https://github.com/howoii/SmartBookmark/tree/main/skills/docs-maintenance/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "SmartBookmark",
-      "path": "skills/chrome-extension-dev/SKILL.md",
-      "github_url": "https://github.com/howoii/SmartBookmark/tree/main/skills/chrome-extension-dev/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/howoii/SmartBookmark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T19:41:51Z"
+  "distributed_at": "2026-07-22T21:54:24Z"
 }
