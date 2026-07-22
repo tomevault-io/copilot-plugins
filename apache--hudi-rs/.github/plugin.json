@@ -1,0 +1,9 @@
+{
+  "name": "apache--hudi-rs",
+  "displayName": "hudi-rs",
+  "description": "hudi-rs",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/hudi-rs",
+  "skills": []
+}
