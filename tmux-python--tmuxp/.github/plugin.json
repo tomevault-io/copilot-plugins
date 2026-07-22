@@ -1,0 +1,14 @@
+{
+  "name": "tmux-python--tmuxp",
+  "displayName": "tmuxp",
+  "description": "tmuxp",
+  "version": "1.0.0",
+  "author": "tmux-python",
+  "homepage": "https://github.com/tmux-python/tmuxp",
+  "skills": [
+    {
+      "name": "tmuxp",
+      "description": ""
+    }
+  ]
+}
