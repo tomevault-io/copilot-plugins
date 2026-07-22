@@ -1,0 +1,14 @@
+{
+  "name": "mybigday--llama-rn",
+  "displayName": "llama.rn",
+  "description": "llama.rn",
+  "version": "1.0.0",
+  "author": "mybigday",
+  "homepage": "https://github.com/mybigday/llama.rn",
+  "skills": [
+    {
+      "name": "llama.rn",
+      "description": ""
+    }
+  ]
+}
