@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "ryoha000",
   "homepage": "https://github.com/ryoha000/launcherg",
-  "skills": []
+  "skills": [
+    {
+      "name": "launcherg",
+      "description": ""
+    },
+    {
+      "name": "launcherg",
+      "description": ""
+    }
+  ]
 }
