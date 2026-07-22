@@ -1,0 +1,477 @@
+{
+  "name": "micro-commerce",
+  "owner": "baotoq",
+  "repo": "micro-commerce",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-design-principles",
+      "path": ".agents/skills/api-design-principles",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "path": ".agents/skills/api-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/api-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-security-best-practices",
+      "path": ".agents/skills/api-security-best-practices",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/api-security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "architecture-decision-records",
+      "path": ".agents/skills/architecture-decision-records",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/architecture-decision-records",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": ".agents/skills/architecture-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "backend-architect",
+      "path": ".agents/skills/backend-architect",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/backend-architect",
+      "description": ""
+    },
+    {
+      "name": "context7-auto-research",
+      "path": ".agents/skills/context7-auto-research",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/context7-auto-research",
+      "description": ""
+    },
+    {
+      "name": "csharp-developer",
+      "path": ".agents/skills/csharp-developer",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/csharp-developer",
+      "description": ""
+    },
+    {
+      "name": "database-architect",
+      "path": ".agents/skills/database-architect",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/database-architect",
+      "description": ""
+    },
+    {
+      "name": "domain-analysis",
+      "path": ".agents/skills/domain-analysis",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/domain-analysis",
+      "description": ""
+    },
+    {
+      "name": "dotnet-architect",
+      "path": ".agents/skills/dotnet-architect",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-architect",
+      "description": ""
+    },
+    {
+      "name": "dotnet-aspire",
+      "path": ".agents/skills/dotnet-aspire",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-aspire",
+      "description": ""
+    },
+    {
+      "name": "dotnet-backend-patterns",
+      "path": ".agents/skills/dotnet-backend-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "dotnet-core-expert",
+      "path": ".agents/skills/dotnet-core-expert",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-core-expert",
+      "description": ""
+    },
+    {
+      "name": "dotnet-ddd",
+      "path": ".agents/skills/dotnet-ddd",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-ddd",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-patterns",
+      "path": ".agents/skills/e2e-testing-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/e2e-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "efcore-patterns",
+      "path": ".agents/skills/efcore-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/efcore-patterns",
+      "description": ""
+    },
+    {
+      "name": "microservices-architect",
+      "path": ".agents/skills/microservices-architect",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/microservices-architect",
+      "description": ""
+    },
+    {
+      "name": "microservices-patterns",
+      "path": ".agents/skills/microservices-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/microservices-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-app-router-patterns",
+      "path": ".agents/skills/nextjs-app-router-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/nextjs-app-router-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-best-practices",
+      "path": ".agents/skills/nextjs-best-practices",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/nextjs-best-practices",
+      "description": ""
+    },
+    {
+      "name": "prompt-lookup",
+      "path": ".agents/skills/prompt-lookup",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/prompt-lookup",
+      "description": ""
+    },
+    {
+      "name": "readme",
+      "path": ".agents/skills/readme",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/readme",
+      "description": ""
+    },
+    {
+      "name": "tailwind-design-system",
+      "path": ".agents/skills/tailwind-design-system",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/tailwind-design-system",
+      "description": ""
+    },
+    {
+      "name": "tailwind-patterns",
+      "path": ".agents/skills/tailwind-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/tailwind-patterns",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": ".agents/skills/test-driven-development",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "path": ".agents/skills/typescript-expert",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".agents/skills/ui-ux-pro-max",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "unit-testing-test-generate",
+      "path": ".agents/skills/unit-testing-test-generate",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/unit-testing-test-generate",
+      "description": ""
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "path": ".agents/skills/vercel-composition-patterns",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/vercel-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": ".agents/skills/web-design-guidelines",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/readme/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/readme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/dotnet-ddd/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-ddd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/react-expert/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/react-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/api-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/api-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/dotnet-aspire/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/argocd-expert/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/argocd-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/prompt-lookup/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/prompt-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/efcore-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/efcore-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/domain-analysis/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/domain-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/dotnet-architect/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/csharp-developer/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/csharp-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/nextjs-developer/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/nextjs-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/tailwind-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/tailwind-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/typescript-expert/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/typescript-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/backend-architect/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/backend-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/database-architect/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/database-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/saga-orchestration/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/saga-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/dotnet-core-expert/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-core-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/kubernetes-architect/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/kubernetes-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/e2e-testing-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/e2e-testing-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/nextjs-best-practices/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/nextjs-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/kubernetes-specialist/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/kubernetes-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/api-design-principles/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/api-design-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/architecture-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/architecture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/microservices-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/microservices-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/context7-auto-research/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/context7-auto-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/tailwind-design-system/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/tailwind-design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/microservices-architect/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/microservices-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/dotnet-backend-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/dotnet-backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/unit-testing-test-generate/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/unit-testing-test-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/nextjs-app-router-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/nextjs-app-router-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/api-security-best-practices/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/api-security-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/argocd-cluster-bootstrapping/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/argocd-cluster-bootstrapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/architecture-decision-records/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/architecture-decision-records/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micro-commerce",
+      "path": ".agents/skills/argocd-cluster-bootstrapping/ArgocdClusterBootstrapping/SKILL.md",
+      "github_url": "https://github.com/baotoq/micro-commerce/tree/main/.agents/skills/argocd-cluster-bootstrapping/ArgocdClusterBootstrapping/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/baotoq/micro-commerce",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T22:34:08Z"
+}
