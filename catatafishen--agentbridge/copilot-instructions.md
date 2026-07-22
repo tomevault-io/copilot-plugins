@@ -1,0 +1,527 @@
+## agentbridge
+
+> This plugin follows two core principles. See [docs/DESIGN-PRINCIPLES.md](docs/DESIGN-PRINCIPLES.md)
+
+
+# Design Principles
+
+This plugin follows two core principles. See [docs/DESIGN-PRINCIPLES.md](docs/DESIGN-PRINCIPLES.md)
+for detailed rationale and examples.
+
+**1. Internally: prefer JetBrains APIs over custom code.**
+IntelliJ already provides OS detection (`SystemInfo`), shell management (`TerminalProjectOptionsProvider`), VCS
+integration (`git4idea`), project model, SDK resolution, UI threading (`ApplicationManager.invokeLater`), and much more.
+Never reimplement what the platform already does — our version will be less robust and may look suspicious to users.
+
+**2. MCP tools: be a bridge, not an inventor.**
+Every MCP tool should wrap an IntelliJ action. If JetBrains provides a feature, proxy it. If JetBrains doesn't provide
+it, decide whether it belongs here at all. Never build custom implementations (raw JDBC, subprocess scanning, etc.) as
+substitutes for IDE-level features. If a feature isn't available in the user's IDE installation, disable the tool
+gracefully — the agent can use a specialist MCP server instead.
+
+# Development Workflow
+
+Each feature or bug fix must be done in its own branch and a PR created when the work is done.
+
+- Branch name: `feat/<short-description>` or `fix/<short-description>` (matching the commit convention)
+- One logical change per branch — do not bundle unrelated changes
+- Create a PR as soon as the branch is ready for review
+- Do not commit directly to `master`
+
+## Do Not Fan Out Branches While Work Is Unmerged
+
+**When an earlier PR from the current session is still unmerged, do not start a new branch for a
+follow-up change. Add follow-up commits to the same branch (or reopen the branch's PR scope) unless
+the human explicitly asks for a separate PR.**
+
+Parallel branches on related code cause real damage in an agent-driven workflow:
+
+- **Merge conflicts** — the same file gets edited on two branches, and one merge overwrites or fights
+  the other's changes.
+- **Duplicate work** — a reviewer's feedback on PR A is fixed independently on branch B, and both
+  branches end up "fixing" the same thing in slightly different ways.
+- **Rebase debt** — the second branch is based on an older master and has to be rebased once the
+  first merges, often with conflicts.
+- **Review fragmentation** — a coherent behaviour (e.g. "the Stop button works properly") gets split
+  across 2–3 PRs that reviewers have to context-switch between.
+
+**The rule:**
+
+1. **Default to extending the current branch.** If the new fix is in the same area of the codebase
+   or logically follows from work you just did in an open PR, add a commit to that branch.
+2. **Ask before branching.** If you genuinely believe a separate branch is warranted (e.g. the fix
+   is fully independent, or the current PR is close to merge and you don't want to expand its
+   scope), state your reasoning and ask the human to confirm before creating the new branch.
+3. **Never open a second branch on the same file** that another open PR of yours already modifies —
+   unless the human has explicitly told you the first PR is finalised.
+4. **When adding to an existing PR's branch,** update the PR title and description to reflect the
+   expanded scope so reviewers know what they are getting.
+
+The bias should be toward *fewer, larger, coherent PRs* rather than *more, smaller, parallel PRs* —
+because agent throughput is fast enough that parallel branches conflict faster than reviewers can
+merge them.
+
+## Build and Test Verification
+
+**After making code changes**, always run `build_project` and verify it succeeds before ending
+the turn. Do not consider the work done if the build is red — fix all errors first.
+
+**Before pushing to a branch that has an open PR** (or before creating a PR), run `run_tests`
+and verify all unit tests pass. A failing test suite blocks review; fix failures before pushing.
+
+## Async CI Pattern
+
+CI takes 3-5 minutes after each push or rebase. Do not wait for it synchronously — check
+`gh pr checks <number>` between other tasks. A good cadence: push a branch, work on something else, come back to verify
+once CI has had time to finish.
+
+If CI is failing: `gh pr checks <number>` to see which check failed, then
+`gh run view <run-id> --log-failed` for details.
+
+## Handling PR Review Comments
+
+When a PR has review comments, for **each comment thread**:
+
+1. **Address the concern** — fix the code, or decide not to fix it (with justification).
+2. **Reply to the thread** explaining what was done (or why it was intentionally left as-is):
+   ```
+   gh api repos/catatafishen/agentbridge/pulls/COMMENTS/COMMENT_ID/replies \
+     -f body="Fixed: description of what was changed and where."
+   ```
+3. **Mark the thread as resolved** via the GitHub GraphQL API:
+   ```
+   # Step 1 — get thread node IDs
+   gh api graphql -f query='{
+     repository(owner:"catatafishen", name:"agentbridge") {
+       pullRequest(number:N) {
+         reviewThreads(first:50) { nodes { id isResolved } }
+       }
+     }
+   }' --jq '.data.repository.pullRequest.reviewThreads.nodes[]'
+
+   # Step 2 — resolve each unresolved thread
+   gh api graphql -f query='mutation {
+     resolveReviewThread(input: {threadId: "PRRT_..."}) {
+       thread { id isResolved }
+     }
+   }'
+   ```
+
+**Never leave threads in the "pending" state** after replying. The reply explains the decision; the
+resolve signal tells reviewers the thread is closed. Both are required.
+
+# AI Identity and Transparency
+
+When AI agents author or open GitHub content, the identity must be transparent — reviewers and auditors should be able
+to tell at a glance whether work was done by a human or an agent.
+
+**Commit author** — Every commit authored by an AI agent must use the agent's non-personal identity, not a human's
+personal email. The commit hook enforces this automatically via `enforce-commit-author.sh`:
+`github-copilot-developer <github-copilot-developer@users.noreply.github.com>` for Copilot CLI sessions. Do not amend
+commits to substitute a human email for AI-authored changes.
+
+**PR opener** — Pull requests created by agents must be opened using the bot identity (e.g. `agentbridge-fixer[bot]`),
+not the repository owner's personal account. Use the `GH_TOKEN` injection hook (`enforce-gh-bot-identity.js`) which
+replaces the token with a short-lived bot installation token before any `gh pr create` or `gh pr comment` call. If the
+bot token is unavailable, the hook blocks the call and surfaces an error rather than silently falling back to the owner
+identity.
+
+**No merge commits** — Branches must be rebased onto master before merging, not merged with a merge commit. Merge
+commits indicate a stale base and pollute the linear history.
+
+**Why this matters** — Mixed authorship (AI commit under human name, or PR opened as a human by an agent) is misleading
+to reviewers. The git log and PR timeline should clearly show when work was automated. The `author` and `committer`
+fields in `git log`, and the PR "opened by" field, are the signals reviewers rely on for accountability.
+
+# Use Git Blame Before Changing Explicit Settings
+
+Before removing or reversing something that was explicitly set — a `.gitignore` rule, a disabled flag, a commented-out
+block, a deleted file — **run `git blame` first** to find the commit that introduced it, then read that commit message.
+
+Explicit settings are rarely accidental. Common patterns that look wrong but aren't:
+
+- A file in `.gitignore` → was intentionally untracked (binary blob, machine-specific, secret)
+- A feature flag set to `false` → was disabled for a known reason (instability, incompatibility)
+- A commented-out block → was temporarily disabled with intent to revisit
+- A file deleted from the repo → was intentionally removed (replaced by a better mechanism)
+
+**The rule:** if `git blame` shows the change was made deliberately (descriptive commit message, not a typo fix),
+understand *why* before deciding to undo it. The fix may need to go elsewhere — for example, updating a Docker build
+script rather than re-adding a binary the CI was designed to avoid.
+
+# Bug Fixing: Root Cause vs Symptom
+
+When fixing a bug, **always fix the root cause, not just the symptom**.
+
+- **Investigate before patching.** Trace the problem to its origin. A quick fix that masks the real issue creates
+  technical debt and hides future failures.
+- **Never add silent fallbacks that hide errors.** If a value is unexpectedly missing or wrong, surface the problem
+  visibly — throw an exception, show `<unknown>`, log a warning. Never silently substitute a plausible-looking default
+  (e.g., using `new Date()` when a timestamp is missing). Silent fallbacks make bugs invisible and lie to the user.
+- **If you must fix a symptom**, document it thoroughly. Add a code comment explaining:
+    1. What the symptom is
+    2. Why the root cause cannot be fixed right now
+    3. What the root cause is (so the next person can find it)
+- **Prefer visible errors over invisible wrong behavior.** A crash or error message that leads to a fix is always better
+  than silently wrong output that nobody notices.
+
+# Unexpected Tool Behaviour
+
+**File an issue the first time a tool surprises you. Do not silently work around it.**
+
+If a tool — `agentbridge-*` MCP tool, IDE inspection, build command, anything you call —
+produces an error, the wrong output, missing parameters, contradicts its own documentation,
+or simply doesn't work as you expect, **stop and file a GitHub issue before continuing**.
+This is non-negotiable. The plugin only improves when the human is not watching if agents
+report what they see. Workarounds that hide problems make the plugin worse over time.
+
+Triggers (file an issue if *any* of these happen):
+
+- A tool returns an error message that doesn't match its declared behaviour.
+- A tool returns empty / null / `<unknown>` where data is clearly expected.
+- A tool's response shape doesn't match its documentation or schema.
+- You have to retry the same call with different arguments to make it work.
+- You have to fall back to a less appropriate tool (e.g. shell command for something an MCP tool should do).
+- A tool's description is ambiguous, misleading, or makes you guess.
+
+Steps:
+
+1. **File an issue on `catatafishen/agentbridge` immediately.**
+   Use the bot identity (`agentbridge-run_command "gh issue create ..."`).
+    - Title: `<tool_name>: <one-line description of the surprise>`
+    - Labels: **`triage: unconfirmed-tool-problem`** (yellow) — flags it for human review.
+    - Body must include:
+        - The exact tool name and the call arguments you used.
+        - What you expected the tool to do (cite the description / schema if relevant).
+        - What actually happened (paste the response, error, or describe the missing data).
+        - The workaround you applied (if any), so future readers see how it was masked.
+        - Reproduction steps if you can isolate them.
+2. **Then look at the tool's source** under `plugin-core/src/main/java/.../psi/tools/` to see
+   if the description, validation, or response shape can be fixed in the same PR.
+3. **Only then apply a workaround and continue the user's task.** The workaround must not
+   replace the issue — both happen.
+
+Issues with `triage: unconfirmed-tool-problem` are periodically reviewed. Confirmed root
+causes get the label removed and a fix; non-bugs get closed with an explanation. Either
+way, the team learns something they would not have learned without the report. **Do not
+skip this step because "the workaround is easy" or "it's probably not a real bug"** —
+that's exactly the call that human triage should make, not you.
+
+# Plugin Development Best Practices for Performance
+
+If developing a plugin, adhere to these guidelines to avoid performance degradation:
+
+- **Avoid Expensive PSI Operations:** Avoid `getText()` and `getTextRange()` on large files, as they traverse the entire
+  tree. Use `textMatches()` or `textLength` instead.
+- **Background Tasks:** All heavy processing (networking, file I/O, heavy computation) must be offloaded to background
+  threads. Never hold the UI thread.
+- **Cache Information:** Store PSI data in `UserData` or use custom indexes to avoid recomputing data.
+
+# MCP Tool Development Best Practices
+
+When adding or modifying MCP tools (in `psi/tools/`), follow these conventions derived from the
+[MCP specification](https://modelcontextprotocol.io/specification/2025-11-25/server/tools) and
+[community best practices](https://modelcontextprotocol.info/docs/tutorials/writing-effective-tools/).
+
+## Tool Descriptions
+
+Descriptions are the primary way agents decide which tool to use. Write them as if briefing a new team member:
+
+- **What it does** — the core action in one sentence
+- **When to use it** — differentiate from similar tools (e.g., `search_text` vs `search_symbols` vs
+  `find_references`)
+- **What it returns** — describe the response format so agents know what to expect
+- **Key parameters** — mention important parameters, defaults, and modes
+- **Caveats** — anything that could surprise (e.g., "does NOT update references", "UI action only")
+
+Bad: `"Delete a file"` \
+Good: `"Delete a file from the project. This is permanent and cannot be undone with the undo tool."`
+
+## Response Enrichment
+
+Tool responses should include enough context that the agent doesn't need follow-up calls to understand the state:
+
+- **Git tools**: Append branch context (current branch, tracking, ahead/behind, staged/modified counts)
+  using `getBranchContext()` or `getBranchSummary()` from `GitTool` base class
+- **Write tools**: Append git status annotation (tracked/untracked/staged) using `FileTool.getGitFileStatus()`
+- **Pre-validation**: Check preconditions before acting (e.g., `git_commit` checks if anything is staged)
+  and return actionable error messages
+- **Warnings**: Flag risky operations (e.g., committing to main/master, push divergence)
+
+## Auto-Fetch for Remote Operations
+
+Git tools that reference remote branches (`origin/*`, `remotes/*`) should auto-fetch before operating:
+
+- Use `autoFetchForRemoteRef(ref)` from `GitTool` base — throttled to once per 60 seconds
+- This prevents stale-ref failures in merge, rebase, diff, and push operations
+- Always include a note in the response when a fetch was performed
+
+## Error Handling
+
+- Return errors starting with `"Error: "` or `"Error (exit N): "` — the MCP protocol handler detects these prefixes to
+  set `isError: true` in the MCP response
+- Make error messages actionable: tell the agent what to do to fix it, not just what went wrong
+- Bad: `"Error: nothing to commit"` \
+  Good: `"Error: Nothing staged for commit. Use git_stage to stage files first, or pass all: true to auto-stage."`
+
+## MCP Annotations
+
+Set annotation hints correctly in the tool class:
+
+- `isReadOnly()` — true if the tool never modifies project state
+- `isDestructive()` — true if changes are hard to undo (delete, reset --hard)
+- `isIdempotent()` — true if calling with same args produces same result (defaults to `isReadOnly()`). Override to
+  `true` for write tools that are idempotent (e.g., `write_file`, `format_code`, `set_theme`)
+- `openWorldHint` — true if the tool accesses external resources (network, filesystem outside project)
+
+## Token Efficiency
+
+- Don't return more data than the agent needs — use pagination, filtering, and truncation
+- When returning large outputs, prefer summaries with details available via follow-up parameters
+- The `truncateIfNeeded()` in `McpProtocolHandler` provides a safety net, but tools should self-limit
+
+# Agent Definition Formats
+
+Different ACP agents support custom agent definitions with tool filtering, but use different formats.
+
+## Copilot CLI
+
+**Location**: `~/.copilot/agents/*.md`  
+**Format**: YAML frontmatter with `tools:` array
+
+```yaml
+---
+name: intellij-explore
+description: "Fast codebase explorer using IntelliJ code intelligence"
+model: claude-haiku-4.5
+tools:
+  - agentbridge/read_file
+  - agentbridge/search_text
+  - agentbridge/search_symbols
+  - agentbridge/get_file_outline
+  - agentbridge/list_project_files
+---
+
+System prompt goes here...
+```
+
+**Bundled Agents**:
+
+- `intellij-explore.md` — fast codebase exploration (read-only MCP tools)
+- `ide-task.md` — task execution with IntelliJ tools
+
+**Status**: ✅ Working (agent definitions loaded), but built-in tool filtering is broken
+([bug #556](https://github.com/github/copilot-cli/issues/556))
+
+## OpenCode
+
+**Location**: `.opencode/agent/*.md` or JSON config via `OPENCODE_CONFIG_CONTENT`  
+**Format**: YAML frontmatter with `permission:` object (recommended) or deprecated `tools:` object
+
+### Recommended Format (permission-based):
+
+```yaml
+---
+name: explore
+description: "Fast codebase explorer"
+mode: subagent
+model: claude-haiku-4.5
+permission:
+  "*": deny              # Deny all tools by default
+  grep: allow
+  glob: allow
+  list: allow
+  read: allow
+---
+
+System prompt goes here...
+```
+
+### Deprecated Format (tools object):
+
+```yaml
+---
+name: triage
+mode: primary
+model: opencode/minimax-m2.5
+tools:
+  "*": false              # Deny all tools (wildcard)
+  "github-triage": true   # Allow specific tool
+---
+
+System prompt goes here...
+```
+
+**Key Differences from Copilot**:
+
+- Uses **object format** (`{"tool": true/false}`) instead of array
+- Supports **wildcard deny** (`"*": false` or `"*": "deny"`)
+- Prefers `permission:` field over deprecated `tools:` field
+- Permission values: `"allow"`, `"deny"`, `"ask"`
+
+**Bundled Agents**:
+
+- `ide-general` — general-purpose agent with most IntelliJ tools enabled (default)
+- `intellij-explore` — read-only exploration agent with code intelligence
+
+Injected via `OPENCODE_CONFIG_CONTENT` JSON config (not `.md` files).
+
+**Status**: ✅ Working (permission config + agent definitions fully supported)
+
+## Junie CLI
+
+**Location**: Not supported  
+**Format**: N/A
+
+**Status**: ❌ No agent definition support. No built-in tool filtering. All tools auto-execute without permission
+requests.
+
+**Workaround**: Prompt engineering via `session/message` startup instructions.
+See [JUNIE-TOOL-WORKAROUND.md](docs/JUNIE-TOOL-WORKAROUND.md).
+
+## Kiro CLI
+
+**Location**: `.agent-work/.kiro/agents/*.json`  
+**Format**: JSON configuration with `tools` and `allowedTools` arrays
+
+```json
+{
+  "name": "intellij-agent",
+  "tools": [
+    "web_search",
+    "@agentbridge/*"
+  ],
+  "allowedTools": [
+    "@agentbridge/read_file",
+    "web_search"
+  ]
+}
+```
+
+**Bundled Agents**:
+
+- `intellij-agent` — created dynamically by the plugin
+
+**Status**: ⚠️ **Experimental** (agent definitions supported via `allowedTools`, but hangs on non-allowed tool prompts)
+
+## Hermes Agent
+
+**Location**: `~/.hermes/skills/*` (skills, not agent definitions)
+**Format**: N/A — Hermes does not use ACP-side agent-definition files for tool filtering. Tool gating happens through
+Hermes's own toolset/skill system in `~/.hermes/config.yaml`.
+
+**Bundled Agents**: 0 (Hermes integrates as a single agent; sub-agents are spawned via its own `delegate_task` tool, not
+ACP-level agent definitions)
+
+**MCP Tool Prefix**: `mcp_agentbridge_` (Hermes names MCP tools as `mcp_<server>_<tool>`)
+
+**Status**: ✅ Working (HTTP MCP server injected via `session/new`; requires `hermes acp --accept-hooks` because the
+plugin launches Hermes without a TTY for hook prompts)
+
+## Summary Table
+
+| Agent    | MCP Tool Prefix    | Agent Definition Support         | Tool Filtering Format                                      | Permission Requests    | Bundled Agents                      | Status                     |
+|----------|--------------------|----------------------------------|------------------------------------------------------------|------------------------|-------------------------------------|----------------------------|
+| Copilot  | `agentbridge-`     | ✅ `~/.copilot/agents/*.md`       | YAML array: `tools: [tool1, tool2]`                        | ✅ For write tools      | 2 (intellij-explore, intellij-task) | Working (filtering broken) |
+| OpenCode | `agentbridge_`     | ✅ `.opencode/agent/*.md` or JSON | YAML object: `permission: {"*": "deny", "tool1": "allow"}` | ✅ Yes                  | 2 (ide-general, intellij-explore)   | ✅ Working                  |
+| Junie    | `agentbridge-`     | ❌ No support                     | N/A                                                        | ❌ No (auto-executes)   | 0                                   | Prompt workaround only     |
+| Kiro     | `@agentbridge/`    | ✅ `.agent-work/.kiro/agents/`    | JSON: `allowedTools: ["tool1"]`                            | ⚠️ Hangs on prompts    | 1 (intellij-agent)                  | ⚠️ Experimental (hangs)    |
+| Hermes   | `mcp_agentbridge_` | ❌ No ACP-side definitions        | N/A (gating via `~/.hermes/config.yaml` toolsets/skills)   | ✅ Via `--accept-hooks` | 0 (sub-agents via `delegate_task`)  | ✅ Working                  |
+
+See [.agent-work/OPENCODE-AGENT-FINDINGS.md](.agent-work/OPENCODE-AGENT-FINDINGS.md) for detailed OpenCode investigation
+and [.agent-work/KIRO-AGENT-FINDINGS.md](.agent-work/KIRO-AGENT-FINDINGS.md) for Kiro findings.
+
+# UI / Logic Separation
+
+## Principle
+
+UI classes (Swing panels, JCEF wrappers, IntelliJ Configurable implementations) must not contain testable business
+logic. If a method has **no dependency on Swing, JCEF, or IntelliJ UI APIs**, it belongs in a standalone class that can
+be unit-tested in isolation.
+
+## What Qualifies as Extractable Logic
+
+Any pure function or stateless computation embedded in a UI class:
+
+| Logic Type           | Example                                        | Extract To                                   |
+|----------------------|------------------------------------------------|----------------------------------------------|
+| Data serialization   | EntryData → JSON map for JS bridge             | `ChatEntrySerializer`                        |
+| String formatting    | Billing usage → display text, time → "2m 15s"  | `BillingCalculator`, `TimerDisplayFormatter` |
+| HTML construction    | Building bubble HTML with ORC placeholders     | `ChatBubbleBuilder`                          |
+| JSON parsing         | Extracting file path from tool arguments       | `ToolCallArgParser`                          |
+| Error classification | Cause-chain analysis → recoverability decision | `PromptErrorClassifier`                      |
+| Command construction | OS detection → terminal command args           | `AuthCommandBuilder`                         |
+| Date arithmetic      | Billing cycle start/end, projection            | `BillingCalculator`                          |
+| State normalization  | Raw chip status → canonical enum value         | `ChatEntrySerializer`                        |
+| File metadata        | Timestamp parsing, size formatting             | `ConversationFileUtils`                      |
+
+## How to Extract
+
+1. **Identify pure methods** — methods whose inputs and outputs don't reference `JComponent`,
+   `JBColor`, `ConsoleView`, `JPanel`, `JCEF*`, `invokeLater`, etc.
+2. **Create a dedicated class** in the same package (or a `util` sub-package if reused across packages). Name it by
+   responsibility: `XxxFormatter`, `XxxCalculator`, `XxxParser`, `XxxBuilder`.
+3. **Make methods static** where possible (pure functions). If they need shared state, use a lightweight data class as
+   input rather than passing the UI panel.
+4. **Delegate from the UI class** — the UI class calls the extracted method and applies the result to its components.
+   The UI method becomes a thin wrapper:
+   ```java
+   // Before (in BillingManager.kt)
+   private fun refreshUsageDisplay() {
+       val text = /* 30 lines of formatting logic */
+       usageLabel.text = text
+   }
+   
+   // After
+   private fun refreshUsageDisplay() {
+       usageLabel.text = BillingCalculator.formatUsageDisplay(stats, mode)
+   }
+   ```
+5. **Write unit tests** for the extracted class — this is the payoff.
+
+## Exemplary Patterns Already in the Codebase
+
+These files demonstrate good separation and should be used as reference:
+
+- **`MessageFormatter.kt`** — pure formatting utilities (`formatTimestamp`, `escapeHtml`, `escapeJs`). Zero UI
+  dependencies. 97 lines of testable code.
+- **`MarkdownRenderer.kt`** — pure Markdown→HTML conversion. External dependencies (file resolution, git detection)
+  injected via lambda parameters. Exemplary testability design.
+- **`ConversationSerializer.kt`** — pure JSON parsing for conversation data. No UI imports.
+- **`ChatDataModel.kt`** — pure data classes and lookup tables. No behavior to test, but clean separation of data from
+  presentation.
+
+## Anti-Patterns to Avoid
+
+- **Don't create god utility classes** (e.g., `ChatUtils` with 50 unrelated methods). Each extracted class should have a
+  single, cohesive responsibility.
+- **Don't pass UI components as parameters** to extracted methods. Pass the data they contain instead.
+- **Don't extract trivially** — a one-line format call inside a UI method isn't worth extracting unless it's reused or
+  complex enough to warrant a test.
+- **Don't add section-comment banners** to organize logic within a UI class. If you need section headers, the file is
+  too large — extract instead.
+
+## Refactoring Rule: Tests Follow Interfaces
+
+When refactoring code into new classes with public interfaces (callbacks, companion methods, utility objects), **always
+add corresponding unit tests** for the extracted logic. The whole point of extraction is testability — an extracted
+class
+without tests is only half the job.
+
+- **Extract pure decision logic** into `companion object` or standalone `object` classes (e.g., `XxxLogic`)
+- **Test the pure functions directly** — no IDE fixtures needed for decision logic
+- **Cover boundary conditions** — thresholds, empty inputs, precedence rules, edge cases
+- **Name tests by behavior** — `"pending ask-user takes precedence over is sending"` not `"test case 3"`
+
+This rule applies any time you:
+
+1. Extract a class from a UI component
+2. Create a new `Callbacks` or `Host` interface
+3. Move decision logic into a companion/utility object
+4. Create a new service with testable business logic
+
+If the extracted code has no testable pure logic (e.g., it's purely UI wiring), document why in the PR description.
+
+---
+> Source: [catatafishen/agentbridge](https://github.com/catatafishen/agentbridge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
