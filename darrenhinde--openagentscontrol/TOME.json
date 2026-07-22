@@ -1,0 +1,147 @@
+{
+  "name": "OpenAgentsControl",
+  "owner": "darrenhinde",
+  "repo": "OpenAgentsControl",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenAgentsControl",
+      "path": ".opencode/skills/context7/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/.opencode/skills/context7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": ".opencode/skills/context-manager/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/.opencode/skills/context-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": ".opencode/skills/task-management/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/.opencode/skills/task-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": ".opencode/skills/smart-router-skill/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/.opencode/skills/smart-router-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/debugger/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/using-oac/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/using-oac/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": ".opencode/skill/project-orchestration/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/.opencode/skill/project-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/oac-approach/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/oac-approach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/context-setup/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/context-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/code-execution/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/code-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/task-breakdown/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/task-breakdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/test-generation/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/test-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/external-research/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/external-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/context-discovery/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/context-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/parallel-execution/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/parallel-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenAgentsControl",
+      "path": "plugins/claude-code/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/darrenhinde/OpenAgentsControl/tree/main/plugins/claude-code/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/darrenhinde/OpenAgentsControl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:51:00Z"
+}
