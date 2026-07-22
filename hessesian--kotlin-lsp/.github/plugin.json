@@ -1,0 +1,14 @@
+{
+  "name": "hessesian--kotlin-lsp",
+  "displayName": "kotlin-lsp",
+  "description": "Fast, low-memory LSP server for Kotlin and Java, written in Rust",
+  "version": "1.0.0",
+  "author": "Hessesian",
+  "homepage": "https://github.com/Hessesian/kotlin-lsp",
+  "skills": [
+    {
+      "name": "kotlin-lsp",
+      "description": ""
+    }
+  ]
+}
