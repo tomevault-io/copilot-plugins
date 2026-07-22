@@ -1,0 +1,87 @@
+{
+  "name": "openstack-resource-controller",
+  "owner": "k-orc",
+  "repo": "openstack-resource-controller",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "testing",
+      "path": ".agents/skills/testing",
+      "github_url": "https://github.com/k-orc/openstack-resource-controller/tree/main/.agents/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "path": ".agents/skills/testing/SKILL.md",
+      "github_url": "https://github.com/k-orc/openstack-resource-controller/tree/main/.agents/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "path": ".agents/skills/proposal/SKILL.md",
+      "github_url": "https://github.com/k-orc/openstack-resource-controller/tree/main/.agents/skills/proposal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "path": ".agents/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/k-orc/openstack-resource-controller/tree/main/.agents/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "path": ".agents/skills/new-controller/SKILL.md",
+      "github_url": "https://github.com/k-orc/openstack-resource-controller/tree/main/.agents/skills/new-controller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "path": ".agents/skills/add-dependency/SKILL.md",
+      "github_url": "https://github.com/k-orc/openstack-resource-controller/tree/main/.agents/skills/add-dependency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openstack-resource-controller",
+      "path": ".agents/skills/update-controller/SKILL.md",
+      "github_url": "https://github.com/k-orc/openstack-resource-controller/tree/main/.agents/skills/update-controller/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/k-orc/openstack-resource-controller",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:51:41Z"
+}
