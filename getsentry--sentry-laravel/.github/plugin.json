@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-laravel",
+  "displayName": "sentry-laravel",
+  "description": "sentry-laravel",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-laravel",
+  "skills": []
+}
