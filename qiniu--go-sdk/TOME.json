@@ -4,7 +4,7 @@
   "repo": "go-sdk",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/qiniu/go-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T02:21:02Z"
+  "distributed_at": "2026-07-22T23:13:18Z"
 }
