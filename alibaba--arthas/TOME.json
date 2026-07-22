@@ -1,0 +1,69 @@
+{
+  "name": "arthas",
+  "owner": "alibaba",
+  "repo": "arthas",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arthas",
+      "path": "skills/SKILL.md",
+      "github_url": "https://github.com/alibaba/arthas/tree/main/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arthas",
+      "path": "skills/cpu-high/SKILL.md",
+      "github_url": "https://github.com/alibaba/arthas/tree/main/skills/cpu-high/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arthas",
+      "path": "skills/spring-context/SKILL.md",
+      "github_url": "https://github.com/alibaba/arthas/tree/main/skills/spring-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arthas",
+      "path": "skills/eagleeye-traceid/SKILL.md",
+      "github_url": "https://github.com/alibaba/arthas/tree/main/skills/eagleeye-traceid/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alibaba/arthas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:10:31Z"
+}
