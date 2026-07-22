@@ -1,0 +1,9 @@
+{
+  "name": "cheburum--qwen-image-lora-trainer",
+  "displayName": "qwen_image_lora_trainer",
+  "description": "Test assignment for Playrix",
+  "version": "1.0.0",
+  "author": "Cheburum",
+  "homepage": "https://github.com/Cheburum/qwen_image_lora_trainer",
+  "skills": []
+}
