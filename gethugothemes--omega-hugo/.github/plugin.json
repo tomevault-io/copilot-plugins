@@ -1,0 +1,14 @@
+{
+  "name": "gethugothemes--omega-hugo",
+  "displayName": "omega-hugo",
+  "description": "omega-hugo",
+  "version": "1.0.0",
+  "author": "gethugothemes",
+  "homepage": "https://github.com/gethugothemes/omega-hugo",
+  "skills": [
+    {
+      "name": "omega-hugo",
+      "description": ""
+    }
+  ]
+}
