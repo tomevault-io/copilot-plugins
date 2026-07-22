@@ -1,0 +1,111 @@
+{
+  "name": "spice",
+  "owner": "spicelang",
+  "repo": "spice",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-run/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-dump/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-dump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-test/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-build/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-add-test/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-add-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-debugging/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-profiling/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-contribute/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-contribute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-diagnostics/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-architecture/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spice",
+      "path": ".claude/skills/spice-language-feature/SKILL.md",
+      "github_url": "https://github.com/spicelang/spice/tree/main/.claude/skills/spice-language-feature/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/spicelang/spice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:28:51Z"
+}
