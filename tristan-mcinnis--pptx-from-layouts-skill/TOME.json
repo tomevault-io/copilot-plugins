@@ -4,7 +4,7 @@
   "repo": "pptx-from-layouts-skill",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,75 @@
       "path": "alternatives/python-pptx",
       "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/alternatives/python-pptx",
       "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": "alternatives/python-pptx/skill.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/alternatives/python-pptx/skill.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": "alternatives/k-dense-pptx/skill.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/alternatives/k-dense-pptx/skill.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": "alternatives/pptx-jjuidev/skill.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/alternatives/pptx-jjuidev/skill.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": "alternatives/pptx-samhvw8/skill.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/alternatives/pptx-samhvw8/skill.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": ".claude/skills/pptx-author/SKILL.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/.claude/skills/pptx-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": ".claude/skills/pptx-profile/SKILL.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/.claude/skills/pptx-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": "alternatives/anthropics-pptx/skill.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/alternatives/anthropics-pptx/skill.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": ".claude/skills/pptx-from-layouts/SKILL.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/.claude/skills/pptx-from-layouts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": "alternatives/powerpoint-igorwarzocha/skill.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/alternatives/powerpoint-igorwarzocha/skill.md",
+      "description": ""
+    },
+    {
+      "name": "pptx-from-layouts-skill",
+      "path": "alternatives/elite-powerpoint-designer/skill.md",
+      "github_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill/tree/main/alternatives/elite-powerpoint-designer/skill.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/tristan-mcinnis/pptx-from-layouts-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T14:30:31Z"
+  "distributed_at": "2026-07-22T22:40:46Z"
 }
