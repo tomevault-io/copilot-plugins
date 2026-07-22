@@ -1,0 +1,129 @@
+{
+  "name": "CausalPy",
+  "owner": "pymc-labs",
+  "repo": "CausalPy",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "python-environment",
+      "path": ".github/skills/python-environment",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.github/skills/python-environment",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": ".agents/skills/pr-to-green/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.agents/skills/pr-to-green/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": ".agents/skills/pr-workflows/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.agents/skills/pr-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": ".agents/skills/github-issues/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.agents/skills/github-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": "causalpy/skills/causal-detective/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/causalpy/skills/causal-detective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": "causalpy/skills/example-datasets/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/causalpy/skills/example-datasets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": ".agents/skills/python-environment/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.agents/skills/python-environment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": ".agents/skills/working-with-marimo/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.agents/skills/working-with-marimo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": ".agents/skills/feature-exploration/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.agents/skills/feature-exploration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": ".agents/skills/research-and-planning/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/.agents/skills/research-and-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": "causalpy/skills/running-placebo-analysis/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/causalpy/skills/running-placebo-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": "causalpy/skills/choosing-causalpy-methods/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/causalpy/skills/choosing-causalpy-methods/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CausalPy",
+      "path": "causalpy/skills/running-causalpy-experiments/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/CausalPy/tree/main/causalpy/skills/running-causalpy-experiments/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pymc-labs/CausalPy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:46:29Z"
+}
