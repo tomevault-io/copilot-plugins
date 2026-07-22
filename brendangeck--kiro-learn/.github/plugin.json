@@ -1,0 +1,14 @@
+{
+  "name": "brendangeck--kiro-learn",
+  "displayName": "kiro-learn",
+  "description": "kiro-learn",
+  "version": "1.0.0",
+  "author": "brendangeck",
+  "homepage": "https://github.com/brendangeck/kiro-learn",
+  "skills": [
+    {
+      "name": "kiro-learn",
+      "description": ""
+    }
+  ]
+}
