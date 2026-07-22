@@ -4,7 +4,7 @@
   "repo": "S3Mock",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/adobe/S3Mock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T02:24:19Z"
+  "distributed_at": "2026-07-22T23:14:48Z"
 }
