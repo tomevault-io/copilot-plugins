@@ -1,0 +1,14 @@
+{
+  "name": "gethugothemes--techfeed-hugo",
+  "displayName": "techfeed-hugo",
+  "description": "techfeed-hugo",
+  "version": "1.0.0",
+  "author": "gethugothemes",
+  "homepage": "https://github.com/gethugothemes/techfeed-hugo",
+  "skills": [
+    {
+      "name": "techfeed-hugo",
+      "description": ""
+    }
+  ]
+}
