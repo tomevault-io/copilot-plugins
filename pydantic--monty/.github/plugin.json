@@ -1,0 +1,34 @@
+{
+  "name": "pydantic--monty",
+  "displayName": "monty",
+  "description": "monty",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/monty",
+  "skills": [
+    {
+      "name": "coverage",
+      "description": ""
+    },
+    {
+      "name": "fastmod",
+      "description": ""
+    },
+    {
+      "name": "python-playground",
+      "description": ""
+    },
+    {
+      "name": "monty",
+      "description": ""
+    },
+    {
+      "name": "monty",
+      "description": ""
+    },
+    {
+      "name": "monty",
+      "description": ""
+    }
+  ]
+}
