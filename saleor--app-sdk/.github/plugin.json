@@ -1,0 +1,14 @@
+{
+  "name": "saleor--app-sdk",
+  "displayName": "app-sdk",
+  "description": "app-sdk",
+  "version": "1.0.0",
+  "author": "saleor",
+  "homepage": "https://github.com/saleor/app-sdk",
+  "skills": [
+    {
+      "name": "app-sdk",
+      "description": ""
+    }
+  ]
+}
