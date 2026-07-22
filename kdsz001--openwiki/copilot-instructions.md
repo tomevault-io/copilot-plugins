@@ -30,7 +30,7 @@
 
 User is non-technical and doesn't maintain the `release-notes/` folder
 or run any release commands manually. When user says "发版", "发 release",
-"打 tag", "发个新版本", or similar, Claude owns the full release flow.
+"打 tag", "发个新版本", or similar, Codex owns the full release flow.
 **Read `release-notes/README.md` first** — it has the step-by-step
 checklist (pick version number, summarize commits into user-facing
 bullets, create `release-notes/vX.Y.Z.md` from TEMPLATE.md, bump the
@@ -76,4 +76,4 @@ Key routing rules:
 
 ---
 > Source: [kdsz001/OpenWiki](https://github.com/kdsz001/OpenWiki) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
