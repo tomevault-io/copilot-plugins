@@ -1,0 +1,14 @@
+{
+  "name": "sapiensanatis--dawnshard",
+  "displayName": "Dawnshard",
+  "description": "Dawnshard",
+  "version": "1.0.0",
+  "author": "SapiensAnatis",
+  "homepage": "https://github.com/SapiensAnatis/Dawnshard",
+  "skills": [
+    {
+      "name": "Dawnshard",
+      "description": ""
+    }
+  ]
+}
