@@ -1,0 +1,75 @@
+{
+  "name": "mondo",
+  "owner": "monarch-initiative",
+  "repo": "mondo",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analyse-issue",
+      "path": ".claude/skills/analyse-issue",
+      "github_url": "https://github.com/monarch-initiative/mondo/tree/main/.claude/skills/analyse-issue",
+      "description": ""
+    },
+    {
+      "name": "mondo",
+      "path": ".claude/skills/odk/SKILL.md",
+      "github_url": "https://github.com/monarch-initiative/mondo/tree/main/.claude/skills/odk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mondo",
+      "path": ".claude/skills/merge-terms/SKILL.md",
+      "github_url": "https://github.com/monarch-initiative/mondo/tree/main/.claude/skills/merge-terms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mondo",
+      "path": ".claude/skills/analyse-issue/SKILL.md",
+      "github_url": "https://github.com/monarch-initiative/mondo/tree/main/.claude/skills/analyse-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mondo",
+      "path": ".claude/skills/release-announcement/SKILL.md",
+      "github_url": "https://github.com/monarch-initiative/mondo/tree/main/.claude/skills/release-announcement/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/monarch-initiative/mondo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T22:43:47Z"
+}
