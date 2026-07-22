@@ -1,0 +1,51 @@
+{
+  "name": "json_repair",
+  "owner": "mangiucugna",
+  "repo": "json_repair",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "json_repair",
+      "path": ".agents/skills/docs-demo-local-test/SKILL.md",
+      "github_url": "https://github.com/mangiucugna/json_repair/tree/main/.agents/skills/docs-demo-local-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mangiucugna/json_repair",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:44:20Z"
+}
