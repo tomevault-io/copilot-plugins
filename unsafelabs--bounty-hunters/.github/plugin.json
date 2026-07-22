@@ -1,0 +1,14 @@
+{
+  "name": "unsafelabs--bounty-hunters",
+  "displayName": "Bounty-Hunters",
+  "description": "Bounty-Hunters",
+  "version": "1.0.0",
+  "author": "UnsafeLabs",
+  "homepage": "https://github.com/UnsafeLabs/Bounty-Hunters",
+  "skills": [
+    {
+      "name": "Bounty-Hunters",
+      "description": ""
+    }
+  ]
+}
