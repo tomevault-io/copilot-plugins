@@ -1,0 +1,147 @@
+{
+  "name": "spark-web",
+  "owner": "leboncoin",
+  "repo": "spark-web",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "check-accessibility",
+      "path": ".cursor/skills/check-accessibility",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/check-accessibility",
+      "description": ""
+    },
+    {
+      "name": "create-component",
+      "path": ".cursor/skills/create-component",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/create-component",
+      "description": ""
+    },
+    {
+      "name": "create-storybook-docs",
+      "path": ".cursor/skills/create-storybook-docs",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/create-storybook-docs",
+      "description": ""
+    },
+    {
+      "name": "generate-tests",
+      "path": ".cursor/skills/generate-tests",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/generate-tests",
+      "description": ""
+    },
+    {
+      "name": "run-quality-checks",
+      "path": ".cursor/skills/run-quality-checks",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/run-quality-checks",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/monitor-ci/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/monitor-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/nx-plugins/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/nx-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/nx-generate/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/nx-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/nx-workspace/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/nx-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/nx-run-tasks/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/nx-run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/generate-tests/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/generate-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/create-component/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/create-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/run-quality-checks/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/run-quality-checks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/check-accessibility/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/check-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/create-storybook-docs/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/create-storybook-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/link-workspace-packages/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/link-workspace-packages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spark-web",
+      "path": ".cursor/skills/chrome-devtools-storybook/SKILL.md",
+      "github_url": "https://github.com/leboncoin/spark-web/tree/main/.cursor/skills/chrome-devtools-storybook/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/leboncoin/spark-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:39:23Z"
+}
