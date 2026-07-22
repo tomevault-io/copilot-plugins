@@ -1,0 +1,195 @@
+{
+  "name": "agentic-ui",
+  "owner": "antdigital-ai",
+  "repo": "agentic-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentic-ui-development",
+      "path": ".cursor/skills/agentic-ui-development",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/agentic-ui-development",
+      "description": ""
+    },
+    {
+      "name": "gh-create-pr",
+      "path": ".cursor/skills/gh-create-pr",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/gh-create-pr",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/gh-create-pr/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/gh-create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/agentic-ui-usage/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/agentic-ui-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-bubble/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-bubble/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-schema/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-shared/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-shared/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-history/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-plugins/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-ai-label/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-ai-label/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-tool-use/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-tool-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-task-list/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-task-list/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-workspace/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/markdown-syntax-guide/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/markdown-syntax-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-chat-layout/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-chat-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/agentic-ui-development/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/agentic-ui-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-answer-alert/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-answer-alert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-quote-backto/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-quote-backto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-agent-run-bar/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-agent-run-bar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-thought-chain/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-thought-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-agentic-layout/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-agentic-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-chat-boot-page/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-chat-boot-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-welcome-message/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-welcome-message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-markdown-editor/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-markdown-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentic-ui",
+      "path": ".cursor/skills/component-markdown-input-field/SKILL.md",
+      "github_url": "https://github.com/antdigital-ai/agentic-ui/tree/main/.cursor/skills/component-markdown-input-field/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/antdigital-ai/agentic-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T13:31:37Z"
+}
