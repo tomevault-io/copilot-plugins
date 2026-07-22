@@ -2,9 +2,9 @@
   "name": "xmtpd",
   "owner": "xmtp",
   "repo": "xmtpd",
-  "description": "AI instruction files for xmtpd by xmtp",
+  "description": "",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,39 @@
       "path": ".claude/skills/writing-queries",
       "github_url": "https://github.com/xmtp/xmtpd/tree/main/.claude/skills/writing-queries",
       "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "path": ".claude/skills/git/SKILL.md",
+      "github_url": "https://github.com/xmtp/xmtpd/tree/main/.claude/skills/git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "path": ".claude/skills/writing-queries/SKILL.md",
+      "github_url": "https://github.com/xmtp/xmtpd/tree/main/.claude/skills/writing-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "path": ".claude/skills/writing-go-code/SKILL.md",
+      "github_url": "https://github.com/xmtp/xmtpd/tree/main/.claude/skills/writing-go-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "path": ".claude/skills/writing-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/xmtp/xmtpd/tree/main/.claude/skills/writing-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "path": ".claude/skills/writing-migrations/SKILL.md",
+      "github_url": "https://github.com/xmtp/xmtpd/tree/main/.claude/skills/writing-migrations/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/xmtp/xmtpd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T20:30:40Z"
+  "distributed_at": "2026-07-22T16:49:20Z"
 }
