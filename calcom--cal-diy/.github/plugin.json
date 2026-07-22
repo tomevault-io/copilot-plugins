@@ -1,0 +1,30 @@
+{
+  "name": "calcom--cal-diy",
+  "displayName": "cal.diy",
+  "description": "cal.diy",
+  "version": "1.0.0",
+  "author": "calcom",
+  "homepage": "https://github.com/calcom/cal.diy",
+  "skills": [
+    {
+      "name": "cal.diy",
+      "description": ""
+    },
+    {
+      "name": "cal.diy",
+      "description": ""
+    },
+    {
+      "name": "cal.diy",
+      "description": ""
+    },
+    {
+      "name": "cal.diy",
+      "description": ""
+    },
+    {
+      "name": "cal.diy",
+      "description": ""
+    }
+  ]
+}
