@@ -1,0 +1,189 @@
+{
+  "name": "workerd",
+  "owner": "cloudflare",
+  "repo": "workerd",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ts-style",
+      "path": ".opencode/skills/ts-style",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/ts-style",
+      "description": ""
+    },
+    {
+      "name": "wd-test-format",
+      "path": ".opencode/skills/wd-test-format",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/wd-test-format",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/kj-style/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/kj-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/ts-style/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/ts-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/update-v8/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/update-v8/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/dad-jokes/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/dad-jokes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/rust-review/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/rust-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/add-autogate/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/add-autogate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/wd-test-format/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/wd-test-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/pr-review-guide/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/pr-review-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/add-compat-flag/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/add-compat-flag/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/markdown-drafts/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/markdown-drafts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/module-registry/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/module-registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/identify-reviewer/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/identify-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/commit-categories/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/commit-categories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/find-and-run-tests/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/find-and-run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/bazel-test-hygiene/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/bazel-test-hygiene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/workerd-api-review/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/workerd-api-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/investigation-notes/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/investigation-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/parent-project-skills/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/parent-project-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/workerd-safety-review/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/workerd-safety-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/test-driven-investigation/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/test-driven-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workerd",
+      "path": ".opencode/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/cloudflare/workerd/tree/main/.opencode/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cloudflare/workerd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:37:52Z"
+}
