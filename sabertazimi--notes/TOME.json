@@ -1,0 +1,57 @@
+{
+  "name": "notes",
+  "owner": "sabertazimi",
+  "repo": "notes",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "notes",
+      "path": ".agents/skills/adding-notes/SKILL.md",
+      "github_url": "https://github.com/sabertazimi/notes/tree/main/.agents/skills/adding-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "notes",
+      "path": ".agents/skills/splitting-notes/SKILL.md",
+      "github_url": "https://github.com/sabertazimi/notes/tree/main/.agents/skills/splitting-notes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sabertazimi/notes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T18:29:07Z"
+}
