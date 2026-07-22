@@ -1,0 +1,75 @@
+{
+  "name": "ilovedotnet",
+  "owner": "ILoveDotNet",
+  "repo": "ilovedotnet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ilovedotnet",
+      "path": ".github/skills/nuget-manager/SKILL.md",
+      "github_url": "https://github.com/ILoveDotNet/ilovedotnet/tree/main/.github/skills/nuget-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ilovedotnet",
+      "path": ".github/skills/ai-habit-coach/SKILL.md",
+      "github_url": "https://github.com/ILoveDotNet/ilovedotnet/tree/main/.github/skills/ai-habit-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ilovedotnet",
+      "path": ".github/skills/ai-prioritization/SKILL.md",
+      "github_url": "https://github.com/ILoveDotNet/ilovedotnet/tree/main/.github/skills/ai-prioritization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ilovedotnet",
+      "path": ".github/skills/ai-persuasive-email-writer/SKILL.md",
+      "github_url": "https://github.com/ILoveDotNet/ilovedotnet/tree/main/.github/skills/ai-persuasive-email-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ilovedotnet",
+      "path": ".github/skills/csharp-mcp-server-generator/SKILL.md",
+      "github_url": "https://github.com/ILoveDotNet/ilovedotnet/tree/main/.github/skills/csharp-mcp-server-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ILoveDotNet/ilovedotnet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:19:54Z"
+}
