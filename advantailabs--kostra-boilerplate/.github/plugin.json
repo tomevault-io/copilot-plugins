@@ -1,0 +1,9 @@
+{
+  "name": "advantailabs--kostra-boilerplate",
+  "displayName": "kostra-boilerplate",
+  "description": "Open-source Next.js SaaS boilerplate with auth, billing, and file storage \u2014 MIT licensed",
+  "version": "1.0.0",
+  "author": "advantailabs",
+  "homepage": "https://github.com/advantailabs/kostra-boilerplate",
+  "skills": []
+}
