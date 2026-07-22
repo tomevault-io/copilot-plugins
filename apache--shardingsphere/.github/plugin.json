@@ -1,0 +1,26 @@
+{
+  "name": "apache--shardingsphere",
+  "displayName": "shardingsphere",
+  "description": "shardingsphere",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/shardingsphere",
+  "skills": [
+    {
+      "name": "gen-ut",
+      "description": ""
+    },
+    {
+      "name": "shardingsphere",
+      "description": ""
+    },
+    {
+      "name": "shardingsphere",
+      "description": ""
+    },
+    {
+      "name": "shardingsphere",
+      "description": ""
+    }
+  ]
+}
