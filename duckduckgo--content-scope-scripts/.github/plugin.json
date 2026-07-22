@@ -1,0 +1,18 @@
+{
+  "name": "duckduckgo--content-scope-scripts",
+  "displayName": "content-scope-scripts",
+  "description": "content-scope-scripts",
+  "version": "1.0.0",
+  "author": "duckduckgo",
+  "homepage": "https://github.com/duckduckgo/content-scope-scripts",
+  "skills": [
+    {
+      "name": "content-scope-scripts",
+      "description": ""
+    },
+    {
+      "name": "content-scope-scripts",
+      "description": ""
+    }
+  ]
+}
