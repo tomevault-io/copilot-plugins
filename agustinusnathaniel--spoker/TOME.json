@@ -1,0 +1,147 @@
+{
+  "name": "spoker",
+  "owner": "agustinusnathaniel",
+  "repo": "spoker",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "spoker",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/ultracite/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/ultracite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/react-dev/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/react-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/baseline-ui/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/baseline-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/next-upgrade/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/next-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/fixing-metadata/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/fixing-metadata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/react-useeffect/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/react-useeffect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/chakra-ui-builder/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/chakra-ui-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/chakra-ui-refactor/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/chakra-ui-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/fixing-accessibility/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/fixing-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/fixing-motion-performance/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/fixing-motion-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spoker",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/agustinusnathaniel/spoker/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agustinusnathaniel/spoker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:49:44Z"
+}
