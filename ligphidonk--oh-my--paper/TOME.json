@@ -1,0 +1,459 @@
+{
+  "name": "Oh-my--paper",
+  "owner": "LigphiDonk",
+  "repo": "Oh-my--paper",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/paper-finder/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/paper-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/research-news/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/research-news/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-idea-eval/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-idea-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/paper-analyzer/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/paper-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/codex-dispatch/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/codex-dispatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-figure-gen/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-figure-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/ml-paper-writing/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/ml-paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-code-survey/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-code-survey/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/biorxiv-database/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/biorxiv-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/dataset-discovery/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/dataset-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/remote-experiment/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/remote-experiment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-deep-research/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-paper-writing/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-grant-proposal/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-grant-proposal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-paper-reviewer/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-paper-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/academic-researcher/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/academic-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-experiment-dev/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-experiment-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-idea-generation/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-idea-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-reference-audit/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-reference-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/gemini-deep-research/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/gemini-deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/claude-code-dispatch/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/claude-code-dispatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/paper-image-extractor/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/paper-image-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-pipeline-planner/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-pipeline-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-prepare-resources/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-prepare-resources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/research-paper-handoff/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/research-paper-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-rclone-to-overleaf/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-rclone-to-overleaf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/inno-experiment-analysis/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/inno-experiment-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/research-idea-convergence/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/research-idea-convergence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/research-literature-trace/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/research-literature-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/research-pipeline-planner/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/research-pipeline-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/literature-pdf-ocr-library/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/literature-pdf-ocr-library/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/research-experiment-driver/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/research-experiment-driver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/bioinformatics-init-analysis/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/bioinformatics-init-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/making-academic-presentations/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/making-academic-presentations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/paper-finder/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/paper-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/research-news/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/research-news/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-idea-eval/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-idea-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/paper-analyzer/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/paper-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/codex-dispatch/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/codex-dispatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-figure-gen/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-figure-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/ml-paper-writing/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/ml-paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-code-survey/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-code-survey/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/biorxiv-database/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/biorxiv-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/dataset-discovery/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/dataset-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/remote-experiment/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/remote-experiment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-deep-research/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-paper-writing/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-grant-proposal/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-grant-proposal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-paper-reviewer/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-paper-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/academic-researcher/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/academic-researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-experiment-dev/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-experiment-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-idea-generation/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-idea-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-reference-audit/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-reference-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/gemini-deep-research/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/gemini-deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/claude-code-dispatch/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/claude-code-dispatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/paper-image-extractor/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/paper-image-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-pipeline-planner/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-pipeline-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-prepare-resources/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-prepare-resources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/research-paper-handoff/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/research-paper-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-rclone-to-overleaf/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-rclone-to-overleaf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/inno-experiment-analysis/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/inno-experiment-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/research-idea-convergence/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/research-idea-convergence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/research-literature-trace/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/research-literature-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/research-pipeline-planner/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/research-pipeline-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/research-experiment-driver/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/research-experiment-driver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/bioinformatics-init-analysis/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/bioinformatics-init-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/making-academic-presentations/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/making-academic-presentations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "skills/bioinformatics-init-analysis/skills/init-analysis/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/skills/bioinformatics-init-analysis/skills/init-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Oh-my--paper",
+      "path": "src-tauri/resources/skills/bioinformatics-init-analysis/skills/init-analysis/SKILL.md",
+      "github_url": "https://github.com/LigphiDonk/Oh-my--paper/tree/main/src-tauri/resources/skills/bioinformatics-init-analysis/skills/init-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LigphiDonk/Oh-my--paper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:58:41Z"
+}
