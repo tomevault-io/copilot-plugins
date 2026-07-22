@@ -1,0 +1,411 @@
+{
+  "name": "AI-Agents-public",
+  "owner": "vasilyu1983",
+  "repo": "AI-Agents-public",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-project-memory",
+      "path": "frameworks/shared-skills/skills/agents-project-memory",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/agents-project-memory",
+      "description": ""
+    },
+    {
+      "name": "dev-context-engineering",
+      "path": "frameworks/shared-skills/skills/dev-context-engineering",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ai-llm/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/ai-llm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ai-rag/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/ai-rag/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ai-agents/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/ai-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/agents-mcp/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/agents-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/docs-ai-prd/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/docs-ai-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/agents-hooks/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/agents-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-debugging/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/document-pdf/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/document-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/docs-codebase/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/docs-codebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-resilience/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-resilience/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/document-pptx/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/document-pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/document-xlsx/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/document-xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/document-docx/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/document-docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/agents-skills/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/agents-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/data-metabase/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/data-metabase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ops-nuke-cicd/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/ops-nuke-cicd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-api-design/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-refactoring/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-testing-ios/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-testing-ios/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-mobile/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-mobile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-git-workflow/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-docs-coverage/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-docs-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ai-llm-inference/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/ai-llm-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ai-ml-timeseries/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/ai-ml-timeseries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-backend/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/agents-subagents/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/agents-subagents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-agent-testing/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-agent-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-observability/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-testing-nunit/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-testing-nunit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-payments/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-payments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-frontend/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-testing-mobile/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-testing-mobile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/product-management/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/product-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ai-ml-data-science/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/ai-ml-data-science/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-testing-android/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-testing-android/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/data-lake-platform/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/data-lake-platform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/product-help-center/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/product-help-center/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/ops-devops-platform/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/ops-devops-platform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-testing-strategy/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-testing-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-structured-logs/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-structured-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-crypto-web3/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-crypto-web3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-code-review/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-localisation/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-localisation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-workflow-planning/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-workflow-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/data-sql-optimization/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/data-sql-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-ai-coding-metrics/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-ai-coding-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-testing-playwright/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-testing-playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/agents-project-memory/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/agents-project-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-ui-ux-design/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-ui-ux-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-git-commit-message/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-git-commit-message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-context-multi-repo/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-context-multi-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-context-engineering/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-context-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-csharp-backend/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-csharp-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/qa-api-testing-contracts/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/qa-api-testing-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-dependency-management/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/dev-dependency-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/agents-swarm-orchestration/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/agents-swarm-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/data-analytics-engineering/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/data-analytics-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-clean-code-standard/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-clean-code-standard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/software-architecture-design/SKILL.md",
+      "github_url": "https://github.com/vasilyu1983/AI-Agents-public/tree/main/frameworks/shared-skills/skills/software-architecture-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vasilyu1983/AI-Agents-public",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:18:27Z"
+}
