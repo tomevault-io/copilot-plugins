@@ -1,0 +1,18 @@
+{
+  "name": "academysoftwarefoundation--openimageio",
+  "displayName": "OpenImageIO",
+  "description": "OpenImageIO",
+  "version": "1.0.0",
+  "author": "AcademySoftwareFoundation",
+  "homepage": "https://github.com/AcademySoftwareFoundation/OpenImageIO",
+  "skills": [
+    {
+      "name": "OpenImageIO",
+      "description": ""
+    },
+    {
+      "name": "OpenImageIO",
+      "description": ""
+    }
+  ]
+}
