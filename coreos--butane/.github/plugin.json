@@ -1,0 +1,22 @@
+{
+  "name": "coreos--butane",
+  "displayName": "butane",
+  "description": "butane",
+  "version": "1.0.0",
+  "author": "coreos",
+  "homepage": "https://github.com/coreos/butane",
+  "skills": [
+    {
+      "name": "butane",
+      "description": ""
+    },
+    {
+      "name": "butane",
+      "description": ""
+    },
+    {
+      "name": "butane",
+      "description": ""
+    }
+  ]
+}
