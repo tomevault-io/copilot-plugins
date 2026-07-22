@@ -1,0 +1,777 @@
+{
+  "name": "convoke-agents",
+  "owner": "amalik",
+  "repo": "convoke-agents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-help/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-init/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-shard-doc/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-shard-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/agents/bmad-tea/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/agents/bmad-tea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-index-docs/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-index-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-party-mode/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-party-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/tasks/bmad-help/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-distillator/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-distillator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-help/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-brainstorming/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/tasks/bmad-shard-doc/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-shard-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/tasks/bmad-create-prd/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-create-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-shard-doc/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-shard-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/tasks/bmad-index-docs/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-index-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-party-mode/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-party-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-index-docs/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-index-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-distillator/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-distillator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": ".claude/skills/bmad-register-skill/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/.claude/skills/bmad-register-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmb/skills/bmad-builder-setup/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmb/skills/bmad-builder-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/agents/wds-agent-freya-ux/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/agents/wds-agent-freya-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmb/skills/bmad-agent-builder/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmb/skills/bmad-agent-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-3-scenarios/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-3-scenarios/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-4-ux-design/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-4-ux-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-advanced-elicitation/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-advanced-elicitation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/workflows/bmad-party-mode/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/workflows/bmad-party-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-brainstorming/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": ".claude/skills/bmad-audit-skill-dirs/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/.claude/skills/bmad-audit-skill-dirs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-editorial-review-prose/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-editorial-review-prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmb/skills/bmad-workflow-builder/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmb/skills/bmad-workflow-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-storytelling/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-storytelling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-review-edge-case-hunter/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-review-edge-case-hunter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/1-analysis/bmad-agent-analyst/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/bmad-agent-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/1-analysis/bmad-product-brief/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/bmad-product-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/agents/wds-agent-saga-analyst/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/agents/wds-agent-saga-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-1-project-brief/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-1-project-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-7-design-system/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-7-design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-0-project-setup/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-0-project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/workflows/bmad-brainstorming/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/workflows/bmad-brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-agent-qa/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-agent-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-agent-sm/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-agent-sm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/2-plan-workflows/bmad-agent-pm/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-agent-pm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/2-plan-workflows/bmad-edit-prd/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-edit-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-agent-dev/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-agent-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-2-trigger-mapping/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-2-trigger-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-dev-story/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-dev-story/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-design-thinking/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-design-thinking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-problem-solving/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-problem-solving/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-quick-dev/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-quick-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-editorial-review-structure/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-editorial-review-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/bmad-review-adversarial-general/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/bmad-review-adversarial-general/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-6-asset-generation/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-6-asset-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/1-analysis/bmad-document-project/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/bmad-document-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/2-plan-workflows/bmad-create-prd/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-create-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-agent-storyteller/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-storyteller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/1-analysis/bmad-agent-tech-writer/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/bmad-agent-tech-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-0-alignment-signoff/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-0-alignment-signoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-advanced-elicitation/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-advanced-elicitation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-8-product-evolution/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-8-product-evolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-code-review/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/3-solutioning/bmad-agent-architect/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-agent-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/2-plan-workflows/bmad-validate-prd/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-validate-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/tasks/bmad-editorial-review-prose/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-editorial-review-prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-create-story/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-create-story/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_vortex/agents/hypothesis-engineer/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/hypothesis-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/wds/workflows/wds-5-agentic-development/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/wds/workflows/wds-5-agentic-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-sprint-status/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-sprint-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-editorial-review-prose/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-editorial-review-prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-retrospective/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-retrospective/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-testarch-ci/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/tasks/bmad-review-edge-case-hunter/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-review-edge-case-hunter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-innovation-strategy/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-innovation-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-correct-course/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-correct-course/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-testarch-nfr/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-nfr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-review-edge-case-hunter/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-review-edge-case-hunter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-sprint-planning/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-sprint-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-testarch-atdd/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-atdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_portability/skills/bmad-export-skill/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_portability/skills/bmad-export-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_portability/skills/bmad-seed-catalog/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_portability/skills/bmad-seed-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/tasks/bmad-review-adversarial-general/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-review-adversarial-general/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/2-plan-workflows/bmad-create-ux-design/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-create-ux-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-testarch-trace/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/3-solutioning/bmad-create-architecture/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-create-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/tasks/bmad-editorial-review-structure/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/tasks/bmad-editorial-review-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_enhance/workflows/initiatives-backlog/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_enhance/workflows/initiatives-backlog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/2-plan-workflows/bmad-agent-ux-designer/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/2-plan-workflows/bmad-agent-ux-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_vortex/agents/contextualization-expert/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/contextualization-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-review-adversarial-general/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-review-adversarial-general/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/core/skills/bmad-editorial-review-structure/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/core/skills/bmad-editorial-review-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_vortex/agents/discovery-empathy-expert/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/discovery-empathy-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_vortex/agents/learning-decision-expert/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/learning-decision-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/1-analysis/research/bmad-market-research/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/research/bmad-market-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/1-analysis/research/bmad-domain-research/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/research/bmad-domain-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-teach-me-testing/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-teach-me-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-agent-brainstorming-coach/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-brainstorming-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-agent-presentation-master/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-presentation-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-testarch-automate/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-automate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_portability/skills/bmad-generate-catalog/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_portability/skills/bmad-generate-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_portability/skills/bmad-validate-exports/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_portability/skills/bmad-validate-exports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_vortex/agents/lean-experiments-specialist/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/lean-experiments-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-testarch-framework/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_artifacts/workflows/bmad-portfolio-status/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_artifacts/workflows/bmad-portfolio-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-agent-design-thinking-coach/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-design-thinking-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-agent-innovation-strategist/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-innovation-strategist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/3-solutioning/bmad-create-epics-and-stories/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-create-epics-and-stories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/3-solutioning/bmad-generate-project-context/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-generate-project-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-qa-generate-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-qa-generate-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/1-analysis/research/bmad-technical-research/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/1-analysis/research/bmad-technical-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_artifacts/workflows/bmad-migrate-artifacts/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_artifacts/workflows/bmad-migrate-artifacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-testarch-test-design/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-test-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/tea/workflows/testarch/bmad-testarch-test-review/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/tea/workflows/testarch/bmad-testarch-test-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/cis/skills/bmad-cis-agent-creative-problem-solver/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/cis/skills/bmad-cis-agent-creative-problem-solver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_vortex/agents/research-convergence-specialist/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/research-convergence-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/4-implementation/bmad-agent-quick-flow-solo-dev/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/4-implementation/bmad-agent-quick-flow-solo-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bmm/3-solutioning/bmad-check-implementation-readiness/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bmm/3-solutioning/bmad-check-implementation-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad/bme/_vortex/agents/production-intelligence-specialist/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad/bme/_vortex/agents/production-intelligence-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "_bmad-output/exp3-smoke-test/bmad-cis-agent-brainstorming-coach/adapters/claude-code/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/_bmad-output/exp3-smoke-test/bmad-cis-agent-brainstorming-coach/adapters/claude-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "tests/fixtures/bmm-dependencies/skill-with-removed-dep/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-removed-dep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "tests/fixtures/bmm-dependencies/skill-with-stepfile-dep/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-stepfile-dep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "tests/fixtures/bmm-dependencies/skill-with-manual-entry/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-manual-entry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "tests/fixtures/bmm-dependencies/skill-with-docbody-only/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-docbody-only/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "tests/fixtures/bmm-dependencies/skill-with-malformed-dep/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-malformed-dep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convoke-agents",
+      "path": "tests/fixtures/bmm-dependencies/skill-with-frontmatter-dep/SKILL.md",
+      "github_url": "https://github.com/amalik/convoke-agents/tree/main/tests/fixtures/bmm-dependencies/skill-with-frontmatter-dep/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/amalik/convoke-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:55:19Z"
+}
