@@ -1,0 +1,14 @@
+{
+  "name": "evex-dev--linejs",
+  "displayName": "linejs",
+  "description": "linejs",
+  "version": "1.0.0",
+  "author": "evex-dev",
+  "homepage": "https://github.com/evex-dev/linejs",
+  "skills": [
+    {
+      "name": "linejs",
+      "description": ""
+    }
+  ]
+}
