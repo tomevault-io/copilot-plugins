@@ -1,0 +1,129 @@
+{
+  "name": "electric",
+  "owner": "electric-sql",
+  "repo": "electric",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "blog-planner",
+      "path": "website/.claude/skills/blog-planner",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/website/.claude/skills/blog-planner",
+      "description": ""
+    },
+    {
+      "name": "electric-deployment",
+      "path": "packages/typescript-client/skills/electric-deployment",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-deployment",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "website/.claude/skills/blog-planner/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/website/.claude/skills/blog-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/y-electric/skills/electric-yjs/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/y-electric/skills/electric-yjs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/typescript-client/skills/electric-orm/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-orm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/typescript-client/skills/electric-shapes/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-shapes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/agents-runtime/skills/designing-entities/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/agents-runtime/skills/designing-entities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/typescript-client/skills/electric-debugging/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/agents-runtime/skills/entity-stream-queries/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/agents-runtime/skills/entity-stream-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/typescript-client/skills/electric-deployment/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/typescript-client/skills/electric-proxy-auth/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-proxy-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/typescript-client/skills/electric-new-feature/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-new-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/typescript-client/skills/electric-schema-shapes/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-schema-shapes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electric",
+      "path": "packages/typescript-client/skills/electric-postgres-security/SKILL.md",
+      "github_url": "https://github.com/electric-sql/electric/tree/main/packages/typescript-client/skills/electric-postgres-security/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/electric-sql/electric",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:43:19Z"
+}
