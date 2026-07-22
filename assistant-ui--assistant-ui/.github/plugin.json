@@ -1,0 +1,26 @@
+{
+  "name": "assistant-ui--assistant-ui",
+  "displayName": "assistant-ui",
+  "description": "assistant-ui",
+  "version": "1.0.0",
+  "author": "assistant-ui",
+  "homepage": "https://github.com/assistant-ui/assistant-ui",
+  "skills": [
+    {
+      "name": "assistant-ui",
+      "description": ""
+    },
+    {
+      "name": "assistant-ui",
+      "description": ""
+    },
+    {
+      "name": "assistant-ui",
+      "description": ""
+    },
+    {
+      "name": "assistant-ui",
+      "description": ""
+    }
+  ]
+}
