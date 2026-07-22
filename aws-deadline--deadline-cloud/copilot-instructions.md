@@ -1,0 +1,193 @@
+## deadline-cloud
+
+> This document provides guidance for AI agents working with this codebase.
+
+# AGENTS.md - AWS Deadline Cloud Client
+
+This document provides guidance for AI agents working with this codebase.
+
+## Project Overview
+
+AWS Deadline Cloud client is a Python library and CLI tool for interacting with [AWS Deadline Cloud](https://docs.aws.amazon.com/deadline-cloud/latest/userguide/what-is-deadline-cloud.html). It supports job submission, file transfer via job attachments, and provides both CLI and GUI interfaces.
+
+**Package name:** `deadline`
+**Platforms:** Linux, Windows, macOS
+
+## Repository Structure
+
+```
+src/deadline/
+├── client/           # Main client library
+│   ├── api/          # Boto3 wrappers and AWS API helpers
+│   ├── cli/          # CLI entry points (deadline command)
+│   ├── config/       # Configuration (~/.deadline/*)
+│   ├── ui/           # Qt/PySide GUI components
+│   ├── job_bundle/   # Job bundle handling and history
+│   └── dataclasses/  # Data structures
+├── mcp/              # MCP server (public)
+├── _mcp/             # MCP server (internal)
+└── common/           # Shared utilities
+```
+
+## Key Commands
+
+Always use `hatch` for running builds, tests, formatting, and linting.
+If running just a few tests, always add `--numprocesses=1` to the `hatch run test`
+command so that it starts quicker.
+
+```bash
+# Development
+hatch build              # Build wheel/sdist
+hatch run test           # Run unit tests
+hatch run test --numprocesses=1 -k "selected_test_name" # Run just a few tests
+hatch run all:test       # Test all Python versions
+hatch run integ:test     # Integration tests (requires AWS)
+hatch run lint           # Check formatting
+hatch run fmt            # Auto-format code
+hatch shell              # Enter dev environment
+
+# CLI usage
+deadline farm list
+deadline bundle submit <path>
+deadline job list
+deadline job get
+deadline job logs --job-id <id>
+```
+
+## Code Conventions
+
+### Module Naming
+- **Private modules:** `_module.py` - internal implementation
+- **Public modules:** `module.py` - part of public API
+- Symbols not starting with `_` define the public contract
+
+### Import Style (Public Modules)
+```python
+import os as _os  # Private import
+from typing import Dict as _Dict  # Private import
+
+class PublicClass:  # Public
+    pass
+
+class _PrivateClass:  # Private
+    pass
+```
+
+### Commit Messages
+Use [conventional commits](https://www.conventionalcommits.org/):
+- `feat:` - New features
+- `fix:` - Bug fixes
+- `docs:` - Documentation
+- `test:` - Tests only
+- `refactor:` - Code refactoring
+- `perf:` - Performance improvements
+- `feat!:` or `fix!:` - Breaking changes (Also include `BREAKING CHANGES:` section in message body)
+
+### CLI `--output` format auto-detection
+
+Commands that take `--output verbose|json` auto-detect the format when the
+option is omitted: `verbose` at an interactive terminal, `json` otherwise
+(pipes, redirection, CI, agents). An explicit `--output` always wins. Resolve
+this with the shared `_resolve_output_format()` helper and the
+`_OUTPUT_FORMAT_HELP` text rather than hand-rolling the default per command.
+
+### Cross-region: two regions are in play
+
+The farm's region (`defaults.farm_region`, used by `get_boto3_client`) can differ
+from the profile/monitor's region. Farm-scoped APIs (CreateJob etc.) need the farm
+region; monitor-scoped APIs (GetMonitor) need the profile region — don't reuse a
+client across that boundary, and test region-sensitive code with the two set differently.
+
+### CHANGELOG.md is auto-generated — do not edit it
+
+`CHANGELOG.md` is generated automatically from conventional commit messages
+during the release process. Do **not** add, remove, or rewrite entries in
+`CHANGELOG.md` as part of normal feature, fix, or refactor work — your commit
+message *is* the changelog entry. Only the release tooling (and humans
+preparing a release) should modify `CHANGELOG.md`. See
+[CHANGELOG_GUIDELINES.md](CHANGELOG_GUIDELINES.md) for entry formatting.
+
+### Before Committing / Raising a PR
+
+After completing any code changes:
+1. Always run `hatch run fmt` and `hatch run lint` to verify the changes are clean.
+2. If also committing, run the full checklist: fmt → lint → test → build → `git commit -s`.
+
+```bash
+hatch run fmt            # Auto-format code
+hatch run lint           # Linting and type checking
+hatch run test           # Unit tests (must pass with ≥80% coverage)
+hatch build              # Build wheel/sdist
+git commit -s            # Always sign commits with -s
+```
+
+## Testing
+
+**Every code change — new or modified — must include tests.** See
+[test/README.md](test/README.md) for the test suite layers and how to
+pick the right one.
+
+- **Unit tests:** `test/unit/` - Run with `hatch run test`
+- **Integration tests:** `test/integ/` - Requires AWS resources
+- **UI tests:** `test/ui/` - Run with `hatch run ui:test`
+- **Docker tests:** `scripts/run_sudo_tests.sh` - For permission tests
+
+Tests use pytest with unittest.mock. Coverage target: 80%.
+
+## Public API Contracts
+
+Breaking changes require conventional commit syntax (`feat!:`, `fix!:`).
+
+**CLI contracts:**
+- Subcommand names and arguments
+- Default values and behaviors
+
+**Python API contracts:**
+- All non-underscore-prefixed functions/classes in public modules
+- Function signatures (adding required params is breaking)
+- Default argument values
+
+## Qt/GUI Guidelines
+
+Never call AWS APIs from the main Qt thread. Use:
+1. Background threads for API calls
+2. Qt Signals to return results to widgets
+3. Cancellation flags for thread cleanup
+
+See `deadline_config_dialog.py` for examples.
+
+## Dependencies
+
+Minimize new dependencies. This library is used from embedded Python within
+applications where dependency conflicts are possible. When adding:
+- Evaluate if functionality can be implemented locally
+- Check library quality (maintenance, downloads, stars)
+- Ensure license compatibility (Apache-2.0)
+- Document in THIRD_PARTY_LICENSES
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `pyproject.toml` | Project config, dependencies |
+| `CONTRIBUTING.md` | Contribution guidelines |
+| `DEVELOPMENT.md` | Development setup and workflows |
+| `CHANGELOG_GUIDELINES.md` | Changelog formatting rules |
+| `scripts/README.md` | API change detection scripts |
+
+## Environment Variables
+
+- `DEADLINE_CONFIG_FILE_PATH` - Override config location (default: `~/.deadline/config`)
+- `AWS_ENDPOINT_URL_DEADLINE` - Custom Deadline Cloud endpoint
+
+## Optional Features
+
+Install with extras:
+```bash
+pip install "deadline[gui]"  # Qt GUI components
+pip install "deadline[mcp]"  # MCP server for AI assistants
+```
+
+---
+> Source: [aws-deadline/deadline-cloud](https://github.com/aws-deadline/deadline-cloud) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
