@@ -1,0 +1,18 @@
+{
+  "name": "dotnet--docs-desktop",
+  "displayName": "docs-desktop",
+  "description": "docs-desktop",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/docs-desktop",
+  "skills": [
+    {
+      "name": "docs-desktop",
+      "description": ""
+    },
+    {
+      "name": "docs-desktop",
+      "description": ""
+    }
+  ]
+}
