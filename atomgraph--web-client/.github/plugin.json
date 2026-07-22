@@ -1,0 +1,9 @@
+{
+  "name": "atomgraph--web-client",
+  "displayName": "Web-Client",
+  "description": "Web-Client",
+  "version": "1.0.0",
+  "author": "AtomGraph",
+  "homepage": "https://github.com/AtomGraph/Web-Client",
+  "skills": []
+}
