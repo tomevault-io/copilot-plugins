@@ -1,0 +1,63 @@
+{
+  "name": "blueprint",
+  "owner": "owainlewis",
+  "repo": "blueprint",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "blueprint",
+      "path": "skills/plan/SKILL.md",
+      "github_url": "https://github.com/owainlewis/blueprint/tree/main/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueprint",
+      "path": "skills/review/SKILL.md",
+      "github_url": "https://github.com/owainlewis/blueprint/tree/main/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "blueprint",
+      "path": "skills/task-to-pr/SKILL.md",
+      "github_url": "https://github.com/owainlewis/blueprint/tree/main/skills/task-to-pr/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/owainlewis/blueprint",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:59:58Z"
+}
