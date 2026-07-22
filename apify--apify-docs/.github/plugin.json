@@ -1,0 +1,26 @@
+{
+  "name": "apify--apify-docs",
+  "displayName": "apify-docs",
+  "description": "apify-docs",
+  "version": "1.0.0",
+  "author": "apify",
+  "homepage": "https://github.com/apify/apify-docs",
+  "skills": [
+    {
+      "name": "apify-docs",
+      "description": ""
+    },
+    {
+      "name": "apify-docs",
+      "description": ""
+    },
+    {
+      "name": "apify-docs",
+      "description": ""
+    },
+    {
+      "name": "apify-docs",
+      "description": ""
+    }
+  ]
+}
