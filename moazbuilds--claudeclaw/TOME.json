@@ -1,0 +1,81 @@
+{
+  "name": "claudeclaw",
+  "owner": "moazbuilds",
+  "repo": "claudeclaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-skill",
+      "path": "skills/create-skill",
+      "github_url": "https://github.com/moazbuilds/claudeclaw/tree/main/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "install-skill",
+      "path": "skills/install-skill",
+      "github_url": "https://github.com/moazbuilds/claudeclaw/tree/main/skills/install-skill",
+      "description": ""
+    },
+    {
+      "name": "telegram-react",
+      "path": "skills/telegram-react",
+      "github_url": "https://github.com/moazbuilds/claudeclaw/tree/main/skills/telegram-react",
+      "description": ""
+    },
+    {
+      "name": "claudeclaw",
+      "path": "skills/create-skill/SKILL.md",
+      "github_url": "https://github.com/moazbuilds/claudeclaw/tree/main/skills/create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claudeclaw",
+      "path": "skills/install-skill/SKILL.md",
+      "github_url": "https://github.com/moazbuilds/claudeclaw/tree/main/skills/install-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claudeclaw",
+      "path": "skills/telegram-react/SKILL.md",
+      "github_url": "https://github.com/moazbuilds/claudeclaw/tree/main/skills/telegram-react/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/moazbuilds/claudeclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T22:36:44Z"
+}
