@@ -1,0 +1,81 @@
+{
+  "name": "jollyday",
+  "owner": "focus-shift",
+  "repo": "jollyday",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jollyday",
+      "path": ".agents/skills/add-subdivision/SKILL.md",
+      "github_url": "https://github.com/focus-shift/jollyday/tree/main/.agents/skills/add-subdivision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jollyday",
+      "path": ".agents/skills/write-holiday-tests/SKILL.md",
+      "github_url": "https://github.com/focus-shift/jollyday/tree/main/.agents/skills/write-holiday-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jollyday",
+      "path": ".agents/skills/add-new-holiday-calendar/SKILL.md",
+      "github_url": "https://github.com/focus-shift/jollyday/tree/main/.agents/skills/add-new-holiday-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jollyday",
+      "path": ".agents/skills/add-holiday-descriptions/SKILL.md",
+      "github_url": "https://github.com/focus-shift/jollyday/tree/main/.agents/skills/add-holiday-descriptions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jollyday",
+      "path": ".agents/skills/add-country-descriptions/SKILL.md",
+      "github_url": "https://github.com/focus-shift/jollyday/tree/main/.agents/skills/add-country-descriptions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jollyday",
+      "path": ".agents/skills/register-holiday-calendar/SKILL.md",
+      "github_url": "https://github.com/focus-shift/jollyday/tree/main/.agents/skills/register-holiday-calendar/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/focus-shift/jollyday",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:38:25Z"
+}
