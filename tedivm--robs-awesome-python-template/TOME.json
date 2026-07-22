@@ -1,0 +1,117 @@
+{
+  "name": "robs_awesome_python_template",
+  "owner": "tedivm",
+  "repo": "robs_awesome_python_template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fastapi-routes",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/fastapi-routes",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/fastapi-routes",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": ".agents/skills/template-testing/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/.agents/skills/template-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/aiocache/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/aiocache/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/makefile/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/makefile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/typer-cli/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/typer-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/celery-tasks/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/celery-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/docker-compose/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/docker-compose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/fastapi-routes/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/fastapi-routes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/python-testing/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/python-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/jinja-templates/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/jinja-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/sqlalchemy-models/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/sqlalchemy-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "robs_awesome_python_template",
+      "path": "{{cookiecutter.__package_slug}}/.agents/skills/pydantic-settings/SKILL.md",
+      "github_url": "https://github.com/tedivm/robs_awesome_python_template/tree/main/{{cookiecutter.__package_slug}}/.agents/skills/pydantic-settings/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tedivm/robs_awesome_python_template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:49:13Z"
+}
