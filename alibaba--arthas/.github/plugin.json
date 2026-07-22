@@ -1,0 +1,26 @@
+{
+  "name": "alibaba--arthas",
+  "displayName": "arthas",
+  "description": "arthas",
+  "version": "1.0.0",
+  "author": "alibaba",
+  "homepage": "https://github.com/alibaba/arthas",
+  "skills": [
+    {
+      "name": "arthas",
+      "description": ""
+    },
+    {
+      "name": "arthas",
+      "description": ""
+    },
+    {
+      "name": "arthas",
+      "description": ""
+    },
+    {
+      "name": "arthas",
+      "description": ""
+    }
+  ]
+}
