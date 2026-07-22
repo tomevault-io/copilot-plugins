@@ -1,0 +1,93 @@
+{
+  "name": "scaffold-eth-2",
+  "owner": "scaffold-eth",
+  "repo": "scaffold-eth-2",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "scaffold-eth-2",
+      "path": ".agents/skills/x402/SKILL.md",
+      "github_url": "https://github.com/scaffold-eth/scaffold-eth-2/tree/main/.agents/skills/x402/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scaffold-eth-2",
+      "path": ".agents/skills/siwe/SKILL.md",
+      "github_url": "https://github.com/scaffold-eth/scaffold-eth-2/tree/main/.agents/skills/siwe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scaffold-eth-2",
+      "path": ".agents/skills/ponder/SKILL.md",
+      "github_url": "https://github.com/scaffold-eth/scaffold-eth-2/tree/main/.agents/skills/ponder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scaffold-eth-2",
+      "path": ".agents/skills/erc-721/SKILL.md",
+      "github_url": "https://github.com/scaffold-eth/scaffold-eth-2/tree/main/.agents/skills/erc-721/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scaffold-eth-2",
+      "path": ".agents/skills/subgraph/SKILL.md",
+      "github_url": "https://github.com/scaffold-eth/scaffold-eth-2/tree/main/.agents/skills/subgraph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scaffold-eth-2",
+      "path": ".agents/skills/eip-5792/SKILL.md",
+      "github_url": "https://github.com/scaffold-eth/scaffold-eth-2/tree/main/.agents/skills/eip-5792/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scaffold-eth-2",
+      "path": ".agents/skills/drizzle-neon/SKILL.md",
+      "github_url": "https://github.com/scaffold-eth/scaffold-eth-2/tree/main/.agents/skills/drizzle-neon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "scaffold-eth-2",
+      "path": ".agents/skills/openzeppelin/SKILL.md",
+      "github_url": "https://github.com/scaffold-eth/scaffold-eth-2/tree/main/.agents/skills/openzeppelin/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/scaffold-eth/scaffold-eth-2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:17:27Z"
+}
