@@ -1,0 +1,153 @@
+{
+  "name": "dotfiles",
+  "owner": "joshukraine",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/md2pdf/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/md2pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/debrief/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/debrief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/dustoff/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/dustoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/merge-pr/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/merge-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/prd-view/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/prd-view/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/qa-triage/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/qa-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/qa-handoff/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/qa-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/checkpoint/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/checkpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/plan-phase/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/plan-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/update-deps/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/update-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/todoist-cli/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/todoist-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/walkthrough/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/walkthrough/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/drift-check/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/drift-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/setup-sprint/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/setup-sprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/resolve-issue/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/resolve-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/bootstrap-prd/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/bootstrap-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/.claude/skills/readme-refresh/SKILL.md",
+      "github_url": "https://github.com/joshukraine/dotfiles/tree/main/claude/.claude/skills/readme-refresh/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joshukraine/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:02:27Z"
+}
