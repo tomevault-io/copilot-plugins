@@ -1,0 +1,9 @@
+{
+  "name": "domainaware--checkdmarc",
+  "displayName": "checkdmarc",
+  "description": "checkdmarc",
+  "version": "1.0.0",
+  "author": "domainaware",
+  "homepage": "https://github.com/domainaware/checkdmarc",
+  "skills": []
+}
