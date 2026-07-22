@@ -1,0 +1,38 @@
+{
+  "name": "influxdata--docs-v2",
+  "displayName": "docs-v2",
+  "description": "docs-v2",
+  "version": "1.0.0",
+  "author": "influxdata",
+  "homepage": "https://github.com/influxdata/docs-v2",
+  "skills": [
+    {
+      "name": "content-editing",
+      "description": ""
+    },
+    {
+      "name": "cypress-e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "docs-cli-workflow",
+      "description": ""
+    },
+    {
+      "name": "hugo-template-dev",
+      "description": ""
+    },
+    {
+      "name": "influxdb3-test-setup",
+      "description": ""
+    },
+    {
+      "name": "vale-linting",
+      "description": ""
+    },
+    {
+      "name": "vale-rule-config",
+      "description": ""
+    }
+  ]
+}
