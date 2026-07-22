@@ -1,0 +1,26 @@
+{
+  "name": "rawkode-academy--rawkode-academy",
+  "displayName": "rawkode-academy",
+  "description": "rawkode-academy",
+  "version": "1.0.0",
+  "author": "rawkode-academy",
+  "homepage": "https://github.com/rawkode-academy/rawkode-academy",
+  "skills": [
+    {
+      "name": "deslop",
+      "description": ""
+    },
+    {
+      "name": "front-end-design",
+      "description": ""
+    },
+    {
+      "name": "rawkode-academy",
+      "description": ""
+    },
+    {
+      "name": "rawkode-academy",
+      "description": ""
+    }
+  ]
+}
