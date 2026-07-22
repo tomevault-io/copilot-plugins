@@ -3,8 +3,8 @@
   "owner": "prime-radiant-inc",
   "repo": "streamlinear",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "streamlinear",
+      "path": ".claude-plugin/skills/linear/SKILL.md",
+      "github_url": "https://github.com/prime-radiant-inc/streamlinear/tree/main/.claude-plugin/skills/linear/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/prime-radiant-inc/streamlinear",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T20:34:54Z"
+  "distributed_at": "2026-07-22T20:37:25Z"
 }
