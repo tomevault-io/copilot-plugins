@@ -1,0 +1,255 @@
+{
+  "name": "devrel-demos",
+  "owner": "GoogleCloudPlatform",
+  "repo": "devrel-demos",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "devrel-demos",
+      "path": "agents/skills/go-project-setup/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/agents/skills/go-project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "agents/skills/video-description/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/agents/skills/video-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "agents/skills/latest-software-version/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/agents/skills/latest-software-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/mcp-servers/godoctor/skills/go-reviewer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/mcp-servers/godoctor/skills/go-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/mcp-servers/godoctor/skills/go-architect/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/mcp-servers/godoctor/skills/go-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/mcp-servers/godoctor/skills/go-backend-dev/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/mcp-servers/godoctor/skills/go-backend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/mcp-servers/godoctor/skills/go-test-expert/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/mcp-servers/godoctor/skills/go-test-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/agent-containerizer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/agent-containerizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/mcp-connector-generator/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/mcp-connector-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/cloud-run-agent-architect/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/cloud-run-agent-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/gcp-agent-shadow-deployer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/gcp-agent-shadow-deployer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/auditing-parity/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/auditing-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/adk-memory-bank-initializer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/adk-memory-bank-initializer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/gcp-agent-safety-gatekeeper/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/gcp-agent-safety-gatekeeper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/gcp-agent-eval-engine-runner/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/gcp-agent-eval-engine-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/gcp-production-secret-handler/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/gcp-production-secret-handler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/gcp-agent-sdp-template-factory/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/gcp-agent-sdp-template-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/auditing-data-models/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/auditing-data-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/generating-api-tests/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/generating-api-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/gcp-agent-golden-dataset-builder/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/gcp-agent-golden-dataset-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/auditing-ui-archeology/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/auditing-ui-archeology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/scaffolding-api-routes/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/scaffolding-api-routes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/auditing-api-contracts/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/auditing-api-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/scaffolding-data-layer/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/scaffolding-data-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/gcp-agent-eval-metric-configurator/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/gcp-agent-eval-metric-configurator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/auditing-business-logic/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/auditing-business-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "ai-ml/dev-signal/.agent/skills/gcp-agent-tool-trajectory-evaluator/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/ai-ml/dev-signal/.agent/skills/gcp-agent-tool-trajectory-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/adversarial-verification/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/adversarial-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/scaffolding-ui-and-pages/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/scaffolding-ui-and-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/generating-database-seeder/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/generating-database-seeder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/scaffolding-test-foundation/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/scaffolding-test-foundation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/scaffolding-nextjs-foundation/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/scaffolding-nextjs-foundation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "other/modernizing-expressjs/.agents/skills/orchestrating-greenfield-migration/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/other/modernizing-expressjs/.agents/skills/orchestrating-greenfield-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "codelabs/ai-toolkit-lab-2/hackathon-judge/frontend/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/codelabs/ai-toolkit-lab-2/hackathon-judge/frontend/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devrel-demos",
+      "path": "codelabs/ai-toolkit-lab-2/hackathon-judge/frontend/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/devrel-demos/tree/main/codelabs/ai-toolkit-lab-2/hackathon-judge/frontend/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GoogleCloudPlatform/devrel-demos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:44:51Z"
+}
