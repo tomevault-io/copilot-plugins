@@ -1,0 +1,75 @@
+{
+  "name": "exogen",
+  "owner": "andyngdz",
+  "repo": "exogen",
+  "description": "Generate images with Stable Diffusion, run LLMs, and more, all on your local machine.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "best-practices",
+      "path": ".opencode/skills/best-practices",
+      "github_url": "https://github.com/andyngdz/exogen/tree/main/.opencode/skills/best-practices",
+      "description": ""
+    },
+    {
+      "name": "communication-guidelines",
+      "path": ".opencode/skills/communication-guidelines",
+      "github_url": "https://github.com/andyngdz/exogen/tree/main/.opencode/skills/communication-guidelines",
+      "description": ""
+    },
+    {
+      "name": "critical-rules",
+      "path": ".opencode/skills/critical-rules",
+      "github_url": "https://github.com/andyngdz/exogen/tree/main/.opencode/skills/critical-rules",
+      "description": ""
+    },
+    {
+      "name": "security-patterns",
+      "path": ".opencode/skills/security-patterns",
+      "github_url": "https://github.com/andyngdz/exogen/tree/main/.opencode/skills/security-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-requirements",
+      "path": ".opencode/skills/testing-requirements",
+      "github_url": "https://github.com/andyngdz/exogen/tree/main/.opencode/skills/testing-requirements",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/andyngdz/exogen",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T22:33:17Z"
+}
