@@ -1,0 +1,30 @@
+{
+  "name": "pulumi--registry",
+  "displayName": "registry",
+  "description": "registry",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/registry",
+  "skills": [
+    {
+      "name": "registry",
+      "description": ""
+    },
+    {
+      "name": "registry",
+      "description": ""
+    },
+    {
+      "name": "registry",
+      "description": ""
+    },
+    {
+      "name": "registry",
+      "description": ""
+    },
+    {
+      "name": "registry",
+      "description": ""
+    }
+  ]
+}
