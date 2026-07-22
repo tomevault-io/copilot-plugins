@@ -1,0 +1,9 @@
+{
+  "name": "gbulog--pcairplay",
+  "displayName": "pcairplay",
+  "description": "Mirror an iPhone to a Windows PC using native iOS Screen Mirroring - no app on the phone. PowerShell glue around the UxPlay AirPlay receiver: installer, firewall, diagnostics, desktop UI, iPhone-style",
+  "version": "1.0.0",
+  "author": "gbulog",
+  "homepage": "https://github.com/gbulog/pcairplay",
+  "skills": []
+}
