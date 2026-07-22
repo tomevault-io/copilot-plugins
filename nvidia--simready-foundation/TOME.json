@@ -1,0 +1,651 @@
+{
+  "name": "simready-foundation",
+  "owner": "NVIDIA",
+  "repo": "simready-foundation",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "simready-foundation",
+      "path": "nv_core/package_sample/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/nv_core/package_sample/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-add-profile/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-add-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-add-validator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-update-profile/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-update-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-create-package/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-create-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-add-capability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-add-requirement/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-requirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-update-validator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-add-runtime-test/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-runtime-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-update-capability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-update-requirement/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-requirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-add-profile/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-add-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-add-feature-adapter/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-feature-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-add-profile/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-add-profile/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-add-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-add-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-000-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-000-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-add-validator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-update-profile/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-update-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-create-package/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-create-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-add-validator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-add-validator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-add-capability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-update-profile/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-update-profile/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-update-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-update-feature/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-create-package/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-create-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-create-package/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-create-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-update-feature-adapter/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-feature-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-add-capability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-add-capability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-add-requirement/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-requirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-001-minimal/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-001-minimal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-update-validator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-add-requirement/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-requirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-add-requirement/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-requirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-add-runtime-test/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-runtime-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-update-validator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-update-validator/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-update-capability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-add-runtime-test/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-runtime-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-add-runtime-test/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-runtime-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-006-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-006-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-update-capability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-update-capability/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-capability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-update-requirement/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-requirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-021-robot-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-add-feature-adapter/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-feature-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-update-requirement/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-requirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-update-requirement/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-requirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-validate-foundation-change/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-validate-foundation-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-000-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-000-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-add-feature-adapter/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-feature-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-add-feature-adapter/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-feature-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-000-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-000-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-000-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-000-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-update-feature-adapter/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-feature-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-001-minimal/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-001-minimal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-update-feature-adapter/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-feature-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-update-feature-adapter/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-feature-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-001-minimal/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-001-minimal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-001-minimal/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-001-minimal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-006-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-006-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-006-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-006-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-006-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-006-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-validate-foundation-change/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-validate-foundation-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-validate-foundation-change/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-validate-foundation-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-validate-foundation-change/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-validate-foundation-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": "skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".codex/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".agents/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simready-foundation",
+      "path": ".claude/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA/simready-foundation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:51:20Z"
+}
