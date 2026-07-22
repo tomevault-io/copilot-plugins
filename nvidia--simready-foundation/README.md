@@ -1,0 +1,128 @@
+# AI instruction files for simready-foundation
+
+> Sourced from [NVIDIA/simready-foundation](https://github.com/NVIDIA/simready-foundation), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [NVIDIA/simready-foundation](https://github.com/NVIDIA/simready-foundation).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (101)
+
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/nv_core/package_sample/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-profile/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-feature/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-validator/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-profile/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-feature/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-create-package/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-capability/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-requirement/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-validator/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-runtime-test/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-capability/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-requirement/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-profile/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-feature/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-add-feature-adapter/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-profile/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-profile/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-feature/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-feature/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-000-core/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-validator/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-profile/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-feature/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-create-package/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-validator/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-validator/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-capability/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-profile/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-profile/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-feature/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-feature/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-create-package/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-create-package/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-update-feature-adapter/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-capability/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-capability/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-requirement/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-001-minimal/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-validator/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-requirement/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-requirement/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-runtime-test/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-validator/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-validator/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-capability/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-runtime-test/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-runtime-test/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-006-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-capability/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-capability/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-requirement/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-add-feature-adapter/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-requirement/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-requirement/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-validate-foundation-change/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-000-core/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-add-feature-adapter/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-add-feature-adapter/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-000-core/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-000-core/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-update-feature-adapter/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-001-minimal/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-update-feature-adapter/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-update-feature-adapter/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-001-minimal/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-001-minimal/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-006-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-006-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-006-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-validate-foundation-change/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-021-robot-core/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-validate-foundation-change/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-validate-foundation-change/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-023-robot-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-024-base-articulation/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-003-rigid-body-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-007-nonvisual-materials/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-005-simulate-grasp-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.codex/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.agents/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md)
+- [simready-foundation](https://github.com/NVIDIA/simready-foundation/tree/main/.claude/skills/simready-foundation-conform-fet-004-simulate-multi-body-physics/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/NVIDIA/simready-foundation](https://github.com/NVIDIA/simready-foundation)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:a-e-q -->
