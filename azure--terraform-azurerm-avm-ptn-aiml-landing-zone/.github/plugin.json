@@ -1,0 +1,14 @@
+{
+  "name": "azure--terraform-azurerm-avm-ptn-aiml-landing-zone",
+  "displayName": "terraform-azurerm-avm-ptn-aiml-landing-zone",
+  "description": "terraform-azurerm-avm-ptn-aiml-landing-zone",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-ptn-aiml-landing-zone",
+  "skills": [
+    {
+      "name": "terraform-azurerm-avm-ptn-aiml-landing-zone",
+      "description": ""
+    }
+  ]
+}
