@@ -1,0 +1,69 @@
+{
+  "name": "oxc",
+  "owner": "oxc-project",
+  "repo": "oxc",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oxc",
+      "path": ".agents/skills/migrate-oxfmt/SKILL.md",
+      "github_url": "https://github.com/oxc-project/oxc/tree/main/.agents/skills/migrate-oxfmt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oxc",
+      "path": ".agents/skills/migrate-oxlint/SKILL.md",
+      "github_url": "https://github.com/oxc-project/oxc/tree/main/.agents/skills/migrate-oxlint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oxc",
+      "path": ".agents/skills/insta-snapshots/SKILL.md",
+      "github_url": "https://github.com/oxc-project/oxc/tree/main/.agents/skills/insta-snapshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oxc",
+      "path": ".agents/skills/performance-lint-rules/SKILL.md",
+      "github_url": "https://github.com/oxc-project/oxc/tree/main/.agents/skills/performance-lint-rules/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oxc-project/oxc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:13:01Z"
+}
