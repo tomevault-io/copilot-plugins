@@ -1,0 +1,9 @@
+{
+  "name": "ngthluu--loope",
+  "displayName": "loope",
+  "description": "Autonomous AI agent that turns labeled GitHub issues into pull requests using headless Claude Code - a stateless Go daemon that triages, plans, codes, and ships in isolated git worktrees.",
+  "version": "1.0.0",
+  "author": "ngthluu",
+  "homepage": "https://github.com/ngthluu/loope",
+  "skills": []
+}
