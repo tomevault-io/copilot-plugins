@@ -1,0 +1,75 @@
+{
+  "name": "softmaple",
+  "owner": "softmaple",
+  "repo": "softmaple",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "softmaple",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/softmaple/softmaple/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "softmaple",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/softmaple/softmaple/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "softmaple",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/softmaple/softmaple/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "softmaple",
+      "path": ".agents/skills/javascript-testing-expert/SKILL.md",
+      "github_url": "https://github.com/softmaple/softmaple/tree/main/.agents/skills/javascript-testing-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "softmaple",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/softmaple/softmaple/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/softmaple/softmaple",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T14:03:58Z"
+}
