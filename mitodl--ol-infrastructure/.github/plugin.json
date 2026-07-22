@@ -1,0 +1,14 @@
+{
+  "name": "mitodl--ol-infrastructure",
+  "displayName": "ol-infrastructure",
+  "description": "ol-infrastructure",
+  "version": "1.0.0",
+  "author": "mitodl",
+  "homepage": "https://github.com/mitodl/ol-infrastructure",
+  "skills": [
+    {
+      "name": "ol-infrastructure",
+      "description": ""
+    }
+  ]
+}
