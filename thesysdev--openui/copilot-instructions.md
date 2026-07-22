@@ -1,359 +1,92 @@
-## use-pnpm
+## openui
 
-> Comprehensive pnpm package manager guidelines for the OpenUI monorepo
+> | File                | Purpose                                                                                                                                                    |
 
+# ThemeProvider — Agent Guide
 
-# OpenUI Package Management with pnpm
+## File Map
 
-## Overview
+| File                | Purpose                                                                                                                                                    |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ThemeProvider.tsx` | React component, `ThemeContext`, `InternalContext` (nesting detection), `useTheme` hook. Injects `--openui-*` vars into `<head>` via `useInsertionEffect`. |
+| `types.ts`          | TypeScript interfaces: `Theme`, `ColorTheme`, `LayoutTheme`, `TypographyTheme`, `EffectTheme`, `ChartColorPalette`.                                        |
+| `defaultTheme.ts`   | Builds `defaultLightTheme` / `defaultDarkTheme` (frozen) from the swatch system. Contains `createColorTheme()` and all layout/typography/shadow defaults.  |
+| `swatches.ts`       | 18 oklch color families x 14 shades. Exports `swatch()`, `withAlpha()`, `swatchToken()`, `swatchTokens`.                                                   |
+| `utils.ts`          | Exports `camelToKebab`, `themeToCssVars`, `createTheme` (dev-mode typo detection with Levenshtein distance suggestions).                                   |
+| `index.ts`          | Barrel re-exports from all the above files.                                                                                                                |
 
-OpenUI uses **pnpm** as its package manager instead of npm. pnpm provides better performance, disk efficiency, and strict dependency management. This document covers all pnpm usage patterns for the OpenUI monorepo.
+## Architecture
 
-## Why pnpm?
-
-### Benefits Over npm
-
-- **Faster installs**: Uses hard links for node_modules
-- **Disk efficient**: Single copy of packages across projects
-- **Strict dependency resolution**: No phantom dependencies
-- **Better workspace support**: Native monorepo management
-- **Security**: Prevents dependency confusion attacks
-
-### Key Differences
-
-- `node_modules` structure is different (flat with symlinks)
-- Stricter dependency isolation
-- Faster cold installs and updates
-
-## Core Commands
-
-### Package Installation
-
-```bash
-# Install all dependencies (equivalent to npm install)
-pnpm install
-
-# Install specific package
-pnpm add <package-name>
-
-# Install dev dependency
-pnpm add -D <package-name>
-
-# Install peer dependency
-pnpm add -P <package-name>
-
-# Remove package
-pnpm remove <package-name>
+```
+ThemeProvider mounts
+  │
+  ├── Resolves active theme: { ...defaults[mode], ...userLightTheme } or { ...defaults[mode], ...userDarkTheme }
+  │
+  ├── themeToCssVars(theme) → "--openui-background: oklch(...);\n--openui-foreground: ..."
+  │
+  ├── useInsertionEffect → creates <style data-openui-theme={id}> in <head>
+  │   └── Targets body (root) or .openui-theme-{id} (nested, auto-scoped)
+  │   └── Also targets .openui-theme-portal-{id} for portaled components
+  │
+  └── Provides ThemeContext + InternalContext to children
 ```
 
-### Running Scripts
+**Key internals:**
 
-```bash
-# Run script from package.json (equivalent to npm run)
-pnpm run <script-name>
+- `cssSafeId(useId())` — strips CSS-unsafe characters (colons from React 18's `:r0:` format) for use in class names and selectors.
+- `InternalContext` with a `Symbol` sentinel detects whether this provider is nested inside another. Nested providers auto-scope via a `<div style="display: contents">` wrapper instead of targeting `body`.
+- `cssUtils.scss` is auto-generated at build time by `src/scripts/generate-css-utils.ts` from `defaultLightTheme`, including fallback values.
 
-# Run script in specific workspace
-pnpm --filter <package-name> run <script-name>
+## Key Patterns
 
-# Run script in all workspaces
-pnpm --recursive run <script-name>
+### Adding a New Token
+
+Only **2 files** need editing — the runtime walker (`themeToCssVars`) and the build script (`generate-css-utils.ts`) pick up new keys automatically:
+
+1. **`types.ts`** — add the optional `string` field to the appropriate interface (`ColorTheme`, `LayoutTheme`, etc.).
+2. **`defaultTheme.ts`** — set the default value inside `createColorTheme()` (or `layoutTheme`, `typographyTheme`, etc.).
+
+Run `pnpm build` (or `pnpm generate:css-utils`) to regenerate `cssUtils.scss` with the new token and its fallback.
+
+### Naming Convention
+
+```
+TS field:      camelCase           e.g. interactiveAccentDefault
+CSS variable:  --openui-{kebab}    e.g. --openui-interactive-accent-default
+SCSS variable: ${kebab}            e.g. $interactive-accent-default
 ```
 
-## Workspace Management
+The `camelToKebab()` utility in `utils.ts` handles the conversion, including digits (`space3xs` → `space-3xs`) and consecutive uppercase letters.
 
-OpenUI uses pnpm workspaces for its monorepo structure. Here are the key workspace commands:
+### Color Format
 
-### Workspace Structure
+All color values **must** use `oklch()` with explicit alpha: `oklch(L C H / alpha)`.
 
-```fileStructure
-js/
-├── packages/
-│   ├── react-core/
-│   ├── react-ui/
-│   └── stream/
-└── pnpm-workspace.yaml
-```
+### Props
 
-### Common Workspace Commands
+- **`lightTheme` / `darkTheme`** — the current API for theme overrides.
+- **`theme`** — deprecated alias for `lightTheme`. Emits a dev-mode warning.
+- **`cssSelector`** — defaults to `"body"`. When set explicitly on a nested provider, bypasses auto-scoping.
 
-```bash
-# Install all dependencies across workspaces
-pnpm install
+### Changing the Brand Color
 
-# Run command in specific package
-pnpm --filter react-ui run build
+Edit `LIGHT_SWATCHES.brandSwatch` and/or `DARK_SWATCHES.brandSwatch` in `defaultTheme.ts`. Choose from `BrandSwatchName` (any swatch family except `green`, `yellow`, `red`).
 
-# Run command in all packages
-pnpm --recursive run build
+### Adding a New Swatch Family
 
-# Add dependency to specific package
-pnpm --filter react-ui add lodash
+1. Add the shade map to `BASE_SWATCHES` in `swatches.ts` (14 shades, 25-1000, oklch values).
+2. Add the family name to the `SwatchName` union (it's inferred from `BASE_SWATCHES` keys).
+3. If it should be usable as a brand color, the `BrandSwatchName` exclusion list may need updating.
 
-# Run tests across all packages
-pnpm --recursive run test
-```
+## Do NOT Change
 
-## Available Scripts by Package
-
-### React UI Package (`js/packages/react-ui/`)
-
-```bash
-# Development
-pnpm storybook              # Start Storybook dev server
-pnpm watch                  # Watch mode with concurrent builds
-
-# Building
-pnpm build                  # Full build (SCSS + TypeScript + Tailwind)
-pnpm build:tsc              # TypeScript compilation only
-pnpm build:scss             # SCSS compilation only
-pnpm build:plugin           # Tailwind plugin build
-pnpm build:storybook        # Storybook production build
-
-# Code Quality
-pnpm lint:check             # Run ESLint
-pnpm lint:fix               # Fix ESLint issues
-pnpm format:check           # Check Prettier formatting
-pnpm format:fix             # Fix Prettier formatting
-pnpm ci                     # CI pipeline (lint + format check)
-```
-
-### React Core Package (`js/packages/react-core/`)
-
-```bash
-# Building
-pnpm build                  # TypeScript compilation
-pnpm watch                  # Watch mode
-
-# Code Quality
-pnpm lint:check
-pnpm lint:fix
-pnpm format:check
-pnpm format:fix
-```
-
-### Stream Package (`js/packages/stream/`)
-
-```bash
-# Building
-pnpm build                  # TypeScript compilation
-pnpm watch                  # Watch mode
-
-# Code Quality
-pnpm lint:check
-pnpm lint:fix
-pnpm format:check
-pnpm format:fix
-```
-
-### Python Package (`py/`)
-
-```bash
-# Using Poetry (not pnpm)
-poetry install              # Install dependencies
-poetry run <command>        # Run commands with Poetry
-poetry shell               # Activate virtual environment
-```
-
-## Common Development Workflows
-
-### Setting Up Development Environment
-
-```bash
-# Clone and setup the project
-git clone <repository-url>
-cd openui
-
-# Install all dependencies
-pnpm install
-
-# Start development servers
-pnpm --filter react-ui storybook    # UI development
-```
-
-### Building for Production
-
-```bash
-# Build all packages
-pnpm --recursive run build
-
-# Or build specific packages
-pnpm --filter react-ui run build
-pnpm --filter react-core run build
-```
-
-### Code Quality Checks
-
-```bash
-# Check all packages
-pnpm --recursive run lint:check
-pnpm --recursive run format:check
-
-# Fix issues in all packages
-pnpm --recursive run lint:fix
-pnpm --recursive run format:fix
-```
-
-### Adding New Dependencies
-
-```bash
-# Add to specific package
-pnpm --filter react-ui add <package-name>
-pnpm --filter react-ui add -D <package-name>  # dev dependency
-
-# Add to root (shared tooling)
-pnpm add -D -w <package-name>
-```
-
-## Best Practices
-
-### 1. Always Use pnpm
-
-```bash
-# ✅ Correct
-pnpm install
-pnpm add lodash
-
-# ❌ Incorrect
-npm install
-npm install lodash
-yarn add lodash
-```
-
-### 2. Use Workspace Filters
-
-```bash
-# ✅ Specific package operations
-pnpm --filter react-ui run build
-
-# ✅ All packages
-pnpm --recursive run test
-
-# ❌ Avoid running in wrong context
-cd js/packages/react-ui && pnpm run build  # Less efficient
-```
-
-### 3. Dependency Management
-
-```bash
-# ✅ Add dependencies to correct packages
-pnpm --filter react-ui add react-dom  # Runtime dependency
-pnpm --filter react-ui add -D @types/react  # Dev dependency
-
-# ❌ Don't add to wrong package
-pnpm add react  # Would add to root, not to package
-```
-
-### 4. Script Organization
-
-```bash
-# ✅ Use consistent script names across packages
-"build": "tsc"
-"watch": "tsc --watch"
-"lint:check": "eslint ."
-"lint:fix": "eslint --fix ."
-"format:check": "prettier --check ."
-"format:fix": "prettier --write ."
-```
-
-### 5. Lockfile Management
-
-```bash
-# ✅ Always commit pnpm-lock.yaml changes
-git add pnpm-lock.yaml
-
-# ❌ Don't modify lockfile manually
-# ❌ Don't delete lockfile without reason
-```
-
-## Troubleshooting
-
-### Common Issues
-
-#### 1. "ELIFECYCLE" Errors
-
-```bash
-# Clear node_modules and reinstall
-pnpm clean-install
-# or
-rm -rf node_modules pnpm-lock.yaml && pnpm install
-```
-
-#### 2. Workspace Not Found
-
-```bash
-# Check workspace configuration
-cat pnpm-workspace.yaml
-
-# Ensure package has name in package.json
-grep '"name"' packages/*/package.json
-```
-
-#### 3. Dependency Resolution Issues
-
-```bash
-# Clear cache and reinstall
-pnpm store prune
-pnpm install --force
-```
-
-#### 4. Script Not Found
-
-```bash
-# Check available scripts
-pnpm run
-
-# Check package.json scripts section
-cat package.json | jq '.scripts'
-```
-
-### Performance Tips
-
-```bash
-# Use frozen lockfile for CI
-pnpm install --frozen-lockfile
-
-# Skip optional dependencies
-pnpm install --ignore-optional
-
-# Use specific package filters to avoid unnecessary work
-pnpm --filter react-ui run build  # Only build UI package
-```
-
-## Migration from npm/yarn
-
-### npm to pnpm equivalents
-
-| npm                    | pnpm                |
-| ---------------------- | ------------------- |
-| `npm install`          | `pnpm install`      |
-| `npm install <pkg>`    | `pnpm add <pkg>`    |
-| `npm install -D <pkg>` | `pnpm add -D <pkg>` |
-| `npm uninstall <pkg>`  | `pnpm remove <pkg>` |
-| `npm run <script>`     | `pnpm run <script>` |
-| `npm ls`               | `pnpm ls`           |
-| `npm outdated`         | `pnpm outdated`     |
-
-### yarn to pnpm equivalents
-
-| yarn                | pnpm                |
-| ------------------- | ------------------- |
-| `yarn`              | `pnpm install`      |
-| `yarn add <pkg>`    | `pnpm add <pkg>`    |
-| `yarn add -D <pkg>` | `pnpm add -D <pkg>` |
-| `yarn remove <pkg>` | `pnpm remove <pkg>` |
-| `yarn run <script>` | `pnpm run <script>` |
-
-## Questions?
-
-When in doubt:
-
-1. Check this document first
-2. Use `pnpm --help` for command options
-3. Check existing CI/CD scripts for patterns
-4. Ask in #engineering Slack channel
-
-Remember: **Always use pnpm, never npm or yarn** for any package management tasks in this project.
+- **Swatch oklch values** without design-system coordination — they are copied from `design-system/color-swatches.css`.
+- **CSS variable prefix** `--openui-` — it is hardcoded in `ThemeProvider.tsx`, `utils.ts`, `generate-css-utils.ts`, `cssUtils.scss`, and the Tailwind plugin.
+- **Component SCSS**: never hardcode colors in component `.scss` files. Always reference `cssUtils` variables.
+- **Internal helpers** (`parseOklch`, `clamp01`, `relativeLuminanceFromOklch`, `contrastRatio`, `pickAccentTextFromNeutral`) — these implement WCAG contrast logic and should only change if the accessibility algorithm needs updating.
+- **`Object.freeze` on default themes** — prevents accidental mutation of the shared singletons.
+- **`cssSafeId` in `ThemeProvider.tsx`** — required because React 18's `useId()` returns colon-containing IDs (`:r0:`) that are invalid in CSS selectors.
 
 ---
 > Source: [thesysdev/openui](https://github.com/thesysdev/openui) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
