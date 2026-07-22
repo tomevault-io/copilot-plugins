@@ -1,0 +1,75 @@
+{
+  "name": "FluentlyHttpClient",
+  "owner": "sketch7",
+  "repo": "FluentlyHttpClient",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "FluentlyHttpClient",
+      "path": ".agents/skills/microsoft-docs/SKILL.md",
+      "github_url": "https://github.com/sketch7/FluentlyHttpClient/tree/main/.agents/skills/microsoft-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FluentlyHttpClient",
+      "path": ".agents/skills/dotnet-10-csharp-14/SKILL.md",
+      "github_url": "https://github.com/sketch7/FluentlyHttpClient/tree/main/.agents/skills/dotnet-10-csharp-14/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FluentlyHttpClient",
+      "path": ".agents/skills/csharp-async-patterns/SKILL.md",
+      "github_url": "https://github.com/sketch7/FluentlyHttpClient/tree/main/.agents/skills/csharp-async-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FluentlyHttpClient",
+      "path": ".agents/skills/csharp-nullable-types/SKILL.md",
+      "github_url": "https://github.com/sketch7/FluentlyHttpClient/tree/main/.agents/skills/csharp-nullable-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FluentlyHttpClient",
+      "path": ".agents/skills/modern-csharp-coding-standards/SKILL.md",
+      "github_url": "https://github.com/sketch7/FluentlyHttpClient/tree/main/.agents/skills/modern-csharp-coding-standards/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sketch7/FluentlyHttpClient",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:17:08Z"
+}
