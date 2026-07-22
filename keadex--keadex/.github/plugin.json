@@ -1,0 +1,14 @@
+{
+  "name": "keadex--keadex",
+  "displayName": "keadex",
+  "description": "keadex",
+  "version": "1.0.0",
+  "author": "keadex",
+  "homepage": "https://github.com/keadex/keadex",
+  "skills": [
+    {
+      "name": "keadex",
+      "description": ""
+    }
+  ]
+}
