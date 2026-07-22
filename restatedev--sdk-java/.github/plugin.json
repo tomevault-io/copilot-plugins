@@ -1,0 +1,22 @@
+{
+  "name": "restatedev--sdk-java",
+  "displayName": "sdk-java",
+  "description": "sdk-java",
+  "version": "1.0.0",
+  "author": "restatedev",
+  "homepage": "https://github.com/restatedev/sdk-java",
+  "skills": [
+    {
+      "name": "sdk-java",
+      "description": ""
+    },
+    {
+      "name": "sdk-java",
+      "description": ""
+    },
+    {
+      "name": "sdk-java",
+      "description": ""
+    }
+  ]
+}
