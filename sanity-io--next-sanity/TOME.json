@@ -1,0 +1,147 @@
+{
+  "name": "next-sanity",
+  "owner": "sanity-io",
+  "repo": "next-sanity",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pnpm",
+      "path": ".agents/skills/pnpm",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/pnpm",
+      "description": ""
+    },
+    {
+      "name": "tsdown",
+      "path": ".agents/skills/tsdown",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/tsdown",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "path": ".agents/skills/turborepo",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/turborepo",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "path": ".agents/skills/vitest",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/vitest",
+      "description": ""
+    },
+    {
+      "name": "next-cache-components",
+      "path": ".agents/skills/next-cache-components",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/next-cache-components",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "path": ".agents/skills/next-best-practices",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/next-best-practices",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/pnpm/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/pnpm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/tsdown/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/tsdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/vitest/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/vitest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": "skills/sanity-live-cache-components/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/skills/sanity-live-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "next-sanity",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/sanity-io/next-sanity/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sanity-io/next-sanity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:35:36Z"
+}
