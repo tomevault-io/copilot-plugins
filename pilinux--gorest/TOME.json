@@ -1,0 +1,165 @@
+{
+  "name": "gorest",
+  "owner": "pilinux",
+  "repo": "gorest",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gorest",
+      "path": ".agents/skills/build-run/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/build-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/file-reader/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/file-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/test-runner/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/test-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/explain-code/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/explain-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/source-search/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/source-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/linter-runner/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/linter-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/patch-applier/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/patch-applier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/fix-suggester/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/fix-suggester/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/db-infra-mocks/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/db-infra-mocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/code-formatter/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/code-formatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/code-navigation/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/code-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/static-analysis/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/static-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/ci-orchestrator/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/ci-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/qa-orchestrator/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/qa-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/migration-helper/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/migration-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/ast-introspection/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/ast-introspection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/logs-repro-harness/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/logs-repro-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/dependency-auditor/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/dependency-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/safe-edit-simulator/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/safe-edit-simulator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gorest",
+      "path": ".agents/skills/config-loader-helper/SKILL.md",
+      "github_url": "https://github.com/pilinux/gorest/tree/main/.agents/skills/config-loader-helper/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pilinux/gorest",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:12:43Z"
+}
