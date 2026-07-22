@@ -1,0 +1,18 @@
+{
+  "name": "banteg--takopi",
+  "displayName": "takopi",
+  "description": "takopi",
+  "version": "1.0.0",
+  "author": "banteg",
+  "homepage": "https://github.com/banteg/takopi",
+  "skills": [
+    {
+      "name": "takopi-release",
+      "description": ""
+    },
+    {
+      "name": "takopi",
+      "description": ""
+    }
+  ]
+}
