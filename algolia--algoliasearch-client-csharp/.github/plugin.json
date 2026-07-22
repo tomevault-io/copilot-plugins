@@ -1,0 +1,9 @@
+{
+  "name": "algolia--algoliasearch-client-csharp",
+  "displayName": "algoliasearch-client-csharp",
+  "description": "algoliasearch-client-csharp",
+  "version": "1.0.0",
+  "author": "algolia",
+  "homepage": "https://github.com/algolia/algoliasearch-client-csharp",
+  "skills": []
+}
