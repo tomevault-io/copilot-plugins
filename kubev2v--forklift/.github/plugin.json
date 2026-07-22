@@ -1,0 +1,14 @@
+{
+  "name": "kubev2v--forklift",
+  "displayName": "forklift",
+  "description": "forklift",
+  "version": "1.0.0",
+  "author": "kubev2v",
+  "homepage": "https://github.com/kubev2v/forklift",
+  "skills": [
+    {
+      "name": "forklift",
+      "description": ""
+    }
+  ]
+}
