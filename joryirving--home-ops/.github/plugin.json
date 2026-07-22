@@ -1,0 +1,14 @@
+{
+  "name": "joryirving--home-ops",
+  "displayName": "home-ops",
+  "description": "home-ops",
+  "version": "1.0.0",
+  "author": "joryirving",
+  "homepage": "https://github.com/joryirving/home-ops",
+  "skills": [
+    {
+      "name": "home-ops",
+      "description": ""
+    }
+  ]
+}
