@@ -1,0 +1,117 @@
+{
+  "name": "serenity-android",
+  "owner": "NineWorlds",
+  "repo": "serenity-android",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "serenity-android",
+      "path": ".skills/tdd/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/ui-leanback/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/ui-leanback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/ui-refactor/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/ui-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/skill-grader/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/skill-grader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/testing-mockk/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/testing-mockk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/framework-moxy/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/framework-moxy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/skill-validator/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/skill-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/network-retrofit/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/network-retrofit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/architecture-core/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/architecture-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serenity-android",
+      "path": ".skills/framework-toothpick/SKILL.md",
+      "github_url": "https://github.com/NineWorlds/serenity-android/tree/main/.skills/framework-toothpick/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NineWorlds/serenity-android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:05:12Z"
+}
