@@ -1,0 +1,117 @@
+{
+  "name": "deepagentsjs",
+  "owner": "langchain-ai",
+  "repo": "deepagentsjs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arxiv-search",
+      "path": "examples/skills/arxiv-search",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/arxiv-search",
+      "description": ""
+    },
+    {
+      "name": "file-organizer",
+      "path": "examples/skills/file-organizer",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/file-organizer",
+      "description": ""
+    },
+    {
+      "name": "langgraph-docs",
+      "path": "examples/skills/langgraph-docs",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/langgraph-docs",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "examples/skills/skill-creator",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "path": "examples/skills/web-research",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/web-research",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "path": ".agents/skills/eval-creator/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/.agents/skills/eval-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "path": "examples/skills/web-research/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/web-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "path": "examples/skills/arxiv-search/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/arxiv-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "path": "examples/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "path": "examples/skills/file-organizer/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/file-organizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "path": "examples/skills/langgraph-docs/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/examples/skills/langgraph-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepagentsjs",
+      "path": ".agents/skills/langsmith-trace/SKILL.md",
+      "github_url": "https://github.com/langchain-ai/deepagentsjs/tree/main/.agents/skills/langsmith-trace/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/langchain-ai/deepagentsjs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:34:06Z"
+}
