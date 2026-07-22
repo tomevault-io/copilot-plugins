@@ -1,0 +1,57 @@
+{
+  "name": "hydration-node",
+  "owner": "galacticcouncil",
+  "repo": "hydration-node",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hydration-node",
+      "path": "ai_skills/hydration_cl0wdit/SKILL.md",
+      "github_url": "https://github.com/galacticcouncil/hydration-node/tree/main/ai_skills/hydration_cl0wdit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hydration-node",
+      "path": "ai_skills/circuit-breaker-incident/SKILL.md",
+      "github_url": "https://github.com/galacticcouncil/hydration-node/tree/main/ai_skills/circuit-breaker-incident/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/galacticcouncil/hydration-node",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T12:32:47Z"
+}
