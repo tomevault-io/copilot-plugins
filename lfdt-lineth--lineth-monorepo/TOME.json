@@ -1,0 +1,63 @@
+{
+  "name": "lineth-monorepo",
+  "owner": "LFDT-Lineth",
+  "repo": "lineth-monorepo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lineth-monorepo",
+      "path": ".agents/skills/squash-bugbot/SKILL.md",
+      "github_url": "https://github.com/LFDT-Lineth/lineth-monorepo/tree/main/.agents/skills/squash-bugbot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lineth-monorepo",
+      "path": ".agents/skills/developing-smart-contracts/SKILL.md",
+      "github_url": "https://github.com/LFDT-Lineth/lineth-monorepo/tree/main/.agents/skills/developing-smart-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lineth-monorepo",
+      "path": ".agents/skills/linea-dependency-maintenance/SKILL.md",
+      "github_url": "https://github.com/LFDT-Lineth/lineth-monorepo/tree/main/.agents/skills/linea-dependency-maintenance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LFDT-Lineth/lineth-monorepo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:39:25Z"
+}
