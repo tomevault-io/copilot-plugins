@@ -269,6 +269,11 @@
       "description": "\u03c0 RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection \u2014 all without a single pixel of video."
     },
     {
+      "name": "expo--expo",
+      "source": "./expo--expo",
+      "description": "expo"
+    },
+    {
       "name": "cypress-io--cypress",
       "source": "./cypress-io--cypress",
       "description": "cypress"
@@ -1082,6 +1087,11 @@
       "name": "charmbracelet--crush",
       "source": "./charmbracelet--crush",
       "description": "Glamourous agentic coding for all \ud83d\udc98"
+    },
+    {
+      "name": "agentscope-ai--qwenpaw",
+      "source": "./agentscope-ai--qwenpaw",
+      "description": "QwenPaw"
     },
     {
       "name": "iofficeai--aionui",
@@ -7519,6 +7529,11 @@
       "description": "Exceptionless"
     },
     {
+      "name": "runkids--skillshare",
+      "source": "./runkids--skillshare",
+      "description": "skillshare"
+    },
+    {
       "name": "0pandadev--awesome-windows",
       "source": "./0pandadev--awesome-windows",
       "description": "An awesome & curated list of tools and apps for Windows 10/11."
@@ -9164,6 +9179,11 @@
       "description": "eslint-plugin-react-you-might-not-need-an-effect"
     },
     {
+      "name": "sonofmagic--weapp-tailwindcss",
+      "source": "./sonofmagic--weapp-tailwindcss",
+      "description": "weapp-tailwindcss"
+    },
+    {
       "name": "rohitg00--agentmemory",
       "source": "./rohitg00--agentmemory",
       "description": "#1 Persistent memory for AI coding agents based on real-world benchmarks"
@@ -9784,6 +9804,11 @@
       "description": "openDAW is a next-generation web-based Digital Audio Workstation (DAW)"
     },
     {
+      "name": "jetbrains--mps",
+      "source": "./jetbrains--mps",
+      "description": "MPS"
+    },
+    {
       "name": "veloera--veloera",
       "source": "./veloera--veloera",
       "description": "Veloera"
@@ -9807,6 +9832,11 @@
       "name": "sonicjs-org--sonicjs",
       "source": "./sonicjs-org--sonicjs",
       "description": "sonicjs"
+    },
+    {
+      "name": "fossasia--eventyay",
+      "source": "./fossasia--eventyay",
+      "description": "eventyay"
     },
     {
       "name": "luangjokaj--wordpressify",
@@ -11104,6 +11134,11 @@
       "description": "amd-strix-halo-toolboxes"
     },
     {
+      "name": "nrwl--nx-console",
+      "source": "./nrwl--nx-console",
+      "description": "nx-console"
+    },
+    {
       "name": "edwardkim--rhwp",
       "source": "./edwardkim--rhwp",
       "description": "\uc544\ub798\ud55c\uae00 hwp viewer and editor by rust and wasm"
@@ -12172,6 +12207,11 @@
       "name": "baojie--shiji-kb",
       "source": "./baojie--shiji-kb",
       "description": "shiji-kb"
+    },
+    {
+      "name": "marin-community--marin",
+      "source": "./marin-community--marin",
+      "description": "marin"
     },
     {
       "name": "steipete--repobar",
@@ -14909,6 +14949,11 @@
       "description": "Multi-session AI coding terminal manager - autonomously orchestrate Claude, Codex, Gemini, OpenCode, Cursor"
     },
     {
+      "name": "stencila--stencila",
+      "source": "./stencila--stencila",
+      "description": "stencila"
+    },
+    {
       "name": "alchaincyf--x-mentor-skill",
       "source": "./alchaincyf--x-mentor-skill",
       "description": "x-mentor-skill"
@@ -15027,6 +15072,11 @@
       "name": "daymade--claude-code-skills",
       "source": "./daymade--claude-code-skills",
       "description": "Professional Claude Code skills marketplace featuring production-ready skills for enhanced development workflows."
+    },
+    {
+      "name": "azure--azure-sdk-for-rust",
+      "source": "./azure--azure-sdk-for-rust",
+      "description": "azure-sdk-for-rust"
     },
     {
       "name": "am-will--codex-skills",
@@ -15347,6 +15397,11 @@
       "name": "carverauto--serviceradar",
       "source": "./carverauto--serviceradar",
       "description": "Zero-trust Opensource Network Management and Observability Platform"
+    },
+    {
+      "name": "xiaomi--hiui",
+      "source": "./xiaomi--hiui",
+      "description": "hiui"
     },
     {
       "name": "lhfer--claude-howto-zh-cn",
@@ -15762,6 +15817,11 @@
       "name": "moulberry--pandoralauncher",
       "source": "./moulberry--pandoralauncher",
       "description": "PandoraLauncher"
+    },
+    {
+      "name": "phyagentos--phyagentos",
+      "source": "./phyagentos--phyagentos",
+      "description": "PhyAgentOS"
     },
     {
       "name": "dicklesworthstone--beads-rust",
@@ -17229,6 +17289,11 @@
       "description": "Use your OpenCode Go subscription with Claude Code."
     },
     {
+      "name": "datadog--dd-trace-java",
+      "source": "./datadog--dd-trace-java",
+      "description": "dd-trace-java"
+    },
+    {
       "name": "mtymek--opencode-obsidian",
       "source": "./mtymek--opencode-obsidian",
       "description": "Embed OpenCode AI assistant directly in Obsidian's sidebar."
@@ -17589,6 +17654,11 @@
       "description": "A complete operating system for microcontrollers like the ESP32, inspired by Android and iOS."
     },
     {
+      "name": "kapishdima--soundcn",
+      "source": "./kapishdima--soundcn",
+      "description": "soundcn"
+    },
+    {
       "name": "moldytaint--cinephage",
       "source": "./moldytaint--cinephage",
       "description": "The AIO solution to your self hosted media gathering needs"
@@ -17742,6 +17812,11 @@
       "name": "arklexai--agent-first-organization",
       "source": "./arklexai--agent-first-organization",
       "description": "The official Python library for Arklex framework"
+    },
+    {
+      "name": "wimpysworld--nix-config",
+      "source": "./wimpysworld--nix-config",
+      "description": "nix-config"
     },
     {
       "name": "vstorm-co--pydantic-deepagents",
@@ -18457,6 +18532,11 @@
       "name": "rekog-labs--mcp-nest",
       "source": "./rekog-labs--mcp-nest",
       "description": "A NestJS module to effortlessly create Model Context Protocol (MCP) servers for exposing AI tools, resources, and prompts."
+    },
+    {
+      "name": "k3vinb5--unyo-app",
+      "source": "./k3vinb5--unyo-app",
+      "description": "unyo-app"
     },
     {
       "name": "hazat--glimpse",
@@ -20009,6 +20089,11 @@
       "description": "LuatOS"
     },
     {
+      "name": "s4wave--spacewave",
+      "source": "./s4wave--spacewave",
+      "description": "spacewave"
+    },
+    {
       "name": "wangdabaoqq--linjun",
       "source": "./wangdabaoqq--linjun",
       "description": "\ud83d\udda5\ufe0f \u8de8\u5e73\u53f0GUI\u7ba1\u7406AI\u7f16\u7801\u4ee3\u7406\uff08Claude\u3001Gemini\u3001Codex\u3001Copilot\u3001Kiro\u7b49\uff09"
@@ -21419,6 +21504,11 @@
       "description": "100_days_100_web_project"
     },
     {
+      "name": "phel-lang--phel-lang",
+      "source": "./phel-lang--phel-lang",
+      "description": "phel-lang"
+    },
+    {
       "name": "arlanrakh--talk-to-girlfriend-ai",
       "source": "./arlanrakh--talk-to-girlfriend-ai",
       "description": "im busy building ai agents so why not let an ai talk to my girlfriend? (i am single) "
@@ -22199,6 +22289,11 @@
       "description": "dart-petitparser"
     },
     {
+      "name": "get-convex--convex-helpers",
+      "source": "./get-convex--convex-helpers",
+      "description": "convex-helpers"
+    },
+    {
       "name": "oasaistudio--symphony-ts",
       "source": "./oasaistudio--symphony-ts",
       "description": "Typecript version of https://github.com/openai/symphony"
@@ -22569,6 +22664,11 @@
       "description": "DNT"
     },
     {
+      "name": "signalpilot-labs--signalpilot",
+      "source": "./signalpilot-labs--signalpilot",
+      "description": "SignalPilot"
+    },
+    {
       "name": "matejkob--swift-spyable",
       "source": "./matejkob--swift-spyable",
       "description": "swift-spyable"
@@ -22832,6 +22932,11 @@
       "name": "apache--airflow-client-python",
       "source": "./apache--airflow-client-python",
       "description": "airflow-client-python"
+    },
+    {
+      "name": "awslabs--awsome-distributed-ai",
+      "source": "./awslabs--awsome-distributed-ai",
+      "description": "awsome-distributed-ai"
     },
     {
       "name": "datarecce--recce",
@@ -23839,6 +23944,11 @@
       "description": "azure-container-networking"
     },
     {
+      "name": "greatsumini--cc-system",
+      "source": "./greatsumini--cc-system",
+      "description": "cc-system"
+    },
+    {
       "name": "computerlovetech--agr",
       "source": "./computerlovetech--agr",
       "description": "A package manager for AI agents. Install agent skills from GitHub with a single command."
@@ -23877,6 +23987,11 @@
       "name": "angelnicolasc--graymatter",
       "source": "./angelnicolasc--graymatter",
       "description": "graymatter"
+    },
+    {
+      "name": "chrisblattman--claudeblattman",
+      "source": "./chrisblattman--claudeblattman",
+      "description": "claudeblattman"
     },
     {
       "name": "spotify--sourcekit-bazel-bsp",
@@ -28557,6 +28672,11 @@
       "name": "strimzi--strimzi-kafka-bridge",
       "source": "./strimzi--strimzi-kafka-bridge",
       "description": "strimzi-kafka-bridge"
+    },
+    {
+      "name": "bigwhite--publication",
+      "source": "./bigwhite--publication",
+      "description": "publication"
     },
     {
       "name": "ethanlipnik--loom",
@@ -35222,6 +35342,11 @@
       "name": "tpvasconcelos--ridgeplot",
       "source": "./tpvasconcelos--ridgeplot",
       "description": "ridgeplot"
+    },
+    {
+      "name": "wot-ui--wot-ui",
+      "source": "./wot-ui--wot-ui",
+      "description": "wot-ui"
     },
     {
       "name": "nvk--llm-wiki",
@@ -45889,6 +46014,11 @@
       "description": "as-pect"
     },
     {
+      "name": "garudex-labs--caracal",
+      "source": "./garudex-labs--caracal",
+      "description": "caracal"
+    },
+    {
       "name": "xmihura--kanvas",
       "source": "./xmihura--kanvas",
       "description": "Manage projects visually with humans and AI agents using Obsidian Canvas."
@@ -49804,6 +49934,11 @@
       "description": "picasso"
     },
     {
+      "name": "hessesian--kotlin-lsp",
+      "source": "./hessesian--kotlin-lsp",
+      "description": "kotlin-lsp"
+    },
+    {
       "name": "softspark--ai-toolkit",
       "source": "./softspark--ai-toolkit",
       "description": "Professional-grade AI coding toolkit: 94 skills, 44 agents, multi-platform (Claude, Cursor, Windsurf, Copilot, Gemini, Cline, Roo Code, Aider, Augment, Antigravity, Codex CLI, opencode)."
@@ -52579,6 +52714,11 @@
       "description": "LumoKit"
     },
     {
+      "name": "moaidhathot--neovim-moaid",
+      "source": "./moaidhathot--neovim-moaid",
+      "description": "Neovim-Moaid"
+    },
+    {
       "name": "vyrx-dev--toofan",
       "source": "./vyrx-dev--toofan",
       "description": "A minimal, lightning-fast typing TUI for your terminal"
@@ -53927,6 +54067,11 @@
       "name": "g-andrade--locus",
       "source": "./g-andrade--locus",
       "description": "locus"
+    },
+    {
+      "name": "gaopengbin--cesium-mcp",
+      "source": "./gaopengbin--cesium-mcp",
+      "description": "cesium-mcp"
     },
     {
       "name": "tiangzlab--omicsclaw",
@@ -68184,6 +68329,11 @@
       "description": "promptguard"
     },
     {
+      "name": "aquario-ufpb--aquario",
+      "source": "./aquario-ufpb--aquario",
+      "description": "aquario"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -75582,6 +75732,11 @@
       "name": "zhf883680--clash-traffic-monitor",
       "source": "./zhf883680--clash-traffic-monitor",
       "description": "clash-traffic-monitor"
+    },
+    {
+      "name": "clickhouse--nerve",
+      "source": "./clickhouse--nerve",
+      "description": "nerve"
     },
     {
       "name": "0xranx--agentbrief",
