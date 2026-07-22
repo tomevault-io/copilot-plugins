@@ -1,0 +1,69 @@
+{
+  "name": "diffyscan",
+  "owner": "lidofinance",
+  "repo": "diffyscan",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "diffyscan",
+      "path": ".claude/skills/new-config/SKILL.md",
+      "github_url": "https://github.com/lidofinance/diffyscan/tree/main/.claude/skills/new-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "diffyscan",
+      "path": ".claude/skills/debug-diff/SKILL.md",
+      "github_url": "https://github.com/lidofinance/diffyscan/tree/main/.claude/skills/debug-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "diffyscan",
+      "path": ".claude/skills/add-explorer/SKILL.md",
+      "github_url": "https://github.com/lidofinance/diffyscan/tree/main/.claude/skills/add-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "diffyscan",
+      "path": ".claude/skills/validate-config/SKILL.md",
+      "github_url": "https://github.com/lidofinance/diffyscan/tree/main/.claude/skills/validate-config/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lidofinance/diffyscan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T22:56:09Z"
+}
