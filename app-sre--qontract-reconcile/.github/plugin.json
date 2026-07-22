@@ -1,0 +1,22 @@
+{
+  "name": "app-sre--qontract-reconcile",
+  "displayName": "qontract-reconcile",
+  "description": "qontract-reconcile",
+  "version": "1.0.0",
+  "author": "app-sre",
+  "homepage": "https://github.com/app-sre/qontract-reconcile",
+  "skills": [
+    {
+      "name": "qontract-reconcile",
+      "description": ""
+    },
+    {
+      "name": "qontract-reconcile",
+      "description": ""
+    },
+    {
+      "name": "qontract-reconcile",
+      "description": ""
+    }
+  ]
+}
