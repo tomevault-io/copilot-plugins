@@ -1,0 +1,99 @@
+{
+  "name": "OpenPawlet",
+  "owner": "JackLuguibin",
+  "repo": "OpenPawlet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/my/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/my/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/cron/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/github/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/memory/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/clawhub/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/weather/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenPawlet",
+      "path": "src/openpawlet/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/JackLuguibin/OpenPawlet/tree/main/src/openpawlet/skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JackLuguibin/OpenPawlet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:57:27Z"
+}
