@@ -1,0 +1,14 @@
+{
+  "name": "omnipin--omnipin",
+  "displayName": "omnipin",
+  "description": "omnipin",
+  "version": "1.0.0",
+  "author": "omnipin",
+  "homepage": "https://github.com/omnipin/omnipin",
+  "skills": [
+    {
+      "name": "omnipin",
+      "description": ""
+    }
+  ]
+}
