@@ -1,0 +1,147 @@
+{
+  "name": "console",
+  "owner": "openshift",
+  "repo": "console",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gen-rtl-test",
+      "path": ".claude/skills/gen-rtl-test",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/gen-rtl-test",
+      "description": ""
+    },
+    {
+      "name": "microcopy-review",
+      "path": ".claude/skills/microcopy-review",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/microcopy-review",
+      "description": ""
+    },
+    {
+      "name": "plugin-api-review",
+      "path": ".claude/skills/plugin-api-review",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/plugin-api-review",
+      "description": ""
+    },
+    {
+      "name": "pre-push-review",
+      "path": ".claude/skills/pre-push-review",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/pre-push-review",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": ".claude/skills/test",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/test",
+      "description": ""
+    },
+    {
+      "name": "update-package",
+      "path": ".claude/skills/update-package",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/update-package",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/bug/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/test/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/qa-verify/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/qa-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/debug-test/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/debug-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/skill-audit/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/skill-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/gen-rtl-test/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/gen-rtl-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/update-package/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/update-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/pre-push-review/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/pre-push-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/migrate-cypress/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/migrate-cypress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/microcopy-review/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/microcopy-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "path": ".claude/skills/plugin-api-review/SKILL.md",
+      "github_url": "https://github.com/openshift/console/tree/main/.claude/skills/plugin-api-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openshift/console",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:38:47Z"
+}
