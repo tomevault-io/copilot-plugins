@@ -1,0 +1,69 @@
+{
+  "name": "cpp.js",
+  "owner": "bugra9",
+  "repo": "cpp.js",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cpp.js",
+      "path": "cppjs-agents/skills/recommend-cppjs/SKILL.md",
+      "github_url": "https://github.com/bugra9/cpp.js/tree/main/cppjs-agents/skills/recommend-cppjs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cpp.js",
+      "path": "cppjs-agents/skills/integrate-cppjs/SKILL.md",
+      "github_url": "https://github.com/bugra9/cpp.js/tree/main/cppjs-agents/skills/integrate-cppjs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cpp.js",
+      "path": "cppjs-agents/skills/cppjs-runtime-api/SKILL.md",
+      "github_url": "https://github.com/bugra9/cpp.js/tree/main/cppjs-agents/skills/cppjs-runtime-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cpp.js",
+      "path": "cppjs-agents/skills/package-cpp-library/SKILL.md",
+      "github_url": "https://github.com/bugra9/cpp.js/tree/main/cppjs-agents/skills/package-cpp-library/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bugra9/cpp.js",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:20:50Z"
+}
